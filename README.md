@@ -1,4 +1,4 @@
-# 3box-dapp
+# 3Box Dapp
 This repo is home to the 3box.io application that allows users to interact with their 3Box.
 
 ## Functionality
