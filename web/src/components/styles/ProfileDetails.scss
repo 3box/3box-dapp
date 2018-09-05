@@ -1,0 +1,71 @@
+@import "../../variables.scss";
+
+#profile {
+  position: absolute;
+  left: 0;
+  top: 69px;
+  height: 100%;
+  background-color: #EFEFEF;
+  width: 23vw;
+  text-align: center;
+  border-right: 1px solid #E4E4E4;
+}
+
+#profile_user_picture {
+  background-color: #3f3f3f;
+  border-radius: 100%;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+  margin-top: 12vh;
+}
+
+#profile_user_info {
+  margin: 1vh 3vw;
+
+  p {
+    text-align: left;
+  }
+}
+
+#profile_network_network_div {
+  float: left;
+  clear: both;
+}
+
+#profile_network_social {
+  float: left;
+  clear: both;
+}
+
+#profile_user_name {
+  font-size: 1.5em;
+  margin-top: 5vh;
+  // text-align: left;
+  margin-bottom: 2vh;
+}
+
+#profile_githubIcon{
+  width: 18px;
+  display: inline-block;
+}
+
+#profile_github {
+  display: inline-block;
+  margin-left: .6vw;
+}
+
+#profile_private_header {
+  margin-top: 6vh;
+  clear: both;
+}
+
+#profile_email {
+  border: #a8a8a8 solid 1px;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+#profile_edit_button {
+  margin-top: 1vh;
+}

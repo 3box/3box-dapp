@@ -1,1 +1,0 @@
-import '../stylesheet/perfectScrollbar.global.css';

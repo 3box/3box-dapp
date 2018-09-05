@@ -1,0 +1,35 @@
+@import "../../variables.scss";
+
+#feed {
+  margin-top: 6vh;
+
+  ul {
+    padding: 0;
+  }
+
+  li {
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+  }
+}
+
+#feed_activity {
+  min-height: 10vh;
+  width: 60vw;
+  background: white;
+  border: 1px solid #E4E4E4;
+  border-radius: 5px;
+  margin: 0 10vw 6vh 30vw;
+  padding-bottom: 4vh;
+}
+
+#feed_activity_header {
+  margin-top: 25px;
+  margin-bottom: 25px;
+
+  li {
+    font-size: .8em;
+    opacity: .65;
+  }
+}

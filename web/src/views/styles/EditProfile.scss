@@ -1,0 +1,84 @@
+@import "../../variables.scss";
+
+/* Edit Profile */
+#edit {
+  width: 50vw;
+  margin: 0 auto;
+  margin-bottom: 20vh;
+  margin-top: 6vh;
+}
+
+#edit_user_picture {
+  background-color: #3f3f3f;
+  border-radius: 100%;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  display: block;
+}
+
+#edit_field p {
+  display: inline-block;
+  margin: 0 1vw 1vw 0;
+}
+
+.edit_form {
+  border: rgb(199, 199, 199) solid 1px;
+  border-radius: 5px;
+  padding: 34px 40px;
+  margin-bottom: 4vh;
+
+  h3 {
+    margin-bottom: 1.5vh;
+  }
+
+  input {
+    font-size: 1.2em;
+    width: 100%;
+    border-radius: 5px;
+    border-style: none;
+    border: solid 1px #E4E4E4;
+    height: 44px;
+    padding: 0 15px;
+    -webkit-box-sizing: border-box;
+    /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;
+    /* Firefox, other Gecko */
+    box-sizing: border-box;
+    /* Opera/IE 8+ */
+  }
+
+  p {
+    font-size: 1.2em;
+  }
+}
+
+#edit_user_picture_edit {
+  text-align: center;
+  margin: 2.5vh 0 6vh 0;
+  vertical-align: middle;
+
+  img {
+    display: inline-block;
+    margin: 0;
+  }
+
+  p {
+    color: #006ECC;
+    margin: 0 0 0 2vw;
+    position: relative;
+    display: inline-block;
+    top: 50%;
+    transform: perspective(1px) translateY(-340%);
+  }
+}
+
+.edit_form_spacing {
+  height: 3vh;
+}
+
+#edit_cancel {
+  margin-left: 1vw;
+}

@@ -1,0 +1,37 @@
+@import "../../variables.scss";
+
+#logo_icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  background-color: #006ECC;
+  display: inline-block;
+  line-height: 30px;
+  float: left;
+  text-align: center;
+  position: relative;
+  top: 50%;
+  transform: perspective(1px) translateY(-50%);
+  margin-left: 4vw;
+
+  h2   {
+    position: relative;
+    top: 50%;
+    transform: perspective(1px) translateY(-50%);
+    margin: 0 auto;
+    color: white;
+    font-size: 1.2em !important;
+    font-weight: 700;
+  }
+}
+
+#logo_text {
+  display: inline-block;
+  color: #006ECC;
+  margin: 0;
+  position: relative;
+  top: 50%;
+  transform: perspective(1px) translateY(-50%);
+  margin-left: .7vw;
+  font-size: 1.5em !important;
+}

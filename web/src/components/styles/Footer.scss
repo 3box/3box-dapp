@@ -1,0 +1,29 @@
+@import "../../variables.scss";
+
+#footer {
+  background-color: #fff;
+  border-top: 1px solid #E4E4E4;
+  overflow: hidden;
+  position: absolute;
+  height: 14vh;
+  bottom: -10vh;
+  width: 100%;
+  display: block;
+}
+
+#footer_links {
+  float: right;
+  padding: 0;
+  width: 50%;
+  position: relative;
+  top: 50%;
+  transform: perspective(1px) translateY(-50%);
+
+  li {
+    display: inline-block;
+    width: 33%;
+    text-align: center;
+    font-size: 1.1em;
+    color: #a8a8a8;
+  }
+}

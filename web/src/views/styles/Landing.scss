@@ -1,0 +1,256 @@
+@import "../../variables.scss";
+
+#landing {
+  width: 80%;
+  margin: 0 auto;
+
+  h1 {
+    font-size: 3em;
+    font-weight: 800;
+  }
+}
+
+#landing_section_developers_inner {
+  width: 80%;
+  margin: 0 auto;
+}
+
+#landing_section_developers_copy {
+  width: 60%;
+  // height: 100%;
+  height: 30vh;
+  display: inline-block;
+  float: left;
+
+  position: relative;
+}
+
+#landing_section_open {
+  margin: 10vh 0;
+  height: 50vh;
+  display: inline-block;
+  width: 100%;
+}
+
+#landing_left {
+  width: 60%;
+  display: inline-block;
+  float: left;
+  position: relative;
+  top: 50%;
+  transform: perspective(1px) translateY(-50%);
+
+  p {
+    margin-top: 1vh;
+    font-size: 1.3em;
+  }
+}
+
+#landing_right {
+  width: 40%;
+  display: inline-block;
+}
+
+#landing_createProfileButton {
+  margin-top: 3vh;
+}
+
+#landing_card_margin {
+  margin: 5vh 0 5vh 6vw;
+}
+
+#landing_section_scroll {
+  text-align: center;
+
+  p {
+    margin-bottom: 2vh;
+  }
+}
+
+#landing_arrow {
+  animation: bounce 3s infinite;
+}
+
+@keyframes bounce {
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+#landing_section_rest {
+  p {
+    margin-top: 1vh;
+    font-size: 1.3em;
+  }
+
+  h2 {
+    font-size: 2em;
+  }
+}
+
+#landing_section_oneClick {
+  text-align: center;
+  margin: 10vh 0;
+  height: 70vh;
+  display: inline-block;
+  position: relative;
+  width: 100%;
+
+  img {
+    margin: 2vh 0 4vh 0;
+    width: 70%;
+  }
+}
+
+#landing_section_oneClick_illustration {
+  width: 100%;
+  margin-top: 3vh;
+  display: inline-block;
+}
+
+#illustration {
+  border-radius: 100%;
+  width: 12em;
+  height: 12em;
+  background-color: white;
+  margin: 0 auto;
+  z-index: 1;
+  position: relative;
+  top: 50%;
+  transform: perspective(1px) translateY(-50%);
+}
+
+#illustration2 {
+  border-radius: 100%;
+  width: 16em;
+  height: 16em;
+  background-color: #ECECEC;
+  margin: 0 auto;
+  z-index: 0;
+  position: relative;
+  top: 50%;
+  transform: perspective(1px) translateY(-50%);
+}
+
+#illustration3 {
+  border-radius: 100%;
+  width: 20em;
+  height: 20em;
+  background-color: rgb(245, 245, 245);
+  margin: 0 auto;
+  z-index: 0;
+  position: relative;
+  top: 50%;
+  transform: perspective(1px) translateY(-50%);
+}
+
+#illustration4 {
+  border-radius: 100%;
+  width: 24em;
+  height: 24em;
+  background-color: transparent;
+  border: dashed 1px rgb(207, 207, 207);
+  margin: 0 auto;
+  z-index: 0;
+  display: inline-block;
+}
+
+#landing_section_join {
+  text-align: center;
+  margin: 11vh 0 14vh 0;
+  display: inline-block;
+  width: 100%;
+
+  h1 {
+    font-size: 3em;
+    font-weight: 800;
+  }
+}
+
+#landing_section_developers {
+  width: 100%;
+  background-color: #EFEFEF;
+  padding: 8vh 0 10vh 0;
+}
+
+#landing_section_developers_illustration {
+  width: 40%;
+  height: 30vh;
+  display: inline-block;
+
+  img {
+    float: right;
+    margin-right: 4vw;
+    height: 80%;
+    position: relative;
+    top: 50%;
+    transform: perspective(1px) translateY(-50%);
+  }
+}
+
+#CompanyCard1 {
+  position: relative;
+  top: 0;
+  right: 8vw;
+  display: inline-block;
+}
+
+#CompanyCard2 {
+  position: relative;
+  top: 0;
+  left: 8vw;
+  display: inline-block;
+}
+
+#CompanyCard3 {
+  position: relative;
+  bottom: 0;
+  left: 8vw;
+  display: inline-block;
+}
+
+#CompanyCard4 {
+  position: relative;
+  bottom: 0;
+  right: 8vw;
+  display: inline-block;
+}
+
+#explore {
+  position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+#developers {
+  margin: 0 0 3vh 0;
+}
+
+#users {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  padding: 10vh 0 0 0;
+}
+
+#users_tile {
+  margin: 0 2vw 5vh 0;
+  display: inline-block;
+}
+
+#card {
+  border: 1px solid #E4E4E4;
+  border-radius: 10px;
+  min-width: 80%;
+  min-height: 100%;
+  background: white;
+  box-shadow: 0 6px 10px 0 #ececec, 0 16px 24px 0 #f3f3f3;
+  float: right;
+  position: relative;
+  top: 50%;
+  transform: perspective(1px) translateY(-50%);
+}
