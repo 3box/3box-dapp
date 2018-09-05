@@ -1,17 +1,9 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-
-import ThreeBox from '3box';
-
 import Michael from '../assets/me.jpg';
 import GithubIcon from '../assets/GithubIcon.svg';
 import './styles/ProfileDetails.css';
-
-ThreeBox.openBox('0x357F7C9eADd36fd38Ade53561a033b41Cc15157d')
-  .then((threeBox) => {
-    console.log(threeBox);
-  });
 
 const ProfileDetails = () => (
   <div id="profile">
