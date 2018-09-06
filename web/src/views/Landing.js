@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import ThreeBox from '3box';
+
 import ProfileCard from '../components/ProfileCard';
 import ProfileCardSmall from '../components/ProfileCardSmall';
 import './styles/Landing.css';
@@ -8,19 +11,23 @@ import downArrow from '../assets/downArrow.svg';
 import illustration from '../assets/Dapp.svg';
 
 export function Landing(props) {
+  const { CreateProfile } = props;
   return (
     <div>
       <div id="landing">
+        <button id="landing_floatingButtong" type="button" onClick={CreateProfile}>
+          Create a Profile
+        </button>
 
         <div id="landing_section_open">
           <div id="landing_left">
             <h1>Create an Ethereum Profile with 3Box</h1>
-            <p>Edit your information, view your activity, and much more.</p>
-            <Link to="/Profile">
-              <button id="landing_createProfileButton" type="button">
-                Create a Profile
-              </button>
-            </Link>
+            <p className="light">Edit your information, view your activity, and much more.</p>
+            {/* <Link to="/Profile"> */}
+            <button id="landing_createProfileButton" type="button" onClick={CreateProfile}>
+              Create a Profile
+            </button>
+            {/* </Link> */}
           </div>
           <div id="landing_right">
             <div id="landing_card_margin">
@@ -33,7 +40,7 @@ export function Landing(props) {
 
       <div id="landing_section_rest">
         <div id="landing_section_scroll">
-          <p>
+          <p className="light">
             Scroll for more
           </p>
           <img src={downArrow} id="landing_arrow" alt="down arrow" />
@@ -42,7 +49,7 @@ export function Landing(props) {
         <div id="landing_section_oneClick">
 
           <h2>Log in to dapps with one click</h2>
-          <p>Control your data in one central hub.</p>
+          <p className="light">Control your data in one central hub.</p>
 
           <img src={illustration} alt="3Box Map" />
 
@@ -53,7 +60,7 @@ export function Landing(props) {
             <div id="landing_section_developers_copy">
               <p className="bold grey" id="developers">FOR DEVELOPERS</p>
               <h2>Built using 3Box DB</h2>
-              <p>A distributed database that allows Ethereum users to store public and private data on the decentralized web. Open source.</p>
+              <p className="light">A distributed database that allows Ethereum users to store public and private data on the decentralized web. Open source.</p>
               <div id="explore">
                 <a href="https://github.com/uport-project/3box" >
                   <p className="bold blue">Explore 3Box on Github</p>
@@ -68,7 +75,7 @@ export function Landing(props) {
 
         <div id="landing_section_join">
           <h1>Join our network of 1,000+ members</h1>
-          <p>Already achieving more with their data.</p>
+          <p className="light">Already achieving more with their data.</p>
 
           <div id="users">
             <div id="users_tile">
@@ -108,40 +115,29 @@ export function Landing(props) {
 }
 
 Landing.propTypes = {
-  web3: PropTypes.object,
+  CreateProfile: PropTypes.func,
 };
 
 Landing.defaultProps = {
-  web3: null,
+  CreateProfile: () => {
+    // remove this line localStorage
+    localStorage.setItem(`serializedMuDID_${web3.eth.accounts[0]}`, null); // eslint-disable-line no-undef
+    ThreeBox
+      .openBox(web3.eth.accounts[0], web3.currentProvider) // eslint-disable-line no-undef
+      .then((threeBox) => {
+        console.log('clicked', threeBox);
+      }).catch(console.log('error from here'));
+  },
 };
 
-export default Landing;
+function mapState(state) {
+  return {
+    web3: state.web3.web3,
+  };
+}
 
+function mapDispatch(/* dispatch */) {
+  return {};
+}
 
-{/* <div id="CompanyCard1">
-            <CompanyCard />
-          </div>
-          <div id="CompanyCard2">
-            <CompanyCard />
-          </div>
-          <div id="CompanyCard3">
-            <CompanyCard />
-          </div>
-          <div id="CompanyCard4">
-            <CompanyCard />
-          </div>
-
-          <div id="landing_section_oneClick_illustration">
-            <div id="illustration4">
-              <div id="illustration3">
-                <div id="illustration2">
-                  <div id="illustration">
-                    <div id="logo_icon">
-                      <p>3</p>
-                    </div>
-                    <h2 id="logo_text"> BOX </h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
+export default connect(mapState, mapDispatch)(Landing);

@@ -1,63 +1,114 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import profileStore from '3box';
+import { bindActionCreators } from 'redux';
+import { Field, reduxForm, SubmissionError } from 'redux-form';
+
+import Form from '../components/Form';
+import { updateUser } from '../state/actions';
+
 import Michael from '../assets/me.jpg';
 import './styles/EditProfile.css';
 
-export function EditProfile() {
-  return (
-    <div id="edit">
-      <p className="header">Edit Profile</p>
+// add info to private and public store
+// profileStore.set(key, value) ⇒ Boolean
+// profileStore.remove(key) ⇒ Boolean
+// profileStore.get(key) ⇒ String
+// privateStore.set(key, value) ⇒ Boolean
+// privateStore.remove(key) ⇒ Boolean
 
-      <div id="edit_user_picture_edit">
-        <img src={Michael} id="edit_user_picture" alt="profile" />
-        <p>Edit</p>
-      </div>
+class EditProfile extends React.Component {
 
-      <div id="edit_field">
-      
-        <p className="subheader">PUBLIC</p>
-        <p className="subtext">This information will be public for all to see.</p>
-        
-        <div className="edit_form">
-          <h3>Ethereum Address</h3>
-          <p>0x123897912837912749817</p>
-          <div className="edit_form_spacing" />
-          <h3>Name</h3>
-          <input />
-          <div className="edit_form_spacing" />
-          <h3>Github</h3>
-          <input />
+  // componentDidMount() {
+  //   profileStore.get();
+  // }
+
+  // setProfile = () => {
+  //   profileStore.set(key, value).then(response => console.log(response));
+  // }
+
+  // handleLinkDescription = (e) => {
+  //   const name = e.target.value;
+  //   this.setState({ name });
+  // }
+
+  // handleGithubChange = (e) => {
+  //   const name = e.target.value;
+  //   this.setState({ name });
+  // }
+
+  // getProfileData = () => {
+  // }
+
+  submit = (values) => {
+    console.log(values);
+  }
+
+  render() {
+    const { name, github, handleSubmit } = this.props;
+    return (
+      <div id="edit">
+        <p className="header">Edit Profile</p>
+
+        <div id="edit_user_picture_edit">
+          <img src={Michael} id="edit_user_picture" alt="profile" />
+          <p>Edit</p>
         </div>
 
-        <p className="subheader">PRIVATE</p>
-        <p className="subtext">This information will be public for all to see.</p>
-
-        <div className="edit_form">
-          <h3>Email Address</h3>
-          <input />
-        </div>
+        <Form onSubmit={this.submit} />
 
       </div>
-
-      <Link to="/Profile">
-        <button id="profile_edit_button" type="button">
-          Save
-          </button>
-      </Link>
-      <Link to="/Profile" className="subtext" id="edit_cancel">
-        Cancel
-      </Link>
-    </div>
-  );
+    );
+  }
 }
 
 EditProfile.propTypes = {
-  web3: PropTypes.object,
+  name: PropTypes.string,
+  github: PropTypes.string,
+  handleSubmit: PropTypes.string,
 };
 
 EditProfile.defaultProps = {
-  web3: null,
+  name: null,
+  github: null,
+  handleSubmit: PropTypes.string,
 };
 
-export default EditProfile;
+// function mapState(state) {
+//   return {
+//     web3: state.web3.web3,
+//   };
+// }
+
+// function mapDispatch(dispatch) {
+//   return bindActionCreators({ updateUser }, dispatch);
+// }
+// export default connect(mapState, mapDispatch)(EditProfile);
+
+// <form className="edit_form" onSubmit={handleSubmit}>
+//            <h3>Ethereum Address</h3>
+//          <p>0xasdfasdf</p>
+//
+//          <div className="edit_form_spacing" />
+//        <h3>Name</h3>
+//      <Field
+//      type="text"
+//    name="name"
+//  value={name}
+//            component="input"
+// onChange={this.handleNameChange}
+//          />
+//          <div className="edit_form_spacing" />
+//           <h3>Github</h3>
+//          <Field
+//            type="text"
+//            name="github"
+//            value={github}
+//            component="input"
+// onChange={this.handleGithubChange}
+//          />
+//        </form> 
+
+export default reduxForm({ form: 'user_info', })(EditProfile);

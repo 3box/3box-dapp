@@ -10,6 +10,10 @@
   }
 }
 
+.light {
+  color: #6b6b6b;
+}
+
 #landing_section_developers_inner {
   width: 80%;
   margin: 0 auto;
@@ -21,12 +25,11 @@
   height: 30vh;
   display: inline-block;
   float: left;
-
   position: relative;
 }
 
 #landing_section_open {
-  margin: 10vh 0;
+  margin: 8vh 0;
   height: 50vh;
   display: inline-block;
   width: 100%;
@@ -53,6 +56,13 @@
 
 #landing_createProfileButton {
   margin-top: 3vh;
+}
+
+#landing_floatingButtong {
+  position: fixed;
+  bottom: 18vh;
+  right: 4vw;
+  z-index: 1;
 }
 
 #landing_card_margin {
@@ -163,7 +173,7 @@
   text-align: center;
   margin: 11vh 0 14vh 0;
   display: inline-block;
-  width: 100%;
+  width: 100vw;
 
   h1 {
     font-size: 3em;
@@ -192,38 +202,10 @@
   }
 }
 
-#CompanyCard1 {
-  position: relative;
-  top: 0;
-  right: 8vw;
-  display: inline-block;
-}
-
-#CompanyCard2 {
-  position: relative;
-  top: 0;
-  left: 8vw;
-  display: inline-block;
-}
-
-#CompanyCard3 {
-  position: relative;
-  bottom: 0;
-  left: 8vw;
-  display: inline-block;
-}
-
-#CompanyCard4 {
-  position: relative;
-  bottom: 0;
-  right: 8vw;
-  display: inline-block;
-}
-
 #explore {
   position: absolute;
-	bottom: 0;
-	left: 0;
+  bottom: 0;
+  left: 0;
 }
 
 #developers {
@@ -235,6 +217,18 @@
   overflow-y: hidden;
   white-space: nowrap;
   padding: 10vh 0 0 0;
+  animation: scroll 10s linear infinite;
+}
+
+/* Make it move */
+@keyframes scroll {
+  0% {
+    left: 800px;
+  }
+
+  100% {
+    left: -800px;
+  }
 }
 
 #users_tile {

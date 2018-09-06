@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ProfileCard from '../components/ProfileCard';
@@ -8,7 +9,7 @@ import './styles/Landing.css';
 import downArrow from '../assets/downArrow.svg';
 import illustration from '../assets/Dapp.svg';
 
-export function Landing(props) {
+export function About(props) {
   return (
     <div>
       <div id="landing">
@@ -105,15 +106,25 @@ export function Landing(props) {
   );
 }
 
-Landing.propTypes = {
+About.propTypes = {
   web3: PropTypes.object,
 };
 
-Landing.defaultProps = {
+About.defaultProps = {
   web3: null,
 };
 
-export default Landing;
+function mapState(state) {
+  return {
+    web3: state.web3.web3,
+  };
+}
+
+function mapDispatch(/* dispatch */) {
+  return {};
+}
+
+export default connect(mapState, mapDispatch)(About);
 
 
 {/* <div id="CompanyCard1">
