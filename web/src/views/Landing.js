@@ -120,7 +120,7 @@ Landing.propTypes = {
 
 Landing.defaultProps = {
   CreateProfile: () => {
-    // remove this line localStorage
+    // remove this line localStorage for production
     localStorage.setItem(`serializedMuDID_${web3.eth.accounts[0]}`, null); // eslint-disable-line no-undef
     ThreeBox
       .openBox(web3.eth.accounts[0], web3.currentProvider) // eslint-disable-line no-undef

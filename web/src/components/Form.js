@@ -8,7 +8,7 @@ class EditProfileForm extends Component {
   submit = (values) => {
     console.log(values);
   }
-  
+
   render() {
     const { handleSubmit } = this.props;
 
@@ -54,7 +54,7 @@ class EditProfileForm extends Component {
       </form>
 
 
-    )
+    );
   }
 }
 

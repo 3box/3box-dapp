@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import profileStore from '3box';
 import { bindActionCreators } from 'redux';
-import { Field, reduxForm, SubmissionError } from 'redux-form';
 
 import Form from '../components/Form';
 import { updateUser } from '../state/actions';
@@ -20,10 +19,9 @@ import './styles/EditProfile.css';
 // privateStore.remove(key) ⇒ Boolean
 
 class EditProfile extends React.Component {
-
-  // componentDidMount() {
-  //   profileStore.get();
-  // }
+  componentDidMount() {
+    profileStore.get(web3.eth.accounts[0]); // eslint-disable-line no-undef
+  }
 
   // setProfile = () => {
   //   profileStore.set(key, value).then(response => console.log(response));
@@ -48,6 +46,7 @@ class EditProfile extends React.Component {
 
   render() {
     const { name, github, handleSubmit } = this.props;
+
     return (
       <div id="edit">
         <p className="header">Edit Profile</p>
@@ -76,39 +75,14 @@ EditProfile.defaultProps = {
   handleSubmit: PropTypes.string,
 };
 
-// function mapState(state) {
-//   return {
-//     web3: state.web3.web3,
-//   };
-// }
+function mapState(state) {
+  return {
+    web3: state.web3.web3,
+  };
+}
 
-// function mapDispatch(dispatch) {
-//   return bindActionCreators({ updateUser }, dispatch);
-// }
-// export default connect(mapState, mapDispatch)(EditProfile);
+function mapDispatch(dispatch) {
+  return bindActionCreators({ updateUser }, dispatch);
+}
 
-// <form className="edit_form" onSubmit={handleSubmit}>
-//            <h3>Ethereum Address</h3>
-//          <p>0xasdfasdf</p>
-//
-//          <div className="edit_form_spacing" />
-//        <h3>Name</h3>
-//      <Field
-//      type="text"
-//    name="name"
-//  value={name}
-//            component="input"
-// onChange={this.handleNameChange}
-//          />
-//          <div className="edit_form_spacing" />
-//           <h3>Github</h3>
-//          <Field
-//            type="text"
-//            name="github"
-//            value={github}
-//            component="input"
-// onChange={this.handleGithubChange}
-//          />
-//        </form> 
-
-export default reduxForm({ form: 'user_info', })(EditProfile);
+export default connect(mapState, mapDispatch)(EditProfile);
