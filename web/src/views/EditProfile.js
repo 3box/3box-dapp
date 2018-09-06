@@ -20,7 +20,7 @@ import './styles/EditProfile.css';
 
 class EditProfile extends React.Component {
   componentDidMount() {
-    profileStore.get(web3.eth.accounts[0]); // eslint-disable-line no-undef
+    // profileStore.get();
   }
 
   // setProfile = () => {
