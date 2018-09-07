@@ -4,7 +4,7 @@
   "description": "truffle dapp with react/redux",
   "private": true,
   "dependencies": {
-    "3box": "0.0.2",
+    "3box": "0.0.4",
     "@babel/polyfill": "^7.0.0",
     "babel-preset-env": "^1.7.0",
     "ethjs": "^0.4.0",

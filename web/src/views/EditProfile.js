@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-// import profileStore from '3box';
+import ProfileStore from '3box';
 
+import Nav from '../components/Nav';
 import Footer from '../components/Footer';
-import { updateUser } from '../state/actions';
+// import { updateUser } from '../state/actions';
 import Michael from '../assets/me.jpg';
 import './styles/EditProfile.css';
 
@@ -18,8 +19,20 @@ import './styles/EditProfile.css';
 // privateStore.remove(key) ⇒ Boolean
 
 class EditProfile extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      github: '',
+      email: '',
+    };
+  }
   // setProfile = () => {
   //   profileStore.set(key, value).then(response => console.log(response));
+  // }
+
+  // componentDidMount() {
+  //   let profileStore = new ProfileStore(muportDID)
   // }
 
   handleFormChange = (e, property) => {
@@ -28,13 +41,22 @@ class EditProfile extends Component {
     this.setState(obj);
   }
 
+  handleSubmit = () => {
+    const { name, github, email, } = this.state;
+    console.log(name);
+    // profileStore.set('name', name).then(res => console.log(res));
+  }
+
   render() {
     const {
       name, github, email, handleSubmit,
     } = this.props;
 
+    console.log(this.state);
+
     return (
       <div>
+        <Nav />
         <div id="edit">
           <p className="header">Edit Profile</p>
 
@@ -95,7 +117,7 @@ class EditProfile extends Component {
             <button type="submit">Submit</button>
             <Link to="/Profile" className="subtext" id="edit_cancel">
               Cancel
-          </Link>
+            </Link>
           </form>
 
         </div>
@@ -128,7 +150,7 @@ function mapState(state) {
 }
 
 function mapDispatch(dispatch) {
-  return bindActionCreators({ updateUser }, dispatch);
+  // return bindActionCreators({ updateUser }, dispatch);
 }
 
 export default connect(mapState, mapDispatch)(EditProfile);
