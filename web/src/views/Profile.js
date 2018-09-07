@@ -1,16 +1,14 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import ThreeBox from '3box';
+import { bindActionCreators } from 'redux';
 
 import Feed from '../components/Feed';
 import ProfileDetails from '../components/ProfileDetails';
 import './styles/Profile.css';
 
-// export function Profile(props) {
 class Profile extends Component {
-
   getProfileData = () => {
     
   }
@@ -26,7 +24,6 @@ class Profile extends Component {
   }
 }
 
-
 // get data put into public store
 // profileStore.get(key)
 
@@ -35,6 +32,10 @@ function mapState(state) {
     user: state.user,
   };
 }
+
+// function mapDispatch(dispatch) {
+//   return bindActionCreators({ updateUser }, dispatch);
+// }
 
 Profile.propTypes = {
   user: PropTypes.object,
@@ -45,3 +46,4 @@ Profile.defaultProps = {
 };
 
 export default connect(mapState)(Profile);
+// export default connect(mapState, mapDispatch)(Profile);

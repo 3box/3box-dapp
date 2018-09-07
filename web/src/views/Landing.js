@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ThreeBox from '3box';
 
+import Footer from '../components/Footer';
 import ProfileCard from '../components/ProfileCard';
 import ProfileCardSmall from '../components/ProfileCardSmall';
 import './styles/Landing.css';
@@ -109,6 +110,7 @@ export function Landing(props) {
 
         </div>
       </div>
+      <Footer />
     </div>
 
   );

@@ -6,7 +6,6 @@ import * as routes from './utils/routes';
 import { getLocale } from './locales';
 import NoMatch from './components/NoMatch';
 import Nav from './components/Nav';
-import Footer from './components/Footer';
 
 import Landing from './views/Landing';
 import Profile from './views/Profile';
@@ -28,7 +27,6 @@ function App() {
             <Route exact path={routes.ABOUT} component={About} />
             <Route component={NoMatch} />
           </Switch>
-          <Footer />
         </div>
       </Router>
     </IntlProvider>
