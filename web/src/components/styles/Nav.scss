@@ -7,6 +7,7 @@
   height: 40px;
   float: right;
   margin: 14px 4vw 14px 14px;
+  cursor: pointer;
 }
 
 #dropdown {
@@ -14,32 +15,30 @@
   top: 64px;
   right: 3vw;
   text-align: left;
-  
-  width: fit-content;
-  height: fit-content;
+  width: 10em;
+  padding: 1em 0;
   background-color: white;
   border-radius: 5px;
   border: 1px solid #E4E4E4;
   box-shadow: 0 6px 10px 0 #ececec, 0 16px 24px 0 #f3f3f3;
-
-  padding: 1em;
 
   ul {
     padding: 0;
   }
 
   li {
-    font-size: 13px;
-    // float: left;
-    width: 100%;
-    // padding-left: 22px;
-    // padding-right: 22px;
-    line-height: 30px;
-    // opacity: .7;
+    font-size: .8em;
+    padding-left: 1.3em;
+    color: rgb(107, 107, 107);
+    line-height: 2.5em;
   }
 
   li:hover {
     background: #f9f9f9;
+  }
+
+  div {
+    line-height: 0;
   }
 }
 
@@ -51,4 +50,3 @@
   padding-right: 0;
   width: 100% !important;
 }
-

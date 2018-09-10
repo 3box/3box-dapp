@@ -7,7 +7,7 @@ const ThreeBoxLogo = () => (
     <div id="logo_icon">
       <h2>3</h2>
     </div>
-    <h2 id="logo_text"> BOX </h2>
+    <h2 id="logo_text"> Box </h2>
   </Link>
 );
 

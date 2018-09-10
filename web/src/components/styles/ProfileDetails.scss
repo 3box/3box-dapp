@@ -23,6 +23,10 @@
 #profile_user_info {
   margin: 1vh 3vw;
 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+
   p {
     text-align: left;
   }

@@ -5,6 +5,8 @@ import Michael from '../assets/me.jpg';
 import GithubIcon from '../assets/GithubIcon.svg';
 import './styles/ProfileDetails.css';
 
+const address = web3.eth.accounts[0]; // eslint-disable-line no-undef
+
 const ProfileDetails = () => (
   <div id="profile">
     <img src={Michael} id="profile_user_picture" alt="profile" />
@@ -14,7 +16,10 @@ const ProfileDetails = () => (
 
       <div id="profile_network_network_div">
         <div id="profile_network" />
-        <p id="profile_address">0x123456789</p>
+        <p id="profile_address">
+          {address}
+          <span className="tooltiptext">{address}</span>
+        </p>
       </div>
 
       <div id="profile_network_social">

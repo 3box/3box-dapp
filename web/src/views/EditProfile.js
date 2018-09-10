@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
+// import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import ProfileStore from '3box';
+// import ProfileStore from '3box';
 
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
@@ -17,6 +17,8 @@ import './styles/EditProfile.css';
 // profileStore.get(key) ⇒ String
 // privateStore.set(key, value) ⇒ Boolean
 // privateStore.remove(key) ⇒ Boolean
+
+const address = web3.eth.accounts[0]; // eslint-disable-line no-undef
 
 class EditProfile extends Component {
   constructor(props) {
@@ -58,6 +60,11 @@ class EditProfile extends Component {
       <div>
         <Nav />
         <div id="edit">
+          <Link to="/Profile">
+            <button id="goBack" type="button">
+              &larr; Go back to profile
+            </button>
+          </Link>
           <p className="header">Edit Profile</p>
 
           <div id="edit_user_picture_edit">
@@ -70,12 +77,12 @@ class EditProfile extends Component {
             <div id="edit_field">
 
               <p className="subheader">PUBLIC</p>
-              <p className="subtext">This information will be public for all to see.</p>
+              <p className="subtext">This information is public for all to see.</p>
 
               <div className="edit_form">
 
                 <h3>Ethereum Address</h3>
-                <p>0xasdfasdf</p>
+                <p>{address}</p>
 
                 <div className="edit_form_spacing" />
 
@@ -100,7 +107,7 @@ class EditProfile extends Component {
               </div>
 
               <p className="subheader">PRIVATE</p>
-              <p className="subtext">This information will be public for all to see.</p>
+              <p className="subtext">This information is accessible only by those with permission.</p>
 
               <div className="edit_form">
                 <h3>Email Address</h3>
@@ -114,7 +121,7 @@ class EditProfile extends Component {
 
             </div>
 
-            <button type="submit">Submit</button>
+            <button type="submit">Save</button>
             <Link to="/Profile" className="subtext" id="edit_cancel">
               Cancel
             </Link>

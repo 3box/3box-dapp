@@ -1,12 +1,11 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ProfileCard from '../components/ProfileCard';
 import ProfileCardSmall from '../components/ProfileCardSmall';
-import ThreeBoxLogo from '../components/ThreeBoxLogo';
 import './styles/Landing.css';
-import downArrow from '../assets/downArrow.svg';
+import downArrow from '../assets/Arrow.svg';
 import illustration from '../assets/Dapp.svg';
 
 export function About(props) {
@@ -60,8 +59,7 @@ export function About(props) {
                 <p className="bold blue" id="explore">Explore 3Box on Github</p>
               </Link>
             </div>
-            <div id="landing_section_developers_illustration">
-            </div>
+            <div id="landing_section_developers_illustration" />
           </div>
         </div>
 
@@ -125,32 +123,3 @@ function mapDispatch(/* dispatch */) {
 }
 
 export default connect(mapState, mapDispatch)(About);
-
-
-{/* <div id="CompanyCard1">
-            <CompanyCard />
-          </div>
-          <div id="CompanyCard2">
-            <CompanyCard />
-          </div>
-          <div id="CompanyCard3">
-            <CompanyCard />
-          </div>
-          <div id="CompanyCard4">
-            <CompanyCard />
-          </div>
-
-          <div id="landing_section_oneClick_illustration">
-            <div id="illustration4">
-              <div id="illustration3">
-                <div id="illustration2">
-                  <div id="illustration">
-                    <div id="logo_icon">
-                      <p>3</p>
-                    </div>
-                    <h2 id="logo_text"> BOX </h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}

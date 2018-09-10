@@ -20,12 +20,18 @@ nav {
 }
 
 button {
-  background-color: #006ECC;
+  // background-color: #006ECC;
+  background-color: rgb(44, 33, 192);
+  // background-color: rgb(252, 255, 81);
   border: none;
-  border-radius: 5px;
+  border-radius: 2em;
+  // border-radius: 5px;
   padding: 1em 2em;
-  color: rgb(213, 229, 243);
-  font-weight: 500;
+  color: white;
+  // color: #006ECC;
+  // color: rgb(213, 229, 243);
+  font-weight: 600;
+  box-shadow: 0 6px 10px 0 #00000013, 0 8px 12px 0 #00000018;
 }
 
 button:hover {
@@ -38,6 +44,7 @@ p {
   text-decoration: none;
   font-size: 16px;
   list-style: none;
+  font-weight: 200;
 }
 
 li,
@@ -97,4 +104,20 @@ ul {
 
 .blue {
   color: #006ECC;
+}
+
+.light {
+  color: #6b6b6b;
+}
+
+.white {
+  color: white;
+}
+
+.lightOpacity {
+  opacity: .6;
+}
+
+.thin{
+  font-weight: 200;
 }

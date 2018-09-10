@@ -2,10 +2,17 @@
 
 /* Edit Profile */
 #edit {
-  width: 50vw;
+  width: 40vw;
   margin: 0 auto;
   margin-bottom: 20vh;
   margin-top: 6vh;
+}
+
+#goBack {
+  position: absolute;
+  top: 100px;
+  left: 2vw;
+  background-color: rgb(78, 78, 78); 
 }
 
 #edit_user_picture {
@@ -26,12 +33,15 @@
 
 .edit_form {
   border: rgb(199, 199, 199) solid 1px;
+  background: white;
   border-radius: 5px;
-  padding: 34px 40px;
+  padding: 1.7em 2em;
   margin-bottom: 4vh;
 
   h3 {
     margin-bottom: 1.5vh;
+    font-weight: 700;
+    font-size: 1em;
   }
 
   input {
@@ -53,6 +63,10 @@
   p {
     font-size: 1.2em;
   }
+}
+
+.dateType{
+  background: #ebebeb;
 }
 
 #edit_user_picture_edit {

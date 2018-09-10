@@ -7,8 +7,7 @@
   min-height: 30vh;
   background: white;
   width: 18em;
-
-  box-shadow: 0 6px 10px 0 #ececec, 0 16px 24px 0 #f3f3f3;
+  box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
 }
 
 #profileCard_user_picture {
@@ -23,7 +22,7 @@
   transform: perspective(1px) translateY(-30%) translateX(-50%);
 }
 
-#profile_network{
+#profile_network {
   border-radius: 100%;
   background-color: #5ECD78;
   width: 16px;
@@ -35,9 +34,29 @@
   display: inline-block;
   margin-left: .6vw;
   margin-bottom: .5vh;
+
+  &:hover .tooltiptext {
+    visibility: visible;
+  }
 }
 
-.profileCard_user_info{
+.tooltiptext {
+  visibility: hidden;
+  width: fit-content;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  border-radius: 6px;
+  position: relative;
+  z-index: 1;
+
+  bottom: 100%;
+  left: 50%; 
+  margin-left: 50%; /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+
+.profileCard_user_info {
   padding: 2em;
   margin-top: -4em;
 }
@@ -49,6 +68,7 @@
   width: 16em;
   height: 10em;
   display: inline-block;
+  box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
 }
 
 .profileCardSmall_user_picture {
@@ -63,7 +83,7 @@
   transform: perspective(1px) translateY(-30%) translateX(-160%);
 }
 
-.profileCardSmall_user_name{
+.profileCardSmall_user_name {
   font-size: 1.4em;
   margin-top: 2.6vh;
 }
