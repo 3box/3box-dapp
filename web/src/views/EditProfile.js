@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { ThreeBox, ProfileStore } from '3box';
 // import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 // import ProfileStore from '3box';
@@ -33,9 +34,23 @@ class EditProfile extends Component {
   //   profileStore.set(key, value).then(response => console.log(response));
   // }
 
-  // componentDidMount() {
-  //   let profileStore = new ProfileStore(muportDID)
-  // }
+  componentDidMount() {
+    // let profileStore = new ProfileStore(muportDID)
+    // ThreeBox.profileStore.set('name', 'kenzo').then(res => console.log(res));
+    console.log(ProfileStore);
+    
+    ThreeBox
+      .openBox(web3.eth.accounts[0], web3.currentProvider) // eslint-disable-line no-undef
+      .then((threeBox) => {
+        // threeBoxAction(threeBox);
+        // threeBox.profileStore.set('name', 'kenzo').then(res => console.log(res));
+        console.log('in here');
+        threeBox.profileStore.get('name').then(res => console.log(res)); // eslint-disable-line no-console
+
+        // threeBox.privateStore.set('email', 'kenzo@nyu.edu').then(res => console.log(res));
+        // threeBox.privateStore.get('email').then(res => console.log(res));
+      }).catch(error => console.log(error)); // eslint-disable-line no-console
+  }
 
   handleFormChange = (e, property) => {
     const obj = {};
@@ -45,8 +60,7 @@ class EditProfile extends Component {
 
   handleSubmit = () => {
     const { name, github, email, } = this.state;
-    console.log(name);
-    // profileStore.set('name', name).then(res => console.log(res));
+    ThreeBox.profileStore.set('name', name).then(res => console.log(res));
   }
 
   render() {

@@ -55,7 +55,7 @@ class Landing extends Component {
           <div id="landing_section_scroll">
             <p className="white ">
               Scroll for more
-              </p>
+            </p>
             <img src={downArrow} id="landing_arrow" alt="down arrow" />
           </div>
         </div>
