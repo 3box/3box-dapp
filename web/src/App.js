@@ -26,10 +26,10 @@ class App extends Component {
       .openBox(web3.eth.accounts[0], web3.currentProvider) // eslint-disable-line no-undef
       .then((threeBox) => {
         threeBoxAction(threeBox);
-        threeBox.profileStore.get('name').then(res => console.log(res)); // eslint-disable-line no-console
+        // threeBox.profileStore.get('name').then(res => console.log(res)); // eslint-disable-line no-console
         console.log('in threebox', threeBox); // eslint-disable-line no-console
 
-        // threeBox.profileStore.set('name', 'kenzo').then(res => console.log(res));
+        threeBox.profileStore.set('name', 'kenzo').then(res => console.log(res));
         // threeBox.privateStore.set('email', 'kenzo@nyu.edu').then(res => console.log(res));
         // threeBox.privateStore.get('email').then(res => console.log(res));
       }).catch(error => console.log(error)); // eslint-disable-line no-console
