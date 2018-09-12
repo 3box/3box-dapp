@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import ThreeBox from '3box';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,27 +11,12 @@ import Landing from './views/Landing';
 import Profile from './views/Profile';
 import EditProfile from './views/EditProfile';
 import About from './views/About';
-import { saveThreeBoxObject } from './state/actions';
+import { openBox } from './state/actions';
 // import { getLocale } from './locales';
 
 class App extends Component {
-  componentDidMount() {
-    this.getProfile();
-  }
-
-  getProfile = () => {
-    const { threeBoxAction } = this.props;
-    ThreeBox
-      .openBox(web3.eth.accounts[0], web3.currentProvider) // eslint-disable-line no-undef
-      .then((threeBox) => {
-        threeBoxAction(threeBox);
-        // threeBox.profileStore.get('name').then(res => console.log(res)); // eslint-disable-line no-console
-        console.log('in threebox', threeBox); // eslint-disable-line no-console
-
-        threeBox.profileStore.set('name', 'kenzo').then(res => console.log(res));
-        // threeBox.privateStore.set('email', 'kenzo@nyu.edu').then(res => console.log(res));
-        // threeBox.privateStore.get('email').then(res => console.log(res));
-      }).catch(error => console.log(error)); // eslint-disable-line no-console
+  componentWillMount() {
+    this.props.openBox();
   }
 
   // const locale = getLocale();
@@ -54,20 +38,32 @@ class App extends Component {
 }
 
 App.propTypes = {
-  threeBox: PropTypes.object,
-  threeBoxAction: PropTypes.object,
+  openBox: PropTypes.func,
 };
 
 App.defaultProps = {
-  threeBox: {},
-  threeBoxAction: {},
+  openBox: openBox(),
 };
 
 const mapState = state => ({
   threeBox: state.threeBox,
 });
 
-const mapDispatch = dispatch => bindActionCreators({ threeBoxAction: saveThreeBoxObject }, dispatch);
-// fetchProfile: saveThreeBoxObject,
+export default connect(mapState, { openBox })(App);
 
-export default connect(mapState, mapDispatch)(App);
+
+// getProfile2 = () => {
+//   const { threeBoxAction } = this.props;
+//   ThreeBox
+//     .openBox(web3.eth.accounts[0], web3.currentProvider) // eslint-disable-line no-undef
+//     .then((threeBox) => {
+//       threeBoxAction(threeBox);
+//       console.log('in threebox', threeBox); // eslint-disable-line no-console
+//       // threeBox.profileStore.get('name').then(res => console.log(res));
+//       // threeBox.privateStore.set('email', 'kenzo@nyu.edu').then(res => console.log(res));
+//       // threeBox.privateStore.get('email').then(res => console.log(res));
+//       // threeBox.profileStore.get('name').then(res => console.log(res)); // eslint-disable-line no-console
+//       threeBox.profileStore.set('name', 'kenzo nakamura');
+//     }).then(res => console.log(res))
+//     .catch(error => console.log(error)); // eslint-disable-line no-console
+// }

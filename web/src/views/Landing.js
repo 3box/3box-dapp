@@ -25,6 +25,19 @@ class Landing extends Component {
       }).catch(error => console.log(error));
   }
 
+  // EditProfile = () => {
+  // ThreeBox
+  //   .openBox(web3.eth.accounts[0], web3.currentProvider) // eslint-disable-line no-undef
+  //   .then((threeBox) => {
+  //     // threeBoxAction(threeBox);
+  //     // threeBox.profileStore.set('name', 'kenzo').then(res => console.log(res));
+  //     console.log('in here', threeBox.profileStore.profile.name);
+  //     // threeBox.profileStore.get('name').then(res => console.log(res)); // eslint-disable-line no-console
+  //     // threeBox.privateStore.set('email', 'kenzo@nyu.edu').then(res => console.log(res));
+  //     // threeBox.privateStore.get('email').then(res => console.log(res));
+  //   }).catch(error => console.log(error)); // eslint-disable-line no-console
+  // }
+
   render() {
     return (
       <div id="landing_background">

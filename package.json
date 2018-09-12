@@ -9,7 +9,5 @@
   "devDependencies": {
     "lerna": "^3.0.0"
   },
-  "dependencies": {
-    "3box": "0.0.4"
-  }
+  "dependencies": {}
 }

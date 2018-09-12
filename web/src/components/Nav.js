@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Michael from '../assets/me.jpg';
+
 import './styles/Nav.css';
 import ThreeBoxLogo from './ThreeBoxLogo';
 import * as routes from '../utils/routes';
@@ -23,16 +24,18 @@ class Nav extends Component {
 
   render() {
     const { showProfileModal } = this.state;
+    const { image } = this.props;
     return (
       <nav>
         <ThreeBoxLogo />
-        <img src={Michael} id="header_user_picture" alt="profile" onClick={this.handleDropdown} role="button"/>
+        <img src={image.length > 0 && `https://ipfs.io/ipfs/${image[0].contentUrl['/']}`} id="header_user_picture" alt="profile" onClick={this.handleDropdown} role="button" />
 
         {showProfileModal
           && (
             <li id="dropdown" onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
               <ul>
                 <Link to={routes.PROFILE}><li>Profile</li></Link>
+                <Link to={routes.EDITPROFILE}><li>Edit profile</li></Link>
                 <div className="divide" />
                 <Link to={routes.PROFILE}><li>Sign Out</li></Link>
               </ul>
@@ -45,11 +48,18 @@ class Nav extends Component {
 }
 
 Nav.propTypes = {
-  web3: PropTypes.object,
+  image: PropTypes.array,
 };
 
 Nav.defaultProps = {
-  web3: null,
+  image: [],
 };
 
-export default Nav;
+function mapState(state) {
+  return {
+    image: state.threeBoxData.image,
+  };
+}
+
+export default connect(mapState)(Nav);
+

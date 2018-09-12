@@ -1,63 +1,127 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
+import ipfsAPI from 'ipfs-api';
 import PropTypes from 'prop-types';
-import ThreeBox from '3box';
+// import Buffer from 'buffer/'.Buffer;
 // import { bindActionCreators } from 'redux';
-import { Link } from 'react-router-dom';
-// import ProfileStore from '3box';
 
+import { openBox } from '../state/actions';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
-// import { updateUser } from '../state/actions';
-import Michael from '../assets/me.jpg';
 import './styles/EditProfile.css';
+import * as routes from '../utils/routes';
+import Modal from '../components/Modal';
+
+const Buffer = require('buffer/').Buffer;
 
 class EditProfile extends Component {
   constructor(props) {
     super(props);
+    const { name, github } = this.props;
     this.state = {
-      name: '',
-      github: '',
-      email: '',
+      name: name || null,
+      github: github || null,
+      email: null,
+      buffer: null,
+      showPicModal: false,
     };
   }
 
-  componentDidMount() {
-    // let profileStore = new ProfileStore(muportDID)
-    // ThreeBox.profileStore.set('name', 'kenzo').then(res => console.log(res));
-
-    // ThreeBox
-    //   .openBox(web3.eth.accounts[0], web3.currentProvider) // eslint-disable-line no-undef
-    //   .then((threeBox) => {
-    //     // threeBoxAction(threeBox);
-    //     threeBox.profileStore.set('name', 'kenzo').then(res => console.log(res));
-    //     console.log('in here');
-    //     // threeBox.profileStore.get('name').then(res => console.log(res)); // eslint-disable-line no-console
-    //     // threeBox.privateStore.set('email', 'kenzo@nyu.edu').then(res => console.log(res));
-    //     // threeBox.privateStore.get('email').then(res => console.log(res));
-    //   }).catch(error => console.log(error)); // eslint-disable-line no-console
+  componentWillReceiveProps(props) {
+    const { name, github } = props;
+    this.setState({ name, github });
   }
 
   handleFormChange = (e, property) => {
     this.setState({ [property]: e.target.value });
   }
 
-  handleSubmit = () => {
-    const { name, github, email, } = this.state;
-    ThreeBox.profileStore.set('name', name).then(res => console.log(res));
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { name, github } = this.state;
+    const { history, openBoxFunc, threeBoxObject } = this.props;
+    const { profileStore } = threeBoxObject;
+
+    if (name && github) {
+      profileStore.set('name', name)
+        .then(() => profileStore.set('github', github))
+        .then(() => openBoxFunc())
+        .then(() => history.push(routes.PROFILE));
+    } else if (name) {
+      profileStore.set('name', name)
+        .then(() => openBoxFunc())
+        .then(() => history.push(routes.PROFILE));
+    } else if (github) {
+      profileStore.set('github', github)
+        .then(() => openBoxFunc())
+        .then(() => history.push(routes.PROFILE));
+    }
+    // threeBox.privateStore.set('email', email).then(res => console.log(res));
+    // threeBox.profileStore.set('github', github).then(res => console.log(res));
+    // threeBox.profileStore.remove('github').then(res => console.log(res));
+    // threeBox.profileStore.set('image', [{ '@type': 'ImageObject', contentUrl: { '/': 'QmXXXX' } }]).then(res => console.log(res));
+  }
+
+  handleUpdatePic = (photoFile) => {
+    const reader = new window.FileReader();
+    reader.readAsArrayBuffer(photoFile);
+    reader.onloadend = () => {
+      this.setState({ buffer: Buffer.from(reader.result) });
+    };
+  }
+
+  handleSubmitPic = (e) => {
+    const { buffer } = this.state;
+    const { threeBoxObject, openBoxFunc } = this.props;
+    const { profileStore } = threeBoxObject;
+
+    const ipfs = ipfsAPI({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
+
+    e.preventDefault();
+
+    ipfs.files.add(buffer, (err, res) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      this.setState({ ipfsHash: res[0].hash, showPicModal: false });
+      profileStore.set('image', [{ '@type': 'ImageObject', contentUrl: { '/': res[0].hash } }])
+        .then(result => console.log(result))
+        .then(() => openBoxFunc());
+    });
+  }
+
+  handlePicModal = () => {
+    const { showPicModal } = this.state;
+    this.setState({ showPicModal: !showPicModal });
   }
 
   render() {
     const {
-      name, github, email, handleSubmit,
+      image,
     } = this.props;
+    const { showPicModal, name, github } = this.state;
 
     const address = web3.eth.accounts[0]; // eslint-disable-line no-undef
 
+    console.log(this.props);
     console.log(this.state);
 
     return (
       <div>
+        {showPicModal
+          && (
+            <div className="container">
+              <div className="modal">
+                <form onSubmit={this.handleSubmitPic}>
+                  <input type="file" name="pic" accept="image/*" onChange={e => this.handleUpdatePic(e.target.files[0])} />
+                  <button type="submit" />
+                </form>
+                <button onClick={e => this.handlePicModal(e)} type="button">close</button>
+              </div>
+            </div>)}
+
         <Nav />
         <div id="edit">
           <Link to="/Profile">
@@ -68,11 +132,11 @@ class EditProfile extends Component {
           <p className="header">Edit Profile</p>
 
           <div id="edit_user_picture_edit">
-            <img src={Michael} id="edit_user_picture" alt="profile" />
-            <p>Edit</p>
+            <img src={image.length > 0 && `https://ipfs.io/ipfs/${image[0].contentUrl['/']}`} id="edit_user_picture" alt="profile" />
+            <button onClick={this.handlePicModal} type="button">Edit photo</button>
           </div>
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={e => this.handleSubmit(e)}>
 
             <div id="edit_field">
 
@@ -114,7 +178,7 @@ class EditProfile extends Component {
                 <input
                   name="email"
                   type="email"
-                  value={email}
+                  value=""
                   onChange={e => this.handleFormChange(e, 'email')}
                 />
               </div>
@@ -126,7 +190,6 @@ class EditProfile extends Component {
               Cancel
             </Link>
           </form>
-
         </div>
         <Footer />
       </div>
@@ -135,28 +198,34 @@ class EditProfile extends Component {
 }
 
 EditProfile.propTypes = {
+  threeBoxObject: PropTypes.object,
   name: PropTypes.string,
   github: PropTypes.string,
-  email: PropTypes.string,
-  handleSubmit: PropTypes.string,
+  image: PropTypes.array,
+  openBoxFunc: PropTypes.func,
+  history: PropTypes.object,
 };
 
 EditProfile.defaultProps = {
-  name: null,
-  github: null,
-  email: null,
-  handleSubmit: PropTypes.string,
+  threeBoxObject: {},
+  name: '',
+  github: '',
+  image: [],
+  history: {},
+  openBoxFunc: openBox(),
 };
 
 function mapState(state) {
   return {
-    web3: state.web3.web3,
-    // user: state.user
+    threeBoxObject: state.threeBoxData.threeBoxObject,
+    name: state.threeBoxData.name,
+    github: state.threeBoxData.github,
+    image: state.threeBoxData.image,
   };
 }
 
-function mapDispatch(dispatch) {
-  // return bindActionCreators({ updateUser }, dispatch);
-}
+// function mapDispatch(dispatch) {
+// return bindActionCreators({ updateUser }, dispatch);
+// }
 
-export default connect(mapState, mapDispatch)(EditProfile);
+export default withRouter(connect(mapState, { openBox })(EditProfile));

@@ -7,29 +7,25 @@ import Nav from '../components/Nav';
 import ProfileDetails from '../components/ProfileDetails';
 import './styles/Profile.css';
 
-export function Profile(props) {
-  return (
-    <div>
-      <Nav />
-      <ProfileDetails {...props} />
-      <Feed />
-    </div>
-  );
-}
+const Profile = props => (
+  <div>
+    <Nav />
+    <ProfileDetails {...props} />
+    <Feed />
+  </div>
+);
 
 Profile.propTypes = {
-  user: PropTypes.object,
-  dispatch: PropTypes.func,
+  threeBox: PropTypes.object,
 };
 
 Profile.defaultProps = {
-  user: null,
-  dispatch: null,
+  threeBox: {},
 };
 
 function mapState(state) {
   return {
-    user: state.user,
+    threeBox: state.threeBox,
   };
 }
 
