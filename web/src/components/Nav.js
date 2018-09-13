@@ -28,7 +28,7 @@ class Nav extends Component {
     return (
       <nav>
         <ThreeBoxLogo />
-        <img src={image.length > 0 && `https://ipfs.io/ipfs/${image[0].contentUrl['/']}`} id="header_user_picture" alt="profile" onClick={this.handleDropdown} role="button" />
+        <img src={image.length > 0 ? `https://ipfs.io/ipfs/${image[0].contentUrl['/']}` : undefined} id="header_user_picture" alt="profile" onClick={this.handleDropdown} role="button" />
 
         {showProfileModal
           && (

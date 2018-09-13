@@ -20,9 +20,9 @@ class EditProfile extends Component {
     super(props);
     const { name, github } = this.props;
     this.state = {
-      name: name || null,
-      github: github || null,
-      email: null,
+      name: name || '',
+      github: github || '',
+      email: '',
       buffer: null,
       showPicModal: false,
     };
@@ -39,24 +39,39 @@ class EditProfile extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { name, github } = this.state;
-    const { history, openBoxFunc, threeBoxObject } = this.props;
-    const { profileStore } = threeBoxObject;
+    const { name, github, email } = this.state;
+    const { history, threeBoxObject } = this.props;
+    const { profileStore, privateStore } = threeBoxObject;
 
-    if (name && github) {
-      profileStore.set('name', name)
-        .then(() => profileStore.set('github', github))
-        .then(() => openBoxFunc())
-        .then(() => history.push(routes.PROFILE));
-    } else if (name) {
-      profileStore.set('name', name)
-        .then(() => openBoxFunc())
-        .then(() => history.push(routes.PROFILE));
-    } else if (github) {
-      profileStore.set('github', github)
-        .then(() => openBoxFunc())
-        .then(() => history.push(routes.PROFILE));
-    }
+    // if (name && github) {
+    //   profileStore.set('name', name)
+    //     .then(() => profileStore.set('github', github))
+    //     .then(() => this.props.openBox())
+    //     .then(() => history.push(routes.PROFILE));
+    // } else if (name) {
+    //   profileStore.set('name', name)
+    //     .then(() => this.props.openBox())
+    //     .then(() => history.push(routes.PROFILE));
+    // } else if (github) {
+    //   profileStore.set('github', github)
+    //     .then(() => this.props.openBox())
+    //     .then(() => history.push(routes.PROFILE));
+    // }
+
+    privateStore.set('email', email)
+      .then(res => console.log(res))
+      .then(() => this.props.openBox())
+      .then(() => history.push(routes.PROFILE));
+
+    // // run these synchronously
+    // name && profileStore.set('name', name);
+    // github && profileStore.set('github', github)
+    // email && privateStore.set('email', email)
+    // // run these after one or all of the 'set' fire
+    //   .then(() => this.props.openBox()) // refresh redux store
+    //   .then(() => history.push(routes.PROFILE)); // push to profile page
+
+
     // threeBox.privateStore.set('email', email).then(res => console.log(res));
     // threeBox.profileStore.set('github', github).then(res => console.log(res));
     // threeBox.profileStore.remove('github').then(res => console.log(res));
@@ -73,7 +88,7 @@ class EditProfile extends Component {
 
   handleSubmitPic = (e) => {
     const { buffer } = this.state;
-    const { threeBoxObject, openBoxFunc } = this.props;
+    const { threeBoxObject } = this.props;
     const { profileStore } = threeBoxObject;
 
     const ipfs = ipfsAPI({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
@@ -88,7 +103,7 @@ class EditProfile extends Component {
       this.setState({ ipfsHash: res[0].hash, showPicModal: false });
       profileStore.set('image', [{ '@type': 'ImageObject', contentUrl: { '/': res[0].hash } }])
         .then(result => console.log(result))
-        .then(() => openBoxFunc());
+        .then(() => this.props.openBox());
     });
   }
 
@@ -97,11 +112,19 @@ class EditProfile extends Component {
     this.setState({ showPicModal: !showPicModal });
   }
 
+  removeStore = (key, value) => {
+    const { history, threeBoxObject } = this.props;
+    const { profileStore } = threeBoxObject;
+
+    profileStore.remove(key, value)
+      .then(() => this.props.openBox());
+  }
+
   render() {
     const {
       image,
     } = this.props;
-    const { showPicModal, name, github } = this.state;
+    const { showPicModal, name, github, email } = this.state;
 
     const address = web3.eth.accounts[0]; // eslint-disable-line no-undef
 
@@ -132,7 +155,7 @@ class EditProfile extends Component {
           <p className="header">Edit Profile</p>
 
           <div id="edit_user_picture_edit">
-            <img src={image.length > 0 && `https://ipfs.io/ipfs/${image[0].contentUrl['/']}`} id="edit_user_picture" alt="profile" />
+            <img src={image.length > 0 ? `https://ipfs.io/ipfs/${image[0].contentUrl['/']}` : undefined} id="edit_user_picture" alt="profile" />
             <button onClick={this.handlePicModal} type="button">Edit photo</button>
           </div>
 
@@ -157,6 +180,7 @@ class EditProfile extends Component {
                   value={name}
                   onChange={e => this.handleFormChange(e, 'name')}
                 />
+                <button type="button" onClick={() => this.removeStore('name', name)}>X</button>
 
                 <div className="edit_form_spacing" />
 
@@ -167,6 +191,7 @@ class EditProfile extends Component {
                   value={github}
                   onChange={e => this.handleFormChange(e, 'github')}
                 />
+                <button type="button" onClick={() => this.removeStore('github', github)}>X</button>
 
               </div>
 
@@ -178,9 +203,11 @@ class EditProfile extends Component {
                 <input
                   name="email"
                   type="email"
-                  value=""
+                  value={email}
                   onChange={e => this.handleFormChange(e, 'email')}
                 />
+                <button type="button" onClick={() => this.removeStore('github', github)}>X</button>
+
               </div>
 
             </div>
@@ -202,7 +229,7 @@ EditProfile.propTypes = {
   name: PropTypes.string,
   github: PropTypes.string,
   image: PropTypes.array,
-  openBoxFunc: PropTypes.func,
+  openBox: PropTypes.func,
   history: PropTypes.object,
 };
 
@@ -212,7 +239,7 @@ EditProfile.defaultProps = {
   github: '',
   image: [],
   history: {},
-  openBoxFunc: openBox(),
+  openBox: openBox(),
 };
 
 function mapState(state) {

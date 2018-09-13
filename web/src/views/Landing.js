@@ -125,7 +125,6 @@ Landing.defaultProps = {
 
 function mapState(state) {
   return {
-    web3: state.web3.web3,
   };
 }
 
