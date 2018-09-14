@@ -8,12 +8,14 @@
 
   p {
     display: inline-block;
+    white-space: nowrap;
   }
 
   &:hover {
     background: #F8F8F8;
     cursor: pointer;
   }
+
 }
 
 .feed_activity_tile_networkLogo {

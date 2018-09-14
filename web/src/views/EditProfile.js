@@ -63,7 +63,7 @@ class EditProfile extends Component {
       this.setState({ ipfsHash: res[0].hash, showPicModal: false });
       profileStore.set('image', [{ '@type': 'ImageObject', contentUrl: { '/': res[0].hash } }])
         .then(result => console.log(result))
-        .then(() => this.props.openBox());
+        .then(() => this.props.getPublicImage());
     });
   }
 

@@ -9,18 +9,19 @@
 
   li {
     display: inline-block;
-    width: 20%;
+    width: 14.2857142857%;
     text-align: center;
+    overflow: scroll;
   }
 }
 
 #feed_activity {
   min-height: 10vh;
-  width: 60vw;
+  width: 66vw;
   background: white;
   border: 1px solid #E4E4E4;
   border-radius: 5px;
-  margin: 0 10vw 6vh 30vw;
+  margin: 0 8vw 6vh 28vw;
   padding-bottom: 4vh;
 }
 

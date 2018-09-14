@@ -24,7 +24,7 @@ class Nav extends Component {
 
   render() {
     const { showProfileModal } = this.state;
-    const { image } = this.props;
+    const { image, threeBox } = this.props;
     return (
       <nav>
         <ThreeBoxLogo />
@@ -37,7 +37,7 @@ class Nav extends Component {
                 <Link to={routes.PROFILE}><li>Profile</li></Link>
                 <Link to={routes.EDITPROFILE}><li>Edit profile</li></Link>
                 <div className="divide" />
-                <Link to={routes.PROFILE}><li>Sign Out</li></Link>
+                <Link to={routes.LANDING} onClick={() => threeBox.logOut()}><li>Sign Out</li></Link>
               </ul>
             </li>
           )
@@ -49,15 +49,18 @@ class Nav extends Component {
 
 Nav.propTypes = {
   image: PropTypes.array,
+  threeBox: PropTypes.object,
 };
 
 Nav.defaultProps = {
   image: [],
+  threeBox: {},
 };
 
 function mapState(state) {
   return {
     image: state.threeBoxData.image,
+    threeBox: state.threeBoxData.threeBoxObject,
   };
 }
 
