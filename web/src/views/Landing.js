@@ -21,7 +21,6 @@ class Landing extends Component {
       .then((threeBox) => {
         const { history } = this.props;
         history.push(routes.PROFILE);
-        console.log(threeBox);
       }).catch(error => console.log(error));
   }
 

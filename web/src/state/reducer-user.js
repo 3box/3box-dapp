@@ -1,8 +1,13 @@
 import {
   GET_THREEBOX,
-  GET_PROFILE,
-  SET_PROFILE,
-  REMOVE_PROFILE,
+  GET_PUBLIC_NAME,
+  GET_PUBLIC_GITHUB,
+  GET_PUBLIC_IMAGE,
+  GET_PRIVATE_EMAIL,
+
+  GET_PUBLIC,
+  SET_PUBLIC,
+  REMOVE_PUBLIC,
   GET_PRIVATE,
   SET_PRIVATE,
   REMOVE_PRIVATE,
@@ -13,26 +18,41 @@ const initialState = {};
 export default function threeBoxReducer(state = initialState, action) {
   switch (action.type) {
     case GET_THREEBOX:
-      console.log(action);
       return {
         ...state,
         threeBoxObject: action.threeBox,
+      };
+
+    case GET_PUBLIC_NAME:
+      return {
+        ...state,
         name: action.name,
+      };
+
+    case GET_PUBLIC_GITHUB:
+      return {
+        ...state,
         github: action.github,
+      };
+
+    case GET_PUBLIC_IMAGE:
+      return {
+        ...state,
         image: action.image,
       };
 
-    case GET_PROFILE:
+    case GET_PRIVATE_EMAIL:
+      return {
+        ...state,
+        email: action.email,
+      };
+
+    case SET_PUBLIC:
       return {
         threeBox: action.threeBox,
       };
 
-    case SET_PROFILE:
-      return {
-        threeBox: action.threeBox,
-      };
-
-    case REMOVE_PROFILE:
+    case REMOVE_PUBLIC:
       return {
         threeBox: action.threeBox,
       };

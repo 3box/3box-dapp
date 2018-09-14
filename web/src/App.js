@@ -11,12 +11,25 @@ import Landing from './views/Landing';
 import Profile from './views/Profile';
 import EditProfile from './views/EditProfile';
 import About from './views/About';
-import { openBox } from './state/actions';
+import { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail } from './state/actions';
 // import { getLocale } from './locales';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.loadData = this.loadData.bind(this);
+  }
+
   componentWillMount() {
-    this.props.openBox();
+    this.loadData();
+  }
+
+  async loadData() {
+    await this.props.openBox();
+    await this.props.getPublicName();
+    await this.props.getPublicGithub();
+    await this.props.getPublicImage();
+    await this.props.getPrivateEmail();
   }
 
   // const locale = getLocale();
@@ -39,17 +52,25 @@ class App extends Component {
 
 App.propTypes = {
   openBox: PropTypes.func,
+  getPublicName: PropTypes.func,
+  getPublicGithub: PropTypes.func,
+  getPublicImage: PropTypes.func,
+  getPrivateEmail: PropTypes.func,
 };
 
 App.defaultProps = {
   openBox: openBox(),
+  getPublicName: getPublicName(),
+  getPublicGithub: getPublicGithub(),
+  getPublicImage: getPublicImage(),
+  getPrivateEmail: getPrivateEmail(),
 };
 
 const mapState = state => ({
   threeBox: state.threeBox,
 });
 
-export default connect(mapState, { openBox })(App);
+export default connect(mapState, { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail })(App);
 
 
 // getProfile2 = () => {

@@ -8,12 +8,12 @@ import './styles/ProfileDetails.css';
 
 const address = web3.eth.accounts[0]; // eslint-disable-line no-undef
 
-const ProfileDetails = ({ name, github, image }) => (
+const ProfileDetails = ({ name, github, image, email }) => (
   <div id="profile">
     <img src={image.length > 0 ? `https://ipfs.io/ipfs/${image[0].contentUrl['/']}` : undefined} id="profile_user_picture" alt="profile" />
 
     <div id="profile_user_info">
-      <h2 id="profile_user_name">{name && name}</h2>
+      <h2 id="profile_user_name">{name}</h2>
 
       <div id="profile_network_network_div">
         <div id="profile_network" />
@@ -25,11 +25,11 @@ const ProfileDetails = ({ name, github, image }) => (
 
       <div id="profile_network_social">
         <img src={GithubIcon} id="profile_githubIcon" alt="Github Icon" />
-        <p id="profile_github">{github && github}</p>
+        <p id="profile_github">{github}</p>
       </div>
 
       <p className="subheader" id="profile_private_header">PRIVATE</p>
-      <p id="profile_email">mowen@gmail.com</p>
+      <p id="profile_email">{email}</p>
     </div>
     <Link to="/EditProfile">
       <button id="profile_edit_button" type="button">
@@ -42,12 +42,14 @@ const ProfileDetails = ({ name, github, image }) => (
 ProfileDetails.propTypes = {
   name: PropTypes.string,
   github: PropTypes.string,
+  email: PropTypes.string,
   image: PropTypes.array,
 };
 
 ProfileDetails.defaultProps = {
   name: '',
   github: '',
+  email: '',
   image: [],
 };
 
@@ -57,6 +59,7 @@ function mapState(state) {
     name: state.threeBoxData.name,
     github: state.threeBoxData.github,
     image: state.threeBoxData.image,
+    email: state.threeBoxData.email,
   };
 }
 
