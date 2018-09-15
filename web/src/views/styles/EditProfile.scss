@@ -1,10 +1,73 @@
 @import "../../variables.scss";
 
 #edit {
-  width: 40vw;
+  width: 85vw;
   margin: 0 auto;
-  margin-bottom: 20vh;
-  margin-top: 6vh;
+  margin-top: 10vh;
+}
+
+#edit_form {
+  width: 100%;
+  height: 28em;
+  margin-top: 1vh;
+  display: flex;
+  border: $borderColor solid 1px;
+  background: white;
+  border-radius: 5px;
+
+  form {
+    display: inline-block;
+    height: 100%;
+  }
+
+  #edit_user_picture {
+    width: 27%;
+    height: 100%;
+    display: inline-block;
+    flex: 2;
+    margin-top: 6em;
+
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+
+    .profPic {
+      display: block;
+      background-color: #3f3f3f;
+      border-radius: 100%;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto;
+    }
+
+    button {
+      display: block;
+      margin: 0 auto;
+      margin-top: 3em;
+    }
+  }
+
+  #edit_user_public {
+    width: 36.5%;
+    height: 100%;
+    overflow: hidden;
+    display: inline-block;
+    flex: 3;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+  }
+
+  #edit_user_private {
+    width: calc(36.5% - 1px);
+    height: 100%;
+    display: inline-block;
+    border-left: solid 1px $borderColor;
+    flex: 3;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+  }
 }
 
 #goBack {
@@ -13,42 +76,26 @@
   left: 2vw;
 }
 
-#edit_user_picture {
-  background-color: #3f3f3f;
-  border-radius: 100%;
-  width: 120px;
-  height: 120px;
-  margin: 0 auto;
-  margin-top: 2vh;
-  margin-bottom: 2vh;
-  display: block;
-}
-
-#edit_field p {
-  display: inline-block;
-  margin: 0 1vw 1vw 0;
-}
-
 .edit_form {
-  border: rgb(199, 199, 199) solid 1px;
-  background: white;
-  border-radius: 5px;
-  padding: 1.7em 2em;
-  margin-bottom: 4vh;
+  position: relative;
+  top: 50%;
+  transform: perspective(1px) translateY(-50%);
 
   h3 {
-    margin-bottom: 1.5vh;
+    padding-bottom: 1.5vh;
+    margin-top: 3vh;
     font-weight: 700;
     font-size: 1em;
   }
 
   input {
-    font-size: 1.2em;
-    width: 100%;
+    // font-size: 1.2em;
+    display: inline-block;
     border-radius: 5px;
     border-style: none;
     border: solid 1px #E4E4E4;
     height: 44px;
+    width: 80%;
     padding: 0 15px;
     -webkit-box-sizing: border-box;
     /* Safari/Chrome, other WebKit */
@@ -59,35 +106,16 @@
   }
 
   p {
-    font-size: 1.2em;
+    // font-size: 1.2em;
+  }
+
+  button {
+    display: inline-block;
   }
 }
 
 .dateType {
   background: #ebebeb;
-}
-
-#edit_user_picture_edit {
-  text-align: center;
-  margin: 2.5vh 0 6vh 0;
-  vertical-align: middle;
-
-  img {
-    display: inline-block;
-    margin: 0;
-  }
-
-  button {
-    margin: 0 0 0 2vw;
-    position: relative;
-    display: inline-block;
-    top: 50%;
-    transform: perspective(1px) translateY(-340%);
-  }
-}
-
-.edit_form_spacing {
-  height: 3vh;
 }
 
 #edit_cancel {
@@ -102,7 +130,18 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.76);
   padding: 1rem;
-  z-index: 99;
+  z-index: 1;
+}
+
+.loadingContainer {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.76);
+  padding: 1rem;
+  z-index: 2;
 }
 
 .modal {
@@ -114,7 +153,6 @@
   border: solid 1px #e8e8e8;
   border-radius: 6px;
   padding: 15px;
-  // width: 50vw;
   width: 560px;
   min-height: 500px;
 
@@ -174,10 +212,16 @@
   position: absolute;
   top: 50%;
   left: 50%;
+  z-index: 1;
 }
 
-#removePic{
+#removePic {
   position: absolute;
   top: 9em;
   right: 9em;
+}
+
+#formControls {
+  float: right;
+  margin-top: 2em;
 }

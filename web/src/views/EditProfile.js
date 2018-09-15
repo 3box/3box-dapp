@@ -29,6 +29,7 @@ class EditProfile extends Component {
       disableSave: true,
       disableSavePic: true,
       picLoading: false,
+      saveLoading: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -106,9 +107,11 @@ class EditProfile extends Component {
 
   async handleSubmit(e) {
     e.preventDefault();
-    const { name, github, email } = this.state;
+    const { name, github, email, saveLoading } = this.state;
     const { history, threeBoxObject } = this.props;
     const { profileStore, privateStore } = threeBoxObject;
+
+    this.setState({ saveLoading: true });
 
     name && await profileStore.set('name', name);
     github && await profileStore.set('github', github)
@@ -116,6 +119,7 @@ class EditProfile extends Component {
     name && await this.props.getPublicName();
     github && await this.props.getPublicGithub();
     email && await this.props.getPrivateEmail();
+    this.setState({ saveLoading: false });
     history.push(routes.PROFILE);
   }
 
@@ -123,7 +127,7 @@ class EditProfile extends Component {
     const {
       image,
     } = this.props;
-    const { showPicModal, name, github, email, disableSave, disableSavePic, picLoading } = this.state;
+    const { showPicModal, name, github, email, disableSave, disableSavePic, picLoading, saveLoading } = this.state;
 
     const address = web3.eth.accounts[0]; // eslint-disable-line no-undef
 
@@ -133,16 +137,20 @@ class EditProfile extends Component {
 
     return (
       <div>
+        {picLoading
+          && (
+            <div className="loadingContainer">
+              <img src={Loading} alt="loading" id="loadingPic" />
+            </div>
+          )}
         {showPicModal
           && (
             <div className="container">
               <div className="modal">
-                {/* {
-                  picLoading && (
-                    <img src={Loading} alt="loading" id="loadingPic" />
-                  )
-                } */}
-                <img src={picLoading ? Loading : image.length > 0 ? `https://ipfs.io/ipfs/${image[0].contentUrl['/']}` : undefined} id="edit_modal_user_picture" alt="profile" />
+                {image.length > 0
+                  ? <img src={`https://ipfs.io/ipfs/${image[0].contentUrl['/']}`} alt="profile" id="edit_modal_user_picture" />
+                  : <div id="edit_modal_user_picture" />
+                }
                 {image.length > 0 && <button type="button" onClick={this.removePic} id="removePic">X</button>}
 
                 <p>Edit profile picture</p>
@@ -153,43 +161,44 @@ class EditProfile extends Component {
                   </label>
                   <button id="saveModal" type="submit" disabled={disableSavePic}> Save</button>
                 </form>
-                <button onClick={e => this.handlePicModal(e)} type="button" className="secondaryButton" id="closeModal">close</button>
+                <button onClick={e => this.handlePicModal(e)} type="button" className="tertiaryButton" id="closeModal">close</button>
               </div>
             </div>)}
 
-        {/* {isFetching
-          && (
-            <
-            )
-        } */}
-
         <Nav />
+        <Link to="/Profile">
+          <div id="goBack">
+            &larr; Go back to profile
+          </div>
+        </Link>
+
         <div id="edit">
-          <Link to="/Profile">
-            <div id="goBack">
-              &larr; Go back to profile
-            </div>
-          </Link>
           <p className="header">Edit Profile</p>
 
-          <div id="edit_user_picture_edit">
-            <img src={image.length > 0 ? `https://ipfs.io/ipfs/${image[0].contentUrl['/']}` : undefined} id="edit_user_picture" alt="profile" />
-            <button onClick={this.handlePicModal} type="button">Edit photo</button>
-          </div>
+          <div id="edit_form">
+            <div id="edit_user_picture">
+              {image.length > 0
+                ? <img src={`https://ipfs.io/ipfs/${image[0].contentUrl['/']}`} alt="profile" className="profPic" />
+                : <div className="profPic" />
+              }
+              <button onClick={this.handlePicModal} type="button" className="secondaryButton">Edit photo</button>
+            </div>
 
-          <form onSubmit={e => this.handleSubmit(e)}>
+            <div id="edit_user_public">
+              {/* <p className="subheader">PUBLIC</p>
+  <p className="subtext">This information is public for all to see.</p> */}
 
-            <div id="edit_field">
-
-              <p className="subheader">PUBLIC</p>
-              <p className="subtext">This information is public for all to see.</p>
+              {saveLoading
+                && (
+                  <div className="container">
+                    <img src={Loading} alt="loading" id="loadingPic" />
+                  </div>
+                )}
 
               <div className="edit_form">
 
                 <h3>Ethereum Address</h3>
                 <p>{address}</p>
-
-                <div className="edit_form_spacing" />
 
                 <h3>Name</h3>
                 <input
@@ -200,7 +209,6 @@ class EditProfile extends Component {
                 />
                 <button type="button" onClick={() => this.removeStore('name', 'profileStore')}>X</button>
 
-                <div className="edit_form_spacing" />
 
                 <h3>Github</h3>
                 <input
@@ -212,11 +220,13 @@ class EditProfile extends Component {
                 <button type="button" onClick={() => this.removeStore('github', 'profileStore')}>X</button>
 
               </div>
+            </div>
 
-              <p className="subheader">PRIVATE</p>
-              <p className="subtext">This information is accessible only by those with permission.</p>
-
+            <div id="edit_user_private">
               <div className="edit_form">
+                <p className="subheader">PRIVATE</p>
+                <p className="subtext">This information is accessible only by those with permission.</p>
+
                 <h3>Email Address</h3>
                 <input
                   name="email"
@@ -229,12 +239,13 @@ class EditProfile extends Component {
               </div>
 
             </div>
-
-            <button type="submit" disabled={disableSave}>Save</button>
+          </div>
+          <div id="formControls">
+            <button type="submit" disabled={disableSave} onClick={e => this.handleSubmit(e)}>Save</button>
             <Link to="/Profile" className="subtext" id="edit_cancel">
               Cancel
             </Link>
-          </form>
+          </div>
         </div>
         <Footer />
       </div>

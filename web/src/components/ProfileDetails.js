@@ -10,7 +10,10 @@ const address = web3.eth.accounts[0]; // eslint-disable-line no-undef
 
 const ProfileDetails = ({ name, github, image, email }) => (
   <div id="profile">
-    <img src={image.length > 0 ? `https://ipfs.io/ipfs/${image[0].contentUrl['/']}` : undefined} id="profile_user_picture" alt="profile" />
+    {image.length > 0
+      ? <img src={`https://ipfs.io/ipfs/${image[0].contentUrl['/']}`} id="profile_user_picture" alt="profile" />
+      : <div id="profile_user_picture" />
+    }
 
     <div id="profile_user_info">
       <h2 id="profile_user_name">{name}</h2>
