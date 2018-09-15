@@ -1,0 +1,41 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/3box-dapp/web
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+          path: ~/3box-dapp
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - dependencies-cache-{{ checksum "package.json" }}
+
+      - run:
+          name: install-awscli-and-dependencies
+          command: |
+            sudo apt-get update && sudo apt-get install awscli
+            npm i
+
+      - run:
+          name: run-tests
+          command: |
+            npm test
+
+      - run:
+          name: deploy-to-s3
+          command: |
+            npm run deploy
+
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
