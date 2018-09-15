@@ -1,42 +1,27 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-import ThreeBoxActivity from '3box-activity';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+// import ThreeBoxActivity from '3box-activity';
+
 import FeedTileInternal from './FeedTileInternal';
 import FeedTileTXS from './FeedTileTXS';
 import FeedTileToken from './FeedTileToken';
+import { getActivity } from '../state/actions';
+import './styles/Feed.css';
 // import FeedTile from './FeedTile';
 // import FeedTile3 from './FeedTile3Box';
-import address from '../utils/address';
-import './styles/Feed.css';
 
 class Feed extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      feed: [],
       showFeedModal: false,
     };
   }
 
-  componentDidMount() {
-    // ThreeBoxActivity.get(web3.eth.accounts[0]) // eslint-disable-line no-undef
-    ThreeBoxActivity.get(address) // eslint-disable-line no-undef
-      .then((res) => {
-        res.internal = res.internal.map(object => Object.assign({ dataType: 'internal' }, object));
-        res.txs = res.txs.map(object => Object.assign({ dataType: 'txs' }, object));
-        res.token = res.token.map(object => Object.assign({ dataType: 'token' }, object));
-
-        const feed = res.internal.concat(res.txs).concat(res.token);
-        feed.sort((a, b) => b.timeStamp - a.timeStamp);
-
-        this.setState({
-          feed,
-        });
-      });
-  }
-
   render() {
-    const { feed, showFeedModal } = this.state;
+    // const { showFeedModal } = this.state;
+    const { feed } = this.props;
     console.log(this.state);
 
     return (
@@ -82,6 +67,15 @@ class Feed extends Component {
 }
 
 Feed.propTypes = {
+  feed: PropTypes.array,
 };
 
-export default Feed;
+Feed.defaultProps = {
+  feed: [],
+};
+
+const mapState = state => ({
+  feed: state.threeBoxData.feed,
+});
+
+export default connect(mapState, { getActivity })(Feed);

@@ -4,18 +4,13 @@ import {
   GET_PUBLIC_GITHUB,
   GET_PUBLIC_IMAGE,
   GET_PRIVATE_EMAIL,
+  GET_ACTIVITY,
 
-  GET_PUBLIC,
-  SET_PUBLIC,
-  REMOVE_PUBLIC,
-  GET_PRIVATE,
-  SET_PRIVATE,
-  REMOVE_PRIVATE,
+  REQUEST_DATA,
+  RECEIVE_DATA
 } from './actions';
 
-const initialState = {};
-
-export default function threeBoxReducer(state = initialState, action) {
+export const threeBoxReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_THREEBOX:
       return {
@@ -47,32 +42,26 @@ export default function threeBoxReducer(state = initialState, action) {
         email: action.email,
       };
 
-    case SET_PUBLIC:
+    case GET_ACTIVITY:
       return {
-        threeBox: action.threeBox,
-      };
-
-    case REMOVE_PUBLIC:
-      return {
-        threeBox: action.threeBox,
-      };
-
-    case GET_PRIVATE:
-      return {
-        threeBox: action.threeBox,
-      };
-
-    case SET_PRIVATE:
-      return {
-        threeBox: action.threeBox,
-      };
-
-    case REMOVE_PRIVATE:
-      return {
-        threeBox: action.threeBox,
+        ...state,
+        feed: action.feed,
       };
 
     default:
       return state;
   }
 }
+
+export const isFetching = (state = false, action) => {
+  switch (action.type) {
+    case REQUEST_DATA:
+      return true;
+    case RECEIVE_DATA:
+      return false;
+    default:
+      return state;
+  }
+};
+
+// export const getIsFetching = state => fromList.getIsFetching(state.listByFilter[filter])

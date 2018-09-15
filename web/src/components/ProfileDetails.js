@@ -34,8 +34,21 @@ const ProfileDetails = ({ name, github, image, email }) => (
     <Link to="/EditProfile">
       <button id="profile_edit_button" type="button">
         Edit
-      </button>
+        </button>
     </Link>
+    <div id="profile_footer">
+      <div id="profile_footer_contents">
+        <Link to="/About">
+          <li>About 3Box</li>
+        </Link>
+        <a href="https://github.com/uport-project/3box">
+          <li>Github Docs</li>
+        </a>
+        <a href="https://mailchi.mp/c671ca2b8093/3box">
+          <li>Join our community</li>
+        </a>
+      </div>
+    </div>
   </div>
 );
 

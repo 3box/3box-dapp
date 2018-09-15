@@ -1,6 +1,5 @@
 @import "../../variables.scss";
 
-/* Edit Profile */
 #edit {
   width: 40vw;
   margin: 0 auto;
@@ -12,7 +11,6 @@
   position: absolute;
   top: 100px;
   left: 2vw;
-  background-color: rgb(78, 78, 78); 
 }
 
 #edit_user_picture {
@@ -65,7 +63,7 @@
   }
 }
 
-.dateType{
+.dateType {
   background: #ebebeb;
 }
 
@@ -94,4 +92,92 @@
 
 #edit_cancel {
   margin-left: 1vw;
+}
+
+.container {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.76);
+  padding: 1rem;
+  z-index: 99;
+}
+
+.modal {
+  position: absolute;
+  left: 50%;
+  top: 15%;
+  background: white;
+  transform: translate(-50%, 0);
+  border: solid 1px #e8e8e8;
+  border-radius: 6px;
+  padding: 15px;
+  // width: 50vw;
+  width: 560px;
+  min-height: 500px;
+
+  p {
+    position: absolute;
+    top: 20px;
+    left: 26px;
+  }
+
+  form {
+    text-align: center;
+    margin-top: 2em;
+  }
+}
+
+#closeModal {
+  position: absolute;
+  top: 20px;
+  right: 26px;
+}
+
+#saveModal {
+  position: absolute;
+  bottom: 20px;
+  right: 26px;
+}
+
+#fileInput {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+#edit_modal_user_picture {
+  margin: 0 auto;
+  margin-top: 9em;
+  background-color: #3f3f3f;
+  border-radius: 100%;
+  width: 160px;
+  height: 160px;
+  display: block;
+}
+
+#chooseFile {
+  margin: 0 auto;
+  cursor: pointer;
+  text-align: center;
+  color: $lightFont;
+}
+
+#loadingPic {
+  width: 3em;
+  height: 3em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+#removePic{
+  position: absolute;
+  top: 9em;
+  right: 9em;
 }

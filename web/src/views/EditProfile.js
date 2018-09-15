@@ -7,11 +7,12 @@ import PropTypes from 'prop-types';
 // import { bindActionCreators } from 'redux';
 
 import { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail } from '../state/actions';
+import * as routes from '../utils/routes';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
+import Loading from '../assets/Loading.svg';
 import './styles/EditProfile.css';
-import * as routes from '../utils/routes';
-import Modal from '../components/Modal';
+// import { getIsFetching } from '../state/'
 
 const Buffer = require('buffer/').Buffer;
 
@@ -25,6 +26,9 @@ class EditProfile extends Component {
       email: email || '',
       buffer: null,
       showPicModal: false,
+      disableSave: true,
+      disableSavePic: true,
+      picLoading: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -35,14 +39,14 @@ class EditProfile extends Component {
   }
 
   handleFormChange = (e, property) => {
-    this.setState({ [property]: e.target.value });
+    this.setState({ [property]: e.target.value, disableSave: false });
   }
 
   handleUpdatePic = (photoFile) => {
     const reader = new window.FileReader();
     reader.readAsArrayBuffer(photoFile);
     reader.onloadend = () => {
-      this.setState({ buffer: Buffer.from(reader.result) });
+      this.setState({ buffer: Buffer.from(reader.result), disableSavePic: false });
     };
   }
 
@@ -50,26 +54,30 @@ class EditProfile extends Component {
     const { buffer } = this.state;
     const { threeBoxObject } = this.props;
     const { profileStore } = threeBoxObject;
-
     const ipfs = ipfsAPI({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
 
     e.preventDefault();
+
+    this.setState({ picLoading: true });
 
     ipfs.files.add(buffer, (err, res) => {
       if (err) {
         console.error(err);
         return;
       }
-      this.setState({ ipfsHash: res[0].hash, showPicModal: false });
+      this.setState({ ipfsHash: res[0].hash });
       profileStore.set('image', [{ '@type': 'ImageObject', contentUrl: { '/': res[0].hash } }])
         .then(result => console.log(result))
-        .then(() => this.props.getPublicImage());
+        .then(() => {
+          this.props.getPublicImage();
+          this.setState({ picLoading: false, showPicModal: false });
+        });
     });
   }
 
   handlePicModal = () => {
     const { showPicModal } = this.state;
-    this.setState({ showPicModal: !showPicModal });
+    this.setState({ showPicModal: !showPicModal, disableSavePic: true });
   }
 
   removeStore = (key, method) => {
@@ -83,6 +91,17 @@ class EditProfile extends Component {
       privateStore.remove(key)
         .then(() => this.props.openBox());
     }
+  }
+
+  removePic = () => {
+    const { threeBoxObject } = this.props;
+    const { profileStore } = threeBoxObject;
+    this.setState({ picLoading: true });
+    profileStore.remove('image')
+      .then(() => {
+        this.props.openBox();
+        this.setState({ picLoading: false, showPicModal: false });
+      });
   }
 
   async handleSubmit(e) {
@@ -104,12 +123,13 @@ class EditProfile extends Component {
     const {
       image,
     } = this.props;
-    const { showPicModal, name, github, email } = this.state;
+    const { showPicModal, name, github, email, disableSave, disableSavePic, picLoading } = this.state;
 
     const address = web3.eth.accounts[0]; // eslint-disable-line no-undef
 
     console.log(this.props);
     console.log(this.state);
+    console.log(this.fileUpload && this.fileUpload.files);
 
     return (
       <div>
@@ -117,20 +137,38 @@ class EditProfile extends Component {
           && (
             <div className="container">
               <div className="modal">
+                {/* {
+                  picLoading && (
+                    <img src={Loading} alt="loading" id="loadingPic" />
+                  )
+                } */}
+                <img src={picLoading ? Loading : image.length > 0 ? `https://ipfs.io/ipfs/${image[0].contentUrl['/']}` : undefined} id="edit_modal_user_picture" alt="profile" />
+                {image.length > 0 && <button type="button" onClick={this.removePic} id="removePic">X</button>}
+
+                <p>Edit profile picture</p>
                 <form onSubmit={this.handleSubmitPic}>
-                  <input type="file" name="pic" accept="image/*" onChange={e => this.handleUpdatePic(e.target.files[0])} />
-                  <button type="submit" />
+                  <label htmlFor="fileInput" id="chooseFile">
+                    <input id="fileInput" type="file" name="pic" className="light" accept="image/*" onChange={e => this.handleUpdatePic(e.target.files[0])} ref={ref => this.fileUpload = ref} />
+                    {(this.fileUpload && this.fileUpload.files && this.fileUpload.files[0]) ? this.fileUpload.files[0].name : 'Choose a file'}
+                  </label>
+                  <button id="saveModal" type="submit" disabled={disableSavePic}> Save</button>
                 </form>
-                <button onClick={e => this.handlePicModal(e)} type="button">close</button>
+                <button onClick={e => this.handlePicModal(e)} type="button" className="secondaryButton" id="closeModal">close</button>
               </div>
             </div>)}
+
+        {/* {isFetching
+          && (
+            <
+            )
+        } */}
 
         <Nav />
         <div id="edit">
           <Link to="/Profile">
-            <button id="goBack" type="button">
+            <div id="goBack">
               &larr; Go back to profile
-            </button>
+            </div>
           </Link>
           <p className="header">Edit Profile</p>
 
@@ -192,7 +230,7 @@ class EditProfile extends Component {
 
             </div>
 
-            <button type="submit">Save</button>
+            <button type="submit" disabled={disableSave}>Save</button>
             <Link to="/Profile" className="subtext" id="edit_cancel">
               Cancel
             </Link>
@@ -241,6 +279,7 @@ function mapState(state) {
     github: state.threeBoxData.github,
     email: state.threeBoxData.email,
     image: state.threeBoxData.image,
+    // isFetching: getIsFetching(state),
   };
 }
 

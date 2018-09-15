@@ -1,5 +1,7 @@
 import ThreeBox from '3box';
+import ThreeBoxActivity from '3box-activity';
 
+import address from '../utils/address';
 import {
   store,
 } from './store';
@@ -12,13 +14,10 @@ const GET_PUBLIC_GITHUB = 'GET_PUBLIC_GITHUB';
 const GET_PUBLIC_IMAGE = 'GET_PUBLIC_IMAGE';
 
 const GET_PRIVATE_EMAIL = 'GET_PRIVATE_EMAIL';
+const GET_ACTIVITY = 'GET_ACTIVITY';
 
-const GET_PUBLIC = 'GET_PUBLIC';
-const SET_PUBLIC = 'SET_PUBLIC';
-const REMOVE_PUBLIC = 'REMOVE_PUBLIC';
-const GET_PRIVATE = 'GET_PRIVATE';
-const SET_PRIVATE = 'SET_PRIVATE';
-const REMOVE_PRIVATE = 'REMOVE_PRIVATE';
+const REQUEST_DATA = 'REQUEST_DATA';
+const RECEIVE_DATA = 'RECEIVE_DATA';
 
 const openBox = () => async (dispatch) => {
   const returnedBox = await ThreeBox
@@ -66,12 +65,37 @@ const getPrivateEmail = () => async (dispatch) => {
   });
 };
 
+const getActivity = () => async (dispatch) => {
+  // ThreeBoxActivity.get(web3.eth.accounts[0]) // eslint-disable-line no-undef
+  const returnedActivity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
+  const activity = await returnedActivity;
+
+  activity.internal = activity.internal.map(object => Object.assign({
+    dataType: 'internal',
+  }, object));
+  activity.txs = activity.txs.map(object => Object.assign({
+    dataType: 'txs',
+  }, object));
+  activity.token = activity.token.map(object => Object.assign({
+    dataType: 'token',
+  }, object));
+
+  const feed = activity.internal.concat(activity.txs).concat(activity.token);
+  feed.sort((a, b) => b.timeStamp - a.timeStamp);
+
+  dispatch({
+    type: GET_ACTIVITY,
+    feed,
+  });
+};
+
 export {
   openBox,
   getPublicName,
   getPublicGithub,
   getPublicImage,
   getPrivateEmail,
+  getActivity,
 
   GET_THREEBOX,
   GET_PROFILE,
@@ -79,37 +103,8 @@ export {
   GET_PUBLIC_GITHUB,
   GET_PUBLIC_IMAGE,
   GET_PRIVATE_EMAIL,
+  GET_ACTIVITY,
 
-  GET_PUBLIC,
-  SET_PUBLIC,
-  REMOVE_PUBLIC,
-  GET_PRIVATE,
-  SET_PRIVATE,
-  REMOVE_PRIVATE,
+  REQUEST_DATA,
+  RECEIVE_DATA,
 };
-
-
-// const openBox = () => (dispatch) => {
-//   ThreeBox
-//     .openBox(web3.eth.accounts[0], web3.currentProvider) // eslint-disable-line no-undef
-//     .then((threeBox) => {
-//       dispatch({
-//         type: GET_THREEBOX,
-//         threeBox,
-//       });
-//     })
-//     .catch(error => console.log(error)); // eslint-disable-line no-console
-//   return Promise.resolve();
-// };
-
-// function openBox() {
-//   return (dispatch) => {
-//     return ThreeBox
-//       .openBox(web3.eth.accounts[0], web3.currentProvider) // eslint-disable-line no-undef
-//       .then(threeBox => dispatch({
-//         type: GET_THREEBOX,
-//         threeBox,
-//       }))
-//       .catch(error => console.log(error)); // eslint-disable-line no-console
-//   };
-// }

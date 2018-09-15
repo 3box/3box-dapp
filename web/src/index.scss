@@ -25,13 +25,45 @@ button {
   // background-color: rgb(252, 255, 81);
   border: none;
   border-radius: 2em;
-  // border-radius: 5px;
-  padding: 1em 2em;
+  padding: 1em 1.5em;
   color: white;
-  // color: #006ECC;
-  // color: rgb(213, 229, 243);
   font-weight: 300;
-  box-shadow: 0 6px 10px 0 #00000013, 0 8px 12px 0 #00000018;
+  transition: background-color .4s ease;
+  // box-shadow: 0 6px 10px 0 #00000013, 0 8px 12px 0 #00000018;
+
+  &:disabled {
+    background: transparent;
+    border: solid 1px #7a7a7a;
+    color: #7a7a7a;
+    box-shadow: none;
+  }
+
+  &:disabled:hover {
+    color: white;
+    background-color: #7a7a7a;
+    border: solid 1px transparent;
+    transition: background-color .8s ease;
+  }
+
+  &:hover {
+    background-color: rgb(87, 78, 219);
+    transition: background-color .4s ease;
+  }
+}
+
+.secondaryButton {
+  background: transparent;
+  border: solid 1px #7a7a7a;
+  color: #7a7a7a;
+  box-shadow: none;
+  transition: background-color .8s ease;
+
+  &:hover {
+    color: white;
+    background-color: #7a7a7a;
+    border: solid 1px transparent;
+    transition: background-color .8s ease;
+  }
 }
 
 button:hover {
@@ -118,6 +150,6 @@ ul {
   opacity: .6;
 }
 
-.thin{
+.thin {
   font-weight: 200;
 }
