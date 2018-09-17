@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import './styles/Footer.css';
 import ThreeBoxLogo from './ThreeBoxLogo';
 
-export function Header(props) {
+export function Footer(props) {
   return (
     <div id="footer">
 
@@ -30,12 +30,12 @@ export function Header(props) {
   );
 }
 
-Header.propTypes = {
+Footer.propTypes = {
   web3: PropTypes.object,
 };
 
-Header.defaultProps = {
+Footer.defaultProps = {
   web3: null,
 };
 
-export default Header;
+export default Footer;

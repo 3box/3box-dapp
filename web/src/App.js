@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -21,7 +21,20 @@ class App extends Component {
   }
 
   componentWillMount() {
-    this.loadData();
+    const { location } = this.props;
+    const { pathname } = location;
+    if (pathname === '/Profile' || pathname === '/EditProfile') {
+      this.loadData();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { location } = this.props;
+    const { pathname } = location;
+    if (pathname === '/' && nextProps.location.pathname === ('/Profile' || '/EditProfile')) {
+      // load profile data when user redirects from landing page
+      this.loadData();
+    }
   }
 
   async loadData() {
@@ -58,6 +71,7 @@ App.propTypes = {
   getPublicImage: PropTypes.func,
   getPrivateEmail: PropTypes.func,
   getActivity: PropTypes.func,
+  location: PropTypes.object,
 };
 
 App.defaultProps = {
@@ -67,30 +81,14 @@ App.defaultProps = {
   getPublicImage: getPublicImage(),
   getPrivateEmail: getPrivateEmail(),
   getActivity: getActivity(),
+  location: {},
 };
 
 const mapState = state => ({
   threeBox: state.threeBox,
 });
 
-export default connect(mapState,
+export default withRouter(connect(mapState,
   {
     openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail, getActivity,
-  })(App);
-
-
-// getProfile2 = () => {
-//   const { threeBoxAction } = this.props;
-//   ThreeBox
-//     .openBox(web3.eth.accounts[0], web3.currentProvider) // eslint-disable-line no-undef
-//     .then((threeBox) => {
-//       threeBoxAction(threeBox);
-//       console.log('in threebox', threeBox); // eslint-disable-line no-console
-//       // threeBox.profileStore.get('name').then(res => console.log(res));
-//       // threeBox.privateStore.set('email', 'kenzo@nyu.edu').then(res => console.log(res));
-//       // threeBox.privateStore.get('email').then(res => console.log(res));
-//       // threeBox.profileStore.get('name').then(res => console.log(res)); // eslint-disable-line no-console
-//       threeBox.profileStore.set('name', 'kenzo nakamura');
-//     }).then(res => console.log(res))
-//     .catch(error => console.log(error)); // eslint-disable-line no-console
-// }
+  })(App));

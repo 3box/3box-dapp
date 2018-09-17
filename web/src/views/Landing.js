@@ -8,40 +8,56 @@ import * as routes from '../utils/routes';
 import Footer from '../components/Footer';
 import ProfileCard from '../components/ProfileCard';
 import ScrollingUsers from '../components/ScrollingUsers';
+import Loading from '../assets/Loading.svg';
 import downArrow from '../assets/Arrow.svg';
 import illustration from '../assets/Dapp.svg';
 import consensys from '../assets/consensys.png';
 import './styles/Landing.css';
 
 class Landing extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loginLoading: false,
+    };
+    // this.loadData = this.loadData.bind(this);
+  }
+
   CreateProfile = () => {
     localStorage.setItem(`serializedMuDID_${web3.eth.accounts[0]}`, null); // eslint-disable-line no-undef
+    this.setState({ loginLoading: true });
     ThreeBox
       .openBox(web3.eth.accounts[0], web3.currentProvider) // eslint-disable-line no-undef
       .then((threeBox) => {
         const { history } = this.props;
+        this.setState({ loginLoading: false });
         history.push(routes.PROFILE);
       }).catch(error => console.log(error));
   }
 
-  // EditProfile = () => {
-  // ThreeBox
-  //   .openBox(web3.eth.accounts[0], web3.currentProvider) // eslint-disable-line no-undef
-  //   .then((threeBox) => {
-  //     // threeBoxAction(threeBox);
-  //     // threeBox.profileStore.set('name', 'kenzo').then(res => console.log(res));
-  //     console.log('in here', threeBox.profileStore.profile.name);
-  //     // threeBox.profileStore.get('name').then(res => console.log(res)); // eslint-disable-line no-console
-  //     // threeBox.privateStore.set('email', 'kenzo@nyu.edu').then(res => console.log(res));
-  //     // threeBox.privateStore.get('email').then(res => console.log(res));
-  //   }).catch(error => console.log(error)); // eslint-disable-line no-console
+  // async loadData() {
+  //   localStorage.setItem(`serializedMuDID_${web3.eth.accounts[0]}`, null); // eslint-disable-line no-undef
+  //   this.setState({ loginLoading: true });
+  //   await this.props.openBox();
+  //   await this.props.getPublicName();
+  //   await this.props.getPublicGithub();
+  //   await this.props.getPublicImage();
+  //   await this.props.getPrivateEmail();
+  //   await this.props.getActivity();
+  //   // will user sign in from landing page if you've already created an account?
   // }
 
   render() {
+    const { loginLoading } = this.state;
     return (
       <div id="landing_background">
+        {loginLoading
+          && (
+            <div className="loadingContainer">
+              <img src={Loading} alt="loading" id="loadingPic" />
+            </div>
+          )}
         <div id="landing">
-
           <div id="landing_section_open">
             <div id="landing_left">
               <h1 className="white ae-1">Create an Ethereum Profile with 3Box</h1>

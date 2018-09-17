@@ -34,3 +34,18 @@
     opacity: .65;
   }
 }
+
+#feed_activity_load {
+  border-top: solid 1px #E4E4E4;
+  border-bottom: solid 1px #E4E4E4;
+  min-height: 80px;
+  margin-bottom: -1px;
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+
+#activityLoad {
+  width: 3em;
+  height: 3em;
+}
