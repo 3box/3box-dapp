@@ -5,12 +5,13 @@ import ThreeBox from '3box';
 import { Link, withRouter } from 'react-router-dom';
 
 import * as routes from '../utils/routes';
-import Footer from '../components/Footer';
 import ProfileCard from '../components/ProfileCard';
+import LandingFooter from '../components/LandingFooter';
 import ScrollingUsers from '../components/ScrollingUsers';
 import Loading from '../assets/Loading.svg';
 import downArrow from '../assets/Arrow.svg';
 import illustration from '../assets/Dapp.svg';
+import PartnersBG from '../assets/PartnersBG.svg';
 import Partners from '../assets/Partners.svg';
 import consensys from '../assets/consensys.png';
 import './styles/Landing.css';
@@ -89,23 +90,49 @@ class Landing extends Component {
         </div>
 
         <div id="landing_section_trustedPartners">
-          <img src={Partners} alt="3Box Map" />
           <p className="lightOpacity">Trusted by partners</p>
+          <img src={Partners} id="partners" alt="3Box Partners" />
+          <img src={PartnersBG} id="trustedPartners_bg" alt="Partners background" />
         </div>
 
-        <div id="landing_section_rest">
 
+        <div id="landing_section_build">
 
-          <div id="landing_section_oneClick">
+          <h2>Build with 3Box</h2>
+          <p className="lightOpacity">Scalable, open source, distributed database infrastructure for Ethereum.</p>
+          <a href="https://github.com/uport-project/3box">
+            <button>Get started</button>
+          </a>
 
-            <h2>Control your data in one central hub</h2>
-            <p className="lightOpacity">Log in to dapps with one click.</p>
-
-            <img src={illustration} alt="3Box Map" />
-
+          <div className="build_section">
+            <div className="build_section_left">
+              <div className="build_section_content">
+                <h3>Ethereum Profiles API</h3>
+                <p className="lightOpacity">Profiles API makes it easy to get and set information about users. Support for public and private profiles.</p>
+                <a href="https://github.com/uport-project/3box"><button>Profiles API</button></a>
+              </div>
+            </div>
+            <div className="build_section_right">
+              <img src={illustration} alt="3Box Map" />
+            </div>
           </div>
 
-          <div id="landing_section_developers">
+          <div className="build_section">
+            <div className="build_section_left">
+              <div className="build_section_content">
+                <h3>Simple, Open Design</h3>
+                <p className="lightOpacity">Compatible with existing browsers, wallets, and dapps for a shared Web3 experience. Built on IPFS and Orbit DB.</p>
+                <a href="https://github.com/uport-project/3box"><button>3Box DB Overview</button></a>
+              </div>
+            </div>
+            <div className="build_section_right">
+              <img src={illustration} alt="3Box Map" />
+            </div>
+          </div>
+
+        </div>
+
+        {/* <div id="landing_section_developers">
             <div id="landing_section_developers_inner">
               <div id="landing_section_developers_copy">
                 <p className="bold grey" id="developers">FOR DEVELOPERS</p>
@@ -128,9 +155,8 @@ class Landing extends Component {
             <p className="light">Already achieving more with their data.</p>
 
             <ScrollingUsers />
-          </div>
-        </div>
-        <Footer />
+          </div> */}
+        <LandingFooter />
       </div>
 
     );

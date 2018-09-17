@@ -29,13 +29,13 @@ class Nav extends Component {
     return (
       <nav>
         <ThreeBoxLogo />
-        {location.pathname === '/Profile' || '/EditProfile' ?
+        {(location.pathname === '/Profile' || location.pathname === '/EditProfile') ?
           image.length > 0 ?
             <img src={`https://ipfs.io/ipfs/${image[0].contentUrl['/']}`} id="header_user_picture" alt="profile" onClick={this.handleDropdown} role="button" />
             : <div id="header_user_picture" onClick={this.handleDropdown} />
           : (<div id="actionButtons">
-            <p>Create profile</p>
-            <button className="secondaryButton">Sign In</button>
+            <p>Sign in</p>
+            <button className="secondaryButton">Create profile</button>
           </div>
           )
         }
