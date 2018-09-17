@@ -9,9 +9,6 @@
   line-height: 30px;
   float: left;
   text-align: center;
-  position: relative;
-  top: 50%;
-  transform: perspective(1px) translateY(-50%);
   margin-left: 4vw;
 
   h2   {
@@ -29,9 +26,6 @@
   display: inline-block;
   color: #006ECC;
   margin: 0;
-  position: relative;
-  top: 50%;
-  transform: perspective(1px) translateY(-50%);
   margin-left: .7vw;
   font-size: 1.5em !important;
 }

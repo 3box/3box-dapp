@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 
 import { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail } from '../state/actions';
 import * as routes from '../utils/routes';
-import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import Loading from '../assets/Loading.svg';
 import './styles/EditProfile.css';
@@ -107,7 +106,7 @@ class EditProfile extends Component {
 
   async handleSubmit(e) {
     e.preventDefault();
-    const { name, github, email, saveLoading } = this.state;
+    const { name, github, email } = this.state;
     const { history, threeBoxObject } = this.props;
     const { profileStore, privateStore } = threeBoxObject;
 
@@ -165,7 +164,6 @@ class EditProfile extends Component {
               </div>
             </div>)}
 
-        <Nav />
         <Link to="/Profile">
           <div id="goBack">
             &larr; Go back to profile
@@ -175,7 +173,7 @@ class EditProfile extends Component {
         <div id="edit">
           <p className="header">Edit Profile</p>
 
-          <div id="edit_form">
+          <div id="edit_page">
             <div id="edit_user_picture">
               {image.length > 0
                 ? <img src={`https://ipfs.io/ipfs/${image[0].contentUrl['/']}`} alt="profile" className="profPic" />
@@ -223,9 +221,12 @@ class EditProfile extends Component {
             </div>
 
             <div id="edit_user_private">
-              <div className="edit_form">
+              <div id="privateHeader">
                 <p className="subheader">PRIVATE</p>
                 <p className="subtext">This information is accessible only by those with permission.</p>
+              </div>
+              
+              <div className="edit_form">
 
                 <h3>Email Address</h3>
                 <input

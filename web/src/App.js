@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 
 import * as routes from './utils/routes';
 import NoMatch from './components/NoMatch';
+import Nav from './components/Nav';
 import Landing from './views/Landing';
 import Profile from './views/Profile';
 import EditProfile from './views/EditProfile';
@@ -20,7 +21,7 @@ class App extends Component {
     this.loadData = this.loadData.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { location } = this.props;
     const { pathname } = location;
     if (pathname === '/Profile' || pathname === '/EditProfile') {
@@ -32,7 +33,6 @@ class App extends Component {
     const { location } = this.props;
     const { pathname } = location;
     if (pathname === '/' && nextProps.location.pathname === ('/Profile' || '/EditProfile')) {
-      // load profile data when user redirects from landing page
       this.loadData();
     }
   }
@@ -51,6 +51,7 @@ class App extends Component {
     return (
       <Router basename={routes.LANDING}>
         <div className="App">
+          <Nav />
           <Switch>
             <Route exact path={routes.LANDING} component={Landing} />
             <Route exact path={routes.PROFILE} component={Profile} />

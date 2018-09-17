@@ -1,10 +1,13 @@
 import ThreeBox from '3box';
 import ThreeBoxActivity from '3box-activity';
 
-import address from '../utils/address';
+// import address from '../utils/address';
+
 import {
   store,
 } from './store';
+
+const address = web3.eth.accounts[0]; // eslint-disable-line no-undef
 
 const openBox = () => async (dispatch) => {
   const returnedBox = await ThreeBox
@@ -56,7 +59,7 @@ const getActivity = () => async (dispatch) => {
   dispatch({
     type: 'LOADING_ACTIVITY',
   });
-  // ThreeBoxActivity.get(web3.eth.accounts[0]) // eslint-disable-line no-undef
+
   const returnedActivity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
   const activity = await returnedActivity;
 

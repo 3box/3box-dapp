@@ -2,29 +2,33 @@
 
 #footer {
   background-color: #fff;
-  // border-top: 1px solid #E4E4E4;
+  border-top: 1px solid #E4E4E4;
   overflow: hidden;
   position: absolute;
   height: 14vh;
   bottom: -10vh;
   width: 100%;
   display: block;
+
+  display: flex;
+  align-items: center;
 }
 
 #footer_links {
-  float: right;
   padding: 0;
-  width: 40vw;
-  margin-right: 6vw;
-  position: relative;
-  top: 50%;
-  transform: perspective(1px) translateY(-50%);
+  // width: 40vw;
+  margin-left: auto;
+  margin-right: 2em;
+  display: flex;
+  align-items: center;
 
   li {
     display: inline-block;
-    width: 33%;
     text-align: center;
-    font-weight: 200;
     color: #a8a8a8;
+    margin: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
   }
 }

@@ -1,9 +1,11 @@
 import React from 'react';
 import EthereumLogo from '../assets/Ethereum_logo_2014.svg';
-import address from '../utils/address';
+// import address from '../utils/address';
 
 import './styles/FeedTile.css';
 // import PropTypes from 'prop-types';
+
+const address = web3.eth.accounts[0]; // eslint-disable-line no-undef
 
 const FeedTile = ({ feedItem }) => (
   <div className="feed_activity_tile">

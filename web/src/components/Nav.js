@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import './styles/Nav.css';
 import ThreeBoxLogo from './ThreeBoxLogo';
@@ -24,13 +24,21 @@ class Nav extends Component {
 
   render() {
     const { showProfileModal } = this.state;
-    const { image, threeBox } = this.props;
+    const { image, threeBox, location } = this.props;
+    console.log(location);
     return (
       <nav>
         <ThreeBoxLogo />
-        {image.length > 0 ?
-          <img src={`https://ipfs.io/ipfs/${image[0].contentUrl['/']}`} id="header_user_picture" alt="profile" onClick={this.handleDropdown} role="button" />
-        : <div id="header_user_picture" onClick={this.handleDropdown}/>}
+        {location.pathname === '/Profile' || '/EditProfile' ?
+          image.length > 0 ?
+            <img src={`https://ipfs.io/ipfs/${image[0].contentUrl['/']}`} id="header_user_picture" alt="profile" onClick={this.handleDropdown} role="button" />
+            : <div id="header_user_picture" onClick={this.handleDropdown} />
+          : (<div id="actionButtons">
+            <p>Create profile</p>
+            <button className="secondaryButton">Sign In</button>
+          </div>
+          )
+        }
 
         {showProfileModal
           && (
@@ -66,5 +74,5 @@ function mapState(state) {
   };
 }
 
-export default connect(mapState)(Nav);
+export default withRouter(connect(mapState)(Nav));
 

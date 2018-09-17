@@ -29,11 +29,18 @@ class Feed extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { feed } = nextProps;
+  componentDidMount() {
+    const { feed } = this.props;
     this.setState({
       renderFeed: feed.slice(0, 30),
     });
+  }
+
+  static getDerivedStateFromProps(nextProps) {
+    const { feed } = nextProps;
+    return {
+      renderFeed: feed.slice(0, 30),
+    };
   }
 
   loadActivity = () => {
@@ -56,7 +63,6 @@ class Feed extends Component {
       renderFeed,
     } = this.state;
     console.log(feed);
-    console.log(ifFetchingActivity);
 
     return (
       <div id="feed">

@@ -1,12 +1,30 @@
 @import "../../variables.scss";
 
+nav {
+  background-color: #fff;
+  border-bottom: 1px solid #E4E4E4;
+  overflow: hidden;
+  height: 68px;
+
+  display: flex;
+  align-items: center;
+
+  button {
+    display: inline-block;
+  }
+
+  p {
+    color: $threeBoxBlue;
+  }
+}
+
 #header_user_picture {
   background-color: #3f3f3f;
   border-radius: 100%;
   width: 40px;
   height: 40px;
-  float: right;
   margin: 14px 4vw 14px 14px;
+  margin-left: auto;
   cursor: pointer;
 }
 
@@ -50,4 +68,15 @@
   padding-left: 0;
   padding-right: 0;
   width: 100% !important;
+}
+
+#actionButtons {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 4vw;
+
+  p {
+    margin-right: 2vw;
+  }
 }

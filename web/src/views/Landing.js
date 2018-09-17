@@ -11,6 +11,7 @@ import ScrollingUsers from '../components/ScrollingUsers';
 import Loading from '../assets/Loading.svg';
 import downArrow from '../assets/Arrow.svg';
 import illustration from '../assets/Dapp.svg';
+import Partners from '../assets/Partners.svg';
 import consensys from '../assets/consensys.png';
 import './styles/Landing.css';
 
@@ -60,14 +61,14 @@ class Landing extends Component {
         <div id="landing">
           <div id="landing_section_open">
             <div id="landing_left">
-              <h1 className="white ae-1">Create an Ethereum Profile with 3Box</h1>
-              <p className="white lightOpacity ">Edit your information, view your activity, and much more.</p>
+              <h1 className="ae-1">Create an Ethereum Profile</h1>
+              <p className="lightOpacity">Add your information once and share it across dapps.</p>
               <button id="landing_createProfileButton" type="button" onClick={this.CreateProfile}>
                 Create a Profile
               </button>
 
               <div id="consensys">
-                <p className="white lightOpacity ">By </p>
+                <p className="lightOpacity">By </p>
                 <img src={consensys} alt="Consensys Logo" />
               </div>
 
@@ -79,20 +80,26 @@ class Landing extends Component {
             </div>
           </div>
 
-          <div id="landing_section_scroll">
-            <p className="white ">
+          {/* <div id="landing_section_scroll">
+            <p className="">
               Scroll for more
             </p>
             <img src={downArrow} id="landing_arrow" alt="down arrow" />
-          </div>
+          </div> */}
+        </div>
+
+        <div id="landing_section_trustedPartners">
+          <img src={Partners} alt="3Box Map" />
+          <p className="lightOpacity">Trusted by partners</p>
         </div>
 
         <div id="landing_section_rest">
 
+
           <div id="landing_section_oneClick">
 
             <h2>Control your data in one central hub</h2>
-            <p className=" lightOpacity">Log in to dapps with one click.</p>
+            <p className="lightOpacity">Log in to dapps with one click.</p>
 
             <img src={illustration} alt="3Box Map" />
 
