@@ -1,7 +1,7 @@
 {
-  "name": "truffle-react-redux-dapp",
+  "name": "3box-adapp",
   "version": "0.1.0",
-  "description": "truffle dapp with react/redux",
+  "description": "3box dapp",
   "private": true,
   "dependencies": {
     "3box-activity": "0.0.6",
