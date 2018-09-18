@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div id="result">Loading...</div>
+
+    <script type="text/javascript" src="lib/orbitdb.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="lib/ipfs-api.min.js" charset="utf-8"></script>
+
+    <script type="text/javascript">
+
+      const username = new Date().getTime()
+      const channel  = 'browser-counter-example'
+      const creatures = ['👻', '🐙', '🐷', '🐬', '🐞', '🐈', '🙉', '🐸', '🐓']
+
+      try {
+        const elm = document.getElementById("result")
+        const ipfs = IpfsApi('localhost', '5001')
+        const orbit = new OrbitDB(ipfs, username)
+        const counter = orbit.counter(channel + ".count")
+
+        const query = () => {
+          counter.inc()
+          elm.innerHTML = `<h1>${counter.value}</h1>`
+        }
+        setInterval(query, 1000)
+
+      } catch(e) {
+        console.error(e.stack)
+        elm.innerHTML = "<i>" + e.message + "</i><br><br>" + "Waiting for IPFS daemon to start..."
+      }
+
+    </script>
+  </body>
+</html>

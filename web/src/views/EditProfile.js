@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import ipfsAPI from 'ipfs-api';
+// import ipfsAPI from 'ipfs-api';
 import PropTypes from 'prop-types';
 // import Buffer from 'buffer/'.Buffer;
 // import { bindActionCreators } from 'redux';
@@ -55,13 +55,14 @@ class EditProfile extends Component {
     const { buffer } = this.state;
     const { threeBoxObject } = this.props;
     const { profileStore } = threeBoxObject;
-    const ipfs = ipfsAPI({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
+    // const ipfs = ipfsAPI({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
 
     e.preventDefault();
 
     this.setState({ picLoading: true });
 
-    ipfs.files.add(buffer, (err, res) => {
+    // ipfs.files.add(buffer, (err, res) => {
+    threeBoxObject.ipfs.files.add(buffer, (err, res) => {
       if (err) {
         console.error(err);
         return;

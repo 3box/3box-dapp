@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import ThreeBox from '3box';
+// import ThreeBox from '3box';
 import { Link, withRouter } from 'react-router-dom';
 
 import * as routes from '../utils/routes';
@@ -34,7 +34,7 @@ class Landing extends Component {
   CreateProfile = () => {
     localStorage.setItem(`serializedMuDID_${web3.eth.accounts[0]}`, null); // eslint-disable-line no-undef
     this.setState({ loginLoading: true });
-    ThreeBox
+    ThreeBox // eslint-disable-line no-undef
       .openBox(web3.eth.accounts[0], web3.currentProvider) // eslint-disable-line no-undef
       .then((threeBox) => {
         const { history } = this.props;

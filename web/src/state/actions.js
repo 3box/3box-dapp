@@ -1,5 +1,5 @@
-import ThreeBox from '3box';
-import ThreeBoxActivity from '3box-activity';
+// import ThreeBox from '3box';
+// import ThreeBoxActivity from '3box-activity';
 
 import address from '../utils/address';
 
@@ -10,7 +10,7 @@ import {
 // const address = web3.eth.accounts[0]; // eslint-disable-line no-undef
 
 const openBox = () => async (dispatch) => {
-  const returnedBox = await ThreeBox
+  const returnedBox = await ThreeBox // eslint-disable-line no-undef
     .openBox(web3.eth.accounts[0], web3.currentProvider); // eslint-disable-line no-undef
   const threeBox = await returnedBox;
   dispatch({
