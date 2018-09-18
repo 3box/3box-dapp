@@ -7,7 +7,6 @@ import { bindActionCreators } from 'redux';
 
 import * as routes from './utils/routes';
 import NoMatch from './components/NoMatch';
-import Nav from './components/Nav';
 import Landing from './views/Landing';
 import Profile from './views/Profile';
 import EditProfile from './views/EditProfile';
@@ -48,10 +47,12 @@ class App extends Component {
 
   // const locale = getLocale();
   render() {
+    const { location } = this.props;
+    const { pathname } = location;
+
     return (
       <Router basename={routes.LANDING}>
         <div className="App">
-          <Nav />
           <Switch>
             <Route exact path={routes.LANDING} component={Landing} />
             <Route exact path={routes.PROFILE} component={Profile} />

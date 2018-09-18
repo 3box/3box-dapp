@@ -10,7 +10,7 @@ const ProfileCardSmall = () => (
     
       <h4 className="profileCardSmall_user_name">Joseph Lubin</h4>
 
-      <div id="profile_network" />
+      <div id="profile_network_icon" />
       <p className="profileCardSmall_address">0x123456789</p>
     </div>
   </div>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
+import ThreeBox from '3box';
 
 import './styles/Nav.css';
 import ThreeBoxLogo from './ThreeBoxLogo';
@@ -13,6 +14,18 @@ class Nav extends Component {
     this.state = {
       showProfileModal: false,
     };
+  }
+
+  CreateProfile = () => {
+    localStorage.setItem(`serializedMuDID_${web3.eth.accounts[0]}`, null); // eslint-disable-line no-undef
+    this.setState({ loginLoading: true });
+    ThreeBox
+      .openBox(web3.eth.accounts[0], web3.currentProvider) // eslint-disable-line no-undef
+      .then((threeBox) => {
+        const { history } = this.props;
+        this.setState({ loginLoading: false });
+        history.push(routes.PROFILE);
+      }).catch(error => console.log(error));
   }
 
   handleDropdown = () => {

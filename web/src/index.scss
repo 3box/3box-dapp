@@ -73,6 +73,15 @@ button {
   }
 }
 
+.developerButton {
+  background-color: $threeBoxAccentBlue;
+
+  &:hover {
+    background-color: $threeBoxAccentBlueHover;
+    transition: background-color .4s ease;
+  }
+}
+
 button:hover {
   cursor: pointer;
 }

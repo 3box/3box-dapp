@@ -13,7 +13,8 @@
   display: flex;
   border: $borderColor solid 1px;
   background: white;
-  border-radius: 5px;
+  border-radius: 6px;
+  background-color: rgb(248, 248, 248);
 
   form {
     display: inline-block;
@@ -52,7 +53,7 @@
     height: 100%;
     overflow: hidden;
     display: inline-block;
-    flex: 3;
+    flex: 3.5;
     justify-content: center;
     align-content: center;
     align-items: center;
@@ -63,7 +64,7 @@
     height: 100%;
     display: inline-block;
     border-left: solid 1px $borderColor;
-    flex: 3;
+    flex: 3.5;
     justify-content: center;
     align-content: center;
     align-items: center;
@@ -71,6 +72,7 @@
 }
 
 #goBack {
+  color: $lightFont;
   position: absolute;
   top: 100px;
   left: 2vw;
@@ -81,7 +83,6 @@
   top: 50%;
   transform: perspective(1px) translateY(-50%);
   padding: 2em;
-  overflow: scroll;
   
   h3 {
     padding-bottom: 1.5vh;
@@ -107,13 +108,13 @@
     /* Opera/IE 8+ */
   }
 
-  p {
-    // font-size: 1.2em;
-  }
-
   button {
     display: inline-block;
   }
+}
+
+#edit_address{
+  overflow: scroll;
 }
 
 .dateType {
@@ -221,6 +222,7 @@
   position: absolute;
   top: 9em;
   right: 9em;
+  margin-left: 0;
 }
 
 #formControls {
@@ -230,4 +232,18 @@
 
 #privateHeader{
   padding: 2em;
+}
+
+.removeButton {
+  font-size: .8em;
+  color: $lightFont;
+  border: 1px solid $lightFont;
+  background-color: transparent;
+  padding: .8em 1.3em;
+  margin-left: 1em;
+
+  &:hover {
+    color: white;
+    background-color: $lightFont;
+  }
 }

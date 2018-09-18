@@ -7,10 +7,16 @@ import { Link, withRouter } from 'react-router-dom';
 import * as routes from '../utils/routes';
 import ProfileCard from '../components/ProfileCard';
 import LandingFooter from '../components/LandingFooter';
+import LandingNav from '../components/LandingNav';
 import ScrollingUsers from '../components/ScrollingUsers';
+
 import Loading from '../assets/Loading.svg';
 import downArrow from '../assets/Arrow.svg';
 import illustration from '../assets/Dapp.svg';
+import Gitcoin from '../assets/gitcoin.svg';
+import ConsensysSVG from '../assets/consensys.svg';
+import Coinbase from '../assets/coinbase.svg';
+import Metamask from '../assets/metamask.svg';
 import PartnersBG from '../assets/PartnersBG.svg';
 import Partners from '../assets/Partners.svg';
 import consensys from '../assets/consensys.png';
@@ -34,7 +40,10 @@ class Landing extends Component {
         const { history } = this.props;
         this.setState({ loginLoading: false });
         history.push(routes.PROFILE);
-      }).catch(error => console.log(error));
+      }).catch((error) => {
+        console.log(error);
+        this.setState({ loginLoading: false });
+      });
   }
 
   // async loadData() {
@@ -52,87 +61,95 @@ class Landing extends Component {
   render() {
     const { loginLoading } = this.state;
     return (
-      <div id="landing_background">
-        {loginLoading
-          && (
-            <div className="loadingContainer">
-              <img src={Loading} alt="loading" id="loadingPic" />
-            </div>
-          )}
-        <div id="landing">
-          <div id="landing_section_open">
-            <div id="landing_left">
-              <h1 className="ae-1">Create an Ethereum Profile</h1>
-              <p className="lightOpacity">Add your information once and share it across dapps.</p>
-              <button id="landing_createProfileButton" type="button" onClick={this.CreateProfile}>
-                Create a Profile
+      <div>
+        <LandingNav loginLoading={loginLoading} createProfile={this.CreateProfile} />
+        <div id="landing_background">
+          {loginLoading
+            && (
+              <div className="loadingContainer">
+                <img src={Loading} alt="loading" id="loadingPic" />
+              </div>
+            )}
+          <div id="landing">
+            <div id="landing_section_open">
+              <div id="landing_left">
+                <h1 className="ae-1">Create an Ethereum Profile</h1>
+                <p className="lightOpacity">Add your information once and share it across dapps.</p>
+                <button id="landing_createProfileButton" type="button" onClick={this.CreateProfile}>
+                  Create a Profile
               </button>
 
-              <div id="consensys">
-                <p className="lightOpacity">By </p>
-                <img src={consensys} alt="Consensys Logo" />
-              </div>
+                <div id="consensys">
+                  <p className="lightOpacity">By </p>
+                  <img src={consensys} alt="Consensys Logo" />
+                </div>
 
-            </div>
-            <div id="landing_right">
-              <div id="landing_card_margin">
-                <ProfileCard />
+              </div>
+              <div id="landing_right">
+                <div id="landing_card_margin">
+                  <ProfileCard />
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* <div id="landing_section_scroll">
+            {/* <div id="landing_section_scroll">
             <p className="">
               Scroll for more
             </p>
             <img src={downArrow} id="landing_arrow" alt="down arrow" />
           </div> */}
-        </div>
-
-        <div id="landing_section_trustedPartners">
-          <p className="lightOpacity">Trusted by partners</p>
-          <img src={Partners} id="partners" alt="3Box Partners" />
-          <img src={PartnersBG} id="trustedPartners_bg" alt="Partners background" />
-        </div>
-
-
-        <div id="landing_section_build">
-
-          <h2>Build with 3Box</h2>
-          <p className="lightOpacity">Scalable, open source, distributed database infrastructure for Ethereum.</p>
-          <a href="https://github.com/uport-project/3box">
-            <button>Get started</button>
-          </a>
-
-          <div className="build_section">
-            <div className="build_section_left">
-              <div className="build_section_content">
-                <h3>Ethereum Profiles API</h3>
-                <p className="lightOpacity">Profiles API makes it easy to get and set information about users. Support for public and private profiles.</p>
-                <a href="https://github.com/uport-project/3box"><button>Profiles API</button></a>
-              </div>
-            </div>
-            <div className="build_section_right">
-              <img src={illustration} alt="3Box Map" />
-            </div>
           </div>
 
-          <div className="build_section">
-            <div className="build_section_left">
-              <div className="build_section_content">
-                <h3>Simple, Open Design</h3>
-                <p className="lightOpacity">Compatible with existing browsers, wallets, and dapps for a shared Web3 experience. Built on IPFS and Orbit DB.</p>
-                <a href="https://github.com/uport-project/3box"><button>3Box DB Overview</button></a>
-              </div>
+          <div id="landing_section_trustedPartners">
+            <h3 className="lightOpacity">Trusted by partners</h3>
+            <div id="partnerList">
+              {/* <img src={Partners} id="partners" alt="3Box Partners" /> */}
+              <img src={Gitcoin} id="partnerCos" alt="Partners background" />
+              <img src={Coinbase} id="partnerCos" alt="Partners background" />
+              <img src={ConsensysSVG} id="partnerCos" alt="Partners background" />
+              <img src={Metamask} id="partnerCos" alt="Partners background" />
             </div>
-            <div className="build_section_right">
-              <img src={illustration} alt="3Box Map" />
-            </div>
+            <img src={PartnersBG} id="trustedPartners_bg" alt="Partners background" />
           </div>
 
-        </div>
 
-        {/* <div id="landing_section_developers">
+          <div id="landing_section_build">
+
+            <h2>Build with 3Box</h2>
+            <p className="lightOpacity">Scalable, open source, distributed database infrastructure for Ethereum.</p>
+            <a href="https://github.com/uport-project/3box">
+              <button className="developerButton">Get started</button>
+            </a>
+
+            <div className="build_section">
+              <div className="build_section_left">
+                <div className="build_section_content">
+                  <h3>Ethereum Profiles API</h3>
+                  <p className="lightOpacity">Profiles API makes it easy to get and set information about users. Support for public and private profiles.</p>
+                  <a href="https://github.com/uport-project/3box-js"><button className="developerButton">Profiles API</button></a>
+                </div>
+              </div>
+              <div className="build_section_right">
+                <img src={illustration} alt="3Box Map" />
+              </div>
+            </div>
+
+            <div className="build_section">
+              <div className="build_section_left">
+                <div className="build_section_content">
+                  <h3>Simple, Open Design</h3>
+                  <p className="lightOpacity">Compatible with existing browsers, wallets, and dapps for a shared Web3 experience. Built on IPFS and Orbit DB.</p>
+                  <a href="https://github.com/uport-project/3box"><button className="developerButton">3Box DB Overview</button></a>
+                </div>
+              </div>
+              <div className="build_section_right">
+                <img src={illustration} alt="3Box Map" />
+              </div>
+            </div>
+
+          </div>
+
+          {/* <div id="landing_section_developers">
             <div id="landing_section_developers_inner">
               <div id="landing_section_developers_copy">
                 <p className="bold grey" id="developers">FOR DEVELOPERS</p>
@@ -156,9 +173,9 @@ class Landing extends Component {
 
             <ScrollingUsers />
           </div> */}
-        <LandingFooter />
+          <LandingFooter />
+        </div>
       </div>
-
     );
   }
 }

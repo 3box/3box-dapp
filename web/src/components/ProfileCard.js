@@ -13,7 +13,7 @@ const ProfileCard = () => (
 
 
       <div>
-        <div id="profile_network" />
+        <div id="profile_network_icon" />
         <p id="profile_address">0x123456789</p>
       </div>
       <div>

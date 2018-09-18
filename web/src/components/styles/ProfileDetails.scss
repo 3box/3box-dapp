@@ -4,22 +4,29 @@
   position: absolute;
   left: 0;
   top: 69px;
-  // height: 100%;
   height: calc(100% - 69px);
-  background-color: #EFEFEF;
+  background-color: rgb(248, 248, 248);
   width: 23vw;
   text-align: center;
   border-right: 1px solid #E4E4E4;
 }
 
 #profile_footer {
-  position: absolute;
+  position: fixed;
   left: 0;
-  bottom: 0;
-  // height: 100%;
-  width: 100%;
+  bottom: 0;  
+  width: 23vw;
+  background-color: $threeBoxAccentBlue;
   text-align: center;
   border-top: 1px solid #E4E4E4;
+
+  li {
+    color: white;
+    opacity: .6;
+    font-weight: 100;
+    text-align: left;
+    line-height: 1.8em;
+  }
 }
 
 #profile_footer_contents {
@@ -37,24 +44,36 @@
 
 #profile_user_info {
   margin: 1vh 3vw;
-
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; 
+  text-overflow: ellipsis;
 
   p {
     text-align: left;
   }
 }
 
-#profile_network_network_div {
+#profile_network {
   float: left;
   clear: both;
+  margin-bottom: .4em;
 }
 
-#profile_network_social {
+#profile_social {
   float: left;
   clear: both;
+  margin-bottom: 2em;
+}
+
+#profile_private {
+  float: left;
+  clear: both;
+  margin-bottom: .5em;
+  width: 100%;
 }
 
 #profile_user_name {
@@ -64,7 +83,7 @@
   margin-bottom: 2vh;
 }
 
-#profile_githubIcon{
+#profile_githubIcon {
   width: 18px;
   display: inline-block;
 }

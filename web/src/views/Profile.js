@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Feed from '../components/Feed';
+import Nav from '../components/Nav';
 import ProfileDetails from '../components/ProfileDetails';
 import './styles/Profile.css';
 
@@ -17,6 +18,7 @@ class Profile extends Component {
   render() {
     return (
       <div>
+        <Nav />
         <ProfileDetails {...this.props} />
         <Feed />
       </div>

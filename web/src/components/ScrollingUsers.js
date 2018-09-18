@@ -20,7 +20,7 @@ const ScrollingUsers = () => (
 
           <h4 className="profileCardSmall_user_name">Michael Sena</h4>
 
-          <div id="profile_network" />
+          <div id="profile_network_icon" />
           <p className="profileCardSmall_address">0x123456789</p>
         </div>
       </div>
@@ -32,7 +32,7 @@ const ScrollingUsers = () => (
 
           <h4 className="profileCardSmall_user_name">Christian Lundkvist</h4>
 
-          <div id="profile_network" />
+          <div id="profile_network_icon" />
           <p className="profileCardSmall_address">0x123456789</p>
         </div>
       </div>
@@ -44,7 +44,7 @@ const ScrollingUsers = () => (
 
           <h4 className="profileCardSmall_user_name">Cristobal Castillo</h4>
 
-          <div id="profile_network" />
+          <div id="profile_network_icon" />
           <p className="profileCardSmall_address">0x123456789</p>
         </div>
       </div>
@@ -56,7 +56,7 @@ const ScrollingUsers = () => (
 
           <h4 className="profileCardSmall_user_name">Andres Junge</h4>
 
-          <div id="profile_network" />
+          <div id="profile_network_icon" />
           <p className="profileCardSmall_address">0x123456789</p>
         </div>
       </div>
@@ -69,7 +69,7 @@ const ScrollingUsers = () => (
 
           <h4 className="profileCardSmall_user_name">Ozlem Ulusoy</h4>
 
-          <div id="profile_network" />
+          <div id="profile_network_icon" />
           <p className="profileCardSmall_address">0x123456789</p>
         </div>
       </div>
@@ -81,7 +81,7 @@ const ScrollingUsers = () => (
 
           <h4 className="profileCardSmall_user_name">Joel Torstensson</h4>
 
-          <div id="profile_network" />
+          <div id="profile_network_icon" />
           <p className="profileCardSmall_address">0x123456789</p>
         </div>
       </div>
@@ -93,7 +93,7 @@ const ScrollingUsers = () => (
 
           <h4 className="profileCardSmall_user_name">Danny Zuckerman</h4>
 
-          <div id="profile_network" />
+          <div id="profile_network_icon" />
           <p className="profileCardSmall_address">0x123456789</p>
         </div>
       </div>
@@ -105,7 +105,7 @@ const ScrollingUsers = () => (
 
           <h4 className="profileCardSmall_user_name">Kames Lubin</h4>
 
-          <div id="profile_network" />
+          <div id="profile_network_icon" />
           <p className="profileCardSmall_address">0x123456789</p>
         </div>
       </div>
@@ -117,7 +117,7 @@ const ScrollingUsers = () => (
 
           <h4 className="profileCardSmall_user_name">Kenzo Nakamura</h4>
 
-          <div id="profile_network" />
+          <div id="profile_network_icon" />
           <p className="profileCardSmall_address">0x123456789</p>
         </div>
       </div>
@@ -129,7 +129,7 @@ const ScrollingUsers = () => (
 
           <h4 className="profileCardSmall_user_name">Alejandro Matamala</h4>
 
-          <div id="profile_network" />
+          <div id="profile_network_icon" />
           <p className="profileCardSmall_address">0x123456789</p>
         </div>
       </div>
@@ -142,7 +142,7 @@ const ScrollingUsers = () => (
 
           <h4 className="profileCardSmall_user_name">Patrick Presto</h4>
 
-          <div id="profile_network" />
+          <div id="profile_network_icon" />
           <p className="profileCardSmall_address">0x123456789</p>
         </div>
       </div>
@@ -155,7 +155,7 @@ const ScrollingUsers = () => (
 
           <h4 className="profileCardSmall_user_name">Cristobal Valenzuela</h4>
 
-          <div id="profile_network" />
+          <div id="profile_network_icon" />
           <p className="profileCardSmall_address">0x123456789</p>
         </div>
       </div>

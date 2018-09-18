@@ -202,16 +202,27 @@
   align-content: center;
   align-items: center;
 
-  p {
+  h3 {
     text-align: center;
     z-index: 1;
     display: block;
-    margin-bottom: 3em;
+    margin-bottom: 3vh;
   }
 
-  #partners {
+  // #partners {
+  //   z-index: 1;
+  //   display: block;
+  // }
+
+  #partnerList{
+    display: flex;
     z-index: 1;
-    display: block;
+  }
+  #partnerCos{
+    flex: 1;
+    z-index: 1;
+    margin: 1vh 4vw;
+    width: 12vw;
   }
 }
 

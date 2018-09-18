@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail } from '../state/actions';
 import * as routes from '../utils/routes';
+import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import Loading from '../assets/Loading.svg';
 import './styles/EditProfile.css';
@@ -132,7 +133,6 @@ class EditProfile extends Component {
 
     console.log(this.props);
     console.log(this.state);
-    console.log(this.fileUpload && this.fileUpload.files);
 
     return (
       <div>
@@ -150,7 +150,7 @@ class EditProfile extends Component {
                   ? <img src={`https://ipfs.io/ipfs/${image[0].contentUrl['/']}`} alt="profile" id="edit_modal_user_picture" />
                   : <div id="edit_modal_user_picture" />
                 }
-                {image.length > 0 && <button type="button" onClick={this.removePic} id="removePic">X</button>}
+                {image.length > 0 && <button id="removePic" className="removeButton" onClick={this.removePic} text="remove" type="button">X</button>}
 
                 <p>Edit profile picture</p>
                 <form onSubmit={this.handleSubmitPic}>
@@ -163,10 +163,10 @@ class EditProfile extends Component {
                 <button onClick={e => this.handlePicModal(e)} type="button" className="tertiaryButton" id="closeModal">close</button>
               </div>
             </div>)}
-
+        <Nav />
         <Link to="/Profile">
           <div id="goBack">
-            &larr; Go back to profile
+            &larr; Profile
           </div>
         </Link>
 
@@ -196,7 +196,7 @@ class EditProfile extends Component {
               <div className="edit_form">
 
                 <h3>Ethereum Address</h3>
-                <p>{address}</p>
+                <p id="edit_address">{address}</p>
 
                 <h3>Name</h3>
                 <input
@@ -205,7 +205,7 @@ class EditProfile extends Component {
                   value={name}
                   onChange={e => this.handleFormChange(e, 'name')}
                 />
-                <button type="button" onClick={() => this.removeStore('name', 'profileStore')}>X</button>
+                <button className="removeButton" type="button" onClick={() => this.removeStore('name', 'profileStore')}>X</button>
 
 
                 <h3>Github</h3>
@@ -215,17 +215,17 @@ class EditProfile extends Component {
                   value={github}
                   onChange={e => this.handleFormChange(e, 'github')}
                 />
-                <button type="button" onClick={() => this.removeStore('github', 'profileStore')}>X</button>
+                <button className="removeButton" type="button" onClick={() => this.removeStore('github', 'profileStore')}>X</button>
 
               </div>
             </div>
 
             <div id="edit_user_private">
               <div id="privateHeader">
-                <p className="subheader">PRIVATE</p>
+                <p className="subheader">Private</p>
                 <p className="subtext">This information is accessible only by those with permission.</p>
               </div>
-              
+
               <div className="edit_form">
 
                 <h3>Email Address</h3>
@@ -235,7 +235,7 @@ class EditProfile extends Component {
                   value={email}
                   onChange={e => this.handleFormChange(e, 'email')}
                 />
-                <button type="button" onClick={() => this.removeStore('email', 'privateStore')}>X</button>
+                <button className="removeButton" type="button" onClick={() => this.removeStore('email', 'privateStore')}>X</button>
 
               </div>
 
