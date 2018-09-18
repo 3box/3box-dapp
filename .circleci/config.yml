@@ -1,12 +1,11 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/3box-dapp/web
+    working_directory: ~/3box-dapp
     docker:
       - image: circleci/node:8
     steps:
       - checkout
-          path: ~/3box-dapp
 
       # Download and cache dependencies
       - restore_cache:
