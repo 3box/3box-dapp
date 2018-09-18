@@ -27,6 +27,7 @@ jobs:
       - run:
           name: deploy-to-s3
           command: |
+            npm run build
             npm run deploy
 
       - save_cache:
