@@ -1,0 +1,87 @@
+#profile {
+  position: absolute;
+  left: 0;
+  top: 69px;
+  height: calc(100% - 69px);
+  background-color: #f8f8f8;
+  width: 23vw;
+  text-align: center;
+  border-right: 1px solid #E4E4E4; }
+
+#profile_footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 23vw;
+  background-color: #021333;
+  text-align: center;
+  border-top: 1px solid #E4E4E4; }
+  #profile_footer li {
+    color: white;
+    opacity: .6;
+    font-weight: 100;
+    text-align: left;
+    line-height: 1.8em; }
+
+#profile_footer_contents {
+  padding: 2em; }
+
+#profile_user_picture {
+  background-color: #3f3f3f;
+  border-radius: 100%;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+  margin-top: 12vh; }
+
+#profile_user_info {
+  margin: 1vh 3vw;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+  #profile_user_info p {
+    text-align: left; }
+
+#profile_network {
+  float: left;
+  clear: both;
+  margin-bottom: .4em; }
+
+#profile_social {
+  float: left;
+  clear: both;
+  margin-bottom: 2em; }
+
+#profile_private {
+  float: left;
+  clear: both;
+  margin-bottom: .5em;
+  width: 100%; }
+
+#profile_user_name {
+  font-size: 1.5em;
+  margin-top: 5vh;
+  margin-bottom: 2vh; }
+
+#profile_githubIcon {
+  width: 18px;
+  display: inline-block; }
+
+#profile_github {
+  display: inline-block;
+  margin-left: .6vw; }
+
+#profile_private_header {
+  margin-top: 6vh;
+  clear: both; }
+
+#profile_email {
+  border: #a8a8a8 solid 1px;
+  border-radius: 5px;
+  padding: 15px; }
+
+#profile_edit_button {
+  margin-top: 1vh; }

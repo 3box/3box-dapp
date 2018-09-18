@@ -1,0 +1,61 @@
+nav {
+  background-color: #fff;
+  border-bottom: 1px solid #E4E4E4;
+  overflow: hidden;
+  height: 68px;
+  display: flex;
+  align-items: center; }
+  nav button {
+    display: inline-block; }
+  nav p {
+    color: #006ECC; }
+
+#header_user_picture {
+  background-color: #3f3f3f;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  margin: 14px 4vw 14px 14px;
+  margin-left: auto;
+  cursor: pointer; }
+
+#dropdown {
+  position: absolute;
+  top: 64px;
+  right: 3vw;
+  text-align: left;
+  width: 10em;
+  padding: 1em 0;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid #E4E4E4;
+  box-shadow: 0 6px 10px 0 #ececec, 0 16px 24px 0 #f3f3f3;
+  z-index: 1; }
+  #dropdown ul {
+    padding: 0; }
+  #dropdown li {
+    font-size: .8em;
+    padding-left: 1.3em;
+    color: #6b6b6b;
+    line-height: 2.5em; }
+  #dropdown li:hover {
+    background: #f9f9f9; }
+  #dropdown div {
+    line-height: 0; }
+
+.divide {
+  border-top: 1px solid #CBCBCB;
+  margin-top: 14px;
+  margin-bottom: 14px;
+  padding-left: 0;
+  padding-right: 0;
+  width: 100% !important; }
+
+#actionButtons {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 4vw; }
+  #actionButtons p {
+    margin-right: 2vw;
+    cursor: pointer; }

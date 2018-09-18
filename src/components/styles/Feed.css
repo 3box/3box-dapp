@@ -1,0 +1,38 @@
+#feed {
+  margin-top: 6vh; }
+  #feed ul {
+    padding: 0; }
+  #feed li {
+    display: inline-block;
+    width: 14.2857142857%;
+    text-align: center;
+    overflow: scroll; }
+
+#feed_activity {
+  min-height: 10vh;
+  width: 66vw;
+  background: white;
+  border: 1px solid #E4E4E4;
+  border-radius: 5px;
+  margin: 0 8vw 6vh 28vw;
+  padding-bottom: 4vh; }
+
+#feed_activity_header {
+  margin-top: 25px;
+  margin-bottom: 25px; }
+  #feed_activity_header li {
+    font-size: .8em;
+    opacity: .65; }
+
+#feed_activity_load {
+  border-top: solid 1px #E4E4E4;
+  border-bottom: solid 1px #E4E4E4;
+  min-height: 80px;
+  margin-bottom: -1px;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+#activityLoad {
+  width: 3em;
+  height: 3em; }

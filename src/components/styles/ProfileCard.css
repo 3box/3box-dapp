@@ -1,0 +1,82 @@
+.profileCard {
+  border: 1px solid #E4E4E4;
+  border-radius: 10px;
+  min-width: 20vw;
+  min-height: 30vh;
+  background: white;
+  width: 18em;
+  box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f; }
+
+#profileCard_user_picture {
+  background-color: #3f3f3f;
+  border-radius: 100%;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: perspective(1px) translateY(-30%) translateX(-50%); }
+
+#profile_network_icon {
+  border-radius: 100%;
+  background-color: #5ECD78;
+  width: 16px;
+  height: 16px;
+  display: inline-block; }
+
+#profile_address {
+  display: inline-block;
+  margin-left: .6vw;
+  margin-bottom: .5vh; }
+  #profile_address:hover .tooltiptext {
+    visibility: visible; }
+
+.tooltiptext {
+  visibility: hidden;
+  width: fit-content;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  border-radius: 6px;
+  position: relative;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: 50%;
+  /* Use half of the width (120/2 = 60), to center the tooltip */ }
+
+.profileCard_user_info {
+  padding: 2em;
+  margin-top: -4em; }
+
+.profileCardSmall {
+  border: 1px solid #E4E4E4;
+  border-radius: 10px;
+  background: white;
+  width: 16em;
+  height: 10em;
+  display: inline-block;
+  box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f; }
+
+.profileCardSmall_user_picture {
+  background-color: #3f3f3f;
+  border-radius: 100%;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: perspective(1px) translateY(-30%) translateX(-160%); }
+
+.profileCardSmall_user_name {
+  font-size: 1.4em;
+  margin-top: 2.6vh; }
+
+.profileCardSmall_address {
+  display: inline-block;
+  font-size: 1em !important;
+  margin-top: 1vh !important;
+  margin-left: .5vw; }

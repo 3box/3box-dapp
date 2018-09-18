@@ -1,0 +1,129 @@
+html {
+  position: relative;
+  min-height: 100%; }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Lato', sans-serif;
+  background-color: white; }
+
+button {
+  background-color: #006ECC;
+  border: none;
+  border-radius: 2em;
+  padding: 1em 1.5em;
+  color: white;
+  transition: background-color .4s ease; }
+  button:disabled {
+    background: transparent;
+    border: solid 1px #7a7a7a;
+    color: #7a7a7a;
+    box-shadow: none; }
+  button:disabled:hover {
+    background: transparent;
+    border: solid 1px #7a7a7a;
+    color: #7a7a7a;
+    box-shadow: none;
+    cursor: not-allowed; }
+  button:hover {
+    background-color: #2c88da;
+    transition: background-color .4s ease; }
+
+.secondaryButton {
+  background: transparent;
+  border: solid 1px #006ECC;
+  color: #006ECC;
+  transition: background-color .8s ease; }
+  .secondaryButton:hover {
+    color: white;
+    background-color: #006ECC;
+    border: solid 1px transparent;
+    transition: background-color .8s ease; }
+
+.tertiaryButton {
+  background: transparent;
+  border: solid 1px #7a7a7a;
+  color: #7a7a7a;
+  box-shadow: none;
+  transition: background-color .8s ease; }
+  .tertiaryButton:hover {
+    color: white;
+    background-color: #7a7a7a;
+    border: solid 1px transparent;
+    transition: background-color .8s ease; }
+
+.developerButton {
+  background-color: #021333; }
+  .developerButton:hover {
+    background-color: #254277;
+    transition: background-color .4s ease; }
+
+button:hover {
+  cursor: pointer; }
+
+li,
+a,
+p {
+  text-decoration: none;
+  font-size: 16px;
+  list-style: none; }
+
+li,
+a,
+p,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'Lato', sans-serif;
+  color: #1B2733;
+  margin: 0; }
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-weight: 800; }
+
+ul {
+  margin: 0; }
+
+.header {
+  font-size: 1.1em;
+  color: #a8a8a8;
+  font-weight: 500; }
+
+.subheader {
+  font-weight: 700;
+  color: #a8a8a8;
+  margin-bottom: 1vw; }
+
+.subtext {
+  color: #a8a8a8; }
+
+#page_header {
+  margin: 0 0 2vh 28vw; }
+
+.bold {
+  font-weight: 700; }
+
+.grey {
+  color: #a8a8a8; }
+
+.blue {
+  color: #006ECC; }
+
+.light {
+  color: #6b6b6b; }
+
+.white {
+  color: white; }
+
+.lightOpacity {
+  opacity: .6; }
+
+.thin {
+  font-weight: 200; }
