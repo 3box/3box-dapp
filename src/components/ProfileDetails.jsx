@@ -19,7 +19,6 @@ const ProfileDetails = ({ name, github, image, email }) => (
       <h2 id="profile_user_name">{name}</h2>
 
       <div id="profile_network">
-        {/* <div id="profile_network_icon" /> */}
         <img className="feed_activity_tile_networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
         <p id="profile_address" title={address}>
           {address}
@@ -37,11 +36,12 @@ const ProfileDetails = ({ name, github, image, email }) => (
         <p id="profile_email">{email}</p>
       </div>
 
-      <Link to="/EditProfile">
-        <button id="profile_edit_button" type="button">
+      <div id="profile_edit">
+        <Link to="/EditProfile" id="profile_edit_button">
           Edit
-        </button>
-      </Link>
+        </Link>
+      </div>
+
     </div>
 
     <div id="profile_footer">

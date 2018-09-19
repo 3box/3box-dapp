@@ -18,9 +18,9 @@ class EditProfile extends Component {
     super(props);
     const { name, github, email } = this.props;
     this.state = {
-      name: name || '',
-      github: github || '',
-      email: email || '',
+      name: null,
+      github: null,
+      email: null,
       buffer: null,
       showPicModal: false,
       disableSave: true,
@@ -31,9 +31,14 @@ class EditProfile extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    const { name, github, email } = this.props;
+    this.setState({ name, github, email });
+  }
+
   componentWillReceiveProps(props) {
-    const { name, github } = props;
-    this.setState({ name, github });
+    const { name, github, email } = props;
+    this.setState({ name, github, email });
   }
 
   handleFormChange = (e, property) => {
@@ -78,18 +83,18 @@ class EditProfile extends Component {
     this.setState({ showPicModal: !showPicModal, disableSavePic: true });
   }
 
-  removeStore = (key, method) => {
-    const { threeBoxObject } = this.props;
-    const { profileStore, privateStore } = threeBoxObject;
+  // removeStore = (key, method) => {
+  //   const { threeBoxObject } = this.props;
+  //   const { profileStore, privateStore } = threeBoxObject;
 
-    if (method === 'profileStore') {
-      profileStore.remove(key)
-        .then(() => this.props.openBox());
-    } else {
-      privateStore.remove(key)
-        .then(() => this.props.openBox());
-    }
-  }
+  //   if (method === 'profileStore') {
+  //     profileStore.remove(key)
+  //       .then(() => this.props.openBox());
+  //   } else {
+  //     privateStore.remove(key)
+  //       .then(() => this.props.openBox());
+  //   }
+  // }
 
   removePic = () => {
     const { threeBoxObject } = this.props;
@@ -103,19 +108,35 @@ class EditProfile extends Component {
   }
 
   async handleSubmit(e) {
-    e.preventDefault();
     const { name, github, email } = this.state;
     const { history, threeBoxObject } = this.props;
     const { profileStore, privateStore } = threeBoxObject;
 
+    e.preventDefault();
     this.setState({ saveLoading: true });
 
-    name && await profileStore.set('name', name);
-    github && await profileStore.set('github', github)
-    email && await privateStore.set('email', email)
-    name && await this.props.getPublicName();
-    github && await this.props.getPublicGithub();
-    email && await this.props.getPrivateEmail();
+    // if value has changed, switch boolean to save to db
+    let nameChanged = false;
+    let githubChanged = false;
+    let emailChanged = false;
+    name === this.props.name ? nameChanged = false : nameChanged = true;
+    github === this.props.github ? githubChanged = false : githubChanged = true;
+    email === this.props.email ? emailChanged = false : emailChanged = true;
+
+    console.log(nameChanged);
+    console.log(githubChanged);
+    console.log(emailChanged);
+
+    // if value changed and is not empty, save new value, else remove value
+    (nameChanged && name !== '') ? await profileStore.set('name', name) : await profileStore.remove(name);
+    (githubChanged && github !== '') ? await profileStore.set('github', github) : await profileStore.remove(github);
+    (emailChanged && email !== '') ? await privateStore.set('email', email) : await profileStore.remove(github);
+
+    // only get values that have changed
+    nameChanged && await this.props.getPublicName();
+    githubChanged && await this.props.getPublicGithub();
+    emailChanged && await this.props.getPrivateEmail();
+
     this.setState({ saveLoading: false });
     history.push(routes.PROFILE);
   }
@@ -195,7 +216,7 @@ class EditProfile extends Component {
                   value={name}
                   onChange={e => this.handleFormChange(e, 'name')}
                 />
-                <button className="removeButton" type="button" onClick={() => this.removeStore('name', 'profileStore')}>X</button>
+                {/* <button className="removeButton" type="button" onClick={() => this.removeStore('name', 'profileStore')}>X</button> */}
 
 
                 <h3>Github</h3>
@@ -205,7 +226,7 @@ class EditProfile extends Component {
                   value={github}
                   onChange={e => this.handleFormChange(e, 'github')}
                 />
-                <button className="removeButton" type="button" onClick={() => this.removeStore('github', 'profileStore')}>X</button>
+                {/* <button className="removeButton" type="button" onClick={() => this.removeStore('github', 'profileStore')}>X</button> */}
 
               </div>
             </div>
@@ -225,7 +246,7 @@ class EditProfile extends Component {
                   value={email}
                   onChange={e => this.handleFormChange(e, 'email')}
                 />
-                <button className="removeButton" type="button" onClick={() => this.removeStore('email', 'privateStore')}>X</button>
+                {/* <button className="removeButton" type="button" onClick={() => this.removeStore('email', 'privateStore')}>X</button> */}
 
               </div>
 

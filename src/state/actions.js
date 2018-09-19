@@ -1,4 +1,6 @@
-import { address } from '../utils/address';
+import {
+  address
+} from '../utils/address';
 
 import {
   store,
@@ -20,7 +22,7 @@ export const signInUp = () => async (dispatch) => {
 
     const returnedActivity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
     const activity = await returnedActivity;
-  
+
     activity.internal = activity.internal.map(object => Object.assign({
       dataType: 'Internal',
     }, object));
@@ -30,7 +32,7 @@ export const signInUp = () => async (dispatch) => {
     activity.token = activity.token.map(object => Object.assign({
       dataType: 'Token',
     }, object));
-  
+
     const feed = activity.internal.concat(activity.txs).concat(activity.token);
     feed.sort((a, b) => b.timeStamp - a.timeStamp);
 
@@ -107,26 +109,35 @@ export const getActivity = () => async (dispatch) => {
     type: 'LOADING_ACTIVITY',
   });
 
-  const returnedActivity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
-  const activity = await returnedActivity;
+  try {
+    const returnedActivity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
+    const activity = await returnedActivity;
 
-  activity.internal = activity.internal.map(object => Object.assign({
-    dataType: 'Internal',
-  }, object));
-  activity.txs = activity.txs.map(object => Object.assign({
-    dataType: 'Txs',
-  }, object));
-  activity.token = activity.token.map(object => Object.assign({
-    dataType: 'Token',
-  }, object));
+    activity.internal = activity.internal.map(object => Object.assign({
+      dataType: 'Internal',
+    }, object));
+    activity.txs = activity.txs.map(object => Object.assign({
+      dataType: 'Txs',
+    }, object));
+    activity.token = activity.token.map(object => Object.assign({
+      dataType: 'Token',
+    }, object));
 
-  const feed = activity.internal.concat(activity.txs).concat(activity.token);
-  feed.sort((a, b) => b.timeStamp - a.timeStamp);
+    const feed = activity.internal.concat(activity.txs).concat(activity.token);
+    feed.sort((a, b) => b.timeStamp - a.timeStamp);
 
-  dispatch({
-    type: 'GET_ACTIVITY',
-    feed,
-  });
+    dispatch({
+      type: 'GET_ACTIVITY',
+      feed,
+      ifFetchingActivity: false,
+    });
+  } catch (err) {
+    dispatch({
+      type: 'FAILED_LOADING_ACTIVITY',
+      feed: [],
+      ifFetchingActivity: false,
+    });
+  }
 };
 
 export const closeErrorModal = () => async (dispatch) => {

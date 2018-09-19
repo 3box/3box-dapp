@@ -80,6 +80,13 @@ const threeBoxReducer = (state = {}, action) => {
         ifFetchingActivity: false,
       };
 
+    case 'FAILED_LOADING_ACTIVITY':
+      return {
+        ...state,
+        feed: [],
+        ifFetchingActivity: false,
+      };
+
     default:
       return state;
   }

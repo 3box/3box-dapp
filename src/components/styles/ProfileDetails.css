@@ -53,9 +53,15 @@
 #profile_social {
   float: left;
   clear: both;
-  margin-bottom: 2em; }
+  margin-bottom: 2vh; }
 
 #profile_private {
+  float: left;
+  clear: both;
+  margin-bottom: 2vh;
+  width: 100%; }
+
+#profile_edit {
   float: left;
   clear: both;
   margin-bottom: .5em;
@@ -84,4 +90,5 @@
   padding: 15px; }
 
 #profile_edit_button {
-  margin-top: 1vh; }
+  margin-top: 1vh;
+  display: inline-block; }

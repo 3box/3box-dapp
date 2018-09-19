@@ -26,19 +26,13 @@ class Nav extends Component {
   render() {
     const { showProfileModal } = this.state;
     const { image, threeBox, location } = this.props;
-    console.log(location);
     return (
       <nav>
         <ThreeBoxLogo />
-        {(location.pathname === '/Profile' || location.pathname === '/EditProfile') ?
+        {
           image.length > 0 ?
             <img src={`https://ipfs.io/ipfs/${image[0].contentUrl['/']}`} id="header_user_picture" alt="profile" onClick={this.handleDropdown} role="button" />
             : <div id="header_user_picture" onClick={this.handleDropdown} />
-          : (<div id="actionButtons">
-            <p>Sign in</p>
-            <button className="secondaryButton">Create profile</button>
-          </div>
-          )
         }
 
         {showProfileModal
