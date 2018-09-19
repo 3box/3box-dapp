@@ -6,9 +6,22 @@
   min-height: 44px;
   margin-bottom: -1px;
 
+  display: flex;
+  align-items: center;
+
   p {
     display: inline-block;
     white-space: nowrap;
+  }
+
+  // ul {
+  //   display: flex;
+  //   align-items: center;
+  // }
+
+  li {
+    display: flex;
+    align-items: center;
   }
 
   &:hover {
@@ -35,7 +48,9 @@
 }
 
 .feed_activity_tile_amount {
-  color: #2AA046;
+  p {
+    color: #2AA046;
+  }
 }
 
 #feed_network_3Box {

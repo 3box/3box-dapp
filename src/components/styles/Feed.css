@@ -4,9 +4,34 @@
     padding: 0; }
   #feed li {
     display: inline-block;
-    width: 14.2857142857%;
     text-align: center;
     overflow: scroll; }
+  #feed p {
+    font-size: .9em; }
+
+#feed_activity_network {
+  width: 12%; }
+
+#feed_activity_type {
+  width: 10%; }
+
+#feed_activity_entity {
+  width: 20%; }
+
+#feed_activity_function {
+  width: 14.2857142857%; }
+
+#feed_activity_description {
+  width: 19%; }
+
+#feed_activity_amount {
+  width: 10%; }
+
+#feed_activity_time {
+  width: 14.2857142857%; }
+  #feed_activity_time p {
+    font-size: .8em;
+    color: #6b6b6b; }
 
 #feed_activity {
   min-height: 10vh;

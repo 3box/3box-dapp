@@ -33,6 +33,7 @@ button {
 .secondaryButton {
   background: transparent;
   border: solid 1px #006ECC;
+  outline-offset: -1px;
   color: #006ECC;
   transition: background-color .8s ease; }
   .secondaryButton:hover {

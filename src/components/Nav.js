@@ -16,18 +16,6 @@ class Nav extends Component {
     };
   }
 
-  CreateProfile = () => {
-    localStorage.setItem(`serializedMuDID_${web3.eth.accounts[0]}`, null); // eslint-disable-line no-undef
-    this.setState({ loginLoading: true });
-    ThreeBox // eslint-disable-line no-undef
-      .openBox(web3.eth.accounts[0], web3.currentProvider) // eslint-disable-line no-undef
-      .then((threeBox) => {
-        const { history } = this.props;
-        this.setState({ loginLoading: false });
-        history.push(routes.PROFILE);
-      }).catch(error => console.log(error));
-  }
-
   handleDropdown = () => {
     const { showProfileModal } = this.state;
     this.setState({

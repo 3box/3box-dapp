@@ -2,12 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { address } from '../utils/address';
 
 import EthereumLogo from '../assets/Ethereum_logo_2014.svg';
 import GithubIcon from '../assets/GithubIcon.svg';
 import './styles/ProfileDetails.css';
-
-const address = web3.eth.accounts[0]; // eslint-disable-line no-undef
 
 const ProfileDetails = ({ name, github, image, email }) => (
   <div id="profile">

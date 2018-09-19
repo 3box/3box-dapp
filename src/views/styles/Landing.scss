@@ -87,10 +87,11 @@
   p {
     display: inline-block;
     margin-right: .7vw;
+    font-size: 1em;
   }
 
   img {
-    width: 10vw;
+    width: 9vw;
     display: inline-block;
   }
 }
@@ -104,13 +105,6 @@
 
 #landing_createProfileButton {
   margin-top: 7vh;
-}
-
-#landing_floatingButtong {
-  position: fixed;
-  bottom: 18vh;
-  right: 4vw;
-  z-index: 1;
 }
 
 @keyframes moveVertical {
@@ -209,11 +203,6 @@
     margin-bottom: 3vh;
   }
 
-  // #partners {
-  //   z-index: 1;
-  //   display: block;
-  // }
-
   #partnerList{
     display: flex;
     z-index: 1;
@@ -249,11 +238,6 @@
     font-size: 2.8em;
   }
 
-  img {
-    margin: 2vh 0 4vh 0;
-    width: 70%;
-  }
-
   button{
     margin-top: 2em;
   }
@@ -262,6 +246,7 @@
 .build_section {
   display: flex;
   flex-direction: row;
+  height: 50vh;
 }
 
 .build_section_left {
@@ -287,6 +272,12 @@
 .build_section_right {
   flex: 1;
   width: 60%;
+  position: relative;
+
+  #threeboxIllustration {
+    margin: 2vh 0 4vh 0;
+    width: 75%;
+  }
 }
 
 #landing_background {
@@ -410,10 +401,9 @@
   }
 }
 
-#users_tile {
-  margin: 0 2vw 5vh 0;
-  display: inline-block;
-}
+// #users_tile {
+//   margin: 0 2vw 5vh 0;
+// }
 
 #card {
   border: 1px solid #E4E4E4;
@@ -446,4 +436,29 @@
 .animateOnEvent .ae-1 {
   -webkit-animation-delay: 10ms;
   animation-delay: 10ms;
+}
+
+#Michael {
+  position: absolute;
+  top: 8vh;
+  left: 8vw;
+  z-index: 0;
+}
+
+#Christian {
+  position: absolute;
+  top: 16vh;
+  left: 16vw;
+  z-index: 1;
+}
+
+#Cristobal {
+  position: absolute;
+  top: 24vh;
+  left: 24vw;
+  z-index: 2;
+}
+
+#consentError {
+  margin: 0 auto;
 }

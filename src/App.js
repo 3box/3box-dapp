@@ -2,17 +2,12 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-// import { IntlProvider } from 'react-intl';
 
 import * as routes from './utils/routes';
-import NoMatch from './components/NoMatch';
-import Landing from './views/Landing';
-import Profile from './views/Profile';
+import Landing from './views/Landing.jsx';
+import Profile from './views/Profile.jsx';
 import EditProfile from './views/EditProfile';
-import About from './views/About';
 import { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail, getActivity } from './state/actions';
-// import { getLocale } from './locales';
 
 class App extends Component {
   constructor(props) {
@@ -45,7 +40,6 @@ class App extends Component {
     await this.props.getPrivateEmail();
   }
 
-  // const locale = getLocale();
   render() {
     const { location } = this.props;
     const { pathname } = location;
@@ -57,8 +51,6 @@ class App extends Component {
             <Route exact path={routes.LANDING} component={Landing} />
             <Route exact path={routes.PROFILE} component={Profile} />
             <Route exact path={routes.EDITPROFILE} component={EditProfile} />
-            <Route exact path={routes.ABOUT} component={About} />
-            <Route component={NoMatch} />
           </Switch>
         </div>
       </Router>

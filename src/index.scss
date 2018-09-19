@@ -47,6 +47,7 @@ button {
 .secondaryButton {
   background: transparent;
   border: solid 1px $threeBoxBlue;
+  outline-offset: -1px;
   color: $threeBoxBlue;
   transition: background-color .8s ease;
 

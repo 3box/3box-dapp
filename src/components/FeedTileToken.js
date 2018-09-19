@@ -1,21 +1,22 @@
 import React from 'react';
 import EthereumLogo from '../assets/Ethereum_logo_2014.svg';
-// import address from '../utils/address';
+import { address } from '../utils/address';
+import { timeSince } from '../utils/time';
 import './styles/FeedTile.css';
 // import PropTypes from 'prop-types';
-
-const address = web3.eth.accounts[0]; // eslint-disable-line no-undef
 
 const FeedTile = ({ feedItem }) => (
   <div className="feed_activity_tile">
     <ul>
-      <li>
+      <li id="feed_activity_network">
         <img className="feed_activity_tile_networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
       </li>
-      <li>
-        {feedItem.dataType}
+      <li id="feed_activity_type">
+        <p>
+          {feedItem.dataType}
+        </p>
       </li>
-      <li title={feedItem.from === address ? feedItem.to : feedItem.from}>
+      <li id="feed_activity_entity" title={feedItem.from === address ? feedItem.to : feedItem.from}>
         {feedItem.from === address // eslint-disable-line no-undef
           ? (
             <p>
@@ -27,18 +28,28 @@ const FeedTile = ({ feedItem }) => (
             </p>)
         }
       </li>
-      <li>
-        {feedItem.from === web3.eth.accounts[0] // eslint-disable-line no-undef
+      <li id="feed_activity_function">
+        {feedItem.from === address
           ? <p>Send</p>
           : <p>Receive</p>
         }
       </li>
-      <li title={`Hash ${feedItem.hash}`}>{feedItem.hash}</li>
-      <li className="feed_activity_tile_amount">
-        {(Number(feedItem.value) / 1000000000000000000)}
-        ETH
+      <li id="feed_activity_description" title={`Hash ${feedItem.hash}`}>
+        <p>
+          {feedItem.hash}
+        </p>
       </li>
-      <li>{feedItem.timeStamp}</li>
+      <li id="feed_activity_amount" className="feed_activity_tile_amount">
+        <p>
+          {(Number(feedItem.value) / 1000000000000000000)}
+          ETH
+      </p>
+      </li>
+      <li id="feed_activity_time">
+        <p>
+          {timeSince(feedItem.timeStamp * 1000)}
+        </p>
+      </li>
     </ul>
   </div>
 );

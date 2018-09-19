@@ -1,5 +1,20 @@
-export const threeBoxReducer = (state = {}, action) => {
+const threeBoxReducer = (state = {}, action) => {
   switch (action.type) {
+    case 'SIGN_IN_UP':
+      return {
+        ...state,
+        threeBoxObject: action.threeBox,
+        ifFetchingThreeBox: false,
+        signUpSuccessful: true,
+        showErrorModal: false,
+        errorMessage: '',
+        name: action.name,
+        github: action.github,
+        image: action.image,
+        email: action.email,
+        feed: action.feed,
+      };
+
     case 'GET_THREEBOX':
       return {
         ...state,
@@ -30,6 +45,28 @@ export const threeBoxReducer = (state = {}, action) => {
         email: action.email,
       };
 
+    case 'LOADING_3BOX':
+      return {
+        ...state,
+        ifFetchingThreeBox: true,
+      };
+
+    case 'FAILED_LOADING_3BOX':
+      return {
+        ...state,
+        ifFetchingThreeBox: false,
+        signUpSuccessful: false,
+        showErrorModal: true,
+        errorMessage: action.errorMessage,
+      };
+
+    case 'CLOSE_ERROR_MODAL':
+      return {
+        ...state,
+        errorMessage: '',
+        showErrorModal: false,
+      };
+
     case 'LOADING_ACTIVITY':
       return {
         ...state,
@@ -48,15 +85,6 @@ export const threeBoxReducer = (state = {}, action) => {
   }
 };
 
-export const isFetching = (state = false, action) => {
-  switch (action.type) {
-    case 'REQUEST_DATA':
-      return true;
-    case 'RECEIVE_DATA':
-      return false;
-    default:
-      return state;
-  }
+export {
+  threeBoxReducer,
 };
-
-// export const getIsFetching = state => fromList.getIsFetching(state.listByFilter[filter])

@@ -7,14 +7,14 @@ import './styles/Nav.css';
 import ThreeBoxLogo from './ThreeBoxLogo';
 import * as routes from '../utils/routes';
 
-const LandingNav = ({ createProfile, threeBox }) => {
+const LandingNav = ({ handleSignInUp, threeBox }) => {
   return (
-    <nav>
+    <nav id="landingNav">
       <ThreeBoxLogo />
 
       <div id="actionButtons">
-        <p onClick={createProfile}>Sign in</p>
-        <button onClick={createProfile} className="secondaryButton">Create profile</button>
+        <p onClick={handleSignInUp}>Sign in</p>
+        <button onClick={handleSignInUp} className="secondaryButton">Create profile</button>
       </div>
     </nav>
   );

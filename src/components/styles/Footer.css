@@ -13,10 +13,10 @@
 #footer_links {
   padding: 0;
   margin-left: auto;
-  margin-right: 2em;
   display: flex;
   align-items: center;
-  z-index: 1; }
+  z-index: 1;
+  width: 100%; }
   #footer_links li {
     display: inline-block;
     text-align: center;
@@ -27,7 +27,6 @@
     justify-content: space-around; }
 
 #landingFooter {
-  overflow: hidden;
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -35,13 +34,55 @@
   display: flex;
   align-items: center;
   margin-top: 10vh; }
+  #landingFooter ul {
+    width: 70%;
+    display: flex;
+    align-items: center; }
+    #landingFooter ul li {
+      width: 50%;
+      display: flex;
+      align-items: center; }
   #landingFooter a {
     z-index: 1;
-    margin-left: 6vw; }
+    color: white;
+    display: flex;
+    align-items: center; }
+  #landingFooter #mailChimp {
+    display: flex;
+    align-items: center; }
+    #landingFooter #mailChimp input {
+      display: inline-block;
+      border-bottom-left-radius: 5px;
+      border-top-left-radius: 5px;
+      border-style: none;
+      border: solid 1px #E4E4E4;
+      height: 44px;
+      max-width: 50%;
+      padding: 0 15px;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box; }
+    #landingFooter #mailChimp button {
+      display: inline-block;
+      border-bottom-right-radius: 5px;
+      border-top-right-radius: 5px;
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+      max-width: 50%;
+      height: 44px;
+      text-align: center;
+      padding: .8em 1.5em; }
+    #landingFooter #mailChimp p {
+      color: white; }
 
 #footer_bg {
   width: 102vw;
   margin-left: -1vw;
   position: absolute;
-  bottom: -2vh;
+  bottom: 0;
   z-index: 0; }
+
+#footer_github {
+  width: 3vw;
+  margin-right: 1vw;
+  z-index: 1; }

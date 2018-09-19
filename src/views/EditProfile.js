@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-// import ipfsAPI from 'ipfs-api';
 import PropTypes from 'prop-types';
-// import Buffer from 'buffer/'.Buffer;
-// import { bindActionCreators } from 'redux';
 
+import { address } from '../utils/address'
 import { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail } from '../state/actions';
 import * as routes from '../utils/routes';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import Loading from '../assets/Loading.svg';
 import './styles/EditProfile.css';
-// import { getIsFetching } from '../state/'
 
 const Buffer = require('buffer/').Buffer;
 
@@ -58,9 +55,7 @@ class EditProfile extends Component {
     // const ipfs = ipfsAPI({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
 
     e.preventDefault();
-
     this.setState({ picLoading: true });
-
     // ipfs.files.add(buffer, (err, res) => {
     threeBoxObject.ipfs.files.add(buffer, (err, res) => {
       if (err) {
@@ -75,6 +70,7 @@ class EditProfile extends Component {
           this.setState({ picLoading: false, showPicModal: false });
         });
     });
+    // }
   }
 
   handlePicModal = () => {
@@ -130,11 +126,6 @@ class EditProfile extends Component {
     } = this.props;
     const { showPicModal, name, github, email, disableSave, disableSavePic, picLoading, saveLoading } = this.state;
 
-    const address = web3.eth.accounts[0]; // eslint-disable-line no-undef
-
-    console.log(this.props);
-    console.log(this.state);
-
     return (
       <div>
         {picLoading
@@ -184,8 +175,6 @@ class EditProfile extends Component {
             </div>
 
             <div id="edit_user_public">
-              {/* <p className="subheader">PUBLIC</p>
-  <p className="subtext">This information is public for all to see.</p> */}
 
               {saveLoading
                 && (
@@ -292,28 +281,7 @@ function mapState(state) {
     github: state.threeBoxData.github,
     email: state.threeBoxData.email,
     image: state.threeBoxData.image,
-    // isFetching: getIsFetching(state),
   };
 }
 
-// function mapDispatch(dispatch) {
-// return bindActionCreators({ updateUser }, dispatch);
-// }
-
 export default withRouter(connect(mapState, { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail })(EditProfile));
-
-
-// if (name && github) {
-//   profileStore.set('name', name)
-//     .then(() => profileStore.set('github', github))
-//     .then(() => this.props.openBox())
-//     .then(() => history.push(routes.PROFILE));
-// } else if (name) {
-//   profileStore.set('name', name)
-//     .then(() => this.props.openBox())
-//     .then(() => history.push(routes.PROFILE));
-// } else if (github) {
-//   profileStore.set('github', github)
-//     .then(() => this.props.openBox())
-//     .then(() => history.push(routes.PROFILE));
-// }

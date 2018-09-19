@@ -1,73 +1,65 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-// import ThreeBox from '3box';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 
 import * as routes from '../utils/routes';
 import ProfileCard from '../components/ProfileCard';
 import LandingFooter from '../components/LandingFooter';
-import LandingNav from '../components/LandingNav';
-import ScrollingUsers from '../components/ScrollingUsers';
+import LandingNav from '../components/LandingNav.jsx';
+import { signInUp, closeErrorModal } from '../state/actions';
+import { address } from '../utils/address';
 
 import Loading from '../assets/Loading.svg';
-import downArrow from '../assets/Arrow.svg';
 import illustration from '../assets/Dapp.svg';
+import Cristobal from '../assets/Cristobal.png';
+import Michael from '../assets/Michael.png';
+import Christian from '../assets/Christian.jpg';
 import Gitcoin from '../assets/gitcoin.svg';
 import ConsensysSVG from '../assets/consensys.svg';
 import Coinbase from '../assets/coinbase.svg';
 import Metamask from '../assets/metamask.svg';
 import PartnersBG from '../assets/PartnersBG.svg';
-import Partners from '../assets/Partners.svg';
 import consensys from '../assets/consensys.png';
+import '../components/styles/ProfileCard.css';
 import './styles/Landing.css';
 
 class Landing extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      loginLoading: false,
-    };
-    // this.loadData = this.loadData.bind(this);
+    this.handleSignInUp = this.handleSignInUp.bind(this);
   }
 
-  CreateProfile = () => {
-    localStorage.setItem(`serializedMuDID_${web3.eth.accounts[0]}`, null); // eslint-disable-line no-undef
-    this.setState({ loginLoading: true });
-    ThreeBox // eslint-disable-line no-undef
-      .openBox(web3.eth.accounts[0], web3.currentProvider) // eslint-disable-line no-undef
-      .then((threeBox) => {
-        const { history } = this.props;
-        this.setState({ loginLoading: false });
-        history.push(routes.PROFILE);
-      }).catch((error) => {
-        console.log(error);
-        this.setState({ loginLoading: false });
-      });
+  async handleSignInUp() {
+    localStorage.setItem(`serializedMuDID_${address}`, null); // eslint-disable-line no-undef
+    await this.props.signInUp();
   }
-
-  // async loadData() {
-  //   localStorage.setItem(`serializedMuDID_${web3.eth.accounts[0]}`, null); // eslint-disable-line no-undef
-  //   this.setState({ loginLoading: true });
-  //   await this.props.openBox();
-  //   await this.props.getPublicName();
-  //   await this.props.getPublicGithub();
-  //   await this.props.getPublicImage();
-  //   await this.props.getPrivateEmail();
-  //   await this.props.getActivity();
-  //   // will user sign in from landing page if you've already created an account?
-  // }
 
   render() {
-    const { loginLoading } = this.state;
+    const { ifFetchingThreeBox, showErrorModal, signUpSuccessful } = this.props;
+
+    if (signUpSuccessful) {
+      return <Redirect to="/Profile" />;
+    }
+
     return (
       <div>
-        <LandingNav loginLoading={loginLoading} createProfile={this.CreateProfile} />
+        <LandingNav handleSignInUp={this.handleSignInUp} />
         <div id="landing_background">
-          {loginLoading
+          {ifFetchingThreeBox
             && (
               <div className="loadingContainer">
                 <img src={Loading} alt="loading" id="loadingPic" />
+              </div>
+            )}
+          {showErrorModal
+            && (
+              <div className="loadingContainer">
+                <div className="modal">
+                  <p id="consentError">You must consent to sign up</p>
+                  {/* <p>{errorMessage}</p> */}
+                  <button onClick={this.props.closeErrorModal} type="button" className="tertiaryButton" id="closeModal">close</button>
+                </div>
               </div>
             )}
           <div id="landing">
@@ -75,14 +67,14 @@ class Landing extends Component {
               <div id="landing_left">
                 <h1 className="ae-1">Create an Ethereum Profile</h1>
                 <p className="lightOpacity">Add your information once and share it across dapps.</p>
-                <button id="landing_createProfileButton" type="button" onClick={this.CreateProfile}>
-                  Create a Profile
-              </button>
-
                 <div id="consensys">
                   <p className="lightOpacity">By </p>
                   <img src={consensys} alt="Consensys Logo" />
                 </div>
+
+                <button id="landing_createProfileButton" type="button" onClick={this.handleSignInUp}>
+                  Create a Profile
+                </button>
 
               </div>
               <div id="landing_right">
@@ -92,18 +84,11 @@ class Landing extends Component {
               </div>
             </div>
 
-            {/* <div id="landing_section_scroll">
-            <p className="">
-              Scroll for more
-            </p>
-            <img src={downArrow} id="landing_arrow" alt="down arrow" />
-          </div> */}
           </div>
 
           <div id="landing_section_trustedPartners">
             <h3 className="lightOpacity">Trusted by partners</h3>
             <div id="partnerList">
-              {/* <img src={Partners} id="partners" alt="3Box Partners" /> */}
               <img src={Gitcoin} id="partnerCos" alt="Partners background" />
               <img src={Coinbase} id="partnerCos" alt="Partners background" />
               <img src={ConsensysSVG} id="partnerCos" alt="Partners background" />
@@ -129,8 +114,40 @@ class Landing extends Component {
                   <a href="https://github.com/uport-project/3box-js"><button className="developerButton">Profiles API</button></a>
                 </div>
               </div>
+
               <div className="build_section_right">
-                <img src={illustration} alt="3Box Map" />
+
+                <div id="Michael" className="profileCardSmall">
+                  <img src={Michael} className="profileCardSmall_user_picture" alt="profile" />
+                  <div className="profileCard_user_info">
+
+                    <h4 className="profileCardSmall_user_name">Michael Sena</h4>
+
+                    <div id="profile_network_icon" />
+                    <p className="profileCardSmall_address">0x123456789</p>
+                  </div>
+                </div>
+
+                <div id="Christian" className="profileCardSmall">
+                  <img src={Christian} className="profileCardSmall_user_picture" alt="profile" />
+                  <div className="profileCard_user_info">
+
+                    <h4 className="profileCardSmall_user_name">Christian Lundkvist</h4>
+
+                    <div id="profile_network_icon" />
+                    <p className="profileCardSmall_address">0x123456789</p>
+                  </div>
+                </div>
+                <div id="Cristobal" className="profileCardSmall">
+                  <img src={Cristobal} className="profileCardSmall_user_picture" alt="profile" />
+                  <div className="profileCard_user_info">
+
+                    <h4 className="profileCardSmall_user_name">Cristobal Castillo</h4>
+
+                    <div id="profile_network_icon" />
+                    <p className="profileCardSmall_address">0x123456789</p>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -143,36 +160,11 @@ class Landing extends Component {
                 </div>
               </div>
               <div className="build_section_right">
-                <img src={illustration} alt="3Box Map" />
+                <img src={illustration} id="threeboxIllustration" alt="3Box Map" />
               </div>
             </div>
 
           </div>
-
-          {/* <div id="landing_section_developers">
-            <div id="landing_section_developers_inner">
-              <div id="landing_section_developers_copy">
-                <p className="bold grey" id="developers">FOR DEVELOPERS</p>
-                <h2>Built using 3Box DB</h2>
-                <p className="light">A distributed database that allows Ethereum users to store public and private data on the decentralized web. Open source.</p>
-                <div id="explore">
-                  <a href="https://github.com/uport-project/3box" >
-                    <p className="bold blue">Explore 3Box on Github</p>
-                  </a>
-                </div>
-              </div>
-              <div id="landing_section_developers_illustration">
-                <div id="card" />
-              </div>
-            </div>
-          </div>
-
-          <div id="landing_section_join">
-            <h1>Join our network of 1,000+ members</h1>
-            <p className="light">Already achieving more with their data.</p>
-
-            <ScrollingUsers />
-          </div> */}
           <LandingFooter />
         </div>
       </div>
@@ -181,24 +173,28 @@ class Landing extends Component {
 }
 
 Landing.propTypes = {
-  CreateProfile: PropTypes.func,
+  signInUp: PropTypes.func,
+  closeErrorModal: PropTypes.func,
+  ifFetchingThreeBox: PropTypes.bool,
+  signUpSuccessful: PropTypes.bool,
+  showErrorModal: PropTypes.bool,
+  errorMessage: PropTypes.string,
 };
 
 Landing.defaultProps = {
-  CreateProfile: null,
+  signInUp: signInUp(),
+  closeErrorModal: closeErrorModal(),
+  ifFetchingThreeBox: false,
+  signUpSuccessful: false,
+  showErrorModal: false,
+  errorMessage: null,
 };
 
-function mapState(state) {
-  return {
-  };
-}
+const mapState = state => ({
+  ifFetchingThreeBox: state.threeBoxData.ifFetchingThreeBox,
+  signUpSuccessful: state.threeBoxData.signUpSuccessful,
+  errorMessage: state.threeBoxData.errorMessage,
+  showErrorModal: state.threeBoxData.showErrorModal,
+});
 
-function mapDispatch(/* dispatch */) {
-  return {};
-}
-
-export default withRouter(connect(mapState, mapDispatch)(Landing));
-
-//<button id="landing_floatingButtong" type="button" onClick={CreateProfile}>
-//          Create a Profile
-//        </button>
+export default withRouter(connect(mapState, { signInUp, closeErrorModal })(Landing));
