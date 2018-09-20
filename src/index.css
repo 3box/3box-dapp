@@ -6,7 +6,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Lato', sans-serif;
-  background-color: white; }
+  color: #010c16;
+  background-color: #fbfbfb; }
 
 button {
   background-color: #006ECC;
@@ -67,8 +68,9 @@ li,
 a,
 p {
   text-decoration: none;
-  font-size: 16px;
-  list-style: none; }
+  font-size: 14px;
+  list-style: none;
+  color: #010c16; }
 
 li,
 a,
@@ -98,7 +100,6 @@ ul {
   font-weight: 500; }
 
 .subheader {
-  font-weight: 700;
   color: #a8a8a8;
   margin-bottom: 1vw; }
 
@@ -119,6 +120,9 @@ ul {
 
 .light {
   color: #6b6b6b; }
+
+.lighter {
+  color: #9b9b9b; }
 
 .white {
   color: white; }

@@ -23,14 +23,6 @@ class App extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { location } = this.props;
-    const { pathname } = location;
-    if (pathname === '/' && nextProps.location.pathname === ('/Profile' || '/EditProfile')) {
-      this.loadData();
-    }
-  }
-
   async loadData() {
     await this.props.getActivity();
     await this.props.openBox();
@@ -41,9 +33,6 @@ class App extends Component {
   }
 
   render() {
-    const { location } = this.props;
-    const { pathname } = location;
-
     return (
       <Router basename={routes.LANDING}>
         <div className="App">

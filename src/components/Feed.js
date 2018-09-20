@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import FeedTileInternal from './FeedTileInternal';
-import FeedTileTXS from './FeedTileTXS';
-import FeedTileToken from './FeedTileToken';
+import FeedTileInternal from './FeedTileInternal.jsx';
+import FeedTileTXS from './FeedTileTXS.jsx';
+import FeedTileToken from './FeedTileToken.jsx';
 import { getActivity } from '../state/actions';
 import Loading from '../assets/Loading.svg';
 import './styles/Feed.css';
@@ -60,6 +60,7 @@ class Feed extends Component {
     const {
       renderFeed,
     } = this.state;
+    console.log(feed);
 
     return (
       <div id="feed">
@@ -68,8 +69,8 @@ class Feed extends Component {
           <ul id="feed_activity_header">
             <li id="feed_activity_network">Network</li>
             <li id="feed_activity_type">Type</li>
-            <li id="feed_activity_entity">Entity</li>
             <li id="feed_activity_function">Function</li>
+            <li id="feed_activity_entity">Entity</li>
             <li id="feed_activity_description">Description</li>
             <li id="feed_activity_amount">Amount</li>
             <li id="feed_activity_time">Time</li>

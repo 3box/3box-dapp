@@ -6,32 +6,35 @@
     display: inline-block;
     text-align: center;
     overflow: scroll; }
-  #feed p {
-    font-size: .9em; }
 
 #feed_activity_network {
-  width: 12%; }
+  width: 8%;
+  padding-left: 3%; }
 
 #feed_activity_type {
-  width: 10%; }
+  width: 9%; }
 
 #feed_activity_entity {
   width: 20%; }
+  #feed_activity_entity p {
+    color: #b1b1b1; }
 
 #feed_activity_function {
-  width: 14.2857142857%; }
+  width: 12%; }
 
 #feed_activity_description {
-  width: 19%; }
+  width: 22%; }
+  #feed_activity_description p {
+    color: #b1b1b1; }
 
 #feed_activity_amount {
-  width: 10%; }
+  width: 13%; }
 
 #feed_activity_time {
-  width: 14.2857142857%; }
+  width: 13%; }
   #feed_activity_time p {
     font-size: .8em;
-    color: #6b6b6b; }
+    color: #b1b1b1; }
 
 #feed_activity {
   min-height: 10vh;
@@ -61,3 +64,55 @@
 #activityLoad {
   width: 3em;
   height: 3em; }
+
+.feed_activity_tile {
+  border-top: solid 1px #E4E4E4;
+  border-bottom: solid 1px #E4E4E4;
+  min-height: 44px;
+  margin-bottom: -1px;
+  display: flex;
+  align-items: center; }
+  .feed_activity_tile p {
+    display: inline-block;
+    white-space: nowrap; }
+  .feed_activity_tile li {
+    display: flex;
+    align-items: center; }
+  .feed_activity_tile:hover {
+    background: #F8F8F8; }
+
+.feed_activity_tile_networkLogo {
+  height: 20px;
+  position: relative;
+  top: 50%;
+  transform: translateY(22%); }
+
+.feed_activity_tile_entityLogo {
+  display: inline-block;
+  height: 24px;
+  position: relative;
+  top: 50%;
+  transform: translateY(22%);
+  margin-right: 1vw; }
+
+.feed_activity_tile_amount p {
+  color: #2AA046; }
+
+#feed_network_3Box {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  text-align: center;
+  background-color: #bdbdbd;
+  margin: 0 auto;
+  position: relative;
+  top: 50%;
+  transform: perspective(1px) translateY(-16%); }
+  #feed_network_3Box p {
+    position: relative;
+    top: 50%;
+    transform: perspective(1px) translateY(-50%);
+    margin: 0 auto;
+    color: white;
+    font-weight: 500;
+    font-size: 1em; }

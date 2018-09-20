@@ -8,6 +8,8 @@ import { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmai
 import * as routes from '../utils/routes';
 import Nav from '../components/Nav';
 import Footer from '../components/Footer';
+import EthereumLogo from '../assets/Ethereum_logo_2014.svg';
+import Private from '../assets/Private.svg';
 import Loading from '../assets/Loading.svg';
 import './styles/EditProfile.css';
 
@@ -27,6 +29,7 @@ class EditProfile extends Component {
       disableSavePic: true,
       picLoading: false,
       saveLoading: false,
+      picUploaded: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -47,6 +50,8 @@ class EditProfile extends Component {
 
   handleUpdatePic = (photoFile) => {
     const reader = new window.FileReader();
+
+    this.setState({ picUploaded: true })
     reader.readAsArrayBuffer(photoFile);
     reader.onloadend = () => {
       this.setState({ buffer: Buffer.from(reader.result), disableSavePic: false });
@@ -83,26 +88,13 @@ class EditProfile extends Component {
     this.setState({ showPicModal: !showPicModal, disableSavePic: true });
   }
 
-  // removeStore = (key, method) => {
-  //   const { threeBoxObject } = this.props;
-  //   const { profileStore, privateStore } = threeBoxObject;
-
-  //   if (method === 'profileStore') {
-  //     profileStore.remove(key)
-  //       .then(() => this.props.openBox());
-  //   } else {
-  //     privateStore.remove(key)
-  //       .then(() => this.props.openBox());
-  //   }
-  // }
-
   removePic = () => {
     const { threeBoxObject } = this.props;
     const { profileStore } = threeBoxObject;
     this.setState({ picLoading: true });
     profileStore.remove('image')
       .then(() => {
-        this.props.openBox();
+        this.props.getPublicImage();
         this.setState({ picLoading: false, showPicModal: false });
       });
   }
@@ -123,10 +115,6 @@ class EditProfile extends Component {
     github === this.props.github ? githubChanged = false : githubChanged = true;
     email === this.props.email ? emailChanged = false : emailChanged = true;
 
-    console.log(nameChanged);
-    console.log(githubChanged);
-    console.log(emailChanged);
-
     // if value changed and is not empty, save new value, else remove value
     (nameChanged && name !== '') ? await profileStore.set('name', name) : await profileStore.remove(name);
     (githubChanged && github !== '') ? await profileStore.set('github', github) : await profileStore.remove(github);
@@ -142,28 +130,29 @@ class EditProfile extends Component {
   }
 
   render() {
-    const {
-      image,
-    } = this.props;
-    const { showPicModal, name, github, email, disableSave, disableSavePic, picLoading, saveLoading } = this.state;
+    const { image } = this.props;
+    const { showPicModal, name, github, email, disableSave, disableSavePic, picLoading, saveLoading, picUploaded } = this.state;
 
     return (
       <div>
+        <Nav />
+
         {picLoading
           && (
             <div className="loadingContainer">
               <img src={Loading} alt="loading" id="loadingPic" />
             </div>
           )}
+
         {showPicModal
-          && (
+          && (  
             <div className="container">
               <div className="modal">
-                {image.length > 0
-                  ? <img src={`https://ipfs.io/ipfs/${image[0].contentUrl['/']}`} alt="profile" id="edit_modal_user_picture" />
+                {(image.length > 0 || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0]))
+                  ? <img src={(this.fileUpload && this.fileUpload.files && this.fileUpload.files[0]) ? URL.createObjectURL(this.fileUpload.files[0]) : `https://ipfs.io/ipfs/${image[0].contentUrl['/']}`} alt="profile" id="edit_modal_user_picture" />
                   : <div id="edit_modal_user_picture" />
                 }
-                {image.length > 0 && <button id="removePic" className="removeButton" onClick={this.removePic} text="remove" type="button">X</button>}
+                {image.length > 0 && <button id="removePic" className="removeButton" onClick={this.removePic} text="remove" type="button">Remove</button>}
 
                 <p>Edit profile picture</p>
                 <form onSubmit={this.handleSubmitPic}>
@@ -171,74 +160,104 @@ class EditProfile extends Component {
                     <input id="fileInput" type="file" name="pic" className="light" accept="image/*" onChange={e => this.handleUpdatePic(e.target.files[0])} ref={ref => this.fileUpload = ref} />
                     {(this.fileUpload && this.fileUpload.files && this.fileUpload.files[0]) ? this.fileUpload.files[0].name : 'Choose a file'}
                   </label>
-                  <button id="saveModal" type="submit" disabled={disableSavePic}> Save</button>
+                 {!picUploaded && <button id="saveModal" type="submit" disabled={disableSavePic}> Save</button>}
                 </form>
-                <button onClick={e => this.handlePicModal(e)} type="button" className="tertiaryButton" id="closeModal">close</button>
+                <button onClick={(e) => { this.handlePicModal(e); this.setState({ picUploaded: false }) }} type="button" className="tertiaryButton" id="closeModal">close</button>
               </div>
             </div>)}
-        <Nav />
-        <Link to="/Profile">
-          <div id="goBack">
-            &larr; Profile
+
+        {saveLoading
+          && (
+            <div className="container">
+              <img src={Loading} alt="loading" id="loadingPic" />
+            </div>
+          )}
+
+        <div id="breadCrumb">
+          <div id="crumbs">
+            <Link to="/Profile">
+              <p className="lighter">
+                Profile
+            </p>
+            </Link>
+            <p className="lighter">
+              >
+            </p>
+            <p className="light">
+              Edit Profile
+            </p>
           </div>
-        </Link>
+        </div>
 
         <div id="edit">
-          <p className="header">Edit Profile</p>
 
           <div id="edit_page">
-            <div id="edit_user_picture">
-              {image.length > 0
-                ? <img src={`https://ipfs.io/ipfs/${image[0].contentUrl['/']}`} alt="profile" className="profPic" />
-                : <div className="profPic" />
-              }
-              <button onClick={this.handlePicModal} type="button" className="secondaryButton">Edit photo</button>
+
+            <div id="myProfile">
+              <h4>My Profile</h4>
+              <div id="myProfile_address">
+                <img id="editprofile_networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
+                <p>{address}</p>
+              </div>
             </div>
 
-            <div id="edit_user_public">
 
-              {saveLoading
-                && (
-                  <div className="container">
-                    <img src={Loading} alt="loading" id="loadingPic" />
+            <div id="edit_profile_content">
+              {/* <div id="publicHeader">
+                  <p>Public</p>
+                  <p className="subtext">This information is accessible to all</p>
+                </div> */}
+              <div id="public_contents">
+                <div id="edit_user_picture">
+                  {image.length > 0
+                    ? <img src={`https://ipfs.io/ipfs/${image[0].contentUrl['/']}`} alt="profile" className="profPic" />
+                    : <div className="profPic" />
+                  }
+                  <button onClick={this.handlePicModal} type="button" className="secondaryButton">Edit photo</button>
+                </div>
+
+                <div id="edit_user_public">
+
+                  <h3>Name</h3>
+                  <input
+                    name="name"
+                    type="text"
+                    value={name}
+                    onChange={e => this.handleFormChange(e, 'name')}
+                  />
+
+                  <div id="githubInfo">
+                    <h3>Github</h3>
+                    <input
+                      name="github"
+                      type="text"
+                      value={github}
+                      onChange={e => this.handleFormChange(e, 'github')}
+                    />
                   </div>
-                )}
 
-              <div className="edit_form">
+                  <div id="privateInfo">
+                    <h3>Email Address</h3><img id="editprofile_privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to."/>
+                  </div>
+                  <input
+                    name="email"
+                    type="email"
+                    value={email}
+                    onChange={e => this.handleFormChange(e, 'email')}
+                  />
 
-                <h3>Ethereum Address</h3>
-                <p id="edit_address">{address}</p>
-
-                <h3>Name</h3>
-                <input
-                  name="name"
-                  type="text"
-                  value={name}
-                  onChange={e => this.handleFormChange(e, 'name')}
-                />
-                {/* <button className="removeButton" type="button" onClick={() => this.removeStore('name', 'profileStore')}>X</button> */}
-
-
-                <h3>Github</h3>
-                <input
-                  name="github"
-                  type="text"
-                  value={github}
-                  onChange={e => this.handleFormChange(e, 'github')}
-                />
-                {/* <button className="removeButton" type="button" onClick={() => this.removeStore('github', 'profileStore')}>X</button> */}
-
+                </div>
               </div>
+
             </div>
 
-            <div id="edit_user_private">
-              <div id="privateHeader">
-                <p className="subheader">Private</p>
-                <p className="subtext">This information is accessible only by those with permission.</p>
-              </div>
-
-              <div className="edit_form">
-
+            {/* <div id="edit_private_content">
+              <div id="edit_private">
+                <div id="privateHeader">
+                  <img id="editprofile_privateIcon" src={Private} alt="Private" />
+                  <p>Private</p>
+                  <p className="subtext">This information is accessible only by those with permission</p>
+                </div>
                 <h3>Email Address</h3>
                 <input
                   name="email"
@@ -246,17 +265,16 @@ class EditProfile extends Component {
                   value={email}
                   onChange={e => this.handleFormChange(e, 'email')}
                 />
-                {/* <button className="removeButton" type="button" onClick={() => this.removeStore('email', 'privateStore')}>X</button> */}
-
               </div>
-
+            </div> */}
+            <div id="formControls">
+              <div id="formControls_content">
+                <button type="submit" disabled={disableSave} onClick={e => this.handleSubmit(e)}>Save</button>
+                <Link to="/Profile" className="subtext" id="edit_cancel">
+                  Cancel
+                </Link>
+              </div>
             </div>
-          </div>
-          <div id="formControls">
-            <button type="submit" disabled={disableSave} onClick={e => this.handleSubmit(e)}>Save</button>
-            <Link to="/Profile" className="subtext" id="edit_cancel">
-              Cancel
-            </Link>
           </div>
         </div>
         <Footer />

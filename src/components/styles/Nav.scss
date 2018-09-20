@@ -19,13 +19,14 @@ nav {
 }
 
 #header_user_picture {
-  background-color: #3f3f3f;
+  background-color: $threeBoxAccentBlue;
   border-radius: 100%;
   width: 40px;
   height: 40px;
   margin: 14px 4vw 14px 14px;
   margin-left: auto;
   cursor: pointer;
+  object-fit: cover;
 }
 
 #dropdown {
@@ -34,7 +35,7 @@ nav {
   right: 3vw;
   text-align: left;
   width: 10em;
-  padding: 1em 0;
+  padding: 1em 0 0 0;
   background-color: white;
   border-radius: 5px;
   border: 1px solid #E4E4E4;
@@ -46,7 +47,7 @@ nav {
   }
 
   li {
-    font-size: .8em;
+    font-size: .9em;
     padding-left: 1.3em;
     color: rgb(107, 107, 107);
     line-height: 2.5em;
@@ -87,4 +88,18 @@ nav {
   top: 0;
   width: 100%;
   z-index: 3;
+}
+
+#reportBug{
+  background-color: #f9f9f9;
+  padding: 1em 0;
+}
+
+#divideBug {
+  border-top: 1px solid #CBCBCB;
+  margin-top: 14px;
+  margin-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+  width: 100% !important;
 }

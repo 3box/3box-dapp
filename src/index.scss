@@ -9,7 +9,10 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Lato', sans-serif;
-  background-color: white;
+  // background-color: $threeBoxBlueHue;
+  color: rgb(1, 12, 22);
+  background-color: #fbfbfb;
+  // background-color: white;
 }
 
 button {
@@ -91,8 +94,9 @@ li,
 a,
 p {
   text-decoration: none;
-  font-size: 16px;
+  font-size: 14px;
   list-style: none;
+  color: rgb(1, 12, 22);
 }
 
 li,
@@ -127,7 +131,6 @@ ul {
 }
 
 .subheader {
-  font-weight: 700;
   color: #a8a8a8;
   margin-bottom: 1vw;
 }
@@ -154,6 +157,10 @@ ul {
 
 .light {
   color: #6b6b6b;
+}
+
+.lighter {
+  color: #9b9b9b;
 }
 
 .white {

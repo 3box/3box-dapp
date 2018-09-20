@@ -43,6 +43,8 @@ class Nav extends Component {
                 <Link to={routes.EDITPROFILE}><li>Edit profile</li></Link>
                 <div className="divide" />
                 <Link to={routes.LANDING} onClick={() => threeBox.logOut()}><li>Sign Out</li></Link>
+                <div id="divideBug" />
+                <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="reportBug">Report a bug</li></a>
               </ul>
             </li>
           )

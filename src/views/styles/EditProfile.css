@@ -1,17 +1,62 @@
 #edit {
-  width: 85vw;
+  width: 55vw;
   margin: 0 auto;
-  margin-top: 10vh; }
+  margin-top: 6vh;
+  margin-bottom: 12vh; }
+  #edit h3 {
+    font-weight: 400;
+    font-size: .8em; }
+  #edit input {
+    display: inline-block;
+    border-radius: 5px;
+    border-style: none;
+    border: solid 1px #E4E4E4;
+    background-color: #eeeeee;
+    height: 44px;
+    width: 100%;
+    margin-top: 1.5vh;
+    padding: 0 15px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+  #edit button {
+    display: inline-block; }
 
 #edit_page {
   width: 100%;
-  height: 28em;
-  margin-top: 1vh;
+  height: fit-content;
   display: flex;
+  flex-direction: column;
   border: #E4E4E4 solid 1px;
-  background: white;
+  background: #fff;
   border-radius: 6px;
-  background-color: #f8f8f8; }
+  box-shadow: 0 7px 14px 0 rgba(59, 65, 94, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07); }
+  #edit_page #myProfile {
+    width: 100%;
+    border-bottom: #E4E4E4 solid 1px;
+    height: 4em;
+    display: flex;
+    align-items: center; }
+    #edit_page #myProfile h4 {
+      margin-left: 2em; }
+  #edit_page #myProfile_address {
+    margin-left: auto;
+    margin-right: 3vw;
+    display: flex;
+    align-items: center; }
+  #edit_page #edit_profile_content {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    background-color: #fbfbfb; }
+  #edit_page #edit_private_content {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    background-color: #fbfbfb; }
+  #edit_page #edit_private {
+    padding: 1.8em 2em 2em; }
   #edit_page form {
     display: inline-block;
     height: 100%; }
@@ -20,7 +65,7 @@
     height: 100%;
     display: inline-block;
     flex: 2;
-    margin-top: 6em;
+    padding: 5vh 3vw 6vh 3vw;
     justify-content: center;
     align-content: center;
     align-items: center; }
@@ -30,20 +75,27 @@
       border-radius: 100%;
       width: 120px;
       height: 120px;
-      margin: 0 auto; }
+      margin: 0 auto;
+      object-fit: cover; }
     #edit_page #edit_user_picture button {
       display: block;
       margin: 0 auto;
-      margin-top: 3em; }
+      margin-top: 4vh; }
   #edit_page #edit_user_public {
-    width: 36.5%;
     height: 100%;
     overflow: hidden;
     display: inline-block;
     flex: 3.5;
     justify-content: center;
     align-content: center;
-    align-items: center; }
+    align-items: center;
+    padding: 5vh 3vw; }
+  #edit_page #privateInfo {
+    display: flex;
+    align-items: center;
+    margin-top: 3vh; }
+  #edit_page #githubInfo {
+    margin-top: 3vh; }
   #edit_page #edit_user_private {
     width: calc(36.5% - 1px);
     height: 100%;
@@ -53,39 +105,6 @@
     justify-content: center;
     align-content: center;
     align-items: center; }
-
-#goBack {
-  color: #6b6b6b;
-  position: absolute;
-  top: 100px;
-  left: 2vw; }
-
-.edit_form {
-  position: relative;
-  top: 50%;
-  transform: perspective(1px) translateY(-50%);
-  padding: 2em; }
-  .edit_form h3 {
-    padding-bottom: 1.5vh;
-    margin-top: 3vh;
-    font-weight: 700;
-    font-size: 1em; }
-  .edit_form input {
-    display: inline-block;
-    border-radius: 5px;
-    border-style: none;
-    border: solid 1px #E4E4E4;
-    height: 44px;
-    width: 80%;
-    padding: 0 15px;
-    -webkit-box-sizing: border-box;
-    /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box;
-    /* Firefox, other Gecko */
-    box-sizing: border-box;
-    /* Opera/IE 8+ */ }
-  .edit_form button {
-    display: inline-block; }
 
 #edit_address {
   overflow: scroll; }
@@ -114,7 +133,7 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.76);
   padding: 1rem;
-  z-index: 5; }
+  z-index: 6; }
 
 .modal {
   position: absolute;
@@ -160,7 +179,8 @@
   border-radius: 100%;
   width: 160px;
   height: 160px;
-  display: block; }
+  display: block;
+  object-fit: cover; }
 
 #chooseFile {
   margin: 0 auto;
@@ -183,11 +203,31 @@
   margin-left: 0; }
 
 #formControls {
-  float: right;
-  margin-top: 2em; }
+  width: 100%;
+  border-top: #E4E4E4 solid 1px;
+  display: flex;
+  align-items: center; }
+  #formControls #formControls_content {
+    padding: 1.4em 2em;
+    margin-left: auto; }
 
 #privateHeader {
-  padding: 2em; }
+  display: flex;
+  align-items: center; }
+  #privateHeader p {
+    display: inline-block;
+    margin-right: 1vw; }
+
+#publicHeader {
+  display: flex;
+  align-items: center; }
+  #publicHeader p {
+    display: inline-block;
+    margin-right: 1vw; }
+
+#public_contents {
+  display: flex;
+  align-items: center; }
 
 .removeButton {
   font-size: .8em;
@@ -199,3 +239,27 @@
   .removeButton:hover {
     color: white;
     background-color: #6b6b6b; }
+
+#breadCrumb {
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #E4E4E4;
+  overflow: hidden;
+  height: 30px;
+  display: flex;
+  align-items: center; }
+  #breadCrumb p {
+    margin-right: 2vw; }
+  #breadCrumb #crumbs {
+    margin-left: 4vw;
+    display: flex;
+    align-items: center; }
+
+#editprofile_networkLogo {
+  height: 19px;
+  margin-left: 3vw;
+  margin-right: 1vw; }
+
+#editprofile_privateIcon {
+  height: 22px;
+  margin-right: 1vw;
+  margin-left: 1vw; }

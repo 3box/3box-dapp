@@ -13,26 +13,41 @@
   left: 0;
   bottom: 0;
   width: 23vw;
-  background-color: #021333;
+  background-color: #E4E4E4;
   text-align: center;
   border-top: 1px solid #E4E4E4; }
-  #profile_footer li {
-    color: white;
-    opacity: .6;
-    font-weight: 100;
-    text-align: left;
-    line-height: 1.8em; }
 
 #profile_footer_contents {
-  padding: 2em; }
+  padding: 2em 2em 1.6em 2em;
+  opacity: .5;
+  text-align: left; }
+  #profile_footer_contents ul {
+    display: flex;
+    padding: 0;
+    height: 20px;
+    margin-bottom: .3vh;
+    align-items: center;
+    justify-content: flex-start; }
+  #profile_footer_contents li {
+    font-weight: 100;
+    text-align: left;
+    margin: 0 .8vw;
+    display: flex;
+    flex: 1;
+    align-items: center; }
+  #profile_footer_contents p {
+    font-size: .8em;
+    display: inline-block;
+    margin: 1vh 1vw; }
 
 #profile_user_picture {
-  background-color: #3f3f3f;
+  background-color: #021333;
   border-radius: 100%;
   width: 120px;
   height: 120px;
   margin: 0 auto;
-  margin-top: 12vh; }
+  margin-top: 8vh;
+  object-fit: cover; }
 
 #profile_user_info {
   margin: 1vh 3vw;
@@ -43,7 +58,14 @@
   overflow: hidden;
   text-overflow: ellipsis; }
   #profile_user_info p {
-    text-align: left; }
+    text-align: left;
+    font-size: .9em; }
+
+#profile_network_networkLogo {
+  height: 19px;
+  position: relative;
+  top: 50%;
+  transform: translateY(22%); }
 
 #profile_network {
   float: left;
@@ -53,12 +75,13 @@
 #profile_social {
   float: left;
   clear: both;
-  margin-bottom: 2vh; }
+  margin-bottom: 6vh; }
 
 #profile_private {
   float: left;
   clear: both;
   margin-bottom: 2vh;
+  margin-top: 4vh;
   width: 100%; }
 
 #profile_edit {
@@ -66,14 +89,16 @@
   clear: both;
   margin-bottom: .5em;
   width: 100%; }
+  #profile_edit a {
+    color: #b1b1b1; }
 
 #profile_user_name {
-  font-size: 1.5em;
+  font-size: 1.4em;
   margin-top: 5vh;
   margin-bottom: 2vh; }
 
 #profile_githubIcon {
-  width: 18px;
+  height: 16px;
   display: inline-block; }
 
 #profile_github {
@@ -81,14 +106,37 @@
   margin-left: .6vw; }
 
 #profile_private_header {
-  margin-top: 6vh;
   clear: both; }
 
 #profile_email {
   border: #a8a8a8 solid 1px;
   border-radius: 5px;
-  padding: 15px; }
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  border-offset: 15px; }
 
 #profile_edit_button {
   margin-top: 1vh;
   display: inline-block; }
+
+#profileFooter_githubIcon {
+  height: 18px;
+  display: inline-block; }
+
+#profileFooter_email {
+  display: inline-block;
+  height: 12px; }
+
+#profileFooter_email_icon {
+  height: 12px;
+  display: inline-block;
+  align-content: left;
+  margin-right: 1vw; }
+
+#divide_public_private {
+  display: block;
+  width: 100%;
+  align: center;
+  overflow: hidden;
+  border-color: #f8f8f8; }
