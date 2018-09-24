@@ -1,13 +1,15 @@
 html {
   position: relative;
-  min-height: 100%; }
+  min-height: 100%;
+  min-width: 100%; }
 
 body {
   margin: 0;
   padding: 0;
   font-family: 'Lato', sans-serif;
   color: #010c16;
-  background-color: #fbfbfb; }
+  background-color: #fbfbfb;
+  min-width: 100%; }
 
 button {
   background-color: #006ECC;
@@ -64,13 +66,24 @@ button {
 button:hover {
   cursor: pointer; }
 
+input,
+textarea,
+select,
+li,
+a,
+p {
+  color: #010c16; }
+
+input,
+textarea,
+select,
+button,
 li,
 a,
 p {
   text-decoration: none;
   font-size: 14px;
-  list-style: none;
-  color: #010c16; }
+  list-style: none; }
 
 li,
 a,

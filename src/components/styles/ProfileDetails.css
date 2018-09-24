@@ -106,7 +106,8 @@
   margin-left: .6vw; }
 
 #profile_private_header {
-  clear: both; }
+  clear: both;
+  margin-top: 2em; }
 
 #profile_email {
   border: #a8a8a8 solid 1px;

@@ -43,130 +43,134 @@ class Landing extends Component {
     }
 
     return (
-      <div>
+      <div id="landing">
         <LandingNav handleSignInUp={this.handleSignInUp} />
-        <div id="landing_background">
-          {ifFetchingThreeBox
-            && (
-              <div className="loadingContainer">
-                <img src={Loading} alt="loading" id="loadingPic" />
-              </div>
-            )}
-          {showErrorModal
-            && (
-              <div className="loadingContainer">
-                <div className="modal">
-                  <p id="consentError">You must consent to sign up</p>
-                  {/* <p>{errorMessage}</p> */}
-                  <button onClick={this.props.closeErrorModal} type="button" className="tertiaryButton" id="closeModal">close</button>
-                </div>
-              </div>
-            )}
-          <div id="landing">
-            <div id="landing_section_open">
-              <div id="landing_left">
-                <h1 className="ae-1">Create an Ethereum Profile</h1>
-                <p className="lightOpacity">Add your information once and share it across dapps.</p>
-                <div id="consensys">
-                  <p className="lightOpacity">By </p>
-                  <img src={consensys} alt="Consensys Logo" />
-                </div>
 
-                <button id="landing_createProfileButton" type="button" onClick={this.handleSignInUp}>
-                  Create a Profile
-                </button>
+        {ifFetchingThreeBox
+          && (
+            <div className="loadingContainer">
+              <img src={Loading} alt="loading" id="loadingPic" />
+            </div>
+          )}
 
-              </div>
-              <div id="landing_right">
-                <div id="landing_card_margin">
-                  <ProfileCard />
-                </div>
+        {showErrorModal
+          && (
+            <div className="loadingContainer">
+              <div className="modal">
+                <p id="consentError">You must consent to sign up</p>
+                <button onClick={this.props.closeErrorModal} type="button" className="tertiaryButton" id="closeModal">close</button>
               </div>
             </div>
+          )}
 
+
+        <div id="landing__splash">
+
+          <div id="landing__createProfile">
+            <h1 className="ae-1">Create an Ethereum Profile</h1>
+            <p className="lightOpacity">Add your information once and share it across dapps.</p>
+            <div id="consensys">
+              <p className="lightOpacity">By </p>
+              <img src={consensys} alt="Consensys Logo" />
+            </div>
+
+            <div id="landing__button--center">
+              <button id="landing__createProfileButton" type="button" onClick={this.handleSignInUp}>
+                Create a Profile
+            </button>
+            </div>
           </div>
 
-          <div id="landing_section_trustedPartners">
-            <h3 className="lightOpacity">Trusted by partners</h3>
-            <div id="partnerList">
-              <img src={Gitcoin} id="partnerCos" alt="Partners background" />
-              <img src={Coinbase} id="partnerCos" alt="Partners background" />
-              <img src={ConsensysSVG} id="partnerCos" alt="Partners background" />
-              <img src={Metamask} id="partnerCos" alt="Partners background" />
+          <div id="landing__profileCard">
+            <div id="landing__profileCard--margin">
+              <ProfileCard />
             </div>
-            <img src={PartnersBG} id="trustedPartners_bg" alt="Partners background" />
           </div>
 
-
-          <div id="landing_section_build">
-
-            <h2>Build with 3Box</h2>
-            <p className="lightOpacity">Scalable, open source, distributed database infrastructure for Ethereum.</p>
-            <a href="https://github.com/uport-project/3box">
-              <button className="developerButton">Get started</button>
-            </a>
-
-            <div className="build_section">
-              <div className="build_section_left">
-                <div className="build_section_content">
-                  <h3>Ethereum Profiles API</h3>
-                  <p className="lightOpacity">Profiles API makes it easy to get and set information about users. Support for public and private profiles.</p>
-                  <a href="https://github.com/uport-project/3box-js"><button className="developerButton">Profiles API</button></a>
-                </div>
-              </div>
-
-              <div className="build_section_right">
-
-                <div id="Michael" className="profileCardSmall">
-                  <img src={Michael} className="profileCardSmall_user_picture" alt="profile" />
-                  <div className="profileCard_user_info">
-
-                    <h4 className="profileCardSmall_user_name">Michael Sena</h4>
-
-                    <div id="profile_network_icon" />
-                    <p className="profileCardSmall_address">0x123456789</p>
-                  </div>
-                </div>
-
-                <div id="Christian" className="profileCardSmall">
-                  <img src={Christian} className="profileCardSmall_user_picture" alt="profile" />
-                  <div className="profileCard_user_info">
-
-                    <h4 className="profileCardSmall_user_name">Christian Lundkvist</h4>
-
-                    <div id="profile_network_icon" />
-                    <p className="profileCardSmall_address">0x123456789</p>
-                  </div>
-                </div>
-                <div id="Cristobal" className="profileCardSmall">
-                  <img src={Cristobal} className="profileCardSmall_user_picture" alt="profile" />
-                  <div className="profileCard_user_info">
-
-                    <h4 className="profileCardSmall_user_name">Cristobal Castillo</h4>
-
-                    <div id="profile_network_icon" />
-                    <p className="profileCardSmall_address">0x123456789</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="build_section">
-              <div className="build_section_left">
-                <div className="build_section_content">
-                  <h3>Simple, Open Design</h3>
-                  <p className="lightOpacity">Compatible with existing browsers, wallets, and dapps for a shared Web3 experience. Built on IPFS and Orbit DB.</p>
-                  <a href="https://github.com/uport-project/3box"><button className="developerButton">3Box DB Overview</button></a>
-                </div>
-              </div>
-              <div className="build_section_right">
-                <img src={illustration} id="threeboxIllustration" alt="3Box Map" />
-              </div>
-            </div>
-
-          </div>
-          <LandingFooter />
         </div>
+
+
+        <div id="landing__trustedPartners">
+          <h3 className="lightOpacity">TRUSTED BY PARTNERS</h3>
+          <div id="landing__partnerList">
+            <img src={Gitcoin} className="partnerCos" alt="Partners background" />
+            <img src={Coinbase} className="partnerCos" alt="Partners background" />
+            <img src={ConsensysSVG} className="partnerCos" alt="Partners background" />
+            <img src={Metamask} className="partnerCos" alt="Partners background" />
+          </div>
+          <img src={PartnersBG} id="trustedPartners--bg" alt="Partners background" />
+        </div>
+
+
+        <div id="landing__build">
+
+          <h2>Build with 3Box</h2>
+          <p className="lightOpacity">Scalable, open source, distributed database infrastructure for Ethereum.</p>
+          <a href="https://github.com/uport-project/3box">
+            <button className="developerButton">Get started</button>
+          </a>
+
+          <div className="build_section">
+            <div className="build_section_text">
+              <div className="build_section_content">
+                <h3>Ethereum Profiles API</h3>
+                <p className="lightOpacity">Profiles API makes it easy to get and set information about users. Support for public and private profiles.</p>
+                <a href="https://github.com/uport-project/3box-js"><button className="developerButton">Profiles API</button></a>
+              </div>
+            </div>
+
+            <div className="build__graphic__profiles">
+
+              <div id="Michael" className="profileCardSmall">
+                <img src={Michael} className="profileCardSmall_user_picture" alt="profile" />
+                <div className="profileCard_user_info">
+
+                  <h4 className="profileCardSmall_user_name">Michael Sena</h4>
+
+                  <div id="profile_network_icon" />
+                  <p className="profileCardSmall_address">0x123456789</p>
+                </div>
+              </div>
+
+              <div id="Christian" className="profileCardSmall">
+                <img src={Christian} className="profileCardSmall_user_picture" alt="profile" />
+                <div className="profileCard_user_info">
+
+                  <h4 className="profileCardSmall_user_name">Christian Lundkvist</h4>
+
+                  <div id="profile_network_icon" />
+                  <p className="profileCardSmall_address">0x123456789</p>
+                </div>
+              </div>
+              <div id="Cristobal" className="profileCardSmall">
+                <img src={Cristobal} className="profileCardSmall_user_picture" alt="profile" />
+                <div className="profileCard_user_info">
+
+                  <h4 className="profileCardSmall_user_name">Cristobal Castillo</h4>
+
+                  <div id="profile_network_icon" />
+                  <p className="profileCardSmall_address">0x123456789</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="build_section">
+            <div className="build_section_text">
+              <div className="build_section_content">
+                <h3>Simple, Open Design</h3>
+                <p className="lightOpacity">Compatible with existing browsers, wallets, and dapps for a shared Web3 experience. Built on IPFS and Orbit DB.</p>
+                <a href="https://github.com/uport-project/3box"><button className="developerButton">3Box DB Overview</button></a>
+              </div>
+            </div>
+            <div className="build__graphic__threeBox">
+              <img src={illustration} id="threeboxIllustration" alt="3Box Map" />
+            </div>
+          </div>
+
+        </div>
+
+        <LandingFooter />
       </div>
     );
   }

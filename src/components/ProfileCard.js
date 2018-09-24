@@ -11,11 +11,11 @@ const ProfileCard = () => (
 
       <h2 id="profile_user_name">Joseph Lubin</h2>
 
-
       <div>
         <div id="profile_network_icon" />
         <p id="profile_address">0x123456789</p>
       </div>
+      
       <div>
         <img src={GithubIcon} id="profile_githubIcon" alt="Github Icon" />
         <p id="profile_github">jmlubin</p>

@@ -3,16 +3,16 @@
 html {
   position: relative;
   min-height: 100%;
+  min-width: 100%;
 }
 
 body {
   margin: 0;
   padding: 0;
   font-family: 'Lato', sans-serif;
-  // background-color: $threeBoxBlueHue;
   color: rgb(1, 12, 22);
   background-color: #fbfbfb;
-  // background-color: white;
+  min-width: 100%;
 }
 
 button {
@@ -90,13 +90,25 @@ button:hover {
   cursor: pointer;
 }
 
+input,
+textarea,
+select,
+li,
+a,
+p {
+  color: rgb(1, 12, 22);
+}
+
+input,
+textarea,
+select,
+button,
 li,
 a,
 p {
   text-decoration: none;
   font-size: 14px;
   list-style: none;
-  color: rgb(1, 12, 22);
 }
 
 li,
