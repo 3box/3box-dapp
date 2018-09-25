@@ -1,7 +1,7 @@
 # 3Box Dapp
 This repo is home to the 3box.io application that allows users to interact with their 3Box.
 
-**To report an issue**: Copy the [3Box issue template](https://github.com/uport-project/3box/.github/ISSUE_TEMPLATE.md) and [create a new issue in 3box-dapp](https://github.com/uport-project/3box-dapp/issues/new).
+[Report an issue](https://github.com/uport-project/3box-dapp/issues/new).
 
 
 ## Functionality
