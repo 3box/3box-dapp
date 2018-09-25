@@ -22,6 +22,10 @@
   border-top: 1px solid #E4E4E4;
 }
 
+#profile__footer__mobile{
+  display: none;
+}
+
 #profile_footer_contents {
   padding: 2em 2em 1.6em 2em;
   opacity: .5;
@@ -89,12 +93,14 @@
   float: left;
   clear: both;
   margin-bottom: .4em;
+  opacity: .7;
 }
 
 #profile_social {
   float: left;
   clear: both;
   margin-bottom: 6vh;
+  opacity: .7;
 }
 
 #profile_private {
@@ -103,6 +109,7 @@
   margin-bottom: 2vh;
   margin-top: 4vh;
   width: 100%;
+  opacity: .7;
 }
 
 #profile_edit {
@@ -110,6 +117,7 @@
   clear: both;
   margin-bottom: .5em;
   width: 100%;
+
   a {
     color: $lighterFont;
   }
@@ -167,10 +175,71 @@
   margin-right: 1vw;
 }
 
-#divide_public_private{
+#divide_public_private {
   display: block;
   width: 100%;
   align: center;
   overflow: hidden;
   border-color: #f8f8f8;
+}
+
+
+
+@media only screen and (max-width: 600px) {
+  #profile {
+    position: relative;
+    top: 0;
+    height: 27em;
+    background-color: rgb(248, 248, 248);
+    width: 100vw;
+    text-align: center;
+    border-bottom: 1px solid #E4E4E4;
+    border-right: none;
+  }
+
+  #profile_user_info {
+    margin: 3em 3vw 2em 3vw;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+  }
+
+  #profile_private_header {
+    margin-top: 0;
+  }
+
+  #profile_social {
+    margin-bottom: 1em;
+  }
+
+  #profile_private {
+    margin-bottom: 2vh;
+    margin-top: 2vh;
+  }
+
+  #profile_user_picture {
+    margin-top: 0;
+  }
+
+  #profile_footer {
+    display: none;
+  }
+
+  #profile__footer__mobile{
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    background-color: #E4E4E4;
+    text-align: center;
+    border-top: 1px solid #E4E4E4;
+  }
+
+  #profile_edit {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 1.5em;
+  }
 }

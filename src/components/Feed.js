@@ -60,21 +60,22 @@ class Feed extends Component {
     const {
       renderFeed,
     } = this.state;
-    console.log(feed);
 
     return (
       <div id="feed">
         <p className="header" id="page_header">Activity</p>
         <div id="feed_activity">
-          <ul id="feed_activity_header">
-            <li id="feed_activity_network">Network</li>
-            <li id="feed_activity_type">Type</li>
-            <li id="feed_activity_function">Function</li>
-            <li id="feed_activity_entity">Entity</li>
-            <li id="feed_activity_description">Description</li>
-            <li id="feed_activity_amount">Amount</li>
-            <li id="feed_activity_time">Time</li>
-          </ul>
+          <div>
+            <ul id="feed_activity_header">
+              <li id="feed_activity_network">Network</li>
+              <li id="feed_activity_type">Type</li>
+              <li id="feed_activity_function">Function</li>
+              <li id="feed_activity_entity">Entity</li>
+              <li id="feed_activity_description">Description</li>
+              <li id="feed_activity_amount">Amount</li>
+              <li id="feed_activity_time">Time</li>
+            </ul>
+          </div>
 
           {ifFetchingActivity
             && (
@@ -94,7 +95,7 @@ class Feed extends Component {
             ))
             : null
           }
-          
+
         </div>
       </div>
     );
