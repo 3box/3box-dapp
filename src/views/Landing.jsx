@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link, withRouter, Redirect } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 
-import * as routes from '../utils/routes';
-import ProfileCard from '../components/ProfileCard';
-import LandingFooter from '../components/LandingFooter';
+import ProfileCard from '../components/ProfileCard.jsx';
+import LandingFooter from '../components/LandingFooter.jsx';
 import LandingNav from '../components/LandingNav.jsx';
 import { signInUp, closeErrorModal } from '../state/actions';
 import { address } from '../utils/address';
@@ -19,6 +18,7 @@ import Gitcoin from '../assets/gitcoin.svg';
 import ConsensysSVG from '../assets/consensys.svg';
 import Coinbase from '../assets/coinbase.svg';
 import Metamask from '../assets/metamask.svg';
+import ThreeBoxGraphic from '../assets/3BoxGraphic.png';
 import PartnersBG from '../assets/PartnersBG.svg';
 import consensys from '../assets/consensys.png';
 import '../components/styles/ProfileCard.css';
@@ -27,7 +27,27 @@ import './styles/Landing.css';
 class Landing extends Component {
   constructor(props) {
     super(props);
+    this.state = { isHide: false };
     this.handleSignInUp = this.handleSignInUp.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.hideBar);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.hideBar);
+  }
+
+  hideBar = () => {
+    const { isHide } = this.state
+
+    console.log(window.scrollY);
+
+    window.scrollY < 10 ?
+      this.setState({ isHide: false })
+      :
+      this.setState({ isHide: true });
   }
 
   async handleSignInUp() {
@@ -37,6 +57,7 @@ class Landing extends Component {
 
   render() {
     const { ifFetchingThreeBox, showErrorModal, signUpSuccessful } = this.props;
+    const classHide = this.state.isHide ? 'hide' : '';
 
     if (signUpSuccessful) {
       return <Redirect to="/Profile" />;
@@ -44,7 +65,7 @@ class Landing extends Component {
 
     return (
       <div id="landing">
-        <LandingNav handleSignInUp={this.handleSignInUp} />
+        <LandingNav handleSignInUp={this.handleSignInUp} classHide={classHide} ref="elem"/>
 
         {ifFetchingThreeBox
           && (
@@ -63,14 +84,15 @@ class Landing extends Component {
             </div>
           )}
 
+        <img src={ThreeBoxGraphic} id="threeBoxGraphic" alt="ThreeBox Graphic" />
 
         <div id="landing__splash">
 
           <div id="landing__createProfile">
             <h1 className="ae-1">Create an Ethereum Profile</h1>
-            <p className="lightOpacity">Add your information once and share it across dapps.</p>
+            <p className="lightOpacity thin">Add your information once and share it across dapps.</p>
             <div id="consensys">
-              <p className="lightOpacity">By </p>
+              <p className="lightOpacity thin">By </p>
               <img src={consensys} alt="Consensys Logo" />
             </div>
 
@@ -89,9 +111,8 @@ class Landing extends Component {
 
         </div>
 
-
         <div id="landing__trustedPartners">
-          <h3 className="lightOpacity">TRUSTED BY PARTNERS</h3>
+          <h3 className="lightOpacity thin">TRUSTED BY PARTNERS</h3>
           <div id="landing__partnerList">
             <img src={Gitcoin} className="partnerCos" alt="Partners background" />
             <img src={Coinbase} className="partnerCos" alt="Partners background" />
@@ -101,11 +122,12 @@ class Landing extends Component {
           <img src={PartnersBG} id="trustedPartners--bg" alt="Partners background" />
         </div>
 
+        <img src={ThreeBoxGraphic} id="threeBoxGraphic2" alt="ThreeBox Graphic" />
 
         <div id="landing__build">
 
           <h2>Build with 3Box</h2>
-          <p className="lightOpacity">Scalable, open source, distributed database infrastructure for Ethereum.</p>
+          <p className="lightOpacity thin">Scalable, open source, distributed database infrastructure for Ethereum.</p>
           <a href="https://github.com/uport-project/3box">
             <button className="developerButton">Get started</button>
           </a>
@@ -114,7 +136,7 @@ class Landing extends Component {
             <div className="build_section_text">
               <div className="build_section_content">
                 <h3>Ethereum Profiles API</h3>
-                <p className="lightOpacity">Profiles API makes it easy to get and set information about users. Support for public and private profiles.</p>
+                <p className="lightOpacity thin">Profiles API makes it easy to get and set information about users. Support for public and private profiles.</p>
                 <a href="https://github.com/uport-project/3box-js"><button className="developerButton">Profiles API</button></a>
               </div>
             </div>
@@ -159,7 +181,7 @@ class Landing extends Component {
             <div className="build_section_text">
               <div className="build_section_content">
                 <h3>Simple, Open Design</h3>
-                <p className="lightOpacity">Compatible with existing browsers, wallets, and dapps for a shared Web3 experience. Built on IPFS and Orbit DB.</p>
+                <p className="lightOpacity thin">Compatible with existing browsers, wallets, and dapps for a shared Web3 experience. Built on IPFS and Orbit DB.</p>
                 <a href="https://github.com/uport-project/3box"><button className="developerButton">3Box DB Overview</button></a>
               </div>
             </div>

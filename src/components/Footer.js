@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import './styles/Footer.css';
-import ThreeBoxLogo from './ThreeBoxLogo';
+import ThreeBoxLogo from './ThreeBoxLogo.jsx';
 
 export function Footer(props) {
   return (

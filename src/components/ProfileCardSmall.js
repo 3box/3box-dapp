@@ -1,7 +1,6 @@
 import React from 'react';
 import Michael from '../assets/me.jpg';
 import './styles/ProfileCard.css';
-// import PropTypes from 'prop-types';
 
 const ProfileCardSmall = () => (
   <div className="profileCardSmall">
@@ -15,8 +14,5 @@ const ProfileCardSmall = () => (
     </div>
   </div>
 );
-
-ProfileCardSmall.propTypes = {
-};
 
 export default ProfileCardSmall;

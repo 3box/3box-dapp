@@ -1,38 +1,32 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import './styles/Nav.css';
-import ThreeBoxLogo from './ThreeBoxLogo';
-import * as routes from '../utils/routes';
+import ThreeBoxLogo from './ThreeBoxLogo.jsx';
 
-const LandingNav = ({ handleSignInUp, threeBox }) => {
-  return (
-    <nav id="landingNav">
-      <ThreeBoxLogo />
+const LandingNav = ({ handleSignInUp, classHide }) => (
+  <nav id="landingNav" className={classHide}>
+    <ThreeBoxLogo />
 
-      <div id="actionButtons">
-        <p onClick={handleSignInUp}>Sign in</p>
-        <button onClick={handleSignInUp} className="secondaryButton">Create profile</button>
-      </div>
-    </nav>
-  );
-};
+    <div id="actionButtons">
+      <p onClick={handleSignInUp}>Sign in</p>
+      <button onClick={handleSignInUp} className="secondaryButton" type="button">
+        Create profile
+      </button>
+    </div>
+  </nav>
+);
 
 LandingNav.propTypes = {
-  threeBox: PropTypes.object,
+  handleSignInUp: PropTypes.func,
+  classHide: PropTypes.string,
 };
 
 LandingNav.defaultProps = {
-  threeBox: {},
+  handleSignInUp: {},
+  classHide: '',
 };
 
-function mapState(state) {
-  return {
-    threeBox: state.threeBoxData.threeBoxObject,
-  };
-}
-
-export default withRouter(connect(mapState)(LandingNav));
+export default withRouter(LandingNav);
 

@@ -33,8 +33,6 @@ const ProfileDetails = ({ name, github, image, email }) => (
         <p id="profile_github">{github}</p>
       </div>
 
-      {/* <hr id="divide_public_private" /> */}
-
       <div id="profile_private">
         <p id="profile_private_header" className="subheader">Private</p>
 
@@ -86,40 +84,6 @@ const ProfileDetails = ({ name, github, image, email }) => (
   </div>
 );
 
-const MobileFooter = ({ name, github, image, email }) => (
-  <div id="profile__footer__mobile">
-    <div id="profile_footer_contents">
-      <ul>
-        <li>
-          <a href="https://github.com/uport-project/3box" title="Github">
-            <img src={GithubIcon} id="profileFooter_githubIcon" alt="Github Icon" />
-          </a>
-        </li>
-        <li>
-          <a href="https://twitter.com/3boxdb" title="Twitter">
-            <img src={Twitter} id="profileFooter_githubIcon" alt="Github Icon" />
-          </a>
-        </li>
-        <li>
-          <a href="https://discordapp.com/channels/484729862368526356/485438421054128128" title="Discord">
-            <img src={Discord} id="profileFooter_githubIcon" alt="Github Icon" />
-          </a>
-        </li>
-        <li>
-          <a href="https://discordapp.com/channels/484729862368526356/485438421054128128" title="Discord">
-            <img src={Email} id="profileFooter_email" alt="Github Icon" />
-          </a>
-        </li>
-      </ul>
-      <div>
-        <p>Terms</p>
-        <p>Privacy</p>
-        <p>3Box 2018</p>
-      </div>
-    </div>
-  </div>
-)
-
 ProfileDetails.propTypes = {
   name: PropTypes.string,
   github: PropTypes.string,
@@ -135,7 +99,6 @@ ProfileDetails.defaultProps = {
 };
 
 function mapState(state) {
-  console.log(state);
   return {
     name: state.threeBoxData.name,
     github: state.threeBoxData.github,
@@ -144,8 +107,4 @@ function mapState(state) {
   };
 }
 
-function mapDispatch(/* dispatch */) {
-  return {};
-}
-
-export default connect(mapState, mapDispatch)(ProfileDetails);
+export default connect(mapState)(ProfileDetails);

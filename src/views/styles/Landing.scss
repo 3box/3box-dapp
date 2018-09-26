@@ -2,8 +2,8 @@
 
 #landing__splash {
   position: relative;
-  margin: 16vh 10% 8vh;
-  height: 47vh;
+  margin: 11em 10% 4em;
+  height: 26em;
   display: inline-block;
   width: 80%;
   display: flex;
@@ -36,7 +36,7 @@
   }
 
   p {
-    margin-top: 1vh;
+    margin-top: .5em;
     font-size: 1.1em;
     animation: moveHorizontal 1s forwards;
     -webkit-animation: moveHorizontal 1s forwards;
@@ -80,8 +80,8 @@
     text-align: center;
     z-index: 1;
     display: block;
-    margin-bottom: 3vh;
-    margin-top: 4vh;
+    margin-bottom: 2em;
+    margin-top: 3em;
   }
 
   #landing__partnerList {
@@ -92,7 +92,7 @@
   .partnerCos {
     flex: 1;
     z-index: 1;
-    margin: 1vh 4vw;
+    margin: .5em 4vw;
     width: 12vw;
   }
 }
@@ -112,7 +112,7 @@
   }
 
   p {
-    margin-top: 1vh;
+    margin-top: .5em;
     font-size: 1.1em;
   }
 
@@ -129,7 +129,7 @@
 
 #landing_section_developers_copy {
   width: 60%;
-  height: 30vh;
+  height: 15em;
   display: inline-block;
   float: left;
   position: relative;
@@ -146,7 +146,7 @@
 }
 
 #consensys {
-  margin-top: 2vh;
+  margin-top: 1em;
   opacity: .6;
 
   p {
@@ -170,12 +170,12 @@
 }
 
 #landing__createProfileButton {
-  margin-top: 7vh;
+  margin-top: 3.5em;
 }
 
 @keyframes moveVertical {
   from {
-    top: -10vh;
+    top: -.5em;
   }
 
   to {
@@ -224,19 +224,10 @@
 }
 
 #landing__profileCard--margin {
-  margin: 5vh 0 5vh 6vw;
+  margin: 2.5em 0 2.5em 6vw;
   animation: moveVertical 1.25s forwards;
   -webkit-animation: moveVertical 1.25s forwards;
   position: relative;
-}
-
-#landing_section_scroll {
-  text-align: center;
-  margin-top: 0vh;
-
-  p {
-    margin-bottom: 2vh;
-  }
 }
 
 #landing_arrow {
@@ -263,7 +254,8 @@
 .build_section {
   display: flex;
   flex-direction: row;
-  height: 50vh;
+  align-items: center;
+  height: 28em;
   margin-top: 2em;
 }
 
@@ -290,8 +282,8 @@
 
 .build__graphic__profiles {
   flex: 1;
-  width: 60%;
   position: relative;
+  height: 17em;
 }
 
 .build__graphic__threeBox {
@@ -300,15 +292,8 @@
   position: relative;
 
   #threeboxIllustration {
-    margin: 2em 4vw 3em 0;
     width: 75%;
   }
-}
-
-#landing_section_oneClick_illustration {
-  width: 100%;
-  margin-top: 3vh;
-  display: inline-block;
 }
 
 #illustration {
@@ -358,60 +343,12 @@
   display: inline-block;
 }
 
-#landing_section_join {
-  text-align: center;
-  margin: 11vh 0 14vh 0;
-  display: inline-block;
-  width: 100vw;
-  height: 50vh;
-
-  h1 {
-    font-size: 3em;
-    font-weight: 800;
-  }
-}
-
-#landing_section_developers {
-  width: 100%;
-  // background-color: $threeBoxBlue;
-  background-color: rgb(243, 243, 243);
-  padding: 8vh 0 10vh 0;
-}
-
-#landing_section_developers_illustration {
-  width: 40%;
-  height: 30vh;
-  display: inline-block;
-
-  img {
-    float: right;
-    margin-right: 4vw;
-    height: 80%;
-    position: relative;
-    top: 50%;
-    transform: perspective(1px) translateY(-50%);
-  }
-}
-
 #explore {
   position: absolute;
   bottom: 0;
   left: 0;
 }
 
-#developers {
-  margin: 0 0 3vh 0;
-}
-
-#users {
-  overflow-x: scroll;
-  overflow-y: hidden;
-  white-space: nowrap;
-  padding: 14vh 0 0 0;
-  animation: scroll 10s linear infinite;
-}
-
-/* Make it move */
 @keyframes scroll {
   0% {
     left: 800px;
@@ -421,10 +358,6 @@
     left: -800px;
   }
 }
-
-// #users_tile {
-//   margin: 0 2vw 5vh 0;
-// }
 
 #card {
   border: 1px solid #E4E4E4;
@@ -461,27 +394,44 @@
 
 #Michael {
   position: absolute;
-  top: 8vh;
+  top: 0;
   left: 7.5vw;
   z-index: 0;
 }
 
 #Christian {
   position: absolute;
-  top: 16vh;
+  top: 4em;
   left: 15.5vw;
   z-index: 1;
 }
 
 #Cristobal {
   position: absolute;
-  top: 24vh;
+  top: 8em;
   left: 23.5vw;
   z-index: 2;
 }
 
 #consentError {
   margin: 0 auto;
+}
+
+#threeBoxGraphic {
+  position: absolute;
+  margin-right: -1.5em;
+  right: 0;
+  top: 7em;
+  opacity: .6;
+}
+
+#threeBoxGraphic2 {
+  position: absolute;
+  margin-left: 12em;
+  left: 0;
+  top: 53em;
+  transform: rotate(90deg);
+  opacity: .6;
 }
 
 @media only screen and (max-width: 600px) {
@@ -491,12 +441,20 @@
     }
   }
 
+  #threeBoxGraphic {
+    display: none;
+  }
+
+  #threeBoxGraphic2 {
+    display: none;
+  }
+
   #logo_icon {
     margin-left: 5vw;
   }
 
   #landing__splash {
-    margin: 12vh 0 12vh 0;
+    margin: 5em 0 6em 0;
     height: fit-content;
     width: fit-content;
     flex-direction: column-reverse;
@@ -650,14 +608,15 @@
     flex-direction: column;
     height: 20em;
 
-    a{
+    a {
       margin-bottom: 1em;
     }
+
     ul {
       width: 100%;
     }
 
-    #logo_icon{
+    #logo_icon {
       margin-left: 0;
     }
 
@@ -677,6 +636,7 @@
     #mailChimp {
       display: flex;
       flex-direction: column;
+
       input {
         width: 60%;
         margin-top: 2em;

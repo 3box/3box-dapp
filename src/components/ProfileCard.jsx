@@ -2,7 +2,6 @@ import React from 'react';
 import Joe from '../assets/Joe.jpg';
 import GithubIcon from '../assets/GithubIcon.svg';
 import './styles/ProfileCard.css';
-// import PropTypes from 'prop-types';
 
 const ProfileCard = () => (
   <div className="profileCard">
@@ -15,7 +14,7 @@ const ProfileCard = () => (
         <div id="profile_network_icon" />
         <p id="profile_address">0x123456789</p>
       </div>
-      
+
       <div>
         <img src={GithubIcon} id="profile_githubIcon" alt="Github Icon" />
         <p id="profile_github">jmlubin</p>
@@ -26,8 +25,5 @@ const ProfileCard = () => (
     </div>
   </div>
 );
-
-ProfileCard.propTypes = {
-};
 
 export default ProfileCard;

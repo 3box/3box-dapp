@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-// import ThreeBox from '3box';
 
 import './styles/Nav.css';
-import ThreeBoxLogo from './ThreeBoxLogo';
+import ThreeBoxLogo from './ThreeBoxLogo.jsx';
 import * as routes from '../utils/routes';
 
 class Nav extends Component {
@@ -25,7 +24,7 @@ class Nav extends Component {
 
   render() {
     const { showProfileModal } = this.state;
-    const { image, threeBox, location } = this.props;
+    const { image, threeBox } = this.props;
     return (
       <nav>
         <ThreeBoxLogo />

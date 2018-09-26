@@ -11,8 +11,10 @@ body {
   padding: 0;
   font-family: 'Lato', sans-serif;
   color: rgb(1, 12, 22);
-  background-color: #fbfbfb;
+  // background-color: #fbfbfb;
+  background-color: white;
   min-width: 100%;
+  font-weight: 300;
 }
 
 button {
@@ -97,6 +99,7 @@ li,
 a,
 p {
   color: rgb(1, 12, 22);
+  font-weight: 300;
 }
 
 input,
@@ -184,5 +187,5 @@ ul {
 }
 
 .thin {
-  font-weight: 200;
+  font-weight: 300;
 }

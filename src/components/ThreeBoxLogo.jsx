@@ -11,7 +11,4 @@ const ThreeBoxLogo = () => (
   </Link>
 );
 
-ThreeBoxLogo.propTypes = {
-};
-
 export default ThreeBoxLogo;

@@ -8,8 +8,9 @@ body {
   padding: 0;
   font-family: 'Lato', sans-serif;
   color: #010c16;
-  background-color: #fbfbfb;
-  min-width: 100%; }
+  background-color: white;
+  min-width: 100%;
+  font-weight: 300; }
 
 button {
   background-color: #006ECC;
@@ -72,7 +73,8 @@ select,
 li,
 a,
 p {
-  color: #010c16; }
+  color: #010c16;
+  font-weight: 300; }
 
 input,
 textarea,
@@ -144,4 +146,4 @@ ul {
   opacity: .6; }
 
 .thin {
-  font-weight: 200; }
+  font-weight: 300; }

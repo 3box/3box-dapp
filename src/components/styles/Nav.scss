@@ -2,9 +2,9 @@
 
 nav {
   background-color: #fff;
-  border-bottom: 1px solid #E4E4E4;
   overflow: hidden;
   height: 68px;
+  border-bottom: 1px solid #E4E4E4;
 
   display: flex;
   align-items: center;
@@ -85,12 +85,28 @@ nav {
 
 #landingNav {
   position: fixed;
-  top: 0;
+  height: 88px;
   width: 100vw;
+  opacity: .95;
+  top: 0;
   z-index: 3;
+  border-bottom: none;
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  transition: all .5s ease;
 }
 
-#reportBug{
+.hide {
+  border-bottom: 1px solid #E4E4E4 !important;
+  height: 68px !important;
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  transition: all .5s ease;
+}
+
+#reportBug {
   background-color: #f9f9f9;
   padding: .4em 0;
 }
