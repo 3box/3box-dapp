@@ -23,8 +23,8 @@ This is the core 3Box distributed database technology.
 #### 3box-js
 This is a client library that allows dapps to interface with 3Box.
 
-#### 3box-hash-server
-This is a server that keeps track of the latest 3Box Hash for an Ethereum address.
+#### 3box-address-server
+This is a server that keeps track of the latest 3Box Address for an Ethereum address.
 
 ### Activity Feed
 
