@@ -1,11 +1,83 @@
 #feed {
-  margin-top: 6vh; }
+  width: 63vw;
+  padding: 2em; }
   #feed ul {
     padding: 0; }
   #feed li {
     display: inline-block;
     text-align: center;
     overflow: scroll; }
+
+#feed_activity_address {
+  margin-top: 2em; }
+
+.feed_activity_address_tile {
+  display: flex;
+  flex-direction: column;
+  border-top: solid 1px #E4E4E4;
+  border-bottom: solid 1px #E4E4E4;
+  padding: 1.5em 0;
+  margin-bottom: -1px; }
+
+.feed_activity_context {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+  padding: 0 .5em; }
+  .feed_activity_context img {
+    height: 1em;
+    opacity: .5; }
+
+.clipboard {
+  border: 1px solid #E4E4E4;
+  border-radius: 3px;
+  margin-left: .8em;
+  padding: 3px 6px;
+  cursor: pointer; }
+
+.feed_activity_data {
+  display: flex;
+  align-items: center;
+  margin-top: .5em;
+  min-height: 2.5em;
+  padding: 0 .8em;
+  border-radius: 4px; }
+
+.darkFeed {
+  background-color: #f8f8f8; }
+
+.lightFeed {
+  background-color: white; }
+
+.feed_activity_network_icon {
+  background-color: #4dc96a;
+  width: 1.2em;
+  height: 1.2em;
+  border-radius: 1em;
+  margin-right: 1.5vw; }
+
+.feed_activity_address_dataType {
+  width: 11%;
+  display: flex;
+  align-items: center; }
+  .feed_activity_address_dataType img {
+    height: 1.5em;
+    opacity: .5; }
+
+.feed_activity_address_function {
+  width: 15%; }
+
+.feed_activity_address_toFrom {
+  width: 15%; }
+
+.feed_activity_address_description {
+  width: 27%; }
+
+.feed_activity_address_amount {
+  width: 17%; }
+
+.feed_activity_address_time {
+  width: 15%; }
 
 #feed_activity_network {
   width: 8%;
@@ -40,9 +112,6 @@
   min-height: 10vh;
   width: 66vw;
   background: white;
-  border: 1px solid #E4E4E4;
-  border-radius: 5px;
-  margin: 0 8vw 6vh 28vw;
   padding-bottom: 4vh; }
 
 #feed_activity_header {
@@ -117,24 +186,16 @@
     font-weight: 500;
     font-size: 1em; }
 
-#page_header {
-  margin: 0 0 2vh 28vw; }
-
 @media only screen and (max-width: 600px) {
   #feed {
     padding: 1em;
+    margin-top: 3em;
+    width: auto;
+    white-space: nowrap;
+    overflow: hidden;
     overflow-x: scroll; }
   #page_header {
     margin: 0 0 2vh 0; }
-  #feed_activity {
-    width: 100%;
-    margin: 0;
-    position: -webkit-sticky;
-    position: sticky;
-    white-space: nowrap;
-    overflow: hidden;
-    top: 0;
-    overflow-x: scroll; }
   #feed_activity_header {
     width: fit-content; }
   .feed_activity_tile {

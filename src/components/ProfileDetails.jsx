@@ -9,7 +9,7 @@ import GithubIcon from '../assets/GithubIcon.svg';
 import Twitter from '../assets/twitter.svg';
 import Discord from '../assets/discord.svg';
 import Email from '../assets/Email.svg';
-import './styles/ProfileDetails.css';
+import '../views/styles/Profile.css';
 
 const ProfileDetails = ({ name, github, image, email }) => (
   <div id="profile">

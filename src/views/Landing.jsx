@@ -42,8 +42,6 @@ class Landing extends Component {
   hideBar = () => {
     const { isHide } = this.state
 
-    console.log(window.scrollY);
-
     window.scrollY < 10 ?
       this.setState({ isHide: false })
       :
@@ -56,7 +54,7 @@ class Landing extends Component {
   }
 
   render() {
-    const { ifFetchingThreeBox, showErrorModal, signUpSuccessful } = this.props;
+    const { ifFetchingThreeBox, showErrorModal, signUpSuccessful, errorMessage } = this.props;
     const classHide = this.state.isHide ? 'hide' : '';
 
     if (signUpSuccessful) {
@@ -65,7 +63,7 @@ class Landing extends Component {
 
     return (
       <div id="landing">
-        <LandingNav handleSignInUp={this.handleSignInUp} classHide={classHide} ref="elem"/>
+        <LandingNav handleSignInUp={this.handleSignInUp} classHide={classHide} ref="elem" />
 
         {ifFetchingThreeBox
           && (
@@ -78,7 +76,10 @@ class Landing extends Component {
           && (
             <div className="loadingContainer">
               <div className="modal">
-                <p id="consentError">You must consent to sign up</p>
+                {/* <p id="consentError">You must consent to sign up</p> */}
+                <div id="consentError">
+                  <h4>{errorMessage}</h4>
+                </div>
                 <button onClick={this.props.closeErrorModal} type="button" className="tertiaryButton" id="closeModal">close</button>
               </div>
             </div>

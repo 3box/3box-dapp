@@ -113,6 +113,7 @@ export const getActivity = () => async (dispatch) => {
     const returnedActivity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
     const activity = await returnedActivity;
 
+    // add datatype to each datum
     activity.internal = activity.internal.map(object => Object.assign({
       dataType: 'Internal',
     }, object));
@@ -126,15 +127,30 @@ export const getActivity = () => async (dispatch) => {
     const feed = activity.internal.concat(activity.txs).concat(activity.token);
     feed.sort((a, b) => b.timeStamp - a.timeStamp);
 
+    // order by time
+    const feedByAddress = [];
+    feed.map((item) => {
+      const othersAddress = item.from === address ? item.to : item.from;
+      if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === othersAddress) {
+        feedByAddress[feedByAddress.length - 1][othersAddress].push(item);
+      } else {
+        feedByAddress.push({
+          [othersAddress]: [item],
+        });
+      }
+    });
+
     dispatch({
       type: 'GET_ACTIVITY',
       feed,
+      feedByAddress,
       ifFetchingActivity: false,
     });
   } catch (err) {
     dispatch({
       type: 'FAILED_LOADING_ACTIVITY',
       feed: [],
+      feedByAddress: [],
       ifFetchingActivity: false,
     });
   }
@@ -147,3 +163,27 @@ export const closeErrorModal = () => async (dispatch) => {
     showErrorModal: false,
   });
 };
+
+
+// feed organized by address
+// feed.map((item) => {
+//   if (item.from === address) {
+//     if (feedByAddressOrder.indexOf(item.to) === (-1)) {
+//       feedByAddress.push({
+//         [item.to]: [item],
+//       });
+//       feedByAddressOrder.push(item.to);
+//     } else {
+//       feedByAddress[feedByAddressOrder.indexOf(item.to)][item.to].push(item);
+//     }
+//   } else {
+//     if (feedByAddressOrder.indexOf(item.from) === (-1)) {
+//       feedByAddress.push({
+//         [item.from]: [item],
+//       });
+//       feedByAddressOrder.push(item.from);
+//     } else {
+//       feedByAddress[feedByAddressOrder.indexOf(item.from)][item.from].push(item);
+//     }
+//   }
+// });

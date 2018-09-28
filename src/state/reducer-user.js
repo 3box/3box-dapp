@@ -77,6 +77,7 @@ const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         feed: action.feed,
+        feedByAddress: action.feedByAddress,
         ifFetchingActivity: false,
       };
 

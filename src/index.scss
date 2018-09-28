@@ -10,7 +10,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Lato', sans-serif;
-  color: rgb(1, 12, 22);
+  color: $threeBoxBlack;
   // background-color: #fbfbfb;
   background-color: white;
   min-width: 100%;
@@ -98,7 +98,7 @@ select,
 li,
 a,
 p {
-  color: rgb(1, 12, 22);
+  color: $threeBoxBlack;
   font-weight: 300;
 }
 
@@ -155,7 +155,7 @@ ul {
 }
 
 #page_header {
-  margin: 0 0 2vh 28vw;
+  // margin: 0 0 2vh 28vw;
 }
 
 .bold {

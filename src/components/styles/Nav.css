@@ -1,4 +1,9 @@
 nav {
+  position: fixed;
+  width: 100vw;
+  opacity: 1;
+  top: 0;
+  z-index: 3;
   background-color: #fff;
   overflow: hidden;
   height: 68px;
@@ -31,7 +36,7 @@ nav {
   border-radius: 5px;
   border: 1px solid #E4E4E4;
   box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #00000025;
-  z-index: 1; }
+  z-index: 7; }
   #dropdown ul {
     padding: 0; }
   #dropdown li {
@@ -65,7 +70,6 @@ nav {
   position: fixed;
   height: 88px;
   width: 100vw;
-  opacity: .95;
   top: 0;
   z-index: 3;
   border-bottom: none;

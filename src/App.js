@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import * as routes from './utils/routes';
 import Landing from './views/Landing.jsx';
 import Profile from './views/Profile.jsx';
-import EditProfile from './views/EditProfile';
+import EditProfile from './views/EditProfile.jsx';
 import { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail, getActivity } from './state/actions';
 
 class App extends Component {
