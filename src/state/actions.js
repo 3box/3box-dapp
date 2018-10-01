@@ -36,6 +36,19 @@ export const signInUp = () => async (dispatch) => {
     const feed = activity.internal.concat(activity.txs).concat(activity.token);
     feed.sort((a, b) => b.timeStamp - a.timeStamp);
 
+    // order feed chronologically and by address
+    const feedByAddress = [];
+    feed.map((item) => {
+      const othersAddress = item.from === address ? item.to : item.from;
+      if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === othersAddress) {
+        feedByAddress[feedByAddress.length - 1][othersAddress].push(item);
+      } else {
+        feedByAddress.push({
+          [othersAddress]: [item],
+        });
+      }
+    });
+
     dispatch({
       type: 'SIGN_IN_UP',
       threeBox,
@@ -47,7 +60,7 @@ export const signInUp = () => async (dispatch) => {
       github,
       image,
       email,
-      feed,
+      feedByAddress,
     });
   } catch (err) {
     dispatch({
@@ -127,7 +140,7 @@ export const getActivity = () => async (dispatch) => {
     const feed = activity.internal.concat(activity.txs).concat(activity.token);
     feed.sort((a, b) => b.timeStamp - a.timeStamp);
 
-    // order by time
+    // order feed chronologically and by address
     const feedByAddress = [];
     feed.map((item) => {
       const othersAddress = item.from === address ? item.to : item.from;
@@ -142,14 +155,12 @@ export const getActivity = () => async (dispatch) => {
 
     dispatch({
       type: 'GET_ACTIVITY',
-      feed,
       feedByAddress,
       ifFetchingActivity: false,
     });
   } catch (err) {
     dispatch({
       type: 'FAILED_LOADING_ACTIVITY',
-      feed: [],
       feedByAddress: [],
       ifFetchingActivity: false,
     });

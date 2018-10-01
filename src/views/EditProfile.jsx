@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { address } from '../utils/address'
 import { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail } from '../state/actions';
 import * as routes from '../utils/routes';
-import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import EthereumLogo from '../assets/Ethereum_logo_2014.svg';
 import Private from '../assets/Private.svg';
@@ -135,8 +134,6 @@ class EditProfile extends Component {
 
     return (
       <div>
-        <Nav />
-
         {picLoading
           && (
             <div className="loadingContainer">
@@ -197,7 +194,7 @@ class EditProfile extends Component {
               <h4>My Profile</h4>
               <div id="myProfile_address">
                 <img id="editprofile_networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
-                <p>{address}</p>
+                <p title={address}>{address && address.substring(0, 8)}</p>
               </div>
             </div>
 

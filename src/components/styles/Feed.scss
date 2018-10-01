@@ -4,6 +4,7 @@
   width: 63vw;
   padding: 2em;
 
+
   ul {
     padding: 0;
   }
@@ -35,8 +36,9 @@
   padding: 0 .5em;
 
   img {
-    height: 1em;
-    opacity: .5;
+    width: 1.7em;
+    height: 1.7em;
+    margin-right: 1.5vw;
   }
 }
 
@@ -165,7 +167,7 @@
   }
 }
 
-#feed_activity_load {
+.feed_activity_load {
   border-top: solid 1px #E4E4E4;
   border-bottom: solid 1px #E4E4E4;
   min-height: 80px;
@@ -173,6 +175,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  p {
+    color: $lighterFont;
+  }
 }
 
 #activityLoad {

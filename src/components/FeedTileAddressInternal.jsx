@@ -26,7 +26,7 @@ const FeedTileInternal = ({ item, isEven }) => (
     <p title={`Hash ${item.hash}`} className="feed_activity_address_description">
       {`Hash  ${item.hash && item.hash.substring(0, 10)}...`}
     </p>
-    <p className="feed_activity_address_amount">
+    <p className="feed_activity_address_amount" title={(Number(item.value) / 1000000000000000000).toString()}>
       {item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)}
       ETH
     </p>

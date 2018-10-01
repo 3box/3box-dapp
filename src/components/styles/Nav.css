@@ -3,9 +3,7 @@ nav {
   width: 100vw;
   opacity: 1;
   top: 0;
-  z-index: 3;
   background-color: #fff;
-  overflow: hidden;
   height: 68px;
   border-bottom: 1px solid #E4E4E4;
   display: flex;
@@ -35,8 +33,7 @@ nav {
   background-color: white;
   border-radius: 5px;
   border: 1px solid #E4E4E4;
-  box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #00000025;
-  z-index: 7; }
+  box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #00000025; }
   #dropdown ul {
     padding: 0; }
   #dropdown li {

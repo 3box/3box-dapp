@@ -12,7 +12,7 @@ const threeBoxReducer = (state = {}, action) => {
         github: action.github,
         image: action.image,
         email: action.email,
-        feed: action.feed,
+        feedByAddress: action.feedByAddress,
       };
 
     case 'GET_THREEBOX':
@@ -76,7 +76,6 @@ const threeBoxReducer = (state = {}, action) => {
     case 'GET_ACTIVITY':
       return {
         ...state,
-        feed: action.feed,
         feedByAddress: action.feedByAddress,
         ifFetchingActivity: false,
       };
@@ -84,7 +83,7 @@ const threeBoxReducer = (state = {}, action) => {
     case 'FAILED_LOADING_ACTIVITY':
       return {
         ...state,
-        feed: [],
+        feedByAddress: [],
         ifFetchingActivity: false,
       };
 
