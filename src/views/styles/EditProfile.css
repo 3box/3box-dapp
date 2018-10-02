@@ -1,3 +1,6 @@
+#edit_page {
+  margin-top: 68px; }
+
 #edit {
   width: 55vw;
   margin: 0 auto;
@@ -22,7 +25,7 @@
   #edit button {
     display: inline-block; }
 
-#edit_page {
+#edit_form {
   width: 100%;
   height: fit-content;
   display: flex;
@@ -31,58 +34,61 @@
   background: #fff;
   border-radius: 6px;
   box-shadow: 0 7px 14px 0 rgba(59, 65, 94, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07); }
-  #edit_page #myProfile {
+  #edit_form #myProfile {
     width: 100%;
     border-bottom: #E4E4E4 solid 1px;
     height: 4em;
     display: flex;
     align-items: center; }
-    #edit_page #myProfile h4 {
+    #edit_form #myProfile h4 {
       margin-left: 2em; }
-  #edit_page #myProfile_address {
+  #edit_form #myProfile_address {
     margin-left: auto;
     margin-right: 3vw;
     display: flex;
     align-items: center;
     opacity: .5; }
-  #edit_page #edit_profile_content {
+  #edit_form #edit_profile_content {
     width: 100%;
     height: fit-content;
     display: flex;
-    flex-direction: column;
-    background-color: #fbfbfb; }
-  #edit_page #edit_private_content {
-    width: 100%;
-    height: fit-content;
-    display: flex;
-    background-color: #fbfbfb; }
-  #edit_page #edit_private {
+    flex-direction: column; }
+  #edit_form #edit_private {
     padding: 1.8em 2em 2em; }
-  #edit_page form {
-    display: inline-block;
+  #edit_form form {
     height: 100%; }
-  #edit_page #edit_user_picture {
+  #edit_form #edit_user_picture {
     width: 27%;
-    height: 100%;
-    display: inline-block;
+    height: 12em;
+    display: flex;
     flex: 2;
     padding: 5vh 3vw 6vh 3vw;
-    justify-content: center;
-    align-content: center;
+    flex-direction: column;
     align-items: center; }
-    #edit_page #edit_user_picture .profPic {
+    #edit_form #edit_user_picture .profPic {
       display: block;
-      background-color: #3f3f3f;
+      background-image: linear-gradient(#d3d3d3, #eeeeee);
       border-radius: 100%;
       width: 120px;
       height: 120px;
-      margin: 0 auto;
-      object-fit: cover; }
-    #edit_page #edit_user_picture button {
+      object-fit: cover;
+      -webkit-transition: all .5s ease;
+      -moz-transition: all .5s ease;
+      -o-transition: all .5s ease;
+      transition: all .5s ease; }
+      #edit_form #edit_user_picture .profPic:hover {
+        opacity: .6;
+        background-image: none;
+        background-color: black;
+        -webkit-transition: all .5s ease;
+        -moz-transition: all .5s ease;
+        -o-transition: all .5s ease;
+        transition: all .5s ease; }
+    #edit_form #edit_user_picture button {
       display: block;
       margin: 0 auto;
       margin-top: 4vh; }
-  #edit_page #edit_user_public {
+  #edit_form #edit_user_public {
     height: 100%;
     overflow: hidden;
     display: inline-block;
@@ -91,13 +97,13 @@
     align-content: center;
     align-items: center;
     padding: 5vh 3vw; }
-  #edit_page #privateInfo {
+  #edit_form #privateInfo {
     display: flex;
     align-items: center;
     margin-top: 3vh; }
-  #edit_page #githubInfo {
+  #edit_form #githubInfo {
     margin-top: 3vh; }
-  #edit_page #edit_user_private {
+  #edit_form #edit_user_private {
     width: calc(36.5% - 1px);
     height: 100%;
     display: inline-block;
@@ -198,14 +204,10 @@
   z-index: 1; }
 
 #removePic {
-  position: absolute;
-  top: 9em;
-  right: 9em;
   margin-left: 0; }
 
 #formControls {
   width: 100%;
-  border-top: #E4E4E4 solid 1px;
   display: flex;
   align-items: center; }
   #formControls #formControls_content {

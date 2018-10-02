@@ -14,7 +14,7 @@ nav {
     color: #006ECC; }
 
 #header_user_picture {
-  background-color: #021333;
+  background-image: linear-gradient(#d3d3d3, #eeeeee);
   border-radius: 100%;
   width: 40px;
   height: 40px;
@@ -84,7 +84,7 @@ nav {
   transition: all .5s ease; }
 
 #reportBug {
-  background-color: #f9f9f9;
+  background-color: #f5f6f8;
   padding: .4em 0; }
 
 #divideBug {

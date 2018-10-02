@@ -1,13 +1,19 @@
 @import "../../variables.scss";
 
+#landing{
+  background-color: white;
+  height: 100%;
+}
+
 #landing__splash {
   position: relative;
-  margin: 11em 10% 4em;
+  padding: 11em 10% 4em;
   height: 26em;
   display: inline-block;
   width: 80%;
   display: flex;
   align-items: center;
+  background-color: white;
 
   h1 {
     font-size: 3em;
@@ -426,6 +432,7 @@
   right: 0;
   top: 7em;
   opacity: .6;
+  z-index: 2;
 }
 
 #threeBoxGraphic2 {

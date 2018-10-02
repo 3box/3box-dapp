@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { address } from '../utils/address';
 
-// import EthereumLogo from '../assets/Ethereum_logo_2014.svg';
-import EthereumNetwork from '../assets/EthereumNetwork.svg';
+import EthereumLogo from '../assets/Ethereum_logo_2014.svg';
+// import EthereumNetwork from '../assets/EthereumNetwork.svg';
 import GithubIcon from '../assets/GithubIcon.svg';
 import * as routes from '../utils/routes';
 import Email from '../assets/Email.svg';
@@ -18,10 +18,10 @@ const ProfileDetails = ({ name, github, image, email }) => (
     <div id="profile">
       <div id="profile_user_info">
         <div id="profile_network" title="Network">
-          {/* <img id="profile_network_networkLogo" src={EthereumLogo} alt="Ethereum Logo" /> */}
-          <img src={EthereumNetwork} alt="Ethereum Network" id="profile_network_networkLogo" />
+          <img id="profile_network_networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
+          {/* <img src={EthereumNetwork} alt="Ethereum Network" id="profile_network_networkLogo" /> */}
           <p id="profile_details_address" title={address}>
-            {address.substring(0, 8)}
+            {address && address.substring(0, 8)}
             ...
           </p>
         </div>
@@ -31,7 +31,7 @@ const ProfileDetails = ({ name, github, image, email }) => (
           : <div id="profile_user_picture" />
         }
         {name
-          ? <h2 id="profile_user_name">name</h2>
+          ? <h2 id="profile_user_name">{name}</h2>
           : <Link to={routes.EDITPROFILE}><h2 id="profile_user_name_add">Add name</h2></Link>}
 
         <div id="profile_social" title="Github">
@@ -99,11 +99,9 @@ const ProfileDetails = ({ name, github, image, email }) => (
             </a>
           </li>
         </ul> */}
-          <div>
-            <Link to={routes.TERMS}>Terms</Link>
-            <Link to={routes.PRIVACY}>Privacy</Link>
-            <p>3Box 2018</p>
-          </div>
+          <Link to={routes.TERMS}>Terms</Link>
+          <Link to={routes.PRIVACY}>Privacy</Link>
+          <p>3Box 2018</p>
         </div>
       </div>
     </div>

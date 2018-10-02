@@ -10,9 +10,7 @@ import Loading from '../assets/Loading.svg';
 import EthereumNetwork from '../assets/EthereumNetwork.svg';
 import './styles/Feed.css';
 
-let feedByAddress;
-
-const Feed = ({ ifFetchingActivity }) => (
+const Feed = ({ ifFetchingActivity, feedByAddress }) => (
   <div id="feed">
     <p className="header" id="page_header">Activity</p>
     <div id="feed_activity_address">

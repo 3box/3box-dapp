@@ -130,7 +130,7 @@ class Landing extends Component {
           <h2>Build with 3Box</h2>
           <p className="lightOpacity thin">Scalable, open source, distributed database infrastructure for Ethereum.</p>
           <a href="https://github.com/uport-project/3box">
-            <button className="developerButton">Get started</button>
+            <button >Get started</button>
           </a>
 
           <div className="build_section">
@@ -138,7 +138,7 @@ class Landing extends Component {
               <div className="build_section_content">
                 <h3>Ethereum Profiles API</h3>
                 <p className="lightOpacity thin">Profiles API makes it easy to get and set information about users. Support for public and private profiles.</p>
-                <a href="https://github.com/uport-project/3box-js"><button className="developerButton">Profiles API</button></a>
+                <a href="https://github.com/uport-project/3box-js"><button >Profiles API</button></a>
               </div>
             </div>
 
@@ -183,7 +183,7 @@ class Landing extends Component {
               <div className="build_section_content">
                 <h3>Simple, Open Design</h3>
                 <p className="lightOpacity thin">Compatible with existing browsers, wallets, and dapps for a shared Web3 experience. Built on IPFS and Orbit DB.</p>
-                <a href="https://github.com/uport-project/3box"><button className="developerButton">3Box DB Overview</button></a>
+                <a href="https://github.com/uport-project/3box"><button >3Box DB Overview</button></a>
               </div>
             </div>
             <div className="build__graphic__threeBox">

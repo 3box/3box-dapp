@@ -8,14 +8,15 @@
 
 #profile_gutter {
   width: 18vw;
-  background-color: #f8f8f8;
-  border-right: 1px solid #E4E4E4; }
+  background-color: #f5f6f8;
+  border-left: 1px solid #E4E4E4; }
 
 #profile {
-  background-color: #f8f8f8;
+  background-color: #f5f6f8;
   width: 23vw;
   height: 100%;
-  text-align: center; }
+  text-align: center;
+  border-right: 1px solid #E4E4E4; }
 
 #profile_footer {
   position: fixed;
@@ -28,9 +29,10 @@
   display: none; }
 
 #profile_footer_contents {
-  padding: 0 2em 1.2em 2em;
-  opacity: .5;
-  text-align: left; }
+  padding: 1.2em 2em 1.2em 2em;
+  display: flex;
+  background-color: #f5f6f8;
+  justify-content: space-between; }
   #profile_footer_contents ul {
     display: flex;
     padding: 0;
@@ -48,26 +50,31 @@
   #profile_footer_contents p {
     font-size: .8em;
     display: inline-block;
-    margin: 1vh 1vw; }
+    margin: 1vh 1vw;
+    opacity: .5; }
   #profile_footer_contents a {
     font-size: .8em;
     display: inline-block;
-    margin: 1vh 1vw; }
+    margin: 1vh 1vw;
+    opacity: .5; }
 
 #profile_user_picture {
-  background-color: #021333;
+  background-image: linear-gradient(#d3d3d3, #eeeeee);
   border-radius: 100%;
   width: 120px;
   height: 120px;
   margin: 0 auto;
-  margin-top: 8vh;
+  margin-top: 6em;
   object-fit: cover; }
 
 #profile_user_info {
-  padding: 1vh 3vw;
+  padding: 1.7em 3vw;
   position: -webkit-sticky;
   position: sticky;
   top: 76px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis; }
@@ -89,16 +96,13 @@
 #profile_social {
   float: left;
   clear: both;
-  margin-bottom: 6vh;
   opacity: .7;
   display: flex;
   align-items: center; }
 
 #profile_private {
-  float: left;
-  clear: both;
   margin-bottom: 2vh;
-  margin-top: 4vh;
+  margin-top: 1em;
   width: 100%;
   opacity: .7; }
 
@@ -112,8 +116,8 @@
 
 #profile_user_name {
   font-size: 1.4em;
-  margin-top: 5vh;
-  margin-bottom: 2vh; }
+  margin-top: 3em;
+  margin-bottom: .5em; }
 
 #profile_user_name_add {
   font-size: 1.4em;

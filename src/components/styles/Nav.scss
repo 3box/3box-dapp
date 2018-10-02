@@ -21,7 +21,7 @@ nav {
 }
 
 #header_user_picture {
-  background-color: $threeBoxAccentBlue;
+  background-image: $defaultProfPic;
   border-radius: 100%;
   width: 40px;
   height: 40px;
@@ -104,7 +104,7 @@ nav {
 }
 
 #reportBug {
-  background-color: #f9f9f9;
+  background-color: $backgroundHue;
   padding: .4em 0;
 }
 

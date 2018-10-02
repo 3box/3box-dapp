@@ -8,9 +8,15 @@ body {
   padding: 0;
   font-family: 'Lato', sans-serif;
   color: #010c16;
-  background-color: white;
-  min-width: 100%;
-  font-weight: 300; }
+  background-color: #f5f6f8;
+  font-weight: 300;
+  min-height: 100%; }
+
+#root {
+  min-height: 100%; }
+
+.App {
+  min-height: 100%; }
 
 button {
   background-color: #006ECC;
@@ -57,12 +63,6 @@ button {
     background-color: #7a7a7a;
     border: solid 1px transparent;
     transition: background-color .8s ease; }
-
-.developerButton {
-  background-color: #021333; }
-  .developerButton:hover {
-    background-color: #254277;
-    transition: background-color .4s ease; }
 
 button:hover {
   cursor: pointer; }

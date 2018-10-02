@@ -1,5 +1,9 @@
 @import "../../variables.scss";
 
+#edit_page {
+  margin-top: 68px;
+}
+
 #edit {
   width: 55vw;
   margin: 0 auto;
@@ -35,7 +39,7 @@
   }
 }
 
-#edit_page {
+#edit_form {
   width: 100%;
   height: fit-content;
   display: flex;
@@ -70,14 +74,6 @@
     height: fit-content;
     display: flex;
     flex-direction: column;
-    background-color: #fbfbfb;
-  }
-
-  #edit_private_content {
-    width: 100%;
-    height: fit-content;
-    display: flex;
-    background-color: #fbfbfb;
   }
 
   #edit_private {
@@ -85,28 +81,39 @@
   }
 
   form {
-    display: inline-block;
     height: 100%;
   }
 
   #edit_user_picture {
     width: 27%;
-    height: 100%;
-    display: inline-block;
+    height: 12em;
+    display: flex;
     flex: 2;
     padding: 5vh 3vw 6vh 3vw;
-    justify-content: center;
-    align-content: center;
+    flex-direction: column;
     align-items: center;
 
     .profPic {
       display: block;
-      background-color: #3f3f3f;
+      background-image: $defaultProfPic;
       border-radius: 100%;
       width: 120px;
       height: 120px;
-      margin: 0 auto;
       object-fit: cover;
+      -webkit-transition: all .5s ease;
+      -moz-transition: all .5s ease;
+      -o-transition: all .5s ease;
+      transition: all .5s ease;
+
+      &:hover {
+        opacity: .6;
+        background-image: none;
+        background-color: black;
+        -webkit-transition: all .5s ease;
+        -moz-transition: all .5s ease;
+        -o-transition: all .5s ease;
+        transition: all .5s ease;
+      }
     }
 
     button {
@@ -257,16 +264,11 @@
 }
 
 #removePic {
-  position: absolute;
-  top: 9em;
-  right: 9em;
   margin-left: 0;
 }
 
 #formControls {
   width: 100%;
-  border-top: $borderColor solid 1px;
-  // height: 4em;
   display: flex;
   align-items: center;
 
@@ -440,7 +442,7 @@
       padding: 1em 3vw;
     }
 
-    #formControls{
+    #formControls {
       margin-bottom: 1.8em;
     }
 

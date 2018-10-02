@@ -11,10 +11,18 @@ body {
   padding: 0;
   font-family: 'Lato', sans-serif;
   color: $threeBoxBlack;
-  // background-color: #fbfbfb;
-  background-color: white;
-  min-width: 100%;
+  background-color: $backgroundHue;
+  // background-color: white;
   font-weight: 300;
+  min-height: 100%;
+}
+
+#root {
+  min-height: 100%;
+}
+
+.App {
+  min-height: 100%;
 }
 
 button {
@@ -76,15 +84,6 @@ button {
     background-color: #7a7a7a;
     border: solid 1px transparent;
     transition: background-color .8s ease;
-  }
-}
-
-.developerButton {
-  background-color: $threeBoxAccentBlue;
-
-  &:hover {
-    background-color: $threeBoxAccentBlueHover;
-    transition: background-color .4s ease;
   }
 }
 

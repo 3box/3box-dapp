@@ -1,11 +1,16 @@
+#landing {
+  background-color: white;
+  height: 100%; }
+
 #landing__splash {
   position: relative;
-  margin: 11em 10% 4em;
+  padding: 11em 10% 4em;
   height: 26em;
   display: inline-block;
   width: 80%;
   display: flex;
-  align-items: center; }
+  align-items: center;
+  background-color: white; }
   #landing__splash h1 {
     font-size: 3em;
     font-weight: 800; }
@@ -324,7 +329,8 @@
   margin-right: -1.5em;
   right: 0;
   top: 7em;
-  opacity: .6; }
+  opacity: .6;
+  z-index: 2; }
 
 #threeBoxGraphic2 {
   position: absolute;
