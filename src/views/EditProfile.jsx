@@ -8,6 +8,7 @@ import { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmai
 import * as routes from '../utils/routes';
 import EthereumLogo from '../assets/Ethereum_logo_2014.svg';
 import Private from '../assets/Private.svg';
+import AddImage from '../assets/AddImage.svg';
 import Loading from '../assets/Loading.svg';
 import './styles/EditProfile.css';
 // import Footer from '../components/Footer';
@@ -99,6 +100,7 @@ class EditProfile extends Component {
   // }
   removePic = () => {
     this.setState({ disableSave: false, removeUserPic: true });
+
   }
 
   async handleSubmit(e) {
@@ -150,7 +152,7 @@ class EditProfile extends Component {
 
   render() {
     const { image } = this.props;
-    const { showPicModal, name, github, email, disableSave, disableSavePic, picLoading, saveLoading, picUploaded } = this.state;
+    const { github, email, name, disableSave, removeUserPic, picLoading, saveLoading, picUploaded, imageRemoved } = this.state;
 
     return (
       <div id="edit_page">
@@ -224,32 +226,31 @@ class EditProfile extends Component {
             <div id="edit_profile_content">
               <div id="public_contents">
                 <div id="edit_user_picture">
-                  {/* {image.length > 0
-                    ? <img src={`https://ipfs.io/ipfs/${image[0].contentUrl['/']}`} alt="profile" className="profPic" />
-                    : <div className="profPic" />
-                  } */}
-                  {/* {(image.length > 0 || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0]))
-                    ? <img src={(this.fileUpload && this.fileUpload.files && this.fileUpload.files[0]) ? URL.createObjectURL(this.fileUpload.files[0]) : `https://ipfs.io/ipfs/${image[0].contentUrl['/']}`} alt="profile" className="profPic" />
-                    : <div className="profPic" />
-                  } */}
-
                   <label htmlFor="fileInput" id="chooseFile">
                     <input id="fileInput" type="file" name="pic" className="light" accept="image/*" onChange={e => this.handleUpdatePic(e.target.files[0])} ref={ref => this.fileUpload = ref} />
-                    {/* {(this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])
-                        ? this.fileUpload.files[0].name
-                        : 'Choose a file'} */}
-                    {(image.length > 0 || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0]))
-                      ? <img src={(this.fileUpload && this.fileUpload.files && this.fileUpload.files[0]) ? URL.createObjectURL(this.fileUpload.files[0]) : `https://ipfs.io/ipfs/${image[0].contentUrl['/']}`} alt="profile" className="profPic" />
-                      : <div className="profPic" />}
+                    <img src={AddImage} alt="profile" id="addImage" />
+                    {(image.length > 0 || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0]) && removeUserPic)
+                      ? <div className="profPic_div">
+                        <div className="profPic_div_overlay">
+                          <p>Change picture</p>
+                        </div>
+                        <img src={(this.fileUpload && this.fileUpload.files && this.fileUpload.files[0]) ? URL.createObjectURL(this.fileUpload.files[0]) : `https://ipfs.io/ipfs/${image[0].contentUrl['/']}`} alt="profile" className="profPic" />
+                      </div>
+                      : <div className="profPic_div">
+                        <div className="profPic_div_overlay">
+                          <p>Change picture</p>
+                        </div>
+                        <div className="profPic" />
+                      </div>}
                   </label>
 
-                  { <button 
-                  id="removePic" 
-                  className="removeButton" 
-                  onClick={this.removePic} 
-                  disabled={image.length > 0 ? false : true}
-                  text="remove" 
-                  type="button">Remove</button>}
+                  <button
+                    id="removePic"
+                    className="removeButton"
+                    onClick={this.removePic}
+                    disabled={image.length > 0 ? false : true}
+                    text="remove"
+                    type="button">Remove</button>
                 </div>
 
                 <div id="edit_user_public">

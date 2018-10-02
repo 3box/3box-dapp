@@ -104,15 +104,40 @@
       -moz-transition: all .5s ease;
       -o-transition: all .5s ease;
       transition: all .5s ease;
+    }
 
-      &:hover {
-        opacity: .6;
-        background-image: none;
-        background-color: black;
-        -webkit-transition: all .5s ease;
-        -moz-transition: all .5s ease;
-        -o-transition: all .5s ease;
-        transition: all .5s ease;
+    #addImage {
+      position: absolute;
+      width: 35px;
+      height: 35px;
+      right: 5px;
+      opacity: 1;
+      z-index: 2;
+    }
+
+    .profPic_div:hover .profPic_div_overlay {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .profPic_div_overlay {
+      display: none;
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.397);
+      border-radius: 100%;
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      -webkit-transition: all .5s ease;
+      -moz-transition: all .5s ease;
+      -o-transition: all .5s ease;
+      transition: all .5s ease;
+
+      p{
+        font-weight: 400;
+        font-size: .8em;
+        color: white;
       }
     }
 
@@ -252,6 +277,7 @@
   cursor: pointer;
   text-align: center;
   color: $lightFont;
+  position: relative;
 }
 
 #loadingPic {

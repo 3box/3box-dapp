@@ -76,14 +76,33 @@
       -moz-transition: all .5s ease;
       -o-transition: all .5s ease;
       transition: all .5s ease; }
-      #edit_form #edit_user_picture .profPic:hover {
-        opacity: .6;
-        background-image: none;
-        background-color: black;
-        -webkit-transition: all .5s ease;
-        -moz-transition: all .5s ease;
-        -o-transition: all .5s ease;
-        transition: all .5s ease; }
+    #edit_form #edit_user_picture #addImage {
+      position: absolute;
+      width: 35px;
+      height: 35px;
+      right: 5px;
+      opacity: 1;
+      z-index: 2; }
+    #edit_form #edit_user_picture .profPic_div:hover .profPic_div_overlay {
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+    #edit_form #edit_user_picture .profPic_div_overlay {
+      display: none;
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.397);
+      border-radius: 100%;
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      -webkit-transition: all .5s ease;
+      -moz-transition: all .5s ease;
+      -o-transition: all .5s ease;
+      transition: all .5s ease; }
+      #edit_form #edit_user_picture .profPic_div_overlay p {
+        font-weight: 400;
+        font-size: .8em;
+        color: white; }
     #edit_form #edit_user_picture button {
       display: block;
       margin: 0 auto;
@@ -193,7 +212,8 @@
   margin: 0 auto;
   cursor: pointer;
   text-align: center;
-  color: #6b6b6b; }
+  color: #6b6b6b;
+  position: relative; }
 
 #loadingPic {
   width: 3em;
