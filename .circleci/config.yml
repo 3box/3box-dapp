@@ -9,8 +9,7 @@ jobs:
 
       # Download and cache dependencies
       - restore_cache:
-          keys:
-            key: dependency-cache-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
+          key: dependency-cache-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
 
       - run:
           name: install-awscli-and-dependencies
