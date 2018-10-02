@@ -1,6 +1,9 @@
 # 3Box Dapp
 This repo is home to the 3box.io application that allows users to interact with their 3Box.
 
+[Report an issue](https://github.com/uport-project/3box-dapp/issues/new).
+
+
 ## Functionality
 The first version of the 3box.io web application will allow users to:
 
