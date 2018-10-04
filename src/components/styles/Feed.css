@@ -1,8 +1,13 @@
 #feed {
   background-color: white;
-  width: 63vw;
+  max-width: 700px;
+  min-width: 700px;
   padding: 2em;
-  height: 100%; }
+  min-height: calc(100% - 69px);
+  height: fit-content;
+  border-left: 1px solid #E4E4E4;
+  border-right: 1px solid #E4E4E4;
+  border-bottom: 1px solid #E4E4E4; }
   #feed ul {
     padding: 0; }
   #feed li {
@@ -43,7 +48,7 @@
   .feed_activity_address_tile_address h4 {
     margin-bottom: .2em; }
   .feed_activity_address_tile_address p {
-    opacity: .5; }
+    color: #b1b1b1; }
 
 .clipboard {
   border: 1px solid #E4E4E4;
@@ -79,8 +84,7 @@
   display: flex;
   align-items: center; }
   .feed_activity_address_dataType img {
-    width: 1.2em;
-    opacity: .5; }
+    width: 1.2em; }
 
 .feed_activity_address_dataType_ethereum {
   width: .9em !important; }
@@ -95,7 +99,6 @@
   width: 21%; }
   .feed_activity_address_toFrom img {
     width: 1em;
-    opacity: .5;
     margin-right: 1vw; }
 
 .feed_activity_address_amount {
@@ -138,13 +141,6 @@
   width: 66vw;
   background: white;
   padding-bottom: 4vh; }
-
-#feed_activity_header {
-  margin-top: 25px;
-  margin-bottom: 25px; }
-  #feed_activity_header li {
-    font-size: .8em;
-    opacity: .65; }
 
 .feed_activity_load {
   border-top: solid 1px #E4E4E4;
@@ -223,8 +219,6 @@
     overflow-x: scroll; }
   #page_header {
     margin: 0 0 2vh 0; }
-  #feed_activity_header {
-    width: fit-content; }
   .feed_activity_tile {
     width: fit-content;
     overflow-y: hidden; } }

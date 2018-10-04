@@ -2,9 +2,15 @@
 
 #feed {
   background-color: white;
-  width: 63vw;
+  max-width: 700px;
+  min-width: 700px;
   padding: 2em;
-  height: 100%;
+  min-height: calc(100% - 69px);
+  height: fit-content;
+  // margin-top: 69px;
+  border-left: 1px solid #E4E4E4;
+  border-right: 1px solid #E4E4E4;
+  border-bottom: 1px solid #E4E4E4;
 
   ul {
     padding: 0;
@@ -58,7 +64,7 @@
   }
 
   p {
-    opacity: .5;
+    color: $lighterFont;
   }
 }
 
@@ -103,8 +109,6 @@
 
   img {
     width: 1.2em;
-    // height: 1.5em;
-    opacity: .5;
   }
 }
 
@@ -124,7 +128,6 @@
   width: 21%;
   img {
     width: 1em;
-    opacity: .5;
     margin-right: 1vw;
   }
 }
@@ -192,15 +195,6 @@
   padding-bottom: 4vh;
 }
 
-#feed_activity_header {
-  margin-top: 25px;
-  margin-bottom: 25px;
-
-  li {
-    font-size: .8em;
-    opacity: .65;
-  }
-}
 
 .feed_activity_load {
   border-top: solid 1px #E4E4E4;
@@ -301,11 +295,6 @@
 
   #page_header {
     margin: 0 0 2vh 0;
-  }
-
-
-  #feed_activity_header {
-    width: fit-content;
   }
 
   .feed_activity_tile {

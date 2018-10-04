@@ -29,8 +29,6 @@ const Feed = ({ ifFetchingActivity, feedByAddress }) => (
               <div className={`feed_activity_context_network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
                 0x
               </div>
-              {/* <img src={networkArray[Math.floor(Math.random() * networkArray.length)]} alt="Ethereum Network" /> */}
-              {/* <img src={EthereumNetwork} alt="Ethereum Network" /> */}
               <div className="feed_activity_address_tile_address">
                 <h4>
                   {Object.keys(feedAddress)[0]}

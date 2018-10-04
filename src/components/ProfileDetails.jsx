@@ -5,63 +5,55 @@ import { Link } from 'react-router-dom';
 import { address } from '../utils/address';
 
 import EthereumLogo from '../assets/Ethereum_logo_2014.svg';
-// import EthereumNetwork from '../assets/EthereumNetwork.svg';
 import GithubIcon from '../assets/GithubIcon.svg';
 import Private from '../assets/Private.svg';
 import * as routes from '../utils/routes';
 import Email from '../assets/Email.svg';
 import '../views/styles/Profile.css';
-// import Twitter from '../assets/twitter.svg';
-// import Discord from '../assets/discord.svg';
 
 const ProfileDetails = ({ name, github, image, email }) => (
-  <div>
-    <div id="profile">
-      <div id="profile_user_info">
-        <div id="profile_network" title="Network">
-          <img id="profile_network_networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
-          {/* <img src={EthereumNetwork} alt="Ethereum Network" id="profile_network_networkLogo" /> */}
-          <p id="profile_details_address" title={address}>
-            {address && address.substring(0, 8)}
-            ...
-          </p>
-        </div>
-
-        {image.length > 0
-          ? <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} id="profile_user_picture" alt="profile" />
-          : <div id="profile_user_picture" />
-        }
-        {name
-          ? <h2 id="profile_user_name">{name}</h2>
-          : <Link to={routes.EDITPROFILE}><h2 id="profile_user_name_add">Add name</h2></Link>}
-
-        <div id="profile_social" title="Github">
-          <img src={GithubIcon} id="profile_githubIcon" alt="Github Icon" />
-          {github
-            && (
-              <p id="profile_github">{github}</p>
-            )
-          }
-        </div>
-
-        <div id="profile_private">
-          <img src={Email} id="profileFooter_email_icon" alt="Github Icon" />
-          {email
-            && (
-              <p>{email}</p>
-            )
-          }
-          {email
-            && (
-              <img id="editprofile_privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
-            )
-          }
-        </div>
-
+  <div id="profile">
+    <div id="profile_user_info">
+      <div id="profile_network" title="Network">
+        <img id="profile_network_networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
+        {/* <img src={EthereumNetwork} alt="Ethereum Network" id="profile_network_networkLogo" /> */}
+        <p id="profile_details_address" title={address}>
+          {address && address.substring(0, 8)}
+          ...
+        </p>
       </div>
 
-    </div>
-    <div>
+      {image.length > 0
+        ? <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} id="profile_user_picture" alt="profile" />
+        : <div id="profile_user_picture" />
+      }
+      {name
+        ? <h2 id="profile_user_name">{name}</h2>
+        : <Link to={routes.EDITPROFILE}><h2 id="profile_user_name_add">Add name</h2></Link>}
+
+      <div id="profile_social" title="Github">
+        <img src={GithubIcon} id="profile_githubIcon" alt="Github Icon" />
+        {github
+          && (
+            <p id="profile_github">{github}</p>
+          )
+        }
+      </div>
+
+      <div id="profile_private">
+        <img src={Email} id="profileFooter_email_icon" alt="Github Icon" />
+        {email
+          && (
+            <p>{email}</p>
+          )
+        }
+        {email
+          && (
+            <img id="editprofile_privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
+          )
+        }
+      </div>
+
       <div id="profile_footer">
         <div id="profile_footer_contents">
           <p>3Box 2018</p>

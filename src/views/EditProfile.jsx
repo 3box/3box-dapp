@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import IPFS from 'ipfs-mini';
 
 import { address } from '../utils/address'
 import { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail } from '../state/actions';
@@ -12,10 +11,8 @@ import Private from '../assets/Private.svg';
 import AddImage from '../assets/AddImage.svg';
 import Loading from '../assets/Loading.svg';
 import './styles/EditProfile.css';
-// import Footer from '../components/Footer';
 
 const Buffer = require('buffer/').Buffer;
-const ipfs = new IPFS({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
 
 class EditProfile extends Component {
   constructor(props) {
