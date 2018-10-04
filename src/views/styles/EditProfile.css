@@ -4,8 +4,7 @@
 #edit {
   width: 55vw;
   margin: 0 auto;
-  margin-top: 6vh;
-  margin-bottom: 12vh; }
+  padding-top: 4em; }
   #edit h3 {
     font-weight: 400;
     font-size: .8em; }
@@ -17,7 +16,7 @@
     background-color: #eeeeee;
     height: 44px;
     width: 100%;
-    margin-top: 1.5vh;
+    margin-top: 1em;
     padding: 0 15px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -30,6 +29,7 @@
   height: fit-content;
   display: flex;
   flex-direction: column;
+  margin-top: 4em;
   border: #E4E4E4 solid 1px;
   background: #fff;
   border-radius: 6px;
@@ -62,7 +62,7 @@
     height: 12em;
     display: flex;
     flex: 2;
-    padding: 5vh 3vw 6vh 3vw;
+    padding: 3em 3vw 3em 3vw;
     flex-direction: column;
     align-items: center; }
     #edit_form #edit_user_picture .profPic {
@@ -106,7 +106,7 @@
     #edit_form #edit_user_picture button {
       display: block;
       margin: 0 auto;
-      margin-top: 4vh; }
+      margin-top: 3em; }
   #edit_form #edit_user_public {
     height: 100%;
     overflow: hidden;
@@ -115,13 +115,18 @@
     justify-content: center;
     align-content: center;
     align-items: center;
-    padding: 5vh 3vw; }
+    padding: 3em 3vw; }
   #edit_form #privateInfo {
     display: flex;
+    margin-top: 2em;
+    flex-direction: column;
+    justify-content: flex-start; }
+  #edit_form #privateInfo_email {
+    display: flex;
     align-items: center;
-    margin-top: 3vh; }
+    justify-content: flex-start !important; }
   #edit_form #githubInfo {
-    margin-top: 3vh; }
+    margin-top: 2em; }
   #edit_form #edit_user_private {
     width: calc(36.5% - 1px);
     height: 100%;
@@ -264,10 +269,12 @@
     background-color: #6b6b6b; }
 
 #breadCrumb {
-  background-color: #f8f8f8;
+  position: fixed;
+  width: 100%;
+  background-color: #EDEEEF;
   border-bottom: 1px solid #E4E4E4;
   overflow: hidden;
-  height: 30px;
+  height: 40px;
   display: flex;
   align-items: center; }
   #breadCrumb p {

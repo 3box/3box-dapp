@@ -6,9 +6,10 @@ import FeedTileAddressTXS from './FeedTileAddressTXS.jsx';
 import FeedTileAddressToken from './FeedTileAddressToken.jsx';
 import FeedTileAddressInternal from './FeedTileAddressInternal.jsx';
 import { getActivity } from '../state/actions';
+import networkArray from '../utils/networkArray';
 import Loading from '../assets/Loading.svg';
-import EthereumNetwork from '../assets/EthereumNetwork.svg';
 import './styles/Feed.css';
+import './styles/NetworkArray.css';
 
 const Feed = ({ ifFetchingActivity, feedByAddress }) => (
   <div id="feed">
@@ -25,11 +26,19 @@ const Feed = ({ ifFetchingActivity, feedByAddress }) => (
         ? feedByAddress.map((feedAddress, i) => (
           <div key={i} className="feed_activity_address_tile">
             <div className="feed_activity_context">
-              {/* <div className="feed_activity_network_icon" /> */}
-              <img src={EthereumNetwork} alt="Ethereum Network" />
-              <h5>
-                {Object.keys(feedAddress)[0]}
-              </h5>
+              <div className={`feed_activity_context_network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
+                0x
+              </div>
+              {/* <img src={networkArray[Math.floor(Math.random() * networkArray.length)]} alt="Ethereum Network" /> */}
+              {/* <img src={EthereumNetwork} alt="Ethereum Network" /> */}
+              <div className="feed_activity_address_tile_address">
+                <h4>
+                  {Object.keys(feedAddress)[0]}
+                </h4>
+                <p>
+                  Ethereum Address
+                </p>
+              </div>
             </div>
             {
               Object.values(feedAddress)[0].map((item, index) => (

@@ -24,31 +24,36 @@ class Nav extends Component {
 
   render() {
     const { showProfileModal } = this.state;
-    const { image, threeBox } = this.props;
+    const { image, threeBox, location } = this.props;
+    const { pathname } = location;
     return (
-      <nav>
-        <ThreeBoxLogo />
-        {
-          image.length > 0 ?
-            <img src={`https://ipfs.io/ipfs/${image[0].contentUrl['/']}`} id="header_user_picture" alt="profile" onClick={this.handleDropdown} role="button" />
-            : <div id="header_user_picture" onClick={this.handleDropdown} />
-        }
+      <div>
+        {pathname !== '/' &&
+          <nav>
+            <ThreeBoxLogo />
+            {
+              image.length > 0 ?
+                <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} id="header_user_picture" alt="profile" onClick={this.handleDropdown} role="button" />
+                : <div id="header_user_picture" onClick={this.handleDropdown} />
+            }
 
-        {showProfileModal
-          && (
-            <li id="dropdown" onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
-              <ul>
-                <Link to={routes.PROFILE}><li>Profile</li></Link>
-                <Link to={routes.EDITPROFILE}><li>Edit profile</li></Link>
-                <div className="divide" />
-                <Link to={routes.LANDING} onClick={() => threeBox.logOut()}><li>Sign Out</li></Link>
-                <div id="divideBug" />
-                <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="reportBug">Report a bug</li></a>
-              </ul>
-            </li>
-          )
+            {showProfileModal
+              && (
+                <li id="dropdown" onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
+                  <ul>
+                    <Link to={routes.PROFILE}><li>Profile</li></Link>
+                    <Link to={routes.EDITPROFILE}><li>Edit profile</li></Link>
+                    <div className="divide" />
+                    <Link to={routes.LANDING} onClick={() => threeBox.logOut()}><li>Sign Out</li></Link>
+                    <div id="divideBug" />
+                    <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="reportBug">Report a bug</li></a>
+                  </ul>
+                </li>
+              )
+            }
+          </nav>
         }
-      </nav>
+      </div>
     );
   }
 }

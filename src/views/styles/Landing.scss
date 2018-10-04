@@ -2,7 +2,7 @@
 
 #landing{
   background-color: white;
-  height: 100%;
+  // height: 100%;
 }
 
 #landing__splash {
@@ -120,6 +120,7 @@
   p {
     margin-top: .5em;
     font-size: 1.1em;
+    line-height: 1.4em;
   }
 
   h2 {
@@ -277,13 +278,16 @@
 .build_section_content {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: left;
   width: 60%;
   text-align: left;
 
   margin-left: auto;
   margin-right: 3em;
+
+  h3{
+    font-size: 1.6em;
+  }
 }
 
 .build__graphic__profiles {
@@ -613,44 +617,44 @@
     }
   }
 
-  #landingFooter {
-    display: flex;
-    flex-direction: column;
-    height: 20em;
+  // #landingFooter {
+  //   display: flex;
+  //   flex-direction: column;
+  //   height: 20em;
 
-    a {
-      margin-bottom: 1em;
-    }
+  //   a {
+  //     margin-bottom: 1em;
+  //   }
 
-    ul {
-      width: 100%;
-    }
+  //   ul {
+  //     width: 100%;
+  //   }
 
-    #logo_icon {
-      margin-left: 0;
-    }
+  //   #logo_icon {
+  //     margin-left: 0;
+  //   }
 
-    #footer_links {
-      display: flex;
-      flex-direction: column;
+  //   #footer_links {
+  //     display: flex;
+  //     flex-direction: column;
 
-      li {
-        width: 100%;
+  //     li {
+  //       width: 100%;
 
-        a {
-          margin-bottom: 0;
-        }
-      }
-    }
+  //       a {
+  //         margin-bottom: 0;
+  //       }
+  //     }
+  //   }
 
-    #mailChimp {
-      display: flex;
-      flex-direction: column;
+  //   #mailChimp {
+  //     display: flex;
+  //     flex-direction: column;
 
-      input {
-        width: 60%;
-        margin-top: 2em;
-      }
-    }
-  }
+  //     input {
+  //       width: 60%;
+  //       margin-top: 2em;
+  //     }
+  //   }
+  // }
 }

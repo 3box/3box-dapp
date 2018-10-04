@@ -24,6 +24,8 @@ nav {
   object-fit: cover; }
 
 #dropdown {
+  transition: transform ease 0.9s, opacity ease 0.1s;
+  transform: translateY(-4px);
   position: absolute;
   top: 64px;
   right: 3vw;
@@ -37,7 +39,7 @@ nav {
   #dropdown ul {
     padding: 0; }
   #dropdown li {
-    font-size: .9em;
+    font-size: 1em;
     padding-left: 1.3em;
     color: #6b6b6b;
     line-height: 2.5em; }

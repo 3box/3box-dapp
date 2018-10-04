@@ -1,0 +1,138 @@
+@import "../../variables.scss";
+
+#footer {
+  background-color: #fff;
+  border-top: 1px solid #E4E4E4;
+  overflow: hidden;
+  position: absolute;
+  height: 14vh;
+  bottom: -10vh;
+  width: 100%;
+  display: block;
+
+  display: flex;
+  align-items: center;
+}
+
+#landingFooter {
+  position: absolute;
+  width: 100%;
+  height: 12em;
+  justify-content: space-between;
+
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  padding-bottom: 5em;
+
+  ul {
+    width: 80%;
+    display: flex;
+    align-items: center;
+
+    li {
+      width: 50%;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  a {
+    z-index: 2;
+    color: white;
+    display: flex;
+    align-items: center;
+  }
+
+  #mailChimp {
+    display: flex;
+    align-items: center;
+    z-index: 1;
+    width: 40vw;
+    justify-content: center;
+
+    input {
+      display: inline-block;
+      border-bottom-left-radius: 5px;
+      border-top-left-radius: 5px;
+      border-style: none;
+      // border: solid 1px #E4E4E4;
+      height: 44px;
+      max-width: 70%;
+      padding: 0 15px;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      background-color: #414E66;
+      color: white;
+
+      &::placeholder {
+        color: white;
+      }
+    }
+
+    div {
+      display: flex;
+      align-items: center;
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom-right-radius: 5px;
+      border-top-right-radius: 5px;
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+      height: 44px;
+      padding: 0 20px;
+    }
+  }
+}
+
+#footerLinks {
+  z-index: 1;
+  display: flex;
+  width: 40vw;
+  justify-content: space-between;
+
+  #scaleLogo {
+    zoom: 1.5;
+    -moz-transform: scale(1.5);
+
+    #logo_icon {
+      margin-left: 0;
+    }
+  }
+}
+
+#socialLinks {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  width: 35%;
+}
+
+#footer_bg {
+  min-width: 100%;
+  position: absolute;
+  bottom: 0;
+  z-index: 0;
+}
+
+#footer_info {
+  z-index: 1;
+  display: flex;
+  width: 10vw;
+  justify-content: space-between;
+
+  p {
+    color: white;
+  }
+}
+
+#footer_socialIcons {
+  width: 2vw;
+  z-index: 1;
+}

@@ -7,8 +7,7 @@
 #edit {
   width: 55vw;
   margin: 0 auto;
-  margin-top: 6vh;
-  margin-bottom: 12vh;
+  padding-top: 4em;
 
   h3 {
     font-weight: 400;
@@ -27,7 +26,7 @@
     // box-shadow: 0 0px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
     height: 44px;
     width: 100%;
-    margin-top: 1.5vh;
+    margin-top: 1em;
     padding: 0 15px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -44,6 +43,7 @@
   height: fit-content;
   display: flex;
   flex-direction: column;
+  margin-top: 4em;
   border: $borderColor solid 1px;
   background: #fff;
   border-radius: 6px;
@@ -89,7 +89,7 @@
     height: 12em;
     display: flex;
     flex: 2;
-    padding: 5vh 3vw 6vh 3vw;
+    padding: 3em 3vw 3em 3vw;
     flex-direction: column;
     align-items: center;
 
@@ -144,7 +144,7 @@
     button {
       display: block;
       margin: 0 auto;
-      margin-top: 4vh;
+      margin-top: 3em;
     }
   }
 
@@ -156,18 +156,25 @@
     justify-content: center;
     align-content: center;
     align-items: center;
-    padding: 5vh 3vw;
+    padding: 3em 3vw;
 
   }
 
   #privateInfo {
     display: flex;
+    margin-top: 2em;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  #privateInfo_email{
+    display: flex;
     align-items: center;
-    margin-top: 3vh;
+    justify-content: flex-start !important;
   }
 
   #githubInfo {
-    margin-top: 3vh;
+    margin-top: 2em;
   }
 
   #edit_user_private {
@@ -346,10 +353,12 @@
 }
 
 #breadCrumb {
-  background-color: rgb(248, 248, 248);
+  position: fixed;
+  width: 100%;
+  background-color: $threeBoxBlueHueSecondary;
   border-bottom: 1px solid #E4E4E4;
   overflow: hidden;
-  height: 30px;
+  height: 40px;
   display: flex;
   align-items: center;
 

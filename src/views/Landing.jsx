@@ -3,12 +3,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter, Redirect } from 'react-router-dom';
 
+import { signInUp, closeErrorModal } from '../state/actions';
+import { address } from '../utils/address';
 import ProfileCard from '../components/ProfileCard.jsx';
 import LandingFooter from '../components/LandingFooter.jsx';
 import LandingNav from '../components/LandingNav.jsx';
-import { signInUp, closeErrorModal } from '../state/actions';
-import { address } from '../utils/address';
-
 import Loading from '../assets/Loading.svg';
 import illustration from '../assets/Dapp.svg';
 import Cristobal from '../assets/Cristobal.png';
@@ -21,8 +20,8 @@ import Metamask from '../assets/metamask.svg';
 import ThreeBoxGraphic from '../assets/3BoxGraphic.png';
 import PartnersBG from '../assets/PartnersBG.svg';
 import consensys from '../assets/consensys.png';
-import '../components/styles/ProfileCard.css';
 import './styles/Landing.css';
+import '../components/styles/ProfileCard.css';
 
 class Landing extends Component {
   constructor(props) {
@@ -165,6 +164,7 @@ class Landing extends Component {
                   <p className="profileCardSmall_address">0x123456789</p>
                 </div>
               </div>
+              
               <div id="Cristobal" className="profileCardSmall">
                 <img src={Cristobal} className="profileCardSmall_user_picture" alt="profile" />
                 <div className="profileCard_user_info">

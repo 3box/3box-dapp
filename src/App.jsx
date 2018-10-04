@@ -9,14 +9,12 @@ import Landing from './views/Landing.jsx';
 import Profile from './views/Profile.jsx';
 import EditProfile from './views/EditProfile.jsx';
 import Privacy from './views/Privacy.jsx';
+import Terms from './views/Terms.jsx';
 import { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail, getActivity } from './state/actions';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      showNav: false,
-    };
     this.loadData = this.loadData.bind(this);
   }
 
@@ -25,17 +23,6 @@ class App extends Component {
     const { pathname } = location;
     if (pathname === '/Profile' || pathname === '/EditProfile') {
       this.loadData();
-    }
-    if (pathname !== '/') {
-      this.setState({ showNav: true });
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { location } = this.props;
-    const { pathname } = location;
-    if (nextProps.location.pathname !== pathname && nextProps.location.pathname !== '/') {
-      this.setState({ showNav: true });
     }
   }
 
@@ -49,21 +36,16 @@ class App extends Component {
   }
 
   render() {
-    const { showNav } = this.state;
-    // const { location } = this.props;
-    // const { pathname } = location;
-    
     return (
       <Router basename={routes.LANDING}>
         <div className="App">
-          {showNav
-            && <Nav />
-          }
+          <Nav />
           <Switch>
             <Route exact path={routes.LANDING} component={Landing} />
             <Route exact path={routes.PROFILE} component={Profile} />
             <Route exact path={routes.EDITPROFILE} component={EditProfile} />
             <Route exact path={routes.PRIVACY} component={Privacy} />
+            <Route exact path={routes.TERMS} component={Terms} />
           </Switch>
         </div>
       </Router>

@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 
-import './styles/Nav.css';
 import ThreeBoxLogo from './ThreeBoxLogo.jsx';
+import './styles/Nav.css';
 
 const LandingNav = ({ handleSignInUp, classHide }) => (
   <nav id="landingNav" className={classHide}>
@@ -28,5 +27,4 @@ LandingNav.defaultProps = {
   classHide: '',
 };
 
-export default withRouter(LandingNav);
-
+export default LandingNav;

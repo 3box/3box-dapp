@@ -15,10 +15,10 @@ export const signInUp = () => async (dispatch) => {
     const returnedBox = await ThreeBox // eslint-disable-line no-undef
       .openBox(address, web3.currentProvider); // eslint-disable-line no-undef
     threeBox = await returnedBox;
-    const name = await threeBox.profileStore.get('name');
-    const github = await threeBox.profileStore.get('github');
-    const image = await threeBox.profileStore.get('image');
-    const email = await threeBox.privateStore.get('email');
+    const name = await threeBox.public.get('name');
+    const github = await threeBox.public.get('github');
+    const image = await threeBox.public.get('image');
+    const email = await threeBox.private.get('email');
 
     const returnedActivity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
     const activity = await returnedActivity;
@@ -82,7 +82,7 @@ export const openBox = () => async (dispatch) => {
 };
 
 export const getPublicName = () => async (dispatch) => {
-  const returnedName = await store.getState().threeBoxData.threeBoxObject.profileStore.get('name');
+  const returnedName = await store.getState().threeBoxData.threeBoxObject.public.get('name');
   const name = await returnedName;
   dispatch({
     type: 'GET_PUBLIC_NAME',
@@ -91,7 +91,7 @@ export const getPublicName = () => async (dispatch) => {
 };
 
 export const getPublicGithub = () => async (dispatch) => {
-  const returnedGithub = await store.getState().threeBoxData.threeBoxObject.profileStore.get('github');
+  const returnedGithub = await store.getState().threeBoxData.threeBoxObject.public.get('github');
   const github = await returnedGithub;
   dispatch({
     type: 'GET_PUBLIC_GITHUB',
@@ -100,7 +100,7 @@ export const getPublicGithub = () => async (dispatch) => {
 };
 
 export const getPublicImage = () => async (dispatch) => {
-  const returnedImage = await store.getState().threeBoxData.threeBoxObject.profileStore.get('image');
+  const returnedImage = await store.getState().threeBoxData.threeBoxObject.public.get('image');
   const image = await returnedImage;
   dispatch({
     type: 'GET_PUBLIC_IMAGE',
@@ -109,7 +109,7 @@ export const getPublicImage = () => async (dispatch) => {
 };
 
 export const getPrivateEmail = () => async (dispatch) => {
-  const returnedEmail = await store.getState().threeBoxData.threeBoxObject.privateStore.get('email');
+  const returnedEmail = await store.getState().threeBoxData.threeBoxObject.private.get('email');
   const email = await returnedEmail;
   dispatch({
     type: 'GET_PRIVATE_EMAIL',
@@ -153,6 +153,8 @@ export const getActivity = () => async (dispatch) => {
       }
     });
 
+    console.log(feedByAddress)
+
     dispatch({
       type: 'GET_ACTIVITY',
       feedByAddress,
@@ -174,27 +176,3 @@ export const closeErrorModal = () => async (dispatch) => {
     showErrorModal: false,
   });
 };
-
-
-// feed organized by address
-// feed.map((item) => {
-//   if (item.from === address) {
-//     if (feedByAddressOrder.indexOf(item.to) === (-1)) {
-//       feedByAddress.push({
-//         [item.to]: [item],
-//       });
-//       feedByAddressOrder.push(item.to);
-//     } else {
-//       feedByAddress[feedByAddressOrder.indexOf(item.to)][item.to].push(item);
-//     }
-//   } else {
-//     if (feedByAddressOrder.indexOf(item.from) === (-1)) {
-//       feedByAddress.push({
-//         [item.from]: [item],
-//       });
-//       feedByAddressOrder.push(item.from);
-//     } else {
-//       feedByAddress[feedByAddressOrder.indexOf(item.from)][item.from].push(item);
-//     }
-//   }
-// });

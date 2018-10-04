@@ -17,19 +17,31 @@
   left: 50%;
   transform: perspective(1px) translateY(-30%) translateX(-50%); }
 
-#profile_network_icon {
+#profile_card_network_icon {
   border-radius: 100%;
   background-color: #5ECD78;
-  width: 16px;
-  height: 16px;
-  display: inline-block; }
+  width: 19px;
+  height: 19px; }
 
 #profile_address {
-  display: inline-block;
-  margin-left: .6vw;
-  margin-bottom: .5vh; }
+  margin-left: 1em; }
   #profile_address:hover .tooltiptext {
     visibility: visible; }
+
+#profile_card_username {
+  font-size: 1.4em;
+  margin-top: 1.7em;
+  margin-bottom: 1.7em; }
+
+#profile_card_network {
+  display: flex;
+  align-items: center;
+  margin-bottom: .7em; }
+
+#profile_card_social {
+  display: flex;
+  align-items: center;
+  margin-bottom: .7em; }
 
 .tooltiptext {
   visibility: hidden;
@@ -77,3 +89,10 @@
   font-size: 14px !important;
   margin-top: 1vh !important;
   margin-left: .5vw; }
+
+.profile_card_icon {
+  width: 19px;
+  margin-right: 1em; }
+
+#profile_card_social {
+  display: flex; }
