@@ -142,6 +142,29 @@
   position: relative;
 }
 
+.consentModal {
+  position: absolute;
+  left: 50%;
+  top: 15%;
+  background: white;
+  transform: translate(-50%, 0);
+  border: solid 1px #e8e8e8;
+  border-radius: 6px;
+  padding: 15px;
+  width: 560px;
+  min-height: 500px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  img {
+    width: 300px;
+    margin-bottom: 120px;
+  }
+}
+
 @keyframes moveHorizontal {
   from {
     left: -5vw;

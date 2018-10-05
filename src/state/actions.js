@@ -8,12 +8,24 @@ import {
 
 export const signInUp = () => async (dispatch) => {
   let box;
+
   dispatch({
-    type: 'LOADING_3BOX',
+    type: 'PROVIDE_CONSENT',
   });
+
+  const consentGiven = () => {
+    dispatch({
+      type: 'LOADING_3BOX',
+    });
+  };
+
+  const opts = {
+    consentCallback: consentGiven,
+  };
+
   try {
     const returnedBox = await ThreeBox // eslint-disable-line no-undef
-      .openBox(address, web3.currentProvider); // eslint-disable-line no-undef
+      .openBox(address, web3.currentProvider, opts); // eslint-disable-line no-undef
     box = await returnedBox;
     const name = await box.public.get('name');
     const github = await box.public.get('github');
@@ -222,5 +234,12 @@ export const closeErrorModal = () => async (dispatch) => {
     type: 'CLOSE_ERROR_MODAL',
     errorMessage: '',
     showErrorModal: false,
+  });
+};
+
+export const closeConsentModal = () => async (dispatch) => {
+  dispatch({
+    type: 'CLOSE_CONSENT_MODAL',
+    provideConsent: false,
   });
 };

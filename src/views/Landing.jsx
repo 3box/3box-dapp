@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter, Redirect } from 'react-router-dom';
 
-import { signInUp, closeErrorModal } from '../state/actions';
+import { signInUp, closeErrorModal, closeConsentModal } from '../state/actions';
 import { address } from '../utils/address';
 import ProfileCard from '../components/ProfileCard.jsx';
 import LandingFooter from '../components/LandingFooter.jsx';
@@ -17,6 +17,7 @@ import Gitcoin from '../assets/gitcoin.svg';
 import ConsensysSVG from '../assets/consensys.svg';
 import Coinbase from '../assets/coinbase.svg';
 import Metamask from '../assets/metamask.svg';
+import Consent from '../assets/Consent.png';
 import ThreeBoxGraphic from '../assets/3BoxGraphic.png';
 import PartnersBG from '../assets/PartnersBG.svg';
 import consensys from '../assets/consensys.png';
@@ -53,7 +54,7 @@ class Landing extends Component {
   }
 
   render() {
-    const { ifFetchingThreeBox, showErrorModal, signUpSuccessful, errorMessage } = this.props;
+    const { ifFetchingThreeBox, showErrorModal, signUpSuccessful, errorMessage, provideConsent } = this.props;
     const classHide = this.state.isHide ? 'hide' : '';
 
     if (signUpSuccessful) {
@@ -63,6 +64,17 @@ class Landing extends Component {
     return (
       <div id="landing">
         <LandingNav handleSignInUp={this.handleSignInUp} classHide={classHide} ref="elem" />
+
+        {provideConsent
+          && (
+            <div className="loadingContainer">
+              <div className="consentModal">
+                <img src={Consent} alt="Partners background" />
+                <h3>Provide consent to 3Box in the MetaMask popup</h3>
+                <button onClick={this.props.closeConsentModal} type="button" className="tertiaryButton" id="closeModal">close</button>
+              </div>
+            </div>
+          )}
 
         {ifFetchingThreeBox
           && (
@@ -164,7 +176,7 @@ class Landing extends Component {
                   <p className="profileCardSmall_address">0x123456789</p>
                 </div>
               </div>
-              
+
               <div id="Cristobal" className="profileCardSmall">
                 <img src={Cristobal} className="profileCardSmall_user_picture" alt="profile" />
                 <div className="profileCard_user_info">
@@ -202,18 +214,22 @@ class Landing extends Component {
 Landing.propTypes = {
   signInUp: PropTypes.func,
   closeErrorModal: PropTypes.func,
+  closeConsentModal: PropTypes.func,
   ifFetchingThreeBox: PropTypes.bool,
   signUpSuccessful: PropTypes.bool,
   showErrorModal: PropTypes.bool,
+  provideConsent: PropTypes.bool,
   errorMessage: PropTypes.string,
 };
 
 Landing.defaultProps = {
   signInUp: signInUp(),
   closeErrorModal: closeErrorModal(),
+  closeConsentModal: closeConsentModal(),
   ifFetchingThreeBox: false,
   signUpSuccessful: false,
   showErrorModal: false,
+  provideConsent: false,
   errorMessage: null,
 };
 
@@ -222,6 +238,7 @@ const mapState = state => ({
   signUpSuccessful: state.threeBox.signUpSuccessful,
   errorMessage: state.threeBox.errorMessage,
   showErrorModal: state.threeBox.showErrorModal,
+  provideConsent: state.threeBox.provideConsent,
 });
 
-export default withRouter(connect(mapState, { signInUp, closeErrorModal })(Landing));
+export default withRouter(connect(mapState, { signInUp, closeErrorModal, closeConsentModal })(Landing));

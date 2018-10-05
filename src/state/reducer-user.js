@@ -46,9 +46,16 @@ const threeBoxReducer = (state = {}, action) => {
         email: action.email,
       };
 
+    case 'PROVIDE_CONSENT':
+      return {
+        ...state,
+        provideConsent: true,
+      };
+
     case 'LOADING_3BOX':
       return {
         ...state,
+        provideConsent: false,
         ifFetchingThreeBox: true,
       };
 
@@ -66,6 +73,12 @@ const threeBoxReducer = (state = {}, action) => {
         ...state,
         errorMessage: '',
         showErrorModal: false,
+      };
+
+    case 'CLOSE_CONSENT_MODAL':
+      return {
+        ...state,
+        provideConsent: false,
       };
 
     case 'LOADING_ACTIVITY':
