@@ -9,8 +9,7 @@ jobs:
 
       # Download and cache dependencies
       - restore_cache:
-          keys:
-            - dependencies-cache-{{ checksum "package.json" }}
+          key: dependency-cache-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
 
       - run:
           name: install-awscli-and-dependencies
@@ -26,11 +25,18 @@ jobs:
       - run:
           name: deploy-to-s3
           command: |
-            npm run build
-            npm run deploy
+            if [ "${CIRCLE_BRANCH}" == "develop" ]; then
+              # Fix Warnings CI=false is just a baaad workaround
+              CI=false npm run build
+              npm run deploy-develop
+            fi
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              npm run build
+              npm run deploy-master
+            fi
 
       - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+          key: dependency-cache-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
 
