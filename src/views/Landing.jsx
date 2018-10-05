@@ -126,10 +126,10 @@ class Landing extends Component {
         <div id="landing__trustedPartners">
           <h3 className="lightOpacity thin">TRUSTED BY PARTNERS</h3>
           <div id="landing__partnerList">
-            <img src={Gitcoin} className="partnerCos" alt="Partners background" />
-            <img src={Coinbase} className="partnerCos" alt="Partners background" />
+            {/* <img src={Gitcoin} className="partnerCos" alt="Partners background" /> */}
+            {/* <img src={Coinbase} className="partnerCos" alt="Partners background" /> */}
             <img src={ConsensysSVG} className="partnerCos" alt="Partners background" />
-            <img src={Metamask} className="partnerCos" alt="Partners background" />
+            {/* <img src={Metamask} className="partnerCos" alt="Partners background" /> */}
           </div>
           <img src={PartnersBG} id="trustedPartners--bg" alt="Partners background" />
         </div>
