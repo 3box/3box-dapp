@@ -33,7 +33,23 @@ export const signInUp = () => async (dispatch) => {
       dataType: 'Token',
     }, object));
 
-    const feed = activity.internal.concat(activity.txs).concat(activity.token);
+    let publicActivity = await box.public.log;
+    publicActivity = publicActivity.map((object) => {
+      object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
+      return Object.assign({
+        dataType: 'Public',
+      }, object);
+    });
+
+    let privateActivity = await box.private.log;
+    privateActivity = privateActivity.map((object) => {
+      object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
+      return Object.assign({
+        dataType: 'Private',
+      }, object);
+    });
+
+    const feed = activity.internal.concat(activity.txs).concat(activity.token).concat(publicActivity).concat(privateActivity);
     feed.sort((a, b) => b.timeStamp - a.timeStamp);
 
     // order feed chronologically and by address
@@ -42,6 +58,12 @@ export const signInUp = () => async (dispatch) => {
       const othersAddress = item.from === address ? item.to : item.from;
       if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === othersAddress) {
         feedByAddress[feedByAddress.length - 1][othersAddress].push(item);
+      } else if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === 'threeBox' && (item.dataType === 'Public' || item.dataType === 'Private')) {
+        feedByAddress[feedByAddress.length - 1].threeBox.push(item);
+      } else if (item.dataType === 'Public' || item.dataType === 'Private') {
+        feedByAddress.push({
+          threeBox: [item],
+        });
       } else {
         feedByAddress.push({
           [othersAddress]: [item],
@@ -142,16 +164,20 @@ export const getActivity = () => async (dispatch) => {
     }, object));
 
     let publicActivity = await store.getState().threeBox.box.public.log;
-    console.log(publicActivity);
-    publicActivity = publicActivity.map(object => Object.assign({
-      dataType: 'Public',
-    }, object));
+    publicActivity = publicActivity.map((object) => {
+      object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
+      return Object.assign({
+        dataType: 'Public',
+      }, object);
+    });
 
     let privateActivity = await store.getState().threeBox.box.private.log;
-    console.log(privateActivity);
-    privateActivity = privateActivity.map(object => Object.assign({
-      dataType: 'Private',
-    }, object));
+    privateActivity = privateActivity.map((object) => {
+      object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
+      return Object.assign({
+        dataType: 'Private',
+      }, object);
+    });
 
     const feed = activity.internal.concat(activity.txs).concat(activity.token).concat(publicActivity).concat(privateActivity);
     feed.sort((a, b) => b.timeStamp - a.timeStamp);

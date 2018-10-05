@@ -16,9 +16,7 @@ const FeedTileTXS = ({ item, isEven }) => (
       {item.dataType === 'Private'
         ? <img src={PrivateActivity} alt="Transaction Icon" className="feed_activity_address_amount_image" />
         : <img src={Globe} alt="Transaction Icon" className="feed_activity_address_amount_image" />
-  }
-      {/* <img src={EthereumLine} alt="Transaction Icon" className="feed_activity_address_dataType_ethereum" /> */}
-      {/* threeboxicon */}
+      }
     </div>
     <div className="feed_activity_address_toFrom saveDelete">
       <img src={item.op === 'PUT' ? Save : Delete} alt="Transaction Icon" />
@@ -35,7 +33,7 @@ const FeedTileTXS = ({ item, isEven }) => (
         : item.value}
     </p>
     <p className="feed_activity_address_time">
-      {item.timeStamp && timeSince(item.timeStamp.toString().substring(0, 10) * 1000)}
+      {timeSince(item.timeStamp * 1000)}
     </p>
   </div>
 );

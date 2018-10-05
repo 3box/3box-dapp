@@ -102,7 +102,7 @@ class EditProfile extends Component {
   }
 
   render() {
-    const { image } = this.props;
+    const { image, ifFetchingThreeBox } = this.props;
     const { github, email, name, disableSave, removeUserPic, saveLoading, picUploaded, imageRemoved } = this.state;
 
     return (
@@ -134,6 +134,13 @@ class EditProfile extends Component {
         <div id="edit">
 
           <div id="edit_form">
+
+            {ifFetchingThreeBox
+              && (
+                <div className="loadingProfile">
+                  <img src={Loading} alt="loading" id="loadingProfileSpinner" />
+                </div>
+              )}
 
             <div id="myProfile">
               <h4>My Profile</h4>
@@ -233,6 +240,7 @@ EditProfile.propTypes = {
   image: PropTypes.array,
   openBox: PropTypes.func,
   history: PropTypes.object,
+  ifFetchingThreeBox: PropTypes.bool,
 
   getPublicName: PropTypes.func,
   getPublicGithub: PropTypes.func,
@@ -248,6 +256,7 @@ EditProfile.defaultProps = {
   email: '',
   image: [],
   history: {},
+  ifFetchingThreeBox: false,
 
   openBox: openBox(),
   getPublicName: getPublicName(),
@@ -264,6 +273,7 @@ function mapState(state) {
     github: state.threeBox.github,
     email: state.threeBox.email,
     image: state.threeBox.image,
+    ifFetchingThreeBox: state.threeBox.ifFetchingThreeBox,
   };
 }
 
