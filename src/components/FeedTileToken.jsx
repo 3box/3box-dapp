@@ -32,10 +32,10 @@ const FeedTileAddressToken = ({ item, isEven }) => (
       )
     }
     <p className="feed_activity_address_function" title={item.tokenName}>
-      {item.tokenName}
+      {item.tokenName ? item.tokenName : 'Token'}
     </p>
     <p className="feed_activity_address_amount" title={(Number(item.value) / 1000000000000000000).toString()}>
-      {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ${item.tokenSymbol}`}
+      {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ${item.tokenSymbol ? item.tokenSymbol : 'Tokens'}`}
     </p>
     <p className="feed_activity_address_time">
       {timeSince(item.timeStamp * 1000)}

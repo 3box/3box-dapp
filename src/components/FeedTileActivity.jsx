@@ -25,7 +25,10 @@ const FeedTileTXS = ({ item, isEven }) => (
       </p>
     </div>
     <p className="feed_activity_address_function">
-      {item.key && item.key.charAt(0).toUpperCase() + item.key.slice(1)}
+      {item.dataType === 'Private'
+        ? 'Private'
+        : item.key && item.key.charAt(0).toUpperCase() + item.key.slice(1)
+      }
     </p>
     <p className="feed_activity_address_amount">
       {item.key === 'image'
