@@ -70,8 +70,8 @@ Nav.defaultProps = {
 
 function mapState(state) {
   return {
-    image: state.threeBoxData.image,
-    threeBox: state.threeBoxData.threeBoxObject,
+    image: state.threeBox.image,
+    threeBox: state.threeBox.box,
   };
 }
 

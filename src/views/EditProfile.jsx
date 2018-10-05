@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { address } from '../utils/address'
-import { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail } from '../state/actions';
+import { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail, getActivity } from '../state/actions';
 import * as routes from '../utils/routes';
 import EthereumLogo from '../assets/Ethereum_logo_2014.svg';
 import Private from '../assets/Private.svg';
@@ -46,8 +46,8 @@ class EditProfile extends Component {
   }
 
   handleUpdatePic = (photoFile) => {
-    const formData = new window.FormData()
-    formData.append('path', photoFile)
+    const formData = new window.FormData();
+    formData.append('path', photoFile);
     this.setState({ buffer: formData, disableSave: false, editPic: true, removeUserPic: false });
     // const reader = new window.FileReader();
     // reader.readAsArrayBuffer(photoFile);
@@ -62,7 +62,7 @@ class EditProfile extends Component {
 
   async handleSubmit(e) {
     const { name, github, email, removeUserPic, buffer, editPic } = this.state;
-    const { history, threeBoxObject } = this.props;
+    const { history, box } = this.props;
 
     // start loading animation
     e.preventDefault();
@@ -77,10 +77,10 @@ class EditProfile extends Component {
     email === this.props.email ? emailChanged = false : emailChanged = true;
 
     // if value changed and is not empty, save new value, else remove value
-    nameChanged && (name !== '' ? await threeBoxObject.public.set('name', name) : await threeBoxObject.public.remove('name'));
-    githubChanged && (github !== '' ? await threeBoxObject.public.set('github', github) : await threeBoxObject.public.remove('github'));
-    emailChanged && (email !== '' ? await threeBoxObject.private.set('email', email) : await threeBoxObject.private.remove('email'));
-    removeUserPic && await threeBoxObject.public.remove('image');
+    nameChanged && (name !== '' ? await box.public.set('name', name) : await box.public.remove('name'));
+    githubChanged && (github !== '' ? await box.public.set('github', github) : await box.public.remove('github'));
+    emailChanged && (email !== '' ? await box.private.set('email', email) : await box.private.remove('email'));
+    removeUserPic && await box.public.remove('image');
 
     const fetch = editPic && await window.fetch('https://ipfs.infura.io:5001/api/v0/add', {
       method: 'post',
@@ -88,7 +88,7 @@ class EditProfile extends Component {
       body: buffer
     })
     const returnedData = editPic && await fetch.json();
-    const saved = editPic && await threeBoxObject.public.set('image', [{ '@type': 'ImageObject', contentUrl: { '/': returnedData.Hash } }]);
+    const saved = editPic && await box.public.set('image', [{ '@type': 'ImageObject', contentUrl: { '/': returnedData.Hash } }]);
 
     // only get values that have changed
     nameChanged && await this.props.getPublicName();
@@ -96,6 +96,7 @@ class EditProfile extends Component {
     emailChanged && await this.props.getPrivateEmail();
     (removeUserPic || editPic) && await this.props.getPublicImage();
 
+    this.props.getActivity();
     this.setState({ saveLoading: false });
     history.push(routes.PROFILE);
   }
@@ -225,7 +226,7 @@ class EditProfile extends Component {
 }
 
 EditProfile.propTypes = {
-  threeBoxObject: PropTypes.object,
+  box: PropTypes.object,
   name: PropTypes.string,
   github: PropTypes.string,
   email: PropTypes.string,
@@ -237,10 +238,11 @@ EditProfile.propTypes = {
   getPublicGithub: PropTypes.func,
   getPublicImage: PropTypes.func,
   getPrivateEmail: PropTypes.func,
+  getActivity: PropTypes.func,
 };
 
 EditProfile.defaultProps = {
-  threeBoxObject: {},
+  box: {},
   name: '',
   github: '',
   email: '',
@@ -252,19 +254,20 @@ EditProfile.defaultProps = {
   getPublicGithub: getPublicGithub(),
   getPublicImage: getPublicImage(),
   getPrivateEmail: getPrivateEmail(),
+  getActivity: getActivity(),
 };
 
 function mapState(state) {
   return {
-    threeBoxObject: state.threeBoxData.threeBoxObject,
-    name: state.threeBoxData.name,
-    github: state.threeBoxData.github,
-    email: state.threeBoxData.email,
-    image: state.threeBoxData.image,
+    box: state.threeBox.box,
+    name: state.threeBox.name,
+    github: state.threeBox.github,
+    email: state.threeBox.email,
+    image: state.threeBox.image,
   };
 }
 
-export default withRouter(connect(mapState, { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail })(EditProfile));
+export default withRouter(connect(mapState, { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail, getActivity })(EditProfile));
 
 
   // handleSubmitPic = (e) => {

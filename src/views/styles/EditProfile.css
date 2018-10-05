@@ -29,7 +29,7 @@
   height: fit-content;
   display: flex;
   flex-direction: column;
-  margin-top: 4em;
+  margin-top: 0;
   border: #E4E4E4 solid 1px;
   background: #fff;
   border-radius: 6px;
@@ -269,7 +269,6 @@
     background-color: #6b6b6b; }
 
 #breadCrumb {
-  position: fixed;
   width: 100%;
   background-color: #EDEEEF;
   border-bottom: 1px solid #E4E4E4;

@@ -2,13 +2,22 @@
 
 #profile {
   background-color: $backgroundHue;
-  height: calc(100% - 132px);
+  // height: calc(100% - 69px);
   width: 23vw;
   min-width: 270px;
-  text-align: center;
-  // border-right: 1px solid $borderColor;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+#profile_fixed{
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  // height: 100%;
+  height: calc(100% - 69px);
 }
 
 #profile_user_info {
@@ -18,14 +27,12 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  // height: 100%;
-  height: calc(100% - 132px);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 
-  position: fixed;
-  top: 76px;
+  // position: fixed;
+  // top: 76px;
 
   p {
     text-align: left;
@@ -50,11 +57,13 @@
 }
 
 #profile_footer {
-  position: absolute;
-  left: 0;
-  bottom: 0;
   width: 300px;
+  padding: 30px 35px;
+  max-width: 200px;
+  min-width: 200px;
   text-align: center;
+  z-index: 1;
+  background-color: $backgroundHue;
 }
 
 #profile__footer__mobile {
@@ -62,28 +71,8 @@
 }
 
 #profile_footer_contents {
-  padding: 1.2em 2em 1.2em 2em;
   display: flex;
-  background-color: $backgroundHue;
   justify-content: flex-start;
-
-  ul {
-    display: flex;
-    padding: 0;
-    height: 20px;
-    margin-bottom: .3vh;
-    align-items: center;
-    justify-content: flex-start;
-  }
-
-  li {
-    font-weight: 100;
-    text-align: left;
-    margin: 0 .8vw;
-    display: flex;
-    flex: 1;
-    align-items: center;
-  }
 
   p {
     font-size: .8em;
@@ -112,7 +101,7 @@
 
 #profile_network_networkLogo {
   height: 19px;
-  margin-right: .6vw;
+  margin-right: .6em;
 }
 
 #profile_network {
@@ -156,7 +145,7 @@
 #profile_githubIcon {
   height: 19px;
   display: inline-block;
-  margin-right: .6vw;
+  margin-right: .6em;
 }
 
 #profile_github {
@@ -182,7 +171,24 @@
   height: 12px;
   display: inline-block;
   align-content: left;
-  margin-right: 1vw;
+  margin-right: .6em;
+}
+
+.loadingProfile {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.281);
+  z-index: 6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#loadingProfileSpinner {
+  width: 3em;
+  height: 3em;
+  z-index: 1;
 }
 
 @media only screen and (max-width: 600px) {

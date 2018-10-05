@@ -7,18 +7,18 @@ import {
 } from './store';
 
 export const signInUp = () => async (dispatch) => {
-  let threeBox;
+  let box;
   dispatch({
     type: 'LOADING_3BOX',
   });
   try {
     const returnedBox = await ThreeBox // eslint-disable-line no-undef
       .openBox(address, web3.currentProvider); // eslint-disable-line no-undef
-    threeBox = await returnedBox;
-    const name = await threeBox.public.get('name');
-    const github = await threeBox.public.get('github');
-    const image = await threeBox.public.get('image');
-    const email = await threeBox.private.get('email');
+    box = await returnedBox;
+    const name = await box.public.get('name');
+    const github = await box.public.get('github');
+    const image = await box.public.get('image');
+    const email = await box.private.get('email');
 
     const returnedActivity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
     const activity = await returnedActivity;
@@ -51,7 +51,7 @@ export const signInUp = () => async (dispatch) => {
 
     dispatch({
       type: 'SIGN_IN_UP',
-      threeBox,
+      box,
       ifFetchingThreeBox: false,
       signUpSuccessful: true,
       errorMessage: '',
@@ -72,18 +72,26 @@ export const signInUp = () => async (dispatch) => {
 };
 
 export const openBox = () => async (dispatch) => {
+  dispatch({
+    type: 'LOADING_ACTIVITY',
+  });
+  dispatch({
+    type: 'LOADING_3BOX',
+  });
   const returnedBox = await ThreeBox // eslint-disable-line no-undef
     .openBox(address, web3.currentProvider); // eslint-disable-line no-undef
-  const threeBox = await returnedBox;
+  const box = await returnedBox;
   dispatch({
     type: 'GET_THREEBOX',
-    threeBox,
+    ifFetchingThreeBox: false,
+    box,
   });
 };
 
 export const getPublicName = () => async (dispatch) => {
-  const returnedName = await store.getState().threeBoxData.threeBoxObject.public.get('name');
+  const returnedName = await store.getState().threeBox.box.public.get('name');
   const name = await returnedName;
+
   dispatch({
     type: 'GET_PUBLIC_NAME',
     name,
@@ -91,7 +99,7 @@ export const getPublicName = () => async (dispatch) => {
 };
 
 export const getPublicGithub = () => async (dispatch) => {
-  const returnedGithub = await store.getState().threeBoxData.threeBoxObject.public.get('github');
+  const returnedGithub = await store.getState().threeBox.box.public.get('github');
   const github = await returnedGithub;
   dispatch({
     type: 'GET_PUBLIC_GITHUB',
@@ -100,7 +108,7 @@ export const getPublicGithub = () => async (dispatch) => {
 };
 
 export const getPublicImage = () => async (dispatch) => {
-  const returnedImage = await store.getState().threeBoxData.threeBoxObject.public.get('image');
+  const returnedImage = await store.getState().threeBox.box.public.get('image');
   const image = await returnedImage;
   dispatch({
     type: 'GET_PUBLIC_IMAGE',
@@ -109,7 +117,7 @@ export const getPublicImage = () => async (dispatch) => {
 };
 
 export const getPrivateEmail = () => async (dispatch) => {
-  const returnedEmail = await store.getState().threeBoxData.threeBoxObject.private.get('email');
+  const returnedEmail = await store.getState().threeBox.box.private.get('email');
   const email = await returnedEmail;
   dispatch({
     type: 'GET_PRIVATE_EMAIL',
@@ -118,10 +126,6 @@ export const getPrivateEmail = () => async (dispatch) => {
 };
 
 export const getActivity = () => async (dispatch) => {
-  dispatch({
-    type: 'LOADING_ACTIVITY',
-  });
-
   try {
     const returnedActivity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
     const activity = await returnedActivity;
@@ -137,7 +141,19 @@ export const getActivity = () => async (dispatch) => {
       dataType: 'Token',
     }, object));
 
-    const feed = activity.internal.concat(activity.txs).concat(activity.token);
+    let publicActivity = await store.getState().threeBox.box.public.log;
+    console.log(publicActivity);
+    publicActivity = publicActivity.map(object => Object.assign({
+      dataType: 'Public',
+    }, object));
+
+    let privateActivity = await store.getState().threeBox.box.private.log;
+    console.log(privateActivity);
+    privateActivity = privateActivity.map(object => Object.assign({
+      dataType: 'Private',
+    }, object));
+
+    const feed = activity.internal.concat(activity.txs).concat(activity.token).concat(publicActivity).concat(privateActivity);
     feed.sort((a, b) => b.timeStamp - a.timeStamp);
 
     // order feed chronologically and by address
@@ -146,6 +162,12 @@ export const getActivity = () => async (dispatch) => {
       const othersAddress = item.from === address ? item.to : item.from;
       if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === othersAddress) {
         feedByAddress[feedByAddress.length - 1][othersAddress].push(item);
+      } else if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === 'threeBox' && (item.dataType === 'Public' || item.dataType === 'Private')) {
+        feedByAddress[feedByAddress.length - 1].threeBox.push(item);
+      } else if (item.dataType === 'Public' || item.dataType === 'Private') {
+        feedByAddress.push({
+          threeBox: [item],
+        });
       } else {
         feedByAddress.push({
           [othersAddress]: [item],
@@ -153,7 +175,7 @@ export const getActivity = () => async (dispatch) => {
       }
     });
 
-    console.log(feedByAddress)
+    console.log(feedByAddress);
 
     dispatch({
       type: 'GET_ACTIVITY',

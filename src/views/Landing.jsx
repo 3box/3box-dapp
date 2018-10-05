@@ -218,10 +218,10 @@ Landing.defaultProps = {
 };
 
 const mapState = state => ({
-  ifFetchingThreeBox: state.threeBoxData.ifFetchingThreeBox,
-  signUpSuccessful: state.threeBoxData.signUpSuccessful,
-  errorMessage: state.threeBoxData.errorMessage,
-  showErrorModal: state.threeBoxData.showErrorModal,
+  ifFetchingThreeBox: state.threeBox.ifFetchingThreeBox,
+  signUpSuccessful: state.threeBox.signUpSuccessful,
+  errorMessage: state.threeBox.errorMessage,
+  showErrorModal: state.threeBox.showErrorModal,
 });
 
 export default withRouter(connect(mapState, { signInUp, closeErrorModal })(Landing));

@@ -42,7 +42,7 @@
   margin-bottom: 1.3em;
   padding: 0 .5em;
 
-  .feed_activity_context_network{
+  .feed_activity_context_network {
     width: 2.2em;
     height: 2.2em;
     margin-right: 1.5vw;
@@ -52,6 +52,29 @@
     justify-content: center;
     color: white;
     font-weight: 500;
+  }
+
+  .feed_activity_context_threeBox {
+    margin-right: 1.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo_icon {
+    width: 2.1em;
+    height: 2.1em;
+    border-radius: 4px;
+    background-color: #006ECC;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    h2 {
+      color: white;
+      font-size: 1.5em !important;
+      font-weight: 700;
+    }
   }
 }
 
@@ -126,9 +149,16 @@
   justify-content: flex-start;
 
   width: 21%;
+
   img {
     width: 1em;
     margin-right: 1vw;
+  }
+}
+
+.saveDelete {
+  img {
+    width: .8em !important;
   }
 }
 
@@ -138,6 +168,10 @@
 
 .feed_activity_address_amount {
   width: 21%;
+}
+
+.feed_activity_address_amount_image {
+  width: 24px;
 }
 
 .feed_activity_address_time {

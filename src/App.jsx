@@ -27,8 +27,8 @@ class App extends Component {
   }
 
   async loadData() {
-    await this.props.getActivity();
     await this.props.openBox();
+    await this.props.getActivity();
     await this.props.getPublicName();
     await this.props.getPublicGithub();
     await this.props.getPublicImage();

@@ -3,7 +3,7 @@ const threeBoxReducer = (state = {}, action) => {
     case 'SIGN_IN_UP':
       return {
         ...state,
-        threeBoxObject: action.threeBox,
+        box: action.box,
         ifFetchingThreeBox: false,
         signUpSuccessful: true,
         showErrorModal: false,
@@ -18,7 +18,8 @@ const threeBoxReducer = (state = {}, action) => {
     case 'GET_THREEBOX':
       return {
         ...state,
-        threeBoxObject: action.threeBox,
+        box: action.box,
+        ifFetchingThreeBox: false,
       };
 
     case 'GET_PUBLIC_NAME':

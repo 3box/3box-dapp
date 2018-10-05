@@ -7,5 +7,5 @@ import {
 } from './reducer-user';
 
 export default combineReducers({
-  threeBoxData: threeBoxReducer,
+  threeBox: threeBoxReducer,
 });

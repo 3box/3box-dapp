@@ -11,7 +11,7 @@
   height: 28px;
   border-radius: 4px;
   background-color: #006ECC;
-  margin-left: 4vw;
+  margin-left: 3vw;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,6 +26,31 @@
 #logo_text {
   display: inline-block;
   color: #006ECC;
+  margin: 0;
+  margin-left: .37em;
+  font-size: 1.5em !important;
+}
+
+#logo_icon_white {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  background-color: rgb(255, 255, 255);
+  margin-left: 3vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h2   {
+    color: #021333;
+    font-size: 1.5em !important;
+    font-weight: 700;
+  }
+}
+
+#logo_text_white {
+  display: inline-block;
+  color: rgb(255, 255, 255);
   margin: 0;
   margin-left: .37em;
   font-size: 1.5em !important;

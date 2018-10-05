@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import FeedTileAddressTXS from './FeedTileAddressTXS.jsx';
-import FeedTileAddressToken from './FeedTileAddressToken.jsx';
-import FeedTileAddressInternal from './FeedTileAddressInternal.jsx';
+import FeedTileTXS from './FeedTileTXS.jsx';
+import FeedTileToken from './FeedTileToken.jsx';
+import FeedTileInternal from './FeedTileInternal.jsx';
+import FeedTileActivity from './FeedTileActivity.jsx';
 import { getActivity } from '../state/actions';
 import networkArray from '../utils/networkArray';
 import Loading from '../assets/Loading.svg';
@@ -26,25 +27,49 @@ const Feed = ({ ifFetchingActivity, feedByAddress }) => (
         ? feedByAddress.map((feedAddress, i) => (
           <div key={i} className="feed_activity_address_tile">
             <div className="feed_activity_context">
-              <div className={`feed_activity_context_network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
-                0x
-              </div>
+              {Object.keys(feedAddress)[0] === 'threeBox' ? (
+                <div className="logo_icon feed_activity_context_network">
+                  <h2>3</h2>
+                </div>
+              )
+                : (
+                  <div className={`feed_activity_context_network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
+                    0x
+                  </div>)
+              }
               <div className="feed_activity_address_tile_address">
-                <h4>
-                  {Object.keys(feedAddress)[0]}
-                </h4>
-                <p>
-                  Ethereum Address
-                </p>
+                {Object.keys(feedAddress)[0] === 'threeBox'
+                  ? (
+                    <div>
+                      <h4>
+                        Three Box
+                      </h4>
+                      <p>
+                        Activity
+                      </p>
+                    </div>
+                  )
+                  : (
+                    <div>
+                      <h4>
+                        {Object.keys(feedAddress)[0]}
+                      </h4>
+                      <p>
+                        Ethereum Address
+                      </p>
+                    </div>
+                  )}
               </div>
             </div>
             {
               Object.values(feedAddress)[0].map((item, index) => (
                 item.dataType === 'Internal'
-                  ? <FeedTileAddressInternal item={item} key={index} isEven={parseInt(index) % 2 === 0} />
+                  ? <FeedTileInternal item={item} key={index} isEven={parseInt(index) % 2 === 0} />
                   : item.dataType === 'Token'
-                    ? <FeedTileAddressToken item={item} key={index} isEven={parseInt(index) % 2 === 0} />
-                    : <FeedTileAddressTXS item={item} key={index} isEven={parseInt(index) % 2 === 0} />
+                    ? <FeedTileToken item={item} key={index} isEven={parseInt(index) % 2 === 0} />
+                    : item.dataType === 'Txs'
+                      ? <FeedTileTXS item={item} key={index} isEven={parseInt(index) % 2 === 0} />
+                      : <FeedTileActivity item={item} key={index} isEven={parseInt(index) % 2 === 0} />
               ))
             }
           </div>
@@ -72,9 +97,9 @@ Feed.defaultProps = {
 };
 
 const mapState = state => ({
-  feed: state.threeBoxData.feed,
-  feedByAddress: state.threeBoxData.feedByAddress,
-  ifFetchingActivity: state.threeBoxData.ifFetchingActivity,
+  feed: state.threeBox.feed,
+  feedByAddress: state.threeBox.feedByAddress,
+  ifFetchingActivity: state.threeBox.ifFetchingActivity,
 });
 
 export default connect(mapState, { getActivity })(Feed);

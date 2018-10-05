@@ -41,6 +41,23 @@
     justify-content: center;
     color: white;
     font-weight: 500; }
+  .feed_activity_context .feed_activity_context_threeBox {
+    margin-right: 1.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+  .feed_activity_context .logo_icon {
+    width: 2.1em;
+    height: 2.1em;
+    border-radius: 4px;
+    background-color: #006ECC;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    .feed_activity_context .logo_icon h2 {
+      color: white;
+      font-size: 1.5em !important;
+      font-weight: 700; }
 
 .feed_activity_address_tile_address {
   display: flex;
@@ -101,8 +118,14 @@
     width: 1em;
     margin-right: 1vw; }
 
+.saveDelete img {
+  width: .8em !important; }
+
 .feed_activity_address_amount {
   width: 21%; }
+
+.feed_activity_address_amount_image {
+  width: 24px; }
 
 .feed_activity_address_time {
   width: 15%; }

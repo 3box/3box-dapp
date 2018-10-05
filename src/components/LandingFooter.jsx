@@ -1,7 +1,7 @@
 import React from 'react';
 
 import MailChimp from './MailChimp';
-import ThreeBoxLogo from './ThreeBoxLogo.jsx';
+import ThreeBoxLogoWhite from './ThreeBoxLogoWhite.jsx';
 import GithubIconWhite from '../assets/GithubIconWhite.svg';
 import Email from '../assets/EmailWhite.svg';
 import Twitter from '../assets/twitterWhite.svg';
@@ -17,7 +17,7 @@ const LandingFooter = () => (
 
     <div id="footerLinks">
       <div id="scaleLogo">
-        <ThreeBoxLogo />
+        <ThreeBoxLogoWhite />
       </div>
       <div id="socialLinks">
         <a href="https://github.com/uport-project/3box">
