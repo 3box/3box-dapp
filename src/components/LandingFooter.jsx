@@ -7,7 +7,7 @@ import Email from '../assets/EmailWhite.svg';
 import Twitter from '../assets/twitterWhite.svg';
 import Discord from '../assets/discordWhite.svg';
 import FooterGraphic from '../assets/Footer.svg';
-import './styles/LandingFooter.css';
+import '../views/styles/Landing.css';
 
 const LandingFooter = () => (
   <div id="landingFooter">

@@ -10,7 +10,7 @@ import Profile from './views/Profile.jsx';
 import EditProfile from './views/EditProfile.jsx';
 import Privacy from './views/Privacy.jsx';
 import Terms from './views/Terms.jsx';
-import { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail, getActivity } from './state/actions';
+import { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail, getActivity, checkForMetaMask, closeRequireMetaMask } from './state/actions';
 
 class App extends Component {
   constructor(props) {
@@ -21,7 +21,10 @@ class App extends Component {
   componentDidMount() {
     const { location } = this.props;
     const { pathname } = location;
-    if (pathname === '/Profile' || pathname === '/EditProfile') {
+
+    this.props.checkForMetaMask();
+
+    if ((pathname === '/Profile' || pathname === '/EditProfile') && web3) { // eslint-disable-line no-undef
       this.loadData();
     }
   }
@@ -60,7 +63,11 @@ App.propTypes = {
   getPublicImage: PropTypes.func,
   getPrivateEmail: PropTypes.func,
   getActivity: PropTypes.func,
+  checkForMetaMask: PropTypes.func,
+  closeRequireMetaMask: PropTypes.func,
+
   location: PropTypes.object,
+  hasMetaMask: PropTypes.bool,
 };
 
 App.defaultProps = {
@@ -70,14 +77,17 @@ App.defaultProps = {
   getPublicImage: getPublicImage(),
   getPrivateEmail: getPrivateEmail(),
   getActivity: getActivity(),
+  checkForMetaMask: checkForMetaMask(),
+  closeRequireMetaMask: closeRequireMetaMask(),
   location: {},
+  hasMetaMask: true,
 };
 
 const mapState = state => ({
-  threeBox: state.threeBox,
+  hasMetaMask: state.threeBox.hasMetaMask,
 });
 
 export default withRouter(connect(mapState,
   {
-    openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail, getActivity,
+    openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail, getActivity, checkForMetaMask, closeRequireMetaMask,
   })(App));

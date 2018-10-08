@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { timeSince } from '../utils/time';
-import address from '../utils/address';
 import PrivateActivity from '../assets/PrivateActivity.svg';
 import Globe from '../assets/Globe.svg';
 import Image from '../assets/Image.svg';
 import Save from '../assets/Save.svg';
 import Delete from '../assets/Delete.svg';
 import './styles/Feed.css';
+// import address from '../utils/address';
 
 const FeedTileTXS = ({ item, isEven }) => (
   <div className={`feed_activity_data ${isEven ? 'darkFeed' : 'lightFeed'}`}>

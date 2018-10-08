@@ -47,8 +47,7 @@
     margin-left: auto;
     margin-right: 3vw;
     display: flex;
-    align-items: center;
-    opacity: .5; }
+    align-items: center; }
   #edit_form #edit_profile_content {
     width: 100%;
     height: fit-content;
@@ -164,7 +163,6 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.76);
-  padding: 1rem;
   z-index: 6; }
 
 .modal {
@@ -314,10 +312,21 @@
   #edit {
     width: 100vw;
     margin: 0 auto;
+    margin: 0;
+    padding: 0; }
+  #chooseFile {
     margin: 0; }
   #public_contents {
     display: flex;
     flex-direction: column; }
+  #edit_form {
+    border-radius: 0;
+    border: none;
+    position: static; }
+  .loadingProfile {
+    border-radius: 6px;
+    justify-content: center;
+    align-items: center; }
   #edit_page {
     width: 100%;
     border: none;
@@ -325,11 +334,12 @@
     box-shadow: none; }
     #edit_page #myProfile {
       display: flex;
-      flex-direction: column;
       justify-content: center;
-      align-items: flex-start;
+      align-items: center;
       height: 5.5em;
-      padding-left: .7em; }
+      white-space: nowrap;
+      overflow: hidden;
+      overflow-x: scroll; }
       #edit_page #myProfile h4 {
         margin: 0 0 .6em 3vw; }
     #edit_page #myProfile_address {
@@ -342,7 +352,7 @@
       height: 100%;
       display: flex;
       flex: 2;
-      padding: 5vh 3vw 6vh 3vw;
+      padding: 3em 0;
       flex-direction: row;
       justify-content: center;
       align-content: center;
@@ -359,13 +369,7 @@
       width: 100%;
       height: fit-content;
       display: flex;
-      flex-direction: column;
-      background-color: #fbfbfb; }
-    #edit_page #edit_private_content {
-      width: 100%;
-      height: fit-content;
-      display: flex;
-      background-color: #fbfbfb; }
+      flex-direction: column; }
     #edit_page #edit_private {
       padding: 1.8em 2em 2em; }
     #edit_page form {
@@ -373,6 +377,4 @@
       height: 100%; }
     #edit_page #edit_user_public {
       width: 90%;
-      padding: 1em 3vw; }
-    #edit_page #formControls {
-      margin-bottom: 1.8em; } }
+      padding: 1em 3vw; } }

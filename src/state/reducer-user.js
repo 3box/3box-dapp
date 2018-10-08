@@ -1,5 +1,17 @@
 const threeBoxReducer = (state = {}, action) => {
   switch (action.type) {
+    case 'CHECK_METAMASK':
+      return {
+        ...state,
+        hasMetaMask: action.hasMetaMask,
+      };
+
+    case 'REQUIRE_METAMASK':
+      return {
+        ...state,
+        alertRequireMetaMask: action.alertRequireMetaMask,
+      };
+
     case 'SIGN_IN_UP':
       return {
         ...state,

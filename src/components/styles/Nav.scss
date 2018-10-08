@@ -49,15 +49,18 @@ nav {
   ul {
     padding: 0;
   }
+
   li {
     font-size: 1em;
     padding-left: 1.3em;
     color: rgb(107, 107, 107);
     line-height: 2.5em;
   }
+
   li:hover {
     background: #f9f9f9;
   }
+
   div {
     line-height: 0;
   }
@@ -118,4 +121,15 @@ nav {
   padding-left: 0;
   padding-right: 0;
   width: 100% !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .hide {
+    border-bottom: 1px solid #E4E4E4 !important;
+    padding-top: 1em;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+  }
 }

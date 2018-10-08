@@ -6,6 +6,27 @@ import {
   store,
 } from './store';
 
+export const checkForMetaMask = () => async (dispatch) => {
+  await dispatch({
+    type: 'CHECK_METAMASK',
+    hasMetaMask: typeof web3 !== 'undefined',
+  });
+};
+
+export const requireMetaMask = () => (dispatch) => {
+  dispatch({
+    type: 'REQUIRE_METAMASK',
+    alertRequireMetaMask: true,
+  });
+};
+
+export const closeRequireMetaMask = () => (dispatch) => {
+  dispatch({
+    type: 'REQUIRE_METAMASK',
+    alertRequireMetaMask: false,
+  });
+};
+
 export const signInUp = () => async (dispatch) => {
   let box;
 
@@ -66,7 +87,7 @@ export const signInUp = () => async (dispatch) => {
 
     // order feed chronologically and by address
     const feedByAddress = [];
-    feed.map((item) => {
+    feed.forEach((item) => {
       const othersAddress = item.from === address ? item.to : item.from;
       if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === othersAddress) {
         feedByAddress[feedByAddress.length - 1][othersAddress].push(item);
@@ -196,7 +217,7 @@ export const getActivity = () => async (dispatch) => {
 
     // order feed chronologically and by address
     const feedByAddress = [];
-    feed.map((item) => {
+    feed.forEach((item) => {
       const othersAddress = item.from === address ? item.to : item.from;
       if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === othersAddress) {
         feedByAddress[feedByAddress.length - 1][othersAddress].push(item);

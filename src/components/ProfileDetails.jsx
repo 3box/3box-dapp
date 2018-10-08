@@ -7,12 +7,12 @@ import { address } from '../utils/address';
 import * as routes from '../utils/routes';
 import EthereumLogo from '../assets/Ethereum_logo_2014.svg';
 import GithubIcon from '../assets/GithubIcon.svg';
-import Loading from '../assets/Loading.svg';
 import Private from '../assets/Private.svg';
 import Email from '../assets/Email.svg';
 import '../views/styles/Profile.css';
+// import Loading from '../assets/Loading.svg';
 
-const ProfileDetails = ({ name, github, image, email, ifFetchingThreeBox }) => (
+const ProfileDetails = ({ name, github, image, email }) => (
   <div id="profile">
 
     {/* {ifFetchingThreeBox
@@ -41,27 +41,29 @@ const ProfileDetails = ({ name, github, image, email, ifFetchingThreeBox }) => (
             ? <h2 id="profile_user_name">{name}</h2>
             : <Link to={routes.EDITPROFILE}><h2 id="profile_user_name_add">Add name</h2></Link>}
 
-          <div id="profile_social" title="Github">
-            <img src={GithubIcon} id="profile_githubIcon" alt="Github Icon" />
-            {github
-              && (
-                <p id="profile_github">{github}</p>
-              )
-            }
-          </div>
+          <div id="profile_links">
+            <div id="profile_social" title="Github">
+              <img src={GithubIcon} id="profile_githubIcon" alt="Github Icon" />
+              {github
+                && (
+                  <p id="profile_github">{github}</p>
+                )
+              }
+            </div>
 
-          <div id="profile_private">
-            <img src={Email} id="profileFooter_email_icon" alt="Github Icon" />
-            {email
-              && (
-                <p>{email}</p>
-              )
-            }
-            {email
-              && (
-                <img id="editprofile_privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
-              )
-            }
+            <div id="profile_private">
+              <img src={Email} id="profileFooter_email_icon" alt="Github Icon" />
+              {email
+                && (
+                  <p>{email}</p>
+                )
+              }
+              {email
+                && (
+                  <img id="editprofile_privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
+                )
+              }
+            </div>
           </div>
         </div>
       </div>

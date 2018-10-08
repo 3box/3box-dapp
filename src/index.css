@@ -1,13 +1,16 @@
 #root {
-  height: 100%; }
+  height: 100%;
+  width: 100%; }
 
 .App {
-  height: 100%; }
+  height: 100%;
+  width: 100%; }
 
 html {
-  position: relative;
   min-width: 100%;
-  height: 100%; }
+  height: 100%;
+  width: 100%;
+  margin: 0 auto; }
 
 body {
   margin: 0;
@@ -16,7 +19,8 @@ body {
   color: #010c16;
   background-color: #f5f6f8;
   font-weight: 300;
-  height: 100%; }
+  height: 100%;
+  width: 100%; }
 
 button {
   background-color: #006ECC;

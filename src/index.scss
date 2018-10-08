@@ -2,16 +2,19 @@
 
 #root {
   height: 100%;
+  width: 100%;
 }
 
 .App {
   height: 100%;
+  width: 100%;
 }
 
 html {
-  position: relative;
   min-width: 100%;
   height: 100%;
+  width: 100%;
+  margin: 0 auto;
 }
 
 body {
@@ -22,6 +25,7 @@ body {
   background-color: $backgroundHue;
   font-weight: 300;
   height: 100%;
+  width: 100%;
 }
 
 button {
@@ -148,10 +152,6 @@ ul {
 
 .subtext {
   color: #a8a8a8;
-}
-
-#page_header {
-  // margin: 0 0 2vh 28vw;
 }
 
 .bold {

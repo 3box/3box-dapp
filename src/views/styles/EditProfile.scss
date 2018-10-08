@@ -67,7 +67,6 @@
     margin-right: 3vw;
     display: flex;
     align-items: center;
-    opacity: .5;
   }
 
   #edit_profile_content {
@@ -220,7 +219,6 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.76);
-  padding: 1rem;
   z-index: 6;
 }
 
@@ -409,11 +407,28 @@
     width: 100vw;
     margin: 0 auto;
     margin: 0;
+    padding: 0;
+  }
+
+  #chooseFile{
+    margin: 0;
   }
 
   #public_contents {
     display: flex;
     flex-direction: column;
+  }
+  
+  #edit_form{
+    border-radius: 0;
+    border: none;
+    position: static;
+  }
+
+  .loadingProfile {
+    border-radius: 6px;
+    justify-content: center;
+    align-items: center;
   }
 
   #edit_page {
@@ -424,11 +439,12 @@
 
     #myProfile {
       display: flex;
-      flex-direction: column;
       justify-content: center;
-      align-items: flex-start;
+      align-items: center;
       height: 5.5em;
-      padding-left: .7em;
+      white-space: nowrap;
+      overflow: hidden;
+      overflow-x: scroll;
 
       h4 {
         margin: 0 0 .6em 3vw;
@@ -447,7 +463,7 @@
       height: 100%;
       display: flex;
       flex: 2;
-      padding: 5vh 3vw 6vh 3vw;
+      padding: 3em 0;
       flex-direction: row;
       justify-content: center;
       align-content: center;
@@ -472,14 +488,6 @@
       height: fit-content;
       display: flex;
       flex-direction: column;
-      background-color: #fbfbfb;
-    }
-
-    #edit_private_content {
-      width: 100%;
-      height: fit-content;
-      display: flex;
-      background-color: #fbfbfb;
     }
 
     #edit_private {
@@ -495,10 +503,5 @@
       width: 90%;
       padding: 1em 3vw;
     }
-
-    #formControls {
-      margin-bottom: 1.8em;
-    }
-
   }
 }

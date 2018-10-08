@@ -43,7 +43,7 @@
   padding: 0 .5em;
 
   .feed_activity_context_network {
-    width: 2.2em;
+    min-width: 2.2em;
     height: 2.2em;
     margin-right: 1.5vw;
     border-radius: 50%;
@@ -220,16 +220,6 @@
   }
 }
 
-#feed_activity {
-  min-height: 10vh;
-  width: 66vw;
-  background: white;
-  // border: 1px solid #E4E4E4;
-  // border-radius: 5px;
-  padding-bottom: 4vh;
-}
-
-
 .feed_activity_load {
   border-top: solid 1px #E4E4E4;
   border-bottom: solid 1px #E4E4E4;
@@ -319,20 +309,74 @@
 
 @media only screen and (max-width: 600px) {
   #feed {
-    padding: 1em;
-    margin-top: 3em;
-    width: auto;
+    padding: 0;
+    width: 100vw;
+    max-width: 100vw;
+    min-width: 100vw;
+    border: none;
+    border-top: 1px solid #E4E4E4;
+    border-bottom: 1px solid #E4E4E4;
+  }
+
+  #activity_header{
+    margin: 1.8em 0 0 .8em;
+  }
+
+  #feed_activity_address {
+    width: 100vw;
     white-space: nowrap;
     overflow: hidden;
     overflow-x: scroll;
   }
 
-  #page_header {
-    margin: 0 0 2vh 0;
+  .feed_activity_context{
+    padding-left: .8em;
+  }
+
+  .feed_activity_address_tile_address {
+    white-space: nowrap;
+    overflow: hidden;
+    overflow-x: scroll;
+  }
+
+  .feed_activity_address_time {
+    white-space: nowrap;
+    overflow: hidden;
+    overflow-x: scroll;
+  }
+
+  .feed_activity_data {
+    width: calc(100vw - 1.6em);
+    white-space: nowrap;
+    overflow: hidden;
+    overflow-x: scroll;
+    padding: .4em .8em;
+  }
+
+  #profile_gutter {
+    display: none;
+  }
+
+  .feed_activity_address_amount {
+    white-space: nowrap;
+    overflow: hidden;
+    overflow-x: scroll;
   }
 
   .feed_activity_tile {
     width: fit-content;
     overflow-y: hidden;
+  }
+
+  .feed_activity_address_dataType {
+    width: 8%;
+  }
+
+  .feed_activity_address_toFrom {
+    width: 13%;
+  }
+
+  .feed_activity_address_function {
+    width: 13%;
   }
 }

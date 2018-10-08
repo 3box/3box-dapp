@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import { timeSince } from '../utils/time';
 import address from '../utils/address';
-import Transaction from '../assets/Transaction.svg';
 import EthereumLine from '../assets/EthereumLine.svg';
 import Send from '../assets/Send.svg';
 import Receive from '../assets/Receive.svg';
@@ -11,9 +10,6 @@ import './styles/Feed.css';
 
 const FeedTileTXS = ({ item, isEven }) => (
   <div className={`feed_activity_data ${isEven ? 'darkFeed' : 'lightFeed'}`}>
-    {/* <p className="feed_activity_address_dataType">
-      {item.dataType}
-    </p> */}
     <div className="feed_activity_address_dataType">
       <img src={EthereumLine} alt="Transaction Icon" className="feed_activity_address_dataType_ethereum" />
     </div>
@@ -36,12 +32,8 @@ const FeedTileTXS = ({ item, isEven }) => (
       )
     }
     <p className="feed_activity_address_function">
-      {/* {item.blockNumber} */}
       Ethereum
     </p>
-    {/* <p title={`Hash ${item.hash}`} className="feed_activity_address_description">
-      {`Hash  ${item.hash && item.hash.substring(0, 10)}...`}
-    </p> */}
     <p className="feed_activity_address_amount" title={(Number(item.value) / 1000000000000000000).toString()}>
       {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ETH`}
     </p>

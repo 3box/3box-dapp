@@ -12,8 +12,6 @@ import AddImage from '../assets/AddImage.svg';
 import Loading from '../assets/Loading.svg';
 import './styles/EditProfile.css';
 
-const Buffer = require('buffer/').Buffer;
-
 class EditProfile extends Component {
   constructor(props) {
     super(props);
@@ -49,11 +47,6 @@ class EditProfile extends Component {
     const formData = new window.FormData();
     formData.append('path', photoFile);
     this.setState({ buffer: formData, disableSave: false, editPic: true, removeUserPic: false });
-    // const reader = new window.FileReader();
-    // reader.readAsArrayBuffer(photoFile);
-    // reader.onloadend = () => {
-    //   this.setState({ buffer: Buffer.from(reader.result), disableSave: false, editPic: true, removeUserPic: false });
-    // };
   }
 
   removePic = () => {
@@ -88,7 +81,7 @@ class EditProfile extends Component {
       body: buffer
     })
     const returnedData = editPic && await fetch.json();
-    const saved = editPic && await box.public.set('image', [{ '@type': 'ImageObject', contentUrl: { '/': returnedData.Hash } }]);
+    editPic && await box.public.set('image', [{ '@type': 'ImageObject', contentUrl: { '/': returnedData.Hash } }]);
 
     // only get values that have changed
     nameChanged && await this.props.getPublicName();
@@ -278,91 +271,3 @@ function mapState(state) {
 }
 
 export default withRouter(connect(mapState, { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail, getActivity })(EditProfile));
-
-
-  // handleSubmitPic = (e) => {
-  //   const { buffer } = this.state;
-  //   const { threeBoxObject } = this.props;
-  //   const { profileStore } = threeBoxObject;
-  //   // const ipfs = ipfsAPI({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' });
-
-  //   e.preventDefault();
-  //   this.setState({ picLoading: true });
-  //   // ipfs.files.add(buffer, (err, res) => {
-  //   threeBoxObject.ipfs.files.add(buffer, (err, res) => {
-  //     if (err) {
-  //       console.error(err);
-  //       return;
-  //     }
-  //     this.setState({ ipfsHash: res[0].hash });
-  //     profileStore.set('image', [{ '@type': 'ImageObject', contentUrl: { '/': res[0].hash } }])
-  //       .then(result => console.log(result))
-  //       .then(() => {
-  //         this.props.getPublicImage();
-  //         this.setState({ picLoading: false, showPicModal: false });
-  //       });
-  //   });
-  //   // }
-  // }
-
-  // handlePicModal = () => {
-  //   const { showPicModal } = this.state;
-  //   this.setState({ showPicModal: !showPicModal, disableSavePic: true });
-  // }
-
-  // removePic = () => {
-  //   const { threeBoxObject } = this.props;
-  //   const { profileStore } = threeBoxObject;
-  //   this.setState({ picLoading: true });
-  //   profileStore.remove('image')
-  //     .then(() => {
-  //       this.props.getPublicImage();
-  //       this.setState({ picLoading: false, showPicModal: false });
-  //     });
-  // }
-
-// {showPicModal
-//   && (
-//     <div className="container">
-//       <div className="modal">
-//         {(image.length > 0 || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0]))
-//           ? <img src={(this.fileUpload && this.fileUpload.files && this.fileUpload.files[0]) ? URL.createObjectURL(this.fileUpload.files[0]) : `https://ipfs.io/ipfs/${image[0].contentUrl['/']}`} alt="profile" id="edit_modal_user_picture" />
-//           : <div id="edit_modal_user_picture" />
-//         }
-//         {image.length > 0 && <button id="removePic" className="removeButton" onClick={this.removePic} text="remove" type="button">Remove</button>}
-
-//         <p>Edit profile picture</p>
-//         <form onSubmit={this.handleSubmitPic}>
-//           <label htmlFor="fileInput" id="chooseFile">
-//             <input id="fileInput" type="file" name="pic" className="light" accept="image/*" onChange={e => this.handleUpdatePic(e.target.files[0])} ref={ref => this.fileUpload = ref} />
-//             {(this.fileUpload && this.fileUpload.files && this.fileUpload.files[0]) ? this.fileUpload.files[0].name : 'Choose a file'}
-//           </label>
-//           {!picUploaded && <button id="saveModal" type="submit" disabled={disableSavePic}> Save</button>}
-//         </form>
-//         <button onClick={(e) => { this.handlePicModal(e); this.setState({ picUploaded: false }) }} type="button" className="tertiaryButton" id="closeModal">
-//           close
-//         </button>
-//       </div>
-//     </div>)}
-
-    // editPic && await threeBoxObject.ipfs.files.add(buffer, (err, res) => {
-    //   if (err) {
-    //     console.error(err);
-    //     // add error handling
-    //     return;
-    //   }
-    //   // this.setState({ ipfsHash: res[0].hash });
-    //   threeBoxObject.public.set('image', [{ '@type': 'ImageObject', contentUrl: { '/': res[0].hash } }]);
-    // });
-
-        // editPic && await new Promise((resolve, reject) => {
-    //   ipfs.add(buffer, (err, result) => {
-    //     console.log(err, result);
-    //     if (result) {
-    //       threeBoxObject.public.set('image', [{ '@type': 'ImageObject', contentUrl: { '/': result } }]);
-    //       resolve();
-    //     } else {
-    //       reject();
-    //     }
-    //   });
-    // });

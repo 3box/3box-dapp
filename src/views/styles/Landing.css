@@ -48,13 +48,15 @@
     animation-delay: .3s; }
 
 #landing__trustedPartners {
-  width: 100%;
+  width: 100vw;
   height: 30em;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  align-items: center; }
+  align-items: center;
+  overflow: hidden;
+  position: relative; }
   #landing__trustedPartners button {
     padding: 1.6em 2.4em;
     border-radius: 3em;
@@ -198,7 +200,8 @@
   min-width: 100%;
   position: absolute;
   z-index: 0;
-  opacity: .07; }
+  opacity: .07;
+  overflow: hidden; }
 
 .build_section {
   display: flex;
@@ -360,6 +363,118 @@
   transform: rotate(90deg);
   opacity: .6; }
 
+#footer {
+  background-color: #fff;
+  border-top: 1px solid #E4E4E4;
+  overflow: hidden;
+  position: absolute;
+  height: 14vh;
+  bottom: -10vh;
+  width: 100%;
+  display: block;
+  display: flex;
+  align-items: center; }
+
+#landingFooter {
+  width: 100%;
+  height: 30em;
+  justify-content: space-around;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  padding-bottom: 3em; }
+  #landingFooter ul {
+    width: 80%;
+    display: flex;
+    align-items: center; }
+    #landingFooter ul li {
+      width: 50%;
+      display: flex;
+      align-items: center; }
+  #landingFooter a {
+    z-index: 2;
+    color: white;
+    display: flex;
+    align-items: center; }
+  #landingFooter #mailChimp {
+    display: flex;
+    align-items: center;
+    z-index: 1;
+    width: 40vw;
+    justify-content: center;
+    margin-top: 4em; }
+    #landingFooter #mailChimp input {
+      display: inline-block;
+      border-bottom-left-radius: 5px;
+      border-top-left-radius: 5px;
+      border-style: none;
+      height: 44px;
+      max-width: 70%;
+      padding: 0 15px;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      background-color: #414E66;
+      color: white; }
+      #landingFooter #mailChimp input::placeholder {
+        color: white; }
+    #landingFooter #mailChimp div {
+      display: flex;
+      align-items: center; }
+    #landingFooter #mailChimp button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom-right-radius: 5px;
+      border-top-right-radius: 5px;
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+      height: 44px;
+      padding: 0 20px; }
+
+#footerLinks {
+  z-index: 1;
+  display: flex;
+  width: 60vw;
+  justify-content: space-between;
+  margin-top: 12.5em; }
+  #footerLinks #scaleLogo {
+    zoom: 1.5;
+    -moz-transform: scale(1.5);
+    opacity: .7; }
+    #footerLinks #scaleLogo #logo_icon {
+      margin-left: 0; }
+
+#socialLinks {
+  display: flex;
+  align-content: center;
+  justify-content: space-between;
+  width: 35%; }
+
+#footer_bg {
+  min-width: 100%;
+  position: absolute;
+  bottom: 0;
+  z-index: 0;
+  overflow: hidden; }
+
+#footer_info {
+  z-index: 1;
+  display: flex;
+  width: 10vw;
+  justify-content: space-between; }
+  #footer_info p {
+    color: white;
+    opacity: .7; }
+
+#footer_socialIcons {
+  width: 2vw;
+  z-index: 1;
+  opacity: .7; }
+
 @media only screen and (max-width: 600px) {
   #landing p {
     font-size: 1em !important; }
@@ -369,6 +484,33 @@
     display: none; }
   #logo_icon {
     margin-left: 5vw; }
+  #footerLinks {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 7em; }
+  #footer_socialIcons {
+    width: 7vw; }
+  #footer_info {
+    width: 40vw; }
+  #socialLinks {
+    width: 70%;
+    margin-top: 2em; }
+  .loadingContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+  .consentModal {
+    position: absolute;
+    left: 50%;
+    top: 15%;
+    background: white;
+    border: solid 1px #e8e8e8;
+    border-radius: 6px;
+    padding: 15px;
+    width: 76vw;
+    min-height: 300px; }
+    .consentModal img {
+      width: 300px; }
   #landing__splash {
     margin: 5em 0 6em 0;
     height: fit-content;

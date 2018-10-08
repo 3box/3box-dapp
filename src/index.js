@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import './index.css';
 import App from './App.jsx';
 import { store } from './state/store';
-// import { updateWeb3Status } from './state/web3/actions';
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(

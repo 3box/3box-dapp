@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`render correctly 1`] = `
-<h1>
-  404 not found
-</h1>
-`;
