@@ -1,5 +1,8 @@
 #landing {
-  background-color: white; }
+  background-color: white;
+  position: relative;
+  background-color: white;
+  overflow: hidden; }
 
 #landing__splash {
   position: relative;

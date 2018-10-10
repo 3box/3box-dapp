@@ -48,7 +48,7 @@ class Landing extends Component {
 
   async handleSignInUp() {
     const { hasMetaMask } = this.props;
-    localStorage.setItem(`serializedMuDID_${address}`, null);
+    // localStorage.setItem(`serializedMuDID_${address}`, null);
     if (hasMetaMask) {
       await this.props.signInUp();
     } else {

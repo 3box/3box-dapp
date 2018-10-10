@@ -1,3 +1,5 @@
+import ThreeBox from '3box';
+
 import {
   address
 } from '../utils/address';
