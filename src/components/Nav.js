@@ -27,9 +27,6 @@ class Nav extends Component {
     const { image, threeBox, location } = this.props;
     const { pathname } = location;
     let backDrop;
-    if (showProfileModal) {
-      backDrop = <div id="dropdownContainer" onClick={this.handleDropdown} />
-    }
 
     const styles = {
       transform: `translateX(0)`
@@ -48,7 +45,7 @@ class Nav extends Component {
 
             {showProfileModal
               && (
-                <div className={`${showProfileModal ? 'dropdown' : 'dropdown'}`} style={styles} onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
+                <div className='dropdown' onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
                   <ul>
                     <div className='mobileLogo'>
                       <ThreeBoxLogo />
@@ -64,7 +61,21 @@ class Nav extends Component {
               )
             }
 
-            {backDrop}
+            <div className={`${showProfileModal ? 'sideDrawer' : ''} dropdown mobileDropDown`} onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
+              <ul>
+                <div className='mobileLogo'>
+                  <ThreeBoxLogo />
+                </div>
+                <Link to={routes.PROFILE}><li>Profile</li></Link>
+                <Link to={routes.EDITPROFILE}><li>Edit profile</li></Link>
+                <div className="divide" />
+                <Link to={routes.LANDING} onClick={() => threeBox.logOut()}><li>Sign Out</li></Link>
+                <div id="divideBug" />
+                <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="reportBug">Report a bug</li></a>
+              </ul>
+            </div>
+            <div id={showProfileModal && 'dropdownContainer'} onClick={this.handleDropdown} />
+
           </nav>
         }
       </div>

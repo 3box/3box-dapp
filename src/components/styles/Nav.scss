@@ -9,6 +9,7 @@ nav {
   border-bottom: 1px solid #E4E4E4;
   display: flex;
   align-items: center;
+  z-index: 1;
 
   button {
     display: inline-block;
@@ -126,6 +127,14 @@ nav {
   width: 100% !important;
 }
 
+.mobileDropDown {
+  display: none;
+}
+
+#dropdownContainer {
+  display: none;
+}
+
 @media only screen and (max-width: 600px) {
   .hide {
     border-bottom: 1px solid #E4E4E4 !important;
@@ -137,6 +146,7 @@ nav {
   }
 
   .dropdown {
+    display: block !important;
     position: fixed;
     top: 0;
     left: 0;
@@ -149,25 +159,28 @@ nav {
     border-left: none;
     border-top: none;
     border-bottom: none;
-    box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #00000025;
-    z-index: 10;
+    box-shadow: none;
+    z-index: 99999;
 
     transform: translateX(-100%);
-    transition: transform .5s ease-out;
+    transition: transform .3s ease-out;
   }
 
   .dropdown.sideDrawer {
     transform: translateX(0);
+    box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #00000025;
   }
 
   #dropdownContainer {
+    display: block;
     position: fixed;
     left: 0px;
     top: 0px;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.76);
-    z-index: 9;
+    z-index: 99998;
+    transition: all .3s ease-out;
   }
 
   #reportBug {
