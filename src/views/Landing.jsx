@@ -122,7 +122,7 @@ class Landing extends Component {
             </div>
           )}
 
-        {(showMobileWalletPrompt && hasWallet)
+        {(showMobileWalletPrompt && !hasWallet)
           && (
             <div id="mobile__landing__prompt">
               <div id="mobile__landing__prompt__logo">
