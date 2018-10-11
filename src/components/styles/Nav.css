@@ -12,6 +12,9 @@ nav {
   nav p {
     color: #006ECC; }
 
+.mobileLogo {
+  display: none; }
+
 #header_user_picture {
   background-image: linear-gradient(#d3d3d3, #eeeeee);
   border-radius: 100%;
@@ -22,7 +25,7 @@ nav {
   cursor: pointer;
   object-fit: cover; }
 
-#dropdown {
+.dropdown {
   transition: transform ease 0.9s, opacity ease 0.1s;
   transform: translateY(-4px);
   position: absolute;
@@ -35,16 +38,16 @@ nav {
   border-radius: 5px;
   border: 1px solid #E4E4E4;
   box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #00000025; }
-  #dropdown ul {
+  .dropdown ul {
     padding: 0; }
-  #dropdown li {
+  .dropdown li {
     font-size: 1em;
     padding-left: 1.3em;
     color: #6b6b6b;
     line-height: 2.5em; }
-  #dropdown li:hover {
+  .dropdown li:hover {
     background: #f9f9f9; }
-  #dropdown div {
+  .dropdown div {
     line-height: 0; }
 
 .divide {
@@ -86,7 +89,7 @@ nav {
 
 #reportBug {
   background-color: #f5f6f8;
-  padding: .4em 0; }
+  padding: .4em 1.3em; }
 
 #divideBug {
   border-top: 1px solid #CBCBCB;
@@ -104,22 +107,25 @@ nav {
     -moz-transition: all .5s ease;
     -o-transition: all .5s ease;
     transition: all .5s ease; }
-  #dropdown {
-    position: absolute;
+  .dropdown {
+    position: fixed;
     top: 0;
     left: 0;
-    width: 14em;
+    width: 40%;
+    max-width: 400px;
     height: 100vh;
     padding: 1em 0 0 0;
     border-radius: 0;
-    border: 1px solid #E4E4E4;
+    border-right: 1px solid #E4E4E4;
+    border-left: none;
+    border-top: none;
+    border-bottom: none;
     box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #00000025;
-    -webkit-transition: all .5s ease;
-    -moz-transition: all .5s ease;
-    -o-transition: all .5s ease;
-    transition: all .5s ease; }
-  #reportBug {
-    border-bottom: 1px solid #CBCBCB; }
+    z-index: 10;
+    transform: translateX(-100%);
+    transition: transform .5s ease-out; }
+  .dropdown.sideDrawer {
+    transform: translateX(0); }
   #dropdownContainer {
     position: fixed;
     left: 0px;
@@ -127,8 +133,10 @@ nav {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.76);
-    z-index: 6;
-    -webkit-transition: all .5s ease;
-    -moz-transition: all .5s ease;
-    -o-transition: all .5s ease;
-    transition: all .5s ease; } }
+    z-index: 9; }
+  #reportBug {
+    border-bottom: 1px solid #CBCBCB; }
+  .mobileLogo {
+    display: flex;
+    justify-content: flex-start;
+    margin: 4px 0 40px; } }

@@ -5,6 +5,7 @@ import { withRouter, Redirect } from 'react-router-dom';
 
 import { signInUp, closeErrorModal, closeConsentModal, requireMetaMask, closeRequireMetaMask } from '../state/actions';
 import { address } from '../utils/address';
+import ThreeBoxLogo from '../components/ThreeBoxLogo.jsx';
 import ProfileCard from '../components/ProfileCard.jsx';
 import LandingFooter from '../components/LandingFooter.jsx';
 import LandingNav from '../components/LandingNav.jsx';
@@ -17,6 +18,7 @@ import ConsensysSVG from '../assets/consensys.svg';
 import Consent from '../assets/Consent.png';
 import ThreeBoxGraphic from '../assets/3BoxGraphic.png';
 import PartnersBG from '../assets/PartnersBG.svg';
+import getCoinbaseWallet from '../assets/getCoinbaseWallet.svg';
 import consensys from '../assets/consensys.png';
 import './styles/Landing.css';
 import '../components/styles/ProfileCard.css';
@@ -27,7 +29,10 @@ import '../components/styles/ProfileCard.css';
 class Landing extends Component {
   constructor(props) {
     super(props);
-    this.state = { isHide: false };
+    this.state = {
+      isHide: false,
+      showMobileWalletPrompt: true,
+    };
     this.handleSignInUp = this.handleSignInUp.bind(this);
   }
 
@@ -48,7 +53,7 @@ class Landing extends Component {
 
   async handleSignInUp() {
     const { hasMetaMask } = this.props;
-    // localStorage.setItem(`serializedMuDID_${address}`, null);
+    localStorage.setItem(`serializedMuDID_${address}`, null);
     if (hasMetaMask) {
       await this.props.signInUp();
     } else {
@@ -60,11 +65,15 @@ class Landing extends Component {
     const { ifFetchingThreeBox, showErrorModal, signUpSuccessful, errorMessage, provideConsent, alertRequireMetaMask } = this.props;
     const classHide = this.state.isHide ? 'hide' : '';
 
+    const { showMobileWalletPrompt } = this.state;
+
+    const { userAgent: ua } = navigator
+    const isIOS = ua.includes('iPhone') // “iPhone OS”
+    const isAndroid = ua.includes('Android')
+
     if (signUpSuccessful) {
       return <Redirect to="/Profile" />;
     }
-
-    console.log(this.props)
 
     return (
       <div id="landing">
@@ -111,6 +120,33 @@ class Landing extends Component {
               </div>
             </div>
           )}
+
+        {showMobileWalletPrompt
+          && (
+            <div id="mobile__landing__prompt">
+              <div id="mobile__landing__prompt__logo">
+                <ThreeBoxLogo />
+              </div>
+
+              <div id="mobile__landing__prompt__text">
+                <p>3box.io requires a mobile dApp browser in order to work</p>
+                <p>Download Coinbase Wallet or Status.im then revisit this site in the mobile dApp browser to continue</p>
+              </div>
+
+              <div id="mobile__landing__prompt__buttons">
+                <a href={isIOS ? 'https://itunes.apple.com/app/coinbase-wallet/id1278383455?ls=1&mt=8' : 'https://play.google.com/store/apps/details?id=org.toshi'}>
+                  <img src={getCoinbaseWallet} alt="Get Coinbase wallet" />
+                </a>
+
+                <a href='https://play.google.com/store/apps/details?id=im.status.ethereum&hl=en_US'>
+                  <img src={getCoinbaseWallet} alt="Get Coinbase wallet" />
+                </a>
+              </div>
+
+              <button onClick={() => this.setState({ showMobileWalletPrompt: false })} type="button" className="tertiaryButton" id="closeModal">X</button>
+            </div>
+          )
+        }
 
         <img src={ThreeBoxGraphic} id="threeBoxGraphic" alt="ThreeBox Graphic" />
 

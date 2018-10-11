@@ -29,6 +29,7 @@
   height: fit-content;
   display: flex;
   position: relative;
+  z-index: 1;
   flex-direction: column;
   margin-top: 0;
   border: #E4E4E4 solid 1px;
@@ -217,7 +218,8 @@
   cursor: pointer;
   text-align: center;
   color: #6b6b6b;
-  position: relative; }
+  position: relative;
+  z-index: 1; }
 
 #loadingPic {
   width: 3em;

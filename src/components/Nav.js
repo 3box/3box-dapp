@@ -26,6 +26,15 @@ class Nav extends Component {
     const { showProfileModal } = this.state;
     const { image, threeBox, location } = this.props;
     const { pathname } = location;
+    let backDrop;
+    if (showProfileModal) {
+      backDrop = <div id="dropdownContainer" onClick={this.handleDropdown} />
+    }
+
+    const styles = {
+      transform: `translateX(0)`
+    };
+
     return (
       <div>
         {pathname !== '/' &&
@@ -39,20 +48,23 @@ class Nav extends Component {
 
             {showProfileModal
               && (
-                <div id="dropdownContainer" onClick={this.handleDropdown}>
-                  <li id="dropdown" onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
-                    <ul>
-                      <Link to={routes.PROFILE}><li>Profile</li></Link>
-                      <Link to={routes.EDITPROFILE}><li>Edit profile</li></Link>
-                      <div className="divide" />
-                      <Link to={routes.LANDING} onClick={() => threeBox.logOut()}><li>Sign Out</li></Link>
-                      <div id="divideBug" />
-                      <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="reportBug">Report a bug</li></a>
-                    </ul>
-                  </li>
+                <div className={`${showProfileModal ? 'dropdown' : 'dropdown'}`} style={styles} onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
+                  <ul>
+                    <div className='mobileLogo'>
+                      <ThreeBoxLogo />
+                    </div>
+                    <Link to={routes.PROFILE}><li>Profile</li></Link>
+                    <Link to={routes.EDITPROFILE}><li>Edit profile</li></Link>
+                    <div className="divide" />
+                    <Link to={routes.LANDING} onClick={() => threeBox.logOut()}><li>Sign Out</li></Link>
+                    <div id="divideBug" />
+                    <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="reportBug">Report a bug</li></a>
+                  </ul>
                 </div>
               )
             }
+
+            {backDrop}
           </nav>
         }
       </div>

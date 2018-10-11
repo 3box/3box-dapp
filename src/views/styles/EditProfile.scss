@@ -43,6 +43,7 @@
   height: fit-content;
   display: flex;
   position: relative;
+  z-index: 1;
   flex-direction: column;
   margin-top: 0;
   border: $borderColor solid 1px;
@@ -284,6 +285,7 @@
   text-align: center;
   color: $lightFont;
   position: relative;
+  z-index: 1;
 }
 
 #loadingPic {
