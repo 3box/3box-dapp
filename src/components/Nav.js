@@ -39,16 +39,18 @@ class Nav extends Component {
 
             {showProfileModal
               && (
-                <li id="dropdown" onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
-                  <ul>
-                    <Link to={routes.PROFILE}><li>Profile</li></Link>
-                    <Link to={routes.EDITPROFILE}><li>Edit profile</li></Link>
-                    <div className="divide" />
-                    <Link to={routes.LANDING} onClick={() => threeBox.logOut()}><li>Sign Out</li></Link>
-                    <div id="divideBug" />
-                    <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="reportBug">Report a bug</li></a>
-                  </ul>
-                </li>
+                <div id="dropdownContainer" onClick={this.handleDropdown}>
+                  <li id="dropdown" onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
+                    <ul>
+                      <Link to={routes.PROFILE}><li>Profile</li></Link>
+                      <Link to={routes.EDITPROFILE}><li>Edit profile</li></Link>
+                      <div className="divide" />
+                      <Link to={routes.LANDING} onClick={() => threeBox.logOut()}><li>Sign Out</li></Link>
+                      <div id="divideBug" />
+                      <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="reportBug">Report a bug</li></a>
+                    </ul>
+                  </li>
+                </div>
               )
             }
           </nav>

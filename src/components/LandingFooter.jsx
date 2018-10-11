@@ -1,7 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import MailChimp from './MailChimp';
 import ThreeBoxLogoWhite from './ThreeBoxLogoWhite.jsx';
+import * as routes from '../utils/routes';
 import GithubIconWhite from '../assets/GithubIconWhite.svg';
 import Email from '../assets/EmailWhite.svg';
 import Twitter from '../assets/twitterWhite.svg';
@@ -36,8 +38,12 @@ const LandingFooter = () => (
     </div>
 
     <div id="footer_info">
-      <p>Terms</p>
-      <p>Privacy</p>
+      <Link to={routes.TERMS}>
+        <p>Terms</p>
+      </Link>
+      <Link to={routes.PRIVACY}>
+        <p>Privacy</p>
+      </Link>
     </div>
 
     <img src={FooterGraphic} id="footer_bg" alt="Partners background" />

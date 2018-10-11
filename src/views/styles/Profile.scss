@@ -121,16 +121,22 @@
 #profile_social {
   float: left;
   clear: both;
-  opacity: .7;
+  // opacity: .7;
   display: flex;
   align-items: center;
+  p{
+    color: $lightFont;
+  }
 }
 
 #profile_private {
   margin-bottom: 2em;
   margin-top: .8em;
+  p{
+    color: $lightFont;
+  }
 
-  opacity: .7;
+  // opacity: .7;
   display: flex;
   align-items: center;
 }

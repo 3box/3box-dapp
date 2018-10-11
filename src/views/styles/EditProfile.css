@@ -324,7 +324,7 @@
     border: none;
     position: static; }
   .loadingProfile {
-    border-radius: 6px;
+    border-radius: 0px;
     justify-content: center;
     align-items: center; }
   #edit_page {

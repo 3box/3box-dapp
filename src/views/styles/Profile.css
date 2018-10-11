@@ -95,16 +95,18 @@
 #profile_social {
   float: left;
   clear: both;
-  opacity: .7;
   display: flex;
   align-items: center; }
+  #profile_social p {
+    color: #6b6b6b; }
 
 #profile_private {
   margin-bottom: 2em;
   margin-top: .8em;
-  opacity: .7;
   display: flex;
   align-items: center; }
+  #profile_private p {
+    color: #6b6b6b; }
 
 #profile_user_name {
   font-size: 1.4em;
