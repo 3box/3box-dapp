@@ -1,9 +1,10 @@
 const threeBoxReducer = (state = {}, action) => {
   switch (action.type) {
-    case 'CHECK_METAMASK':
+    case 'CHECK_WALLET':
       return {
         ...state,
-        hasMetaMask: action.hasMetaMask,
+        hasWallet: action.hasWallet,
+        currentWallet: action.currentWallet,
       };
 
     case 'REQUIRE_METAMASK':

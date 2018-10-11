@@ -67,7 +67,7 @@ App.propTypes = {
   closeRequireMetaMask: PropTypes.func,
 
   location: PropTypes.object,
-  hasMetaMask: PropTypes.bool,
+  hasWallet: PropTypes.bool,
 };
 
 App.defaultProps = {
@@ -80,11 +80,11 @@ App.defaultProps = {
   checkForMetaMask: checkForMetaMask(),
   closeRequireMetaMask: closeRequireMetaMask(),
   location: {},
-  hasMetaMask: true,
+  hasWallet: true,
 };
 
 const mapState = state => ({
-  hasMetaMask: state.threeBox.hasMetaMask,
+  hasWallet: state.threeBox.hasWallet,
 });
 
 export default withRouter(connect(mapState,

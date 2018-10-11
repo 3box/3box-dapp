@@ -7,9 +7,27 @@ import {
 } from './store';
 
 export const checkForMetaMask = () => async (dispatch) => {
+  const {
+    currentProvider: cp
+  } = window.web3
+
+  const isToshi = !!cp.isToshi;
+  const isCipher = !!cp.isCipher;
+  const isMetaMask = !!cp.isMetaMask;
+  let currentWallet;
+
+  if (isToshi) {
+    currentWallet = 'isToshi';
+  } else if (isCipher) {
+    currentWallet = 'isCipher';
+  } else if (isMetaMask) {
+    currentWallet = 'isMetaMask';
+  }
+
   await dispatch({
-    type: 'CHECK_METAMASK',
-    hasMetaMask: typeof web3 !== 'undefined',
+    type: 'CHECK_WALLET',
+    hasWallet: typeof web3 !== 'undefined',
+    currentWallet: currentWallet,
   });
 };
 

@@ -865,13 +865,14 @@
     }
   }
 
-  #mobile__landing__prompt__logo{
+  #mobile__landing__prompt__logo {
     width: 85vw;
     display: flex;
     justify-content: flex-start;
 
-    #logo_icon{
+    #logo_icon {
       margin-left: 0;
+
       h2 {
         color: $threeBoxAccentBlue;
       }
@@ -885,6 +886,10 @@
     justify-content: space-between;
     width: 85vw;
     margin-top: 2em;
+
+    p {
+      opacity: .7;
+    }
   }
 
   #mobile__landing__prompt__buttons {

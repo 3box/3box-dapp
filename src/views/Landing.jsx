@@ -19,6 +19,7 @@ import Consent from '../assets/Consent.png';
 import ThreeBoxGraphic from '../assets/3BoxGraphic.png';
 import PartnersBG from '../assets/PartnersBG.svg';
 import getCoinbaseWallet from '../assets/getCoinbaseWallet.svg';
+import Status from '../assets/Status.png';
 import consensys from '../assets/consensys.png';
 import './styles/Landing.css';
 import '../components/styles/ProfileCard.css';
@@ -52,9 +53,9 @@ class Landing extends Component {
   }
 
   async handleSignInUp() {
-    const { hasMetaMask } = this.props;
+    const { hasWallet } = this.props;
     localStorage.setItem(`serializedMuDID_${address}`, null);
-    if (hasMetaMask) {
+    if (hasWallet) {
       await this.props.signInUp();
     } else {
       this.props.requireMetaMask();
@@ -62,7 +63,7 @@ class Landing extends Component {
   }
 
   render() {
-    const { ifFetchingThreeBox, showErrorModal, signUpSuccessful, errorMessage, provideConsent, alertRequireMetaMask } = this.props;
+    const { ifFetchingThreeBox, showErrorModal, signUpSuccessful, errorMessage, provideConsent, alertRequireMetaMask, hasWallet } = this.props;
     const classHide = this.state.isHide ? 'hide' : '';
 
     const { showMobileWalletPrompt } = this.state;
@@ -121,7 +122,7 @@ class Landing extends Component {
             </div>
           )}
 
-        {showMobileWalletPrompt
+        {(showMobileWalletPrompt && hasWallet)
           && (
             <div id="mobile__landing__prompt">
               <div id="mobile__landing__prompt__logo">
@@ -129,7 +130,8 @@ class Landing extends Component {
               </div>
 
               <div id="mobile__landing__prompt__text">
-                <p>3box.io requires a mobile dApp browser in order to work</p>
+                <p>3box requires a mobile dApp browser in order to work</p>
+                <br />
                 <p>Download Coinbase Wallet or Status.im then revisit this site in the mobile dApp browser to continue</p>
               </div>
 
@@ -139,7 +141,7 @@ class Landing extends Component {
                 </a>
 
                 <a href='https://play.google.com/store/apps/details?id=im.status.ethereum&hl=en_US'>
-                  <img src={getCoinbaseWallet} alt="Get Coinbase wallet" />
+                  <img src={Status} alt="Get Status wallet" />
                 </a>
               </div>
 
@@ -274,7 +276,7 @@ Landing.propTypes = {
   signUpSuccessful: PropTypes.bool,
   showErrorModal: PropTypes.bool,
   provideConsent: PropTypes.bool,
-  hasMetaMask: PropTypes.bool,
+  hasWallet: PropTypes.bool,
   alertRequireMetaMask: PropTypes.bool,
   errorMessage: PropTypes.string,
 };
@@ -291,7 +293,7 @@ Landing.defaultProps = {
   showErrorModal: false,
   provideConsent: false,
   alertRequireMetaMask: false,
-  hasMetaMask: true,
+  hasWallet: true,
   errorMessage: null,
 };
 
@@ -301,7 +303,7 @@ const mapState = state => ({
   errorMessage: state.threeBox.errorMessage,
   showErrorModal: state.threeBox.showErrorModal,
   provideConsent: state.threeBox.provideConsent,
-  hasMetaMask: state.threeBox.hasMetaMask,
+  hasWallet: state.threeBox.hasWallet,
   alertRequireMetaMask: state.threeBox.alertRequireMetaMask,
 });
 

@@ -650,6 +650,8 @@
     justify-content: space-between;
     width: 85vw;
     margin-top: 2em; }
+    #mobile__landing__prompt__text p {
+      opacity: .7; }
   #mobile__landing__prompt__buttons {
     display: flex;
     align-items: center;
