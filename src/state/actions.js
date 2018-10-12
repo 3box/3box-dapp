@@ -61,7 +61,7 @@ export const signInUp = () => async (dispatch) => {
   };
 
   try {
-    const returnedBox = await window.ThreeBox // eslint-disable-line no-undef
+    const returnedBox = await ThreeBox // eslint-disable-line no-undef
       .openBox(address, web3.currentProvider, opts); // eslint-disable-line no-undef
     box = await returnedBox;
     const name = await box.public.get('name');
@@ -149,7 +149,7 @@ export const openBox = () => async (dispatch) => {
   dispatch({
     type: 'LOADING_3BOX',
   });
-  const returnedBox = await window.ThreeBox // eslint-disable-line no-undef
+  const returnedBox = await ThreeBox // eslint-disable-line no-undef
     .openBox(address, web3.currentProvider); // eslint-disable-line no-undef
   const box = await returnedBox;
   dispatch({
