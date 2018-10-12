@@ -383,4 +383,14 @@
       height: 100%; }
     #edit_page #edit_user_public {
       width: 90%;
-      padding: 1em 3vw; } }
+      padding: 1em 3vw; }
+  .modal {
+    position: absolute;
+    left: 50%;
+    top: 15%;
+    background: white;
+    border: solid 1px #e8e8e8;
+    border-radius: 6px;
+    padding: 15px;
+    width: 76vw;
+    min-height: 300px; } }
