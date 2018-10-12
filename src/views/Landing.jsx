@@ -20,6 +20,7 @@ import ThreeBoxGraphic from '../assets/3BoxGraphic.png';
 import PartnersBG from '../assets/PartnersBG.svg';
 import getCoinbaseWallet from '../assets/getCoinbaseWallet.svg';
 import Status from '../assets/Status.png';
+import TrustWallet from '../assets/TrustWallet.png';
 import consensys from '../assets/consensys.png';
 import './styles/Landing.css';
 import '../components/styles/ProfileCard.css';
@@ -54,7 +55,7 @@ class Landing extends Component {
 
   async handleSignInUp() {
     const { hasWallet } = this.props;
-    localStorage.setItem(`serializedMuDID_${address}`, null);
+    // localStorage.setItem(`serializedMuDID_${address}`, null);
     if (hasWallet) {
       await this.props.signInUp();
     } else {
@@ -113,7 +114,6 @@ class Landing extends Component {
           && (
             <div className="loadingContainer">
               <div className="modal">
-                {/* <p id="consentError">You must consent to sign up</p> */}
                 <div id="consentError">
                   <h4>{errorMessage}</h4>
                 </div>
@@ -140,9 +140,14 @@ class Landing extends Component {
                   <img src={getCoinbaseWallet} alt="Get Coinbase wallet" />
                 </a>
 
-                <a href='https://play.google.com/store/apps/details?id=im.status.ethereum&hl=en_US'>
-                  <img src={Status} alt="Get Status wallet" />
-                </a>
+                {!isIOS ?
+                  <a href='https://play.google.com/store/apps/details?id=im.status.ethereum&hl=en_US'>
+                    <img src={Status} alt="Get Status wallet" />
+                  </a>
+
+                  : <a href='https://itunes.apple.com/us/app/trust-ethereum-wallet/id1288339409?mt=8'>
+                    <img src={TrustWallet} alt="Get TrustWallet" />
+                  </a>}
               </div>
 
               <button onClick={() => this.setState({ showMobileWalletPrompt: false })} type="button" className="tertiaryButton" id="closeModal">X</button>
@@ -155,8 +160,8 @@ class Landing extends Component {
         <div id="landing__splash">
 
           <div id="landing__createProfile">
-            <h1 className="ae-1">Create an Ethereum Profile</h1>
-            <p className="lightOpacity thin">Add your information once and share it across dapps.</p>
+            <h1 className="ae-1 landing__createProfile--text">Create an Ethereum Profile</h1>
+            <p className="lightOpacity thin landing__createProfile--subtext">Add your information once and share it across dapps.</p>
             <div id="consensys">
               <p className="lightOpacity thin">By </p>
               <img src={consensys} alt="Consensys Logo" />
@@ -164,7 +169,7 @@ class Landing extends Component {
 
             <div id="landing__button--center">
               <button id="landing__createProfileButton" type="button" onClick={this.handleSignInUp}>
-                Create a Profile
+                Create Profile
             </button>
             </div>
           </div>

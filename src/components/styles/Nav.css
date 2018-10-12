@@ -7,7 +7,7 @@ nav {
   border-bottom: 1px solid #E4E4E4;
   display: flex;
   align-items: center;
-  z-index: 1; }
+  z-index: 2; }
   nav button {
     display: inline-block; }
   nav p {
@@ -45,7 +45,8 @@ nav {
     font-size: 1em;
     padding-left: 1.3em;
     color: #6b6b6b;
-    line-height: 2.5em; }
+    line-height: 2.5em;
+    font-weight: 400; }
   .dropdown li:hover {
     background: #f9f9f9; }
   .dropdown div {
@@ -90,7 +91,8 @@ nav {
 
 #reportBug {
   background-color: #f5f6f8;
-  padding: .4em 1.3em; }
+  padding: .4em 1.3em;
+  color: #b1b1b1; }
 
 #divideBug {
   border-top: 1px solid #CBCBCB;
@@ -105,6 +107,12 @@ nav {
 
 #dropdownContainer {
   display: none; }
+
+.nav__activePage {
+  border-left: solid 5px #006ECC;
+  background: #f5f6f8;
+  margin-left: -1px;
+  padding-left: calc(1.3em - 5px) !important; }
 
 @media only screen and (max-width: 600px) {
   .hide {
@@ -146,8 +154,16 @@ nav {
     z-index: 99998;
     transition: all .3s ease-out; }
   #reportBug {
-    border-bottom: 1px solid #CBCBCB; }
+    border-top: none;
+    background: none;
+    padding: 0 1.3em; }
+  #mobileNav__signout {
+    color: #b1b1b1; }
   .mobileLogo {
     display: flex;
     justify-content: flex-start;
-    margin: 4px 0 40px; } }
+    margin: 4px 0 40px; }
+  .nav__activePage {
+    border-left: solid 5px #006ECC;
+    background: #f5f6f8;
+    padding-left: calc(1.3em - 5px) !important; } }

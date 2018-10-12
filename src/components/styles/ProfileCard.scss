@@ -37,19 +37,19 @@
   }
 }
 
-#profile_card_username{
+#profile_card_username {
   font-size: 1.4em;
   margin-top: 1.7em;
   margin-bottom: 1.7em;
 }
 
-#profile_card_network{
+#profile_card_network {
   display: flex;
   align-items: center;
   margin-bottom: .7em;
 }
 
-#profile_card_social{
+#profile_card_social {
   display: flex;
   align-items: center;
   margin-bottom: .7em;
@@ -67,8 +67,9 @@
   z-index: 1;
 
   bottom: 100%;
-  left: 50%; 
-  margin-left: 50%; /* Use half of the width (120/2 = 60), to center the tooltip */
+  left: 50%;
+  margin-left: 50%;
+  /* Use half of the width (120/2 = 60), to center the tooltip */
 }
 
 .profileCard_user_info {
@@ -109,11 +110,23 @@
   margin-left: .5vw;
 }
 
-.profile_card_icon{
+.profile_card_icon {
   width: 19px;
   margin-right: 1em;
 }
 
-#profile_card_social{
+#profile_card_social {
   display: flex;
+}
+
+@media only screen and (max-width: 600px) {
+  .profileCardSmall {
+    width: 14em;
+    height: 11em;
+  }
+
+  .profileCardSmall_user_picture {
+    -webkit-transform: perspective(1px) translateY(-30%) translateX(-140%);
+    transform: perspective(1px) translateY(-30%) translateX(-140%);
+  }
 }

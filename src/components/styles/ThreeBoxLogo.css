@@ -29,13 +29,13 @@
   height: 28px;
   border-radius: 4px;
   background-color: white;
-  margin-left: 3vw;
+  margin-left: 0;
   display: flex;
   align-items: center;
   justify-content: center; }
   #logo_icon_white h2 {
     color: #021333;
-    font-size: 1.5em !important;
+    font-size: 22px !important;
     font-weight: 700; }
 
 #logo_text_white {
@@ -43,4 +43,4 @@
   color: white;
   margin: 0;
   margin-left: .37em;
-  font-size: 1.5em !important; }
+  font-size: 22px !important; }

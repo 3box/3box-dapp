@@ -26,11 +26,7 @@ class Nav extends Component {
     const { showProfileModal } = this.state;
     const { image, threeBox, location } = this.props;
     const { pathname } = location;
-    let backDrop;
-
-    const styles = {
-      transform: `translateX(0)`
-    };
+    console.log(pathname);
 
     return (
       <div>
@@ -50,8 +46,8 @@ class Nav extends Component {
                     <div className='mobileLogo'>
                       <ThreeBoxLogo />
                     </div>
-                    <Link to={routes.PROFILE}><li>Profile</li></Link>
-                    <Link to={routes.EDITPROFILE}><li>Edit profile</li></Link>
+                    <Link to={routes.PROFILE}><li className={pathname === '/Profile' ? 'nav__activePage' : ''}>Profile</li></Link>
+                    <Link to={routes.EDITPROFILE}><li className={pathname === '/EditProfile' ? 'nav__activePage' : ''}>Edit profile</li></Link>
                     <div className="divide" />
                     <Link to={routes.LANDING} onClick={() => threeBox.logOut()}><li>Sign Out</li></Link>
                     <div id="divideBug" />
@@ -66,11 +62,9 @@ class Nav extends Component {
                 <div className='mobileLogo'>
                   <ThreeBoxLogo />
                 </div>
-                <Link to={routes.PROFILE}><li>Profile</li></Link>
-                <Link to={routes.EDITPROFILE}><li>Edit profile</li></Link>
-                <div className="divide" />
-                <Link to={routes.LANDING} onClick={() => threeBox.logOut()}><li>Sign Out</li></Link>
-                <div id="divideBug" />
+                <Link to={routes.PROFILE}><li className={pathname === '/Profile' ? 'nav__activePage' : ''}>Profile</li></Link>
+                <Link to={routes.EDITPROFILE}><li className={pathname === '/EditProfile' ? 'nav__activePage' : ''}>Edit profile</li></Link>
+                <Link to={routes.LANDING} onClick={() => threeBox.logOut()}><li id="mobileNav__signout">Sign Out</li></Link>
                 <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="reportBug">Report a bug</li></a>
               </ul>
             </div>

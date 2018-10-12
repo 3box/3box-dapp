@@ -497,7 +497,8 @@
   #footer_socialIcons {
     width: 7vw; }
   #footer_info {
-    width: 40vw; }
+    width: 40vw;
+    margin-top: 1em; }
   #socialLinks {
     width: 70%;
     margin-top: 2em; }
@@ -505,6 +506,8 @@
     display: flex;
     align-items: center;
     justify-content: center; }
+    .loadingContainer img {
+      width: 100px; }
   .consentModal {
     position: absolute;
     left: 50%;
@@ -514,9 +517,22 @@
     border-radius: 6px;
     padding: 15px;
     width: 76vw;
-    min-height: 300px; }
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
     .consentModal img {
-      width: 300px; }
+      width: 100px; }
+  .modal {
+    position: absolute;
+    left: 50%;
+    top: 15%;
+    background: white;
+    border: solid 1px #e8e8e8;
+    border-radius: 6px;
+    padding: 15px;
+    width: 76vw;
+    min-height: 300px; }
   #landing__splash {
     margin: 5em 0 6em 0;
     height: fit-content;
@@ -542,7 +558,8 @@
       animation: moveHorizontal 1s forwards;
       -webkit-animation: moveHorizontal 1s forwards;
       font-size: 1.8em;
-      margin-bottom: 2vh; }
+      margin-bottom: .8em;
+      margin-top: .5em; }
     #landing__createProfile p {
       font-size: 1.3em;
       animation: moveHorizontal 1s forwards;
@@ -565,19 +582,21 @@
     min-width: 10em;
     min-height: 18em;
     background: white;
-    width: 18em; }
+    width: 16em; }
   #landing__profileCard {
     width: fit-content;
-    margin: 2.5vh 0 5vh 0; }
+    margin: 4vh 0 5vh 0; }
   #landing__profileCard--margin {
     margin: 0 auto; }
   #landing__button--center {
     display: flex;
     justify-content: center; }
   #landing__createProfileButton {
-    margin-top: 4vh; }
+    margin-top: 0; }
   #landing__trustedPartners {
-    height: 20em; }
+    height: 12em; }
+    #landing__trustedPartners h3 {
+      margin: 1em 0 1em; }
   #landing__partnerList {
     flex-direction: column;
     height: fit-content; }
@@ -587,10 +606,15 @@
       z-index: 1;
       margin: 1em 4vw;
       width: 70vw; }
+  #landingFooter {
+    height: 22em; }
   #trustedPartners--bg {
     min-height: 30em; }
   #landing__build {
-    margin-top: 12em; }
+    margin-top: 6em;
+    margin-bottom: 12em; }
+    #landing__build h2 {
+      font-size: 1.6em; }
   .build_section {
     margin-top: 2em;
     margin-bottom: 4em;
@@ -601,7 +625,7 @@
       height: 14em; }
     .build_section .build_section_content {
       height: 10em;
-      text-align: left;
+      text-align: center;
       padding: 1em;
       margin: 2em 0 0 0; }
     .build_section .build__graphic__profiles {
@@ -640,9 +664,12 @@
     display: flex;
     justify-content: flex-start; }
     #mobile__landing__prompt__logo #logo_icon {
-      margin-left: 0; }
+      margin-left: 0;
+      background-color: white; }
       #mobile__landing__prompt__logo #logo_icon h2 {
         color: #021333; }
+    #mobile__landing__prompt__logo #logo_text {
+      color: white; }
   #mobile__landing__prompt__text {
     display: flex;
     flex-direction: column;
@@ -659,4 +686,29 @@
     width: 85vw;
     margin-top: 2em; }
     #mobile__landing__prompt__buttons img {
-      width: 40vw; } }
+      width: 40vw; }
+  .landing__createProfile--text {
+    display: flex;
+    text-align: center; }
+  .landing__createProfile--subtext {
+    display: none; }
+  #consensys {
+    display: none; }
+  #profile_card_username {
+    margin-bottom: 1.2em;
+    margin-top: 1.3em; }
+  #Michael {
+    position: absolute;
+    top: 0;
+    left: 11.5vw;
+    z-index: 0; }
+  #Christian {
+    position: absolute;
+    top: 4em;
+    left: 19.5vw;
+    z-index: 1; }
+  #Cristobal {
+    position: absolute;
+    top: 8em;
+    left: 27.5vw;
+    z-index: 2; } }

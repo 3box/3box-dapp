@@ -9,7 +9,7 @@ nav {
   border-bottom: 1px solid #E4E4E4;
   display: flex;
   align-items: center;
-  z-index: 1;
+  z-index: 2;
 
   button {
     display: inline-block;
@@ -59,6 +59,7 @@ nav {
     padding-left: 1.3em;
     color: rgb(107, 107, 107);
     line-height: 2.5em;
+    font-weight: 400;
   }
 
   li:hover {
@@ -116,6 +117,7 @@ nav {
 #reportBug {
   background-color: $backgroundHue;
   padding: .4em 1.3em;
+  color: $lighterFont;
 }
 
 #divideBug {
@@ -133,6 +135,13 @@ nav {
 
 #dropdownContainer {
   display: none;
+}
+
+.nav__activePage {
+  border-left: solid 5px $threeBoxBlue;
+  background: $backgroundHue;
+  margin-left: -1px;
+  padding-left: calc(1.3em - 5px) !important;
 }
 
 @media only screen and (max-width: 600px) {
@@ -184,12 +193,26 @@ nav {
   }
 
   #reportBug {
-    border-bottom: 1px solid #CBCBCB;
+    // border-bottom: 1px solid #CBCBCB;
+    border-top: none;
+    background: none;
+    padding: 0 1.3em;
+  }
+
+  #mobileNav__signout{
+    color: $lighterFont;
   }
 
   .mobileLogo {
     display: flex;
     justify-content: flex-start;
     margin: 4px 0 40px;
+  }
+
+  .nav__activePage {
+    border-left: solid 5px $threeBoxBlue;
+    background: $backgroundHue;
+
+    padding-left: calc(1.3em - 5px) !important;
   }
 }

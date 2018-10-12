@@ -96,3 +96,11 @@
 
 #profile_card_social {
   display: flex; }
+
+@media only screen and (max-width: 600px) {
+  .profileCardSmall {
+    width: 14em;
+    height: 11em; }
+  .profileCardSmall_user_picture {
+    -webkit-transform: perspective(1px) translateY(-30%) translateX(-140%);
+    transform: perspective(1px) translateY(-30%) translateX(-140%); } }

@@ -657,6 +657,7 @@
 
   #footer_info {
     width: 40vw;
+    margin-top: 1em;
   }
 
   #socialLinks {
@@ -668,6 +669,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    img {
+      width: 100px;
+    }
   }
 
   .consentModal {
@@ -680,10 +685,25 @@
     padding: 15px;
     width: 76vw;
     min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     img {
-      width: 300px;
+      width: 100px;
     }
+  }
+
+  .modal {
+    position: absolute;
+    left: 50%;
+    top: 15%;
+    background: white;
+    border: solid 1px #e8e8e8;
+    border-radius: 6px;
+    padding: 15px;
+    width: 76vw;
+    min-height: 300px;
   }
 
   #landing__splash {
@@ -720,7 +740,8 @@
       animation: moveHorizontal 1s forwards;
       -webkit-animation: moveHorizontal 1s forwards;
       font-size: 1.8em;
-      margin-bottom: 2vh;
+      margin-bottom: .8em;
+      margin-top: .5em;
     }
 
     p {
@@ -752,12 +773,12 @@
     min-width: 10em;
     min-height: 18em;
     background: white;
-    width: 18em;
+    width: 16em;
   }
 
   #landing__profileCard {
     width: fit-content;
-    margin: 2.5vh 0 5vh 0;
+    margin: 4vh 0 5vh 0;
   }
 
   #landing__profileCard--margin {
@@ -770,12 +791,15 @@
   }
 
   #landing__createProfileButton {
-    margin-top: 4vh;
+    margin-top: 0;
   }
 
-
   #landing__trustedPartners {
-    height: 20em;
+    height: 12em;
+
+    h3 {
+      margin: 1em 0 1em;
+    }
   }
 
   #landing__partnerList {
@@ -792,12 +816,21 @@
 
   }
 
+  #landingFooter {
+    height: 22em;
+  }
+
   #trustedPartners--bg {
     min-height: 30em;
   }
 
   #landing__build {
-    margin-top: 12em;
+    margin-top: 6em;
+    margin-bottom: 12em;
+
+    h2 {
+      font-size: 1.6em;
+    }
   }
 
   .build_section {
@@ -809,11 +842,12 @@
 
     .build_section_text {
       height: 14em;
+
     }
 
     .build_section_content {
       height: 10em;
-      text-align: left;
+      text-align: center;
       padding: 1em;
       margin: 2em 0 0 0;
     }
@@ -873,9 +907,15 @@
     #logo_icon {
       margin-left: 0;
 
+      background-color: white;
+
       h2 {
         color: $threeBoxAccentBlue;
       }
+    }
+
+    #logo_text{
+      color: white;
     }
   }
 
@@ -902,5 +942,44 @@
     img {
       width: 40vw;
     }
+  }
+
+  .landing__createProfile--text {
+    display: flex;
+    text-align: center;
+  }
+
+  .landing__createProfile--subtext {
+    display: none;
+  }
+
+  #consensys {
+    display: none;
+  }
+
+  #profile_card_username {
+    margin-bottom: 1.2em;
+    margin-top: 1.3em;
+  }
+
+  #Michael {
+    position: absolute;
+    top: 0;
+    left: 11.5vw;
+    z-index: 0;
+  }
+
+  #Christian {
+    position: absolute;
+    top: 4em;
+    left: 19.5vw;
+    z-index: 1;
+  }
+
+  #Cristobal {
+    position: absolute;
+    top: 8em;
+    left: 27.5vw;
+    z-index: 2;
   }
 }

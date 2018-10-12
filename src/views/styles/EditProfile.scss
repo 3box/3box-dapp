@@ -151,7 +151,6 @@
   }
 
   #edit_user_public {
-    height: 100%;
     overflow: hidden;
     display: inline-block;
     flex: 3.5;
@@ -212,6 +211,13 @@
   background: rgba(0, 0, 0, 0.76);
   padding: 1rem;
   z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100px;
+  }
 }
 
 .loadingContainer {
@@ -222,6 +228,13 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.76);
   z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100px;
+  }
 }
 
 .modal {

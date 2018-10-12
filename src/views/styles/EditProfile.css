@@ -110,7 +110,6 @@
       margin: 0 auto;
       margin-top: 3em; }
   #edit_form #edit_user_public {
-    height: 100%;
     overflow: hidden;
     display: inline-block;
     flex: 3.5;
@@ -156,7 +155,12 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.76);
   padding: 1rem;
-  z-index: 5; }
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .container img {
+    width: 100px; }
 
 .loadingContainer {
   position: fixed;
@@ -165,7 +169,12 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.76);
-  z-index: 6; }
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .loadingContainer img {
+    width: 100px; }
 
 .modal {
   position: absolute;
