@@ -207,7 +207,7 @@ class Landing extends Component {
             <div className="build_section_text">
               <div className="build_section_content">
                 <h3>Ethereum Profiles API</h3>
-                <p className="lightOpacity thin">Profiles API makes it easy to get and set information about users. Support for public and private profiles.</p>
+                <p className="lightOpacity thin">Profiles API makes it easy to get and set information about users, with support for public and private data..</p>
                 <a href="https://github.com/uport-project/3box-js"><button >Profiles API</button></a>
               </div>
             </div>

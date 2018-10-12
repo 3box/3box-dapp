@@ -580,7 +580,7 @@
   #scaleLogo {
     zoom: 1.5;
     -moz-transform: scale(1.5);
-    opacity: .7;
+    // opacity: .7;
 
     #logo_icon {
       margin-left: 0;
@@ -618,7 +618,7 @@
 #footer_socialIcons {
   width: 2vw;
   z-index: 1;
-  opacity: .7;
+  // opacity: .7;
 }
 
 #mobile__landing__prompt {
@@ -648,7 +648,7 @@
   #footerLinks {
     flex-direction: column;
     align-items: center;
-    margin-top: 7em;
+    margin-top: 1em;
   }
 
   #footer_socialIcons {
@@ -656,13 +656,13 @@
   }
 
   #footer_info {
-    width: 40vw;
+    width: 28vw;
     margin-top: 1em;
   }
 
   #socialLinks {
-    width: 70%;
-    margin-top: 2em;
+    width: 90%;
+    margin-top: 3em;
   }
 
   .loadingContainer {
@@ -818,6 +818,9 @@
 
   #landingFooter {
     height: 22em;
+    #mailChimp{
+      margin-top: 2em;
+    }
   }
 
   #trustedPartners--bg {
@@ -826,7 +829,7 @@
 
   #landing__build {
     margin-top: 6em;
-    margin-bottom: 12em;
+    margin-bottom: 8em;
 
     h2 {
       font-size: 1.6em;
@@ -866,7 +869,7 @@
 
     #threeboxIllustration {
       margin: 0;
-      width: 90%;
+      width: 79%;
     }
   }
 
