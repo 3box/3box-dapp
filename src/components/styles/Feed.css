@@ -5,6 +5,7 @@
   padding: 2em;
   min-height: calc(100% - 69px);
   height: fit-content;
+  position: relative;
   border-left: 1px solid #E4E4E4;
   border-right: 1px solid #E4E4E4;
   border-bottom: 1px solid #E4E4E4; }
@@ -74,7 +75,7 @@
   padding: 3px 6px;
   cursor: pointer; }
 
-.feed_activity_data {
+.feed__activity___data {
   display: flex;
   align-items: center;
   margin-top: .6em;
@@ -96,38 +97,38 @@
   border-radius: 1em;
   margin-right: 1.5vw; }
 
-.feed_activity_address_dataType {
+.feed__activity__address__dataType {
   width: 16%;
   display: flex;
   align-items: center; }
-  .feed_activity_address_dataType img {
+  .feed__activity__address__dataType img {
     width: 1.2em; }
 
 .feed_activity_address_dataType_ethereum {
   width: .9em !important; }
 
-.feed_activity_address_function {
+.feed__activity__address__function {
   width: 21%; }
 
-.feed_activity_address_toFrom {
+.feed__activity__address__toFrom {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   width: 21%; }
-  .feed_activity_address_toFrom img {
+  .feed__activity__address__toFrom img {
     width: 1em;
     margin-right: 1vw; }
 
 .saveDelete img {
   width: .8em !important; }
 
-.feed_activity_address_amount {
+.feed__activity__address__amount {
   width: 21%; }
 
-.feed_activity_address_amount_image {
+.feed__activity__address__amount__image {
   width: 24px; }
 
-.feed_activity_address_time {
+.feed__activity__address__time {
   width: 15%; }
 
 #feed_activity_network {
@@ -248,11 +249,11 @@
     white-space: nowrap;
     overflow: hidden;
     overflow-x: scroll; }
-  .feed_activity_address_time {
+  .feed__activity__address__time {
     white-space: nowrap;
     overflow: hidden;
     overflow-x: scroll; }
-  .feed_activity_data {
+  .feed__activity___data {
     width: calc(100vw - 1.6em);
     white-space: nowrap;
     overflow: hidden;
@@ -260,16 +261,16 @@
     padding: .4em .8em; }
   #profile_gutter {
     display: none; }
-  .feed_activity_address_amount {
+  .feed__activity__address__amount {
     white-space: nowrap;
     overflow: hidden;
     overflow-x: scroll; }
   .feed_activity_tile {
     width: fit-content;
     overflow-y: hidden; }
-  .feed_activity_address_dataType {
+  .feed__activity__address__dataType {
     width: 8%; }
-  .feed_activity_address_toFrom {
+  .feed__activity__address__toFrom {
     width: 13%; }
-  .feed_activity_address_function {
+  .feed__activity__address__function {
     width: 13%; } }

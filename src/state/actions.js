@@ -250,7 +250,7 @@ export const getActivity = () => async (dispatch) => {
       }
     });
 
-    // console.log(feedByAddress);
+    console.log(feedByAddress);
 
     dispatch({
       type: 'GET_ACTIVITY',

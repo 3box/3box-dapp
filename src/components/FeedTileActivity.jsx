@@ -11,31 +11,35 @@ import './styles/Feed.css';
 // import address from '../utils/address';
 
 const FeedTileTXS = ({ item, isEven }) => (
-  <div className={`feed_activity_data ${isEven ? 'darkFeed' : 'lightFeed'}`}>
-    <div className="feed_activity_address_dataType">
+  <div className={`feed__activity___data ${isEven ? 'darkFeed' : 'lightFeed'}`}>
+    <div className="feed__activity__address__dataType">
       {item.dataType === 'Private'
-        ? <img src={PrivateActivity} alt="Transaction Icon" className="feed_activity_address_amount_image" />
-        : <img src={Globe} alt="Transaction Icon" className="feed_activity_address_amount_image" />
+        ? <img src={PrivateActivity} alt="Transaction Icon" className="feed__activity__address__amount__image" />
+        : <img src={Globe} alt="Transaction Icon" className="feed__activity__address__amount__image" />
       }
     </div>
-    <div className="feed_activity_address_toFrom saveDelete">
+    <div className="feed__activity__address__toFrom saveDelete">
       <img src={item.op === 'PUT' ? Save : Delete} alt="Transaction Icon" />
       <p>
         {item.op === 'PUT' ? 'Save' : 'Delete'}
       </p>
     </div>
-    <p className="feed_activity_address_function">
+    <p className="feed__activity__address__function">
       {item.dataType === 'Private'
         ? 'Private'
         : item.key && item.key.charAt(0).toUpperCase() + item.key.slice(1)
       }
     </p>
-    <p className="feed_activity_address_amount">
+    <p className="feed__activity__address__amount">
       {item.key === 'image'
-        ? <img src={Image} alt="Transaction Icon" className="feed_activity_address_amount_image" />
-        : item.value}
+        ? <img src={Image} alt="Transaction Icon" className="feed__activity__address__amount__image" />
+        : item.dataType === 'Private'
+          ? '*****'
+          : typeof item.value === 'object'
+            ? `${Object.keys(item.value)[0]}...`
+            : item.value}
     </p>
-    <p className="feed_activity_address_time">
+    <p className="feed__activity__address__time">
       {timeSince(item.timeStamp * 1000)}
     </p>
   </div>
