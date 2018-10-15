@@ -26,8 +26,6 @@ class Nav extends Component {
     const { showProfileModal } = this.state;
     const { image, threeBox, location } = this.props;
     const { pathname } = location;
-    console.log(pathname);
-
     return (
       <div>
         {pathname !== '/' &&
@@ -35,37 +33,37 @@ class Nav extends Component {
             <ThreeBoxLogo />
             {
               image.length > 0 ?
-                <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} id="header_user_picture" alt="profile" onClick={this.handleDropdown} role="button" />
-                : <div id="header_user_picture" onClick={this.handleDropdown} />
+                <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} id="nav__userPicture" alt="profile" onClick={this.handleDropdown} role="button" />
+                : <div id="nav__userPicture" onClick={this.handleDropdown} />
             }
 
             {showProfileModal
               && (
-                <div className='dropdown' onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
+                <div className='nav__dropdown' onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
                   <ul>
-                    <div className='mobileLogo'>
+                    <div className='nav__dropdown__mobileLogo'>
                       <ThreeBoxLogo />
                     </div>
                     <Link to={routes.PROFILE}><li className={pathname === '/Profile' ? 'nav__activePage' : ''}>Profile</li></Link>
                     <Link to={routes.EDITPROFILE}><li className={pathname === '/EditProfile' ? 'nav__activePage' : ''}>Edit profile</li></Link>
-                    <div className="divide" />
+                    <div className="nav__divide" />
                     <Link to={routes.LANDING} onClick={() => threeBox.logOut()}><li>Sign Out</li></Link>
-                    <div id="divideBug" />
-                    <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="reportBug">Report a bug</li></a>
+                    <div id="nav__divideBug" />
+                    <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="nav__reportBug">Report a bug</li></a>
                   </ul>
                 </div>
               )
             }
 
-            <div className={`${showProfileModal ? 'sideDrawer' : ''} dropdown mobileDropDown`} onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
+            <div className={`${showProfileModal ? 'sideDrawer' : ''} nav__dropdown mobileDropDown`} onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
               <ul>
-                <div className='mobileLogo'>
+                <div className='nav__dropdown__mobileLogo'>
                   <ThreeBoxLogo />
                 </div>
                 <Link to={routes.PROFILE}><li className={pathname === '/Profile' ? 'nav__activePage' : ''}>Profile</li></Link>
                 <Link to={routes.EDITPROFILE}><li className={pathname === '/EditProfile' ? 'nav__activePage' : ''}>Edit profile</li></Link>
                 <Link to={routes.LANDING} onClick={() => threeBox.logOut()}><li id="mobileNav__signout">Sign Out</li></Link>
-                <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="reportBug">Report a bug</li></a>
+                <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="nav__reportBug">Report a bug</li></a>
               </ul>
             </div>
             <div id={showProfileModal && 'dropdownContainer'} onClick={this.handleDropdown} />

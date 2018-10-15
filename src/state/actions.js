@@ -22,6 +22,10 @@ export const checkForMetaMask = () => async (dispatch) => {
     currentWallet = 'isMetaMask';
   }
 
+  // const version = window.web3 && window.web3.version.network;
+  // window.web3 && window.web3.eth && window.web3.eth.net && window.web3.eth.net.getNetworkType()
+  //   .then(console.log);
+
   await dispatch({
     type: 'CHECK_WALLET',
     hasWallet: typeof web3 !== 'undefined',
@@ -50,7 +54,8 @@ export const signInUp = () => async (dispatch) => {
     type: 'PROVIDE_CONSENT',
   });
 
-  const consentGiven = () => {
+  const consentGiven = (value) => {
+    console.log(value);
     dispatch({
       type: 'LOADING_3BOX',
     });
@@ -249,8 +254,6 @@ export const getActivity = () => async (dispatch) => {
         });
       }
     });
-
-    console.log(feedByAddress);
 
     dispatch({
       type: 'GET_ACTIVITY',

@@ -5,14 +5,21 @@
   max-width: 700px;
   min-width: 700px;
   padding: 2em;
-  min-height: calc(100% - 69px);
-  height: fit-content;
-  position: relative;
+  min-height: calc(100% - 133px);
+  // height: fit-content;
+  height: calc(100% - 133px);
+  position: fixed;
+  // position: relative;
+  top: 69px;
+  left: 23vw;
+  // min-width: 270px;
 
-  // margin-top: 69px;
   border-left: 1px solid #E4E4E4;
   border-right: 1px solid #E4E4E4;
   border-bottom: 1px solid #E4E4E4;
+
+  overflow-y: scroll;
+
 
   ul {
     padding: 0;
@@ -25,11 +32,15 @@
   }
 }
 
-#feed_activity_address {
+#feed__header{
+  margin-bottom: 1em;
+}
+
+#feed__activity {
   margin-top: 2em;
 }
 
-.feed_activity_address_tile {
+.feed__activity__tile {
   display: flex;
   flex-direction: column;
   border-top: solid 1px #E4E4E4;
@@ -38,13 +49,13 @@
   margin-bottom: -1px;
 }
 
-.feed_activity_context {
+.feed__activity__context {
   display: flex;
   align-items: center;
   margin-bottom: 1.3em;
   padding: 0 .5em;
 
-  .feed_activity_context_network {
+  .feed__activity__context__network {
     min-width: 2.2em;
     height: 2.2em;
     margin-right: 1.5vw;
@@ -63,7 +74,7 @@
     justify-content: center;
   }
 
-  .logo_icon {
+  .logo__icon {
     width: 2.1em;
     height: 2.1em;
     border-radius: 4px;
@@ -80,7 +91,7 @@
   }
 }
 
-.feed_activity_address_tile_address {
+.feed__activity__address {
   display: flex;
   flex-direction: column;
 
@@ -222,7 +233,7 @@
   }
 }
 
-.feed_activity_load {
+.feed__activity__load {
   border-top: solid 1px #E4E4E4;
   border-bottom: solid 1px #E4E4E4;
   min-height: 80px;
@@ -239,30 +250,6 @@
 #activityLoad {
   width: 3em;
   height: 3em;
-}
-
-.feed_activity_tile {
-  border-top: solid 1px #E4E4E4;
-  border-bottom: solid 1px #E4E4E4;
-  min-height: 44px;
-  margin-bottom: -1px;
-  display: flex;
-  align-items: center;
-
-  p {
-    display: inline-block;
-    white-space: nowrap;
-  }
-
-  li {
-    display: flex;
-    align-items: center;
-  }
-
-  &:hover {
-    background: #F8F8F8;
-  }
-
 }
 
 .feed_activity_tile_networkLogo {
@@ -318,24 +305,27 @@
     border: none;
     border-top: 1px solid #E4E4E4;
     border-bottom: 1px solid #E4E4E4;
+    position: relative;
+    left: 0;
+    top: 0;
   }
 
-  #activity_header{
+  #feed__header {
     margin: 1.8em 0 0 .8em;
   }
 
-  #feed_activity_address {
+  #feed__activity {
     width: 100vw;
     white-space: nowrap;
     overflow: hidden;
     overflow-x: scroll;
   }
 
-  .feed_activity_context{
+  .feed__activity__context {
     padding-left: .8em;
   }
 
-  .feed_activity_address_tile_address {
+  .feed__activity__address {
     white-space: nowrap;
     overflow: hidden;
     overflow-x: scroll;
@@ -355,19 +345,10 @@
     padding: .4em .8em;
   }
 
-  #profile_gutter {
-    display: none;
-  }
-
   .feed__activity__address__amount {
     white-space: nowrap;
     overflow: hidden;
     overflow-x: scroll;
-  }
-
-  .feed_activity_tile {
-    width: fit-content;
-    overflow-y: hidden;
   }
 
   .feed__activity__address__dataType {

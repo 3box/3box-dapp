@@ -6,7 +6,7 @@
   width: 18em;
   box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f; }
 
-#profileCard_user_picture {
+#profileCard__user__picture {
   background-color: #3f3f3f;
   border-radius: 100%;
   width: 120px;
@@ -17,7 +17,7 @@
   left: 50%;
   transform: perspective(1px) translateY(-30%) translateX(-50%); }
 
-#profile_card_network_icon {
+#profileCard__network__icon {
   border-radius: 100%;
   background-color: #5ECD78;
   width: 19px;
@@ -28,17 +28,17 @@
   #profile_address:hover .tooltiptext {
     visibility: visible; }
 
-#profile_card_username {
+#profileCard__username {
   font-size: 1.4em;
   margin-top: 1.7em;
   margin-bottom: 1.7em; }
 
-#profile_card_network {
+#profileCard__network {
   display: flex;
   align-items: center;
   margin-bottom: .7em; }
 
-#profile_card_social {
+#profile__card__social {
   display: flex;
   align-items: center;
   margin-bottom: .7em; }
@@ -58,7 +58,7 @@
   margin-left: 50%;
   /* Use half of the width (120/2 = 60), to center the tooltip */ }
 
-.profileCard_user_info {
+.profileCard__user__info {
   padding: 2em;
   margin-top: -4em; }
 
@@ -69,7 +69,7 @@
   height: 10em;
   box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f; }
 
-.profileCardSmall_user_picture {
+.profileCardSmall__user__picture {
   background-color: #3f3f3f;
   border-radius: 100%;
   width: 80px;
@@ -80,27 +80,27 @@
   left: 50%;
   transform: perspective(1px) translateY(-30%) translateX(-160%); }
 
-.profileCardSmall_user_name {
+.profileCardSmall__user__name {
   font-size: 1.4em;
   margin-top: 2.6vh; }
 
-.profileCardSmall_address {
+.profileCardSmall__address {
   display: inline-block;
   font-size: 14px !important;
   margin-top: 1vh !important;
   margin-left: .5vw; }
 
-.profile_card_icon {
+.profileCard__icon {
   width: 19px;
   margin-right: 1em; }
 
-#profile_card_social {
+#profile__card__social {
   display: flex; }
 
 @media only screen and (max-width: 600px) {
   .profileCardSmall {
     width: 14em;
     height: 11em; }
-  .profileCardSmall_user_picture {
+  .profileCardSmall__user__picture {
     -webkit-transform: perspective(1px) translateY(-30%) translateX(-140%);
     transform: perspective(1px) translateY(-30%) translateX(-140%); } }

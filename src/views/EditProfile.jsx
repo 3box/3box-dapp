@@ -96,10 +96,10 @@ class EditProfile extends Component {
 
   render() {
     const { image, ifFetchingThreeBox } = this.props;
-    const { github, email, name, disableSave, removeUserPic, saveLoading, picUploaded, imageRemoved } = this.state;
+    const { github, email, name, disableSave, removeUserPic, saveLoading } = this.state;
 
     return (
-      <div id="edit_page">
+      <div id="edit__page">
 
         {saveLoading
           && (
@@ -108,8 +108,8 @@ class EditProfile extends Component {
             </div>
           )}
 
-        <div id="breadCrumb">
-          <div id="crumbs">
+        <div id="edit__breadCrumb">
+          <div id="edit__breadCrumb__crumbs">
             <Link to="/Profile">
               <p className="lighter">
                 Profile
@@ -126,26 +126,26 @@ class EditProfile extends Component {
 
         <div id="edit">
 
-          <div id="edit_form">
+          <div id="edit__form">
 
             {ifFetchingThreeBox
               && (
                 <div className="loadingProfile">
-                  <img src={Loading} alt="loading" id="loadingProfileSpinner" />
+                  <img src={Loading} alt="loading" id="loadingProfile__Spinner" />
                 </div>
               )}
 
             <div id="myProfile">
               <h4>My Profile</h4>
-              <div id="myProfile_address">
-                <img id="editprofile_networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
+              <div id="myProfile__address">
+                <img id="editprofile__networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
                 <p title={address}>{address && `${address.substring(0, 8)}...`}</p>
               </div>
             </div>
 
-            <div id="edit_profile_content">
-              <div id="public_contents">
-                <div id="edit_user_picture">
+            <div id="edit__profile">
+              <div id="public__contents">
+                <div id="edit__userPicture">
                   <label htmlFor="fileInput" id="chooseFile">
                     <input id="fileInput" type="file" name="pic" className="light" accept="image/*" onChange={e => this.handleUpdatePic(e.target.files[0])} ref={ref => this.fileUpload = ref} />
                     <img src={AddImage} alt="profile" id="addImage" />
@@ -173,7 +173,7 @@ class EditProfile extends Component {
                     type="button">Remove</button>
                 </div>
 
-                <div id="edit_user_public">
+                <div id="edit__info">
 
                   <h3>Name</h3>
                   <input
@@ -183,7 +183,7 @@ class EditProfile extends Component {
                     onChange={e => this.handleFormChange(e, 'name')}
                   />
 
-                  <div id="githubInfo">
+                  <div id="edit__public__githubInfo">
                     <h3>Github</h3>
                     <input
                       name="github"
@@ -193,10 +193,10 @@ class EditProfile extends Component {
                     />
                   </div>
 
-                  <div id="privateInfo">
+                  <div id="edit__privateInfo">
                     <div id="privateInfo_email">
                       <h3>Email Address</h3>
-                      <img id="editprofile_privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
+                      <img id="editprofile__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
                     </div>
                     <input
                       name="email"
@@ -210,10 +210,10 @@ class EditProfile extends Component {
               </div>
 
             </div>
-            <div id="formControls">
-              <div id="formControls_content">
+            <div id="edit__formControls">
+              <div id="edit__formControls__content">
                 <button type="submit" disabled={disableSave} onClick={e => this.handleSubmit(e)}>Save</button>
-                <Link to="/Profile" className="subtext" id="edit_cancel">
+                <Link to="/Profile" className="subtext" id="edit__cancel">
                   Cancel
                 </Link>
               </div>

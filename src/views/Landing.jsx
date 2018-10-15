@@ -55,7 +55,7 @@ class Landing extends Component {
 
   async handleSignInUp() {
     const { hasWallet } = this.props;
-    // localStorage.setItem(`serializedMuDID_${address}`, null);
+    localStorage.setItem(`serializedMuDID_${address}`, null);
     if (hasWallet) {
       await this.props.signInUp();
     } else {
@@ -71,7 +71,7 @@ class Landing extends Component {
 
     const { userAgent: ua } = navigator
     const isIOS = ua.includes('iPhone') // “iPhone OS”
-    const isAndroid = ua.includes('Android')
+    // const isAndroid = ua.includes('Android')
 
     if (signUpSuccessful) {
       return <Redirect to="/Profile" />;
@@ -79,7 +79,7 @@ class Landing extends Component {
 
     return (
       <div id="landing">
-        <LandingNav handleSignInUp={this.handleSignInUp} classHide={classHide} ref="elem" />
+        <LandingNav handleSignInUp={this.handleSignInUp} classHide={classHide} />
 
         {provideConsent
           && (
@@ -203,9 +203,9 @@ class Landing extends Component {
             <button >Get started</button>
           </a>
 
-          <div className="build_section">
-            <div className="build_section_text">
-              <div className="build_section_content">
+          <div className="build__section">
+            <div className="build__section__text">
+              <div className="build__section__content">
                 <h3>Ethereum Profiles API</h3>
                 <p className="lightOpacity thin">Profiles API makes it easy to get and set information about users, with support for public and private data..</p>
                 <a href="https://github.com/uport-project/3box-js"><button >Profiles API</button></a>
@@ -215,43 +215,43 @@ class Landing extends Component {
             <div className="build__graphic__profiles">
 
               <div id="Michael" className="profileCardSmall">
-                <img src={Michael} className="profileCardSmall_user_picture" alt="profile" />
-                <div className="profileCard_user_info">
+                <img src={Michael} className="profileCardSmall__user__picture" alt="profile" />
+                <div className="profileCard__user__info">
 
-                  <h4 className="profileCardSmall_user_name">Michael Sena</h4>
+                  <h4 className="profileCardSmall__user__name">Michael Sena</h4>
 
-                  <div id="profile_network_icon" />
-                  <p className="profileCardSmall_address">0x123456789</p>
+                  <div id="profile__network__icon" />
+                  <p className="profileCardSmall__address">0x123456789</p>
                 </div>
               </div>
 
               <div id="Christian" className="profileCardSmall">
-                <img src={Christian} className="profileCardSmall_user_picture" alt="profile" />
-                <div className="profileCard_user_info">
+                <img src={Christian} className="profileCardSmall__user__picture" alt="profile" />
+                <div className="profileCard__user__info">
 
-                  <h4 className="profileCardSmall_user_name">Christian Lundkvist</h4>
+                  <h4 className="profileCardSmall__user__name">Christian Lundkvist</h4>
 
-                  <div id="profile_network_icon" />
-                  <p className="profileCardSmall_address">0x123456789</p>
+                  <div id="profile__network__icon" />
+                  <p className="profileCardSmall__address">0x123456789</p>
                 </div>
               </div>
 
               <div id="Cristobal" className="profileCardSmall">
-                <img src={Cristobal} className="profileCardSmall_user_picture" alt="profile" />
-                <div className="profileCard_user_info">
+                <img src={Cristobal} className="profileCardSmall__user__picture" alt="profile" />
+                <div className="profileCard__user__info">
 
-                  <h4 className="profileCardSmall_user_name">Cristobal Castillo</h4>
+                  <h4 className="profileCardSmall__user__name">Cristobal Castillo</h4>
 
-                  <div id="profile_network_icon" />
-                  <p className="profileCardSmall_address">0x123456789</p>
+                  <div id="profile__network__icon" />
+                  <p className="profileCardSmall__address">0x123456789</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="build_section">
-            <div className="build_section_text">
-              <div className="build_section_content">
+          <div className="build__section">
+            <div className="build__section__text">
+              <div className="build__section__content">
                 <h3>Simple, Open Design</h3>
                 <p className="lightOpacity thin">Compatible with existing browsers, wallets, and dapps for a shared Web3 experience. Built on IPFS and Orbit DB.</p>
                 <a href="https://github.com/uport-project/3box"><button >3Box DB Overview</button></a>

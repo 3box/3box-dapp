@@ -3,12 +3,12 @@ import React from 'react';
 import './styles/Info.css';
 
 const Privacy = () => (
-  <div className="info_page">
-    <div className="info_banner">
+  <div className="info__page">
+    <div className="info__banner">
       <h1>Privacy Policy</h1>
     </div>
-    <div className="info_content">
-      <div className="info_content_text">
+    <div className="info__content">
+      <div className="info__content__text">
         <p>
           This privacy policy (“Policy”) describes how ConsenSys AG’s 3Box (“3Box” “Company”, “we”, “our”, or “us”) collects, uses, shares, and stores personal information of users of this website, 3box.io (the “Site”). This Policy applies to the Site, applications, products and services (collectively, “Services”) on or in which it is posted, linked, or referenced.
           By using the Services, you accept the terms of this Policy and our Terms of Use, and consent to our collection, use, disclosure, and retention of your information as described in this Policy.  If you have not done so already, please also review our terms of use. The terms of use contain provisions that limit our liability to you and require you to resolve

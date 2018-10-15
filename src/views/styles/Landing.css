@@ -206,21 +206,21 @@
   opacity: .07;
   overflow: hidden; }
 
-.build_section {
+.build__section {
   display: flex;
   flex-direction: row;
   align-items: center;
   height: 28em;
   margin-top: 2em; }
 
-.build_section_text {
+.build__section__text {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center; }
 
-.build_section_content {
+.build__section__content {
   display: flex;
   flex-direction: column;
   align-items: left;
@@ -228,7 +228,7 @@
   text-align: left;
   margin-left: auto;
   margin-right: 3em; }
-  .build_section_content h3 {
+  .build__section__content h3 {
     font-size: 1.6em; }
 
 .build__graphic__profiles {
@@ -378,7 +378,7 @@
   display: flex;
   align-items: center; }
 
-#landingFooter {
+#landing__footer {
   width: 100%;
   height: 30em;
   justify-content: space-around;
@@ -389,27 +389,27 @@
   align-content: center;
   align-items: center;
   padding-bottom: 3em; }
-  #landingFooter ul {
+  #landing__footer ul {
     width: 80%;
     display: flex;
     align-items: center; }
-    #landingFooter ul li {
+    #landing__footer ul li {
       width: 50%;
       display: flex;
       align-items: center; }
-  #landingFooter a {
+  #landing__footer a {
     z-index: 2;
     color: white;
     display: flex;
     align-items: center; }
-  #landingFooter #mailChimp {
+  #landing__footer #landing__mailChimp {
     display: flex;
     align-items: center;
     z-index: 1;
     width: 40vw;
     justify-content: center;
     margin-top: 4em; }
-    #landingFooter #mailChimp input {
+    #landing__footer #landing__mailChimp input {
       display: inline-block;
       border-bottom-left-radius: 5px;
       border-top-left-radius: 5px;
@@ -422,12 +422,12 @@
       box-sizing: border-box;
       background-color: #414E66;
       color: white; }
-      #landingFooter #mailChimp input::placeholder {
+      #landing__footer #landing__mailChimp input::placeholder {
         color: white; }
-    #landingFooter #mailChimp div {
+    #landing__footer #landing__mailChimp div {
       display: flex;
       align-items: center; }
-    #landingFooter #mailChimp button {
+    #landing__footer #landing__mailChimp button {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -438,41 +438,41 @@
       height: 44px;
       padding: 0 20px; }
 
-#footerLinks {
+#footer__links {
   z-index: 1;
   display: flex;
   width: 60vw;
   justify-content: space-between;
   margin-top: 12.5em; }
-  #footerLinks #scaleLogo {
+  #footer__links #footer__scaleLogo {
     zoom: 1.5;
     -moz-transform: scale(1.5); }
-    #footerLinks #scaleLogo #logo_icon {
+    #footer__links #footer__scaleLogo #logo__icon {
       margin-left: 0; }
 
-#socialLinks {
+#footer__socialLinks {
   display: flex;
   align-content: center;
   justify-content: space-between;
   width: 35%; }
 
-#footer_bg {
+#footer__bg {
   min-width: 100%;
   position: absolute;
   bottom: 0;
   z-index: 0;
   overflow: hidden; }
 
-#footer_info {
+#footer__info {
   z-index: 1;
   display: flex;
   width: 10vw;
   justify-content: space-between; }
-  #footer_info p {
+  #footer__info p {
     color: white;
     opacity: .7; }
 
-#footer_socialIcons {
+.footer__socialIcons {
   width: 2vw;
   z-index: 1; }
 
@@ -486,18 +486,18 @@
     display: none; }
   #threeBoxGraphic2 {
     display: none; }
-  #logo_icon {
+  #logo__icon {
     margin-left: 5vw; }
-  #footerLinks {
+  #footer__links {
     flex-direction: column;
     align-items: center;
     margin-top: 1em; }
-  #footer_socialIcons {
+  .footer__socialIcons {
     width: 7vw; }
-  #footer_info {
+  #footer__info {
     width: 28vw;
     margin-top: 1em; }
-  #socialLinks {
+  #footer__socialLinks {
     width: 90%;
     margin-top: 3em; }
   .loadingContainer {
@@ -604,9 +604,9 @@
       z-index: 1;
       margin: 1em 4vw;
       width: 70vw; }
-  #landingFooter {
+  #landing__footer {
     height: 22em; }
-    #landingFooter #mailChimp {
+    #landing__footer #landing__mailChimp {
       margin-top: 2em; }
   #trustedPartners--bg {
     min-height: 30em; }
@@ -615,28 +615,28 @@
     margin-bottom: 8em; }
     #landing__build h2 {
       font-size: 1.6em; }
-  .build_section {
+  .build__section {
     margin-top: 2em;
     margin-bottom: 4em;
     flex-direction: column-reverse;
     justify-content: center;
     height: fit-content; }
-    .build_section .build_section_text {
+    .build__section .build__section__text {
       height: 14em; }
-    .build_section .build_section_content {
+    .build__section .build__section__content {
       height: 10em;
       text-align: center;
       padding: 1em;
       margin: 2em 0 0 0; }
-    .build_section .build__graphic__profiles {
+    .build__section .build__graphic__profiles {
       width: 100%;
       height: 22em;
       margin-top: 3em; }
-    .build_section .build__graphic__threeBox {
+    .build__section .build__graphic__threeBox {
       width: 100%;
       height: 13em;
       margin-top: 5em; }
-    .build_section #threeboxIllustration {
+    .build__section #threeboxIllustration {
       margin: 0;
       width: 79%; }
   #mobile__landing__prompt {
@@ -663,12 +663,12 @@
     width: 85vw;
     display: flex;
     justify-content: flex-start; }
-    #mobile__landing__prompt__logo #logo_icon {
+    #mobile__landing__prompt__logo #logo__icon {
       margin-left: 0;
       background-color: white; }
-      #mobile__landing__prompt__logo #logo_icon h2 {
+      #mobile__landing__prompt__logo #logo__icon h2 {
         color: #021333; }
-    #mobile__landing__prompt__logo #logo_text {
+    #mobile__landing__prompt__logo #logo__text {
       color: white; }
   #mobile__landing__prompt__text {
     display: flex;
@@ -694,7 +694,7 @@
     display: none; }
   #consensys {
     display: none; }
-  #profile_card_username {
+  #profileCard__username {
     margin-bottom: 1.2em;
     margin-top: 1.3em; }
   #Michael {

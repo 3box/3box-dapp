@@ -18,41 +18,41 @@ const ProfileDetails = ({ name, github, image, email }) => (
     {/* {ifFetchingThreeBox
       && (
         <div className="loadingProfile">
-          <img src={Loading} alt="loading" id="loadingProfileSpinner" />
+          <img src={Loading} alt="loading" id="loadingProfile__Spinner" />
         </div>
       )} */}
 
-    <div id="profile_fixed">
+    <div id="profile__fixed">
       <div>
-        <div id="profile_user_info">
-          <div id="profile_network" title="Network">
-            <img id="profile_network_networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
-            <p id="profile_details_address" title={address}>
+        <div id="profile__user__info">
+          <div id="profile__network" title="Network">
+            <img id="profile__network__networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
+            <p id="profile__details__address" title={address}>
               {address && address.substring(0, 8)}
               ...
             </p>
           </div>
 
           {image.length > 0
-            ? <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} id="profile_user_picture" alt="profile" />
-            : <div id="profile_user_picture" />
+            ? <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} id="profile__user__picture" alt="profile" />
+            : <div id="profile__user__picture" />
           }
           {name
-            ? <h2 id="profile_user_name">{name}</h2>
-            : <Link to={routes.EDITPROFILE}><h2 id="profile_user_name_add">Add name</h2></Link>}
+            ? <h2 id="profile__user__name">{name}</h2>
+            : <Link to={routes.EDITPROFILE}><h2 id="profile__user__name__add">Add name</h2></Link>}
 
-          <div id="profile_links">
-            <div id="profile_social" title="Github">
-              <img src={GithubIcon} id="profile_githubIcon" alt="Github Icon" />
+          <div id="profile__links">
+            <div id="profile__social" title="Github">
+              <img src={GithubIcon} id="profile__githubIcon" alt="Github Icon" />
               {github
                 && (
-                  <p id="profile_github">{github}</p>
+                  <p id="profile__github">{github}</p>
                 )
               }
             </div>
 
-            <div id="profile_private">
-              <img src={Email} id="profileFooter_email_icon" alt="Github Icon" />
+            <div id="profile__private">
+              <img src={Email} id="profileFooter__email__icon" alt="Github Icon" />
               {email
                 && (
                   <p>{email}</p>
@@ -60,7 +60,7 @@ const ProfileDetails = ({ name, github, image, email }) => (
               }
               {email
                 && (
-                  <img id="editprofile_privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
+                  <img id="editprofile__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
                 )
               }
             </div>
@@ -68,8 +68,8 @@ const ProfileDetails = ({ name, github, image, email }) => (
         </div>
       </div>
 
-      <div id="profile_footer">
-        <div id="profile_footer_contents">
+      <div id="profile__footer">
+        <div id="profile__footer__contents">
           <p>3Box 2018</p>
           <Link to={routes.TERMS}>Terms</Link>
           <Link to={routes.PRIVACY}>Privacy</Link>

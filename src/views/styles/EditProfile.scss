@@ -1,6 +1,6 @@
 @import "../../variables.scss";
 
-#edit_page {
+#edit__page {
   margin-top: 68px;
 }
 
@@ -38,7 +38,7 @@
   }
 }
 
-#edit_form {
+#edit__form {
   width: 100%;
   height: fit-content;
   display: flex;
@@ -63,14 +63,14 @@
     }
   }
 
-  #myProfile_address {
+  #myProfile__address {
     margin-left: auto;
     margin-right: 3vw;
     display: flex;
     align-items: center;
   }
 
-  #edit_profile_content {
+  #edit__profile {
     width: 100%;
     height: fit-content;
     display: flex;
@@ -85,7 +85,7 @@
     height: 100%;
   }
 
-  #edit_user_picture {
+  #edit__userPicture {
     width: 27%;
     height: 12em;
     display: flex;
@@ -150,7 +150,7 @@
     }
   }
 
-  #edit_user_public {
+  #edit__info {
     overflow: hidden;
     display: inline-block;
     flex: 3.5;
@@ -161,7 +161,7 @@
 
   }
 
-  #privateInfo {
+  #edit__privateInfo {
     display: flex;
     margin-top: 2em;
     flex-direction: column;
@@ -174,7 +174,7 @@
     justify-content: flex-start !important;
   }
 
-  #githubInfo {
+  #edit__public__githubInfo {
     margin-top: 2em;
   }
 
@@ -198,7 +198,7 @@
   background: #ebebeb;
 }
 
-#edit_cancel {
+#edit__cancel {
   margin-left: 1vw;
 }
 
@@ -305,12 +305,12 @@
   margin-left: 0;
 }
 
-#formControls {
+#edit__formControls {
   width: 100%;
   display: flex;
   align-items: center;
 
-  #formControls_content {
+  #edit__formControls__content {
     padding: 1.4em 2em;
     margin-left: auto;
   }
@@ -337,7 +337,7 @@
   }
 }
 
-#public_contents {
+#public__contents {
   display: flex;
   align-items: center;
 }
@@ -357,7 +357,7 @@
   }
 }
 
-#breadCrumb {
+#edit__breadCrumb {
   // position: fixed;
   width: 100%;
   background-color: $threeBoxBlueHueSecondary;
@@ -371,20 +371,20 @@
     margin-right: 2vw;
   }
 
-  #crumbs {
+  #edit__breadCrumb__crumbs {
     margin-left: 4vw;
     display: flex;
     align-items: center;
   }
 }
 
-#editprofile_networkLogo {
+#editprofile__networkLogo {
   height: 19px;
   margin-left: 3vw;
   margin-right: 1vw;
 }
 
-#editprofile_privateIcon {
+#editprofile__privateIcon {
   height: 22px;
   margin-right: 1vw;
   margin-left: 1vw;
@@ -402,7 +402,7 @@
   align-items: center;
 }
 
-#loadingProfileSpinner {
+#loadingProfile__Spinner {
   width: 3em;
   height: 3em;
   z-index: 1;
@@ -420,12 +420,12 @@
     margin: 0;
   }
 
-  #public_contents {
+  #public__contents {
     display: flex;
     flex-direction: column;
   }
 
-  #edit_form {
+  #edit__form {
     border-radius: 0;
     border: none;
     position: static;
@@ -437,7 +437,7 @@
     align-items: center;
   }
 
-  #edit_page {
+  #edit__page {
     width: 100%;
     border: none;
     border-radius: 0;
@@ -459,14 +459,14 @@
       }
     }
 
-    #myProfile_address {
+    #myProfile__address {
       margin-left: auto;
       margin-right: 3vw;
       display: flex;
       align-items: center;
     }
 
-    #edit_user_picture {
+    #edit__userPicture {
       width: 100%;
       height: 100%;
       display: flex;
@@ -493,7 +493,7 @@
 
     }
 
-    #edit_profile_content {
+    #edit__profile {
       width: 100%;
       height: fit-content;
       display: flex;
@@ -509,7 +509,7 @@
       height: 100%;
     }
 
-    #edit_user_public {
+    #edit__info {
       width: 90%;
       padding: 1em 3vw;
     }
@@ -525,5 +525,12 @@
     padding: 15px;
     width: 76vw;
     min-height: 300px;
+  }
+
+  #edit__formControls__content{
+    width: 40%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
   }
 }

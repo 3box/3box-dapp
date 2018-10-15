@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center; }
 
-#logo_icon {
+#logo__icon {
   width: 28px;
   height: 28px;
   border-radius: 4px;
@@ -12,19 +12,19 @@
   display: flex;
   align-items: center;
   justify-content: center; }
-  #logo_icon h2 {
+  #logo__icon h2 {
     color: white;
     font-size: 1.5em !important;
     font-weight: 700; }
 
-#logo_text {
+#logo__text {
   display: inline-block;
   color: #006ECC;
   margin: 0;
   margin-left: .37em;
   font-size: 1.5em !important; }
 
-#logo_icon_white {
+#logo__icon__white {
   width: 28px;
   height: 28px;
   border-radius: 4px;
@@ -33,12 +33,12 @@
   display: flex;
   align-items: center;
   justify-content: center; }
-  #logo_icon_white h2 {
+  #logo__icon__white h2 {
     color: #021333;
     font-size: 22px !important;
     font-weight: 700; }
 
-#logo_text_white {
+#logo__text__white {
   display: inline-block;
   color: white;
   margin: 0;

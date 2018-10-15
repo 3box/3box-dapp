@@ -1,12 +1,12 @@
 @import "../../variables.scss";
 
-.info_page {
+.info__page {
   display: flex;
   flex-direction: column;
   margin-top: 68px;
 }
 
-.info_banner {
+.info__banner {
   width: 100vw;
   height: 14em;
   background-color: $threeBoxBlue;
@@ -19,12 +19,12 @@
   }
 }
 
-.info_content {
+.info__content {
   display: flex;
   justify-content: center;
 }
 
-.info_content_text {
+.info__content__text {
   width: 50vw;
   display: flex;
   justify-content: flex-start;

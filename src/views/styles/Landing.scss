@@ -285,7 +285,7 @@
   overflow: hidden;
 }
 
-.build_section {
+.build__section {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -293,7 +293,7 @@
   margin-top: 2em;
 }
 
-.build_section_text {
+.build__section__text {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -302,7 +302,7 @@
 
 }
 
-.build_section_content {
+.build__section__content {
   display: flex;
   flex-direction: column;
   align-items: left;
@@ -489,7 +489,7 @@
   align-items: center;
 }
 
-#landingFooter {
+#landing__footer {
   // position: absolute;
   width: 100%;
   height: 30em;
@@ -523,7 +523,7 @@
     align-items: center;
   }
 
-  #mailChimp {
+  #landing__mailChimp {
     display: flex;
     align-items: center;
     z-index: 1;
@@ -570,32 +570,32 @@
   }
 }
 
-#footerLinks {
+#footer__links {
   z-index: 1;
   display: flex;
   width: 60vw;
   justify-content: space-between;
   margin-top: 12.5em;
 
-  #scaleLogo {
+  #footer__scaleLogo {
     zoom: 1.5;
     -moz-transform: scale(1.5);
     // opacity: .7;
 
-    #logo_icon {
+    #logo__icon {
       margin-left: 0;
     }
   }
 }
 
-#socialLinks {
+#footer__socialLinks {
   display: flex;
   align-content: center;
   justify-content: space-between;
   width: 35%;
 }
 
-#footer_bg {
+#footer__bg {
   min-width: 100%;
   position: absolute;
   bottom: 0;
@@ -603,7 +603,7 @@
   overflow: hidden;
 }
 
-#footer_info {
+#footer__info {
   z-index: 1;
   display: flex;
   width: 10vw;
@@ -615,7 +615,7 @@
   }
 }
 
-#footer_socialIcons {
+.footer__socialIcons {
   width: 2vw;
   z-index: 1;
   // opacity: .7;
@@ -641,26 +641,26 @@
     display: none;
   }
 
-  #logo_icon {
+  #logo__icon {
     margin-left: 5vw;
   }
 
-  #footerLinks {
+  #footer__links {
     flex-direction: column;
     align-items: center;
     margin-top: 1em;
   }
 
-  #footer_socialIcons {
+  .footer__socialIcons {
     width: 7vw;
   }
 
-  #footer_info {
+  #footer__info {
     width: 28vw;
     margin-top: 1em;
   }
 
-  #socialLinks {
+  #footer__socialLinks {
     width: 90%;
     margin-top: 3em;
   }
@@ -816,9 +816,9 @@
 
   }
 
-  #landingFooter {
+  #landing__footer {
     height: 22em;
-    #mailChimp{
+    #landing__mailChimp{
       margin-top: 2em;
     }
   }
@@ -836,19 +836,19 @@
     }
   }
 
-  .build_section {
+  .build__section {
     margin-top: 2em;
     margin-bottom: 4em;
     flex-direction: column-reverse;
     justify-content: center;
     height: fit-content;
 
-    .build_section_text {
+    .build__section__text {
       height: 14em;
 
     }
 
-    .build_section_content {
+    .build__section__content {
       height: 10em;
       text-align: center;
       padding: 1em;
@@ -907,7 +907,7 @@
     display: flex;
     justify-content: flex-start;
 
-    #logo_icon {
+    #logo__icon {
       margin-left: 0;
 
       background-color: white;
@@ -917,7 +917,7 @@
       }
     }
 
-    #logo_text{
+    #logo__text{
       color: white;
     }
   }
@@ -960,7 +960,7 @@
     display: none;
   }
 
-  #profile_card_username {
+  #profileCard__username {
     margin-bottom: 1.2em;
     margin-top: 1.3em;
   }

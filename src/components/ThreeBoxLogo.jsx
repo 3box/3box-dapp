@@ -5,10 +5,10 @@ import './styles/ThreeBoxLogo.css';
 const ThreeBoxLogo = () => (
   <Link to="/">
     <div id="logo">
-      <div id="logo_icon">
+      <div id="logo__icon">
         <h2>3</h2>
       </div>
-      <h2 id="logo_text"> BOX </h2>
+      <h2 id="logo__text"> BOX </h2>
     </div>
   </Link>
 );

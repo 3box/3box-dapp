@@ -4,13 +4,13 @@ import './styles/ProfileCard.css';
 
 const ProfileCardSmall = () => (
   <div className="profileCardSmall">
-    <img src={Michael} className="profileCardSmall_user_picture" alt="profile" />
-    <div className="profileCard_user_info">
+    <img src={Michael} className="profileCardSmall__user__picture" alt="profile" />
+    <div className="profileCard__user__info">
     
-      <h4 className="profileCardSmall_user_name">Joseph Lubin</h4>
+      <h4 className="profileCardSmall__user__name">Joseph Lubin</h4>
 
-      <div id="profile_network_icon" />
-      <p className="profileCardSmall_address">0x123456789</p>
+      <div id="profile__network__icon" />
+      <p className="profileCardSmall__address">0x123456789</p>
     </div>
   </div>
 );

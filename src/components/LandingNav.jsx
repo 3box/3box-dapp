@@ -5,7 +5,7 @@ import ThreeBoxLogo from './ThreeBoxLogo.jsx';
 import './styles/Nav.css';
 
 const LandingNav = ({ handleSignInUp, classHide }) => (
-  <nav id="landingNav" className={classHide}>
+  <nav id="landing__nav" className={classHide}>
     <ThreeBoxLogo />
 
     <div id="actionButtons">

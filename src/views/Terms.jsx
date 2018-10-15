@@ -3,14 +3,14 @@ import React from 'react';
 import './styles/Info.css';
 
 const Terms = () => (
-  <div className="info_page">
+  <div className="info__page">
 
-    <div className="info_banner">
+    <div className="info__banner">
       <h1>Terms & Conditions</h1>
     </div>
 
-    <div className="info_content">
-      <div className="info_content_text">
+    <div className="info__content">
+      <div className="info__content__text">
         <h3>THIS IS THE ALPHA VERSION OF THE 3BOX PLATFORM WHICH IS STILL UNDERGOING TESTING BEFORE ITS OFFICIAL RELEASE. THE INFORMATION AVAILABLE IS NOT INTENDED TO BE RELIED ON OR USED IN A PRODUCTION ENVIRONMENT. YOU ACKNOWLEDGE AND ACCEPT THAT THE SITE AND SERVICES (A) MAY CONTAIN BUGS, ERRORS, AND DEFECTS, (B) MAY FUNCTION IMPROPERLY OR BE SUBJECT TO PERIODS OF DOWNTIME AND UNAVAILABILITY, (C) MAY RESULT IN TOTAL OR PARTIAL LOSS OR CORRUPTION OF DATA USED IN THE Site and Services, AND (D) MAY BE MODIFIED AT ANY TIME, INCLUDING THROUGH THE RELEASE OF SUBSEQUENT VERSIONS, ALL WITH OR WITHOUT NOTICE. THE ALPHA PLATFORM IS AVAILABLE ON AN “AS IS” AND “AS AVAILABLE” BASIS FOR THE SOLE PURPOSE OF COLLECTING FEEDBACK ON QUALITY, USABILITY, PERFORMANCE AND ANY DEFECTS. THANK YOU FOR YOUR SUPPORT WHILE WE CONTINUE TO WORK ON DELIVERING A PERFECT PRODUCT. </h3>
         <p>
           Welcome to ConsenSys AG’s 3Box (“3Box”, “Company”, “we”, “our”, or “us”). 3Box provides a distributed database infrastructure which allows people to publicly and selectively share their content and information over the Ethereum network between different decentralized apps (“dapps”), thus powering the next wave of highly usable dapps. These terms of use (“Terms” or “Terms of Use”) govern your use of the website located at https://3box.io (the “Site”), platform, and all related tools, applications, data, software, and other services provided by us (the “Service”). Certain features of the Site and Services may be subject to additional guidelines, terms, or rules, which will be posted on the Site in connection with such features.  All such additional terms, guidelines, and rules are incorporated by reference into these Terms and constitute a legally binding agreement between you and Company in relation to your use of the Service. Any personal information submitted in connection with your use of the Service is subject to our Privacy Policy, which is hereby incorporated by reference into these Terms.

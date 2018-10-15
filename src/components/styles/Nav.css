@@ -13,10 +13,10 @@ nav {
   nav p {
     color: #006ECC; }
 
-.mobileLogo {
+.nav__dropdown__mobileLogo {
   display: none; }
 
-#header_user_picture {
+#nav__userPicture {
   background-image: linear-gradient(#d3d3d3, #eeeeee);
   border-radius: 100%;
   width: 40px;
@@ -26,7 +26,7 @@ nav {
   cursor: pointer;
   object-fit: cover; }
 
-.dropdown {
+.nav__dropdown {
   transition: transform ease 0.9s, opacity ease 0.1s;
   transform: translateY(-4px);
   position: absolute;
@@ -39,20 +39,20 @@ nav {
   border-radius: 5px;
   border: 1px solid #E4E4E4;
   box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #00000025; }
-  .dropdown ul {
+  .nav__dropdown ul {
     padding: 0; }
-  .dropdown li {
+  .nav__dropdown li {
     font-size: 1em;
     padding-left: 1.3em;
     color: #6b6b6b;
     line-height: 2.5em;
     font-weight: 400; }
-  .dropdown li:hover {
+  .nav__dropdown li:hover {
     background: #f9f9f9; }
-  .dropdown div {
+  .nav__dropdown div {
     line-height: 0; }
 
-.divide {
+.nav__divide {
   border-top: 1px solid #CBCBCB;
   margin-top: 14px;
   margin-bottom: 14px;
@@ -69,7 +69,7 @@ nav {
     margin-right: 2vw;
     cursor: pointer; }
 
-#landingNav {
+#landing__nav {
   position: fixed;
   height: 88px;
   width: 100vw;
@@ -89,12 +89,12 @@ nav {
   -o-transition: all .5s ease;
   transition: all .5s ease; }
 
-#reportBug {
+#nav__reportBug {
   background-color: #f5f6f8;
   padding: .4em 1.3em;
   color: #b1b1b1; }
 
-#divideBug {
+#nav__divideBug {
   border-top: 1px solid #CBCBCB;
   margin-top: 14px;
   margin-bottom: 0;
@@ -122,12 +122,12 @@ nav {
     -moz-transition: all .5s ease;
     -o-transition: all .5s ease;
     transition: all .5s ease; }
-  .dropdown {
+  .nav__dropdown {
     display: block !important;
     position: fixed;
     top: 0;
     left: 0;
-    width: 40%;
+    width: 60%;
     max-width: 400px;
     height: 100vh;
     padding: 1em 0 0 0;
@@ -140,7 +140,9 @@ nav {
     z-index: 99999;
     transform: translateX(-100%);
     transition: transform .3s ease-out; }
-  .dropdown.sideDrawer {
+    .nav__dropdown li {
+      line-height: 4.5em; }
+  .nav__dropdown.sideDrawer {
     transform: translateX(0);
     box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #00000025; }
   #dropdownContainer {
@@ -153,13 +155,13 @@ nav {
     background: rgba(0, 0, 0, 0.76);
     z-index: 99998;
     transition: all .3s ease-out; }
-  #reportBug {
+  #nav__reportBug {
     border-top: none;
     background: none;
     padding: 0 1.3em; }
   #mobileNav__signout {
     color: #b1b1b1; }
-  .mobileLogo {
+  .nav__dropdown__mobileLogo {
     display: flex;
     justify-content: flex-start;
     margin: 4px 0 40px; }
