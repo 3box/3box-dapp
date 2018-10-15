@@ -217,6 +217,10 @@
     font-weight: 500;
     font-size: 1em; }
 
+@media only screen and (max-width: 1170px) {
+  #feed {
+    left: 270px; } }
+
 @media only screen and (max-width: 600px) {
   #feed {
     padding: 0;

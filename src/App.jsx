@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as routes from './utils/routes';
+import address from './utils/address';
 import Nav from './components/Nav.js';
 import Landing from './views/Landing.jsx';
 import Profile from './views/Profile.jsx';
 import EditProfile from './views/EditProfile.jsx';
 import Privacy from './views/Privacy.jsx';
 import Terms from './views/Terms.jsx';
-import { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail, getActivity, checkForMetaMask, closeRequireMetaMask } from './state/actions';
+import { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail, getActivity, checkForMetaMask, checkNetworkAndAddress, closeDifferentNetwork } from './state/actions';
 
 class App extends Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class App extends Component {
   }
 
   async loadData() {
+    await this.props.checkNetworkAndAddress();
     await this.props.openBox();
     await this.props.getActivity();
     await this.props.getPublicName();
@@ -43,6 +45,26 @@ class App extends Component {
       <Router basename={routes.LANDING}>
         <div className="App">
           <Nav />
+
+          {this.props.showDifferentNetworkModal
+            && (
+              <div className="loadingContainer">
+                <div className="differentNetwork__modal">
+                  <h4>
+                    You've switched Ethereum networks
+                  </h4>
+                  <p>
+                    {`Revert back to the
+                      ${this.props.prevNetwork}
+                      network you signed in with`}
+                    <br />
+                    {`or sign out and sign back in with the current
+                      ${this.props.currentNetwork} network`}
+                  </p>
+                  <button onClick={this.props.closeDifferentNetwork} type="button" className="tertiaryButton" id="closeModal">close</button>
+                </div>
+              </div>)}
+
           <Switch>
             <Route exact path={routes.LANDING} component={Landing} />
             <Route exact path={routes.PROFILE} component={Profile} />
@@ -64,10 +86,14 @@ App.propTypes = {
   getPrivateEmail: PropTypes.func,
   getActivity: PropTypes.func,
   checkForMetaMask: PropTypes.func,
-  closeRequireMetaMask: PropTypes.func,
+  closeDifferentNetwork: PropTypes.func,
+  checkNetworkAndAddress: PropTypes.func,
 
   location: PropTypes.object,
   hasWallet: PropTypes.bool,
+  showDifferentNetworkModal: PropTypes.bool,
+  prevNetwork: PropTypes.string,
+  currentNetwork: PropTypes.string,
 };
 
 App.defaultProps = {
@@ -78,16 +104,23 @@ App.defaultProps = {
   getPrivateEmail: getPrivateEmail(),
   getActivity: getActivity(),
   checkForMetaMask: checkForMetaMask(),
-  closeRequireMetaMask: closeRequireMetaMask(),
+  closeDifferentNetwork: closeDifferentNetwork(),
+  checkNetworkAndAddress: checkNetworkAndAddress(),
   location: {},
   hasWallet: true,
+  showDifferentNetworkModal: false,
+  prevNetwork: '',
+  currentNetwork: '',
 };
 
 const mapState = state => ({
   hasWallet: state.threeBox.hasWallet,
+  showDifferentNetworkModal: state.threeBox.showDifferentNetworkModal,
+  prevNetwork: state.threeBox.prevNetwork,
+  currentNetwork: state.threeBox.currentNetwork,
 });
 
 export default withRouter(connect(mapState,
   {
-    openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail, getActivity, checkForMetaMask, closeRequireMetaMask,
+    openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail, getActivity, checkForMetaMask, checkNetworkAndAddress, closeDifferentNetwork,
   })(App));

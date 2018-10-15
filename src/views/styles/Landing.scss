@@ -706,6 +706,22 @@
     min-height: 300px;
   }
 
+  .differentNetwork__modal {
+    position: absolute;
+    left: 50%;
+    top: 15%;
+    background: white;
+    border: solid 1px #e8e8e8;
+    border-radius: 6px;
+    padding: 15px;
+    width: 76vw;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   #landing__splash {
     margin: 5em 0 6em 0;
     height: fit-content;
@@ -818,7 +834,8 @@
 
   #landing__footer {
     height: 22em;
-    #landing__mailChimp{
+
+    #landing__mailChimp {
       margin-top: 2em;
     }
   }
@@ -917,7 +934,7 @@
       }
     }
 
-    #logo__text{
+    #logo__text {
       color: white;
     }
   }

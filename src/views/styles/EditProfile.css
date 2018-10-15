@@ -176,6 +176,23 @@
   .loadingContainer img {
     width: 100px; }
 
+.differentNetwork__modal {
+  position: absolute;
+  background: white;
+  border: solid 1px #e8e8e8;
+  border-radius: 6px;
+  padding: 15px;
+  width: 500px;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center; }
+  .differentNetwork__modal p {
+    margin-top: 1em;
+    line-height: 20px; }
+
 .modal {
   position: absolute;
   left: 50%;

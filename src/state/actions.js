@@ -7,7 +7,7 @@ import {
 } from './store';
 
 export const checkForMetaMask = () => async (dispatch) => {
-  const cp = window.web3 ? window.web3.currentProvider.cp : null;
+  const cp = web3 ? web3.currentProvider.cp : null; // eslint-disable-line no-undef
 
   const isToshi = cp ? !!cp.isToshi : false;
   const isCipher = cp ? !!cp.isCipher : false;
@@ -22,14 +22,72 @@ export const checkForMetaMask = () => async (dispatch) => {
     currentWallet = 'isMetaMask';
   }
 
-  // const version = window.web3 && window.web3.version.network;
-  // window.web3 && window.web3.eth && window.web3.eth.net && window.web3.eth.net.getNetworkType()
-  //   .then(console.log);
-
   await dispatch({
     type: 'CHECK_WALLET',
     hasWallet: typeof web3 !== 'undefined',
     currentWallet,
+  });
+};
+
+export const checkNetworkAndAddress = () => async (dispatch) => {
+  const checkNetwork = new Promise((resolve) => {
+    window.web3.version.getNetwork((err, netId) => {
+      switch (netId) {
+        case '1':
+          resolve('Mainnet');
+          break;
+        case '2':
+          resolve('Morder');
+          break;
+        case '3':
+          resolve('Ropsten');
+          break;
+        case '4':
+          resolve('Rinkeby');
+          break;
+        case '42':
+          resolve('Kovan');
+          break;
+        default:
+          resolve('Unknown');
+      }
+    });
+  });
+
+  // check network, compatible with bold old & new MetaMask
+  let currentNetwork;
+  if (web3.eth.net) { // eslint-disable-line no-undef
+    await web3.eth.net.getNetworkType() // eslint-disable-line no-undef
+      .then((network) => {
+        currentNetwork = network;
+      });
+  } else {
+    await checkNetwork.then((network) => {
+      currentNetwork = network;
+    });
+  }
+
+  const prevNetwork = window.localStorage.currentNetwork;
+  if (prevNetwork && (prevNetwork !== currentNetwork)) {
+    await dispatch({
+      type: 'DIFFERENT_NETWORK',
+      currentNetwork,
+      prevNetwork,
+    });
+  }
+
+  window.localStorage.setItem('currentNetwork', currentNetwork);
+
+  await dispatch({
+    type: 'CHECK_NETWORK_AND_ADDRESS',
+    currentNetwork,
+  });
+};
+
+export const closeDifferentNetwork = () => (dispatch) => {
+  dispatch({
+    type: 'CLOSE_DIFFERENT_NETWORK_MODAL',
+    showDifferentNetworkModal: false,
   });
 };
 
@@ -54,8 +112,7 @@ export const signInUp = () => async (dispatch) => {
     type: 'PROVIDE_CONSENT',
   });
 
-  const consentGiven = (value) => {
-    console.log(value);
+  const consentGiven = () => {
     dispatch({
       type: 'LOADING_3BOX',
     });

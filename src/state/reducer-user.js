@@ -7,6 +7,20 @@ const threeBoxReducer = (state = {}, action) => {
         currentWallet: action.currentWallet,
       };
 
+    case 'DIFFERENT_NETWORK':
+      return {
+        ...state,
+        currentNetwork: action.currentNetwork,
+        prevNetwork: action.prevNetwork,
+        showDifferentNetworkModal: true,
+      };
+
+    case 'CHECK_NETWORK_AND_ADDRESS':
+      return {
+        ...state,
+        currentNetwork: action.currentNetwork,
+      };
+
     case 'REQUIRE_METAMASK':
       return {
         ...state,
@@ -92,6 +106,12 @@ const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         provideConsent: false,
+      };
+
+    case 'CLOSE_DIFFERENT_NETWORK_MODAL':
+      return {
+        ...state,
+        showDifferentNetworkModal: false,
       };
 
     case 'LOADING_ACTIVITY':
