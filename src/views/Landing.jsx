@@ -77,6 +77,8 @@ class Landing extends Component {
       return <Redirect to="/Profile" />;
     }
 
+    console.log('Error: MetaMask Message Signature: from field is required.'.length)
+
     return (
       <div id="landing">
         <LandingNav handleSignInUp={this.handleSignInUp} classHide={classHide} />
@@ -115,7 +117,10 @@ class Landing extends Component {
             <div className="loadingContainer">
               <div className="modal">
                 <div id="consentError">
-                  <h4>{errorMessage}</h4>
+                  <h4>{errorMessage.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.' 
+                    ? 'Please sign in to MetaMask to continue'
+                    : errorMessage
+                  }</h4>
                 </div>
                 <button onClick={this.props.closeErrorModal} type="button" className="tertiaryButton" id="closeModal">close</button>
               </div>
