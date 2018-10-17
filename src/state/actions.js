@@ -54,7 +54,7 @@ export const checkNetworkAndAddress = () => async (dispatch) => {
     });
   });
 
-  // check network, compatible with bold old & new MetaMask
+  // check network, compatible with old & new v of MetaMask
   let currentNetwork;
   if (web3.eth.net) { // eslint-disable-line no-undef
     await web3.eth.net.getNetworkType() // eslint-disable-line no-undef
