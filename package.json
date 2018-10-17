@@ -8,6 +8,7 @@
     "3box-activity": "0.0.6",
     "@babel/polyfill": "^7.0.0",
     "babel-preset-env": "^1.7.0",
+    "history": "^4.7.2",
     "prop-types": "^15.6.1",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",

@@ -1,5 +1,5 @@
 import {
-  address
+  address,
 } from '../utils/address';
 
 import {
@@ -338,5 +338,12 @@ export const closeConsentModal = () => async (dispatch) => {
   dispatch({
     type: 'CLOSE_CONSENT_MODAL',
     provideConsent: false,
+  });
+};
+
+export const showLoggedOutModal = () => async (dispatch) => {
+  dispatch({
+    type: 'SHOW_LOGGEDOUT_MODAL',
+    loggedOutModal: !store.getState().threeBox.loggedOutModal,
   });
 };
