@@ -57,7 +57,7 @@ button {
     transition: background-color .8s ease; }
 
 .tertiaryButton {
-  background: transparent;
+  background: transparent !important;
   border: solid 1px #7a7a7a;
   color: #7a7a7a;
   box-shadow: none;
@@ -148,3 +148,6 @@ ul {
 
 .thin {
   font-weight: 300; }
+
+.differentNetwork__modal button {
+  margin-top: 40px; }

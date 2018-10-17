@@ -1,3 +1,7 @@
+import {
+  store,
+} from './store';
+
 const threeBoxReducer = (state = {}, action) => {
   switch (action.type) {
     case 'CHECK_WALLET':
@@ -13,6 +17,7 @@ const threeBoxReducer = (state = {}, action) => {
         currentNetwork: action.currentNetwork,
         prevNetwork: action.prevNetwork,
         showDifferentNetworkModal: true,
+        ifFetchingThreeBox: false,
       };
 
     case 'CHECK_NETWORK_AND_ADDRESS':
@@ -132,6 +137,20 @@ const threeBoxReducer = (state = {}, action) => {
         ...state,
         feedByAddress: [],
         ifFetchingActivity: false,
+      };
+
+    case 'SHOW_LOGGEDOUT_MODAL':
+      return {
+        ...state,
+        loggedOutModal: action.loggedOutModal,
+        ifFetchingThreeBox: false,
+      };
+
+    case 'SHOW_SWITCHED_ADDRESS_MODAL':
+      return {
+        ...state,
+        switchedAddressModal: action.switchedAddressModal,
+        ifFetchingThreeBox: false,
       };
 
     default:

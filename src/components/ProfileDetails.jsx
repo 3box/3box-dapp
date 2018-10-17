@@ -33,7 +33,7 @@ const ProfileDetails = ({ name, github, image, email }) => (
             </p>
           </div>
 
-          {image.length > 0
+          {image.length > 0 && image[0].contentUrl
             ? <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} id="profile__user__picture" alt="profile" />
             : <div id="profile__user__picture" />
           }

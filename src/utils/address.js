@@ -1,5 +1,53 @@
-// export const address = '0xc64a84cc17ccfd0a5d53d443d4861092c320c471';
-// export const address = '0xfdc48ba2507cbac7243c5598d7e5cc35c6e8b1d8';
-// export const address = '0x2a906694d15df38f59e76ed3a5735f8aabcce9cb';
-export const address = typeof web3 !== 'undefined' ? web3.eth.accounts[0] : ''; // eslint-disable-line no-undef
-export { address as default };
+import {
+  store,
+} from '../state/store';
+
+import history from '../history';
+
+export let address = typeof web3 !== 'undefined' ? web3.eth.accounts[0] : ''; // eslint-disable-line no-undef
+
+const checkAddress = setInterval(() => {
+  const currentAddress = web3.eth.accounts[0]; // eslint-disable-line no-undef
+
+  // Logged out
+  if (currentAddress !== address && currentAddress === undefined) {
+    clearInterval(checkAddress);
+    store.dispatch({
+      type: 'SHOW_LOGGEDOUT_MODAL',
+      loggedOutModal: true,
+    });
+  }
+
+  // Switched address
+  if (currentAddress !== address && typeof currentAddress === 'string' && address !== undefined) {
+    // window.location.reload();
+    clearInterval(checkAddress);
+    store.dispatch({
+      type: 'SHOW_SWITCHED_ADDRESS_MODAL',
+      switchedAddressModal: true,
+    });
+  }
+
+  // Logged in to MM
+  if (currentAddress !== address && typeof currentAddress === 'string' && address === undefined) {
+    clearInterval(checkAddress);
+    window.location.reload();
+  }
+}, 1000);
+
+export {
+  address as
+  default,
+};
+
+// const checkAddress = setInterval(() => {
+//   if (web3.eth.accounts[0] !== address) { // eslint-disable-line no-undef
+//     clearInterval(checkAddress);
+//     window.location.reload();
+//     history.push({
+//       pathname: '/',
+//     });
+//     console.log('logged out');
+//   }
+//   console.log(web3.eth.accounts[0]); // eslint-disable-line no-undef
+// }, 1000);

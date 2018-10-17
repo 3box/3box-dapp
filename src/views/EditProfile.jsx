@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import { address } from '../utils/address'
 import { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail, getActivity } from '../state/actions';
+import history from '../history';
 import * as routes from '../utils/routes';
 import EthereumLogo from '../assets/Ethereum_logo_2014.svg';
 import Private from '../assets/Private.svg';
@@ -55,7 +56,7 @@ class EditProfile extends Component {
 
   async handleSubmit(e) {
     const { name, github, email, removeUserPic, buffer, editPic } = this.state;
-    const { history, box } = this.props;
+    const { box } = this.props;
 
     // start loading animation
     e.preventDefault();
@@ -149,7 +150,7 @@ class EditProfile extends Component {
                   <label htmlFor="fileInput" id="chooseFile">
                     <input id="fileInput" type="file" name="pic" className="light" accept="image/*" onChange={e => this.handleUpdatePic(e.target.files[0])} ref={ref => this.fileUpload = ref} />
                     <img src={AddImage} alt="profile" id="addImage" />
-                    {((image.length > 0 || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])) && !removeUserPic)
+                    {(((image.length > 0 && image[0].contentUrl) || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])) && !removeUserPic)
                       ? <div className="profPic_div">
                         <div className="profPic_div_overlay">
                           <p>Change picture</p>
@@ -232,7 +233,6 @@ EditProfile.propTypes = {
   email: PropTypes.string,
   image: PropTypes.array,
   openBox: PropTypes.func,
-  history: PropTypes.object,
   ifFetchingThreeBox: PropTypes.bool,
 
   getPublicName: PropTypes.func,
@@ -248,7 +248,6 @@ EditProfile.defaultProps = {
   github: '',
   email: '',
   image: [],
-  history: {},
   ifFetchingThreeBox: false,
 
   openBox: openBox(),

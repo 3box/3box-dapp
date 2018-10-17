@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { withRouter, Redirect } from 'react-router-dom';
 
 import { signInUp, closeErrorModal, closeConsentModal, requireMetaMask, closeRequireMetaMask } from '../state/actions';
-import { address } from '../utils/address';
 import ThreeBoxLogo from '../components/ThreeBoxLogo.jsx';
 import ProfileCard from '../components/ProfileCard.jsx';
 import LandingFooter from '../components/LandingFooter.jsx';
@@ -24,9 +23,6 @@ import TrustWallet from '../assets/TrustWallet.png';
 import consensys from '../assets/consensys.png';
 import './styles/Landing.css';
 import '../components/styles/ProfileCard.css';
-// import Gitcoin from '../assets/gitcoin.svg';
-// import Coinbase from '../assets/coinbase.svg';
-// import Metamask from '../assets/metamask.svg';
 
 class Landing extends Component {
   constructor(props) {
@@ -70,14 +66,12 @@ class Landing extends Component {
     const { showMobileWalletPrompt } = this.state;
 
     const { userAgent: ua } = navigator
-    const isIOS = ua.includes('iPhone') // “iPhone OS”
+    const isIOS = ua.includes('iPhone')
     // const isAndroid = ua.includes('Android')
 
     if (signUpSuccessful) {
       return <Redirect to="/Profile" />;
     }
-
-    console.log('Error: MetaMask Message Signature: from field is required.'.length)
 
     return (
       <div id="landing">
@@ -117,7 +111,7 @@ class Landing extends Component {
             <div className="loadingContainer">
               <div className="modal">
                 <div id="consentError">
-                  <h4>{errorMessage.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.' 
+                  <h4>{errorMessage.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.'
                     ? 'Please sign in to MetaMask to continue'
                     : errorMessage
                   }</h4>
