@@ -55,7 +55,7 @@ class Landing extends Component {
     console.log(hasWallet);
     // localStorage.setItem(`serializedMuDID_${address}`, null);
     if (hasWallet) {
-      // await this.props.signInUp();
+      await this.props.signInUp();
     } else {
       this.props.requireMetaMask();
     }
