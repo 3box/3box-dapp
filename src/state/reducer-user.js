@@ -1,3 +1,7 @@
+import {
+  store,
+} from './store';
+
 const threeBoxReducer = (state = {}, action) => {
   switch (action.type) {
     case 'CHECK_WALLET':
@@ -132,6 +136,12 @@ const threeBoxReducer = (state = {}, action) => {
         ...state,
         feedByAddress: [],
         ifFetchingActivity: false,
+      };
+
+    case 'SHOW_LOGGEDOUT_MODAL':
+      return {
+        ...state,
+        loggedOutModal: action.loggedOutModal,
       };
 
     default:

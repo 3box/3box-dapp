@@ -1,9 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import * as routes from '../utils/routes';
 import './styles/ThreeBoxLogo.css';
 
 const ThreeBoxLogo = () => (
-  <Link to="/">
+  <Link to={routes.LANDING}>
     <div id="logo">
       <div id="logo__icon">
         <h2>3</h2>
@@ -13,4 +14,4 @@ const ThreeBoxLogo = () => (
   </Link>
 );
 
-export default ThreeBoxLogo;
+export default withRouter(ThreeBoxLogo);

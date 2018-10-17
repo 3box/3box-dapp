@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import * as routes from '../utils/routes';
 import './styles/ThreeBoxLogo.css';
 
 const ThreeBoxLogoWhite = () => (
-  <Link to="/">
+  <Link to={routes.LANDING}>
     <div id="logo">
       <div id="logo__icon__white">
         <h2>3</h2>
