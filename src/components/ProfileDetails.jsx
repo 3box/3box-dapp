@@ -10,17 +10,9 @@ import GithubIcon from '../assets/GithubIcon.svg';
 import Private from '../assets/Private.svg';
 import Email from '../assets/Email.svg';
 import '../views/styles/Profile.css';
-// import Loading from '../assets/Loading.svg';
 
 const ProfileDetails = ({ name, github, image, email }) => (
   <div id="profile">
-
-    {/* {ifFetchingThreeBox
-      && (
-        <div className="loadingProfile">
-          <img src={Loading} alt="loading" id="loadingProfile__Spinner" />
-        </div>
-      )} */}
 
     <div id="profile__fixed">
       <div>

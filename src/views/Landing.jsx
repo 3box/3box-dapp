@@ -7,8 +7,6 @@ import { signInUp, closeErrorModal, closeConsentModal, requireMetaMask, closeReq
 import ThreeBoxLogo from '../components/ThreeBoxLogo.jsx';
 import ProfileCard from '../components/ProfileCard.jsx';
 import LandingFooter from '../components/LandingFooter.jsx';
-import LandingNav from '../components/LandingNav.jsx';
-import address from '../utils/address';
 import Loading from '../assets/Loading.svg';
 import illustration from '../assets/Dapp.svg';
 import Cristobal from '../assets/Cristobal.png';
@@ -22,8 +20,10 @@ import getCoinbaseWallet from '../assets/getCoinbaseWallet.svg';
 import Status from '../assets/Status.png';
 import TrustWallet from '../assets/TrustWallet.png';
 import consensys from '../assets/consensys.png';
+// import address from '../utils/address';
 import './styles/Landing.css';
 import '../components/styles/ProfileCard.css';
+import '../components/styles/Nav.css';
 
 class Landing extends Component {
   constructor(props) {
@@ -52,7 +52,6 @@ class Landing extends Component {
 
   async handleSignInUp() {
     const { hasWallet } = this.props;
-    console.log(hasWallet);
     // localStorage.setItem(`serializedMuDID_${address}`, null);
     if (hasWallet) {
       await this.props.signInUp();
@@ -77,7 +76,16 @@ class Landing extends Component {
 
     return (
       <div id="landing">
-        <LandingNav handleSignInUp={this.handleSignInUp} classHide={classHide} />
+
+        <nav id="landing__nav" className={classHide}>
+          <ThreeBoxLogo />
+          <div id="actionButtons">
+            <p onClick={this.handleSignInUp}>Sign in</p>
+            <button onClick={this.handleSignInUp} className="secondaryButton" type="button">
+              Create profile
+            </button>
+          </div>
+        </nav>
 
         {provideConsent
           && (
