@@ -39,6 +39,8 @@ class App extends Component {
     if ((pathname === '/Profile' || pathname === '/EditProfile') && web3) { // eslint-disable-line no-undef
       this.loadData();
     }
+
+    console.log(localStorage);
   }
 
   async loadData() {

@@ -8,6 +8,7 @@ import ThreeBoxLogo from '../components/ThreeBoxLogo.jsx';
 import ProfileCard from '../components/ProfileCard.jsx';
 import LandingFooter from '../components/LandingFooter.jsx';
 import LandingNav from '../components/LandingNav.jsx';
+import address from '../utils/address';
 import Loading from '../assets/Loading.svg';
 import illustration from '../assets/Dapp.svg';
 import Cristobal from '../assets/Cristobal.png';
@@ -51,7 +52,7 @@ class Landing extends Component {
 
   async handleSignInUp() {
     const { hasWallet } = this.props;
-    // localStorage.setItem(`serializedMuDID_${address}`, null);
+    localStorage.setItem(`serializedMuDID_${address}`, null);
     if (hasWallet) {
       await this.props.signInUp();
     } else {

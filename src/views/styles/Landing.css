@@ -124,7 +124,7 @@
   align-items: center;
   flex-direction: column; }
   .consentModal img {
-    width: 300px;
+    width: 300px !important;
     margin-bottom: 120px; }
 
 @keyframes moveHorizontal {

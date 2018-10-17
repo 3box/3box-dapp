@@ -10,6 +10,8 @@ import Delete from '../assets/Delete.svg';
 import './styles/Feed.css';
 // import address from '../utils/address';
 
+const me = null;
+
 const FeedTileTXS = ({ item, isEven }) => (
   <div className={`feed__activity___data ${isEven ? 'darkFeed' : 'lightFeed'}`}>
     <div className="feed__activity__address__dataType">
@@ -36,7 +38,7 @@ const FeedTileTXS = ({ item, isEven }) => (
         : item.dataType === 'Private'
           ? '*****'
           : typeof item.value === 'object'
-            ? `${Object.keys(item.value)[0]}...`
+            ? `${me ? Object.keys(me)[0] : 'Undefined'}...`
             : item.value}
     </p>
     <p className="feed__activity__address__time">
