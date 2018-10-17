@@ -17,6 +17,7 @@ const threeBoxReducer = (state = {}, action) => {
         currentNetwork: action.currentNetwork,
         prevNetwork: action.prevNetwork,
         showDifferentNetworkModal: true,
+        ifFetchingThreeBox: false,
       };
 
     case 'CHECK_NETWORK_AND_ADDRESS':
@@ -142,6 +143,14 @@ const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         loggedOutModal: action.loggedOutModal,
+        ifFetchingThreeBox: false,
+      };
+
+    case 'SHOW_SWITCHED_ADDRESS_MODAL':
+      return {
+        ...state,
+        switchedAddressModal: action.switchedAddressModal,
+        ifFetchingThreeBox: false,
       };
 
     default:

@@ -347,3 +347,10 @@ export const showLoggedOutModal = () => async (dispatch) => {
     loggedOutModal: !store.getState().threeBox.loggedOutModal,
   });
 };
+
+export const showSwitchedAddressModal = () => async (dispatch) => {
+  dispatch({
+    type: 'SHOW_SWITCHED_ADDRESS_MODAL',
+    switchedAddressModal: !store.getState().threeBox.switchedAddressModal,
+  });
+};

@@ -4,7 +4,7 @@ import * as routes from '../utils/routes';
 import './styles/ThreeBoxLogo.css';
 
 const ThreeBoxLogo = () => (
-  <Link to={routes.LANDING}>
+  <Link to={routes.LANDING} onClick={() => { }}>
     <div id="logo">
       <div id="logo__icon">
         <h2>3</h2>

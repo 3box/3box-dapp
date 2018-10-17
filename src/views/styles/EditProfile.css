@@ -279,7 +279,7 @@
   font-size: .8em;
   color: #6b6b6b;
   border: 1px solid #6b6b6b;
-  background-color: transparent;
+  background: transparent;
   padding: .8em 1.3em;
   margin-left: 1em; }
   .removeButton:hover {

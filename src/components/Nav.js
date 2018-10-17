@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 
-import './styles/Nav.css';
 import ThreeBoxLogo from './ThreeBoxLogo.jsx';
 import * as routes from '../utils/routes';
+import './styles/Nav.css';
 
 class Nav extends Component {
   constructor(props) {
@@ -62,7 +62,7 @@ class Nav extends Component {
                 </div>
                 <Link to={routes.PROFILE}><li className={pathname === '/Profile' ? 'nav__activePage' : ''}>Profile</li></Link>
                 <Link to={routes.EDITPROFILE}><li className={pathname === '/EditProfile' ? 'nav__activePage' : ''}>Edit profile</li></Link>
-                <Link to={routes.LANDING} onClick={() => threeBox.logOut()}><li id="mobileNav__signout">Sign Out</li></Link>
+                <Link to={routes.LANDING} ><li id="mobileNav__signout" onClick={() => threeBox.logOut()}>Sign Out</li></Link>
                 <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="nav__reportBug">Report a bug</li></a>
               </ul>
             </div>

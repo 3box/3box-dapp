@@ -29,6 +29,17 @@ body {
 }
 
 button {
+  // background: #1e5799;
+  // /* Old browsers */
+  // background: -moz-linear-gradient(top, #1e5799 0%, #2989d8 50%, #00afdb 100%);
+  // /* FF3.6-15 */
+  // background: -webkit-linear-gradient(top, #1e5799 0%, #2989d8 50%, #00afdb 100%);
+  // /* Chrome10-25,Safari5.1-6 */
+  // background: linear-gradient(to bottom, #1e5799 0%, #2989d8 50%, #00afdb 100%);
+  // /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  // filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1e5799', endColorstr='#00afdb', GradientType=0);
+  // /* IE6-9 */
+
   background-color: $threeBoxBlue;
   border: none;
   border-radius: 2em;
@@ -70,11 +81,21 @@ button {
     background-color: $threeBoxBlue;
     border: solid 1px transparent;
     transition: background-color .8s ease;
+
+    // background: #1e5799;
+    // /* Old browsers */
+    // background: -moz-linear-gradient(top, #1e5799 0%, #2989d8 50%, #00afdb 100%);
+    // /* FF3.6-15 */
+    // background: -webkit-linear-gradient(top, #1e5799 0%, #2989d8 50%, #00afdb 100%);
+    // /* Chrome10-25,Safari5.1-6 */
+    // background: linear-gradient(to bottom, #1e5799 0%, #2989d8 50%, #00afdb 100%);
+    // /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    // filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1e5799', endColorstr='#00afdb', GradientType=0);
   }
 }
 
 .tertiaryButton {
-  background: transparent;
+  background: transparent !important;
   border: solid 1px #7a7a7a;
   color: #7a7a7a;
   box-shadow: none;
@@ -184,4 +205,10 @@ ul {
 
 .thin {
   font-weight: 300;
+}
+
+.differentNetwork__modal{
+  button{
+    margin-top: 40px;
+  }
 }

@@ -21,6 +21,7 @@ import {
   checkNetworkAndAddress,
   closeDifferentNetwork,
   showLoggedOutModal,
+  showSwitchedAddressModal,
 } from './state/actions';
 
 class App extends Component {
@@ -63,14 +64,18 @@ class App extends Component {
                   You've switched Ethereum networks
                   </h4>
                 <p>
-                  {`Revert back to the
+                  {`You must sign back in with your current
+                      ${this.props.currentNetwork} network`}
+                  {/* {`Revert back to the
                       ${this.props.prevNetwork}
                       network you signed in with`}
                   <br />
                   {`or sign out and sign back in with the current
-                      ${this.props.currentNetwork} network`}
+                      ${this.props.currentNetwork} network`} */}
                 </p>
-                <button onClick={this.props.closeDifferentNetwork} type="button" className="tertiaryButton" id="closeModal">close</button>
+                <Link to={routes.LANDING}>
+                  <button onClick={this.props.closeDifferentNetwork} type="button">Sign back in</button>
+                </Link>
               </div>
             </div>)}
 
@@ -80,11 +85,30 @@ class App extends Component {
               <div className="differentNetwork__modal">
                 <h4>
                   You've logged out of your web3 provider.
-                  <br />
-                  You must sign back in to your wallet then sign in to 3Box to continue.
                 </h4>
+                <br />
+                <p>
+                  You must sign back in to your wallet then sign in to 3Box to continue.
+                </p>
                 <Link to={routes.LANDING}>
-                  <button onClick={this.props.showLoggedOutModal} type="button" className="tertiaryButton" id="closeModal">close</button>
+                  <button onClick={this.props.showLoggedOutModal} type="button">Sign back in</button>
+                </Link>
+              </div>
+            </div>)}
+
+        {this.props.switchedAddressModal
+          && (
+            <div className="loadingContainer">
+              <div className="differentNetwork__modal">
+                <h4>
+                  You've switched Ethereum addresses.
+                </h4>
+                <br />
+                <p>
+                  You must sign back in with your new address.
+                </p>
+                <Link to={routes.LANDING}>
+                  <button onClick={this.props.showSwitchedAddressModal} type="button">Sign back in</button>
                 </Link>
               </div>
             </div>)}
@@ -112,11 +136,13 @@ App.propTypes = {
   closeDifferentNetwork: PropTypes.func,
   checkNetworkAndAddress: PropTypes.func,
   showLoggedOutModal: PropTypes.func,
+  showSwitchedAddressModal: PropTypes.func,
 
   location: PropTypes.object,
   hasWallet: PropTypes.bool,
   showDifferentNetworkModal: PropTypes.bool,
   loggedOutModal: PropTypes.bool,
+  switchedAddressModal: PropTypes.bool,
   showChangedAddressModal: PropTypes.bool,
   prevNetwork: PropTypes.string,
   currentNetwork: PropTypes.string,
@@ -133,11 +159,13 @@ App.defaultProps = {
   closeDifferentNetwork: closeDifferentNetwork(),
   checkNetworkAndAddress: checkNetworkAndAddress(),
   showLoggedOutModal: showLoggedOutModal(),
+  showSwitchedAddressModal: showSwitchedAddressModal(),
 
   location: {},
   hasWallet: true,
   showDifferentNetworkModal: false,
   loggedOutModal: false,
+  switchedAddressModal: false,
   showChangedAddressModal: false,
   prevNetwork: '',
   currentNetwork: '',
@@ -147,6 +175,7 @@ const mapState = state => ({
   hasWallet: state.threeBox.hasWallet,
   showDifferentNetworkModal: state.threeBox.showDifferentNetworkModal,
   loggedOutModal: state.threeBox.loggedOutModal,
+  switchedAddressModal: state.threeBox.switchedAddressModal,
   prevNetwork: state.threeBox.prevNetwork,
   currentNetwork: state.threeBox.currentNetwork,
   showChangedAddressModal: state.threeBox.showChangedAddressModal,
@@ -165,4 +194,5 @@ export default withRouter(connect(mapState,
     checkNetworkAndAddress,
     closeDifferentNetwork,
     showLoggedOutModal,
+    showSwitchedAddressModal,
   })(App));
