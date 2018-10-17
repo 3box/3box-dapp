@@ -32,7 +32,7 @@ class Nav extends Component {
           <nav>
             <ThreeBoxLogo />
             {
-              image.length > 0 ?
+              image.length > 0 && image[0].contentUrl ?
                 <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} id="nav__userPicture" alt="profile" onClick={this.handleDropdown} role="button" />
                 : <div id="nav__userPicture" onClick={this.handleDropdown} />
             }

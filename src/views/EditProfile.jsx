@@ -149,7 +149,7 @@ class EditProfile extends Component {
                   <label htmlFor="fileInput" id="chooseFile">
                     <input id="fileInput" type="file" name="pic" className="light" accept="image/*" onChange={e => this.handleUpdatePic(e.target.files[0])} ref={ref => this.fileUpload = ref} />
                     <img src={AddImage} alt="profile" id="addImage" />
-                    {((image.length > 0 || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])) && !removeUserPic)
+                    {(((image.length > 0 && image[0].contentUrl) || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])) && !removeUserPic)
                       ? <div className="profPic_div">
                         <div className="profPic_div_overlay">
                           <p>Change picture</p>

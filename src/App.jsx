@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as routes from './utils/routes';
-import address from './utils/address';
+//import address from './utils/address';
 import Nav from './components/Nav.js';
 import Landing from './views/Landing.jsx';
 import Profile from './views/Profile.jsx';

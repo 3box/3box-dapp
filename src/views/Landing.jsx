@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { withRouter, Redirect } from 'react-router-dom';
 
 import { signInUp, closeErrorModal, closeConsentModal, requireMetaMask, closeRequireMetaMask } from '../state/actions';
-import { address } from '../utils/address';
+//import { address } from '../utils/address';
 import ThreeBoxLogo from '../components/ThreeBoxLogo.jsx';
 import ProfileCard from '../components/ProfileCard.jsx';
 import LandingFooter from '../components/LandingFooter.jsx';
@@ -117,7 +117,7 @@ class Landing extends Component {
             <div className="loadingContainer">
               <div className="modal">
                 <div id="consentError">
-                  <h4>{errorMessage.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.' 
+                  <h4>{errorMessage.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.'
                     ? 'Please sign in to MetaMask to continue'
                     : errorMessage
                   }</h4>
