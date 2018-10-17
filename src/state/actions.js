@@ -7,7 +7,7 @@ import {
 } from './store';
 
 export const checkForMetaMask = () => async (dispatch) => {
-  const cp = web3 ? web3.currentProvider.cp : null; // eslint-disable-line no-undef
+  const cp = typeof web3 !== 'undefined' ? web3.currentProvider.cp : null; // eslint-disable-line no-undef
 
   const isToshi = cp ? !!cp.isToshi : false;
   const isCipher = cp ? !!cp.isCipher : false;
