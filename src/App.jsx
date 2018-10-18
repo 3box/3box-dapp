@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as routes from './utils/routes';
-import Nav from './components/Nav.js';
 import Landing from './views/Landing.jsx';
 import Profile from './views/Profile.jsx';
 import EditProfile from './views/EditProfile.jsx';
 import Privacy from './views/Privacy.jsx';
 import Terms from './views/Terms.jsx';
+import history from './history';
 import {
   openBox,
   getPublicName,
@@ -20,6 +20,7 @@ import {
   checkForMetaMask,
   checkNetworkAndAddress,
   closeDifferentNetwork,
+  proceedWithSwitchedAddress,
   showLoggedOutModal,
   showSwitchedAddressModal,
 } from './state/actions';
@@ -41,6 +42,11 @@ class App extends Component {
     }
 
     console.log(localStorage);
+
+    // if user is not logged in and on not the landing page, redirect them back to the landing page
+    // if () {
+    //   this.props.history.push(`${routes.USER_BASE}/${username}/list/${urlName}`)
+    // } 
   }
 
   async loadData() {
@@ -54,11 +60,17 @@ class App extends Component {
   }
 
   render() {
+    const { switched, showDifferentNetworkModal, loggedOutModal, switchedAddressModal } = this.props;
+    const switchBack = window.localStorage.getItem('switch');
+    const currentNetwork = window.localStorage.getItem('currentNetwork');
+    const prevPrevNetwork = window.localStorage.getItem('prevPrevNetwork');
+    console.log(switchBack);
+    console.log(currentNetwork);
+    console.log(prevPrevNetwork);
     return (
       <div className="App">
-        <Nav />
-
-        {this.props.showDifferentNetworkModal
+        {(showDifferentNetworkModal && prevPrevNetwork !== currentNetwork) // AND user is returning to the same network
+        // {(showDifferentNetworkModal && switchBack && prevPrevNetwork !== currentNetwork) // AND user is returning to the same network
           && (
             <div className="loadingContainer">
               <div className="differentNetwork__modal">
@@ -66,48 +78,46 @@ class App extends Component {
                   You've switched Ethereum networks
                   </h4>
                 <p>
-                  {`You must sign back in with your current
-                      ${this.props.currentNetwork} network`}
-                  {/* {`Revert back to the
-                      ${this.props.prevNetwork}
-                      network you signed in with`}
+                  {`Switch back to
+                      ${this.props.prevNetwork}`}
                   <br />
-                  {`or sign out and sign back in with the current
-                      ${this.props.currentNetwork} network`} */}
+                  {`or continue on
+                      ${this.props.currentNetwork}`}
                 </p>
-                <Link to={routes.LANDING}>
-                  <button onClick={this.props.closeDifferentNetwork} type="button">Sign back in</button>
-                </Link>
+                <button onClick={() => { this.props.proceedWithSwitchedAddress(); window.localStorage.setItem('switch', true); }} type="button">
+                  Continue on
+                  {` ${this.props.currentNetwork}`}
+                </button>
               </div>
             </div>)}
 
-        {this.props.loggedOutModal
+        {loggedOutModal
           && (
             <div className="loadingContainer">
               <div className="differentNetwork__modal">
                 <h4>
-                  You've logged out of your web3 provider.
+                  You've logged out of your web3 provider
                 </h4>
                 <br />
                 <p>
-                  You must sign back in to your wallet then sign in to 3Box to continue.
+                  Sign back in to your wallet or exit 3Box
                 </p>
                 <Link to={routes.LANDING}>
-                  <button onClick={this.props.showLoggedOutModal} type="button">Sign back in</button>
+                  <button onClick={() => { this.props.showLoggedOutModal(); history.push(routes.LANDING); }} type="button">Exit</button>
                 </Link>
               </div>
             </div>)}
 
-        {this.props.switchedAddressModal
+        {switchedAddressModal
           && (
             <div className="loadingContainer">
               <div className="differentNetwork__modal">
                 <h4>
-                  You've switched Ethereum addresses.
+                  You've switched Ethereum addresses
                 </h4>
                 <br />
                 <p>
-                  You must sign back in with your new address.
+                  Revert to the previous address or login in the new address
                 </p>
                 <Link to={routes.LANDING}>
                   <button onClick={this.props.showSwitchedAddressModal} type="button">Sign back in</button>
@@ -117,10 +127,10 @@ class App extends Component {
 
         <Switch>
           <Route exact path={routes.LANDING} component={Landing} />
-          <Route exact path={routes.PROFILE} component={Profile} />
-          <Route exact path={routes.EDITPROFILE} component={EditProfile} />
-          <Route exact path={routes.PRIVACY} component={Privacy} />
-          <Route exact path={routes.TERMS} component={Terms} />
+          <Route path={routes.PROFILE} component={Profile} />
+          <Route path={routes.EDITPROFILE} component={EditProfile} />
+          <Route path={routes.PRIVACY} component={Privacy} />
+          <Route path={routes.TERMS} component={Terms} />
         </Switch>
       </div>
     );
@@ -136,6 +146,7 @@ App.propTypes = {
   getActivity: PropTypes.func,
   checkForMetaMask: PropTypes.func,
   closeDifferentNetwork: PropTypes.func,
+  proceedWithSwitchedAddress: PropTypes.func,
   checkNetworkAndAddress: PropTypes.func,
   showLoggedOutModal: PropTypes.func,
   showSwitchedAddressModal: PropTypes.func,
@@ -143,11 +154,13 @@ App.propTypes = {
   location: PropTypes.object,
   hasWallet: PropTypes.bool,
   showDifferentNetworkModal: PropTypes.bool,
+  switched: PropTypes.bool,
   loggedOutModal: PropTypes.bool,
   switchedAddressModal: PropTypes.bool,
   showChangedAddressModal: PropTypes.bool,
   prevNetwork: PropTypes.string,
   currentNetwork: PropTypes.string,
+  prevPrevNetwork: PropTypes.string,
 };
 
 App.defaultProps = {
@@ -159,6 +172,7 @@ App.defaultProps = {
   getActivity: getActivity(),
   checkForMetaMask: checkForMetaMask(),
   closeDifferentNetwork: closeDifferentNetwork(),
+  proceedWithSwitchedAddress: proceedWithSwitchedAddress(),
   checkNetworkAndAddress: checkNetworkAndAddress(),
   showLoggedOutModal: showLoggedOutModal(),
   showSwitchedAddressModal: showSwitchedAddressModal(),
@@ -166,20 +180,24 @@ App.defaultProps = {
   location: {},
   hasWallet: true,
   showDifferentNetworkModal: false,
+  switched: false,
   loggedOutModal: false,
   switchedAddressModal: false,
   showChangedAddressModal: false,
   prevNetwork: '',
   currentNetwork: '',
+  prevPrevNetwork: '',
 };
 
 const mapState = state => ({
   hasWallet: state.threeBox.hasWallet,
   showDifferentNetworkModal: state.threeBox.showDifferentNetworkModal,
+  switched: state.threeBox.switched,
   loggedOutModal: state.threeBox.loggedOutModal,
   switchedAddressModal: state.threeBox.switchedAddressModal,
   prevNetwork: state.threeBox.prevNetwork,
   currentNetwork: state.threeBox.currentNetwork,
+  prevPrevNetwork: state.threeBox.prevPrevNetwork,
   showChangedAddressModal: state.threeBox.showChangedAddressModal,
   logOut: state.threeBox.logOut,
 });
@@ -195,6 +213,7 @@ export default withRouter(connect(mapState,
     checkForMetaMask,
     checkNetworkAndAddress,
     closeDifferentNetwork,
+    proceedWithSwitchedAddress,
     showLoggedOutModal,
     showSwitchedAddressModal,
   })(App));

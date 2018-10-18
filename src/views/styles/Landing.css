@@ -81,7 +81,7 @@
 
 #landing__build {
   text-align: center;
-  margin: 7em 0 27em 0;
+  margin: 7em 0 7em 0;
   display: inline-block;
   position: relative;
   width: 100%; }
@@ -125,7 +125,7 @@
   flex-direction: column; }
   .consentModal img {
     width: 300px !important;
-    margin-bottom: 120px; }
+    margin-bottom: 60px; }
 
 @keyframes moveHorizontal {
   from {
@@ -239,9 +239,12 @@
 .build__graphic__threeBox {
   flex: 1;
   width: 60%;
-  position: relative; }
+  position: relative;
+  display: flex;
+  justify-content: flex-start; }
   .build__graphic__threeBox #threeboxIllustration {
-    width: 75%; }
+    width: 70%;
+    margin-left: 30px; }
 
 #illustration {
   border-radius: 100%;
@@ -329,25 +332,35 @@
 #Michael {
   position: absolute;
   top: 0;
-  left: 7.5vw;
+  left: 3vw;
   z-index: 0; }
 
 #Christian {
   position: absolute;
   top: 4em;
-  left: 15.5vw;
+  left: 11vw;
   z-index: 1; }
 
 #Cristobal {
   position: absolute;
   top: 8em;
-  left: 23.5vw;
+  left: 19vw;
   z-index: 2; }
 
 #consentError {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 500px; }
+  #consentError img {
+    width: 200px;
+    margin-bottom: 60px; }
+
+#consentError__metaMaskError {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   height: 500px; }
 
 #threeBoxGraphic {
@@ -441,9 +454,9 @@
 #footer__links {
   z-index: 1;
   display: flex;
-  width: 60vw;
+  width: 30vw;
   justify-content: space-between;
-  margin-top: 12.5em; }
+  margin-top: 1.5em; }
   #footer__links #footer__scaleLogo {
     zoom: 1.5;
     -moz-transform: scale(1.5); }

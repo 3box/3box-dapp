@@ -1,6 +1,10 @@
 @import "../../variables.scss";
 
-#logo{
+#logo__container {
+  cursor: pointer;
+}
+
+#logo {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,7 +20,7 @@
   align-items: center;
   justify-content: center;
 
-  h2   {
+  h2 {
     color: white;
     font-size: 1.5em !important;
     font-weight: 700;
@@ -41,7 +45,7 @@
   align-items: center;
   justify-content: center;
 
-  h2   {
+  h2 {
     color: #021333;
     font-size: 22px !important;
     font-weight: 700;

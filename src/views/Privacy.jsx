@@ -1,9 +1,12 @@
 import React from 'react';
 
+import Nav from '../components/Nav';
 import './styles/Info.css';
 
 const Privacy = () => (
-  <div className="info__page">
+  <div>
+    <Nav />
+    <div className="info__page">
     <div className="info__banner">
       <h1>Privacy Policy</h1>
     </div>
@@ -320,6 +323,7 @@ const Privacy = () => (
 
       </div>
     </div>
+  </div>
   </div>
 );
 

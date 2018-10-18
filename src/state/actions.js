@@ -6,8 +6,11 @@ import {
   store,
 } from './store';
 
+import history from '../history';
+
 export const checkForMetaMask = () => async (dispatch) => {
-  const cp = typeof web3 !== 'undefined' ? web3.currentProvider.cp : null; // eslint-disable-line no-undef
+  const cp = typeof web3 !== 'undefined' ? web3.currentProvider : null; // eslint-disable-line no-undef
+  // const cp = typeof web3 !== 'undefined' ? web3.currentProvider.cp : null; // eslint-disable-line no-undef
 
   const isToshi = cp ? !!cp.isToshi : false;
   const isCipher = cp ? !!cp.isCipher : false;
@@ -22,10 +25,26 @@ export const checkForMetaMask = () => async (dispatch) => {
     currentWallet = 'isMetaMask';
   }
 
+  const accountsPromise = typeof web3 !== 'undefined' ?
+    new Promise((resolve, reject) => {
+      web3.eth.getAccounts((e, accounts) => { // eslint-disable-line no-undef
+        if (e != null) {
+          reject(e);
+        } else {
+          resolve(accounts);
+        }
+      });
+    }) :
+    null;
+
+  const accounts = await accountsPromise; // eslint-disable-line no-undef
+  const isSignedIntoWallet = typeof web3 !== 'undefined' && !!accounts.length > 0;
+
   await dispatch({
     type: 'CHECK_WALLET',
     hasWallet: typeof web3 !== 'undefined',
     currentWallet,
+    isSignedIntoWallet,
   });
 };
 
@@ -67,16 +86,22 @@ export const checkNetworkAndAddress = () => async (dispatch) => {
     });
   }
 
-  const prevNetwork = window.localStorage.currentNetwork;
+  window.localStorage.setItem('prevPrevNetwork', window.localStorage.prevNetwork);
+  window.localStorage.setItem('prevNetwork', window.localStorage.currentNetwork);
+  window.localStorage.setItem('currentNetwork', currentNetwork);
+  // window.localStorage.setItem('switch', true);
+
+  const prevNetwork = window.localStorage.prevNetwork;
+  const prevPrevNetwork = window.localStorage.prevPrevNetwork;
+  
   if (prevNetwork && (prevNetwork !== currentNetwork)) {
     await dispatch({
       type: 'DIFFERENT_NETWORK',
       currentNetwork,
       prevNetwork,
+      prevPrevNetwork,
     });
   }
-
-  window.localStorage.setItem('currentNetwork', currentNetwork);
 
   await dispatch({
     type: 'CHECK_NETWORK_AND_ADDRESS',
@@ -107,6 +132,17 @@ export const closeRequireMetaMask = () => (dispatch) => {
 
 export const signInUp = () => async (dispatch) => {
   let box;
+
+  // if current wallet is undefined (not signed in), show sign in to mm modal
+  // if (!store.getState().threeBox.currentWallet) {
+  //   dispatch({
+  //     type: 'FAILED_LOADING_3BOX',
+  //     errorMessage: 'Error: MetaMask Message Signature: from field is required.',
+  //     showErrorModal: true,
+  //     provideConsent: false,
+  //   });
+  //   return;
+  // }
 
   dispatch({
     type: 'PROVIDE_CONSENT',
@@ -186,7 +222,7 @@ export const signInUp = () => async (dispatch) => {
       type: 'SIGN_IN_UP',
       box,
       ifFetchingThreeBox: false,
-      signUpSuccessful: true,
+      // signUpSuccessful: true,
       errorMessage: '',
       showErrorModal: false,
       name,
@@ -194,12 +230,15 @@ export const signInUp = () => async (dispatch) => {
       image,
       email,
       feedByAddress,
+      switched: false,
     });
+    history.push('/Profile');
   } catch (err) {
     dispatch({
       type: 'FAILED_LOADING_3BOX',
       errorMessage: err.message,
       showErrorModal: true,
+      provideConsent: false,
     });
   }
 };
@@ -214,10 +253,12 @@ export const openBox = () => async (dispatch) => {
   const returnedBox = await ThreeBox // eslint-disable-line no-undef
     .openBox(address, web3.currentProvider); // eslint-disable-line no-undef
   const box = await returnedBox;
+
   dispatch({
     type: 'GET_THREEBOX',
     ifFetchingThreeBox: false,
     box,
+    switched: false,
   });
 };
 
@@ -334,6 +375,22 @@ export const closeErrorModal = () => async (dispatch) => {
   });
 };
 
+export const openErrorModal = () => async (dispatch) => {
+  dispatch({
+    type: 'OPEN_ERROR_MODAL',
+    errorMessage: '',
+    showErrorModal: true,
+  });
+};
+
+export const handleSignInModal = () => async (dispatch) => {
+  dispatch({
+    type: 'HANDLE_SIGNIN_MODAL',
+    errorMessage: '',
+    signInModal: !store.getState().threeBox.signInModal,
+  });
+};
+
 export const closeConsentModal = () => async (dispatch) => {
   dispatch({
     type: 'CLOSE_CONSENT_MODAL',
@@ -352,5 +409,13 @@ export const showSwitchedAddressModal = () => async (dispatch) => {
   dispatch({
     type: 'SHOW_SWITCHED_ADDRESS_MODAL',
     switchedAddressModal: !store.getState().threeBox.switchedAddressModal,
+  });
+};
+
+export const proceedWithSwitchedAddress = () => async (dispatch) => {
+  dispatch({
+    type: 'PROCEED_WITH_SWITCHED_ADDRESS',
+    switch: false,
+    showDifferentNetworkModal: false,
   });
 };

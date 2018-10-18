@@ -11,31 +11,28 @@ const checkAddress = setInterval(() => {
 
   // Logged out
   if (currentAddress !== address && currentAddress === undefined) {
-    clearInterval(checkAddress);
+    // clearInterval(checkAddress);
     store.dispatch({
       type: 'SHOW_LOGGEDOUT_MODAL',
       loggedOutModal: true,
     });
-    //     history.push({
-    //       pathname: '/',
-    //     });
-    // window.location.reload();
+    // history.push('/');
   }
 
   // Switched address
   if (currentAddress !== address && typeof currentAddress === 'string' && address !== undefined) {
-    clearInterval(checkAddress);
     store.dispatch({
       type: 'SHOW_SWITCHED_ADDRESS_MODAL',
       switchedAddressModal: true,
+      switched: true,
     });
   }
 
   // Logged in to MM
   if (currentAddress !== address && typeof currentAddress === 'string' && address === undefined) {
-    clearInterval(checkAddress);
     window.location.reload();
   }
+  address = currentAddress;
 }, 1000);
 
 export {

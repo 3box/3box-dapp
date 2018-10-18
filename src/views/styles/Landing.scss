@@ -108,7 +108,7 @@
 
 #landing__build {
   text-align: center;
-  margin: 7em 0 27em 0;
+  margin: 7em 0 7em 0;
   display: inline-block;
   position: relative;
   width: 100%;
@@ -164,7 +164,7 @@
 
   img {
     width: 300px !important;
-    margin-bottom: 120px;
+    margin-bottom: 60px;
   }
 }
 
@@ -327,9 +327,12 @@
   flex: 1;
   width: 60%;
   position: relative;
+  display: flex;
+  justify-content: flex-start;
 
   #threeboxIllustration {
-    width: 75%;
+    width: 70%;
+    margin-left: 30px;
   }
 }
 
@@ -432,21 +435,21 @@
 #Michael {
   position: absolute;
   top: 0;
-  left: 7.5vw;
+  left: 3vw;
   z-index: 0;
 }
 
 #Christian {
   position: absolute;
   top: 4em;
-  left: 15.5vw;
+  left: 11vw;
   z-index: 1;
 }
 
 #Cristobal {
   position: absolute;
   top: 8em;
-  left: 23.5vw;
+  left: 19vw;
   z-index: 2;
 }
 
@@ -454,6 +457,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 500px;
+
+  img {
+    width: 200px;
+    margin-bottom: 60px;
+  }
+}
+
+#consentError__metaMaskError{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   height: 500px;
 }
 
@@ -573,9 +589,9 @@
 #footer__links {
   z-index: 1;
   display: flex;
-  width: 60vw;
+  width: 30vw;
   justify-content: space-between;
-  margin-top: 12.5em;
+  margin-top: 1.5em;
 
   #footer__scaleLogo {
     zoom: 1.5;

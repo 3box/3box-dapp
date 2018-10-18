@@ -42,7 +42,7 @@ const Feed = ({ ifFetchingActivity, feedByAddress }) => (
                   ? (
                     <div>
                       <h4>
-                        Three Box
+                        3Box
                       </h4>
                       <p>
                         Activity

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter, Redirect } from 'react-router-dom';
 
-import { signInUp, closeErrorModal, closeConsentModal, requireMetaMask, closeRequireMetaMask } from '../state/actions';
+import { signInUp, closeErrorModal, closeConsentModal, requireMetaMask, closeRequireMetaMask, checkForMetaMask, openErrorModal, handleSignInModal } from '../state/actions';
 import ThreeBoxLogo from '../components/ThreeBoxLogo.jsx';
 import ProfileCard from '../components/ProfileCard.jsx';
 import LandingFooter from '../components/LandingFooter.jsx';
@@ -13,6 +13,7 @@ import Cristobal from '../assets/Cristobal.png';
 import Michael from '../assets/Michael.png';
 import Christian from '../assets/Christian.jpg';
 import ConsensysSVG from '../assets/consensys.svg';
+import MetaMaskLogo from '../assets/MetaMaskLogo.svg';
 import Consent from '../assets/Consent.png';
 import ThreeBoxGraphic from '../assets/3BoxGraphic.png';
 import PartnersBG from '../assets/PartnersBG.svg';
@@ -43,6 +44,10 @@ class Landing extends Component {
     window.removeEventListener('scroll', this.hideBar);
   }
 
+  // shouldComponentUpdate () {
+  //   console.log(this.props.location);
+  // }
+
   hideBar = () => {
     window.scrollY < 10 ?
       this.setState({ isHide: false })
@@ -51,17 +56,21 @@ class Landing extends Component {
   }
 
   async handleSignInUp() {
-    const { hasWallet } = this.props;
+    const { hasWallet, isSignedIntoWallet } = this.props;
+    await this.props.checkForMetaMask();
     // localStorage.setItem(`serializedMuDID_${address}`, null);
-    if (hasWallet) {
+    console.log(hasWallet, isSignedIntoWallet);
+    if (hasWallet && isSignedIntoWallet) {
       await this.props.signInUp();
-    } else {
+    } else if (!hasWallet) {
       this.props.requireMetaMask();
+    } else {
+      this.props.handleSignInModal();
     }
   }
 
   render() {
-    const { ifFetchingThreeBox, showErrorModal, signUpSuccessful, errorMessage, provideConsent, alertRequireMetaMask, hasWallet } = this.props;
+    const { ifFetchingThreeBox, showErrorModal, signUpSuccessful, errorMessage, provideConsent, alertRequireMetaMask, hasWallet, signInModal } = this.props;
     const classHide = this.state.isHide ? 'hide' : '';
 
     const { showMobileWalletPrompt } = this.state;
@@ -69,10 +78,6 @@ class Landing extends Component {
     const { userAgent: ua } = navigator
     const isIOS = ua.includes('iPhone')
     // const isAndroid = ua.includes('Android')
-
-    if (signUpSuccessful) {
-      return <Redirect to="/Profile" />;
-    }
 
     return (
       <div id="landing">
@@ -92,7 +97,7 @@ class Landing extends Component {
             <div className="loadingContainer">
               <div className="consentModal">
                 <img src={Consent} alt="Partners background" />
-                <h3>Provide consent to 3Box in the MetaMask popup</h3>
+                <h3>Provide consent to 3Box in MetaMask</h3>
                 <button onClick={this.props.closeConsentModal} type="button" className="tertiaryButton" id="closeModal">close</button>
               </div>
             </div>
@@ -110,7 +115,10 @@ class Landing extends Component {
           && (
             <div className="loadingContainer">
               <div className="consentModal">
-                <h3>You must have metamask</h3>
+                <img src={MetaMaskLogo} alt="Partners background" />
+                <h4>
+                  Install MetaMask to create a 3Box account
+                        </h4>
                 <button onClick={this.props.closeRequireMetaMask} type="button" className="tertiaryButton" id="closeModal">close</button>
               </div>
             </div>)
@@ -121,12 +129,40 @@ class Landing extends Component {
             <div className="loadingContainer">
               <div className="modal">
                 <div id="consentError">
-                  <h4>{errorMessage.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.'
-                    ? 'Please sign in to MetaMask to continue'
-                    : errorMessage
-                  }</h4>
+                  {
+                    errorMessage.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.'
+                      ?
+                      <div id="consentError__metaMaskError">
+                        <img src={MetaMaskLogo} alt="Partners background" />
+                        <h4>
+                          Sign in to MetaMask to continue
+                        </h4>
+                      </div>
+                      : <h4>
+                        {errorMessage}
+                      </h4>
+                  }
+                  <h4></h4>
                 </div>
                 <button onClick={this.props.closeErrorModal} type="button" className="tertiaryButton" id="closeModal">close</button>
+              </div>
+            </div>
+          )}
+
+        {signInModal
+          && (
+            <div className="loadingContainer">
+              <div className="modal">
+                <div id="consentError">
+                  <div id="consentError__metaMaskError">
+                    <img src={MetaMaskLogo} alt="Partners background" />
+                    <h4>
+                      Sign in to MetaMask to continue
+                        </h4>
+                  </div>
+                  <h4></h4>
+                </div>
+                <button onClick={this.props.handleSignInModal} type="button" className="tertiaryButton" id="closeModal">close</button>
               </div>
             </div>
           )}
@@ -281,33 +317,43 @@ class Landing extends Component {
 
 Landing.propTypes = {
   signInUp: PropTypes.func,
+  checkForMetaMask: PropTypes.func,
   closeErrorModal: PropTypes.func,
   closeConsentModal: PropTypes.func,
   requireMetaMask: PropTypes.func,
   closeRequireMetaMask: PropTypes.func,
+  openErrorModal: PropTypes.func,
+  handleSignInModal: PropTypes.func,
 
   ifFetchingThreeBox: PropTypes.bool,
   signUpSuccessful: PropTypes.bool,
   showErrorModal: PropTypes.bool,
+  signInModal: PropTypes.bool,
   provideConsent: PropTypes.bool,
   hasWallet: PropTypes.bool,
+  isSignedIntoWallet: PropTypes.bool,
   alertRequireMetaMask: PropTypes.bool,
   errorMessage: PropTypes.string,
 };
 
 Landing.defaultProps = {
   signInUp: signInUp(),
+  checkForMetaMask: checkForMetaMask(),
   closeErrorModal: closeErrorModal(),
   closeConsentModal: closeConsentModal(),
   requireMetaMask: requireMetaMask(),
   closeRequireMetaMask: closeRequireMetaMask(),
+  openErrorModal: openErrorModal(),
+  handleSignInModal: handleSignInModal(),
 
   ifFetchingThreeBox: false,
   signUpSuccessful: false,
   showErrorModal: false,
+  signInModal: false,
   provideConsent: false,
   alertRequireMetaMask: false,
   hasWallet: true,
+  isSignedIntoWallet: false,
   errorMessage: null,
 };
 
@@ -316,9 +362,11 @@ const mapState = state => ({
   signUpSuccessful: state.threeBox.signUpSuccessful,
   errorMessage: state.threeBox.errorMessage,
   showErrorModal: state.threeBox.showErrorModal,
+  signInModal: state.threeBox.signInModal,
   provideConsent: state.threeBox.provideConsent,
   hasWallet: state.threeBox.hasWallet,
+  isSignedIntoWallet: state.threeBox.isSignedIntoWallet,
   alertRequireMetaMask: state.threeBox.alertRequireMetaMask,
 });
 
-export default withRouter(connect(mapState, { signInUp, closeErrorModal, closeConsentModal, requireMetaMask, closeRequireMetaMask })(Landing));
+export default withRouter(connect(mapState, { signInUp, closeErrorModal, closeConsentModal, requireMetaMask, closeRequireMetaMask, checkForMetaMask, openErrorModal, handleSignInModal })(Landing));

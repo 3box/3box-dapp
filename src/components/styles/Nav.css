@@ -33,8 +33,8 @@ nav {
   top: 64px;
   right: 3vw;
   text-align: left;
-  width: 10em;
-  padding: 1em 0 0 0;
+  width: 8em;
+  padding: 0 0 0 0;
   background-color: white;
   border-radius: 5px;
   border: 1px solid #E4E4E4;
@@ -42,11 +42,12 @@ nav {
   .nav__dropdown ul {
     padding: 0; }
   .nav__dropdown li {
-    font-size: 1em;
+    font-size: 14px;
     padding-left: 1.3em;
     color: #6b6b6b;
-    line-height: 2.5em;
-    font-weight: 400; }
+    line-height: 3.4em;
+    font-weight: 400;
+    cursor: pointer; }
   .nav__dropdown li:hover {
     background: #f9f9f9; }
   .nav__dropdown div {
@@ -54,8 +55,8 @@ nav {
 
 .nav__divide {
   border-top: 1px solid #CBCBCB;
-  margin-top: 14px;
-  margin-bottom: 14px;
+  margin-top: 0;
+  margin-bottom: 0;
   padding-left: 0;
   padding-right: 0;
   width: 100% !important; }
@@ -91,12 +92,11 @@ nav {
 
 #nav__reportBug {
   background-color: #f5f6f8;
-  padding: .4em 1.3em;
   color: #b1b1b1; }
 
 #nav__divideBug {
   border-top: 1px solid #CBCBCB;
-  margin-top: 14px;
+  margin-top: 0;
   margin-bottom: 0;
   padding-left: 0;
   padding-right: 0;

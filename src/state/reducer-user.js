@@ -9,6 +9,7 @@ const threeBoxReducer = (state = {}, action) => {
         ...state,
         hasWallet: action.hasWallet,
         currentWallet: action.currentWallet,
+        isSignedIntoWallet: action.isSignedIntoWallet,
       };
 
     case 'DIFFERENT_NETWORK':
@@ -45,6 +46,7 @@ const threeBoxReducer = (state = {}, action) => {
         image: action.image,
         email: action.email,
         feedByAddress: action.feedByAddress,
+        switched: action.switched,
       };
 
     case 'GET_THREEBOX':
@@ -52,6 +54,7 @@ const threeBoxReducer = (state = {}, action) => {
         ...state,
         box: action.box,
         ifFetchingThreeBox: false,
+        switched: action.switched,
       };
 
     case 'GET_PUBLIC_NAME':
@@ -97,6 +100,7 @@ const threeBoxReducer = (state = {}, action) => {
         ifFetchingThreeBox: false,
         signUpSuccessful: false,
         showErrorModal: true,
+        provideConsent: false,
         errorMessage: action.errorMessage,
       };
 
@@ -105,6 +109,13 @@ const threeBoxReducer = (state = {}, action) => {
         ...state,
         errorMessage: '',
         showErrorModal: false,
+      };
+
+    case 'OPEN_ERROR_MODAL':
+      return {
+        ...state,
+        errorMessage: '',
+        showErrorModal: true,
       };
 
     case 'CLOSE_CONSENT_MODAL':
@@ -151,6 +162,20 @@ const threeBoxReducer = (state = {}, action) => {
         ...state,
         switchedAddressModal: action.switchedAddressModal,
         ifFetchingThreeBox: false,
+        switched: action.switched,
+      };
+
+    case 'HANDLE_SIGNIN_MODAL':
+      return {
+        ...state,
+        signInModal: action.signInModal,
+      };
+
+    case 'PROCEED_WITH_SWITCHED_ADDRESS':
+      return {
+        ...state,
+        switch: action.switch,
+        showDifferentNetworkModal: action.showDifferentNetworkModal,
       };
 
     default:

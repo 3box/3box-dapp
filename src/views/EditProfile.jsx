@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { address } from '../utils/address'
 import { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail, getActivity } from '../state/actions';
 import history from '../history';
+import Nav from '../components/Nav';
 import * as routes from '../utils/routes';
 import EthereumLogo from '../assets/Ethereum_logo_2014.svg';
 import Private from '../assets/Private.svg';
@@ -17,10 +18,10 @@ class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: null,
-      github: null,
-      email: null,
-      buffer: null,
+      name: '',
+      github: '',
+      email: '',
+      buffer: '',
       disableSave: true,
       disableSavePic: true,
       saveLoading: false,
@@ -101,7 +102,7 @@ class EditProfile extends Component {
 
     return (
       <div id="edit__page">
-
+        <Nav />
         {saveLoading
           && (
             <div className="container">
