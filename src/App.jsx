@@ -70,7 +70,7 @@ class App extends Component {
     return (
       <div className="App">
         {(showDifferentNetworkModal && prevPrevNetwork !== currentNetwork) // AND user is returning to the same network
-        // {(showDifferentNetworkModal && switchBack && prevPrevNetwork !== currentNetwork) // AND user is returning to the same network
+          // {(showDifferentNetworkModal && switchBack && prevPrevNetwork !== currentNetwork) // AND user is returning to the same network
           && (
             <div className="loadingContainer">
               <div className="differentNetwork__modal">
@@ -78,10 +78,15 @@ class App extends Component {
                   You've switched Ethereum networks
                   </h4>
                 <p>
-                  {`Switch back to
-                      ${this.props.prevNetwork}`}
+                  3Box profiles are stored on IPFS.
                   <br />
-                  {`or continue on
+                  This allows you to use the same profile on different Ethereum networks.
+                  <br />
+                  Your 3Box information is the same across networks, but your Ethereum activity changes.
+                  <br />
+                  <br />
+                  {`Switch back to
+                      ${this.props.prevNetwork} in MetaMask or continue on
                       ${this.props.currentNetwork}`}
                 </p>
                 <button onClick={() => { this.props.proceedWithSwitchedAddress(); window.localStorage.setItem('switch', true); }} type="button">
