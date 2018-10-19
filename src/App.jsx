@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter, Link } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -10,6 +10,14 @@ import EditProfile from './views/EditProfile.jsx';
 import Privacy from './views/Privacy.jsx';
 import Terms from './views/Terms.jsx';
 import history from './history';
+import address from './utils/address';
+
+import {
+  SwitchedAddress,
+  SwitchedNetworks,
+  LoggedOut,
+} from './components/Modals.jsx';
+
 import {
   openBox,
   getPublicName,
@@ -36,17 +44,11 @@ class App extends Component {
     const { pathname } = location;
 
     this.props.checkForMetaMask();
-
-    if ((pathname === '/Profile' || pathname === '/EditProfile') && web3) { // eslint-disable-line no-undef
+    if ((pathname === '/Profile' || pathname === '/EditProfile') && web3 && ThreeBox.isLoggedIn(address)) { // eslint-disable-line no-undef
       this.loadData();
+    } else {
+      history.push(routes.LANDING);
     }
-
-    console.log(localStorage);
-
-    // if user is not logged in and on not the landing page, redirect them back to the landing page
-    // if () {
-    //   this.props.history.push(`${routes.USER_BASE}/${username}/list/${urlName}`)
-    // } 
   }
 
   async loadData() {
@@ -64,71 +66,21 @@ class App extends Component {
     const switchBack = window.localStorage.getItem('switch');
     const currentNetwork = window.localStorage.getItem('currentNetwork');
     const prevPrevNetwork = window.localStorage.getItem('prevPrevNetwork');
-    console.log(switchBack);
-    console.log(currentNetwork);
-    console.log(prevPrevNetwork);
+    // console.log(switchBack);
+    // console.log(currentNetwork);
+    // console.log(prevPrevNetwork);
+
     return (
       <div className="App">
         {(showDifferentNetworkModal && prevPrevNetwork !== currentNetwork) // AND user is returning to the same network
           // {(showDifferentNetworkModal && switchBack && prevPrevNetwork !== currentNetwork) // AND user is returning to the same network
-          && (
-            <div className="loadingContainer">
-              <div className="differentNetwork__modal">
-                <h4>
-                  You've switched Ethereum networks
-                  </h4>
-                <p>
-                  3Box profiles are stored on IPFS.
-                  <br />
-                  This allows you to use the same profile on different Ethereum networks.
-                  <br />
-                  Your 3Box information is the same across networks, but your Ethereum activity changes.
-                  <br />
-                  <br />
-                  {`Switch back to
-                      ${this.props.prevNetwork} in MetaMask or continue on
-                      ${this.props.currentNetwork}`}
-                </p>
-                <button onClick={() => { this.props.proceedWithSwitchedAddress(); window.localStorage.setItem('switch', true); }} type="button">
-                  Continue on
-                  {` ${this.props.currentNetwork}`}
-                </button>
-              </div>
-            </div>)}
+          && <SwitchedNetworks />}
 
         {loggedOutModal
-          && (
-            <div className="loadingContainer">
-              <div className="differentNetwork__modal">
-                <h4>
-                  You've logged out of your web3 provider
-                </h4>
-                <br />
-                <p>
-                  Sign back in to your wallet or exit 3Box
-                </p>
-                <Link to={routes.LANDING}>
-                  <button onClick={() => { this.props.showLoggedOutModal(); history.push(routes.LANDING); }} type="button">Exit</button>
-                </Link>
-              </div>
-            </div>)}
+          && <LoggedOut />}
 
         {switchedAddressModal
-          && (
-            <div className="loadingContainer">
-              <div className="differentNetwork__modal">
-                <h4>
-                  You've switched Ethereum addresses
-                </h4>
-                <br />
-                <p>
-                  Revert to the previous address or login in the new address
-                </p>
-                <Link to={routes.LANDING}>
-                  <button onClick={this.props.showSwitchedAddressModal} type="button">Sign back in</button>
-                </Link>
-              </div>
-            </div>)}
+          && <SwitchedAddress />}
 
         <Switch>
           <Route exact path={routes.LANDING} component={Landing} />

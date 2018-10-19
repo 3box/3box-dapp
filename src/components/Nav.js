@@ -13,7 +13,6 @@ class Nav extends Component {
     super(props);
     this.state = {
       showProfileModal: false,
-      goHome: false,
     };
   }
 
@@ -26,9 +25,7 @@ class Nav extends Component {
 
   handleSignOut = () => {
     const { threeBox } = this.props;
-    console.log(this.props.location)
     threeBox.logout();
-    // this.setState({ goHome: true });
     history.push(routes.LANDING);
   }
 
@@ -36,10 +33,6 @@ class Nav extends Component {
     const { showProfileModal, goHome } = this.state;
     const { image, threeBox, location } = this.props;
     const { pathname } = location;
-
-    if (goHome) {
-      return <Redirect to="/" />;
-    }
 
     return (
       <div>

@@ -38,7 +38,6 @@ const threeBoxReducer = (state = {}, action) => {
         ...state,
         box: action.box,
         ifFetchingThreeBox: false,
-        signUpSuccessful: true,
         showErrorModal: false,
         errorMessage: '',
         name: action.name,
@@ -98,7 +97,6 @@ const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         ifFetchingThreeBox: false,
-        signUpSuccessful: false,
         showErrorModal: true,
         provideConsent: false,
         errorMessage: action.errorMessage,

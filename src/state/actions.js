@@ -10,7 +10,6 @@ import history from '../history';
 
 export const checkForMetaMask = () => async (dispatch) => {
   const cp = typeof web3 !== 'undefined' ? web3.currentProvider : null; // eslint-disable-line no-undef
-  // const cp = typeof web3 !== 'undefined' ? web3.currentProvider.cp : null; // eslint-disable-line no-undef
 
   const isToshi = cp ? !!cp.isToshi : false;
   const isCipher = cp ? !!cp.isCipher : false;
@@ -133,17 +132,6 @@ export const closeRequireMetaMask = () => (dispatch) => {
 export const signInUp = () => async (dispatch) => {
   let box;
 
-  // if current wallet is undefined (not signed in), show sign in to mm modal
-  // if (!store.getState().threeBox.currentWallet) {
-  //   dispatch({
-  //     type: 'FAILED_LOADING_3BOX',
-  //     errorMessage: 'Error: MetaMask Message Signature: from field is required.',
-  //     showErrorModal: true,
-  //     provideConsent: false,
-  //   });
-  //   return;
-  // }
-
   dispatch({
     type: 'PROVIDE_CONSENT',
   });
@@ -222,7 +210,6 @@ export const signInUp = () => async (dispatch) => {
       type: 'SIGN_IN_UP',
       box,
       ifFetchingThreeBox: false,
-      // signUpSuccessful: true,
       errorMessage: '',
       showErrorModal: false,
       name,

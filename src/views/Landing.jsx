@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import { signInUp, closeErrorModal, closeConsentModal, requireMetaMask, closeRequireMetaMask, checkForMetaMask, openErrorModal, handleSignInModal } from '../state/actions';
 import ThreeBoxLogo from '../components/ThreeBoxLogo.jsx';
@@ -21,7 +21,6 @@ import getCoinbaseWallet from '../assets/getCoinbaseWallet.svg';
 import Status from '../assets/Status.png';
 import TrustWallet from '../assets/TrustWallet.png';
 import consensys from '../assets/consensys.png';
-// import address from '../utils/address';
 import './styles/Landing.css';
 import '../components/styles/ProfileCard.css';
 import '../components/styles/Nav.css';
@@ -44,10 +43,6 @@ class Landing extends Component {
     window.removeEventListener('scroll', this.hideBar);
   }
 
-  // shouldComponentUpdate () {
-  //   console.log(this.props.location);
-  // }
-
   hideBar = () => {
     window.scrollY < 10 ?
       this.setState({ isHide: false })
@@ -59,7 +54,6 @@ class Landing extends Component {
     const { hasWallet, isSignedIntoWallet } = this.props;
     await this.props.checkForMetaMask();
     // localStorage.setItem(`serializedMuDID_${address}`, null);
-    console.log(hasWallet, isSignedIntoWallet);
     if (hasWallet && isSignedIntoWallet) {
       await this.props.signInUp();
     } else if (!hasWallet) {
@@ -70,7 +64,7 @@ class Landing extends Component {
   }
 
   render() {
-    const { ifFetchingThreeBox, showErrorModal, signUpSuccessful, errorMessage, provideConsent, alertRequireMetaMask, hasWallet, signInModal } = this.props;
+    const { ifFetchingThreeBox, showErrorModal, errorMessage, provideConsent, alertRequireMetaMask, hasWallet, signInModal } = this.props;
     const classHide = this.state.isHide ? 'hide' : '';
 
     const { showMobileWalletPrompt } = this.state;
@@ -326,7 +320,6 @@ Landing.propTypes = {
   handleSignInModal: PropTypes.func,
 
   ifFetchingThreeBox: PropTypes.bool,
-  signUpSuccessful: PropTypes.bool,
   showErrorModal: PropTypes.bool,
   signInModal: PropTypes.bool,
   provideConsent: PropTypes.bool,
@@ -347,7 +340,6 @@ Landing.defaultProps = {
   handleSignInModal: handleSignInModal(),
 
   ifFetchingThreeBox: false,
-  signUpSuccessful: false,
   showErrorModal: false,
   signInModal: false,
   provideConsent: false,
@@ -359,7 +351,6 @@ Landing.defaultProps = {
 
 const mapState = state => ({
   ifFetchingThreeBox: state.threeBox.ifFetchingThreeBox,
-  signUpSuccessful: state.threeBox.signUpSuccessful,
   errorMessage: state.threeBox.errorMessage,
   showErrorModal: state.threeBox.showErrorModal,
   signInModal: state.threeBox.signInModal,
