@@ -6,17 +6,15 @@ import {
 
 export let address = typeof web3 !== 'undefined' ? web3.eth.accounts[0] : ''; // eslint-disable-line no-undef
 
-const checkAddress = setInterval(() => {
+setInterval(() => {
   const currentAddress = typeof web3 !== 'undefined' ? web3.eth.accounts[0] : ''; // eslint-disable-line no-undef
 
   // Logged out
   if (currentAddress !== address && currentAddress === undefined) {
-    // clearInterval(checkAddress);
     store.dispatch({
       type: 'SHOW_LOGGEDOUT_MODAL',
       loggedOutModal: true,
     });
-    // history.push('/');
   }
 
   // Switched address

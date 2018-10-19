@@ -31,7 +31,7 @@ class Nav extends Component {
 
   render() {
     const { showProfileModal, goHome } = this.state;
-    const { image, threeBox, location } = this.props;
+    const { image, threeBox, location , threeBox} = this.props;
     const { pathname } = location;
 
     return (
@@ -52,7 +52,7 @@ class Nav extends Component {
                     <Link to={routes.PROFILE}><li>Profile</li></Link>
                     <Link to={routes.EDITPROFILE}><li>Edit profile</li></Link>
                     <div className="nav__divide" />
-                    <li onClick={() => this.handleSignOut()}>Sign Out</li>
+                    <li onClick={() => threeBox && this.handleSignOut()}>Sign Out</li>
                     {/* <Link to={routes.LANDING} onClick={() => threeBox.logout()}><li>Sign Out</li></Link> */}
                     <div id="nav__divideBug" />
                     <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="nav__reportBug">Report a bug</li></a>
@@ -68,7 +68,7 @@ class Nav extends Component {
                 </div>
                 <Link to={routes.PROFILE}><li className={pathname === '/Profile' ? 'nav__activePage' : ''}>Profile</li></Link>
                 <Link to={routes.EDITPROFILE}><li className={pathname === '/EditProfile' ? 'nav__activePage' : ''}>Edit profile</li></Link>
-                <Link to={routes.LANDING} ><li id="mobileNav__signout" onClick={() => threeBox.logout()}>Sign Out</li></Link>
+                <Link to={routes.LANDING} ><li id="mobileNav__signout" onClick={() => threeBox && threeBox.logout()}>Sign Out</li></Link>
                 <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="nav__reportBug">Report a bug</li></a>
               </ul>
             </div>

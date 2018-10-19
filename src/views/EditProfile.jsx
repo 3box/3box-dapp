@@ -97,7 +97,7 @@ class EditProfile extends Component {
   }
 
   render() {
-    const { image, ifFetchingThreeBox } = this.props;
+    const { image, ifFetchingThreeBox, box } = this.props;
     const { github, email, name, disableSave, removeUserPic, saveLoading } = this.state;
 
     return (
@@ -214,7 +214,7 @@ class EditProfile extends Component {
             </div>
             <div id="edit__formControls">
               <div id="edit__formControls__content">
-                <button type="submit" disabled={disableSave} onClick={e => this.handleSubmit(e)}>Save</button>
+                <button type="submit" disabled={disableSave} onClick={e => box && this.handleSubmit(e)}>Save</button>
                 <Link to="/Profile" className="subtext" id="edit__cancel">
                   Cancel
                 </Link>

@@ -3,27 +3,45 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
-import { signInUp, closeErrorModal, closeConsentModal, requireMetaMask, closeRequireMetaMask, checkForMetaMask, openErrorModal, handleSignInModal } from '../state/actions';
+import {
+  signInUp,
+  closeErrorModal,
+  closeConsentModal,
+  requireMetaMask,
+  closeRequireMetaMask,
+  checkForMetaMask,
+  openErrorModal,
+  handleSignInModal
+} from '../state/actions';
+import {
+  ProvideConsentModal,
+  RequireMetaMaskModal,
+  SignInToWalletModal,
+  IsFetchingThreeBoxModal,
+  MobileWalletRequiredModal,
+  ErrorModal,
+} from '../components/Modals.jsx';
 import ThreeBoxLogo from '../components/ThreeBoxLogo.jsx';
 import ProfileCard from '../components/ProfileCard.jsx';
 import LandingFooter from '../components/LandingFooter.jsx';
-import Loading from '../assets/Loading.svg';
 import illustration from '../assets/Dapp.svg';
 import Cristobal from '../assets/Cristobal.png';
 import Michael from '../assets/Michael.png';
 import Christian from '../assets/Christian.jpg';
 import ConsensysSVG from '../assets/consensys.svg';
-import MetaMaskLogo from '../assets/MetaMaskLogo.svg';
-import Consent from '../assets/Consent.png';
 import ThreeBoxGraphic from '../assets/3BoxGraphic.png';
 import PartnersBG from '../assets/PartnersBG.svg';
-import getCoinbaseWallet from '../assets/getCoinbaseWallet.svg';
-import Status from '../assets/Status.png';
-import TrustWallet from '../assets/TrustWallet.png';
 import consensys from '../assets/consensys.png';
 import './styles/Landing.css';
 import '../components/styles/ProfileCard.css';
 import '../components/styles/Nav.css';
+
+// import getCoinbaseWallet from '../assets/getCoinbaseWallet.svg';
+// import Status from '../assets/Status.png';
+// import TrustWallet from '../assets/TrustWallet.png';
+// import MetaMaskLogo from '../assets/MetaMaskLogo.svg';
+// import Consent from '../assets/Consent.png';
+// import Loading from '../assets/Loading.svg';
 
 class Landing extends Component {
   constructor(props) {
@@ -48,6 +66,10 @@ class Landing extends Component {
       this.setState({ isHide: false })
       :
       this.setState({ isHide: true });
+  }
+
+  handleMobileWalletModal = () => {
+    this.setState({ showMobileWalletPrompt: false });
   }
 
   async handleSignInUp() {
@@ -86,113 +108,12 @@ class Landing extends Component {
           </div>
         </nav>
 
-        {provideConsent
-          && (
-            <div className="loadingContainer">
-              <div className="consentModal">
-                <img src={Consent} alt="Partners background" />
-                <h3>Provide consent to 3Box in MetaMask</h3>
-                <button onClick={this.props.closeConsentModal} type="button" className="tertiaryButton" id="closeModal">close</button>
-              </div>
-            </div>
-          )}
-
-        {ifFetchingThreeBox
-          && (
-            <div className="loadingContainer">
-              <img src={Loading} alt="loading" id="loadingPic" />
-            </div>
-          )}
-
-        {
-          alertRequireMetaMask
-          && (
-            <div className="loadingContainer">
-              <div className="consentModal">
-                <img src={MetaMaskLogo} alt="Partners background" />
-                <h4>
-                  Install MetaMask to create a 3Box account
-                        </h4>
-                <button onClick={this.props.closeRequireMetaMask} type="button" className="tertiaryButton" id="closeModal">close</button>
-              </div>
-            </div>)
-        }
-
-        {showErrorModal
-          && (
-            <div className="loadingContainer">
-              <div className="modal">
-                <div id="consentError">
-                  {
-                    errorMessage.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.'
-                      ?
-                      <div id="consentError__metaMaskError">
-                        <img src={MetaMaskLogo} alt="Partners background" />
-                        <h4>
-                          Sign in to MetaMask to continue
-                        </h4>
-                      </div>
-                      : <h4>
-                        {errorMessage}
-                      </h4>
-                  }
-                  <h4></h4>
-                </div>
-                <button onClick={this.props.closeErrorModal} type="button" className="tertiaryButton" id="closeModal">close</button>
-              </div>
-            </div>
-          )}
-
-        {signInModal
-          && (
-            <div className="loadingContainer">
-              <div className="modal">
-                <div id="consentError">
-                  <div id="consentError__metaMaskError">
-                    <img src={MetaMaskLogo} alt="Partners background" />
-                    <h4>
-                      Sign in to MetaMask to continue
-                        </h4>
-                  </div>
-                  <h4></h4>
-                </div>
-                <button onClick={this.props.handleSignInModal} type="button" className="tertiaryButton" id="closeModal">close</button>
-              </div>
-            </div>
-          )}
-
-        {(showMobileWalletPrompt && !hasWallet)
-          && (
-            <div id="mobile__landing__prompt">
-              <div id="mobile__landing__prompt__logo">
-                <ThreeBoxLogo />
-              </div>
-
-              <div id="mobile__landing__prompt__text">
-                <p>3box requires a mobile dApp browser in order to work</p>
-                <br />
-                <p>Download Coinbase Wallet or Status.im then revisit this site in the mobile dApp browser to continue</p>
-              </div>
-
-              <div id="mobile__landing__prompt__buttons">
-                <a href={isIOS ? 'https://itunes.apple.com/app/coinbase-wallet/id1278383455?ls=1&mt=8' : 'https://play.google.com/store/apps/details?id=org.toshi'}>
-                  <img src={getCoinbaseWallet} alt="Get Coinbase wallet" />
-                </a>
-
-                {!isIOS ?
-                  <a href='https://play.google.com/store/apps/details?id=im.status.ethereum&hl=en_US'>
-                    <img src={Status} alt="Get Status wallet" />
-                  </a>
-
-                  : <a href='https://itunes.apple.com/us/app/trust-ethereum-wallet/id1288339409?mt=8'>
-                    <img src={TrustWallet} alt="Get TrustWallet" />
-                  </a>}
-              </div>
-
-              <button onClick={() => this.setState({ showMobileWalletPrompt: false })} type="button" className="tertiaryButton" id="closeModal">X</button>
-            </div>
-          )
-        }
+        {provideConsent && <ProvideConsentModal closeConsentModal={this.props.closeConsentModal} />}
+        {ifFetchingThreeBox && <IsFetchingThreeBoxModal />}
+        {alertRequireMetaMask && <RequireMetaMaskModal closeRequireMetaMask={this.props.closeRequireMetaMask} />}
+        {showErrorModal && <ErrorModal errorMessage={errorMessage} closeErrorModal={this.props.closeErrorModal} />}
+        {signInModal && <SignInToWalletModal handleSignInModal={this.props.handleSignInModal} />}
+        {(showMobileWalletPrompt && !hasWallet) && <MobileWalletRequiredModal isIOS={isIOS} handleMobileWalletModal={this.handleMobileWalletModal} />}
 
         <img src={ThreeBoxGraphic} id="threeBoxGraphic" alt="ThreeBox Graphic" />
 
@@ -224,10 +145,7 @@ class Landing extends Component {
         <div id="landing__trustedPartners">
           <h3 className="lightOpacity thin">TRUSTED BY PARTNERS</h3>
           <div id="landing__partnerList">
-            {/* <img src={Gitcoin} className="partnerCos" alt="Partners background" /> */}
-            {/* <img src={Coinbase} className="partnerCos" alt="Partners background" /> */}
             <img src={ConsensysSVG} className="partnerCos" alt="Partners background" />
-            {/* <img src={Metamask} className="partnerCos" alt="Partners background" /> */}
           </div>
           <img src={PartnersBG} id="trustedPartners--bg" alt="Partners background" />
         </div>

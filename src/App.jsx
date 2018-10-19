@@ -13,9 +13,9 @@ import history from './history';
 import address from './utils/address';
 
 import {
-  SwitchedAddress,
-  SwitchedNetworks,
-  LoggedOut,
+  SwitchedAddressModal,
+  SwitchedNetworksModal,
+  LoggedOutModal,
 } from './components/Modals.jsx';
 
 import {
@@ -78,16 +78,13 @@ class App extends Component {
         {(showDifferentNetworkModal && prevPrevNetwork !== currentNetwork) // AND user is returning to the same network
           // {(showDifferentNetworkModal && switchBack && prevPrevNetwork !== currentNetwork) // AND user is returning to the same network
           && (
-            <SwitchedNetworks
+            <SwitchedNetworksModal
               prevNetwork={prevNetwork}
               currentNetwork={currentNetwork}
               proceedWithSwitchedAddress={this.props.proceedWithSwitchedAddress} />)}
 
-        {loggedOutModal
-          && <LoggedOut showLoggedOutModal={this.props.showLoggedOutModal} />}
-
-        {switchedAddressModal
-          && <SwitchedAddress showSwitchedAddressModal={this.props.showSwitchedAddressModal} />}
+        {loggedOutModal && <LoggedOutModal showLoggedOutModal={this.props.showLoggedOutModal} />}
+        {switchedAddressModal && <SwitchedAddressModal showSwitchedAddressModal={this.props.showSwitchedAddressModal} />}
 
         <Switch>
           <Route exact path={routes.LANDING} component={Landing} />
