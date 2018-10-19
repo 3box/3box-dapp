@@ -255,7 +255,7 @@ class Landing extends Component {
 
               <div id="Michael" className="profileCardSmall">
                 <img src={Michael} className="profileCardSmall__user__picture" alt="profile" />
-                <div className="profileCard__user__info">
+                <div className="profileCardSmall__user__info">
 
                   <h4 className="profileCardSmall__user__name">Michael Sena</h4>
 
@@ -266,7 +266,7 @@ class Landing extends Component {
 
               <div id="Christian" className="profileCardSmall">
                 <img src={Christian} className="profileCardSmall__user__picture" alt="profile" />
-                <div className="profileCard__user__info">
+                <div className="profileCardSmall__user__info">
 
                   <h4 className="profileCardSmall__user__name">Christian Lundkvist</h4>
 
@@ -277,7 +277,7 @@ class Landing extends Component {
 
               <div id="Cristobal" className="profileCardSmall">
                 <img src={Cristobal} className="profileCardSmall__user__picture" alt="profile" />
-                <div className="profileCard__user__info">
+                <div className="profileCardSmall__user__info">
 
                   <h4 className="profileCardSmall__user__name">Cristobal Castillo</h4>
 

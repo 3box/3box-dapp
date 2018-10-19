@@ -75,6 +75,12 @@
 .profileCard__user__info {
   padding: 2em;
   margin-top: -4em;
+  // margin-top: 1.2em;
+}
+
+.profileCardSmall__user__info {
+  padding: 2em;
+  margin-top: 1.2em;
 }
 
 .profileCardSmall {
@@ -92,10 +98,9 @@
   width: 80px;
   height: 80px;
   margin: 0 auto;
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: perspective(1px) translateY(-30%) translateX(-160%);
+  top: -26px;
+  position: absolute;
+  left: 5.5em;
 }
 
 .profileCardSmall__user__name {
@@ -130,3 +135,17 @@
     transform: perspective(1px) translateY(-30%) translateX(-140%);
   }
 }
+
+
+
+// .profileCardSmall__user__picture {
+//   background-color: #3f3f3f;
+//   border-radius: 100%;
+//   width: 80px;
+//   height: 80px;
+//   margin: 0 auto;
+//   position: relative;
+//   top: 50%;
+//   left: 50%;
+//   transform: perspective(1px) translateY(-30%) translateX(-160%);
+// }

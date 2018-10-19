@@ -27,6 +27,7 @@ import {
   getActivity,
   checkForMetaMask,
   checkNetworkAndAddress,
+  handleSignInModal,
   closeDifferentNetwork,
   proceedWithSwitchedAddress,
   showLoggedOutModal,
@@ -44,10 +45,12 @@ class App extends Component {
     const { pathname } = location;
 
     this.props.checkForMetaMask();
+
     if ((pathname === '/Profile' || pathname === '/EditProfile') && web3 && ThreeBox.isLoggedIn(address)) { // eslint-disable-line no-undef
       this.loadData();
-    } else {
+    } else if ((pathname === '/Profile' || pathname === '/EditProfile') && !ThreeBox.isLoggedIn(address)) { // eslint-disable-line no-undef
       history.push(routes.LANDING);
+      this.props.handleSignInModal();
     }
   }
 
@@ -62,25 +65,29 @@ class App extends Component {
   }
 
   render() {
-    const { switched, showDifferentNetworkModal, loggedOutModal, switchedAddressModal } = this.props;
+    const { switched, showDifferentNetworkModal, loggedOutModal, switchedAddressModal, prevNetwork, currentNetwork } = this.props;
     const switchBack = window.localStorage.getItem('switch');
-    const currentNetwork = window.localStorage.getItem('currentNetwork');
+    const currentEthNetwork = window.localStorage.getItem('currentNetwork');
     const prevPrevNetwork = window.localStorage.getItem('prevPrevNetwork');
-    // console.log(switchBack);
-    // console.log(currentNetwork);
-    // console.log(prevPrevNetwork);
+    console.log(switchBack);
+    console.log(currentEthNetwork);
+    console.log(prevPrevNetwork);
 
     return (
       <div className="App">
         {(showDifferentNetworkModal && prevPrevNetwork !== currentNetwork) // AND user is returning to the same network
           // {(showDifferentNetworkModal && switchBack && prevPrevNetwork !== currentNetwork) // AND user is returning to the same network
-          && <SwitchedNetworks />}
+          && (
+            <SwitchedNetworks
+              prevNetwork={prevNetwork}
+              currentNetwork={currentNetwork}
+              proceedWithSwitchedAddress={this.props.proceedWithSwitchedAddress} />)}
 
         {loggedOutModal
-          && <LoggedOut />}
+          && <LoggedOut showLoggedOutModal={this.props.showLoggedOutModal} />}
 
         {switchedAddressModal
-          && <SwitchedAddress />}
+          && <SwitchedAddress showSwitchedAddressModal={this.props.showSwitchedAddressModal} />}
 
         <Switch>
           <Route exact path={routes.LANDING} component={Landing} />
@@ -105,6 +112,7 @@ App.propTypes = {
   closeDifferentNetwork: PropTypes.func,
   proceedWithSwitchedAddress: PropTypes.func,
   checkNetworkAndAddress: PropTypes.func,
+  handleSignInModal: PropTypes.func,
   showLoggedOutModal: PropTypes.func,
   showSwitchedAddressModal: PropTypes.func,
 
@@ -131,6 +139,7 @@ App.defaultProps = {
   closeDifferentNetwork: closeDifferentNetwork(),
   proceedWithSwitchedAddress: proceedWithSwitchedAddress(),
   checkNetworkAndAddress: checkNetworkAndAddress(),
+  handleSignInModal: handleSignInModal(),
   showLoggedOutModal: showLoggedOutModal(),
   showSwitchedAddressModal: showSwitchedAddressModal(),
 
@@ -169,6 +178,7 @@ export default withRouter(connect(mapState,
     getActivity,
     checkForMetaMask,
     checkNetworkAndAddress,
+    handleSignInModal,
     closeDifferentNetwork,
     proceedWithSwitchedAddress,
     showLoggedOutModal,

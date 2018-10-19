@@ -176,6 +176,12 @@ const threeBoxReducer = (state = {}, action) => {
         showDifferentNetworkModal: action.showDifferentNetworkModal,
       };
 
+    case 'HANDLE_SIGNIN_MODAL':
+      return {
+        ...state,
+        showYouMustBeSignedInModal: action.showYouMustBeSignedInModal,
+      };
+
     default:
       return state;
   }

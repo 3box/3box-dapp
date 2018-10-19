@@ -7,7 +7,7 @@ import Consent from '../assets/Consent.png';
 import MetaMaskLogo from '../assets/MetaMaskLogo.svg';
 import '../views/styles/Landing.css';
 
-export const SwitchedNetworks = () => (
+export const SwitchedNetworks = ({ prevNetwork, currentNetwork, proceedWithSwitchedAddress }) => (
   <div className="loadingContainer">
     <div className="differentNetwork__modal">
 
@@ -24,20 +24,20 @@ export const SwitchedNetworks = () => (
         <br />
         <br />
         {`Switch back to
-        ${this.props.prevNetwork} in MetaMask or continue on
-        ${this.props.currentNetwork}`}
+        ${prevNetwork} in MetaMask or continue on
+        ${currentNetwork}`}
       </p>
 
-      <button onClick={() => { this.props.proceedWithSwitchedAddress(); window.localStorage.setItem('switch', true); }} type="button">
+      <button onClick={() => { proceedWithSwitchedAddress(); window.localStorage.setItem('switch', true); }} type="button">
         Continue on
-        {` ${this.props.currentNetwork}`}
+        {` ${currentNetwork}`}
       </button>
 
     </div>
   </div>
 );
 
-export const LoggedOut = () => (
+export const LoggedOut = ({ showLoggedOutModal }) => (
   <div className="loadingContainer">
     <div className="differentNetwork__modal">
       <h4>
@@ -48,13 +48,13 @@ export const LoggedOut = () => (
         Sign back in to your wallet or exit 3Box
       </p>
       <Link to={routes.LANDING}>
-        <button onClick={() => { this.props.showLoggedOutModal(); history.push(routes.LANDING); }} type="button">Exit</button>
+        <button onClick={() => { showLoggedOutModal(); history.push(routes.LANDING); }} type="button">Exit</button>
       </Link>
     </div>
   </div>
 );
 
-export const SwitchedAddress = () => (
+export const SwitchedAddress = ({ showSwitchedAddressModal }) => (
   <div className="loadingContainer">
     <div className="differentNetwork__modal">
       <h4>
@@ -65,7 +65,7 @@ export const SwitchedAddress = () => (
         Revert to the previous address or login in the new address
       </p>
       <Link to={routes.LANDING}>
-        <button onClick={this.props.showSwitchedAddressModal} type="button">Sign back in</button>
+        <button onClick={showSwitchedAddressModal} type="button">Sign back in</button>
       </Link>
     </div>
   </div>
@@ -87,7 +87,7 @@ export const RequireMetaMask = () => (
       <img src={MetaMaskLogo} alt="Partners background" />
       <h4>
         Install MetaMask to create a 3Box account
-                        </h4>
+      </h4>
       <button onClick={this.props.closeRequireMetaMask} type="button" className="tertiaryButton" id="closeModal">close</button>
     </div>
   </div>
