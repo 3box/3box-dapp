@@ -31,7 +31,7 @@ class Nav extends Component {
 
   render() {
     const { showProfileModal, goHome } = this.state;
-    const { image, threeBox, location , threeBox} = this.props;
+    const { image, threeBox, location } = this.props;
     const { pathname } = location;
 
     return (
