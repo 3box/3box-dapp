@@ -7,7 +7,7 @@
 #edit {
   width: 55vw;
   margin: 0 auto;
-  padding-top: 4em;
+  padding-top: 7.5em;
 
   h3 {
     font-weight: 400;
@@ -15,15 +15,11 @@
   }
 
   input {
-    // font-size: 1.2em;    
     display: inline-block;
     border-radius: 5px;
     border-style: none;
     border: solid 1px #E4E4E4;
-    // background-color: #e8e8e8;
     background-color: rgb(238, 238, 238);
-    // background-color: $threeBoxBlueHue;
-    // box-shadow: 0 0px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
     height: 44px;
     width: 100%;
     margin-top: 1em;
@@ -318,7 +314,6 @@
   text-align: center;
   color: $lightFont;
   position: relative;
-  // z-index: 1;
 }
 
 #removePic {
@@ -378,7 +373,6 @@
 }
 
 #edit__breadCrumb {
-  // position: fixed;
   width: 100%;
   background-color: $threeBoxBlueHueSecondary;
   border-bottom: 1px solid #E4E4E4;
@@ -386,6 +380,7 @@
   height: 40px;
   display: flex;
   align-items: center;
+  position: fixed;
 
   p {
     margin-right: 2vw;

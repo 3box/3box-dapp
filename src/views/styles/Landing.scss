@@ -200,6 +200,7 @@
   display: inline-block;
   animation: fadeIn 1.25s forwards;
   -webkit-animation: fadeIn 1.25s forwards;
+  z-index: 1;
 }
 
 #landing__createProfileButton {
@@ -479,7 +480,7 @@
   right: 0;
   top: 7em;
   opacity: .6;
-  z-index: 2;
+  z-index: 1;
 }
 
 #threeBoxGraphic2 {
@@ -665,6 +666,7 @@
     flex-direction: column;
     align-items: center;
     margin-top: 1em;
+    width: 40vw;
   }
 
   .footer__socialIcons {

@@ -2,8 +2,6 @@ import {
   store,
 } from '../state/store';
 
-// import history from '../history';
-
 export let address = typeof web3 !== 'undefined' ? web3.eth.accounts[0] : ''; // eslint-disable-line no-undef
 
 setInterval(() => {
@@ -31,7 +29,7 @@ setInterval(() => {
     window.location.reload();
   }
   address = currentAddress;
-}, 1000);
+}, 1500);
 
 export {
   address as

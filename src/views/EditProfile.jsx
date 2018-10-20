@@ -59,41 +59,43 @@ class EditProfile extends Component {
     const { name, github, email, removeUserPic, buffer, editPic } = this.state;
     const { box } = this.props;
 
-    // start loading animation
-    e.preventDefault();
-    this.setState({ saveLoading: true });
+    if (box.public) {
+      // start loading animation
+      e.preventDefault();
+      this.setState({ saveLoading: true });
 
-    // if value has changed, switch boolean to save to db
-    let nameChanged = false;
-    let githubChanged = false;
-    let emailChanged = false;
-    name === this.props.name ? nameChanged = false : nameChanged = true;
-    github === this.props.github ? githubChanged = false : githubChanged = true;
-    email === this.props.email ? emailChanged = false : emailChanged = true;
+      // if value has changed, switch boolean to save to db
+      let nameChanged = false;
+      let githubChanged = false;
+      let emailChanged = false;
+      name === this.props.name ? nameChanged = false : nameChanged = true;
+      github === this.props.github ? githubChanged = false : githubChanged = true;
+      email === this.props.email ? emailChanged = false : emailChanged = true;
 
-    // if value changed and is not empty, save new value, else remove value
-    nameChanged && (name !== '' ? await box.public.set('name', name) : await box.public.remove('name'));
-    githubChanged && (github !== '' ? await box.public.set('github', github) : await box.public.remove('github'));
-    emailChanged && (email !== '' ? await box.private.set('email', email) : await box.private.remove('email'));
-    removeUserPic && await box.public.remove('image');
+      // if value changed and is not empty, save new value, else remove value
+      nameChanged && (name !== '' ? await box.public.set('name', name) : await box.public.remove('name'));
+      githubChanged && (github !== '' ? await box.public.set('github', github) : await box.public.remove('github'));
+      emailChanged && (email !== '' ? await box.private.set('email', email) : await box.private.remove('email'));
+      removeUserPic && await box.public.remove('image');
 
-    const fetch = editPic && await window.fetch('https://ipfs.infura.io:5001/api/v0/add', {
-      method: 'post',
-      'Content-Type': 'multipart/form-data',
-      body: buffer
-    })
-    const returnedData = editPic && await fetch.json();
-    editPic && await box.public.set('image', [{ '@type': 'ImageObject', contentUrl: { '/': returnedData.Hash } }]);
+      const fetch = editPic && await window.fetch('https://ipfs.infura.io:5001/api/v0/add', {
+        method: 'post',
+        'Content-Type': 'multipart/form-data',
+        body: buffer
+      })
+      const returnedData = editPic && await fetch.json();
+      editPic && await box.public.set('image', [{ '@type': 'ImageObject', contentUrl: { '/': returnedData.Hash } }]);
 
-    // only get values that have changed
-    nameChanged && await this.props.getPublicName();
-    githubChanged && await this.props.getPublicGithub();
-    emailChanged && await this.props.getPrivateEmail();
-    (removeUserPic || editPic) && await this.props.getPublicImage();
+      // only get values that have changed
+      nameChanged && await this.props.getPublicName();
+      githubChanged && await this.props.getPublicGithub();
+      emailChanged && await this.props.getPrivateEmail();
+      (removeUserPic || editPic) && await this.props.getPublicImage();
 
-    this.props.getActivity();
-    this.setState({ saveLoading: false });
-    history.push(routes.PROFILE);
+      this.props.getActivity();
+      this.setState({ saveLoading: false });
+      history.push(routes.PROFILE);
+    }
   }
 
   render() {
@@ -214,7 +216,7 @@ class EditProfile extends Component {
             </div>
             <div id="edit__formControls">
               <div id="edit__formControls__content">
-                <button type="submit" disabled={disableSave} onClick={e => box && this.handleSubmit(e)}>Save</button>
+                <button type="submit" disabled={disableSave} onClick={e => this.handleSubmit(e)}>Save</button>
                 <Link to="/Profile" className="subtext" id="edit__cancel">
                   Cancel
                 </Link>

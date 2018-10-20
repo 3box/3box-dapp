@@ -4,7 +4,7 @@
 #edit {
   width: 55vw;
   margin: 0 auto;
-  padding-top: 4em; }
+  padding-top: 7.5em; }
   #edit h3 {
     font-weight: 400;
     font-size: .8em; }
@@ -293,7 +293,8 @@
   overflow: hidden;
   height: 40px;
   display: flex;
-  align-items: center; }
+  align-items: center;
+  position: fixed; }
   #edit__breadCrumb p {
     margin-right: 2vw; }
   #edit__breadCrumb #edit__breadCrumb__crumbs {

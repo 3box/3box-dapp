@@ -22,6 +22,7 @@ import {
   ErrorModal,
 } from '../components/Modals.jsx';
 import ThreeBoxLogo from '../components/ThreeBoxLogo.jsx';
+import Nav from '../components/Nav';
 import ProfileCard from '../components/ProfileCard.jsx';
 import LandingFooter from '../components/LandingFooter.jsx';
 import illustration from '../assets/Dapp.svg';
@@ -32,6 +33,9 @@ import ConsensysSVG from '../assets/consensys.svg';
 import ThreeBoxGraphic from '../assets/3BoxGraphic.png';
 import PartnersBG from '../assets/PartnersBG.svg';
 import consensys from '../assets/consensys.png';
+import history from '../history';
+import address from '../utils/address';
+import * as routes from '../utils/routes';
 import './styles/Landing.css';
 import '../components/styles/ProfileCard.css';
 import '../components/styles/Nav.css';
@@ -49,12 +53,16 @@ class Landing extends Component {
     this.state = {
       isHide: false,
       showMobileWalletPrompt: true,
+      signedIn: false,
     };
     this.handleSignInUp = this.handleSignInUp.bind(this);
   }
 
   componentDidMount() {
+    const { pathname } = this.props.location;
     window.addEventListener('scroll', this.hideBar);
+    // if (pathname === '/' && ThreeBox.isLoggedIn(address)) history.push(routes.PROFILE); // eslint-disable-line no-undef
+    if (ThreeBox.isLoggedIn(address)) this.setState({ signedIn: true }); // eslint-disable-line no-undef
   }
 
   componentWillUnmount() {
@@ -89,7 +97,7 @@ class Landing extends Component {
     const { ifFetchingThreeBox, showErrorModal, errorMessage, provideConsent, alertRequireMetaMask, hasWallet, signInModal } = this.props;
     const classHide = this.state.isHide ? 'hide' : '';
 
-    const { showMobileWalletPrompt } = this.state;
+    const { showMobileWalletPrompt, signedIn } = this.state;
 
     const { userAgent: ua } = navigator
     const isIOS = ua.includes('iPhone')
@@ -98,15 +106,19 @@ class Landing extends Component {
     return (
       <div id="landing">
 
-        <nav id="landing__nav" className={classHide}>
-          <ThreeBoxLogo />
-          <div id="actionButtons">
-            <p onClick={this.handleSignInUp}>Sign in</p>
-            <button onClick={this.handleSignInUp} className="secondaryButton" type="button">
-              Create profile
+        {!signedIn ?
+          (<nav id="landing__nav" className={classHide}>
+            <ThreeBoxLogo />
+            <div id="actionButtons">
+              <p onClick={this.handleSignInUp}>Sign in</p>
+              <button onClick={this.handleSignInUp} className="secondaryButton" type="button">
+                Create profile
             </button>
-          </div>
-        </nav>
+            </div>
+          </nav>)
+          : (
+            <Nav />
+          )}
 
         {provideConsent && <ProvideConsentModal closeConsentModal={this.props.closeConsentModal} />}
         {ifFetchingThreeBox && <IsFetchingThreeBoxModal />}

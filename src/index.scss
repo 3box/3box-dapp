@@ -24,7 +24,7 @@ body {
   color: $threeBoxBlack;
   background-color: $backgroundHue;
   font-weight: 300;
-  height: 100%;
+  height: calc(100% - 69px);
   width: 100%;
 }
 

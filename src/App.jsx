@@ -27,6 +27,7 @@ import {
   getActivity,
   checkForMetaMask,
   checkNetworkAndAddress,
+  initialCheckNetwork,
   handleSignInModal,
   closeDifferentNetwork,
   proceedWithSwitchedAddress,
@@ -45,8 +46,12 @@ class App extends Component {
     const { pathname } = location;
 
     this.props.checkForMetaMask();
+    if (pathname === '/') this.props.initialCheckNetwork();
 
-    if ((pathname === '/Profile' || pathname === '/EditProfile') && web3 && ThreeBox.isLoggedIn(address)) { // eslint-disable-line no-undef
+    if ((pathname === '/Profile' || pathname === '/EditProfile') && typeof web3 !== 'undefined' && ThreeBox.isLoggedIn(address)) { // eslint-disable-line no-undef
+      this.loadData();
+    } else if (pathname === '/' && typeof web3 !== 'undefined' && ThreeBox.isLoggedIn(address)) { // eslint-disable-line no-undef
+      history.push(routes.PROFILE);
       this.loadData();
     } else if ((pathname === '/Profile' || pathname === '/EditProfile') && !ThreeBox.isLoggedIn(address)) { // eslint-disable-line no-undef
       history.push(routes.LANDING);
@@ -70,8 +75,8 @@ class App extends Component {
     const currentEthNetwork = window.localStorage.getItem('currentNetwork');
     const prevPrevNetwork = window.localStorage.getItem('prevPrevNetwork');
     console.log(switchBack);
-    console.log(currentEthNetwork);
-    console.log(prevPrevNetwork);
+    console.log('currentNetwork', currentEthNetwork);
+    console.log('prevPrevNetwork', prevPrevNetwork);
 
     return (
       <div className="App">
@@ -109,6 +114,7 @@ App.propTypes = {
   closeDifferentNetwork: PropTypes.func,
   proceedWithSwitchedAddress: PropTypes.func,
   checkNetworkAndAddress: PropTypes.func,
+  initialCheckNetwork: PropTypes.func,
   handleSignInModal: PropTypes.func,
   showLoggedOutModal: PropTypes.func,
   showSwitchedAddressModal: PropTypes.func,
@@ -136,6 +142,7 @@ App.defaultProps = {
   closeDifferentNetwork: closeDifferentNetwork(),
   proceedWithSwitchedAddress: proceedWithSwitchedAddress(),
   checkNetworkAndAddress: checkNetworkAndAddress(),
+  initialCheckNetwork: initialCheckNetwork(),
   handleSignInModal: handleSignInModal(),
   showLoggedOutModal: showLoggedOutModal(),
   showSwitchedAddressModal: showSwitchedAddressModal(),
@@ -175,6 +182,7 @@ export default withRouter(connect(mapState,
     getActivity,
     checkForMetaMask,
     checkNetworkAndAddress,
+    initialCheckNetwork,
     handleSignInModal,
     closeDifferentNetwork,
     proceedWithSwitchedAddress,

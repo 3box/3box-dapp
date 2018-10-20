@@ -149,7 +149,8 @@
   width: 40%;
   display: inline-block;
   animation: fadeIn 1.25s forwards;
-  -webkit-animation: fadeIn 1.25s forwards; }
+  -webkit-animation: fadeIn 1.25s forwards;
+  z-index: 1; }
 
 #landing__createProfileButton {
   margin-top: 3.5em; }
@@ -369,7 +370,7 @@
   right: 0;
   top: 7em;
   opacity: .6;
-  z-index: 2; }
+  z-index: 1; }
 
 #threeBoxGraphic2 {
   position: absolute;
@@ -504,7 +505,8 @@
   #footer__links {
     flex-direction: column;
     align-items: center;
-    margin-top: 1em; }
+    margin-top: 1em;
+    width: 40vw; }
   .footer__socialIcons {
     width: 7vw; }
   #footer__info {

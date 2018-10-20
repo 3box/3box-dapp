@@ -19,7 +19,7 @@ body {
   color: #010c16;
   background-color: #f5f6f8;
   font-weight: 300;
-  height: 100%;
+  height: calc(100% - 69px);
   width: 100%; }
 
 button {

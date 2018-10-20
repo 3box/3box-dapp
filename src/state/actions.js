@@ -33,8 +33,7 @@ export const checkForMetaMask = () => async (dispatch) => {
           resolve(accounts);
         }
       });
-    }) :
-    null;
+    }) : null;
 
   const accounts = await accountsPromise; // eslint-disable-line no-undef
   const isSignedIntoWallet = typeof web3 !== 'undefined' && !!accounts.length > 0;
@@ -47,9 +46,65 @@ export const checkForMetaMask = () => async (dispatch) => {
   });
 };
 
+export const initialCheckNetwork = () => async (dispatch) => {
+  let currentNetwork;
+
+  if (typeof web3 !== 'undefined') {
+    const checkNetwork = new Promise((resolve) => {
+      web3.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
+        switch (netId) {
+          case '1':
+            resolve('Mainnet');
+            break;
+          case '2':
+            resolve('Morder');
+            break;
+          case '3':
+            resolve('Ropsten');
+            break;
+          case '4':
+            resolve('Rinkeby');
+            break;
+          case '42':
+            resolve('Kovan');
+            break;
+          default:
+            resolve('Unknown');
+        }
+      });
+    });
+
+    // check network, compatible with old & new v of MetaMask
+    if (web3.eth.net) { // eslint-disable-line no-undef
+      await web3.eth.net.getNetworkType() // eslint-disable-line no-undef
+        .then((network) => {
+          currentNetwork = network;
+        });
+    } else {
+      await checkNetwork.then((network) => {
+        currentNetwork = network;
+      });
+    }
+  }
+
+  window.localStorage.setItem('prevPrevNetwork', window.localStorage.prevNetwork);
+  window.localStorage.setItem('prevNetwork', window.localStorage.currentNetwork);
+  window.localStorage.setItem('currentNetwork', currentNetwork);
+
+  const prevNetwork = window.localStorage.currentNetwork;
+  const prevPrevNetwork = window.localStorage.prevNetwork;
+
+  await dispatch({
+    type: 'CHECK_NETWORK_AND_ADDRESS',
+    currentNetwork,
+    prevNetwork,
+    prevPrevNetwork,
+  });
+};
+
 export const checkNetworkAndAddress = () => async (dispatch) => {
   const checkNetwork = new Promise((resolve) => {
-    window.web3.version.getNetwork((err, netId) => {
+    web3.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
       switch (netId) {
         case '1':
           resolve('Mainnet');
@@ -88,11 +143,10 @@ export const checkNetworkAndAddress = () => async (dispatch) => {
   window.localStorage.setItem('prevPrevNetwork', window.localStorage.prevNetwork);
   window.localStorage.setItem('prevNetwork', window.localStorage.currentNetwork);
   window.localStorage.setItem('currentNetwork', currentNetwork);
-  // window.localStorage.setItem('switch', true);
 
   const prevNetwork = window.localStorage.prevNetwork;
   const prevPrevNetwork = window.localStorage.prevPrevNetwork;
-  
+
   if (prevNetwork && (prevNetwork !== currentNetwork)) {
     await dispatch({
       type: 'DIFFERENT_NETWORK',
@@ -105,6 +159,8 @@ export const checkNetworkAndAddress = () => async (dispatch) => {
   await dispatch({
     type: 'CHECK_NETWORK_AND_ADDRESS',
     currentNetwork,
+    prevNetwork,
+    prevPrevNetwork,
   });
 };
 
