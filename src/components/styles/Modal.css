@@ -20,19 +20,20 @@
   min-height: 400px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-direction: column;
   box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
   text-align: center; }
   .modal p {
-    margin-top: 1em;
-    line-height: 20px;
+    line-height: 24px;
     font-size: 16px; }
   .modal form {
     text-align: center;
     margin-top: 2em; }
   .modal img {
-    width: 300px; }
+    width: 240px; }
+  .modal h3 {
+    margin-bottom: 14px; }
 
 #closeModal {
   position: absolute;
@@ -61,19 +62,39 @@
   display: none; }
 
 #modal__loadingGraphic {
-  width: 100px; }
+  width: 60px;
+  margin-top: 60px; }
+
+#modal__loading3Box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  zoom: 1.7;
+  margin-bottom: 20px; }
+
+#modal__switchBack {
+  margin-top: 40px; }
+
+#modal__loggedOutModal--desktop {
+  display: flex; }
+
+#modal__loggedOutModal--mobile {
+  display: none; }
+
+#modal__switchedNetworks {
+  width: 50px; }
+
+#modal__signInToWallet--image {
+  width: 200px; }
+
+#modal__copy__card {
+  margin: 34px 0 40px 0; }
 
 @media only screen and (max-width: 600px) {
-  .modal__container {
-    display: flex;
-    align-items: center;
-    justify-content: center; }
-    .modal__container img {
-      width: 100px; }
+  .modal__container img {
+    width: 100px; }
   .modal {
     position: absolute;
-    left: 50%;
-    top: 15%;
     background: white;
     border: solid 1px #e8e8e8;
     border-radius: 6px;
@@ -129,4 +150,8 @@
     width: 85vw;
     margin-top: 2em; }
     #mobile__landing__prompt__buttons img {
-      width: 40vw; } }
+      width: 40vw; }
+  #modal__loggedOutModal--desktop {
+    display: none; }
+  #modal__loggedOutModal--mobile {
+    display: flex; } }

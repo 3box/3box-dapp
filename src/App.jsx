@@ -62,21 +62,20 @@ class App extends Component {
     }
   }
 
-  updateNetworks = () => {
-    console.log(this.props.prevPrevNetwork);
-    console.log(this.props.prevNetwork);
-    console.log(this.props.currentNetwork);
-    const prevPrevNetwork = this.props.prevPrevNetwork
-    const prevNetwork = this.props.prevNetwork
-    const currentNetwork = this.props.currentNetwork
-    // window.localStorage.setItem('prevPrevNetwork', prevPrevNetwork);
-    // window.localStorage.setItem('prevNetwork', prevNetwork);
-    // window.localStorage.setItem('currentNetwork', currentNetwork);
-  }
+  // updateNetworks = () => {
+  //   const prevPrevNetwork = this.props.prevPrevNetwork;
+  //   const prevNetwork = this.props.prevNetwork;
+  //   const currentNetwork = this.props.currentNetwork;
+  //   console.log(prevPrevNetwork);
+  //   console.log(prevNetwork);
+  //   console.log(currentNetwork);
+  //   window.localStorage.setItem('prevPrevNetwork', prevPrevNetwork);
+  //   window.localStorage.setItem('prevNetwork', prevNetwork);
+  //   window.localStorage.setItem('currentNetwork', currentNetwork);
+  // }
 
   async loadData() {
     await this.props.checkNetworkAndAddress();
-    await this.updateNetworks();
     await this.props.openBox();
     await this.props.getActivity();
     await this.props.getPublicName();
@@ -101,10 +100,16 @@ class App extends Component {
             <SwitchedNetworksModal
               prevNetwork={prevNetwork}
               currentNetwork={currentNetwork}
-              proceedWithSwitchedAddress={this.props.proceedWithSwitchedAddress} />)}
+              proceedWithSwitchedAddress={this.props.proceedWithSwitchedAddress}
+              show={showDifferentNetworkModal} />)}
 
-        {loggedOutModal && <LoggedOutModal showLoggedOutModal={this.props.showLoggedOutModal} handleSignOut={this.props.handleSignOut} />}
-        {switchedAddressModal && <SwitchedAddressModal showSwitchedAddressModal={this.props.showSwitchedAddressModal} />}
+        {loggedOutModal && <LoggedOutModal
+          showLoggedOutModal={this.props.showLoggedOutModal}
+          handleSignOut={this.props.handleSignOut}
+          show={loggedOutModal} />}
+        {switchedAddressModal && <SwitchedAddressModal
+          showSwitchedAddressModal={this.props.showSwitchedAddressModal}
+          show={switchedAddressModal} />}
 
         <Switch>
           <Route exact path={routes.LANDING} component={Landing} />

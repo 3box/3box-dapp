@@ -107,6 +107,13 @@ export const initialCheckNetwork = () => async (dispatch) => {
 };
 
 export const checkNetworkAndAddress = () => async (dispatch) => {
+  dispatch({
+    type: 'LOADING_ACTIVITY',
+  });
+  dispatch({
+    type: 'LOADING_3BOX',
+  });
+  
   const checkNetwork = new Promise((resolve) => {
     web3.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
       switch (netId) {
@@ -144,25 +151,29 @@ export const checkNetworkAndAddress = () => async (dispatch) => {
     });
   }
 
-  // const prevNetwork = window.localStorage.getItem('currentNetwork');
-  // const prevPrevNetwork = window.localStorage.getItem('prevNetwork');
+  const prevPrevNetwork = window.localStorage.getItem('prevNetwork');
+  const prevNetwork = window.localStorage.getItem('currentNetwork');
 
-  if (window.localStorage.getItem('currentNetwork') && (window.localStorage.getItem('currentNetwork') !== currentNetwork)) {
+  window.localStorage.setItem('prevPrevNetwork', prevPrevNetwork);
+  window.localStorage.setItem('prevNetwork', prevNetwork);
+  window.localStorage.setItem('currentNetwork', currentNetwork);
+
+  if (prevNetwork && (prevNetwork !== currentNetwork)) {
     await dispatch({
       type: 'DIFFERENT_NETWORK',
       currentNetwork,
-      prevNetwork: window.localStorage.getItem('currentNetwork'),
-      prevPrevNetwork: window.localStorage.getItem('prevNetwork'),
+      prevNetwork,
+      prevPrevNetwork,
     });
   }
 
   await dispatch({
     type: 'CHECK_NETWORK_AND_ADDRESS',
     currentNetwork,
-    prevNetwork: window.localStorage.getItem('currentNetwork'),
-    prevPrevNetwork: window.localStorage.getItem('prevNetwork'),
+    prevNetwork,
+    prevPrevNetwork,
   });
-  console.log('done');
+
 };
 
 export const closeDifferentNetwork = () => (dispatch) => {
@@ -289,12 +300,12 @@ export const signInUp = () => async (dispatch) => {
 };
 
 export const openBox = () => async (dispatch) => {
-  dispatch({
-    type: 'LOADING_ACTIVITY',
-  });
-  dispatch({
-    type: 'LOADING_3BOX',
-  });
+  // dispatch({
+  //   type: 'LOADING_ACTIVITY',
+  // });
+  // dispatch({
+  //   type: 'LOADING_3BOX',
+  // });
   const returnedBox = await ThreeBox // eslint-disable-line no-undef
     .openBox(address, web3.currentProvider); // eslint-disable-line no-undef
   const box = await returnedBox;

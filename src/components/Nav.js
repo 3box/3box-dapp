@@ -38,7 +38,15 @@ class Nav extends Component {
 
     return (
       <nav>
-        <ThreeBoxLogo />
+        <div id="nav__logo--marginLeft">
+          <ThreeBoxLogo />
+        </div>
+
+        {/* <div id="nav__networkStatus">
+          <div id="nav__networkStatus__networkColor" />
+          {this.props.currentNetwork}
+        </div> */}
+
         {
           image.length > 0 && image[0].contentUrl ?
             <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} id="nav__userPicture" alt="profile" onClick={this.handleDropdown} role="button" />
@@ -82,18 +90,21 @@ Nav.propTypes = {
   image: PropTypes.array,
   threeBox: PropTypes.object,
   handleSignOut: PropTypes.func,
+  currentNetwork: PropTypes.string,
 };
 
 Nav.defaultProps = {
   image: [],
   threeBox: {},
   handleSignOut: handleSignOut(),
+  currentNetwork: '',
 };
 
 function mapState(state) {
   return {
     image: state.threeBox.image,
     threeBox: state.threeBox.box,
+    currentNetwork: state.threeBox.currentNetwork,
   };
 }
 

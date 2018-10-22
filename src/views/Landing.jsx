@@ -16,7 +16,7 @@ import {
 import {
   ProvideConsentModal,
   RequireMetaMaskModal,
-  SignInToWalletModal,
+  SignInToThreeBox,
   MobileWalletRequiredModal,
   ErrorModal,
   LoadingThreeBoxProfileModal,
@@ -111,7 +111,9 @@ class Landing extends Component {
 
         {!this.props.isLoggedIn ?
           (<nav id="landing__nav" className={classHide}>
-            <ThreeBoxLogo />
+            <div id="nav__logo--marginLeft">
+              <ThreeBoxLogo />
+            </div>
             <div id="actionButtons">
               <p onClick={this.handleSignInUp}>Sign in</p>
               <button onClick={this.handleSignInUp} className="secondaryButton" type="button">
@@ -123,12 +125,12 @@ class Landing extends Component {
             <Nav />
           )}
 
-        {provideConsent && <ProvideConsentModal closeConsentModal={this.props.closeConsentModal} />}
-        {ifFetchingThreeBox && <LoadingThreeBoxProfileModal />}
-        {alertRequireMetaMask && <RequireMetaMaskModal closeRequireMetaMask={this.props.closeRequireMetaMask} />}
-        {showErrorModal && <ErrorModal errorMessage={errorMessage} closeErrorModal={this.props.closeErrorModal} />}
-        {signInModal && <SignInToWalletModal handleSignInModal={this.props.handleSignInModal} />}
-        {(showMobileWalletPrompt && !hasWallet) && <MobileWalletRequiredModal isIOS={isIOS} handleMobileWalletModal={this.handleMobileWalletModal} />}
+        {provideConsent && <ProvideConsentModal closeConsentModal={this.props.closeConsentModal} show={provideConsent} />}
+        {ifFetchingThreeBox && <LoadingThreeBoxProfileModal show={ifFetchingThreeBox} />}
+        {alertRequireMetaMask && <RequireMetaMaskModal closeRequireMetaMask={this.props.closeRequireMetaMask} show={alertRequireMetaMask} />}
+        {showErrorModal && <ErrorModal errorMessage={errorMessage} closeErrorModal={this.props.closeErrorModal} show={showErrorModal} />}
+        {signInModal && <SignInToThreeBox handleSignInModal={this.props.handleSignInModal} show={signInModal} />}
+        {(showMobileWalletPrompt && !hasWallet) && <MobileWalletRequiredModal isIOS={isIOS} handleMobileWalletModal={this.handleMobileWalletModal} show={showMobileWalletPrompt} />}
 
         <img src={ThreeBoxGraphic} id="threeBoxGraphic" alt="ThreeBox Graphic" />
 
@@ -142,11 +144,12 @@ class Landing extends Component {
               <img src={consensys} alt="Consensys Logo" />
             </div>
 
-            <div id="landing__button--center">
-              <button id="landing__createProfileButton" type="button" onClick={this.handleSignInUp}>
-                Create Profile
-            </button>
-            </div>
+            {!this.props.isLoggedIn && (
+              <div id="landing__button--center">
+                <button id="landing__createProfileButton" type="button" onClick={this.handleSignInUp}>
+                  Create Profile
+                </button>
+              </div>)}
           </div>
 
           <div id="landing__profileCard">

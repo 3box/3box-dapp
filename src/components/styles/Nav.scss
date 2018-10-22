@@ -20,6 +20,24 @@ nav {
   }
 }
 
+#nav__networkStatus {
+  border: 1px solid #e4e4e4;
+  padding: 18px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#nav__networkStatus__networkColor{
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+}
+
+#nav__logo--marginLeft {
+  margin-left: 3vw;
+}
+
 .nav__dropdown__mobileLogo {
   display: none;
 }
@@ -204,7 +222,7 @@ nav {
     padding: 0 1.3em;
   }
 
-  #mobileNav__signout{
+  #mobileNav__signout {
     color: $lighterFont;
   }
 
