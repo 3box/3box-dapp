@@ -239,7 +239,8 @@
   height: 40px;
   display: flex;
   align-items: center;
-  position: fixed; }
+  position: fixed;
+  z-index: 2; }
   #edit__breadCrumb p {
     margin-right: 2vw; }
   #edit__breadCrumb #edit__breadCrumb__crumbs {
@@ -278,7 +279,10 @@
     width: 100vw;
     margin: 0 auto;
     margin: 0;
-    padding: 0; }
+    padding: 0;
+    position: absolute;
+    top: 40px;
+    z-index: 1; }
   #chooseFile {
     margin: 0; }
   #public__contents {

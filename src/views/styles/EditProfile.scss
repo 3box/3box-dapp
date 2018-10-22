@@ -314,6 +314,7 @@
   display: flex;
   align-items: center;
   position: fixed;
+  z-index: 2;
 
   p {
     margin-right: 2vw;
@@ -362,6 +363,10 @@
     margin: 0 auto;
     margin: 0;
     padding: 0;
+
+    position: absolute;
+    top: 40px;
+    z-index: 1;
   }
 
   #chooseFile {
