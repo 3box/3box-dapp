@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import * as routes from '../utils/routes';
-import history from '../history';
 import Status from '../assets/Status.png';
 import ThreeBoxLogo from './ThreeBoxLogo.jsx';
 import getCoinbaseWallet from '../assets/getCoinbaseWallet.svg';
@@ -11,64 +10,75 @@ import Consent from '../assets/Consent.png';
 import MetaMaskLogo from '../assets/MetaMaskLogo.svg';
 import Loading from '../assets/Loading.svg';
 import '../views/styles/Landing.css';
+import './styles/Modal.css';
+// import history from '../history';
 
-export const SwitchedNetworksModal = ({ prevNetwork, currentNetwork, proceedWithSwitchedAddress }) => (
-  <div className="loadingContainer">
-    <div className="differentNetwork__modal">
+export const SwitchedNetworksModal = (
+  { prevNetwork, currentNetwork, proceedWithSwitchedAddress },
+) => (
+    <div className="modal__container">
+      <div className="modal">
+        <h3>
+          You've switched Ethereum networks
+        </h3>
 
-      <h4>
-        You've switched Ethereum networks
-        </h4>
-
-      <p>
-        3Box profiles are stored on IPFS.
-        <br />
-        This allows you to use the same profile on different Ethereum networks.
-        <br />
-        Your 3Box information is the same across networks, but your Ethereum activity changes.
-        <br />
-        <br />
-        {`Switch back to
+        <div>
+          <p>
+            3Box profiles are stored on IPFS.
+            <br />
+            This allows you to use the same profile on different Ethereum networks.
+            <br />
+            Your 3Box information is the same across networks, but your Ethereum activity changes.
+            <br />
+            <br />
+            {`Switch back to
         ${prevNetwork} in MetaMask or continue on
         ${currentNetwork}`}
-      </p>
+          </p>
+        </div>
 
-      <button onClick={() => { proceedWithSwitchedAddress(); window.localStorage.setItem('switch', true); }} type="button">
-        Continue on
+        <button onClick={() => { proceedWithSwitchedAddress(); window.localStorage.setItem('switch', true); }} type="button">
+          Continue on
         {` ${currentNetwork}`}
-      </button>
+        </button>
 
+      </div>
     </div>
-  </div>
-);
+  );
 
-export const LoggedOutModal = ({ showLoggedOutModal }) => (
-  <div className="loadingContainer">
-    <div className="differentNetwork__modal">
-      <h4>
+export const LoggedOutModal = ({ showLoggedOutModal, handleSignOut }) => (
+  <div className="modal__container">
+    <div className="modal">
+      <h3>
         You've logged out of your web3 provider
-      </h4>
-      <br />
-      <p>
-        Sign back in to your wallet or exit 3Box
-      </p>
+      </h3>
+
+      <div>
+        <p>
+          Sign back in to your wallet or exit 3Box
+        </p>
+      </div>
+
       <Link to={routes.LANDING}>
-        <button onClick={() => { showLoggedOutModal(); history.push(routes.LANDING); }} type="button">Exit</button>
+        <button onClick={() => { showLoggedOutModal(); handleSignOut(); }} type="button">Exit</button>
       </Link>
     </div>
   </div>
 );
 
 export const SwitchedAddressModal = ({ showSwitchedAddressModal }) => (
-  <div className="loadingContainer">
-    <div className="differentNetwork__modal">
-      <h4>
+  <div className="modal__container">
+    <div className="modal">
+      <h3>
         You've switched Ethereum addresses
-      </h4>
-      <br />
-      <p>
-        Revert to the previous address or login in the new address
-      </p>
+      </h3>
+
+      <div>
+        <p>
+          Revert to the previous address or login in the new address
+        </p>
+      </div>
+
       <Link to={routes.LANDING}>
         <button onClick={showSwitchedAddressModal} type="button">Sign back in</button>
       </Link>
@@ -78,69 +88,125 @@ export const SwitchedAddressModal = ({ showSwitchedAddressModal }) => (
 
 // Landing Page Modals
 export const ProvideConsentModal = ({ closeConsentModal }) => (
-  <div className="loadingContainer">
-    <div className="consentModal">
-      <img src={Consent} alt="Partners background" />
-      <h3>Provide consent to 3Box in MetaMask</h3>
-      <button onClick={closeConsentModal} type="button" className="tertiaryButton" id="closeModal">close</button>
+  <div className="modal__container">
+    <div className="modal">
+      <h3>Consent required</h3>
+
+      <div>
+        <img src={Consent} alt="Partners background" />
+        <p>Provide consent to 3Box in the MetaMask pop up window or Chrome extension in order to sign in or create profile</p>
+      </div>
+
+      <button onClick={closeConsentModal} type="button" className="tertiaryButton">close</button>
     </div>
   </div>
 );
 
-export const IsFetchingThreeBoxModal = () => (
-  <div className="loadingContainer">
-    <img src={Loading} alt="loading" id="loadingPic" />
+export const LoadingThreeBoxProfileModal = () => (
+  <div className="modal__container">
+    <div className="modal">
+      <h3>
+        Loading 3Box
+      </h3>
+
+      <div>
+        <img src={Loading} alt="Loading" id="modal__loadingGraphic" />
+      </div>
+
+      <div />
+    </div>
+  </div>
+);
+
+export const CreatingThreeBoxProfileModal = () => (
+  <div className="modal__container">
+    <div className="modal">
+      <h3>
+        Creating your 3Box profile
+      </h3>
+
+      <div>
+        <img src={Loading} alt="Loading" id="modal__loadingGraphic" />
+      </div>
+
+      <div />
+    </div>
   </div>
 );
 
 export const RequireMetaMaskModal = ({ closeRequireMetaMask }) => (
-  <div className="loadingContainer">
-    <div className="consentModal">
-      <img src={MetaMaskLogo} alt="Partners background" />
-      <h4>
+  <div className="modal__container">
+    <div className="modal">
+      <h3>
         Install MetaMask to create a 3Box account
-      </h4>
-      <button onClick={closeRequireMetaMask} type="button" className="tertiaryButton" id="closeModal">close</button>
+      </h3>
+
+      <div>
+        <img src={MetaMaskLogo} alt="Partners background" />
+      </div>
+
+      <button onClick={closeRequireMetaMask} type="button" className="tertiaryButton">close</button>
     </div>
   </div>
 );
 
 export const ErrorModal = ({ closeErrorModal, errorMessage }) => (
-  <div className="loadingContainer">
+  <div className="modal__container">
     <div className="modal">
-      <div id="consentError">
+      {
+        errorMessage.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.'
+          ?
+          <h3>
+            MetaMask required
+            </h3>
+          :
+          errorMessage.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.'
+            ?
+            <h3>
+              Consent required
+              </h3>
+            :
+            <h3>
+              {errorMessage}
+            </h3>
+      }
+      <div>
         {
           errorMessage.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.'
-            ? (
-              <div id="consentError__metaMaskError">
-                <img src={MetaMaskLogo} alt="Partners background" />
-                <h4>
-                  Sign in to MetaMask to continue
-                </h4>
-              </div>)
-            : (
-              <h4>
-                {errorMessage}
-              </h4>)
+            ? <img src={MetaMaskLogo} alt="Partners background" />
+            :
+            errorMessage.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.'
+              ?
+              <img src={Consent} alt="Partners background" />
+              : <div />
+        }
+        {
+          errorMessage.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.'
+            ? <p>Sign in to MetaMask to continue</p>
+            :
+            errorMessage.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.'
+              ?
+              <p>You must provide consent to 3Box in your MetaMask wallet to sign in or create a profile, please try again</p>
+              : <p />
         }
       </div>
-      <button onClick={closeErrorModal} type="button" className="tertiaryButton" id="closeModal">close</button>
+      <button onClick={closeErrorModal} type="button" className="tertiaryButton">close</button>
     </div>
   </div>
 );
 
 export const SignInToWalletModal = ({ handleSignInModal }) => (
-  <div className="loadingContainer">
+  <div className="modal__container">
     <div className="modal">
-      <div id="consentError">
-        <div id="consentError__metaMaskError">
-          <img src={MetaMaskLogo} alt="Partners background" />
-          <h4>
-            Sign in to MetaMask to continue
-          </h4>
-        </div>
+      <h3>
+        Sign in to MetaMask to continue
+      </h3>
+
+      <div>
+        <img src={MetaMaskLogo} alt="Partners background" />
       </div>
-      <button onClick={handleSignInModal} type="button" className="tertiaryButton" id="closeModal">close</button>
+
+      <button onClick={handleSignInModal} type="button" className="tertiaryButton">close</button>
     </div>
   </div>
 );
@@ -174,6 +240,6 @@ export const MobileWalletRequiredModal = ({ isIOS, handleMobileWalletModal }) =>
           </a>)}
     </div>
 
-    <button onClick={() => handleMobileWalletModal()} type="button" className="tertiaryButton" id="closeModal">X</button>
+    <button onClick={() => handleMobileWalletModal()} type="button" className="tertiaryButton">X</button>
   </div>
 );

@@ -6,6 +6,8 @@ import {
   store,
 } from './store';
 
+import * as routes from '../utils/routes';
+
 import history from '../history';
 
 export const checkForMetaMask = () => async (dispatch) => {
@@ -37,12 +39,14 @@ export const checkForMetaMask = () => async (dispatch) => {
 
   const accounts = await accountsPromise; // eslint-disable-line no-undef
   const isSignedIntoWallet = typeof web3 !== 'undefined' && !!accounts.length > 0;
+  const isLoggedIn = ThreeBox.isLoggedIn(address); // eslint-disable-line no-undef
 
   await dispatch({
     type: 'CHECK_WALLET',
     hasWallet: typeof web3 !== 'undefined',
     currentWallet,
     isSignedIntoWallet,
+    isLoggedIn,
   });
 };
 
@@ -87,12 +91,12 @@ export const initialCheckNetwork = () => async (dispatch) => {
     }
   }
 
+  const prevNetwork = window.localStorage.getItem('currentNetwork');
+  const prevPrevNetwork = window.localStorage.getItem('prevNetwork');
+
   window.localStorage.setItem('prevPrevNetwork', window.localStorage.prevNetwork);
   window.localStorage.setItem('prevNetwork', window.localStorage.currentNetwork);
   window.localStorage.setItem('currentNetwork', currentNetwork);
-
-  const prevNetwork = window.localStorage.currentNetwork;
-  const prevPrevNetwork = window.localStorage.prevNetwork;
 
   await dispatch({
     type: 'CHECK_NETWORK_AND_ADDRESS',
@@ -127,7 +131,7 @@ export const checkNetworkAndAddress = () => async (dispatch) => {
     });
   });
 
-  // check network, compatible with old & new v of MetaMask
+  // // check network, compatible with old & new v of MetaMask
   let currentNetwork;
   if (web3.eth.net) { // eslint-disable-line no-undef
     await web3.eth.net.getNetworkType() // eslint-disable-line no-undef
@@ -140,28 +144,25 @@ export const checkNetworkAndAddress = () => async (dispatch) => {
     });
   }
 
-  window.localStorage.setItem('prevPrevNetwork', window.localStorage.prevNetwork);
-  window.localStorage.setItem('prevNetwork', window.localStorage.currentNetwork);
-  window.localStorage.setItem('currentNetwork', currentNetwork);
+  // const prevNetwork = window.localStorage.getItem('currentNetwork');
+  // const prevPrevNetwork = window.localStorage.getItem('prevNetwork');
 
-  const prevNetwork = window.localStorage.prevNetwork;
-  const prevPrevNetwork = window.localStorage.prevPrevNetwork;
-
-  if (prevNetwork && (prevNetwork !== currentNetwork)) {
+  if (window.localStorage.getItem('currentNetwork') && (window.localStorage.getItem('currentNetwork') !== currentNetwork)) {
     await dispatch({
       type: 'DIFFERENT_NETWORK',
       currentNetwork,
-      prevNetwork,
-      prevPrevNetwork,
+      prevNetwork: window.localStorage.getItem('currentNetwork'),
+      prevPrevNetwork: window.localStorage.getItem('prevNetwork'),
     });
   }
 
   await dispatch({
     type: 'CHECK_NETWORK_AND_ADDRESS',
     currentNetwork,
-    prevNetwork,
-    prevPrevNetwork,
+    prevNetwork: window.localStorage.getItem('currentNetwork'),
+    prevPrevNetwork: window.localStorage.getItem('prevNetwork'),
   });
+  console.log('done');
 };
 
 export const closeDifferentNetwork = () => (dispatch) => {
@@ -274,6 +275,7 @@ export const signInUp = () => async (dispatch) => {
       email,
       feedByAddress,
       switched: false,
+      isLoggedIn: true,
     });
     history.push('/Profile');
   } catch (err) {
@@ -461,4 +463,13 @@ export const proceedWithSwitchedAddress = () => async (dispatch) => {
     switch: false,
     showDifferentNetworkModal: false,
   });
+};
+
+export const handleSignOut = () => async (dispatch) => {
+  store.getState().threeBox.box.logout();
+  dispatch({
+    type: 'HANDLE_SIGNOUT',
+    isLoggedIn: false,
+  });
+  history.push(routes.LANDING);
 };

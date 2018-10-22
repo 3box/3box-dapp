@@ -26,6 +26,8 @@ setInterval(() => {
 
   // Logged in to MM
   if (currentAddress !== address && typeof currentAddress === 'string' && address === undefined) {
+    console.log(currentAddress);
+    console.log(address);
     window.location.reload();
   }
   address = currentAddress;

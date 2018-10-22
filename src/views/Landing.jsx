@@ -11,15 +11,15 @@ import {
   closeRequireMetaMask,
   checkForMetaMask,
   openErrorModal,
-  handleSignInModal
+  handleSignInModal,
 } from '../state/actions';
 import {
   ProvideConsentModal,
   RequireMetaMaskModal,
   SignInToWalletModal,
-  IsFetchingThreeBoxModal,
   MobileWalletRequiredModal,
   ErrorModal,
+  LoadingThreeBoxProfileModal,
 } from '../components/Modals.jsx';
 import ThreeBoxLogo from '../components/ThreeBoxLogo.jsx';
 import Nav from '../components/Nav';
@@ -51,18 +51,14 @@ class Landing extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isHide: false,
+      retractNav: false,
       showMobileWalletPrompt: true,
-      signedIn: false,
     };
     this.handleSignInUp = this.handleSignInUp.bind(this);
   }
 
   componentDidMount() {
-    const { pathname } = this.props.location;
     window.addEventListener('scroll', this.hideBar);
-    // if (pathname === '/' && ThreeBox.isLoggedIn(address)) history.push(routes.PROFILE); // eslint-disable-line no-undef
-    if (ThreeBox.isLoggedIn(address)) this.setState({ signedIn: true }); // eslint-disable-line no-undef
   }
 
   componentWillUnmount() {
@@ -71,9 +67,9 @@ class Landing extends Component {
 
   hideBar = () => {
     window.scrollY < 10 ?
-      this.setState({ isHide: false })
+      this.setState({ retractNav: false })
       :
-      this.setState({ isHide: true });
+      this.setState({ retractNav: true });
   }
 
   handleMobileWalletModal = () => {
@@ -94,19 +90,26 @@ class Landing extends Component {
   }
 
   render() {
-    const { ifFetchingThreeBox, showErrorModal, errorMessage, provideConsent, alertRequireMetaMask, hasWallet, signInModal } = this.props;
-    const classHide = this.state.isHide ? 'hide' : '';
+    const {
+      ifFetchingThreeBox,
+      showErrorModal,
+      errorMessage,
+      provideConsent,
+      alertRequireMetaMask,
+      hasWallet,
+      signInModal,
+    } = this.props;
+    const { showMobileWalletPrompt } = this.state;
+    const { userAgent: ua } = navigator;
+    const isIOS = ua.includes('iPhone');
+    // const isAndroid = ua.includes('Android');
 
-    const { showMobileWalletPrompt, signedIn } = this.state;
-
-    const { userAgent: ua } = navigator
-    const isIOS = ua.includes('iPhone')
-    // const isAndroid = ua.includes('Android')
+    const classHide = this.state.retractNav ? 'hide' : '';
 
     return (
       <div id="landing">
 
-        {!signedIn ?
+        {!this.props.isLoggedIn ?
           (<nav id="landing__nav" className={classHide}>
             <ThreeBoxLogo />
             <div id="actionButtons">
@@ -121,7 +124,7 @@ class Landing extends Component {
           )}
 
         {provideConsent && <ProvideConsentModal closeConsentModal={this.props.closeConsentModal} />}
-        {ifFetchingThreeBox && <IsFetchingThreeBoxModal />}
+        {ifFetchingThreeBox && <LoadingThreeBoxProfileModal />}
         {alertRequireMetaMask && <RequireMetaMaskModal closeRequireMetaMask={this.props.closeRequireMetaMask} />}
         {showErrorModal && <ErrorModal errorMessage={errorMessage} closeErrorModal={this.props.closeErrorModal} />}
         {signInModal && <SignInToWalletModal handleSignInModal={this.props.handleSignInModal} />}
@@ -288,6 +291,7 @@ const mapState = state => ({
   hasWallet: state.threeBox.hasWallet,
   isSignedIntoWallet: state.threeBox.isSignedIntoWallet,
   alertRequireMetaMask: state.threeBox.alertRequireMetaMask,
+  isLoggedIn: state.threeBox.isLoggedIn,
 });
 
 export default withRouter(connect(mapState, { signInUp, closeErrorModal, closeConsentModal, requireMetaMask, closeRequireMetaMask, checkForMetaMask, openErrorModal, handleSignInModal })(Landing));

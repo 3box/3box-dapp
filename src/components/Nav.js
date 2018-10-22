@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link, withRouter, Redirect } from 'react-router-dom';
 
 import ThreeBoxLogo from './ThreeBoxLogo.jsx';
+import { handleSignOut } from '../state/actions';
 import * as routes from '../utils/routes';
 import history from '../history';
 import './styles/Nav.css';
@@ -26,14 +27,13 @@ class Nav extends Component {
   handleSignOut = () => {
     const { threeBox } = this.props;
     if (threeBox.logout) {
-      threeBox.logout();
-      history.push(routes.LANDING);
+      this.props.handleSignOut();
     }
   }
 
   render() {
     const { showProfileModal } = this.state;
-    const { image, threeBox, location } = this.props;
+    const { image, location } = this.props;
     const { pathname } = location;
 
     return (
@@ -53,7 +53,6 @@ class Nav extends Component {
                 <Link to={routes.EDITPROFILE}><li>Edit profile</li></Link>
                 <div className="nav__divide" />
                 <li onClick={() => this.handleSignOut()}>Sign Out</li>
-                {/* <Link to={routes.LANDING} onClick={() => threeBox.logout()}><li>Sign Out</li></Link> */}
                 <div id="nav__divideBug" />
                 <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="nav__reportBug">Report a bug</li></a>
               </ul>
@@ -68,7 +67,7 @@ class Nav extends Component {
             </div>
             <Link to={routes.PROFILE}><li className={pathname === '/Profile' ? 'nav__activePage' : ''}>Profile</li></Link>
             <Link to={routes.EDITPROFILE}><li className={pathname === '/EditProfile' ? 'nav__activePage' : ''}>Edit profile</li></Link>
-            <Link to={routes.LANDING} ><li id="mobileNav__signout" onClick={() => threeBox && threeBox.logout()}>Sign Out</li></Link>
+            <li id="mobileNav__signout" onClick={() => this.handleSignOut()}>Sign Out</li>
             <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="nav__reportBug">Report a bug</li></a>
           </ul>
         </div>
@@ -82,11 +81,13 @@ class Nav extends Component {
 Nav.propTypes = {
   image: PropTypes.array,
   threeBox: PropTypes.object,
+  handleSignOut: PropTypes.func,
 };
 
 Nav.defaultProps = {
   image: [],
   threeBox: {},
+  handleSignOut: handleSignOut(),
 };
 
 function mapState(state) {
@@ -96,5 +97,5 @@ function mapState(state) {
   };
 }
 
-export default withRouter(connect(mapState)(Nav));
+export default withRouter(connect(mapState, { handleSignOut })(Nav));
 

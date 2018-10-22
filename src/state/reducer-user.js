@@ -2,7 +2,7 @@ import {
   store,
 } from './store';
 
-const threeBoxReducer = (state = {}, action) => {
+export const threeBoxReducer = (state = {}, action) => {
   switch (action.type) {
     case 'CHECK_WALLET':
       return {
@@ -10,6 +10,7 @@ const threeBoxReducer = (state = {}, action) => {
         hasWallet: action.hasWallet,
         currentWallet: action.currentWallet,
         isSignedIntoWallet: action.isSignedIntoWallet,
+        isLoggedIn: action.isLoggedIn,
       };
 
     case 'DIFFERENT_NETWORK':
@@ -17,6 +18,7 @@ const threeBoxReducer = (state = {}, action) => {
         ...state,
         currentNetwork: action.currentNetwork,
         prevNetwork: action.prevNetwork,
+        prevPrevNetwork: action.prevPrevNetwork,
         showDifferentNetworkModal: true,
         ifFetchingThreeBox: false,
       };
@@ -25,6 +27,8 @@ const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         currentNetwork: action.currentNetwork,
+        prevNetwork: action.prevNetwork,
+        prevPrevNetwork: action.prevPrevNetwork,
       };
 
     case 'REQUIRE_METAMASK':
@@ -46,6 +50,7 @@ const threeBoxReducer = (state = {}, action) => {
         email: action.email,
         feedByAddress: action.feedByAddress,
         switched: action.switched,
+        isLoggedIn: action.isLoggedIn,
       };
 
     case 'GET_THREEBOX':
@@ -176,10 +181,10 @@ const threeBoxReducer = (state = {}, action) => {
         showDifferentNetworkModal: action.showDifferentNetworkModal,
       };
 
-    case 'HANDLE_SIGNIN_MODAL':
+    case 'HANDLE_SIGNOUT':
       return {
         ...state,
-        showYouMustBeSignedInModal: action.showYouMustBeSignedInModal,
+        isLoggedIn: false,
       };
 
     default:
@@ -187,6 +192,4 @@ const threeBoxReducer = (state = {}, action) => {
   }
 };
 
-export {
-  threeBoxReducer,
-};
+export default threeBoxReducer;
