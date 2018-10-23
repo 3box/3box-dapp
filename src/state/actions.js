@@ -58,7 +58,7 @@ export const initialCheckNetwork = () => async (dispatch) => {
       web3.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
         switch (netId) {
           case '1':
-            resolve('Mainnet');
+            resolve('Main');
             break;
           case '2':
             resolve('Morder');
@@ -113,12 +113,12 @@ export const checkNetworkAndAddress = () => async (dispatch) => {
   dispatch({
     type: 'LOADING_3BOX',
   });
-  
+
   const checkNetwork = new Promise((resolve) => {
     web3.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
       switch (netId) {
         case '1':
-          resolve('Mainnet');
+          resolve('Main');
           break;
         case '2':
           resolve('Morder');
@@ -274,6 +274,14 @@ export const signInUp = () => async (dispatch) => {
       }
     });
 
+    // if user signs in and there is no data in their threebox, then turn onboardingModal to true
+    if (publicActivity.length === 0 && privateActivity.length <= 1) {
+      dispatch({
+        type: 'HANDLE_ONBOARDING_MODAL',
+        onBoardingModal: true,
+      });
+    }
+
     dispatch({
       type: 'SIGN_IN_UP',
       box,
@@ -288,7 +296,7 @@ export const signInUp = () => async (dispatch) => {
       switched: false,
       isLoggedIn: true,
     });
-    history.push('/Profile');
+    history.push('/EditProfile');
   } catch (err) {
     dispatch({
       type: 'FAILED_LOADING_3BOX',
@@ -483,4 +491,12 @@ export const handleSignOut = () => async (dispatch) => {
     isLoggedIn: false,
   });
   history.push(routes.LANDING);
+};
+
+export const handleOnboardingModal2 = () => async (dispatch) => {
+  dispatch({
+    type: 'HANDLE_ONBOARDING_MODAL2',
+    onBoardingModalTwo: !store.getState().threeBox.onBoardingModalTwo,
+    onBoardingModal: false,
+  });
 };

@@ -16,6 +16,8 @@ import {
   SwitchedAddressModal,
   SwitchedNetworksModal,
   LoggedOutModal,
+  OnBoardingModal,
+  OnBoardingModal2,
 } from './components/Modals.jsx';
 
 import {
@@ -34,6 +36,7 @@ import {
   showLoggedOutModal,
   handleSignOut,
   showSwitchedAddressModal,
+  handleOnboardingModal2,
 } from './state/actions';
 
 class App extends Component {
@@ -62,18 +65,6 @@ class App extends Component {
     }
   }
 
-  // updateNetworks = () => {
-  //   const prevPrevNetwork = this.props.prevPrevNetwork;
-  //   const prevNetwork = this.props.prevNetwork;
-  //   const currentNetwork = this.props.currentNetwork;
-  //   console.log(prevPrevNetwork);
-  //   console.log(prevNetwork);
-  //   console.log(currentNetwork);
-  //   window.localStorage.setItem('prevPrevNetwork', prevPrevNetwork);
-  //   window.localStorage.setItem('prevNetwork', prevNetwork);
-  //   window.localStorage.setItem('currentNetwork', currentNetwork);
-  // }
-
   async loadData() {
     await this.props.checkNetworkAndAddress();
     await this.props.openBox();
@@ -85,12 +76,17 @@ class App extends Component {
   }
 
   render() {
-    const { showDifferentNetworkModal, loggedOutModal, switchedAddressModal, prevNetwork, currentNetwork } = this.props;
+    const {
+      showDifferentNetworkModal,
+      loggedOutModal,
+      switchedAddressModal,
+      prevNetwork,
+      currentNetwork,
+      onBoardingModal,
+      onBoardingModalTwo,
+    } = this.props;
     const prevPrevNetwork = window.localStorage.getItem('prevPrevNetwork');
     const currentNetworkState = window.localStorage.getItem('currentNetwork');
-    // console.log(prevPrevNetwork);
-    // console.log(currentNetworkState);
-    // console.log(showDifferentNetworkModal);
 
     return (
       <div className="App">
@@ -101,15 +97,25 @@ class App extends Component {
               prevNetwork={prevNetwork}
               currentNetwork={currentNetwork}
               proceedWithSwitchedAddress={this.props.proceedWithSwitchedAddress}
-              show={showDifferentNetworkModal} />)}
+              show={showDifferentNetworkModal}
+            />)}
 
-        {loggedOutModal && <LoggedOutModal
-          showLoggedOutModal={this.props.showLoggedOutModal}
-          handleSignOut={this.props.handleSignOut}
-          show={loggedOutModal} />}
-        {switchedAddressModal && <SwitchedAddressModal
-          showSwitchedAddressModal={this.props.showSwitchedAddressModal}
-          show={switchedAddressModal} />}
+        {loggedOutModal && (
+          <LoggedOutModal
+            showLoggedOutModal={this.props.showLoggedOutModal}
+            handleSignOut={this.props.handleSignOut}
+            show={loggedOutModal}
+          />)}
+
+        {switchedAddressModal && (
+          <SwitchedAddressModal
+            showSwitchedAddressModal={this.props.showSwitchedAddressModal}
+            show={switchedAddressModal}
+            handleSignOut={this.props.handleSignOut} 
+          />)}
+
+        {onBoardingModal && <OnBoardingModal show={onBoardingModal} handleOnboardingModal2={this.props.handleOnboardingModal2} />}
+        {onBoardingModalTwo && <OnBoardingModal2 show={onBoardingModal} handleOnboardingModal2={this.props.handleOnboardingModal2} />}
 
         <Switch>
           <Route exact path={routes.LANDING} component={Landing} />
@@ -139,6 +145,7 @@ App.propTypes = {
   handleSignInModal: PropTypes.func,
   showLoggedOutModal: PropTypes.func,
   showSwitchedAddressModal: PropTypes.func,
+  handleOnboardingModal2: PropTypes.func,
 
   location: PropTypes.object,
   hasWallet: PropTypes.bool,
@@ -146,6 +153,8 @@ App.propTypes = {
   switched: PropTypes.bool,
   loggedOutModal: PropTypes.bool,
   switchedAddressModal: PropTypes.bool,
+  onBoardingModal: PropTypes.bool,
+  onBoardingModalTwo: PropTypes.bool,
   prevNetwork: PropTypes.string,
   currentNetwork: PropTypes.string,
   prevPrevNetwork: PropTypes.string,
@@ -167,6 +176,7 @@ App.defaultProps = {
   showLoggedOutModal: showLoggedOutModal(),
   showSwitchedAddressModal: showSwitchedAddressModal(),
   handleSignOut: handleSignOut(),
+  handleOnboardingModal2: handleOnboardingModal2(),
 
   location: {},
   hasWallet: true,
@@ -174,6 +184,8 @@ App.defaultProps = {
   switched: false,
   loggedOutModal: false,
   switchedAddressModal: false,
+  onBoardingModal: false,
+  onBoardingModalTwo: false,
   prevNetwork: '',
   currentNetwork: '',
   prevPrevNetwork: '',
@@ -185,6 +197,8 @@ const mapState = state => ({
   switched: state.threeBox.switched,
   loggedOutModal: state.threeBox.loggedOutModal,
   switchedAddressModal: state.threeBox.switchedAddressModal,
+  onBoardingModal: state.threeBox.onBoardingModal,
+  onBoardingModalTwo: state.threeBox.onBoardingModalTwo,
   prevNetwork: state.threeBox.prevNetwork,
   currentNetwork: state.threeBox.currentNetwork,
   prevPrevNetwork: state.threeBox.prevPrevNetwork,
@@ -208,4 +222,5 @@ export default withRouter(connect(mapState,
     showLoggedOutModal,
     handleSignOut,
     showSwitchedAddressModal,
+    handleOnboardingModal2,
   })(App));

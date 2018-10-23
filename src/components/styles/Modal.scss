@@ -35,6 +35,7 @@
   flex-direction: column;
   box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
   text-align: center;
+  overflow: hidden;
   // transition: background .4s ease;
 
   p {
@@ -123,6 +124,55 @@
 
 #modal__copy__card {
   margin: 34px 0 40px 0;
+}
+
+#modal__onBoardingModal {
+  background-image: $defaultProfPic;
+  object-fit: cover;
+  border-radius: 6px;
+  width: 800px;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
+  text-align: center;
+  overflow: hidden;
+
+  p {
+    line-height: 24px;
+    font-size: 16px;
+  }
+
+  form {
+    text-align: center;
+    margin-top: 2em;
+  }
+
+  img {
+    width: 240px;
+  }
+
+  h3 {
+    margin-bottom: 14px;
+  }
+}
+
+#modal__onBoardingModal__button {
+  z-index: 2;
+  position: absolute;
+  margin-top: 176px;
+  padding: 1.2em 1.8em;
+  border-radius: 3em;
+  font-size: .9em;
+  background: transparent;
+  border: 1px solid white;
+
+  &:hover {
+    background-color: white;
+    color: $threeBoxBlue;
+  }
 }
 
 @media only screen and (max-width: 600px) {

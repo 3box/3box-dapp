@@ -9,6 +9,8 @@ import TrustWallet from '../assets/TrustWallet.png';
 import Consent from '../assets/Consent.png';
 import Switched from '../assets/Switched.svg';
 import MetaMaskLogo from '../assets/MetaMaskLogo.svg';
+import OnBoardingModalGraphic from '../assets/OnBoardingModal.png';
+import OnBoardingModalGraphic2 from '../assets/OnBoardingModal2.png';
 import ErrorIcon from '../assets/ErrorIcon.svg';
 import MetaMaskWallet from '../assets/MetaMaskWallet.png';
 import LogOut from '../assets/LogOut.svg';
@@ -66,7 +68,7 @@ export const LoggedOutModal = ({ showLoggedOutModal, handleSignOut, show }) => (
   </div>
 );
 
-export const SwitchedAddressModal = ({ showSwitchedAddressModal, show }) => (
+export const SwitchedAddressModal = ({ showSwitchedAddressModal, show, handleSignOut }) => (
   <div className="modal__container">
     <div className="modal">
       <img src={Switched} alt="Partners background" id="modal__switchedNetworks" />
@@ -76,12 +78,12 @@ export const SwitchedAddressModal = ({ showSwitchedAddressModal, show }) => (
           Switched Ethereum address
         </h3>
         <p>
-          Revert to the previous address or sign back in with the new address
+          Revert to the previous address in your web3 wallet (e.g. MetaMask) or sign back in with the new address
         </p>
       </div>
 
       <Link to={routes.LANDING}>
-        <button onClick={showSwitchedAddressModal} type="button">Sign back in</button>
+        <button onClick={() => { showSwitchedAddressModal(); handleSignOut(); }} type="button">Sign in with new address</button>
       </Link>
     </div>
   </div>
@@ -221,19 +223,16 @@ export const MobileWalletRequiredModal = ({ isIOS, handleMobileWalletModal }) =>
   </div>
 );
 
-// export const OnBoardingModal = () => (
-//   <div className="modal__container">
-//     <div className="modal">
-//       <img src={Switched} alt="Partners background" id="modal__signInToWallet--image" />
+export const OnBoardingModal = ({ handleOnboardingModal2 }) => (
+  <div className="modal__container">
+    <img src={OnBoardingModalGraphic} alt="Partners background" id="modal__onBoardingModal" />
+    <button onClick={handleOnboardingModal2} type="button" id="modal__onBoardingModal__button">Get started</button>
+  </div>
+);
 
-//       <div id="modal__copy__card">
-//         <h3>
-//           Sign in
-//         </h3>
-//         <p>You must be signed in to your web3 wallet (e.g. MetaMask) in order to proceed with 3Box</p>
-//       </div>
-
-//       <button onClick="" type="button" className="tertiaryButton">close</button>
-//     </div>
-//   </div>
-// );
+export const OnBoardingModal2 = ({ handleOnboardingModal2 }) => (
+  <div className="modal__container">
+    <img src={OnBoardingModalGraphic2} alt="Partners background" id="modal__onBoardingModal" />
+    <button onClick={handleOnboardingModal2} type="button" id="modal__onBoardingModal__button">Let's go</button>
+  </div>
+);

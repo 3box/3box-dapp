@@ -23,7 +23,8 @@
   justify-content: space-around;
   flex-direction: column;
   box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
-  text-align: center; }
+  text-align: center;
+  overflow: hidden; }
   .modal p {
     line-height: 24px;
     font-size: 16px; }
@@ -89,6 +90,43 @@
 
 #modal__copy__card {
   margin: 34px 0 40px 0; }
+
+#modal__onBoardingModal {
+  background-image: linear-gradient(#d3d3d3, #eeeeee);
+  object-fit: cover;
+  border-radius: 6px;
+  width: 800px;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
+  text-align: center;
+  overflow: hidden; }
+  #modal__onBoardingModal p {
+    line-height: 24px;
+    font-size: 16px; }
+  #modal__onBoardingModal form {
+    text-align: center;
+    margin-top: 2em; }
+  #modal__onBoardingModal img {
+    width: 240px; }
+  #modal__onBoardingModal h3 {
+    margin-bottom: 14px; }
+
+#modal__onBoardingModal__button {
+  z-index: 2;
+  position: absolute;
+  margin-top: 176px;
+  padding: 1.2em 1.8em;
+  border-radius: 3em;
+  font-size: .9em;
+  background: transparent;
+  border: 1px solid white; }
+  #modal__onBoardingModal__button:hover {
+    background-color: white;
+    color: #006ECC; }
 
 @media only screen and (max-width: 600px) {
   .modal__container img {

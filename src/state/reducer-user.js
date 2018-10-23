@@ -187,6 +187,19 @@ export const threeBoxReducer = (state = {}, action) => {
         isLoggedIn: false,
       };
 
+    case 'HANDLE_ONBOARDING_MODAL':
+      return {
+        ...state,
+        onBoardingModal: action.onBoardingModal,
+      };
+      
+    case 'HANDLE_ONBOARDING_MODAL2':
+      return {
+        ...state,
+        onBoardingModal: action.onBoardingModal,
+        onBoardingModalTwo: action.onBoardingModalTwo,
+      };
+
     default:
       return state;
   }

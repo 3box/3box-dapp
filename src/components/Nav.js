@@ -35,6 +35,7 @@ class Nav extends Component {
     const { showProfileModal } = this.state;
     const { image, location } = this.props;
     const { pathname } = location;
+    const networkColor = this.props.currentNetwork;
 
     return (
       <nav>
@@ -42,10 +43,10 @@ class Nav extends Component {
           <ThreeBoxLogo />
         </div>
 
-        {/* <div id="nav__networkStatus">
-          <div id="nav__networkStatus__networkColor" />
-          {this.props.currentNetwork}
-        </div> */}
+        <div id="nav__networkStatus">
+          <div id="nav__networkStatus__networkColor" className={`${networkColor}`} />
+          <p>{networkColor}</p>
+        </div>
 
         {
           image.length > 0 && image[0].contentUrl ?

@@ -22,16 +22,44 @@ nav {
 
 #nav__networkStatus {
   border: 1px solid #e4e4e4;
-  padding: 18px 12px;
+  padding: 8px 12px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 20px;
+  margin-left: 40px;
+
+  p {
+    font-size: 12px;
+    color: $lightFont;
+  }
 }
 
-#nav__networkStatus__networkColor{
+.Main {
+  background: #29B6AF;
+}
+
+.Ropsten {
+  background: #FF4A8D;
+}
+
+.Kovan {
+  background: #7057FF;
+}
+
+.Rinkeby {
+  background: #F6C343;
+}
+
+.Unknown {
+  background: black;
+}
+
+#nav__networkStatus__networkColor {
   width: 10px;
   height: 10px;
   border-radius: 5px;
+  margin-right: 12px;
 }
 
 #nav__logo--marginLeft {
@@ -173,6 +201,12 @@ nav {
     transition: all .5s ease;
   }
 
+  #actionButtons {
+    p {
+      margin-right: 5vw;
+    }
+  }
+
   .nav__dropdown {
     display: block !important;
     position: fixed;
@@ -196,6 +230,10 @@ nav {
     li {
       line-height: 4.5em;
     }
+  }
+
+  #nav__networkStatus {
+    margin-left: 20px;
   }
 
   .nav__dropdown.sideDrawer {
