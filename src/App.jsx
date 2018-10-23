@@ -19,6 +19,9 @@ import {
   OnBoardingModal,
   OnBoardingModal2,
   LoadingThreeBoxProfileModal,
+  OnBoardingModalMobile1,
+  OnBoardingModalMobile2,
+  OnBoardingModalMobile3,
 } from './components/Modals.jsx';
 
 import {
@@ -37,14 +40,32 @@ import {
   showLoggedOutModal,
   handleSignOut,
   showSwitchedAddressModal,
-  handleOnboardingModal2,
+  handleOnboardingModal,
 } from './state/actions';
 
 class App extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      onBoardingModalMobileOne: false,
+      onBoardingModalMobileTwo: false,
+      onBoardingModalMobileThree: false,
+      width: window.innerWidth,
+    }
     this.loadData = this.loadData.bind(this);
   }
+
+  componentWillMount() {
+    window.addEventListener('resize', this.handleWindowSizeChange);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleWindowSizeChange);
+  }
+
+  handleWindowSizeChange = () => {
+    this.setState({ width: window.innerWidth });
+  };
 
   async componentDidMount() {
     const { location } = this.props;
@@ -64,6 +85,16 @@ class App extends Component {
     } else if (pathname === '/' && !loginStatus) {
       this.props.initialCheckNetwork();
     }
+  }
+
+  handleNextMobileModal = (thisModal, nextModal) => {
+    console.log('hit mobile modal')
+    console.log(thisModal);
+    console.log(nextModal);
+    this.setState({
+      [`onBoardingModalMobile${thisModal}`]: false,
+      [`onBoardingModalMobile${nextModal}`]: true
+    })
   }
 
   async loadData() {
@@ -87,8 +118,13 @@ class App extends Component {
       onBoardingModalTwo,
       ifFetchingThreeBox,
     } = this.props;
+    const { onBoardingModalMobileOne, onBoardingModalMobileTwo, onBoardingModalMobileThree } = this.state;
     const prevPrevNetwork = window.localStorage.getItem('prevPrevNetwork');
     const currentNetworkState = window.localStorage.getItem('currentNetwork');
+
+    const { width } = this.state;
+    const isMobile = width <= 600;
+    console.log(isMobile)
 
     return (
       <div className="App">
@@ -115,11 +151,15 @@ class App extends Component {
           <SwitchedAddressModal
             showSwitchedAddressModal={this.props.showSwitchedAddressModal}
             show={switchedAddressModal}
-            handleSignOut={this.props.handleSignOut} 
+            handleSignOut={this.props.handleSignOut}
           />)}
 
-        {onBoardingModal && <OnBoardingModal show={onBoardingModal} handleOnboardingModal2={this.props.handleOnboardingModal2} />}
-        {onBoardingModalTwo && <OnBoardingModal2 show={onBoardingModal} handleOnboardingModal2={this.props.handleOnboardingModal2} />}
+        {onBoardingModal && <OnBoardingModal isMobile={isMobile} show={onBoardingModal} handleOnboardingModal={this.props.handleOnboardingModal} handleNextMobileModal={this.handleNextMobileModal} />}
+        {onBoardingModalTwo && <OnBoardingModal2 show={onBoardingModal} handleOnboardingModal={this.props.handleOnboardingModal} />}
+
+        {onBoardingModalMobileOne && <OnBoardingModalMobile1 show={onBoardingModalMobileOne} handleNextMobileModal={this.handleNextMobileModal} />}
+        {onBoardingModalMobileTwo && <OnBoardingModalMobile2 show={onBoardingModalMobileTwo} handleNextMobileModal={this.handleNextMobileModal} />}
+        {onBoardingModalMobileThree && <OnBoardingModalMobile3 show={onBoardingModalMobileThree} handleNextMobileModal={this.handleNextMobileModal} />}
 
         <Switch>
           <Route exact path={routes.LANDING} component={Landing} />
@@ -149,7 +189,7 @@ App.propTypes = {
   handleSignInModal: PropTypes.func,
   showLoggedOutModal: PropTypes.func,
   showSwitchedAddressModal: PropTypes.func,
-  handleOnboardingModal2: PropTypes.func,
+  handleOnboardingModal: PropTypes.func,
 
   location: PropTypes.object,
   hasWallet: PropTypes.bool,
@@ -181,7 +221,7 @@ App.defaultProps = {
   showLoggedOutModal: showLoggedOutModal(),
   showSwitchedAddressModal: showSwitchedAddressModal(),
   handleSignOut: handleSignOut(),
-  handleOnboardingModal2: handleOnboardingModal2(),
+  handleOnboardingModal: handleOnboardingModal(),
 
   location: {},
   hasWallet: true,
@@ -229,5 +269,5 @@ export default withRouter(connect(mapState,
     showLoggedOutModal,
     handleSignOut,
     showSwitchedAddressModal,
-    handleOnboardingModal2,
+    handleOnboardingModal,
   })(App));

@@ -173,7 +173,6 @@ export const checkNetworkAndAddress = () => async (dispatch) => {
     prevNetwork,
     prevPrevNetwork,
   });
-
 };
 
 export const closeDifferentNetwork = () => (dispatch) => {
@@ -287,9 +286,10 @@ export const signInUp = () => async (dispatch) => {
         type: 'HANDLE_ONBOARDING_MODAL',
         onBoardingModal: true,
       });
+      history.push('/EditProfile');
     }
 
-    dispatch({
+    await dispatch({
       type: 'SIGN_IN_UP',
       box,
       // ifFetchingThreeBox: false,
@@ -303,7 +303,7 @@ export const signInUp = () => async (dispatch) => {
       switched: false,
       isLoggedIn: true,
     });
-    history.push('/EditProfile');
+    if (publicActivity.length > 0 || privateActivity.length > 1) history.push('/Profile');
   } catch (err) {
     dispatch({
       type: 'FAILED_LOADING_3BOX',
@@ -507,12 +507,20 @@ export const handleSignOut = () => async (dispatch) => {
   history.push(routes.LANDING);
 };
 
-export const handleOnboardingModal2 = () => async (dispatch) => {
-  dispatch({
-    type: 'HANDLE_ONBOARDING_MODAL2',
-    onBoardingModalTwo: !store.getState().threeBox.onBoardingModalTwo,
-    onBoardingModal: false,
-  });
+export const handleOnboardingModal = mobile => async (dispatch) => {
+  console.log(mobile);
+  if (mobile) {
+    dispatch({
+      type: 'HANDLE_ONBOARDING_MODAL2',
+      onBoardingModal: false,
+    });
+  } else {
+    dispatch({
+      type: 'HANDLE_ONBOARDING_MODAL2',
+      onBoardingModalTwo: !store.getState().threeBox.onBoardingModalTwo,
+      onBoardingModal: false,
+    });
+  }
 };
 
 export const handleRequireWalletLoginModal = () => async (dispatch) => {

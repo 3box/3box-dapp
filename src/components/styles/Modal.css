@@ -122,7 +122,7 @@
   #modal__onBoardingModal__button {
     margin-top: 364px !important; }
   #modal__onBoardingModal__progressBar {
-    margin-top: 468px !important; } }
+    margin-top: 568px !important; } }
 
 #modal__onBoardingModal__button {
   z-index: 2;
@@ -173,6 +173,9 @@
 @media only screen and (max-width: 600px) {
   .modal__container img {
     width: 100px; }
+  .modal__onBoardingModal__container img {
+    width: 88vw !important;
+    height: 400px !important; }
   .modal {
     position: absolute;
     background: white;
@@ -183,6 +186,8 @@
     min-height: 300px; }
     .modal img {
       width: 100px; }
+  #modal__onBoardingModal__progressBar {
+    width: 60px; }
   #mobile__landing__prompt {
     display: flex;
     flex-direction: column;

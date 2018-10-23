@@ -11,6 +11,9 @@ import Switched from '../assets/Switched.svg';
 import MetaMaskLogo from '../assets/MetaMaskLogo.svg';
 import OnBoardingModalGraphic from '../assets/OnBoardingModal.png';
 import OnBoardingModalGraphic2 from '../assets/OnBoardingModal2.png';
+import OnBoardingModalMobileGraphic1 from '../assets/OnBoardingModalMobile1.png';
+import OnBoardingModalMobileGraphic2 from '../assets/OnBoardingModalMobile2.png';
+import OnBoardingModalMobileGraphic3 from '../assets/OnBoardingModalMobile3.png';
 import ErrorIcon from '../assets/ErrorIcon.svg';
 import MetaMaskWallet from '../assets/MetaMaskWallet.png';
 import LogOut from '../assets/LogOut.svg';
@@ -259,22 +262,66 @@ export const MobileWalletRequiredModal = ({ isIOS, handleMobileWalletModal }) =>
   </div>
 );
 
-export const OnBoardingModal = ({ handleOnboardingModal2 }) => (
+export const OnBoardingModal = ({ handleOnboardingModal, handleNextMobileModal, isMobile }) => (
   <div className="modal__onBoardingModal__container">
     <img src={OnBoardingModalGraphic} alt="Partners background" id="modal__onBoardingModal__image" />
-    <button onClick={handleOnboardingModal2} type="button" id="modal__onBoardingModal__button">Get started</button>
+    {isMobile
+      ? <button onClick={() => { handleNextMobileModal(undefined, 'One'); handleOnboardingModal(isMobile); }} type="button" id="modal__onBoardingModal__button">Get started</button>
+      : <button onClick={() => handleOnboardingModal(false)} type="button" id="modal__onBoardingModal__button">Get started</button>
+    }
     <div id="modal__onBoardingModal__progressBar">
+      <div id="modal__onBoardingModal__progressBar__progress--highlight" />
+      <div id="modal__onBoardingModal__progressBar__progress--dull" />
+      {isMobile && <div id="modal__onBoardingModal__progressBar__progress--dull" />}
+      {isMobile && <div id="modal__onBoardingModal__progressBar__progress--dull" />}
+    </div>
+  </div>
+);
+
+export const OnBoardingModal2 = ({ handleOnboardingModal }) => (
+  <div className="modal__onBoardingModal__container">
+    <img src={OnBoardingModalGraphic2} alt="Partners background" id="modal__onBoardingModal__image" />
+    <button onClick={handleOnboardingModal} type="button" id="modal__onBoardingModal__button">Let's go</button>
+    <div id="modal__onBoardingModal__progressBar">
+      <div id="modal__onBoardingModal__progressBar__progress--dull" />
+      <div id="modal__onBoardingModal__progressBar__progress--highlight" />
+    </div>
+  </div>
+);
+
+export const OnBoardingModalMobile1 = ({ handleNextMobileModal }) => (
+  <div className="modal__onBoardingModal__container">
+    <img src={OnBoardingModalMobileGraphic1} alt="Partners background" id="modal__onBoardingModal__image" />
+    <button onClick={() => handleNextMobileModal('One', 'Two')} type="button" id="modal__onBoardingModal__button">Next</button>
+    <div id="modal__onBoardingModal__progressBar">
+      <div id="modal__onBoardingModal__progressBar__progress--dull" />
+      <div id="modal__onBoardingModal__progressBar__progress--highlight" />
+      <div id="modal__onBoardingModal__progressBar__progress--dull" />
+      <div id="modal__onBoardingModal__progressBar__progress--dull" />
+    </div>
+  </div>
+);
+
+export const OnBoardingModalMobile2 = ({ handleNextMobileModal }) => (
+  <div className="modal__onBoardingModal__container">
+    <img src={OnBoardingModalMobileGraphic2} alt="Partners background" id="modal__onBoardingModal__image" />
+    <button onClick={() => handleNextMobileModal('Two', 'Three')} type="button" id="modal__onBoardingModal__button">Next</button>
+    <div id="modal__onBoardingModal__progressBar">
+      <div id="modal__onBoardingModal__progressBar__progress--dull" />
+      <div id="modal__onBoardingModal__progressBar__progress--dull" />
       <div id="modal__onBoardingModal__progressBar__progress--highlight" />
       <div id="modal__onBoardingModal__progressBar__progress--dull" />
     </div>
   </div>
 );
 
-export const OnBoardingModal2 = ({ handleOnboardingModal2 }) => (
+export const OnBoardingModalMobile3 = ({ handleNextMobileModal }) => (
   <div className="modal__onBoardingModal__container">
-    <img src={OnBoardingModalGraphic2} alt="Partners background" id="modal__onBoardingModal__image" />
-    <button onClick={handleOnboardingModal2} type="button" id="modal__onBoardingModal__button">Let's go</button>
+    <img src={OnBoardingModalMobileGraphic3} alt="Partners background" id="modal__onBoardingModal__image" />
+    <button onClick={() => handleNextMobileModal('Three', undefined)} type="button" id="modal__onBoardingModal__button">Let's go</button>
     <div id="modal__onBoardingModal__progressBar">
+      <div id="modal__onBoardingModal__progressBar__progress--dull" />
+      <div id="modal__onBoardingModal__progressBar__progress--dull" />
       <div id="modal__onBoardingModal__progressBar__progress--dull" />
       <div id="modal__onBoardingModal__progressBar__progress--highlight" />
     </div>

@@ -178,7 +178,7 @@
   }
 
   #modal__onBoardingModal__progressBar {
-    margin-top: 468px !important;
+    margin-top: 568px !important;
   }
 }
 
@@ -246,6 +246,13 @@
     }
   }
 
+  .modal__onBoardingModal__container {
+    img {
+      width: 88vw !important;
+      height: 400px !important;
+    }
+  }
+
   .modal {
     position: absolute;
     background: white;
@@ -260,6 +267,9 @@
     }
   }
 
+  #modal__onBoardingModal__progressBar {
+    width: 60px;
+  }
 
   #mobile__landing__prompt {
     display: flex;
