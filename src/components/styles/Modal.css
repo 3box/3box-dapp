@@ -187,7 +187,8 @@
     .modal img {
       width: 100px; }
   #modal__onBoardingModal__progressBar {
-    width: 60px; }
+    width: 60px;
+    margin-top: 226px; }
   #mobile__landing__prompt {
     display: flex;
     flex-direction: column;

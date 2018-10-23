@@ -508,7 +508,6 @@ export const handleSignOut = () => async (dispatch) => {
 };
 
 export const handleOnboardingModal = mobile => async (dispatch) => {
-  console.log(mobile);
   if (mobile) {
     dispatch({
       type: 'HANDLE_ONBOARDING_MODAL2',
