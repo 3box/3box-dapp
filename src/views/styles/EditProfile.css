@@ -68,7 +68,7 @@
     align-items: center; }
     #edit__form #edit__userPicture .profPic {
       display: block;
-      background-image: linear-gradient(#d3d3d3, #eeeeee);
+      background-image: linear-gradient(#006ECC, #006ECC);
       border-radius: 100%;
       width: 120px;
       height: 120px;

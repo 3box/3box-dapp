@@ -20,6 +20,8 @@ export const threeBoxReducer = (state = {}, action) => {
         prevNetwork: action.prevNetwork,
         prevPrevNetwork: action.prevPrevNetwork,
         showDifferentNetworkModal: true,
+        onBoardingModal: false,
+        onBoardingModal2: false,
         ifFetchingThreeBox: false,
       };
 
@@ -158,6 +160,8 @@ export const threeBoxReducer = (state = {}, action) => {
         ...state,
         loggedOutModal: action.loggedOutModal,
         ifFetchingThreeBox: false,
+        onBoardingModal: false,
+        onBoardingModal2: false,
       };
 
     case 'SHOW_SWITCHED_ADDRESS_MODAL':
@@ -166,6 +170,8 @@ export const threeBoxReducer = (state = {}, action) => {
         switchedAddressModal: action.switchedAddressModal,
         ifFetchingThreeBox: false,
         switched: action.switched,
+        onBoardingModal: false,
+        onBoardingModal2: false,
       };
 
     case 'HANDLE_SIGNIN_MODAL':

@@ -218,6 +218,13 @@ export const signInUp = () => async (dispatch) => {
     const returnedBox = await ThreeBox // eslint-disable-line no-undef
       .openBox(address, web3.currentProvider, opts); // eslint-disable-line no-undef
     box = await returnedBox;
+
+    box.onSyncDone(dispatch({
+      type: 'GET_THREEBOX',
+      ifFetchingThreeBox: false,
+      box,
+    }));
+
     const name = await box.public.get('name');
     const github = await box.public.get('github');
     const image = await box.public.get('image');
@@ -285,7 +292,7 @@ export const signInUp = () => async (dispatch) => {
     dispatch({
       type: 'SIGN_IN_UP',
       box,
-      ifFetchingThreeBox: false,
+      // ifFetchingThreeBox: false,
       errorMessage: '',
       showErrorModal: false,
       name,
@@ -325,15 +332,10 @@ export const openBox = () => async (dispatch) => {
     switched: false,
   });
 
-  const boxSyncFinished = () => {
-    dispatch({
-      type: 'GET_THREEBOX',
-      box,
-    });
-    console.log('hit box sync');
-  };
-
-  // box.onSyncDone(boxSyncFinished);
+  box.onSyncDone(dispatch({
+    type: 'GET_THREEBOX',
+    box,
+  }));
 };
 
 export const getPublicName = () => async (dispatch) => {
@@ -495,11 +497,13 @@ export const proceedWithSwitchedAddress = () => async (dispatch) => {
 };
 
 export const handleSignOut = () => async (dispatch) => {
-  store.getState().threeBox.box.logout();
-  dispatch({
-    type: 'HANDLE_SIGNOUT',
-    isLoggedIn: false,
-  });
+  if (store.getState().threeBox.isLoggedIn) {
+    store.getState().threeBox.box.logout();
+    dispatch({
+      type: 'HANDLE_SIGNOUT',
+      isLoggedIn: false,
+    });
+  }
   history.push(routes.LANDING);
 };
 

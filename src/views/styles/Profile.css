@@ -69,7 +69,7 @@
     opacity: .5; }
 
 #profile__user__picture {
-  background-image: linear-gradient(#d3d3d3, #eeeeee);
+  background-image: linear-gradient(#006ECC, #006ECC);
   border-radius: 100%;
   width: 120px;
   height: 120px;

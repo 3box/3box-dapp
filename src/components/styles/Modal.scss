@@ -127,6 +127,11 @@
 }
 
 #modal__onBoardingModal {
+  display: flex;
+  flex-direction: column;
+}
+
+#modal__onBoardingModal__image {
   object-fit: cover;
   border-radius: 6px;
   width: 754px;
@@ -171,6 +176,10 @@
   #modal__onBoardingModal__button {
     margin-top: 364px !important;
   }
+
+  #modal__onBoardingModal__progressBar {
+    margin-top: 468px !important;
+  }
 }
 
 #modal__onBoardingModal__button {
@@ -186,6 +195,47 @@
   &:hover {
     background-color: white;
     color: $threeBoxBlue;
+  }
+}
+
+#modal__onBoardingModal__progressBar {
+  margin-top: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 20px;
+  position: absolute;
+
+  #modal__onBoardingModal__progressBar__progress--highlight {
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+  }
+
+  #modal__onBoardingModal__progressBar__progress--dull {
+    width: 6px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.336);
+    border-radius: 50%;
+  }
+}
+
+.modal__onBoardingModal__container {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.76);
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  img {
+    width: 100px;
   }
 }
 

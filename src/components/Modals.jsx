@@ -260,19 +260,23 @@ export const MobileWalletRequiredModal = ({ isIOS, handleMobileWalletModal }) =>
 );
 
 export const OnBoardingModal = ({ handleOnboardingModal2 }) => (
-  <div className="modal__container">
-    <img src={OnBoardingModalGraphic} alt="Partners background" id="modal__onBoardingModal" />
-    {/* <div className="modal__onBoardingModal__buttonWrapper"> */}
+  <div className="modal__onBoardingModal__container">
+    <img src={OnBoardingModalGraphic} alt="Partners background" id="modal__onBoardingModal__image" />
     <button onClick={handleOnboardingModal2} type="button" id="modal__onBoardingModal__button">Get started</button>
-    {/* </div> */}
+    <div id="modal__onBoardingModal__progressBar">
+      <div id="modal__onBoardingModal__progressBar__progress--highlight" />
+      <div id="modal__onBoardingModal__progressBar__progress--dull" />
+    </div>
   </div>
 );
 
 export const OnBoardingModal2 = ({ handleOnboardingModal2 }) => (
-  <div className="modal__container">
-    <img src={OnBoardingModalGraphic2} alt="Partners background" id="modal__onBoardingModal" />
-    {/* <div className="modal__onBoardingModal__buttonWrapper"> */}
+  <div className="modal__onBoardingModal__container">
+    <img src={OnBoardingModalGraphic2} alt="Partners background" id="modal__onBoardingModal__image" />
     <button onClick={handleOnboardingModal2} type="button" id="modal__onBoardingModal__button">Let's go</button>
-    {/* </div> */}
+    <div id="modal__onBoardingModal__progressBar">
+      <div id="modal__onBoardingModal__progressBar__progress--dull" />
+      <div id="modal__onBoardingModal__progressBar__progress--highlight" />
+    </div>
   </div>
 );
