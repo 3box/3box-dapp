@@ -6,12 +6,12 @@ import { withRouter } from 'react-router-dom';
 import {
   signInUp,
   closeErrorModal,
+  handleRequireWalletLoginModal,
   closeConsentModal,
   requireMetaMask,
   closeRequireMetaMask,
   checkForMetaMask,
   openErrorModal,
-  handleSignInModal,
 } from '../state/actions';
 import {
   ProvideConsentModal,
@@ -20,6 +20,7 @@ import {
   MobileWalletRequiredModal,
   ErrorModal,
   LoadingThreeBoxProfileModal,
+  SignInToWalletModal,
 } from '../components/Modals.jsx';
 import ThreeBoxLogo from '../components/ThreeBoxLogo.jsx';
 import Nav from '../components/Nav';
@@ -84,8 +85,8 @@ class Landing extends Component {
       await this.props.signInUp();
     } else if (!hasWallet) {
       this.props.requireMetaMask();
-    } else {
-      this.props.handleSignInModal();
+    } else if (hasWallet && !isSignedIntoWallet) {
+      this.props.handleRequireWalletLoginModal();
     }
   }
 
@@ -96,6 +97,7 @@ class Landing extends Component {
       errorMessage,
       provideConsent,
       alertRequireMetaMask,
+      signInToWalletModal,
       hasWallet,
       signInModal,
     } = this.props;
@@ -128,8 +130,8 @@ class Landing extends Component {
         {provideConsent && <ProvideConsentModal closeConsentModal={this.props.closeConsentModal} show={provideConsent} />}
         {/* {ifFetchingThreeBox && <LoadingThreeBoxProfileModal show={ifFetchingThreeBox} />} */}
         {alertRequireMetaMask && <RequireMetaMaskModal closeRequireMetaMask={this.props.closeRequireMetaMask} show={alertRequireMetaMask} />}
+        {signInToWalletModal && <SignInToWalletModal handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal} show={signInToWalletModal} />}
         {showErrorModal && <ErrorModal errorMessage={errorMessage} closeErrorModal={this.props.closeErrorModal} show={showErrorModal} />}
-        {signInModal && <SignInToThreeBox handleSignInModal={this.props.handleSignInModal} show={signInModal} />}
         {(showMobileWalletPrompt && !hasWallet) && <MobileWalletRequiredModal isIOS={isIOS} handleMobileWalletModal={this.handleMobileWalletModal} show={showMobileWalletPrompt} />}
 
         <img src={ThreeBoxGraphic} id="threeBoxGraphic" alt="ThreeBox Graphic" />
@@ -249,11 +251,11 @@ Landing.propTypes = {
   signInUp: PropTypes.func,
   checkForMetaMask: PropTypes.func,
   closeErrorModal: PropTypes.func,
+  handleRequireWalletLoginModal: PropTypes.func,
   closeConsentModal: PropTypes.func,
   requireMetaMask: PropTypes.func,
   closeRequireMetaMask: PropTypes.func,
   openErrorModal: PropTypes.func,
-  handleSignInModal: PropTypes.func,
 
   ifFetchingThreeBox: PropTypes.bool,
   showErrorModal: PropTypes.bool,
@@ -262,6 +264,7 @@ Landing.propTypes = {
   hasWallet: PropTypes.bool,
   isSignedIntoWallet: PropTypes.bool,
   alertRequireMetaMask: PropTypes.bool,
+  signInToWalletModal: PropTypes.bool,
   errorMessage: PropTypes.string,
 };
 
@@ -269,17 +272,18 @@ Landing.defaultProps = {
   signInUp: signInUp(),
   checkForMetaMask: checkForMetaMask(),
   closeErrorModal: closeErrorModal(),
+  handleRequireWalletLoginModal: handleRequireWalletLoginModal(),
   closeConsentModal: closeConsentModal(),
   requireMetaMask: requireMetaMask(),
   closeRequireMetaMask: closeRequireMetaMask(),
   openErrorModal: openErrorModal(),
-  handleSignInModal: handleSignInModal(),
 
   ifFetchingThreeBox: false,
   showErrorModal: false,
   signInModal: false,
   provideConsent: false,
   alertRequireMetaMask: false,
+  signInToWalletModal: false,
   hasWallet: true,
   isSignedIntoWallet: false,
   errorMessage: null,
@@ -294,7 +298,8 @@ const mapState = state => ({
   hasWallet: state.threeBox.hasWallet,
   isSignedIntoWallet: state.threeBox.isSignedIntoWallet,
   alertRequireMetaMask: state.threeBox.alertRequireMetaMask,
+  signInToWalletModal: state.threeBox.signInToWalletModal,
   isLoggedIn: state.threeBox.isLoggedIn,
 });
 
-export default withRouter(connect(mapState, { signInUp, closeErrorModal, closeConsentModal, requireMetaMask, closeRequireMetaMask, checkForMetaMask, openErrorModal, handleSignInModal })(Landing));
+export default withRouter(connect(mapState, { signInUp, closeErrorModal, closeConsentModal, requireMetaMask, closeRequireMetaMask, checkForMetaMask, openErrorModal, handleRequireWalletLoginModal })(Landing));

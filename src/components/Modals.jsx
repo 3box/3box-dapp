@@ -140,6 +140,25 @@ export const RequireMetaMaskModal = ({ closeRequireMetaMask, show }) => (
   </div>
 );
 
+export const SignInToWalletModal = ({ handleRequireWalletLoginModal, show }) => (
+  <div className="modal__container">
+    <div className="modal">
+      <img src={MetaMaskWallet} alt="Partners background" />
+
+      <div id="modal__copy__card">
+        <h3>
+          Login to Web3 Wallet
+        </h3>
+        <p>
+          You must be logged in to a web3 wallet (e.g. MetaMask) to sign in or create a profile on 3Box
+        </p>
+      </div>
+
+      <button onClick={handleRequireWalletLoginModal} type="button" className="tertiaryButton">close</button>
+    </div>
+  </div>
+);
+
 export const ErrorModal = ({ closeErrorModal, errorMessage, show }) => (
   <div className="modal__container">
     <div className="modal">

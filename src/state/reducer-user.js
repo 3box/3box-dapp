@@ -200,6 +200,12 @@ export const threeBoxReducer = (state = {}, action) => {
         onBoardingModalTwo: action.onBoardingModalTwo,
       };
 
+    case 'HANDLE_REQUIRE_LOGIN_MODAL':
+      return {
+        ...state,
+        signInToWalletModal: action.signInToWalletModal,
+      };
+
     default:
       return state;
   }

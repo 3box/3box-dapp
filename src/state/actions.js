@@ -500,3 +500,10 @@ export const handleOnboardingModal2 = () => async (dispatch) => {
     onBoardingModal: false,
   });
 };
+
+export const handleRequireWalletLoginModal = () => async (dispatch) => {
+  dispatch({
+    type: 'HANDLE_REQUIRE_LOGIN_MODAL',
+    signInToWalletModal: !store.getState().threeBox.signInToWalletModal,
+  });
+};
