@@ -24,12 +24,10 @@ export const SwitchedNetworksModal = ({ prevNetwork, currentNetwork, proceedWith
 
       <div>
         <h3>
-          Switched Ethereum network
+          Network Change Detected
         </h3>
         <p>
-          3Box profiles are stored on IPFS.
-          This allows you to use the same profile on different Ethereum networks.
-          Your 3Box information is the same across networks, but your Ethereum activity changes.
+          Your profile will stay the same, but your Ethereum activity will update.
           </p>
         <p id="modal__switchBack">
           <b>
@@ -75,7 +73,7 @@ export const SwitchedAddressModal = ({ showSwitchedAddressModal, show, handleSig
 
       <div>
         <h3>
-          Switched Ethereum address
+          Address change detected
         </h3>
         <p>
           Revert to the previous address in your web3 wallet (e.g. MetaMask) or sign back in with the new address
@@ -96,8 +94,8 @@ export const ProvideConsentModal = ({ closeConsentModal, show }) => (
       <img src={Consent} alt="Partners background" />
 
       <div id="modal__copy__card">
-        <h3>Consent required</h3>
-        <p>Provide consent to 3Box in your web3 wallet (e.g. MetaMask) in order to sign in or create a profile on 3Box</p>
+        <h3>Log in to 3Box</h3>
+        <p>Approve the message in your web3 wallet (e.g. MetaMask) to continue.</p>
       </div>
 
       <button onClick={closeConsentModal} type="button" className="tertiaryButton">close</button>
@@ -191,7 +189,7 @@ export const ErrorModal = ({ closeErrorModal, errorMessage, show }) => (
           errorMessage.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.'
             ? (
               <h3>
-                Consent required
+                Log in to 3Box
               </h3>)
             : (
               <h3>
@@ -264,13 +262,17 @@ export const MobileWalletRequiredModal = ({ isIOS, handleMobileWalletModal }) =>
 export const OnBoardingModal = ({ handleOnboardingModal2 }) => (
   <div className="modal__container">
     <img src={OnBoardingModalGraphic} alt="Partners background" id="modal__onBoardingModal" />
+    {/* <div className="modal__onBoardingModal__buttonWrapper"> */}
     <button onClick={handleOnboardingModal2} type="button" id="modal__onBoardingModal__button">Get started</button>
+    {/* </div> */}
   </div>
 );
 
 export const OnBoardingModal2 = ({ handleOnboardingModal2 }) => (
   <div className="modal__container">
     <img src={OnBoardingModalGraphic2} alt="Partners background" id="modal__onBoardingModal" />
+    {/* <div className="modal__onBoardingModal__buttonWrapper"> */}
     <button onClick={handleOnboardingModal2} type="button" id="modal__onBoardingModal__button">Let's go</button>
+    {/* </div> */}
   </div>
 );

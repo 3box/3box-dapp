@@ -307,7 +307,7 @@
 
 #edit__breadCrumb {
   width: 100%;
-  background-color: $threeBoxBlueHueSecondary;
+  background-color: $threeBoxBlue;
   border-bottom: 1px solid #E4E4E4;
   overflow: hidden;
   height: 40px;
@@ -318,6 +318,7 @@
 
   p {
     margin-right: 2vw;
+    color: white;
   }
 
   #edit__breadCrumb__crumbs {

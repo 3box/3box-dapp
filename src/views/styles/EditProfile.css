@@ -233,7 +233,7 @@
 
 #edit__breadCrumb {
   width: 100%;
-  background-color: #EDEEEF;
+  background-color: #006ECC;
   border-bottom: 1px solid #E4E4E4;
   overflow: hidden;
   height: 40px;
@@ -242,7 +242,8 @@
   position: fixed;
   z-index: 2; }
   #edit__breadCrumb p {
-    margin-right: 2vw; }
+    margin-right: 2vw;
+    color: white; }
   #edit__breadCrumb #edit__breadCrumb__crumbs {
     margin-left: 4vw;
     display: flex;

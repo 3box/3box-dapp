@@ -127,18 +127,17 @@
 }
 
 #modal__onBoardingModal {
-  background-image: $defaultProfPic;
   object-fit: cover;
   border-radius: 6px;
-  width: 800px;
+  width: 754px;
   min-height: 500px;
-  display: flex;
   align-items: center;
   justify-content: space-around;
   flex-direction: column;
   box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
   text-align: center;
   overflow: hidden;
+  display: block;
 
   p {
     line-height: 24px;
@@ -159,15 +158,30 @@
   }
 }
 
+// #modal__onBoardingModal__buttonWrapper {
+//   width: 800px;
+//   height: 500px;
+//   display: flex;
+//   position: absolute;
+//   align-items: center;
+//   justify-content: center;
+// }
+
+@-moz-document url-prefix() {
+  #modal__onBoardingModal__button {
+    margin-top: 364px !important;
+  }
+}
+
 #modal__onBoardingModal__button {
   z-index: 2;
-  position: absolute;
   margin-top: 176px;
   padding: 1.2em 1.8em;
   border-radius: 3em;
   font-size: .9em;
   background: transparent;
   border: 1px solid white;
+  position: absolute;
 
   &:hover {
     background-color: white;

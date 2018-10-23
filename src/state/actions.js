@@ -324,6 +324,16 @@ export const openBox = () => async (dispatch) => {
     box,
     switched: false,
   });
+
+  const boxSyncFinished = () => {
+    dispatch({
+      type: 'GET_THREEBOX',
+      box,
+    });
+    console.log('hit box sync');
+  };
+
+  // box.onSyncDone(boxSyncFinished);
 };
 
 export const getPublicName = () => async (dispatch) => {

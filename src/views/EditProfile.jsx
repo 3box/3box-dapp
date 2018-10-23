@@ -114,14 +114,6 @@ class EditProfile extends Component {
 
         <div id="edit__breadCrumb">
           <div id="edit__breadCrumb__crumbs">
-            <Link to="/Profile">
-              <p className="lighter">
-                Profile
-            </p>
-            </Link>
-            <p className="lighter">
-              >
-            </p>
             <p className="light">
               Edit Profile
             </p>
