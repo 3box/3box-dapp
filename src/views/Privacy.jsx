@@ -13,11 +13,11 @@ const Privacy = () => (
     <div className="info__content">
       <div className="info__content__text">
         <p>
-          This privacy policy (“Policy”) describes how ConsenSys AG’s 3Box (“3Box” “Company”, “we”, “our”, or “us”) collects, uses, shares, and stores personal information of users of this website, 3box.io (the “Site”). This Policy applies to the Site, applications, products and services (collectively, “Services”) on or in which it is posted, linked, or referenced.
-          By using the Services, you accept the terms of this Policy and our Terms of Use, and consent to our collection, use, disclosure, and retention of your information as described in this Policy.  If you have not done so already, please also review our terms of use. The terms of use contain provisions that limit our liability to you and require you to resolve
-          any dispute with us on an individual basis and not as part of any class or representative action. IF YOU DO NOT AGREE WITH ANY PART OF THIS PRIVACY POLICY OR OUR TERMS OF USE, THEN PLEASE DO NOT USE ANY OF THE SERVICES.
-          Please note that this Policy does not apply to information collected through third-party websites or services that you may access through the Services or that you submit to us through email, text message or other electronic message or offline.
-          If you are visiting this site from the European Union (EU), see our Notice to EU Data Subjects below for our legal bases for processing and transfer of your data.
+        This privacy policy (“Policy”) describes how ConsenSys AG’s 3Box (“3Box” “Company”, “we”, “our”, or “us”) collects, uses, shares, and stores personal information of users of this website, 3box.io (the “Site”). This Policy applies to the Site, applications, products and services (collectively, “Services”) on or in which it is posted, linked, or referenced. 
+By using the Services, you accept the terms of this Policy and our Terms of Use, and consent to our collection, use, disclosure, and retention of your information as described in this Policy.  If you have not done so already, please also review our terms of use. The terms of use contain provisions that limit our liability to you and require you to resolve any dispute with us on an individual basis and not as part of any class or representative action. IF YOU DO NOT AGREE WITH ANY PART OF THIS PRIVACY POLICY OR OUR TERMS OF USE, THEN PLEASE DO NOT USE ANY OF THE SERVICES.
+Please note that this Policy does not apply to information collected through third-party websites or services that you may access through the Services or that you submit to us through email, text message or other electronic message or offline.
+If you are visiting this site from the European Union (EU), see our Notice to EU Data Subjects below for our legal bases for processing and transfer of your data. 
+
         </p>
         <h3>What We Collect</h3>
         <p>
@@ -39,7 +39,7 @@ const Privacy = () => (
           <b>Information Automatically Collected.</b>
           We may automatically record certain information about how you use our Site (we refer to this information as “Log Data“). Log Data may include information such as a user’s Internet Protocol (IP) address, device and browser type, operating system, the pages or features of our Site to which a user browsed and the time spent on those pages or features, the frequency with which the Site is used by a user, search terms, the links on our Site that a user clicked on or used, and other statistics. We use this information to administer the Service and we analyze (and may engage third parties to analyze) this information to improve and enhance the Service by expanding its features and functionality and tailoring it to our users’ needs and preferences.
           We may use cookies or similar technologies to analyze trends, administer the website, track users’ movements around the website, and to gather demographic information about our user base as a whole. Users can control the use of cookies at the individual browser level.
-          [We also use [INSERT DATA ANALYTICS SERVICE] to help us offer you an optimized user experience.  You can find more information about [INSERT DATA ANALYTICS SERVICE]’ use of your personal data here: [____]
+          We also use Google Analytics to help us offer you an optimized user experience.  You can find more information about Google Analytics’ use of your personal data here: https://policies.google.com/privacy?hl=en&gl=us
 
           <br />
           <br />
@@ -202,7 +202,7 @@ const Privacy = () => (
   
                 For compliance, fraud prevention, and safety
   
-                [To provide our service]
+                To provide our service
                 </p>
               </td>
 
@@ -236,7 +236,7 @@ const Privacy = () => (
 
               <td>
                 <p>
-                Where our use of your personal information is based upon your consent, you have the right to withdraw it anytime in the manner indicated in the Service or by contacting us at [INSERT EMAIL ADDRESS].
+                Where our use of your personal information is based upon your consent, you have the right to withdraw it anytime in the manner indicated in the Service or by contacting us at support@3box.io.
                 </p>
               </td>
             </tr>
@@ -315,11 +315,59 @@ const Privacy = () => (
           Click here to learn more about “Private Browsing” and managing cookie settings in Safari.
 
           If you want to learn more about cookies, or how to control, disable or delete them, please visit http://www.aboutcookies.org for detailed guidance. In addition, certain third party advertising networks, including Google, permit users to opt out of or customize preferences associated with your internet browsing. To learn more about this feature from Google, click here.
-          To control flash cookies, which we may use on our Site from time to time, you can go to this link because Flash cookies cannot be controlled through your browser settings. Please note that if you decline the use of Cookies, some functions of the website may be unavailable and we will not be able to present personally tailored content and advertisements to you. 
+          To control flash cookies, which we may use on our Site from time to time, you can go to this <a href="http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager07.html">link</a> because Flash cookies cannot be controlled through your browser settings. Please note that if you decline the use of Cookies, some functions of the website may be unavailable and we will not be able to present personally tailored content and advertisements to you. 
           We may link the information collected by Cookies with other information we collect from you pursuant to this Privacy Policy and use the combined information as set forth herein.  Similarly, the third parties who serve cookies on our Site may link your name or email address to other information they collect, which may include past purchases made offline or online, or your online usage information. If you are located in the European Economic Area, you have certain rights that are described above under the header “Notice to EU Data Subjects”, including the right to inspect and correct or delete the data that we have about you.
           Cookies Disclosure
-
         </p>
+
+        <table>
+            <tr>
+              <th>
+                <b>Name of Cookie/Identifier</b>
+              </th>
+              <th>
+                <b>What does the cookie generally do (e.g., website function and administration, analytics, marketing)?</b>
+              </th>
+              <th>
+                <b>Is it a 1st or 3rd party cookie and what is the name of the party providing it?</b>
+              </th>
+              <th>
+                <b>What type of cookie is it (persistent or session)?</b>
+              </th>
+              <th>
+                <b>What is the duration of the cookie on the website (if not cleared by the user)?</b>
+              </th>
+            </tr>
+
+            <tr>
+              <td>
+                <p>
+                Google Analytics
+                </p>
+              </td>
+
+              <td>
+                <p>
+                Analytics
+                </p>
+              </td>
+              <td>
+                <p>
+                3rd - Google
+                </p>
+              </td>
+              <td>
+                <p>
+                Persistent
+                </p>
+              </td>
+              <td>
+                <p>
+                2 years
+                </p>
+              </td>
+            </tr>
+          </table>
 
       </div>
     </div>
