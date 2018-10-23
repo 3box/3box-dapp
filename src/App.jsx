@@ -18,6 +18,7 @@ import {
   LoggedOutModal,
   OnBoardingModal,
   OnBoardingModal2,
+  LoadingThreeBoxProfileModal,
 } from './components/Modals.jsx';
 
 import {
@@ -84,12 +85,15 @@ class App extends Component {
       currentNetwork,
       onBoardingModal,
       onBoardingModalTwo,
+      ifFetchingThreeBox,
     } = this.props;
     const prevPrevNetwork = window.localStorage.getItem('prevPrevNetwork');
     const currentNetworkState = window.localStorage.getItem('currentNetwork');
 
     return (
       <div className="App">
+        {ifFetchingThreeBox && <LoadingThreeBoxProfileModal show={ifFetchingThreeBox} />}
+
         {(showDifferentNetworkModal && prevPrevNetwork !== currentNetworkState) // AND user is returning to the same network
           // {(showDifferentNetworkModal && switchBack && prevPrevNetwork !== currentNetwork) // AND user is returning to the same network
           && (
@@ -155,6 +159,7 @@ App.propTypes = {
   switchedAddressModal: PropTypes.bool,
   onBoardingModal: PropTypes.bool,
   onBoardingModalTwo: PropTypes.bool,
+  ifFetchingThreeBox: PropTypes.bool,
   prevNetwork: PropTypes.string,
   currentNetwork: PropTypes.string,
   prevPrevNetwork: PropTypes.string,
@@ -186,6 +191,7 @@ App.defaultProps = {
   switchedAddressModal: false,
   onBoardingModal: false,
   onBoardingModalTwo: false,
+  ifFetchingThreeBox: false,
   prevNetwork: '',
   currentNetwork: '',
   prevPrevNetwork: '',
@@ -203,6 +209,7 @@ const mapState = state => ({
   currentNetwork: state.threeBox.currentNetwork,
   prevPrevNetwork: state.threeBox.prevPrevNetwork,
   isLoggedIn: state.threeBox.isLoggedIn,
+  ifFetchingThreeBox: state.threeBox.ifFetchingThreeBox,
 });
 
 export default withRouter(connect(mapState,

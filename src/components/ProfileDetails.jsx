@@ -76,7 +76,6 @@ ProfileDetails.propTypes = {
   name: PropTypes.string,
   github: PropTypes.string,
   email: PropTypes.string,
-  ifFetchingThreeBox: PropTypes.bool,
   image: PropTypes.array,
 };
 
@@ -85,7 +84,6 @@ ProfileDetails.defaultProps = {
   github: '',
   email: '',
   image: [],
-  ifFetchingThreeBox: false,
 };
 
 function mapState(state) {
@@ -94,7 +92,6 @@ function mapState(state) {
     github: state.threeBox.github,
     image: state.threeBox.image,
     email: state.threeBox.email,
-    ifFetchingThreeBox: state.threeBox.ifFetchingThreeBox,
   };
 }
 

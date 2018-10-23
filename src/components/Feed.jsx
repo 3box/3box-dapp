@@ -16,13 +16,13 @@ const Feed = ({ ifFetchingActivity, feedByAddress }) => (
   <div id="feed">
     <p className="header" id="feed__header">Activity</p>
     <div id="feed__activity__address">
-      {ifFetchingActivity
+      {/* {ifFetchingActivity
         && (
           <div className="feed__activity__load">
             <img src={Loading} alt="loading" id="activityLoad" />
           </div>
         )
-      }
+      } */}
       {feedByAddress
         ? feedByAddress.map((feedAddress, i) => (
           <div key={i} className="feed__activity__tile">

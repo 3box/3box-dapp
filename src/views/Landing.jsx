@@ -126,7 +126,7 @@ class Landing extends Component {
           )}
 
         {provideConsent && <ProvideConsentModal closeConsentModal={this.props.closeConsentModal} show={provideConsent} />}
-        {ifFetchingThreeBox && <LoadingThreeBoxProfileModal show={ifFetchingThreeBox} />}
+        {/* {ifFetchingThreeBox && <LoadingThreeBoxProfileModal show={ifFetchingThreeBox} />} */}
         {alertRequireMetaMask && <RequireMetaMaskModal closeRequireMetaMask={this.props.closeRequireMetaMask} show={alertRequireMetaMask} />}
         {showErrorModal && <ErrorModal errorMessage={errorMessage} closeErrorModal={this.props.closeErrorModal} show={showErrorModal} />}
         {signInModal && <SignInToThreeBox handleSignInModal={this.props.handleSignInModal} show={signInModal} />}

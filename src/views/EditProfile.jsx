@@ -132,12 +132,12 @@ class EditProfile extends Component {
 
           <div id="edit__form">
 
-            {ifFetchingThreeBox
+            {/* {ifFetchingThreeBox
               && (
                 <div className="loadingProfile">
                   <img src={Loading} alt="loading" id="loadingProfile__Spinner" />
                 </div>
-              )}
+              )} */}
 
             <div id="myProfile">
               <h4>My Profile</h4>
