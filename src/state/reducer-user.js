@@ -206,6 +206,12 @@ export const threeBoxReducer = (state = {}, action) => {
         signInToWalletModal: action.signInToWalletModal,
       };
 
+    case 'HANDLE_WALLET_LOGIN_DETECTED_MODAL':
+      return {
+        ...state,
+        loginDetectedModal: action.loginDetectedModal,
+      };
+
     default:
       return state;
   }

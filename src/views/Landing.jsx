@@ -20,6 +20,7 @@ import {
   MobileWalletRequiredModal,
   ErrorModal,
   LoadingThreeBoxProfileModal,
+  LoginDetectedModal,
   SignInToWalletModal,
 } from '../components/Modals.jsx';
 import ThreeBoxLogo from '../components/ThreeBoxLogo.jsx';
@@ -94,6 +95,7 @@ class Landing extends Component {
     const {
       ifFetchingThreeBox,
       showErrorModal,
+      loginDetectedModal,
       errorMessage,
       provideConsent,
       alertRequireMetaMask,
@@ -133,6 +135,7 @@ class Landing extends Component {
         {signInToWalletModal && <SignInToWalletModal handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal} show={signInToWalletModal} />}
         {showErrorModal && <ErrorModal errorMessage={errorMessage} closeErrorModal={this.props.closeErrorModal} show={showErrorModal} />}
         {(showMobileWalletPrompt && !hasWallet) && <MobileWalletRequiredModal isIOS={isIOS} handleMobileWalletModal={this.handleMobileWalletModal} show={showMobileWalletPrompt} />}
+        {loginDetectedModal && <LoginDetectedModal show={loginDetectedModal} />}
 
         <img src={ThreeBoxGraphic} id="threeBoxGraphic" alt="ThreeBox Graphic" />
 
@@ -259,6 +262,7 @@ Landing.propTypes = {
 
   ifFetchingThreeBox: PropTypes.bool,
   showErrorModal: PropTypes.bool,
+  loginDetectedModal: PropTypes.bool,
   signInModal: PropTypes.bool,
   provideConsent: PropTypes.bool,
   hasWallet: PropTypes.bool,
@@ -280,6 +284,7 @@ Landing.defaultProps = {
 
   ifFetchingThreeBox: false,
   showErrorModal: false,
+  loginDetectedModal: false,
   signInModal: false,
   provideConsent: false,
   alertRequireMetaMask: false,
@@ -293,6 +298,7 @@ const mapState = state => ({
   ifFetchingThreeBox: state.threeBox.ifFetchingThreeBox,
   errorMessage: state.threeBox.errorMessage,
   showErrorModal: state.threeBox.showErrorModal,
+  loginDetectedModal: state.threeBox.loginDetectedModal,
   signInModal: state.threeBox.signInModal,
   provideConsent: state.threeBox.provideConsent,
   hasWallet: state.threeBox.hasWallet,

@@ -159,6 +159,25 @@ export const SignInToWalletModal = ({ handleRequireWalletLoginModal, show }) => 
   </div>
 );
 
+export const LoginDetectedModal = ({ show }) => (
+  <div className="modal__container">
+    <div className="modal">
+      <img src={MetaMaskWallet} alt="Partners background" />
+
+      <div id="modal__copy__card">
+        <h3>
+          Web3 Login Detected
+        </h3>
+        <p>
+          A login to a web3 wallet has been detected - reload the page to continue
+        </p>
+      </div>
+
+      <button onClick={() => window.location.reload()} type="button" className="tertiaryButton">reload</button>
+    </div>
+  </div >
+);
+
 export const ErrorModal = ({ closeErrorModal, errorMessage, show }) => (
   <div className="modal__container">
     <div className="modal">
