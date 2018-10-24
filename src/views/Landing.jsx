@@ -139,7 +139,7 @@ class Landing extends Component {
 
         <img src={ThreeBoxGraphic} id="threeBoxGraphic" alt="ThreeBox Graphic" />
 
-        <div id="landing__splash">
+        <div id="landing__splash" className={this.props.isLoggedIn ? "removeBottomMargin" : undefined}>
 
           <div id="landing__createProfile">
             <h1 className="ae-1 landing__createProfile--text">Create an Ethereum Profile</h1>

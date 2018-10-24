@@ -158,6 +158,8 @@ nav {
     -moz-transition: all .5s ease;
     -o-transition: all .5s ease;
     transition: all .5s ease; }
+  #nav__userPicture {
+    margin-right: 6vw; }
   #actionButtons p {
     margin-right: 5vw; }
   .nav__dropdown {

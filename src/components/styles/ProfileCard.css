@@ -105,5 +105,4 @@
     width: 14em;
     height: 11em; }
   .profileCardSmall__user__picture {
-    -webkit-transform: perspective(1px) translateY(-30%) translateX(-140%);
-    transform: perspective(1px) translateY(-30%) translateX(-140%); } }
+    left: 4.5em; } }
