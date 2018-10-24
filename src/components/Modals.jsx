@@ -8,7 +8,6 @@ import getCoinbaseWallet from '../assets/getCoinbaseWallet.svg';
 import TrustWallet from '../assets/TrustWallet.png';
 import Consent from '../assets/Consent.png';
 import Switched from '../assets/Switched.svg';
-import MetaMaskLogo from '../assets/MetaMaskLogo.svg';
 import OnBoardingModalGraphic from '../assets/OnBoardingModal.png';
 import OnBoardingModalGraphic2 from '../assets/OnBoardingModal2.png';
 import OnBoardingModalMobileGraphic1 from '../assets/OnBoardingModalMobile1.png';
@@ -30,7 +29,7 @@ export const SwitchedNetworksModal = ({ prevNetwork, currentNetwork, proceedWith
           Network Change Detected
         </h3>
         <p>
-          Your profile will stay the same, but your Ethereum activity will update.
+          Your profile will stay the same, but your Ethereum activity will update
           </p>
         <p id="modal__switchBack">
           <b>
@@ -98,7 +97,7 @@ export const ProvideConsentModal = ({ closeConsentModal, show }) => (
 
       <div id="modal__copy__card">
         <h3>Log in to 3Box</h3>
-        <p>Approve the message in your web3 wallet (e.g. MetaMask) to continue.</p>
+        <p>Approve the message in your web3 wallet (e.g. MetaMask) to continue</p>
       </div>
 
       <button onClick={closeConsentModal} type="button" className="tertiaryButton">Close</button>

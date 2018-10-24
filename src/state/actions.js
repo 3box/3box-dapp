@@ -218,11 +218,15 @@ export const signInUp = () => async (dispatch) => {
       .openBox(address, web3.currentProvider, opts); // eslint-disable-line no-undef
     box = await returnedBox;
 
-    box.onSyncDone(dispatch({
-      type: 'GET_THREEBOX',
-      ifFetchingThreeBox: false,
-      box,
-    }));
+    const updateThreeBox = () => {
+      dispatch({
+        type: 'GET_THREEBOX',
+        ifFetchingThreeBox: false,
+        box,
+      });
+    };
+
+    box.onSyncDone(updateThreeBox());
 
     const name = await box.public.get('name');
     const github = await box.public.get('github');
@@ -305,6 +309,7 @@ export const signInUp = () => async (dispatch) => {
     });
     if (publicActivity.length > 0 || privateActivity.length > 1) history.push('/Profile');
   } catch (err) {
+    console.log(err.message);
     dispatch({
       type: 'FAILED_LOADING_3BOX',
       errorMessage: err.message,
@@ -332,10 +337,15 @@ export const openBox = () => async (dispatch) => {
     switched: false,
   });
 
-  box.onSyncDone(dispatch({
-    type: 'GET_THREEBOX',
-    box,
-  }));
+  const updateThreeBox = () => {
+    dispatch({
+      type: 'GET_THREEBOX',
+      ifFetchingThreeBox: false,
+      box,
+    });
+  };
+
+  box.onSyncDone(updateThreeBox());
 };
 
 export const getPublicName = () => async (dispatch) => {
