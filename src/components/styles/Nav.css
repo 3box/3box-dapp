@@ -22,7 +22,7 @@ nav {
   border-radius: 20px;
   margin-left: 40px; }
   #nav__networkStatus p {
-    font-size: 12px;
+    font-size: 12px !important;
     color: #6b6b6b; }
 
 .Main {

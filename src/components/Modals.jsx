@@ -201,7 +201,7 @@ export const ErrorModal = ({ closeErrorModal, errorMessage, show }) => (
             ? <p>You must provide consent to 3Box in your web3 wallet (e.g. MetaMask) to sign in or create a profile, please try again</p>
             : errorMessage.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.'
               ? <p>Unlock your web3 wallet and reload the page to continue</p>
-              : <p>{errorMessage}</p>
+              : <p>{errorMessage.substr(0, 200)}</p>
         }
       </div>
       <button onClick={closeErrorModal} type="button" className="tertiaryButton">Close</button>
