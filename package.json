@@ -4,6 +4,7 @@
   "description": "3box dapp",
   "private": true,
   "dependencies": {
+    "3box": "^1.0.1",
     "@babel/polyfill": "^7.0.0",
     "babel-preset-env": "^1.7.0",
     "history": "^4.7.2",

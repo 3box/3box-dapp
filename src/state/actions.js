@@ -39,7 +39,7 @@ export const checkForMetaMask = () => async (dispatch) => {
 
   const accounts = await accountsPromise; // eslint-disable-line no-undef
   const isSignedIntoWallet = typeof web3 !== 'undefined' && !!accounts.length > 0;
-  const isLoggedIn = ThreeBox.isLoggedIn(address); // eslint-disable-line no-undef
+  const isLoggedIn = Box.isLoggedIn(address); // eslint-disable-line no-undef
 
   await dispatch({
     type: 'CHECK_WALLET',
@@ -214,7 +214,7 @@ export const signInUp = () => async (dispatch) => {
   };
 
   try {
-    const returnedBox = await ThreeBox // eslint-disable-line no-undef
+    const returnedBox = await Box // eslint-disable-line no-undef
       .openBox(address, web3.currentProvider, opts); // eslint-disable-line no-undef
     box = await returnedBox;
 
@@ -324,7 +324,7 @@ export const openBox = () => async (dispatch) => {
   // dispatch({
   //   type: 'LOADING_3BOX',
   // });
-  const returnedBox = await ThreeBox // eslint-disable-line no-undef
+  const returnedBox = await Box // eslint-disable-line no-undef
     .openBox(address, web3.currentProvider); // eslint-disable-line no-undef
   const box = await returnedBox;
 
