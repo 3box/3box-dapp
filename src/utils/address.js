@@ -24,17 +24,17 @@ setInterval(() => {
     });
   }
 
-  // Logged in to MM
-  if (currentAddress !== address && typeof currentAddress === 'string' && address === undefined) {
-    // window.location.reload();
-    store.dispatch({
-      type: 'HANDLE_WALLET_LOGIN_DETECTED_MODAL',
-      loginDetectedModal: true,
-    });
-    // web3 login detected
-    // show modal
-    // reload page from modal
-  }
+  // // Logged in to MM
+  // if (currentAddress !== address && typeof currentAddress === 'string' && address === undefined) {
+  //   // window.location.reload();
+  //   store.dispatch({
+  //     type: 'HANDLE_WALLET_LOGIN_DETECTED_MODAL',
+  //     loginDetectedModal: true,
+  //   });
+  //   // web3 login detected
+  //   // show modal
+  //   // reload page from modal
+  // }
   address = currentAddress;
 }, 1500);
 

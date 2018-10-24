@@ -101,7 +101,7 @@ export const ProvideConsentModal = ({ closeConsentModal, show }) => (
         <p>Approve the message in your web3 wallet (e.g. MetaMask) to continue.</p>
       </div>
 
-      <button onClick={closeConsentModal} type="button" className="tertiaryButton">close</button>
+      <button onClick={closeConsentModal} type="button" className="tertiaryButton">Close</button>
     </div>
   </div>
 );
@@ -136,7 +136,7 @@ export const RequireMetaMaskModal = ({ closeRequireMetaMask, show }) => (
         </p>
       </div>
 
-      <button onClick={closeRequireMetaMask} type="button" className="tertiaryButton">close</button>
+      <button onClick={closeRequireMetaMask} type="button" className="tertiaryButton">Close</button>
     </div>
   </div>
 );
@@ -148,14 +148,14 @@ export const SignInToWalletModal = ({ handleRequireWalletLoginModal, show }) => 
 
       <div id="modal__copy__card">
         <h3>
-          Login to Web3 Wallet
+          Unlock Your Wallet
         </h3>
         <p>
-          You must be logged in to a web3 wallet (e.g. MetaMask) to sign in or create a profile on 3Box
+          Unlock your web3 wallet and reload the page to continue
         </p>
       </div>
-
-      <button onClick={handleRequireWalletLoginModal} type="button" className="tertiaryButton">close</button>
+      <button onClick={() => window.location.reload()} type="button" className="tertiaryButton">Reload</button>
+      {/* <button onClick={handleRequireWalletLoginModal} type="button" className="tertiaryButton">close</button> */}
     </div>
   </div>
 );
@@ -174,7 +174,7 @@ export const LoginDetectedModal = ({ show }) => (
         </p>
       </div>
 
-      <button onClick={() => window.location.reload()} type="button" className="tertiaryButton">reload</button>
+      <button onClick={() => window.location.reload()} type="button" className="tertiaryButton">Reload</button>
     </div>
   </div >
 );
@@ -205,7 +205,7 @@ export const ErrorModal = ({ closeErrorModal, errorMessage, show }) => (
             : <p>{errorMessage}</p>
         }
       </div>
-      <button onClick={closeErrorModal} type="button" className="tertiaryButton">close</button>
+      <button onClick={closeErrorModal} type="button" className="tertiaryButton">Close</button>
     </div>
   </div>
 );
@@ -224,7 +224,7 @@ export const SignInToThreeBox = ({ handleSignInModal, show }) => (
         <p>You must be signed in to 3Box to go to that page</p>
       </div>
 
-      <button onClick={handleSignInModal} type="button" className="tertiaryButton">close</button>
+      <button onClick={handleSignInModal} type="button" className="tertiaryButton">Close</button>
     </div>
   </div>
 );
