@@ -392,6 +392,8 @@
       display: inline-block;
       border-bottom-left-radius: 5px;
       border-top-left-radius: 5px;
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
       border-style: none;
       height: 44px;
       max-width: 70%;
