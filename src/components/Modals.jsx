@@ -185,24 +185,24 @@ export const ErrorModal = ({ closeErrorModal, errorMessage, show }) => (
       {
         errorMessage.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.'
           ? <img src={Consent} alt="Consent required" />
-          : <img src={ErrorIcon} alt="Error" id="modal__switchedNetworks" />
+          : errorMessage.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.'
+            ? <img src={MetaMaskWallet} alt="MetaMask wallet" />
+            : <img src={ErrorIcon} alt="Error" id="modal__switchedNetworks" />
       }
-      <div id={errorMessage.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.' ? 'modal__copy__card' : ''}>
+      <div id={(errorMessage.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.' || errorMessage.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.') ? 'modal__copy__card' : ''}>
         {
           errorMessage.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.'
-            ? (
-              <h3>
-                Log in to 3Box
-              </h3>)
-            : (
-              <h3>
-                Error
-              </h3>)
+            ? <h3>Log in to 3Box</h3>
+            : errorMessage.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.'
+              ? <h3>Unlock Your Wallet</h3>
+              : <h3>Error</h3>
         }
         {
           errorMessage.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.'
             ? <p>You must provide consent to 3Box in your web3 wallet (e.g. MetaMask) to sign in or create a profile, please try again</p>
-            : <p>{errorMessage}</p>
+            : errorMessage.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.'
+              ? <p>Unlock your web3 wallet and reload the page to continue</p>
+              : <p>{errorMessage}</p>
         }
       </div>
       <button onClick={closeErrorModal} type="button" className="tertiaryButton">Close</button>
