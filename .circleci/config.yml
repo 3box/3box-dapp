@@ -1,0 +1,47 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/3box-dapp
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
+
+      - run:
+          name: install-awscli-and-dependencies
+          command: |
+            sudo apt-get update && sudo apt-get install awscli
+            npm i
+
+      - run:
+          name: run-tests
+          command: |
+            npm test
+
+      - run:
+          name: deploy-to-s3
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "develop" ]; then
+              # Fix Warnings CI=false is just a baaad workaround
+              CI=false npm run build
+              npm run deploy-develop
+            fi
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              npm run build
+              npm run deploy-master
+            fi
+
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build

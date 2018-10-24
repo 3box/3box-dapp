@@ -1,20 +1,20 @@
-/* ------------------------- External Dependencies -------------------------- */
+import '@babel/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
-/* ------------------------- Internal Dependencies -------------------------- */
-import Root from './interface';
-import { configureStore, history } from 'store/configuration';
+import { Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import './index.css';
+import App from './App.jsx';
+import { store } from './state/store';
+import history from './history';
+import registerServiceWorker from './registerServiceWorker';
 
-/* ------------------------ Initialize Dependencies ------------------------- */
-const store = configureStore();
-
-/* ---------------------------- Module Package ------------------------------ */
-const rootElement = document.getElementById('root')
-ReactDOM.render(<AppContainer><Root store={store} history={history} /></AppContainer>, document.getElementById('root'));
-
-if (module.hot) { module.hot.accept('./interface', function() {
-    const NextRoot = require('./interface'); // eslint-disable-line global-require
-    ReactDOM.render(<AppContainer><NextRoot store={store} history={history} /></AppContainer>,rootElement);
-})}
-/* ---------------------------- Service Worker ------------------------------ */
+ReactDOM.render(
+  <Provider store={store}>
+    <Router history={history}>
+      <App />
+    </Router>
+  </Provider>,
+  document.getElementById('root'),
+);
+registerServiceWorker();

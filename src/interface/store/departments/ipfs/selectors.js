@@ -1,4 +1,0 @@
-export const initialState = {}
-export const getDeltaData = (state,delta) =>state[delta] && state[delta].data || null
-export const getDeltaStatus = (state,delta) =>state[delta] && state[delta].status || null
-export const getDeltaStarting = (state, starts) => Object.keys(state).filter(item => item.startsWith(starts)).map(filteredItem=> state[filteredItem])

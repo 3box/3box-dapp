@@ -1,0 +1,60 @@
+@import "../../variables.scss";
+
+#logo__container {
+  cursor: pointer;
+}
+
+#logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#logo__icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  background-color: #006ECC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h2 {
+    color: white;
+    font-size: 1.5em !important;
+    font-weight: 700;
+  }
+}
+
+#logo__text {
+  display: inline-block;
+  color: #006ECC;
+  margin: 0;
+  margin-left: .37em;
+  font-size: 1.5em !important;
+}
+
+#logo__icon__white {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  background-color: rgb(255, 255, 255);
+  margin-left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  h2 {
+    color: #021333;
+    font-size: 22px !important;
+    font-weight: 700;
+  }
+}
+
+#logo__text__white {
+  display: inline-block;
+  color: rgb(255, 255, 255);
+  margin: 0;
+  margin-left: .37em;
+  font-size: 22px !important;
+}

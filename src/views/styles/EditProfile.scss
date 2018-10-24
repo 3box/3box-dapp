@@ -1,0 +1,478 @@
+@import "../../variables.scss";
+
+#edit__page {
+  margin-top: 68px;
+}
+
+#edit {
+  width: 55vw;
+  margin: 0 auto;
+  padding-top: 7.5em;
+
+  h3 {
+    font-weight: 400;
+    font-size: .8em;
+  }
+
+  input {
+    display: inline-block;
+    border-radius: 5px;
+    border-style: none;
+    border: solid 1px #E4E4E4;
+    background-color: rgb(238, 238, 238);
+    height: 44px;
+    width: 100%;
+    margin-top: 1em;
+    padding: 0 15px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  button {
+    display: inline-block;
+  }
+}
+
+#edit__form {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  position: relative;
+  z-index: 1;
+  flex-direction: column;
+  margin-top: 0;
+  border: $borderColor solid 1px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 7px 14px 0 rgba(59, 65, 94, .1), 0 3px 6px 0 rgba(0, 0, 0, .07);
+
+  #myProfile {
+    width: 100%;
+    border-bottom: $borderColor solid 1px;
+    height: 4em;
+    display: flex;
+    align-items: center;
+
+    h4 {
+      margin-left: 2em;
+    }
+  }
+
+  #myProfile__address {
+    margin-left: auto;
+    margin-right: 3vw;
+    display: flex;
+    align-items: center;
+  }
+
+  #edit__profile {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #edit_private {
+    padding: 1.8em 2em 2em;
+  }
+
+  form {
+    height: 100%;
+  }
+
+  #edit__userPicture {
+    width: 27%;
+    height: fit-content;
+    display: flex;
+    flex: 2;
+    padding: 3em 3vw 3em 3vw;
+    flex-direction: column;
+    align-items: center;
+
+    .profPic {
+      display: block;
+      background-image: $defaultProfPic;
+      border-radius: 100%;
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      -webkit-transition: all .5s ease;
+      -moz-transition: all .5s ease;
+      -o-transition: all .5s ease;
+      transition: all .5s ease;
+    }
+
+    #addImage {
+      position: absolute;
+      width: 35px;
+      height: 35px;
+      right: 5px;
+      opacity: 1;
+      z-index: 2;
+    }
+
+    .profPic_div:hover .profPic_div_overlay {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .profPic_div_overlay {
+      display: none;
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.397);
+      border-radius: 100%;
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      -webkit-transition: all .5s ease;
+      -moz-transition: all .5s ease;
+      -o-transition: all .5s ease;
+      transition: all .5s ease;
+      z-index: 1;
+
+      p {
+        font-weight: 400;
+        font-size: .8em;
+        color: white;
+      }
+    }
+
+    button {
+      display: block;
+      margin: 0 auto;
+      margin-top: 3em;
+    }
+  }
+
+  #edit__info {
+    overflow: hidden;
+    display: inline-block;
+    flex: 3.5;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    padding: 3em 3vw;
+
+  }
+
+  #edit__privateInfo {
+    display: flex;
+    margin-top: 2em;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  #privateInfo_email {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start !important;
+  }
+
+  #edit__public__githubInfo {
+    margin-top: 2em;
+  }
+
+  #edit_user_private {
+    width: calc(36.5% - 1px);
+    height: 100%;
+    display: inline-block;
+    border-left: solid 1px $borderColor;
+    flex: 3.5;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+  }
+}
+
+#edit_address {
+  overflow: scroll;
+}
+
+.dateType {
+  background: #ebebeb;
+}
+
+#edit__cancel {
+  margin-left: 1vw;
+}
+
+.container {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.76);
+  padding: 1rem;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100px;
+  }
+}
+
+#saveModal {
+  position: absolute;
+  bottom: 20px;
+  right: 26px;
+}
+
+#fileInput {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+}
+
+#edit_modal_user_picture {
+  margin: 0 auto;
+  margin-top: 9em;
+  background-color: #3f3f3f;
+  border-radius: 100%;
+  width: 160px;
+  height: 160px;
+  display: block;
+  object-fit: cover;
+}
+
+#chooseFile {
+  margin: 0 auto;
+  cursor: pointer;
+  text-align: center;
+  color: $lightFont;
+  position: relative;
+}
+
+#removePic {
+  margin-left: 0;
+}
+
+#edit__formControls {
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  #edit__formControls__content {
+    padding: 1.4em 2em;
+    margin-left: auto;
+  }
+}
+
+
+#privateHeader {
+  display: flex;
+  align-items: center;
+
+  p {
+    display: inline-block;
+    margin-right: 1vw;
+  }
+}
+
+#publicHeader {
+  display: flex;
+  align-items: center;
+
+  p {
+    display: inline-block;
+    margin-right: 1vw;
+  }
+}
+
+#public__contents {
+  display: flex;
+  align-items: center;
+}
+
+
+.removeButton {
+  font-size: .8em;
+  color: $lightFont;
+  border: 1px solid $lightFont;
+  background: transparent;
+  padding: .8em 1.3em;
+  margin-left: 1em;
+
+  &:hover {
+    color: white;
+    background-color: $lightFont;
+  }
+}
+
+#edit__breadCrumb {
+  width: 100%;
+  background-color: $threeBoxBlue;
+  border-bottom: 1px solid #E4E4E4;
+  overflow: hidden;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  z-index: 2;
+
+  p {
+    margin-right: 2vw;
+    color: white;
+  }
+
+  #edit__breadCrumb__crumbs {
+    margin-left: 4vw;
+    display: flex;
+    align-items: center;
+  }
+}
+
+#editprofile__networkLogo {
+  height: 19px;
+  margin-left: 3vw;
+  margin-right: 1vw;
+}
+
+#editprofile__privateIcon {
+  height: 22px;
+  margin-right: 1vw;
+  margin-left: 1vw;
+}
+
+.loadingProfile {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.281);
+  z-index: 6;
+  display: flex;
+  border-radius: 6px;
+  justify-content: center;
+  align-items: center;
+}
+
+#loadingProfile__Spinner {
+  width: 3em;
+  height: 3em;
+  z-index: 1;
+}
+
+@media only screen and (max-width: 600px) {
+  #edit {
+    width: 100vw;
+    margin: 0 auto;
+    margin: 0;
+    padding: 0;
+
+    position: absolute;
+    top: 40px;
+    z-index: 1;
+  }
+
+  #chooseFile {
+    margin: 0;
+  }
+
+  #public__contents {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #edit__form {
+    border-radius: 0;
+    border: none;
+    position: static;
+  }
+
+  .loadingProfile {
+    border-radius: 0px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #edit__page {
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    position: relative;
+    z-index: 0;
+
+    #myProfile {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 5.5em;
+      white-space: nowrap;
+      overflow: hidden;
+      overflow-x: scroll;
+
+      h4 {
+        margin: 0 0 .6em 3vw;
+      }
+    }
+
+    #myProfile__address {
+      margin-left: auto;
+      margin-right: 3vw;
+      display: flex;
+      align-items: center;
+    }
+
+    #edit__userPicture {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex: 2;
+      padding: 3em 0;
+      flex-direction: row;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+
+      .profPic {
+        display: flex;
+        margin: 0;
+        margin-right: 1em;
+        position: relative;
+        z-index: 1;
+      }
+
+      button {
+        display: flex;
+        margin: 0;
+        margin-left: 1em;
+      }
+
+    }
+
+    #edit__profile {
+      width: 100%;
+      height: fit-content;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #edit_private {
+      padding: 1.8em 2em 2em;
+    }
+
+    form {
+      display: inline-block;
+      height: 100%;
+    }
+
+    #edit__info {
+      width: 90%;
+      padding: 1em 3vw;
+    }
+  }
+
+  #edit__formControls__content {
+    width: 40%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+}

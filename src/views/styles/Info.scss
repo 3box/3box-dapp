@@ -1,0 +1,43 @@
+@import "../../variables.scss";
+
+.info__page {
+  display: flex;
+  flex-direction: column;
+  margin-top: 68px;
+}
+
+.info__banner {
+  width: 100vw;
+  height: 14em;
+  background-color: $threeBoxBlue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    color: white;
+  }
+}
+
+.info__content {
+  display: flex;
+  justify-content: center;
+}
+
+.info__content__text {
+  width: 50vw;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding: 5em 0;
+
+  h3 {
+    margin-bottom: .5em;
+  }
+
+  p {
+    margin-bottom: 4em;
+  }
+}
+
+@media only screen and (max-width: 600px) {}
