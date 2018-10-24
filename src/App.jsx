@@ -88,9 +88,6 @@ class App extends Component {
   }
 
   handleNextMobileModal = (thisModal, nextModal) => {
-    console.log('hit mobile modal')
-    console.log(thisModal);
-    console.log(nextModal);
     this.setState({
       [`onBoardingModalMobile${thisModal}`]: false,
       [`onBoardingModalMobile${nextModal}`]: true
@@ -124,7 +121,6 @@ class App extends Component {
 
     const { width } = this.state;
     const isMobile = width <= 600;
-    console.log(isMobile)
 
     return (
       <div className="App">
