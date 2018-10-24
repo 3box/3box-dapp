@@ -218,15 +218,13 @@ export const signInUp = () => async (dispatch) => {
       .openBox(address, web3.currentProvider, opts); // eslint-disable-line no-undef
     box = await returnedBox;
 
-    const updateThreeBox = () => {
+    box.onSyncDone(() => {
       dispatch({
         type: 'GET_THREEBOX',
         ifFetchingThreeBox: false,
         box,
       });
-    };
-
-    box.onSyncDone(updateThreeBox());
+    });
 
     const name = await box.public.get('name');
     const github = await box.public.get('github');
@@ -337,15 +335,13 @@ export const openBox = () => async (dispatch) => {
     switched: false,
   });
 
-  const updateThreeBox = () => {
+  box.onSyncDone(() => {
     dispatch({
       type: 'GET_THREEBOX',
       ifFetchingThreeBox: false,
       box,
     });
-  };
-
-  box.onSyncDone(updateThreeBox());
+  });
 };
 
 export const getPublicName = () => async (dispatch) => {
