@@ -36,13 +36,13 @@
   background: #fff;
   border-radius: 6px;
   box-shadow: 0 7px 14px 0 rgba(59, 65, 94, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07); }
-  #edit__form #myProfile {
+  #edit__form #edit__myProfile {
     width: 100%;
     border-bottom: #E4E4E4 solid 1px;
     height: 4em;
     display: flex;
     align-items: center; }
-    #edit__form #myProfile h4 {
+    #edit__form #edit__myProfile h4 {
       margin-left: 2em; }
   #edit__form #myProfile__address {
     margin-left: auto;
@@ -303,7 +303,7 @@
     box-shadow: none;
     position: relative;
     z-index: 0; }
-    #edit__page #myProfile {
+    #edit__page #edit__myProfile {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -311,7 +311,7 @@
       white-space: nowrap;
       overflow: hidden;
       overflow-x: scroll; }
-      #edit__page #myProfile h4 {
+      #edit__page #edit__myProfile h4 {
         margin: 0 0 .6em 3vw; }
     #edit__page #myProfile__address {
       margin-left: auto;

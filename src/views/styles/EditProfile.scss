@@ -47,7 +47,7 @@
   border-radius: 6px;
   box-shadow: 0 7px 14px 0 rgba(59, 65, 94, .1), 0 3px 6px 0 rgba(0, 0, 0, .07);
 
-  #myProfile {
+  #edit__myProfile {
     width: 100%;
     border-bottom: $borderColor solid 1px;
     height: 4em;
@@ -398,7 +398,7 @@
     position: relative;
     z-index: 0;
 
-    #myProfile {
+    #edit__myProfile {
       display: flex;
       justify-content: center;
       align-items: center;

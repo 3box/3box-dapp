@@ -130,6 +130,7 @@ class Landing extends Component {
           )}
 
         {provideConsent && <ProvideConsentModal closeConsentModal={this.props.closeConsentModal} show={provideConsent} />}
+        {/* <ProvideConsentModal closeConsentModal={this.props.closeConsentModal} show={provideConsent} /> */}
         {/* {ifFetchingThreeBox && <LoadingThreeBoxProfileModal show={ifFetchingThreeBox} />} */}
         {alertRequireMetaMask && <RequireMetaMaskModal closeRequireMetaMask={this.props.closeRequireMetaMask} show={alertRequireMetaMask} />}
         {signInToWalletModal && <SignInToWalletModal handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal} show={signInToWalletModal} />}

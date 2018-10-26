@@ -92,6 +92,7 @@ export const SwitchedAddressModal = ({ showSwitchedAddressModal, show, handleSig
 // Landing Page Modals
 export const ProvideConsentModal = ({ closeConsentModal, show }) => (
   <div className="modal__container">
+    {/* // <div className={`${show ? 'show' : 'hide'} modal__container`}> */}
     <div className="modal">
       <img src={Consent} alt="Partners background" />
 
@@ -104,6 +105,21 @@ export const ProvideConsentModal = ({ closeConsentModal, show }) => (
     </div>
   </div>
 );
+// export const ProvideConsentModal = ({ closeConsentModal, show }) => (
+//   // <div className="modal__container">
+//   <div className={`${show ? 'show' : 'hide'} modal__container`}>
+//     <div className="modal">
+//       <img src={Consent} alt="Partners background" />
+
+//       <div id="modal__copy__card">
+//         <h3>Log in to 3Box</h3>
+//         <p>Approve the message in your web3 wallet (e.g. MetaMask) to continue</p>
+//       </div>
+
+//       <button onClick={closeConsentModal} type="button" className="tertiaryButton">Close</button>
+//     </div>
+//   </div>
+// );
 
 export const LoadingThreeBoxProfileModal = ({ show }) => (
   <div className="modal__container">

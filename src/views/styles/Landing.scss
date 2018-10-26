@@ -132,19 +132,6 @@
 
 }
 
-#landing_section_developers_inner {
-  width: 80%;
-  margin: 0 auto;
-}
-
-#landing_section_developers_copy {
-  width: 60%;
-  height: 15em;
-  display: inline-block;
-  float: left;
-  position: relative;
-}
-
 @keyframes moveHorizontal {
   from {
     left: -5vw;
@@ -241,10 +228,6 @@
   position: relative;
 }
 
-#landing_arrow {
-  animation: bounce 3s infinite;
-}
-
 @keyframes bounce {
   100% {
     transform: translateY(0);
@@ -314,59 +297,6 @@
   }
 }
 
-#illustration {
-  border-radius: 100%;
-  width: 12em;
-  height: 12em;
-  background-color: white;
-  margin: 0 auto;
-  z-index: 1;
-  position: relative;
-  top: 50%;
-  transform: perspective(1px) translateY(-50%);
-}
-
-#illustration2 {
-  border-radius: 100%;
-  width: 16em;
-  height: 16em;
-  background-color: #ECECEC;
-  margin: 0 auto;
-  z-index: 0;
-  position: relative;
-  top: 50%;
-  transform: perspective(1px) translateY(-50%);
-}
-
-#illustration3 {
-  border-radius: 100%;
-  width: 20em;
-  height: 20em;
-  background-color: rgb(245, 245, 245);
-  margin: 0 auto;
-  z-index: 0;
-  position: relative;
-  top: 50%;
-  transform: perspective(1px) translateY(-50%);
-}
-
-#illustration4 {
-  border-radius: 100%;
-  width: 24em;
-  height: 24em;
-  background-color: transparent;
-  border: dashed 1px rgb(207, 207, 207);
-  margin: 0 auto;
-  z-index: 0;
-  display: inline-block;
-}
-
-#explore {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
-
 @keyframes scroll {
   0% {
     left: 800px;
@@ -375,19 +305,6 @@
   100% {
     left: -800px;
   }
-}
-
-#card {
-  border: 1px solid #E4E4E4;
-  border-radius: 10px;
-  min-width: 80%;
-  min-height: 100%;
-  background: white;
-  box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
-  float: right;
-  position: relative;
-  top: 50%;
-  transform: perspective(1px) translateY(-50%);
 }
 
 .animateOnEvent .ae-1,
@@ -449,22 +366,7 @@
   opacity: .6;
 }
 
-#footer {
-  background-color: #fff;
-  border-top: 1px solid #E4E4E4;
-  overflow: hidden;
-  position: absolute;
-  height: 14vh;
-  bottom: -10vh;
-  width: 100%;
-  display: block;
-
-  display: flex;
-  align-items: center;
-}
-
 #landing__footer {
-  // position: absolute;
   width: 100%;
   height: 30em;
   justify-content: space-around;

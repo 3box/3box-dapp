@@ -131,7 +131,7 @@ class EditProfile extends Component {
                 </div>
               )} */}
 
-            <div id="myProfile">
+            <div id="edit__myProfile">
               <h4>My Profile</h4>
               <div id="myProfile__address">
                 <img id="editprofile__networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
