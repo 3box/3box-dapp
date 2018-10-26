@@ -12,6 +12,15 @@
   .modal__container img {
     width: 100px; }
 
+.hideModal {
+  opacity: 0; }
+
+.showModal {
+  opacity: 1;
+  -webkit-transition: all .6s;
+  -moz-transition: all .6s;
+  transition: all .6s; }
+
 .modal {
   background: white;
   border-radius: 6px;
