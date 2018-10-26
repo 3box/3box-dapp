@@ -18,22 +18,16 @@
 }
 
 
-.hide {
-  opacity: 0;
-}
+// .hide {
+//   opacity: 0;
+// }
 
-.show {
-  opacity: 1;
-  
-  -webkit-transition: all .6s;
-  -moz-transition: all .6s;
-  transition: all .6s;
-}
-
-// .showModal {
-//   display: flex;
-//   transition: opacity .4s ease;
+// .show {
 //   opacity: 1;
+
+//   -webkit-transition: all .6s;
+//   -moz-transition: all .6s;
+//   transition: all .6s;
 // }
 
 .modal {

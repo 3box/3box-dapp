@@ -91,8 +91,7 @@ export const SwitchedAddressModal = ({ showSwitchedAddressModal, show, handleSig
 
 // Landing Page Modals
 export const ProvideConsentModal = ({ closeConsentModal, show }) => (
-  <div className="modal__container">
-    {/* // <div className={`${show ? 'show' : 'hide'} modal__container`}> */}
+  <div className={`${show ? 'show' : 'hide'} modal__container`}>
     <div className="modal">
       <img src={Consent} alt="Partners background" />
 
@@ -105,6 +104,7 @@ export const ProvideConsentModal = ({ closeConsentModal, show }) => (
     </div>
   </div>
 );
+
 // export const ProvideConsentModal = ({ closeConsentModal, show }) => (
 //   // <div className="modal__container">
 //   <div className={`${show ? 'show' : 'hide'} modal__container`}>
