@@ -20,226 +20,277 @@ import Loading from '../assets/Loading.svg';
 import './styles/Modal.css';
 
 export const SwitchedNetworksModal = ({ prevNetwork, currentNetwork, proceedWithSwitchedAddress, show }) => (
-  <div className="modal__container">
-    <div className="modal">
-      <img src={Switched} alt="Partners background" id="modal__switchedNetworks" />
+  <div>
+    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+      <div className="modal">
+        <img src={Switched} alt="Partners background" id="modal__switchedNetworks" />
 
-      <div>
-        <h3>
-          Network Change Detected
+        <div>
+          <h3>
+            Network Change Detected
         </h3>
-        <p>
-          Your profile will stay the same, but your Ethereum activity will update
+          <p>
+            Your profile will stay the same, but your Ethereum activity will update
           </p>
-        <p id="modal__switchBack">
-          <b>
-            {`Switch back to ${prevNetwork} in MetaMask or continue on ${currentNetwork}`}
-          </b>
-        </p>
-      </div>
+          <p id="modal__switchBack">
+            <b>
+              {`Switch back to ${prevNetwork} in MetaMask or continue on ${currentNetwork}`}
+            </b>
+          </p>
+        </div>
 
-      <button onClick={() => { proceedWithSwitchedAddress(); window.localStorage.setItem('switch', true); }} type="button">
-        Continue on
+        <button onClick={() => { proceedWithSwitchedAddress(); window.localStorage.setItem('switch', true); }} type="button">
+          Continue on
         {` ${currentNetwork}`}
-      </button>
+        </button>
 
+      </div>
     </div>
+    <div className="modal__overlay" />
   </div>
 );
 
 export const LoggedOutModal = ({ showLoggedOutModal, handleSignOut, show }) => (
-  <div className="modal__container">
-    <div className="modal">
-      <img src={LogOut} alt="Partners background" id="modal__switchedNetworks" />
+  <div>
+    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+      <div className="modal">
+        <img src={LogOut} alt="Partners background" id="modal__switchedNetworks" />
 
-      <div>
-        <h3>
-          Logged out
+        <div>
+          <h3>
+            Logged out
         </h3>
-        <p>
-          Sign back in to your web3 wallet (e.g. MetaMask) or exit 3Box
+          <p>
+            Sign back in to your web3 wallet (e.g. MetaMask) or exit 3Box
         </p>
-      </div>
+        </div>
 
-      <Link to={routes.LANDING}>
-        <button onClick={() => { showLoggedOutModal(); handleSignOut(); }} type="button">Exit</button>
-      </Link>
+        <Link to={routes.LANDING}>
+          <button onClick={() => { showLoggedOutModal(); handleSignOut(); }} type="button">Exit</button>
+        </Link>
+      </div>
     </div>
+    <div className="modal__overlay" />
   </div>
 );
 
 export const SwitchedAddressModal = ({ showSwitchedAddressModal, show, handleSignOut }) => (
-  <div className="modal__container">
-    <div className="modal">
-      <img src={Switched} alt="Partners background" id="modal__switchedNetworks" />
+  <div>
+    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+      <div className="modal">
+        <img src={Switched} alt="Partners background" id="modal__switchedNetworks" />
 
-      <div>
-        <h3>
-          Address change detected
+        <div>
+          <h3>
+            Address change detected
         </h3>
-        <p>
-          Revert to the previous address in your web3 wallet (e.g. MetaMask) or sign back in with the new address
+          <p>
+            Revert to the previous address in your web3 wallet (e.g. MetaMask) or sign back in with the new address
         </p>
-      </div>
+        </div>
 
-      <Link to={routes.LANDING}>
-        <button onClick={() => { showSwitchedAddressModal(); handleSignOut(); }} type="button">Sign in with new address</button>
-      </Link>
+        <Link to={routes.LANDING}>
+          <button onClick={() => { showSwitchedAddressModal(); handleSignOut(); }} type="button">Sign in with new address</button>
+        </Link>
+      </div>
     </div>
+    <div className="modal__overlay" />
   </div>
 );
 
 // Landing Page Modals
-// export const ProvideConsentModal = ({ closeConsentModal, show }) => (
-//   <div className={`${show ? 'showModal' : 'hideModal'} modal__container`}>
-//     <div className="modal">
-//       <img src={Consent} alt="Partners background" />
-
-//       <div id="modal__copy__card">
-//         <h3>Log in to 3Box</h3>
-//         <p>Approve the message in your web3 wallet (e.g. MetaMask) to continue</p>
-//       </div>
-
-//       <button onClick={closeConsentModal} type="button" className="tertiaryButton">Close</button>
-//     </div>
-//   </div>
-// );
-
 export const ProvideConsentModal = ({ closeConsentModal, show }) => (
-  <div className="modal__container">
-    <div className="modal">
-      <img src={Consent} alt="Partners background" />
+  <div>
+    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+      <div className="modal">
+        <img src={Consent} alt="Partners background" />
 
-      <div id="modal__copy__card">
-        <h3>Log in to 3Box</h3>
-        <p>Approve the message in your web3 wallet (e.g. MetaMask) to continue</p>
+        <div id="modal__copy__card">
+          <h3>Log in to 3Box</h3>
+          <p>Approve the message in your web3 wallet (e.g. MetaMask) to continue</p>
+        </div>
+
+        <button onClick={closeConsentModal} type="button" className="tertiaryButton">Close</button>
       </div>
-
-      <button onClick={closeConsentModal} type="button" className="tertiaryButton">Close</button>
     </div>
+    <div className="modal__overlay" />
   </div>
 );
 
 export const LoadingThreeBoxProfileModal = ({ show }) => (
-  <div className="modal__container">
-    <div className="modal">
-      <img src={Loading} alt="Loading" id="modal__loadingGraphic" />
+  <div>
+    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+      <div className="modal">
+        <img src={Loading} alt="Loading" id="modal__loadingGraphic" />
 
-      <div>
-        <div id="modal__loading3Box">
-          <ThreeBoxLogo />
+        <div>
+          <div id="modal__loading3Box">
+            <ThreeBoxLogo />
+          </div>
+          <p>LOADING</p>
         </div>
-        <p>LOADING</p>
-      </div>
 
+      </div>
     </div>
+    <div className="modal__overlay" />
   </div>
 );
 
 export const RequireMetaMaskModal = ({ closeRequireMetaMask, show }) => (
-  <div className="modal__container">
-    <div className="modal">
-      <img src={MetaMaskWallet} alt="Partners background" />
+  <div>
+    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+      <div className="modal">
+        <img src={MetaMaskWallet} alt="Partners background" />
 
-      <div id="modal__copy__card">
-        <h3>
-          Install Web3 Wallet
-        </h3>
-        <p>
-          You must have a web3 wallet (e.g. MetaMask) to sign in or create a profile on 3Box
-        </p>
+        <div id="modal__copy__card">
+          <h3>
+            Install Web3 Wallet
+          </h3>
+          <p>
+            You must have a web3 wallet (e.g. MetaMask) to sign in or create a profile on 3Box
+          </p>
+        </div>
+
+        <button onClick={closeRequireMetaMask} type="button" className="tertiaryButton">Close</button>
       </div>
-
-      <button onClick={closeRequireMetaMask} type="button" className="tertiaryButton">Close</button>
     </div>
+    <div className="modal__overlay" />
   </div>
 );
+// export const RequireMetaMaskModal = ({ closeRequireMetaMask, show }) => (
+//   <div className="modal__container">
+//     <div className="modal">
+//       <img src={MetaMaskWallet} alt="Partners background" />
+
+//       <div id="modal__copy__card">
+//         <h3>
+//           Install Web3 Wallet
+//         </h3>
+//         <p>
+//           You must have a web3 wallet (e.g. MetaMask) to sign in or create a profile on 3Box
+//         </p>
+//       </div>
+
+//       <button onClick={closeRequireMetaMask} type="button" className="tertiaryButton">Close</button>
+//     </div>
+//   </div>
+// );
 
 export const SignInToWalletModal = ({ handleRequireWalletLoginModal, show }) => (
-  <div className="modal__container">
-    <div className="modal">
-      <img src={MetaMaskWallet} alt="Partners background" />
+  <div>
+    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+      <div className="modal">
+        <img src={MetaMaskWallet} alt="Partners background" />
 
-      <div id="modal__copy__card">
-        <h3>
-          Unlock Your Wallet
+        <div id="modal__copy__card">
+          <h3>
+            Unlock Your Wallet
         </h3>
-        <p>
-          Unlock your web3 wallet and reload the page to continue
+          <p>
+            Unlock your web3 wallet and reload the page to continue
         </p>
+        </div>
+        <button onClick={() => window.location.reload()} type="button" className="tertiaryButton">Reload</button>
+        {/* <button onClick={handleRequireWalletLoginModal} type="button" className="tertiaryButton">close</button> */}
       </div>
-      <button onClick={() => window.location.reload()} type="button" className="tertiaryButton">Reload</button>
-      {/* <button onClick={handleRequireWalletLoginModal} type="button" className="tertiaryButton">close</button> */}
     </div>
+    <div className="modal__overlay" />
   </div>
 );
+// export const SignInToWalletModal = ({ handleRequireWalletLoginModal, show }) => (
+//   <div className="modal__container">
+//     <div className="modal">
+//       <img src={MetaMaskWallet} alt="Partners background" />
+
+//       <div id="modal__copy__card">
+//         <h3>
+//           Unlock Your Wallet
+//         </h3>
+//         <p>
+//           Unlock your web3 wallet and reload the page to continue
+//         </p>
+//       </div>
+//       <button onClick={() => window.location.reload()} type="button" className="tertiaryButton">Reload</button>
+//       {/* <button onClick={handleRequireWalletLoginModal} type="button" className="tertiaryButton">close</button> */}
+//     </div>
+//   </div>
+// );
 
 export const LoginDetectedModal = ({ show }) => (
-  <div className="modal__container">
-    <div className="modal">
-      <img src={MetaMaskWallet} alt="Partners background" />
+  <div>
+    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+      <div className="modal">
+        <img src={MetaMaskWallet} alt="Partners background" />
 
-      <div id="modal__copy__card">
-        <h3>
-          Web3 Login Detected
+        <div id="modal__copy__card">
+          <h3>
+            Web3 Login Detected
         </h3>
-        <p>
-          A login to a web3 wallet has been detected - reload the page to continue
+          <p>
+            A login to a web3 wallet has been detected - reload the page to continue
         </p>
-      </div>
+        </div>
 
-      <button onClick={() => window.location.reload()} type="button" className="tertiaryButton">Reload</button>
+        <button onClick={() => window.location.reload()} type="button" className="tertiaryButton">Reload</button>
+      </div>
     </div>
-  </div >
+    <div className="modal__overlay" />
+  </div>
 );
 
 export const ErrorModal = ({ closeErrorModal, errorMessage, show }) => (
-  <div className="modal__container">
-    <div className="modal">
-      {
-        errorMessage.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.'
-          ? <img src={Consent} alt="Consent required" />
-          : errorMessage.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.'
-            ? <img src={MetaMaskWallet} alt="MetaMask wallet" />
-            : <img src={ErrorIcon} alt="Error" id="modal__switchedNetworks" />
-      }
-      <div id={(errorMessage.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.' || errorMessage.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.') ? 'modal__copy__card' : ''}>
+  <div>
+    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+      <div className="modal">
         {
-          errorMessage.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.'
-            ? <h3>Log in to 3Box</h3>
-            : errorMessage.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.'
-              ? <h3>Unlock Your Wallet</h3>
-              : <h3>Error</h3>
+          errorMessage && errorMessage.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.'
+            ? <img src={Consent} alt="Consent required" />
+            : errorMessage && errorMessage.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.'
+              ? <img src={MetaMaskWallet} alt="MetaMask wallet" />
+              : <img src={ErrorIcon} alt="Error" id="modal__switchedNetworks" />
         }
-        {
-          errorMessage.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.'
-            ? <p>You must provide consent to 3Box in your web3 wallet (e.g. MetaMask) to sign in or create a profile, please try again</p>
-            : errorMessage.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.'
-              ? <p>Unlock your web3 wallet and reload the page to continue</p>
-              : <p>{errorMessage.substr(0, 200)}</p>
-        }
+        <div id={(errorMessage && errorMessage.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.' || errorMessage && errorMessage.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.') ? 'modal__copy__card' : ''}>
+          {
+            errorMessage && errorMessage.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.'
+              ? <h3>Log in to 3Box</h3>
+              : errorMessage && errorMessage.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.'
+                ? <h3>Unlock Your Wallet</h3>
+                : <h3>Error</h3>
+          }
+          {
+            errorMessage && errorMessage.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.'
+              ? <p>You must provide consent to 3Box in your web3 wallet (e.g. MetaMask) to sign in or create a profile, please try again</p>
+              : errorMessage && errorMessage.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.'
+                ? <p>Unlock your web3 wallet and reload the page to continue</p>
+                : <p>{errorMessage && errorMessage.substr(0, 200)}</p>
+          }
+        </div>
+        <button onClick={closeErrorModal} type="button" className="tertiaryButton">Close</button>
       </div>
-      <button onClick={closeErrorModal} type="button" className="tertiaryButton">Close</button>
     </div>
+    <div className="modal__overlay" />
   </div>
 );
 
 export const SignInToThreeBox = ({ handleSignInModal, show }) => (
-  <div className="modal__container">
-    <div className="modal">
-      <div id="modal__loading3Box">
-        <ThreeBoxLogo />
-      </div>
+  <div>
+    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+      <div className="modal">
+        <div id="modal__loading3Box">
+          <ThreeBoxLogo />
+        </div>
 
-      <div id="modal__copy__card">
-        <h3>
-          Sign in
+        <div id="modal__copy__card">
+          <h3>
+            Sign in
         </h3>
-        <p>You must be signed in to 3Box to go to that page</p>
-      </div>
+          <p>You must be signed in to 3Box to go to that page</p>
+        </div>
 
-      <button onClick={handleSignInModal} type="button" className="tertiaryButton">Close</button>
+        <button onClick={handleSignInModal} type="button" className="tertiaryButton">Close</button>
+      </div>
     </div>
+    <div className="modal__overlay" />
   </div>
 );
 

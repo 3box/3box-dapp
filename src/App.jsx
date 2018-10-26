@@ -124,34 +124,29 @@ class App extends Component {
 
     return (
       <div className="App">
-        {ifFetchingThreeBox && <LoadingThreeBoxProfileModal show={ifFetchingThreeBox} />}
+        {<LoadingThreeBoxProfileModal show={ifFetchingThreeBox} />}
 
-        {(showDifferentNetworkModal && prevPrevNetwork !== currentNetworkState) // AND user is returning to the same network
-          // {(showDifferentNetworkModal && switchBack && prevPrevNetwork !== currentNetwork) // AND user is returning to the same network
-          && (
-            <SwitchedNetworksModal
-              prevNetwork={prevNetwork}
-              currentNetwork={currentNetwork}
-              proceedWithSwitchedAddress={this.props.proceedWithSwitchedAddress}
-              show={showDifferentNetworkModal}
-            />)}
+        {<SwitchedNetworksModal
+          prevNetwork={prevNetwork}
+          currentNetwork={currentNetwork}
+          proceedWithSwitchedAddress={this.props.proceedWithSwitchedAddress}
+          show={(showDifferentNetworkModal && prevPrevNetwork !== currentNetworkState)}
+        />}
 
-        {loggedOutModal && (
-          <LoggedOutModal
-            showLoggedOutModal={this.props.showLoggedOutModal}
-            handleSignOut={this.props.handleSignOut}
-            show={loggedOutModal}
-          />)}
+        {<LoggedOutModal
+          showLoggedOutModal={this.props.showLoggedOutModal}
+          handleSignOut={this.props.handleSignOut}
+          show={loggedOutModal}
+        />}
 
-        {switchedAddressModal && (
-          <SwitchedAddressModal
-            showSwitchedAddressModal={this.props.showSwitchedAddressModal}
-            show={switchedAddressModal}
-            handleSignOut={this.props.handleSignOut}
-          />)}
+        {<SwitchedAddressModal
+          showSwitchedAddressModal={this.props.showSwitchedAddressModal}
+          show={switchedAddressModal}
+          handleSignOut={this.props.handleSignOut}
+        />}
 
         {onBoardingModal && <OnBoardingModal isMobile={isMobile} show={onBoardingModal} handleOnboardingModal={this.props.handleOnboardingModal} handleNextMobileModal={this.handleNextMobileModal} />}
-        {onBoardingModalTwo && <OnBoardingModal2 show={onBoardingModal} handleOnboardingModal={this.props.handleOnboardingModal} />}
+        {onBoardingModalTwo && <OnBoardingModal2 show={onBoardingModalTwo} handleOnboardingModal={this.props.handleOnboardingModal} />}
 
         {onBoardingModalMobileOne && <OnBoardingModalMobile1 show={onBoardingModalMobileOne} handleNextMobileModal={this.handleNextMobileModal} />}
         {onBoardingModalMobileTwo && <OnBoardingModalMobile2 show={onBoardingModalMobileTwo} handleNextMobileModal={this.handleNextMobileModal} />}

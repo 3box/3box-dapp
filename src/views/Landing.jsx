@@ -93,7 +93,6 @@ class Landing extends Component {
 
   render() {
     const {
-      ifFetchingThreeBox,
       showErrorModal,
       loginDetectedModal,
       errorMessage,
@@ -129,14 +128,17 @@ class Landing extends Component {
             <Nav />
           )}
 
-        {provideConsent && <ProvideConsentModal closeConsentModal={this.props.closeConsentModal} show={provideConsent} />}
-        {/* <ProvideConsentModal closeConsentModal={this.props.closeConsentModal} show={provideConsent} /> */}
-        {/* {ifFetchingThreeBox && <LoadingThreeBoxProfileModal show={ifFetchingThreeBox} />} */}
-        {alertRequireMetaMask && <RequireMetaMaskModal closeRequireMetaMask={this.props.closeRequireMetaMask} show={alertRequireMetaMask} />}
-        {signInToWalletModal && <SignInToWalletModal handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal} show={signInToWalletModal} />}
-        {showErrorModal && <ErrorModal errorMessage={errorMessage} closeErrorModal={this.props.closeErrorModal} show={showErrorModal} />}
-        {(showMobileWalletPrompt && !hasWallet) && <MobileWalletRequiredModal isIOS={isIOS} handleMobileWalletModal={this.handleMobileWalletModal} show={showMobileWalletPrompt} />}
-        {loginDetectedModal && <LoginDetectedModal show={loginDetectedModal} />}
+        <ProvideConsentModal closeConsentModal={this.props.closeConsentModal} show={provideConsent} />
+
+        {<RequireMetaMaskModal closeRequireMetaMask={this.props.closeRequireMetaMask} show={alertRequireMetaMask} />}
+
+        {<SignInToWalletModal handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal} show={signInToWalletModal} />}
+       
+        {<ErrorModal errorMessage={errorMessage} closeErrorModal={this.props.closeErrorModal} show={showErrorModal} />}
+       
+        {<MobileWalletRequiredModal isIOS={isIOS} handleMobileWalletModal={this.handleMobileWalletModal} show={(showMobileWalletPrompt && !hasWallet)} />}
+       
+        {<LoginDetectedModal show={loginDetectedModal} />}
 
         <img src={ThreeBoxGraphic} id="threeBoxGraphic" alt="ThreeBox Graphic" />
 
@@ -261,7 +263,6 @@ Landing.propTypes = {
   closeRequireMetaMask: PropTypes.func,
   openErrorModal: PropTypes.func,
 
-  ifFetchingThreeBox: PropTypes.bool,
   showErrorModal: PropTypes.bool,
   loginDetectedModal: PropTypes.bool,
   signInModal: PropTypes.bool,
@@ -283,7 +284,6 @@ Landing.defaultProps = {
   closeRequireMetaMask: closeRequireMetaMask(),
   openErrorModal: openErrorModal(),
 
-  ifFetchingThreeBox: false,
   showErrorModal: false,
   loginDetectedModal: false,
   signInModal: false,
@@ -296,7 +296,6 @@ Landing.defaultProps = {
 };
 
 const mapState = state => ({
-  ifFetchingThreeBox: state.threeBox.ifFetchingThreeBox,
   errorMessage: state.threeBox.errorMessage,
   showErrorModal: state.threeBox.showErrorModal,
   loginDetectedModal: state.threeBox.loginDetectedModal,

@@ -1,6 +1,40 @@
 @import "../../variables.scss";
 
+// .modal__container {
+//   position: fixed;
+//   left: 0px;
+//   top: 0px;
+//   width: 100%;
+//   height: 100%;
+//   background: rgba(0, 0, 0, 0.76);
+//   z-index: 6;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+
+//   img {
+//     width: 100px;
+//   }
+
+//   visibility: hidden;
+//   -webkit-backface-visibility: hidden;
+//   -moz-backface-visibility: hidden;
+//   backface-visibility: hidden;
+// }
+
 .modal__container {
+  width: 100%;
+  height: 100%;
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  position: fixed;
+
+}
+
+.modal__overlay {
   position: fixed;
   left: 0px;
   top: 0px;
@@ -15,19 +49,33 @@
   img {
     width: 100px;
   }
+
+  opacity: 0;
+  visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
 }
 
+.modal--effect .modal {
+	opacity: 0;
+	-webkit-transition: all 0.4s ease-in-out;
+	transition: all 0.4s ease-in-out;
+}
 
-.hideModal {
-  opacity: 0;
+.showModal ~ .modal__overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
+.showModal.modal--effect .modal {
+	opacity: 1;
 }
 
 .showModal {
-  opacity: 1;
-
-  -webkit-transition: all .6s;
-  -moz-transition: all .6s;
-  transition: all .6s;
+  visibility: visible !important;
 }
 
 .modal {
@@ -43,6 +91,7 @@
   box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
   text-align: center;
   overflow: hidden;
+  z-index: 7;
   // transition: background .4s ease;
 
   p {
