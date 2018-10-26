@@ -327,34 +327,44 @@ export const MobileWalletRequiredModal = ({ isIOS, handleMobileWalletModal }) =>
   </div>
 );
 
-export const OnBoardingModal = ({ handleOnboardingModal, handleNextMobileModal, isMobile }) => (
-  <div className="modal__onBoardingModal__container">
-    <img src={OnBoardingModalGraphic} alt="Partners background" id="modal__onBoardingModal__image" />
-    {isMobile
-      ? <button onClick={() => { handleNextMobileModal(undefined, 'One'); handleOnboardingModal(isMobile); }} type="button" id="modal__onBoardingModal__button">Get started</button>
-      : <button onClick={() => handleOnboardingModal(false)} type="button" id="modal__onBoardingModal__button">Get started</button>
-    }
-    <div id="modal__onBoardingModal__progressBar">
-      <div id="modal__onBoardingModal__progressBar__progress--highlight" />
-      <div id="modal__onBoardingModal__progressBar__progress--dull" />
-      {isMobile && <div id="modal__onBoardingModal__progressBar__progress--dull" />}
-      {isMobile && <div id="modal__onBoardingModal__progressBar__progress--dull" />}
+export const OnBoardingModal = ({ handleOnboardingModal, handleNextMobileModal, isMobile, show }) => (
+  // <div className="modal__onBoardingModal__container">
+  <div>
+    <div className={`${show ? 'showModal' : ''} modal__onBoardingModal__container modal--effect`}>
+      <div className="modal__onBoardingModal">
+        <img src={OnBoardingModalGraphic} alt="Partners background" id="modal__onBoardingModal__image" />
+        {isMobile
+          ? <button onClick={() => { handleNextMobileModal(undefined, 'One'); handleOnboardingModal(isMobile); }} type="button" id="modal__onBoardingModal__button">Get started</button>
+          : <button onClick={() => handleOnboardingModal(false)} type="button" id="modal__onBoardingModal__button">Get started</button>
+        }
+        <div id="modal__onBoardingModal__progressBar">
+          <div id="modal__onBoardingModal__progressBar__progress--highlight" />
+          <div id="modal__onBoardingModal__progressBar__progress--dull" />
+          {isMobile && <div id="modal__onBoardingModal__progressBar__progress--dull" />}
+          {isMobile && <div id="modal__onBoardingModal__progressBar__progress--dull" />}
+        </div>
+      </div>
     </div>
+    <div className="modal__overlay" />
   </div>
 );
 
-export const OnBoardingModal2 = ({ handleOnboardingModal }) => (
-  <div className="modal__onBoardingModal__container">
-    <img src={OnBoardingModalGraphic2} alt="Partners background" id="modal__onBoardingModal__image" />
-    <button onClick={handleOnboardingModal} type="button" id="modal__onBoardingModal__button">Let's go</button>
-    <div id="modal__onBoardingModal__progressBar">
-      <div id="modal__onBoardingModal__progressBar__progress--dull" />
-      <div id="modal__onBoardingModal__progressBar__progress--highlight" />
+export const OnBoardingModal2 = ({ handleOnboardingModal, show }) => (
+  // <div className="modal__onBoardingModal__container">
+  <div>
+    <div className={`${show ? 'showModal' : ''} modal__onBoardingModal__container modal--effect`}>
+      <img src={OnBoardingModalGraphic2} alt="Partners background" id="modal__onBoardingModal__image" />
+      <button onClick={handleOnboardingModal} type="button" id="modal__onBoardingModal__button">Let's go</button>
+      <div id="modal__onBoardingModal__progressBar">
+        <div id="modal__onBoardingModal__progressBar__progress--dull" />
+        <div id="modal__onBoardingModal__progressBar__progress--highlight" />
+      </div>
     </div>
+    <div className="modal__overlay" />
   </div>
 );
 
-export const OnBoardingModalMobile1 = ({ handleNextMobileModal }) => (
+export const OnBoardingModalMobile1 = ({ handleNextMobileModal, show }) => (
   <div className="modal__onBoardingModal__container">
     <img src={OnBoardingModalMobileGraphic1} alt="Partners background" id="modal__onBoardingModal__image" />
     <button onClick={() => handleNextMobileModal('One', 'Two')} type="button" id="modal__onBoardingModal__button">Next</button>
@@ -367,7 +377,7 @@ export const OnBoardingModalMobile1 = ({ handleNextMobileModal }) => (
   </div>
 );
 
-export const OnBoardingModalMobile2 = ({ handleNextMobileModal }) => (
+export const OnBoardingModalMobile2 = ({ handleNextMobileModal, show }) => (
   <div className="modal__onBoardingModal__container">
     <img src={OnBoardingModalMobileGraphic2} alt="Partners background" id="modal__onBoardingModal__image" />
     <button onClick={() => handleNextMobileModal('Two', 'Three')} type="button" id="modal__onBoardingModal__button">Next</button>
@@ -380,7 +390,7 @@ export const OnBoardingModalMobile2 = ({ handleNextMobileModal }) => (
   </div>
 );
 
-export const OnBoardingModalMobile3 = ({ handleNextMobileModal }) => (
+export const OnBoardingModalMobile3 = ({ handleNextMobileModal, show }) => (
   <div className="modal__onBoardingModal__container">
     <img src={OnBoardingModalMobileGraphic3} alt="Partners background" id="modal__onBoardingModal__image" />
     <button onClick={() => handleNextMobileModal('Three', undefined)} type="button" id="modal__onBoardingModal__button">Let's go</button>

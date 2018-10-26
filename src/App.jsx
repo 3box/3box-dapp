@@ -145,8 +145,8 @@ class App extends Component {
           handleSignOut={this.props.handleSignOut}
         />}
 
-        {onBoardingModal && <OnBoardingModal isMobile={isMobile} show={onBoardingModal} handleOnboardingModal={this.props.handleOnboardingModal} handleNextMobileModal={this.handleNextMobileModal} />}
-        {onBoardingModalTwo && <OnBoardingModal2 show={onBoardingModalTwo} handleOnboardingModal={this.props.handleOnboardingModal} />}
+        {<OnBoardingModal isMobile={isMobile} show={onBoardingModal} handleOnboardingModal={this.props.handleOnboardingModal} handleNextMobileModal={this.handleNextMobileModal} />}
+        {<OnBoardingModal2 show={onBoardingModalTwo} handleOnboardingModal={this.props.handleOnboardingModal} />}
 
         {onBoardingModalMobileOne && <OnBoardingModalMobile1 show={onBoardingModalMobileOne} handleNextMobileModal={this.handleNextMobileModal} />}
         {onBoardingModalMobileTwo && <OnBoardingModalMobile2 show={onBoardingModalMobileTwo} handleNextMobileModal={this.handleNextMobileModal} />}

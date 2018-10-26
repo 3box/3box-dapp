@@ -307,7 +307,6 @@ export const signInUp = () => async (dispatch) => {
     });
     if (publicActivity.length > 0 || privateActivity.length > 1) history.push('/Profile');
   } catch (err) {
-    console.log(err.message);
     dispatch({
       type: 'FAILED_LOADING_3BOX',
       errorMessage: err.message,
@@ -318,12 +317,6 @@ export const signInUp = () => async (dispatch) => {
 };
 
 export const openBox = () => async (dispatch) => {
-  // dispatch({
-  //   type: 'LOADING_ACTIVITY',
-  // });
-  // dispatch({
-  //   type: 'LOADING_3BOX',
-  // });
   const returnedBox = await Box // eslint-disable-line no-undef
     .openBox(address, web3.currentProvider); // eslint-disable-line no-undef
   const box = await returnedBox;

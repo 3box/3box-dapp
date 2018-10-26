@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import {
   signInUp,
   closeErrorModal,
+  handleSignInModal,
   handleRequireWalletLoginModal,
   closeConsentModal,
   requireMetaMask,
@@ -19,7 +20,6 @@ import {
   SignInToThreeBox,
   MobileWalletRequiredModal,
   ErrorModal,
-  LoadingThreeBoxProfileModal,
   LoginDetectedModal,
   SignInToWalletModal,
 } from '../components/Modals.jsx';
@@ -35,9 +35,6 @@ import ConsensysSVG from '../assets/consensys.svg';
 import ThreeBoxGraphic from '../assets/3BoxGraphic.png';
 import PartnersBG from '../assets/PartnersBG.svg';
 import consensys from '../assets/consensys.png';
-import history from '../history';
-import address from '../utils/address';
-import * as routes from '../utils/routes';
 import './styles/Landing.css';
 import '../components/styles/ProfileCard.css';
 import '../components/styles/Nav.css';
@@ -95,12 +92,12 @@ class Landing extends Component {
     const {
       showErrorModal,
       loginDetectedModal,
+      signInModal,
       errorMessage,
       provideConsent,
       alertRequireMetaMask,
       signInToWalletModal,
       hasWallet,
-      signInModal,
     } = this.props;
     const { showMobileWalletPrompt } = this.state;
     const { userAgent: ua } = navigator;
@@ -139,6 +136,8 @@ class Landing extends Component {
         {<MobileWalletRequiredModal isIOS={isIOS} handleMobileWalletModal={this.handleMobileWalletModal} show={(showMobileWalletPrompt && !hasWallet)} />}
        
         {<LoginDetectedModal show={loginDetectedModal} />}
+
+        {<SignInToThreeBox show={signInModal} handleSignInModal={this.props.handleSignInModal}/>}
 
         <img src={ThreeBoxGraphic} id="threeBoxGraphic" alt="ThreeBox Graphic" />
 
@@ -257,6 +256,7 @@ Landing.propTypes = {
   signInUp: PropTypes.func,
   checkForMetaMask: PropTypes.func,
   closeErrorModal: PropTypes.func,
+  handleSignInModal: PropTypes.func,
   handleRequireWalletLoginModal: PropTypes.func,
   closeConsentModal: PropTypes.func,
   requireMetaMask: PropTypes.func,
@@ -278,6 +278,7 @@ Landing.defaultProps = {
   signInUp: signInUp(),
   checkForMetaMask: checkForMetaMask(),
   closeErrorModal: closeErrorModal(),
+  handleSignInModal: handleSignInModal(),
   handleRequireWalletLoginModal: handleRequireWalletLoginModal(),
   closeConsentModal: closeConsentModal(),
   requireMetaMask: requireMetaMask(),
@@ -308,4 +309,4 @@ const mapState = state => ({
   isLoggedIn: state.threeBox.isLoggedIn,
 });
 
-export default withRouter(connect(mapState, { signInUp, closeErrorModal, closeConsentModal, requireMetaMask, closeRequireMetaMask, checkForMetaMask, openErrorModal, handleRequireWalletLoginModal })(Landing));
+export default withRouter(connect(mapState, { signInUp, closeErrorModal, handleSignInModal, closeConsentModal, requireMetaMask, closeRequireMetaMask, checkForMetaMask, openErrorModal, handleRequireWalletLoginModal })(Landing));
