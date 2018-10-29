@@ -23,7 +23,7 @@ const Feed = ({ ifFetchingActivity, feedByAddress }) => (
           </div>
         )
       } */}
-      {feedByAddress
+      {feedByAddress.length > 0
         ? feedByAddress.map((feedAddress, i) => (
           <div key={i} className="feed__activity__tile">
             <div className="feed__activity__context">
