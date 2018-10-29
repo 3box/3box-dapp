@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import { address } from '../utils/address'
 import { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail, getActivity } from '../state/actions';
+import { FileSizeModal } from '../components/Modals.jsx';
 import history from '../history';
 import Nav from '../components/Nav';
 import * as routes from '../utils/routes';
@@ -27,6 +28,7 @@ class EditProfile extends Component {
       saveLoading: false,
       removeUserPic: false,
       editPic: false,
+      showFileSizeModal: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -45,10 +47,19 @@ class EditProfile extends Component {
     this.setState({ [property]: e.target.value, disableSave: false });
   }
 
-  handleUpdatePic = (photoFile) => {
-    const formData = new window.FormData();
-    formData.append('path', photoFile);
-    this.setState({ buffer: formData, disableSave: false, editPic: true, removeUserPic: false });
+  closeFileSizeModal = () => {
+    this.setState({ showFileSizeModal: false });
+  }
+
+  handleUpdatePic = (photoFile, e) => {
+    if (photoFile.size <= 2500000) {
+      const formData = new window.FormData();
+      formData.append('path', photoFile);
+      this.setState({ buffer: formData, disableSave: false, editPic: true, removeUserPic: false });
+    } else {
+      e.target.value = null;
+      this.setState({ showFileSizeModal: true });
+    }
   }
 
   removePic = () => {
@@ -99,8 +110,8 @@ class EditProfile extends Component {
   }
 
   render() {
-    const { image, ifFetchingThreeBox, box } = this.props;
-    const { github, email, name, disableSave, removeUserPic, saveLoading } = this.state;
+    const { image } = this.props;
+    const { github, email, name, disableSave, removeUserPic, saveLoading, showFileSizeModal } = this.state;
 
     return (
       <div id="edit__page">
@@ -111,6 +122,9 @@ class EditProfile extends Component {
               <img src={Loading} alt="loading" id="loadingPic" />
             </div>
           )}
+
+        {showFileSizeModal
+          && <FileSizeModal show={showFileSizeModal} closeFileSizeModal={this.closeFileSizeModal} />}
 
         <div id="edit__breadCrumb">
           <div id="edit__breadCrumb__crumbs">
@@ -143,7 +157,7 @@ class EditProfile extends Component {
               <div id="public__contents">
                 <div id="edit__userPicture">
                   <label htmlFor="fileInput" id="chooseFile">
-                    <input id="fileInput" type="file" name="pic" className="light" accept="image/*" onChange={e => this.handleUpdatePic(e.target.files[0])} ref={ref => this.fileUpload = ref} />
+                    <input id="fileInput" type="file" name="pic" className="light" accept="image/*" onChange={e => this.handleUpdatePic(e.target.files[0], e)} ref={ref => this.fileUpload = ref} />
                     <img src={AddImage} alt="profile" id="addImage" />
                     {(((image.length > 0 && image[0].contentUrl) || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])) && !removeUserPic)
                       ? <div className="profPic_div">

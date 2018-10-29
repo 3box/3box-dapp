@@ -136,6 +136,22 @@ export const LoadingThreeBoxProfileModal = ({ show }) => (
   </div>
 );
 
+export const FileSizeModal = ({ show, closeFileSizeModal }) => (
+  <div>
+    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+      <div className="modal">
+
+        <div>
+          <p>Profile pictures must be less than 2.5 MB</p>
+        </div>
+
+        <button onClick={closeFileSizeModal} type="button" className="tertiaryButton">Close</button>
+      </div>
+    </div>
+    <div className="modal__overlay" />
+  </div>
+);
+
 export const RequireMetaMaskModal = ({ closeRequireMetaMask, show }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
@@ -328,7 +344,6 @@ export const MobileWalletRequiredModal = ({ isIOS, handleMobileWalletModal }) =>
 );
 
 export const OnBoardingModal = ({ handleOnboardingModal, handleNextMobileModal, isMobile, show }) => (
-  // <div className="modal__onBoardingModal__container">
   <div>
     <div className={`${show ? 'showModal' : ''} modal__onBoardingModal__container modal--effect`}>
       <div className="modal__onBoardingModal">
@@ -350,7 +365,6 @@ export const OnBoardingModal = ({ handleOnboardingModal, handleNextMobileModal, 
 );
 
 export const OnBoardingModal2 = ({ handleOnboardingModal, show }) => (
-  // <div className="modal__onBoardingModal__container">
   <div>
     <div className={`${show ? 'showModal' : ''} modal__onBoardingModal__container modal--effect`}>
       <img src={OnBoardingModalGraphic2} alt="Partners background" id="modal__onBoardingModal__image" />
