@@ -16,7 +16,7 @@ setInterval(() => {
   }
 
   // Switched address
-  if (currentAddress !== address && typeof currentAddress === 'string' && address !== undefined) {
+  if (currentAddress !== address && typeof currentAddress === 'string' && address !== undefined && store.getState().threeBox.isLoggedIn) {
     store.dispatch({
       type: 'SHOW_SWITCHED_ADDRESS_MODAL',
       switchedAddressModal: true,
@@ -35,6 +35,7 @@ setInterval(() => {
   //   // show modal
   //   // reload page from modal
   // }
+
   address = currentAddress;
 }, 1500);
 

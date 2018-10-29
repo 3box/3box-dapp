@@ -324,6 +324,7 @@ export const openBox = () => async (dispatch) => {
   dispatch({
     type: 'GET_THREEBOX',
     ifFetchingThreeBox: false,
+    isLoggedIn: true,
     box,
     switched: false,
   });
@@ -333,6 +334,7 @@ export const openBox = () => async (dispatch) => {
       type: 'GET_THREEBOX',
       ifFetchingThreeBox: false,
       box,
+      isLoggedIn: true,
     });
   });
 };

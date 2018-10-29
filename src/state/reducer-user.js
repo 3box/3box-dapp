@@ -61,6 +61,7 @@ export const threeBoxReducer = (state = {}, action) => {
         box: action.box,
         ifFetchingThreeBox: false,
         switched: action.switched,
+        isLoggedIn: action.isLoggedIn,
       };
 
     case 'GET_PUBLIC_NAME':
