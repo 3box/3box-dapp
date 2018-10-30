@@ -127,10 +127,10 @@
   display: none; }
 
 .hideMobileModal {
-  display: none; }
+  display: none !important; }
 
 .showMobileModal {
-  display: block; }
+  display: flex; }
 
 #modal__loadingGraphic {
   width: 60px;
