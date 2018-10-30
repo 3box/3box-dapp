@@ -126,8 +126,11 @@
 #mobile__landing__prompt {
   display: none; }
 
-#hideMobileModal {
+.hideMobileModal {
   display: none; }
+
+.showMobileModal {
+  display: block; }
 
 #modal__loadingGraphic {
   width: 60px;

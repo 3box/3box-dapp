@@ -166,8 +166,12 @@
   display: none;
 }
 
-#hideMobileModal{
+.hideMobileModal{
   display: none;
+}
+
+.showMobileModal{
+  display: block;
 }
 
 #modal__loadingGraphic {

@@ -348,7 +348,7 @@ export const SignInToThreeBox = ({ handleSignInModal, show }) => (
 );
 
 export const MobileWalletRequiredModal = ({ isIOS, handleMobileWalletModal, show }) => (
-  <div id="mobile__landing__prompt" className={`${show ? 'showModal' : 'hideMobileModal'}`}>
+  <div id="mobile__landing__prompt" className={`${show ? 'showMobileModal' : 'hideMobileModal'}`}>
     <div id="mobile__landing__prompt__logo">
       <ThreeBoxLogo />
     </div>
