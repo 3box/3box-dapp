@@ -59,7 +59,9 @@ class Landing extends Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.hideBar);
-    if (!this.props.hasWallet) this.setState({ showMobileWalletPrompt: true });
+    if (!this.props.hasWallet) {
+      this.setState({ showMobileWalletPrompt: true });
+    }
   }
 
   componentWillUnmount() {
@@ -134,7 +136,8 @@ class Landing extends Component {
         <SignInToWalletModal handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal} show={signInToWalletModal || signInToWalletError} />
         <ErrorModal errorMessage={errorMessage} closeErrorModal={this.props.closeErrorModal} show={!mustConsentError && !signInToWalletError && showErrorModal} />
         <MustConsentModal errorMessage={errorMessage} closeErrorModal={this.props.closeErrorModal} show={mustConsentError} />
-        <MobileWalletRequiredModal isIOS={isIOS} handleMobileWalletModal={this.handleMobileWalletModal} show={showMobileWalletPrompt} />
+        <MobileWalletRequiredModal isIOS={isIOS} handleMobileWalletModal={this.handleMobileWalletModal} show={(!this.props.hasWallet && showMobileWalletPrompt)} />
+        {/* <MobileWalletRequiredModal isIOS={isIOS} handleMobileWalletModal={this.handleMobileWalletModal} show={showMobileWalletPrompt} /> */}
         <LoginDetectedModal show={loginDetectedModal} />
         <SignInToThreeBox show={signInModal} handleSignInModal={this.props.handleSignInModal} />
 

@@ -40,7 +40,6 @@ export const checkForMetaMask = () => async (dispatch) => {
   const accounts = await accountsPromise;
   const isSignedIntoWallet = typeof web3 !== 'undefined' && !!accounts.length > 0;
   const isLoggedIn = Box.isLoggedIn(address); // eslint-disable-line no-undef
-  console.log(typeof web3);
   
   await dispatch({
     type: 'CHECK_WALLET',
@@ -561,6 +560,13 @@ export const handleRequireWalletLoginModal = () => async (dispatch) => {
 export const handleLoginDetectedModal = () => async (dispatch) => {
   dispatch({
     type: 'HANDLE_WALLET_LOGIN_DETECTED_MODAL',
+    loginDetectedModal: !store.getState().threeBox.loginDetectedModal,
+  });
+};
+
+export const handleMobileWalletModal = () => async (dispatch) => {
+  dispatch({
+    type: 'HANDLE_MOBILE_WALLET_REQUIRED_MODAL',
     loginDetectedModal: !store.getState().threeBox.loginDetectedModal,
   });
 };
