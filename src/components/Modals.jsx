@@ -153,7 +153,7 @@ export const FileSizeModal = ({ show, closeFileSizeModal }) => (
 );
 
 export const RequireMetaMaskModal = ({ closeRequireMetaMask, show }) => (
-  <div>
+  <div className="mobileInvisible">
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
       <div className="modal">
         <img src={MetaMaskWallet} alt="Partners background" />

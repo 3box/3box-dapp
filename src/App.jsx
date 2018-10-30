@@ -125,9 +125,6 @@ class App extends Component {
   }
 
   handleNextMobileModal = (thisModal, nextModal) => {
-    console.log('hit');
-    console.log(thisModal);
-    console.log(nextModal);
     this.setState({
       [`onBoardingModalMobile${thisModal}`]: false,
       [`onBoardingModalMobile${nextModal}`]: true
@@ -145,7 +142,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state)
     const {
       showDifferentNetworkModal,
       loggedOutModal,

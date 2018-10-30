@@ -45,8 +45,6 @@
   transition: all .4s ease-in-out;
 }
 
-//
-
 .modal__container {
   width: 100%;
   height: 100%;
@@ -344,6 +342,10 @@
 }
 
 @media only screen and (max-width: 600px) {
+  .mobileInvisible{
+    display: none;
+  }
+  
   .modal__container {
     img {
       width: 100px;

@@ -256,6 +256,8 @@
     border-radius: 50%; }
 
 @media only screen and (max-width: 600px) {
+  .mobileInvisible {
+    display: none; }
   .modal__container img {
     width: 100px; }
   .modal__onBoardingModal__container img {
