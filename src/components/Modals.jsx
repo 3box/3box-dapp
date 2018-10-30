@@ -173,24 +173,6 @@ export const RequireMetaMaskModal = ({ closeRequireMetaMask, show }) => (
     <div className="modal__overlay" />
   </div>
 );
-// export const RequireMetaMaskModal = ({ closeRequireMetaMask, show }) => (
-//   <div className="modal__container">
-//     <div className="modal">
-//       <img src={MetaMaskWallet} alt="Partners background" />
-
-//       <div id="modal__copy__card">
-//         <h3>
-//           Install Web3 Wallet
-//         </h3>
-//         <p>
-//           You must have a web3 wallet (e.g. MetaMask) to sign in or create a profile on 3Box
-//         </p>
-//       </div>
-
-//       <button onClick={closeRequireMetaMask} type="button" className="tertiaryButton">Close</button>
-//     </div>
-//   </div>
-// );
 
 export const SignInToWalletModal = ({ handleRequireWalletLoginModal, show }) => (
   <div>
@@ -213,24 +195,6 @@ export const SignInToWalletModal = ({ handleRequireWalletLoginModal, show }) => 
     <div className="modal__overlay" />
   </div>
 );
-// export const SignInToWalletModal = ({ handleRequireWalletLoginModal, show }) => (
-//   <div className="modal__container">
-//     <div className="modal">
-//       <img src={MetaMaskWallet} alt="Partners background" />
-
-//       <div id="modal__copy__card">
-//         <h3>
-//           Unlock Your Wallet
-//         </h3>
-//         <p>
-//           Unlock your web3 wallet and reload the page to continue
-//         </p>
-//       </div>
-//       <button onClick={() => window.location.reload()} type="button" className="tertiaryButton">Reload</button>
-//       {/* <button onClick={handleRequireWalletLoginModal} type="button" className="tertiaryButton">close</button> */}
-//     </div>
-//   </div>
-// );
 
 export const LoginDetectedModal = ({ show }) => (
   <div>
@@ -416,40 +380,49 @@ export const OnBoardingModal2 = ({ handleOnboardingModal, show }) => (
 );
 
 export const OnBoardingModalMobile1 = ({ handleNextMobileModal, show }) => (
-  <div className="modal__onBoardingModal__container">
-    <img src={OnBoardingModalMobileGraphic1} alt="Partners background" id="modal__onBoardingModal__image" />
-    <button onClick={() => handleNextMobileModal('One', 'Two')} type="button" id="modal__onBoardingModal__button">Next</button>
-    <div id="modal__onBoardingModal__progressBar">
-      <div id="modal__onBoardingModal__progressBar__progress--dull" />
-      <div id="modal__onBoardingModal__progressBar__progress--highlight" />
-      <div id="modal__onBoardingModal__progressBar__progress--dull" />
-      <div id="modal__onBoardingModal__progressBar__progress--dull" />
+  <div>
+    <div className="modal__onBoardingModal__container--mobile">
+      <img src={OnBoardingModalMobileGraphic1} alt="Partners background" id="modal__onBoardingModal__image" />
+      <button onClick={() => handleNextMobileModal('One', 'Two')} type="button" id="modal__onBoardingModal__button">Next</button>
+      <div id="modal__onBoardingModal__progressBar">
+        <div id="modal__onBoardingModal__progressBar__progress--dull" />
+        <div id="modal__onBoardingModal__progressBar__progress--highlight" />
+        <div id="modal__onBoardingModal__progressBar__progress--dull" />
+        <div id="modal__onBoardingModal__progressBar__progress--dull" />
+      </div>
     </div>
+    <div className="modal__overlay--mobile" />
   </div>
 );
 
 export const OnBoardingModalMobile2 = ({ handleNextMobileModal, show }) => (
-  <div className="modal__onBoardingModal__container">
-    <img src={OnBoardingModalMobileGraphic2} alt="Partners background" id="modal__onBoardingModal__image" />
-    <button onClick={() => handleNextMobileModal('Two', 'Three')} type="button" id="modal__onBoardingModal__button">Next</button>
-    <div id="modal__onBoardingModal__progressBar">
-      <div id="modal__onBoardingModal__progressBar__progress--dull" />
-      <div id="modal__onBoardingModal__progressBar__progress--dull" />
-      <div id="modal__onBoardingModal__progressBar__progress--highlight" />
-      <div id="modal__onBoardingModal__progressBar__progress--dull" />
+  <div>
+    <div className="modal__onBoardingModal__container--mobile">
+      <img src={OnBoardingModalMobileGraphic2} alt="Partners background" id="modal__onBoardingModal__image" />
+      <button onClick={() => handleNextMobileModal('Two', 'Three')} type="button" id="modal__onBoardingModal__button">Next</button>
+      <div id="modal__onBoardingModal__progressBar">
+        <div id="modal__onBoardingModal__progressBar__progress--dull" />
+        <div id="modal__onBoardingModal__progressBar__progress--dull" />
+        <div id="modal__onBoardingModal__progressBar__progress--highlight" />
+        <div id="modal__onBoardingModal__progressBar__progress--dull" />
+      </div>
     </div>
+    <div className="modal__overlay--mobile" />
   </div>
 );
 
 export const OnBoardingModalMobile3 = ({ handleNextMobileModal, show }) => (
-  <div className="modal__onBoardingModal__container">
-    <img src={OnBoardingModalMobileGraphic3} alt="Partners background" id="modal__onBoardingModal__image" />
-    <button onClick={() => handleNextMobileModal('Three', undefined)} type="button" id="modal__onBoardingModal__button">Let's go</button>
-    <div id="modal__onBoardingModal__progressBar">
-      <div id="modal__onBoardingModal__progressBar__progress--dull" />
-      <div id="modal__onBoardingModal__progressBar__progress--dull" />
-      <div id="modal__onBoardingModal__progressBar__progress--dull" />
-      <div id="modal__onBoardingModal__progressBar__progress--highlight" />
+  <div>
+    <div className="modal__onBoardingModal__container--mobile">
+      <img src={OnBoardingModalMobileGraphic3} alt="Partners background" id="modal__onBoardingModal__image" />
+      <button onClick={() => handleNextMobileModal('Three', undefined)} type="button" id="modal__onBoardingModal__button">Let's go</button>
+      <div id="modal__onBoardingModal__progressBar">
+        <div id="modal__onBoardingModal__progressBar__progress--dull" />
+        <div id="modal__onBoardingModal__progressBar__progress--dull" />
+        <div id="modal__onBoardingModal__progressBar__progress--dull" />
+        <div id="modal__onBoardingModal__progressBar__progress--highlight" />
+      </div>
     </div>
+    <div className="modal__overlay--mobile" />
   </div>
 );

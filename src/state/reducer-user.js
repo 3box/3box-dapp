@@ -1,7 +1,3 @@
-import {
-  store,
-} from './store';
-
 export const threeBoxReducer = (state = {}, action) => {
   switch (action.type) {
     case 'CHECK_WALLET':

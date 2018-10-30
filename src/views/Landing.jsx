@@ -36,17 +36,10 @@ import ConsensysSVG from '../assets/consensys.svg';
 import ThreeBoxGraphic from '../assets/3BoxGraphic.png';
 import PartnersBG from '../assets/PartnersBG.svg';
 import consensys from '../assets/consensys.png';
-import address from '../utils/address';
+// import address from '../utils/address';
 import './styles/Landing.css';
 import '../components/styles/ProfileCard.css';
 import '../components/styles/Nav.css';
-
-// import getCoinbaseWallet from '../assets/getCoinbaseWallet.svg';
-// import Status from '../assets/Status.png';
-// import TrustWallet from '../assets/TrustWallet.png';
-// import MetaMaskLogo from '../assets/MetaMaskLogo.svg';
-// import Consent from '../assets/Consent.png';
-// import Loading from '../assets/Loading.svg';
 
 class Landing extends Component {
   constructor(props) {
@@ -60,9 +53,6 @@ class Landing extends Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.hideBar);
-    // if (!this.props.hasWallet) {
-    //   this.setState({ showMobileWalletPrompt: true });
-    // }
   }
 
   componentWillUnmount() {
@@ -75,10 +65,6 @@ class Landing extends Component {
       :
       this.setState({ retractNav: true });
   }
-
-  // handleMobileWalletModal = () => {
-  //   this.setState({ showMobileWalletPrompt: false });
-  // }
 
   async handleSignInUp() {
     const { hasWallet, isSignedIntoWallet } = this.props;
@@ -103,7 +89,6 @@ class Landing extends Component {
       alertRequireMetaMask,
       mobileWalletRequiredModal,
       signInToWalletModal,
-      hasWallet,
     } = this.props;
     const { showMobileWalletPrompt } = this.state;
     const { userAgent: ua } = navigator;
@@ -139,7 +124,6 @@ class Landing extends Component {
         <ErrorModal errorMessage={errorMessage} closeErrorModal={this.props.closeErrorModal} show={!mustConsentError && !signInToWalletError && showErrorModal} />
         <MustConsentModal errorMessage={errorMessage} closeErrorModal={this.props.closeErrorModal} show={mustConsentError} />
         <MobileWalletRequiredModal isIOS={isIOS} handleMobileWalletModal={this.props.handleMobileWalletModal} show={mobileWalletRequiredModal} />
-        {/* <MobileWalletRequiredModal isIOS={isIOS} handleMobileWalletModal={this.handleMobileWalletModal} show={showMobileWalletPrompt} /> */}
         <LoginDetectedModal show={loginDetectedModal} />
         <SignInToThreeBox show={signInModal} handleSignInModal={this.props.handleSignInModal} />
 
