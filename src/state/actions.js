@@ -44,6 +44,7 @@ export const checkForMetaMask = () => async (dispatch) => {
   await dispatch({
     type: 'CHECK_WALLET',
     hasWallet: typeof web3 !== 'undefined',
+    mobileWalletRequiredModal: typeof web3 === 'undefined',
     currentWallet,
     isSignedIntoWallet,
     isLoggedIn,
@@ -567,6 +568,6 @@ export const handleLoginDetectedModal = () => async (dispatch) => {
 export const handleMobileWalletModal = () => async (dispatch) => {
   dispatch({
     type: 'HANDLE_MOBILE_WALLET_REQUIRED_MODAL',
-    loginDetectedModal: !store.getState().threeBox.loginDetectedModal,
+    mobileWalletRequiredModal: false,
   });
 };

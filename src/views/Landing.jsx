@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import {
   signInUp,
   closeErrorModal,
+  handleMobileWalletModal,
   handleSignInModal,
   handleRequireWalletLoginModal,
   closeConsentModal,
@@ -59,9 +60,9 @@ class Landing extends Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.hideBar);
-    if (!this.props.hasWallet) {
-      this.setState({ showMobileWalletPrompt: true });
-    }
+    // if (!this.props.hasWallet) {
+    //   this.setState({ showMobileWalletPrompt: true });
+    // }
   }
 
   componentWillUnmount() {
@@ -75,9 +76,9 @@ class Landing extends Component {
       this.setState({ retractNav: true });
   }
 
-  handleMobileWalletModal = () => {
-    this.setState({ showMobileWalletPrompt: false });
-  }
+  // handleMobileWalletModal = () => {
+  //   this.setState({ showMobileWalletPrompt: false });
+  // }
 
   async handleSignInUp() {
     const { hasWallet, isSignedIntoWallet } = this.props;
@@ -100,6 +101,7 @@ class Landing extends Component {
       errorMessage,
       provideConsent,
       alertRequireMetaMask,
+      mobileWalletRequiredModal,
       signInToWalletModal,
       hasWallet,
     } = this.props;
@@ -136,7 +138,7 @@ class Landing extends Component {
         <SignInToWalletModal handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal} show={signInToWalletModal || signInToWalletError} />
         <ErrorModal errorMessage={errorMessage} closeErrorModal={this.props.closeErrorModal} show={!mustConsentError && !signInToWalletError && showErrorModal} />
         <MustConsentModal errorMessage={errorMessage} closeErrorModal={this.props.closeErrorModal} show={mustConsentError} />
-        <MobileWalletRequiredModal isIOS={isIOS} handleMobileWalletModal={this.handleMobileWalletModal} show={(!this.props.hasWallet && showMobileWalletPrompt)} />
+        <MobileWalletRequiredModal isIOS={isIOS} handleMobileWalletModal={this.props.handleMobileWalletModal} show={mobileWalletRequiredModal} />
         {/* <MobileWalletRequiredModal isIOS={isIOS} handleMobileWalletModal={this.handleMobileWalletModal} show={showMobileWalletPrompt} /> */}
         <LoginDetectedModal show={loginDetectedModal} />
         <SignInToThreeBox show={signInModal} handleSignInModal={this.props.handleSignInModal} />
@@ -258,6 +260,7 @@ Landing.propTypes = {
   signInUp: PropTypes.func,
   checkForMetaMask: PropTypes.func,
   closeErrorModal: PropTypes.func,
+  handleMobileWalletModal: PropTypes.func,
   handleSignInModal: PropTypes.func,
   handleRequireWalletLoginModal: PropTypes.func,
   closeConsentModal: PropTypes.func,
@@ -271,6 +274,7 @@ Landing.propTypes = {
   hasWallet: PropTypes.bool,
   isSignedIntoWallet: PropTypes.bool,
   alertRequireMetaMask: PropTypes.bool,
+  mobileWalletRequiredModal: PropTypes.bool,
   signInToWalletModal: PropTypes.bool,
   errorMessage: PropTypes.object,
 };
@@ -279,6 +283,7 @@ Landing.defaultProps = {
   signInUp: signInUp(),
   checkForMetaMask: checkForMetaMask(),
   closeErrorModal: closeErrorModal(),
+  handleMobileWalletModal: handleMobileWalletModal(),
   handleSignInModal: handleSignInModal(),
   handleRequireWalletLoginModal: handleRequireWalletLoginModal(),
   closeConsentModal: closeConsentModal(),
@@ -290,6 +295,7 @@ Landing.defaultProps = {
   signInModal: false,
   provideConsent: false,
   alertRequireMetaMask: false,
+  mobileWalletRequiredModal: false,
   signInToWalletModal: false,
   hasWallet: false,
   isSignedIntoWallet: false,
@@ -305,8 +311,9 @@ const mapState = state => ({
   hasWallet: state.threeBox.hasWallet,
   isSignedIntoWallet: state.threeBox.isSignedIntoWallet,
   alertRequireMetaMask: state.threeBox.alertRequireMetaMask,
+  mobileWalletRequiredModal: state.threeBox.mobileWalletRequiredModal,
   signInToWalletModal: state.threeBox.signInToWalletModal,
   isLoggedIn: state.threeBox.isLoggedIn,
 });
 
-export default withRouter(connect(mapState, { signInUp, closeErrorModal, handleSignInModal, closeConsentModal, requireMetaMask, closeRequireMetaMask, checkForMetaMask, handleRequireWalletLoginModal })(Landing));
+export default withRouter(connect(mapState, { signInUp, closeErrorModal, handleMobileWalletModal, handleSignInModal, closeConsentModal, requireMetaMask, closeRequireMetaMask, checkForMetaMask, handleRequireWalletLoginModal })(Landing));
