@@ -137,6 +137,10 @@ nav {
     margin-right: 2vw;
     cursor: pointer;
   }
+
+  button {
+    cursor: pointer;
+  }
 }
 
 #landing__nav {
@@ -201,7 +205,7 @@ nav {
     transition: all .5s ease;
   }
 
-  #nav__userPicture{
+  #nav__userPicture {
     margin-right: 6vw;
   }
 

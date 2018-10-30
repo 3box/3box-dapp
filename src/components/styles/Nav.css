@@ -105,6 +105,8 @@ nav {
   #actionButtons p {
     margin-right: 2vw;
     cursor: pointer; }
+  #actionButtons button {
+    cursor: pointer; }
 
 #landing__nav {
   position: fixed;
