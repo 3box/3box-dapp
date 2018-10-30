@@ -26,7 +26,7 @@ export const checkForMetaMask = () => async (dispatch) => {
     currentWallet = 'isMetaMask';
   }
 
-  const accountsPromise = typeof web3 !== 'undefined' ?
+  const accountsPromise = typeof web3 !== 'undefined' ? // eslint-disable-line no-undef
     new Promise((resolve, reject) => {
       web3.eth.getAccounts((e, accounts) => { // eslint-disable-line no-undef
         if (e != null) {
@@ -37,7 +37,7 @@ export const checkForMetaMask = () => async (dispatch) => {
       });
     }) : null;
 
-  const accounts = await accountsPromise; // eslint-disable-line no-undef
+  const accounts = await accountsPromise;
   const isSignedIntoWallet = typeof web3 !== 'undefined' && !!accounts.length > 0;
   const isLoggedIn = Box.isLoggedIn(address); // eslint-disable-line no-undef
 
@@ -213,15 +213,48 @@ export const signInUp = () => async (dispatch) => {
     consentCallback: consentGiven,
   };
 
+  // if (window.ethereum) {
+  //   console.log('ethereum');
+  //   window.web3 = new Web3(ethereum); // eslint-disable-line no-undef
+  //   try {
+  //     // Request account access if needed
+  //     console.log('ethereum');
+  //     await ethereum.enable(); // eslint-disable-line no-undef
+  //     // Acccounts now exposed
+  //     // web3.eth.sendTransaction({ /* ... */ }); // eslint-disable-line no-undef
+  //   } catch (error) {
+  //     // User denied account access...
+  //   }
+  // } else if (window.web3) {
+  //   // Legacy dapp browsers...
+  //   console.log('web3');
+  //   window.web3 = new Web3(web3.currentProvider); // eslint-disable-line no-undef
+  //   // Acccounts always exposed
+  //   // web3.eth.sendTransaction({ /* ... */ }); // eslint-disable-line no-undef
+  // } else {
+  //   // Non-dapp browsers...
+  //   console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+  // }
+
   try {
+    // Modern dapp browsers...
+
     const returnedBox = await Box // eslint-disable-line no-undef
       .openBox(address, web3.currentProvider, opts); // eslint-disable-line no-undef
     box = await returnedBox;
+
+    dispatch({
+      type: 'GET_THREEBOX',
+      ifFetchingThreeBox: false,
+      isLoggedIn: true,
+      box,
+    });
 
     box.onSyncDone(() => {
       dispatch({
         type: 'GET_THREEBOX',
         ifFetchingThreeBox: false,
+        isLoggedIn: true,
         box,
       });
     });
@@ -295,7 +328,7 @@ export const signInUp = () => async (dispatch) => {
       type: 'SIGN_IN_UP',
       box,
       // ifFetchingThreeBox: false,
-      errorMessage: '',
+      // errorMessage: '',
       showErrorModal: false,
       name,
       github,
@@ -309,7 +342,7 @@ export const signInUp = () => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: 'FAILED_LOADING_3BOX',
-      errorMessage: err.message,
+      errorMessage: err,
       showErrorModal: true,
       provideConsent: false,
     });
@@ -447,23 +480,17 @@ export const getActivity = () => async (dispatch) => {
 export const closeErrorModal = () => async (dispatch) => {
   dispatch({
     type: 'CLOSE_ERROR_MODAL',
-    errorMessage: '',
+    errorMessage: store.getState().threeBox.errorMessage,
+    // errorMessage: '',
     showErrorModal: false,
-  });
-};
-
-export const openErrorModal = () => async (dispatch) => {
-  dispatch({
-    type: 'OPEN_ERROR_MODAL',
-    errorMessage: '',
-    showErrorModal: true,
   });
 };
 
 export const handleSignInModal = () => async (dispatch) => {
   dispatch({
     type: 'HANDLE_SIGNIN_MODAL',
-    errorMessage: '',
+    // errorMessage: '',
+    errorMessage: store.getState().threeBox.errorMessage,
     signInModal: !store.getState().threeBox.signInModal,
   });
 };

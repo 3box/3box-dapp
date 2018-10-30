@@ -12,7 +12,6 @@ import {
   requireMetaMask,
   closeRequireMetaMask,
   checkForMetaMask,
-  openErrorModal,
 } from '../state/actions';
 import {
   ProvideConsentModal,
@@ -20,6 +19,7 @@ import {
   SignInToThreeBox,
   MobileWalletRequiredModal,
   ErrorModal,
+  MustConsentModal,
   LoginDetectedModal,
   SignInToWalletModal,
 } from '../components/Modals.jsx';
@@ -35,6 +35,7 @@ import ConsensysSVG from '../assets/consensys.svg';
 import ThreeBoxGraphic from '../assets/3BoxGraphic.png';
 import PartnersBG from '../assets/PartnersBG.svg';
 import consensys from '../assets/consensys.png';
+import address from '../utils/address';
 import './styles/Landing.css';
 import '../components/styles/ProfileCard.css';
 import '../components/styles/Nav.css';
@@ -51,13 +52,14 @@ class Landing extends Component {
     super(props);
     this.state = {
       retractNav: false,
-      showMobileWalletPrompt: true,
+      showMobileWalletPrompt: false,
     };
     this.handleSignInUp = this.handleSignInUp.bind(this);
   }
 
   componentDidMount() {
     window.addEventListener('scroll', this.hideBar);
+    if (!this.props.hasWallet) this.setState({ showMobileWalletPrompt: true });
   }
 
   componentWillUnmount() {
@@ -103,6 +105,8 @@ class Landing extends Component {
     const { userAgent: ua } = navigator;
     const isIOS = ua.includes('iPhone');
     // const isAndroid = ua.includes('Android');
+    let signInToWalletError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.';
+    let mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
 
     const classHide = this.state.retractNav ? 'hide' : '';
 
@@ -126,18 +130,13 @@ class Landing extends Component {
           )}
 
         <ProvideConsentModal closeConsentModal={this.props.closeConsentModal} show={provideConsent} />
-
-        {<RequireMetaMaskModal closeRequireMetaMask={this.props.closeRequireMetaMask} show={alertRequireMetaMask} />}
-
-        {<SignInToWalletModal handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal} show={signInToWalletModal} />}
-       
-        {<ErrorModal errorMessage={errorMessage} closeErrorModal={this.props.closeErrorModal} show={showErrorModal} />}
-       
-        {<MobileWalletRequiredModal isIOS={isIOS} handleMobileWalletModal={this.handleMobileWalletModal} show={(showMobileWalletPrompt && !hasWallet)} />}
-       
-        {<LoginDetectedModal show={loginDetectedModal} />}
-
-        {<SignInToThreeBox show={signInModal} handleSignInModal={this.props.handleSignInModal}/>}
+        <RequireMetaMaskModal closeRequireMetaMask={this.props.closeRequireMetaMask} show={alertRequireMetaMask} />
+        <SignInToWalletModal handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal} show={signInToWalletModal || signInToWalletError} />
+        <ErrorModal errorMessage={errorMessage} closeErrorModal={this.props.closeErrorModal} show={!mustConsentError && !signInToWalletError && showErrorModal} />
+        <MustConsentModal errorMessage={errorMessage} closeErrorModal={this.props.closeErrorModal} show={mustConsentError} />
+        <MobileWalletRequiredModal isIOS={isIOS} handleMobileWalletModal={this.handleMobileWalletModal} show={(showMobileWalletPrompt)} />
+        <LoginDetectedModal show={loginDetectedModal} />
+        <SignInToThreeBox show={signInModal} handleSignInModal={this.props.handleSignInModal} />
 
         <img src={ThreeBoxGraphic} id="threeBoxGraphic" alt="ThreeBox Graphic" />
 
@@ -261,7 +260,6 @@ Landing.propTypes = {
   closeConsentModal: PropTypes.func,
   requireMetaMask: PropTypes.func,
   closeRequireMetaMask: PropTypes.func,
-  openErrorModal: PropTypes.func,
 
   showErrorModal: PropTypes.bool,
   loginDetectedModal: PropTypes.bool,
@@ -271,7 +269,7 @@ Landing.propTypes = {
   isSignedIntoWallet: PropTypes.bool,
   alertRequireMetaMask: PropTypes.bool,
   signInToWalletModal: PropTypes.bool,
-  errorMessage: PropTypes.string,
+  errorMessage: PropTypes.object,
 };
 
 Landing.defaultProps = {
@@ -283,7 +281,6 @@ Landing.defaultProps = {
   closeConsentModal: closeConsentModal(),
   requireMetaMask: requireMetaMask(),
   closeRequireMetaMask: closeRequireMetaMask(),
-  openErrorModal: openErrorModal(),
 
   showErrorModal: false,
   loginDetectedModal: false,
@@ -309,4 +306,4 @@ const mapState = state => ({
   isLoggedIn: state.threeBox.isLoggedIn,
 });
 
-export default withRouter(connect(mapState, { signInUp, closeErrorModal, handleSignInModal, closeConsentModal, requireMetaMask, closeRequireMetaMask, checkForMetaMask, openErrorModal, handleRequireWalletLoginModal })(Landing));
+export default withRouter(connect(mapState, { signInUp, closeErrorModal, handleSignInModal, closeConsentModal, requireMetaMask, closeRequireMetaMask, checkForMetaMask, handleRequireWalletLoginModal })(Landing));
