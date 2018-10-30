@@ -134,7 +134,7 @@ class Landing extends Component {
         <SignInToWalletModal handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal} show={signInToWalletModal || signInToWalletError} />
         <ErrorModal errorMessage={errorMessage} closeErrorModal={this.props.closeErrorModal} show={!mustConsentError && !signInToWalletError && showErrorModal} />
         <MustConsentModal errorMessage={errorMessage} closeErrorModal={this.props.closeErrorModal} show={mustConsentError} />
-        <MobileWalletRequiredModal isIOS={isIOS} handleMobileWalletModal={this.handleMobileWalletModal} show={(showMobileWalletPrompt)} />
+        <MobileWalletRequiredModal isIOS={isIOS} handleMobileWalletModal={this.handleMobileWalletModal} show={showMobileWalletPrompt} />
         <LoginDetectedModal show={loginDetectedModal} />
         <SignInToThreeBox show={signInModal} handleSignInModal={this.props.handleSignInModal} />
 
