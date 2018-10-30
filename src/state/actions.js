@@ -40,7 +40,8 @@ export const checkForMetaMask = () => async (dispatch) => {
   const accounts = await accountsPromise;
   const isSignedIntoWallet = typeof web3 !== 'undefined' && !!accounts.length > 0;
   const isLoggedIn = Box.isLoggedIn(address); // eslint-disable-line no-undef
-
+  console.log(typeof web3);
+  
   await dispatch({
     type: 'CHECK_WALLET',
     hasWallet: typeof web3 !== 'undefined',

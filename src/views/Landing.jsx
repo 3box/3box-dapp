@@ -288,7 +288,7 @@ Landing.defaultProps = {
   provideConsent: false,
   alertRequireMetaMask: false,
   signInToWalletModal: false,
-  hasWallet: true,
+  hasWallet: false,
   isSignedIntoWallet: false,
   errorMessage: null,
 };

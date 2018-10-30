@@ -125,6 +125,9 @@ class App extends Component {
   }
 
   handleNextMobileModal = (thisModal, nextModal) => {
+    console.log('hit');
+    console.log(thisModal);
+    console.log(nextModal)
     this.setState({
       [`onBoardingModalMobile${thisModal}`]: false,
       [`onBoardingModalMobile${nextModal}`]: true
@@ -161,29 +164,29 @@ class App extends Component {
 
     return (
       <div className="App">
-        {<LoadingThreeBoxProfileModal show={ifFetchingThreeBox} />}
+        <LoadingThreeBoxProfileModal show={ifFetchingThreeBox} />
 
-        {<SwitchedNetworksModal
+        <SwitchedNetworksModal
           prevNetwork={prevNetwork}
           currentNetwork={currentNetwork}
           proceedWithSwitchedAddress={this.props.proceedWithSwitchedAddress}
           show={(showDifferentNetworkModal && prevPrevNetwork !== currentNetworkState)}
-        />}
+        />
 
-        {<LoggedOutModal
+        <LoggedOutModal
           showLoggedOutModal={this.props.showLoggedOutModal}
           handleSignOut={this.props.handleSignOut}
           show={loggedOutModal}
-        />}
+        />
 
-        {<SwitchedAddressModal
+        <SwitchedAddressModal
           showSwitchedAddressModal={this.props.showSwitchedAddressModal}
           show={switchedAddressModal}
           handleSignOut={this.props.handleSignOut}
-        />}
+        />
 
-        {<OnBoardingModal isMobile={isMobile} show={onBoardingModal} handleOnboardingModal={this.props.handleOnboardingModal} handleNextMobileModal={this.handleNextMobileModal} />}
-        {<OnBoardingModal2 show={onBoardingModalTwo} handleOnboardingModal={this.props.handleOnboardingModal} />}
+        <OnBoardingModal isMobile={isMobile} show={onBoardingModal} handleOnboardingModal={this.props.handleOnboardingModal} handleNextMobileModal={this.handleNextMobileModal} />
+        <OnBoardingModal2 show={onBoardingModalTwo} handleOnboardingModal={this.props.handleOnboardingModal} />
 
         {onBoardingModalMobileOne && <OnBoardingModalMobile1 show={onBoardingModalMobileOne} handleNextMobileModal={this.handleNextMobileModal} />}
         {onBoardingModalMobileTwo && <OnBoardingModalMobile2 show={onBoardingModalMobileTwo} handleNextMobileModal={this.handleNextMobileModal} />}
