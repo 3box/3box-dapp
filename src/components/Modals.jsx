@@ -7,6 +7,7 @@ import ThreeBoxLogo from './ThreeBoxLogo.jsx';
 import getCoinbaseWallet from '../assets/getCoinbaseWallet.svg';
 import TrustWallet from '../assets/TrustWallet.png';
 import Consent from '../assets/Consent.png';
+import Access from '../assets/Access.png';
 import Switched from '../assets/Switched.svg';
 import OnBoardingModalGraphic from '../assets/OnBoardingModal.png';
 import OnBoardingModalGraphic2 from '../assets/OnBoardingModal2.png';
@@ -58,7 +59,7 @@ export const LoggedOutModal = ({ showLoggedOutModal, handleSignOut, show }) => (
 
         <div>
           <h3>
-            Logged out
+            Logged Out
         </h3>
           <p>
             Sign back in to your web3 wallet (e.g. MetaMask) or exit 3Box
@@ -82,7 +83,7 @@ export const SwitchedAddressModal = ({ showSwitchedAddressModal, show, handleSig
 
         <div>
           <h3>
-            Address change detected
+            Address Change Detected
         </h3>
           <p>
             Revert to the previous address in your web3 wallet (e.g. MetaMask) or sign back in with the new address
@@ -99,6 +100,24 @@ export const SwitchedAddressModal = ({ showSwitchedAddressModal, show, handleSig
 );
 
 // Landing Page Modals
+export const ProvideAccessModal = ({ handleAccessModal, show }) => (
+  <div>
+    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+      <div className="modal">
+        <img src={Access} alt="Partners background" />
+
+        <div id="modal__copy__card">
+          <h3>Allow Access</h3>
+          <p>3Box will not work without access to your web3 wallet</p>
+        </div>
+
+        <button onClick={handleAccessModal} type="button" className="tertiaryButton">Close</button>
+      </div>
+    </div>
+    <div className="modal__overlay" />
+  </div>
+);
+
 export const ProvideConsentModal = ({ closeConsentModal, show }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
@@ -299,7 +318,7 @@ export const SignInToThreeBox = ({ handleSignInModal, show }) => (
 
         <div id="modal__copy__card">
           <h3>
-            Sign in
+            Sign In
           </h3>
           <p>You must be signed in to 3Box to go to that page</p>
         </div>

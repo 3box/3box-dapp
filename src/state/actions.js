@@ -1,34 +1,88 @@
 import {
   address,
 } from '../utils/address';
-
 import {
   store,
 } from './store';
-
 import * as routes from '../utils/routes';
-
 import history from '../history';
 
-export const checkForMetaMask = () => async (dispatch) => {
-  const cp = typeof web3 !== 'undefined' ? web3.currentProvider : null; // eslint-disable-line no-undef
-
-  const isToshi = cp ? !!cp.isToshi : false;
-  const isCipher = cp ? !!cp.isCipher : false;
-  const isMetaMask = cp ? !!cp.isMetaMask : false;
-  let currentWallet;
-
-  if (isToshi) {
-    currentWallet = 'isToshi';
-  } else if (isCipher) {
-    currentWallet = 'isCipher';
-  } else if (isMetaMask) {
-    currentWallet = 'isMetaMask';
+export const checkWebThree = () => async (dispatch) => {
+  let webThree;
+  if (window.ethereum) {
+    webThree = new Web3(ethereum); // eslint-disable-line no-undef
+    try {
+      // await ethereum.enable(); // eslint-disable-line no-undef
+      await ethereum.enable(); // eslint-disable-line no-undef
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: 'HANDLE_PROVIDE_ACCESS_MODAL',
+        provideAccessModal: true,
+      });
+    }
+  } else if (window.web3) {
+    webThree = new Web3(web3.currentProvider); // eslint-disable-line no-undef
+  } else {
+    console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
   }
 
-  const accountsPromise = typeof web3 !== 'undefined' ? // eslint-disable-line no-undef
+  await dispatch({
+    type: 'CHECK_WEBTHREE',
+    hasWallet: webThree,
+    mobileWalletRequiredModal: !webThree,
+    webThree,
+  });
+};
+
+export const checkForMetaMask = () => async (dispatch) => {
+  // let webThree;
+  // if (window.ethereum) {
+  //   webThree = new Web3(ethereum); // eslint-disable-line no-undef
+  //   try {
+  //     // what is enabled state? how to know, so we don't show enable eth message?
+  //     // show user that 3Box is requesting access to their web3 provider
+  //     // but don't show if they've already been given access
+  //     await ethereum.enable(); // eslint-disable-line no-undef
+  //   } catch (error) {
+  //     console.log(error);
+  //     // show user that in order to use 3Box, a user must first allow 3Box access
+  //     // to their web3 provider AND consent to write to their MM
+  //     dispatch({
+  //       type: 'HANDLE_PROVIDE_ACCESS_MODAL',
+  //       provideAccessModal: true,
+  //     });
+  //   }
+  // } else if (window.web3) {
+  //   webThree = new Web3(web3.currentProvider); // eslint-disable-line no-undef
+  // } else {
+  //   console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+  // }
+
+  // const cp = typeof web3 !== 'undefined' ? web3.currentProvider : null; // eslint-disable-line no-undef
+  // const cp = typeof web3 !== 'undefined' ? web3.currentProvider : null; // eslint-disable-line no-undef
+  const webThree = store.getState().threeBox.webThree;
+  let isToshi;
+  let isCipher;
+  let isMetaMask;
+  let currentWallet;
+
+  if (webThree) {
+    isToshi = !!webThree.currentProvider.isToshi;
+    isCipher = !!webThree.currentProvider.isCipher;
+    isMetaMask = !!webThree.currentProvider.isMetaMask;
+    if (isToshi) {
+      currentWallet = 'isToshi';
+    } else if (isCipher) {
+      currentWallet = 'isCipher';
+    } else if (isMetaMask) {
+      currentWallet = 'isMetaMask';
+    }
+  }
+
+  const accountsPromise = webThree ? // eslint-disable-line no-undef
     new Promise((resolve, reject) => {
-      web3.eth.getAccounts((e, accounts) => { // eslint-disable-line no-undef
+      webThree.eth.getAccounts((e, accounts) => { // eslint-disable-line no-undef
         if (e != null) {
           reject(e);
         } else {
@@ -36,27 +90,29 @@ export const checkForMetaMask = () => async (dispatch) => {
         }
       });
     }) : null;
-
   const accounts = await accountsPromise;
-  const isSignedIntoWallet = typeof web3 !== 'undefined' && !!accounts.length > 0;
+
+  const isSignedIntoWallet = webThree && !!accounts.length > 0;
   const isLoggedIn = Box.isLoggedIn(address); // eslint-disable-line no-undef
-  
+
   await dispatch({
     type: 'CHECK_WALLET',
-    hasWallet: typeof web3 !== 'undefined',
-    mobileWalletRequiredModal: typeof web3 === 'undefined',
+    hasWallet: webThree,
+    mobileWalletRequiredModal: !webThree,
     currentWallet,
     isSignedIntoWallet,
     isLoggedIn,
+    webThree,
   });
 };
 
 export const initialCheckNetwork = () => async (dispatch) => {
   let currentNetwork;
+  const webThree = store.getState().threeBox.webThree;
 
-  if (typeof web3 !== 'undefined') {
+  if (webThree) {
     const checkNetwork = new Promise((resolve) => {
-      web3.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
+      webThree.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
         switch (netId) {
           case '1':
             resolve('Main');
@@ -80,8 +136,8 @@ export const initialCheckNetwork = () => async (dispatch) => {
     });
 
     // check network, compatible with old & new v of MetaMask
-    if (web3.eth.net) { // eslint-disable-line no-undef
-      await web3.eth.net.getNetworkType() // eslint-disable-line no-undef
+    if (webThree.eth.net) { // eslint-disable-line no-undef
+      await webThree.eth.net.getNetworkType() // eslint-disable-line no-undef
         .then((network) => {
           currentNetwork = network;
         });
@@ -107,98 +163,9 @@ export const initialCheckNetwork = () => async (dispatch) => {
   });
 };
 
-export const checkNetworkAndAddress = () => async (dispatch) => {
-  dispatch({
-    type: 'LOADING_ACTIVITY',
-  });
-  dispatch({
-    type: 'LOADING_3BOX',
-  });
-
-  const checkNetwork = new Promise((resolve) => {
-    web3.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
-      switch (netId) {
-        case '1':
-          resolve('Main');
-          break;
-        case '2':
-          resolve('Morder');
-          break;
-        case '3':
-          resolve('Ropsten');
-          break;
-        case '4':
-          resolve('Rinkeby');
-          break;
-        case '42':
-          resolve('Kovan');
-          break;
-        default:
-          resolve('Unknown');
-      }
-    });
-  });
-
-  // // check network, compatible with old & new v of MetaMask
-  let currentNetwork;
-  if (web3.eth.net) { // eslint-disable-line no-undef
-    await web3.eth.net.getNetworkType() // eslint-disable-line no-undef
-      .then((network) => {
-        currentNetwork = network;
-      });
-  } else {
-    await checkNetwork.then((network) => {
-      currentNetwork = network;
-    });
-  }
-
-  const prevPrevNetwork = window.localStorage.getItem('prevNetwork');
-  const prevNetwork = window.localStorage.getItem('currentNetwork');
-
-  window.localStorage.setItem('prevPrevNetwork', prevPrevNetwork);
-  window.localStorage.setItem('prevNetwork', prevNetwork);
-  window.localStorage.setItem('currentNetwork', currentNetwork);
-
-  if (prevNetwork && (prevNetwork !== currentNetwork)) {
-    await dispatch({
-      type: 'DIFFERENT_NETWORK',
-      currentNetwork,
-      prevNetwork,
-      prevPrevNetwork,
-    });
-  }
-
-  await dispatch({
-    type: 'CHECK_NETWORK_AND_ADDRESS',
-    currentNetwork,
-    prevNetwork,
-    prevPrevNetwork,
-  });
-};
-
-export const closeDifferentNetwork = () => (dispatch) => {
-  dispatch({
-    type: 'CLOSE_DIFFERENT_NETWORK_MODAL',
-    showDifferentNetworkModal: false,
-  });
-};
-
-export const requireMetaMask = () => (dispatch) => {
-  dispatch({
-    type: 'REQUIRE_METAMASK',
-    alertRequireMetaMask: true,
-  });
-};
-
-export const closeRequireMetaMask = () => (dispatch) => {
-  dispatch({
-    type: 'REQUIRE_METAMASK',
-    alertRequireMetaMask: false,
-  });
-};
-
 export const signInUp = () => async (dispatch) => {
   let box;
+  const webThree = store.getState().threeBox.webThree;
 
   dispatch({
     type: 'PROVIDE_CONSENT',
@@ -241,7 +208,7 @@ export const signInUp = () => async (dispatch) => {
     // Modern dapp browsers...
 
     const returnedBox = await Box // eslint-disable-line no-undef
-      .openBox(address, web3.currentProvider, opts); // eslint-disable-line no-undef
+      .openBox(address, webThree.currentProvider, opts); // eslint-disable-line no-undef
     box = await returnedBox;
 
     dispatch({
@@ -350,9 +317,103 @@ export const signInUp = () => async (dispatch) => {
   }
 };
 
+export const checkNetworkAndAddress = () => async (dispatch) => {
+  const webThree = store.getState().threeBox.webThree;
+
+  dispatch({
+    type: 'LOADING_ACTIVITY',
+  });
+  dispatch({
+    type: 'LOADING_3BOX',
+  });
+
+  const checkNetwork = new Promise((resolve) => {
+    webThree.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
+      switch (netId) {
+        case '1':
+          resolve('Main');
+          break;
+        case '2':
+          resolve('Morder');
+          break;
+        case '3':
+          resolve('Ropsten');
+          break;
+        case '4':
+          resolve('Rinkeby');
+          break;
+        case '42':
+          resolve('Kovan');
+          break;
+        default:
+          resolve('Unknown');
+      }
+    });
+  });
+
+  // // check network, compatible with old & new v of MetaMask
+  let currentNetwork;
+  if (webThree.eth.net) { // eslint-disable-line no-undef
+    await webThree.eth.net.getNetworkType() // eslint-disable-line no-undef
+      .then((network) => {
+        currentNetwork = network;
+      });
+  } else {
+    await checkNetwork.then((network) => {
+      currentNetwork = network;
+    });
+  }
+
+  const prevPrevNetwork = window.localStorage.getItem('prevNetwork');
+  const prevNetwork = window.localStorage.getItem('currentNetwork');
+
+  window.localStorage.setItem('prevPrevNetwork', prevPrevNetwork);
+  window.localStorage.setItem('prevNetwork', prevNetwork);
+  window.localStorage.setItem('currentNetwork', currentNetwork);
+
+  if (prevNetwork && (prevNetwork !== currentNetwork)) {
+    await dispatch({
+      type: 'DIFFERENT_NETWORK',
+      currentNetwork,
+      prevNetwork,
+      prevPrevNetwork,
+    });
+  }
+
+  await dispatch({
+    type: 'CHECK_NETWORK_AND_ADDRESS',
+    currentNetwork,
+    prevNetwork,
+    prevPrevNetwork,
+  });
+};
+
+export const closeDifferentNetwork = () => (dispatch) => {
+  dispatch({
+    type: 'CLOSE_DIFFERENT_NETWORK_MODAL',
+    showDifferentNetworkModal: false,
+  });
+};
+
+export const requireMetaMask = () => (dispatch) => {
+  dispatch({
+    type: 'REQUIRE_METAMASK',
+    alertRequireMetaMask: true,
+  });
+};
+
+export const closeRequireMetaMask = () => (dispatch) => {
+  dispatch({
+    type: 'REQUIRE_METAMASK',
+    alertRequireMetaMask: false,
+  });
+};
+
 export const openBox = () => async (dispatch) => {
+  const webThree = store.getState().threeBox.webThree;
+
   const returnedBox = await Box // eslint-disable-line no-undef
-    .openBox(address, web3.currentProvider); // eslint-disable-line no-undef
+    .openBox(address, webThree.currentProvider); // eslint-disable-line no-undef
   const box = await returnedBox;
 
   dispatch({
@@ -569,5 +630,12 @@ export const handleMobileWalletModal = () => async (dispatch) => {
   dispatch({
     type: 'HANDLE_MOBILE_WALLET_REQUIRED_MODAL',
     mobileWalletRequiredModal: false,
+  });
+};
+
+export const handleAccessModal = () => async (dispatch) => {
+  dispatch({
+    type: 'HANDLE_PROVIDE_ACCESS_MODAL',
+    provideAccessModal: false,
   });
 };

@@ -10,12 +10,14 @@ import {
   handleSignInModal,
   handleRequireWalletLoginModal,
   closeConsentModal,
+  handleAccessModal,
   requireMetaMask,
   closeRequireMetaMask,
   checkForMetaMask,
 } from '../state/actions';
 import {
   ProvideConsentModal,
+  ProvideAccessModal,
   RequireMetaMaskModal,
   SignInToThreeBox,
   MobileWalletRequiredModal,
@@ -86,6 +88,7 @@ class Landing extends Component {
       signInModal,
       errorMessage,
       provideConsent,
+      provideAccessModal,
       alertRequireMetaMask,
       mobileWalletRequiredModal,
       signInToWalletModal,
@@ -118,6 +121,7 @@ class Landing extends Component {
             <Nav />
           )}
 
+        <ProvideAccessModal handleAccessModal={this.props.handleAccessModal} show={provideAccessModal} />
         <ProvideConsentModal closeConsentModal={this.props.closeConsentModal} show={provideConsent} />
         <RequireMetaMaskModal closeRequireMetaMask={this.props.closeRequireMetaMask} show={alertRequireMetaMask} />
         <SignInToWalletModal handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal} show={signInToWalletModal || signInToWalletError} />
@@ -248,6 +252,7 @@ Landing.propTypes = {
   handleSignInModal: PropTypes.func,
   handleRequireWalletLoginModal: PropTypes.func,
   closeConsentModal: PropTypes.func,
+  handleAccessModal: PropTypes.func,
   requireMetaMask: PropTypes.func,
   closeRequireMetaMask: PropTypes.func,
 
@@ -255,6 +260,7 @@ Landing.propTypes = {
   loginDetectedModal: PropTypes.bool,
   signInModal: PropTypes.bool,
   provideConsent: PropTypes.bool,
+  provideAccessModal: PropTypes.bool,
   hasWallet: PropTypes.bool,
   isSignedIntoWallet: PropTypes.bool,
   alertRequireMetaMask: PropTypes.bool,
@@ -271,6 +277,7 @@ Landing.defaultProps = {
   handleSignInModal: handleSignInModal(),
   handleRequireWalletLoginModal: handleRequireWalletLoginModal(),
   closeConsentModal: closeConsentModal(),
+  handleAccessModal: handleAccessModal(),
   requireMetaMask: requireMetaMask(),
   closeRequireMetaMask: closeRequireMetaMask(),
 
@@ -278,6 +285,7 @@ Landing.defaultProps = {
   loginDetectedModal: false,
   signInModal: false,
   provideConsent: false,
+  provideAccessModal: false,
   alertRequireMetaMask: false,
   mobileWalletRequiredModal: false,
   signInToWalletModal: false,
@@ -292,6 +300,7 @@ const mapState = state => ({
   loginDetectedModal: state.threeBox.loginDetectedModal,
   signInModal: state.threeBox.signInModal,
   provideConsent: state.threeBox.provideConsent,
+  provideAccessModal: state.threeBox.provideAccessModal,
   hasWallet: state.threeBox.hasWallet,
   isSignedIntoWallet: state.threeBox.isSignedIntoWallet,
   alertRequireMetaMask: state.threeBox.alertRequireMetaMask,
@@ -300,4 +309,4 @@ const mapState = state => ({
   isLoggedIn: state.threeBox.isLoggedIn,
 });
 
-export default withRouter(connect(mapState, { signInUp, closeErrorModal, handleMobileWalletModal, handleSignInModal, closeConsentModal, requireMetaMask, closeRequireMetaMask, checkForMetaMask, handleRequireWalletLoginModal })(Landing));
+export default withRouter(connect(mapState, { signInUp, closeErrorModal, handleMobileWalletModal, handleSignInModal, closeConsentModal, handleAccessModal, requireMetaMask, closeRequireMetaMask, checkForMetaMask, handleRequireWalletLoginModal })(Landing));

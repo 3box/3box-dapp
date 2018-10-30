@@ -32,6 +32,7 @@ import {
   getPrivateEmail,
   getActivity,
   checkForMetaMask,
+  checkWebThree,
   checkNetworkAndAddress,
   initialCheckNetwork,
   handleSignInModal,
@@ -96,24 +97,16 @@ class App extends Component {
   };
 
   async componentDidMount() {
-    // let MMdetectAddress = null;
-    // window.web3.currentProvider.publicConfigStore.on('update', (obj) => {
-    //   console.log('network change detected', obj);
-    //   if (!MMdetectAddress && obj.selectedAddress) {
-    //     console.log('user just signed in');
-    //   }
-    //   MMdetectAddress = obj.selectedAddress;
-    // });
-
     const { location } = this.props;
     const { pathname } = location;
 
-    await this.props.checkForMetaMask();
+    await this.props.checkWebThree();
+    this.props.webThree && await this.props.checkForMetaMask();
     const loginStatus = this.props.isLoggedIn;
 
-    if ((pathname === '/Profile' || pathname === '/EditProfile') && typeof web3 !== 'undefined' && loginStatus) { // eslint-disable-line no-undef
+    if ((pathname === '/Profile' || pathname === '/EditProfile') && this.props.webThree && loginStatus) { // eslint-disable-line no-undef
       this.loadData();
-    } else if (pathname === '/' && typeof web3 !== 'undefined' && loginStatus) { // eslint-disable-line no-undef
+    } else if (pathname === '/' && this.props.webThree && loginStatus) { // eslint-disable-line no-undef
       history.push(routes.PROFILE);
       this.loadData();
     } else if ((pathname === '/Profile' || pathname === '/EditProfile') && !loginStatus) {
@@ -209,6 +202,7 @@ App.propTypes = {
   getPrivateEmail: PropTypes.func,
   getActivity: PropTypes.func,
   checkForMetaMask: PropTypes.func,
+  checkWebThree: PropTypes.func,
   closeDifferentNetwork: PropTypes.func,
   proceedWithSwitchedAddress: PropTypes.func,
   handleSignOut: PropTypes.func,
@@ -220,6 +214,7 @@ App.propTypes = {
   handleOnboardingModal: PropTypes.func,
 
   location: PropTypes.object,
+  webThree: PropTypes.object,
   hasWallet: PropTypes.bool,
   showDifferentNetworkModal: PropTypes.bool,
   switched: PropTypes.bool,
@@ -228,6 +223,7 @@ App.propTypes = {
   onBoardingModal: PropTypes.bool,
   onBoardingModalTwo: PropTypes.bool,
   ifFetchingThreeBox: PropTypes.bool,
+  isLoggedIn: PropTypes.bool,
   prevNetwork: PropTypes.string,
   currentNetwork: PropTypes.string,
   prevPrevNetwork: PropTypes.string,
@@ -241,6 +237,7 @@ App.defaultProps = {
   getPrivateEmail: getPrivateEmail(),
   getActivity: getActivity(),
   checkForMetaMask: checkForMetaMask(),
+  checkWebThree: checkWebThree(),
   closeDifferentNetwork: closeDifferentNetwork(),
   proceedWithSwitchedAddress: proceedWithSwitchedAddress(),
   checkNetworkAndAddress: checkNetworkAndAddress(),
@@ -252,6 +249,7 @@ App.defaultProps = {
   handleOnboardingModal: handleOnboardingModal(),
 
   location: {},
+  webThree: undefined,
   hasWallet: true,
   showDifferentNetworkModal: false,
   switched: false,
@@ -277,6 +275,7 @@ const mapState = state => ({
   currentNetwork: state.threeBox.currentNetwork,
   prevPrevNetwork: state.threeBox.prevPrevNetwork,
   isLoggedIn: state.threeBox.isLoggedIn,
+  webThree: state.threeBox.webThree,
   ifFetchingThreeBox: state.threeBox.ifFetchingThreeBox,
 });
 
@@ -289,6 +288,7 @@ export default withRouter(connect(mapState,
     getPrivateEmail,
     getActivity,
     checkForMetaMask,
+    checkWebThree,
     checkNetworkAndAddress,
     initialCheckNetwork,
     handleSignInModal,

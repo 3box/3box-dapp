@@ -35,6 +35,15 @@ setInterval(() => {
   //   // reload page from modal
   // }
 
+  // let MMdetectAddress = null;
+  // window.web3.currentProvider.publicConfigStore.on('update', (obj) => {
+  //   console.log('network change detected', obj);
+  //   if (!MMdetectAddress && obj.selectedAddress) {
+  //     console.log('user just signed in');
+  //   }
+  //   MMdetectAddress = obj.selectedAddress;
+  // });
+
   address = currentAddress;
 }, 1500);
 

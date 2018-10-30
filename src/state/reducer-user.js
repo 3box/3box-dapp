@@ -1,5 +1,13 @@
 export const threeBoxReducer = (state = {}, action) => {
   switch (action.type) {
+    case 'CHECK_WEBTHREE':
+      return {
+        ...state,
+        hasWallet: action.hasWallet,
+        mobileWalletRequiredModal: action.mobileWalletRequiredModal,
+        webThree: action.webThree,
+      };
+
     case 'CHECK_WALLET':
       return {
         ...state,
@@ -8,6 +16,7 @@ export const threeBoxReducer = (state = {}, action) => {
         isSignedIntoWallet: action.isSignedIntoWallet,
         mobileWalletRequiredModal: action.mobileWalletRequiredModal,
         isLoggedIn: action.isLoggedIn,
+        webThree: action.webThree,
       };
 
     case 'DIFFERENT_NETWORK':
@@ -89,6 +98,12 @@ export const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         provideConsent: true,
+      };
+
+    case 'HANDLE_PROVIDE_ACCESS_MODAL':
+      return {
+        ...state,
+        provideAccessModal: action.provideAccessModal,
       };
 
     case 'LOADING_3BOX':
