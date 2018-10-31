@@ -72,7 +72,9 @@ class App extends Component {
     const { location } = this.props;
     const { pathname } = location;
 
-    await this.props.checkForWeb3Wallet();
+    // window.addEventListener('load',
+    await this.props.checkForWeb3Wallet()
+    // )
     const loginStatus = this.props.isLoggedIn;
 
     this.props.hasWallet && await this.props.initialCheckNetworkAndAddress();

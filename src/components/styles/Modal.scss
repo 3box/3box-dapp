@@ -214,11 +214,11 @@
   margin-top: 60px;
 }
 
-#modal__loading3Box {
+.modal__loading3Box {
   display: flex;
   align-items: center;
   justify-content: center;
-  zoom: 1.7;
+  // zoom: 1.7;
   margin-bottom: 20px;
 }
 
@@ -463,4 +463,35 @@
   #modal__loggedOutModal--mobile {
     display: flex;
   }
+}
+
+#logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#logo__icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  background-color: #006ECC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0 !important;
+  
+  h2 {
+    color: white;
+    font-size: 1.5em !important;
+    font-weight: 700;
+  }
+}
+
+#logo__text {
+  display: inline-block;
+  color: #006ECC;
+  margin: 0;
+  margin-left: .37em;
+  font-size: 1.5em !important;
 }

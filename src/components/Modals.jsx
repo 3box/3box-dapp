@@ -124,8 +124,11 @@ export const LoadingThreeBoxProfileModal = ({ show }) => (
         <img src={Loading} alt="Loading" id="modal__loadingGraphic" />
 
         <div>
-          <div id="modal__loading3Box">
-            <ThreeBoxLogo />
+          <div id="logo" className="modal__loading3Box">
+            <div id="logo__icon">
+              <h2>3</h2>
+            </div>
+            <h2 id="logo__text"> BOX </h2>
           </div>
           <p>LOADING</p>
         </div>
@@ -293,8 +296,11 @@ export const SignInToThreeBox = ({ handleSignInModal, show }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
       <div className="modal">
-        <div id="modal__loading3Box">
-          <ThreeBoxLogo />
+        <div id="logo" className="modal__loading3Box">
+          <div id="logo__icon">
+            <h2>3</h2>
+          </div>
+          <h2 id="logo__text"> BOX </h2>
         </div>
 
         <div id="modal__copy__card">
