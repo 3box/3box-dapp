@@ -2,10 +2,11 @@ import {
   store,
 } from '../state/store';
 
-export let address = typeof web3 !== 'undefined' ? web3.eth.accounts[0] : ''; // eslint-disable-line no-undef
+const webThree = store.getState().threeBox.webThree;
+export let address = webThree ? webThree.eth.accounts[0] : ''; // eslint-disable-line no-undef
 
 setInterval(() => {
-  const currentAddress = typeof web3 !== 'undefined' ? web3.eth.accounts[0] : ''; // eslint-disable-line no-undef
+  const currentAddress = webThree ? webThree.eth.accounts[0] : ''; // eslint-disable-line no-undef
   // Logged out
   if (currentAddress !== address && currentAddress === undefined && store.getState().threeBox.isLoggedIn) {
     store.dispatch({
