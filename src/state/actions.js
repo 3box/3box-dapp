@@ -10,7 +10,7 @@ import * as routes from '../utils/routes';
 
 import history from '../history';
 
-export const checkForMetaMask = () => async (dispatch) => {
+export const checkForWeb3Wallet = () => async (dispatch) => {
   const cp = typeof web3 !== 'undefined' ? web3.currentProvider : null; // eslint-disable-line no-undef
 
   const isToshi = cp ? !!cp.isToshi : false;
@@ -40,7 +40,7 @@ export const checkForMetaMask = () => async (dispatch) => {
   const accounts = await accountsPromise;
   const isSignedIntoWallet = typeof web3 !== 'undefined' && !!accounts.length > 0;
   const isLoggedIn = Box.isLoggedIn(address); // eslint-disable-line no-undef
-  
+
   await dispatch({
     type: 'CHECK_WALLET',
     hasWallet: typeof web3 !== 'undefined',
@@ -107,14 +107,8 @@ export const initialCheckNetwork = () => async (dispatch) => {
   });
 };
 
-export const checkNetworkAndAddress = () => async (dispatch) => {
-  dispatch({
-    type: 'LOADING_ACTIVITY',
-  });
-  dispatch({
-    type: 'LOADING_3BOX',
-  });
-
+// if has web3 wallet
+export const initialCheckNetworkAndAddress = () => async (dispatch) => {
   const checkNetwork = new Promise((resolve) => {
     web3.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
       switch (netId) {
@@ -159,21 +153,22 @@ export const checkNetworkAndAddress = () => async (dispatch) => {
   window.localStorage.setItem('prevNetwork', prevNetwork);
   window.localStorage.setItem('currentNetwork', currentNetwork);
 
-  if (prevNetwork && (prevNetwork !== currentNetwork)) {
+
+  if (prevNetwork && (prevNetwork !== currentNetwork) && store.getState().threeBox.isLoggedIn) {
     await dispatch({
       type: 'DIFFERENT_NETWORK',
       currentNetwork,
       prevNetwork,
       prevPrevNetwork,
     });
+  } else {
+    await dispatch({
+      type: 'CHECK_NETWORK_AND_ADDRESS',
+      currentNetwork,
+      prevNetwork,
+      prevPrevNetwork,
+    });
   }
-
-  await dispatch({
-    type: 'CHECK_NETWORK_AND_ADDRESS',
-    currentNetwork,
-    prevNetwork,
-    prevPrevNetwork,
-  });
 };
 
 export const closeDifferentNetwork = () => (dispatch) => {
@@ -351,6 +346,14 @@ export const signInUp = () => async (dispatch) => {
 };
 
 export const openBox = () => async (dispatch) => {
+  dispatch({
+    type: 'LOADING_3BOX',
+  });
+
+  dispatch({
+    type: 'LOADING_ACTIVITY',
+  });
+  
   const returnedBox = await Box // eslint-disable-line no-undef
     .openBox(address, web3.currentProvider); // eslint-disable-line no-undef
   const box = await returnedBox;
@@ -571,3 +574,72 @@ export const handleMobileWalletModal = () => async (dispatch) => {
     mobileWalletRequiredModal: false,
   });
 };
+
+// export const checkNetworkAndAddress = () => async (dispatch) => {
+//   dispatch({
+//     type: 'LOADING_ACTIVITY',
+//   });
+//   dispatch({
+//     type: 'LOADING_3BOX',
+//   });
+
+//   const checkNetwork = new Promise((resolve) => {
+//     web3.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
+//       switch (netId) {
+//         case '1':
+//           resolve('Main');
+//           break;
+//         case '2':
+//           resolve('Morder');
+//           break;
+//         case '3':
+//           resolve('Ropsten');
+//           break;
+//         case '4':
+//           resolve('Rinkeby');
+//           break;
+//         case '42':
+//           resolve('Kovan');
+//           break;
+//         default:
+//           resolve('Unknown');
+//       }
+//     });
+//   });
+
+//   // // check network, compatible with old & new v of MetaMask
+//   let currentNetwork;
+//   if (web3.eth.net) { // eslint-disable-line no-undef
+//     await web3.eth.net.getNetworkType() // eslint-disable-line no-undef
+//       .then((network) => {
+//         currentNetwork = network;
+//       });
+//   } else {
+//     await checkNetwork.then((network) => {
+//       currentNetwork = network;
+//     });
+//   }
+
+//   const prevPrevNetwork = window.localStorage.getItem('prevNetwork');
+//   const prevNetwork = window.localStorage.getItem('currentNetwork');
+
+//   window.localStorage.setItem('prevPrevNetwork', prevPrevNetwork);
+//   window.localStorage.setItem('prevNetwork', prevNetwork);
+//   window.localStorage.setItem('currentNetwork', currentNetwork);
+
+//   if (prevNetwork && (prevNetwork !== currentNetwork)) {
+//     await dispatch({
+//       type: 'DIFFERENT_NETWORK',
+//       currentNetwork,
+//       prevNetwork,
+//       prevPrevNetwork,
+//     });
+//   }
+
+//   await dispatch({
+//     type: 'CHECK_NETWORK_AND_ADDRESS',
+//     currentNetwork,
+//     prevNetwork,
+//     prevPrevNetwork,
+//   });
+// };

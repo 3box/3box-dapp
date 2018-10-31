@@ -31,9 +31,10 @@ import {
   getPublicImage,
   getPrivateEmail,
   getActivity,
-  checkForMetaMask,
-  checkNetworkAndAddress,
-  initialCheckNetwork,
+  checkForWeb3Wallet,
+  // checkNetworkAndAddress,
+  // initialCheckNetwork,
+  initialCheckNetworkAndAddress,
   handleSignInModal,
   closeDifferentNetwork,
   proceedWithSwitchedAddress,
@@ -57,34 +58,6 @@ class App extends Component {
 
   componentWillMount() {
     window.addEventListener('resize', this.handleWindowSizeChange);
-
-    // window.addEventListener('load', async () => {
-    //   console.log('running in here mate');
-    //   // Modern dapp browsers...
-    //   if (window.ethereum) {
-    //     console.log('ethereum');
-    //     window.web3 = new Web3(ethereum); // eslint-disable-line no-undef
-    //     try {
-    //       // Request account access if needed
-    //       await ethereum.enable(); // eslint-disable-line no-undef
-    //       // Acccounts now exposed
-    //       web3.eth.sendTransaction({ /* ... */ }); // eslint-disable-line no-undef
-    //     } catch (error) {
-    //       // User denied account access...
-    //     }
-    //   }
-    //   // Legacy dapp browsers...
-    //   else if (window.web3) {
-    //     console.log('web3');
-    //     window.web3 = new Web3(web3.currentProvider); // eslint-disable-line no-undef
-    //     // Acccounts always exposed
-    //     web3.eth.sendTransaction({ /* ... */ }); // eslint-disable-line no-undef
-    //   }
-    //   // Non-dapp browsers...
-    //   else {
-    //     console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
-    //   }
-    // });
   }
 
   componentWillUnmount() {
@@ -96,20 +69,13 @@ class App extends Component {
   };
 
   async componentDidMount() {
-    // let MMdetectAddress = null;
-    // window.web3.currentProvider.publicConfigStore.on('update', (obj) => {
-    //   console.log('network change detected', obj);
-    //   if (!MMdetectAddress && obj.selectedAddress) {
-    //     console.log('user just signed in');
-    //   }
-    //   MMdetectAddress = obj.selectedAddress;
-    // });
-
     const { location } = this.props;
     const { pathname } = location;
 
-    await this.props.checkForMetaMask();
+    await this.props.checkForWeb3Wallet();
     const loginStatus = this.props.isLoggedIn;
+
+    this.props.hasWallet && await this.props.initialCheckNetworkAndAddress();
 
     if ((pathname === '/Profile' || pathname === '/EditProfile') && typeof web3 !== 'undefined' && loginStatus) { // eslint-disable-line no-undef
       this.loadData();
@@ -119,8 +85,6 @@ class App extends Component {
     } else if ((pathname === '/Profile' || pathname === '/EditProfile') && !loginStatus) {
       history.push(routes.LANDING);
       this.props.handleSignInModal();
-    } else if (pathname === '/' && !loginStatus) {
-      this.props.initialCheckNetwork();
     }
   }
 
@@ -132,7 +96,7 @@ class App extends Component {
   }
 
   async loadData() {
-    await this.props.checkNetworkAndAddress();
+    // await this.props.checkNetworkAndAddress();
     await this.props.openBox();
     await this.props.getActivity();
     await this.props.getPublicName();
@@ -208,12 +172,13 @@ App.propTypes = {
   getPublicImage: PropTypes.func,
   getPrivateEmail: PropTypes.func,
   getActivity: PropTypes.func,
-  checkForMetaMask: PropTypes.func,
+  checkForWeb3Wallet: PropTypes.func,
   closeDifferentNetwork: PropTypes.func,
   proceedWithSwitchedAddress: PropTypes.func,
   handleSignOut: PropTypes.func,
-  checkNetworkAndAddress: PropTypes.func,
-  initialCheckNetwork: PropTypes.func,
+  // checkNetworkAndAddress: PropTypes.func,
+  // initialCheckNetwork: PropTypes.func,
+  initialCheckNetworkAndAddress: PropTypes.func,
   handleSignInModal: PropTypes.func,
   showLoggedOutModal: PropTypes.func,
   showSwitchedAddressModal: PropTypes.func,
@@ -222,6 +187,8 @@ App.propTypes = {
   location: PropTypes.object,
   hasWallet: PropTypes.bool,
   showDifferentNetworkModal: PropTypes.bool,
+  isLoggedIn: PropTypes.bool,
+  hasWallet: PropTypes.bool,
   switched: PropTypes.bool,
   loggedOutModal: PropTypes.bool,
   switchedAddressModal: PropTypes.bool,
@@ -240,11 +207,12 @@ App.defaultProps = {
   getPublicImage: getPublicImage(),
   getPrivateEmail: getPrivateEmail(),
   getActivity: getActivity(),
-  checkForMetaMask: checkForMetaMask(),
+  checkForWeb3Wallet: checkForWeb3Wallet(),
   closeDifferentNetwork: closeDifferentNetwork(),
   proceedWithSwitchedAddress: proceedWithSwitchedAddress(),
-  checkNetworkAndAddress: checkNetworkAndAddress(),
-  initialCheckNetwork: initialCheckNetwork(),
+  // checkNetworkAndAddress: checkNetworkAndAddress(),
+  // initialCheckNetwork: initialCheckNetwork(),
+  initialCheckNetworkAndAddress: initialCheckNetworkAndAddress(),
   handleSignInModal: handleSignInModal(),
   showLoggedOutModal: showLoggedOutModal(),
   showSwitchedAddressModal: showSwitchedAddressModal(),
@@ -260,6 +228,8 @@ App.defaultProps = {
   onBoardingModal: false,
   onBoardingModalTwo: false,
   ifFetchingThreeBox: false,
+  isLoggedIn: false,
+  hasWallet: false,
   prevNetwork: '',
   currentNetwork: '',
   prevPrevNetwork: '',
@@ -277,6 +247,7 @@ const mapState = state => ({
   currentNetwork: state.threeBox.currentNetwork,
   prevPrevNetwork: state.threeBox.prevPrevNetwork,
   isLoggedIn: state.threeBox.isLoggedIn,
+  hasWallet: state.threeBox.hasWallet,
   ifFetchingThreeBox: state.threeBox.ifFetchingThreeBox,
 });
 
@@ -288,9 +259,10 @@ export default withRouter(connect(mapState,
     getPublicImage,
     getPrivateEmail,
     getActivity,
-    checkForMetaMask,
-    checkNetworkAndAddress,
-    initialCheckNetwork,
+    checkForWeb3Wallet,
+    // checkNetworkAndAddress,
+    // initialCheckNetwork,
+    initialCheckNetworkAndAddress,
     handleSignInModal,
     closeDifferentNetwork,
     proceedWithSwitchedAddress,

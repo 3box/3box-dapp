@@ -12,7 +12,6 @@ import {
   closeConsentModal,
   requireMetaMask,
   closeRequireMetaMask,
-  checkForMetaMask,
 } from '../state/actions';
 import {
   ProvideConsentModal,
@@ -68,14 +67,17 @@ class Landing extends Component {
 
   async handleSignInUp() {
     const { hasWallet, isSignedIntoWallet } = this.props;
-    await this.props.checkForMetaMask();
     // localStorage.setItem(`serializedMuDID_${address}`, null);
+    console.log('in sign up');
     if (hasWallet && isSignedIntoWallet) {
       await this.props.signInUp();
+      console.log('has wallet and is signed in');
     } else if (!hasWallet) {
       this.props.requireMetaMask();
+      console.log('wallet missing');
     } else if (hasWallet && !isSignedIntoWallet) {
       this.props.handleRequireWalletLoginModal();
+      console.log('has wallet but needs to sign in');
     }
   }
 
@@ -242,7 +244,6 @@ class Landing extends Component {
 
 Landing.propTypes = {
   signInUp: PropTypes.func,
-  checkForMetaMask: PropTypes.func,
   closeErrorModal: PropTypes.func,
   handleMobileWalletModal: PropTypes.func,
   handleSignInModal: PropTypes.func,
@@ -265,7 +266,6 @@ Landing.propTypes = {
 
 Landing.defaultProps = {
   signInUp: signInUp(),
-  checkForMetaMask: checkForMetaMask(),
   closeErrorModal: closeErrorModal(),
   handleMobileWalletModal: handleMobileWalletModal(),
   handleSignInModal: handleSignInModal(),
@@ -300,4 +300,13 @@ const mapState = state => ({
   isLoggedIn: state.threeBox.isLoggedIn,
 });
 
-export default withRouter(connect(mapState, { signInUp, closeErrorModal, handleMobileWalletModal, handleSignInModal, closeConsentModal, requireMetaMask, closeRequireMetaMask, checkForMetaMask, handleRequireWalletLoginModal })(Landing));
+export default withRouter(connect(mapState, {
+  signInUp,
+  closeErrorModal,
+  handleMobileWalletModal,
+  handleSignInModal,
+  closeConsentModal,
+  requireMetaMask,
+  closeRequireMetaMask,
+  handleRequireWalletLoginModal
+})(Landing));
