@@ -11,7 +11,7 @@ import * as routes from '../utils/routes';
 import history from '../history';
 
 export const checkForWeb3Wallet = () => async (dispatch) => {
-  const cp = typeof web3 !== 'undefined' ? window.web3.currentProvider : null; // eslint-disable-line no-undef
+  const cp = typeof window.web3 !== 'undefined' ? window.web3.currentProvider : null; // eslint-disable-line no-undef
 
   const isToshi = cp ? !!cp.isToshi : false;
   const isCipher = cp ? !!cp.isCipher : false;
@@ -26,7 +26,7 @@ export const checkForWeb3Wallet = () => async (dispatch) => {
     currentWallet = 'isMetaMask';
   }
 
-  const accountsPromise = typeof web3 !== 'undefined' ? // eslint-disable-line no-undef
+  const accountsPromise = typeof window.web3 !== 'undefined' ? // eslint-disable-line no-undef
     new Promise((resolve, reject) => {
       window.web3.eth.getAccounts((e, accounts) => { // eslint-disable-line no-undef
         if (e != null) {
