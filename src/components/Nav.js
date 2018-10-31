@@ -54,7 +54,7 @@ class Nav extends Component {
             : <div id="nav__userPicture" onClick={this.handleDropdown} />
         }
 
-        <div className={`${showProfileModal ? 'nav__dropdown--visible' : undefined} nav__dropdown`} onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
+        <div className={`${showProfileModal ? 'nav__dropdown--visible' : undefined} nav__dropdown nav__dropdown--desktop`} onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
           <ul>
             <Link to={routes.PROFILE}><li>Profile</li></Link>
             <Link to={routes.EDITPROFILE}><li>Edit profile</li></Link>
@@ -64,20 +64,6 @@ class Nav extends Component {
             <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="nav__reportBug">Report a bug</li></a>
           </ul>
         </div>
-        {/* {showProfileModal
-          && (
-            <div className='nav__dropdown' onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
-              <ul>
-                <Link to={routes.PROFILE}><li>Profile</li></Link>
-                <Link to={routes.EDITPROFILE}><li>Edit profile</li></Link>
-                <div className="nav__divide" />
-                <li onClick={() => this.handleSignOut()}>Sign Out</li>
-                <div id="nav__divideBug" />
-                <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="nav__reportBug">Report a bug</li></a>
-              </ul>
-            </div>
-          )
-        } */}
 
         <div className={`${showProfileModal ? 'sideDrawer' : undefined} nav__dropdown mobileDropDown`} onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
           <ul>
@@ -121,3 +107,18 @@ function mapState(state) {
 
 export default withRouter(connect(mapState, { handleSignOut })(Nav));
 
+
+// {showProfileModal
+//   && (
+//     <div className='nav__dropdown' onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
+//       <ul>
+//         <Link to={routes.PROFILE}><li>Profile</li></Link>
+//         <Link to={routes.EDITPROFILE}><li>Edit profile</li></Link>
+//         <div className="nav__divide" />
+//         <li onClick={() => this.handleSignOut()}>Sign Out</li>
+//         <div id="nav__divideBug" />
+//         <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="nav__reportBug">Report a bug</li></a>
+//       </ul>
+//     </div>
+//   )
+// }

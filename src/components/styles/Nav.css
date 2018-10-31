@@ -74,12 +74,7 @@ nav {
   background-color: white;
   border-radius: 5px;
   border: 1px solid #E4E4E4;
-  box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #00000025;
-  visibility: hidden;
-  /* hides sub-menu */
-  opacity: 0;
-  transform: translateY(-14px);
-  transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s; }
+  box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #00000025; }
   .nav__dropdown ul {
     padding: 0; }
   .nav__dropdown li {
@@ -93,6 +88,12 @@ nav {
     background: #f9f9f9; }
   .nav__dropdown div {
     line-height: 0; }
+
+.nav__dropdown--desktop {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-14px);
+  transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s; }
 
 .nav__divide {
   border-top: 1px solid #CBCBCB;
@@ -164,7 +165,7 @@ nav {
   transform: translateY(-2em);
   transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s; }
 
-.nav__dropdown--visible.nav__dropdown {
+.nav__dropdown--visible.nav__dropdown.nav__dropdown--desktop {
   visibility: visible;
   /* shows sub-menu */
   opacity: 1;

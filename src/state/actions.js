@@ -153,29 +153,6 @@ export const signInUp = () => async (dispatch) => {
     consentCallback: consentGiven,
   };
 
-  // if (window.ethereum) {
-  //   console.log('ethereum');
-  //   window.web3 = new Web3(ethereum); // eslint-disable-line no-undef
-  //   try {
-  //     // Request account access if needed
-  //     console.log('ethereum');
-  //     await ethereum.enable(); // eslint-disable-line no-undef
-  //     // Acccounts now exposed
-  //     // web3.eth.sendTransaction({ /* ... */ }); // eslint-disable-line no-undef
-  //   } catch (error) {
-  //     // User denied account access...
-  //   }
-  // } else if (window.web3) {
-  //   // Legacy dapp browsers...
-  //   console.log('web3');
-  //   window.web3 = new Web3(web3.currentProvider); // eslint-disable-line no-undef
-  //   // Acccounts always exposed
-  //   // web3.eth.sendTransaction({ /* ... */ }); // eslint-disable-line no-undef
-  // } else {
-  //   // Non-dapp browsers...
-  //   console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
-  // }
-
   try {
     const returnedBox = await Box // eslint-disable-line no-undef
       .openBox(address, window.web3.currentProvider, opts); // eslint-disable-line no-undef
@@ -231,6 +208,19 @@ export const signInUp = () => async (dispatch) => {
       }, object);
     });
 
+    // if user signs in and there is no data in their threebox, then turn onboardingModal to true
+    if (publicActivity.length === 0 && privateActivity.length <= 1) {
+      dispatch({
+        type: 'HANDLE_ONBOARDING_MODAL',
+        onBoardingModal: true,
+      });
+      history.push('/EditProfile');
+    } else {
+      history.push('/Profile');
+    }
+
+    // if (publicActivity.length > 0 || privateActivity.length > 1) history.push('/Profile');
+
     const feed = activity.internal.concat(activity.txs).concat(activity.token).concat(publicActivity).concat(privateActivity);
     feed.sort((a, b) => b.timeStamp - a.timeStamp);
 
@@ -253,20 +243,10 @@ export const signInUp = () => async (dispatch) => {
       }
     });
 
-    // if user signs in and there is no data in their threebox, then turn onboardingModal to true
-    if (publicActivity.length === 0 && privateActivity.length <= 1) {
-      dispatch({
-        type: 'HANDLE_ONBOARDING_MODAL',
-        onBoardingModal: true,
-      });
-      history.push('/EditProfile');
-    }
-
     await dispatch({
       type: 'SIGN_IN_UP',
       box,
-      // ifFetchingThreeBox: false,
-      // errorMessage: '',
+      ifFetchingThreeBox: false,
       showErrorModal: false,
       name,
       github,
@@ -276,7 +256,6 @@ export const signInUp = () => async (dispatch) => {
       switched: false,
       isLoggedIn: true,
     });
-    if (publicActivity.length > 0 || privateActivity.length > 1) history.push('/Profile');
   } catch (err) {
     dispatch({
       type: 'FAILED_LOADING_3BOX',
