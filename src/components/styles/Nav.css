@@ -74,7 +74,12 @@ nav {
   background-color: white;
   border-radius: 5px;
   border: 1px solid #E4E4E4;
-  box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #00000025; }
+  box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #00000025;
+  visibility: hidden;
+  /* hides sub-menu */
+  opacity: 0;
+  transform: translateY(-14px);
+  transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s; }
   .nav__dropdown ul {
     padding: 0; }
   .nav__dropdown li {
@@ -151,6 +156,22 @@ nav {
   background: #f5f6f8;
   margin-left: -1px;
   padding-left: calc(1.3em - 5px) !important; }
+
+.sub-menu {
+  visibility: hidden;
+  /* hides sub-menu */
+  opacity: 0;
+  transform: translateY(-2em);
+  transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s; }
+
+.nav__dropdown--visible.nav__dropdown {
+  visibility: visible;
+  /* shows sub-menu */
+  opacity: 1;
+  z-index: 1;
+  transform: translateY(0%);
+  transition-delay: 0s, 0s, 0.3s;
+  /* this removes the transition delay so the menu will be visible while the other styles transition */ }
 
 @media only screen and (max-width: 600px) {
   .hide {

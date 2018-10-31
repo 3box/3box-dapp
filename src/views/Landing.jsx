@@ -65,20 +65,16 @@ class Landing extends Component {
   }
 
   async handleSignInUp() {
-    // localStorage.setItem(`serializedMuDID_${address}`, null);
     this.props.checkForWeb3Wallet();
     // const { hasWallet, isSignedIntoWallet } = this.props;
 
     if (typeof window.web3 !== 'undefined' && this.props.isSignedIntoWallet) {
       await this.props.signInUp();
-      console.log('has wallet and is signed in');
     } else if (typeof window.web3 === 'undefined') {
       this.props.requireMetaMask();
       this.props.handleMobileWalletModal();
-      console.log('wallet missing');
     } else if (typeof window.web3 !== 'undefined' && !this.props.isSignedIntoWallet) {
       this.props.handleRequireWalletLoginModal();
-      console.log('has wallet but needs to sign in');
     }
   }
 
@@ -95,9 +91,9 @@ class Landing extends Component {
     const { userAgent: ua } = navigator;
     const isIOS = ua.includes('iPhone');
     // const isAndroid = ua.includes('Android');
+
     // let signInToWalletError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.';
     let mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
-    console.log(mustConsentError);
 
     const classHide = this.state.retractNav ? 'hide' : '';
 
