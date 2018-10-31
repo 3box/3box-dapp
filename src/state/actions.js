@@ -11,7 +11,7 @@ import * as routes from '../utils/routes';
 import history from '../history';
 
 export const checkForWeb3Wallet = () => async (dispatch) => {
-  const cp = typeof web3 !== 'undefined' ? web3.currentProvider : null; // eslint-disable-line no-undef
+  const cp = typeof web3 !== 'undefined' ? window.web3.currentProvider : null; // eslint-disable-line no-undef
 
   const isToshi = cp ? !!cp.isToshi : false;
   const isCipher = cp ? !!cp.isCipher : false;
@@ -28,7 +28,7 @@ export const checkForWeb3Wallet = () => async (dispatch) => {
 
   const accountsPromise = typeof web3 !== 'undefined' ? // eslint-disable-line no-undef
     new Promise((resolve, reject) => {
-      web3.eth.getAccounts((e, accounts) => { // eslint-disable-line no-undef
+      window.web3.eth.getAccounts((e, accounts) => { // eslint-disable-line no-undef
         if (e != null) {
           reject(e);
         } else {
@@ -54,7 +54,7 @@ export const checkForWeb3Wallet = () => async (dispatch) => {
 // if has web3 wallet
 export const initialCheckNetworkAndAddress = () => async (dispatch) => {
   const checkNetwork = new Promise((resolve) => {
-    web3.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
+    window.web3.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
       switch (netId) {
         case '1':
           resolve('Main');
@@ -79,8 +79,8 @@ export const initialCheckNetworkAndAddress = () => async (dispatch) => {
 
   // // check network, compatible with old & new v of MetaMask
   let currentNetwork;
-  if (web3.eth.net) { // eslint-disable-line no-undef
-    await web3.eth.net.getNetworkType() // eslint-disable-line no-undef
+  if (window.web3.eth.net) { // eslint-disable-line no-undef
+    await window.web3.eth.net.getNetworkType() // eslint-disable-line no-undef
       .then((network) => {
         currentNetwork = network;
       });
@@ -180,7 +180,7 @@ export const signInUp = () => async (dispatch) => {
     // Modern dapp browsers...
 
     const returnedBox = await Box // eslint-disable-line no-undef
-      .openBox(address, web3.currentProvider, opts); // eslint-disable-line no-undef
+      .openBox(address, window.web3.currentProvider, opts); // eslint-disable-line no-undef
     box = await returnedBox;
 
     dispatch({
@@ -299,7 +299,7 @@ export const openBox = () => async (dispatch) => {
   });
   
   const returnedBox = await Box // eslint-disable-line no-undef
-    .openBox(address, web3.currentProvider); // eslint-disable-line no-undef
+    .openBox(address, window.web3.currentProvider); // eslint-disable-line no-undef
   const box = await returnedBox;
 
   dispatch({
