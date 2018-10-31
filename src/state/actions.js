@@ -38,7 +38,7 @@ export const checkForWeb3Wallet = () => async (dispatch) => {
     }) : null;
 
   const accounts = await accountsPromise;
-  const isSignedIntoWallet = typeof window.web3 !== 'undefined' && !!accounts.length > 0;
+  const isSignedIntoWallet = (typeof window.web3 !== 'undefined' && !!accounts.length > 0) || (currentWallet === 'isToshi');
   const isLoggedIn = Box.isLoggedIn(address); // eslint-disable-line no-undef
 
   await dispatch({
@@ -297,7 +297,7 @@ export const openBox = () => async (dispatch) => {
   dispatch({
     type: 'LOADING_ACTIVITY',
   });
-  
+
   const returnedBox = await Box // eslint-disable-line no-undef
     .openBox(address, window.web3.currentProvider); // eslint-disable-line no-undef
   const box = await returnedBox;

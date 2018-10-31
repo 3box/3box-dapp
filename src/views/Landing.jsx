@@ -74,12 +74,12 @@ class Landing extends Component {
     if (typeof window.web3 !== 'undefined' && this.props.isSignedIntoWallet) {
       await this.props.signInUp();
       console.log('has wallet and is signed in');
-    // } else if (!this.props.hasWallet) {
+      // } else if (!this.props.hasWallet) {
     } else if (typeof window.web3 === 'undefined') {
       this.props.requireMetaMask();
       this.props.handleMobileWalletModal();
       console.log('wallet missing');
-    } else if (this.props.hasWallet && !this.props.isSignedIntoWallet) {
+    } else if (typeof window.web3 === 'undefined' && !this.props.isSignedIntoWallet) {
       this.props.handleRequireWalletLoginModal();
       console.log('has wallet but needs to sign in');
     }
