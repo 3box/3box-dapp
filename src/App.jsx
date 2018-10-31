@@ -77,9 +77,9 @@ class App extends Component {
 
     this.props.hasWallet && await this.props.initialCheckNetworkAndAddress();
 
-    if ((pathname === '/Profile' || pathname === '/EditProfile') && typeof web3 !== 'undefined' && loginStatus) { // eslint-disable-line no-undef
+    if ((pathname === '/Profile' || pathname === '/EditProfile') && typeof window.web3 !== 'undefined' && loginStatus) { // eslint-disable-line no-undef
       this.loadData();
-    } else if (pathname === '/' && typeof web3 !== 'undefined' && loginStatus) { // eslint-disable-line no-undef
+    } else if (pathname === '/' && typeof window.web3 !== 'undefined' && loginStatus) { // eslint-disable-line no-undef
       history.push(routes.PROFILE);
       this.loadData();
     } else if ((pathname === '/Profile' || pathname === '/EditProfile') && !loginStatus) {

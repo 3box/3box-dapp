@@ -67,10 +67,10 @@ class Landing extends Component {
   }
 
   async handleSignInUp() {
-    const { hasWallet, isSignedIntoWallet } = this.props;
     // localStorage.setItem(`serializedMuDID_${address}`, null);
     this.props.checkForWeb3Wallet();
-    console.log('in sign up');
+    const { hasWallet, isSignedIntoWallet } = this.props;
+    
     if (hasWallet && isSignedIntoWallet) {
       await this.props.signInUp();
       console.log('has wallet and is signed in');

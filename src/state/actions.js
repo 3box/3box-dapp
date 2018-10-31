@@ -38,13 +38,13 @@ export const checkForWeb3Wallet = () => async (dispatch) => {
     }) : null;
 
   const accounts = await accountsPromise;
-  const isSignedIntoWallet = typeof web3 !== 'undefined' && !!accounts.length > 0;
+  const isSignedIntoWallet = typeof window.web3 !== 'undefined' && !!accounts.length > 0;
   const isLoggedIn = Box.isLoggedIn(address); // eslint-disable-line no-undef
 
   await dispatch({
     type: 'CHECK_WALLET',
-    hasWallet: typeof web3 !== 'undefined',
-    mobileWalletRequiredModal: typeof web3 === 'undefined',
+    hasWallet: typeof window.web3 !== 'undefined',
+    mobileWalletRequiredModal: typeof window.web3 === 'undefined',
     currentWallet,
     isSignedIntoWallet,
     isLoggedIn,
