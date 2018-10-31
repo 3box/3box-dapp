@@ -10,7 +10,6 @@ import EditProfile from './views/EditProfile.jsx';
 import Privacy from './views/Privacy.jsx';
 import Terms from './views/Terms.jsx';
 import history from './history';
-// import address from './utils/address';
 
 import {
   SwitchedAddressModal,

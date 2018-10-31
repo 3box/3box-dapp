@@ -21,7 +21,6 @@ import {
   MobileWalletRequiredModal,
   ErrorModal,
   MustConsentModal,
-  LoginDetectedModal,
   SignInToWalletModal,
 } from '../components/Modals.jsx';
 import ThreeBoxLogo from '../components/ThreeBoxLogo.jsx';
@@ -46,7 +45,6 @@ class Landing extends Component {
     super(props);
     this.state = {
       retractNav: false,
-      showMobileWalletPrompt: false,
     };
     this.handleSignInUp = this.handleSignInUp.bind(this);
   }
@@ -71,16 +69,14 @@ class Landing extends Component {
     this.props.checkForWeb3Wallet();
     // const { hasWallet, isSignedIntoWallet } = this.props;
 
-    if (typeof window.web3 !== 'undefined') {
-    // if (typeof window.web3 !== 'undefined' && this.props.isSignedIntoWallet) {
+    if (typeof window.web3 !== 'undefined' && this.props.isSignedIntoWallet) {
       await this.props.signInUp();
       console.log('has wallet and is signed in');
-      // } else if (!this.props.hasWallet) {
     } else if (typeof window.web3 === 'undefined') {
       this.props.requireMetaMask();
       this.props.handleMobileWalletModal();
       console.log('wallet missing');
-    } else if (typeof window.web3 === 'undefined' && !this.props.isSignedIntoWallet) {
+    } else if (typeof window.web3 !== 'undefined' && !this.props.isSignedIntoWallet) {
       this.props.handleRequireWalletLoginModal();
       console.log('has wallet but needs to sign in');
     }
@@ -89,7 +85,6 @@ class Landing extends Component {
   render() {
     const {
       showErrorModal,
-      loginDetectedModal,
       signInModal,
       errorMessage,
       provideConsent,
@@ -97,12 +92,12 @@ class Landing extends Component {
       mobileWalletRequiredModal,
       signInToWalletModal,
     } = this.props;
-    const { showMobileWalletPrompt } = this.state;
     const { userAgent: ua } = navigator;
     const isIOS = ua.includes('iPhone');
     // const isAndroid = ua.includes('Android');
-    let signInToWalletError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.';
+    // let signInToWalletError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.';
     let mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
+    console.log(mustConsentError);
 
     const classHide = this.state.retractNav ? 'hide' : '';
 
@@ -127,11 +122,11 @@ class Landing extends Component {
 
         <ProvideConsentModal closeConsentModal={this.props.closeConsentModal} show={provideConsent} />
         <RequireMetaMaskModal closeRequireMetaMask={this.props.closeRequireMetaMask} show={alertRequireMetaMask} />
-        <SignInToWalletModal handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal} show={signInToWalletModal || signInToWalletError} />
-        <ErrorModal errorMessage={errorMessage} closeErrorModal={this.props.closeErrorModal} show={!mustConsentError && !signInToWalletError && showErrorModal} />
-        <MustConsentModal errorMessage={errorMessage} closeErrorModal={this.props.closeErrorModal} show={mustConsentError} />
+        <SignInToWalletModal handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal} show={signInToWalletModal} />
+        {/* <SignInToWalletModal handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal} show={signInToWalletModal || signInToWalletError} /> */}
+        <ErrorModal errorMessage={errorMessage} closeErrorModal={this.props.closeErrorModal} show={showErrorModal && !mustConsentError} />
+        <MustConsentModal closeErrorModal={this.props.closeErrorModal} show={mustConsentError} />
         <MobileWalletRequiredModal isIOS={isIOS} handleMobileWalletModal={this.props.handleMobileWalletModal} show={mobileWalletRequiredModal} />
-        <LoginDetectedModal show={loginDetectedModal} />
         <SignInToThreeBox show={signInModal} handleSignInModal={this.props.handleSignInModal} />
 
         <img src={ThreeBoxGraphic} id="threeBoxGraphic" alt="ThreeBox Graphic" />
@@ -259,7 +254,6 @@ Landing.propTypes = {
   closeRequireMetaMask: PropTypes.func,
 
   showErrorModal: PropTypes.bool,
-  loginDetectedModal: PropTypes.bool,
   signInModal: PropTypes.bool,
   provideConsent: PropTypes.bool,
   hasWallet: PropTypes.bool,
@@ -282,7 +276,6 @@ Landing.defaultProps = {
   closeRequireMetaMask: closeRequireMetaMask(),
 
   showErrorModal: false,
-  loginDetectedModal: false,
   signInModal: false,
   provideConsent: false,
   alertRequireMetaMask: false,
@@ -296,7 +289,6 @@ Landing.defaultProps = {
 const mapState = state => ({
   errorMessage: state.threeBox.errorMessage,
   showErrorModal: state.threeBox.showErrorModal,
-  loginDetectedModal: state.threeBox.loginDetectedModal,
   signInModal: state.threeBox.signInModal,
   provideConsent: state.threeBox.provideConsent,
   hasWallet: state.threeBox.hasWallet,

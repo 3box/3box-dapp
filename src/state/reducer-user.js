@@ -213,7 +213,8 @@ export const threeBoxReducer = (state = {}, action) => {
     case 'HANDLE_WALLET_LOGIN_DETECTED_MODAL':
       return {
         ...state,
-        loginDetectedModal: action.loginDetectedModal,
+        isSignedIntoWallet: action.isSignedIntoWallet,
+        hasWallet: action.hasWallet,
       };
 
     case 'HANDLE_MOBILE_WALLET_REQUIRED_MODAL':

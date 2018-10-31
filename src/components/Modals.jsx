@@ -188,33 +188,11 @@ export const SignInToWalletModal = ({ handleRequireWalletLoginModal, show }) => 
             Unlock Your Wallet
         </h3>
           <p>
-            Unlock your web3 wallet and reload the page to continue
+            Unlock your web3 wallet to continue
         </p>
         </div>
-        <button onClick={() => window.location.reload()} type="button" className="tertiaryButton">Reload</button>
-        {/* <button onClick={handleRequireWalletLoginModal} type="button" className="tertiaryButton">close</button> */}
-      </div>
-    </div>
-    <div className="modal__overlay" />
-  </div>
-);
-
-export const LoginDetectedModal = ({ show }) => (
-  <div>
-    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
-      <div className="modal">
-        <img src={MetaMaskWallet} alt="Partners background" />
-
-        <div id="modal__copy__card">
-          <h3>
-            Web3 Login Detected
-        </h3>
-          <p>
-            A login to a web3 wallet has been detected - reload the page to continue
-        </p>
-        </div>
-
-        <button onClick={() => window.location.reload()} type="button" className="tertiaryButton">Reload</button>
+        {/* <button onClick={() => window.location.reload()} type="button" className="tertiaryButton">Reload</button> */}
+        <button onClick={handleRequireWalletLoginModal} type="button" className="tertiaryButton">Close</button>
       </div>
     </div>
     <div className="modal__overlay" />
@@ -249,7 +227,7 @@ export const ErrorModal = ({ closeErrorModal, errorMessage, show }) => (
   </div>
 );
 
-export const MustConsentModal = ({ closeErrorModal, errorMessage, show }) => (
+export const MustConsentModal = ({ closeErrorModal, show }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
       <div className="modal">

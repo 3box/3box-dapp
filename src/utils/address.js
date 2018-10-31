@@ -25,16 +25,22 @@ const pollNetworkAndAddress = () => {
     }
 
     // Logged in to MM
-    // if (currentAddress !== address && typeof currentAddress === 'string' && address === undefined) {
-    //   // window.location.reload();
-    //   store.dispatch({
-    //     type: 'HANDLE_WALLET_LOGIN_DETECTED_MODAL',
-    //     loginDetectedModal: true,
-    //   });
-    //   // web3 login detected
-    //   // show modal
-    //   // reload page from modal
-    // }
+    if (currentAddress !== address && typeof currentAddress === 'string' && address === undefined) {
+      store.dispatch({
+        type: 'HANDLE_WALLET_LOGIN_DETECTED_MODAL',
+        isSignedIntoWallet: true,
+        hasWallet: true,
+      });
+    }
+
+    // Logged out of MM
+    if (currentAddress !== address && typeof address === 'string' && currentAddress === undefined) {
+      store.dispatch({
+        type: 'HANDLE_WALLET_LOGIN_DETECTED_MODAL',
+        isSignedIntoWallet: false,
+        hasWallet: false,
+      });
+    }
 
     address = currentAddress;
     pollNetworkAndAddress();

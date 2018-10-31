@@ -177,8 +177,6 @@ export const signInUp = () => async (dispatch) => {
   // }
 
   try {
-    // Modern dapp browsers...
-
     const returnedBox = await Box // eslint-disable-line no-undef
       .openBox(address, window.web3.currentProvider, opts); // eslint-disable-line no-undef
     box = await returnedBox;
@@ -428,8 +426,7 @@ export const getActivity = () => async (dispatch) => {
 export const closeErrorModal = () => async (dispatch) => {
   dispatch({
     type: 'CLOSE_ERROR_MODAL',
-    errorMessage: store.getState().threeBox.errorMessage,
-    // errorMessage: '',
+    errorMessage: '',
     showErrorModal: false,
   });
 };
@@ -502,13 +499,6 @@ export const handleRequireWalletLoginModal = () => async (dispatch) => {
   dispatch({
     type: 'HANDLE_REQUIRE_LOGIN_MODAL',
     signInToWalletModal: !store.getState().threeBox.signInToWalletModal,
-  });
-};
-
-export const handleLoginDetectedModal = () => async (dispatch) => {
-  dispatch({
-    type: 'HANDLE_WALLET_LOGIN_DETECTED_MODAL',
-    loginDetectedModal: !store.getState().threeBox.loginDetectedModal,
   });
 };
 
