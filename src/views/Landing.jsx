@@ -71,7 +71,8 @@ class Landing extends Component {
     this.props.checkForWeb3Wallet();
     // const { hasWallet, isSignedIntoWallet } = this.props;
 
-    if (typeof window.web3 !== 'undefined' && this.props.isSignedIntoWallet) {
+    if (typeof window.web3 !== 'undefined') {
+    // if (typeof window.web3 !== 'undefined' && this.props.isSignedIntoWallet) {
       await this.props.signInUp();
       console.log('has wallet and is signed in');
       // } else if (!this.props.hasWallet) {
