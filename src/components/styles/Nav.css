@@ -160,6 +160,8 @@ nav {
     -moz-transition: all .5s ease;
     -o-transition: all .5s ease;
     transition: all .5s ease; }
+  #nav__logo--marginLeft {
+    margin-left: 6vw; }
   #nav__userPicture {
     margin-right: 6vw; }
   #actionButtons p {
