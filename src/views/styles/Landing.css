@@ -123,8 +123,7 @@
   z-index: 1; }
 
 #landing__createProfileButton {
-  margin-top: 3.5em;
-  cursor: pointer; }
+  margin-top: 3.5em; }
 
 @keyframes moveVertical {
   from {
