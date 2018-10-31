@@ -210,7 +210,7 @@ nav {
   .nav__dropdown__mobileLogo {
     display: flex;
     justify-content: flex-start;
-    margin: 4px 0 40px; }
+    margin: 4px 0 40px 6vw; }
   .nav__activePage {
     border-left: solid 5px #006ECC;
     background: #f5f6f8;
