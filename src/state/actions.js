@@ -51,62 +51,6 @@ export const checkForWeb3Wallet = () => async (dispatch) => {
   });
 };
 
-export const initialCheckNetwork = () => async (dispatch) => {
-  let currentNetwork;
-
-  if (typeof web3 !== 'undefined') {
-    const checkNetwork = new Promise((resolve) => {
-      web3.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
-        switch (netId) {
-          case '1':
-            resolve('Main');
-            break;
-          case '2':
-            resolve('Morder');
-            break;
-          case '3':
-            resolve('Ropsten');
-            break;
-          case '4':
-            resolve('Rinkeby');
-            break;
-          case '42':
-            resolve('Kovan');
-            break;
-          default:
-            resolve('Unknown');
-        }
-      });
-    });
-
-    // check network, compatible with old & new v of MetaMask
-    if (web3.eth.net) { // eslint-disable-line no-undef
-      await web3.eth.net.getNetworkType() // eslint-disable-line no-undef
-        .then((network) => {
-          currentNetwork = network;
-        });
-    } else {
-      await checkNetwork.then((network) => {
-        currentNetwork = network;
-      });
-    }
-  }
-
-  const prevNetwork = window.localStorage.getItem('currentNetwork');
-  const prevPrevNetwork = window.localStorage.getItem('prevNetwork');
-
-  window.localStorage.setItem('prevPrevNetwork', window.localStorage.prevNetwork);
-  window.localStorage.setItem('prevNetwork', window.localStorage.currentNetwork);
-  window.localStorage.setItem('currentNetwork', currentNetwork);
-
-  await dispatch({
-    type: 'CHECK_NETWORK_AND_ADDRESS',
-    currentNetwork,
-    prevNetwork,
-    prevPrevNetwork,
-  });
-};
-
 // if has web3 wallet
 export const initialCheckNetworkAndAddress = () => async (dispatch) => {
   const checkNetwork = new Promise((resolve) => {
@@ -636,6 +580,62 @@ export const handleMobileWalletModal = () => async (dispatch) => {
 //       prevPrevNetwork,
 //     });
 //   }
+
+//   await dispatch({
+//     type: 'CHECK_NETWORK_AND_ADDRESS',
+//     currentNetwork,
+//     prevNetwork,
+//     prevPrevNetwork,
+//   });
+// };
+
+// const initialCheckNetwork = () => async (dispatch) => {
+//   let currentNetwork;
+
+//   if (typeof web3 !== 'undefined') {
+//     const checkNetwork = new Promise((resolve) => {
+//       web3.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
+//         switch (netId) {
+//           case '1':
+//             resolve('Main');
+//             break;
+//           case '2':
+//             resolve('Morder');
+//             break;
+//           case '3':
+//             resolve('Ropsten');
+//             break;
+//           case '4':
+//             resolve('Rinkeby');
+//             break;
+//           case '42':
+//             resolve('Kovan');
+//             break;
+//           default:
+//             resolve('Unknown');
+//         }
+//       });
+//     });
+
+//     // check network, compatible with old & new v of MetaMask
+//     if (web3.eth.net) { // eslint-disable-line no-undef
+//       await web3.eth.net.getNetworkType() // eslint-disable-line no-undef
+//         .then((network) => {
+//           currentNetwork = network;
+//         });
+//     } else {
+//       await checkNetwork.then((network) => {
+//         currentNetwork = network;
+//       });
+//     }
+//   }
+
+//   const prevNetwork = window.localStorage.getItem('currentNetwork');
+//   const prevPrevNetwork = window.localStorage.getItem('prevNetwork');
+
+//   window.localStorage.setItem('prevPrevNetwork', window.localStorage.prevNetwork);
+//   window.localStorage.setItem('prevNetwork', window.localStorage.currentNetwork);
+//   window.localStorage.setItem('currentNetwork', currentNetwork);
 
 //   await dispatch({
 //     type: 'CHECK_NETWORK_AND_ADDRESS',

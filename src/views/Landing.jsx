@@ -11,6 +11,7 @@ import {
   handleRequireWalletLoginModal,
   closeConsentModal,
   requireMetaMask,
+  checkForWeb3Wallet,
   closeRequireMetaMask,
 } from '../state/actions';
 import {
@@ -68,6 +69,7 @@ class Landing extends Component {
   async handleSignInUp() {
     const { hasWallet, isSignedIntoWallet } = this.props;
     // localStorage.setItem(`serializedMuDID_${address}`, null);
+    this.props.checkForWeb3Wallet();
     console.log('in sign up');
     if (hasWallet && isSignedIntoWallet) {
       await this.props.signInUp();
@@ -251,7 +253,7 @@ Landing.propTypes = {
   handleRequireWalletLoginModal: PropTypes.func,
   closeConsentModal: PropTypes.func,
   requireMetaMask: PropTypes.func,
-  requireMetaMask: PropTypes.func,
+  checkForWeb3Wallet: PropTypes.func,
   closeRequireMetaMask: PropTypes.func,
 
   showErrorModal: PropTypes.bool,
@@ -274,6 +276,7 @@ Landing.defaultProps = {
   handleRequireWalletLoginModal: handleRequireWalletLoginModal(),
   closeConsentModal: closeConsentModal(),
   requireMetaMask: requireMetaMask(),
+  checkForWeb3Wallet: checkForWeb3Wallet(),
   closeRequireMetaMask: closeRequireMetaMask(),
 
   showErrorModal: false,
@@ -309,6 +312,7 @@ export default withRouter(connect(mapState, {
   handleSignInModal,
   closeConsentModal,
   requireMetaMask,
+  checkForWeb3Wallet,
   closeRequireMetaMask,
   handleRequireWalletLoginModal
 })(Landing));
