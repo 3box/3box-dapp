@@ -74,6 +74,7 @@ class Landing extends Component {
       console.log('has wallet and is signed in');
     } else if (!hasWallet) {
       this.props.requireMetaMask();
+      this.props.handleMobileWalletModal();
       console.log('wallet missing');
     } else if (hasWallet && !isSignedIntoWallet) {
       this.props.handleRequireWalletLoginModal();
@@ -249,6 +250,7 @@ Landing.propTypes = {
   handleSignInModal: PropTypes.func,
   handleRequireWalletLoginModal: PropTypes.func,
   closeConsentModal: PropTypes.func,
+  requireMetaMask: PropTypes.func,
   requireMetaMask: PropTypes.func,
   closeRequireMetaMask: PropTypes.func,
 

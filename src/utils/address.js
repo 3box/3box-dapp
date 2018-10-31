@@ -36,8 +36,6 @@ const pollNetworkAndAddress = () => {
     //   // reload page from modal
     // }
 
-    console.log('polling');
-
     address = currentAddress;
     pollNetworkAndAddress();
   }, 1000);

@@ -571,7 +571,8 @@ export const handleLoginDetectedModal = () => async (dispatch) => {
 export const handleMobileWalletModal = () => async (dispatch) => {
   dispatch({
     type: 'HANDLE_MOBILE_WALLET_REQUIRED_MODAL',
-    mobileWalletRequiredModal: false,
+    mobileWalletRequiredModal: !store.getState().threeBox.mobileWalletRequiredModal,
+    // mobileWalletRequiredModal: false,
   });
 };
 
