@@ -19,7 +19,7 @@ import LogOut from '../assets/LogOut.svg';
 import Loading from '../assets/Loading.svg';
 import './styles/Modal.css';
 
-export const SwitchedNetworksModal = ({ prevNetwork, currentNetwork, proceedWithSwitchedAddress, show }) => (
+export const SwitchedNetworksModal = ({ prevNetwork, currentNetwork, proceedWithSwitchedAddressModal, show, isMobile }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
       <div className="modal">
@@ -39,7 +39,7 @@ export const SwitchedNetworksModal = ({ prevNetwork, currentNetwork, proceedWith
           </p>
         </div>
 
-        <button onClick={() => { proceedWithSwitchedAddress(); window.localStorage.setItem('switch', true); }} type="button">
+        <button onClick={() => { proceedWithSwitchedAddressModal(); window.localStorage.setItem('switch', true); }} type="button">
           Continue on
         {` ${currentNetwork}`}
         </button>
@@ -50,7 +50,7 @@ export const SwitchedNetworksModal = ({ prevNetwork, currentNetwork, proceedWith
   </div>
 );
 
-export const LoggedOutModal = ({ showLoggedOutModal, handleSignOut, show }) => (
+export const LoggedOutModal = ({ handleLoggedOutModal, handleSignOut, show, isMobile }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
       <div className="modal">
@@ -59,14 +59,15 @@ export const LoggedOutModal = ({ showLoggedOutModal, handleSignOut, show }) => (
         <div>
           <h3>
             Logged out
-        </h3>
-          <p>
-            Sign back in to your web3 wallet (e.g. MetaMask) or exit 3Box
-        </p>
+          </h3>
+          {isMobile
+            ? <p>Sign back in to your web3 wallet or exit 3Box</p>
+            : <p>Sign back in to your MetaMask wallet or exit 3Box</p>
+          }
         </div>
 
         <Link to={routes.LANDING}>
-          <button onClick={() => { showLoggedOutModal(); handleSignOut(); }} type="button">Exit</button>
+          <button onClick={() => { handleLoggedOutModal(); handleSignOut(); }} type="button">Exit</button>
         </Link>
       </div>
     </div>
@@ -74,7 +75,7 @@ export const LoggedOutModal = ({ showLoggedOutModal, handleSignOut, show }) => (
   </div>
 );
 
-export const SwitchedAddressModal = ({ showSwitchedAddressModal, show, handleSignOut }) => (
+export const SwitchedAddressModal = ({ handleSwitchedAddressModal, show, handleSignOut, isMobile }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
       <div className="modal">
@@ -84,13 +85,14 @@ export const SwitchedAddressModal = ({ showSwitchedAddressModal, show, handleSig
           <h3>
             Address change detected
         </h3>
-          <p>
-            Revert to the previous address in your web3 wallet (e.g. MetaMask) or sign back in with the new address
-        </p>
+          {isMobile
+            ? <p>Revert to the previous address in your web3 wallet or sign back in with the new address</p>
+            : <p>Revert to the previous address in your MetaMask wallet or sign back in with the new address</p>
+          }
         </div>
 
         <Link to={routes.LANDING}>
-          <button onClick={() => { showSwitchedAddressModal(); handleSignOut(); }} type="button">Sign in with new address</button>
+          <button onClick={() => { handleSwitchedAddressModal(); handleSignOut(); }} type="button">Sign in with new address</button>
         </Link>
       </div>
     </div>
@@ -99,7 +101,7 @@ export const SwitchedAddressModal = ({ showSwitchedAddressModal, show, handleSig
 );
 
 // Landing Page Modals
-export const ProvideConsentModal = ({ closeConsentModal, show }) => (
+export const ProvideConsentModal = ({ closeConsentModal, show, isMobile }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
       <div className="modal">
@@ -107,7 +109,10 @@ export const ProvideConsentModal = ({ closeConsentModal, show }) => (
 
         <div id="modal__copy__card">
           <h3>Log in to 3Box</h3>
-          <p>Approve the message in your web3 wallet (e.g. MetaMask) to continue</p>
+          {isMobile
+            ? <p>Approve the message in your web3 wallet to continue</p>
+            : <p>Approve the message in your MetaMask wallet to continue</p>
+          }
         </div>
 
         <button onClick={closeConsentModal} type="button" className="tertiaryButton">Close</button>
@@ -155,7 +160,7 @@ export const FileSizeModal = ({ show, closeFileSizeModal }) => (
   </div>
 );
 
-export const RequireMetaMaskModal = ({ closeRequireMetaMask, show }) => (
+export const RequireMetaMaskModal = ({ closeRequireMetaMaskModal, show, isMobile }) => (
   <div className="mobileInvisible">
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
       <div className="modal">
@@ -165,19 +170,20 @@ export const RequireMetaMaskModal = ({ closeRequireMetaMask, show }) => (
           <h3>
             Install Web3 Wallet
           </h3>
-          <p>
-            You must have a web3 wallet (e.g. MetaMask) to sign in or create a profile on 3Box
-          </p>
+          {isMobile
+            ? <p>You must have a web3 wallet to sign in or create a profile on 3Box</p>
+            : <p>You must have MetaMask to sign in or create a profile on 3Box</p>
+          }
         </div>
 
-        <button onClick={closeRequireMetaMask} type="button" className="tertiaryButton">Close</button>
+        <button onClick={closeRequireMetaMaskModal} type="button" className="tertiaryButton">Close</button>
       </div>
     </div>
     <div className="modal__overlay" />
   </div>
 );
 
-export const SignInToWalletModal = ({ handleRequireWalletLoginModal, show }) => (
+export const SignInToWalletModal = ({ handleRequireWalletLoginModal, show, isMobile }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
       <div className="modal">
@@ -186,10 +192,11 @@ export const SignInToWalletModal = ({ handleRequireWalletLoginModal, show }) => 
         <div id="modal__copy__card">
           <h3>
             Unlock Your Wallet
-        </h3>
-          <p>
-            Unlock your web3 wallet to continue
-        </p>
+          </h3>
+          {isMobile
+            ? <p>Unlock your web3 wallet to continue</p>
+            : <p>Unlock your MetaMask wallet to continue</p>
+          }
         </div>
         <button onClick={handleRequireWalletLoginModal} type="button" className="tertiaryButton">Close</button>
       </div>
@@ -226,14 +233,17 @@ export const ErrorModal = ({ closeErrorModal, errorMessage, show }) => (
   </div>
 );
 
-export const MustConsentModal = ({ closeErrorModal, show }) => (
+export const MustConsentModal = ({ closeErrorModal, show, isMobile }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
       <div className="modal">
         <img src={Consent} alt="Consent required" />
         <div id="modal__copy__card">
           <h3>Log in to 3Box</h3>
-          <p>You must provide consent to 3Box in your web3 wallet (e.g. MetaMask) to sign in or create a profile, please try again</p>
+          {isMobile
+            ? <p>You must provide consent to 3Box in your web3 wallet to sign in or create a profile, please try again</p>
+            : <p>You must provide consent to 3Box in MetaMask to sign in or create a profile, please try again</p>
+          }
         </div>
         <button onClick={closeErrorModal} type="button" className="tertiaryButton">Close</button>
       </div>

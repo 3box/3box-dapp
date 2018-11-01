@@ -10,7 +10,7 @@ const pollNetworkAndAddress = () => {
     // Logged out
     if (currentAddress !== address && currentAddress === undefined && store.getState().threeBox.isLoggedIn) {
       store.dispatch({
-        type: 'SHOW_LOGGEDOUT_MODAL',
+        type: 'HANDLE_LOGGEDOUT_MODAL',
         loggedOutModal: true,
       });
     }
@@ -18,7 +18,7 @@ const pollNetworkAndAddress = () => {
     // Switched address
     if (currentAddress !== address && typeof currentAddress === 'string' && address !== undefined && store.getState().threeBox.isLoggedIn) {
       store.dispatch({
-        type: 'SHOW_SWITCHED_ADDRESS_MODAL',
+        type: 'HANDLE_SWITCHED_ADDRESS_MODAL',
         switchedAddressModal: true,
         switched: true,
       });

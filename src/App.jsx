@@ -15,14 +15,9 @@ import {
   SwitchedAddressModal,
   SwitchedNetworksModal,
   LoggedOutModal,
-  // OnBoardingModal,
-  // OnBoardingModal2,
   OnBoardingModalDesktop,
   LoadingThreeBoxProfileModal,
   OnBoardingModalMobile,
-  // OnBoardingModalMobile1,
-  // OnBoardingModalMobile2,
-  // OnBoardingModalMobile3,
 } from './components/Modals.jsx';
 
 import {
@@ -33,17 +28,18 @@ import {
   getPrivateEmail,
   getActivity,
   checkForWeb3Wallet,
-  // checkNetworkAndAddress,
-  // initialCheckNetwork,
   initialCheckNetworkAndAddress,
-  handleSignInModal,
-  closeDifferentNetwork,
-  proceedWithSwitchedAddress,
-  showLoggedOutModal,
   handleSignOut,
-  showSwitchedAddressModal,
-  handleOnboardingModal,
 } from './state/actions';
+
+import {
+  handleSignInModal,
+  closeDifferentNetworkModal,
+  proceedWithSwitchedAddressModal,
+  handleLoggedOutModal,
+  handleSwitchedAddressModal,
+  handleOnboardingModal,
+} from './state/actions-modals';
 
 class App extends Component {
   constructor(props) {
@@ -133,19 +129,22 @@ class App extends Component {
         <SwitchedNetworksModal
           prevNetwork={prevNetwork}
           currentNetwork={currentNetwork}
-          proceedWithSwitchedAddress={this.props.proceedWithSwitchedAddress}
+          isMobile={isMobile}
+          proceedWithSwitchedAddressModal={this.props.proceedWithSwitchedAddressModal}
           show={(showDifferentNetworkModal && prevPrevNetwork !== currentNetworkState)}
         />
 
         <LoggedOutModal
-          showLoggedOutModal={this.props.showLoggedOutModal}
+          isMobile={isMobile}
+          handleLoggedOutModal={this.props.handleLoggedOutModal}
           handleSignOut={this.props.handleSignOut}
           show={loggedOutModal}
         />
 
         <SwitchedAddressModal
-          showSwitchedAddressModal={this.props.showSwitchedAddressModal}
+          handleSwitchedAddressModal={this.props.handleSwitchedAddressModal}
           show={switchedAddressModal}
+          isMobile={isMobile}
           handleSignOut={this.props.handleSignOut}
         />
 
@@ -184,15 +183,13 @@ App.propTypes = {
   getPrivateEmail: PropTypes.func,
   getActivity: PropTypes.func,
   checkForWeb3Wallet: PropTypes.func,
-  closeDifferentNetwork: PropTypes.func,
-  proceedWithSwitchedAddress: PropTypes.func,
+  closeDifferentNetworkModal: PropTypes.func,
+  proceedWithSwitchedAddressModal: PropTypes.func,
   handleSignOut: PropTypes.func,
-  // checkNetworkAndAddress: PropTypes.func,
-  // initialCheckNetwork: PropTypes.func,
   initialCheckNetworkAndAddress: PropTypes.func,
   handleSignInModal: PropTypes.func,
-  showLoggedOutModal: PropTypes.func,
-  showSwitchedAddressModal: PropTypes.func,
+  handleLoggedOutModal: PropTypes.func,
+  handleSwitchedAddressModal: PropTypes.func,
   handleOnboardingModal: PropTypes.func,
 
   location: PropTypes.object,
@@ -219,14 +216,12 @@ App.defaultProps = {
   getPrivateEmail: getPrivateEmail(),
   getActivity: getActivity(),
   checkForWeb3Wallet: checkForWeb3Wallet(),
-  closeDifferentNetwork: closeDifferentNetwork(),
-  proceedWithSwitchedAddress: proceedWithSwitchedAddress(),
-  // checkNetworkAndAddress: checkNetworkAndAddress(),
-  // initialCheckNetwork: initialCheckNetwork(),
+  closeDifferentNetworkModal: closeDifferentNetworkModal(),
+  proceedWithSwitchedAddressModal: proceedWithSwitchedAddressModal(),
   initialCheckNetworkAndAddress: initialCheckNetworkAndAddress(),
   handleSignInModal: handleSignInModal(),
-  showLoggedOutModal: showLoggedOutModal(),
-  showSwitchedAddressModal: showSwitchedAddressModal(),
+  handleLoggedOutModal: handleLoggedOutModal(),
+  handleSwitchedAddressModal: handleSwitchedAddressModal(),
   handleSignOut: handleSignOut(),
   handleOnboardingModal: handleOnboardingModal(),
 
@@ -271,14 +266,12 @@ export default withRouter(connect(mapState,
     getPrivateEmail,
     getActivity,
     checkForWeb3Wallet,
-    // checkNetworkAndAddress,
-    // initialCheckNetwork,
     initialCheckNetworkAndAddress,
     handleSignInModal,
-    closeDifferentNetwork,
-    proceedWithSwitchedAddress,
-    showLoggedOutModal,
+    closeDifferentNetworkModal,
+    proceedWithSwitchedAddressModal,
+    handleLoggedOutModal,
     handleSignOut,
-    showSwitchedAddressModal,
+    handleSwitchedAddressModal,
     handleOnboardingModal,
   })(App));

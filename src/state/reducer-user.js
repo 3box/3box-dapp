@@ -10,30 +10,12 @@ export const threeBoxReducer = (state = {}, action) => {
         isLoggedIn: action.isLoggedIn,
       };
 
-    case 'DIFFERENT_NETWORK':
-      return {
-        ...state,
-        currentNetwork: action.currentNetwork,
-        prevNetwork: action.prevNetwork,
-        prevPrevNetwork: action.prevPrevNetwork,
-        showDifferentNetworkModal: true,
-        onBoardingModal: false,
-        onBoardingModal2: false,
-        ifFetchingThreeBox: false,
-      };
-
     case 'CHECK_NETWORK_AND_ADDRESS':
       return {
         ...state,
         currentNetwork: action.currentNetwork,
         prevNetwork: action.prevNetwork,
         prevPrevNetwork: action.prevPrevNetwork,
-      };
-
-    case 'REQUIRE_METAMASK':
-      return {
-        ...state,
-        alertRequireMetaMask: action.alertRequireMetaMask,
       };
 
     case 'SIGN_IN_UP':
@@ -50,6 +32,26 @@ export const threeBoxReducer = (state = {}, action) => {
         feedByAddress: action.feedByAddress,
         switched: action.switched,
         isLoggedIn: action.isLoggedIn,
+      };
+
+    case 'LOADING_ACTIVITY':
+      return {
+        ...state,
+        ifFetchingActivity: true,
+      };
+
+    case 'GET_ACTIVITY':
+      return {
+        ...state,
+        feedByAddress: action.feedByAddress,
+        ifFetchingActivity: false,
+      };
+
+    case 'FAILED_LOADING_ACTIVITY':
+      return {
+        ...state,
+        feedByAddress: [],
+        ifFetchingActivity: false,
       };
 
     case 'GET_THREEBOX':
@@ -85,6 +87,13 @@ export const threeBoxReducer = (state = {}, action) => {
         email: action.email,
       };
 
+    case 'HANDLE_SIGNOUT':
+      return {
+        ...state,
+        isLoggedIn: false,
+      };
+
+      // MODALS
     case 'PROVIDE_CONSENT':
       return {
         ...state,
@@ -107,6 +116,12 @@ export const threeBoxReducer = (state = {}, action) => {
         errorMessage: action.errorMessage,
       };
 
+    case 'REQUIRE_METAMASK':
+      return {
+        ...state,
+        alertRequireMetaMask: action.alertRequireMetaMask,
+      };
+
     case 'CLOSE_ERROR_MODAL':
       return {
         ...state,
@@ -121,6 +136,18 @@ export const threeBoxReducer = (state = {}, action) => {
         showErrorModal: true,
       };
 
+    case 'DIFFERENT_NETWORK':
+      return {
+        ...state,
+        currentNetwork: action.currentNetwork,
+        prevNetwork: action.prevNetwork,
+        prevPrevNetwork: action.prevPrevNetwork,
+        showDifferentNetworkModal: true,
+        onBoardingModal: false,
+        onBoardingModal2: false,
+        ifFetchingThreeBox: false,
+      };
+
     case 'CLOSE_CONSENT_MODAL':
       return {
         ...state,
@@ -133,27 +160,7 @@ export const threeBoxReducer = (state = {}, action) => {
         showDifferentNetworkModal: false,
       };
 
-    case 'LOADING_ACTIVITY':
-      return {
-        ...state,
-        ifFetchingActivity: true,
-      };
-
-    case 'GET_ACTIVITY':
-      return {
-        ...state,
-        feedByAddress: action.feedByAddress,
-        ifFetchingActivity: false,
-      };
-
-    case 'FAILED_LOADING_ACTIVITY':
-      return {
-        ...state,
-        feedByAddress: [],
-        ifFetchingActivity: false,
-      };
-
-    case 'SHOW_LOGGEDOUT_MODAL':
+    case 'HANDLE_LOGGEDOUT_MODAL':
       return {
         ...state,
         loggedOutModal: action.loggedOutModal,
@@ -162,7 +169,7 @@ export const threeBoxReducer = (state = {}, action) => {
         onBoardingModal2: false,
       };
 
-    case 'SHOW_SWITCHED_ADDRESS_MODAL':
+    case 'HANDLE_SWITCHED_ADDRESS_MODAL':
       return {
         ...state,
         switchedAddressModal: action.switchedAddressModal,
@@ -183,12 +190,6 @@ export const threeBoxReducer = (state = {}, action) => {
         ...state,
         switch: action.switch,
         showDifferentNetworkModal: action.showDifferentNetworkModal,
-      };
-
-    case 'HANDLE_SIGNOUT':
-      return {
-        ...state,
-        isLoggedIn: false,
       };
 
     case 'HANDLE_ONBOARDING_MODAL':

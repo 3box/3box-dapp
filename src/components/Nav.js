@@ -54,7 +54,10 @@ class Nav extends Component {
             : <div id="nav__userPicture" onClick={this.handleDropdown} />
         }
 
-        <div className={`${showProfileModal ? 'nav__dropdown--visible' : undefined} nav__dropdown nav__dropdown--desktop`} onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
+        {/* desktop nav dropdown */}
+        <div className={`${showProfileModal ? 'nav__dropdown--visible' : undefined} nav__dropdown nav__dropdown--desktop`}
+          // onMouseLeave={this.handleDropdown}
+          onClick={this.handleDropdown}>
           <ul>
             <Link to={routes.PROFILE}><li>Profile</li></Link>
             <Link to={routes.EDITPROFILE}><li>Edit profile</li></Link>
@@ -65,6 +68,11 @@ class Nav extends Component {
           </ul>
         </div>
 
+        {showProfileModal ?
+          <div className='onClickOutside' onClick={this.handleDropdown} />
+          : null}
+
+        {/* mobile nav dropdown */}
         <div className={`${showProfileModal ? 'sideDrawer' : undefined} nav__dropdown mobileDropDown`} onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
           <ul>
             <div className='nav__dropdown__mobileLogo'>

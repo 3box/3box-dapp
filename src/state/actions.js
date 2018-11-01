@@ -7,27 +7,34 @@ import {
 } from './store';
 
 import * as routes from '../utils/routes';
-
 import history from '../history';
 
 export const checkForWeb3Wallet = () => async (dispatch) => {
   const cp = typeof window.web3 !== 'undefined' ? window.web3.currentProvider : null; // eslint-disable-line no-undef
 
-  const isToshi = cp ? !!cp.isToshi : false;
-  const isCipher = cp ? !!cp.isCipher : false;
-  const isMetaMask = cp ? !!cp.isMetaMask : false;
+  let isToshi;
+  let isCipher;
+  let isMetaMask;
   let currentWallet;
+  let accountsPromise;
+  let accounts;
+  let isSignedIntoWallet;
+  let isLoggedIn;
 
-  if (isToshi) {
-    currentWallet = 'isToshi';
-  } else if (isCipher) {
-    currentWallet = 'isCipher';
-  } else if (isMetaMask) {
-    currentWallet = 'isMetaMask';
-  }
+  if (cp) {
+    isToshi = !!cp.isToshi;
+    isCipher = !!cp.isCipher;
+    isMetaMask = !!cp.isMetaMask;
 
-  const accountsPromise = typeof window.web3 !== 'undefined' ? // eslint-disable-line no-undef
-    new Promise((resolve, reject) => {
+    if (isToshi) {
+      currentWallet = 'isToshi';
+    } else if (isCipher) {
+      currentWallet = 'isCipher';
+    } else if (isMetaMask) {
+      currentWallet = 'isMetaMask';
+    }
+
+    accountsPromise = new Promise((resolve, reject) => {
       window.web3.eth.getAccounts((e, accounts) => { // eslint-disable-line no-undef
         if (e != null) {
           reject(e);
@@ -35,16 +42,17 @@ export const checkForWeb3Wallet = () => async (dispatch) => {
           resolve(accounts);
         }
       });
-    }) : null;
+    });
 
-  const accounts = await accountsPromise;
-  const isSignedIntoWallet = (typeof window.web3 !== 'undefined' && !!accounts.length > 0) || (currentWallet === 'isToshi');
-  const isLoggedIn = Box.isLoggedIn(address); // eslint-disable-line no-undef
+    accounts = await accountsPromise;
+    isSignedIntoWallet = !!accounts.length > 0 || (currentWallet === 'isToshi');
+    isLoggedIn = Box.isLoggedIn(address); // eslint-disable-line no-undef
+  }
 
   await dispatch({
     type: 'CHECK_WALLET',
-    hasWallet: typeof window.web3 !== 'undefined',
-    mobileWalletRequiredModal: typeof window.web3 === 'undefined',
+    hasWallet: typeof window.web3 !== 'undefined', // eslint-disable-line no-undef
+    mobileWalletRequiredModal: typeof window.web3 === 'undefined', // eslint-disable-line no-undef
     currentWallet,
     isSignedIntoWallet,
     isLoggedIn,
@@ -113,27 +121,6 @@ export const initialCheckNetworkAndAddress = () => async (dispatch) => {
       prevPrevNetwork,
     });
   }
-};
-
-export const closeDifferentNetwork = () => (dispatch) => {
-  dispatch({
-    type: 'CLOSE_DIFFERENT_NETWORK_MODAL',
-    showDifferentNetworkModal: false,
-  });
-};
-
-export const requireMetaMask = () => (dispatch) => {
-  dispatch({
-    type: 'REQUIRE_METAMASK',
-    alertRequireMetaMask: true,
-  });
-};
-
-export const closeRequireMetaMask = () => (dispatch) => {
-  dispatch({
-    type: 'REQUIRE_METAMASK',
-    alertRequireMetaMask: false,
-  });
 };
 
 export const signInUp = () => async (dispatch) => {
@@ -402,52 +389,6 @@ export const getActivity = () => async (dispatch) => {
   }
 };
 
-export const closeErrorModal = () => async (dispatch) => {
-  dispatch({
-    type: 'CLOSE_ERROR_MODAL',
-    errorMessage: '',
-    showErrorModal: false,
-  });
-};
-
-export const handleSignInModal = () => async (dispatch) => {
-  dispatch({
-    type: 'HANDLE_SIGNIN_MODAL',
-    // errorMessage: '',
-    errorMessage: store.getState().threeBox.errorMessage,
-    signInModal: !store.getState().threeBox.signInModal,
-  });
-};
-
-export const closeConsentModal = () => async (dispatch) => {
-  dispatch({
-    type: 'CLOSE_CONSENT_MODAL',
-    provideConsent: false,
-  });
-};
-
-export const showLoggedOutModal = () => async (dispatch) => {
-  dispatch({
-    type: 'SHOW_LOGGEDOUT_MODAL',
-    loggedOutModal: !store.getState().threeBox.loggedOutModal,
-  });
-};
-
-export const showSwitchedAddressModal = () => async (dispatch) => {
-  dispatch({
-    type: 'SHOW_SWITCHED_ADDRESS_MODAL',
-    switchedAddressModal: !store.getState().threeBox.switchedAddressModal,
-  });
-};
-
-export const proceedWithSwitchedAddress = () => async (dispatch) => {
-  dispatch({
-    type: 'PROCEED_WITH_SWITCHED_ADDRESS',
-    switch: false,
-    showDifferentNetworkModal: false,
-  });
-};
-
 export const handleSignOut = () => async (dispatch) => {
   if (store.getState().threeBox.isLoggedIn) {
     store.getState().threeBox.box.logout();
@@ -457,36 +398,6 @@ export const handleSignOut = () => async (dispatch) => {
     });
   }
   history.push(routes.LANDING);
-};
-
-export const handleOnboardingModal = mobile => async (dispatch) => {
-  if (mobile) {
-    dispatch({
-      type: 'HANDLE_ONBOARDING_MODAL2',
-      onBoardingModal: false,
-    });
-  } else {
-    dispatch({
-      type: 'HANDLE_ONBOARDING_MODAL2',
-      onBoardingModalTwo: !store.getState().threeBox.onBoardingModalTwo,
-      onBoardingModal: false,
-    });
-  }
-};
-
-export const handleRequireWalletLoginModal = () => async (dispatch) => {
-  dispatch({
-    type: 'HANDLE_REQUIRE_LOGIN_MODAL',
-    signInToWalletModal: !store.getState().threeBox.signInToWalletModal,
-  });
-};
-
-export const handleMobileWalletModal = () => async (dispatch) => {
-  dispatch({
-    type: 'HANDLE_MOBILE_WALLET_REQUIRED_MODAL',
-    mobileWalletRequiredModal: !store.getState().threeBox.mobileWalletRequiredModal,
-    // mobileWalletRequiredModal: false,
-  });
 };
 
 // export const checkNetworkAndAddress = () => async (dispatch) => {
