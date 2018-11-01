@@ -15,12 +15,14 @@ import {
   SwitchedAddressModal,
   SwitchedNetworksModal,
   LoggedOutModal,
-  OnBoardingModal,
-  OnBoardingModal2,
+  // OnBoardingModal,
+  // OnBoardingModal2,
+  OnBoardingModalDesktop,
   LoadingThreeBoxProfileModal,
-  OnBoardingModalMobile1,
-  OnBoardingModalMobile2,
-  OnBoardingModalMobile3,
+  OnBoardingModalMobile,
+  // OnBoardingModalMobile1,
+  // OnBoardingModalMobile2,
+  // OnBoardingModalMobile3,
 } from './components/Modals.jsx';
 
 import {
@@ -147,12 +149,20 @@ class App extends Component {
           handleSignOut={this.props.handleSignOut}
         />
 
-        <OnBoardingModal isMobile={isMobile} show={onBoardingModal} handleOnboardingModal={this.props.handleOnboardingModal} handleNextMobileModal={this.handleNextMobileModal} />
-        <OnBoardingModal2 show={onBoardingModalTwo} handleOnboardingModal={this.props.handleOnboardingModal} />
+        <OnBoardingModalDesktop
+          isMobile={isMobile}
+          showOne={onBoardingModal}
+          showTwo={onBoardingModalTwo}
+          handleOnboardingModal={this.props.handleOnboardingModal} />
 
-        {onBoardingModalMobileOne && <OnBoardingModalMobile1 show={onBoardingModalMobileOne} handleNextMobileModal={this.handleNextMobileModal} />}
-        {onBoardingModalMobileTwo && <OnBoardingModalMobile2 show={onBoardingModalMobileTwo} handleNextMobileModal={this.handleNextMobileModal} />}
-        {onBoardingModalMobileThree && <OnBoardingModalMobile3 show={onBoardingModalMobileThree} handleNextMobileModal={this.handleNextMobileModal} />}
+        <OnBoardingModalMobile
+          isMobile={isMobile}
+          handleOnboardingModal={this.props.handleOnboardingModal}
+          showOne={onBoardingModal}
+          showTwo={onBoardingModalMobileOne}
+          showThree={onBoardingModalMobileTwo}
+          showFour={onBoardingModalMobileThree}
+          handleNextMobileModal={this.handleNextMobileModal} />
 
         <Switch>
           <Route exact path={routes.LANDING} component={Landing} />
