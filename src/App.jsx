@@ -21,14 +21,14 @@ import {
 } from './components/Modals.jsx';
 
 import {
-  openBox,
+  profileGetBox,
   getPublicName,
   getPublicGithub,
   getPublicImage,
   getPrivateEmail,
   getActivity,
-  checkForWeb3Wallet,
-  initialCheckNetworkAndAddress,
+  checkWeb3Wallet,
+  checkNetwork,
   handleSignOut,
 } from './state/actions';
 
@@ -69,19 +69,22 @@ class App extends Component {
     const { location } = this.props;
     const { pathname } = location;
 
-    // window.addEventListener('load',
-    await this.props.checkForWeb3Wallet()
-    // )
+    // check if user has web3 wallet
+    await this.props.checkWeb3Wallet()
+    this.props.hasWallet && await this.props.checkNetwork();
     const loginStatus = this.props.isLoggedIn;
 
-    this.props.hasWallet && await this.props.initialCheckNetworkAndAddress();
-
     if ((pathname === '/Profile' || pathname === '/EditProfile') && typeof window.web3 !== 'undefined' && loginStatus) { // eslint-disable-line no-undef
+      // if user is logged in and lands on restricted pages
       this.loadData();
+
     } else if (pathname === '/' && typeof window.web3 !== 'undefined' && loginStatus) { // eslint-disable-line no-undef
+      // if user is logged in and lands on landing page, redirect them to profile page
       history.push(routes.PROFILE);
       this.loadData();
+
     } else if ((pathname === '/Profile' || pathname === '/EditProfile') && !loginStatus) {
+      // if user is not logged in and lands on restricted pages, redirect them to landing page
       history.push(routes.LANDING);
       this.props.handleSignInModal();
     }
@@ -95,8 +98,7 @@ class App extends Component {
   }
 
   async loadData() {
-    // await this.props.checkNetworkAndAddress();
-    await this.props.openBox();
+    await this.props.profileGetBox();
     await this.props.getActivity();
     await this.props.getPublicName();
     await this.props.getPublicGithub();
@@ -115,6 +117,7 @@ class App extends Component {
       onBoardingModalTwo,
       ifFetchingThreeBox,
     } = this.props;
+
     const { onBoardingModalMobileOne, onBoardingModalMobileTwo, onBoardingModalMobileThree } = this.state;
     const prevPrevNetwork = window.localStorage.getItem('prevPrevNetwork');
     const currentNetworkState = window.localStorage.getItem('currentNetwork');
@@ -176,17 +179,17 @@ class App extends Component {
 }
 
 App.propTypes = {
-  openBox: PropTypes.func,
+  profileGetBox: PropTypes.func,
   getPublicName: PropTypes.func,
   getPublicGithub: PropTypes.func,
   getPublicImage: PropTypes.func,
   getPrivateEmail: PropTypes.func,
   getActivity: PropTypes.func,
-  checkForWeb3Wallet: PropTypes.func,
+  checkWeb3Wallet: PropTypes.func,
   closeDifferentNetworkModal: PropTypes.func,
   proceedWithSwitchedAddressModal: PropTypes.func,
   handleSignOut: PropTypes.func,
-  initialCheckNetworkAndAddress: PropTypes.func,
+  checkNetwork: PropTypes.func,
   handleSignInModal: PropTypes.func,
   handleLoggedOutModal: PropTypes.func,
   handleSwitchedAddressModal: PropTypes.func,
@@ -209,16 +212,16 @@ App.propTypes = {
 };
 
 App.defaultProps = {
-  openBox: openBox(),
+  profileGetBox: profileGetBox(),
   getPublicName: getPublicName(),
   getPublicGithub: getPublicGithub(),
   getPublicImage: getPublicImage(),
   getPrivateEmail: getPrivateEmail(),
   getActivity: getActivity(),
-  checkForWeb3Wallet: checkForWeb3Wallet(),
+  checkWeb3Wallet: checkWeb3Wallet(),
   closeDifferentNetworkModal: closeDifferentNetworkModal(),
   proceedWithSwitchedAddressModal: proceedWithSwitchedAddressModal(),
-  initialCheckNetworkAndAddress: initialCheckNetworkAndAddress(),
+  checkNetwork: checkNetwork(),
   handleSignInModal: handleSignInModal(),
   handleLoggedOutModal: handleLoggedOutModal(),
   handleSwitchedAddressModal: handleSwitchedAddressModal(),
@@ -259,14 +262,14 @@ const mapState = state => ({
 
 export default withRouter(connect(mapState,
   {
-    openBox,
+    profileGetBox,
     getPublicName,
     getPublicGithub,
     getPublicImage,
     getPrivateEmail,
     getActivity,
-    checkForWeb3Wallet,
-    initialCheckNetworkAndAddress,
+    checkWeb3Wallet,
+    checkNetwork,
     handleSignInModal,
     closeDifferentNetworkModal,
     proceedWithSwitchedAddressModal,

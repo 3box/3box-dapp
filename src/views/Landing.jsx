@@ -4,8 +4,13 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 import {
-  signInUp,
-  checkForWeb3Wallet,
+  checkWeb3Wallet,
+  getPrivateEmail,
+  getPublicImage,
+  getPublicGithub,
+  getPublicName,
+  getActivity,
+  signInGetBox,
 } from '../state/actions';
 
 import {
@@ -30,16 +35,8 @@ import {
 
 import ThreeBoxLogo from '../components/ThreeBoxLogo.jsx';
 import Nav from '../components/Nav';
-import ProfileCard from '../components/ProfileCard.jsx';
 import LandingFooter from '../components/LandingFooter.jsx';
-import illustration from '../assets/Dapp.svg';
-import Cristobal from '../assets/Cristobal.png';
-import Michael from '../assets/Michael.png';
-import Christian from '../assets/Christian.jpg';
-import ConsensysSVG from '../assets/consensys.svg';
-import ThreeBoxGraphic from '../assets/3BoxGraphic.png';
-import PartnersBG from '../assets/PartnersBG.svg';
-import consensys from '../assets/consensys.png';
+import LandingBody from '../components/LandingBody.jsx';
 import './styles/Landing.css';
 import '../components/styles/ProfileCard.css';
 import '../components/styles/Nav.css';
@@ -76,10 +73,16 @@ class Landing extends Component {
   }
 
   async handleSignInUp() {
-    this.props.checkForWeb3Wallet(); // const { hasWallet, isSignedIntoWallet } = this.props;
+    this.props.checkWeb3Wallet(); // const { hasWallet, isSignedIntoWallet } = this.props;
 
     if (typeof window.web3 !== 'undefined' && this.props.isSignedIntoWallet) {
-      await this.props.signInUp();
+      await this.props.signInGetBox();
+      await this.props.getActivity('signIn');
+      await this.props.getPublicName();
+      await this.props.getPublicGithub();
+      await this.props.getPublicImage();
+      await this.props.getPrivateEmail();
+
     } else if (typeof window.web3 === 'undefined') {
       this.props.requireMetaMaskModal();
       // this.props.handleMobileWalletModal();
@@ -138,112 +141,11 @@ class Landing extends Component {
         <MobileWalletRequiredModal isIOS={isIOS} handleMobileWalletModal={this.props.handleMobileWalletModal} show={mobileWalletRequiredModal} isMobile={isMobile} />
         <SignInToThreeBox show={signInModal} handleSignInModal={this.props.handleSignInModal} />
 
-        <img src={ThreeBoxGraphic} id="threeBoxGraphic" alt="ThreeBox Graphic" />
 
-        <div id="landing__splash" className={this.props.isLoggedIn ? "removeBottomMargin" : undefined}>
-
-          <div id="landing__createProfile">
-            <h1 className="ae-1 landing__createProfile--text">Create an Ethereum Profile</h1>
-            <p className="lightOpacity thin landing__createProfile--subtext">Add your information once and share it across dapps.</p>
-            <div id="consensys">
-              <p className="lightOpacity thin">By </p>
-              <img src={consensys} alt="Consensys Logo" />
-            </div>
-
-            {!this.props.isLoggedIn && (
-              <div id="landing__button--center">
-                <button id="landing__createProfileButton" type="button" onClick={this.handleSignInUp}>
-                  Create Profile
-                </button>
-              </div>)}
-          </div>
-
-          <div id="landing__profileCard">
-            <div id="landing__profileCard--margin">
-              <ProfileCard />
-            </div>
-          </div>
-
-        </div>
-
-        <div id="landing__trustedPartners">
-          <h3 className="lightOpacity thin">TRUSTED BY PARTNERS</h3>
-          <div id="landing__partnerList">
-            <img src={ConsensysSVG} className="partnerCos" alt="Partners background" />
-          </div>
-          <img src={PartnersBG} id="trustedPartners--bg" alt="Partners background" />
-        </div>
-
-        <img src={ThreeBoxGraphic} id="threeBoxGraphic2" alt="ThreeBox Graphic" />
-
-        <div id="landing__build">
-
-          <h2>Build with 3Box</h2>
-          <p className="lightOpacity thin">Scalable, open source, distributed database infrastructure for Ethereum.</p>
-          <a href="https://github.com/uport-project/3box">
-            <button >Get started</button>
-          </a>
-
-          <div className="build__section">
-            <div className="build__section__text">
-              <div className="build__section__content">
-                <h3>Ethereum Profiles API</h3>
-                <p className="lightOpacity thin">Profiles API makes it easy to get and set information about users, with support for public and private data..</p>
-                <a href="https://github.com/uport-project/3box-js"><button >Profiles API</button></a>
-              </div>
-            </div>
-
-            <div className="build__graphic__profiles">
-
-              <div id="Michael" className="profileCardSmall">
-                <img src={Michael} className="profileCardSmall__user__picture" alt="profile" />
-                <div className="profileCardSmall__user__info">
-
-                  <h4 className="profileCardSmall__user__name">Michael Sena</h4>
-
-                  <div id="profile__network__icon" />
-                  <p className="profileCardSmall__address">0x123456789</p>
-                </div>
-              </div>
-
-              <div id="Christian" className="profileCardSmall">
-                <img src={Christian} className="profileCardSmall__user__picture" alt="profile" />
-                <div className="profileCardSmall__user__info">
-
-                  <h4 className="profileCardSmall__user__name">Christian Lundkvist</h4>
-
-                  <div id="profile__network__icon" />
-                  <p className="profileCardSmall__address">0x123456789</p>
-                </div>
-              </div>
-
-              <div id="Cristobal" className="profileCardSmall">
-                <img src={Cristobal} className="profileCardSmall__user__picture" alt="profile" />
-                <div className="profileCardSmall__user__info">
-
-                  <h4 className="profileCardSmall__user__name">Cristobal Castillo</h4>
-
-                  <div id="profile__network__icon" />
-                  <p className="profileCardSmall__address">0x123456789</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="build__section">
-            <div className="build__section__text">
-              <div className="build__section__content">
-                <h3>Simple, Open Design</h3>
-                <p className="lightOpacity thin">Compatible with existing browsers, wallets, and dapps for a shared Web3 experience. Built on IPFS and Orbit DB.</p>
-                <a href="https://github.com/uport-project/3box"><button >3Box DB Overview</button></a>
-              </div>
-            </div>
-            <div className="build__graphic__threeBox">
-              <img src={illustration} id="threeboxIllustration" alt="3Box Map" />
-            </div>
-          </div>
-
-        </div>
+        <LandingBody
+          isLoggedIn={this.props.isLoggedIn}
+          handleSignInUp={this.handleSignInUp}
+        />
 
         <LandingFooter />
       </div>
@@ -252,14 +154,19 @@ class Landing extends Component {
 }
 
 Landing.propTypes = {
-  signInUp: PropTypes.func,
   closeErrorModal: PropTypes.func,
   handleMobileWalletModal: PropTypes.func,
   handleSignInModal: PropTypes.func,
   handleRequireWalletLoginModal: PropTypes.func,
   closeConsentModal: PropTypes.func,
   requireMetaMaskModal: PropTypes.func,
-  checkForWeb3Wallet: PropTypes.func,
+  getPublicGithub: PropTypes.func,
+  getPublicName: PropTypes.func,
+  getActivity: PropTypes.func,
+  signInGetBox: PropTypes.func,
+  checkWeb3Wallet: PropTypes.func,
+  getPrivateEmail: PropTypes.func,
+  getPublicImage: PropTypes.func,
   closeRequireMetaMaskModal: PropTypes.func,
 
   showErrorModal: PropTypes.bool,
@@ -274,14 +181,19 @@ Landing.propTypes = {
 };
 
 Landing.defaultProps = {
-  signInUp: signInUp(),
   closeErrorModal: closeErrorModal(),
   handleMobileWalletModal: handleMobileWalletModal(),
   handleSignInModal: handleSignInModal(),
   handleRequireWalletLoginModal: handleRequireWalletLoginModal(),
   closeConsentModal: closeConsentModal(),
   requireMetaMaskModal: requireMetaMaskModal(),
-  checkForWeb3Wallet: checkForWeb3Wallet(),
+  getPublicGithub: getPublicGithub(),
+  getPublicName: getPublicName(),
+  getActivity: getActivity(),
+  signInGetBox: signInGetBox(),
+  checkWeb3Wallet: checkWeb3Wallet(),
+  getPrivateEmail: getPrivateEmail(),
+  getPublicImage: getPublicImage(),
   closeRequireMetaMaskModal: closeRequireMetaMaskModal(),
 
   showErrorModal: false,
@@ -309,13 +221,18 @@ const mapState = state => ({
 });
 
 export default withRouter(connect(mapState, {
-  signInUp,
   closeErrorModal,
   handleMobileWalletModal,
   handleSignInModal,
   closeConsentModal,
   requireMetaMaskModal,
-  checkForWeb3Wallet,
+  getPublicGithub,
+  getPublicName,
+  getActivity,
+  signInGetBox,
+  checkWeb3Wallet,
+  getPrivateEmail,
+  getPublicImage,
   closeRequireMetaMaskModal,
   handleRequireWalletLoginModal
 })(Landing));

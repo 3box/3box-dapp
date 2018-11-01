@@ -9,14 +9,13 @@ import {
 import * as routes from '../utils/routes';
 import history from '../history';
 
-export const checkForWeb3Wallet = () => async (dispatch) => {
+export const checkWeb3Wallet = () => async (dispatch) => {
   const cp = typeof window.web3 !== 'undefined' ? window.web3.currentProvider : null; // eslint-disable-line no-undef
 
   let isToshi;
   let isCipher;
   let isMetaMask;
   let currentWallet;
-  let accountsPromise;
   let accounts;
   let isSignedIntoWallet;
   let isLoggedIn;
@@ -34,12 +33,12 @@ export const checkForWeb3Wallet = () => async (dispatch) => {
       currentWallet = 'isMetaMask';
     }
 
-    accountsPromise = new Promise((resolve, reject) => {
-      window.web3.eth.getAccounts((e, accounts) => { // eslint-disable-line no-undef
+    const accountsPromise = new Promise((resolve, reject) => {
+      window.web3.eth.getAccounts((e, accountsFound) => { // eslint-disable-line no-undef
         if (e != null) {
           reject(e);
         } else {
-          resolve(accounts);
+          resolve(accountsFound);
         }
       });
     });
@@ -60,8 +59,8 @@ export const checkForWeb3Wallet = () => async (dispatch) => {
 };
 
 // if has web3 wallet
-export const initialCheckNetworkAndAddress = () => async (dispatch) => {
-  const checkNetwork = new Promise((resolve) => {
+export const checkNetwork = () => async (dispatch) => {
+  const checkNetworkFunc = new Promise((resolve) => {
     window.web3.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
       switch (netId) {
         case '1':
@@ -93,7 +92,7 @@ export const initialCheckNetworkAndAddress = () => async (dispatch) => {
         currentNetwork = network;
       });
   } else {
-    await checkNetwork.then((network) => {
+    await checkNetworkFunc.then((network) => {
       currentNetwork = network;
     });
   }
@@ -115,7 +114,7 @@ export const initialCheckNetworkAndAddress = () => async (dispatch) => {
     });
   } else {
     await dispatch({
-      type: 'CHECK_NETWORK_AND_ADDRESS',
+      type: 'UPDATE_NETWORK',
       currentNetwork,
       prevNetwork,
       prevPrevNetwork,
@@ -123,11 +122,11 @@ export const initialCheckNetworkAndAddress = () => async (dispatch) => {
   }
 };
 
-export const signInUp = () => async (dispatch) => {
+export const signInGetBox = () => async (dispatch) => {
   let box;
 
   dispatch({
-    type: 'PROVIDE_CONSENT',
+    type: 'HANDLE_CONSENT_MODAL',
   });
 
   const consentGiven = () => {
@@ -146,7 +145,7 @@ export const signInUp = () => async (dispatch) => {
     box = await returnedBox;
 
     dispatch({
-      type: 'GET_THREEBOX',
+      type: 'UPDATE_THREEBOX',
       ifFetchingThreeBox: false,
       isLoggedIn: true,
       box,
@@ -154,94 +153,11 @@ export const signInUp = () => async (dispatch) => {
 
     box.onSyncDone(() => {
       dispatch({
-        type: 'GET_THREEBOX',
+        type: 'UPDATE_THREEBOX',
         ifFetchingThreeBox: false,
         isLoggedIn: true,
         box,
       });
-    });
-
-    const name = await box.public.get('name');
-    const github = await box.public.get('github');
-    const image = await box.public.get('image');
-    const email = await box.private.get('email');
-
-    const returnedActivity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
-    const activity = await returnedActivity;
-
-    activity.internal = activity.internal.map(object => Object.assign({
-      dataType: 'Internal',
-    }, object));
-    activity.txs = activity.txs.map(object => Object.assign({
-      dataType: 'Txs',
-    }, object));
-    activity.token = activity.token.map(object => Object.assign({
-      dataType: 'Token',
-    }, object));
-
-    let publicActivity = await box.public.log;
-    publicActivity = publicActivity.map((object) => {
-      object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
-      return Object.assign({
-        dataType: 'Public',
-      }, object);
-    });
-
-    let privateActivity = await box.private.log;
-    privateActivity = privateActivity.map((object) => {
-      object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
-      return Object.assign({
-        dataType: 'Private',
-      }, object);
-    });
-
-    // if user signs in and there is no data in their threebox, then turn onboardingModal to true
-    if (publicActivity.length === 0 && privateActivity.length <= 1) {
-      dispatch({
-        type: 'HANDLE_ONBOARDING_MODAL',
-        onBoardingModal: true,
-      });
-      history.push('/EditProfile');
-    } else {
-      history.push('/Profile');
-    }
-
-    // if (publicActivity.length > 0 || privateActivity.length > 1) history.push('/Profile');
-
-    const feed = activity.internal.concat(activity.txs).concat(activity.token).concat(publicActivity).concat(privateActivity);
-    feed.sort((a, b) => b.timeStamp - a.timeStamp);
-
-    // order feed chronologically and by address
-    const feedByAddress = [];
-    feed.forEach((item) => {
-      const othersAddress = item.from === address ? item.to : item.from;
-      if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === othersAddress) {
-        feedByAddress[feedByAddress.length - 1][othersAddress].push(item);
-      } else if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === 'threeBox' && (item.dataType === 'Public' || item.dataType === 'Private')) {
-        feedByAddress[feedByAddress.length - 1].threeBox.push(item);
-      } else if (item.dataType === 'Public' || item.dataType === 'Private') {
-        feedByAddress.push({
-          threeBox: [item],
-        });
-      } else {
-        feedByAddress.push({
-          [othersAddress]: [item],
-        });
-      }
-    });
-
-    await dispatch({
-      type: 'SIGN_IN_UP',
-      box,
-      ifFetchingThreeBox: false,
-      showErrorModal: false,
-      name,
-      github,
-      image,
-      email,
-      feedByAddress,
-      switched: false,
-      isLoggedIn: true,
     });
   } catch (err) {
     dispatch({
@@ -253,7 +169,7 @@ export const signInUp = () => async (dispatch) => {
   }
 };
 
-export const openBox = () => async (dispatch) => {
+export const profileGetBox = () => async (dispatch) => {
   dispatch({
     type: 'LOADING_3BOX',
   });
@@ -267,7 +183,7 @@ export const openBox = () => async (dispatch) => {
   const box = await returnedBox;
 
   dispatch({
-    type: 'GET_THREEBOX',
+    type: 'UPDATE_THREEBOX',
     ifFetchingThreeBox: false,
     isLoggedIn: true,
     box,
@@ -276,7 +192,7 @@ export const openBox = () => async (dispatch) => {
 
   box.onSyncDone(() => {
     dispatch({
-      type: 'GET_THREEBOX',
+      type: 'UPDATE_THREEBOX',
       ifFetchingThreeBox: false,
       box,
       isLoggedIn: true,
@@ -321,7 +237,7 @@ export const getPrivateEmail = () => async (dispatch) => {
   });
 };
 
-export const getActivity = () => async (dispatch) => {
+export const getActivity = duringSignIn => async (dispatch) => {
   try {
     const returnedActivity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
     const activity = await returnedActivity;
@@ -353,6 +269,17 @@ export const getActivity = () => async (dispatch) => {
       }, object);
     });
 
+    // if user signs in and there is no data in their threebox, then show onboarding modals
+    if (publicActivity.length === 0 && privateActivity.length <= 1 && duringSignIn) {
+      dispatch({
+        type: 'HANDLE_ONBOARDING_MODAL',
+        onBoardingModal: true,
+      });
+      history.push('/EditProfile');
+    } else if (duringSignIn) {
+      history.push('/Profile');
+    }
+
     const feed = activity.internal.concat(activity.txs).concat(activity.token).concat(publicActivity).concat(privateActivity);
     feed.sort((a, b) => b.timeStamp - a.timeStamp);
 
@@ -376,15 +303,19 @@ export const getActivity = () => async (dispatch) => {
     });
 
     dispatch({
-      type: 'GET_ACTIVITY',
+      type: 'UPDATE_ACTIVITY',
       feedByAddress,
       ifFetchingActivity: false,
+      isLoggedIn: true,
     });
   } catch (err) {
     dispatch({
       type: 'FAILED_LOADING_ACTIVITY',
       feedByAddress: [],
       ifFetchingActivity: false,
+      errorMessage: err,
+      showErrorModal: true,
+      provideConsent: false,
     });
   }
 };
@@ -400,127 +331,133 @@ export const handleSignOut = () => async (dispatch) => {
   history.push(routes.LANDING);
 };
 
-// export const checkNetworkAndAddress = () => async (dispatch) => {
+
+// export const signInUp = () => async (dispatch) => {
+//   let box;
+
 //   dispatch({
-//     type: 'LOADING_ACTIVITY',
-//   });
-//   dispatch({
-//     type: 'LOADING_3BOX',
+//     type: 'HANDLE_CONSENT_MODAL',
 //   });
 
-//   const checkNetwork = new Promise((resolve) => {
-//     web3.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
-//       switch (netId) {
-//         case '1':
-//           resolve('Main');
-//           break;
-//         case '2':
-//           resolve('Morder');
-//           break;
-//         case '3':
-//           resolve('Ropsten');
-//           break;
-//         case '4':
-//           resolve('Rinkeby');
-//           break;
-//         case '42':
-//           resolve('Kovan');
-//           break;
-//         default:
-//           resolve('Unknown');
+//   const consentGiven = () => {
+//     dispatch({
+//       type: 'LOADING_3BOX',
+//     });
+//   };
+
+//   const opts = {
+//     consentCallback: consentGiven,
+//   };
+
+//   try {
+//     const returnedBox = await Box // eslint-disable-line no-undef
+//       .openBox(address, window.web3.currentProvider, opts); // eslint-disable-line no-undef
+//     box = await returnedBox;
+
+//     dispatch({
+//       type: 'UPDATE_THREEBOX',
+//       ifFetchingThreeBox: false,
+//       isLoggedIn: true,
+//       box,
+//     });
+
+//     box.onSyncDone(() => {
+//       dispatch({
+//         type: 'UPDATE_THREEBOX',
+//         ifFetchingThreeBox: false,
+//         isLoggedIn: true,
+//         box,
+//       });
+//     });
+
+//     const name = await box.public.get('name');
+//     const github = await box.public.get('github');
+//     const image = await box.public.get('image');
+//     const email = await box.private.get('email');
+
+//     const returnedActivity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
+//     const activity = await returnedActivity;
+
+//     activity.internal = activity.internal.map(object => Object.assign({
+//       dataType: 'Internal',
+//     }, object));
+//     activity.txs = activity.txs.map(object => Object.assign({
+//       dataType: 'Txs',
+//     }, object));
+//     activity.token = activity.token.map(object => Object.assign({
+//       dataType: 'Token',
+//     }, object));
+
+//     let publicActivity = await box.public.log;
+//     publicActivity = publicActivity.map((object) => {
+//       object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
+//       return Object.assign({
+//         dataType: 'Public',
+//       }, object);
+//     });
+
+//     let privateActivity = await box.private.log;
+//     privateActivity = privateActivity.map((object) => {
+//       object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
+//       return Object.assign({
+//         dataType: 'Private',
+//       }, object);
+//     });
+
+//     // if user signs in and there is no data in their threebox, then turn onboardingModal to true
+//     if (publicActivity.length === 0 && privateActivity.length <= 1) {
+//       dispatch({
+//         type: 'HANDLE_ONBOARDING_MODAL',
+//         onBoardingModal: true,
+//       });
+//       history.push('/EditProfile');
+//     } else {
+//       history.push('/Profile');
+//     }
+
+//     // if (publicActivity.length > 0 || privateActivity.length > 1) history.push('/Profile');
+
+//     const feed = activity.internal.concat(activity.txs).concat(activity.token).concat(publicActivity).concat(privateActivity);
+//     feed.sort((a, b) => b.timeStamp - a.timeStamp);
+
+//     // order feed chronologically and by address
+//     const feedByAddress = [];
+//     feed.forEach((item) => {
+//       const othersAddress = item.from === address ? item.to : item.from;
+//       if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === othersAddress) {
+//         feedByAddress[feedByAddress.length - 1][othersAddress].push(item);
+//       } else if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === 'threeBox' && (item.dataType === 'Public' || item.dataType === 'Private')) {
+//         feedByAddress[feedByAddress.length - 1].threeBox.push(item);
+//       } else if (item.dataType === 'Public' || item.dataType === 'Private') {
+//         feedByAddress.push({
+//           threeBox: [item],
+//         });
+//       } else {
+//         feedByAddress.push({
+//           [othersAddress]: [item],
+//         });
 //       }
 //     });
-//   });
 
-//   // // check network, compatible with old & new v of MetaMask
-//   let currentNetwork;
-//   if (web3.eth.net) { // eslint-disable-line no-undef
-//     await web3.eth.net.getNetworkType() // eslint-disable-line no-undef
-//       .then((network) => {
-//         currentNetwork = network;
-//       });
-//   } else {
-//     await checkNetwork.then((network) => {
-//       currentNetwork = network;
-//     });
-//   }
-
-//   const prevPrevNetwork = window.localStorage.getItem('prevNetwork');
-//   const prevNetwork = window.localStorage.getItem('currentNetwork');
-
-//   window.localStorage.setItem('prevPrevNetwork', prevPrevNetwork);
-//   window.localStorage.setItem('prevNetwork', prevNetwork);
-//   window.localStorage.setItem('currentNetwork', currentNetwork);
-
-//   if (prevNetwork && (prevNetwork !== currentNetwork)) {
 //     await dispatch({
-//       type: 'DIFFERENT_NETWORK',
-//       currentNetwork,
-//       prevNetwork,
-//       prevPrevNetwork,
+//       type: 'SIGN_IN_UP',
+//       box,
+//       ifFetchingThreeBox: false,
+//       showErrorModal: false,
+//       name,
+//       github,
+//       image,
+//       email,
+//       feedByAddress,
+//       switched: false,
+//       isLoggedIn: true,
+//     });
+//   } catch (err) {
+//     dispatch({
+//       type: 'FAILED_LOADING_3BOX',
+//       errorMessage: err,
+//       showErrorModal: true,
+//       provideConsent: false,
 //     });
 //   }
-
-//   await dispatch({
-//     type: 'CHECK_NETWORK_AND_ADDRESS',
-//     currentNetwork,
-//     prevNetwork,
-//     prevPrevNetwork,
-//   });
-// };
-
-// const initialCheckNetwork = () => async (dispatch) => {
-//   let currentNetwork;
-
-//   if (typeof web3 !== 'undefined') {
-//     const checkNetwork = new Promise((resolve) => {
-//       web3.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
-//         switch (netId) {
-//           case '1':
-//             resolve('Main');
-//             break;
-//           case '2':
-//             resolve('Morder');
-//             break;
-//           case '3':
-//             resolve('Ropsten');
-//             break;
-//           case '4':
-//             resolve('Rinkeby');
-//             break;
-//           case '42':
-//             resolve('Kovan');
-//             break;
-//           default:
-//             resolve('Unknown');
-//         }
-//       });
-//     });
-
-//     // check network, compatible with old & new v of MetaMask
-//     if (web3.eth.net) { // eslint-disable-line no-undef
-//       await web3.eth.net.getNetworkType() // eslint-disable-line no-undef
-//         .then((network) => {
-//           currentNetwork = network;
-//         });
-//     } else {
-//       await checkNetwork.then((network) => {
-//         currentNetwork = network;
-//       });
-//     }
-//   }
-
-//   const prevNetwork = window.localStorage.getItem('currentNetwork');
-//   const prevPrevNetwork = window.localStorage.getItem('prevNetwork');
-
-//   window.localStorage.setItem('prevPrevNetwork', window.localStorage.prevNetwork);
-//   window.localStorage.setItem('prevNetwork', window.localStorage.currentNetwork);
-//   window.localStorage.setItem('currentNetwork', currentNetwork);
-
-//   await dispatch({
-//     type: 'CHECK_NETWORK_AND_ADDRESS',
-//     currentNetwork,
-//     prevNetwork,
-//     prevPrevNetwork,
-//   });
 // };

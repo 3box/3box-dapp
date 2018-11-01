@@ -10,7 +10,7 @@ export const threeBoxReducer = (state = {}, action) => {
         isLoggedIn: action.isLoggedIn,
       };
 
-    case 'CHECK_NETWORK_AND_ADDRESS':
+    case 'UPDATE_NETWORK':
       return {
         ...state,
         currentNetwork: action.currentNetwork,
@@ -40,7 +40,7 @@ export const threeBoxReducer = (state = {}, action) => {
         ifFetchingActivity: true,
       };
 
-    case 'GET_ACTIVITY':
+    case 'UPDATE_ACTIVITY':
       return {
         ...state,
         feedByAddress: action.feedByAddress,
@@ -54,7 +54,7 @@ export const threeBoxReducer = (state = {}, action) => {
         ifFetchingActivity: false,
       };
 
-    case 'GET_THREEBOX':
+    case 'UPDATE_THREEBOX':
       return {
         ...state,
         box: action.box,
@@ -94,7 +94,7 @@ export const threeBoxReducer = (state = {}, action) => {
       };
 
       // MODALS
-    case 'PROVIDE_CONSENT':
+    case 'HANDLE_CONSENT_MODAL':
       return {
         ...state,
         provideConsent: true,

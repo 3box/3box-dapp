@@ -6,7 +6,6 @@ import { Link, withRouter, Redirect } from 'react-router-dom';
 import ThreeBoxLogo from './ThreeBoxLogo.jsx';
 import { handleSignOut } from '../state/actions';
 import * as routes from '../utils/routes';
-import history from '../history';
 import './styles/Nav.css';
 
 class Nav extends Component {
@@ -56,7 +55,6 @@ class Nav extends Component {
 
         {/* desktop nav dropdown */}
         <div className={`${showProfileModal ? 'nav__dropdown--visible' : undefined} nav__dropdown nav__dropdown--desktop`}
-          // onMouseLeave={this.handleDropdown}
           onClick={this.handleDropdown}>
           <ul>
             <Link to={routes.PROFILE}><li>Profile</li></Link>
@@ -114,19 +112,3 @@ function mapState(state) {
 }
 
 export default withRouter(connect(mapState, { handleSignOut })(Nav));
-
-
-// {showProfileModal
-//   && (
-//     <div className='nav__dropdown' onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
-//       <ul>
-//         <Link to={routes.PROFILE}><li>Profile</li></Link>
-//         <Link to={routes.EDITPROFILE}><li>Edit profile</li></Link>
-//         <div className="nav__divide" />
-//         <li onClick={() => this.handleSignOut()}>Sign Out</li>
-//         <div id="nav__divideBug" />
-//         <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="nav__reportBug">Report a bug</li></a>
-//       </ul>
-//     </div>
-//   )
-// }

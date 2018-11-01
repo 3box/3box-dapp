@@ -2,7 +2,8 @@ import {
   store,
 } from '../state/store';
 
-export let address = typeof window.web3 !== 'undefined' ? window.web3.eth.accounts[0] : ''; // eslint-disable-line no-undef
+export let address =
+  typeof window.web3 !== 'undefined' ? window.web3.eth.accounts[0] : ''; // eslint-disable-line no-undef
 
 const pollNetworkAndAddress = () => {
   setTimeout(() => {
@@ -49,7 +50,4 @@ const pollNetworkAndAddress = () => {
 
 pollNetworkAndAddress();
 
-export {
-  address as
-  default,
-};
+export default address;

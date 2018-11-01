@@ -160,7 +160,6 @@ nav {
 
 .sub-menu {
   visibility: hidden;
-  /* hides sub-menu */
   opacity: 0;
   transform: translateY(-2em);
   transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s; }

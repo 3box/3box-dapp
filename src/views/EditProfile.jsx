@@ -3,8 +3,15 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import {
+  getPublicName,
+  getPublicGithub,
+  getPublicImage,
+  getPrivateEmail,
+  getActivity
+} from '../state/actions';
+
 import { address } from '../utils/address'
-import { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail, getActivity } from '../state/actions';
 import { FileSizeModal } from '../components/Modals.jsx';
 import history from '../history';
 import Nav from '../components/Nav';
@@ -241,7 +248,6 @@ EditProfile.propTypes = {
   github: PropTypes.string,
   email: PropTypes.string,
   image: PropTypes.array,
-  openBox: PropTypes.func,
   ifFetchingThreeBox: PropTypes.bool,
 
   getPublicName: PropTypes.func,
@@ -259,7 +265,6 @@ EditProfile.defaultProps = {
   image: [],
   ifFetchingThreeBox: false,
 
-  openBox: openBox(),
   getPublicName: getPublicName(),
   getPublicGithub: getPublicGithub(),
   getPublicImage: getPublicImage(),
@@ -278,4 +283,4 @@ function mapState(state) {
   };
 }
 
-export default withRouter(connect(mapState, { openBox, getPublicName, getPublicGithub, getPublicImage, getPrivateEmail, getActivity })(EditProfile));
+export default withRouter(connect(mapState, { getPublicName, getPublicGithub, getPublicImage, getPrivateEmail, getActivity })(EditProfile));
