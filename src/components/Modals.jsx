@@ -109,6 +109,7 @@ export const ProvideConsentModal = ({ closeConsentModal, show, isMobile }) => (
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
       <div className="modal">
         <img src={Consent} alt="Partners background" />
+        <img src={Loading} alt="Loading" id="modal__loadingGraphic--access" />
 
         <div id="modal__copy__card">
           <h3>Log in to 3Box</h3>
@@ -130,9 +131,10 @@ export const ProvideAccessModal = ({ handleAccessModal, show, isMobile }) => (
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
       <div className="modal">
         <img src={Access} alt="Partners background" />
+        <img src={Loading} alt="Loading" id="modal__loadingGraphic--access" />
 
         <div id="modal__copy__card">
-          <h3>Grant Access to 3Box</h3>
+          <h3>Grant Access to 3Box in Web3 Wallet</h3>
           {isMobile
             ? <p>This allows 3Box to read the addresses associated with your account</p>
             : <p>This allows 3Box to read the addresses associated with your account</p>
@@ -216,8 +218,8 @@ export const RequireMetaMaskModal = ({ closeRequireMetaMaskModal, show, isMobile
             Install Web3 Wallet
           </h3>
           {isMobile
-            ? <p>You must have a web3 wallet to sign in or create a profile on 3Box</p>
-            : <p>You must have MetaMask to sign in or create a profile on 3Box</p>
+            ? <p>You must have a web3 wallet to use 3Box</p>
+            : <p>You must have MetaMask to use 3Box</p>
           }
         </div>
 

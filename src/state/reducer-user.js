@@ -6,12 +6,11 @@ export const threeBoxReducer = (state = {}, action) => {
         hasWallet: action.hasWallet,
         currentWallet: action.currentWallet,
         mobileWalletRequiredModal: action.mobileWalletRequiredModal,
-
-        isSignedIntoWallet: action.isSignedIntoWallet,
-        isLoggedIn: action.isLoggedIn,
+        // isSignedIntoWallet: action.isSignedIntoWallet,
+        // isLoggedIn: action.isLoggedIn,
       };
 
-    case 'CHECK_ACCOUNTS':
+    case 'UPDATE_ADDRESSES':
       return {
         ...state,
         isSignedIntoWallet: action.isSignedIntoWallet,

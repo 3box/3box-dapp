@@ -18,6 +18,8 @@ import {
   OnBoardingModalDesktop,
   LoadingThreeBoxProfileModal,
   OnBoardingModalMobile,
+  ProvideAccessModal,
+  AccessDeniedModal,
 } from './components/Modals.jsx';
 
 import {
@@ -37,8 +39,12 @@ import {
   handleSignInModal,
   closeDifferentNetworkModal,
   proceedWithSwitchedAddressModal,
+  handleAccessModal,
+  handleDeniedAccessModal,
   handleLoggedOutModal,
   handleSwitchedAddressModal,
+  requireMetaMaskModal,
+  handleMobileWalletModal,
   handleOnboardingModal,
 } from './state/actions-modals';
 
@@ -69,28 +75,16 @@ class App extends Component {
   async componentDidMount() {
     const { location } = this.props;
     const { pathname } = location;
-
-    // check if user has web3 wallet
-    await this.props.checkWeb3Wallet()
-    this.props.hasWallet && await this.props.checkNetwork();
-    const loginStatus = this.props.isLoggedIn;
-    console.log(loginStatus);
-
-    // check if you've granted access, if you have before, continue on to this next step, otherwise redirect user to landing page
-
-    if ((pathname === '/Profile' || pathname === '/EditProfile') && typeof window.web3 !== 'undefined' && loginStatus) { // eslint-disable-line no-undef
-      // if user is logged in and lands on restricted pages
-      this.loadData();
-
-    } else if (pathname === '/' && typeof window.web3 !== 'undefined' && loginStatus) { // eslint-disable-line no-undef
-      // if user is logged in and lands on landing page, redirect them to profile page
-      history.push(routes.PROFILE);
-      this.loadData();
-
-    } else if ((pathname === '/Profile' || pathname === '/EditProfile') && !loginStatus) {
-      // if user is not logged in and lands on restricted pages, redirect them to landing page
+    if (typeof window.web3 === 'undefined' && pathname !== '/') {
       history.push(routes.LANDING);
-      this.props.handleSignInModal();
+      this.props.requireMetaMaskModal();
+      this.props.handleMobileWalletModal();
+    } else if (typeof window.web3 !== 'undefined') {
+      await this.props.checkWeb3Wallet();
+      if (this.props.hasWallet && pathname !== '/') {
+        await this.props.checkNetwork();
+        this.loadData();
+      }
     }
   }
 
@@ -102,21 +96,29 @@ class App extends Component {
   }
 
   async loadData() {
-    // do you need to request access if you are already signed in and have an account?
-    // that means you've already granted access
-    // does access grant go away? after how long?
-    // await this.props.requestAccess();
-    await this.props.profileGetBox();
-    await this.props.getActivity();
-    await this.props.getPublicName();
-    await this.props.getPublicGithub();
-    await this.props.getPublicImage();
-    await this.props.getPrivateEmail();
+    const { location } = this.props;
+    const { pathname } = location;
+
+    await this.props.requestAccess();
+    if (this.props.isSignedIntoWallet && this.props.isLoggedIn) {
+      pathname === '/' && history.push(routes.PROFILE);
+      await this.props.profileGetBox();
+      await this.props.getActivity();
+      await this.props.getPublicName();
+      await this.props.getPublicGithub();
+      await this.props.getPublicImage();
+      await this.props.getPrivateEmail();
+    } else if (this.props.isSignedIntoWallet && !this.props.isLoggedIn && (pathname === '/Profile' || pathname === '/EditProfile')) {
+      history.push(routes.LANDING);
+      this.props.handleSignInModal();
+    }
   }
 
   render() {
     const {
       showDifferentNetworkModal,
+      accessDeniedModal,
+      allowAccessModal,
       loggedOutModal,
       switchedAddressModal,
       prevNetwork,
@@ -136,6 +138,16 @@ class App extends Component {
     return (
       <div className="App">
         <LoadingThreeBoxProfileModal show={ifFetchingThreeBox} />
+
+        <ProvideAccessModal
+          handleAccessModal={this.props.handleAccessModal}
+          show={allowAccessModal}
+          isMobile={isMobile} />
+
+        <AccessDeniedModal
+          handleDeniedAccessModal={this.props.handleDeniedAccessModal}
+          show={accessDeniedModal}
+          isMobile={isMobile} />
 
         <SwitchedNetworksModal
           prevNetwork={prevNetwork}
@@ -195,8 +207,12 @@ App.propTypes = {
   getPrivateEmail: PropTypes.func,
   getActivity: PropTypes.func,
   checkWeb3Wallet: PropTypes.func,
+  requireMetaMaskModal: PropTypes.func,
+  handleMobileWalletModal: PropTypes.func,
   closeDifferentNetworkModal: PropTypes.func,
   proceedWithSwitchedAddressModal: PropTypes.func,
+  handleAccessModal: PropTypes.func,
+  handleDeniedAccessModal: PropTypes.func,
   handleSignOut: PropTypes.func,
   checkNetwork: PropTypes.func,
   handleSignInModal: PropTypes.func,
@@ -207,7 +223,10 @@ App.propTypes = {
   location: PropTypes.object,
   hasWallet: PropTypes.bool,
   showDifferentNetworkModal: PropTypes.bool,
+  accessDeniedModal: PropTypes.bool,
+  allowAccessModal: PropTypes.bool,
   isLoggedIn: PropTypes.bool,
+  isSignedIntoWallet: PropTypes.bool,
   hasWallet: PropTypes.bool,
   switched: PropTypes.bool,
   loggedOutModal: PropTypes.bool,
@@ -229,8 +248,12 @@ App.defaultProps = {
   getPrivateEmail: getPrivateEmail(),
   getActivity: getActivity(),
   checkWeb3Wallet: checkWeb3Wallet(),
+  requireMetaMaskModal: requireMetaMaskModal(),
+  handleMobileWalletModal: handleMobileWalletModal(),
   closeDifferentNetworkModal: closeDifferentNetworkModal(),
   proceedWithSwitchedAddressModal: proceedWithSwitchedAddressModal(),
+  handleAccessModal: handleAccessModal(),
+  handleDeniedAccessModal: handleDeniedAccessModal(),
   checkNetwork: checkNetwork(),
   handleSignInModal: handleSignInModal(),
   handleLoggedOutModal: handleLoggedOutModal(),
@@ -241,6 +264,8 @@ App.defaultProps = {
   location: {},
   hasWallet: true,
   showDifferentNetworkModal: false,
+  accessDeniedModal: false,
+  allowAccessModal: false,
   switched: false,
   loggedOutModal: false,
   switchedAddressModal: false,
@@ -248,6 +273,7 @@ App.defaultProps = {
   onBoardingModalTwo: false,
   ifFetchingThreeBox: false,
   isLoggedIn: false,
+  isSignedIntoWallet: false,
   hasWallet: false,
   prevNetwork: '',
   currentNetwork: '',
@@ -257,6 +283,8 @@ App.defaultProps = {
 const mapState = state => ({
   hasWallet: state.threeBox.hasWallet,
   showDifferentNetworkModal: state.threeBox.showDifferentNetworkModal,
+  accessDeniedModal: state.threeBox.accessDeniedModal,
+  allowAccessModal: state.threeBox.allowAccessModal,
   switched: state.threeBox.switched,
   loggedOutModal: state.threeBox.loggedOutModal,
   switchedAddressModal: state.threeBox.switchedAddressModal,
@@ -266,6 +294,7 @@ const mapState = state => ({
   currentNetwork: state.threeBox.currentNetwork,
   prevPrevNetwork: state.threeBox.prevPrevNetwork,
   isLoggedIn: state.threeBox.isLoggedIn,
+  isSignedIntoWallet: state.threeBox.isSignedIntoWallet,
   hasWallet: state.threeBox.hasWallet,
   ifFetchingThreeBox: state.threeBox.ifFetchingThreeBox,
 });
@@ -280,12 +309,32 @@ export default withRouter(connect(mapState,
     getPrivateEmail,
     getActivity,
     checkWeb3Wallet,
+    requireMetaMaskModal,
+    handleMobileWalletModal,
     checkNetwork,
     handleSignInModal,
     closeDifferentNetworkModal,
     proceedWithSwitchedAddressModal,
+    handleAccessModal,
+    handleDeniedAccessModal,
     handleLoggedOutModal,
     handleSignOut,
     handleSwitchedAddressModal,
     handleOnboardingModal,
   })(App));
+
+
+    // if ((pathname === '/Profile' || pathname === '/EditProfile') && typeof window.web3 !== 'undefined') { // eslint-disable-line no-undef
+    //   // if user is logged in and lands on restricted pages
+    //   this.loadData();
+    // } 
+    // else if (pathname === '/' && typeof window.web3 !== 'undefined' && loginStatus) { // eslint-disable-line no-undef
+    //   // if user is logged in and lands on landing page, redirect them to profile page
+    //   history.push(routes.PROFILE);
+    //   this.loadData();
+    // } 
+    // else if ((pathname === '/Profile' || pathname === '/EditProfile') && !loginStatus) {
+    //   // if user is not logged in and lands on restricted pages, redirect them to landing page
+    //   history.push(routes.LANDING);
+    //   this.props.handleSignInModal();
+    // }

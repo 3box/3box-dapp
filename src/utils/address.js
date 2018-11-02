@@ -26,7 +26,7 @@ const pollNetworkAndAddress = () => {
     }
 
     // Logged in to MM
-    if (currentAddress !== address && typeof currentAddress === 'string' && address === undefined) {
+    if (currentAddress !== address && typeof currentAddress === 'string' && address === undefined && !window.ethereum) {
       store.dispatch({
         type: 'HANDLE_WALLET_LOGIN_DETECTED_MODAL',
         isSignedIntoWallet: true,
