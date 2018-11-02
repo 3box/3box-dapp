@@ -7,6 +7,7 @@ import ThreeBoxLogo from './ThreeBoxLogo.jsx';
 import getCoinbaseWallet from '../assets/getCoinbaseWallet.svg';
 import TrustWallet from '../assets/TrustWallet.png';
 import Consent from '../assets/Consent.png';
+import Access from '../assets/Access.png';
 import Switched from '../assets/Switched.svg';
 import OnBoardingModalGraphic from '../assets/OnBoardingModal.png';
 import OnBoardingModalGraphic2 from '../assets/OnBoardingModal2.png';
@@ -118,6 +119,48 @@ export const ProvideConsentModal = ({ closeConsentModal, show, isMobile }) => (
         </div>
 
         <button onClick={closeConsentModal} type="button" className="tertiaryButton">Close</button>
+      </div>
+    </div>
+    <div className="modal__overlay" />
+  </div>
+);
+
+export const ProvideAccessModal = ({ handleAccessModal, show, isMobile }) => (
+  <div>
+    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+      <div className="modal">
+        <img src={Access} alt="Partners background" />
+
+        <div id="modal__copy__card">
+          <h3>Grant Access to 3Box</h3>
+          {isMobile
+            ? <p>This allows 3Box to read the addresses associated with your account</p>
+            : <p>This allows 3Box to read the addresses associated with your account</p>
+          }
+        </div>
+
+        <button onClick={handleAccessModal} type="button" className="tertiaryButton">Close</button>
+      </div>
+    </div>
+    <div className="modal__overlay" />
+  </div>
+);
+
+export const AccessDeniedModal = ({ handleDeniedAccessModal, show, isMobile }) => (
+  <div>
+    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+      <div className="modal">
+        <img src={Access} alt="Partners background" />
+
+        <div id="modal__copy__card">
+          <h3>Access Denied to 3Box</h3>
+          {isMobile
+            ? <p>3Box cannot proceed without access to the addresses associated to your account</p>
+            : <p>3Box cannot proceed without access to the addresses associated to your account</p>
+          }
+        </div>
+
+        <button onClick={handleDeniedAccessModal} type="button" className="tertiaryButton">Close</button>
       </div>
     </div>
     <div className="modal__overlay" />

@@ -8,7 +8,7 @@ import FeedTileInternal from './FeedTileInternal.jsx';
 import FeedTileActivity from './FeedTileActivity.jsx';
 import { getActivity } from '../state/actions';
 import networkArray from '../utils/networkArray';
-import Loading from '../assets/Loading.svg';
+// import Loading from '../assets/Loading.svg';
 import './styles/Feed.css';
 import './styles/NetworkArray.css';
 

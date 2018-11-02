@@ -128,21 +128,6 @@
     justify-content: flex-start !important; }
   #edit__form #edit__public__githubInfo {
     margin-top: 2em; }
-  #edit__form #edit_user_private {
-    width: calc(36.5% - 1px);
-    height: 100%;
-    display: inline-block;
-    border-left: solid 1px #E4E4E4;
-    flex: 3.5;
-    justify-content: center;
-    align-content: center;
-    align-items: center; }
-
-#edit_address {
-  overflow: scroll; }
-
-.dateType {
-  background: #ebebeb; }
 
 #edit__cancel {
   margin-left: 1vw; }
@@ -162,27 +147,12 @@
   .container img {
     width: 100px; }
 
-#saveModal {
-  position: absolute;
-  bottom: 20px;
-  right: 26px; }
-
 #fileInput {
   width: 0.1px;
   height: 0.1px;
   opacity: 0;
   overflow: hidden;
   position: absolute; }
-
-#edit_modal_user_picture {
-  margin: 0 auto;
-  margin-top: 9em;
-  background-color: #3f3f3f;
-  border-radius: 100%;
-  width: 160px;
-  height: 160px;
-  display: block;
-  object-fit: cover; }
 
 #chooseFile {
   margin: 0 auto;
@@ -201,20 +171,6 @@
   #edit__formControls #edit__formControls__content {
     padding: 1.4em 2em;
     margin-left: auto; }
-
-#privateHeader {
-  display: flex;
-  align-items: center; }
-  #privateHeader p {
-    display: inline-block;
-    margin-right: 1vw; }
-
-#publicHeader {
-  display: flex;
-  align-items: center; }
-  #publicHeader p {
-    display: inline-block;
-    margin-right: 1vw; }
 
 #public__contents {
   display: flex;

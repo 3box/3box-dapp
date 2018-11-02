@@ -96,3 +96,17 @@ export const handleMobileWalletModal = () => async (dispatch) => {
     mobileWalletRequiredModal: !store.getState().threeBox.mobileWalletRequiredModal,
   });
 };
+
+export const handleAccessModal = () => async (dispatch) => {
+  dispatch({
+    type: 'HANDLE_ACCESS_MODAL',
+    allowAccessModal: !store.getState().threeBox.allowAccessModal,
+  });
+};
+
+export const handleDeniedAccessModal = () => async (dispatch) => {
+  dispatch({
+    type: 'HANDLE_DENIED_ACCESS_MODAL',
+    accessDeniedModal: !store.getState().threeBox.accessDeniedModal,
+  });
+};

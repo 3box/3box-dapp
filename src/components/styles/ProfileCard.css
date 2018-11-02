@@ -55,8 +55,7 @@
   z-index: 1;
   bottom: 100%;
   left: 50%;
-  margin-left: 50%;
-  /* Use half of the width (120/2 = 60), to center the tooltip */ }
+  margin-left: 50%; }
 
 .profileCard__user__info {
   padding: 2em;

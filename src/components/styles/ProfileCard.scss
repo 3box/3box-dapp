@@ -1,7 +1,6 @@
 @import "../../variables.scss";
 
 .profileCard {
-  // border: 1px solid #E4E4E4;
   border-radius: 10px;
   min-width: 10em;
   min-height: 20em;
@@ -65,17 +64,14 @@
   border-radius: 6px;
   position: relative;
   z-index: 1;
-
   bottom: 100%;
   left: 50%;
   margin-left: 50%;
-  /* Use half of the width (120/2 = 60), to center the tooltip */
 }
 
 .profileCard__user__info {
   padding: 2em;
   margin-top: -4em;
-  // margin-top: 1.2em;
 }
 
 .profileCardSmall__user__info {
@@ -84,7 +80,6 @@
 }
 
 .profileCardSmall {
-  // border: 1px solid #E4E4E4;
   border-radius: 10px;
   background: white;
   width: 16em;
@@ -134,17 +129,3 @@
     left: 4.5em;
   }
 }
-
-
-
-// .profileCardSmall__user__picture {
-//   background-color: #3f3f3f;
-//   border-radius: 100%;
-//   width: 80px;
-//   height: 80px;
-//   margin: 0 auto;
-//   position: relative;
-//   top: 50%;
-//   left: 50%;
-//   transform: perspective(1px) translateY(-30%) translateX(-160%);
-// }

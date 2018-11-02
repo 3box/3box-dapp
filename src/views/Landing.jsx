@@ -11,6 +11,7 @@ import {
   getPublicName,
   getActivity,
   signInGetBox,
+  requestAccess,
 } from '../state/actions';
 
 import {
@@ -19,6 +20,8 @@ import {
   handleSignInModal,
   handleRequireWalletLoginModal,
   closeConsentModal,
+  handleAccessModal,
+  handleDeniedAccessModal,
   requireMetaMaskModal,
   closeRequireMetaMaskModal,
 } from '../state/actions-modals';
@@ -31,6 +34,8 @@ import {
   ErrorModal,
   MustConsentModal,
   SignInToWalletModal,
+  ProvideAccessModal,
+  AccessDeniedModal,
 } from '../components/Modals.jsx';
 
 import ThreeBoxLogo from '../components/ThreeBoxLogo.jsx';
@@ -74,8 +79,10 @@ class Landing extends Component {
 
   async handleSignInUp() {
     this.props.checkWeb3Wallet(); // const { hasWallet, isSignedIntoWallet } = this.props;
+    // remove isSignedIntoWallet, accounts, and isLoggedIn from checkWeb3Wallet
 
     if (typeof window.web3 !== 'undefined' && this.props.isSignedIntoWallet) {
+      // await this.props.requestAccess();
       await this.props.signInGetBox();
       await this.props.getActivity('signIn');
       await this.props.getPublicName();
@@ -97,6 +104,8 @@ class Landing extends Component {
       signInModal,
       errorMessage,
       provideConsent,
+      allowAccessModal,
+      accessDeniedModal,
       alertRequireMetaMask,
       mobileWalletRequiredModal,
       signInToWalletModal,
@@ -133,6 +142,9 @@ class Landing extends Component {
             <Nav />
           )}
 
+        <ProvideAccessModal handleAccessModal={this.props.handleAccessModal} show={allowAccessModal} isMobile={isMobile} />
+        <AccessDeniedModal handleDeniedAccessModal={this.props.handleDeniedAccessModal} show={accessDeniedModal} isMobile={isMobile} />
+
         <ProvideConsentModal closeConsentModal={this.props.closeConsentModal} show={provideConsent} isMobile={isMobile} />
         <RequireMetaMaskModal closeRequireMetaMaskModal={this.props.closeRequireMetaMaskModal} show={alertRequireMetaMask} isMobile={isMobile} />
         <SignInToWalletModal handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal} show={signInToWalletModal} isMobile={isMobile} />
@@ -159,11 +171,14 @@ Landing.propTypes = {
   handleSignInModal: PropTypes.func,
   handleRequireWalletLoginModal: PropTypes.func,
   closeConsentModal: PropTypes.func,
+  handleAccessModal: PropTypes.func,
+  handleDeniedAccessModal: PropTypes.func,
   requireMetaMaskModal: PropTypes.func,
   getPublicGithub: PropTypes.func,
   getPublicName: PropTypes.func,
   getActivity: PropTypes.func,
   signInGetBox: PropTypes.func,
+  requestAccess: PropTypes.func,
   checkWeb3Wallet: PropTypes.func,
   getPrivateEmail: PropTypes.func,
   getPublicImage: PropTypes.func,
@@ -172,6 +187,8 @@ Landing.propTypes = {
   showErrorModal: PropTypes.bool,
   signInModal: PropTypes.bool,
   provideConsent: PropTypes.bool,
+  allowAccessModal: PropTypes.bool,
+  accessDeniedModal: PropTypes.bool,
   hasWallet: PropTypes.bool,
   isSignedIntoWallet: PropTypes.bool,
   alertRequireMetaMask: PropTypes.bool,
@@ -186,11 +203,14 @@ Landing.defaultProps = {
   handleSignInModal: handleSignInModal(),
   handleRequireWalletLoginModal: handleRequireWalletLoginModal(),
   closeConsentModal: closeConsentModal(),
+  handleAccessModal: handleAccessModal(),
+  handleDeniedAccessModal: handleDeniedAccessModal(),
   requireMetaMaskModal: requireMetaMaskModal(),
   getPublicGithub: getPublicGithub(),
   getPublicName: getPublicName(),
   getActivity: getActivity(),
   signInGetBox: signInGetBox(),
+  requestAccess: requestAccess(),
   checkWeb3Wallet: checkWeb3Wallet(),
   getPrivateEmail: getPrivateEmail(),
   getPublicImage: getPublicImage(),
@@ -199,6 +219,8 @@ Landing.defaultProps = {
   showErrorModal: false,
   signInModal: false,
   provideConsent: false,
+  allowAccessModal: false,
+  accessDeniedModal: false,
   alertRequireMetaMask: false,
   mobileWalletRequiredModal: false,
   signInToWalletModal: false,
@@ -212,6 +234,8 @@ const mapState = state => ({
   showErrorModal: state.threeBox.showErrorModal,
   signInModal: state.threeBox.signInModal,
   provideConsent: state.threeBox.provideConsent,
+  allowAccessModal: state.threeBox.allowAccessModal,
+  accessDeniedModal: state.threeBox.accessDeniedModal,
   hasWallet: state.threeBox.hasWallet,
   isSignedIntoWallet: state.threeBox.isSignedIntoWallet,
   alertRequireMetaMask: state.threeBox.alertRequireMetaMask,
@@ -225,11 +249,14 @@ export default withRouter(connect(mapState, {
   handleMobileWalletModal,
   handleSignInModal,
   closeConsentModal,
+  handleAccessModal,
+  handleDeniedAccessModal,
   requireMetaMaskModal,
   getPublicGithub,
   getPublicName,
   getActivity,
   signInGetBox,
+  requestAccess,
   checkWeb3Wallet,
   getPrivateEmail,
   getPublicImage,

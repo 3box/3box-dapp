@@ -9,6 +9,43 @@ import {
 import * as routes from '../utils/routes';
 import history from '../history';
 
+// for breaking change
+// export const checkWeb3Wallet = () => async (dispatch) => {
+//   const cp = typeof window.web3 !== 'undefined' ? window.web3.currentProvider : null; // eslint-disable-line no-undef
+
+//   let isToshi;
+//   let isCipher;
+//   let isMetaMask;
+//   let currentWallet;
+//   // let accounts;
+//   // let isSignedIntoWallet;
+//   // let isLoggedIn;
+
+//   if (cp) {
+//     isToshi = !!cp.isToshi;
+//     isCipher = !!cp.isCipher;
+//     isMetaMask = !!cp.isMetaMask;
+
+//     if (isToshi) {
+//       currentWallet = 'isToshi';
+//     } else if (isCipher) {
+//       currentWallet = 'isCipher';
+//     } else if (isMetaMask) {
+//       currentWallet = 'isMetaMask';
+//     }
+//   }
+
+//   await dispatch({
+//     type: 'CHECK_WALLET',
+//     hasWallet: typeof window.web3 !== 'undefined', // eslint-disable-line no-undef
+//     mobileWalletRequiredModal: typeof window.web3 === 'undefined', // eslint-disable-line no-undef
+//     currentWallet,
+//     // isSignedIntoWallet,
+//     // isLoggedIn,
+//   });
+// };
+
+// without breaking change
 export const checkWeb3Wallet = () => async (dispatch) => {
   const cp = typeof window.web3 !== 'undefined' ? window.web3.currentProvider : null; // eslint-disable-line no-undef
 
@@ -46,13 +83,69 @@ export const checkWeb3Wallet = () => async (dispatch) => {
     accounts = await accountsPromise;
     isSignedIntoWallet = !!accounts.length > 0 || (currentWallet === 'isToshi');
     isLoggedIn = Box.isLoggedIn(address); // eslint-disable-line no-undef
+    console.log('hit first');
   }
+  console.log('hit second');
 
   await dispatch({
     type: 'CHECK_WALLET',
     hasWallet: typeof window.web3 !== 'undefined', // eslint-disable-line no-undef
     mobileWalletRequiredModal: typeof window.web3 === 'undefined', // eslint-disable-line no-undef
     currentWallet,
+    isSignedIntoWallet,
+    isLoggedIn,
+  });
+};
+
+// inject for breaking change
+export const requestAccess = () => async (dispatch) => {
+  let accounts;
+
+  if (window.ethereum) {
+    window.web3 = new Web3(ethereum); // eslint-disable-line no-undef
+    try {
+      console.log(window.web3.currentProvider.isMetaMask);
+      await dispatch({
+        type: 'HANDLE_ACCESS_MODAL',
+        allowAccessModal: true,
+      });
+
+      console.log('using ethereum');
+      accounts = await ethereum.enable(); // eslint-disable-line no-undef
+
+      await dispatch({
+        type: 'HANDLE_ACCESS_MODAL',
+        allowAccessModal: false,
+      });
+    } catch (error) {
+      await dispatch({
+        type: 'HANDLE_DENIED_ACCESS_MODAL',
+        accessDeniedModal: true,
+        allowAccessModal: false,
+      });
+    }
+  } else if (window.web3) {
+    console.log('using web3');
+    window.web3 = new Web3(web3.currentProvider); // eslint-disable-line no-undef
+    const accountsPromise = new Promise((resolve, reject) => {
+      window.web3.eth.getAccounts((e, accountsFound) => { // eslint-disable-line no-undef
+        if (e != null) {
+          reject(e);
+        } else {
+          resolve(accountsFound);
+        }
+      });
+    });
+    accounts = await accountsPromise;
+  } else {
+    console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+  }
+
+  const isSignedIntoWallet = !!accounts.length > 0 || (store.getState().threeBox.currentWallet === 'isToshi');
+  const isLoggedIn = Box.isLoggedIn(address); // eslint-disable-line no-undef
+
+  await dispatch({
+    type: 'CHECK_ACCOUNTS',
     isSignedIntoWallet,
     isLoggedIn,
   });

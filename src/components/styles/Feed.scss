@@ -6,20 +6,14 @@
   min-width: 700px;
   padding: 2em;
   min-height: calc(100% - 133px);
-  // height: fit-content;
   height: calc(100% - 133px);
   position: fixed;
-  // position: relative;
   top: 69px;
   left: 23vw;
-  // min-width: 270px;
-
   border-left: 1px solid #E4E4E4;
   border-right: 1px solid #E4E4E4;
   border-bottom: 1px solid #E4E4E4;
-
   overflow-y: scroll;
-
 
   ul {
     padding: 0;
@@ -34,10 +28,6 @@
 
 #feed__header {
   margin-bottom: 1em;
-}
-
-#feed__activity {
-  margin-top: 2em;
 }
 
 .feed__activity__tile {
@@ -65,13 +55,6 @@
     justify-content: center;
     color: white;
     font-weight: 500;
-  }
-
-  .feed_activity_context_threeBox {
-    margin-right: 1.5vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   .logo__icon {
@@ -104,14 +87,6 @@
   }
 }
 
-.clipboard {
-  border: 1px solid $borderColor;
-  border-radius: 3px;
-  margin-left: .8em;
-  padding: 3px 6px;
-  cursor: pointer;
-}
-
 .feed__activity___data {
   display: flex;
   align-items: center;
@@ -130,14 +105,6 @@
   background-color: white;
 }
 
-.feed_activity_network_icon {
-  background-color: rgb(77, 201, 106);
-  width: 1.2em;
-  height: 1.2em;
-  border-radius: 1em;
-  margin-right: 1.5vw;
-}
-
 .feed__activity__address__dataType {
   width: 16%;
   display: flex;
@@ -148,7 +115,7 @@
   }
 }
 
-.feed_activity_address_dataType_ethereum {
+.feed__activity__address__dataType--ethereum {
   width: .9em !important;
 }
 
@@ -175,10 +142,6 @@
   }
 }
 
-// .feed_activity_address_description {
-//   width: 21%;
-// }
-
 .feed__activity__address__amount {
   width: 21%;
 }
@@ -189,48 +152,6 @@
 
 .feed__activity__address__time {
   width: 15%;
-}
-
-#feed_activity_network {
-  width: 8%;
-  padding-left: 3%;
-}
-
-#feed_activity_type {
-  width: 9%;
-}
-
-#feed_activity_entity {
-  width: 20%;
-
-  p {
-    color: $lighterFont;
-  }
-}
-
-#feed_activity_function {
-  width: 12%;
-}
-
-#feed_activity_description {
-  width: 22%;
-
-  p {
-    color: $lighterFont;
-  }
-}
-
-#feed_activity_amount {
-  width: 13%;
-}
-
-#feed_activity_time {
-  width: 13%;
-
-  p {
-    font-size: .8em;
-    color: $lighterFont;
-  }
 }
 
 .feed__activity__load {
@@ -250,50 +171,6 @@
 #activityLoad {
   width: 3em;
   height: 3em;
-}
-
-.feed_activity_tile_networkLogo {
-  height: 20px;
-  position: relative;
-  top: 50%;
-  transform: translateY(22%);
-}
-
-.feed_activity_tile_entityLogo {
-  display: inline-block;
-  height: 24px;
-  position: relative;
-  top: 50%;
-  transform: translateY(22%);
-  margin-right: 1vw;
-}
-
-.feed_activity_tile_amount {
-  p {
-    color: #2AA046;
-  }
-}
-
-#feed_network_3Box {
-  width: 24px;
-  height: 24px;
-  border-radius: 4px;
-  text-align: center;
-  background-color: rgb(189, 189, 189);
-  margin: 0 auto;
-  position: relative;
-  top: 50%;
-  transform: perspective(1px) translateY(-16%);
-
-  p {
-    position: relative;
-    top: 50%;
-    transform: perspective(1px) translateY(-50%);
-    margin: 0 auto;
-    color: white;
-    font-weight: 500;
-    font-size: 1em;
-  }
 }
 
 @media only screen and (max-width: 1170px) {

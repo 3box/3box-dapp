@@ -22,6 +22,7 @@ import {
 
 import {
   profileGetBox,
+  requestAccess,
   getPublicName,
   getPublicGithub,
   getPublicImage,
@@ -73,6 +74,9 @@ class App extends Component {
     await this.props.checkWeb3Wallet()
     this.props.hasWallet && await this.props.checkNetwork();
     const loginStatus = this.props.isLoggedIn;
+    console.log(loginStatus);
+
+    // check if you've granted access, if you have before, continue on to this next step, otherwise redirect user to landing page
 
     if ((pathname === '/Profile' || pathname === '/EditProfile') && typeof window.web3 !== 'undefined' && loginStatus) { // eslint-disable-line no-undef
       // if user is logged in and lands on restricted pages
@@ -98,6 +102,10 @@ class App extends Component {
   }
 
   async loadData() {
+    // do you need to request access if you are already signed in and have an account?
+    // that means you've already granted access
+    // does access grant go away? after how long?
+    // await this.props.requestAccess();
     await this.props.profileGetBox();
     await this.props.getActivity();
     await this.props.getPublicName();
@@ -180,6 +188,7 @@ class App extends Component {
 
 App.propTypes = {
   profileGetBox: PropTypes.func,
+  requestAccess: PropTypes.func,
   getPublicName: PropTypes.func,
   getPublicGithub: PropTypes.func,
   getPublicImage: PropTypes.func,
@@ -213,6 +222,7 @@ App.propTypes = {
 
 App.defaultProps = {
   profileGetBox: profileGetBox(),
+  requestAccess: requestAccess(),
   getPublicName: getPublicName(),
   getPublicGithub: getPublicGithub(),
   getPublicImage: getPublicImage(),
@@ -263,6 +273,7 @@ const mapState = state => ({
 export default withRouter(connect(mapState,
   {
     profileGetBox,
+    requestAccess,
     getPublicName,
     getPublicGithub,
     getPublicImage,

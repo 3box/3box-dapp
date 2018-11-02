@@ -22,9 +22,6 @@
 #feed__header {
   margin-bottom: 1em; }
 
-#feed__activity {
-  margin-top: 2em; }
-
 .feed__activity__tile {
   display: flex;
   flex-direction: column;
@@ -48,11 +45,6 @@
     justify-content: center;
     color: white;
     font-weight: 500; }
-  .feed__activity__context .feed_activity_context_threeBox {
-    margin-right: 1.5vw;
-    display: flex;
-    align-items: center;
-    justify-content: center; }
   .feed__activity__context .logo__icon {
     width: 2.1em;
     height: 2.1em;
@@ -74,13 +66,6 @@
   .feed__activity__address p {
     color: #b1b1b1; }
 
-.clipboard {
-  border: 1px solid #E4E4E4;
-  border-radius: 3px;
-  margin-left: .8em;
-  padding: 3px 6px;
-  cursor: pointer; }
-
 .feed__activity___data {
   display: flex;
   align-items: center;
@@ -96,13 +81,6 @@
 .lightFeed {
   background-color: white; }
 
-.feed_activity_network_icon {
-  background-color: #4dc96a;
-  width: 1.2em;
-  height: 1.2em;
-  border-radius: 1em;
-  margin-right: 1.5vw; }
-
 .feed__activity__address__dataType {
   width: 16%;
   display: flex;
@@ -110,7 +88,7 @@
   .feed__activity__address__dataType img {
     width: 1.2em; }
 
-.feed_activity_address_dataType_ethereum {
+.feed__activity__address__dataType--ethereum {
   width: .9em !important; }
 
 .feed__activity__address__function {
@@ -137,35 +115,6 @@
 .feed__activity__address__time {
   width: 15%; }
 
-#feed_activity_network {
-  width: 8%;
-  padding-left: 3%; }
-
-#feed_activity_type {
-  width: 9%; }
-
-#feed_activity_entity {
-  width: 20%; }
-  #feed_activity_entity p {
-    color: #b1b1b1; }
-
-#feed_activity_function {
-  width: 12%; }
-
-#feed_activity_description {
-  width: 22%; }
-  #feed_activity_description p {
-    color: #b1b1b1; }
-
-#feed_activity_amount {
-  width: 13%; }
-
-#feed_activity_time {
-  width: 13%; }
-  #feed_activity_time p {
-    font-size: .8em;
-    color: #b1b1b1; }
-
 .feed__activity__load {
   border-top: solid 1px #E4E4E4;
   border-bottom: solid 1px #E4E4E4;
@@ -180,42 +129,6 @@
 #activityLoad {
   width: 3em;
   height: 3em; }
-
-.feed_activity_tile_networkLogo {
-  height: 20px;
-  position: relative;
-  top: 50%;
-  transform: translateY(22%); }
-
-.feed_activity_tile_entityLogo {
-  display: inline-block;
-  height: 24px;
-  position: relative;
-  top: 50%;
-  transform: translateY(22%);
-  margin-right: 1vw; }
-
-.feed_activity_tile_amount p {
-  color: #2AA046; }
-
-#feed_network_3Box {
-  width: 24px;
-  height: 24px;
-  border-radius: 4px;
-  text-align: center;
-  background-color: #bdbdbd;
-  margin: 0 auto;
-  position: relative;
-  top: 50%;
-  transform: perspective(1px) translateY(-16%); }
-  #feed_network_3Box p {
-    position: relative;
-    top: 50%;
-    transform: perspective(1px) translateY(-50%);
-    margin: 0 auto;
-    color: white;
-    font-weight: 500;
-    font-size: 1em; }
 
 @media only screen and (max-width: 1170px) {
   #feed {

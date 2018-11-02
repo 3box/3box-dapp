@@ -5,8 +5,16 @@ export const threeBoxReducer = (state = {}, action) => {
         ...state,
         hasWallet: action.hasWallet,
         currentWallet: action.currentWallet,
-        isSignedIntoWallet: action.isSignedIntoWallet,
         mobileWalletRequiredModal: action.mobileWalletRequiredModal,
+
+        isSignedIntoWallet: action.isSignedIntoWallet,
+        isLoggedIn: action.isLoggedIn,
+      };
+
+    case 'CHECK_ACCOUNTS':
+      return {
+        ...state,
+        isSignedIntoWallet: action.isSignedIntoWallet,
         isLoggedIn: action.isLoggedIn,
       };
 
@@ -222,6 +230,19 @@ export const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         mobileWalletRequiredModal: action.mobileWalletRequiredModal,
+      };
+
+    case 'HANDLE_ACCESS_MODAL':
+      return {
+        ...state,
+        allowAccessModal: action.allowAccessModal,
+      };
+
+    case 'HANDLE_DENIED_ACCESS_MODAL':
+      return {
+        ...state,
+        accessDeniedModal: action.accessDeniedModal,
+        allowAccessModal: action.allowAccessModal,
       };
 
     default:

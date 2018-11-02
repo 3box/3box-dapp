@@ -11,7 +11,7 @@ import './styles/Feed.css';
 const FeedTileTXS = ({ item, isEven }) => (
   <div className={`feed__activity___data ${isEven ? 'darkFeed' : 'lightFeed'}`}>
     <div className="feed__activity__address__dataType">
-      <img src={EthereumLine} alt="Transaction Icon" className="feed_activity_address_dataType_ethereum" />
+      <img src={EthereumLine} alt="Transaction Icon" className="feed__activity__address__dataType--ethereum" />
     </div>
     {item.from === address
       ? (

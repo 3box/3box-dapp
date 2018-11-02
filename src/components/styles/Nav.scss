@@ -84,7 +84,6 @@ nav {
 .nav__dropdown {
   transition: transform ease 0.9s, opacity ease 0.1s;
   transform: translateY(-4px);
-
   position: absolute;
   top: 64px;
   right: 3vw;
@@ -176,7 +175,6 @@ nav {
 
 #nav__reportBug {
   background-color: $backgroundHue;
-  // padding: .4em 1.3em;
   color: $lighterFont;
 }
 
@@ -223,12 +221,10 @@ nav {
 
 .nav__dropdown--visible.nav__dropdown.nav__dropdown--desktop {
   visibility: visible;
-  /* shows sub-menu */
   opacity: 1;
   z-index: 1;
   transform: translateY(0%);
   transition-delay: 0s, 0s, 0.3s;
-  /* this removes the transition delay so the menu will be visible while the other styles transition */
 }
 
 
@@ -273,7 +269,6 @@ nav {
     border-bottom: none;
     box-shadow: none;
     z-index: 99999;
-
     transform: translateX(-100%);
     transition: transform .3s ease-out;
 
@@ -304,7 +299,6 @@ nav {
   }
 
   #nav__reportBug {
-    // border-bottom: 1px solid #CBCBCB;
     border-top: none;
     background: none;
     padding: 0 1.3em;
@@ -323,7 +317,6 @@ nav {
   .nav__activePage {
     border-left: solid 5px $threeBoxBlue;
     background: $backgroundHue;
-
     padding-left: calc(1.3em - 5px) !important;
   }
 }
