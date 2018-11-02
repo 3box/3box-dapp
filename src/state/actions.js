@@ -53,7 +53,6 @@ export const checkWeb3Wallet = () => async (dispatch) => {
   let isCipher;
   let isMetaMask;
   let currentWallet;
-  let accounts;
   let isSignedIntoWallet;
   let isLoggedIn;
 
@@ -70,7 +69,7 @@ export const checkWeb3Wallet = () => async (dispatch) => {
       currentWallet = 'isMetaMask';
     }
 
-    const accountsPromise = new Promise((resolve, reject) => {
+    const accounts = new Promise((resolve, reject) => {
       window.web3.eth.getAccounts((e, accountsFound) => { // eslint-disable-line no-undef
         if (e != null) {
           reject(e);
@@ -80,12 +79,9 @@ export const checkWeb3Wallet = () => async (dispatch) => {
       });
     });
 
-    accounts = await accountsPromise;
     isSignedIntoWallet = !!accounts.length > 0 || (currentWallet === 'isToshi');
     isLoggedIn = Box.isLoggedIn(address); // eslint-disable-line no-undef
-    console.log('hit first');
   }
-  console.log('hit second');
 
   await dispatch({
     type: 'CHECK_WALLET',
@@ -216,8 +212,6 @@ export const checkNetwork = () => async (dispatch) => {
 };
 
 export const signInGetBox = () => async (dispatch) => {
-  let box;
-
   dispatch({
     type: 'HANDLE_CONSENT_MODAL',
   });
@@ -233,9 +227,8 @@ export const signInGetBox = () => async (dispatch) => {
   };
 
   try {
-    const returnedBox = await Box // eslint-disable-line no-undef
+    const box = await Box // eslint-disable-line no-undef
       .openBox(address, window.web3.currentProvider, opts); // eslint-disable-line no-undef
-    box = await returnedBox;
 
     dispatch({
       type: 'UPDATE_THREEBOX',
@@ -271,9 +264,8 @@ export const profileGetBox = () => async (dispatch) => {
     type: 'LOADING_ACTIVITY',
   });
 
-  const returnedBox = await Box // eslint-disable-line no-undef
+  const box = await Box // eslint-disable-line no-undef
     .openBox(address, window.web3.currentProvider); // eslint-disable-line no-undef
-  const box = await returnedBox;
 
   dispatch({
     type: 'UPDATE_THREEBOX',
@@ -294,8 +286,7 @@ export const profileGetBox = () => async (dispatch) => {
 };
 
 export const getPublicName = () => async (dispatch) => {
-  const returnedName = await store.getState().threeBox.box.public.get('name');
-  const name = await returnedName;
+  const name = await store.getState().threeBox.box.public.get('name');
 
   dispatch({
     type: 'GET_PUBLIC_NAME',
@@ -304,8 +295,8 @@ export const getPublicName = () => async (dispatch) => {
 };
 
 export const getPublicGithub = () => async (dispatch) => {
-  const returnedGithub = await store.getState().threeBox.box.public.get('github');
-  const github = await returnedGithub;
+  const github = await store.getState().threeBox.box.public.get('github');
+
   dispatch({
     type: 'GET_PUBLIC_GITHUB',
     github,
@@ -313,8 +304,8 @@ export const getPublicGithub = () => async (dispatch) => {
 };
 
 export const getPublicImage = () => async (dispatch) => {
-  const returnedImage = await store.getState().threeBox.box.public.get('image');
-  const image = await returnedImage;
+  const image = await store.getState().threeBox.box.public.get('image');
+
   dispatch({
     type: 'GET_PUBLIC_IMAGE',
     image,
@@ -322,8 +313,8 @@ export const getPublicImage = () => async (dispatch) => {
 };
 
 export const getPrivateEmail = () => async (dispatch) => {
-  const returnedEmail = await store.getState().threeBox.box.private.get('email');
-  const email = await returnedEmail;
+  const email = await store.getState().threeBox.box.private.get('email');
+
   dispatch({
     type: 'GET_PRIVATE_EMAIL',
     email,
@@ -332,8 +323,7 @@ export const getPrivateEmail = () => async (dispatch) => {
 
 export const getActivity = duringSignIn => async (dispatch) => {
   try {
-    const returnedActivity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
-    const activity = await returnedActivity;
+    const activity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
 
     // add datatype to each datum
     activity.internal = activity.internal.map(object => Object.assign({
@@ -423,134 +413,3 @@ export const handleSignOut = () => async (dispatch) => {
   }
   history.push(routes.LANDING);
 };
-
-
-// export const signInUp = () => async (dispatch) => {
-//   let box;
-
-//   dispatch({
-//     type: 'HANDLE_CONSENT_MODAL',
-//   });
-
-//   const consentGiven = () => {
-//     dispatch({
-//       type: 'LOADING_3BOX',
-//     });
-//   };
-
-//   const opts = {
-//     consentCallback: consentGiven,
-//   };
-
-//   try {
-//     const returnedBox = await Box // eslint-disable-line no-undef
-//       .openBox(address, window.web3.currentProvider, opts); // eslint-disable-line no-undef
-//     box = await returnedBox;
-
-//     dispatch({
-//       type: 'UPDATE_THREEBOX',
-//       ifFetchingThreeBox: false,
-//       isLoggedIn: true,
-//       box,
-//     });
-
-//     box.onSyncDone(() => {
-//       dispatch({
-//         type: 'UPDATE_THREEBOX',
-//         ifFetchingThreeBox: false,
-//         isLoggedIn: true,
-//         box,
-//       });
-//     });
-
-//     const name = await box.public.get('name');
-//     const github = await box.public.get('github');
-//     const image = await box.public.get('image');
-//     const email = await box.private.get('email');
-
-//     const returnedActivity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
-//     const activity = await returnedActivity;
-
-//     activity.internal = activity.internal.map(object => Object.assign({
-//       dataType: 'Internal',
-//     }, object));
-//     activity.txs = activity.txs.map(object => Object.assign({
-//       dataType: 'Txs',
-//     }, object));
-//     activity.token = activity.token.map(object => Object.assign({
-//       dataType: 'Token',
-//     }, object));
-
-//     let publicActivity = await box.public.log;
-//     publicActivity = publicActivity.map((object) => {
-//       object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
-//       return Object.assign({
-//         dataType: 'Public',
-//       }, object);
-//     });
-
-//     let privateActivity = await box.private.log;
-//     privateActivity = privateActivity.map((object) => {
-//       object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
-//       return Object.assign({
-//         dataType: 'Private',
-//       }, object);
-//     });
-
-//     // if user signs in and there is no data in their threebox, then turn onboardingModal to true
-//     if (publicActivity.length === 0 && privateActivity.length <= 1) {
-//       dispatch({
-//         type: 'HANDLE_ONBOARDING_MODAL',
-//         onBoardingModal: true,
-//       });
-//       history.push('/EditProfile');
-//     } else {
-//       history.push('/Profile');
-//     }
-
-//     // if (publicActivity.length > 0 || privateActivity.length > 1) history.push('/Profile');
-
-//     const feed = activity.internal.concat(activity.txs).concat(activity.token).concat(publicActivity).concat(privateActivity);
-//     feed.sort((a, b) => b.timeStamp - a.timeStamp);
-
-//     // order feed chronologically and by address
-//     const feedByAddress = [];
-//     feed.forEach((item) => {
-//       const othersAddress = item.from === address ? item.to : item.from;
-//       if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === othersAddress) {
-//         feedByAddress[feedByAddress.length - 1][othersAddress].push(item);
-//       } else if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === 'threeBox' && (item.dataType === 'Public' || item.dataType === 'Private')) {
-//         feedByAddress[feedByAddress.length - 1].threeBox.push(item);
-//       } else if (item.dataType === 'Public' || item.dataType === 'Private') {
-//         feedByAddress.push({
-//           threeBox: [item],
-//         });
-//       } else {
-//         feedByAddress.push({
-//           [othersAddress]: [item],
-//         });
-//       }
-//     });
-
-//     await dispatch({
-//       type: 'SIGN_IN_UP',
-//       box,
-//       ifFetchingThreeBox: false,
-//       showErrorModal: false,
-//       name,
-//       github,
-//       image,
-//       email,
-//       feedByAddress,
-//       switched: false,
-//       isLoggedIn: true,
-//     });
-//   } catch (err) {
-//     dispatch({
-//       type: 'FAILED_LOADING_3BOX',
-//       errorMessage: err,
-//       showErrorModal: true,
-//       provideConsent: false,
-//     });
-//   }
-// };

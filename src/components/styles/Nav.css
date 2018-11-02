@@ -110,7 +110,8 @@ nav {
   margin-right: 4vw; }
   #actionButtons p {
     margin-right: 2vw;
-    cursor: pointer; }
+    cursor: pointer;
+    font-weight: 400; }
   #actionButtons button {
     cursor: pointer; }
 
