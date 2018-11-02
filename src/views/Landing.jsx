@@ -80,7 +80,6 @@ class Landing extends Component {
   async handleSignInUp() {
     this.props.checkWeb3Wallet(); // const { hasWallet, isSignedIntoWallet } = this.props;
     // remove isSignedIntoWallet, accounts, and isLoggedIn from checkWeb3Wallet
-
     if (typeof window.web3 !== 'undefined' && this.props.isSignedIntoWallet) {
       // await this.props.requestAccess();
       await this.props.signInGetBox();

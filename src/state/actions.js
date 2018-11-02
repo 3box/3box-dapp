@@ -69,7 +69,7 @@ export const checkWeb3Wallet = () => async (dispatch) => {
       currentWallet = 'isMetaMask';
     }
 
-    const accounts = new Promise((resolve, reject) => {
+    const accountsPromise = new Promise((resolve, reject) => {
       window.web3.eth.getAccounts((e, accountsFound) => { // eslint-disable-line no-undef
         if (e != null) {
           reject(e);
@@ -78,6 +78,9 @@ export const checkWeb3Wallet = () => async (dispatch) => {
         }
       });
     });
+
+    const accounts = await accountsPromise;
+
 
     isSignedIntoWallet = !!accounts.length > 0 || (currentWallet === 'isToshi');
     isLoggedIn = Box.isLoggedIn(address); // eslint-disable-line no-undef
