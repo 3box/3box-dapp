@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, withRouter, Redirect } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
-import ThreeBoxLogo from './ThreeBoxLogo.jsx';
+import ThreeBoxLogo from './ThreeBoxLogo';
 import { handleSignOut } from '../state/actions';
 import * as routes from '../utils/routes';
 import './styles/Nav.css';
@@ -92,6 +92,7 @@ class Nav extends Component {
 Nav.propTypes = {
   image: PropTypes.array,
   threeBox: PropTypes.object,
+  location: PropTypes.object,
   handleSignOut: PropTypes.func,
   currentNetwork: PropTypes.string,
 };
@@ -101,6 +102,7 @@ Nav.defaultProps = {
   threeBox: {},
   handleSignOut: handleSignOut(),
   currentNetwork: '',
+  location: {},
 };
 
 function mapState(state) {

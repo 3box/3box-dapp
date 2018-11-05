@@ -52,6 +52,7 @@ export const threeBoxReducer = (state = {}, action) => {
         ...state,
         feedByAddress: action.feedByAddress,
         ifFetchingActivity: false,
+        isLoggedIn: action.isLoggedIn,
       };
 
     case 'FAILED_LOADING_ACTIVITY':

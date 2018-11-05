@@ -33,12 +33,12 @@ import {
   ErrorModal,
   MustConsentModal,
   SignInToWalletModal,
-} from '../components/Modals.jsx';
+} from '../components/Modals';
 
-import ThreeBoxLogo from '../components/ThreeBoxLogo.jsx';
+import ThreeBoxLogo from '../components/ThreeBoxLogo';
 import Nav from '../components/Nav';
-import LandingFooter from '../components/LandingFooter.jsx';
-import LandingBody from '../components/LandingBody.jsx';
+import LandingFooter from '../components/LandingFooter';
+import LandingBody from '../components/LandingBody';
 import './styles/Landing.css';
 import '../components/styles/ProfileCard.css';
 import '../components/styles/Nav.css';
@@ -68,10 +68,11 @@ class Landing extends Component {
   };
 
   hideBar = () => {
-    window.scrollY < 10 ?
-      this.setState({ retractNav: false })
-      :
+    if (window.scrollY < 10) {
+      this.setState({ retractNav: false });
+    } else {
       this.setState({ retractNav: true });
+    }
   }
 
   async handleSignInUp() {
@@ -79,6 +80,7 @@ class Landing extends Component {
       await this.props.checkWeb3Wallet();
       await this.props.checkNetwork();
       await this.props.requestAccess();
+
       if (this.props.isSignedIntoWallet) {
         await this.props.signInGetBox();
         if (!this.props.showErrorModal) {
@@ -89,17 +91,12 @@ class Landing extends Component {
           await this.props.getPrivateEmail();
         }
       } else if (!this.props.isSignedIntoWallet && !this.props.accessDeniedModal) {
-        // has wallet but isnt logged in
         this.props.handleRequireWalletLoginModal();
       }
-
     } else if (typeof window.web3 === 'undefined') {
       this.props.requireMetaMaskModal();
       this.props.handleMobileWalletModal();
     }
-    // else if (typeof window.web3 !== 'undefined' && !this.props.isSignedIntoWallet) {
-    //   this.props.handleRequireWalletLoginModal();
-    // }
   }
 
   render() {
@@ -112,34 +109,38 @@ class Landing extends Component {
       mobileWalletRequiredModal,
       signInToWalletModal,
     } = this.props;
+    
+    const {
+      width,
+      retractNav,
+    } = this.state;
 
     const { userAgent: ua } = navigator;
     const isIOS = ua.includes('iPhone'); // const isAndroid = ua.includes('Android');
-
-    const { width } = this.state;
     const isMobile = width <= 600;
+    const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
+    const classHide = retractNav ? 'hide' : '';
 
-    // let signInToWalletError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.';
-    let mustConsentError =
-      errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
-
-    const classHide = this.state.retractNav ? 'hide' : '';
+    // let signInToWalletError = errorMessage && errorMessage.message &&
+    // errorMessage.message.substring(0, 58) === 'Error: MetaMask Message Signature: 
+    // from field is required.';
 
     return (
       <div id="landing">
 
-        {!this.props.isLoggedIn ?
-          (<nav id="landing__nav" className={classHide}>
-            <div id="nav__logo--marginLeft">
-              <ThreeBoxLogo />
-            </div>
-            <div id="actionButtons">
-              <p onClick={this.handleSignInUp}>Sign in</p>
-              <button onClick={this.handleSignInUp} className="secondaryButton" type="button">
-                Create profile
-            </button>
-            </div>
-          </nav>)
+        {!this.props.isLoggedIn
+          ? (
+            <nav id="landing__nav" className={classHide}>
+              <div id="nav__logo--marginLeft">
+                <ThreeBoxLogo />
+              </div>
+              <div id="actionButtons">
+                <p onClick={this.handleSignInUp}>Sign in</p>
+                <button onClick={this.handleSignInUp} className="secondaryButton" type="button">
+                  Create profile
+                </button>
+              </div>
+            </nav>)
           : (
             <Nav />
           )}
@@ -147,37 +148,43 @@ class Landing extends Component {
         <ProvideConsentModal
           closeConsentModal={this.props.closeConsentModal}
           show={provideConsent}
-          isMobile={isMobile} />
+          isMobile={isMobile}
+        />
 
         <RequireMetaMaskModal
           closeRequireMetaMaskModal={this.props.closeRequireMetaMaskModal}
           show={alertRequireMetaMask}
-          isMobile={isMobile} />
+          isMobile={isMobile}
+        />
 
         <SignInToWalletModal
           handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal}
           show={signInToWalletModal}
-          isMobile={isMobile} />
+          isMobile={isMobile}
+        />
 
         <ErrorModal
           errorMessage={errorMessage}
           closeErrorModal={this.props.closeErrorModal}
           show={showErrorModal && !mustConsentError}
-          isMobile={isMobile} />
+          isMobile={isMobile}
+        />
 
         <MustConsentModal
           closeErrorModal={this.props.closeErrorModal}
-          show={mustConsentError} isMobile={isMobile} />
+          show={mustConsentError} isMobile={isMobile}
+        />
 
         <MobileWalletRequiredModal isIOS={isIOS}
           handleMobileWalletModal={this.props.handleMobileWalletModal}
           show={mobileWalletRequiredModal}
-          // show={alertRequireMetaMask}
-          isMobile={isMobile} />
+          isMobile={isMobile}
+        />
 
         <SignInToThreeBox
           show={signInModal}
-          handleSignInModal={this.props.handleSignInModal} />
+          handleSignInModal={this.props.handleSignInModal}
+        />
 
 
         <LandingBody
@@ -213,9 +220,7 @@ Landing.propTypes = {
   signInModal: PropTypes.bool,
   provideConsent: PropTypes.bool,
   accessDeniedModal: PropTypes.bool,
-  hasWallet: PropTypes.bool,
   isSignedIntoWallet: PropTypes.bool,
-  showErrorModal: PropTypes.bool,
   alertRequireMetaMask: PropTypes.bool,
   mobileWalletRequiredModal: PropTypes.bool,
   signInToWalletModal: PropTypes.bool,
@@ -247,9 +252,7 @@ Landing.defaultProps = {
   alertRequireMetaMask: false,
   mobileWalletRequiredModal: false,
   signInToWalletModal: false,
-  hasWallet: false,
   isSignedIntoWallet: false,
-  showErrorModal: false,
   errorMessage: null,
 };
 
@@ -259,9 +262,7 @@ const mapState = state => ({
   signInModal: state.threeBox.signInModal,
   provideConsent: state.threeBox.provideConsent,
   accessDeniedModal: state.threeBox.accessDeniedModal,
-  hasWallet: state.threeBox.hasWallet,
   isSignedIntoWallet: state.threeBox.isSignedIntoWallet,
-  showErrorModal: state.threeBox.showErrorModal,
   alertRequireMetaMask: state.threeBox.alertRequireMetaMask,
   mobileWalletRequiredModal: state.threeBox.mobileWalletRequiredModal,
   signInToWalletModal: state.threeBox.signInToWalletModal,
@@ -284,5 +285,5 @@ export default withRouter(connect(mapState, {
   getPrivateEmail,
   getPublicImage,
   closeRequireMetaMaskModal,
-  handleRequireWalletLoginModal
+  handleRequireWalletLoginModal,
 })(Landing));

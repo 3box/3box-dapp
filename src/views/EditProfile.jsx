@@ -62,7 +62,12 @@ class EditProfile extends Component {
     if (photoFile.size <= 2500000) {
       const formData = new window.FormData();
       formData.append('path', photoFile);
-      this.setState({ buffer: formData, disableSave: false, editPic: true, removeUserPic: false });
+      this.setState({
+        buffer: formData,
+        disableSave: false,
+        editPic: true,
+        removeUserPic: false,
+      });
     } else {
       e.target.value = null;
       this.setState({ showFileSizeModal: true });
@@ -283,4 +288,11 @@ function mapState(state) {
   };
 }
 
-export default withRouter(connect(mapState, { getPublicName, getPublicGithub, getPublicImage, getPrivateEmail, getActivity })(EditProfile));
+export default withRouter(connect(mapState,
+  {
+    getPublicName,
+    getPublicGithub,
+    getPublicImage,
+    getPrivateEmail,
+    getActivity,
+  })(EditProfile));

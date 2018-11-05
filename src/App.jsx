@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as routes from './utils/routes';
-import Landing from './views/Landing.jsx';
-import Profile from './views/Profile.jsx';
-import EditProfile from './views/EditProfile.jsx';
-import Privacy from './views/Privacy.jsx';
-import Terms from './views/Terms.jsx';
+import Landing from './views/Landing';
+import Profile from './views/Profile';
+import EditProfile from './views/EditProfile';
+import Privacy from './views/Privacy';
+import Terms from './views/Terms';
 import history from './history';
 
 import {
@@ -20,7 +20,7 @@ import {
   OnBoardingModalMobile,
   ProvideAccessModal,
   AccessDeniedModal,
-} from './components/Modals.jsx';
+} from './components/Modals';
 
 import {
   profileGetBox,
@@ -37,7 +37,7 @@ import {
 
 import {
   handleSignInModal,
-  closeDifferentNetworkModal,
+  handleRequireWalletLoginModal,
   proceedWithSwitchedAddressModal,
   handleAccessModal,
   handleDeniedAccessModal,
@@ -56,12 +56,25 @@ class App extends Component {
       onBoardingModalMobileTwo: false,
       onBoardingModalMobileThree: false,
       width: window.innerWidth,
-    }
+    };
     this.loadData = this.loadData.bind(this);
   }
 
   componentWillMount() {
     window.addEventListener('resize', this.handleWindowSizeChange);
+  }
+
+  async componentDidMount() {
+    const { location } = this.props;
+    const { pathname } = location;
+
+    if (typeof window.web3 === 'undefined' && pathname !== '/') { // no wallet and lands on restricted page
+      history.push(routes.LANDING);
+      this.props.requireMetaMaskModal();
+      this.props.handleMobileWalletModal();
+    } else if (typeof window.web3 !== 'undefined' && pathname !== '/') { // has wallet and lands on restricted page
+      this.loadData();
+    }
   }
 
   componentWillUnmount() {
@@ -72,42 +85,35 @@ class App extends Component {
     this.setState({ width: window.innerWidth });
   };
 
-  async componentDidMount() {
-    const { location } = this.props;
-    const { pathname } = location;
-    if (typeof window.web3 === 'undefined' && pathname !== '/') {
-      history.push(routes.LANDING);
-      this.props.requireMetaMaskModal();
-      this.props.handleMobileWalletModal();
-    } else if (typeof window.web3 !== 'undefined') {
-      await this.props.checkWeb3Wallet();
-      if (this.props.hasWallet && pathname !== '/') {
-        await this.props.checkNetwork();
-        this.loadData();
-      }
-    }
-  }
-
   handleNextMobileModal = (thisModal, nextModal) => {
     this.setState({
       [`onBoardingModalMobile${thisModal}`]: false,
-      [`onBoardingModalMobile${nextModal}`]: true
-    })
+      [`onBoardingModalMobile${nextModal}`]: true,
+    });
   }
 
   async loadData() {
     const { location } = this.props;
     const { pathname } = location;
 
+    await this.props.checkWeb3Wallet();
+    await this.props.checkNetwork();
     await this.props.requestAccess();
+    // UX has changed from landing on landing page signed in redirecting you to profile page
+    // to not because seeing if you're signed in is now behind a request for access
+    // it is a worse UX to ask a user right upon landing on a page if you can have access, it seems spammy
+
     if (this.props.isSignedIntoWallet && this.props.isLoggedIn) {
-      pathname === '/' && history.push(routes.PROFILE);
+
       await this.props.profileGetBox();
       await this.props.getActivity();
       await this.props.getPublicName();
       await this.props.getPublicGithub();
       await this.props.getPublicImage();
       await this.props.getPrivateEmail();
+    } else if (!this.props.isSignedIntoWallet) {
+      history.push(routes.LANDING);
+      this.props.handleRequireWalletLoginModal();
     } else if (this.props.isSignedIntoWallet && !this.props.isLoggedIn && (pathname === '/Profile' || pathname === '/EditProfile')) {
       history.push(routes.LANDING);
       this.props.handleSignInModal();
@@ -128,11 +134,15 @@ class App extends Component {
       ifFetchingThreeBox,
     } = this.props;
 
-    const { onBoardingModalMobileOne, onBoardingModalMobileTwo, onBoardingModalMobileThree } = this.state;
+    const {
+      onBoardingModalMobileOne,
+      onBoardingModalMobileTwo,
+      onBoardingModalMobileThree,
+      width,
+    } = this.state;
+
     const prevPrevNetwork = window.localStorage.getItem('prevPrevNetwork');
     const currentNetworkState = window.localStorage.getItem('currentNetwork');
-
-    const { width } = this.state;
     const isMobile = width <= 600;
 
     return (
@@ -142,12 +152,14 @@ class App extends Component {
         <ProvideAccessModal
           handleAccessModal={this.props.handleAccessModal}
           show={allowAccessModal}
-          isMobile={isMobile} />
+          isMobile={isMobile}
+        />
 
         <AccessDeniedModal
           handleDeniedAccessModal={this.props.handleDeniedAccessModal}
           show={accessDeniedModal}
-          isMobile={isMobile} />
+          isMobile={isMobile}
+        />
 
         <SwitchedNetworksModal
           prevNetwork={prevNetwork}
@@ -175,7 +187,8 @@ class App extends Component {
           isMobile={isMobile}
           showOne={onBoardingModal}
           showTwo={onBoardingModalTwo}
-          handleOnboardingModal={this.props.handleOnboardingModal} />
+          handleOnboardingModal={this.props.handleOnboardingModal}
+        />
 
         <OnBoardingModalMobile
           isMobile={isMobile}
@@ -184,7 +197,8 @@ class App extends Component {
           showTwo={onBoardingModalMobileOne}
           showThree={onBoardingModalMobileTwo}
           showFour={onBoardingModalMobileThree}
-          handleNextMobileModal={this.handleNextMobileModal} />
+          handleNextMobileModal={this.handleNextMobileModal}
+        />
 
         <Switch>
           <Route exact path={routes.LANDING} component={Landing} />
@@ -209,13 +223,13 @@ App.propTypes = {
   checkWeb3Wallet: PropTypes.func,
   requireMetaMaskModal: PropTypes.func,
   handleMobileWalletModal: PropTypes.func,
-  closeDifferentNetworkModal: PropTypes.func,
   proceedWithSwitchedAddressModal: PropTypes.func,
   handleAccessModal: PropTypes.func,
   handleDeniedAccessModal: PropTypes.func,
   handleSignOut: PropTypes.func,
   checkNetwork: PropTypes.func,
   handleSignInModal: PropTypes.func,
+  handleRequireWalletLoginModal: PropTypes.func,
   handleLoggedOutModal: PropTypes.func,
   handleSwitchedAddressModal: PropTypes.func,
   handleOnboardingModal: PropTypes.func,
@@ -227,8 +241,6 @@ App.propTypes = {
   allowAccessModal: PropTypes.bool,
   isLoggedIn: PropTypes.bool,
   isSignedIntoWallet: PropTypes.bool,
-  hasWallet: PropTypes.bool,
-  switched: PropTypes.bool,
   loggedOutModal: PropTypes.bool,
   switchedAddressModal: PropTypes.bool,
   onBoardingModal: PropTypes.bool,
@@ -250,23 +262,21 @@ App.defaultProps = {
   checkWeb3Wallet: checkWeb3Wallet(),
   requireMetaMaskModal: requireMetaMaskModal(),
   handleMobileWalletModal: handleMobileWalletModal(),
-  closeDifferentNetworkModal: closeDifferentNetworkModal(),
   proceedWithSwitchedAddressModal: proceedWithSwitchedAddressModal(),
   handleAccessModal: handleAccessModal(),
   handleDeniedAccessModal: handleDeniedAccessModal(),
   checkNetwork: checkNetwork(),
   handleSignInModal: handleSignInModal(),
+  handleRequireWalletLoginModal: handleRequireWalletLoginModal(),
   handleLoggedOutModal: handleLoggedOutModal(),
   handleSwitchedAddressModal: handleSwitchedAddressModal(),
   handleSignOut: handleSignOut(),
   handleOnboardingModal: handleOnboardingModal(),
 
   location: {},
-  hasWallet: true,
   showDifferentNetworkModal: false,
   accessDeniedModal: false,
   allowAccessModal: false,
-  switched: false,
   loggedOutModal: false,
   switchedAddressModal: false,
   onBoardingModal: false,
@@ -285,7 +295,6 @@ const mapState = state => ({
   showDifferentNetworkModal: state.threeBox.showDifferentNetworkModal,
   accessDeniedModal: state.threeBox.accessDeniedModal,
   allowAccessModal: state.threeBox.allowAccessModal,
-  switched: state.threeBox.switched,
   loggedOutModal: state.threeBox.loggedOutModal,
   switchedAddressModal: state.threeBox.switchedAddressModal,
   onBoardingModal: state.threeBox.onBoardingModal,
@@ -295,7 +304,6 @@ const mapState = state => ({
   prevPrevNetwork: state.threeBox.prevPrevNetwork,
   isLoggedIn: state.threeBox.isLoggedIn,
   isSignedIntoWallet: state.threeBox.isSignedIntoWallet,
-  hasWallet: state.threeBox.hasWallet,
   ifFetchingThreeBox: state.threeBox.ifFetchingThreeBox,
 });
 
@@ -313,7 +321,7 @@ export default withRouter(connect(mapState,
     handleMobileWalletModal,
     checkNetwork,
     handleSignInModal,
-    closeDifferentNetworkModal,
+    handleRequireWalletLoginModal,
     proceedWithSwitchedAddressModal,
     handleAccessModal,
     handleDeniedAccessModal,
@@ -322,19 +330,3 @@ export default withRouter(connect(mapState,
     handleSwitchedAddressModal,
     handleOnboardingModal,
   })(App));
-
-
-    // if ((pathname === '/Profile' || pathname === '/EditProfile') && typeof window.web3 !== 'undefined') { // eslint-disable-line no-undef
-    //   // if user is logged in and lands on restricted pages
-    //   this.loadData();
-    // } 
-    // else if (pathname === '/' && typeof window.web3 !== 'undefined' && loginStatus) { // eslint-disable-line no-undef
-    //   // if user is logged in and lands on landing page, redirect them to profile page
-    //   history.push(routes.PROFILE);
-    //   this.loadData();
-    // } 
-    // else if ((pathname === '/Profile' || pathname === '/EditProfile') && !loginStatus) {
-    //   // if user is not logged in and lands on restricted pages, redirect them to landing page
-    //   history.push(routes.LANDING);
-    //   this.props.handleSignInModal();
-    // }

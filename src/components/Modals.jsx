@@ -257,18 +257,26 @@ export const ErrorModal = ({ closeErrorModal, errorMessage, show }) => (
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
       <div className="modal">
         {
-          errorMessage && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.'
+          (errorMessage && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.')
+            || (errorMessage && errorMessage.message.substring(0, 26) === 'value/</<@moz-extension://')
             ? <img src={Consent} alt="Consent required" />
             : <img src={ErrorIcon} alt="Error" id="modal__switchedNetworks" />
         }
-        <div id={(errorMessage && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.') || (errorMessage && errorMessage.message.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.') ? 'modal__copy__card' : ''}>
+        <div
+          id={(errorMessage && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.')
+            || (errorMessage && errorMessage.message.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.')
+            || (errorMessage && errorMessage.message.substring(0, 26) === 'value/</<@moz-extension://')
+            ? 'modal__copy__card' : ''}
+        >
           {
-            errorMessage && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.'
+            (errorMessage && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.')
+              || ((errorMessage && errorMessage.message.substring(0, 26) === 'value/</<@moz-extension://'))
               ? <h3>Log in to 3Box</h3>
               : <h3>Error</h3>
           }
           {
-            errorMessage && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.'
+            (errorMessage && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.')
+              || ((errorMessage && errorMessage.message.substring(0, 26) === 'value/</<@moz-extension://'))
               ? <p>You must provide consent to 3Box in your web3 wallet (e.g. MetaMask) to sign in or create a profile, please try again</p>
               : <p>{errorMessage && errorMessage.message.substring(0, 200)}</p>
           }
