@@ -20,7 +20,7 @@ import {
   handleMobileWalletModal,
   handleSignInModal,
   handleRequireWalletLoginModal,
-  closeConsentModal,
+  handleConsentModal,
   requireMetaMaskModal,
   closeRequireMetaMaskModal,
 } from '../state/actions-modals';
@@ -78,8 +78,8 @@ class Landing extends Component {
   async handleSignInUp() {
     if (typeof window.web3 !== 'undefined') {
       await this.props.checkWeb3Wallet();
-      await this.props.checkNetwork();
       await this.props.requestAccess();
+      await this.props.checkNetwork();
 
       if (this.props.isSignedIntoWallet) {
         await this.props.signInGetBox();
@@ -109,7 +109,7 @@ class Landing extends Component {
       mobileWalletRequiredModal,
       signInToWalletModal,
     } = this.props;
-    
+
     const {
       width,
       retractNav,
@@ -146,7 +146,7 @@ class Landing extends Component {
           )}
 
         <ProvideConsentModal
-          closeConsentModal={this.props.closeConsentModal}
+          handleConsentModal={this.props.handleConsentModal}
           show={provideConsent}
           isMobile={isMobile}
         />
@@ -203,7 +203,7 @@ Landing.propTypes = {
   handleMobileWalletModal: PropTypes.func,
   handleSignInModal: PropTypes.func,
   handleRequireWalletLoginModal: PropTypes.func,
-  closeConsentModal: PropTypes.func,
+  handleConsentModal: PropTypes.func,
   requireMetaMaskModal: PropTypes.func,
   getPublicGithub: PropTypes.func,
   getPublicName: PropTypes.func,
@@ -232,7 +232,7 @@ Landing.defaultProps = {
   handleMobileWalletModal: handleMobileWalletModal(),
   handleSignInModal: handleSignInModal(),
   handleRequireWalletLoginModal: handleRequireWalletLoginModal(),
-  closeConsentModal: closeConsentModal(),
+  handleConsentModal: handleConsentModal(),
   requireMetaMaskModal: requireMetaMaskModal(),
   getPublicGithub: getPublicGithub(),
   getPublicName: getPublicName(),
@@ -273,7 +273,7 @@ export default withRouter(connect(mapState, {
   closeErrorModal,
   handleMobileWalletModal,
   handleSignInModal,
-  closeConsentModal,
+  handleConsentModal,
   requireMetaMaskModal,
   getPublicGithub,
   getPublicName,

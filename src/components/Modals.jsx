@@ -21,7 +21,7 @@ import Loading from '../assets/Loading.svg';
 import './styles/Modal.css';
 
 export const SwitchedNetworksModal = ({
-  prevNetwork, currentNetwork, proceedWithSwitchedAddressModal, show, isMobile }) => (
+  prevNetwork, currentNetwork, handleSwitchedNetworkModal, show, isMobile }) => (
     <div>
       <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
         <div className="modal">
@@ -41,9 +41,8 @@ export const SwitchedNetworksModal = ({
             </p>
           </div>
 
-          <button onClick={() => { proceedWithSwitchedAddressModal(); window.localStorage.setItem('switch', true); }} type="button">
-            Continue on
-            {currentNetwork}
+          <button onClick={() => { handleSwitchedNetworkModal(); window.localStorage.setItem('shouldShowSwitchNetwork', true); }} type="button">
+            {`Continue on ${currentNetwork}`}
           </button>
 
         </div>
@@ -104,7 +103,7 @@ export const SwitchedAddressModal = ({
   );
 
 // Landing Page Modals
-export const ProvideConsentModal = ({ closeConsentModal, show, isMobile }) => (
+export const ProvideConsentModal = ({ handleConsentModal, show, isMobile }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
       <div className="modal">
@@ -119,7 +118,7 @@ export const ProvideConsentModal = ({ closeConsentModal, show, isMobile }) => (
           }
         </div>
 
-        <button onClick={closeConsentModal} type="button" className="tertiaryButton">Close</button>
+        <button onClick={handleConsentModal} type="button" className="tertiaryButton">Close</button>
       </div>
     </div>
     <div className="modal__overlay" />

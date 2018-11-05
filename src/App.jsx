@@ -38,7 +38,7 @@ import {
 import {
   handleSignInModal,
   handleRequireWalletLoginModal,
-  proceedWithSwitchedAddressModal,
+  handleSwitchedNetworkModal,
   handleAccessModal,
   handleDeniedAccessModal,
   handleLoggedOutModal,
@@ -97,8 +97,8 @@ class App extends Component {
     const { pathname } = location;
 
     await this.props.checkWeb3Wallet();
-    await this.props.checkNetwork();
     await this.props.requestAccess();
+    await this.props.checkNetwork();
     // UX has changed from landing on landing page signed in redirecting you to profile page
     // to not because seeing if you're signed in is now behind a request for access
     // it is a worse UX to ask a user right upon landing on a page if you can have access, it seems spammy
@@ -141,8 +141,8 @@ class App extends Component {
       width,
     } = this.state;
 
-    const prevPrevNetwork = window.localStorage.getItem('prevPrevNetwork');
-    const currentNetworkState = window.localStorage.getItem('currentNetwork');
+    // const prevPrevNetwork = window.localStorage.getItem('prevPrevNetwork');
+    // const currentNetworkState = window.localStorage.getItem('currentNetwork');
     const isMobile = width <= 600;
 
     return (
@@ -165,8 +165,9 @@ class App extends Component {
           prevNetwork={prevNetwork}
           currentNetwork={currentNetwork}
           isMobile={isMobile}
-          proceedWithSwitchedAddressModal={this.props.proceedWithSwitchedAddressModal}
-          show={(showDifferentNetworkModal && prevPrevNetwork !== currentNetworkState)}
+          handleSwitchedNetworkModal={this.props.handleSwitchedNetworkModal}
+          show={showDifferentNetworkModal}
+        // show={(showDifferentNetworkModal && prevPrevNetwork !== currentNetworkState)}
         />
 
         <LoggedOutModal
@@ -223,7 +224,7 @@ App.propTypes = {
   checkWeb3Wallet: PropTypes.func,
   requireMetaMaskModal: PropTypes.func,
   handleMobileWalletModal: PropTypes.func,
-  proceedWithSwitchedAddressModal: PropTypes.func,
+  handleSwitchedNetworkModal: PropTypes.func,
   handleAccessModal: PropTypes.func,
   handleDeniedAccessModal: PropTypes.func,
   handleSignOut: PropTypes.func,
@@ -262,7 +263,7 @@ App.defaultProps = {
   checkWeb3Wallet: checkWeb3Wallet(),
   requireMetaMaskModal: requireMetaMaskModal(),
   handleMobileWalletModal: handleMobileWalletModal(),
-  proceedWithSwitchedAddressModal: proceedWithSwitchedAddressModal(),
+  handleSwitchedNetworkModal: handleSwitchedNetworkModal(),
   handleAccessModal: handleAccessModal(),
   handleDeniedAccessModal: handleDeniedAccessModal(),
   checkNetwork: checkNetwork(),
@@ -322,7 +323,7 @@ export default withRouter(connect(mapState,
     checkNetwork,
     handleSignInModal,
     handleRequireWalletLoginModal,
-    proceedWithSwitchedAddressModal,
+    handleSwitchedNetworkModal,
     handleAccessModal,
     handleDeniedAccessModal,
     handleLoggedOutModal,

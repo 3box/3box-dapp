@@ -134,19 +134,22 @@ export const checkNetwork = () => async (dispatch) => {
   const prevPrevNetwork = window.localStorage.getItem('prevNetwork');
   const prevNetwork = window.localStorage.getItem('currentNetwork');
 
+  const shouldShowSwitchNetwork = window.localStorage.getItem('shouldShowSwitchNetwork');
   window.localStorage.setItem('prevPrevNetwork', prevPrevNetwork);
   window.localStorage.setItem('prevNetwork', prevNetwork);
   window.localStorage.setItem('currentNetwork', currentNetwork);
 
-
-  if (prevNetwork && (prevNetwork !== currentNetwork) && store.getState().threeBox.isLoggedIn) {
+  if (prevNetwork && (prevNetwork !== currentNetwork) && store.getState().threeBox.isLoggedIn && shouldShowSwitchNetwork === 'true') {
+    window.localStorage.setItem('shouldShowSwitchNetwork', false);
     await dispatch({
       type: 'DIFFERENT_NETWORK',
+      showDifferentNetworkModal: true,
       currentNetwork,
       prevNetwork,
       prevPrevNetwork,
     });
   } else {
+    window.localStorage.setItem('shouldShowSwitchNetwork', true);
     await dispatch({
       type: 'UPDATE_NETWORK',
       currentNetwork,
@@ -159,6 +162,7 @@ export const checkNetwork = () => async (dispatch) => {
 export const signInGetBox = () => async (dispatch) => {
   dispatch({
     type: 'HANDLE_CONSENT_MODAL',
+    provideConsent: true,
   });
 
   const consentGiven = () => {

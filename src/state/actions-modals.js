@@ -2,13 +2,6 @@ import {
   store,
 } from './store';
 
-export const closeDifferentNetworkModal = () => (dispatch) => {
-  dispatch({
-    type: 'CLOSE_DIFFERENT_NETWORK_MODAL',
-    showDifferentNetworkModal: false,
-  });
-};
-
 export const requireMetaMaskModal = () => (dispatch) => {
   dispatch({
     type: 'REQUIRE_METAMASK',
@@ -39,9 +32,9 @@ export const handleSignInModal = () => async (dispatch) => {
   });
 };
 
-export const closeConsentModal = () => async (dispatch) => {
+export const handleConsentModal = () => async (dispatch) => {
   dispatch({
-    type: 'CLOSE_CONSENT_MODAL',
+    type: 'HANDLE_CONSENT_MODAL',
     provideConsent: false,
   });
 };
@@ -60,10 +53,9 @@ export const handleSwitchedAddressModal = () => async (dispatch) => {
   });
 };
 
-export const proceedWithSwitchedAddressModal = () => async (dispatch) => {
+export const handleSwitchedNetworkModal = () => async (dispatch) => {
   dispatch({
-    type: 'PROCEED_WITH_SWITCHED_ADDRESS',
-    switch: false,
+    type: 'HANDLE_SWITCHED_NETWORK_MODAL',
     showDifferentNetworkModal: false,
   });
 };

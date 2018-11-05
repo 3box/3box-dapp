@@ -6,8 +6,6 @@ export const threeBoxReducer = (state = {}, action) => {
         hasWallet: action.hasWallet,
         currentWallet: action.currentWallet,
         mobileWalletRequiredModal: action.mobileWalletRequiredModal,
-        // isSignedIntoWallet: action.isSignedIntoWallet,
-        // isLoggedIn: action.isLoggedIn,
       };
 
     case 'UPDATE_ADDRESSES':
@@ -105,7 +103,7 @@ export const threeBoxReducer = (state = {}, action) => {
     case 'HANDLE_CONSENT_MODAL':
       return {
         ...state,
-        provideConsent: true,
+        provideConsent: action.provideConsent,
       };
 
     case 'LOADING_3BOX':
@@ -150,22 +148,10 @@ export const threeBoxReducer = (state = {}, action) => {
         currentNetwork: action.currentNetwork,
         prevNetwork: action.prevNetwork,
         prevPrevNetwork: action.prevPrevNetwork,
-        showDifferentNetworkModal: true,
+        showDifferentNetworkModal: action.showDifferentNetworkModal,
         onBoardingModal: false,
         onBoardingModal2: false,
         ifFetchingThreeBox: false,
-      };
-
-    case 'CLOSE_CONSENT_MODAL':
-      return {
-        ...state,
-        provideConsent: false,
-      };
-
-    case 'CLOSE_DIFFERENT_NETWORK_MODAL':
-      return {
-        ...state,
-        showDifferentNetworkModal: false,
       };
 
     case 'HANDLE_LOGGEDOUT_MODAL':
@@ -193,10 +179,9 @@ export const threeBoxReducer = (state = {}, action) => {
         signInModal: action.signInModal,
       };
 
-    case 'PROCEED_WITH_SWITCHED_ADDRESS':
+    case 'HANDLE_SWITCHED_NETWORK_MODAL':
       return {
         ...state,
-        switch: action.switch,
         showDifferentNetworkModal: action.showDifferentNetworkModal,
       };
 
