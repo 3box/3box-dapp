@@ -121,10 +121,6 @@ class Landing extends Component {
     const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
     const classHide = retractNav ? 'hide' : '';
 
-    // let signInToWalletError = errorMessage && errorMessage.message &&
-    // errorMessage.message.substring(0, 58) === 'Error: MetaMask Message Signature: 
-    // from field is required.';
-
     return (
       <div id="landing">
 

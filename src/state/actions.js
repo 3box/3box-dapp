@@ -315,6 +315,8 @@ export const getActivity = duringSignIn => async (dispatch) => {
     const feed = activity.internal.concat(activity.txs).concat(activity.token).concat(publicActivity).concat(privateActivity);
     feed.sort((a, b) => b.timeStamp - a.timeStamp);
 
+    console.log(feed)
+
     // order feed chronologically and by address
     const feedByAddress = [];
     feed.forEach((item) => {

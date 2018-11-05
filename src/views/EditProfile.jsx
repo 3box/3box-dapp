@@ -8,11 +8,11 @@ import {
   getPublicGithub,
   getPublicImage,
   getPrivateEmail,
-  getActivity
+  getActivity,
 } from '../state/actions';
 
-import { address } from '../utils/address'
-import { FileSizeModal } from '../components/Modals.jsx';
+import { address } from '../utils/address';
+import { FileSizeModal } from '../components/Modals';
 import history from '../history';
 import Nav from '../components/Nav';
 import * as routes from '../utils/routes';
@@ -31,7 +31,6 @@ class EditProfile extends Component {
       email: '',
       buffer: '',
       disableSave: true,
-      disableSavePic: true,
       saveLoading: false,
       removeUserPic: false,
       editPic: false,
@@ -79,43 +78,49 @@ class EditProfile extends Component {
   }
 
   async handleSubmit(e) {
-    const { name, github, email, removeUserPic, buffer, editPic } = this.state;
+    const {
+      name,
+      github,
+      email,
+      removeUserPic,
+      buffer,
+      editPic,
+    } = this.state;
     const { box } = this.props;
 
     if (box.public) {
-      // start loading animation
       e.preventDefault();
       this.setState({ saveLoading: true });
 
-      // if value has changed, switch boolean to save to db
-      let nameChanged = false;
-      let githubChanged = false;
-      let emailChanged = false;
-      name === this.props.name ? nameChanged = false : nameChanged = true;
-      github === this.props.github ? githubChanged = false : githubChanged = true;
-      email === this.props.email ? emailChanged = false : emailChanged = true;
+      const nameChanged = name !== this.props.name;
+      const githubChanged = github !== this.props.github;
+      const emailChanged = email !== this.props.email;
 
       // if value changed and is not empty, save new value, else remove value
-      nameChanged && (name !== '' ? await box.public.set('name', name) : await box.public.remove('name'));
-      githubChanged && (github !== '' ? await box.public.set('github', github) : await box.public.remove('github'));
-      emailChanged && (email !== '' ? await box.private.set('email', email) : await box.private.remove('email'));
-      removeUserPic && await box.public.remove('image');
+      if (nameChanged && name !== '') await box.public.set('name', name);
+      if (nameChanged && name === '') await box.public.remove('name');
+      if (githubChanged && github !== '') await box.public.set('github', github);
+      if (githubChanged && github === '') await box.public.remove('github');
+      if (emailChanged && email !== '') await box.private.set('email', email);
+      if (emailChanged && email === '') await box.private.remove('email');
+      if (removeUserPic) await box.public.remove('image');
 
+      // save profile picture
       const fetch = editPic && await window.fetch('https://ipfs.infura.io:5001/api/v0/add', {
         method: 'post',
         'Content-Type': 'multipart/form-data',
-        body: buffer
-      })
+        body: buffer,
+      });
       const returnedData = editPic && await fetch.json();
-      editPic && await box.public.set('image', [{ '@type': 'ImageObject', contentUrl: { '/': returnedData.Hash } }]);
+      if (editPic) await box.public.set('image', [{ '@type': 'ImageObject', contentUrl: { '/': returnedData.Hash } }]);
 
       // only get values that have changed
-      nameChanged && await this.props.getPublicName();
-      githubChanged && await this.props.getPublicGithub();
-      emailChanged && await this.props.getPrivateEmail();
-      (removeUserPic || editPic) && await this.props.getPublicImage();
-
+      if (nameChanged) await this.props.getPublicName();
+      if (githubChanged) await this.props.getPublicGithub();
+      if (emailChanged) await this.props.getPrivateEmail();
+      if (removeUserPic || editPic) await this.props.getPublicImage();
       this.props.getActivity();
+      
       this.setState({ saveLoading: false });
       history.push(routes.PROFILE);
     }
@@ -123,7 +128,16 @@ class EditProfile extends Component {
 
   render() {
     const { image } = this.props;
-    const { github, email, name, disableSave, removeUserPic, saveLoading, showFileSizeModal } = this.state;
+
+    const {
+      github,
+      email,
+      name,
+      disableSave,
+      removeUserPic,
+      saveLoading,
+      showFileSizeModal,
+    } = this.state;
 
     return (
       <div id="edit__page">
@@ -171,19 +185,23 @@ class EditProfile extends Component {
                   <label htmlFor="fileInput" id="chooseFile">
                     <input id="fileInput" type="file" name="pic" className="light" accept="image/*" onChange={e => this.handleUpdatePic(e.target.files[0], e)} ref={ref => this.fileUpload = ref} />
                     <img src={AddImage} alt="profile" id="addImage" />
+
                     {(((image.length > 0 && image[0].contentUrl) || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])) && !removeUserPic)
-                      ? <div className="profPic_div">
-                        <div className="profPic_div_overlay">
-                          <p>Change picture</p>
-                        </div>
-                        <img className="profPic" src={(this.fileUpload && this.fileUpload.files && this.fileUpload.files[0]) ? URL.createObjectURL(this.fileUpload.files[0]) : `https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} alt="profile" />
-                      </div>
-                      : <div className="profPic_div">
-                        <div className="profPic_div_overlay">
-                          <p>Change picture</p>
-                        </div>
-                        <div className="profPic" />
-                      </div>}
+                      ? (
+                        <div className="profPic_div">
+                          <div className="profPic_div_overlay">
+                            <p>Change picture</p>
+                          </div>
+                          <img className="profPic" src={(this.fileUpload && this.fileUpload.files && this.fileUpload.files[0]) ? URL.createObjectURL(this.fileUpload.files[0]) : `https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} alt="profile" />
+                        </div>)
+                      : (
+                        <div className="profPic_div">
+                          <div className="profPic_div_overlay">
+                            <p>Change picture</p>
+                          </div>
+                          <div className="profPic" />
+                        </div>)}
+
                   </label>
 
                   <button
@@ -192,7 +210,10 @@ class EditProfile extends Component {
                     onClick={this.removePic}
                     disabled={(image.length > 0 || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])) ? false : true}
                     text="remove"
-                    type="button">Remove</button>
+                    type="button"
+                  >
+                    Remove
+                  </button>
                 </div>
 
                 <div id="edit__info">
@@ -296,3 +317,11 @@ export default withRouter(connect(mapState,
     getPrivateEmail,
     getActivity,
   })(EditProfile));
+
+        // if value has changed, switch boolean to save to db
+      // let nameChanged = false;
+      // let githubChanged = false;
+      // let emailChanged = false;
+      // name === this.props.name ? nameChanged = false : nameChanged = true;
+      // github === this.props.github ? githubChanged = false : githubChanged = true;
+      // email === this.props.email ? emailChanged = false : emailChanged = true;

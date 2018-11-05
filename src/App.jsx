@@ -104,7 +104,6 @@ class App extends Component {
     // it is a worse UX to ask a user right upon landing on a page if you can have access, it seems spammy
 
     if (this.props.isSignedIntoWallet && this.props.isLoggedIn) {
-
       await this.props.profileGetBox();
       await this.props.getActivity();
       await this.props.getPublicName();
@@ -141,8 +140,6 @@ class App extends Component {
       width,
     } = this.state;
 
-    // const prevPrevNetwork = window.localStorage.getItem('prevPrevNetwork');
-    // const currentNetworkState = window.localStorage.getItem('currentNetwork');
     const isMobile = width <= 600;
 
     return (
@@ -167,7 +164,6 @@ class App extends Component {
           isMobile={isMobile}
           handleSwitchedNetworkModal={this.props.handleSwitchedNetworkModal}
           show={showDifferentNetworkModal}
-        // show={(showDifferentNetworkModal && prevPrevNetwork !== currentNetworkState)}
         />
 
         <LoggedOutModal
