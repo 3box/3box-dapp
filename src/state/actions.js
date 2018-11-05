@@ -44,7 +44,7 @@ export const checkWeb3Wallet = () => async (dispatch) => {
 export const requestAccess = () => async (dispatch) => {
   let accounts;
 
-  if (window.ethereum) {
+  if (window.ethereum) { // eslint-disable-line no-undef
     window.web3 = new Web3(ethereum); // eslint-disable-line no-undef
     try {
       await dispatch({
@@ -66,7 +66,7 @@ export const requestAccess = () => async (dispatch) => {
         allowAccessModal: false,
       });
     }
-  } else if (window.web3) {
+  } else if (window.web3) { // eslint-disable-line no-undef
     window.web3 = new Web3(web3.currentProvider); // eslint-disable-line no-undef
     const accountsPromise = new Promise((resolve, reject) => {
       window.web3.eth.getAccounts((e, accountsFound) => { // eslint-disable-line no-undef
@@ -131,16 +131,16 @@ export const checkNetwork = () => async (dispatch) => {
     });
   }
 
-  const prevPrevNetwork = window.localStorage.getItem('prevNetwork');
-  const prevNetwork = window.localStorage.getItem('currentNetwork');
+  const prevPrevNetwork = window.localStorage.getItem('prevNetwork'); // eslint-disable-line no-undef
+  const prevNetwork = window.localStorage.getItem('currentNetwork'); // eslint-disable-line no-undef
 
-  const shouldShowSwitchNetwork = window.localStorage.getItem('shouldShowSwitchNetwork');
-  window.localStorage.setItem('prevPrevNetwork', prevPrevNetwork);
-  window.localStorage.setItem('prevNetwork', prevNetwork);
-  window.localStorage.setItem('currentNetwork', currentNetwork);
+  const shouldShowSwitchNetwork = window.localStorage.getItem('shouldShowSwitchNetwork'); // eslint-disable-line no-undef
+  window.localStorage.setItem('prevPrevNetwork', prevPrevNetwork); // eslint-disable-line no-undef
+  window.localStorage.setItem('prevNetwork', prevNetwork); // eslint-disable-line no-undef
+  window.localStorage.setItem('currentNetwork', currentNetwork); // eslint-disable-line no-undef
 
   if (prevNetwork && (prevNetwork !== currentNetwork) && store.getState().threeBox.isLoggedIn && shouldShowSwitchNetwork === 'true') {
-    window.localStorage.setItem('shouldShowSwitchNetwork', false);
+    window.localStorage.setItem('shouldShowSwitchNetwork', false); // eslint-disable-line no-undef
     await dispatch({
       type: 'DIFFERENT_NETWORK',
       showDifferentNetworkModal: true,
@@ -149,7 +149,7 @@ export const checkNetwork = () => async (dispatch) => {
       prevPrevNetwork,
     });
   } else {
-    window.localStorage.setItem('shouldShowSwitchNetwork', true);
+    window.localStorage.setItem('shouldShowSwitchNetwork', true); // eslint-disable-line no-undef
     await dispatch({
       type: 'UPDATE_NETWORK',
       currentNetwork,
@@ -312,16 +312,20 @@ export const getActivity = duringSignIn => async (dispatch) => {
       history.push(routes.PROFILE);
     }
 
-    const feed = activity.internal.concat(activity.txs).concat(activity.token).concat(publicActivity).concat(privateActivity);
-    feed.sort((a, b) => b.timeStamp - a.timeStamp);
+    const feed = activity.internal
+      .concat(activity.txs)
+      .concat(activity.token)
+      .concat(publicActivity)
+      .concat(privateActivity);
 
-    console.log(feed)
+    feed.sort((a, b) => b.timeStamp - a.timeStamp);
 
     // order feed chronologically and by address
     const feedByAddress = [];
     feed.forEach((item) => {
       const othersAddress = item.from === address ? item.to : item.from;
-      if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === othersAddress) {
+      if (feedByAddress.length > 0 &&
+        Object.keys(feedByAddress[feedByAddress.length - 1])[0] === othersAddress) {
         feedByAddress[feedByAddress.length - 1][othersAddress].push(item);
       } else if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === 'threeBox' && (item.dataType === 'Public' || item.dataType === 'Private')) {
         feedByAddress[feedByAddress.length - 1].threeBox.push(item);
@@ -364,54 +368,3 @@ export const handleSignOut = () => async (dispatch) => {
   }
   history.push(routes.LANDING);
 };
-
-
-// without breaking change
-// export const checkWeb3Wallet = () => async (dispatch) => {
-//   const cp = typeof window.web3 !== 'undefined' ? window.web3.currentProvider : null; // eslint-disable-line no-undef
-
-//   let isToshi;
-//   let isCipher;
-//   let isMetaMask;
-//   let currentWallet;
-//   let isSignedIntoWallet;
-//   let isLoggedIn;
-
-//   if (cp) {
-//     isToshi = !!cp.isToshi;
-//     isCipher = !!cp.isCipher;
-//     isMetaMask = !!cp.isMetaMask;
-
-//     if (isToshi) {
-//       currentWallet = 'isToshi';
-//     } else if (isCipher) {
-//       currentWallet = 'isCipher';
-//     } else if (isMetaMask) {
-//       currentWallet = 'isMetaMask';
-//     }
-
-//     const accountsPromise = new Promise((resolve, reject) => {
-//       window.web3.eth.getAccounts((e, accountsFound) => { // eslint-disable-line no-undef
-//         if (e != null) {
-//           reject(e);
-//         } else {
-//           resolve(accountsFound);
-//         }
-//       });
-//     });
-
-//     const accounts = await accountsPromise;
-
-//     isSignedIntoWallet = !!accounts.length > 0 || (currentWallet === 'isToshi');
-//     isLoggedIn = Box.isLoggedIn(address); // eslint-disable-line no-undef
-//   }
-
-//   await dispatch({
-//     type: 'CHECK_WALLET',
-//     hasWallet: typeof window.web3 !== 'undefined', // eslint-disable-line no-undef
-//     mobileWalletRequiredModal: typeof window.web3 === 'undefined', // eslint-disable-line no-undef
-//     currentWallet,
-//     isSignedIntoWallet,
-//     isLoggedIn,
-//   });
-// };
