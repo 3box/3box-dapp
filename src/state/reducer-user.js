@@ -13,6 +13,7 @@ export const threeBoxReducer = (state = {}, action) => {
         ...state,
         isSignedIntoWallet: action.isSignedIntoWallet,
         isLoggedIn: action.isLoggedIn,
+        accountAddress: action.accountAddress,
       };
 
     case 'UPDATE_NETWORK':
@@ -221,6 +222,7 @@ export const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         allowAccessModal: action.allowAccessModal,
+        directLogin: action.directLogin,
       };
 
     case 'HANDLE_DENIED_ACCESS_MODAL':

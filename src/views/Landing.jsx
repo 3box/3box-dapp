@@ -93,6 +93,7 @@ class Landing extends Component {
       } else if (!this.props.isSignedIntoWallet && !this.props.accessDeniedModal) {
         this.props.handleRequireWalletLoginModal();
       }
+
     } else if (typeof window.web3 === 'undefined') {
       this.props.requireMetaMaskModal();
       this.props.handleMobileWalletModal();

@@ -125,7 +125,7 @@ export const ProvideConsentModal = ({ handleConsentModal, show, isMobile }) => (
   </div>
 );
 
-export const ProvideAccessModal = ({ handleAccessModal, show, isMobile }) => (
+export const ProvideAccessModal = ({ handleAccessModal, show, isMobile, directLogin }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
       <div className="modal">
@@ -135,12 +135,13 @@ export const ProvideAccessModal = ({ handleAccessModal, show, isMobile }) => (
         <div id="modal__copy__card">
           <h3>Grant Access to 3Box in Web3 Wallet</h3>
           {isMobile
-            ? <p>This allows 3Box to read the addresses associated with your account</p>
-            : <p>This allows 3Box to read the addresses associated with your account</p>
+            ? <p>This allows 3Box to read the addresses associated with your account.  Please make sure you are logged in to your web3 wallet</p>
+            : <p>This allows 3Box to read the addresses associated with your account.  Please make sure you are logged in to your web3 wallet</p>
           }
         </div>
 
-        <button onClick={handleAccessModal} type="button" className="tertiaryButton">Close</button>
+        {!directLogin
+          && <button onClick={handleAccessModal} type="button" className="tertiaryButton">Close</button>}
       </div>
     </div>
     <div className="modal__overlay" />

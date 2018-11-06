@@ -20,6 +20,7 @@ import {
   OnBoardingModalMobile,
   ProvideAccessModal,
   AccessDeniedModal,
+  ErrorModal,
 } from './components/Modals';
 
 import {
@@ -37,6 +38,7 @@ import {
 
 import {
   handleSignInModal,
+  closeErrorModal,
   handleRequireWalletLoginModal,
   handleSwitchedNetworkModal,
   handleAccessModal,
@@ -97,19 +99,20 @@ class App extends Component {
     const { pathname } = location;
 
     await this.props.checkWeb3Wallet();
-    await this.props.requestAccess();
+    await this.props.requestAccess('directLogin');
     await this.props.checkNetwork();
     // UX has changed from landing on landing page signed in redirecting you to profile page
     // to not because seeing if you're signed in is now behind a request for access
     // it is a worse UX to ask a user right upon landing on a page if you can have access, it seems spammy
-
     if (this.props.isSignedIntoWallet && this.props.isLoggedIn) {
       await this.props.profileGetBox();
-      await this.props.getActivity();
-      await this.props.getPublicName();
-      await this.props.getPublicGithub();
-      await this.props.getPublicImage();
-      await this.props.getPrivateEmail();
+      if (!this.props.showErrorModal) {
+        await this.props.getActivity();
+        await this.props.getPublicName();
+        await this.props.getPublicGithub();
+        await this.props.getPublicImage();
+        await this.props.getPrivateEmail();
+      }
     } else if (!this.props.isSignedIntoWallet) {
       history.push(routes.LANDING);
       this.props.handleRequireWalletLoginModal();
@@ -124,6 +127,7 @@ class App extends Component {
       showDifferentNetworkModal,
       accessDeniedModal,
       allowAccessModal,
+      directLogin,
       loggedOutModal,
       switchedAddressModal,
       prevNetwork,
@@ -131,7 +135,11 @@ class App extends Component {
       onBoardingModal,
       onBoardingModalTwo,
       ifFetchingThreeBox,
+      errorMessage,
+      showErrorModal,
     } = this.props;
+
+    const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
 
     const {
       onBoardingModalMobileOne,
@@ -149,12 +157,20 @@ class App extends Component {
         <ProvideAccessModal
           handleAccessModal={this.props.handleAccessModal}
           show={allowAccessModal}
+          directLogin={directLogin}
           isMobile={isMobile}
         />
 
         <AccessDeniedModal
           handleDeniedAccessModal={this.props.handleDeniedAccessModal}
           show={accessDeniedModal}
+          isMobile={isMobile}
+        />
+
+        <ErrorModal
+          errorMessage={errorMessage}
+          closeErrorModal={this.props.closeErrorModal}
+          show={showErrorModal && !mustConsentError}
           isMobile={isMobile}
         />
 
@@ -226,6 +242,7 @@ App.propTypes = {
   handleSignOut: PropTypes.func,
   checkNetwork: PropTypes.func,
   handleSignInModal: PropTypes.func,
+  closeErrorModal: PropTypes.func,
   handleRequireWalletLoginModal: PropTypes.func,
   handleLoggedOutModal: PropTypes.func,
   handleSwitchedAddressModal: PropTypes.func,
@@ -236,8 +253,11 @@ App.propTypes = {
   showDifferentNetworkModal: PropTypes.bool,
   accessDeniedModal: PropTypes.bool,
   allowAccessModal: PropTypes.bool,
+  directLogin: PropTypes.bool,
   isLoggedIn: PropTypes.bool,
+  errorMessage: PropTypes.string,
   isSignedIntoWallet: PropTypes.bool,
+  showErrorModal: PropTypes.bool,
   loggedOutModal: PropTypes.bool,
   switchedAddressModal: PropTypes.bool,
   onBoardingModal: PropTypes.bool,
@@ -264,6 +284,7 @@ App.defaultProps = {
   handleDeniedAccessModal: handleDeniedAccessModal(),
   checkNetwork: checkNetwork(),
   handleSignInModal: handleSignInModal(),
+  closeErrorModal: closeErrorModal(),
   handleRequireWalletLoginModal: handleRequireWalletLoginModal(),
   handleLoggedOutModal: handleLoggedOutModal(),
   handleSwitchedAddressModal: handleSwitchedAddressModal(),
@@ -274,13 +295,16 @@ App.defaultProps = {
   showDifferentNetworkModal: false,
   accessDeniedModal: false,
   allowAccessModal: false,
+  directLogin: false,
   loggedOutModal: false,
   switchedAddressModal: false,
   onBoardingModal: false,
   onBoardingModalTwo: false,
   ifFetchingThreeBox: false,
   isLoggedIn: false,
+  errorMessage: '',
   isSignedIntoWallet: false,
+  showErrorModal: false,
   hasWallet: false,
   prevNetwork: '',
   currentNetwork: '',
@@ -292,6 +316,7 @@ const mapState = state => ({
   showDifferentNetworkModal: state.threeBox.showDifferentNetworkModal,
   accessDeniedModal: state.threeBox.accessDeniedModal,
   allowAccessModal: state.threeBox.allowAccessModal,
+  directLogin: state.threeBox.directLogin,
   loggedOutModal: state.threeBox.loggedOutModal,
   switchedAddressModal: state.threeBox.switchedAddressModal,
   onBoardingModal: state.threeBox.onBoardingModal,
@@ -300,7 +325,9 @@ const mapState = state => ({
   currentNetwork: state.threeBox.currentNetwork,
   prevPrevNetwork: state.threeBox.prevPrevNetwork,
   isLoggedIn: state.threeBox.isLoggedIn,
+  errorMessage: state.threeBox.errorMessage,
   isSignedIntoWallet: state.threeBox.isSignedIntoWallet,
+  showErrorModal: state.threeBox.showErrorModal,
   ifFetchingThreeBox: state.threeBox.ifFetchingThreeBox,
 });
 
@@ -318,6 +345,7 @@ export default withRouter(connect(mapState,
     handleMobileWalletModal,
     checkNetwork,
     handleSignInModal,
+    closeErrorModal,
     handleRequireWalletLoginModal,
     handleSwitchedNetworkModal,
     handleAccessModal,

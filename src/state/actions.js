@@ -41,7 +41,7 @@ export const checkWeb3Wallet = () => async (dispatch) => {
 };
 
 // inject for breaking change
-export const requestAccess = () => async (dispatch) => {
+export const requestAccess = directLogin => async (dispatch) => {
   let accounts;
 
   if (window.ethereum) { // eslint-disable-line no-undef
@@ -50,6 +50,7 @@ export const requestAccess = () => async (dispatch) => {
       await dispatch({
         type: 'HANDLE_ACCESS_MODAL',
         allowAccessModal: true,
+        directLogin,
       });
 
       accounts = await ethereum.enable(); // eslint-disable-line no-undef
@@ -58,13 +59,11 @@ export const requestAccess = () => async (dispatch) => {
         type: 'HANDLE_ACCESS_MODAL',
         allowAccessModal: false,
       });
-      const isSignedIntoWallet = accounts ? (accounts.length > 0 || (store.getState().threeBox.currentWallet === 'isToshi')) : false;
-      const isLoggedIn = accounts && Box.isLoggedIn(accounts[0]); // eslint-disable-line no-undef
-
       await dispatch({
         type: 'UPDATE_ADDRESSES',
-        isSignedIntoWallet,
-        isLoggedIn,
+        isSignedIntoWallet: accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi',
+        isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
+        accountAddress: accounts[0],
       });
     } catch (error) {
       history.push(routes.LANDING);
@@ -85,14 +84,13 @@ export const requestAccess = () => async (dispatch) => {
         }
       });
     });
+
     accounts = await accountsPromise;
-    const isSignedIntoWallet = accounts ? (accounts.length > 0 || (store.getState().threeBox.currentWallet === 'isToshi')) : false;
-    const isLoggedIn = accounts && Box.isLoggedIn(accounts[0]); // eslint-disable-line no-undef
 
     await dispatch({
       type: 'UPDATE_ADDRESSES',
-      isSignedIntoWallet,
-      isLoggedIn,
+      isSignedIntoWallet: accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi',
+      isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
     });
   } else {
     console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
@@ -184,7 +182,11 @@ export const signInGetBox = () => async (dispatch) => {
 
   try {
     const box = await Box // eslint-disable-line no-undef
-      .openBox(address, window.web3.currentProvider, opts); // eslint-disable-line no-undef
+      .openBox(
+        store.getState().threeBox.accountAddress || address,
+        window.web3.currentProvider, // eslint-disable-line no-undef
+        opts,
+      );
 
     dispatch({
       type: 'UPDATE_THREEBOX',
@@ -213,32 +215,56 @@ export const signInGetBox = () => async (dispatch) => {
 
 export const profileGetBox = () => async (dispatch) => {
   dispatch({
-    type: 'LOADING_3BOX',
+    type: 'HANDLE_CONSENT_MODAL',
+    provideConsent: true,
   });
 
-  dispatch({
-    type: 'LOADING_ACTIVITY',
-  });
+  // dispatch({
+  //   type: 'LOADING_ACTIVITY',
+  // });
 
-  const box = await Box // eslint-disable-line no-undef
-    .openBox(address, window.web3.currentProvider); // eslint-disable-line no-undef
+  const consentGiven = () => {
+    dispatch({
+      type: 'LOADING_3BOX',
+    });
+  };
 
-  dispatch({
-    type: 'UPDATE_THREEBOX',
-    ifFetchingThreeBox: false,
-    isLoggedIn: true,
-    box,
-    switched: false,
-  });
+  const opts = {
+    consentCallback: consentGiven,
+  };
 
-  box.onSyncDone(() => {
+  try {
+    const box = await Box // eslint-disable-line no-undef
+      .openBox(
+        store.getState().threeBox.accountAddress || address,
+        window.web3.currentProvider, // eslint-disable-line no-undef
+        opts,
+      );
+
     dispatch({
       type: 'UPDATE_THREEBOX',
       ifFetchingThreeBox: false,
       box,
       isLoggedIn: true,
+      switched: false,
     });
-  });
+
+    box.onSyncDone(() => {
+      dispatch({
+        type: 'UPDATE_THREEBOX',
+        ifFetchingThreeBox: false,
+        isLoggedIn: true,
+        box,
+      });
+    });
+  } catch (err) {
+    dispatch({
+      type: 'FAILED_LOADING_3BOX',
+      errorMessage: err,
+      showErrorModal: true,
+      provideConsent: false,
+    });
+  }
 };
 
 export const getPublicName = () => async (dispatch) => {
