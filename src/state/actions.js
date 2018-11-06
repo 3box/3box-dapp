@@ -53,7 +53,7 @@ export const requestAccess = directLogin => async (dispatch) => {
         directLogin,
       });
 
-      accounts = await ethereum.enable(); // eslint-disable-line no-undef
+      accounts = await window.ethereum.enable(); // eslint-disable-line no-undef
 
       await dispatch({
         type: 'HANDLE_ACCESS_MODAL',

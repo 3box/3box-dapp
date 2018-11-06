@@ -103,7 +103,9 @@ class App extends Component {
     await this.props.checkNetwork();
     // UX has changed from landing on landing page signed in redirecting you to profile page
     // to not because seeing if you're signed in is now behind a request for access
-    // it is a worse UX to ask a user right upon landing on a page if you can have access, it seems spammy
+    // it is a worse UX to ask a user right upon landing on a page if 
+    // you can have access, it seems spammy
+
     if (this.props.isSignedIntoWallet && this.props.isLoggedIn) {
       await this.props.profileGetBox();
       if (!this.props.showErrorModal) {
