@@ -15,7 +15,6 @@ const pollNetworkAndAddress = () => {
         loggedOutModal: true,
       });
     }
-
     // Switched address
     if (currentAddress !== address && typeof currentAddress === 'string' && address !== undefined && store.getState().threeBox.isLoggedIn) {
       store.dispatch({

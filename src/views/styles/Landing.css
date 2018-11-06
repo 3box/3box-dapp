@@ -354,7 +354,7 @@
 #footer__bg {
   min-width: 100%;
   position: absolute;
-  bottom: 0;
+  bottom: -4px;
   z-index: 0;
   overflow: hidden; }
 

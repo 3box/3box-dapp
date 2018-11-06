@@ -45,8 +45,9 @@ export const requestAccess = directLogin => async (dispatch) => {
   let accounts;
 
   if (window.ethereum) { // eslint-disable-line no-undef
-    window.web3 = new Web3(ethereum); // eslint-disable-line no-undef
     try {
+      window.web3 = new Web3(ethereum); // eslint-disable-line no-undef
+      //
       await dispatch({
         type: 'HANDLE_ACCESS_MODAL',
         allowAccessModal: true,
@@ -54,7 +55,7 @@ export const requestAccess = directLogin => async (dispatch) => {
       });
 
       accounts = await window.ethereum.enable(); // eslint-disable-line no-undef
-
+      
       await dispatch({
         type: 'HANDLE_ACCESS_MODAL',
         allowAccessModal: false,
@@ -65,6 +66,7 @@ export const requestAccess = directLogin => async (dispatch) => {
         isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
         accountAddress: accounts[0],
       });
+      //
     } catch (error) {
       history.push(routes.LANDING);
       await dispatch({
