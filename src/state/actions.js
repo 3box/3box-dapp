@@ -58,6 +58,14 @@ export const requestAccess = () => async (dispatch) => {
         type: 'HANDLE_ACCESS_MODAL',
         allowAccessModal: false,
       });
+      const isSignedIntoWallet = accounts ? (accounts.length > 0 || (store.getState().threeBox.currentWallet === 'isToshi')) : false;
+      const isLoggedIn = accounts && Box.isLoggedIn(accounts[0]); // eslint-disable-line no-undef
+
+      await dispatch({
+        type: 'UPDATE_ADDRESSES',
+        isSignedIntoWallet,
+        isLoggedIn,
+      });
     } catch (error) {
       history.push(routes.LANDING);
       await dispatch({
@@ -78,18 +86,17 @@ export const requestAccess = () => async (dispatch) => {
       });
     });
     accounts = await accountsPromise;
+    const isSignedIntoWallet = accounts ? (accounts.length > 0 || (store.getState().threeBox.currentWallet === 'isToshi')) : false;
+    const isLoggedIn = accounts && Box.isLoggedIn(accounts[0]); // eslint-disable-line no-undef
+
+    await dispatch({
+      type: 'UPDATE_ADDRESSES',
+      isSignedIntoWallet,
+      isLoggedIn,
+    });
   } else {
     console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
   }
-
-  const isSignedIntoWallet = accounts ? (accounts.length > 0 || (store.getState().threeBox.currentWallet === 'isToshi')) : false;
-  const isLoggedIn = accounts && Box.isLoggedIn(accounts[0]); // eslint-disable-line no-undef
-
-  await dispatch({
-    type: 'UPDATE_ADDRESSES',
-    isSignedIntoWallet,
-    isLoggedIn,
-  });
 };
 
 // if has web3 wallet

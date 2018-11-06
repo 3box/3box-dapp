@@ -35,7 +35,7 @@ const FeedTileTXS = ({ item, isEven }) => (
         : item.dataType === 'Private'
           ? '*****'
           : typeof item.value === 'object'
-            ? `${item.value ? Object.keys(item.value)[0] : 'Undefined'}...`
+            ? `${item.value ? Object.keys(item.value)[0] : '-----'}`
             : item.value}
     </p>
     <p className="feed__activity__address__time">
