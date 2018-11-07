@@ -31,6 +31,7 @@ import {
   getPublicImage,
   getPrivateEmail,
   getActivity,
+  signInGetBox,
   checkWeb3Wallet,
   checkNetwork,
   handleSignOut,
@@ -60,6 +61,7 @@ class App extends Component {
       width: window.innerWidth,
     };
     this.loadData = this.loadData.bind(this);
+    this.handleSignInUp = this.handleSignInUp.bind(this);
   }
 
   componentWillMount() {
@@ -70,11 +72,11 @@ class App extends Component {
     const { location } = this.props;
     const { pathname } = location;
 
-    if (typeof window.web3 === 'undefined' && pathname !== '/') { // no wallet and lands on restricted page
+    if (typeof window.web3 === 'undefined' && (pathname === '/Profile' || pathname === '/EditProfile')) { // no wallet and lands on restricted page
       history.push(routes.LANDING);
       this.props.requireMetaMaskModal();
       this.props.handleMobileWalletModal();
-    } else if (typeof window.web3 !== 'undefined' && pathname !== '/') { // has wallet and lands on restricted page
+    } else if (typeof window.web3 !== 'undefined' && (pathname === '/Profile' || pathname === '/EditProfile')) { // has wallet and lands on restricted page
       this.loadData();
     }
   }
@@ -98,13 +100,14 @@ class App extends Component {
     const { location } = this.props;
     const { pathname } = location;
 
+    // UX has changed from landing on landing page signed in redirecting you to profile page
+    // to not because seeing if you're signed in is now behind a request for access
+    // it is a worse UX to ask a user right upon landing on a page if
+    // you can have access, it seems spammy
+
     await this.props.checkWeb3Wallet();
     await this.props.requestAccess('directLogin');
     await this.props.checkNetwork();
-    // UX has changed from landing on landing page signed in redirecting you to profile page
-    // to not because seeing if you're signed in is now behind a request for access
-    // it is a worse UX to ask a user right upon landing on a page if 
-    // you can have access, it seems spammy
 
     if (this.props.isSignedIntoWallet && this.props.isLoggedIn) {
       await this.props.profileGetBox();
@@ -124,6 +127,30 @@ class App extends Component {
     }
   }
 
+  async handleSignInUp() {
+    if (typeof window.web3 !== 'undefined') {
+      await this.props.checkWeb3Wallet();
+      await this.props.requestAccess();
+      await this.props.checkNetwork();
+
+      if (this.props.isSignedIntoWallet) {
+        await this.props.signInGetBox();
+        if (!this.props.showErrorModal) {
+          await this.props.getActivity('signIn');
+          await this.props.getPublicName();
+          await this.props.getPublicGithub();
+          await this.props.getPublicImage();
+          await this.props.getPrivateEmail();
+        }
+      } else if (!this.props.isSignedIntoWallet && !this.props.accessDeniedModal) {
+        this.props.handleRequireWalletLoginModal();
+      }
+    } else if (typeof window.web3 === 'undefined') {
+      this.props.requireMetaMaskModal();
+      this.props.handleMobileWalletModal();
+    }
+  }
+
   render() {
     const {
       showDifferentNetworkModal,
@@ -139,6 +166,7 @@ class App extends Component {
       ifFetchingThreeBox,
       errorMessage,
       showErrorModal,
+      isLoggedIn,
     } = this.props;
 
     const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
@@ -216,11 +244,42 @@ class App extends Component {
         />
 
         <Switch>
-          <Route exact path={routes.LANDING} component={Landing} />
-          <Route path={routes.PROFILE} component={Profile} />
-          <Route path={routes.EDITPROFILE} component={EditProfile} />
-          <Route path={routes.PRIVACY} component={Privacy} />
-          <Route path={routes.TERMS} component={Terms} />
+          <Route
+            exact
+            path={routes.LANDING}
+            component={Landing}
+          />
+
+          <Route
+            path={routes.PROFILE}
+            component={Profile}
+          />
+
+          <Route
+            path={routes.EDITPROFILE}
+            component={EditProfile}
+          />
+
+          <Route
+            path={routes.PRIVACY}
+            component={() => (
+              <Privacy
+                isLoggedIn={isLoggedIn}
+                handleSignInUp={this.handleSignInUp}
+              />
+            )}
+          />
+
+          <Route
+            path={routes.TERMS}
+            component={() => (
+              <Terms
+                isLoggedIn={isLoggedIn}
+                handleSignInUp={this.handleSignInUp}
+              />
+            )}
+          />
+
         </Switch>
       </div>
     );
@@ -235,6 +294,7 @@ App.propTypes = {
   getPublicImage: PropTypes.func,
   getPrivateEmail: PropTypes.func,
   getActivity: PropTypes.func,
+  signInGetBox: PropTypes.func,
   checkWeb3Wallet: PropTypes.func,
   requireMetaMaskModal: PropTypes.func,
   handleMobileWalletModal: PropTypes.func,
@@ -278,6 +338,7 @@ App.defaultProps = {
   getPublicImage: getPublicImage(),
   getPrivateEmail: getPrivateEmail(),
   getActivity: getActivity(),
+  signInGetBox: signInGetBox(),
   checkWeb3Wallet: checkWeb3Wallet(),
   requireMetaMaskModal: requireMetaMaskModal(),
   handleMobileWalletModal: handleMobileWalletModal(),
@@ -342,6 +403,7 @@ export default withRouter(connect(mapState,
     getPublicImage,
     getPrivateEmail,
     getActivity,
+    signInGetBox,
     checkWeb3Wallet,
     requireMetaMaskModal,
     handleMobileWalletModal,

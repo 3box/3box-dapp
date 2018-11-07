@@ -9,7 +9,6 @@ import {
 import * as routes from '../utils/routes';
 import history from '../history';
 
-// for breaking change
 export const checkWeb3Wallet = () => async (dispatch) => {
   const cp = typeof window.web3 !== 'undefined' ? window.web3.currentProvider : null; // eslint-disable-line no-undef
 

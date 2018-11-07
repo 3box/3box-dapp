@@ -2,10 +2,28 @@ import React from 'react';
 
 import Nav from '../components/Nav';
 import './styles/Info.css';
+import './styles/Landing.css';
+import ThreeBoxLogo from '../components/ThreeBoxLogo';
 
-const Privacy = () => (
+const Privacy = ({ isLoggedIn, handleSignInUp }) => (
   <div>
-    <Nav />
+    {!isLoggedIn
+      ? (
+            <nav id="landing__nav" className='hide'>
+              <div id="nav__logo--marginLeft">
+                <ThreeBoxLogo />
+              </div>
+              <div id="actionButtons">
+                <p onClick={handleSignInUp}>Sign in</p>
+                <button onClick={handleSignInUp} className="secondaryButton" type="button">
+                  Create profile
+                </button>
+              </div>
+            </nav>)
+      : (
+        <Nav />
+      )}
+     
     <div className="info__page">
     <div className="info__banner">
       <h1>Privacy Policy</h1>
@@ -13,11 +31,31 @@ const Privacy = () => (
     <div className="info__content">
       <div className="info__content__text">
         <p>
-        This privacy policy (“Policy”) describes how ConsenSys AG’s 3Box (“3Box” “Company”, “we”, “our”, or “us”) collects, uses, shares, and stores personal information of users of this website, 3box.io (the “Site”). This Policy applies to the Site, applications, products and services (collectively, “Services”) on or in which it is posted, linked, or referenced. 
-By using the Services, you accept the terms of this Policy and our Terms of Use, and consent to our collection, use, disclosure, and retention of your information as described in this Policy.  If you have not done so already, please also review our terms of use. The terms of use contain provisions that limit our liability to you and require you to resolve any dispute with us on an individual basis and not as part of any class or representative action. IF YOU DO NOT AGREE WITH ANY PART OF THIS PRIVACY POLICY OR OUR TERMS OF USE, THEN PLEASE DO NOT USE ANY OF THE SERVICES.
-Please note that this Policy does not apply to information collected through third-party websites or services that you may access through the Services or that you submit to us through email, text message or other electronic message or offline.
-If you are visiting this site from the European Union (EU), see our Notice to EU Data Subjects below for our legal bases for processing and transfer of your data. 
-
+        This privacy policy (“Policy”) describes how ConsenSys AG’s
+        3Box (“3Box” “Company”, “we”, “our”, or “us”)
+        collects, uses, shares, and stores personal information
+        of users of this website, 3box.io (the “Site”). This Policy
+        applies to the Site, applications, products and services
+        (collectively, “Services”) on or in which it is posted,
+        linked, or referenced. By using the Services, you accept
+        the terms of this Policy and our Terms of Use, and consent
+        to our collection, use, disclosure, and retention of your
+        information as described in this Policy.  If you have not
+        done so already, please also review our terms of use. The
+        terms of use contain provisions that limit our liability
+        to you and require you to resolve any dispute with us on
+        an individual basis and not as part of any class or
+        representative action. IF YOU DO NOT AGREE WITH ANY
+        PART OF THIS PRIVACY POLICY OR OUR TERMS OF USE, THEN
+        PLEASE DO NOT USE ANY OF THE SERVICES.
+        Please note that this Policy does not apply to
+        information collected through third-party websites
+        or services that you may access through the Services
+        or that you submit to us through email, text message
+        or other electronic message or offline.
+        If you are visiting this site from the European Union
+        (EU), see our Notice to EU Data Subjects below for
+        our legal bases for processing and transfer of your data.
         </p>
         <h3>What We Collect</h3>
         <p>
