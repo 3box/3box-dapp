@@ -14,6 +14,7 @@ export const threeBoxReducer = (state = {}, action) => {
         isSignedIntoWallet: action.isSignedIntoWallet,
         isLoggedIn: action.isLoggedIn,
         accountAddress: action.accountAddress,
+        allowAccessModal: action.allowAccessModal,
       };
 
     case 'UPDATE_NETWORK':

@@ -32,7 +32,7 @@ export const checkWeb3Wallet = () => async (dispatch) => {
     }
   }
 
-  await dispatch({
+  dispatch({
     type: 'CHECK_WALLET',
     hasWallet: typeof window.web3 !== 'undefined', // eslint-disable-line no-undef
     mobileWalletRequiredModal: typeof window.web3 === 'undefined', // eslint-disable-line no-undef
@@ -47,29 +47,24 @@ export const requestAccess = directLogin => async (dispatch) => {
   if (window.ethereum) { // eslint-disable-line no-undef
     try {
       window.web3 = new Web3(ethereum); // eslint-disable-line no-undef
-      //
-      await dispatch({
+      dispatch({
         type: 'HANDLE_ACCESS_MODAL',
         allowAccessModal: true,
         directLogin,
       });
 
       accounts = await window.ethereum.enable(); // eslint-disable-line no-undef
-      
-      await dispatch({
-        type: 'HANDLE_ACCESS_MODAL',
-        allowAccessModal: false,
-      });
-      await dispatch({
+
+      dispatch({
         type: 'UPDATE_ADDRESSES',
         isSignedIntoWallet: accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi',
         isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
         accountAddress: accounts[0],
+        allowAccessModal: false,
       });
-      //
     } catch (error) {
       history.push(routes.LANDING);
-      await dispatch({
+      dispatch({
         type: 'HANDLE_DENIED_ACCESS_MODAL',
         accessDeniedModal: true,
         allowAccessModal: false,
@@ -89,7 +84,7 @@ export const requestAccess = directLogin => async (dispatch) => {
 
     accounts = await accountsPromise;
 
-    await dispatch({
+    dispatch({
       type: 'UPDATE_ADDRESSES',
       isSignedIntoWallet: accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi',
       isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
@@ -148,7 +143,7 @@ export const checkNetwork = () => async (dispatch) => {
 
   if (prevNetwork && (prevNetwork !== currentNetwork) && store.getState().threeBox.isLoggedIn && shouldShowSwitchNetwork === 'true') {
     window.localStorage.setItem('shouldShowSwitchNetwork', false); // eslint-disable-line no-undef
-    await dispatch({
+    dispatch({
       type: 'DIFFERENT_NETWORK',
       showDifferentNetworkModal: true,
       currentNetwork,
@@ -157,7 +152,7 @@ export const checkNetwork = () => async (dispatch) => {
     });
   } else {
     window.localStorage.setItem('shouldShowSwitchNetwork', true); // eslint-disable-line no-undef
-    await dispatch({
+    dispatch({
       type: 'UPDATE_NETWORK',
       currentNetwork,
       prevNetwork,
