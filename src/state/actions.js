@@ -42,6 +42,15 @@ export const checkWeb3Wallet = () => async (dispatch) => {
 // inject for breaking change
 export const requestAccess = directLogin => async (dispatch) => {
   let accounts;
+  const accountsPromise = new Promise((resolve, reject) => {
+    window.web3.eth.getAccounts((e, accountsFound) => { // eslint-disable-line no-undef
+      if (e != null) {
+        reject(e);
+      } else {
+        resolve(accountsFound);
+      }
+    });
+  });
 
   if (window.ethereum) { // eslint-disable-line no-undef
     try {
@@ -53,6 +62,7 @@ export const requestAccess = directLogin => async (dispatch) => {
       });
 
       accounts = await window.ethereum.enable(); // eslint-disable-line no-undef
+      accounts = !accounts ? await accountsPromise : accounts;
 
       dispatch({
         type: 'UPDATE_ADDRESSES',
@@ -71,15 +81,6 @@ export const requestAccess = directLogin => async (dispatch) => {
     }
   } else if (window.web3) { // eslint-disable-line no-undef
     window.web3 = new Web3(web3.currentProvider); // eslint-disable-line no-undef
-    const accountsPromise = new Promise((resolve, reject) => {
-      window.web3.eth.getAccounts((e, accountsFound) => { // eslint-disable-line no-undef
-        if (e != null) {
-          reject(e);
-        } else {
-          resolve(accountsFound);
-        }
-      });
-    });
 
     accounts = await accountsPromise;
 
@@ -342,7 +343,7 @@ export const getActivity = duringSignIn => async (dispatch) => {
         dataType: 'Private',
       }, object);
     });
-    
+
     const removedPublicArray = removeDeleteActivity(publicActivity);
     const removedPrivateArray = removeDeleteActivity(privateActivity);
 
