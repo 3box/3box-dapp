@@ -314,21 +314,10 @@ export const getActivity = duringSignIn => async (dispatch) => {
       dataType: 'Token',
     }, object));
 
-    let publicActivity = await store.getState().threeBox.box.public.log;
-    publicActivity = publicActivity.map((object) => {
-      object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
-      return Object.assign({
-        dataType: 'Public',
-      }, object);
-    });
+    const removeDeleteActivity = activityArray => activityArray.filter(e => e.op !== 'DEL');
 
+    let publicActivity = await store.getState().threeBox.box.public.log;
     let privateActivity = await store.getState().threeBox.box.private.log;
-    privateActivity = privateActivity.map((object) => {
-      object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
-      return Object.assign({
-        dataType: 'Private',
-      }, object);
-    });
 
     // if user signs in and there is no data in their threebox, then show onboarding modals
     if (publicActivity.length === 0 && privateActivity.length <= 1 && duringSignIn) {
@@ -341,11 +330,29 @@ export const getActivity = duringSignIn => async (dispatch) => {
       history.push(routes.PROFILE);
     }
 
+    publicActivity = publicActivity.map((object) => {
+      object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
+      return Object.assign({
+        dataType: 'Public',
+      }, object);
+    });
+    privateActivity = privateActivity.map((object) => {
+      object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
+      return Object.assign({
+        dataType: 'Private',
+      }, object);
+    });
+    
+    const removedPublicArray = removeDeleteActivity(publicActivity);
+    const removedPrivateArray = removeDeleteActivity(privateActivity);
+
     const feed = activity.internal
       .concat(activity.txs)
       .concat(activity.token)
-      .concat(publicActivity)
-      .concat(privateActivity);
+      .concat(removedPublicArray)
+      .concat(removedPrivateArray);
+      // .concat(publicActivity)
+      // .concat(privateActivity);
 
     feed.sort((a, b) => b.timeStamp - a.timeStamp);
 
