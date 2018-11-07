@@ -72,11 +72,11 @@ class App extends Component {
     const { location } = this.props;
     const { pathname } = location;
 
-    if (typeof window.web3 === 'undefined' && (pathname === '/Profile' || pathname === '/EditProfile')) { // no wallet and lands on restricted page
+    if (typeof window.web3 === 'undefined' && pathname !== '/') { // no wallet and lands on restricted page
       history.push(routes.LANDING);
       this.props.requireMetaMaskModal();
       this.props.handleMobileWalletModal();
-    } else if (typeof window.web3 !== 'undefined' && (pathname === '/Profile' || pathname === '/EditProfile')) { // has wallet and lands on restricted page
+    } else if (typeof window.web3 !== 'undefined' && pathname !== '/') { // has wallet and lands on restricted page
       this.loadData();
     }
   }
@@ -167,6 +167,7 @@ class App extends Component {
       errorMessage,
       showErrorModal,
       isLoggedIn,
+      isSignedIntoWallet,
     } = this.props;
 
     const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
@@ -247,7 +248,16 @@ class App extends Component {
           <Route
             exact
             path={routes.LANDING}
-            component={Landing}
+
+            render={() => (
+              <Landing
+                handleSignInUp={this.handleSignInUp}
+                isLoggedIn={isLoggedIn}
+                errorMessage={errorMessage}
+                showErrorModal={showErrorModal}
+                isSignedIntoWallet={isSignedIntoWallet}
+              />
+            )}
           />
 
           <Route
@@ -377,7 +387,6 @@ App.defaultProps = {
 const mapState = state => ({
   hasWallet: state.threeBox.hasWallet,
   showDifferentNetworkModal: state.threeBox.showDifferentNetworkModal,
-  accessDeniedModal: state.threeBox.accessDeniedModal,
   allowAccessModal: state.threeBox.allowAccessModal,
   directLogin: state.threeBox.directLogin,
   loggedOutModal: state.threeBox.loggedOutModal,
@@ -387,11 +396,13 @@ const mapState = state => ({
   prevNetwork: state.threeBox.prevNetwork,
   currentNetwork: state.threeBox.currentNetwork,
   prevPrevNetwork: state.threeBox.prevPrevNetwork,
-  isLoggedIn: state.threeBox.isLoggedIn,
-  errorMessage: state.threeBox.errorMessage,
-  isSignedIntoWallet: state.threeBox.isSignedIntoWallet,
-  showErrorModal: state.threeBox.showErrorModal,
   ifFetchingThreeBox: state.threeBox.ifFetchingThreeBox,
+
+  errorMessage: state.threeBox.errorMessage,
+  isLoggedIn: state.threeBox.isLoggedIn,
+  showErrorModal: state.threeBox.showErrorModal,
+  accessDeniedModal: state.threeBox.accessDeniedModal,
+  isSignedIntoWallet: state.threeBox.isSignedIntoWallet,
 });
 
 export default withRouter(connect(mapState,
