@@ -315,7 +315,7 @@ export const getActivity = duringSignIn => async (dispatch) => {
       dataType: 'Token',
     }, object));
 
-    const removeDeleteActivity = activityArray => activityArray.filter(e => e.op !== 'DEL');
+    // const removeDeleteActivity = activityArray => activityArray.filter(e => e.op !== 'DEL');
 
     let publicActivity = await store.getState().threeBox.box.public.log;
     let privateActivity = await store.getState().threeBox.box.private.log;
@@ -344,16 +344,25 @@ export const getActivity = duringSignIn => async (dispatch) => {
       }, object);
     });
 
-    const removedPublicArray = removeDeleteActivity(publicActivity);
-    const removedPrivateArray = removeDeleteActivity(privateActivity);
+    // const removedPublicArray = removeDeleteActivity(publicActivity);
+    // const removedPrivateArray = removeDeleteActivity(privateActivity);
 
     const feed = activity.internal
       .concat(activity.txs)
       .concat(activity.token)
-      .concat(removedPublicArray)
-      .concat(removedPrivateArray);
-      // .concat(publicActivity)
-      // .concat(privateActivity);
+      .concat(publicActivity)
+      .concat(privateActivity);
+    // .concat(removedPublicArray)
+    // .concat(removedPrivateArray);
+
+    // if timestamp is undefined, give it the timestamp of the previous entry
+    feed.map((item, i) => {
+      const feedItem = item;
+      if (!feedItem.timeStamp) {
+        feedItem.timeStamp = feed[i - 1].timeStamp;
+      }
+      return feedItem;
+    });
 
     feed.sort((a, b) => b.timeStamp - a.timeStamp);
 
