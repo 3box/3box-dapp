@@ -100,11 +100,6 @@ class App extends Component {
     const { location } = this.props;
     const { pathname } = location;
 
-    // UX has changed from landing on landing page signed in redirecting you to profile page
-    // to not because seeing if you're signed in is now behind a request for access
-    // it is a worse UX to ask a user right upon landing on a page if
-    // you can have access, it seems spammy
-
     await this.props.checkWeb3Wallet();
     await this.props.requestAccess('directLogin');
     await this.props.checkNetwork();
@@ -208,7 +203,6 @@ class App extends Component {
         <SwitchedNetworksModal
           prevNetwork={prevNetwork}
           currentNetwork={currentNetwork}
-          isMobile={isMobile}
           handleSwitchedNetworkModal={this.props.handleSwitchedNetworkModal}
           show={showDifferentNetworkModal}
         />
@@ -297,37 +291,34 @@ class App extends Component {
 }
 
 App.propTypes = {
-  profileGetBox: PropTypes.func,
-  requestAccess: PropTypes.func,
-  getPublicName: PropTypes.func,
-  getPublicGithub: PropTypes.func,
-  getPublicImage: PropTypes.func,
-  getPrivateEmail: PropTypes.func,
-  getActivity: PropTypes.func,
-  signInGetBox: PropTypes.func,
-  checkWeb3Wallet: PropTypes.func,
-  requireMetaMaskModal: PropTypes.func,
-  handleMobileWalletModal: PropTypes.func,
-  handleSwitchedNetworkModal: PropTypes.func,
-  handleAccessModal: PropTypes.func,
-  handleDeniedAccessModal: PropTypes.func,
-  handleSignOut: PropTypes.func,
-  checkNetwork: PropTypes.func,
-  handleSignInModal: PropTypes.func,
-  closeErrorModal: PropTypes.func,
-  handleRequireWalletLoginModal: PropTypes.func,
-  handleLoggedOutModal: PropTypes.func,
-  handleSwitchedAddressModal: PropTypes.func,
-  handleOnboardingModal: PropTypes.func,
+  profileGetBox: PropTypes.func.isRequired,
+  requestAccess: PropTypes.func.isRequired,
+  getPublicName: PropTypes.func.isRequired,
+  getPublicGithub: PropTypes.func.isRequired,
+  getPublicImage: PropTypes.func.isRequired,
+  getPrivateEmail: PropTypes.func.isRequired,
+  getActivity: PropTypes.func.isRequired,
+  signInGetBox: PropTypes.func.isRequired,
+  checkWeb3Wallet: PropTypes.func.isRequired,
+  requireMetaMaskModal: PropTypes.func.isRequired,
+  handleMobileWalletModal: PropTypes.func.isRequired,
+  handleSwitchedNetworkModal: PropTypes.func.isRequired,
+  handleAccessModal: PropTypes.func.isRequired,
+  handleDeniedAccessModal: PropTypes.func.isRequired,
+  handleSignOut: PropTypes.func.isRequired,
+  checkNetwork: PropTypes.func.isRequired,
+  handleSignInModal: PropTypes.func.isRequired,
+  closeErrorModal: PropTypes.func.isRequired,
+  handleRequireWalletLoginModal: PropTypes.func.isRequired,
+  handleLoggedOutModal: PropTypes.func.isRequired,
+  handleSwitchedAddressModal: PropTypes.func.isRequired,
+  handleOnboardingModal: PropTypes.func.isRequired,
 
-  location: PropTypes.object,
-  hasWallet: PropTypes.bool,
   showDifferentNetworkModal: PropTypes.bool,
   accessDeniedModal: PropTypes.bool,
   allowAccessModal: PropTypes.bool,
-  directLogin: PropTypes.bool,
+  directLogin: PropTypes.string,
   isLoggedIn: PropTypes.bool,
-  errorMessage: PropTypes.string,
   isSignedIntoWallet: PropTypes.bool,
   showErrorModal: PropTypes.bool,
   loggedOutModal: PropTypes.bool,
@@ -337,55 +328,31 @@ App.propTypes = {
   ifFetchingThreeBox: PropTypes.bool,
   prevNetwork: PropTypes.string,
   currentNetwork: PropTypes.string,
-  prevPrevNetwork: PropTypes.string,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
+  errorMessage: PropTypes.string,
 };
 
 App.defaultProps = {
-  profileGetBox: profileGetBox(),
-  requestAccess: requestAccess(),
-  getPublicName: getPublicName(),
-  getPublicGithub: getPublicGithub(),
-  getPublicImage: getPublicImage(),
-  getPrivateEmail: getPrivateEmail(),
-  getActivity: getActivity(),
-  signInGetBox: signInGetBox(),
-  checkWeb3Wallet: checkWeb3Wallet(),
-  requireMetaMaskModal: requireMetaMaskModal(),
-  handleMobileWalletModal: handleMobileWalletModal(),
-  handleSwitchedNetworkModal: handleSwitchedNetworkModal(),
-  handleAccessModal: handleAccessModal(),
-  handleDeniedAccessModal: handleDeniedAccessModal(),
-  checkNetwork: checkNetwork(),
-  handleSignInModal: handleSignInModal(),
-  closeErrorModal: closeErrorModal(),
-  handleRequireWalletLoginModal: handleRequireWalletLoginModal(),
-  handleLoggedOutModal: handleLoggedOutModal(),
-  handleSwitchedAddressModal: handleSwitchedAddressModal(),
-  handleSignOut: handleSignOut(),
-  handleOnboardingModal: handleOnboardingModal(),
-
-  location: {},
   showDifferentNetworkModal: false,
   accessDeniedModal: false,
   allowAccessModal: false,
-  directLogin: false,
   loggedOutModal: false,
   switchedAddressModal: false,
   onBoardingModal: false,
   onBoardingModalTwo: false,
   ifFetchingThreeBox: false,
   isLoggedIn: false,
-  errorMessage: '',
   isSignedIntoWallet: false,
   showErrorModal: false,
-  hasWallet: false,
   prevNetwork: '',
   currentNetwork: '',
-  prevPrevNetwork: '',
+  errorMessage: '',
+  directLogin: '',
 };
 
 const mapState = state => ({
-  hasWallet: state.threeBox.hasWallet,
   showDifferentNetworkModal: state.threeBox.showDifferentNetworkModal,
   allowAccessModal: state.threeBox.allowAccessModal,
   directLogin: state.threeBox.directLogin,
@@ -395,9 +362,7 @@ const mapState = state => ({
   onBoardingModalTwo: state.threeBox.onBoardingModalTwo,
   prevNetwork: state.threeBox.prevNetwork,
   currentNetwork: state.threeBox.currentNetwork,
-  prevPrevNetwork: state.threeBox.prevPrevNetwork,
   ifFetchingThreeBox: state.threeBox.ifFetchingThreeBox,
-
   errorMessage: state.threeBox.errorMessage,
   isLoggedIn: state.threeBox.isLoggedIn,
   showErrorModal: state.threeBox.showErrorModal,

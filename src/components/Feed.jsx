@@ -8,9 +8,9 @@ import FeedTileInternal from './FeedTileInternal.jsx';
 import FeedTileActivity from './FeedTileActivity.jsx';
 import { getActivity } from '../state/actions';
 import networkArray from '../utils/networkArray';
-// import Loading from '../assets/Loading.svg';
 import './styles/Feed.css';
 import './styles/NetworkArray.css';
+// import Loading from '../assets/Loading.svg';
 
 const Feed = ({ ifFetchingActivity, feedByAddress }) => (
   <div id="feed">
@@ -35,7 +35,7 @@ const Feed = ({ ifFetchingActivity, feedByAddress }) => (
                 : (
                   <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
                     0x
-                    </div>)
+                  </div>)
               }
               <div className="feed__activity__address">
                 {Object.keys(feedAddress)[0] === 'threeBox'
@@ -63,13 +63,12 @@ const Feed = ({ ifFetchingActivity, feedByAddress }) => (
             </div>
             {
               Object.values(feedAddress)[0].map((item, index) => (
-                item.dataType === 'Internal'
-                  ? <FeedTileInternal item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />
-                  : item.dataType === 'Token'
-                    ? <FeedTileToken item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />
-                    : item.dataType === 'Txs'
-                      ? <FeedTileTXS item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />
-                      : <FeedTileActivity item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />
+                (() => {
+                  if (item.dataType === 'Internal') return <FeedTileInternal item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
+                  if (item.dataType === 'Token') return <FeedTileToken item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
+                  if (item.dataType === 'Txs') return <FeedTileTXS item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
+                  if (item.dataType === ('Private' || 'Public')) return <FeedTileActivity item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
+                })()
               ))
             }
           </div>
@@ -85,19 +84,16 @@ const Feed = ({ ifFetchingActivity, feedByAddress }) => (
 );
 
 Feed.propTypes = {
-  feed: PropTypes.array,
   feedByAddress: PropTypes.array,
   ifFetchingActivity: PropTypes.bool,
 };
 
 Feed.defaultProps = {
-  feed: [],
   feedByAddress: [],
   ifFetchingActivity: false,
 };
 
 const mapState = state => ({
-  feed: state.threeBox.feed,
   feedByAddress: state.threeBox.feedByAddress,
   ifFetchingActivity: state.threeBox.ifFetchingActivity,
 });

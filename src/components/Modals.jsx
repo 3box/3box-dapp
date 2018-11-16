@@ -21,7 +21,7 @@ import Loading from '../assets/Loading.svg';
 import './styles/Modal.css';
 
 export const SwitchedNetworksModal = ({
-  prevNetwork, currentNetwork, handleSwitchedNetworkModal, show, isMobile }) => (
+  prevNetwork, currentNetwork, handleSwitchedNetworkModal, show }) => (
     <div>
       <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
         <div className="modal">
@@ -449,30 +449,3 @@ export const OnBoardingModalMobile = ({
       <div className="modal__overlay" />
     </div>
   );
-
-// export const ErrorModal = ({ closeErrorModal, errorMessage, show }) => (
-//   <div>
-//     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
-//       <div className="modal">
-//         {
-//           errorMessage && errorMessage.code === '-32603'
-//             ? <img src={Consent} alt="Consent required" />
-//             : <img src={ErrorIcon} alt="Error" id="modal__switchedNetworks" />
-//         }
-//         <div id={(errorMessage && errorMessage.code === '-32603') || (errorMessage && errorMessage.message.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.') ? 'modal__copy__card' : ''}>
-//           {
-//             errorMessage && errorMessage.code === '-32603'
-//               ? <h3>Log in to 3Box</h3>
-//               : <h3>Error</h3>
-//           }
-//           {
-//             errorMessage && errorMessage.code === '-32603'
-//               ? <p>You must provide consent to 3Box in your web3 wallet (e.g. MetaMask) to sign in or create a profile, please try again</p>
-//               : <p>{errorMessage && errorMessage.message.substr(0, 200)}</p>
-//           }
-//         </div>
-//         <button onClick={closeErrorModal} type="button" className="tertiaryButton">Close</button>
-//       </div>
-//     </div>
-//     <div className="modal__overlay" />
-//   </div >

@@ -164,6 +164,7 @@ Landing.propTypes = {
   closeErrorModal: PropTypes.func,
   handleMobileWalletModal: PropTypes.func,
   handleSignInModal: PropTypes.func,
+  handleSignInUp: PropTypes.func.isRequired,
   handleRequireWalletLoginModal: PropTypes.func,
   handleConsentModal: PropTypes.func,
   closeRequireMetaMaskModal: PropTypes.func,

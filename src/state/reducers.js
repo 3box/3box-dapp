@@ -4,7 +4,7 @@ import {
 
 import {
   threeBoxReducer,
-} from './reducer-user';
+} from './reducer-threeBox';
 
 export default combineReducers({
   threeBox: threeBoxReducer,
