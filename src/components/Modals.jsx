@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import * as routes from '../utils/routes';
 import Status from '../assets/Status.png';
@@ -21,7 +22,8 @@ import Loading from '../assets/Loading.svg';
 import './styles/Modal.css';
 
 export const SwitchedNetworksModal = ({
-  prevNetwork, currentNetwork, handleSwitchedNetworkModal, show }) => (
+  prevNetwork, currentNetwork, handleSwitchedNetworkModal, show,
+}) => (
     <div>
       <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
         <div className="modal">
@@ -30,10 +32,10 @@ export const SwitchedNetworksModal = ({
           <div>
             <h3>
               Network Change Detected
-            </h3>
+          </h3>
             <p>
               Your profile will stay the same, but your Ethereum activity will update
-            </p>
+          </p>
             <p id="modal__switchBack">
               <b>
                 {`Switch back to ${prevNetwork} in MetaMask or continue on ${currentNetwork}`}
@@ -51,33 +53,36 @@ export const SwitchedNetworksModal = ({
     </div>
   );
 
-export const LoggedOutModal = ({ handleLoggedOutModal, handleSignOut, show, isMobile }) => (
-  <div>
-    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
-      <div className="modal">
-        <img src={LogOut} alt="Partners background" id="modal__switchedNetworks" />
+export const LoggedOutModal = ({
+  handleLoggedOutModal, handleSignOut, show, isMobile,
+}) => (
+    <div>
+      <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+        <div className="modal">
+          <img src={LogOut} alt="Partners background" id="modal__switchedNetworks" />
 
-        <div>
-          <h3>
-            Logged out
+          <div>
+            <h3>
+              Logged out
           </h3>
-          {isMobile
-            ? <p>Sign back in to your web3 wallet or exit 3Box</p>
-            : <p>Sign back in to your MetaMask wallet or exit 3Box</p>
-          }
-        </div>
+            {isMobile
+              ? <p>Sign back in to your web3 wallet or exit 3Box</p>
+              : <p>Sign back in to your MetaMask wallet or exit 3Box</p>
+            }
+          </div>
 
-        <Link to={routes.LANDING}>
-          <button onClick={() => { handleLoggedOutModal(); handleSignOut(); }} type="button">Exit</button>
-        </Link>
+          <Link to={routes.LANDING}>
+            <button onClick={() => { handleLoggedOutModal(); handleSignOut(); }} type="button">Exit</button>
+          </Link>
+        </div>
       </div>
+      <div className="modal__overlay" />
     </div>
-    <div className="modal__overlay" />
-  </div>
-);
+  );
 
 export const SwitchedAddressModal = ({
-  handleSwitchedAddressModal, show, handleSignOut, isMobile }) => (
+  handleSwitchedAddressModal, show, handleSignOut, isMobile,
+}) => (
     <div>
       <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
         <div className="modal">
@@ -86,7 +91,7 @@ export const SwitchedAddressModal = ({
           <div>
             <h3>
               Address change detected
-            </h3>
+          </h3>
             {isMobile
               ? <p>Revert to the previous address in your web3 wallet or sign back in with the new address</p>
               : <p>Revert to the previous address in your MetaMask wallet or sign back in with the new address</p>
@@ -103,71 +108,77 @@ export const SwitchedAddressModal = ({
   );
 
 // Landing Page Modals
-export const ProvideConsentModal = ({ handleConsentModal, show, isMobile }) => (
-  <div>
-    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
-      <div className="modal">
-        <img src={Consent} alt="Partners background" />
-        <img src={Loading} alt="Loading" id="modal__loadingGraphic--access" />
+export const ProvideConsentModal = ({
+  handleConsentModal, show, isMobile,
+}) => (
+    <div>
+      <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+        <div className="modal">
+          <img src={Consent} alt="Partners background" />
+          <img src={Loading} alt="Loading" id="modal__loadingGraphic--access" />
 
-        <div id="modal__copy__card">
-          <h3>Log in to 3Box</h3>
-          {isMobile
-            ? <p>Approve the message in your web3 wallet to continue</p>
-            : <p>Approve the message in your MetaMask wallet to continue</p>
-          }
+          <div id="modal__copy__card">
+            <h3>Log in to 3Box</h3>
+            {isMobile
+              ? <p>Approve the message in your web3 wallet to continue</p>
+              : <p>Approve the message in your MetaMask wallet to continue</p>
+            }
+          </div>
+
+          <button onClick={handleConsentModal} type="button" className="tertiaryButton">Close</button>
         </div>
-
-        <button onClick={handleConsentModal} type="button" className="tertiaryButton">Close</button>
       </div>
+      <div className="modal__overlay" />
     </div>
-    <div className="modal__overlay" />
-  </div>
-);
+  );
 
-export const ProvideAccessModal = ({ handleAccessModal, show, isMobile, directLogin }) => (
-  <div>
-    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
-      <div className="modal">
-        <img src={Access} alt="Partners background" />
-        <img src={Loading} alt="Loading" id="modal__loadingGraphic--access" />
+export const ProvideAccessModal = ({
+  handleAccessModal, show, isMobile, directLogin,
+}) => (
+    <div>
+      <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+        <div className="modal">
+          <img src={Access} alt="Partners background" />
+          <img src={Loading} alt="Loading" id="modal__loadingGraphic--access" />
 
-        <div id="modal__copy__card">
-          <h3>Grant Access to 3Box in Web3 Wallet</h3>
-          {isMobile
-            ? <p>This allows 3Box to read the addresses associated with your account.  Please make sure you are logged in to your web3 wallet</p>
-            : <p>This allows 3Box to read the addresses associated with your account.  Please make sure you are logged in to your web3 wallet</p>
-          }
+          <div id="modal__copy__card">
+            <h3>Grant Access to 3Box in Web3 Wallet</h3>
+            {isMobile
+              ? <p>This allows 3Box to read the addresses associated with your account.  Please make sure you are logged in to your web3 wallet</p>
+              : <p>This allows 3Box to read the addresses associated with your account.  Please make sure you are logged in to your web3 wallet</p>
+            }
+          </div>
+
+          {!directLogin
+            && <button onClick={handleAccessModal} type="button" className="tertiaryButton">Close</button>}
         </div>
-
-        {!directLogin
-          && <button onClick={handleAccessModal} type="button" className="tertiaryButton">Close</button>}
       </div>
+      <div className="modal__overlay" />
     </div>
-    <div className="modal__overlay" />
-  </div>
-);
+  );
 
-export const AccessDeniedModal = ({ handleDeniedAccessModal, show, isMobile }) => (
-  <div>
-    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
-      <div className="modal">
-        <img src={Access} alt="Partners background" />
+export const AccessDeniedModal = ({
+  handleDeniedAccessModal, show, isMobile,
+}) => (
+    <div>
+      <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+        <div className="modal">
+          <img src={Access} alt="Partners background" />
 
-        <div id="modal__copy__card">
-          <h3>Access Denied to 3Box</h3>
-          {isMobile
-            ? <p>3Box cannot proceed without access to the addresses associated to your account</p>
-            : <p>3Box cannot proceed without access to the addresses associated to your account</p>
-          }
+          <div id="modal__copy__card">
+            <h3>Access Denied to 3Box</h3>
+            {isMobile
+              ? <p>3Box cannot proceed without access to the addresses associated to your account</p>
+              : <p>3Box cannot proceed without access to the addresses associated to your account</p>
+            }
+          </div>
+
+          <button onClick={handleDeniedAccessModal} type="button" className="tertiaryButton">Close</button>
         </div>
-
-        <button onClick={handleDeniedAccessModal} type="button" className="tertiaryButton">Close</button>
       </div>
+      <div className="modal__overlay" />
     </div>
-    <div className="modal__overlay" />
-  </div>
-);
+  );
 
 export const LoadingThreeBoxProfileModal = ({ show }) => (
   <div>
@@ -397,55 +408,165 @@ export const OnBoardingModalMobile = ({
   showTwo,
   showThree,
   showFour,
-  handleOnboardingModal }) => (
-    <div>
-      <div className={`${((showOne || showTwo || showThree || showFour) && isMobile) ? 'showModal' : ''} modal__onBoardingModal__container modal--effect`}>
+  handleOnboardingModal,
+}) => (
+  <div>
+    <div className={`${((showOne || showTwo || showThree || showFour) && isMobile) ? 'showModal' : ''} modal__onBoardingModal__container modal--effect`}>
 
-        <div className={`${showOne ? 'showModalImage' : ''} modal__onBoardingModal`}>
-          <img src={OnBoardingModalGraphic} alt="Partners background" className={`${showOne ? 'fadeImage' : ''} modal__onBoardingModal__image`} />
-          <button onClick={() => { handleNextMobileModal(undefined, 'One'); handleOnboardingModal(isMobile); }} type="button" id="modal__onBoardingModal__button">Get started</button>
-          <div id="modal__onBoardingModal__progressBar">
-            <div id="modal__onBoardingModal__progressBar__progress--highlight" />
-            <div id="modal__onBoardingModal__progressBar__progress--dull" />
-            <div id="modal__onBoardingModal__progressBar__progress--dull" />
-            <div id="modal__onBoardingModal__progressBar__progress--dull" />
-          </div>
+      <div className={`${showOne ? 'showModalImage' : ''} modal__onBoardingModal`}>
+        <img src={OnBoardingModalGraphic} alt="Partners background" className={`${showOne ? 'fadeImage' : ''} modal__onBoardingModal__image`} />
+        <button onClick={() => { handleNextMobileModal(undefined, 'One'); handleOnboardingModal(isMobile); }} type="button" id="modal__onBoardingModal__button">Get started</button>
+        <div id="modal__onBoardingModal__progressBar">
+          <div id="modal__onBoardingModal__progressBar__progress--highlight" />
+          <div id="modal__onBoardingModal__progressBar__progress--dull" />
+          <div id="modal__onBoardingModal__progressBar__progress--dull" />
+          <div id="modal__onBoardingModal__progressBar__progress--dull" />
         </div>
-
-        <div className={`${showTwo ? 'showModalImage' : ''} modal__onBoardingModal`}>
-          <img src={OnBoardingModalMobileGraphic1} alt="Partners background" className={`${showTwo ? 'fadeImage' : ''} modal__onBoardingModal__image`} />
-          <button onClick={() => handleNextMobileModal('One', 'Two')} type="button" id="modal__onBoardingModal__button">Next</button>
-          <div id="modal__onBoardingModal__progressBar">
-            <div id="modal__onBoardingModal__progressBar__progress--dull" />
-            <div id="modal__onBoardingModal__progressBar__progress--highlight" />
-            <div id="modal__onBoardingModal__progressBar__progress--dull" />
-            <div id="modal__onBoardingModal__progressBar__progress--dull" />
-          </div>
-        </div>
-
-        <div className={`${showThree ? 'showModalImage' : ''} modal__onBoardingModal`}>
-          <img src={OnBoardingModalMobileGraphic2} alt="Partners background" className={`${showThree ? 'fadeImage' : ''} modal__onBoardingModal__image`} />
-          <button onClick={() => handleNextMobileModal('Two', 'Three')} type="button" id="modal__onBoardingModal__button">Next</button>
-          <div id="modal__onBoardingModal__progressBar">
-            <div id="modal__onBoardingModal__progressBar__progress--dull" />
-            <div id="modal__onBoardingModal__progressBar__progress--dull" />
-            <div id="modal__onBoardingModal__progressBar__progress--highlight" />
-            <div id="modal__onBoardingModal__progressBar__progress--dull" />
-          </div>
-        </div>
-
-        <div className={`${showFour ? 'showModalImage' : ''} modal__onBoardingModal`}>
-          <img src={OnBoardingModalMobileGraphic3} alt="Partners background" className={`${showFour ? 'fadeImage' : ''} modal__onBoardingModal__image`} />
-          <button onClick={() => handleNextMobileModal('Three', undefined)} type="button" id="modal__onBoardingModal__button">Let's go</button>
-          <div id="modal__onBoardingModal__progressBar">
-            <div id="modal__onBoardingModal__progressBar__progress--dull" />
-            <div id="modal__onBoardingModal__progressBar__progress--dull" />
-            <div id="modal__onBoardingModal__progressBar__progress--dull" />
-            <div id="modal__onBoardingModal__progressBar__progress--highlight" />
-          </div>
-        </div>
-
       </div>
-      <div className="modal__overlay" />
+
+      <div className={`${showTwo ? 'showModalImage' : ''} modal__onBoardingModal`}>
+        <img src={OnBoardingModalMobileGraphic1} alt="Partners background" className={`${showTwo ? 'fadeImage' : ''} modal__onBoardingModal__image`} />
+        <button onClick={() => handleNextMobileModal('One', 'Two')} type="button" id="modal__onBoardingModal__button">Next</button>
+        <div id="modal__onBoardingModal__progressBar">
+          <div id="modal__onBoardingModal__progressBar__progress--dull" />
+          <div id="modal__onBoardingModal__progressBar__progress--highlight" />
+          <div id="modal__onBoardingModal__progressBar__progress--dull" />
+          <div id="modal__onBoardingModal__progressBar__progress--dull" />
+        </div>
+      </div>
+
+      <div className={`${showThree ? 'showModalImage' : ''} modal__onBoardingModal`}>
+        <img src={OnBoardingModalMobileGraphic2} alt="Partners background" className={`${showThree ? 'fadeImage' : ''} modal__onBoardingModal__image`} />
+        <button onClick={() => handleNextMobileModal('Two', 'Three')} type="button" id="modal__onBoardingModal__button">Next</button>
+        <div id="modal__onBoardingModal__progressBar">
+          <div id="modal__onBoardingModal__progressBar__progress--dull" />
+          <div id="modal__onBoardingModal__progressBar__progress--dull" />
+          <div id="modal__onBoardingModal__progressBar__progress--highlight" />
+          <div id="modal__onBoardingModal__progressBar__progress--dull" />
+        </div>
+      </div>
+
+      <div className={`${showFour ? 'showModalImage' : ''} modal__onBoardingModal`}>
+        <img src={OnBoardingModalMobileGraphic3} alt="Partners background" className={`${showFour ? 'fadeImage' : ''} modal__onBoardingModal__image`} />
+        <button onClick={() => handleNextMobileModal('Three', undefined)} type="button" id="modal__onBoardingModal__button">Let's go</button>
+        <div id="modal__onBoardingModal__progressBar">
+          <div id="modal__onBoardingModal__progressBar__progress--dull" />
+          <div id="modal__onBoardingModal__progressBar__progress--dull" />
+          <div id="modal__onBoardingModal__progressBar__progress--dull" />
+          <div id="modal__onBoardingModal__progressBar__progress--highlight" />
+        </div>
+      </div>
+
     </div>
-  );
+    <div className="modal__overlay" />
+  </div>
+);
+
+SwitchedNetworksModal.propTypes = {
+  prevNetwork: PropTypes.string.isRequired,
+  currentNetwork: PropTypes.string.isRequired,
+  handleSwitchedNetworkModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
+LoggedOutModal.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  handleLoggedOutModal: PropTypes.func.isRequired,
+  handleSignOut: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
+SwitchedAddressModal.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  handleSwitchedAddressModal: PropTypes.func.isRequired,
+  handleSignOut: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
+ProvideConsentModal.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  handleConsentModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
+ProvideAccessModal.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  handleAccessModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+  directLogin: PropTypes.string,
+};
+
+ProvideAccessModal.defaultProps = {
+  directLogin: '',
+};
+
+AccessDeniedModal.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  handleDeniedAccessModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
+LoadingThreeBoxProfileModal.propTypes = {
+  show: PropTypes.bool.isRequired,
+};
+
+FileSizeModal.propTypes = {
+  closeFileSizeModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
+RequireMetaMaskModal.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  closeRequireMetaMaskModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
+SignInToWalletModal.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  handleRequireWalletLoginModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
+ErrorModal.propTypes = {
+  errorMessage: PropTypes.string,
+  closeErrorModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
+ErrorModal.defaultProps = {
+  errorMessage: '',
+};
+
+MustConsentModal.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  closeErrorModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
+SignInToThreeBox.propTypes = {
+  handleSignInModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
+MobileWalletRequiredModal.propTypes = {
+  isIOS: PropTypes.bool.isRequired,
+  handleMobileWalletModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
+OnBoardingModalDesktop.propTypes = {
+  handleOnboardingModal: PropTypes.func.isRequired,
+  showOne: PropTypes.bool.isRequired,
+  showTwo: PropTypes.bool.isRequired,
+  isMobile: PropTypes.bool.isRequired,
+};
+
+OnBoardingModalMobile.propTypes = {
+  handleNextMobileModal: PropTypes.func.isRequired,
+  handleOnboardingModal: PropTypes.func.isRequired,
+  showOne: PropTypes.bool.isRequired,
+  showTwo: PropTypes.bool.isRequired,
+  showThree: PropTypes.bool.isRequired,
+  showFour: PropTypes.bool.isRequired,
+  isMobile: PropTypes.bool.isRequired,
+};
