@@ -76,7 +76,7 @@ class App extends Component {
       history.push(routes.LANDING);
       this.props.requireMetaMaskModal();
       this.props.handleMobileWalletModal();
-    } else if (typeof window.web3 !== 'undefined' && pathname !== '/') { // has wallet and lands on restricted page
+    } else if (typeof window.web3 !== 'undefined' && (pathname === '/Profile' || pathname === '/EditProfile')) { // has wallet and lands on restricted page
       this.loadData();
     }
   }
@@ -99,6 +99,7 @@ class App extends Component {
   async loadData() {
     const { location } = this.props;
     const { pathname } = location;
+    const lowercasePathname = pathname.toLowerCase();
 
     await this.props.checkWeb3Wallet();
     await this.props.requestAccess('directLogin');
@@ -116,7 +117,7 @@ class App extends Component {
     } else if (!this.props.isSignedIntoWallet) {
       history.push(routes.LANDING);
       this.props.handleRequireWalletLoginModal();
-    } else if (this.props.isSignedIntoWallet && !this.props.isLoggedIn && (pathname === '/Profile' || pathname === '/EditProfile')) {
+    } else if (this.props.isSignedIntoWallet && !this.props.isLoggedIn && (lowercasePathname === '/profile' || lowercasePathname === '/editprofile')) {
       history.push(routes.LANDING);
       this.props.handleSignInModal();
     }

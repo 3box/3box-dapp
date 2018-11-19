@@ -32,10 +32,10 @@ export const SwitchedNetworksModal = ({
           <div>
             <h3>
               Network Change Detected
-          </h3>
+            </h3>
             <p>
               Your profile will stay the same, but your Ethereum activity will update
-          </p>
+            </p>
             <p id="modal__switchBack">
               <b>
                 {`Switch back to ${prevNetwork} in MetaMask or continue on ${currentNetwork}`}
@@ -540,7 +540,7 @@ ErrorModal.defaultProps = {
 MustConsentModal.propTypes = {
   isMobile: PropTypes.bool.isRequired,
   closeErrorModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
+  show: PropTypes.string.isRequired,
 };
 
 SignInToThreeBox.propTypes = {
