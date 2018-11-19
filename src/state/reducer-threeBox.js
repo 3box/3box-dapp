@@ -37,7 +37,6 @@ export const threeBoxReducer = (state = {}, action) => {
         image: action.image,
         email: action.email,
         feedByAddress: action.feedByAddress,
-        switched: action.switched,
         isLoggedIn: action.isLoggedIn,
       };
 
@@ -67,7 +66,6 @@ export const threeBoxReducer = (state = {}, action) => {
         ...state,
         box: action.box,
         ifFetchingThreeBox: false,
-        switched: action.switched,
         isLoggedIn: action.isLoggedIn,
       };
 
@@ -170,9 +168,9 @@ export const threeBoxReducer = (state = {}, action) => {
         ...state,
         switchedAddressModal: action.switchedAddressModal,
         ifFetchingThreeBox: false,
-        switched: action.switched,
         onBoardingModal: false,
         onBoardingModal2: false,
+        prevAddress: action.prevAddress,
       };
 
     case 'HANDLE_SIGNIN_MODAL':

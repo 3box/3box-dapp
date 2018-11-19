@@ -243,7 +243,6 @@ export const profileGetBox = () => async (dispatch) => {
       ifFetchingThreeBox: false,
       box,
       isLoggedIn: true,
-      switched: false,
     });
 
     box.onSyncDone(() => {
@@ -386,6 +385,8 @@ export const getActivity = duringSignIn => async (dispatch) => {
       }
     });
 
+    console.log(feedByAddress);
+    
     dispatch({
       type: 'UPDATE_ACTIVITY',
       feedByAddress,

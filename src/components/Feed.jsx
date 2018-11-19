@@ -67,7 +67,8 @@ const Feed = ({ ifFetchingActivity, feedByAddress }) => (
                   if (item.dataType === 'Internal') return <FeedTileInternal item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
                   if (item.dataType === 'Token') return <FeedTileToken item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
                   if (item.dataType === 'Txs') return <FeedTileTXS item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
-                  if (item.dataType === ('Private' || 'Public')) return <FeedTileActivity item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
+                  if (item.dataType === 'Public') return <FeedTileActivity item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
+                  if (item.dataType === 'Private') return <FeedTileActivity item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
                 })()
               ))
             }

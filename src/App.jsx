@@ -161,6 +161,7 @@ class App extends Component {
       onBoardingModalTwo,
       ifFetchingThreeBox,
       errorMessage,
+      prevAddress,
       showErrorModal,
       isLoggedIn,
       isSignedIntoWallet,
@@ -220,6 +221,7 @@ class App extends Component {
           show={switchedAddressModal}
           isMobile={isMobile}
           handleSignOut={this.props.handleSignOut}
+          prevAddress={prevAddress}
         />
 
         <OnBoardingModalDesktop
@@ -333,6 +335,7 @@ App.propTypes = {
     pathname: PropTypes.string.isRequired,
   }).isRequired,
   errorMessage: PropTypes.string,
+  prevAddress: PropTypes.string,
 };
 
 App.defaultProps = {
@@ -350,6 +353,7 @@ App.defaultProps = {
   prevNetwork: '',
   currentNetwork: '',
   errorMessage: '',
+  prevAddress: '',
   directLogin: '',
 };
 
@@ -365,6 +369,7 @@ const mapState = state => ({
   currentNetwork: state.threeBox.currentNetwork,
   ifFetchingThreeBox: state.threeBox.ifFetchingThreeBox,
   errorMessage: state.threeBox.errorMessage,
+  prevAddress: state.threeBox.prevAddress,
   isLoggedIn: state.threeBox.isLoggedIn,
   showErrorModal: state.threeBox.showErrorModal,
   accessDeniedModal: state.threeBox.accessDeniedModal,
