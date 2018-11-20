@@ -10,6 +10,7 @@ import EditProfile from './views/EditProfile';
 import Privacy from './views/Privacy';
 import Terms from './views/Terms';
 import history from './history';
+import './index.css';
 
 import {
   SwitchedAddressModal,
@@ -47,6 +48,7 @@ import {
   handleLoggedOutModal,
   handleSwitchedAddressModal,
   requireMetaMaskModal,
+  handleDownloadMetaMaskBanner,
   handleMobileWalletModal,
   handleOnboardingModal,
 } from './state/actions-modals';
@@ -72,12 +74,14 @@ class App extends Component {
     const { location } = this.props;
     const { pathname } = location;
 
-    if (typeof window.web3 === 'undefined' && pathname !== '/') { // no wallet and lands on restricted page
+    if (typeof window.web3 === 'undefined') this.props.handleDownloadMetaMaskBanner();
+
+    if (typeof window.web3 !== 'undefined' && (pathname === '/Profile' || pathname === '/EditProfile')) { // no wallet and lands on restricted page
+      this.loadData();
+    } else if (typeof window.web3 === 'undefined' && (pathname === '/Profile' || pathname === '/EditProfile')) { // has wallet and lands on restricted page
       history.push(routes.LANDING);
       this.props.requireMetaMaskModal();
       this.props.handleMobileWalletModal();
-    } else if (typeof window.web3 !== 'undefined' && (pathname === '/Profile' || pathname === '/EditProfile')) { // has wallet and lands on restricted page
-      this.loadData();
     }
   }
 
@@ -165,6 +169,7 @@ class App extends Component {
       showErrorModal,
       isLoggedIn,
       isSignedIntoWallet,
+      downloadBanner,
     } = this.props;
 
     const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
@@ -180,6 +185,21 @@ class App extends Component {
 
     return (
       <div className="App">
+
+        <div className={`${!downloadBanner ? 'hideBanner' : ''} webThreeBanner`}>
+          <p>
+            3Box requires web3.  Download the MetaMask extension to continue.
+              </p>
+          <a href="https://metamask.io/" target="_blank" rel="noopener noreferrer">
+            <button type="button" className="webThreeBanner__link">
+              Download
+                </button>
+          </a>
+          <p onClick={this.props.handleDownloadMetaMaskBanner} className="webThreeBanner__close">
+            &#10005;
+              </p>
+        </div>
+
         <LoadingThreeBoxProfileModal show={ifFetchingThreeBox} />
 
         <ProvideAccessModal
@@ -304,6 +324,7 @@ App.propTypes = {
   signInGetBox: PropTypes.func.isRequired,
   checkWeb3Wallet: PropTypes.func.isRequired,
   requireMetaMaskModal: PropTypes.func.isRequired,
+  handleDownloadMetaMaskBanner: PropTypes.func.isRequired,
   handleMobileWalletModal: PropTypes.func.isRequired,
   handleSwitchedNetworkModal: PropTypes.func.isRequired,
   handleAccessModal: PropTypes.func.isRequired,
@@ -329,6 +350,7 @@ App.propTypes = {
   onBoardingModal: PropTypes.bool,
   onBoardingModalTwo: PropTypes.bool,
   ifFetchingThreeBox: PropTypes.bool,
+  downloadBanner: PropTypes.bool,
   prevNetwork: PropTypes.string,
   currentNetwork: PropTypes.string,
   location: PropTypes.shape({
@@ -342,6 +364,7 @@ App.defaultProps = {
   showDifferentNetworkModal: false,
   accessDeniedModal: false,
   allowAccessModal: false,
+  downloadBanner: false,
   loggedOutModal: false,
   switchedAddressModal: false,
   onBoardingModal: false,
@@ -374,6 +397,7 @@ const mapState = state => ({
   showErrorModal: state.threeBox.showErrorModal,
   accessDeniedModal: state.threeBox.accessDeniedModal,
   isSignedIntoWallet: state.threeBox.isSignedIntoWallet,
+  downloadBanner: state.threeBox.downloadBanner,
 });
 
 export default withRouter(connect(mapState,
@@ -388,6 +412,7 @@ export default withRouter(connect(mapState,
     signInGetBox,
     checkWeb3Wallet,
     requireMetaMaskModal,
+    handleDownloadMetaMaskBanner,
     handleMobileWalletModal,
     checkNetwork,
     handleSignInModal,

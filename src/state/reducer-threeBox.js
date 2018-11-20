@@ -4,6 +4,7 @@ export const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         hasWallet: action.hasWallet,
+        downloadBanner: action.downloadBanner,
         currentWallet: action.currentWallet,
         mobileWalletRequiredModal: action.mobileWalletRequiredModal,
       };
@@ -229,6 +230,12 @@ export const threeBoxReducer = (state = {}, action) => {
         ...state,
         accessDeniedModal: action.accessDeniedModal,
         allowAccessModal: action.allowAccessModal,
+      };
+
+    case 'HANDLE_DOWNLOAD_BANNER':
+      return {
+        ...state,
+        downloadBanner: action.downloadBanner,
       };
 
     default:

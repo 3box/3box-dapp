@@ -102,3 +102,10 @@ export const handleDeniedAccessModal = () => async (dispatch) => {
     accessDeniedModal: !store.getState().threeBox.accessDeniedModal,
   });
 };
+
+export const handleDownloadMetaMaskBanner = () => async (dispatch) => {
+  dispatch({
+    type: 'HANDLE_DOWNLOAD_BANNER',
+    downloadBanner: !store.getState().threeBox.downloadBanner,
+  });
+};

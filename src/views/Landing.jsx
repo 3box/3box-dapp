@@ -72,6 +72,7 @@ class Landing extends Component {
       signInToWalletModal,
       isLoggedIn,
       handleSignInUp,
+      downloadBanner,
     } = this.props;
 
     const {
@@ -90,12 +91,14 @@ class Landing extends Component {
 
         {!isLoggedIn
           ? (
-            <nav id="landing__nav" className={classHide}>
+            <nav id="landing__nav" className={`${downloadBanner ? 'bannerMargin' : ''} ${classHide}`}>
               <div id="nav__logo--marginLeft">
                 <ThreeBoxLogo />
               </div>
               <div id="actionButtons">
-                <p onClick={handleSignInUp}>Sign in</p>
+                <p onClick={handleSignInUp}>
+                  Sign in
+                </p>
                 <button onClick={handleSignInUp} className="secondaryButton" type="button">
                   Create profile
                 </button>
@@ -148,7 +151,6 @@ class Landing extends Component {
           handleSignInModal={this.props.handleSignInModal}
         />
 
-
         <LandingBody
           isLoggedIn={isLoggedIn}
           handleSignInUp={handleSignInUp}
@@ -176,6 +178,7 @@ Landing.propTypes = {
   mobileWalletRequiredModal: PropTypes.bool,
   signInToWalletModal: PropTypes.bool,
   isLoggedIn: PropTypes.bool,
+  downloadBanner: PropTypes.bool,
   errorMessage: PropTypes.string,
 };
 
@@ -194,6 +197,7 @@ Landing.defaultProps = {
   mobileWalletRequiredModal: false,
   signInToWalletModal: false,
   isLoggedIn: false,
+  downloadBanner: false,
   errorMessage: '',
 };
 
@@ -203,6 +207,7 @@ const mapState = state => ({
   alertRequireMetaMask: state.threeBox.alertRequireMetaMask,
   mobileWalletRequiredModal: state.threeBox.mobileWalletRequiredModal,
   signInToWalletModal: state.threeBox.signInToWalletModal,
+  downloadBanner: state.threeBox.downloadBanner,
 });
 
 export default withRouter(connect(mapState, {

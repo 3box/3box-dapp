@@ -114,6 +114,41 @@ h5 {
 ul {
   margin: 0; }
 
+.webThreeBanner {
+  width: 100vw;
+  height: 54px;
+  background: #006ECC;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  transition: all .5s ease; }
+  .webThreeBanner p {
+    color: white; }
+
+.hideBanner {
+  top: -54px;
+  background: white; }
+  .hideBanner button {
+    background-color: white; }
+
+.webThreeBanner__link {
+  border: 1px solid white;
+  margin-left: 24px;
+  padding: .6em .9em;
+  color: white; }
+
+.webThreeBanner__close {
+  position: absolute;
+  right: 24px;
+  cursor: pointer; }
+
 .header {
   font-size: 1.1em;
   color: #a8a8a8;

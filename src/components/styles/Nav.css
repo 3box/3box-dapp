@@ -13,6 +13,9 @@ nav {
   nav p {
     color: #006ECC; }
 
+.bannerMargin {
+  margin-top: 54px; }
+
 #nav__networkStatus {
   border: 1px solid #e4e4e4;
   padding: 8px 12px;
