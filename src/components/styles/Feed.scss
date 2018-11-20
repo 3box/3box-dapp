@@ -108,7 +108,7 @@
 }
 
 .feed__activity__address__dataType {
-  width: 16%;
+  width: 76px;
   display: flex;
   align-items: center;
 
@@ -122,7 +122,7 @@
 }
 
 .feed__activity__address__function {
-  width: 21%;
+  width: 130px;
 }
 
 .feed__activity__address__toFrom {
@@ -130,7 +130,7 @@
   align-items: center;
   justify-content: flex-start;
 
-  width: 21%;
+  width: 130px;
 
   img {
     width: 1em;
@@ -145,7 +145,10 @@
 }
 
 .feed__activity__address__amount {
-  width: 21%;
+  width: 130px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .feed__activity__address__amount__image {
@@ -153,7 +156,7 @@
 }
 
 .feed__activity__address__time {
-  width: 15%;
+  width: 102px;
 }
 
 .feed__activity__load {

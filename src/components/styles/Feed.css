@@ -83,7 +83,7 @@
   background-color: white; }
 
 .feed__activity__address__dataType {
-  width: 16%;
+  width: 76px;
   display: flex;
   align-items: center; }
   .feed__activity__address__dataType img {
@@ -93,13 +93,13 @@
   width: .9em !important; }
 
 .feed__activity__address__function {
-  width: 21%; }
+  width: 130px; }
 
 .feed__activity__address__toFrom {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 21%; }
+  width: 130px; }
   .feed__activity__address__toFrom img {
     width: 1em;
     margin-right: 1vw; }
@@ -108,13 +108,16 @@
   width: .8em !important; }
 
 .feed__activity__address__amount {
-  width: 21%; }
+  width: 130px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
 
 .feed__activity__address__amount__image {
   width: 24px; }
 
 .feed__activity__address__time {
-  width: 15%; }
+  width: 102px; }
 
 .feed__activity__load {
   border-top: solid 1px #E4E4E4;

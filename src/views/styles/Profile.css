@@ -24,6 +24,7 @@
   padding: 30px 35px;
   max-width: 200px;
   min-width: 200px;
+  width: 200px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -94,7 +95,11 @@
   display: flex;
   align-items: center; }
   #profile__social p {
-    color: #6b6b6b; }
+    color: #6b6b6b;
+    width: 136px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
 
 #profile__private {
   margin-bottom: 2em;
@@ -102,6 +107,10 @@
   display: flex;
   align-items: center; }
   #profile__private p {
+    width: 136px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: #6b6b6b; }
 
 #profile__user__name {
