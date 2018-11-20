@@ -2,12 +2,12 @@
   background-color: white;
   max-width: 700px;
   min-width: 700px;
-  padding: 2em;
-  min-height: calc(100% - 133px);
-  height: calc(100% - 133px);
+  padding: 1.3em;
+  min-height: calc(100% - 110px);
+  height: calc(100% - 110px);
   position: fixed;
   top: 69px;
-  left: 23vw;
+  left: calc(50vw - 350px);
   border-left: 1px solid #E4E4E4;
   border-right: 1px solid #E4E4E4;
   border-bottom: 1px solid #E4E4E4;
@@ -34,7 +34,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 1.3em;
-  padding: 0 .5em; }
+  padding: 0; }
   .feed__activity__context .feed__activity__context__network {
     min-width: 2.2em;
     height: 2.2em;
@@ -70,6 +70,7 @@
   display: flex;
   align-items: center;
   margin-top: .6em;
+  margin-left: 52px;
   min-height: 2.5em;
   padding: .4em .8em;
   border-radius: 4px;
@@ -130,9 +131,9 @@
   width: 3em;
   height: 3em; }
 
-@media only screen and (max-width: 1170px) {
+@media only screen and (max-width: 1278px) {
   #feed {
-    left: 270px; } }
+    left: 290px; } }
 
 @media only screen and (max-width: 600px) {
   #feed {

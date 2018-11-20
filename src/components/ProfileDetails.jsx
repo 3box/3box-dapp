@@ -15,47 +15,45 @@ const ProfileDetails = ({ name, github, image, email }) => (
   <div id="profile">
 
     <div id="profile__fixed">
-      <div>
-        <div id="profile__user__info">
-          <div id="profile__network" title="Network">
-            <img id="profile__network__networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
-            <p id="profile__details__address" title={address}>
-              {address && address.substring(0, 8)}
-              ...
+      <div id="profile__user__info">
+        <div id="profile__network" title="Network">
+          <img id="profile__network__networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
+          <p id="profile__details__address" title={address}>
+            {address && address.substring(0, 8)}
+            ...
             </p>
+        </div>
+
+        {image.length > 0 && image[0].contentUrl
+          ? <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} id="profile__user__picture" alt="profile" />
+          : <div id="profile__user__picture" />
+        }
+        {name
+          ? <h2 id="profile__user__name">{name}</h2>
+          : <Link to={routes.EDITPROFILE}><h2 id="profile__user__name__add">Add name</h2></Link>}
+
+        <div id="profile__links">
+          <div id="profile__social" title="Github">
+            <img src={GithubIcon} id="profile__githubIcon" alt="Github Icon" />
+            {github
+              && (
+                <p id="profile__github">{github}</p>
+              )
+            }
           </div>
 
-          {image.length > 0 && image[0].contentUrl
-            ? <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} id="profile__user__picture" alt="profile" />
-            : <div id="profile__user__picture" />
-          }
-          {name
-            ? <h2 id="profile__user__name">{name}</h2>
-            : <Link to={routes.EDITPROFILE}><h2 id="profile__user__name__add">Add name</h2></Link>}
-
-          <div id="profile__links">
-            <div id="profile__social" title="Github">
-              <img src={GithubIcon} id="profile__githubIcon" alt="Github Icon" />
-              {github
-                && (
-                  <p id="profile__github">{github}</p>
-                )
-              }
-            </div>
-
-            <div id="profile__private">
-              <img src={Email} id="profileFooter__email__icon" alt="Github Icon" />
-              {email
-                && (
-                  <p>{email}</p>
-                )
-              }
-              {email
-                && (
-                  <img id="editprofile__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
-                )
-              }
-            </div>
+          <div id="profile__private">
+            <img src={Email} id="profileFooter__email__icon" alt="Github Icon" />
+            {email
+              && (
+                <p>{email}</p>
+              )
+            }
+            {email
+              && (
+                <img id="editprofile__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
+              )
+            }
           </div>
         </div>
       </div>

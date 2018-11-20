@@ -1,15 +1,12 @@
 @import "../../variables.scss";
 
 #profile {
-  background-color: $backgroundHue;
-  // height: calc(100% - 69px);
-  width: 23vw;
-  min-width: 270px;
+  width: calc(50vw - 350px);
+  min-width: 290px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   position: fixed;
-  // position: relative;
 }
 
 #profile__fixed{
@@ -18,8 +15,8 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
-  // height: 100%;
   height: calc(100% - 69px);
+  width: 100%;
 }
 
 #profile__links{
@@ -38,9 +35,6 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-
-  // position: fixed;
-  // top: 76px;
 
   p {
     text-align: left;
@@ -97,7 +91,7 @@
   width: 120px;
   height: 120px;
   margin: 0 auto;
-  margin-top: 6em;
+  margin-top: 2.4em;
   object-fit: cover;
 }
 
