@@ -74,7 +74,10 @@ class App extends Component {
     const { location } = this.props;
     const { pathname } = location;
 
-    if (typeof window.web3 === 'undefined') this.props.handleDownloadMetaMaskBanner();
+    if (typeof window.web3 === 'undefined') {
+      this.props.handleDownloadMetaMaskBanner();
+      this.props.handleMobileWalletModal();
+    }
 
     if (typeof window.web3 !== 'undefined' && (pathname === '/Profile' || pathname === '/EditProfile')) { // no wallet and lands on restricted page
       this.loadData();

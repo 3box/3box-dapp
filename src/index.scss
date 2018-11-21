@@ -228,3 +228,9 @@ ul {
 .thin {
   font-weight: 300;
 }
+
+@media only screen and (max-width: 600px) {
+  .webThreeBanner{
+    display: none;
+  }
+}

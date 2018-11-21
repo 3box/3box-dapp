@@ -191,6 +191,8 @@ nav {
     -moz-transition: all .5s ease;
     -o-transition: all .5s ease;
     transition: all .5s ease; }
+  .bannerMargin {
+    margin-top: 0; }
   #nav__logo--marginLeft {
     margin-left: 6vw; }
   #nav__userPicture {

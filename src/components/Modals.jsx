@@ -380,7 +380,7 @@ export const MobileWalletRequiredModal = ({ isIOS, handleMobileWalletModal, show
           </a>)}
     </div>
 
-    <button onClick={() => handleMobileWalletModal()} type="button" className="tertiaryButton">X</button>
+    <button onClick={() => handleMobileWalletModal()} type="button" className="tertiaryButton mobile__landing__closeButton">X</button>
   </div>
 );
 
