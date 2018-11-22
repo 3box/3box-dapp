@@ -17,8 +17,8 @@
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   backface-visibility: hidden;
-  -webkit-transition: all .4s ease-in-out;
-  transition: all .4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
 }
 
 .modal__container {
@@ -81,7 +81,7 @@
   visibility: visible !important;
 }
 
-.showModal~.modal__overlay {
+.showModal ~ .modal__overlay {
   opacity: 1;
   visibility: visible;
 }
@@ -104,7 +104,7 @@
   }
 }
 
-.mobile__landing__closeButton{
+.mobile__landing__closeButton {
   border-radius: 4em;
 }
 
@@ -257,7 +257,7 @@
   margin-top: 176px;
   padding: 1.2em 1.8em;
   border-radius: 3em;
-  font-size: .9em;
+  font-size: 0.9em;
   background: transparent;
   border: 1px solid white;
   position: absolute;
@@ -343,7 +343,7 @@
     box-shadow: 6px 0 10px 0 #00000025, 16px 0 24px 0 #00000025;
 
     button {
-      padding: .5em .8em;
+      padding: 0.5em 0.8em;
       position: absolute;
       top: 10px;
       right: 10px;
@@ -382,7 +382,7 @@
     margin-top: 2em;
 
     p {
-      opacity: .7;
+      opacity: 0.7;
     }
   }
 
@@ -417,7 +417,7 @@
   width: 28px;
   height: 28px;
   border-radius: 4px;
-  background-color: #006ECC;
+  background-color: #006ecc;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -432,8 +432,28 @@
 
 #logo__text {
   display: inline-block;
-  color: #006ECC;
+  color: #006ecc;
   margin: 0;
-  margin-left: .37em;
+  margin-left: 0.37em;
   font-size: 1.5em !important;
+}
+
+#modal__verify__githut__gist {
+  display: inline-block;
+  border-radius: 5px;
+  border-style: none;
+  border: solid 1px #e4e4e4;
+  background-color: rgb(255, 255, 255);
+  height: 44px;
+  width: 100%;
+  margin-top: 1em;
+  padding: 0 15px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#verify__github__cancel {
+  cursor: pointer;
+  margin-left: 12px;
 }
