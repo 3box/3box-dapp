@@ -6,7 +6,6 @@ import FeedTileTXS from './FeedTileTXS.jsx';
 import FeedTileToken from './FeedTileToken.jsx';
 import FeedTileInternal from './FeedTileInternal.jsx';
 import FeedTileActivity from './FeedTileActivity.jsx';
-import { getActivity } from '../state/actions';
 import networkArray from '../utils/networkArray';
 import './styles/Feed.css';
 import './styles/NetworkArray.css';
@@ -99,4 +98,4 @@ const mapState = state => ({
   ifFetchingActivity: state.threeBox.ifFetchingActivity,
 });
 
-export default connect(mapState, { getActivity })(Feed);
+export default connect(mapState)(Feed);

@@ -139,7 +139,7 @@ class App extends Component {
       if (this.props.isSignedIntoWallet) {
         await this.props.signInGetBox();
         if (!this.props.showErrorModal) {
-          await this.props.getActivity('signIn');
+          await this.props.getActivity();
           await this.props.getPublicName();
           await this.props.getPublicGithub();
           await this.props.getPublicImage();

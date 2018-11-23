@@ -6,6 +6,10 @@ import {
   store,
 } from './store';
 
+import {
+  checkForOnBoarding,
+} from '../utils/utils';
+
 import * as routes from '../utils/routes';
 import history from '../history';
 
@@ -169,6 +173,7 @@ export const signInGetBox = () => async (dispatch) => {
   });
 
   const consentGiven = () => {
+    history.push(routes.PROFILE);
     dispatch({
       type: 'LOADING_3BOX',
     });
@@ -194,6 +199,8 @@ export const signInGetBox = () => async (dispatch) => {
     });
 
     box.onSyncDone(() => {
+      const feed = store.getState().threeBox.feedByAddress;
+      checkForOnBoarding(dispatch, feed);
       dispatch({
         type: 'UPDATE_THREEBOX',
         ifFetchingThreeBox: false,
@@ -216,10 +223,6 @@ export const profileGetBox = () => async (dispatch) => {
     type: 'HANDLE_CONSENT_MODAL',
     provideConsent: true,
   });
-
-  // dispatch({
-  //   type: 'LOADING_ACTIVITY',
-  // });
 
   const consentGiven = () => {
     dispatch({
@@ -247,6 +250,9 @@ export const profileGetBox = () => async (dispatch) => {
     });
 
     box.onSyncDone(() => {
+      const feed = store.getState().threeBox.feedByAddress;
+      checkForOnBoarding(dispatch, feed);
+
       dispatch({
         type: 'UPDATE_THREEBOX',
         ifFetchingThreeBox: false,
@@ -300,7 +306,7 @@ export const getPrivateEmail = () => async (dispatch) => {
   });
 };
 
-export const getActivity = duringSignIn => async (dispatch) => {
+export const getActivity = () => async (dispatch) => {
   try {
     const activity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
 
@@ -315,21 +321,8 @@ export const getActivity = duringSignIn => async (dispatch) => {
       dataType: 'Token',
     }, object));
 
-    // const removeDeleteActivity = activityArray => activityArray.filter(e => e.op !== 'DEL');
-
     let publicActivity = await store.getState().threeBox.box.public.log;
     let privateActivity = await store.getState().threeBox.box.private.log;
-
-    // if user signs in and there is no data in their threebox, then show onboarding modals
-    if (publicActivity.length === 0 && privateActivity.length <= 1 && duringSignIn) {
-      dispatch({
-        type: 'HANDLE_ONBOARDING_MODAL',
-        onBoardingModal: true,
-      });
-      history.push(routes.EDITPROFILE);
-    } else if (duringSignIn) {
-      history.push(routes.PROFILE);
-    }
 
     publicActivity = publicActivity.map((object) => {
       object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
@@ -344,16 +337,11 @@ export const getActivity = duringSignIn => async (dispatch) => {
       }, object);
     });
 
-    // const removedPublicArray = removeDeleteActivity(publicActivity);
-    // const removedPrivateArray = removeDeleteActivity(privateActivity);
-
     const feed = activity.internal
       .concat(activity.txs)
       .concat(activity.token)
       .concat(publicActivity)
       .concat(privateActivity);
-    // .concat(removedPublicArray)
-    // .concat(removedPrivateArray);
 
     // if timestamp is undefined, give it the timestamp of the previous entry
     feed.map((item, i) => {
@@ -386,8 +374,6 @@ export const getActivity = duringSignIn => async (dispatch) => {
       }
     });
 
-    console.log(feedByAddress);
-    
     dispatch({
       type: 'UPDATE_ACTIVITY',
       feedByAddress,
