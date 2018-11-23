@@ -327,7 +327,7 @@
   margin-left: 0.37em;
   font-size: 1.5em !important; }
 
-#modal__verify__githut__gist {
+#modal__verify__github__gist {
   display: inline-block;
   border-radius: 5px;
   border-style: none;
@@ -340,6 +340,10 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
+
+#modal__verify__github__error {
+  color: red;
+  margin-top: 1em; }
 
 #verify__github__cancel {
   cursor: pointer;
