@@ -11,16 +11,77 @@
 
   h3 {
     font-weight: 400;
-    font-size: .8em;
+    font-size: 0.8em;
+  }
+
+  .input-group {
+    display: table;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 1em;
+    height: 44px;
+  }
+  .input-group > div:first-child {
+    border-radius: 10px 0 0 10px;
+    -moz-border-radius: 10px 0 0 10px;
+    // border: 1px solid #e4e4e4;
+  }
+
+  .input-group > div:last-child {
+    // border: 1px solid #e4e4e4;
+
+    border-radius: 0 5px 5px 0;
+    -moz-border-radius: 0 5px 5px 0;
+  }
+  .input-group > div {
+    display: table-cell;
+    // border: 1px solid #ddd;
+    // background-color: #ccc;
+
+    vertical-align: middle; /* needed for Safari */
+  }
+  .input-group-icon {
+    // background: #e4e4e4;
+    color: #777;
+    // padding: 0 12px;
+    button {
+      // display: flex;
+      // margin: 0;
+      // margin-left: 1em;
+      border-radius: 0 5px 5px 0;
+      -moz-border-radius: 0 5px 5px 0;
+      border: 0;
+    }
+    // border-radius: 0px;
+    button:disabled {
+      background-color: #e4e4e4;
+    }
+  }
+  .input-group-area {
+    width: 100%;
+  }
+  .input-group input {
+    border: 0;
+    display: block;
+    width: 100%;
+    margin: 0px;
+    // padding: 8px;
+    display: inline-block;
+    // border-radius: 5px;
+    // border-style: none;
+    border: solid 1px #e4e4e4;
+    border-radius: 5px 0px 0px 5px;
+    -moz-border-radius: 5px 0px 0px 5px;
+    // background-color: rgb(255, 255, 255);
   }
 
   input {
     display: inline-block;
     border-radius: 5px;
     border-style: none;
-    border: solid 1px #E4E4E4;
+    border: solid 1px #e4e4e4;
     background-color: rgb(255, 255, 255);
-    height: 44px;
+    height: 45px;
     width: 100%;
     margin-top: 1em;
     padding: 0 15px;
@@ -45,7 +106,7 @@
   border: $borderColor solid 1px;
   background: #fff;
   border-radius: 6px;
-  box-shadow: 0 7px 14px 0 rgba(59, 65, 94, .1), 0 3px 6px 0 rgba(0, 0, 0, .07);
+  box-shadow: 0 7px 14px 0 rgba(59, 65, 94, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
 
   #edit__myProfile {
     width: 100%;
@@ -97,10 +158,10 @@
       width: 120px;
       height: 120px;
       object-fit: cover;
-      -webkit-transition: all .5s ease;
-      -moz-transition: all .5s ease;
-      -o-transition: all .5s ease;
-      transition: all .5s ease;
+      -webkit-transition: all 0.5s ease;
+      -moz-transition: all 0.5s ease;
+      -o-transition: all 0.5s ease;
+      transition: all 0.5s ease;
     }
 
     #addImage {
@@ -126,15 +187,15 @@
       width: 120px;
       height: 120px;
       object-fit: cover;
-      -webkit-transition: all .5s ease;
-      -moz-transition: all .5s ease;
-      -o-transition: all .5s ease;
-      transition: all .5s ease;
+      -webkit-transition: all 0.5s ease;
+      -moz-transition: all 0.5s ease;
+      -o-transition: all 0.5s ease;
+      transition: all 0.5s ease;
       z-index: 1;
 
       p {
         font-weight: 400;
-        font-size: .8em;
+        font-size: 0.8em;
         color: white;
       }
     }
@@ -154,7 +215,6 @@
     align-content: center;
     align-items: center;
     padding: 3em 3vw;
-
   }
 
   #edit__privateInfo {
@@ -172,6 +232,12 @@
 
   #edit__public__githubInfo {
     margin-top: 2em;
+  }
+
+  #edit__public__githubInfo__title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start !important;
   }
 }
 
@@ -228,18 +294,17 @@
   }
 }
 
-
 #public__contents {
   display: flex;
   align-items: center;
 }
 
 .removeButton {
-  font-size: .8em;
+  font-size: 0.8em;
   color: $lightFont;
   border: 1px solid $lightFont;
   background: transparent;
-  padding: .8em 1.3em;
+  padding: 0.8em 1.3em;
   margin-left: 1em;
 
   &:hover {
@@ -351,7 +416,7 @@
       overflow-x: scroll;
 
       h4 {
-        margin: 0 0 .6em 3vw;
+        margin: 0 0 0.6em 3vw;
       }
     }
 
@@ -386,7 +451,6 @@
         margin: 0;
         margin-left: 1em;
       }
-
     }
 
     #edit__profile {
@@ -417,4 +481,10 @@
     justify-content: space-around;
     align-items: center;
   }
+}
+
+#editprofile__verifiedIcon {
+  height: 1em;
+  margin-right: 1vw;
+  margin-left: 1vw;
 }

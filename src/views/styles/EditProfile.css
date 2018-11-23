@@ -7,14 +7,49 @@
   padding-top: 7.5em; }
   #edit h3 {
     font-weight: 400;
-    font-size: .8em; }
+    font-size: 0.8em; }
+  #edit .input-group {
+    display: table;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 1em;
+    height: 44px; }
+  #edit .input-group > div:first-child {
+    border-radius: 10px 0 0 10px;
+    -moz-border-radius: 10px 0 0 10px; }
+  #edit .input-group > div:last-child {
+    border-radius: 0 5px 5px 0;
+    -moz-border-radius: 0 5px 5px 0; }
+  #edit .input-group > div {
+    display: table-cell;
+    vertical-align: middle;
+    /* needed for Safari */ }
+  #edit .input-group-icon {
+    color: #777; }
+    #edit .input-group-icon button {
+      border-radius: 0 5px 5px 0;
+      -moz-border-radius: 0 5px 5px 0;
+      border: 0; }
+    #edit .input-group-icon button:disabled {
+      background-color: #e4e4e4; }
+  #edit .input-group-area {
+    width: 100%; }
+  #edit .input-group input {
+    border: 0;
+    display: block;
+    width: 100%;
+    margin: 0px;
+    display: inline-block;
+    border: solid 1px #e4e4e4;
+    border-radius: 5px 0px 0px 5px;
+    -moz-border-radius: 5px 0px 0px 5px; }
   #edit input {
     display: inline-block;
     border-radius: 5px;
     border-style: none;
-    border: solid 1px #E4E4E4;
+    border: solid 1px #e4e4e4;
     background-color: white;
-    height: 44px;
+    height: 45px;
     width: 100%;
     margin-top: 1em;
     padding: 0 15px;
@@ -73,10 +108,10 @@
       width: 120px;
       height: 120px;
       object-fit: cover;
-      -webkit-transition: all .5s ease;
-      -moz-transition: all .5s ease;
-      -o-transition: all .5s ease;
-      transition: all .5s ease; }
+      -webkit-transition: all 0.5s ease;
+      -moz-transition: all 0.5s ease;
+      -o-transition: all 0.5s ease;
+      transition: all 0.5s ease; }
     #edit__form #edit__userPicture #addImage {
       position: absolute;
       width: 35px;
@@ -96,14 +131,14 @@
       width: 120px;
       height: 120px;
       object-fit: cover;
-      -webkit-transition: all .5s ease;
-      -moz-transition: all .5s ease;
-      -o-transition: all .5s ease;
-      transition: all .5s ease;
+      -webkit-transition: all 0.5s ease;
+      -moz-transition: all 0.5s ease;
+      -o-transition: all 0.5s ease;
+      transition: all 0.5s ease;
       z-index: 1; }
       #edit__form #edit__userPicture .profPic_div_overlay p {
         font-weight: 400;
-        font-size: .8em;
+        font-size: 0.8em;
         color: white; }
     #edit__form #edit__userPicture button {
       display: block;
@@ -128,6 +163,10 @@
     justify-content: flex-start !important; }
   #edit__form #edit__public__githubInfo {
     margin-top: 2em; }
+  #edit__form #edit__public__githubInfo__title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start !important; }
 
 #edit__cancel {
   margin-left: 1vw; }
@@ -177,11 +216,11 @@
   align-items: center; }
 
 .removeButton {
-  font-size: .8em;
+  font-size: 0.8em;
   color: #6b6b6b;
   border: 1px solid #6b6b6b;
   background: transparent;
-  padding: .8em 1.3em;
+  padding: 0.8em 1.3em;
   margin-left: 1em; }
   .removeButton:hover {
     color: white;
@@ -268,7 +307,7 @@
       overflow: hidden;
       overflow-x: scroll; }
       #edit__page #edit__myProfile h4 {
-        margin: 0 0 .6em 3vw; }
+        margin: 0 0 0.6em 3vw; }
     #edit__page #myProfile__address {
       margin-left: auto;
       margin-right: 3vw;
@@ -312,3 +351,8 @@
     display: flex;
     justify-content: space-around;
     align-items: center; } }
+
+#editprofile__verifiedIcon {
+  height: 1em;
+  margin-right: 1vw;
+  margin-left: 1vw; }

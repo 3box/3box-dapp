@@ -1,12 +1,17 @@
-import { address } from "../utils/address";
+import {
+  address,
+} from '../utils/address';
 
-import { store } from "./store";
+import {
+  store,
+} from './store';
 
-import * as routes from "../utils/routes";
-import history from "../history";
+import * as routes from '../utils/routes';
+import history from '../history';
+import { verifyGithubAccount } from "../utils/accountVerifiers";
 
-export const checkWeb3Wallet = () => async dispatch => {
-  const cp = typeof window.web3 !== "undefined" ? window.web3.currentProvider : null; // eslint-disable-line no-undef
+export const checkWeb3Wallet = () => async (dispatch) => {
+  const cp = typeof window.web3 !== 'undefined' ? window.web3.currentProvider : null; // eslint-disable-line no-undef
 
   let isToshi;
   let isCipher;
@@ -19,29 +24,28 @@ export const checkWeb3Wallet = () => async dispatch => {
     isMetaMask = !!cp.isMetaMask;
 
     if (isToshi) {
-      currentWallet = "isToshi";
+      currentWallet = 'isToshi';
     } else if (isCipher) {
-      currentWallet = "isCipher";
+      currentWallet = 'isCipher';
     } else if (isMetaMask) {
-      currentWallet = "isMetaMask";
+      currentWallet = 'isMetaMask';
     }
   }
 
   dispatch({
-    type: "CHECK_WALLET",
-    hasWallet: typeof window.web3 !== "undefined", // eslint-disable-line no-undef
-    downloadBanner: typeof window.web3 === "undefined", // eslint-disable-line no-undef
-    mobileWalletRequiredModal: typeof window.web3 === "undefined", // eslint-disable-line no-undef
-    currentWallet
+    type: 'CHECK_WALLET',
+    hasWallet: typeof window.web3 !== 'undefined', // eslint-disable-line no-undef
+    downloadBanner: typeof window.web3 === 'undefined', // eslint-disable-line no-undef
+    mobileWalletRequiredModal: typeof window.web3 === 'undefined', // eslint-disable-line no-undef
+    currentWallet,
   });
 };
 
 // inject for breaking change
-export const requestAccess = directLogin => async dispatch => {
+export const requestAccess = directLogin => async (dispatch) => {
   let accounts;
   const accountsPromise = new Promise((resolve, reject) => {
-    window.web3.eth.getAccounts((e, accountsFound) => {
-      // eslint-disable-line no-undef
+    window.web3.eth.getAccounts((e, accountsFound) => { // eslint-disable-line no-undef
       if (e != null) {
         reject(e);
       } else {
@@ -50,178 +54,168 @@ export const requestAccess = directLogin => async dispatch => {
     });
   });
 
-  if (window.ethereum) {
-    // eslint-disable-line no-undef
+  if (window.ethereum) { // eslint-disable-line no-undef
     try {
       window.web3 = new Web3(ethereum); // eslint-disable-line no-undef
       dispatch({
-        type: "HANDLE_ACCESS_MODAL",
+        type: 'HANDLE_ACCESS_MODAL',
         allowAccessModal: true,
-        directLogin
+        directLogin,
       });
 
       accounts = await window.ethereum.enable(); // eslint-disable-line no-undef
       accounts = !accounts ? await accountsPromise : accounts;
 
       dispatch({
-        type: "UPDATE_ADDRESSES",
-        isSignedIntoWallet: accounts.length > 0 || store.getState().threeBox.currentWallet === "isToshi",
+        type: 'UPDATE_ADDRESSES',
+        isSignedIntoWallet: accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi',
         isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
         accountAddress: accounts[0],
-        allowAccessModal: false
+        allowAccessModal: false,
       });
     } catch (error) {
       history.push(routes.LANDING);
       dispatch({
-        type: "HANDLE_DENIED_ACCESS_MODAL",
+        type: 'HANDLE_DENIED_ACCESS_MODAL',
         accessDeniedModal: true,
-        allowAccessModal: false
+        allowAccessModal: false,
       });
     }
-  } else if (window.web3) {
-    // eslint-disable-line no-undef
+  } else if (window.web3) { // eslint-disable-line no-undef
     window.web3 = new Web3(web3.currentProvider); // eslint-disable-line no-undef
 
     accounts = await accountsPromise;
 
     dispatch({
-      type: "UPDATE_ADDRESSES",
-      isSignedIntoWallet: accounts.length > 0 || store.getState().threeBox.currentWallet === "isToshi",
-      isLoggedIn: accounts && Box.isLoggedIn(accounts[0]) // eslint-disable-line no-undef
+      type: 'UPDATE_ADDRESSES',
+      isSignedIntoWallet: accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi',
+      isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
     });
   } else {
-    console.log("Non-Ethereum browser detected. You should consider trying MetaMask!");
+    console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
   }
 };
 
 // if has web3 wallet
-export const checkNetwork = () => async dispatch => {
-  const checkNetworkFunc = new Promise(resolve => {
-    window.web3.version.getNetwork((err, netId) => {
-      // eslint-disable-line no-undef
+export const checkNetwork = () => async (dispatch) => {
+  const checkNetworkFunc = new Promise((resolve) => {
+    window.web3.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
       switch (netId) {
-        case "1":
-          resolve("Main");
+        case '1':
+          resolve('Main');
           break;
-        case "2":
-          resolve("Morder");
+        case '2':
+          resolve('Morder');
           break;
-        case "3":
-          resolve("Ropsten");
+        case '3':
+          resolve('Ropsten');
           break;
-        case "4":
-          resolve("Rinkeby");
+        case '4':
+          resolve('Rinkeby');
           break;
-        case "42":
-          resolve("Kovan");
+        case '42':
+          resolve('Kovan');
           break;
         default:
-          resolve("Unknown");
+          resolve('Unknown');
       }
     });
   });
 
   // // check network, compatible with old & new v of MetaMask
   let currentNetwork;
-  if (window.web3.eth.net) {
-    // eslint-disable-line no-undef
-    await window.web3.eth.net
-      .getNetworkType() // eslint-disable-line no-undef
-      .then(network => {
+  if (window.web3.eth.net) { // eslint-disable-line no-undef
+    await window.web3.eth.net.getNetworkType() // eslint-disable-line no-undef
+      .then((network) => {
         currentNetwork = network;
       });
   } else {
-    await checkNetworkFunc.then(network => {
+    await checkNetworkFunc.then((network) => {
       currentNetwork = network;
     });
   }
 
-  const prevPrevNetwork = window.localStorage.getItem("prevNetwork"); // eslint-disable-line no-undef
-  const prevNetwork = window.localStorage.getItem("currentNetwork"); // eslint-disable-line no-undef
+  const prevPrevNetwork = window.localStorage.getItem('prevNetwork'); // eslint-disable-line no-undef
+  const prevNetwork = window.localStorage.getItem('currentNetwork'); // eslint-disable-line no-undef
 
-  const shouldShowSwitchNetwork = window.localStorage.getItem("shouldShowSwitchNetwork"); // eslint-disable-line no-undef
-  window.localStorage.setItem("prevPrevNetwork", prevPrevNetwork); // eslint-disable-line no-undef
-  window.localStorage.setItem("prevNetwork", prevNetwork); // eslint-disable-line no-undef
-  window.localStorage.setItem("currentNetwork", currentNetwork); // eslint-disable-line no-undef
+  const shouldShowSwitchNetwork = window.localStorage.getItem('shouldShowSwitchNetwork'); // eslint-disable-line no-undef
+  window.localStorage.setItem('prevPrevNetwork', prevPrevNetwork); // eslint-disable-line no-undef
+  window.localStorage.setItem('prevNetwork', prevNetwork); // eslint-disable-line no-undef
+  window.localStorage.setItem('currentNetwork', currentNetwork); // eslint-disable-line no-undef
 
-  if (
-    prevNetwork &&
-    prevNetwork !== currentNetwork &&
-    store.getState().threeBox.isLoggedIn &&
-    shouldShowSwitchNetwork === "true"
-  ) {
-    window.localStorage.setItem("shouldShowSwitchNetwork", false); // eslint-disable-line no-undef
+  if (prevNetwork && (prevNetwork !== currentNetwork) && store.getState().threeBox.isLoggedIn && shouldShowSwitchNetwork === 'true') {
+    window.localStorage.setItem('shouldShowSwitchNetwork', false); // eslint-disable-line no-undef
     dispatch({
-      type: "DIFFERENT_NETWORK",
+      type: 'DIFFERENT_NETWORK',
       showDifferentNetworkModal: true,
       currentNetwork,
       prevNetwork,
-      prevPrevNetwork
+      prevPrevNetwork,
     });
   } else {
-    window.localStorage.setItem("shouldShowSwitchNetwork", true); // eslint-disable-line no-undef
+    window.localStorage.setItem('shouldShowSwitchNetwork', true); // eslint-disable-line no-undef
     dispatch({
-      type: "UPDATE_NETWORK",
+      type: 'UPDATE_NETWORK',
       currentNetwork,
       prevNetwork,
-      prevPrevNetwork
+      prevPrevNetwork,
     });
   }
 };
 
-export const signInGetBox = () => async dispatch => {
+export const signInGetBox = () => async (dispatch) => {
   dispatch({
-    type: "HANDLE_CONSENT_MODAL",
-    provideConsent: true
+    type: 'HANDLE_CONSENT_MODAL',
+    provideConsent: true,
   });
 
   const consentGiven = () => {
     dispatch({
-      type: "LOADING_3BOX"
+      type: 'LOADING_3BOX',
     });
   };
 
   const opts = {
-    consentCallback: consentGiven
+    consentCallback: consentGiven,
   };
 
   try {
-    // eslint-disable-next-line no-undef
-    const box = await Box.openBox(
-      store.getState().threeBox.accountAddress || address,
-      window.web3.currentProvider, // eslint-disable-line no-undef
-      opts
-    );
+    const box = await Box // eslint-disable-line no-undef
+      .openBox(
+        store.getState().threeBox.accountAddress || address,
+        window.web3.currentProvider, // eslint-disable-line no-undef
+        opts,
+      );
 
     dispatch({
-      type: "UPDATE_THREEBOX",
+      type: 'UPDATE_THREEBOX',
       ifFetchingThreeBox: false,
       isLoggedIn: true,
-      box
+      box,
     });
 
     box.onSyncDone(() => {
       dispatch({
-        type: "UPDATE_THREEBOX",
+        type: 'UPDATE_THREEBOX',
         ifFetchingThreeBox: false,
         isLoggedIn: true,
-        box
+        box,
       });
     });
   } catch (err) {
     dispatch({
-      type: "FAILED_LOADING_3BOX",
+      type: 'FAILED_LOADING_3BOX',
       errorMessage: err,
       showErrorModal: true,
-      provideConsent: false
+      provideConsent: false,
     });
   }
 };
 
-export const profileGetBox = () => async dispatch => {
+export const profileGetBox = () => async (dispatch) => {
   dispatch({
-    type: "HANDLE_CONSENT_MODAL",
-    provideConsent: true
+    type: 'HANDLE_CONSENT_MODAL',
+    provideConsent: true,
   });
 
   // dispatch({
@@ -230,119 +224,105 @@ export const profileGetBox = () => async dispatch => {
 
   const consentGiven = () => {
     dispatch({
-      type: "LOADING_3BOX"
+      type: 'LOADING_3BOX',
     });
   };
 
   const opts = {
-    consentCallback: consentGiven
+    consentCallback: consentGiven,
   };
 
   try {
-    // eslint-disable-next-line no-undef
-    const box = await Box.openBox(
-      store.getState().threeBox.accountAddress || address,
-      window.web3.currentProvider, // eslint-disable-line no-undef
-      opts
-    );
+    const box = await Box // eslint-disable-line no-undef
+      .openBox(
+        store.getState().threeBox.accountAddress || address,
+        window.web3.currentProvider, // eslint-disable-line no-undef
+        opts,
+      );
 
     dispatch({
-      type: "UPDATE_THREEBOX",
+      type: 'UPDATE_THREEBOX',
       ifFetchingThreeBox: false,
       box,
-      isLoggedIn: true
+      isLoggedIn: true,
     });
 
     box.onSyncDone(() => {
       dispatch({
-        type: "UPDATE_THREEBOX",
+        type: 'UPDATE_THREEBOX',
         ifFetchingThreeBox: false,
         isLoggedIn: true,
-        box
+        box,
       });
     });
   } catch (err) {
     dispatch({
-      type: "FAILED_LOADING_3BOX",
+      type: 'FAILED_LOADING_3BOX',
       errorMessage: err,
       showErrorModal: true,
-      provideConsent: false
+      provideConsent: false,
     });
   }
 };
 
-export const getPublicName = () => async dispatch => {
-  const name = await store.getState().threeBox.box.public.get("name");
+export const getPublicName = () => async (dispatch) => {
+  const name = await store.getState().threeBox.box.public.get('name');
 
   dispatch({
-    type: "GET_PUBLIC_NAME",
-    name
+    type: 'GET_PUBLIC_NAME',
+    name,
   });
 };
 
-export const getPublicGithub = () => async dispatch => {
-  const github = await store.getState().threeBox.box.public.get("github");
+export const getPublicGithub = () => async (dispatch) => {
+  const github = await store.getState().threeBox.box.public.get('github');
 
   dispatch({
-    type: "GET_PUBLIC_GITHUB",
-    github
+    type: 'GET_PUBLIC_GITHUB',
+    github,
   });
-};
-export const getPublicGithubVerificationLink = () => async dispatch => {
   const githubVerificationLink = await store.getState().threeBox.box.public.get("githubVerificationLink");
-
+  const accountAddress = store.getState().threeBox.accountAddress;
+  const isGithubVerified = await verifyGithubAccount(github, githubVerificationLink, accountAddress);
   dispatch({
     type: "GET_PUBLIC_GITHUB_VERIFICATION_LINK",
-    githubVerificationLink
+    githubVerificationLink,
+    isGithubVerified: isGithubVerified === true
   });
 };
-export const getPublicImage = () => async dispatch => {
-  const image = await store.getState().threeBox.box.public.get("image");
+
+export const getPublicImage = () => async (dispatch) => {
+  const image = await store.getState().threeBox.box.public.get('image');
 
   dispatch({
-    type: "GET_PUBLIC_IMAGE",
-    image
+    type: 'GET_PUBLIC_IMAGE',
+    image,
   });
 };
 
-export const getPrivateEmail = () => async dispatch => {
-  const email = await store.getState().threeBox.box.private.get("email");
+export const getPrivateEmail = () => async (dispatch) => {
+  const email = await store.getState().threeBox.box.private.get('email');
 
   dispatch({
-    type: "GET_PRIVATE_EMAIL",
-    email
+    type: 'GET_PRIVATE_EMAIL',
+    email,
   });
 };
 
-export const getActivity = duringSignIn => async dispatch => {
+export const getActivity = duringSignIn => async (dispatch) => {
   try {
     const activity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
 
     // add datatype to each datum
-    activity.internal = activity.internal.map(object =>
-      Object.assign(
-        {
-          dataType: "Internal"
-        },
-        object
-      )
-    );
-    activity.txs = activity.txs.map(object =>
-      Object.assign(
-        {
-          dataType: "Txs"
-        },
-        object
-      )
-    );
-    activity.token = activity.token.map(object =>
-      Object.assign(
-        {
-          dataType: "Token"
-        },
-        object
-      )
-    );
+    activity.internal = activity.internal.map(object => Object.assign({
+      dataType: 'Internal',
+    }, object));
+    activity.txs = activity.txs.map(object => Object.assign({
+      dataType: 'Txs',
+    }, object));
+    activity.token = activity.token.map(object => Object.assign({
+      dataType: 'Token',
+    }, object));
 
     // const removeDeleteActivity = activityArray => activityArray.filter(e => e.op !== 'DEL');
 
@@ -352,31 +332,25 @@ export const getActivity = duringSignIn => async dispatch => {
     // if user signs in and there is no data in their threebox, then show onboarding modals
     if (publicActivity.length === 0 && privateActivity.length <= 1 && duringSignIn) {
       dispatch({
-        type: "HANDLE_ONBOARDING_MODAL",
-        onBoardingModal: true
+        type: 'HANDLE_ONBOARDING_MODAL',
+        onBoardingModal: true,
       });
       history.push(routes.EDITPROFILE);
     } else if (duringSignIn) {
       history.push(routes.PROFILE);
     }
 
-    publicActivity = publicActivity.map(object => {
+    publicActivity = publicActivity.map((object) => {
       object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
-      return Object.assign(
-        {
-          dataType: "Public"
-        },
-        object
-      );
+      return Object.assign({
+        dataType: 'Public',
+      }, object);
     });
-    privateActivity = privateActivity.map(object => {
+    privateActivity = privateActivity.map((object) => {
       object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
-      return Object.assign(
-        {
-          dataType: "Private"
-        },
-        object
-      );
+      return Object.assign({
+        dataType: 'Private',
+      }, object);
     });
 
     // const removedPublicArray = removeDeleteActivity(publicActivity);
@@ -403,53 +377,50 @@ export const getActivity = duringSignIn => async dispatch => {
 
     // order feed chronologically and by address
     const feedByAddress = [];
-    feed.forEach(item => {
+    feed.forEach((item) => {
       const othersAddress = item.from === address ? item.to : item.from;
-      if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === othersAddress) {
+      if (feedByAddress.length > 0 &&
+        Object.keys(feedByAddress[feedByAddress.length - 1])[0] === othersAddress) {
         feedByAddress[feedByAddress.length - 1][othersAddress].push(item);
-      } else if (
-        feedByAddress.length > 0 &&
-        Object.keys(feedByAddress[feedByAddress.length - 1])[0] === "threeBox" &&
-        (item.dataType === "Public" || item.dataType === "Private")
-      ) {
+      } else if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === 'threeBox' && (item.dataType === 'Public' || item.dataType === 'Private')) {
         feedByAddress[feedByAddress.length - 1].threeBox.push(item);
-      } else if (item.dataType === "Public" || item.dataType === "Private") {
+      } else if (item.dataType === 'Public' || item.dataType === 'Private') {
         feedByAddress.push({
-          threeBox: [item]
+          threeBox: [item],
         });
       } else {
         feedByAddress.push({
-          [othersAddress]: [item]
+          [othersAddress]: [item],
         });
       }
     });
 
     console.log(feedByAddress);
-
+    
     dispatch({
-      type: "UPDATE_ACTIVITY",
+      type: 'UPDATE_ACTIVITY',
       feedByAddress,
       ifFetchingActivity: false,
-      isLoggedIn: true
+      isLoggedIn: true,
     });
   } catch (err) {
     dispatch({
-      type: "FAILED_LOADING_ACTIVITY",
+      type: 'FAILED_LOADING_ACTIVITY',
       feedByAddress: [],
       ifFetchingActivity: false,
       errorMessage: err,
       showErrorModal: true,
-      provideConsent: false
+      provideConsent: false,
     });
   }
 };
 
-export const handleSignOut = () => async dispatch => {
+export const handleSignOut = () => async (dispatch) => {
   if (store.getState().threeBox.isLoggedIn) {
     store.getState().threeBox.box.logout();
     dispatch({
-      type: "HANDLE_SIGNOUT",
-      isLoggedIn: false
+      type: 'HANDLE_SIGNOUT',
+      isLoggedIn: false,
     });
   }
   history.push(routes.LANDING);

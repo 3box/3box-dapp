@@ -85,7 +85,8 @@ export const threeBoxReducer = (state = {}, action) => {
     case "GET_PUBLIC_GITHUB_VERIFICATION_LINK":
       return {
         ...state,
-        github: action.githubVerificationLink
+        githubVerificationLink: action.githubVerificationLink,
+        isGithubVerified: action.isGithubVerified
       };
 
     case "GET_PUBLIC_IMAGE":

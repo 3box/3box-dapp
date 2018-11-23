@@ -6,12 +6,13 @@ import PropTypes from "prop-types";
 import { getPublicName, getPublicGithub, getPublicImage, getPrivateEmail, getActivity } from "../state/actions";
 
 import { address } from "../utils/address";
-import { FileSizeModal, VerifyGithubModal } from "../components/Modals";
+import { FileSizeModal } from "../components/Modals";
 import history from "../history";
 import Nav from "../components/Nav";
 import * as routes from "../utils/routes";
 import EthereumLogo from "../assets/Ethereum_logo_2014.svg";
 import Private from "../assets/Private.svg";
+import Verified from "../assets/CheckDecagram.svg";
 import AddImage from "../assets/AddImage.svg";
 import Loading from "../assets/Loading.svg";
 import "./styles/EditProfile.css";
@@ -45,6 +46,19 @@ class EditProfile extends Component {
     const { name, github, email } = props;
     this.setState({ name, github, email });
   }
+
+  updateSaveButtonState = () => {
+    const { name, github, email } = this.state;
+    const nameChanged = name !== this.props.name;
+    const githubChanged = github !== this.props.github;
+    const emailChanged = email !== this.props.email;
+
+    if (nameChanged || githubChanged || emailChanged) {
+      this.setState({ disableSave: false });
+    } else {
+      this.setState({ disableSave: true });
+    }
+  };
 
   handleFormChange = (e, property) => {
     this.setState({ [property]: e.target.value, disableSave: false });
@@ -90,7 +104,10 @@ class EditProfile extends Component {
       if (nameChanged && name !== "") await box.public.set("name", name);
       if (nameChanged && name === "") await box.public.remove("name");
       if (githubChanged && github !== "") await box.public.set("github", github);
-      if (githubChanged && github === "") await box.public.remove("github");
+      if (githubChanged && github === "") {
+        await box.public.remove("github");
+        await box.public.remove("githubVerificationLink");
+      }
       if (emailChanged && email !== "") await box.private.set("email", email);
       if (emailChanged && email === "") await box.private.remove("email");
       if (removeUserPic) await box.public.remove("image");
@@ -118,8 +135,14 @@ class EditProfile extends Component {
     }
   }
 
-  handleVerifyGithub = e => {
+  handleVerifyGithub = async e => {
+    const { github } = this.state;
+    const { box } = this.props;
+
+    await box.public.set("github", github);
+    await this.props.getPublicGithub();
     this.setState({ showVerifyGithubModal: true });
+    this.updateSaveButtonState();
   };
 
   closeVerifyGithubModal = () => {
@@ -127,7 +150,7 @@ class EditProfile extends Component {
   };
 
   render() {
-    const { image } = this.props;
+    const { image, isGithubVerified } = this.props;
 
     const {
       github,
@@ -241,17 +264,40 @@ class EditProfile extends Component {
                   <input name="name" type="text" value={name} onChange={e => this.handleFormChange(e, "name")} />
 
                   <div id="edit__public__githubInfo">
-                    <h3>Github</h3>
-                    <input
-                      name="github"
-                      type="text"
-                      value={github}
-                      onChange={e => this.handleFormChange(e, "github")}
-                    />
+                    <div id="edit__public__githubInfo__title">
+                      <h3>Github</h3>
+                      {isGithubVerified && (
+                        <img
+                          id="editprofile__verifiedIcon"
+                          src={Verified}
+                          alt="Verified"
+                          title="Github account verified"
+                        />
+                      )}
+                    </div>
+                    <div className="input-group">
+                      <div className="input-group-area">
+                        <input
+                          name="github"
+                          type="text"
+                          value={github}
+                          onChange={e => {
+                            this.handleFormChange(e, "github");
+                            this.props.box.public.remove("githubVerificationLink");
+                          }}
+                        />
+                      </div>
+                      <div className="input-group-icon">
+                        <button
+                          disabled={github.trim() === "" || (github.trim() === this.props.github && isGithubVerified)}
+                          onClick={this.handleVerifyGithub}
+                        >
+                          Verify
+                        </button>
+                      </div>
+                    </div>
+                    {/* {this.props.github && this.props.githubVerificationLink} */}
                     {/* <Link to="/Profile" className="subtext" id="edit__cancel" /> */}
-                    <button disabled={github === this.props.github} onClick={this.handleVerifyGithub}>
-                      Verify Github
-                    </button>
                   </div>
 
                   <div id="edit__privateInfo">
@@ -321,6 +367,8 @@ function mapState(state) {
     box: state.threeBox.box,
     name: state.threeBox.name,
     github: state.threeBox.github,
+    githubVerificationLink: state.threeBox.githubVerificationLink,
+    isGithubVerified: state.threeBox.isGithubVerified,
     email: state.threeBox.email,
     image: state.threeBox.image,
     accountAddress: state.threeBox.accountAddress,

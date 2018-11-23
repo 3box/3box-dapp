@@ -2,16 +2,15 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { getPublicGithubVerificationLink } from "../state/actions";
+import { getPublicGithub } from "../state/actions";
 
 import "./styles/Nav.css";
-import Loading from "../assets/Loading.svg";
+import { verifyGithubAccount } from "../utils/accountVerifiers";
 
 class VerifyGithubDialog extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false,
       gistFile: "",
       error: undefined
     };
@@ -22,35 +21,24 @@ class VerifyGithubDialog extends Component {
     const { github, accountAddress, closeModal, box } = this.props;
     console.log({ gistFile, github });
 
-    // Make sure gist link belongs to the github link
-    let verifiedLink = github.replace("https://github.com/", "https://gist.githubusercontent.com/");
-    console.log({ verifiedLink });
+    const result = await verifyGithubAccount(github, gistFile, accountAddress);
 
-    if (gistFile.startsWith(verifiedLink)) {
-      let gistFileContent = await (await fetch(gistFile)).text();
-      console.log({ gistFileContent });
-
-      if (gistFileContent.includes(accountAddress)) {
-        // eslint-disable-next-line no-undef
-        await box.public.set("githubVerificationLink", gistFile);
-        await this.props.getPublicGithubVerificationLink();
-        this.setState({ error: undefined });
-        closeModal();
-      } else {
-        this.setState({
-          error: "The Gist file you submitted doesn't contain your address"
-        });
-      }
+    if (result === true) {
+      await box.public.set("githubVerificationLink", gistFile);
+      await this.props.getPublicGithub();
+      this.setState({ error: undefined });
+      closeModal();
     } else {
       this.setState({
-        error: "It seems the Gist file you submitted does't belong to the github account you added on your profile"
+        error: result
       });
     }
   };
 
   render() {
     const { show, accountAddress, closeModal } = this.props;
-    const { isLoading, gistFile, error } = this.state;
+    const { gistFile, error } = this.state;
+
     return (
       <div>
         <div className={`${show ? "showModal" : ""} modal__container modal--effect`}>
@@ -68,41 +56,33 @@ class VerifyGithubDialog extends Component {
               <br />
               <br />
 
-              {isLoading && (
-                <React.Fragment>
-                  <img src={Loading} alt="Loading" id="modal__loadingGraphic--access" />
-                </React.Fragment>
-              )}
+              <React.Fragment>
+                <p>Link to the raw Gist file:</p>
+                <input
+                  name="github"
+                  type="text"
+                  id="modal__verify__github__gist"
+                  value={gistFile}
+                  onChange={e => {
+                    this.setState({ gistFile: e.target.value });
+                  }}
+                />
+                {error !== undefined && <p id="modal__verify__github__error">{error}</p>}
 
-              {!isLoading && (
-                <React.Fragment>
-                  <p>Link to the raw Gist file:</p>
-                  <input
-                    name="github"
-                    type="text"
-                    id="modal__verify__githut__gist"
-                    value={gistFile}
-                    onChange={e => {
-                      this.setState({ gistFile: e.target.value });
-                    }}
-                  />
-                  {error && <p>Link to the raw Gist file:</p>}
-
-                  <div id="edit__formControls">
-                    <div id="edit__formControls__content">
-                      <button
-                        // disabled={disableSave}
-                        onClick={this.triggerGithubVerification}
-                      >
-                        Verify
-                      </button>
-                      <span className="subtext" id="verify__github__cancel" onClick={closeModal}>
-                        Cancel
-                      </span>
-                    </div>
+                <div id="edit__formControls">
+                  <div id="edit__formControls__content">
+                    <button
+                      // disabled={disableSave}
+                      onClick={this.triggerGithubVerification}
+                    >
+                      Verify
+                    </button>
+                    <span className="subtext" id="verify__github__cancel" onClick={closeModal}>
+                      Cancel
+                    </span>
                   </div>
-                </React.Fragment>
-              )}
+                </div>
+              </React.Fragment>
             </div>
           </div>
         </div>
@@ -135,6 +115,6 @@ function mapState(state) {
 export default withRouter(
   connect(
     mapState,
-    { getPublicGithubVerificationLink }
+    { getPublicGithub }
   )(VerifyGithubDialog)
 );
