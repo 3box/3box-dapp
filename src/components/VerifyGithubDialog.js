@@ -71,12 +71,7 @@ class VerifyGithubDialog extends Component {
 
                 <div id="edit__formControls">
                   <div id="edit__formControls__content">
-                    <button
-                      // disabled={disableSave}
-                      onClick={this.triggerGithubVerification}
-                    >
-                      Verify
-                    </button>
+                    <button onClick={this.triggerGithubVerification}>Verify</button>
                     <span className="subtext" id="verify__github__cancel" onClick={closeModal}>
                       Cancel
                     </span>

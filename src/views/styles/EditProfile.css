@@ -24,14 +24,13 @@
     display: table-cell;
     vertical-align: middle;
     /* needed for Safari */ }
-  #edit .input-group-icon {
-    color: #777; }
-    #edit .input-group-icon button {
-      border-radius: 0 5px 5px 0;
-      -moz-border-radius: 0 5px 5px 0;
-      border: 0; }
-    #edit .input-group-icon button:disabled {
-      background-color: #e4e4e4; }
+  #edit .input-group-icon button {
+    border-radius: 0 5px 5px 0;
+    -moz-border-radius: 0 5px 5px 0;
+    border: 0; }
+  #edit .input-group-icon button:disabled {
+    background-color: #e4e4e4;
+    color: #aba8a8; }
   #edit .input-group-area {
     width: 100%; }
   #edit .input-group input {

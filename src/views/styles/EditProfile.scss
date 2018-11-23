@@ -24,37 +24,25 @@
   .input-group > div:first-child {
     border-radius: 10px 0 0 10px;
     -moz-border-radius: 10px 0 0 10px;
-    // border: 1px solid #e4e4e4;
   }
 
   .input-group > div:last-child {
-    // border: 1px solid #e4e4e4;
-
     border-radius: 0 5px 5px 0;
     -moz-border-radius: 0 5px 5px 0;
   }
   .input-group > div {
     display: table-cell;
-    // border: 1px solid #ddd;
-    // background-color: #ccc;
-
     vertical-align: middle; /* needed for Safari */
   }
   .input-group-icon {
-    // background: #e4e4e4;
-    color: #777;
-    // padding: 0 12px;
     button {
-      // display: flex;
-      // margin: 0;
-      // margin-left: 1em;
       border-radius: 0 5px 5px 0;
       -moz-border-radius: 0 5px 5px 0;
       border: 0;
     }
-    // border-radius: 0px;
     button:disabled {
       background-color: #e4e4e4;
+      color: #aba8a8;
     }
   }
   .input-group-area {
@@ -65,14 +53,10 @@
     display: block;
     width: 100%;
     margin: 0px;
-    // padding: 8px;
     display: inline-block;
-    // border-radius: 5px;
-    // border-style: none;
     border: solid 1px #e4e4e4;
     border-radius: 5px 0px 0px 5px;
     -moz-border-radius: 5px 0px 0px 5px;
-    // background-color: rgb(255, 255, 255);
   }
 
   input {

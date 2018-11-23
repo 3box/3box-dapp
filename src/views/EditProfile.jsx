@@ -296,8 +296,6 @@ class EditProfile extends Component {
                         </button>
                       </div>
                     </div>
-                    {/* {this.props.github && this.props.githubVerificationLink} */}
-                    {/* <Link to="/Profile" className="subtext" id="edit__cancel" /> */}
                   </div>
 
                   <div id="edit__privateInfo">
@@ -388,11 +386,3 @@ export default withRouter(
     }
   )(EditProfile)
 );
-
-// if value has changed, switch boolean to save to db
-// let nameChanged = false;
-// let githubChanged = false;
-// let emailChanged = false;
-// name === this.props.name ? nameChanged = false : nameChanged = true;
-// github === this.props.github ? githubChanged = false : githubChanged = true;
-// email === this.props.email ? emailChanged = false : emailChanged = true;
