@@ -288,6 +288,69 @@ export const getPublicGithub = () => async (dispatch) => {
   });
 };
 
+export const getPublicDescription = () => async (dispatch) => {
+  const description = await store.getState().threeBox.box.public.get('description');
+
+  dispatch({
+    type: 'GET_PUBLIC_DESCRIPTION',
+    description,
+  });
+};
+
+export const getPublicLocation = () => async (dispatch) => {
+  const location = await store.getState().threeBox.box.public.get('location');
+
+  dispatch({
+    type: 'GET_PUBLIC_LOCATION',
+    location,
+  });
+};
+
+export const getPublicWebsite = () => async (dispatch) => {
+  const website = await store.getState().threeBox.box.public.get('website');
+
+  dispatch({
+    type: 'GET_PUBLIC_WEBSITE',
+    website,
+  });
+};
+
+export const getPublicEmployer = () => async (dispatch) => {
+  const employer = await store.getState().threeBox.box.public.get('employer');
+
+  dispatch({
+    type: 'GET_PUBLIC_EMPLOYER',
+    employer,
+  });
+};
+
+export const getPublicJob = () => async (dispatch) => {
+  const job = await store.getState().threeBox.box.public.get('job');
+
+  dispatch({
+    type: 'GET_PUBLIC_JOB',
+    job,
+  });
+};
+
+export const getPublicSchool = () => async (dispatch) => {
+  const school = await store.getState().threeBox.box.public.get('school');
+
+  dispatch({
+    type: 'GET_PUBLIC_SCHOOL',
+    school,
+  });
+};
+
+export const getPublicDegree = () => async (dispatch) => {
+  const degree = await store.getState().threeBox.box.public.get('degree');
+
+  dispatch({
+    type: 'GET_PUBLIC_DEGREE',
+    degree,
+  });
+};
+
 export const getPublicImage = () => async (dispatch) => {
   const image = await store.getState().threeBox.box.public.get('image');
 
@@ -297,12 +360,39 @@ export const getPublicImage = () => async (dispatch) => {
   });
 };
 
+export const getPublicSubject = () => async (dispatch) => {
+  const subject = await store.getState().threeBox.box.public.get('subject');
+
+  dispatch({
+    type: 'GET_PUBLIC_SUBJECT',
+    subject,
+  });
+};
+
+export const getPublicYear = () => async (dispatch) => {
+  const year = await store.getState().threeBox.box.public.get('year');
+
+  dispatch({
+    type: 'GET_PUBLIC_YEAR',
+    year,
+  });
+};
+
 export const getPrivateEmail = () => async (dispatch) => {
   const email = await store.getState().threeBox.box.private.get('email');
 
   dispatch({
     type: 'GET_PRIVATE_EMAIL',
     email,
+  });
+};
+
+export const getPrivateBirthday = () => async (dispatch) => {
+  const birthday = await store.getState().threeBox.box.private.get('birthday');
+
+  dispatch({
+    type: 'GET_PRIVATE_BIRTHDAY',
+    birthday,
   });
 };
 

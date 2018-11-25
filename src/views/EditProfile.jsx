@@ -6,8 +6,18 @@ import PropTypes from 'prop-types';
 import {
   getPublicName,
   getPublicGithub,
+  getPublicDescription,
+  getPublicLocation,
+  getPublicWebsite,
+  getPublicEmployer,
+  getPublicJob,
+  getPublicSchool,
+  getPublicDegree,
+  getPublicSubject,
+  getPublicYear,
   getPublicImage,
   getPrivateEmail,
+  getPrivateBirthday,
   getActivity,
 } from '../state/actions';
 
@@ -30,6 +40,16 @@ class EditProfile extends Component {
       github: '',
       email: '',
       buffer: '',
+      description: '',
+      location: '',
+      website: '',
+      birthday: '',
+      job: '',
+      school: '',
+      degree: '',
+      subject: '',
+      year: '',
+      employer: '',
       disableSave: true,
       saveLoading: false,
       removeUserPic: false,
@@ -40,13 +60,71 @@ class EditProfile extends Component {
   }
 
   componentDidMount() {
-    const { name, github, email } = this.props;
-    this.setState({ name, github, email });
+    const {
+      name,
+      github,
+      email,
+      description,
+      location,
+      website,
+      birthday,
+      employer,
+      job,
+      school,
+      degree,
+      subject,
+      year,
+    } = this.props;
+
+    this.setState({
+      name,
+      github,
+      email,
+      description,
+      location,
+      website,
+      birthday,
+      job,
+      school,
+      degree,
+      subject,
+      year,
+      employer,
+    });
   }
 
   componentWillReceiveProps(props) {
-    const { name, github, email } = props;
-    this.setState({ name, github, email });
+    const {
+      name,
+      github,
+      email,
+      description,
+      location,
+      website,
+      birthday,
+      job,
+      school,
+      degree,
+      subject,
+      year,
+      employer,
+    } = props;
+
+    this.setState({
+      name,
+      github,
+      email,
+      description,
+      location,
+      website,
+      birthday,
+      job,
+      school,
+      degree,
+      subject,
+      year,
+      employer,
+    });
   }
 
   handleFormChange = (e, property) => {
@@ -85,7 +163,18 @@ class EditProfile extends Component {
       removeUserPic,
       buffer,
       editPic,
+      description,
+      location,
+      website,
+      birthday,
+      job,
+      school,
+      degree,
+      subject,
+      year,
+      employer,
     } = this.state;
+
     const { box } = this.props;
 
     if (box.public) {
@@ -95,6 +184,16 @@ class EditProfile extends Component {
       const nameChanged = name !== this.props.name;
       const githubChanged = github !== this.props.github;
       const emailChanged = email !== this.props.email;
+      const descriptionChanged = description !== this.props.description;
+      const locationChanged = location !== this.props.location;
+      const websiteChanged = website !== this.props.website;
+      const employerChanged = employer !== this.props.employer;
+      const jobChanged = job !== this.props.job;
+      const schoolChanged = school !== this.props.school;
+      const degreeChanged = degree !== this.props.degree;
+      const subjectChanged = subject !== this.props.subject;
+      const yearChanged = year !== this.props.year;
+      const birthdayChanged = birthday !== this.props.birthday;
 
       // if value changed and is not empty, save new value, else remove value
       if (nameChanged && name !== '') await box.public.set('name', name);
@@ -103,6 +202,26 @@ class EditProfile extends Component {
       if (githubChanged && github === '') await box.public.remove('github');
       if (emailChanged && email !== '') await box.private.set('email', email);
       if (emailChanged && email === '') await box.private.remove('email');
+      if (descriptionChanged && description !== '') await box.public.set('description', description);
+      if (descriptionChanged && description === '') await box.public.remove('description');
+      if (locationChanged && location !== '') await box.public.set('location', location);
+      if (locationChanged && location === '') await box.public.remove('location');
+      if (websiteChanged && website !== '') await box.public.set('website', website);
+      if (websiteChanged && website === '') await box.public.remove('website');
+      if (employerChanged && employer !== '') await box.public.set('employer', employer);
+      if (employerChanged && employer === '') await box.public.remove('employer');
+      if (jobChanged && job !== '') await box.public.set('job', job);
+      if (jobChanged && job === '') await box.public.remove('job');
+      if (schoolChanged && school !== '') await box.public.set('school', school);
+      if (schoolChanged && school === '') await box.public.remove('school');
+      if (degreeChanged && degree !== '') await box.public.set('degree', degree);
+      if (degreeChanged && degree === '') await box.public.remove('degree');
+      if (subjectChanged && subject !== '') await box.public.set('subject', subject);
+      if (subjectChanged && subject === '') await box.public.remove('subject');
+      if (yearChanged && year !== '') await box.public.set('year', year);
+      if (yearChanged && year === '') await box.public.remove('year');
+      if (birthdayChanged && birthday !== '') await box.private.set('birthday', birthday);
+      if (birthdayChanged && birthday === '') await box.private.remove('birthday');
       if (removeUserPic) await box.public.remove('image');
 
       // save profile picture
@@ -118,9 +237,19 @@ class EditProfile extends Component {
       if (nameChanged) await this.props.getPublicName();
       if (githubChanged) await this.props.getPublicGithub();
       if (emailChanged) await this.props.getPrivateEmail();
+      if (descriptionChanged) await this.props.getPublicDescription();
+      if (locationChanged) await this.props.getPublicLocation();
+      if (websiteChanged) await this.props.getPublicWebsite();
+      if (employerChanged) await this.props.getPublicEmployer();
+      if (jobChanged) await this.props.getPublicJob();
+      if (schoolChanged) await this.props.getPublicSchool();
+      if (degreeChanged) await this.props.getPublicDegree();
+      if (subjectChanged) await this.props.getPublicSubject();
+      if (yearChanged) await this.props.getPublicYear();
+      if (birthdayChanged) await this.props.getPrivateBirthday();
       if (removeUserPic || editPic) await this.props.getPublicImage();
       this.props.getActivity();
-      
+
       this.setState({ saveLoading: false });
       history.push(routes.PROFILE);
     }
@@ -133,11 +262,23 @@ class EditProfile extends Component {
       github,
       email,
       name,
+      description,
+      location,
+      website,
+      birthday,
+      job,
+      school,
+      degree,
+      subject,
+      year,
+      employer,
       disableSave,
       removeUserPic,
       saveLoading,
       showFileSizeModal,
     } = this.state;
+
+    console.log(this.props.birthday);
 
     return (
       <div id="edit__page">
@@ -164,23 +305,24 @@ class EditProfile extends Component {
 
           <div id="edit__form">
 
-            {/* {ifFetchingThreeBox
-              && (
-                <div className="loadingProfile">
-                  <img src={Loading} alt="loading" id="loadingProfile__Spinner" />
-                </div>
-              )} */}
-
-            <div id="edit__myProfile">
-              <h4>My Profile</h4>
-              <div id="myProfile__address">
-                <img id="editprofile__networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
-                <p title={address}>{address && `${address.substring(0, 8)}...`}</p>
+            <div id="edit__profile">
+              <div className="edit__profile__canvas">
+                <button
+                  id="removePic"
+                  className="edit__profil__editCanvas"
+                  onClick={this.removePic}
+                  disabled={(image.length > 0 || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])) ? false : true}
+                  text="remove"
+                  type="button"
+                >
+                  Edit
+                </button>
               </div>
+
             </div>
 
             <div id="edit__profile">
-              <div id="public__contents">
+              <div className="edit__profile__picAndAddress">
                 <div id="edit__userPicture">
                   <label htmlFor="fileInput" id="chooseFile">
                     <input id="fileInput" type="file" name="pic" className="light" accept="image/*" onChange={e => this.handleUpdatePic(e.target.files[0], e)} ref={ref => this.fileUpload = ref} />
@@ -215,40 +357,243 @@ class EditProfile extends Component {
                     Remove
                   </button>
                 </div>
+                <p title={address} className="edit__profile__address">{address && `${address.substring(0, 8)}...`}</p>
+              </div>
+            </div>
 
-                <div id="edit__info">
+            <div id="edit__profile">
 
-                  <h3>Name</h3>
-                  <input
-                    name="name"
-                    type="text"
-                    value={name}
-                    onChange={e => this.handleFormChange(e, 'name')}
-                  />
+              <div className="edit__profile__info">
+                <div className="edit__profile__categories">
+                  <h3>Basic</h3>
+                  <p>Add basic information so others can recognize you.</p>
+                </div>
+                <div id="edit__profile__fields">
+                  <div id="edit__info">
 
-                  <div id="edit__public__githubInfo">
-                    <h3>Github</h3>
-                    <input
-                      name="github"
-                      type="text"
-                      value={github}
-                      onChange={e => this.handleFormChange(e, 'github')}
-                    />
-                  </div>
-
-                  <div id="edit__privateInfo">
-                    <div id="privateInfo_email">
-                      <h3>Email Address</h3>
-                      <img id="editprofile__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
+                    <div className="edit__profile__fields__entry noMargin">
+                      <div className="edit__profile__keyContainer">
+                        <h5>Name</h5>
+                      </div>
+                      <input
+                        name="name"
+                        type="text"
+                        value={name}
+                        className="edit__profile__value"
+                        onChange={e => this.handleFormChange(e, 'name')}
+                      />
                     </div>
-                    <input
-                      name="email"
-                      type="email"
-                      value={email}
-                      onChange={e => this.handleFormChange(e, 'email')}
-                    />
-                  </div>
 
+                    <div className="edit__profile__fields__entry">
+                      <div className="edit__profile__keyContainer">
+                        <h5 className="edit__profile__key">Description</h5>
+                      </div>
+                      <input
+                        name="description"
+                        type="text"
+                        className="edit__profile__value"
+                        value={description}
+                        onChange={e => this.handleFormChange(e, 'description')}
+                      />
+                    </div>
+
+                    <div className="edit__profile__fields__entry">
+                      <div className="edit__profile__keyContainer">
+                        <h5 className="edit__profile__key">Spirit Emoji</h5>
+                      </div>
+                      <div className="edit__profile__value">
+                        <select name="spiritEmoji">
+                          <option value="unicorn">🦄</option>
+                          <option value="whale">🐳</option>
+                          <option value="lion">🦁</option>
+                          <option value="frog">🐸</option>
+                        </select>
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+
+              <div className="edit__profile__info">
+                <div className="edit__profile__categories">
+                  <h3>About</h3>
+                </div>
+                <div id="edit__profile__fields">
+                  <div id="edit__info">
+
+                    <div className="edit__profile__fields__entry noMargin">
+                      <div className="edit__profile__keyContainer">
+                        <h5>Email Address</h5>
+                        <img id="edit__profile__input__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
+                      </div>
+                      <input
+                        name="email"
+                        type="email"
+                        className="edit__profile__value privateInput"
+                        value={email}
+                        onChange={e => this.handleFormChange(e, 'email')}
+                      />
+                    </div>
+
+                    <div className="edit__profile__fields__entry">
+                      <div className="edit__profile__keyContainer">
+                        <h5>Location</h5>
+                      </div>
+                      <input
+                        name="location"
+                        type="text"
+                        value={location}
+                        className="edit__profile__value"
+                        onChange={e => this.handleFormChange(e, 'location')}
+                      />
+                    </div>
+
+                    <div className="edit__profile__fields__entry">
+                      <div className="edit__profile__keyContainer">
+                        <h5>Website or URL</h5>
+                      </div>
+                      <input
+                        name="website"
+                        type="text"
+                        className="edit__profile__value"
+                        value={website}
+                        onChange={e => this.handleFormChange(e, 'website')}
+                      />
+                    </div>
+
+                    <div className="edit__profile__fields__entry">
+                      <div className="edit__profile__keyContainer">
+                        <h5 className="edit__profile__key">Github</h5>
+                      </div>
+                      <input
+                        name="github"
+                        type="text"
+                        className="edit__profile__value"
+                        value={github}
+                        onChange={e => this.handleFormChange(e, 'github')}
+                      />
+                    </div>
+
+                    <div className="edit__profile__fields__entry">
+                      <div className="edit__profile__keyContainer">
+                        <div id="privateInfo_email" className="edit__profile__key">
+                          <h5>Birthday</h5>
+                          <img id="editprofile__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
+                        </div>
+                      </div>
+                      <input
+                        name="birthday"
+                        type="date"
+                        className="edit__profile__value"
+                        value={birthday}
+                        onChange={e => this.handleFormChange(e, 'birthday')}
+                      />
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div className="edit__profile__info">
+                <div className="edit__profile__categories">
+                  <h3>Work</h3>
+                </div>
+
+                <div id="edit__profile__fields">
+                  <div id="edit__info">
+
+                    <div className="edit__profile__fields__entry noMargin">
+                      <div className="edit__profile__keyContainer">
+                        <h5>Employer</h5>
+                      </div>
+                      <input
+                        name="employer"
+                        type="text"
+                        value={employer}
+                        className="edit__profile__value"
+                        onChange={e => this.handleFormChange(e, 'employer')}
+                      />
+                    </div>
+
+                    <div className="edit__profile__fields__entry">
+                      <div className="edit__profile__keyContainer">
+                        <h5>Job Title</h5>
+                      </div>
+                      <input
+                        name="job"
+                        type="text"
+                        className="edit__profile__value"
+                        value={job}
+                        onChange={e => this.handleFormChange(e, 'job')}
+                      />
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <div className="edit__profile__info">
+                <div className="edit__profile__categories">
+                  <h3>Education</h3>
+                </div>
+                <div id="edit__profile__fields">
+                  <div id="edit__info">
+
+                    <div className="edit__profile__fields__entry noMargin">
+                      <div className="edit__profile__keyContainer">
+                        <h5>School</h5>
+                      </div>
+                      <input
+                        name="school"
+                        type="text"
+                        className="edit__profile__value"
+                        value={school}
+                        onChange={e => this.handleFormChange(e, 'school')}
+                      />
+                    </div>
+
+                    <div className="edit__profile__fields__entry">
+                      <div className="edit__profile__keyContainer">
+                        <h5>Degree</h5>
+                      </div>
+                      <input
+                        name="degree"
+                        type="text"
+                        className="edit__profile__value"
+                        value={degree}
+                        onChange={e => this.handleFormChange(e, 'degree')}
+                      />
+                    </div>
+
+                    <div className="edit__profile__fields__entry">
+                      <div className="edit__profile__keyContainer">
+                        <h5>Subject</h5>
+                      </div>
+                      <input
+                        name="subject"
+                        type="text"
+                        className="edit__profile__value"
+                        value={subject}
+                        onChange={e => this.handleFormChange(e, 'subject')}
+                      />
+                    </div>
+
+                    <div className="edit__profile__fields__entry">
+                      <div className="edit__profile__keyContainer">
+                        <h5>Year</h5>
+                      </div>
+                      <input
+                        name="year"
+                        type="text"
+                        className="edit__profile__value"
+                        value={year}
+                        onChange={e => this.handleFormChange(e, 'year')}
+                      />
+                    </div>
+
+                  </div>
                 </div>
               </div>
 
@@ -263,7 +608,7 @@ class EditProfile extends Component {
             </div>
           </div>
         </div>
-      </div>
+      </div >
     );
   }
 }
@@ -272,6 +617,16 @@ EditProfile.propTypes = {
   box: PropTypes.object,
   name: PropTypes.string,
   github: PropTypes.string,
+  year: PropTypes.string,
+  description: PropTypes.string,
+  location: PropTypes.string,
+  website: PropTypes.string,
+  birthday: PropTypes.instanceOf(Date),
+  job: PropTypes.string,
+  school: PropTypes.string,
+  degree: PropTypes.string,
+  subject: PropTypes.string,
+  employer: PropTypes.string,
   email: PropTypes.string,
   image: PropTypes.array,
   ifFetchingThreeBox: PropTypes.bool,
@@ -280,6 +635,16 @@ EditProfile.propTypes = {
   getPublicGithub: PropTypes.func,
   getPublicImage: PropTypes.func,
   getPrivateEmail: PropTypes.func,
+  getPrivateBirthday: PropTypes.func,
+  getPublicWebsite: PropTypes.func,
+  getPublicEmployer: PropTypes.func,
+  getPublicJob: PropTypes.func,
+  getPublicSchool: PropTypes.func,
+  getPublicDegree: PropTypes.func,
+  getPublicSubject: PropTypes.func,
+  getPublicYear: PropTypes.func,
+  getPublicLocation: PropTypes.func,
+  getPublicDescription: PropTypes.func,
   getActivity: PropTypes.func,
 };
 
@@ -287,14 +652,34 @@ EditProfile.defaultProps = {
   box: {},
   name: '',
   github: '',
+  description: '',
+  location: '',
+  website: '',
+  birthday: '',
+  job: '',
+  school: '',
+  degree: '',
+  subject: '',
+  year: '',
+  employer: '',
   email: '',
   image: [],
   ifFetchingThreeBox: false,
 
   getPublicName: getPublicName(),
   getPublicGithub: getPublicGithub(),
+  getPublicDescription: getPublicDescription(),
+  getPublicLocation: getPublicLocation(),
+  getPublicWebsite: getPublicWebsite(),
+  getPublicEmployer: getPublicEmployer(),
+  getPublicJob: getPublicJob(),
+  getPublicSchool: getPublicSchool(),
+  getPublicDegree: getPublicDegree(),
+  getPublicSubject: getPublicSubject(),
+  getPublicYear: getPublicYear(),
   getPublicImage: getPublicImage(),
   getPrivateEmail: getPrivateEmail(),
+  getPrivateBirthday: getPrivateBirthday(),
   getActivity: getActivity(),
 };
 
@@ -303,6 +688,16 @@ function mapState(state) {
     box: state.threeBox.box,
     name: state.threeBox.name,
     github: state.threeBox.github,
+    description: state.threeBox.description,
+    location: state.threeBox.location,
+    website: state.threeBox.website,
+    birthday: state.threeBox.birthday,
+    job: state.threeBox.job,
+    school: state.threeBox.school,
+    degree: state.threeBox.degree,
+    subject: state.threeBox.subject,
+    year: state.threeBox.year,
+    employer: state.threeBox.employer,
     email: state.threeBox.email,
     image: state.threeBox.image,
     ifFetchingThreeBox: state.threeBox.ifFetchingThreeBox,
@@ -313,8 +708,18 @@ export default withRouter(connect(mapState,
   {
     getPublicName,
     getPublicGithub,
+    getPublicDescription,
+    getPublicLocation,
+    getPublicWebsite,
+    getPublicEmployer,
+    getPublicJob,
+    getPublicSchool,
+    getPublicDegree,
+    getPublicSubject,
+    getPublicYear,
     getPublicImage,
     getPrivateEmail,
+    getPrivateBirthday,
     getActivity,
   })(EditProfile));
 

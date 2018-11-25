@@ -82,6 +82,60 @@ export const threeBoxReducer = (state = {}, action) => {
         github: action.github,
       };
 
+    case 'GET_PUBLIC_DESCRIPTION':
+      return {
+        ...state,
+        description: action.description,
+      };
+
+    case 'GET_PUBLIC_LOCATION':
+      return {
+        ...state,
+        location: action.location,
+      };
+
+    case 'GET_PUBLIC_WEBSITE':
+      return {
+        ...state,
+        website: action.website,
+      };
+
+    case 'GET_PUBLIC_EMPLOYER':
+      return {
+        ...state,
+        employer: action.employer,
+      };
+
+    case 'GET_PUBLIC_JOB':
+      return {
+        ...state,
+        job: action.job,
+      };
+
+    case 'GET_PUBLIC_SCHOOL':
+      return {
+        ...state,
+        school: action.school,
+      };
+
+    case 'GET_PUBLIC_DEGREE':
+      return {
+        ...state,
+        degree: action.degree,
+      };
+
+    case 'GET_PUBLIC_SUBJECT':
+      return {
+        ...state,
+        subject: action.subject,
+      };
+
+    case 'GET_PUBLIC_YEAR':
+      return {
+        ...state,
+        year: action.year,
+      };
+
     case 'GET_PUBLIC_IMAGE':
       return {
         ...state,
@@ -92,6 +146,12 @@ export const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         email: action.email,
+      };
+
+    case 'GET_PRIVATE_BIRTHDAY':
+      return {
+        ...state,
+        birthday: action.birthday,
       };
 
     case 'HANDLE_SIGNOUT':

@@ -11,27 +11,50 @@
 
   h3 {
     font-weight: 400;
+    font-size: 18px;
+    color: $lighterFont;
+    margin-top: 10px;
+  }
+
+  h5 {
+    font-weight: 400;
     font-size: .8em;
   }
 
   input {
-    display: inline-block;
     border-radius: 5px;
     border-style: none;
     border: solid 1px #E4E4E4;
     background-color: rgb(255, 255, 255);
     height: 44px;
-    width: 100%;
-    margin-top: 1em;
+    width: 70%;
     padding: 0 15px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
   }
 
+  select {
+    border-radius: 5px;
+    border-style: none;
+    border: solid 1px #E4E4E4;
+    background-color: rgb(255, 255, 255);
+    height: 44px;
+    width: 54px;
+    padding: 0 15px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: flex;
+  }
+
   button {
     display: inline-block;
   }
+}
+
+.noMargin {
+  margin-top: 0 !important;
 }
 
 #edit__form {
@@ -73,6 +96,15 @@
     flex-direction: column;
   }
 
+  .edit__profile__canvas {
+    background-color: $threeBoxBlueShade;
+    width: 100%;
+    height: 174px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+
   #edit_private {
     padding: 1.8em 2em 2em;
   }
@@ -81,21 +113,39 @@
     height: 100%;
   }
 
+  .edit__profile__info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+
+  .edit__profile__address {
+    padding: 12px 18px;
+    box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
+    border-radius: 6px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $lightFont;
+    margin-right: 3em;
+    margin-top: 2em;
+  }
+
   #edit__userPicture {
-    width: 27%;
     height: fit-content;
     display: flex;
-    flex: 2;
-    padding: 3em 3vw 3em 3vw;
     flex-direction: column;
     align-items: center;
+    margin-left: 76px;
+    margin-top: -62px;
 
     .profPic {
       display: block;
       background-image: $defaultProfPic;
       border-radius: 100%;
-      width: 120px;
-      height: 120px;
+      width: 144px;
+      height: 144px;
       object-fit: cover;
       -webkit-transition: all .5s ease;
       -moz-transition: all .5s ease;
@@ -123,8 +173,8 @@
       position: absolute;
       background-color: rgba(0, 0, 0, 0.397);
       border-radius: 100%;
-      width: 120px;
-      height: 120px;
+      width: 144px;
+      height: 144px;
       object-fit: cover;
       -webkit-transition: all .5s ease;
       -moz-transition: all .5s ease;
@@ -149,19 +199,11 @@
   #edit__info {
     overflow: hidden;
     display: inline-block;
-    flex: 3.5;
     justify-content: center;
     align-content: center;
     align-items: center;
-    padding: 3em 3vw;
-
-  }
-
-  #edit__privateInfo {
-    display: flex;
-    margin-top: 2em;
-    flex-direction: column;
-    justify-content: flex-start;
+    padding: 0 3em 0 0;
+    width: 100%;
   }
 
   #privateInfo_email {
@@ -170,9 +212,31 @@
     justify-content: flex-start !important;
   }
 
-  #edit__public__githubInfo {
+  .edit__profile__fields__entry {
     margin-top: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
   }
+}
+
+.edit__profile__keyContainer {
+  width: 30%;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+
+  h5 {
+    padding-right: 15px;
+  }
+}
+
+.edit__profile__value {
+  width: 70%;
+}
+
+.privateInput {
+  padding-left: 38px !important;
 }
 
 #edit__cancel {
@@ -228,10 +292,20 @@
   }
 }
 
+.edit__profile__categories {
+  width: 25%;
+  padding-left: 3em;
 
-#public__contents {
+  p {
+    color: $lighterFont;
+    margin-top: 15px;
+  }
+}
+
+#edit__profile__fields {
   display: flex;
   align-items: center;
+  width: 75%;
 }
 
 .removeButton {
@@ -246,6 +320,27 @@
     color: white;
     background-color: $lightFont;
   }
+}
+
+.edit__profil__editCanvas {
+  font-size: .8em;
+  color: white;
+  border: 1px solid $lightFont;
+  background: rgba(0, 0, 0, 0.404);
+  padding: .8em 1.3em;
+  margin-right: 2em;
+  margin-bottom: 1.4em;
+
+  &:hover {
+    color: white;
+    background-color: $lightFont;
+  }
+}
+
+.edit__profile__picAndAddress {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
 }
 
 #edit__breadCrumb {
@@ -282,6 +377,13 @@
   margin-left: 1vw;
 }
 
+#edit__profile__input__privateIcon {
+  height: 18px;
+  z-index: 2;
+  position: absolute;
+  right: -30px;
+}
+
 .loadingProfile {
   position: absolute;
   width: 100%;
@@ -316,7 +418,7 @@
     margin: 0;
   }
 
-  #public__contents {
+  #edit__profile__fields {
     display: flex;
     flex-direction: column;
   }
