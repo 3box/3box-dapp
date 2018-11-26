@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import EmojiPicker from 'emoji-picker-react';
+
+import JSEMOJI from 'emoji-js';
+// you can import it with a script tag instead
 
 import {
   getPublicName,
@@ -19,6 +23,7 @@ import {
   getPublicCoverPhoto,
   getPrivateEmail,
   getPrivateBirthday,
+  getPublicEmoji,
   getActivity,
 } from '../state/actions';
 
@@ -33,6 +38,17 @@ import AddImage from '../assets/AddImage.svg';
 import Loading from '../assets/Loading.svg';
 import './styles/EditProfile.css';
 
+// new instance
+const jsemoji = new JSEMOJI();
+// set the style to emojione (default - apple)
+jsemoji.img_set = 'emojione';
+// set the storage location for all emojis
+jsemoji.img_sets.emojione.path = 'https://cdn.jsdelivr.net/emojione/assets/3.0/png/32/';
+// some more settings...
+jsemoji.supports_css = false;
+jsemoji.allow_native = false;
+jsemoji.replace_mode = 'unified';
+
 class EditProfile extends Component {
   constructor(props) {
     super(props);
@@ -44,6 +60,8 @@ class EditProfile extends Component {
       description: '',
       location: '',
       website: '',
+      emoji: '',
+      emojiCharacter: '',
       birthday: '',
       job: '',
       school: '',
@@ -57,6 +75,7 @@ class EditProfile extends Component {
       editPic: false,
       editCoverPic: false,
       showFileSizeModal: false,
+      showEmoji: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -76,6 +95,7 @@ class EditProfile extends Component {
       degree,
       subject,
       year,
+      emoji,
     } = this.props;
 
     this.setState({
@@ -91,6 +111,7 @@ class EditProfile extends Component {
       degree,
       subject,
       year,
+      emoji,
       employer,
     });
   }
@@ -109,6 +130,7 @@ class EditProfile extends Component {
       degree,
       subject,
       year,
+      emoji,
       employer,
     } = props;
 
@@ -125,6 +147,7 @@ class EditProfile extends Component {
       degree,
       subject,
       year,
+      emoji,
       employer,
     });
   }
@@ -177,6 +200,18 @@ class EditProfile extends Component {
     this.setState({ disableSave: false, removeCoverPic: true });
   }
 
+  addEmoji = (emoji, emojiObject) => {
+    console.log(jsemoji.replace_colons(`:${emojiObject.name}:`));
+
+    this.setState({
+      emoji: {
+        name: emojiObject.name,
+        code: emoji,
+      },
+      showEmoji: false,
+    });
+  }
+
   async handleSubmit(e) {
     const {
       name,
@@ -198,6 +233,7 @@ class EditProfile extends Component {
       subject,
       year,
       employer,
+      emoji,
     } = this.state;
 
     const { box } = this.props;
@@ -218,6 +254,7 @@ class EditProfile extends Component {
       const degreeChanged = degree !== this.props.degree;
       const subjectChanged = subject !== this.props.subject;
       const yearChanged = year !== this.props.year;
+      const emojiChanged = emoji !== this.props.emoji;
       const birthdayChanged = birthday !== this.props.birthday;
 
       // if value changed and is not empty, save new value, else remove value
@@ -245,6 +282,8 @@ class EditProfile extends Component {
       if (subjectChanged && subject === '') await box.public.remove('subject');
       if (yearChanged && year !== '') await box.public.set('year', year);
       if (yearChanged && year === '') await box.public.remove('year');
+      if (emojiChanged && emoji !== '') await box.public.set('emoji', emoji);
+      if (emojiChanged && emoji === '') await box.public.remove('emoji');
       if (birthdayChanged && birthday !== '') await box.private.set('birthday', birthday);
       if (birthdayChanged && birthday === '') await box.private.remove('birthday');
       if (removeUserPic) await box.public.remove('image');
@@ -280,6 +319,7 @@ class EditProfile extends Component {
       if (degreeChanged) await this.props.getPublicDegree();
       if (subjectChanged) await this.props.getPublicSubject();
       if (yearChanged) await this.props.getPublicYear();
+      if (emojiChanged) await this.props.getPublicEmoji();
       if (birthdayChanged) await this.props.getPrivateBirthday();
       if (removeUserPic || editPic) await this.props.getPublicImage();
       if (removeCoverPic || editCoverPic) await this.props.getPublicCoverPhoto();
@@ -306,13 +346,17 @@ class EditProfile extends Component {
       degree,
       subject,
       year,
+      emoji,
       employer,
       disableSave,
       removeUserPic,
       removeCoverPic,
       saveLoading,
       showFileSizeModal,
+      showEmoji,
     } = this.state;
+
+    const spiritEmoji = jsemoji.replace_colons(`:${emoji.name}:`);
 
     return (
       <div id="edit__page">
@@ -362,7 +406,8 @@ class EditProfile extends Component {
                       onChange={e => this.handleUpdateCoverPic(e.target.files[0], e)}
                       ref={ref => this.coverUpload = ref}
                     />
-                    <div className="edit__profil__editCanvas__button">
+                    <div className="edit__profile__editCanvas__button">
+                      {/* <img src={AddImage} alt="profile" id="addCoverPhoto" /> */}
                       Edit
                     </div>
                   </label>
@@ -469,13 +514,29 @@ class EditProfile extends Component {
                       <div className="edit__profile__keyContainer">
                         <h5 className="edit__profile__key">Spirit Emoji</h5>
                       </div>
-                      <div className="edit__profile__value">
-                        <select name="spiritEmoji">
-                          <option value="unicorn">🦄</option>
-                          <option value="whale">🐳</option>
-                          <option value="lion">🦁</option>
-                          <option value="frog">🐸</option>
-                        </select>
+                      {showEmoji
+                        && (
+                          <div
+                            className="edit__profile__value__emojiMenu"
+                            onClick={() => this.setState({ showEmoji: !this.state.showEmoji })}
+                          >
+                            <EmojiPicker onEmojiClick={(selectedEmoji, emojiObject) => this.addEmoji(selectedEmoji, emojiObject)} preload />
+                          </div>)
+                      }
+                      <div
+                        className="edit__profile__value--spirit"
+                        onClick={() => this.setState({ showEmoji: !this.state.showEmoji })}
+                      >
+                        {/* <p className="edit__profile__value--spirit__character">
+                          {emojiCharacter ? emojiCharacter : '🦄'}
+                        </p> */}
+                        {
+                          emoji
+                            ? <div dangerouslySetInnerHTML={{ __html: spiritEmoji }} className="edit__profile__value--spirit__character--converted" />
+                            : <p className="edit__profile__value--spirit__character">
+                              🦄
+                            </p>
+                        }
                       </div>
                     </div>
 
@@ -684,6 +745,7 @@ EditProfile.propTypes = {
   name: PropTypes.string,
   github: PropTypes.string,
   year: PropTypes.string,
+  emoji: PropTypes.string,
   description: PropTypes.string,
   location: PropTypes.string,
   website: PropTypes.string,
@@ -704,6 +766,7 @@ EditProfile.propTypes = {
   getPublicCoverPhoto: PropTypes.func,
   getPrivateEmail: PropTypes.func,
   getPrivateBirthday: PropTypes.func,
+  getPublicEmoji: PropTypes.func,
   getPublicWebsite: PropTypes.func,
   getPublicEmployer: PropTypes.func,
   getPublicJob: PropTypes.func,
@@ -729,6 +792,7 @@ EditProfile.defaultProps = {
   degree: '',
   subject: '',
   year: '',
+  emoji: '',
   employer: '',
   email: '',
   image: [],
@@ -750,6 +814,7 @@ EditProfile.defaultProps = {
   getPublicCoverPhoto: getPublicCoverPhoto(),
   getPrivateEmail: getPrivateEmail(),
   getPrivateBirthday: getPrivateBirthday(),
+  getPublicEmoji: getPublicEmoji(),
   getActivity: getActivity(),
 };
 
@@ -767,6 +832,7 @@ function mapState(state) {
     degree: state.threeBox.degree,
     subject: state.threeBox.subject,
     year: state.threeBox.year,
+    emoji: state.threeBox.emoji,
     employer: state.threeBox.employer,
     email: state.threeBox.email,
     image: state.threeBox.image,
@@ -792,6 +858,7 @@ export default withRouter(connect(mapState,
     getPublicCoverPhoto,
     getPrivateEmail,
     getPrivateBirthday,
+    getPublicEmoji,
     getActivity,
   })(EditProfile));
 

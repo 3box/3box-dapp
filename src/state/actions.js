@@ -369,6 +369,15 @@ export const getPublicCoverPhoto = () => async (dispatch) => {
   });
 };
 
+export const getPublicEmoji = () => async (dispatch) => {
+  const emoji = await store.getState().threeBox.box.public.get('emoji');
+
+  dispatch({
+    type: 'GET_PUBLIC_EMOJI',
+    emoji,
+  });
+};
+
 export const getPublicSubject = () => async (dispatch) => {
   const subject = await store.getState().threeBox.box.public.get('subject');
 
