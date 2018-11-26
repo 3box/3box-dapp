@@ -142,6 +142,12 @@ export const threeBoxReducer = (state = {}, action) => {
         image: action.image,
       };
 
+    case 'GET_PUBLIC_COVERPHOTO':
+      return {
+        ...state,
+        coverPhoto: action.coverPhoto,
+      };
+
     case 'GET_PRIVATE_EMAIL':
       return {
         ...state,

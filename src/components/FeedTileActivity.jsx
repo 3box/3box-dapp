@@ -26,11 +26,11 @@ const FeedTileTXS = ({ item, isEven }) => (
     <p className="feed__activity__address__function">
       {item.dataType === 'Private'
         ? 'Private'
-        : item.key && item.key.charAt(0).toUpperCase() + item.key.slice(1)
+        : item.key && (item.key.charAt(0).toUpperCase() + item.key.slice(1)).replace(/([A-Z])/g, ' $1').trim()
       }
     </p>
     <p className="feed__activity__address__amount">
-      {item.key === 'image'
+      {item.key === 'image' || item.key === 'coverPhoto'
         ? <img src={Image} alt="Transaction Icon" className="feed__activity__address__amount__image" />
         : item.dataType === 'Private'
           ? '*****'

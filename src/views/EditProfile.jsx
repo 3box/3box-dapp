@@ -16,6 +16,7 @@ import {
   getPublicSubject,
   getPublicYear,
   getPublicImage,
+  getPublicCoverPhoto,
   getPrivateEmail,
   getPrivateBirthday,
   getActivity,
@@ -54,6 +55,7 @@ class EditProfile extends Component {
       saveLoading: false,
       removeUserPic: false,
       editPic: false,
+      editCoverPic: false,
       showFileSizeModal: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -151,8 +153,28 @@ class EditProfile extends Component {
     }
   }
 
+  handleUpdateCoverPic = (photoFile, e) => {
+    if (photoFile.size <= 2500000) {
+      const formData = new window.FormData();
+      formData.append('path', photoFile);
+      this.setState({
+        coverBuffer: formData,
+        disableSave: false,
+        editCoverPic: true,
+        removeCoverPic: false,
+      });
+    } else {
+      e.target.value = null;
+      this.setState({ showFileSizeModal: true });
+    }
+  }
+
   removePic = () => {
     this.setState({ disableSave: false, removeUserPic: true });
+  }
+
+  removeCoverPic = () => {
+    this.setState({ disableSave: false, removeCoverPic: true });
   }
 
   async handleSubmit(e) {
@@ -161,8 +183,11 @@ class EditProfile extends Component {
       github,
       email,
       removeUserPic,
+      removeCoverPic,
       buffer,
+      coverBuffer,
       editPic,
+      editCoverPic,
       description,
       location,
       website,
@@ -223,6 +248,7 @@ class EditProfile extends Component {
       if (birthdayChanged && birthday !== '') await box.private.set('birthday', birthday);
       if (birthdayChanged && birthday === '') await box.private.remove('birthday');
       if (removeUserPic) await box.public.remove('image');
+      if (removeCoverPic) await box.public.remove('coverPhoto');
 
       // save profile picture
       const fetch = editPic && await window.fetch('https://ipfs.infura.io:5001/api/v0/add', {
@@ -232,6 +258,14 @@ class EditProfile extends Component {
       });
       const returnedData = editPic && await fetch.json();
       if (editPic) await box.public.set('image', [{ '@type': 'ImageObject', contentUrl: { '/': returnedData.Hash } }]);
+
+      const fetchCover = editCoverPic && await window.fetch('https://ipfs.infura.io:5001/api/v0/add', {
+        method: 'post',
+        'Content-Type': 'multipart/form-data',
+        body: coverBuffer,
+      });
+      const returnedCoverData = editCoverPic && await fetchCover.json();
+      if (editCoverPic) await box.public.set('coverPhoto', [{ '@type': 'ImageObject', contentUrl: { '/': returnedCoverData.Hash } }]);
 
       // only get values that have changed
       if (nameChanged) await this.props.getPublicName();
@@ -248,6 +282,7 @@ class EditProfile extends Component {
       if (yearChanged) await this.props.getPublicYear();
       if (birthdayChanged) await this.props.getPrivateBirthday();
       if (removeUserPic || editPic) await this.props.getPublicImage();
+      if (removeCoverPic || editCoverPic) await this.props.getPublicCoverPhoto();
       this.props.getActivity();
 
       this.setState({ saveLoading: false });
@@ -256,7 +291,7 @@ class EditProfile extends Component {
   }
 
   render() {
-    const { image } = this.props;
+    const { image, coverPhoto } = this.props;
 
     const {
       github,
@@ -274,11 +309,10 @@ class EditProfile extends Component {
       employer,
       disableSave,
       removeUserPic,
+      removeCoverPic,
       saveLoading,
       showFileSizeModal,
     } = this.state;
-
-    console.log(this.props.birthday);
 
     return (
       <div id="edit__page">
@@ -307,26 +341,70 @@ class EditProfile extends Component {
 
             <div id="edit__profile">
               <div className="edit__profile__canvas">
-                <button
-                  id="removePic"
-                  className="edit__profil__editCanvas"
-                  onClick={this.removePic}
-                  disabled={(image.length > 0 || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])) ? false : true}
-                  text="remove"
-                  type="button"
-                >
-                  Edit
-                </button>
-              </div>
+                <div className="edit__profile__editCanvas__wrapper">
+                  <button
+                    id="removeCoverPic"
+                    className="removeButton"
+                    onClick={this.removeCoverPic}
+                    disabled={(coverPhoto.length > 0 || (this.coverUpload && this.coverUpload.files && this.coverUpload.files[0])) ? false : true}
+                    text="remove"
+                    type="button"
+                  >
+                    &#10005;
+                  </button>
+                  <label htmlFor="coverInput" id="chooseCanvas">
+                    <input
+                      id="coverInput"
+                      type="file"
+                      name="coverPic"
+                      className="light"
+                      accept="image/*"
+                      onChange={e => this.handleUpdateCoverPic(e.target.files[0], e)}
+                      ref={ref => this.coverUpload = ref}
+                    />
+                    <div className="edit__profil__editCanvas__button">
+                      Edit
+                    </div>
+                  </label>
+                </div>
+                {(((coverPhoto.length > 0 && coverPhoto[0].contentUrl) || (this.coverUpload && this.coverUpload.files && this.coverUpload.files[0])) && !removeCoverPic)
+                  && (
+                    <img
+                      className="coverPic"
+                      alt="profile"
+                      src={(this.coverUpload && this.coverUpload.files && this.coverUpload.files[0])
+                        ? URL.createObjectURL(this.coverUpload.files[0])
+                        : `https://ipfs.infura.io/ipfs/${coverPhoto[0].contentUrl['/']}`}
+                    />)}
 
+              </div>
             </div>
 
             <div id="edit__profile">
               <div className="edit__profile__picAndAddress">
                 <div id="edit__userPicture">
                   <label htmlFor="fileInput" id="chooseFile">
-                    <input id="fileInput" type="file" name="pic" className="light" accept="image/*" onChange={e => this.handleUpdatePic(e.target.files[0], e)} ref={ref => this.fileUpload = ref} />
+                    <input
+                      id="fileInput"
+                      type="file"
+                      name="pic"
+                      className="light"
+                      accept="image/*"
+                      onChange={e => this.handleUpdatePic(e.target.files[0], e)}
+                      ref={ref => this.fileUpload = ref}
+                    />
+
                     <img src={AddImage} alt="profile" id="addImage" />
+                    <button
+                      id="removePic"
+                      className="removeButton"
+                      onClick={this.removePic}
+                      disabled={(image.length > 0 || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])) ? false : true}
+                      text="remove"
+                      type="button"
+                    >
+                      &#10005;
+                  </button>
 
                     {(((image.length > 0 && image[0].contentUrl) || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])) && !removeUserPic)
                       ? (
@@ -346,16 +424,6 @@ class EditProfile extends Component {
 
                   </label>
 
-                  <button
-                    id="removePic"
-                    className="removeButton"
-                    onClick={this.removePic}
-                    disabled={(image.length > 0 || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])) ? false : true}
-                    text="remove"
-                    type="button"
-                  >
-                    Remove
-                  </button>
                 </div>
                 <p title={address} className="edit__profile__address">{address && `${address.substring(0, 8)}...`}</p>
               </div>
@@ -478,15 +546,13 @@ class EditProfile extends Component {
 
                     <div className="edit__profile__fields__entry">
                       <div className="edit__profile__keyContainer">
-                        <div id="privateInfo_email" className="edit__profile__key">
-                          <h5>Birthday</h5>
-                          <img id="editprofile__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
-                        </div>
+                        <h5>Birthday</h5>
+                        <img id="edit__profile__input__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
                       </div>
                       <input
                         name="birthday"
                         type="date"
-                        className="edit__profile__value"
+                        className="edit__profile__value privateInput"
                         value={birthday}
                         onChange={e => this.handleFormChange(e, 'birthday')}
                       />
@@ -629,11 +695,13 @@ EditProfile.propTypes = {
   employer: PropTypes.string,
   email: PropTypes.string,
   image: PropTypes.array,
+  coverPhoto: PropTypes.array,
   ifFetchingThreeBox: PropTypes.bool,
 
   getPublicName: PropTypes.func,
   getPublicGithub: PropTypes.func,
   getPublicImage: PropTypes.func,
+  getPublicCoverPhoto: PropTypes.func,
   getPrivateEmail: PropTypes.func,
   getPrivateBirthday: PropTypes.func,
   getPublicWebsite: PropTypes.func,
@@ -664,6 +732,7 @@ EditProfile.defaultProps = {
   employer: '',
   email: '',
   image: [],
+  coverPhoto: [],
   ifFetchingThreeBox: false,
 
   getPublicName: getPublicName(),
@@ -678,6 +747,7 @@ EditProfile.defaultProps = {
   getPublicSubject: getPublicSubject(),
   getPublicYear: getPublicYear(),
   getPublicImage: getPublicImage(),
+  getPublicCoverPhoto: getPublicCoverPhoto(),
   getPrivateEmail: getPrivateEmail(),
   getPrivateBirthday: getPrivateBirthday(),
   getActivity: getActivity(),
@@ -700,6 +770,7 @@ function mapState(state) {
     employer: state.threeBox.employer,
     email: state.threeBox.email,
     image: state.threeBox.image,
+    coverPhoto: state.threeBox.coverPhoto,
     ifFetchingThreeBox: state.threeBox.ifFetchingThreeBox,
   };
 }
@@ -718,6 +789,7 @@ export default withRouter(connect(mapState,
     getPublicSubject,
     getPublicYear,
     getPublicImage,
+    getPublicCoverPhoto,
     getPrivateEmail,
     getPrivateBirthday,
     getActivity,

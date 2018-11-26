@@ -39,6 +39,7 @@ import {
   getPublicLocation,
   getPublicDescription,
   getPublicImage,
+  getPublicCoverPhoto,
   getPrivateEmail,
   getPrivateBirthday,
   getActivity,
@@ -130,6 +131,7 @@ class App extends Component {
         await this.props.getPublicGithub();
         await this.props.getPublicDescription();
         await this.props.getPublicImage();
+        await this.props.getPublicCoverPhoto();
         await this.props.getPublicLocation();
         await this.props.getPublicWebsite();
         await this.props.getPublicEmployer();
@@ -164,6 +166,7 @@ class App extends Component {
           await this.props.getPublicGithub();
           await this.props.getPublicDescription();
           await this.props.getPublicImage();
+          await this.props.getPublicCoverPhoto();
           await this.props.getPublicLocation();
           await this.props.getPublicWebsite();
           await this.props.getPublicEmployer();
@@ -361,6 +364,7 @@ App.propTypes = {
   getPublicYear: PropTypes.func.isRequired,
   getPublicLocation: PropTypes.func.isRequired,
   getPublicImage: PropTypes.func.isRequired,
+  getPublicCoverPhoto: PropTypes.func.isRequired,
   getPrivateEmail: PropTypes.func.isRequired,
   getPrivateBirthday: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
@@ -459,6 +463,7 @@ export default withRouter(connect(mapState,
     getPublicYear,
     getPublicDescription,
     getPublicImage,
+    getPublicCoverPhoto,
     getPrivateEmail,
     getPrivateBirthday,
     getActivity,

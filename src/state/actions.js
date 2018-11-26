@@ -360,6 +360,15 @@ export const getPublicImage = () => async (dispatch) => {
   });
 };
 
+export const getPublicCoverPhoto = () => async (dispatch) => {
+  const coverPhoto = await store.getState().threeBox.box.public.get('coverPhoto');
+
+  dispatch({
+    type: 'GET_PUBLIC_COVERPHOTO',
+    coverPhoto,
+  });
+};
+
 export const getPublicSubject = () => async (dispatch) => {
   const subject = await store.getState().threeBox.box.public.get('subject');
 
