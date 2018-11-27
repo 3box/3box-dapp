@@ -59,7 +59,7 @@ class EditProfile extends Component {
       job: '',
       school: '',
       degree: '',
-      subject: '',
+      major: '',
       year: '',
       employer: '',
       disableSave: true,
@@ -86,7 +86,7 @@ class EditProfile extends Component {
       job,
       school,
       degree,
-      subject,
+      major,
       year,
       emoji,
     } = this.props;
@@ -102,7 +102,7 @@ class EditProfile extends Component {
       job,
       school,
       degree,
-      subject,
+      major,
       year,
       emoji,
       employer,
@@ -121,7 +121,7 @@ class EditProfile extends Component {
       job,
       school,
       degree,
-      subject,
+      major,
       year,
       emoji,
       employer,
@@ -138,7 +138,7 @@ class EditProfile extends Component {
       job,
       school,
       degree,
-      subject,
+      major,
       year,
       emoji,
       employer,
@@ -222,7 +222,7 @@ class EditProfile extends Component {
       job,
       school,
       degree,
-      subject,
+      major,
       year,
       employer,
       emoji,
@@ -244,7 +244,7 @@ class EditProfile extends Component {
       const jobChanged = job !== this.props.job;
       const schoolChanged = school !== this.props.school;
       const degreeChanged = degree !== this.props.degree;
-      const subjectChanged = subject !== this.props.subject;
+      const majorChanged = major !== this.props.major;
       const yearChanged = year !== this.props.year;
       const emojiChanged = emoji !== this.props.emoji;
       const birthdayChanged = birthday !== this.props.birthday;
@@ -270,8 +270,8 @@ class EditProfile extends Component {
       if (schoolChanged && school === '') await box.public.remove('school');
       if (degreeChanged && degree !== '') await box.public.set('degree', degree);
       if (degreeChanged && degree === '') await box.public.remove('degree');
-      if (subjectChanged && subject !== '') await box.public.set('subject', subject);
-      if (subjectChanged && subject === '') await box.public.remove('subject');
+      if (majorChanged && major !== '') await box.public.set('major', major);
+      if (majorChanged && major === '') await box.public.remove('major');
       if (yearChanged && year !== '') await box.public.set('year', year);
       if (yearChanged && year === '') await box.public.remove('year');
       if (emojiChanged && emoji !== '') await box.public.set('emoji', emoji);
@@ -309,7 +309,7 @@ class EditProfile extends Component {
       if (jobChanged) await this.props.getPublicJob();
       if (schoolChanged) await this.props.getPublicSchool();
       if (degreeChanged) await this.props.getPublicDegree();
-      if (subjectChanged) await this.props.getPublicSubject();
+      if (majorChanged) await this.props.getPublicSubject();
       if (yearChanged) await this.props.getPublicYear();
       if (emojiChanged) await this.props.getPublicEmoji();
       if (birthdayChanged) await this.props.getPrivateBirthday();
@@ -335,7 +335,7 @@ class EditProfile extends Component {
       job,
       school,
       degree,
-      subject,
+      major,
       year,
       emoji,
       employer,
@@ -686,14 +686,14 @@ class EditProfile extends Component {
 
                     <div className="edit__profile__fields__entry">
                       <div className="edit__profile__keyContainer">
-                        <h5>Subject</h5>
+                        <h5>Major</h5>
                       </div>
                       <input
-                        name="subject"
+                        name="major"
                         type="text"
                         className="edit__profile__value"
-                        value={subject}
-                        onChange={e => this.handleFormChange(e, 'subject')}
+                        value={major}
+                        onChange={e => this.handleFormChange(e, 'major')}
                       />
                     </div>
 
@@ -743,7 +743,7 @@ EditProfile.propTypes = {
   job: PropTypes.string,
   school: PropTypes.string,
   degree: PropTypes.string,
-  subject: PropTypes.string,
+  major: PropTypes.string,
   employer: PropTypes.string,
   email: PropTypes.string,
   image: PropTypes.array,
@@ -780,7 +780,7 @@ EditProfile.defaultProps = {
   job: '',
   school: '',
   degree: '',
-  subject: '',
+  major: '',
   year: '',
   emoji: {},
   employer: '',
@@ -820,7 +820,7 @@ function mapState(state) {
     job: state.threeBox.job,
     school: state.threeBox.school,
     degree: state.threeBox.degree,
-    subject: state.threeBox.subject,
+    major: state.threeBox.major,
     year: state.threeBox.year,
     emoji: state.threeBox.emoji,
     employer: state.threeBox.employer,

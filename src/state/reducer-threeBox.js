@@ -124,10 +124,10 @@ export const threeBoxReducer = (state = {}, action) => {
         degree: action.degree,
       };
 
-    case 'GET_PUBLIC_SUBJECT':
+    case 'GET_PUBLIC_MAJOR':
       return {
         ...state,
-        subject: action.subject,
+        major: action.major,
       };
 
     case 'GET_PUBLIC_YEAR':

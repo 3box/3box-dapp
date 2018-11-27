@@ -83,7 +83,7 @@
   .feed__activity__address h4 {
     margin-bottom: .2em; }
   .feed__activity__address p {
-    color: #b1b1b1; }
+    color: #747677; }
 
 .feed__activity___data {
   display: flex;
@@ -147,7 +147,7 @@
   align-items: center;
   justify-content: center; }
   .feed__activity__load p {
-    color: #b1b1b1; }
+    color: #747677; }
 
 #activityLoad {
   width: 3em;
@@ -155,9 +155,9 @@
 
 @media only screen and (max-width: 1278px) {
   #feed {
-    left: 290px; }
+    left: 320px; }
   .statusUpdate {
-    left: 290px; } }
+    left: 320px; } }
 
 @media only screen and (max-width: 600px) {
   #feed {

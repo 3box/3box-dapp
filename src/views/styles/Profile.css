@@ -8,7 +8,6 @@
     color: #6b6b6b; }
 
 #profile__fixed {
-  position: fixed;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -34,7 +33,7 @@
   justify-content: center;
   align-items: center;
   margin-top: 34px;
-  margin-bottom: 60px;
+  margin-bottom: 48px;
   width: 200px; }
 
 .profile__basic__description {
@@ -52,13 +51,20 @@
   background-color: #C5D7F2;
   z-index: -1; }
 
-#profile__links {
+.profile__category {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; }
+  align-items: flex-start;
+  margin: 15px 0 20px 0; }
+
+.profile__category__header {
+  font-size: 14px;
+  color: #6b6b6b;
+  font-weight: 400;
+  margin-bottom: 12px; }
 
 #profile__user__info {
-  padding: 30px 35px;
+  padding: 30px 50px;
   max-width: 200px;
   min-width: 200px;
   width: 200px;
@@ -81,7 +87,7 @@
 
 #profile__footer {
   width: 300px;
-  padding: 30px 35px;
+  padding: 20px 35px;
   max-width: 200px;
   min-width: 200px;
   text-align: center;
@@ -126,29 +132,16 @@
   display: flex;
   align-items: center; }
 
-#profile__social {
-  float: left;
-  clear: both;
+.profile__category__field {
   display: flex;
-  align-items: center; }
-  #profile__social p {
+  align-items: center;
+  margin: 5px 0 6px 0; }
+  .profile__category__field p {
     color: #6b6b6b;
     width: 136px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; }
-
-#profile__private {
-  margin-bottom: 2em;
-  margin-top: .8em;
-  display: flex;
-  align-items: center; }
-  #profile__private p {
-    width: 136px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: #6b6b6b; }
 
 #profile__user__name {
   font-size: 1.4em;
@@ -159,12 +152,14 @@
   font-size: 1.4em;
   margin-top: 5em;
   margin-bottom: 2vh;
-  color: #b1b1b1; }
+  color: #747677; }
 
-#profile__githubIcon {
+.profile__category__field__icon {
   height: 19px;
+  width: 22px;
   display: inline-block;
-  margin-right: .6em; }
+  margin-right: 14px;
+  opacity: .7; }
 
 #profile__github {
   display: inline-block; }
@@ -185,7 +180,8 @@
   height: 12px;
   display: inline-block;
   align-content: left;
-  margin-right: .6em; }
+  margin-right: .6em;
+  opacity: .7; }
 
 .loadingProfile {
   position: fixed;

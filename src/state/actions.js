@@ -379,11 +379,11 @@ export const getPublicEmoji = () => async (dispatch) => {
 };
 
 export const getPublicSubject = () => async (dispatch) => {
-  const subject = await store.getState().threeBox.box.public.get('subject');
+  const major = await store.getState().threeBox.box.public.get('major');
 
   dispatch({
-    type: 'GET_PUBLIC_SUBJECT',
-    subject,
+    type: 'GET_PUBLIC_MAJOR',
+    major,
   });
 };
 
