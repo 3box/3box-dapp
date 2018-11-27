@@ -1,19 +1,41 @@
 @import "../../variables.scss";
 
+
+.statusUpdate {
+  background-color: white;
+  max-width: 700px;
+  min-width: 700px;
+  height: 50px;
+  padding: 1.3em;
+  // position: fixed;
+  margin-top: 128px;
+  top: 194px;
+  left: calc(50vw - 350px);
+  border: 1px solid #E4E4E4;
+  border-radius: 14px;
+  z-index: 1;
+
+  ul {
+    padding: 0;
+  }
+
+  li {
+    display: inline-block;
+    text-align: center;
+    overflow: scroll;
+  }
+}
+
 #feed {
   background-color: white;
   max-width: 700px;
   min-width: 700px;
   padding: 1.3em;
-  min-height: calc(100% - 110px);
-  height: calc(100% - 110px);
-  position: fixed;
-  top: 69px;
+  height: fit-content;
   left: calc(50vw - 350px);
-  border-left: 1px solid #E4E4E4;
-  border-right: 1px solid #E4E4E4;
-  border-bottom: 1px solid #E4E4E4;
-  overflow-y: scroll;
+  border: 1px solid #E4E4E4;
+  border-radius: 12px;
+  margin-top: 30px;
 
   ul {
     padding: 0;
@@ -83,6 +105,7 @@
 .feed__activity__address {
   display: flex;
   flex-direction: column;
+  // height: fit-content;
 
   h4 {
     margin-bottom: .2em;
@@ -185,6 +208,9 @@
 
 @media only screen and (max-width: 1278px) {
   #feed {
+    left: 290px;
+  }
+  .statusUpdate{
     left: 290px;
   }
 }

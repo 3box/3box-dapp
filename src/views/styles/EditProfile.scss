@@ -159,6 +159,7 @@
     -moz-transition: all .5s ease;
     -o-transition: all .5s ease;
     transition: all .5s ease;
+    border: 6px solid white;
   }
 
   .coverPic {
@@ -175,7 +176,6 @@
     border-top-right-radius: 6px;
     z-index: 0;
     position: absolute;
-
   }
 
   #addImage {

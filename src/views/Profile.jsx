@@ -10,6 +10,7 @@ const Profile = () => (
     <Nav />
     <div id="profile__page">
       <div id="profile__contents">
+        <div className="profile__coverPhoto" />
         <ProfileDetails />
         <Feed />
       </div>

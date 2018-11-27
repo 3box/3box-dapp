@@ -6,7 +6,10 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  position: fixed;
+
+  p {
+    color: $lightFont;
+  }
 }
 
 #profile__fixed {
@@ -17,6 +20,49 @@
   align-items: flex-end;
   height: calc(100% - 69px);
   width: 100%;
+}
+
+.profile__user__emoji {
+  height: 24px;
+
+  img {
+    height: 24px;
+    margin-left: 6px;
+  }
+}
+
+.profile__basic__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.profile__basic {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 34px;
+  margin-bottom: 60px;
+  width: 200px;
+}
+
+.profile__basic__description {
+  width: 200px;
+  line-height: 20px;
+  text-align: center !important;
+  height: fit-content;
+  word-break: normal;
+}
+
+.profile__coverPhoto {
+  position: absolute;
+  top: 69px;
+  width: 100vw;
+  height: 174px;
+  background-color: $threeBoxBlueShade;
+  z-index: -1;
 }
 
 #profile__links {
@@ -33,7 +79,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  white-space: nowrap;
+  // white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 
@@ -89,11 +135,12 @@
 #profile__user__picture {
   background-image: $defaultProfPic;
   border-radius: 100%;
-  width: 120px;
-  height: 120px;
+  width: 130px;
+  height: 130px;
   margin: 0 auto;
-  margin-top: 2.4em;
+  margin-top: 75px;
   object-fit: cover;
+  border: 6px solid white;
 }
 
 #profile__network__networkLogo {
@@ -144,8 +191,8 @@
 
 #profile__user__name {
   font-size: 1.4em;
-  margin-top: 3em;
-  margin-bottom: 1.5em;
+  white-space: nowrap;
+  color: $threeBoxBlue;
 }
 
 #profile__user__name__add {
