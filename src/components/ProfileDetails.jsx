@@ -130,6 +130,11 @@ const ProfileDetails = ({
                   <p id="profile__github">{birthday}</p>
                 )
               }
+              {birthday
+                && (
+                  <img id="editprofile__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
+                )
+              }
             </div>
 
           </div>
