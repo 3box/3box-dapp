@@ -150,10 +150,10 @@ export const ProvideAccessModal = ({
           <img src={Loading} alt="Loading" id="modal__loadingGraphic--access" />
 
           <div id="modal__copy__card">
-            <h3>Grant Access to 3Box in Web3 Wallet</h3>
+            <h3>Share Your Account</h3>
             {isMobile
-              ? <p>This allows 3Box to read the addresses associated with your account.  Please make sure you are logged in to your web3 wallet</p>
-              : <p>This allows 3Box to read the addresses associated with your account.  Please make sure you are logged in to your web3 wallet</p>
+              ? <p>To allow 3Box to read your Ethereum address, make sure you are logged in to your Web3 wallet.</p>
+              : <p>To allow 3Box to read your Ethereum address, make sure you are logged in to MetaMask.</p>
             }
           </div>
 
@@ -176,8 +176,8 @@ export const AccessDeniedModal = ({
           <div id="modal__copy__card">
             <h3>Access Denied to 3Box</h3>
             {isMobile
-              ? <p>3Box cannot proceed without access to the addresses associated to your account</p>
-              : <p>3Box cannot proceed without access to the addresses associated to your account</p>
+              ? <p>3Box cannot proceed without access to the address associated to your account</p>
+              : <p>3Box cannot proceed without access to the address associated to your account</p>
             }
           </div>
 
