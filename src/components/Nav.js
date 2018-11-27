@@ -66,9 +66,8 @@ class Nav extends Component {
           </ul>
         </div>
 
-        {showProfileModal ?
-          <div className='onClickOutside' onClick={this.handleDropdown} />
-          : null}
+        {showProfileModal &&
+          <div className='onClickOutside' onClick={this.handleDropdown} />}
 
         {/* mobile nav dropdown */}
         <div className={`${showProfileModal ? 'sideDrawer' : undefined} nav__dropdown mobileDropDown`} onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>

@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import EmojiPicker from 'emoji-picker-react';
 
 import JSEMOJI from 'emoji-js';
-// you can import it with a script tag instead
 
 import {
   getPublicName,
@@ -32,19 +31,14 @@ import { FileSizeModal } from '../components/Modals';
 import history from '../history';
 import Nav from '../components/Nav';
 import * as routes from '../utils/routes';
-import EthereumLogo from '../assets/Ethereum_logo_2014.svg';
 import Private from '../assets/Private.svg';
 import AddImage from '../assets/AddImage.svg';
 import Loading from '../assets/Loading.svg';
 import './styles/EditProfile.css';
 
-// new instance
 const jsemoji = new JSEMOJI();
-// set the style to emojione (default - apple)
 jsemoji.img_set = 'emojione';
-// set the storage location for all emojis
 jsemoji.img_sets.emojione.path = 'https://cdn.jsdelivr.net/emojione/assets/3.0/png/32/';
-// some more settings...
 jsemoji.supports_css = false;
 jsemoji.allow_native = false;
 jsemoji.replace_mode = 'unified';
@@ -60,8 +54,7 @@ class EditProfile extends Component {
       description: '',
       location: '',
       website: '',
-      emoji: '',
-      emojiCharacter: '',
+      emoji: {},
       birthday: '',
       job: '',
       school: '',
@@ -201,14 +194,13 @@ class EditProfile extends Component {
   }
 
   addEmoji = (emoji, emojiObject) => {
-    console.log(jsemoji.replace_colons(`:${emojiObject.name}:`));
-
     this.setState({
       emoji: {
         name: emojiObject.name,
         code: emoji,
       },
       showEmoji: false,
+      disableSave: false,
     });
   }
 
@@ -332,7 +324,6 @@ class EditProfile extends Component {
 
   render() {
     const { image, coverPhoto } = this.props;
-
     const {
       github,
       email,
@@ -501,10 +492,10 @@ class EditProfile extends Component {
                       <div className="edit__profile__keyContainer">
                         <h5 className="edit__profile__key">Description</h5>
                       </div>
-                      <input
+                      <textarea
                         name="description"
                         type="text"
-                        className="edit__profile__value"
+                        className="edit__profile__value--description"
                         value={description}
                         onChange={e => this.handleFormChange(e, 'description')}
                       />
@@ -518,21 +509,20 @@ class EditProfile extends Component {
                         && (
                           <div
                             className="edit__profile__value__emojiMenu"
-                            onClick={() => this.setState({ showEmoji: !this.state.showEmoji })}
                           >
                             <EmojiPicker onEmojiClick={(selectedEmoji, emojiObject) => this.addEmoji(selectedEmoji, emojiObject)} preload />
                           </div>)
                       }
+                      {showEmoji
+                        && <div className='onClickOutside' onClick={() => this.setState({ showEmoji: !this.state.showEmoji })} />}
+
                       <div
                         className="edit__profile__value--spirit"
                         onClick={() => this.setState({ showEmoji: !this.state.showEmoji })}
                       >
-                        {/* <p className="edit__profile__value--spirit__character">
-                          {emojiCharacter ? emojiCharacter : '🦄'}
-                        </p> */}
                         {
-                          emoji
-                            ? <div dangerouslySetInnerHTML={{ __html: spiritEmoji }} className="edit__profile__value--spirit__character--converted" />
+                          emoji.name
+                            ? <div dangerouslySetInnerHTML={{ __html: spiritEmoji }} className="edit__profile__value--spirit__character" />
                             : <p className="edit__profile__value--spirit__character">
                               🦄
                             </p>
@@ -555,7 +545,7 @@ class EditProfile extends Component {
                     <div className="edit__profile__fields__entry noMargin">
                       <div className="edit__profile__keyContainer">
                         <h5>Email Address</h5>
-                        <img id="edit__profile__input__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
+                        <img id="edit__profile__input__privateIcon" src={Private} alt="Private" title="Information with this icon is accessible only by those you've given permission to." />
                       </div>
                       <input
                         name="email"
@@ -661,7 +651,7 @@ class EditProfile extends Component {
                 </div>
               </div>
 
-              <div className="edit__profile__info">
+              <div className="edit__profile__info noBorder">
                 <div className="edit__profile__categories">
                   <h3>Education</h3>
                 </div>
@@ -792,7 +782,7 @@ EditProfile.defaultProps = {
   degree: '',
   subject: '',
   year: '',
-  emoji: '',
+  emoji: {},
   employer: '',
   email: '',
   image: [],

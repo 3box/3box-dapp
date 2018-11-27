@@ -152,8 +152,8 @@ export const ProvideAccessModal = ({
           <div id="modal__copy__card">
             <h3>Grant Access to 3Box in Web3 Wallet</h3>
             {isMobile
-              ? <p>This allows 3Box to read the addresses associated with your account.  Please make sure you are logged in to your web3 wallet</p>
-              : <p>This allows 3Box to read the addresses associated with your account.  Please make sure you are logged in to your web3 wallet</p>
+              ? <p>This allows 3Box to read the address associated with your account.  Please make sure you are logged.</p>
+              : <p>This allows 3Box to read the address associated with your account.  Please make sure you are logged.</p>
             }
           </div>
 

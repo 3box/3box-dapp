@@ -30,6 +30,10 @@
   padding: 2.3em 0;
   margin-bottom: -1px; }
 
+.feed__activity__address__amount__emoji {
+  height: 34px;
+  margin-left: 0; }
+
 .feed__activity__context {
   display: flex;
   align-items: center;
