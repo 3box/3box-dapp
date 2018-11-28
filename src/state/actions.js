@@ -199,8 +199,8 @@ export const signInGetBox = () => async (dispatch) => {
     });
 
     box.onSyncDone(() => {
-      const feed = store.getState().threeBox.feedByAddress;
-      checkForOnBoarding(dispatch, feed);
+      // const feed = store.getState().threeBox.feedByAddress;
+      // checkForOnBoarding(dispatch, feed);
       dispatch({
         type: 'UPDATE_THREEBOX',
         ifFetchingThreeBox: false,
@@ -250,9 +250,8 @@ export const profileGetBox = () => async (dispatch) => {
     });
 
     box.onSyncDone(() => {
-      const feed = store.getState().threeBox.feedByAddress;
-      checkForOnBoarding(dispatch, feed);
-
+      // const feed = store.getState().threeBox.feedByAddress;
+      // checkForOnBoarding(dispatch, feed);
       dispatch({
         type: 'UPDATE_THREEBOX',
         ifFetchingThreeBox: false,
@@ -491,6 +490,8 @@ export const getActivity = () => async (dispatch) => {
         });
       }
     });
+
+    checkForOnBoarding(dispatch, feedByAddress);
 
     dispatch({
       type: 'UPDATE_ACTIVITY',

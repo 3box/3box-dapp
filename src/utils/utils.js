@@ -9,5 +9,10 @@ export const checkForOnBoarding = (dispatch, feed) => {
       onBoardingModal: true,
     });
     history.push(routes.EDITPROFILE);
+  } else {
+    dispatch({
+      type: 'HANDLE_ONBOARDING_MODAL',
+      onBoardingModal: false,
+    });
   }
 }
