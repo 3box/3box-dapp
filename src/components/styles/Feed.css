@@ -83,7 +83,8 @@
   left: calc(50vw - 350px);
   border: 1px solid #E4E4E4;
   border-radius: 12px;
-  margin-top: 30px; }
+  margin-top: 30px;
+  min-height: 800px; }
   #feed ul {
     padding: 0; }
   #feed li {
@@ -184,7 +185,7 @@
   width: .8em !important; }
 
 .feed__activity__address__amount {
-  width: 130px;
+  width: 20%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis; }
@@ -193,7 +194,10 @@
   width: 24px; }
 
 .feed__activity__address__time {
-  width: 102px; }
+  width: 18%;
+  justify-content: center;
+  align-items: center;
+  display: flex; }
 
 .feed__activity__load {
   border-top: solid 1px #E4E4E4;
@@ -217,6 +221,25 @@
     left: 320px; } }
 
 @media only screen and (max-width: 600px) {
+  .statusUpdate {
+    margin-top: 30px;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    width: 100vw;
+    max-width: 100vw;
+    min-width: 100vw;
+    padding: 0; }
+    .statusUpdate input {
+      padding: 10px 10px; }
+  .hideStatusButton {
+    display: block; }
+  .feed__activity___data {
+    margin-left: 0;
+    display: flex;
+    padding: .4em .8em;
+    align-items: center;
+    justify-content: space-between; }
   #feed {
     padding: 0;
     width: 100vw;
@@ -227,7 +250,8 @@
     border-bottom: 1px solid #E4E4E4;
     position: relative;
     left: 0;
-    top: 0; }
+    top: 0;
+    border-radius: 0; }
   #feed__header {
     margin: 1em 0 1em .8em; }
   #feed__activity {
@@ -242,6 +266,7 @@
     overflow: hidden;
     overflow-x: scroll; }
   .feed__activity__address__time {
+    width: 26%;
     white-space: nowrap;
     overflow: hidden;
     overflow-x: scroll; }

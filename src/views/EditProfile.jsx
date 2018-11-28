@@ -355,7 +355,7 @@ class EditProfile extends Component {
         {saveLoading
           && (
             <div className="container">
-              <img src={Loading} alt="loading"/>
+              <img src={Loading} alt="loading" />
             </div>
           )}
 
@@ -545,15 +545,17 @@ class EditProfile extends Component {
                     <div className="edit__profile__fields__entry noMargin">
                       <div className="edit__profile__keyContainer">
                         <h5>Email Address</h5>
-                        <img id="edit__profile__input__privateIcon" src={Private} alt="Private" title="Information with this icon is accessible only by those you've given permission to." />
                       </div>
-                      <input
-                        name="email"
-                        type="email"
-                        className="edit__profile__value privateInput"
-                        value={email}
-                        onChange={e => this.handleFormChange(e, 'email')}
-                      />
+                      <div className="edit__profile__value--privateContainer">
+                        <img id="edit__profile__input__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
+                        <input
+                          name="email"
+                          type="email"
+                          className="edit__profile__value privateInput"
+                          value={email}
+                          onChange={e => this.handleFormChange(e, 'email')}
+                        />
+                      </div>
                     </div>
 
                     <div className="edit__profile__fields__entry">
@@ -598,17 +600,18 @@ class EditProfile extends Component {
                     <div className="edit__profile__fields__entry">
                       <div className="edit__profile__keyContainer">
                         <h5>Birthday</h5>
-                        <img id="edit__profile__input__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
                       </div>
-                      <input
-                        name="birthday"
-                        type="date"
-                        className="edit__profile__value privateInput"
-                        value={birthday}
-                        onChange={e => this.handleFormChange(e, 'birthday')}
-                      />
+                      <div className="edit__profile__value--privateContainer">
+                        <img id="edit__profile__input__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
+                        <input
+                          name="birthday"
+                          type="date"
+                          className="edit__profile__value privateInput"
+                          value={birthday}
+                          onChange={e => this.handleFormChange(e, 'birthday')}
+                        />
+                      </div>
                     </div>
-
                   </div>
                 </div>
               </div>

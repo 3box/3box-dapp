@@ -21,19 +21,6 @@
     font-size: .8em;
   }
 
-  // input {
-  //   border-radius: 5px;
-  //   border-style: none;
-  //   border: solid 1px #E4E4E4;
-  //   background-color: rgb(255, 255, 255);
-  //   height: 44px;
-  //   width: 70%;
-  //   padding: 0 15px;
-  //   -webkit-box-sizing: border-box;
-  //   -moz-box-sizing: border-box;
-  //   box-sizing: border-box;
-  // }
-
   select {
     border-radius: 5px;
     border-style: none;
@@ -122,13 +109,13 @@
     border-bottom: 1px solid #f1f1f1;
   }
 
-  .noBorder{
+  .noBorder {
     border: none !important;
   }
 
   .edit__profile__address {
     padding: 12px 18px;
-    box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
+    box-shadow: $boxShadow;
     border-radius: 6px;
     height: 20px;
     display: flex;
@@ -319,6 +306,7 @@
 
 .privateInput {
   padding-left: 38px !important;
+  width: 100%;
 }
 
 #edit__cancel {
@@ -328,6 +316,11 @@
 .edit__profile__value__emojiMenu {
   z-index: 5;
   position: absolute;
+}
+
+.edit__profile__value--privateContainer {
+  position: relative;
+  width: 70%;
 }
 
 .container {
@@ -391,6 +384,8 @@
   bottom: 0;
   background: #E3E3E3;
   color: $threeBoxRed;
+  align-items: center;
+  justify-content: center;
 }
 
 #removeCoverPic {
@@ -418,10 +413,10 @@
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 
   #edit__formControls__content {
-    padding: 1.4em 2em;
-    margin-left: auto;
+    padding: 1.4em 3em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -434,7 +429,7 @@
 
   p {
     color: $lighterFont;
-    margin-top: 15px;
+    margin-top: 8px;
   }
 }
 
@@ -448,13 +443,12 @@
   font-size: 1em;
   line-height: 1em;
   color: $lightFont;
-  // border: 1px solid $lightFont;
   background: transparent;
   padding: .5em;
   font-weight: 700;
-  // padding: .8em 1.3em;
   display: flex;
   align-items: center;
+  border: none !important;
 
   &:hover {
     color: white;
@@ -535,7 +529,8 @@
   height: 18px;
   z-index: 2;
   position: absolute;
-  right: -30px;
+  left: 12px;
+  top: 13px;
 }
 
 .loadingProfile {
@@ -557,6 +552,48 @@
 }
 
 @media only screen and (max-width: 600px) {
+  .edit__profile__editCanvas__wrapper {
+    margin-right: 1em;
+  }
+
+  .modal__container{
+    width: 100vw;
+    height: 100vh;
+  }
+
+  #removeCoverPic{
+    margin-right: 6px;
+  }
+
+  .profile__basic{
+    margin-top: 24px;
+    margin-bottom: 28px;
+    width: 260px;
+  }
+
+  .edit__profile__picAndAddress {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .edit__profile__address {
+    margin: 24px 0 0 0 !important;
+    width: 25%;
+  }
+
+  .edit__profile__keyContainer {
+    justify-content: flex-start;
+  }
+
+  .edit__profile__value {
+    width: 100%;
+  }
+
+  .edit__profile__value--description {
+    width: 100%;
+  }
+
   #edit {
     width: 100vw;
     margin: 0 auto;
@@ -566,6 +603,20 @@
     position: absolute;
     top: 40px;
     z-index: 1;
+
+    h5 {
+      padding: 0;
+      margin-bottom: 14px;
+    }
+  }
+
+  #edit__cancel {
+    margin-left: 5vw;
+  }
+
+  .edit__profile__value--privateContainer {
+    position: relative;
+    width: 100%;
   }
 
   #chooseFile {
@@ -575,6 +626,7 @@
   #edit__profile__fields {
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
   #edit__form {
@@ -587,6 +639,28 @@
     border-radius: 0px;
     justify-content: center;
     align-items: center;
+  }
+
+  .edit__profile__info {
+    flex-direction: column;
+    padding: 0 14px;
+  }
+
+  .edit__profile__categories {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 20px;
+
+    p {
+      margin-top: 10px;
+    }
+  }
+
+  .edit__profile__fields__entry {
+    flex-direction: column;
+    align-items: flex-start !important;
   }
 
   #edit__page {
@@ -622,8 +696,7 @@
       width: 100%;
       height: 100%;
       display: flex;
-      flex: 2;
-      padding: 3em 0;
+      margin-left: 0;
       flex-direction: row;
       justify-content: center;
       align-content: center;
@@ -632,7 +705,6 @@
       .profPic {
         display: flex;
         margin: 0;
-        margin-right: 1em;
         position: relative;
         z-index: 1;
       }
@@ -640,7 +712,6 @@
       button {
         display: flex;
         margin: 0;
-        margin-left: 1em;
       }
 
     }
@@ -662,15 +733,27 @@
     }
 
     #edit__info {
-      width: 90%;
-      padding: 1em 3vw;
+      width: 100%;
+      padding: 0 !important;
     }
   }
 
+  .coverPic {
+    width: 100vw !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+  }
+
   #edit__formControls__content {
-    width: 40%;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    padding: 0 14px !important;
+
   }
+
+  #edit__formControls{
+    margin-bottom: 20px;
+  }
+
 }

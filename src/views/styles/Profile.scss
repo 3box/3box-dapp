@@ -256,6 +256,10 @@
 }
 
 @media only screen and (max-width: 600px) {
+  .profile__coverPhoto{
+    z-index: 0;
+  }
+
   #profile {
     position: static;
     height: auto;
@@ -278,13 +282,10 @@
 
   #profile__user__name {
     font-size: 1.4em;
-    margin: 0 auto;
-    margin-top: 2.4em;
-    margin-bottom: 1em;
   }
 
   #profile__user__info {
-    height: 400px;
+    height: fit-content;
     max-width: 100vw;
     min-width: 100vw;
     padding: 50px 0 30px 0;
@@ -295,6 +296,11 @@
     align-items: center;
     // align-items: center;
     background-color: white;
+    border-bottom: 1px solid #E4E4E4;
+  }
+
+  .profile__category {
+    width: 200px;
   }
 
   #profile__private {
@@ -304,6 +310,7 @@
 
   #profile__user__picture {
     margin-top: 2.4em;
+    z-index: 2;
   }
 
   #profile__footer {

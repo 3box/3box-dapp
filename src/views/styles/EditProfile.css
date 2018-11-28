@@ -83,7 +83,7 @@
     border: none !important; }
   #edit__form .edit__profile__address {
     padding: 12px 18px;
-    box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
+    box-shadow: 0px 4px 10px 4px #00000025, 0 16px 24px 0 #0000002f;
     border-radius: 6px;
     height: 20px;
     display: flex;
@@ -237,7 +237,8 @@
   z-index: 0; }
 
 .privateInput {
-  padding-left: 38px !important; }
+  padding-left: 38px !important;
+  width: 100%; }
 
 #edit__cancel {
   margin-left: 1vw; }
@@ -245,6 +246,10 @@
 .edit__profile__value__emojiMenu {
   z-index: 5;
   position: absolute; }
+
+.edit__profile__value--privateContainer {
+  position: relative;
+  width: 70%; }
 
 .container {
   position: fixed;
@@ -298,7 +303,9 @@
   z-index: 2;
   bottom: 0;
   background: #E3E3E3;
-  color: #E78888; }
+  color: #E78888;
+  align-items: center;
+  justify-content: center; }
 
 #removeCoverPic {
   width: 36px;
@@ -320,10 +327,10 @@
 #edit__formControls {
   width: 100%;
   display: flex;
-  align-items: center; }
+  align-items: center;
+  justify-content: flex-end; }
   #edit__formControls #edit__formControls__content {
-    padding: 1.4em 2em;
-    margin-left: auto;
+    padding: 1.4em 3em;
     display: flex;
     align-items: center;
     justify-content: center; }
@@ -333,7 +340,7 @@
   padding-left: 3em; }
   .edit__profile__categories p {
     color: #747677;
-    margin-top: 15px; }
+    margin-top: 8px; }
 
 #edit__profile__fields {
   display: flex;
@@ -348,7 +355,8 @@
   padding: .5em;
   font-weight: 700;
   display: flex;
-  align-items: center; }
+  align-items: center;
+  border: none !important; }
   .removeButton:hover {
     color: white;
     background-color: #6b6b6b; }
@@ -414,7 +422,8 @@
   height: 18px;
   z-index: 2;
   position: absolute;
-  right: -30px; }
+  left: 12px;
+  top: 13px; }
 
 .loadingProfile {
   position: absolute;
@@ -433,6 +442,30 @@
   z-index: 1; }
 
 @media only screen and (max-width: 600px) {
+  .edit__profile__editCanvas__wrapper {
+    margin-right: 1em; }
+  .modal__container {
+    width: 100vw;
+    height: 100vh; }
+  #removeCoverPic {
+    margin-right: 6px; }
+  .profile__basic {
+    margin-top: 24px;
+    margin-bottom: 28px;
+    width: 260px; }
+  .edit__profile__picAndAddress {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; }
+  .edit__profile__address {
+    margin: 24px 0 0 0 !important;
+    width: 25%; }
+  .edit__profile__keyContainer {
+    justify-content: flex-start; }
+  .edit__profile__value {
+    width: 100%; }
+  .edit__profile__value--description {
+    width: 100%; }
   #edit {
     width: 100vw;
     margin: 0 auto;
@@ -441,11 +474,20 @@
     position: absolute;
     top: 40px;
     z-index: 1; }
+    #edit h5 {
+      padding: 0;
+      margin-bottom: 14px; }
+  #edit__cancel {
+    margin-left: 5vw; }
+  .edit__profile__value--privateContainer {
+    position: relative;
+    width: 100%; }
   #chooseFile {
     margin: 0; }
   #edit__profile__fields {
     display: flex;
-    flex-direction: column; }
+    flex-direction: column;
+    width: 100%; }
   #edit__form {
     border-radius: 0;
     border: none;
@@ -454,6 +496,20 @@
     border-radius: 0px;
     justify-content: center;
     align-items: center; }
+  .edit__profile__info {
+    flex-direction: column;
+    padding: 0 14px; }
+  .edit__profile__categories {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 20px; }
+    .edit__profile__categories p {
+      margin-top: 10px; }
+  .edit__profile__fields__entry {
+    flex-direction: column;
+    align-items: flex-start !important; }
   #edit__page {
     width: 100%;
     border: none;
@@ -480,8 +536,7 @@
       width: 100%;
       height: 100%;
       display: flex;
-      flex: 2;
-      padding: 3em 0;
+      margin-left: 0;
       flex-direction: row;
       justify-content: center;
       align-content: center;
@@ -489,13 +544,11 @@
       #edit__page #edit__userPicture .profPic {
         display: flex;
         margin: 0;
-        margin-right: 1em;
         position: relative;
         z-index: 1; }
       #edit__page #edit__userPicture button {
         display: flex;
-        margin: 0;
-        margin-left: 1em; }
+        margin: 0; }
     #edit__page #edit__profile {
       width: 100%;
       height: fit-content;
@@ -507,10 +560,16 @@
       display: inline-block;
       height: 100%; }
     #edit__page #edit__info {
-      width: 90%;
-      padding: 1em 3vw; }
+      width: 100%;
+      padding: 0 !important; }
+  .coverPic {
+    width: 100vw !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important; }
   #edit__formControls__content {
-    width: 40%;
     display: flex;
     justify-content: space-around;
-    align-items: center; } }
+    align-items: center;
+    padding: 0 14px !important; }
+  #edit__formControls {
+    margin-bottom: 20px; } }
