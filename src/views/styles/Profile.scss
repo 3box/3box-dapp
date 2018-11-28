@@ -67,6 +67,16 @@
   z-index: -1;
 }
 
+.profile__coverPhoto {
+  position: absolute;
+  top: 69px;
+  width: 100vw;
+  height: 174px;
+  background-color: $threeBoxBlueShade;
+  z-index: -1;
+  object-fit: cover;
+}
+
 .profile__category {
   display: flex;
   flex-direction: column;

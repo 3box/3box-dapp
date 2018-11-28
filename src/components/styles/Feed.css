@@ -9,13 +9,70 @@
   left: calc(50vw - 350px);
   border: 1px solid #E4E4E4;
   border-radius: 14px;
-  z-index: 1; }
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
   .statusUpdate ul {
     padding: 0; }
   .statusUpdate li {
     display: inline-block;
     text-align: center;
     overflow: scroll; }
+
+.statusUpdate__field {
+  border-style: none;
+  border: none;
+  width: 100%;
+  font-size: 1.1em;
+  background-color: white;
+  height: 44px;
+  font-weight: 400;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+  .statusUpdate__field:focus {
+    outline: none; }
+  .statusUpdate__field::placeholder {
+    color: #a8a8a8; }
+
+.statusUpdate:hover .hideStatusButton {
+  display: block; }
+
+.hideStatusButton {
+  display: none; }
+
+.statusUpdate__button {
+  margin: 0 20px 0 10px;
+  background: transparent;
+  color: #b8b8b8;
+  padding: 0;
+  transition: color .8s ease; }
+  .statusUpdate__button:hover {
+    background: transparent; }
+
+.statusUpdate__button--remove:hover {
+  color: #E78888; }
+
+.statusUpdate__button--cancel:hover {
+  color: #6b6b6b; }
+
+.statusUpdate__button--save:hover {
+  color: #67cc7d; }
+
+.statusUpdate__loading {
+  background: white;
+  width: 700px;
+  height: 50px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .statusUpdate__loading img {
+    width: 100%;
+    height: 100%;
+    width: 40px;
+    height: 40px; }
 
 #feed {
   background-color: white;

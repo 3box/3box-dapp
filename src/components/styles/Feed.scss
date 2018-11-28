@@ -7,13 +7,16 @@
   min-width: 700px;
   height: 50px;
   padding: 1.3em;
-  // position: fixed;
   margin-top: 128px;
   top: 194px;
   left: calc(50vw - 350px);
   border: 1px solid #E4E4E4;
   border-radius: 14px;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // position: relative;
 
   ul {
     padding: 0;
@@ -23,6 +26,84 @@
     display: inline-block;
     text-align: center;
     overflow: scroll;
+  }
+}
+
+.statusUpdate__field {
+  border-style: none;
+  border: none;
+  width: 100%;
+  font-size: 1.1em;
+  background-color: rgb(255, 255, 255);
+  height: 44px;
+  // padding: 0 15px;
+  font-weight: 400;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: #a8a8a8;
+  }
+}
+
+.statusUpdate:hover .hideStatusButton {
+  display: block;
+}
+
+.hideStatusButton {
+  display: none;
+}
+
+.statusUpdate__button {
+  margin: 0 20px 0 10px;
+  background: transparent;
+  color: $faintFont;
+  padding: 0;
+  transition: color .8s ease;
+
+  &:hover {
+    background: transparent;
+  }
+}
+
+.statusUpdate__button--remove {
+  &:hover {
+    color: $threeBoxRed;
+  }
+}
+
+.statusUpdate__button--cancel {
+  &:hover {
+    color: $lightFont;
+  }
+}
+
+.statusUpdate__button--save {
+  &:hover {
+    color: $threeBoxGreen;
+  }
+}
+
+.statusUpdate__loading {
+  background: white;
+  
+  width: 700px;
+  height: 50px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    width: 40px;
+    height: 40px;
   }
 }
 
@@ -210,7 +291,8 @@
   #feed {
     left: 320px;
   }
-  .statusUpdate{
+
+  .statusUpdate {
     left: 320px;
   }
 }

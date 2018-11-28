@@ -88,6 +88,17 @@ button {
   }
 }
 
+.fourthButton {
+  color: white;
+  font-size: .8em;
+  color: white;
+  background: rgba(0, 0, 0, 0.404);
+  padding: .8em 1.3em;
+  -webkit-transition: background-color .4s ease;
+  -o-transition: background-color .4s ease;
+  transition: background-color .4s ease;
+}
+
 button:hover {
   cursor: pointer;
 }
@@ -232,7 +243,7 @@ ul {
 }
 
 @media only screen and (max-width: 600px) {
-  .webThreeBanner{
+  .webThreeBanner {
     display: none;
   }
 }

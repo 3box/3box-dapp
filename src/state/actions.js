@@ -414,6 +414,15 @@ export const getPrivateBirthday = () => async (dispatch) => {
   });
 };
 
+export const getPublicStatus = () => async (dispatch) => {
+  const status = await store.getState().threeBox.box.public.get('status');
+
+  dispatch({
+    type: 'GET_PUBLIC_STATUS',
+    status,
+  });
+};
+
 export const getActivity = () => async (dispatch) => {
   try {
     const activity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
@@ -455,7 +464,8 @@ export const getActivity = () => async (dispatch) => {
     feed.map((item, i) => {
       const feedItem = item;
       if (!feedItem.timeStamp) {
-        feedItem.timeStamp = feed[i - 1].timeStamp;
+        const deletedTime = parseInt(feed[i - 1].timeStamp, 10) + 1;
+        feedItem.timeStamp = deletedTime.toString();
       }
       return feedItem;
     });

@@ -154,6 +154,12 @@ export const threeBoxReducer = (state = {}, action) => {
         emoji: action.emoji,
       };
 
+    case 'GET_PUBLIC_STATUS':
+      return {
+        ...state,
+        status: action.status,
+      };
+
     case 'GET_PRIVATE_EMAIL':
       return {
         ...state,

@@ -69,6 +69,16 @@ button {
     border: solid 1px transparent;
     transition: background-color .8s ease; }
 
+.fourthButton {
+  color: white;
+  font-size: .8em;
+  color: white;
+  background: rgba(0, 0, 0, 0.404);
+  padding: .8em 1.3em;
+  -webkit-transition: background-color .4s ease;
+  -o-transition: background-color .4s ease;
+  transition: background-color .4s ease; }
+
 button:hover {
   cursor: pointer; }
 

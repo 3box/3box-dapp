@@ -36,6 +36,7 @@ import {
   getPublicDegree,
   getPublicSubject,
   getPublicYear,
+  getPublicStatus,
   getPublicEmoji,
   getPublicLocation,
   getPublicDescription,
@@ -128,6 +129,7 @@ class App extends Component {
       await this.props.profileGetBox();
       if (!this.props.showErrorModal) {
         await this.props.getActivity();
+        await this.props.getPublicStatus();
         await this.props.getPublicName();
         await this.props.getPublicGithub();
         await this.props.getPublicDescription();
@@ -164,6 +166,7 @@ class App extends Component {
         await this.props.signInGetBox();
         if (!this.props.showErrorModal) {
           await this.props.getActivity();
+          await this.props.getPublicStatus();
           await this.props.getPublicName();
           await this.props.getPublicGithub();
           await this.props.getPublicDescription();
@@ -366,6 +369,7 @@ App.propTypes = {
   getPublicDegree: PropTypes.func.isRequired,
   getPublicSubject: PropTypes.func.isRequired,
   getPublicYear: PropTypes.func.isRequired,
+  getPublicStatus: PropTypes.func.isRequired,
   getPublicEmoji: PropTypes.func.isRequired,
   getPublicLocation: PropTypes.func.isRequired,
   getPublicImage: PropTypes.func.isRequired,
@@ -466,6 +470,7 @@ export default withRouter(connect(mapState,
     getPublicDegree,
     getPublicSubject,
     getPublicYear,
+    getPublicStatus,
     getPublicEmoji,
     getPublicDescription,
     getPublicImage,

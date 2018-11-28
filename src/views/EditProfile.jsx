@@ -355,7 +355,7 @@ class EditProfile extends Component {
         {saveLoading
           && (
             <div className="container">
-              <img src={Loading} alt="loading" id="loadingPic" />
+              <img src={Loading} alt="loading"/>
             </div>
           )}
 
@@ -851,11 +851,3 @@ export default withRouter(connect(mapState,
     getPublicEmoji,
     getActivity,
   })(EditProfile));
-
-        // if value has changed, switch boolean to save to db
-      // let nameChanged = false;
-      // let githubChanged = false;
-      // let emailChanged = false;
-      // name === this.props.name ? nameChanged = false : nameChanged = true;
-      // github === this.props.github ? githubChanged = false : githubChanged = true;
-      // email === this.props.email ? emailChanged = false : emailChanged = true;
