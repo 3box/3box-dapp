@@ -265,42 +265,6 @@ export const profileGetBox = () => async (dispatch) => {
   }
 };
 
-export const getPublicName = () => async (dispatch) => {
-  const name = await store.getState().threeBox.box.public.get('name');
-
-  dispatch({
-    type: 'GET_PUBLIC_NAME',
-    name,
-  });
-};
-
-export const getPublicGithub = () => async (dispatch) => {
-  const github = await store.getState().threeBox.box.public.get('github');
-
-  dispatch({
-    type: 'GET_PUBLIC_GITHUB',
-    github,
-  });
-};
-
-export const getPublicImage = () => async (dispatch) => {
-  const image = await store.getState().threeBox.box.public.get('image');
-
-  dispatch({
-    type: 'GET_PUBLIC_IMAGE',
-    image,
-  });
-};
-
-export const getPrivateEmail = () => async (dispatch) => {
-  const email = await store.getState().threeBox.box.private.get('email');
-
-  dispatch({
-    type: 'GET_PRIVATE_EMAIL',
-    email,
-  });
-};
-
 export const getActivity = () => async (dispatch) => {
   try {
     const activity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
@@ -387,6 +351,42 @@ export const getActivity = () => async (dispatch) => {
       provideConsent: false,
     });
   }
+};
+
+export const getPublicName = () => async (dispatch) => {
+  const name = await store.getState().threeBox.box.public.get('name');
+
+  dispatch({
+    type: 'GET_PUBLIC_NAME',
+    name,
+  });
+};
+
+export const getPublicGithub = () => async (dispatch) => {
+  const github = await store.getState().threeBox.box.public.get('github');
+
+  dispatch({
+    type: 'GET_PUBLIC_GITHUB',
+    github,
+  });
+};
+
+export const getPublicImage = () => async (dispatch) => {
+  const image = await store.getState().threeBox.box.public.get('image');
+
+  dispatch({
+    type: 'GET_PUBLIC_IMAGE',
+    image,
+  });
+};
+
+export const getPrivateEmail = () => async (dispatch) => {
+  const email = await store.getState().threeBox.box.private.get('email');
+
+  dispatch({
+    type: 'GET_PRIVATE_EMAIL',
+    email,
+  });
 };
 
 export const handleSignOut = () => async (dispatch) => {
