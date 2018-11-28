@@ -3,7 +3,7 @@ import history from '../history';
 
 export const checkForOnBoarding = (dispatch, feed) => {
   const checkIfNewUser = feedItem => !!feedItem.threeBox;
-  if (!feed.some(checkIfNewUser)) {
+  if (feed && !feed.some(checkIfNewUser)) {
     dispatch({
       type: 'HANDLE_ONBOARDING_MODAL',
       onBoardingModal: true,

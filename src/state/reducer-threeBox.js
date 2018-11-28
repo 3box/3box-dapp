@@ -82,16 +82,94 @@ export const threeBoxReducer = (state = {}, action) => {
         github: action.github,
       };
 
+    case 'GET_PUBLIC_DESCRIPTION':
+      return {
+        ...state,
+        description: action.description,
+      };
+
+    case 'GET_PUBLIC_LOCATION':
+      return {
+        ...state,
+        location: action.location,
+      };
+
+    case 'GET_PUBLIC_WEBSITE':
+      return {
+        ...state,
+        website: action.website,
+      };
+
+    case 'GET_PUBLIC_EMPLOYER':
+      return {
+        ...state,
+        employer: action.employer,
+      };
+
+    case 'GET_PUBLIC_JOB':
+      return {
+        ...state,
+        job: action.job,
+      };
+
+    case 'GET_PUBLIC_SCHOOL':
+      return {
+        ...state,
+        school: action.school,
+      };
+
+    case 'GET_PUBLIC_DEGREE':
+      return {
+        ...state,
+        degree: action.degree,
+      };
+
+    case 'GET_PUBLIC_MAJOR':
+      return {
+        ...state,
+        major: action.major,
+      };
+
+    case 'GET_PUBLIC_YEAR':
+      return {
+        ...state,
+        year: action.year,
+      };
+
     case 'GET_PUBLIC_IMAGE':
       return {
         ...state,
         image: action.image,
       };
 
+    case 'GET_PUBLIC_COVERPHOTO':
+      return {
+        ...state,
+        coverPhoto: action.coverPhoto,
+      };
+
+    case 'GET_PUBLIC_EMOJI':
+      return {
+        ...state,
+        emoji: action.emoji,
+      };
+
+    case 'GET_PUBLIC_STATUS':
+      return {
+        ...state,
+        status: action.status,
+      };
+
     case 'GET_PRIVATE_EMAIL':
       return {
         ...state,
         email: action.email,
+      };
+
+    case 'GET_PRIVATE_BIRTHDAY':
+      return {
+        ...state,
+        birthday: action.birthday,
       };
 
     case 'HANDLE_SIGNOUT':

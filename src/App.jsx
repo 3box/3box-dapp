@@ -29,8 +29,21 @@ import {
   requestAccess,
   getPublicName,
   getPublicGithub,
+  getPublicWebsite,
+  getPublicEmployer,
+  getPublicJob,
+  getPublicSchool,
+  getPublicDegree,
+  getPublicSubject,
+  getPublicYear,
+  getPublicStatus,
+  getPublicEmoji,
+  getPublicLocation,
+  getPublicDescription,
   getPublicImage,
+  getPublicCoverPhoto,
   getPrivateEmail,
+  getPrivateBirthday,
   getActivity,
   signInGetBox,
   checkWeb3Wallet,
@@ -116,10 +129,23 @@ class App extends Component {
       await this.props.profileGetBox();
       if (!this.props.showErrorModal) {
         await this.props.getActivity();
+        await this.props.getPublicStatus();
         await this.props.getPublicName();
         await this.props.getPublicGithub();
+        await this.props.getPublicDescription();
         await this.props.getPublicImage();
+        await this.props.getPublicCoverPhoto();
+        await this.props.getPublicLocation();
+        await this.props.getPublicWebsite();
+        await this.props.getPublicEmployer();
+        await this.props.getPublicJob();
+        await this.props.getPublicSchool();
+        await this.props.getPublicDegree();
+        await this.props.getPublicSubject();
+        await this.props.getPublicYear();
+        await this.props.getPublicEmoji();
         await this.props.getPrivateEmail();
+        await this.props.getPrivateBirthday();
       }
     } else if (!this.props.isSignedIntoWallet) {
       history.push(routes.LANDING);
@@ -140,10 +166,24 @@ class App extends Component {
         await this.props.signInGetBox();
         if (!this.props.showErrorModal) {
           await this.props.getActivity();
+          await this.props.getPublicStatus();
           await this.props.getPublicName();
           await this.props.getPublicGithub();
+          await this.props.getPublicDescription();
           await this.props.getPublicImage();
+          await this.props.getPublicCoverPhoto();
+          await this.props.getPublicLocation();
+          await this.props.getPublicWebsite();
+          await this.props.getPublicEmployer();
+          await this.props.getPublicJob();
+          await this.props.getPublicSchool();
+          await this.props.getPublicDegree();
+          await this.props.getPublicSubject();
+          await this.props.getPublicYear();
+          await this.props.getPublicEmoji();
+          await this.props.getPublicEmoji();
           await this.props.getPrivateEmail();
+          await this.props.getPrivateBirthday();
         }
       } else if (!this.props.isSignedIntoWallet && !this.props.accessDeniedModal) {
         this.props.handleRequireWalletLoginModal();
@@ -321,8 +361,21 @@ App.propTypes = {
   requestAccess: PropTypes.func.isRequired,
   getPublicName: PropTypes.func.isRequired,
   getPublicGithub: PropTypes.func.isRequired,
+  getPublicDescription: PropTypes.func.isRequired,
+  getPublicWebsite: PropTypes.func.isRequired,
+  getPublicEmployer: PropTypes.func.isRequired,
+  getPublicJob: PropTypes.func.isRequired,
+  getPublicSchool: PropTypes.func.isRequired,
+  getPublicDegree: PropTypes.func.isRequired,
+  getPublicSubject: PropTypes.func.isRequired,
+  getPublicYear: PropTypes.func.isRequired,
+  getPublicStatus: PropTypes.func.isRequired,
+  getPublicEmoji: PropTypes.func.isRequired,
+  getPublicLocation: PropTypes.func.isRequired,
   getPublicImage: PropTypes.func.isRequired,
+  getPublicCoverPhoto: PropTypes.func.isRequired,
   getPrivateEmail: PropTypes.func.isRequired,
+  getPrivateBirthday: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
   signInGetBox: PropTypes.func.isRequired,
   checkWeb3Wallet: PropTypes.func.isRequired,
@@ -409,8 +462,21 @@ export default withRouter(connect(mapState,
     requestAccess,
     getPublicName,
     getPublicGithub,
+    getPublicLocation,
+    getPublicWebsite,
+    getPublicEmployer,
+    getPublicJob,
+    getPublicSchool,
+    getPublicDegree,
+    getPublicSubject,
+    getPublicYear,
+    getPublicStatus,
+    getPublicEmoji,
+    getPublicDescription,
     getPublicImage,
+    getPublicCoverPhoto,
     getPrivateEmail,
+    getPrivateBirthday,
     getActivity,
     signInGetBox,
     checkWeb3Wallet,

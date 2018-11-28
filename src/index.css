@@ -59,15 +59,25 @@ button {
 
 .tertiaryButton {
   background-color: transparent;
-  border: solid 1px #7a7a7a;
+  border: solid 1px #474747;
   color: #7a7a7a;
   box-shadow: none;
   transition: background-color .8s ease; }
   .tertiaryButton:hover {
     color: white;
-    background-color: #7a7a7a;
+    background-color: #474747;
     border: solid 1px transparent;
     transition: background-color .8s ease; }
+
+.fourthButton {
+  color: white;
+  font-size: .8em;
+  color: white;
+  background: rgba(0, 0, 0, 0.404);
+  padding: .8em 1.3em;
+  -webkit-transition: background-color .4s ease;
+  -o-transition: background-color .4s ease;
+  transition: background-color .4s ease; }
 
 button:hover {
   cursor: pointer; }
@@ -92,6 +102,8 @@ p {
   font-size: 14px;
   list-style: none; }
 
+textarea,
+input,
 li,
 a,
 p,

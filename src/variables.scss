@@ -6,6 +6,7 @@ $threeBoxAccentBlue: #021333;
 $threeBoxAccentBlueHover: #254277;
 
 // Brand Blue Hues
+$threeBoxBlueShade: #C5D7F2;
 $threeBoxBlueHue: rgb(251, 254, 255);
 $threeBoxBlueHueSecondary: #EDEEEF;
 
@@ -13,10 +14,15 @@ $backgroundGrey: rgb(248, 248, 248);
 // $backgroundGrey: #fbfbfb;
 $backgroundHue: rgb(245, 246, 248);
 
+$threeBoxRed: #E78888;
+$threeBoxGreen: rgb(103, 204, 125);
+
 // Font Colors
 
 $lightFont: #6b6b6b;
-$lighterFont: rgb(177, 177, 177);
+$lighterFont: #747677;
+$faintFont: #b8b8b8;
+// $lighterFont: rgb(177, 177, 177);
 
 $threeBoxBlack: rgb(1, 12, 22);
 
@@ -29,3 +35,5 @@ $feedTileGrey: rgb(249, 249, 249);
 $defaultProfPic: linear-gradient(#006ECC, #006ECC);
 // $defaultProfPic: linear-gradient(#d3d3d3, #eeeeee);
 // $defaultProfPic: #d3d3d3;
+
+$boxShadow: 0px 4px 10px 4px #00000025, 0 16px 24px 0 #0000002f;

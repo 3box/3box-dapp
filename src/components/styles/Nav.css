@@ -140,7 +140,7 @@ nav {
 
 #nav__reportBug {
   background-color: #f5f6f8;
-  color: #b1b1b1; }
+  color: #747677; }
 
 #nav__divideBug {
   border-top: 1px solid #CBCBCB;
@@ -239,7 +239,7 @@ nav {
     background: none;
     padding: 0 1.3em; }
   #mobileNav__signout {
-    color: #b1b1b1; }
+    color: #747677; }
   .nav__dropdown__mobileLogo {
     display: flex;
     justify-content: flex-start;
