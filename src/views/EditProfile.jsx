@@ -513,7 +513,7 @@ class EditProfile extends Component {
                           emoji
                             ? (
                               <span className="edit__profile__value--spirit__character" role="img">
-                                {emoji}
+                                {emoji.code ? emoji.code : emoji}
                               </span>
                             )
                             : (

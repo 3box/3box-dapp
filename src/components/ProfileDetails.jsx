@@ -58,7 +58,7 @@ const ProfileDetails = ({
                   <div className="profile__basic__wrapper">
                     <h2 id="profile__user__name">{name}</h2>
                     <span className="profile__basic__emoji">
-                      {emoji}
+                      {emoji.code ? emoji.code : emoji}
                     </span>
                   </div>)
                 : <Link to={routes.EDITPROFILE}><h2 id="profile__user__name__add">Add name</h2></Link>}
