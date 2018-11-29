@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import JSEMOJI from 'emoji-js';
 import { timeSince } from '../utils/time';
 import PrivateActivity from '../assets/PrivateActivity.svg';
 import Globe from '../assets/Globe.svg';
@@ -9,13 +8,6 @@ import Image from '../assets/Image.svg';
 import Save from '../assets/Save.svg';
 import Delete from '../assets/Delete.svg';
 import './styles/Feed.css';
-
-const jsemoji = new JSEMOJI();
-jsemoji.img_set = 'emojione';
-jsemoji.img_sets.emojione.path = 'https://cdn.jsdelivr.net/emojione/assets/3.0/png/32/';
-jsemoji.supports_css = false;
-jsemoji.allow_native = false;
-jsemoji.replace_mode = 'unified';
 
 const FeedTileTXS = ({ item, isEven }) => (
   <div className={`feed__activity___data ${isEven ? 'darkFeed' : 'lightFeed'}`}>
@@ -43,7 +35,11 @@ const FeedTileTXS = ({ item, isEven }) => (
         : item.dataType === 'Private'
           ? '*****'
           : item.key === 'emoji'
-            ? <div dangerouslySetInnerHTML={{ __html: jsemoji.replace_colons(`:${item.value.name}:`) }} className="feed__activity__address__amount__emoji" />
+            ? (
+              <span className="feed__activity__address__amount__emoji">
+                {typeof item.value === 'object' ? Object.keys(item.value)[0] : item.value}
+              </span>
+            )
             : typeof item.value === 'object'
               ? `${item.value ? Object.keys(item.value)[0] : '-----'}`
               : item.value}

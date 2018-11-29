@@ -333,8 +333,7 @@
   width: 40px;
   height: 40px;
   position: relative;
-  -webkit-transform: rotateZ(45deg);
-  transform: rotateZ(45deg); }
+  opacity: .6; }
 
 .sa-folding-box .sa-box {
   float: left;

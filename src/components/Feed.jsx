@@ -84,6 +84,11 @@ const Feed = ({ ifFetchingActivity, feedByAddress }) => (
           )
         }
       </div>
+      <div className="feed__footer">
+        <div className="logo__icon--footer">
+          <h2>3</h2>
+        </div>
+      </div>
     </div>
   </div>
 );

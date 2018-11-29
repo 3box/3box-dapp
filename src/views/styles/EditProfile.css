@@ -226,7 +226,8 @@
   border: solid 1px #E4E4E4; }
 
 .edit__profile__value--spirit__character {
-  font-size: 34px; }
+  font-size: 34px;
+  margin-top: 4px; }
 
 .onClickOutside {
   position: fixed;

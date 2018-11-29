@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import EmojiPicker from 'emoji-picker-react';
-
-import JSEMOJI from 'emoji-js';
+import 'emoji-mart/css/emoji-mart.css';
+import { Picker } from 'emoji-mart';
 
 import {
   getPublicName,
@@ -36,13 +35,6 @@ import AddImage from '../assets/AddImage.svg';
 import Loading from '../assets/Loading.svg';
 import './styles/EditProfile.css';
 
-const jsemoji = new JSEMOJI();
-jsemoji.img_set = 'emojione';
-jsemoji.img_sets.emojione.path = 'https://cdn.jsdelivr.net/emojione/assets/3.0/png/32/';
-jsemoji.supports_css = false;
-jsemoji.allow_native = false;
-jsemoji.replace_mode = 'unified';
-
 class EditProfile extends Component {
   constructor(props) {
     super(props);
@@ -54,7 +46,7 @@ class EditProfile extends Component {
       description: '',
       location: '',
       website: '',
-      emoji: {},
+      emoji: '',
       birthday: '',
       job: '',
       school: '',
@@ -193,12 +185,9 @@ class EditProfile extends Component {
     this.setState({ disableSave: false, removeCoverPic: true });
   }
 
-  addEmoji = (emoji, emojiObject) => {
+  addEmoji = (emoji) => {
     this.setState({
-      emoji: {
-        name: emojiObject.name,
-        code: emoji,
-      },
+      emoji: emoji.native,
       showEmoji: false,
       disableSave: false,
     });
@@ -346,8 +335,6 @@ class EditProfile extends Component {
       showFileSizeModal,
       showEmoji,
     } = this.state;
-
-    const spiritEmoji = jsemoji.replace_colons(`:${emoji.name}:`);
 
     return (
       <div id="edit__page">
@@ -510,7 +497,10 @@ class EditProfile extends Component {
                           <div
                             className="edit__profile__value__emojiMenu"
                           >
-                            <EmojiPicker onEmojiClick={(selectedEmoji, emojiObject) => this.addEmoji(selectedEmoji, emojiObject)} preload />
+                            <Picker
+                              onSelect={selectedEmoji => this.addEmoji(selectedEmoji)}
+                              title="Pick your spirit emoji"
+                            />
                           </div>)
                       }
                       {showEmoji
@@ -521,11 +511,16 @@ class EditProfile extends Component {
                         onClick={() => this.setState({ showEmoji: !this.state.showEmoji })}
                       >
                         {
-                          emoji.name
-                            ? <div dangerouslySetInnerHTML={{ __html: spiritEmoji }} className="edit__profile__value--spirit__character" />
-                            : <p className="edit__profile__value--spirit__character">
-                              🦄
-                            </p>
+                          emoji
+                            ? (
+                              <span className="edit__profile__value--spirit__character" role="img">
+                                {emoji}
+                              </span>
+                            )
+                            : (
+                              <span className="edit__profile__value--spirit__character" role="img">
+                                🦄
+                            </span>)
                         }
                       </div>
                     </div>
@@ -742,7 +737,7 @@ EditProfile.propTypes = {
   description: PropTypes.string,
   location: PropTypes.string,
   website: PropTypes.string,
-  birthday: PropTypes.instanceOf(Date),
+  birthday: PropTypes.string,
   job: PropTypes.string,
   school: PropTypes.string,
   degree: PropTypes.string,
@@ -785,7 +780,7 @@ EditProfile.defaultProps = {
   degree: '',
   major: '',
   year: '',
-  emoji: {},
+  emoji: '',
   employer: '',
   email: '',
   image: [],

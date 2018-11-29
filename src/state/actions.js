@@ -173,6 +173,9 @@ export const signInGetBox = () => async (dispatch) => {
     dispatch({
       type: 'LOADING_3BOX',
     });
+    dispatch({
+      type: 'LOADING_ACTIVITY',
+    });
   };
 
   const opts = {
@@ -439,6 +442,10 @@ export const getPublicStatus = () => async (dispatch) => {
 
 export const getActivity = () => async (dispatch) => {
   try {
+    dispatch({
+      type: 'LOADING_ACTIVITY',
+    });
+    
     const activity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
 
     // add datatype to each datum

@@ -2,9 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import JSEMOJI from 'emoji-js';
-
-import { address } from '../utils/address';
 
 import * as routes from '../utils/routes';
 import EthereumLogo from '../assets/Ethereum_logo_2014.svg';
@@ -21,13 +18,6 @@ import Major from '../assets/Major.svg';
 import Year from '../assets/Year.png';
 import Employer from '../assets/Employer.svg';
 import '../views/styles/Profile.css';
-
-const jsemoji = new JSEMOJI();
-jsemoji.img_set = 'emojione';
-jsemoji.img_sets.emojione.path = 'https://cdn.jsdelivr.net/emojione/assets/3.0/png/32/';
-jsemoji.supports_css = false;
-jsemoji.allow_native = false;
-jsemoji.replace_mode = 'unified';
 
 const ProfileDetails = ({
   name,
@@ -67,7 +57,9 @@ const ProfileDetails = ({
                 ? (
                   <div className="profile__basic__wrapper">
                     <h2 id="profile__user__name">{name}</h2>
-                    <div dangerouslySetInnerHTML={{ __html: jsemoji.replace_colons(`:${emoji.name}:`) }} className="profile__user__emoji" />
+                    <span className="profile__basic__emoji">
+                      {emoji}
+                    </span>
                   </div>)
                 : <Link to={routes.EDITPROFILE}><h2 id="profile__user__name__add">Add name</h2></Link>}
 
@@ -233,8 +225,8 @@ ProfileDetails.propTypes = {
   major: PropTypes.string,
   year: PropTypes.string,
   employer: PropTypes.string,
-  birthday: PropTypes.instanceOf(Date),
-  emoji: PropTypes.object,
+  birthday: PropTypes.string,
+  emoji: PropTypes.string,
   image: PropTypes.array,
   coverPhoto: PropTypes.array,
   description: PropTypes.string,
@@ -247,7 +239,7 @@ ProfileDetails.defaultProps = {
   description: '',
   image: [],
   coverPhoto: [],
-  emoji: {},
+  emoji: '',
   location: '',
   website: '',
   birthday: '',

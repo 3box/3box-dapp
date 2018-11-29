@@ -24,7 +24,6 @@
 
 .profile__basic__wrapper {
   display: flex;
-  align-items: center;
   justify-content: center;
   margin-bottom: 15px; }
 
@@ -36,6 +35,13 @@
   margin-top: 34px;
   margin-bottom: 48px;
   width: 200px; }
+
+.profile__basic__emoji {
+  font-size: 26px;
+  margin-left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
 
 .profile__basic__description {
   width: 200px;
