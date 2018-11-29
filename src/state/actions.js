@@ -6,10 +6,6 @@ import {
   store,
 } from './store';
 
-import {
-  checkForOnBoarding,
-} from '../utils/utils';
-
 import * as routes from '../utils/routes';
 import history from '../history';
 
@@ -199,8 +195,16 @@ export const signInGetBox = () => async (dispatch) => {
     });
 
     box.onSyncDone(() => {
-      // const feed = store.getState().threeBox.feedByAddress;
-      // checkForOnBoarding(dispatch, feed);
+      const publicActivity = store.getState().threeBox.box.public.log;
+      const privateActivity = store.getState().threeBox.box.private.log;
+      if (!privateActivity.length && !publicActivity.length) {
+        dispatch({
+          type: 'HANDLE_ONBOARDING_MODAL',
+          onBoardingModal: true,
+        });
+        history.push(routes.EDITPROFILE);
+      }
+
       dispatch({
         type: 'UPDATE_THREEBOX',
         ifFetchingThreeBox: false,
@@ -250,8 +254,16 @@ export const profileGetBox = () => async (dispatch) => {
     });
 
     box.onSyncDone(() => {
-      // const feed = store.getState().threeBox.feedByAddress;
-      // checkForOnBoarding(dispatch, feed);
+      const publicActivity = store.getState().threeBox.box.public.log;
+      const privateActivity = store.getState().threeBox.box.private.log;
+      if (!privateActivity.length && !publicActivity.length) {
+        dispatch({
+          type: 'HANDLE_ONBOARDING_MODAL',
+          onBoardingModal: true,
+        });
+        history.push(routes.EDITPROFILE);
+      }
+
       dispatch({
         type: 'UPDATE_THREEBOX',
         ifFetchingThreeBox: false,
@@ -490,8 +502,6 @@ export const getActivity = () => async (dispatch) => {
         });
       }
     });
-
-    checkForOnBoarding(dispatch, feedByAddress);
 
     dispatch({
       type: 'UPDATE_ACTIVITY',

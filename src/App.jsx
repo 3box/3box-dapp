@@ -128,24 +128,24 @@ class App extends Component {
     if (this.props.isSignedIntoWallet && this.props.isLoggedIn) {
       await this.props.profileGetBox();
       if (!this.props.showErrorModal) {
-        await this.props.getActivity();
-        await this.props.getPublicStatus();
-        await this.props.getPublicName();
-        await this.props.getPublicGithub();
-        await this.props.getPublicDescription();
-        await this.props.getPublicImage();
-        await this.props.getPublicCoverPhoto();
-        await this.props.getPublicLocation();
-        await this.props.getPublicWebsite();
-        await this.props.getPublicEmployer();
-        await this.props.getPublicJob();
-        await this.props.getPublicSchool();
-        await this.props.getPublicDegree();
-        await this.props.getPublicSubject();
-        await this.props.getPublicYear();
-        await this.props.getPublicEmoji();
-        await this.props.getPrivateEmail();
-        await this.props.getPrivateBirthday();
+        this.props.getActivity(); // remove await
+        this.props.getPublicStatus();
+        this.props.getPublicName();
+        this.props.getPublicGithub();
+        this.props.getPublicDescription();
+        this.props.getPublicImage();
+        this.props.getPublicCoverPhoto();
+        this.props.getPublicLocation();
+        this.props.getPublicWebsite();
+        this.props.getPublicEmployer();
+        this.props.getPublicJob();
+        this.props.getPublicSchool();
+        this.props.getPublicDegree();
+        this.props.getPublicSubject();
+        this.props.getPublicYear();
+        this.props.getPublicEmoji();
+        this.props.getPrivateEmail();
+        this.props.getPrivateBirthday();
       }
     } else if (!this.props.isSignedIntoWallet) {
       history.push(routes.LANDING);
@@ -165,25 +165,25 @@ class App extends Component {
       if (this.props.isSignedIntoWallet) {
         await this.props.signInGetBox();
         if (!this.props.showErrorModal) {
-          await this.props.getActivity();
-          await this.props.getPublicStatus();
-          await this.props.getPublicName();
-          await this.props.getPublicGithub();
-          await this.props.getPublicDescription();
-          await this.props.getPublicImage();
-          await this.props.getPublicCoverPhoto();
-          await this.props.getPublicLocation();
-          await this.props.getPublicWebsite();
-          await this.props.getPublicEmployer();
-          await this.props.getPublicJob();
-          await this.props.getPublicSchool();
-          await this.props.getPublicDegree();
-          await this.props.getPublicSubject();
-          await this.props.getPublicYear();
-          await this.props.getPublicEmoji();
-          await this.props.getPublicEmoji();
-          await this.props.getPrivateEmail();
-          await this.props.getPrivateBirthday();
+          this.props.getActivity();
+          this.props.getPublicStatus();
+          this.props.getPublicName();
+          this.props.getPublicGithub();
+          this.props.getPublicDescription();
+          this.props.getPublicImage();
+          this.props.getPublicCoverPhoto();
+          this.props.getPublicLocation();
+          this.props.getPublicWebsite();
+          this.props.getPublicEmployer();
+          this.props.getPublicJob();
+          this.props.getPublicSchool();
+          this.props.getPublicDegree();
+          this.props.getPublicSubject();
+          this.props.getPublicYear();
+          this.props.getPublicEmoji();
+          this.props.getPublicEmoji();
+          this.props.getPrivateEmail();
+          this.props.getPrivateBirthday();
         }
       } else if (!this.props.isSignedIntoWallet && !this.props.accessDeniedModal) {
         this.props.handleRequireWalletLoginModal();
