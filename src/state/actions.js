@@ -287,6 +287,97 @@ export const profileGetBox = () => async (dispatch) => {
   }
 };
 
+export const getActivity = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: 'LOADING_ACTIVITY',
+    });
+
+    const activity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
+
+    // add datatype to each datum
+    activity.internal = activity.internal.map(object => Object.assign({
+      dataType: 'Internal',
+    }, object));
+    activity.txs = activity.txs.map(object => Object.assign({
+      dataType: 'Txs',
+    }, object));
+    activity.token = activity.token.map(object => Object.assign({
+      dataType: 'Token',
+    }, object));
+
+    let publicActivity = await store.getState().threeBox.box.public.log;
+    let privateActivity = await store.getState().threeBox.box.private.log;
+
+    publicActivity = publicActivity.map((object) => {
+      object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
+      return Object.assign({
+        dataType: 'Public',
+      }, object);
+    });
+    privateActivity = privateActivity.map((object) => {
+      object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
+      return Object.assign({
+        dataType: 'Private',
+      }, object);
+    });
+
+    const feed = activity.internal
+      .concat(activity.txs)
+      .concat(activity.token)
+      .concat(publicActivity)
+      .concat(privateActivity);
+
+    // if timestamp is undefined, give it the timestamp of the previous entry
+    feed.map((item, i) => {
+      const feedItem = item;
+      if (!feedItem.timeStamp) {
+        const deletedTime = parseInt(feed[i - 1].timeStamp, 10) + 1;
+        feedItem.timeStamp = deletedTime.toString();
+      }
+      return feedItem;
+    });
+
+    feed.sort((a, b) => b.timeStamp - a.timeStamp);
+
+    // order feed chronologically and by address
+    const feedByAddress = [];
+    feed.forEach((item) => {
+      const othersAddress = item.from === address ? item.to : item.from;
+      if (feedByAddress.length > 0 &&
+        Object.keys(feedByAddress[feedByAddress.length - 1])[0] === othersAddress) {
+        feedByAddress[feedByAddress.length - 1][othersAddress].push(item);
+      } else if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === 'threeBox' && (item.dataType === 'Public' || item.dataType === 'Private')) {
+        feedByAddress[feedByAddress.length - 1].threeBox.push(item);
+      } else if (item.dataType === 'Public' || item.dataType === 'Private') {
+        feedByAddress.push({
+          threeBox: [item],
+        });
+      } else {
+        feedByAddress.push({
+          [othersAddress]: [item],
+        });
+      }
+    });
+
+    dispatch({
+      type: 'UPDATE_ACTIVITY',
+      feedByAddress,
+      ifFetchingActivity: false,
+      isLoggedIn: true,
+    });
+  } catch (err) {
+    dispatch({
+      type: 'FAILED_LOADING_ACTIVITY',
+      feedByAddress: [],
+      ifFetchingActivity: false,
+      errorMessage: err,
+      showErrorModal: true,
+      provideConsent: false,
+    });
+  }
+};
+
 export const getPublicName = () => async (dispatch) => {
   const name = await store.getState().threeBox.box.public.get('name');
 
@@ -438,97 +529,6 @@ export const getPublicStatus = () => async (dispatch) => {
     type: 'GET_PUBLIC_STATUS',
     status,
   });
-};
-
-export const getActivity = () => async (dispatch) => {
-  try {
-    dispatch({
-      type: 'LOADING_ACTIVITY',
-    });
-    
-    const activity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
-
-    // add datatype to each datum
-    activity.internal = activity.internal.map(object => Object.assign({
-      dataType: 'Internal',
-    }, object));
-    activity.txs = activity.txs.map(object => Object.assign({
-      dataType: 'Txs',
-    }, object));
-    activity.token = activity.token.map(object => Object.assign({
-      dataType: 'Token',
-    }, object));
-
-    let publicActivity = await store.getState().threeBox.box.public.log;
-    let privateActivity = await store.getState().threeBox.box.private.log;
-
-    publicActivity = publicActivity.map((object) => {
-      object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
-      return Object.assign({
-        dataType: 'Public',
-      }, object);
-    });
-    privateActivity = privateActivity.map((object) => {
-      object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
-      return Object.assign({
-        dataType: 'Private',
-      }, object);
-    });
-
-    const feed = activity.internal
-      .concat(activity.txs)
-      .concat(activity.token)
-      .concat(publicActivity)
-      .concat(privateActivity);
-
-    // if timestamp is undefined, give it the timestamp of the previous entry
-    feed.map((item, i) => {
-      const feedItem = item;
-      if (!feedItem.timeStamp) {
-        const deletedTime = parseInt(feed[i - 1].timeStamp, 10) + 1;
-        feedItem.timeStamp = deletedTime.toString();
-      }
-      return feedItem;
-    });
-
-    feed.sort((a, b) => b.timeStamp - a.timeStamp);
-
-    // order feed chronologically and by address
-    const feedByAddress = [];
-    feed.forEach((item) => {
-      const othersAddress = item.from === address ? item.to : item.from;
-      if (feedByAddress.length > 0 &&
-        Object.keys(feedByAddress[feedByAddress.length - 1])[0] === othersAddress) {
-        feedByAddress[feedByAddress.length - 1][othersAddress].push(item);
-      } else if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === 'threeBox' && (item.dataType === 'Public' || item.dataType === 'Private')) {
-        feedByAddress[feedByAddress.length - 1].threeBox.push(item);
-      } else if (item.dataType === 'Public' || item.dataType === 'Private') {
-        feedByAddress.push({
-          threeBox: [item],
-        });
-      } else {
-        feedByAddress.push({
-          [othersAddress]: [item],
-        });
-      }
-    });
-
-    dispatch({
-      type: 'UPDATE_ACTIVITY',
-      feedByAddress,
-      ifFetchingActivity: false,
-      isLoggedIn: true,
-    });
-  } catch (err) {
-    dispatch({
-      type: 'FAILED_LOADING_ACTIVITY',
-      feedByAddress: [],
-      ifFetchingActivity: false,
-      errorMessage: err,
-      showErrorModal: true,
-      provideConsent: false,
-    });
-  }
 };
 
 export const handleSignOut = () => async (dispatch) => {
