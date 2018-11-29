@@ -232,6 +232,9 @@ export const profileGetBox = () => async (dispatch) => {
     dispatch({
       type: 'LOADING_3BOX',
     });
+    dispatch({
+      type: 'LOADING_ACTIVITY',
+    });
   };
 
   const opts = {

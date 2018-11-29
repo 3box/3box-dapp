@@ -8,6 +8,7 @@ import FeedTileInternal from './FeedTileInternal.jsx';
 import FeedTileActivity from './FeedTileActivity.jsx';
 import StatusUpdate from './StatusUpdate';
 import networkArray from '../utils/networkArray';
+import Loading from '../assets/Loading.svg';
 import './styles/Feed.css';
 import './styles/NetworkArray.css';
 // import Loading from '../assets/Loading.svg';
@@ -18,13 +19,13 @@ const Feed = ({ ifFetchingActivity, feedByAddress }) => (
     <div id="feed">
       <p className="header" id="feed__header">Activity</p>
       <div className="feed__activity__address">
-        {/* {ifFetchingActivity
-        && (
-          <div className="feed__activity__load">
-            <img src={Loading} alt="loading" id="activityLoad" />
-          </div>
-        )
-      } */}
+        {ifFetchingActivity
+          && (
+            <div className="feed__activity__load">
+              <img src={Loading} alt="loading" id="activityLoad" />
+            </div>
+          )
+        }
         {feedByAddress.length > 0
           ? feedByAddress.map((feedAddress, i) => (
             <div key={i} className="feed__activity__tile">

@@ -125,6 +125,13 @@ export const ProvideConsentModal = ({
           <img src={Consent} alt="Partners background" />
           <img src={Loading} alt="Loading" id="modal__loadingGraphic--access" />
 
+          {/* <div className="sa-folding-box">
+            <div className="sa-box_1 sa-box"></div>
+            <div className="sa-box_2 sa-box"></div>
+            <div className="sa-box_4 sa-box"></div>
+            <div className="sa-box_3 sa-box"></div>
+          </div> */}
+
           <div id="modal__copy__card">
             <h3>Log in to 3Box</h3>
             {isMobile
