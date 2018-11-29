@@ -55,15 +55,15 @@ nav {
 .nav__dropdown__mobileLogo {
   display: none; }
 
-#nav__userPicture {
-  background-image: linear-gradient(#006ECC, #006ECC);
+.nav__userPicture {
   border-radius: 100%;
   width: 40px;
   height: 40px;
   margin: 14px 3vw 14px 14px;
   margin-left: auto;
   cursor: pointer;
-  object-fit: cover; }
+  object-fit: cover;
+  background-color: #006ECC; }
 
 .nav__dropdown {
   transition: transform ease 0.9s, opacity ease 0.1s;
@@ -195,7 +195,7 @@ nav {
     margin-top: 0; }
   #nav__logo--marginLeft {
     margin-left: 6vw; }
-  #nav__userPicture {
+  .nav__userPicture {
     margin-right: 6vw; }
   #actionButtons p {
     margin-right: 5vw; }

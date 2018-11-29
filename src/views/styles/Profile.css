@@ -56,14 +56,6 @@
   width: 100vw;
   height: 174px;
   background-color: #C5D7F2;
-  z-index: -1; }
-
-.profile__coverPhoto {
-  position: absolute;
-  top: 69px;
-  width: 100vw;
-  height: 174px;
-  background-color: #C5D7F2;
   z-index: -1;
   object-fit: cover; }
 
@@ -127,15 +119,15 @@
     margin: 1vh 1em 1vh 0;
     opacity: .5; }
 
-#profile__user__picture {
-  background-image: linear-gradient(#006ECC, #006ECC);
+.profile__user__picture {
   border-radius: 100%;
   width: 130px;
   height: 130px;
   margin: 0 auto;
   margin-top: 75px;
   object-fit: cover;
-  border: 6px solid white; }
+  border: 6px solid white;
+  background-color: #006ECC; }
 
 #profile__network__networkLogo {
   height: 19px;
@@ -250,7 +242,7 @@
   #profile__private {
     margin-bottom: 2vh;
     margin-top: 2vh; }
-  #profile__user__picture {
+  .profile__user__picture {
     margin-top: 2.4em;
     z-index: 2; }
   #profile__footer {

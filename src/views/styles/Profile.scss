@@ -72,15 +72,6 @@
   height: 174px;
   background-color: $threeBoxBlueShade;
   z-index: -1;
-}
-
-.profile__coverPhoto {
-  position: absolute;
-  top: 69px;
-  width: 100vw;
-  height: 174px;
-  background-color: $threeBoxBlueShade;
-  z-index: -1;
   object-fit: cover;
 }
 
@@ -159,8 +150,7 @@
   }
 }
 
-#profile__user__picture {
-  background-image: $defaultProfPic;
+.profile__user__picture {
   border-radius: 100%;
   width: 130px;
   height: 130px;
@@ -168,6 +158,7 @@
   margin-top: 75px;
   object-fit: cover;
   border: 6px solid white;
+  background-color: $defaultProfPic;
 }
 
 #profile__network__networkLogo {
@@ -315,7 +306,7 @@
     margin-top: 2vh;
   }
 
-  #profile__user__picture {
+  .profile__user__picture {
     margin-top: 2.4em;
     z-index: 2;
   }

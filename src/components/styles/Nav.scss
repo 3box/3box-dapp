@@ -74,8 +74,7 @@ nav {
   display: none;
 }
 
-#nav__userPicture {
-  background-image: $defaultProfPic;
+.nav__userPicture {
   border-radius: 100%;
   width: 40px;
   height: 40px;
@@ -83,6 +82,7 @@ nav {
   margin-left: auto;
   cursor: pointer;
   object-fit: cover;
+  background-color: $defaultProfPic;
 }
 
 .nav__dropdown {
@@ -252,7 +252,7 @@ nav {
     margin-left: 6vw;
   }
 
-  #nav__userPicture {
+  .nav__userPicture {
     margin-right: 6vw;
   }
 

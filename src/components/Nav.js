@@ -49,8 +49,8 @@ class Nav extends Component {
 
         {
           image.length > 0 && image[0].contentUrl ?
-            <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} id="nav__userPicture" alt="profile" onClick={this.handleDropdown} role="button" />
-            : <div id="nav__userPicture" onClick={this.handleDropdown} />
+            <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} className="nav__userPicture clearProfPic" alt="profile" onClick={this.handleDropdown} role="button" />
+            : <div className="nav__userPicture" onClick={this.handleDropdown} />
         }
 
         {/* desktop nav dropdown */}

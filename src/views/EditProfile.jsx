@@ -385,7 +385,6 @@ class EditProfile extends Component {
                       ref={ref => this.coverUpload = ref}
                     />
                     <div className="edit__profile__editCanvas__button">
-                      {/* <img src={AddImage} alt="profile" id="addCoverPhoto" /> */}
                       Edit
                     </div>
                   </label>
@@ -435,7 +434,7 @@ class EditProfile extends Component {
                           <div className="profPic_div_overlay">
                             <p>Change picture</p>
                           </div>
-                          <img className="profPic" src={(this.fileUpload && this.fileUpload.files && this.fileUpload.files[0]) ? URL.createObjectURL(this.fileUpload.files[0]) : `https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} alt="profile" />
+                          <img className="profPic clearProfPic" src={(this.fileUpload && this.fileUpload.files && this.fileUpload.files[0]) ? URL.createObjectURL(this.fileUpload.files[0]) : `https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} alt="profile" />
                         </div>)
                       : (
                         <div className="profPic_div">

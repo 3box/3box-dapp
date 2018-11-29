@@ -101,7 +101,6 @@
     margin-top: -62px; }
   #edit__form .profPic {
     display: block;
-    background-image: linear-gradient(#006ECC, #006ECC);
     border-radius: 100%;
     width: 144px;
     height: 144px;
@@ -110,7 +109,8 @@
     -moz-transition: all .5s ease;
     -o-transition: all .5s ease;
     transition: all .5s ease;
-    border: 6px solid white; }
+    border: 6px solid white;
+    background-color: #006ECC; }
   #edit__form .coverPic {
     display: block;
     object-fit: cover;
@@ -123,7 +123,8 @@
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
     z-index: 0;
-    position: absolute; }
+    position: absolute;
+    background-color: white; }
   #edit__form #addImage {
     position: absolute;
     width: 36px;
@@ -151,6 +152,8 @@
     border-radius: 100%;
     width: 144px;
     height: 144px;
+    top: 6px;
+    left: 6px;
     object-fit: cover;
     -webkit-transition: all .5s ease;
     -moz-transition: all .5s ease;

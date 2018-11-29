@@ -39,7 +39,7 @@ const ProfileDetails = ({
 }) => (
     <div>
       {coverPhoto.length > 0 && coverPhoto[0].contentUrl
-        ? <img src={`https://ipfs.infura.io/ipfs/${coverPhoto[0].contentUrl['/']}`} className="profile__coverPhoto" alt="profile" />
+        ? <img src={`https://ipfs.infura.io/ipfs/${coverPhoto[0].contentUrl['/']}`} className="profile__coverPhoto clearProfPic" alt="profile" />
         : <div className="profile__coverPhoto" />
       }
       <div id="profile">
@@ -48,8 +48,8 @@ const ProfileDetails = ({
           <div id="profile__user__info">
 
             {image.length > 0 && image[0].contentUrl
-              ? <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} id="profile__user__picture" alt="profile" />
-              : <div id="profile__user__picture" />
+              ? <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} className="profile__user__picture clearProfPic" alt="profile" />
+              : <div className="profile__user__picture" />
             }
 
             <div className="profile__basic">

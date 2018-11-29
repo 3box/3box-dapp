@@ -137,7 +137,6 @@
 
   .profPic {
     display: block;
-    background-image: $defaultProfPic;
     border-radius: 100%;
     width: 144px;
     height: 144px;
@@ -147,11 +146,11 @@
     -o-transition: all .5s ease;
     transition: all .5s ease;
     border: 6px solid white;
+    background-color: $defaultProfPic;
   }
 
   .coverPic {
     display: block;
-    // background-image: $defaultProfPic;
     object-fit: cover;
     -webkit-transition: all .5s ease;
     -moz-transition: all .5s ease;
@@ -163,6 +162,7 @@
     border-top-right-radius: 6px;
     z-index: 0;
     position: absolute;
+    background-color: white;
   }
 
   #addImage {
@@ -198,6 +198,8 @@
     border-radius: 100%;
     width: 144px;
     height: 144px;
+    top: 6px;
+    left: 6px;
     object-fit: cover;
     -webkit-transition: all .5s ease;
     -moz-transition: all .5s ease;
