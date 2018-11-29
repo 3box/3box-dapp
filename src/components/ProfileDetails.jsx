@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
+import { address } from '../utils/address';
 import * as routes from '../utils/routes';
-import EthereumLogo from '../assets/Ethereum_logo_2014.svg';
+import EthereumLogo from '../assets/EthereumIcon.svg';
 import GithubIcon from '../assets/GithubIcon.svg';
 import Private from '../assets/Private.svg';
 import Email from '../assets/Email.svg';
@@ -63,13 +63,13 @@ const ProfileDetails = ({
                   </div>)
                 : <Link to={routes.EDITPROFILE}><h2 id="profile__user__name__add">Add name</h2></Link>}
 
-              {/* <div id="profile__network" title="Network">
-            <img id="profile__network__networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
-            <p id="profile__details__address" title={address}>
-              {address && address.substring(0, 8)}
-              ...
+              <div id="profile__network" title="Network">
+                <img id="profile__network__networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
+                <p id="profile__details__address" title={address}>
+                  {address && address.substring(0, 8)}
+                  ...
             </p>
-          </div> */}
+              </div>
 
               <p className="profile__basic__description">
                 {description}

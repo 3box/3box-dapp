@@ -25,7 +25,7 @@
 .profile__basic__wrapper {
   display: flex;
   justify-content: center;
-  margin-bottom: 15px; }
+  margin-bottom: 2px; }
 
 .profile__basic {
   display: flex;
@@ -136,9 +136,11 @@
 #profile__network {
   float: left;
   clear: both;
-  margin-bottom: .4em;
+  margin-bottom: 22px;
   display: flex;
   align-items: center; }
+  #profile__network p {
+    color: #a0a0a0; }
 
 .profile__category__field {
   display: flex;
