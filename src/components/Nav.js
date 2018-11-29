@@ -6,6 +6,10 @@ import { Link, withRouter } from 'react-router-dom';
 import ThreeBoxLogo from './ThreeBoxLogo';
 import { handleSignOut } from '../state/actions';
 import * as routes from '../utils/routes';
+import Profile from '../assets/Profile.svg';
+import Edit from '../assets/Edit.svg';
+import SignOut from '../assets/SignOut.svg';
+import Report from '../assets/Report.svg';
 import './styles/Nav.css';
 
 class Nav extends Component {
@@ -57,12 +61,29 @@ class Nav extends Component {
         <div className={`${showProfileModal ? 'nav__dropdown--visible' : undefined} nav__dropdown nav__dropdown--desktop`}
           onClick={this.handleDropdown}>
           <ul>
-            <Link to={routes.PROFILE}><li>Profile</li></Link>
-            <Link to={routes.EDITPROFILE}><li>Edit profile</li></Link>
+            <Link to={routes.PROFILE}>
+              <li className="nav__dropdown__wrapper">
+                <img src={Profile} className="nav__dropdown__icon" alt="profile" role="button" />
+                Profile
+              </li>
+            </Link>
+            <Link to={routes.EDITPROFILE}>
+              <li className="nav__dropdown__wrapper">
+              <img src={Edit} className="nav__dropdown__icon" alt="profile" role="button" />
+                Edit profile
+              </li>
+            </Link>
             <div className="nav__divide" />
-            <li onClick={() => this.handleSignOut()}>Sign Out</li>
+            <li onClick={() => this.handleSignOut()} className="nav__dropdown__wrapper">
+            <img src={SignOut} className="nav__dropdown__icon" alt="profile" role="button" />
+              Sign Out
+            </li>
             <div id="nav__divideBug" />
-            <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="nav__reportBug">Report a bug</li></a>
+            <a href="https://airtable.com/shrX4fI8MDuaPpef9">
+            <li id="nav__reportBug" className="nav__dropdown__wrapper">
+            <img src={Report} className="nav__dropdown__icon" alt="profile" role="button" />
+            Report a bug
+            </li></a>
           </ul>
         </div>
 

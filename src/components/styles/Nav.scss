@@ -74,6 +74,18 @@ nav {
   display: none;
 }
 
+.nav__dropdown__wrapper{
+  display: flex;
+  // justify-content: center;
+  align-items: center;
+}
+
+.nav__dropdown__icon {
+  width: 22px;
+  height: 22px;
+  margin-right: 17px;
+}
+
 .nav__userPicture {
   border-radius: 100%;
   width: 40px;
@@ -92,7 +104,7 @@ nav {
   top: 64px;
   right: 3vw;
   text-align: left;
-  width: 8em;
+  width: 10em;
   padding: 0 0 0 0;
   background-color: white;
   border-radius: 5px;
@@ -107,7 +119,7 @@ nav {
     font-size: 14px;
     padding-left: 1.3em;
     color: rgb(107, 107, 107);
-    line-height: 3.4em;
+    line-height: 4em;
     font-weight: 400;
     cursor: pointer;
   }
