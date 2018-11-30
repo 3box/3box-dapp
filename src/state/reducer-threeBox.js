@@ -176,6 +176,25 @@ export const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         isLoggedIn: false,
+        birthday: '',
+        name: '',
+        github: '',
+        image: [],
+        email: '',
+        feedByAddress: [],
+        box: {},
+        description: '',
+        location: '',
+        website: '',
+        employer: '',
+        job: '',
+        school: '',
+        degree: '',
+        major: '',
+        year: '',
+        coverPhoto: [],
+        emoji: '',
+        status: '',
       };
 
       // MODALS
