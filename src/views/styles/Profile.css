@@ -1,6 +1,6 @@
 #profile {
   width: calc(50vw - 350px);
-  min-width: 290px;
+  min-width: 330px;
   display: flex;
   flex-direction: column;
   align-items: flex-end; }
@@ -34,7 +34,7 @@
   align-items: center;
   margin-top: 34px;
   margin-bottom: 48px;
-  width: 200px; }
+  width: 230px; }
 
 .profile__basic__emoji {
   font-size: 26px;
@@ -63,7 +63,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 15px 0 20px 0; }
+  margin: 15px 0 20px 0;
+  width: 230px; }
 
 .profile__category__header {
   font-size: 14px;
@@ -73,9 +74,9 @@
 
 #profile__user__info {
   padding: 30px 50px;
-  max-width: 200px;
-  min-width: 200px;
-  width: 200px;
+  max-width: 230px;
+  min-width: 230px;
+  width: 230px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -145,7 +146,10 @@
 .profile__category__field {
   display: flex;
   align-items: center;
-  margin: 5px 0 6px 0; }
+  margin: 5px 0 6px 0;
+  display: flex;
+  justify-content: space-between;
+  width: 230px; }
   .profile__category__field p {
     color: #6b6b6b;
     width: 136px;

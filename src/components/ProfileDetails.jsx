@@ -81,12 +81,14 @@ const ProfileDetails = ({
               <h5 className="profile__category__header">About</h5>
 
               <div className="profile__category__field">
-                <img src={Email} className="profile__category__field__icon" alt="Github Icon" />
-                {email
-                  && (
-                    <p>{email}</p>
-                  )
-                }
+                <div>
+                  <img src={Email} className="profile__category__field__icon" alt="Github Icon" />
+                  {email
+                    && (
+                      <p id="profile__github">{email}</p>
+                    )
+                  }
+                </div>
                 {email
                   && (
                     <img id="editprofile__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
@@ -95,39 +97,47 @@ const ProfileDetails = ({
               </div>
 
               <div className="profile__category__field" title="Location">
-                <img src={Location} className="profile__category__field__icon" alt="Location Icon" />
-                {location
-                  && (
-                    <p id="profile__github">{location}</p>
-                  )
-                }
+                <div>
+                  <img src={Location} className="profile__category__field__icon" alt="Location Icon" />
+                  {location
+                    && (
+                      <p id="profile__github">{location}</p>
+                    )
+                  }
+                </div>
               </div>
 
               <div className="profile__category__field" title="Website">
-                <img src={Website} className="profile__category__field__icon" alt="Website Icon" />
-                {website
-                  && (
-                    <p id="profile__github">{website}</p>
-                  )
-                }
+                <div>
+                  <img src={Website} className="profile__category__field__icon" alt="Website Icon" />
+                  {website
+                    && (
+                      <p id="profile__github">{website}</p>
+                    )
+                  }
+                </div>
               </div>
 
               <div className="profile__category__field" title="Github">
-                <img src={GithubIcon} className="profile__category__field__icon" alt="Github Icon" />
-                {github
-                  && (
-                    <p id="profile__github">{github}</p>
-                  )
-                }
+                <div>
+                  <img src={GithubIcon} className="profile__category__field__icon" alt="Github Icon" />
+                  {github
+                    && (
+                      <p id="profile__github">{github}</p>
+                    )
+                  }
+                </div>
               </div>
 
               <div className="profile__category__field" title="Birthday">
-                <img src={Birthday} className="profile__category__field__icon" alt="Birthday Icon" />
-                {birthday
-                  && (
-                    <p id="profile__github">{birthday}</p>
-                  )
-                }
+                <div>
+                  <img src={Birthday} className="profile__category__field__icon" alt="Birthday Icon" />
+                  {birthday
+                    && (
+                      <p id="profile__github">{birthday}</p>
+                    )
+                  }
+                </div>
                 {birthday
                   && (
                     <img id="editprofile__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
@@ -140,22 +150,27 @@ const ProfileDetails = ({
             <div className="profile__category">
               <h5 className="profile__category__header">Work</h5>
 
+
               <div className="profile__category__field" title="Employer">
-                <img src={Employer} className="profile__category__field__icon" alt="Employer Icon" />
-                {employer
-                  && (
-                    <p id="profile__github">{employer}</p>
-                  )
-                }
+                <div>
+                  <img src={Employer} className="profile__category__field__icon" alt="Employer Icon" />
+                  {employer
+                    && (
+                      <p id="profile__github">{employer}</p>
+                    )
+                  }
+                </div>
               </div>
 
               <div className="profile__category__field" title="Job Title">
-                <img src={Job} className="profile__category__field__icon" alt="Job Icon" />
-                {job
-                  && (
-                    <p id="profile__github">{job}</p>
-                  )
-                }
+                <div>
+                  <img src={Job} className="profile__category__field__icon" alt="Job Icon" />
+                  {job
+                    && (
+                      <p id="profile__github">{job}</p>
+                    )
+                  }
+                </div>
               </div>
             </div>
 
@@ -163,39 +178,47 @@ const ProfileDetails = ({
               <h5 className="profile__category__header">Education</h5>
 
               <div className="profile__category__field" title="School">
-                <img src={School} className="profile__category__field__icon" alt="School Icon" />
-                {school
-                  && (
-                    <p id="profile__github">{school}</p>
-                  )
-                }
+                <div>
+                  <img src={School} className="profile__category__field__icon" alt="School Icon" />
+                  {school
+                    && (
+                      <p id="profile__github">{school}</p>
+                    )
+                  }
+                </div>
               </div>
 
               <div className="profile__category__field" title="Degree">
-                <img src={Degree} className="profile__category__field__icon" alt="Degree Icon" />
-                {degree
-                  && (
-                    <p id="profile__github">{degree}</p>
-                  )
-                }
+                <div>
+                  <img src={Degree} className="profile__category__field__icon" alt="Degree Icon" />
+                  {degree
+                    && (
+                      <p id="profile__github">{degree}</p>
+                    )
+                  }
+                </div>
               </div>
 
               <div className="profile__category__field" title="Major">
-                <img src={Major} className="profile__category__field__icon" alt="Major Icon" />
-                {major
-                  && (
-                    <p id="profile__github">{major}</p>
-                  )
-                }
+                <div>
+                  <img src={Major} className="profile__category__field__icon" alt="Major Icon" />
+                  {major
+                    && (
+                      <p id="profile__github">{major}</p>
+                    )
+                  }
+                </div>
               </div>
 
               <div className="profile__category__field" title="Graduation Year">
-                <img src={Year} className="profile__category__field__icon" alt="Year Icon" />
-                {year
-                  && (
-                    <p id="profile__github">{year}</p>
-                  )
-                }
+                <div>
+                  <img src={Year} className="profile__category__field__icon" alt="Year Icon" />
+                  {year
+                    && (
+                      <p id="profile__github">{year}</p>
+                    )
+                  }
+                </div>
               </div>
             </div>
           </div>
