@@ -41,7 +41,7 @@
   margin-top: 0;
   border: #E4E4E4 solid 1px;
   background: #fff;
-  border-radius: 6px;
+  border-radius: 12px;
   box-shadow: 0 7px 14px 0 rgba(59, 65, 94, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07); }
   #edit__form #edit__myProfile {
     width: 100%;
@@ -68,7 +68,9 @@
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
-    overflow: hidden; }
+    overflow: hidden;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px; }
   #edit__form #edit_private {
     padding: 1.8em 2em 2em; }
   #edit__form form {
@@ -120,8 +122,8 @@
     transition: all .5s ease;
     width: 55vw;
     height: 174px;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
     z-index: 0;
     position: absolute;
     background-color: white; }
