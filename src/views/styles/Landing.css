@@ -1,101 +1,32 @@
-#landing {
-  background-color: white;
-  position: relative;
-  background-color: white;
-  overflow: hidden; }
+.landing__hero {
+  margin-top: 240px;
+  margin-left: 14vw;
+  height: 400px; }
 
-#landing__splash {
-  position: relative;
-  padding: 11em 10% 4em;
-  height: 26em;
-  display: inline-block;
-  width: 80%;
+.landing__hero__copy {
+  width: 36vw; }
+
+.landing__developers__footer {
   display: flex;
   align-items: center;
-  background-color: white; }
-  #landing__splash h1 {
-    font-size: 3em;
-    font-weight: 800; }
-  #landing__splash button {
-    padding: 1.6em 2.4em;
-    border-radius: 3em;
-    font-size: .9em; }
+  justify-content: center; }
 
-#landing__createProfile {
-  width: 60%;
-  display: inline-block;
-  float: left;
-  position: relative;
-  animation: fadeIn 1.25s forwards;
-  -webkit-animation: fadeIn 1.25s forwards; }
-  #landing__createProfile h1 {
-    animation: moveHorizontal 1s forwards;
-    -webkit-animation: moveHorizontal 1s forwards;
-    position: relative; }
-  #landing__createProfile p {
-    margin-top: .5em;
-    font-size: 1.1em;
-    animation: moveHorizontal 1s forwards;
-    -webkit-animation: moveHorizontal 1s forwards;
-    position: relative;
-    animation-delay: .1s; }
-  #landing__createProfile button {
-    animation: moveHorizontal 1s forwards;
-    -webkit-animation: moveHorizontal 1s forwards;
-    position: relative;
-    animation-delay: .2s; }
-  #landing__createProfile img {
-    animation: moveHorizontal 1s forwards;
-    -webkit-animation: moveHorizontal 1s forwards;
-    position: relative;
-    animation-delay: .3s; }
+.landing__hero__copy__tagline {
+  color: #006ECC; }
 
-#landing__trustedPartners {
-  width: 100vw;
-  height: 30em;
+.landing__hero__copy__text {
+  color: #006ECC; }
+
+.landing__overview {
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-content: center;
   align-items: center;
-  overflow: hidden;
-  position: relative; }
-  #landing__trustedPartners button {
-    padding: 1.6em 2.4em;
-    border-radius: 3em;
-    font-size: 1.1em; }
-  #landing__trustedPartners h3 {
-    text-align: center;
-    z-index: 1;
-    display: block;
-    margin-bottom: 2em;
-    margin-top: 3em; }
-  #landing__trustedPartners #landing__partnerList {
-    display: flex;
-    z-index: 1; }
-  #landing__trustedPartners .partnerCos {
-    flex: 1;
-    z-index: 1;
-    margin: .5em 4vw;
-    width: 30vw; }
+  flex-direction: column;
+  height: 400px; }
 
-#landing__build {
-  text-align: center;
-  margin: 7em 0 7em 0;
-  display: inline-block;
-  position: relative;
-  width: 100%; }
-  #landing__build button {
-    padding: 1.6em 2.4em;
-    border-radius: 3em;
-    font-size: 1.1em;
-    margin-top: 2em; }
-  #landing__build p {
-    margin-top: .5em;
-    font-size: 1.1em;
-    line-height: 1.4em; }
-  #landing__build h2 {
-    font-size: 2.8em; }
+.landing__developers {
+  background-color: #006ECC;
+  height: 400px; }
 
 @keyframes moveHorizontal {
   from {
@@ -529,3 +460,102 @@
     top: 8em;
     left: 27.5vw;
     z-index: 2; } }
+
+#landing {
+  background-color: white;
+  position: relative;
+  background-color: white;
+  overflow: hidden; }
+
+#landing__splash {
+  position: relative;
+  padding: 11em 10% 4em;
+  height: 26em;
+  display: inline-block;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  background-color: white; }
+  #landing__splash h1 {
+    font-size: 3em;
+    font-weight: 800; }
+  #landing__splash button {
+    padding: 1.6em 2.4em;
+    border-radius: 3em;
+    font-size: .9em; }
+
+#landing__createProfile {
+  width: 60%;
+  display: inline-block;
+  float: left;
+  position: relative;
+  animation: fadeIn 1.25s forwards;
+  -webkit-animation: fadeIn 1.25s forwards; }
+  #landing__createProfile h1 {
+    animation: moveHorizontal 1s forwards;
+    -webkit-animation: moveHorizontal 1s forwards;
+    position: relative; }
+  #landing__createProfile p {
+    margin-top: .5em;
+    font-size: 1.1em;
+    animation: moveHorizontal 1s forwards;
+    -webkit-animation: moveHorizontal 1s forwards;
+    position: relative;
+    animation-delay: .1s; }
+  #landing__createProfile button {
+    animation: moveHorizontal 1s forwards;
+    -webkit-animation: moveHorizontal 1s forwards;
+    position: relative;
+    animation-delay: .2s; }
+  #landing__createProfile img {
+    animation: moveHorizontal 1s forwards;
+    -webkit-animation: moveHorizontal 1s forwards;
+    position: relative;
+    animation-delay: .3s; }
+
+#landing__trustedPartners {
+  width: 100vw;
+  height: 30em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative; }
+  #landing__trustedPartners button {
+    padding: 1.6em 2.4em;
+    border-radius: 3em;
+    font-size: 1.1em; }
+  #landing__trustedPartners h3 {
+    text-align: center;
+    z-index: 1;
+    display: block;
+    margin-bottom: 2em;
+    margin-top: 3em; }
+  #landing__trustedPartners #landing__partnerList {
+    display: flex;
+    z-index: 1; }
+  #landing__trustedPartners .partnerCos {
+    flex: 1;
+    z-index: 1;
+    margin: .5em 4vw;
+    width: 30vw; }
+
+#landing__build {
+  text-align: center;
+  margin: 7em 0 7em 0;
+  display: inline-block;
+  position: relative;
+  width: 100%; }
+  #landing__build button {
+    padding: 1.6em 2.4em;
+    border-radius: 3em;
+    font-size: 1.1em;
+    margin-top: 2em; }
+  #landing__build p {
+    margin-top: .5em;
+    font-size: 1.1em;
+    line-height: 1.4em; }
+  #landing__build h2 {
+    font-size: 2.8em; }

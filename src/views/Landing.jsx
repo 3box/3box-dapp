@@ -156,7 +156,7 @@ class Landing extends Component {
           handleSignInUp={handleSignInUp}
         />
 
-        <LandingFooter />
+        {/* <LandingFooter /> */}
       </div>
     );
   }

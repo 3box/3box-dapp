@@ -9,115 +9,115 @@ import ConsensysSVG from '../assets/consensys.svg';
 import ThreeBoxGraphic from '../assets/3BoxGraphic.png';
 import PartnersBG from '../assets/PartnersBG.svg';
 import consensys from '../assets/consensys.png';
+import ThreeBoxLogo from './ThreeBoxLogo';
 import '../views/styles/Landing.css';
 
 const LandingBody = ({ isLoggedIn, handleSignInUp }) => (
   <div>
-    <img src={ThreeBoxGraphic} id="threeBoxGraphic" alt="ThreeBox Graphic" />
-
-    <div id="landing__splash" className={isLoggedIn ? 'removeBottomMargin' : undefined}>
-
-      <div id="landing__createProfile">
-        <h1 className="ae-1 landing__createProfile--text">Create an Ethereum Profile</h1>
-        <p className="lightOpacity thin landing__createProfile--subtext">Add your information once and share it across dapps.</p>
-        <div id="consensys">
-          <p className="lightOpacity thin">By </p>
-          <img src={consensys} alt="Consensys Logo" />
-        </div>
-
-        {!isLoggedIn && (
-          <div id="landing__button--center">
-            <button id="landing__createProfileButton" type="button" onClick={handleSignInUp}>
-              Create Profile
-            </button>
-          </div>)}
-      </div>
-
-      <div id="landing__profileCard">
-        <div id="landing__profileCard--margin">
-          <ProfileCard />
+    <div className="landing__hero">
+      <div className="landing__hero__copy">
+        <h1 className="landing__hero__copy__tagline">Social profiles for digital communities</h1>
+        <p className="landing__hero__copy__text">
+          Create a social profile for your Ethereum account
+          to start building trust, connection, and community
+          </p>
+        <div className="landing__hero__copy__buttons">
+          <button type="button">
+            Create Profile
+          </button>
+          <button type="button">
+            Join Discord
+          </button>
         </div>
       </div>
 
+      <div className="landing__hero__image">
+        <img src="" alt="Network and User" />
+      </div>
     </div>
 
-    <div id="landing__trustedPartners">
-      <h3 className="lightOpacity thin">TRUSTED BY PARTNERS</h3>
-      <div id="landing__partnerList">
-        <img src={ConsensysSVG} className="partnerCos" alt="Partners background" />
+    <div className="landing__overview">
+      <div className="landing__overview__logo">
+        <ThreeBoxLogo />
       </div>
-      <img src={PartnersBG} id="trustedPartners--bg" alt="Partners background" />
+
+      <div className="landing__overview__tagline">
+        <h2>Your social profile for web3 apps</h2>
+      </div>
+
+      <div className="landing__overview__diagram">
+        <div className="landing__overview__diagram__wrapper">
+          <img className="landing__overview__diagram__graphic" />
+          <p className="landing__overview__diagram__copy">
+            Create a profile to help others discover and recognize you.
+          </p>
+        </div>
+
+        <div className="landing__overview__diagram__wrapper">
+          <img className="landing__overview__diagram__graphic" />
+          <p className="landing__overview__diagram__copy">
+            Sign in to apps by sharing your profile with one click.
+          </p>
+        </div>
+
+        <div className="landing__overview__diagram__wrapper">
+          <img className="landing__overview__diagram__graphic" />
+          <p className="landing__overview__diagram__copy">
+            Collect data from apps to build a strong reputation.
+          </p>
+        </div>
+
+      </div>
     </div>
 
-    <img src={ThreeBoxGraphic} id="threeBoxGraphic2" alt="ThreeBox Graphic" />
+    <div className="landing__developers">
+      <div className="landing__developers__header">
+        FOR DEVELOPERS
+      </div>
+      <div className="landing__developers__tagline">
+        3Box is a social, peer-to-peer user data network
+      </div>
+      <div className="landing__developers__copy">
+        Install 3box.js to begin onboarding new users today
+      </div>
+      <div className="landing__developers__buttonWrapper">
+        <button type="button">
+          Profiles API
+        </button>
+        <button type="button">
+          Data Network
+        </button>
+      </div>
+      <div className="landing__developers__graphic">
 
-    <div id="landing__build">
-
-      <h2>Build with 3Box</h2>
-      <p className="lightOpacity thin">Scalable, open source, distributed database infrastructure for Ethereum.</p>
-      <a href="https://github.com/uport-project/3box">
-        <button type="button">Get started</button>
-      </a>
-
-      <div className="build__section">
-        <div className="build__section__text">
-          <div className="build__section__content">
-            <h3>Ethereum Profiles API</h3>
-            <p className="lightOpacity thin">Profiles API makes it easy to get and set information about users, with support for public and private data..</p>
-            <a href="https://github.com/uport-project/3box-js"><button type="button">Profiles API</button></a>
-          </div>
+      </div>
+      <div className="landing__developers__footer">
+        <div className="landing__developers__footer__links">
+          <ul>
+            <li className="landing__developers__footer__links__logo">Logo</li>
+            <li className="landing__developers__footer__links__linkWrapper">
+              <img src="" alt="Profile Link" />
+              Profiles
+            </li>
+            <li className="landing__developers__footer__links__linkWrapper">
+              <img src="" alt="API Link" />
+              API
+            </li>
+            <li className="landing__developers__footer__links__linkWrapper">
+              <img src="" alt="Network Link" />
+              Network
+            </li>
+            <li className="landing__developers__footer__links__linkWrapper">
+              <img src="" alt="Jobs Link" />
+              Jobs
+            </li>
+          </ul>
         </div>
-
-        <div className="build__graphic__profiles">
-
-          <div id="Michael" className="profileCardSmall">
-            <img src={Michael} className="profileCardSmall__user__picture" alt="profile" />
-            <div className="profileCardSmall__user__info">
-
-              <h4 className="profileCardSmall__user__name">Michael Sena</h4>
-
-              <div id="profile__network__icon" />
-              <p className="profileCardSmall__address">0x123456789</p>
-            </div>
-          </div>
-
-          <div id="Christian" className="profileCardSmall">
-            <img src={Christian} className="profileCardSmall__user__picture" alt="profile" />
-            <div className="profileCardSmall__user__info">
-
-              <h4 className="profileCardSmall__user__name">Christian Lundkvist</h4>
-
-              <div id="profile__network__icon" />
-              <p className="profileCardSmall__address">0x123456789</p>
-            </div>
-          </div>
-
-          <div id="Cristobal" className="profileCardSmall">
-            <img src={Cristobal} className="profileCardSmall__user__picture" alt="profile" />
-            <div className="profileCardSmall__user__info">
-
-              <h4 className="profileCardSmall__user__name">Cristobal Castillo</h4>
-
-              <div id="profile__network__icon" />
-              <p className="profileCardSmall__address">0x123456789</p>
-            </div>
-          </div>
+        <div className="landing__developers__footer__buttons">
+          <button type="button">Sign In</button>
+          <button type="button">Create Profile</button>
         </div>
       </div>
-
-      <div className="build__section">
-        <div className="build__section__text">
-          <div className="build__section__content">
-            <h3>Simple, Open Design</h3>
-            <p className="lightOpacity thin">Compatible with existing browsers, wallets, and dapps for a shared Web3 experience. Built on IPFS and Orbit DB.</p>
-            <a href="https://github.com/uport-project/3box"><button type="button">3Box DB Overview</button></a>
-          </div>
-        </div>
-        <div className="build__graphic__threeBox">
-          <img src={illustration} id="threeboxIllustration" alt="3Box Map" />
-        </div>
-      </div>
-
     </div>
   </div>
 );
