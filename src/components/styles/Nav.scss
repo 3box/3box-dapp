@@ -168,6 +168,11 @@ nav {
     cursor: pointer;
     border: 1px solid white;
     background-color: white;
+    color: $threeBoxBlue;
+  }
+
+  .landing__nav__createProfile:hover {
+    color: $threeBoxBlue;
   }
 }
 
@@ -201,6 +206,18 @@ nav {
 
   p {
     color: $threeBoxBlue !important;
+  }
+
+  .secondaryButton:hover {
+    color: white !important;
+  }
+
+  .landing__nav__createProfile:hover .landing__nav__createProfile{
+    background-color: $threeBoxBlueHover;
+  }
+
+  button:hover {
+    background-color: $threeBoxBlueHover !important;
   }
 }
 

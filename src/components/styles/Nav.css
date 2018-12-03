@@ -128,7 +128,10 @@ nav {
   #actionButtons button {
     cursor: pointer;
     border: 1px solid white;
-    background-color: white; }
+    background-color: white;
+    color: #006ECC; }
+  #actionButtons .landing__nav__createProfile:hover {
+    color: #006ECC; }
 
 #landing__nav {
   position: fixed;
@@ -156,6 +159,12 @@ nav {
     color: white !important; }
   .hide p {
     color: #006ECC !important; }
+  .hide .secondaryButton:hover {
+    color: white !important; }
+  .hide .landing__nav__createProfile:hover .landing__nav__createProfile {
+    background-color: #2c88da; }
+  .hide button:hover {
+    background-color: #2c88da !important; }
 
 #nav__reportBug {
   background-color: #f5f6f8;

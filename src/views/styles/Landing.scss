@@ -8,8 +8,6 @@
 }
 
 .landing__hero {
-  // margin-top: 240px;
-  margin-left: 11vw;
   height: 540px;
   display: flex;
   align-items: center;
@@ -19,6 +17,7 @@
 .landing__hero__copy {
   width: 36vw;
   margin-top: 200px;
+  margin-left: 11vw;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -31,7 +30,8 @@
 
 .landing__hero__copy__tagline {
   color: $threeBoxBlue;
-  margin-bottom: 12px;
+  margin-bottom: 22px;
+  font-size: 42px;
 }
 
 .landing__hero__copy__text {
@@ -39,6 +39,7 @@
   font-size: 16px;
   margin-bottom: 40px;
   line-height: 22px;
+  width: 350px;
 }
 
 .landing__hero__copy__buttons {
@@ -51,7 +52,8 @@
   position: relative;
   display: flex;
   justify-content: flex-end;
-  max-width: 45vw;
+  // max-width: 45vw;
+  max-width: 702px;
   width: 45vw;
   align-self: flex-start;
 
@@ -78,7 +80,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 86vw;
+  width: 74vw;
 }
 
 .landing__overview__diagram__wrapper {
@@ -91,20 +93,25 @@
 
 .landing__overview__diagram__copy {
   text-align: center;
+  width: 90%;
+  max-width: 220px;
+  line-height: 22px;
 }
 
 .landing__overview__tagline {
   h2 {
     color: $threeBoxBlue;
+    font-size: 32px;
   }
 
-  margin-bottom: 80px;
+  margin-bottom: 100px;
 }
 
 .landing__overview__logo {
-  margin-bottom: 45px;
+  margin-bottom: 30px;
+
   img {
-    width: 15vw;
+    width: 120px;
   }
 }
 
@@ -145,7 +152,7 @@
 .landing__developers__header {
   color: #CFE3FF;
   margin-bottom: 40px;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
 }
 
 .landing__developers__tagline {
@@ -333,7 +340,7 @@
   }
 }
 
-.landing__developers__footer__buttons--signIn{
+.landing__developers__footer__buttons--signIn {
   color: white !important;
   margin-right: 2vw;
 }
@@ -342,7 +349,7 @@
   background-color: transparent !important;
 }
 
-.landing__developers__footer__links__logoWrapper{
+.landing__developers__footer__links__logoWrapper {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -600,7 +607,7 @@
 
   .landing__hero__copy {
     width: 80vw;
-    margin-top: 180px;
+    margin: 180px 0 0 0;
     align-items: center;
   }
 
@@ -618,11 +625,14 @@
     margin-top: 32px;
     text-align: center;
     margin-bottom: 26px;
+    font-size: 32px;
+    line-height: 42px;
   }
 
   .landing__hero__copy__text {
     margin-bottom: 22px;
     text-align: center;
+    width: 80vw;
   }
 
   .landing__overview {
@@ -635,6 +645,10 @@
     width: 80vw;
     text-align: center;
     margin-bottom: 50px;
+
+    h2 {
+      font-size: 28px;
+    }
   }
 
   .landing__overview__diagram {
@@ -677,12 +691,12 @@
     margin-bottom: 30px;
   }
 
-  .landing__developers__footer__links{
+  .landing__developers__footer__links {
     margin-left: 6vw;
     padding: 0;
   }
 
-  .landing__developers__footer__buttons{
+  .landing__developers__footer__buttons {
     width: 70vw;
     display: flex;
     justify-content: flex-end;

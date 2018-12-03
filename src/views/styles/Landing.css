@@ -3,7 +3,6 @@
   font-size: 16px; }
 
 .landing__hero {
-  margin-left: 11vw;
   height: 540px;
   display: flex;
   align-items: center;
@@ -12,6 +11,7 @@
 .landing__hero__copy {
   width: 36vw;
   margin-top: 200px;
+  margin-left: 11vw;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -22,13 +22,15 @@
 
 .landing__hero__copy__tagline {
   color: #006ECC;
-  margin-bottom: 12px; }
+  margin-bottom: 22px;
+  font-size: 42px; }
 
 .landing__hero__copy__text {
   color: #006ECC;
   font-size: 16px;
   margin-bottom: 40px;
-  line-height: 22px; }
+  line-height: 22px;
+  width: 350px; }
 
 .landing__hero__copy__buttons button {
   margin-right: 14px; }
@@ -37,7 +39,7 @@
   position: relative;
   display: flex;
   justify-content: flex-end;
-  max-width: 45vw;
+  max-width: 702px;
   width: 45vw;
   align-self: flex-start; }
   .landing__hero__image img {
@@ -60,7 +62,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 86vw; }
+  width: 74vw; }
 
 .landing__overview__diagram__wrapper {
   width: 23vw;
@@ -70,17 +72,21 @@
   align-items: center; }
 
 .landing__overview__diagram__copy {
-  text-align: center; }
+  text-align: center;
+  width: 90%;
+  max-width: 220px;
+  line-height: 22px; }
 
 .landing__overview__tagline {
-  margin-bottom: 80px; }
+  margin-bottom: 100px; }
   .landing__overview__tagline h2 {
-    color: #006ECC; }
+    color: #006ECC;
+    font-size: 32px; }
 
 .landing__overview__logo {
-  margin-bottom: 45px; }
+  margin-bottom: 30px; }
   .landing__overview__logo img {
-    width: 15vw; }
+    width: 120px; }
 
 .landing__overview__diagram__graphic {
   width: 14vw;
@@ -113,7 +119,7 @@
 .landing__developers__header {
   color: #CFE3FF;
   margin-bottom: 40px;
-  letter-spacing: 4px; }
+  letter-spacing: 2px; }
 
 .landing__developers__tagline {
   color: white;
@@ -460,7 +466,7 @@
     justify-content: center; }
   .landing__hero__copy {
     width: 80vw;
-    margin-top: 180px;
+    margin: 180px 0 0 0;
     align-items: center; }
   .landing__hero__copy__profilecard--mobile {
     display: block;
@@ -471,10 +477,13 @@
   .landing__hero__copy__tagline {
     margin-top: 32px;
     text-align: center;
-    margin-bottom: 26px; }
+    margin-bottom: 26px;
+    font-size: 32px;
+    line-height: 42px; }
   .landing__hero__copy__text {
     margin-bottom: 22px;
-    text-align: center; }
+    text-align: center;
+    width: 80vw; }
   .landing__overview {
     margin-top: 146px;
     height: fit-content;
@@ -483,6 +492,8 @@
     width: 80vw;
     text-align: center;
     margin-bottom: 50px; }
+    .landing__overview__tagline h2 {
+      font-size: 28px; }
   .landing__overview__diagram {
     width: 80vw;
     flex-direction: column;

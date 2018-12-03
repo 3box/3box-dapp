@@ -39,7 +39,7 @@ const LandingBody = ({ isLoggedIn, handleSignInUp }) => (
     <div className="landing__hero">
       <div className="landing__hero__copy">
         <img src={ProfileCard} className="landing__hero__copy__profilecard--mobile" alt="Narwal Profile" />
-        <h1 className="landing__hero__copy__tagline">Social profiles for web3 applications</h1>
+        <h1 className="landing__hero__copy__tagline">Social profiles for <br /> web3 applications</h1>
         <p className="landing__hero__copy__text">
           Create a social profile for your Ethereum account
           to start building trust, connection, and community
@@ -66,7 +66,7 @@ const LandingBody = ({ isLoggedIn, handleSignInUp }) => (
       </div>
 
       <div className="landing__overview__tagline">
-        <h2>All your information in your control</h2>
+        <h2>All of your information in your control</h2>
       </div>
 
       <div className="landing__overview__diagram">

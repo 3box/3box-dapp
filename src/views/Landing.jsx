@@ -99,7 +99,7 @@ class Landing extends Component {
                 <p onClick={handleSignInUp}>
                   Sign in
                 </p>
-                <button onClick={handleSignInUp} className="secondaryButton" type="button">
+                <button onClick={handleSignInUp} className="landing__nav__createProfile " type="button">
                   Create profile
                 </button>
               </div>
