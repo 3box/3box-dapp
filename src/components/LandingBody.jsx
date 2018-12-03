@@ -45,12 +45,20 @@ const LandingBody = ({ isLoggedIn, handleSignInUp }) => (
           to start building trust, connection, and community
           </p>
         <div className="landing__hero__copy__buttons">
-          <button type="button">
+          <button
+            type="button"
+            onClick={handleSignInUp}
+          >
             Create Profile
           </button>
-          <button className="secondaryButton joinDiscord" type="button">
-            Join Discord
+          <a href="https://discord.gg/bevMe7w" target="_blank" rel="noopener noreferrer">
+            <button
+              className="secondaryButton joinDiscord"
+              type="button"
+            >
+              Join Discord
           </button>
+          </a>
         </div>
       </div>
 
@@ -108,12 +116,16 @@ const LandingBody = ({ isLoggedIn, handleSignInUp }) => (
       </p>
 
       <div className="landing__developers__buttonWrapper">
-        <button className="landing__developers__buttonWrapper__button" type="button">
-          Profiles API
+        <a href="https://github.com/3box/3box-js" target="_blank" rel="noopener noreferrer">
+          <button className="landing__developers__buttonWrapper__button" type="button">
+            Profiles API
+          </button>
+        </a>
+        {/* <a href="" target="_blank" rel="noopener noreferrer">
+          <button className="landing__developers__buttonWrapper__button" type="button">
+            Data Network
         </button>
-        <button className="landing__developers__buttonWrapper__button" type="button">
-          Data Network
-        </button>
+        </a> */}
       </div>
 
       <div className="landing__developers__graphic">
@@ -162,8 +174,16 @@ const LandingBody = ({ isLoggedIn, handleSignInUp }) => (
           </li> */}
         </ul>
         <div className="landing__developers__footer__buttons">
-          <p className="landing__developers__footer__buttons--signIn" type="button">Sign In</p>
-          <button className="landing__developers__footer__buttons--createProfile" type="button">Create Profile</button>
+          <p
+            className="landing__developers__footer__buttons--signIn"
+            type="button"
+            onClick={handleSignInUp}
+          >Sign In</p>
+          <button
+            className="landing__developers__footer__buttons--createProfile"
+            type="button"
+            onClick={handleSignInUp}
+          >Create Profile</button>
         </div>
       </div>
     </div>

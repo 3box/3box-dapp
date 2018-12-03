@@ -134,7 +134,8 @@
   width: 23vw;
   min-width: 260px;
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
+  justify-content: center;
   margin-bottom: 60px;
 }
 
@@ -157,7 +158,10 @@
 
 .landing__developers__tagline {
   color: white;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+  font-size: 32px;
+  text-align: center;
+  width: 80vw;
 }
 
 .landing__developers__copy {
@@ -321,6 +325,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-left: 3vw;
 }
 
 .landing__developers__footer__links__linkWrapper {
@@ -343,6 +348,7 @@
 .landing__developers__footer__buttons--signIn {
   color: white !important;
   margin-right: 2vw;
+  cursor: pointer;
 }
 
 .landing__developers__footer__buttons--signIn:hover {
@@ -678,6 +684,7 @@
 
   .landing__developers__tagline {
     width: 80vw;
+    font-size: 28px;
     text-align: center;
   }
 
