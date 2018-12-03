@@ -29,7 +29,8 @@ button {
   padding: 1em 1.5em;
   color: white;
   transition: background-color .4s ease;
-  font-family: 'Lato', sans-serif; }
+  font-family: 'Lato', sans-serif;
+  border: solid 1px #006ECC; }
   button:disabled {
     background: transparent;
     border: solid 1px #7a7a7a;

@@ -1,32 +1,280 @@
+.landing p {
+  color: #006ECC;
+  font-size: 16px; }
+
 .landing__hero {
-  margin-top: 240px;
-  margin-left: 14vw;
-  height: 400px; }
-
-.landing__hero__copy {
-  width: 36vw; }
-
-.landing__developers__footer {
+  margin-left: 11vw;
+  height: 540px;
   display: flex;
   align-items: center;
-  justify-content: center; }
+  justify-content: space-between; }
+
+.landing__hero__copy {
+  width: 36vw;
+  margin-top: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column; }
+
+.landing__hero__copy__profilecard--mobile {
+  display: none; }
 
 .landing__hero__copy__tagline {
-  color: #006ECC; }
+  color: #006ECC;
+  margin-bottom: 12px; }
 
 .landing__hero__copy__text {
-  color: #006ECC; }
+  color: #006ECC;
+  font-size: 16px;
+  margin-bottom: 40px;
+  line-height: 22px; }
+
+.landing__hero__copy__buttons button {
+  margin-right: 14px; }
+
+.landing__hero__image {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  max-width: 45vw;
+  width: 45vw;
+  align-self: flex-start; }
+  .landing__hero__image img {
+    position: absolute;
+    height: auto;
+    width: auto;
+    left: 0;
+    top: 0; }
 
 .landing__overview {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 400px; }
+  height: 400px;
+  margin-top: 240px;
+  margin-bottom: 200px; }
+
+.landing__overview__diagram {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 86vw; }
+
+.landing__overview__diagram__wrapper {
+  width: 23vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; }
+
+.landing__overview__diagram__copy {
+  text-align: center; }
+
+.landing__overview__tagline {
+  margin-bottom: 80px; }
+  .landing__overview__tagline h2 {
+    color: #006ECC; }
+
+.landing__overview__logo {
+  margin-bottom: 45px; }
+  .landing__overview__logo img {
+    width: 15vw; }
+
+.landing__overview__diagram__graphic {
+  width: 14vw;
+  margin-bottom: 40px; }
 
 .landing__developers {
   background-color: #006ECC;
-  height: 400px; }
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 126px 0 146px 0; }
+
+.landing__developers__buttonWrapper {
+  width: 23vw;
+  min-width: 260px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 60px; }
+
+.landing__developers__buttonWrapper__button {
+  background-color: transparent;
+  color: white;
+  border: 1px solid white; }
+  .landing__developers__buttonWrapper__button:hover {
+    background-color: white;
+    color: #006ECC; }
+
+.landing__developers__header {
+  color: #CFE3FF;
+  margin-bottom: 40px;
+  letter-spacing: 4px; }
+
+.landing__developers__tagline {
+  color: white;
+  margin-bottom: 24px; }
+
+.landing__developers__copy {
+  color: white !important;
+  margin-bottom: 40px; }
+
+.landing__developers__graphic {
+  position: relative;
+  width: 100vw;
+  height: 400px;
+  min-width: 800px;
+  margin-bottom: 60px; }
+
+.profPic1 {
+  position: absolute;
+  left: -1%;
+  top: 10px; }
+
+.profPic2 {
+  position: absolute;
+  left: 3%;
+  top: 140px; }
+
+.profPic3 {
+  position: absolute;
+  left: -2%;
+  top: 280px; }
+
+.profPic4 {
+  position: absolute;
+  left: 14%;
+  top: 70px; }
+
+.profPic5 {
+  position: absolute;
+  left: 10%;
+  top: 220px; }
+
+.profPic6 {
+  position: absolute;
+  left: 28%;
+  top: 10px; }
+
+.profPic7 {
+  position: absolute;
+  left: 33%;
+  top: 270px; }
+
+.profPic8 {
+  position: absolute;
+  left: 42%;
+  top: 40px; }
+
+.profPic9 {
+  position: absolute;
+  left: 57%;
+  top: 80px; }
+
+.profPic10 {
+  position: absolute;
+  left: 26%;
+  top: 140px; }
+
+.profPic11 {
+  position: absolute;
+  left: 46%;
+  top: 170px; }
+
+.profPic12 {
+  position: absolute;
+  left: 62%;
+  top: 235px; }
+
+.profPic13 {
+  position: absolute;
+  left: 76%;
+  top: 113px; }
+
+.profPic14 {
+  position: absolute;
+  left: 69%;
+  top: 00px; }
+
+.profPic15 {
+  position: absolute;
+  left: 77%;
+  top: 260px; }
+
+.profPic16 {
+  position: absolute;
+  left: 88%;
+  top: 190px; }
+
+.profPic17 {
+  position: absolute;
+  left: 86%;
+  top: 10px; }
+
+.profPic18 {
+  position: absolute;
+  left: 95%;
+  top: 90px; }
+
+.profPic19 {
+  position: absolute;
+  left: 100%;
+  top: 250px; }
+
+.profPic20 {
+  position: absolute;
+  left: 105%;
+  top: 00px; }
+
+.landing__developers__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 90px; }
+
+.landing__developers__footer__buttons {
+  margin-right: 4vw;
+  display: flex;
+  align-items: center; }
+
+.landing__developers__footer__links__logo {
+  width: 80px; }
+
+.landing__developers__footer__links {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.landing__developers__footer__links__linkWrapper p {
+  color: white !important;
+  margin-right: 30px; }
+
+.landing__developers__footer__buttons--createProfile {
+  border: 1px solid white;
+  color: white; }
+  .landing__developers__footer__buttons--createProfile:hover {
+    background-color: white;
+    color: #006ECC; }
+
+.landing__developers__footer__buttons--signIn {
+  color: white !important;
+  margin-right: 2vw; }
+
+.landing__developers__footer__buttons--signIn:hover {
+  background-color: transparent !important; }
+
+.landing__developers__footer__links__logoWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
 
 @keyframes moveHorizontal {
   from {
@@ -34,27 +282,12 @@
   to {
     left: 0px; } }
 
-#consensys {
-  margin-top: 1em;
-  opacity: .6; }
-  #consensys p {
-    display: inline-block;
-    margin-right: .5em;
-    font-size: 1em; }
-  #consensys img {
-    width: 7em;
-    display: inline-block;
-    opacity: .5; }
-
 #landing__profileCard {
   width: 40%;
   display: inline-block;
   animation: fadeIn 1.25s forwards;
   -webkit-animation: fadeIn 1.25s forwards;
   z-index: 1; }
-
-#landing__createProfileButton {
-  margin-top: 3.5em; }
 
 @keyframes moveVertical {
   from {
@@ -98,53 +331,6 @@
   50% {
     transform: translateY(10px); } }
 
-#trustedPartners--bg {
-  min-width: 100%;
-  position: absolute;
-  z-index: 0;
-  opacity: .07;
-  overflow: hidden; }
-
-.build__section {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 28em;
-  margin-top: 2em; }
-
-.build__section__text {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; }
-
-.build__section__content {
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  width: 60%;
-  text-align: left;
-  margin-left: auto;
-  margin-right: 3em; }
-  .build__section__content h3 {
-    font-size: 1.6em; }
-
-.build__graphic__profiles {
-  flex: 1;
-  position: relative;
-  height: 17em; }
-
-.build__graphic__threeBox {
-  flex: 1;
-  width: 60%;
-  position: relative;
-  display: flex;
-  justify-content: flex-start; }
-  .build__graphic__threeBox #threeboxIllustration {
-    width: 70%;
-    margin-left: 30px; }
-
 @keyframes scroll {
   0% {
     left: 800px; }
@@ -167,40 +353,6 @@
 .animateOnEvent .ae-1 {
   -webkit-animation-delay: 10ms;
   animation-delay: 10ms; }
-
-#Michael {
-  position: absolute;
-  top: 0;
-  left: 3vw;
-  z-index: 0; }
-
-#Christian {
-  position: absolute;
-  top: 4em;
-  left: 11vw;
-  z-index: 1; }
-
-#Cristobal {
-  position: absolute;
-  top: 8em;
-  left: 19vw;
-  z-index: 2; }
-
-#threeBoxGraphic {
-  position: absolute;
-  margin-right: -1.5em;
-  right: 0;
-  top: 7em;
-  opacity: .6;
-  z-index: 1; }
-
-#threeBoxGraphic2 {
-  position: absolute;
-  margin-left: 12em;
-  left: 0;
-  top: 53em;
-  transform: rotate(90deg);
-  opacity: .6; }
 
 #landing__footer {
   width: 100%;
@@ -303,6 +455,72 @@
   z-index: 1; }
 
 @media only screen and (max-width: 600px) {
+  .landing__hero {
+    margin: 0;
+    justify-content: center; }
+  .landing__hero__copy {
+    width: 80vw;
+    margin-top: 180px;
+    align-items: center; }
+  .landing__hero__copy__profilecard--mobile {
+    display: block;
+    width: 65vw;
+    height: auto; }
+  .landing__hero__image {
+    display: none; }
+  .landing__hero__copy__tagline {
+    margin-top: 32px;
+    text-align: center;
+    margin-bottom: 26px; }
+  .landing__hero__copy__text {
+    margin-bottom: 22px;
+    text-align: center; }
+  .landing__overview {
+    margin-top: 146px;
+    height: fit-content;
+    margin-bottom: 100px; }
+  .landing__overview__tagline {
+    width: 80vw;
+    text-align: center;
+    margin-bottom: 50px; }
+  .landing__overview__diagram {
+    width: 80vw;
+    flex-direction: column;
+    height: fit-content; }
+  .landing__overview__diagram__wrapper {
+    width: 58vw;
+    min-height: 200px;
+    margin-bottom: 20px; }
+  .landing__overview__diagram__graphic {
+    width: 40vw;
+    margin-bottom: 24px; }
+  .joinDiscord {
+    margin-right: 0 !important; }
+  .landing__developers {
+    padding: 80px 0 80px 0; }
+  .landing__developers__tagline {
+    width: 80vw;
+    text-align: center; }
+  .landing__developers__copy {
+    width: 80vw;
+    text-align: center; }
+  .landing__developers__graphic {
+    min-width: 165vw;
+    margin-bottom: 30px; }
+  .landing__developers__footer__links {
+    margin-left: 6vw;
+    padding: 0; }
+  .landing__developers__footer__buttons {
+    width: 70vw;
+    display: flex;
+    justify-content: flex-end; }
+  .landing__developers__footer__buttons--signIn {
+    margin-right: 5vw; }
+  .landing__overview__logo img {
+    width: 20vw;
+    opacity: .5; }
+  .landing__hero__copy__buttons {
+    display: none; }
   #landing p {
     font-size: 1em; }
   #threeBoxGraphic {

@@ -36,6 +36,7 @@ button {
   color: white;
   transition: background-color .4s ease;
   font-family: 'Lato', sans-serif;
+  border: solid 1px $threeBoxBlue;
 
   &:disabled {
     background: transparent;

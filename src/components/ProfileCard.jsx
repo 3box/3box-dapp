@@ -1,5 +1,4 @@
 import React from 'react';
-import Deva from '../assets/Deva.png';
 import GithubIcon from '../assets/GithubIcon.svg';
 import Email from '../assets/Email.svg';
 import Private from '../assets/Private.svg';
@@ -7,7 +6,7 @@ import './styles/ProfileCard.css';
 
 const ProfileCard = () => (
   <div className="profileCard">
-    <img src={Deva} id="profileCard__user__picture" alt="profile" />
+    <img id="profileCard__user__picture" alt="profile" />
     <div className="profileCard__user__info">
 
       <h2 id="profileCard__username">Deva the Unicorn</h2>

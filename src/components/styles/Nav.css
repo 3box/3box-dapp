@@ -123,9 +123,12 @@ nav {
   #actionButtons p {
     margin-right: 2vw;
     cursor: pointer;
-    font-weight: 400; }
+    font-weight: 400;
+    color: white; }
   #actionButtons button {
-    cursor: pointer; }
+    cursor: pointer;
+    border: 1px solid white;
+    background-color: white; }
 
 #landing__nav {
   position: fixed;
@@ -133,11 +136,12 @@ nav {
   width: 100vw;
   top: 0;
   z-index: 3;
-  border-bottom: none;
   -webkit-transition: all .5s ease;
   -moz-transition: all .5s ease;
   -o-transition: all .5s ease;
-  transition: all .5s ease; }
+  transition: all .5s ease;
+  background-color: transparent;
+  border-bottom: none; }
 
 .hide {
   border-bottom: 1px solid #E4E4E4 !important;
@@ -145,7 +149,13 @@ nav {
   -webkit-transition: all .5s ease;
   -moz-transition: all .5s ease;
   -o-transition: all .5s ease;
-  transition: all .5s ease; }
+  transition: all .5s ease;
+  background-color: white !important; }
+  .hide button {
+    background-color: #006ECC !important;
+    color: white !important; }
+  .hide p {
+    color: #006ECC !important; }
 
 #nav__reportBug {
   background-color: #f5f6f8;
@@ -207,7 +217,15 @@ nav {
   .nav__userPicture {
     margin-right: 6vw; }
   #actionButtons p {
-    margin-right: 5vw; }
+    margin-right: 5vw;
+    cursor: pointer;
+    font-weight: 400;
+    color: #006ECC; }
+  #actionButtons button {
+    cursor: pointer;
+    border: 1px solid #006ECC;
+    background-color: #006ECC;
+    color: white; }
   .nav__dropdown {
     display: block !important;
     position: fixed;

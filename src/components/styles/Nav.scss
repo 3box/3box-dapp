@@ -74,7 +74,7 @@ nav {
   display: none;
 }
 
-.nav__dropdown__wrapper{
+.nav__dropdown__wrapper {
   display: flex;
   // justify-content: center;
   align-items: center;
@@ -161,10 +161,13 @@ nav {
     margin-right: 2vw;
     cursor: pointer;
     font-weight: 400;
+    color: white;
   }
 
   button {
     cursor: pointer;
+    border: 1px solid white;
+    background-color: white;
   }
 }
 
@@ -174,11 +177,12 @@ nav {
   width: 100vw;
   top: 0;
   z-index: 3;
-  border-bottom: none;
   -webkit-transition: all .5s ease;
   -moz-transition: all .5s ease;
   -o-transition: all .5s ease;
   transition: all .5s ease;
+  background-color: transparent;
+  border-bottom: none;
 }
 
 .hide {
@@ -188,6 +192,16 @@ nav {
   -moz-transition: all .5s ease;
   -o-transition: all .5s ease;
   transition: all .5s ease;
+  background-color: white !important;
+
+  button {
+    background-color: $threeBoxBlue !important;
+    color: white !important;
+  }
+
+  p {
+    color: $threeBoxBlue !important;
+  }
 }
 
 #nav__reportBug {
@@ -271,6 +285,16 @@ nav {
   #actionButtons {
     p {
       margin-right: 5vw;
+      cursor: pointer;
+      font-weight: 400;
+      color: $threeBoxBlue;
+    }
+  
+    button {
+      cursor: pointer;
+      border: 1px solid $threeBoxBlue;
+      background-color: $threeBoxBlue;
+      color: white;
     }
   }
 
