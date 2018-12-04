@@ -1,3 +1,6 @@
+.info {
+  position: relative; }
+
 .info__page {
   display: flex;
   flex-direction: column;
@@ -5,17 +8,27 @@
 
 .info__banner {
   width: 100vw;
-  height: 14em;
+  height: 22em;
   background-color: #006ECC;
   display: flex;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  flex-direction: column; }
   .info__banner h1 {
     color: white; }
+  .info__banner p {
+    color: white;
+    font-size: 16px;
+    margin-top: 32px;
+    width: 50vw;
+    line-height: 30px;
+    text-align: center; }
 
 .info__content {
   display: flex;
-  justify-content: center; }
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; }
 
 .info__content__text {
   width: 50vw;
@@ -27,3 +40,81 @@
     margin-bottom: .5em; }
   .info__content__text p {
     margin-bottom: 4em; }
+
+.info__content__jobWrapper {
+  display: flex;
+  margin-bottom: 50px;
+  justify-content: space-between; }
+
+.info__content__jobs {
+  width: 50vw;
+  margin-top: 120px;
+  margin-bottom: 150px; }
+
+.info__content__job__text {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 75%; }
+
+.info__content__job__link {
+  width: 20%;
+  min-width: 122px;
+  display: flex;
+  justify-content: flex-end; }
+
+.info__content__job__text__title {
+  color: #006ECC;
+  margin-bottom: 7px; }
+
+.info__content__job__text__description {
+  color: #4f7599;
+  margin-bottom: 10px;
+  font-size: 16px; }
+
+.info__content__job__text__location {
+  color: #9aacbd; }
+
+.info__content__contact__header {
+  color: #006ECC;
+  text-align: center;
+  margin-bottom: 16px; }
+
+.info__content__contact__body {
+  text-align: center;
+  color: #4f7599;
+  width: 34vw;
+  font-size: 16px;
+  margin-bottom: 20px; }
+  .info__content__contact__body a {
+    color: #006ECC;
+    font-weight: 700;
+    font-size: 16px;
+    margin: 0 4px 0 4px; }
+
+.info__content__contact {
+  margin: 100px 0 100px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; }
+
+@media only screen and (max-width: 600px) {
+  .info__banner p {
+    line-height: 24px;
+    margin-top: 16px;
+    width: 80vw; }
+  .info__content__jobs {
+    width: 80vw;
+    margin-top: 70px;
+    margin-bottom: 70px; }
+  .info__content__jobWrapper {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 70px; }
+  .info__content__job__text {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 28px;
+    align-items: center; } }

@@ -50,7 +50,10 @@ nav {
   margin-right: 12px; }
 
 #nav__logo--marginLeft {
-  margin-left: 3vw; }
+  margin-left: 3vw;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; }
 
 .nav__dropdown__mobileLogo {
   display: none; }
@@ -146,6 +149,16 @@ nav {
   background-color: transparent;
   border-bottom: none; }
 
+.landing__nav__link {
+  margin-left: 38px;
+  font-size: 16px;
+  color: #006ECC; }
+
+.landing__nav__link--footer {
+  margin-left: 38px;
+  font-size: 16px;
+  color: white; }
+
 .hide {
   border-bottom: 1px solid #E4E4E4 !important;
   height: 68px !important;
@@ -221,6 +234,14 @@ nav {
     transition: all .5s ease; }
   .bannerMargin {
     margin-top: 0; }
+  .landing__nav__link {
+    margin-left: 15px;
+    font-size: 14px;
+    font-weight: 400; }
+  .landing__nav__link--footer {
+    margin-left: 15px;
+    font-size: 14px;
+    font-weight: 400; }
   #nav__logo--marginLeft {
     margin-left: 6vw; }
   .nav__userPicture {
@@ -229,12 +250,14 @@ nav {
     margin-right: 5vw;
     cursor: pointer;
     font-weight: 400;
-    color: #006ECC; }
+    color: #006ECC;
+    font-size: 14px; }
   #actionButtons button {
     cursor: pointer;
     border: 1px solid #006ECC;
     background-color: #006ECC;
-    color: white; }
+    color: white;
+    font-size: 14px; }
   .nav__dropdown {
     display: block !important;
     position: fixed;

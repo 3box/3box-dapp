@@ -157,12 +157,12 @@ const LandingBody = ({ isLoggedIn, handleSignInUp }) => (
         <img src={Profile20} alt="User profile" className="landing__developers__graphic__userPic profPic20" />
       </div>
 
-      <div className="landing__developers__footer">
+      {/* <div className="landing__developers__footer">
         <ul className="landing__developers__footer__links">
           <li className="landing__developers__footer__links__logoWrapper">
             <img className="landing__developers__footer__links__logo" src={ThreeBoxLogoWhite} alt="Three Box Logo" />
           </li>
-          {/* <li className="landing__developers__footer__links__linkWrapper">
+          <li className="landing__developers__footer__links__linkWrapper">
             <p>
               Profiles
             </p>
@@ -171,7 +171,7 @@ const LandingBody = ({ isLoggedIn, handleSignInUp }) => (
             <p>
               Jobs
             </p>
-          </li> */}
+          </li>
         </ul>
         <div className="landing__developers__footer__buttons">
           <p
@@ -185,7 +185,7 @@ const LandingBody = ({ isLoggedIn, handleSignInUp }) => (
             onClick={handleSignInUp}
           >Create Profile</button>
         </div>
-      </div>
+      </div> */}
     </div>
   </div>
 );

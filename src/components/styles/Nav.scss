@@ -68,6 +68,9 @@ nav {
 
 #nav__logo--marginLeft {
   margin-left: 3vw;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .nav__dropdown__mobileLogo {
@@ -176,6 +179,8 @@ nav {
   }
 }
 
+
+
 #landing__nav {
   position: fixed;
   height: 88px;
@@ -188,6 +193,18 @@ nav {
   transition: all .5s ease;
   background-color: transparent;
   border-bottom: none;
+}
+
+.landing__nav__link {
+  margin-left: 38px;
+  font-size: 16px;
+  color: $threeBoxBlue;
+}
+
+.landing__nav__link--footer {
+  margin-left: 38px;
+  font-size: 16px;
+  color: white;
 }
 
 .hide {
@@ -212,7 +229,7 @@ nav {
     color: white !important;
   }
 
-  .landing__nav__createProfile:hover .landing__nav__createProfile{
+  .landing__nav__createProfile:hover .landing__nav__createProfile {
     background-color: $threeBoxBlueHover;
   }
 
@@ -291,6 +308,18 @@ nav {
     margin-top: 0;
   }
 
+  .landing__nav__link {
+    margin-left: 15px;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .landing__nav__link--footer {
+    margin-left: 15px;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
   #nav__logo--marginLeft {
     margin-left: 6vw;
   }
@@ -305,13 +334,15 @@ nav {
       cursor: pointer;
       font-weight: 400;
       color: $threeBoxBlue;
+      font-size: 14px;
     }
-  
+
     button {
       cursor: pointer;
       border: 1px solid $threeBoxBlue;
       background-color: $threeBoxBlue;
       color: white;
+      font-size: 14px;
     }
   }
 

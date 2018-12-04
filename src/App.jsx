@@ -7,6 +7,7 @@ import * as routes from './utils/routes';
 import Landing from './views/Landing';
 import Profile from './views/Profile';
 import EditProfile from './views/EditProfile';
+import Jobs from './views/Jobs';
 import Privacy from './views/Privacy';
 import Terms from './views/Terms';
 import history from './history';
@@ -331,6 +332,16 @@ class App extends Component {
           />
 
           <Route
+            path={routes.JOBS}
+            component={() => (
+              <Jobs
+                isLoggedIn={isLoggedIn}
+                handleSignInUp={this.handleSignInUp}
+              />
+            )}
+          />
+
+          <Route
             path={routes.PRIVACY}
             component={() => (
               <Privacy
@@ -351,6 +362,7 @@ class App extends Component {
           />
 
         </Switch>
+
       </div>
     );
   }

@@ -1,25 +1,18 @@
 import React from 'react';
 
 import Nav from '../components/Nav';
+import NavLoggedOut from '../components/NavLoggedOut';
+import Footer from '../components/Footer';
 import './styles/Info.css';
 import './styles/Landing.css';
 import ThreeBoxLogo from '../components/ThreeBoxLogo';
 
 const Privacy = ({ isLoggedIn, handleSignInUp }) => (
-  <div>
+  <div className="info">
     {!isLoggedIn
       ? (
-            <nav id="landing__nav" className='hide'>
-              <div id="nav__logo--marginLeft">
-                <ThreeBoxLogo />
-              </div>
-              <div id="actionButtons">
-                <p onClick={handleSignInUp}>Sign in</p>
-                <button onClick={handleSignInUp} className="secondaryButton" type="button">
-                  Create profile
-                </button>
-              </div>
-            </nav>)
+            <NavLoggedOut handleSignInUp={handleSignInUp}/>
+            )
       : (
         <Nav />
       )}
@@ -410,6 +403,10 @@ const Privacy = ({ isLoggedIn, handleSignInUp }) => (
       </div>
     </div>
   </div>
+  <Footer
+      handleSignInUp={handleSignInUp}
+      isLoggedIn={isLoggedIn}
+    />
   </div>
 );
 

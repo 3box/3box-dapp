@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
+import * as routes from '../utils/routes';
 
 import {
   closeErrorModal,
@@ -22,6 +23,7 @@ import {
   SignInToWalletModal,
 } from '../components/Modals';
 
+import Footer from '../components/Footer';
 import ThreeBoxLogo from '../components/ThreeBoxLogo';
 import Nav from '../components/Nav';
 import LandingFooter from '../components/LandingFooter';
@@ -94,6 +96,11 @@ class Landing extends Component {
             <nav id="landing__nav" className={`${downloadBanner ? 'bannerMargin' : ''} ${classHide}`}>
               <div id="nav__logo--marginLeft">
                 <ThreeBoxLogo />
+                <Link to={routes.JOBS}>
+                  <h4 className="landing__nav__link">
+                    Jobs
+                  </h4>
+                </Link>
               </div>
               <div id="actionButtons">
                 <p onClick={handleSignInUp}>
@@ -157,6 +164,10 @@ class Landing extends Component {
         />
 
         {/* <LandingFooter /> */}
+        <Footer
+          handleSignInUp={handleSignInUp}
+          isLoggedIn={isLoggedIn}
+        />
       </div>
     );
   }

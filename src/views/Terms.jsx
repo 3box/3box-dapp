@@ -2,28 +2,21 @@ import React from 'react';
 
 import './styles/Info.css';
 import Nav from '../components/Nav';
+import NavLoggedOut from '../components/NavLoggedOut';
+import Footer from '../components/Footer';
 import './styles/Landing.css';
 import ThreeBoxLogo from '../components/ThreeBoxLogo';
 
 const Terms = ({ isLoggedIn, handleSignInUp }) => (
-  <div>
+  <div className="info">
     {!isLoggedIn
       ? (
-        <nav id="landing__nav" className='hide'>
-          <div id="nav__logo--marginLeft">
-            <ThreeBoxLogo />
-          </div>
-          <div id="actionButtons">
-            <p onClick={handleSignInUp}>Sign in</p>
-            <button onClick={handleSignInUp} className="secondaryButton" type="button">
-                  Create profile
-            </button>
-          </div>
-        </nav>)
+        <NavLoggedOut handleSignInUp={handleSignInUp}/>
+      )
       : (
         <Nav />
       )}
-      
+     
     <div className="info__page">
 
       <div className="info__banner">
@@ -232,6 +225,10 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
     </div>
     </div>
 
+    <Footer
+      handleSignInUp={handleSignInUp}
+      isLoggedIn={isLoggedIn}
+    />
   </div>
 );
 

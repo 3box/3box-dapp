@@ -1,0 +1,18 @@
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  background-color: #004AA8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 90px; }
+
+@media only screen and (max-width: 600px) {
+  .landing__developers__footer__buttons--signIn {
+    font-size: 14px !important;
+    font-weight: 400; }
+  .landing__developers__footer__buttons--createProfile {
+    font-size: 14px !important;
+    font-weight: 400; } }
