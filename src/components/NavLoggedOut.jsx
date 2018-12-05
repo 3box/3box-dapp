@@ -14,9 +14,9 @@ const NavLoggedOut = ({ handleSignInUp }) => (
       </Link>
     </div>
     <div id="actionButtons">
-      <p onClick={handleSignInUp}>Sign in</p>
+      <p onClick={handleSignInUp}>Create Profile</p>
       <button onClick={handleSignInUp} className="secondaryButton" type="button">
-        Create profile
+        Sign In
       </button>
     </div>
   </nav>

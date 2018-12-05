@@ -1,5 +1,6 @@
 .info {
-  position: relative; }
+  position: relative;
+  height: fit-content; }
 
 .info__page {
   display: flex;
@@ -21,14 +22,15 @@
     font-size: 16px;
     margin-top: 32px;
     width: 50vw;
-    line-height: 30px;
+    line-height: 24px;
     text-align: center; }
 
 .info__content {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column; }
+  flex-direction: column;
+  margin-bottom: 400px; }
 
 .info__content__text {
   width: 50vw;
@@ -71,7 +73,8 @@
 .info__content__job__text__description {
   color: #4f7599;
   margin-bottom: 10px;
-  font-size: 16px; }
+  font-size: 16px;
+  line-height: 21px; }
 
 .info__content__job__text__location {
   color: #9aacbd; }
@@ -99,6 +102,9 @@
   justify-content: center;
   align-items: center;
   flex-direction: column; }
+
+.jobsPage {
+  background-color: white; }
 
 @media only screen and (max-width: 600px) {
   .info__banner p {

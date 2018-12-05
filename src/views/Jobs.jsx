@@ -7,7 +7,7 @@ import './styles/Landing.css';
 import NavLoggedOut from '../components/NavLoggedOut';
 
 const Jobs = ({ isLoggedIn, handleSignInUp }) => (
-  <div className="info">
+  <div className="info jobsPage">
     {!isLoggedIn
       ? (
         <NavLoggedOut handleSignInUp={handleSignInUp} />

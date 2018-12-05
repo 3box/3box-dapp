@@ -42,13 +42,13 @@ const Footer = ({ handleSignInUp, isLoggedIn }) => (
               className="landing__developers__footer__buttons--signIn"
               type="button"
               onClick={handleSignInUp}
-            >Sign In</p>
+            >Create Profile</p>
             <button
               className="landing__developers__footer__buttons--createProfile"
               type="button"
               onClick={handleSignInUp}
             >
-              Create Profile
+              Sign In
           </button>
           </div>)}
     </div>

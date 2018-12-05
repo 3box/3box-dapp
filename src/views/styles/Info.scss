@@ -2,6 +2,7 @@
 
 .info {
   position: relative;
+  height: fit-content;
 }
 
 .info__page {
@@ -28,7 +29,7 @@
     font-size: 16px;
     margin-top: 32px;
     width: 50vw;
-    line-height: 30px;
+    line-height: 24px;
     text-align: center;
   }
 }
@@ -38,6 +39,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-bottom: 400px;
 }
 
 .info__content__text {
@@ -92,6 +94,7 @@
   color: $lightBlueFont;
   margin-bottom: 10px;
   font-size: 16px;
+  line-height: 21px;
 }
 
 .info__content__job__text__location {
@@ -126,6 +129,10 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.jobsPage{
+  background-color: white;
 }
 
 @media only screen and (max-width: 600px) {
