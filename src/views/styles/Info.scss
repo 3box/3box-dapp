@@ -131,7 +131,7 @@
   flex-direction: column;
 }
 
-.jobsPage{
+.jobsPage {
   background-color: white;
 }
 
@@ -148,19 +148,30 @@
     margin-bottom: 70px;
   }
 
-  .info__content__jobWrapper{
+  .info__content__jobWrapper {
     flex-direction: column;
     align-items: center;
     margin-bottom: 70px;
   }
 
-  .info__content__job__text{
+  .info__content__job__text {
     width: 100%;
-    text-align: center;
-    margin-bottom: 28px;
-    align-items: center;
+    text-align: left;
+    margin-bottom: 32px;
+    align-items: flex-start;
   }
 
-  .info__content__job__link{
+  .info__content__job__text__title {
+    margin-bottom: 12px;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .info__content__job__text__description {
+    margin-bottom: 18px;
+  }
+
+  .info__content__contact__body {
+    width: 80vw;
   }
 }

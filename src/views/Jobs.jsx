@@ -74,13 +74,13 @@ const Jobs = ({ isLoggedIn, handleSignInUp }) => (
             <div className="info__content__job__text">
               <h2 className="info__content__job__text__title">
                 Product Manager
-            </h2>
+              </h2>
               <p className="info__content__job__text__description">
                 We are seeking a Product Manager to own and grow our 3Box dapp.
-            </p>
+              </p>
               <p className="info__content__job__text__location">
                 Location: Remote
-            </p>
+              </p>
             </div>
             <div className="info__content__job__link">
               <a href="https://www.notion.so/3Box-Product-Manager-a49f9a807d74467796d7c54e293f407b" target="_blank" rel="noopener noreferrer">
