@@ -104,7 +104,7 @@ class Landing extends Component {
               </div>
               <div id="actionButtons">
                 <p onClick={handleSignInUp}>
-                  Create profile
+                  Create Profile
                 </p>
                 <button onClick={handleSignInUp} className="landing__nav__createProfile " type="button">
                   Sign In
