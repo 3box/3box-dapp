@@ -99,7 +99,8 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 126px 0 146px 0; }
+  padding: 126px 0 146px 0;
+  margin-bottom: 400px; }
 
 .landing__developers__buttonWrapper {
   width: 23vw;
@@ -249,35 +250,12 @@
   width: 100vw;
   height: 90px; }
 
-.landing__developers__footer__buttons {
-  margin-right: 4vw;
-  display: flex;
-  align-items: center; }
-
 .landing__developers__footer__links__logo {
   width: 80px; }
-
-.landing__developers__footer__links {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-left: 3vw; }
 
 .landing__developers__footer__links__linkWrapper p {
   color: white !important;
   margin-right: 30px; }
-
-.landing__developers__footer__buttons--createProfile {
-  border: 1px solid white;
-  color: white; }
-  .landing__developers__footer__buttons--createProfile:hover {
-    background-color: white;
-    color: #006ECC; }
-
-.landing__developers__footer__buttons--signIn {
-  color: white !important;
-  margin-right: 2vw;
-  cursor: pointer; }
 
 .landing__developers__footer__buttons--signIn:hover {
   background-color: transparent !important; }
@@ -524,13 +502,6 @@
   .landing__developers__graphic {
     min-width: 165vw;
     margin-bottom: 30px; }
-  .landing__developers__footer__links {
-    margin-left: 6vw;
-    padding: 0; }
-  .landing__developers__footer__buttons {
-    width: 70vw;
-    display: flex;
-    justify-content: flex-end; }
   .landing__developers__footer__buttons--signIn {
     margin-right: 5vw; }
   .landing__overview__logo img {
