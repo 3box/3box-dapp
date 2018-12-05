@@ -47,7 +47,8 @@
   background: transparent;
   color: #b8b8b8;
   padding: 0;
-  transition: color .8s ease; }
+  transition: color .8s ease;
+  border: none; }
   .statusUpdate__button:hover {
     background: transparent; }
 
