@@ -96,7 +96,7 @@ const Jobs = ({ isLoggedIn, handleSignInUp }) => (
             <p className="info__content__contact__body">
               Email
               <a href="mailto:team@3box.io">
-                team@3box.io
+                jobs@3box.io
               </a>
               with your details, experience, desired role, and a note
               on why we should create a role for you.

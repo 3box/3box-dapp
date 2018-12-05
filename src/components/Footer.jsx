@@ -70,17 +70,17 @@ const Footer = ({ handleSignInUp, isLoggedIn }) => (
       </ul>
 
       <ul className="footer__gutter__social">
-        <a href="https://github.com/uport-project/3box">
+        <a href="https://github.com/uport-project/3box" target="_blank" rel="noopener noreferrer">
           <img src={GithubIconWhite} className="footer__socialIcons" alt="Partners background" />
         </a>
-        <a href="https://twitter.com/3boxdb" title="Twitter">
+        <a href="https://twitter.com/3boxdb" title="Twitter" target="_blank" rel="noopener noreferrer">
           <img src={Twitter} className="footer__socialIcons" alt="Github Icon" />
         </a>
-        <a href="https://discordapp.com/channels/484729862368526356/485438421054128128" title="Discord">
-          <img src={Discord} className="footer__socialIcons" alt="Github Icon" />
+        <a href="https://discordapp.com/channels/484729862368526356/485438421054128128" title="Discord" target="_blank" rel="noopener noreferrer">
+          <img src={Discord} className="footer__socialIcons" alt="Discord Icon" />
         </a>
-        <a href="https://discordapp.com/channels/484729862368526356/485438421054128128" title="Discord">
-          <img src={Email} className="footer__socialIcons" alt="Github Icon" />
+        <a href="mailto:community@3box.io" title="Email" target="_blank" rel="noopener noreferrer">
+          <img src={Email} className="footer__socialIcons" alt="Email Icon" />
         </a>
       </ul>
     </div>
