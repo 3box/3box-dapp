@@ -27,7 +27,7 @@ const Footer = ({ handleSignInUp, isLoggedIn }) => (
       </ul>
 
       <div id="footer__mailChimp">
-        <p>Subscribe to our newsletter</p>
+        {/* <p>Subscribe to our newsletter</p> */}
         <MailChimp />
       </div>
     </div>
@@ -89,29 +89,3 @@ const Footer = ({ handleSignInUp, isLoggedIn }) => (
 );
 
 export default Footer;
-
-// <div className="landing__developers__footer">
-//   <ul className="landing__developers__footer__links">
-//     <li className="landing__developers__footer__links__logoWrapper">
-//       {/* <img className="landing__developers__footer__links__logo" src={ThreeBoxLogoWhite} alt="Three Box Logo" /> */}
-//     </li>
-//     {/*
-//   <li className="landing__developers__footer__links__linkWrapper">
-//     <p>
-//       Jobs
-//     </p>
-//   </li> */}
-//   </ul>
-//   <div className="landing__developers__footer__buttons">
-//     <p
-//       className="landing__developers__footer__buttons--signIn"
-//       type="button"
-//       onClick={handleSignInUp}
-//     >Sign In</p>
-//     <button
-//       className="landing__developers__footer__buttons--createProfile"
-//       type="button"
-//       onClick={handleSignInUp}
-//     >Create Profile</button>
-//   </div>
-// </div>

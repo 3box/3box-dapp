@@ -272,6 +272,9 @@
     width: 85vw;
     display: flex;
     justify-content: flex-start; }
+    #mobile__landing__prompt__logo img {
+      width: 85px;
+      height: 30px; }
     #mobile__landing__prompt__logo #logo__icon {
       margin-left: 0;
       background-color: white; }
@@ -305,6 +308,8 @@
   display: flex;
   align-items: center;
   justify-content: center; }
+  #logo img {
+    width: 110px; }
 
 #logo__icon {
   width: 28px;

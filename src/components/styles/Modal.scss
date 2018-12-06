@@ -359,6 +359,11 @@
     display: flex;
     justify-content: flex-start;
 
+    img {
+      width: 85px;
+      height: 30px;
+    }
+
     #logo__icon {
       margin-left: 0;
       background-color: white;
@@ -411,6 +416,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  img {
+    width: 110px;
+  }
 }
 
 #logo__icon {

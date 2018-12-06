@@ -4,7 +4,6 @@ import HeroImage from '../assets/HeroImage.png';
 import Diagram1 from '../assets/Diagram1.svg';
 import Diagram2 from '../assets/Diagram2.svg';
 import Diagram3 from '../assets/Diagram3.svg';
-import ThreeBoxLogoWhite from '../assets/ThreeBoxLogoWhite.svg';
 import ThreeBoxLogoBlue from '../assets/ThreeBoxLogoBlue.svg';
 import ProfileCard from '../assets/ProfileCard.png';
 
@@ -29,9 +28,7 @@ import Profile18 from '../assets/Profile18.png';
 import Profile19 from '../assets/Profile19.png';
 import Profile20 from '../assets/Profile20.png';
 
-import ThreeBoxLogo from './ThreeBoxLogo';
 import '../views/styles/Landing.css';
-// import ProfileCard from './ProfileCard.jsx';
 
 const LandingBody = ({ isLoggedIn, handleSignInUp }) => (
   <div className="landing">
@@ -69,7 +66,6 @@ const LandingBody = ({ isLoggedIn, handleSignInUp }) => (
 
     <div className="landing__overview">
       <div className="landing__overview__logo">
-        {/* <ThreeBoxLogo /> */}
         <img src={ThreeBoxLogoBlue} alt="3Box Logo Blue" />
       </div>
 
@@ -157,35 +153,6 @@ const LandingBody = ({ isLoggedIn, handleSignInUp }) => (
         <img src={Profile20} alt="User profile" className="landing__developers__graphic__userPic profPic20" />
       </div>
 
-      {/* <div className="landing__developers__footer">
-        <ul className="landing__developers__footer__links">
-          <li className="landing__developers__footer__links__logoWrapper">
-            <img className="landing__developers__footer__links__logo" src={ThreeBoxLogoWhite} alt="Three Box Logo" />
-          </li>
-          <li className="landing__developers__footer__links__linkWrapper">
-            <p>
-              Profiles
-            </p>
-          </li>
-          <li className="landing__developers__footer__links__linkWrapper">
-            <p>
-              Jobs
-            </p>
-          </li>
-        </ul>
-        <div className="landing__developers__footer__buttons">
-          <p
-            className="landing__developers__footer__buttons--signIn"
-            type="button"
-            onClick={handleSignInUp}
-          >Sign In</p>
-          <button
-            className="landing__developers__footer__buttons--createProfile"
-            type="button"
-            onClick={handleSignInUp}
-          >Create Profile</button>
-        </div>
-      </div> */}
     </div>
   </div>
 );

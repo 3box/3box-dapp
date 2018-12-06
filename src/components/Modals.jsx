@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 
 import * as routes from '../utils/routes';
 import Status from '../assets/Status.png';
-import ThreeBoxLogo from './ThreeBoxLogo.jsx';
 import getCoinbaseWallet from '../assets/getCoinbaseWallet.svg';
+import ThreeBoxLogoWhite from '../assets/ThreeBoxLogoWhite.svg';
+import ThreeBoxLogoBlue from '../assets/ThreeBoxLogoBlue.svg';
 import TrustWallet from '../assets/TrustWallet.png';
 import Consent from '../assets/Consent.png';
 import Access from '../assets/Access.png';
@@ -64,7 +65,7 @@ export const LoggedOutModal = ({
           <div>
             <h3>
               Logged out
-          </h3>
+             </h3>
             {isMobile
               ? <p>Sign back in to your web3 wallet or exit 3Box</p>
               : <p>Sign back in to your MetaMask wallet or exit 3Box</p>
@@ -203,10 +204,7 @@ export const LoadingThreeBoxProfileModal = ({ show }) => (
 
         <div>
           <div id="logo" className="modal__loading3Box">
-            <div id="logo__icon">
-              <h2>3</h2>
-            </div>
-            <h2 id="logo__text"> BOX </h2>
+          <img src={ThreeBoxLogoBlue} alt="3Box Logo" />
           </div>
           <p>LOADING</p>
         </div>
@@ -320,7 +318,7 @@ export const MustConsentModal = ({ closeErrorModal, show, isMobile }) => (
       <div className="modal">
         <img src={Consent} alt="Consent required" />
         <div id="modal__copy__card">
-          <h3>Log in to 3Box</h3>
+          <h3>Sign in to 3Box</h3>
           {isMobile
             ? <p>You must provide consent to 3Box in your web3 wallet to sign in or create a profile, please try again</p>
             : <p>You must provide consent to 3Box in MetaMask to sign in or create a profile, please try again</p>
@@ -338,10 +336,7 @@ export const SignInToThreeBox = ({ handleSignInModal, show }) => (
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
       <div className="modal">
         <div id="logo" className="modal__loading3Box">
-          <div id="logo__icon">
-            <h2>3</h2>
-          </div>
-          <h2 id="logo__text"> BOX </h2>
+          <img src={ThreeBoxLogoBlue} alt="3Box Logo" />
         </div>
 
         <div id="modal__copy__card">
@@ -361,7 +356,7 @@ export const SignInToThreeBox = ({ handleSignInModal, show }) => (
 export const MobileWalletRequiredModal = ({ isIOS, handleMobileWalletModal, show }) => (
   <div id="mobile__landing__prompt" className={`${show ? 'showMobileModal' : 'hideMobileModal'}`}>
     <div id="mobile__landing__prompt__logo">
-      <ThreeBoxLogo />
+      <img src={ThreeBoxLogoWhite} alt="3Box Logo" />
     </div>
 
     <div id="mobile__landing__prompt__text">

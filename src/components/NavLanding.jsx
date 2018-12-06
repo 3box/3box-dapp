@@ -5,7 +5,6 @@ import ThreeBoxLogoWhite from '../assets/ThreeBoxLogoWhite.svg';
 import ThreeBoxLogoBlue from '../assets/ThreeBoxLogoBlue.svg';
 import '../views/styles/Landing.css';
 import './styles/Nav.css';
-// import ThreeBoxLogo from './ThreeBoxLogo';
 
 const NavLanding = ({
   handleSignInUp,
@@ -19,8 +18,6 @@ const NavLanding = ({
 }) => (
     <nav id="landing__nav" className={`${downloadBanner ? 'bannerMargin' : ''} ${classHide} ${landing}`}>
       <div id="nav__logo--marginLeft">
-        {/* <ThreeBoxLogo /> */}
-
         <Link to={routes.LANDING}>
           {(classHide || landing)
             ? <img src={ThreeBoxLogoBlue} alt="" className="landing__nav__logo" />

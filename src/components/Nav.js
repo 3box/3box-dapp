@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 
-import ThreeBoxLogo from './ThreeBoxLogo';
+import ThreeBoxLogo from '../assets/ThreeBoxLogoBlue.svg';
 import { handleSignOut } from '../state/actions';
 import * as routes from '../utils/routes';
 import Profile from '../assets/Profile.svg';
@@ -43,7 +43,7 @@ class Nav extends Component {
     return (
       <nav>
         <div id="nav__logo--marginLeft">
-          <ThreeBoxLogo />
+          <img src={ThreeBoxLogo} alt="" className="landing__nav__logo" />
         </div>
 
         <div id="nav__networkStatus">
@@ -94,7 +94,8 @@ class Nav extends Component {
         <div className={`${showProfileModal ? 'sideDrawer' : undefined} nav__dropdown mobileDropDown`} onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
           <ul>
             <div className='nav__dropdown__mobileLogo'>
-              <ThreeBoxLogo />
+            <img src={ThreeBoxLogo} alt="" className="landing__nav__logo" />
+              
             </div>
             <Link to={routes.PROFILE}><li className={pathname === '/Profile' ? 'nav__activePage' : ''}>Profile</li></Link>
             <Link to={routes.EDITPROFILE}><li className={pathname === '/EditProfile' ? 'nav__activePage' : ''}>Edit profile</li></Link>

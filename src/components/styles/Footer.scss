@@ -113,19 +113,18 @@
 
   input {
     display: inline-block;
-    border-bottom-left-radius: 5px;
-    border-top-left-radius: 5px;
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
+    border-radius: 26px;
     border-style: none;
-    height: 44px;
+    height: 52px;
     max-width: 70%;
-    padding: 0 15px;
+    width: 300px;
+    padding: 0 25px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     background-color: white;
     color: $threeBoxBlueDeeper;
+    margin-right: 15px;
 
     &::placeholder {
       color: $threeBoxBlueDeeper;
@@ -147,12 +146,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom-right-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
-    height: 44px;
     padding: 0 20px;
+    border-radius: 26px;
+    border-style: none;
+    height: 52px;
   }
 }
 
