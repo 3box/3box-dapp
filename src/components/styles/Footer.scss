@@ -171,6 +171,12 @@
   align-items: center;
 }
 
+.landing__nav__link--footer {
+  margin-left: 38px;
+  font-size: 16px;
+  color: white;
+}
+
 @media only screen and (max-width: 600px) {
   .landing__developers__footer__buttons--signIn {
     font-size: 14px !important;
@@ -178,8 +184,22 @@
     margin-right: 10vw;
   }
 
+  .landing__developers__footer__links__logo {
+    margin-bottom: 16px;
+  }
+
+  .landing__developers__footer__links__logoWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 40px;
+  }
+
   .landing__nav__link--footer {
-    display: none;
+    margin-left: 0;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 400;
   }
 
   .landing__developers__footer__buttons--createProfile {
@@ -202,11 +222,21 @@
 
   .footer__tabs {
     flex-direction: column;
+    height: 180px;
+    padding-bottom: 60px;
+    padding-top: 40px;
+    align-items: flex-start;
   }
 
   #footer__mailChimp {
-    margin: 0;
+    margin: 0 0 0 19px;
     align-items: center;
+    width: 90vw;
+
+    input {
+      width: 60vw;
+      max-width: 80vw;
+    }
   }
 
   .footer__signIn__tagline {
@@ -214,7 +244,10 @@
   }
 
   .footer__signIn {
-    flex-direction: column;
-    justify-content: center;
+    display: none;
+  }
+
+  .landing__developers{
+    margin-bottom: 280px;
   }
 }

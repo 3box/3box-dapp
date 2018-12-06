@@ -223,12 +223,6 @@ nav {
   color: $threeBoxBlue !important;
 }
 
-.landing__nav__link--footer {
-  margin-left: 38px;
-  font-size: 16px;
-  color: white;
-}
-
 .hide .landing__nav__link {
   color: $threeBoxBlue !important;
 }
@@ -375,21 +369,8 @@ nav {
     p {
       color: $threeBoxBlue !important;
     }
-
     button {
-      color: $threeBoxBlue !important;
-    }
-  }
-
-  #actionButtons {
-    p {
       color: white;
-    }
-
-    button {
-      background-color: transparent !important;
-      color: white;
-      border: none;
     }
   }
 
@@ -400,7 +381,8 @@ nav {
   }
 
   .landing .landing__nav__createProfile {
-    color: $threeBoxBlue;
+    color: white !important;
+    background-color: $threeBoxBlue !important;
   }
 
   .bannerMargin {
@@ -414,12 +396,6 @@ nav {
     display: none;
   }
 
-  .landing__nav__link--footer {
-    margin-left: 15px;
-    font-size: 14px;
-    font-weight: 400;
-  }
-
   #nav__logo--marginLeft {
     margin-left: 6vw;
   }
@@ -429,17 +405,20 @@ nav {
   }
 
   #actionButtons {
+    margin-right: 5vw;
+
     p {
-      margin-right: 0;
       cursor: pointer;
       font-weight: 400;
       font-size: 14px;
+      color: white;
+      margin-right: 6vw;
     }
 
     button {
       cursor: pointer;
       font-size: 14px;
-      padding: 10px 16px;
+      border: none;
     }
   }
 

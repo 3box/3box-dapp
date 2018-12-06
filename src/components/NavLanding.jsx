@@ -44,13 +44,15 @@ const NavLanding = ({
         <button onClick={handleSignInUp} className={`landing__nav__createProfile ${landing}`} type="button">
           Sign In
       </button>
-        {isMobile
+      
+        {/* {isMobile
           && (
             <div className={`landing__nav__mobileMenu ${landing}`} onClick={handleSideNav}>
               <div className="bar1"></div>
               <div className="bar1"></div>
               <div className="bar1"></div>
-            </div>)}
+            </div>)} */}
+
       </div>
 
       {showSideNav

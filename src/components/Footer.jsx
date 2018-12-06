@@ -18,10 +18,15 @@ const Footer = ({ handleSignInUp, isLoggedIn }) => (
       <ul className="landing__developers__footer__links">
         <li className="landing__developers__footer__links__logoWrapper">
           <img className="landing__developers__footer__links__logo" src={ThreeBoxLogoWhite} alt="Three Box Logo" />
+          <Link to={routes.CREATEPROFILE}>
+            <h4 className="landing__nav__link--footer">
+              Profiles
+            </h4>
+          </Link>
           <Link to={routes.JOBS}>
             <h4 className="landing__nav__link--footer">
               Jobs
-          </h4>
+            </h4>
           </Link>
         </li>
       </ul>

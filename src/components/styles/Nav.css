@@ -173,11 +173,6 @@ nav {
 .landing.hide .createProfileLInk {
   color: #1168df !important; }
 
-.landing__nav__link--footer {
-  margin-left: 38px;
-  font-size: 16px;
-  color: white; }
-
 .hide .landing__nav__link {
   color: #1168df !important; }
 
@@ -290,17 +285,12 @@ nav {
   .hide #actionButtons p {
     color: #1168df !important; }
   .hide #actionButtons button {
-    color: #1168df !important; }
-  #actionButtons p {
     color: white; }
-  #actionButtons button {
-    background-color: transparent !important;
-    color: white;
-    border: none; }
   .landing #actionButtons p {
     color: #1168df !important; }
   .landing .landing__nav__createProfile {
-    color: #1168df; }
+    color: white !important;
+    background-color: #1168df !important; }
   .bannerMargin {
     margin-top: 0; }
   .landing__nav__link {
@@ -308,23 +298,22 @@ nav {
     font-size: 14px;
     font-weight: 400;
     display: none; }
-  .landing__nav__link--footer {
-    margin-left: 15px;
-    font-size: 14px;
-    font-weight: 400; }
   #nav__logo--marginLeft {
     margin-left: 6vw; }
   .nav__userPicture {
     margin-right: 6vw; }
-  #actionButtons p {
-    margin-right: 0;
-    cursor: pointer;
-    font-weight: 400;
-    font-size: 14px; }
-  #actionButtons button {
-    cursor: pointer;
-    font-size: 14px;
-    padding: 10px 16px; }
+  #actionButtons {
+    margin-right: 5vw; }
+    #actionButtons p {
+      cursor: pointer;
+      font-weight: 400;
+      font-size: 14px;
+      color: white;
+      margin-right: 6vw; }
+    #actionButtons button {
+      cursor: pointer;
+      font-size: 14px;
+      border: none; }
   .nav__dropdown {
     display: block !important;
     position: fixed;
