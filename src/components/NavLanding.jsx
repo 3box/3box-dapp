@@ -40,7 +40,7 @@ const NavLanding = ({
       </div>
       <div id="actionButtons">
         <Link to={routes.CREATEPROFILE}>
-          <p className={landing}>
+          <p className={`${landing} createProfileLInk`}>
             Create Profile
           </p>
         </Link>

@@ -131,12 +131,14 @@ nav {
     margin-right: 2vw;
     cursor: pointer;
     font-weight: 400;
-    color: white; }
+    color: white;
+    font-size: 16px; }
   #actionButtons button {
     cursor: pointer;
     border: 1px solid white;
     background-color: white;
-    color: #1168df; }
+    color: #1168df;
+    font-size: 16px; }
   #actionButtons .landing__nav__createProfile:hover {
     color: #1168df; }
 
@@ -164,6 +166,9 @@ nav {
 
 .landing {
   color: #1168df !important; }
+
+.landing .createProfileLInk {
+  color: white !important; }
 
 .landing__nav__link--footer {
   margin-left: 38px;
