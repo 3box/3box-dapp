@@ -27,8 +27,14 @@ import {
   LoadingThreeBoxProfileModal,
   OnBoardingModalMobile,
   ProvideAccessModal,
+  RequireMetaMaskModal,
+  ProvideConsentModal,
   AccessDeniedModal,
   ErrorModal,
+  MustConsentModal,
+  MobileWalletRequiredModal,
+  SignInToWalletModal,
+  SignInToThreeBox,
 } from './components/Modals';
 
 import {
@@ -64,6 +70,8 @@ import {
   handleRequireWalletLoginModal,
   handleSwitchedNetworkModal,
   handleAccessModal,
+  closeRequireMetaMaskModal,
+  handleConsentModal,
   handleDeniedAccessModal,
   handleLoggedOutModal,
   handleSwitchedAddressModal,
@@ -225,7 +233,13 @@ class App extends Component {
     const {
       showDifferentNetworkModal,
       accessDeniedModal,
+      errorMessage,
       allowAccessModal,
+      alertRequireMetaMask,
+      provideConsent,
+      signInToWalletModal,
+      signInModal,
+      mobileWalletRequiredModal,
       directLogin,
       loggedOutModal,
       switchedAddressModal,
@@ -234,7 +248,6 @@ class App extends Component {
       onBoardingModal,
       onBoardingModalTwo,
       ifFetchingThreeBox,
-      errorMessage,
       prevAddress,
       showErrorModal,
       isLoggedIn,
@@ -257,6 +270,8 @@ class App extends Component {
     const classHide = retractNav ? 'hide' : '';
     const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
     const isLandingPage = pathname === routes.LANDING && 'landing';
+    const { userAgent: ua } = navigator;
+    const isIOS = ua.includes('iPhone');
 
     return (
       <div className="App">
@@ -300,9 +315,39 @@ class App extends Component {
           isMobile={isMobile}
         />
 
+        <RequireMetaMaskModal
+          closeRequireMetaMaskModal={this.props.closeRequireMetaMaskModal}
+          show={alertRequireMetaMask}
+          isMobile={isMobile}
+        />
+
+        <ProvideConsentModal
+          handleConsentModal={this.props.handleConsentModal}
+          show={provideConsent}
+          isMobile={isMobile}
+        />
+
         <AccessDeniedModal
           handleDeniedAccessModal={this.props.handleDeniedAccessModal}
           show={accessDeniedModal}
+          isMobile={isMobile}
+        />
+
+        <SignInToWalletModal
+          handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal}
+          show={signInToWalletModal}
+          isMobile={isMobile}
+        />
+
+        <SignInToThreeBox
+          show={signInModal}
+          handleSignInModal={this.props.handleSignInModal}
+        />
+
+        <MobileWalletRequiredModal
+          isIOS={isIOS}
+          handleMobileWalletModal={this.props.handleMobileWalletModal}
+          show={mobileWalletRequiredModal}
           isMobile={isMobile}
         />
 
@@ -310,6 +355,12 @@ class App extends Component {
           errorMessage={errorMessage}
           closeErrorModal={this.props.closeErrorModal}
           show={showErrorModal && !mustConsentError}
+          isMobile={isMobile}
+        />
+
+        <MustConsentModal
+          closeErrorModal={this.props.closeErrorModal}
+          show={mustConsentError}
           isMobile={isMobile}
         />
 
@@ -468,23 +519,31 @@ App.propTypes = {
   handleMobileWalletModal: PropTypes.func.isRequired,
   handleSwitchedNetworkModal: PropTypes.func.isRequired,
   handleAccessModal: PropTypes.func.isRequired,
+  closeRequireMetaMaskModal: PropTypes.func.isRequired,
+  handleConsentModal: PropTypes.func.isRequired,
   handleDeniedAccessModal: PropTypes.func.isRequired,
+  handleRequireWalletLoginModal: PropTypes.func.isRequired,
+  handleSignInModal: PropTypes.func.isRequired,
   handleSignOut: PropTypes.func.isRequired,
   checkNetwork: PropTypes.func.isRequired,
-  handleSignInModal: PropTypes.func.isRequired,
   closeErrorModal: PropTypes.func.isRequired,
-  handleRequireWalletLoginModal: PropTypes.func.isRequired,
   handleLoggedOutModal: PropTypes.func.isRequired,
   handleSwitchedAddressModal: PropTypes.func.isRequired,
   handleOnboardingModal: PropTypes.func.isRequired,
 
   showDifferentNetworkModal: PropTypes.bool,
   accessDeniedModal: PropTypes.bool,
+  errorMessage: PropTypes.bool,
   allowAccessModal: PropTypes.bool,
+  alertRequireMetaMask: PropTypes.bool,
+  provideConsent: PropTypes.bool,
+  signInToWalletModal: PropTypes.bool,
+  signInModal: PropTypes.bool,
+  mobileWalletRequiredModal: PropTypes.bool,
+  showErrorModal: PropTypes.bool,
   directLogin: PropTypes.string,
   isLoggedIn: PropTypes.bool,
   isSignedIntoWallet: PropTypes.bool,
-  showErrorModal: PropTypes.bool,
   loggedOutModal: PropTypes.bool,
   switchedAddressModal: PropTypes.bool,
   onBoardingModal: PropTypes.bool,
@@ -496,14 +555,20 @@ App.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
   }).isRequired,
-  errorMessage: PropTypes.string,
   prevAddress: PropTypes.string,
 };
 
 App.defaultProps = {
   showDifferentNetworkModal: false,
   accessDeniedModal: false,
+  errorMessage: false,
   allowAccessModal: false,
+  alertRequireMetaMask: false,
+  provideConsent: false,
+  signInToWalletModal: false,
+  signInModal: false,
+  mobileWalletRequiredModal: false,
+  showErrorModal: false,
   downloadBanner: false,
   loggedOutModal: false,
   switchedAddressModal: false,
@@ -512,10 +577,8 @@ App.defaultProps = {
   ifFetchingThreeBox: false,
   isLoggedIn: false,
   isSignedIntoWallet: false,
-  showErrorModal: false,
   prevNetwork: '',
   currentNetwork: '',
-  errorMessage: '',
   prevAddress: '',
   directLogin: '',
 };
@@ -523,6 +586,11 @@ App.defaultProps = {
 const mapState = state => ({
   showDifferentNetworkModal: state.threeBox.showDifferentNetworkModal,
   allowAccessModal: state.threeBox.allowAccessModal,
+  alertRequireMetaMask: state.threeBox.alertRequireMetaMask,
+  provideConsent: state.threeBox.provideConsent,
+  signInToWalletModal: state.threeBox.signInToWalletModal,
+  signInModal: state.threeBox.signInModal,
+  mobileWalletRequiredModal: state.threeBox.mobileWalletRequiredModal,
   directLogin: state.threeBox.directLogin,
   loggedOutModal: state.threeBox.loggedOutModal,
   switchedAddressModal: state.threeBox.switchedAddressModal,
@@ -536,6 +604,7 @@ const mapState = state => ({
   isLoggedIn: state.threeBox.isLoggedIn,
   showErrorModal: state.threeBox.showErrorModal,
   accessDeniedModal: state.threeBox.accessDeniedModal,
+  errorMessage: state.threeBox.errorMessage,
   isSignedIntoWallet: state.threeBox.isSignedIntoWallet,
   downloadBanner: state.threeBox.downloadBanner,
 });
@@ -573,6 +642,8 @@ export default withRouter(connect(mapState,
     handleRequireWalletLoginModal,
     handleSwitchedNetworkModal,
     handleAccessModal,
+    closeRequireMetaMaskModal,
+    handleConsentModal,
     handleDeniedAccessModal,
     handleLoggedOutModal,
     handleSignOut,
