@@ -4,13 +4,12 @@
 
 .info__page {
   display: flex;
-  flex-direction: column;
-  margin-top: 68px; }
+  flex-direction: column; }
 
 .info__banner {
   width: 100vw;
-  height: 22em;
-  background-color: #006ECC;
+  height: 25em;
+  background-color: #1168df;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,7 +66,7 @@
   justify-content: flex-end; }
 
 .info__content__job__text__title {
-  color: #006ECC;
+  color: #1168df;
   margin-bottom: 7px; }
 
 .info__content__job__text__description {
@@ -80,7 +79,7 @@
   color: #9aacbd; }
 
 .info__content__contact__header {
-  color: #006ECC;
+  color: #1168df;
   text-align: center;
   margin-bottom: 16px; }
 
@@ -91,7 +90,7 @@
   font-size: 16px;
   margin-bottom: 20px; }
   .info__content__contact__body a {
-    color: #006ECC;
+    color: #1168df;
     font-weight: 700;
     font-size: 16px;
     margin: 0 4px 0 4px; }
@@ -111,13 +110,18 @@
     line-height: 24px;
     margin-top: 16px;
     width: 80vw; }
+  .info tr {
+    display: flex;
+    flex-direction: column; }
   .info__content__jobs {
     width: 80vw;
     margin-top: 70px;
     margin-bottom: 70px; }
+  .info__content__text {
+    width: 80vw; }
   .info__content__jobWrapper {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 70px; }
   .info__content__job__text {
     width: 100%;

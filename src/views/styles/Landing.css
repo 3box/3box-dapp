@@ -21,12 +21,12 @@
   display: none; }
 
 .landing__hero__copy__tagline {
-  color: #006ECC;
+  color: #1168df;
   margin-bottom: 22px;
   font-size: 42px; }
 
 .landing__hero__copy__text {
-  color: #006ECC;
+  color: #1168df;
   font-size: 16px;
   margin-bottom: 40px;
   line-height: 22px;
@@ -80,7 +80,7 @@
 .landing__overview__tagline {
   margin-bottom: 100px; }
   .landing__overview__tagline h2 {
-    color: #006ECC;
+    color: #1168df;
     font-size: 32px; }
 
 .landing__overview__logo {
@@ -93,7 +93,7 @@
   margin-bottom: 40px; }
 
 .landing__developers {
-  background-color: #006ECC;
+  background-color: #1168df;
   height: fit-content;
   display: flex;
   justify-content: center;
@@ -115,7 +115,7 @@
   border: 1px solid white; }
   .landing__developers__buttonWrapper__button:hover {
     background-color: white;
-    color: #006ECC; }
+    color: #1168df; }
 
 .landing__developers__header {
   color: #CFE3FF;
@@ -668,7 +668,6 @@
     z-index: 2; } }
 
 #landing {
-  background-color: white;
   position: relative;
   background-color: white;
   overflow: hidden; }

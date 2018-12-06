@@ -10,6 +10,11 @@ import EditProfile from './views/EditProfile';
 import Jobs from './views/Jobs';
 import Privacy from './views/Privacy';
 import Terms from './views/Terms';
+import CreateProfile from './views/CreateProfile';
+
+import NavLanding from './components/NavLanding';
+import Nav from './components/Nav';
+
 import history from './history';
 import './index.css';
 
@@ -75,6 +80,9 @@ class App extends Component {
       onBoardingModalMobileTwo: false,
       onBoardingModalMobileThree: false,
       width: window.innerWidth,
+
+      retractNav: false,
+      showSideNav: false,
     };
     this.loadData = this.loadData.bind(this);
     this.handleSignInUp = this.handleSignInUp.bind(this);
@@ -82,6 +90,7 @@ class App extends Component {
 
   componentWillMount() {
     window.addEventListener('resize', this.handleWindowSizeChange);
+    window.addEventListener('scroll', this.hideBar);
   }
 
   async componentDidMount() {
@@ -104,6 +113,7 @@ class App extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleWindowSizeChange);
+    window.removeEventListener('scroll', this.hideBar);
   }
 
   handleWindowSizeChange = () => {
@@ -195,6 +205,21 @@ class App extends Component {
     }
   }
 
+  hideBar = () => {
+    if (window.scrollY < 1) {
+      this.setState({ retractNav: false });
+    } else {
+      this.setState({ retractNav: true });
+    }
+  }
+
+  handleSideNav = () => {
+    const { showSideNav } = this.state;
+    this.setState({
+      showSideNav: !showSideNav,
+    });
+  }
+
   render() {
     const {
       showDifferentNetworkModal,
@@ -214,21 +239,42 @@ class App extends Component {
       isLoggedIn,
       isSignedIntoWallet,
       downloadBanner,
+      location,
     } = this.props;
-
-    const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
 
     const {
       onBoardingModalMobileOne,
       onBoardingModalMobileTwo,
       onBoardingModalMobileThree,
       width,
+      retractNav,
+      showSideNav,
     } = this.state;
 
+    const { pathname } = location;
     const isMobile = width <= 600;
+    const classHide = retractNav ? 'hide' : '';
+    const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
+    const isLandingPage = pathname === '/' && 'landing';
 
     return (
       <div className="App">
+        {!isLoggedIn
+          ? (
+            <NavLanding
+              downloadBanner={downloadBanner}
+              classHide={classHide}
+              handleSignInUp={this.handleSignInUp}
+              handleSideNav={this.handleSideNav}
+              landing={isLandingPage}
+              isMobile={isMobile}
+              showSideNav={showSideNav}
+              pathname={pathname}
+            />
+          )
+          : (
+            <Nav />
+          )}
 
         <div className={`${!downloadBanner ? 'hideBanner' : ''} webThreeBanner`}>
           <p>
@@ -237,11 +283,11 @@ class App extends Component {
           <a href="https://metamask.io/" target="_blank" rel="noopener noreferrer">
             <button type="button" className="webThreeBanner__link">
               Download
-                </button>
+            </button>
           </a>
           <p onClick={this.props.handleDownloadMetaMaskBanner} className="webThreeBanner__close">
             &#10005;
-              </p>
+          </p>
         </div>
 
         <LoadingThreeBoxProfileModal show={ifFetchingThreeBox} />
@@ -337,6 +383,7 @@ class App extends Component {
               <Jobs
                 isLoggedIn={isLoggedIn}
                 handleSignInUp={this.handleSignInUp}
+                classHide={classHide}
               />
             )}
           />
@@ -347,6 +394,7 @@ class App extends Component {
               <Privacy
                 isLoggedIn={isLoggedIn}
                 handleSignInUp={this.handleSignInUp}
+                classHide={classHide}
               />
             )}
           />
@@ -357,6 +405,18 @@ class App extends Component {
               <Terms
                 isLoggedIn={isLoggedIn}
                 handleSignInUp={this.handleSignInUp}
+                classHide={classHide}
+              />
+            )}
+          />
+
+          <Route
+            path={routes.CREATEPROFILE}
+            component={() => (
+              <CreateProfile
+                isLoggedIn={isLoggedIn}
+                handleSignInUp={this.handleSignInUp}
+                classHide={classHide}
               />
             )}
           />

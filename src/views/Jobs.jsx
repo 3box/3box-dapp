@@ -1,20 +1,11 @@
 import React from 'react';
 
-import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import './styles/Info.css';
 import './styles/Landing.css';
-import NavLoggedOut from '../components/NavLoggedOut';
 
 const Jobs = ({ isLoggedIn, handleSignInUp }) => (
   <div className="info jobsPage">
-    {!isLoggedIn
-      ? (
-        <NavLoggedOut handleSignInUp={handleSignInUp} />
-      )
-      : (
-        <Nav />
-      )}
 
     <div className="info__page">
       <div className="info__banner">
@@ -95,7 +86,7 @@ const Jobs = ({ isLoggedIn, handleSignInUp }) => (
             </h3>
             <p className="info__content__contact__body">
               Email
-              <a href="mailto:team@3box.io">
+              <a href="mailto:jobs@3box.io">
                 jobs@3box.io
               </a>
               with your details, experience, desired role, and a note

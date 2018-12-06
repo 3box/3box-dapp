@@ -1,21 +1,11 @@
 import React from 'react';
 
-import './styles/Info.css';
-import Nav from '../components/Nav';
-import NavLoggedOut from '../components/NavLoggedOut';
 import Footer from '../components/Footer';
 import './styles/Landing.css';
-import ThreeBoxLogo from '../components/ThreeBoxLogo';
+import './styles/Info.css';
 
-const Terms = ({ isLoggedIn, handleSignInUp }) => (
+const Terms = ({ isLoggedIn, handleSignInUp, classHide }) => (
   <div className="info">
-    {!isLoggedIn
-      ? (
-        <NavLoggedOut handleSignInUp={handleSignInUp}/>
-      )
-      : (
-        <Nav />
-      )}
      
     <div className="info__page">
 

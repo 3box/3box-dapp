@@ -23,14 +23,14 @@ body {
   width: 100%; }
 
 button {
-  background-color: #006ECC;
+  background-color: #1168df;
   border: none;
   border-radius: 2em;
   padding: 1em 1.5em;
   color: white;
   transition: background-color .4s ease;
   font-family: 'Lato', sans-serif;
-  border: solid 1px #006ECC; }
+  border: solid 1px #1168df; }
   button:disabled {
     background: transparent;
     border: solid 1px #7a7a7a;
@@ -43,18 +43,18 @@ button {
     box-shadow: none;
     cursor: not-allowed; }
   button:hover {
-    background-color: #2c88da;
+    background-color: #0950b0;
     transition: background-color .4s ease; }
 
 .secondaryButton {
   background: transparent;
-  border: solid 1px #006ECC;
+  border: solid 1px #1168df;
   outline-offset: -1px;
-  color: #006ECC;
+  color: #1168df;
   transition: background-color .8s ease; }
   .secondaryButton:hover {
     color: white;
-    background-color: #006ECC;
+    background-color: #1168df;
     border: solid 1px transparent;
     transition: background-color .8s ease; }
 
@@ -130,7 +130,7 @@ ul {
 .webThreeBanner {
   width: 100vw;
   height: 54px;
-  background: #006ECC;
+  background: #1168df;
   position: fixed;
   top: 0;
   left: 0;

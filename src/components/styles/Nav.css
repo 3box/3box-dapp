@@ -11,7 +11,7 @@ nav {
   nav button {
     display: inline-block; }
   nav p {
-    color: #006ECC; }
+    color: #1168df; }
 
 .bannerMargin {
   margin-top: 54px; }
@@ -54,6 +54,10 @@ nav {
   display: flex;
   justify-content: flex-start;
   align-items: center; }
+  #nav__logo--marginLeft a {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; }
 
 .nav__dropdown__mobileLogo {
   display: none; }
@@ -132,9 +136,13 @@ nav {
     cursor: pointer;
     border: 1px solid white;
     background-color: white;
-    color: #006ECC; }
+    color: #1168df; }
   #actionButtons .landing__nav__createProfile:hover {
-    color: #006ECC; }
+    color: #1168df; }
+
+.landing__nav__logo {
+  width: 90px;
+  height: 30px; }
 
 #landing__nav {
   position: fixed;
@@ -152,32 +160,34 @@ nav {
 .landing__nav__link {
   margin-left: 38px;
   font-size: 16px;
-  color: #006ECC; }
+  color: white; }
+
+.landing {
+  color: #1168df !important; }
 
 .landing__nav__link--footer {
   margin-left: 38px;
   font-size: 16px;
   color: white; }
 
+.hide .landing__nav__link {
+  color: #1168df !important; }
+
 .hide {
   border-bottom: 1px solid #E4E4E4 !important;
   height: 68px !important;
-  -webkit-transition: all .5s ease;
-  -moz-transition: all .5s ease;
-  -o-transition: all .5s ease;
-  transition: all .5s ease;
   background-color: white !important; }
   .hide button {
-    background-color: #006ECC !important;
+    background-color: #1168df !important;
     color: white !important; }
   .hide p {
-    color: #006ECC !important; }
+    color: #1168df !important; }
   .hide .secondaryButton:hover {
     color: white !important; }
   .hide .landing__nav__createProfile:hover .landing__nav__createProfile {
-    background-color: #2c88da; }
+    background-color: #0950b0; }
   .hide button:hover {
-    background-color: #2c88da !important; }
+    background-color: #0950b0 !important; }
 
 #nav__reportBug {
   background-color: #f5f6f8;
@@ -198,7 +208,7 @@ nav {
   display: none; }
 
 .nav__activePage {
-  border-left: solid 5px #006ECC;
+  border-left: solid 5px #1168df;
   background: #f5f6f8;
   margin-left: -1px;
   padding-left: calc(1.3em - 5px) !important; }
@@ -224,6 +234,43 @@ nav {
   transform: translateY(0%);
   transition-delay: 0s, 0s, 0.3s; }
 
+.landing__nav__mobileMenu {
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 18px; }
+
+.bar1,
+.bar2,
+.bar3 {
+  width: 20px;
+  height: 3px;
+  background-color: white;
+  margin: 3px 0;
+  transition: 0.4s; }
+
+.landing .bar1 {
+  background-color: #1168df; }
+
+.landing .bar2 {
+  background-color: #1168df; }
+
+.landing .bar3 {
+  background-color: #1168df; }
+
+.hide .bar1 {
+  background-color: #1168df; }
+
+.change .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+  transform: rotate(-45deg) translate(-9px, 6px); }
+
+.change .bar2 {
+  opacity: 0; }
+
+.change .bar3 {
+  -webkit-transform: rotate(45deg) translate(-8px, -8px);
+  transform: rotate(45deg) translate(-8px, -8px); }
+
 @media only screen and (max-width: 600px) {
   .hide {
     border-bottom: 1px solid #E4E4E4 !important;
@@ -232,12 +279,27 @@ nav {
     -moz-transition: all .5s ease;
     -o-transition: all .5s ease;
     transition: all .5s ease; }
+  .hide #actionButtons p {
+    color: #1168df !important; }
+  .hide #actionButtons button {
+    color: #1168df !important; }
+  #actionButtons p {
+    color: white; }
+  #actionButtons button {
+    background-color: transparent !important;
+    color: white;
+    border: none; }
+  .landing #actionButtons p {
+    color: #1168df !important; }
+  .landing .landing__nav__createProfile {
+    color: #1168df; }
   .bannerMargin {
     margin-top: 0; }
   .landing__nav__link {
     margin-left: 15px;
     font-size: 14px;
-    font-weight: 400; }
+    font-weight: 400;
+    display: none; }
   .landing__nav__link--footer {
     margin-left: 15px;
     font-size: 14px;
@@ -247,17 +309,14 @@ nav {
   .nav__userPicture {
     margin-right: 6vw; }
   #actionButtons p {
-    margin-right: 5vw;
+    margin-right: 0;
     cursor: pointer;
     font-weight: 400;
-    color: #006ECC;
     font-size: 14px; }
   #actionButtons button {
     cursor: pointer;
-    border: 1px solid #006ECC;
-    background-color: #006ECC;
-    color: white;
-    font-size: 14px; }
+    font-size: 14px;
+    padding: 10px 16px; }
   .nav__dropdown {
     display: block !important;
     position: fixed;
@@ -304,6 +363,6 @@ nav {
     justify-content: flex-start;
     margin: 4px 0 40px 6vw; }
   .nav__activePage {
-    border-left: solid 5px #006ECC;
+    border-left: solid 5px #1168df;
     background: #f5f6f8;
     padding-left: calc(1.3em - 5px) !important; } }

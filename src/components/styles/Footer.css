@@ -60,11 +60,11 @@
 
 .landing__developers__footer__buttons--createProfile {
   border: 1px solid white;
-  color: #006ECC;
+  color: #1168df;
   background-color: white; }
   .landing__developers__footer__buttons--createProfile:hover {
     background-color: white;
-    color: #006ECC; }
+    color: #1168df; }
 
 .landing__developers__footer__buttons--signIn {
   color: white !important;

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
-import * as routes from '../utils/routes';
+import { withRouter } from 'react-router-dom';
 
 import {
   closeErrorModal,
@@ -24,9 +23,6 @@ import {
 } from '../components/Modals';
 
 import Footer from '../components/Footer';
-import ThreeBoxLogo from '../components/ThreeBoxLogo';
-import Nav from '../components/Nav';
-import LandingFooter from '../components/LandingFooter';
 import LandingBody from '../components/LandingBody';
 import './styles/Landing.css';
 import '../components/styles/ProfileCard.css';
@@ -36,32 +32,21 @@ class Landing extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      retractNav: false,
       width: window.innerWidth,
     };
   }
 
   componentDidMount() {
-    window.addEventListener('scroll', this.hideBar);
     window.addEventListener('resize', this.handleWindowSizeChange);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.hideBar);
     window.removeEventListener('resize', this.handleWindowSizeChange);
   }
 
   handleWindowSizeChange = () => {
     this.setState({ width: window.innerWidth });
   };
-
-  hideBar = () => {
-    if (window.scrollY < 10) {
-      this.setState({ retractNav: false });
-    } else {
-      this.setState({ retractNav: true });
-    }
-  }
 
   render() {
     const {
@@ -74,46 +59,19 @@ class Landing extends Component {
       signInToWalletModal,
       isLoggedIn,
       handleSignInUp,
-      downloadBanner,
     } = this.props;
 
     const {
       width,
-      retractNav,
     } = this.state;
 
     const { userAgent: ua } = navigator;
-    const isIOS = ua.includes('iPhone'); // const isAndroid = ua.includes('Android');
+    const isIOS = ua.includes('iPhone');
     const isMobile = width <= 600;
     const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
-    const classHide = retractNav ? 'hide' : '';
 
     return (
       <div id="landing">
-
-        {!isLoggedIn
-          ? (
-            <nav id="landing__nav" className={`${downloadBanner ? 'bannerMargin' : ''} ${classHide}`}>
-              <div id="nav__logo--marginLeft">
-                <ThreeBoxLogo />
-                <Link to={routes.JOBS}>
-                  <h4 className="landing__nav__link">
-                    Jobs
-                  </h4>
-                </Link>
-              </div>
-              <div id="actionButtons">
-                <p onClick={handleSignInUp}>
-                  Create Profile
-                </p>
-                <button onClick={handleSignInUp} className="landing__nav__createProfile " type="button">
-                  Sign In
-                </button>
-              </div>
-            </nav>)
-          : (
-            <Nav />
-          )}
 
         <ProvideConsentModal
           handleConsentModal={this.props.handleConsentModal}
@@ -163,7 +121,6 @@ class Landing extends Component {
           handleSignInUp={handleSignInUp}
         />
 
-        {/* <LandingFooter /> */}
         <Footer
           handleSignInUp={handleSignInUp}
           isLoggedIn={isLoggedIn}

@@ -71,6 +71,12 @@ nav {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+
+  a {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
 }
 
 .nav__dropdown__mobileLogo {
@@ -79,7 +85,6 @@ nav {
 
 .nav__dropdown__wrapper {
   display: flex;
-  // justify-content: center;
   align-items: center;
 }
 
@@ -179,7 +184,10 @@ nav {
   }
 }
 
-
+.landing__nav__logo {
+  width: 90px;
+  height: 30px;
+}
 
 #landing__nav {
   position: fixed;
@@ -198,7 +206,11 @@ nav {
 .landing__nav__link {
   margin-left: 38px;
   font-size: 16px;
-  color: $threeBoxBlue;
+  color: white;
+}
+
+.landing {
+  color: $threeBoxBlue !important;
 }
 
 .landing__nav__link--footer {
@@ -207,13 +219,13 @@ nav {
   color: white;
 }
 
+.hide .landing__nav__link {
+  color: $threeBoxBlue !important;
+}
+
 .hide {
   border-bottom: 1px solid #E4E4E4 !important;
   height: 68px !important;
-  -webkit-transition: all .5s ease;
-  -moz-transition: all .5s ease;
-  -o-transition: all .5s ease;
-  transition: all .5s ease;
   background-color: white !important;
 
   button {
@@ -293,6 +305,51 @@ nav {
 }
 
 
+.landing__nav__mobileMenu {
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 18px;
+}
+
+.bar1,
+.bar2,
+.bar3 {
+  width: 20px;
+  height: 3px;
+  background-color: white;
+  margin: 3px 0;
+  transition: 0.4s;
+}
+
+.landing .bar1 {
+  background-color: $threeBoxBlue;
+}
+
+.landing .bar2 {
+  background-color: $threeBoxBlue;
+}
+
+.landing .bar3 {
+  background-color: $threeBoxBlue;
+}
+
+.hide .bar1 {
+  background-color: $threeBoxBlue;
+}
+
+.change .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+  transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+.change .bar2 {
+  opacity: 0;
+}
+
+.change .bar3 {
+  -webkit-transform: rotate(45deg) translate(-8px, -8px);
+  transform: rotate(45deg) translate(-8px, -8px);
+}
 
 @media only screen and (max-width: 600px) {
   .hide {
@@ -304,6 +361,38 @@ nav {
     transition: all .5s ease;
   }
 
+  .hide #actionButtons {
+    p {
+      color: $threeBoxBlue !important;
+    }
+
+    button {
+      color: $threeBoxBlue !important;
+    }
+  }
+
+  #actionButtons {
+    p {
+      color: white;
+    }
+
+    button {
+      background-color: transparent !important;
+      color: white;
+      border: none;
+    }
+  }
+
+  .landing #actionButtons {
+    p {
+      color: $threeBoxBlue !important;
+    }
+  }
+
+  .landing .landing__nav__createProfile {
+    color: $threeBoxBlue;
+  }
+
   .bannerMargin {
     margin-top: 0;
   }
@@ -312,6 +401,7 @@ nav {
     margin-left: 15px;
     font-size: 14px;
     font-weight: 400;
+    display: none;
   }
 
   .landing__nav__link--footer {
@@ -330,19 +420,16 @@ nav {
 
   #actionButtons {
     p {
-      margin-right: 5vw;
+      margin-right: 0;
       cursor: pointer;
       font-weight: 400;
-      color: $threeBoxBlue;
       font-size: 14px;
     }
 
     button {
       cursor: pointer;
-      border: 1px solid $threeBoxBlue;
-      background-color: $threeBoxBlue;
-      color: white;
       font-size: 14px;
+      padding: 10px 16px;
     }
   }
 

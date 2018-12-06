@@ -102,6 +102,7 @@ class Nav extends Component {
             <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="nav__reportBug">Report a bug</li></a>
           </ul>
         </div>
+        
         <div id={showProfileModal ? 'dropdownContainer' : undefined} onClick={this.handleDropdown} />
 
       </nav>

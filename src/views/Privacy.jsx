@@ -1,21 +1,11 @@
 import React from 'react';
 
-import Nav from '../components/Nav';
-import NavLoggedOut from '../components/NavLoggedOut';
 import Footer from '../components/Footer';
 import './styles/Info.css';
 import './styles/Landing.css';
-import ThreeBoxLogo from '../components/ThreeBoxLogo';
 
 const Privacy = ({ isLoggedIn, handleSignInUp }) => (
   <div className="info">
-    {!isLoggedIn
-      ? (
-            <NavLoggedOut handleSignInUp={handleSignInUp}/>
-            )
-      : (
-        <Nav />
-      )}
      
     <div className="info__page">
     <div className="info__banner">

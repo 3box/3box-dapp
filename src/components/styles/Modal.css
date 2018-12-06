@@ -207,7 +207,7 @@
   position: absolute; }
   #modal__onBoardingModal__button:hover {
     background-color: white;
-    color: #006ECC; }
+    color: #1168df; }
 
 #modal__onBoardingModal__progressBar {
   margin-top: 280px;
@@ -351,7 +351,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #006ECC;
+  background-color: #1168df;
   -webkit-animation: sa-foldboxAngle 2.4s infinite linear both;
   animation: sa-foldboxAngle 2.4s infinite linear both;
   -webkit-transform-origin: 100% 100%;
