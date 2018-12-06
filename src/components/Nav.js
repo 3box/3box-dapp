@@ -43,7 +43,9 @@ class Nav extends Component {
     return (
       <nav>
         <div id="nav__logo--marginLeft">
-          <img src={ThreeBoxLogo} alt="" className="landing__nav__logo" />
+          <Link to={routes.LANDING}>
+            <img src={ThreeBoxLogo} alt="" className="landing__nav__logo" />
+          </Link>
         </div>
 
         <div id="nav__networkStatus">

@@ -9,6 +9,31 @@
   align-items: center;
 }
 
+.create__banner {
+  width: 100vw;
+  height: 54px;
+  background: $threeBoxBlueShade;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  top: 89px;
+  transition: opacity 0.5s;
+  opacity: 1;
+
+  p {
+    color: $threeBoxBlue;
+    font-weight: 400;
+  }
+}
+
+.fadeOut.create__banner {
+  transition: opacity 0.5s;
+  opacity: 0;
+}
+
 .create__copy {
   display: flex;
   justify-content: center;
@@ -62,7 +87,7 @@
   max-width: 34vw;
   min-width: 450px;
   height: fit-content;
-  margin-top: 30px;
+  margin-top: 120px;
 }
 
 .create__action__form__header {
@@ -217,5 +242,9 @@
   .create__action__form__example__column {
     width: 100%;
     margin-left: 66px;
+  }
+
+  .hideMobile {
+    display: none;
   }
 }
