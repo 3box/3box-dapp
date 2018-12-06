@@ -27,7 +27,6 @@ const Footer = ({ handleSignInUp, isLoggedIn }) => (
       </ul>
 
       <div id="footer__mailChimp">
-        {/* <p>Subscribe to our newsletter</p> */}
         <MailChimp />
       </div>
     </div>
