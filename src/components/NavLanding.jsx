@@ -24,7 +24,7 @@ const NavLanding = ({
             : <img src={ThreeBoxLogoWhite} alt="" className="landing__nav__logo" />
           }
         </Link>
-        <Link to={routes.CREATEPROFILE}>
+        <Link to={routes.PROFILES}>
           <h4 className={`landing__nav__link ${landing}`}>
             Profiles
         </h4>
@@ -36,7 +36,7 @@ const NavLanding = ({
         </Link>
       </div>
       <div id="actionButtons">
-        <Link to={routes.CREATEPROFILE}>
+        <Link to={routes.CREATE}>
           <p className={`${landing} createProfileLInk`}>
             Create Profile
           </p>
@@ -64,9 +64,9 @@ const NavLanding = ({
           <div className='nav__dropdown__mobileLogo'>
             <img src={ThreeBoxLogoBlue} alt="" className="landing__nav__logo" />
           </div>
-          <Link to={routes.CREATEPROFILE}><li className={pathname === routes.CREATEPROFILE ? 'nav__activePage' : ''}>Profiles</li></Link>
+          <Link to={routes.PROFILES}><li className={pathname === routes.PROFILES ? 'nav__activePage' : ''}>Profiles</li></Link>
           <Link to={routes.JOBS}><li className={pathname === routes.JOBS ? 'nav__activePage' : ''}>Jobs</li></Link>
-          <Link to={routes.CREATEPROFILE}><li>Create Profile</li></Link>
+          <Link to={routes.CREATE}><li className={pathname === routes.CREATE ? 'nav__activePage' : ''}>Create Profile</li></Link>
           <li id="mobileNav__signout" onClick={handleSignInUp}>Sign In</li>
           <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="nav__reportBug">Report a bug</li></a>
         </ul>

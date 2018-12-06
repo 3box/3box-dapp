@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Narwhal from '../assets/Narwhal.png';
 import './styles/CreateProfile.css';
 
-class CreateProfile extends Component {
+class Create extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -48,10 +48,10 @@ class CreateProfile extends Component {
               3Box is where people build identity, trust, and
               connection online.  Create an ethereum profile,
               sign in to dapps, store your data, and much more.
-    <br />
+              <br />
               <br />
               Getting started is easy.  Begin by creating your profile here!
-    </p>
+            </p>
           </div>
         </div>
 
@@ -80,7 +80,7 @@ class CreateProfile extends Component {
                 </div>
               </div>
 
-              {!isLoggedIn && <button className="create__action__form__button" type="button">Create Profile</button>}
+              {!isLoggedIn && <button className="create__action__form__button" type="button" onClick={handleSignInUp}>Create Profile</button>}
               {!isLoggedIn
                 && (
                   <p className="create__action__form__already">
@@ -93,8 +93,8 @@ class CreateProfile extends Component {
                     Sign in.
                   </a>)}
 
-                  {isLoggedIn && <p>
-                    You already have a profile, have fun!
+              {isLoggedIn && <p>
+                You already have a profile, have fun!
                     </p>}
 
             </div>
@@ -105,7 +105,7 @@ class CreateProfile extends Component {
   }
 }
 
-CreateProfile.propTypes = {
+Create.propTypes = {
   handleSignInUp: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
 };
@@ -114,4 +114,4 @@ const mapState = state => ({
   isLoggedIn: state.threeBox.isLoggedIn,
 });
 
-export default withRouter(connect(mapState)(CreateProfile));
+export default withRouter(connect(mapState)(Create));

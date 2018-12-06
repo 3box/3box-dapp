@@ -7,10 +7,11 @@ import * as routes from './utils/routes';
 import Landing from './views/Landing';
 import Profile from './views/Profile';
 import EditProfile from './views/EditProfile';
+import Profiles from './views/Profiles';
 import Jobs from './views/Jobs';
 import Privacy from './views/Privacy';
 import Terms from './views/Terms';
-import CreateProfile from './views/CreateProfile';
+import Create from './views/Create';
 
 import NavLanding from './components/NavLanding';
 import Nav from './components/Nav';
@@ -411,9 +412,20 @@ class App extends Component {
           />
 
           <Route
-            path={routes.CREATEPROFILE}
+            path={routes.CREATE}
             component={() => (
-              <CreateProfile
+              <Create
+                isLoggedIn={isLoggedIn}
+                handleSignInUp={this.handleSignInUp}
+                classHide={classHide}
+              />
+            )}
+          />
+
+          <Route
+            path={routes.PROFILES}
+            component={() => (
+              <Profiles
                 isLoggedIn={isLoggedIn}
                 handleSignInUp={this.handleSignInUp}
                 classHide={classHide}

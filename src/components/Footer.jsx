@@ -18,7 +18,7 @@ const Footer = ({ handleSignInUp, isLoggedIn }) => (
       <ul className="landing__developers__footer__links">
         <li className="landing__developers__footer__links__logoWrapper">
           <img className="landing__developers__footer__links__logo" src={ThreeBoxLogoWhite} alt="Three Box Logo" />
-          <Link to={routes.CREATEPROFILE}>
+          <Link to={routes.PROFILES}>
             <h4 className="landing__nav__link--footer">
               Profiles
             </h4>
@@ -42,11 +42,14 @@ const Footer = ({ handleSignInUp, isLoggedIn }) => (
       {!isLoggedIn
         && (
           <div className="landing__developers__footer__buttons">
-            <p
-              className="landing__developers__footer__buttons--signIn"
-              type="button"
-              onClick={handleSignInUp}
-            >Create Profile</p>
+            <Link to={routes.CREATE}>
+              <p
+                className="landing__developers__footer__buttons--signIn"
+                type="button"
+              >
+                Create Profile
+            </p>
+            </Link>
             <button
               className="landing__developers__footer__buttons--createProfile"
               type="button"

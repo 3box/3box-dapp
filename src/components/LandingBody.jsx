@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
+import * as routes from '../utils/routes';
 import HeroImage from '../assets/HeroImage.png';
 import Diagram1 from '../assets/Diagram1.svg';
 import Diagram2 from '../assets/Diagram2.svg';
@@ -42,12 +44,13 @@ const LandingBody = ({ isLoggedIn, handleSignInUp }) => (
           to start building trust, connection, and community
           </p>
         <div className="landing__hero__copy__buttons">
-          <button
-            type="button"
-            onClick={handleSignInUp}
-          >
-            Create Profile
-          </button>
+          <Link to={routes.CREATE}>
+            <button
+              type="button"
+            >
+              Create Profile
+            </button>
+          </Link>
           <a href="https://discord.gg/bevMe7w" target="_blank" rel="noopener noreferrer">
             <button
               className="secondaryButton joinDiscord"

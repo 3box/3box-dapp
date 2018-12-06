@@ -5,4 +5,5 @@ export const EDITPROFILE = '/edit';
 export const PRIVACY = '/privacy';
 export const TERMS = '/terms';
 export const JOBS = '/jobs';
-export const CREATEPROFILE = '/create';
+export const CREATE = '/create';
+export const PROFILES = '/profiles';
