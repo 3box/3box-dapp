@@ -102,9 +102,9 @@ class App extends Component {
       this.props.handleMobileWalletModal();
     }
 
-    if (typeof window.web3 !== 'undefined' && (pathname === '/Profile' || pathname === '/EditProfile')) { // no wallet and lands on restricted page
+    if (typeof window.web3 !== 'undefined' && (pathname === routes.PROFILE || pathname === routes.EDITPROFILE)) { // no wallet and lands on restricted page
       this.loadData();
-    } else if (typeof window.web3 === 'undefined' && (pathname === '/Profile' || pathname === '/EditProfile')) { // has wallet and lands on restricted page
+    } else if (typeof window.web3 === 'undefined' && (pathname === routes.PROFILE || pathname === routes.EDITPROFILE)) { // has wallet and lands on restricted page
       history.push(routes.LANDING);
       this.props.requireMetaMaskModal();
       this.props.handleMobileWalletModal();
@@ -255,7 +255,7 @@ class App extends Component {
     const isMobile = width <= 600;
     const classHide = retractNav ? 'hide' : '';
     const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
-    const isLandingPage = pathname === '/' && 'landing';
+    const isLandingPage = pathname === routes.LANDING && 'landing';
 
     return (
       <div className="App">

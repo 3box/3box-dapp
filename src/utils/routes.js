@@ -1,8 +1,8 @@
-export const ABOUT = '/About';
+export const ABOUT = '/about';
 export const LANDING = '/';
-export const PROFILE = '/Profile';
-export const EDITPROFILE = '/EditProfile';
-export const PRIVACY = '/Privacy';
-export const TERMS = '/Terms';
-export const JOBS = '/Jobs';
-export const CREATEPROFILE = '/CreateProfile';
+export const PROFILE = '/profile';
+export const EDITPROFILE = '/editprofile';
+export const PRIVACY = '/privacy';
+export const TERMS = '/terms';
+export const JOBS = '/jobs';
+export const CREATEPROFILE = '/create';

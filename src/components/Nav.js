@@ -97,8 +97,8 @@ class Nav extends Component {
             <img src={ThreeBoxLogo} alt="" className="landing__nav__logo" />
               
             </div>
-            <Link to={routes.PROFILE}><li className={pathname === '/Profile' ? 'nav__activePage' : ''}>Profile</li></Link>
-            <Link to={routes.EDITPROFILE}><li className={pathname === '/EditProfile' ? 'nav__activePage' : ''}>Edit profile</li></Link>
+            <Link to={routes.PROFILE}><li className={pathname === routes.PROFILE ? 'nav__activePage' : ''}>Profile</li></Link>
+            <Link to={routes.EDITPROFILE}><li className={pathname === routes.EDITPROFILE ? 'nav__activePage' : ''}>Edit profile</li></Link>
             <li id="mobileNav__signout" onClick={() => this.handleSignOut()}>Sign Out</li>
             <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="nav__reportBug">Report a bug</li></a>
           </ul>

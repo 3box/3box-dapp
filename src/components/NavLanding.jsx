@@ -64,8 +64,8 @@ const NavLanding = ({
           <div className='nav__dropdown__mobileLogo'>
             <img src={ThreeBoxLogoBlue} alt="" className="landing__nav__logo" />
           </div>
-          <Link to={routes.CREATEPROFILE}><li className={pathname === '/CreateProfile' ? 'nav__activePage' : ''}>Profiles</li></Link>
-          <Link to={routes.JOBS}><li className={pathname === '/Jobs' ? 'nav__activePage' : ''}>Jobs</li></Link>
+          <Link to={routes.CREATEPROFILE}><li className={pathname === routes.CREATEPROFILE ? 'nav__activePage' : ''}>Profiles</li></Link>
+          <Link to={routes.JOBS}><li className={pathname === routes.JOBS ? 'nav__activePage' : ''}>Jobs</li></Link>
           <Link to={routes.CREATEPROFILE}><li>Create Profile</li></Link>
           <li id="mobileNav__signout" onClick={handleSignInUp}>Sign In</li>
           <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="nav__reportBug">Report a bug</li></a>
