@@ -25,26 +25,26 @@ const NavLanding = ({
           }
         </Link>
         <Link to={routes.PROFILES}>
-          <h4 className={`landing__nav__link ${landing}`}>
+          <h4 className={`landing__nav__link ${landing} ${pathname === routes.PROFILES && 'underline'}`}>
             Profiles
-        </h4>
+          </h4>
         </Link>
         <Link to={routes.JOBS}>
-          <h4 className={`landing__nav__link ${landing}`}>
+          <h4 className={`landing__nav__link ${landing} ${pathname === routes.JOBS && 'underline'}`}>
             Jobs
-        </h4>
+          </h4>
         </Link>
       </div>
       <div id="actionButtons">
         <Link to={routes.CREATE}>
-          <p className={`${landing} createProfileLInk`}>
+          <p className={`${landing} createProfileLInk ${pathname === routes.CREATE && 'underline'}`}>
             Create Profile
           </p>
         </Link>
         <button onClick={handleSignInUp} className={`landing__nav__createProfile ${landing}`} type="button">
           Sign In
-      </button>
-      
+        </button>
+
         {/* {isMobile
           && (
             <div className={`landing__nav__mobileMenu ${landing}`} onClick={handleSideNav}>
@@ -55,11 +55,10 @@ const NavLanding = ({
 
       </div>
 
-      {showSideNav
-        && <div className='onClickOutside' onClick={handleSideNav} />}
-
+      {/* {showSideNav
+        && <div className='onClickOutside' onClick={handleSideNav} />} */}
       {/* mobile nav dropdown */}
-      <div className={`${showSideNav ? 'sideDrawer' : undefined} nav__dropdown mobileDropDown`} onMouseLeave={handleSideNav} onClick={handleSideNav}>
+      {/* <div className={`${showSideNav ? 'sideDrawer' : undefined} nav__dropdown mobileDropDown`} onMouseLeave={handleSideNav} onClick={handleSideNav}>
         <ul>
           <div className='nav__dropdown__mobileLogo'>
             <img src={ThreeBoxLogoBlue} alt="" className="landing__nav__logo" />
@@ -70,9 +69,9 @@ const NavLanding = ({
           <li id="mobileNav__signout" onClick={handleSignInUp}>Sign In</li>
           <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="nav__reportBug">Report a bug</li></a>
         </ul>
-      </div>
+      </div> */}
 
-    </nav>
+    </nav >
   );
 
 export default NavLanding;

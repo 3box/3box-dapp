@@ -162,7 +162,14 @@ nav {
 .landing__nav__link {
   margin-left: 38px;
   font-size: 16px;
-  color: white; }
+  color: white;
+  font-weight: 400; }
+
+.underline {
+  border-bottom: 3px solid white;
+  color: white;
+  margin-bottom: -6px;
+  padding-bottom: 3px; }
 
 .landing {
   color: #1168df !important; }
@@ -296,7 +303,6 @@ nav {
   .landing__nav__link {
     margin-left: 15px;
     font-size: 14px;
-    font-weight: 400;
     display: none; }
   #nav__logo--marginLeft {
     margin-left: 6vw; }
