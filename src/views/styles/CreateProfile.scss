@@ -20,7 +20,7 @@
   position: absolute;
   left: 0;
   top: 89px;
-  transition: opacity 0.5s;
+  transition: all 0.5s;
   opacity: 1;
 
   p {
@@ -30,7 +30,8 @@
 }
 
 .fadeOut.create__banner {
-  transition: opacity 0.5s;
+  transition: all 0.5s;
+  height: 0;
   opacity: 0;
 }
 

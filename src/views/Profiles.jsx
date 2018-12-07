@@ -15,17 +15,21 @@ class Profiles extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        fadeOut: '',
-      });
-    }, 1000);
+    const { previousRoute } = this.props;
 
-    setTimeout(() => {
-      this.setState({
-        fadeOut: 'fadeOut',
-      });
-    }, 5000);
+    if (previousRoute === '/create') {
+      setTimeout(() => {
+        this.setState({
+          fadeOut: '',
+        });
+      }, 100);
+
+      setTimeout(() => {
+        this.setState({
+          fadeOut: 'fadeOut',
+        });
+      }, 5000);
+    }
   }
 
   render() {
@@ -108,10 +112,12 @@ class Profiles extends Component {
 Profiles.propTypes = {
   handleSignInUp: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
+  previousRoute: PropTypes.string,
 };
 
 const mapState = state => ({
   isLoggedIn: state.threeBox.isLoggedIn,
+  previousRoute: state.threeBox.previousRoute,
 });
 
 export default withRouter(connect(mapState)(Profiles));

@@ -335,6 +335,12 @@ export const threeBoxReducer = (state = {}, action) => {
         downloadBanner: action.downloadBanner,
       };
 
+    case 'PREVIOUS_ROUTE':
+      return {
+        ...state,
+        previousRoute: action.previousRoute,
+      };
+
     default:
       return state;
   }

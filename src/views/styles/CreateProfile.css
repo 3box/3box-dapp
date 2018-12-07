@@ -17,14 +17,15 @@
   position: absolute;
   left: 0;
   top: 89px;
-  transition: opacity 0.5s;
+  transition: all 0.5s;
   opacity: 1; }
   .create__banner p {
     color: #1168df;
     font-weight: 400; }
 
 .fadeOut.create__banner {
-  transition: opacity 0.5s;
+  transition: all 0.5s;
+  height: 0;
   opacity: 0; }
 
 .create__copy {

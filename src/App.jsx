@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as routes from './utils/routes';
+import { store } from './state/store';
 import Landing from './views/Landing';
 import Profile from './views/Profile';
 import EditProfile from './views/EditProfile';
@@ -117,6 +118,18 @@ class App extends Component {
       history.push(routes.LANDING);
       this.props.requireMetaMaskModal();
       this.props.handleMobileWalletModal();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { location } = this.props;
+    const { pathname } = location;
+
+    if (nextProps.location.pathname !== pathname) {
+      store.dispatch({
+        type: 'PREVIOUS_ROUTE',
+        previousRoute: pathname,
+      });
     }
   }
 

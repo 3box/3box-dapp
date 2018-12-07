@@ -120,11 +120,6 @@ const LandingBody = ({ isLoggedIn, handleSignInUp }) => (
             Profiles API
           </button>
         </a>
-        {/* <a href="" target="_blank" rel="noopener noreferrer">
-          <button className="landing__developers__buttonWrapper__button" type="button">
-            Data Network
-        </button>
-        </a> */}
       </div>
 
       <div className="landing__developers__graphic">
