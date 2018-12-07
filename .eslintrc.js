@@ -1,4 +1,4 @@
 module.exports = {
-    "extends": "airbnb",
-    "parser": "babel-eslint"
-};
+    "extends": ["react-app", "airbnb", "plugin:jsx-a11y/recommended"],
+    "plugins": ["jsx-a11y"]
+}
