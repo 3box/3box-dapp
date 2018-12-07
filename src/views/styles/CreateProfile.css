@@ -171,7 +171,10 @@
   .create__action__form {
     width: 90vw;
     min-width: 90vw;
-    margin: 60px 0 20px 0; }
+    margin: 60px 0 20px 0;
+    position: relative;
+    top: auto;
+    left: auto; }
   .create__action__form__body {
     margin-bottom: 28px; }
   .create__action__wrapper {
