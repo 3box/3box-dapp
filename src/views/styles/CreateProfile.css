@@ -4,7 +4,8 @@
   background-color: #1168df;
   display: flex;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  overflow: hidden; }
 
 .create__banner {
   width: 100vw;
@@ -74,7 +75,9 @@
   max-width: 34vw;
   min-width: 450px;
   height: fit-content;
-  margin-top: 120px; }
+  position: absolute;
+  top: 170px;
+  left: 9vw; }
 
 .create__action__form__header {
   color: #1168df;
@@ -135,10 +138,6 @@
   flex-direction: column;
   align-items: center;
   width: 100%; }
-
-@media (max-height: 890) {
-  .create__action__form {
-    margin-top: 300px; } }
 
 @media only screen and (max-width: 600px) {
   .create {
