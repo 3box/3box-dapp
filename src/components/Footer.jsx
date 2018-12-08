@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import MailChimp from './MailChimp';
 import ThreeBoxLogoWhite from '../assets/ThreeBoxLogoWhite.svg';
 import GithubIconWhite from '../assets/GithubIconWhite.svg';
+import MediumIconWhite from '../assets/MediumIconWhite.svg';
 import Email from '../assets/EmailWhite.svg';
 import Twitter from '../assets/twitterWhite.svg';
 import Discord from '../assets/discordWhite.svg';
@@ -78,16 +79,19 @@ const Footer = ({ handleSignInUp, isLoggedIn }) => (
 
       <ul className="footer__gutter__social">
         <a href="https://github.com/uport-project/3box" target="_blank" rel="noopener noreferrer">
-          <img src={GithubIconWhite} className="footer__socialIcons" alt="Partners background" />
+          <img src={GithubIconWhite} className="footer__socialIcons" alt="Github link" />
+        </a>
+        <a href="https://medium.com/@3box" target="_blank" rel="noopener noreferrer">
+          <img src={MediumIconWhite} className="footer__socialIcons" alt="Medium link" />
         </a>
         <a href="https://twitter.com/3boxdb" title="Twitter" target="_blank" rel="noopener noreferrer">
-          <img src={Twitter} className="footer__socialIcons" alt="Github Icon" />
+          <img src={Twitter} className="footer__socialIcons" alt="Twitter link" />
         </a>
         <a href="https://discordapp.com/channels/484729862368526356/485438421054128128" title="Discord" target="_blank" rel="noopener noreferrer">
-          <img src={Discord} className="footer__socialIcons" alt="Discord Icon" />
+          <img src={Discord} className="footer__socialIcons" alt="Discord link" />
         </a>
         <a href="mailto:community@3box.io" title="Email" target="_blank" rel="noopener noreferrer">
-          <img src={Email} className="footer__socialIcons" alt="Email Icon" />
+          <img src={Email} className="footer__socialIcons" alt="Email link" />
         </a>
       </ul>
     </div>
