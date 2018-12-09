@@ -81,7 +81,7 @@ const Footer = ({ handleSignInUp, isLoggedIn }) => (
         <a href="https://github.com/uport-project/3box" target="_blank" rel="noopener noreferrer">
           <img src={GithubIconWhite} className="footer__socialIcons" alt="Github link" />
         </a>
-        <a href="https://medium.com/@3box" target="_blank" rel="noopener noreferrer">
+        <a href="https://medium.com/3box " target="_blank" rel="noopener noreferrer">
           <img src={MediumIconWhite} className="footer__socialIcons" alt="Medium link" />
         </a>
         <a href="https://twitter.com/3boxdb" title="Twitter" target="_blank" rel="noopener noreferrer">
