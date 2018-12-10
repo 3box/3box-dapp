@@ -159,12 +159,6 @@
   }
 }
 
-.footer__gutter {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .landing__developers__footer__buttons {
   margin-right: 8vw;
   display: flex;
@@ -248,6 +242,23 @@
   }
 
   .landing__developers{
-    margin-bottom: 280px;
+    margin-bottom: 380px;
+  }
+
+  .footer__gutter{
+    flex-direction: column-reverse;
+    height: 120px;
+    padding: 24px 0 24px 36px;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .footer__gutter__info{
+    padding: 12px 0;
+    margin-left: 24px;
+  }
+
+  .footer__gutter__social {
+    padding: 12px 0;
   }
 }
