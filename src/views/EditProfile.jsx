@@ -101,7 +101,7 @@ class EditProfile extends Component {
     });
   }
 
-  componentWillReceiveProps(props) {
+  componentWillReceiveProps(nextProps) {
     const {
       name,
       github,
@@ -117,24 +117,22 @@ class EditProfile extends Component {
       year,
       emoji,
       employer,
-    } = props;
+    } = nextProps;
 
-    this.setState({
-      name,
-      github,
-      email,
-      description,
-      location,
-      website,
-      birthday,
-      job,
-      school,
-      degree,
-      major,
-      year,
-      emoji,
-      employer,
-    });
+    if (name !== this.props.name) this.setState({ name });
+    if (github !== this.props.github) this.setState({ github });
+    if (email !== this.props.email) this.setState({ email });
+    if (description !== this.props.description) this.setState({ description });
+    if (location !== this.props.location) this.setState({ location });
+    if (website !== this.props.website) this.setState({ website });
+    if (birthday !== this.props.birthday) this.setState({ birthday });
+    if (job !== this.props.job) this.setState({ job });
+    if (school !== this.props.school) this.setState({ school });
+    if (degree !== this.props.degree) this.setState({ degree });
+    if (major !== this.props.major) this.setState({ major });
+    if (year !== this.props.year) this.setState({ year });
+    if (emoji !== this.props.emoji) this.setState({ emoji });
+    if (employer !== this.props.employer) this.setState({ employer });
   }
 
   handleFormChange = (e, property) => {
