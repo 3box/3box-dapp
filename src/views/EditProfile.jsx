@@ -312,7 +312,7 @@ class EditProfile extends Component {
   }
 
   render() {
-    const { image, coverPhoto } = this.props;
+    const { image, coverPhoto, memberSince } = this.props;
     const {
       github,
       email,
@@ -524,7 +524,6 @@ class EditProfile extends Component {
                       </div>
                     </div>
 
-
                   </div>
                 </div>
               </div>
@@ -604,6 +603,15 @@ class EditProfile extends Component {
                           value={birthday}
                           onChange={e => this.handleFormChange(e, 'birthday')}
                         />
+                      </div>
+                    </div>
+
+                    <div className="edit__profile__fields__entry">
+                      <div className="edit__profile__keyContainer">
+                        <h5 className="edit__profile__key">Member Since</h5>
+                      </div>
+                      <div className="edit__profile__fields__entry noMargin">
+                        <p className="edit__profile__fields__entry--memberSince">{memberSince}</p>
                       </div>
                     </div>
                   </div>
@@ -743,6 +751,7 @@ EditProfile.propTypes = {
   major: PropTypes.string,
   employer: PropTypes.string,
   email: PropTypes.string,
+  memberSince: PropTypes.string,
   image: PropTypes.array,
   coverPhoto: PropTypes.array,
   ifFetchingThreeBox: PropTypes.bool,
@@ -781,6 +790,7 @@ EditProfile.defaultProps = {
   year: '',
   emoji: '',
   employer: '',
+  memberSince: '',
   email: '',
   image: [],
   coverPhoto: [],
@@ -811,6 +821,7 @@ function mapState(state) {
     name: state.threeBox.name,
     github: state.threeBox.github,
     description: state.threeBox.description,
+    memberSince: state.threeBox.memberSince,
     location: state.threeBox.location,
     website: state.threeBox.website,
     birthday: state.threeBox.birthday,

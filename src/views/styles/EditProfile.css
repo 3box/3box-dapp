@@ -430,6 +430,9 @@
   left: 12px;
   top: 13px; }
 
+.edit__profile__fields__entry--memberSince {
+  color: #747677; }
+
 .loadingProfile {
   position: absolute;
   width: 100%;

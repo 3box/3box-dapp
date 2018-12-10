@@ -172,6 +172,12 @@ export const threeBoxReducer = (state = {}, action) => {
         birthday: action.birthday,
       };
 
+    case 'GET_PUBLIC_MEMBERSINCE':
+      return {
+        ...state,
+        memberSince: action.memberSince,
+      };
+
     case 'HANDLE_SIGNOUT':
       return {
         ...state,

@@ -183,8 +183,6 @@ export const signInGetBox = () => async (dispatch) => {
   };
 
   try {
-    console.log(store.getState().threeBox.accountAddress);
-
     const box = await Box // eslint-disable-line no-undef
       .openBox(
         store.getState().threeBox.accountAddress || address,
@@ -199,15 +197,21 @@ export const signInGetBox = () => async (dispatch) => {
       box,
     });
 
+    const memberSince = await store.getState().threeBox.box.public.get('memberSince');
+
     box.onSyncDone(() => {
       const publicActivity = store.getState().threeBox.box.public.log;
       const privateActivity = store.getState().threeBox.box.private.log;
+
       if (!privateActivity.length && !publicActivity.length) {
         dispatch({
           type: 'HANDLE_ONBOARDING_MODAL',
           onBoardingModal: true,
         });
+        store.getState().threeBox.box.public.set('memberSince', Date.now());
         history.push(routes.EDITPROFILE);
+      } else if (!memberSince && (privateActivity.length || publicActivity.length)) {
+        store.getState().threeBox.box.public.set('memberSince', 'Alpha');
       }
 
       dispatch({
@@ -247,8 +251,6 @@ export const profileGetBox = () => async (dispatch) => {
   };
 
   try {
-    console.log(store.getState().threeBox.accountAddress);
-
     const box = await Box // eslint-disable-line no-undef
       .openBox(
         store.getState().threeBox.accountAddress || address,
@@ -263,6 +265,8 @@ export const profileGetBox = () => async (dispatch) => {
       isLoggedIn: true,
     });
 
+    const memberSince = await store.getState().threeBox.box.public.get('memberSince');
+
     box.onSyncDone(() => {
       const publicActivity = store.getState().threeBox.box.public.log;
       const privateActivity = store.getState().threeBox.box.private.log;
@@ -272,6 +276,8 @@ export const profileGetBox = () => async (dispatch) => {
           onBoardingModal: true,
         });
         history.push(routes.EDITPROFILE);
+      } else if (!memberSince && (privateActivity.length || publicActivity.length)) {
+        store.getState().threeBox.box.public.set('memberSince', 'Alpha');
       }
 
       dispatch({
@@ -299,7 +305,7 @@ export const getActivity = () => async (dispatch) => {
 
     const activity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
 
-    // add datatype to each datum
+    // add datatype
     activity.internal = activity.internal.map(object => Object.assign({
       dataType: 'Internal',
     }, object));
@@ -442,6 +448,15 @@ export const getPublicJob = () => async (dispatch) => {
   dispatch({
     type: 'GET_PUBLIC_JOB',
     job,
+  });
+};
+
+export const getPublicMemberSince = () => async (dispatch) => {
+  const memberSince = await store.getState().threeBox.box.public.get('memberSince');
+
+  dispatch({
+    type: 'GET_PUBLIC_MEMBERSINCE',
+    memberSince,
   });
 };
 

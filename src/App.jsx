@@ -42,6 +42,7 @@ import {
   profileGetBox,
   requestAccess,
   getPublicName,
+  getPublicMemberSince,
   getPublicGithub,
   getPublicWebsite,
   getPublicEmployer,
@@ -164,6 +165,7 @@ class App extends Component {
         this.props.getActivity(); // remove await
         this.props.getPublicStatus();
         this.props.getPublicName();
+        this.props.getPublicMemberSince();
         this.props.getPublicGithub();
         this.props.getPublicDescription();
         this.props.getPublicImage();
@@ -201,6 +203,7 @@ class App extends Component {
           this.props.getActivity();
           this.props.getPublicStatus();
           this.props.getPublicName();
+          this.props.getPublicMemberSince();
           this.props.getPublicGithub();
           this.props.getPublicDescription();
           this.props.getPublicImage();
@@ -508,6 +511,7 @@ App.propTypes = {
   profileGetBox: PropTypes.func.isRequired,
   requestAccess: PropTypes.func.isRequired,
   getPublicName: PropTypes.func.isRequired,
+  getPublicMemberSince: PropTypes.func.isRequired,
   getPublicGithub: PropTypes.func.isRequired,
   getPublicDescription: PropTypes.func.isRequired,
   getPublicWebsite: PropTypes.func.isRequired,
@@ -627,6 +631,7 @@ export default withRouter(connect(mapState,
     profileGetBox,
     requestAccess,
     getPublicName,
+    getPublicMemberSince,
     getPublicGithub,
     getPublicLocation,
     getPublicWebsite,

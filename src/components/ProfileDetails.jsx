@@ -12,6 +12,7 @@ import School from '../assets/School.svg';
 import Location from '../assets/Location.svg';
 import Website from '../assets/Website.png';
 import Birthday from '../assets/Birthday.svg';
+import ThreeBox3 from '../assets/3Box3.svg';
 import Job from '../assets/Job.svg';
 import Degree from '../assets/Degree.svg';
 import Major from '../assets/Major.svg';
@@ -36,6 +37,7 @@ const ProfileDetails = ({
   major,
   year,
   employer,
+  memberSince,
 }) => (
     <div>
       {coverPhoto.length > 0 && coverPhoto[0].contentUrl
@@ -145,6 +147,17 @@ const ProfileDetails = ({
                 }
               </div>
 
+              <div className="profile__category__field" title="Birthday">
+                <div>
+                  <img src={ThreeBox3} className="profile__category__field__icon" alt="Birthday Icon" />
+                  {memberSince
+                    && (
+                      <p id="profile__github">{memberSince}</p>
+                    )
+                  }
+                </div>
+              </div>
+
             </div>
 
             <div className="profile__category">
@@ -245,6 +258,7 @@ ProfileDetails.propTypes = {
   job: PropTypes.string,
   school: PropTypes.string,
   degree: PropTypes.string,
+  memberSince: PropTypes.string,
   major: PropTypes.string,
   year: PropTypes.string,
   employer: PropTypes.string,
@@ -264,6 +278,7 @@ ProfileDetails.defaultProps = {
   coverPhoto: [],
   emoji: '',
   location: '',
+  memberSince: '',
   website: '',
   birthday: '',
   job: '',
@@ -286,6 +301,7 @@ function mapState(state) {
     location: state.threeBox.location,
     website: state.threeBox.website,
     birthday: state.threeBox.birthday,
+    memberSince: state.threeBox.memberSince,
     job: state.threeBox.job,
     school: state.threeBox.school,
     degree: state.threeBox.degree,
