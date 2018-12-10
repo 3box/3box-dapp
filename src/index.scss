@@ -26,7 +26,7 @@ body {
   font-family: 'Lato', sans-serif;
   color: $threeBoxBlack;
   background-color: $backgroundHue;
-  font-weight: 300;
+  font-weight: 400;
   height: calc(100% - 69px);
   width: 100%;
 }
@@ -114,7 +114,7 @@ li,
 a,
 p {
   color: $threeBoxBlack;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 input,
@@ -127,6 +127,11 @@ p {
   text-decoration: none;
   font-size: 14px;
   list-style: none;
+  line-height: 18px;
+}
+
+button {
+  font-weight: 800;
 }
 
 textarea,

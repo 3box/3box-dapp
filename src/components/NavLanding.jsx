@@ -20,8 +20,8 @@ const NavLanding = ({
       <div id="nav__logo--marginLeft">
         <Link to={routes.LANDING}>
           {(classHide || landing)
-            ? <img src={ThreeBoxLogoBlue} alt="" className="landing__nav__logo" />
-            : <img src={ThreeBoxLogoWhite} alt="" className="landing__nav__logo" />
+            ? <img src={ThreeBoxLogoBlue} alt="3Box Logo" className="landing__nav__logo" />
+            : <img src={ThreeBoxLogoWhite} alt="3Box Logo" className="landing__nav__logo" />
           }
         </Link>
         <Link to={routes.PROFILES}>

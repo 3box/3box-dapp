@@ -44,7 +44,7 @@ class Nav extends Component {
       <nav>
         <div id="nav__logo--marginLeft">
           <Link to={routes.LANDING}>
-            <img src={ThreeBoxLogo} alt="" className="landing__nav__logo" />
+            <img src={ThreeBoxLogo} alt="3Box Logo" className="landing__nav__logo" />
           </Link>
         </div>
 
@@ -96,7 +96,7 @@ class Nav extends Component {
         <div className={`${showProfileModal ? 'sideDrawer' : undefined} nav__dropdown mobileDropDown`} onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
           <ul>
             <div className='nav__dropdown__mobileLogo'>
-            <img src={ThreeBoxLogo} alt="" className="landing__nav__logo" />
+            <img src={ThreeBoxLogo} alt="3Box Logo" className="landing__nav__logo" />
               
             </div>
             <Link to={routes.PROFILE}><li className={pathname === routes.PROFILE ? 'nav__activePage' : ''}>Profile</li></Link>
