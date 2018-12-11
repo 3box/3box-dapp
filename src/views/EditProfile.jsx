@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Prompt } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
@@ -186,10 +186,10 @@ class EditProfile extends Component {
   }
 
   copyToClipBoard = () => {
-    var copyText = document.getElementById("muportDID");
+    const copyText = document.getElementById('muportDID');
     copyText.select();
-    document.execCommand("copy");
-    alert("Copied the text");
+    document.execCommand('copy');
+    alert('Your verifying information was copied');
   }
 
   addEmoji = (emoji) => {
@@ -199,6 +199,13 @@ class EditProfile extends Component {
       disableSave: false,
     });
   }
+
+  // areThereUnsavedChanges() {
+  //   return this.props.form && Object.values(this.props.form).length > 0 &&
+  //     Object.values(this.props.form)
+  //       .findIndex(frm => (Object.values(frm)
+  //         .findIndex(field => field && field.initial && field.initial !== field.value) !== -1)) !== -1
+  // }
 
   async handleSubmit(e) {
     const {
@@ -342,6 +349,20 @@ class EditProfile extends Component {
       showFileSizeModal,
       showEmoji,
     } = this.state;
+    
+    if (!this.state.disableSave) {
+      window.onbeforeunload = (e) => {
+        e.returnValue = (
+          <GithubVerificationModal
+            show={true}
+            copyToClipBoard={this.copyToClipBoard}
+            handleGithubVerificationModal={this.props.handleGithubVerificationModal}
+          />
+        );
+      };
+    } else {
+      window.onbeforeunload = undefined;
+    }
 
     return (
       <div id="edit__page">
@@ -360,6 +381,11 @@ class EditProfile extends Component {
           show={showGithubVerificationModal}
           copyToClipBoard={this.copyToClipBoard}
           handleGithubVerificationModal={this.props.handleGithubVerificationModal}
+        />
+
+        <Prompt
+          when={!disableSave}
+          message="You have unsaved changes"
         />
 
         <div id="edit__breadCrumb">
