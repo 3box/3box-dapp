@@ -27,7 +27,8 @@ class StatusUpdate extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { status } = nextProps;
-    this.setState({ status });
+
+    if (status !== this.props.status) this.setState({ status });
   }
 
   handleFormChange = (e, property) => {

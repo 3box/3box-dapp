@@ -25,8 +25,10 @@ import {
   getActivity,
 } from '../state/actions';
 
+import { handleGithubVerificationModal } from '../state/actions-modals';
+
 import { address } from '../utils/address';
-import { FileSizeModal } from '../components/Modals';
+import { FileSizeModal, GithubVerificationModal } from '../components/Modals';
 import history from '../history';
 import Nav from '../components/Nav';
 import * as routes from '../utils/routes';
@@ -183,6 +185,13 @@ class EditProfile extends Component {
     this.setState({ disableSave: false, removeCoverPic: true });
   }
 
+  copyToClipBoard = () => {
+    var copyText = document.getElementById("muportDID");
+    copyText.select();
+    document.execCommand("copy");
+    alert("Copied the text");
+  }
+
   addEmoji = (emoji) => {
     this.setState({
       emoji: emoji.native,
@@ -310,7 +319,7 @@ class EditProfile extends Component {
   }
 
   render() {
-    const { image, coverPhoto, memberSince } = this.props;
+    const { image, coverPhoto, memberSince, showGithubVerificationModal } = this.props;
     const {
       github,
       email,
@@ -346,6 +355,12 @@ class EditProfile extends Component {
 
         {showFileSizeModal
           && <FileSizeModal show={showFileSizeModal} closeFileSizeModal={this.closeFileSizeModal} />}
+
+        <GithubVerificationModal
+          show={showGithubVerificationModal}
+          copyToClipBoard={this.copyToClipBoard}
+          handleGithubVerificationModal={this.props.handleGithubVerificationModal}
+        />
 
         <div id="edit__breadCrumb">
           <div id="edit__breadCrumb__crumbs">
@@ -753,6 +768,7 @@ EditProfile.propTypes = {
   image: PropTypes.array,
   coverPhoto: PropTypes.array,
   ifFetchingThreeBox: PropTypes.bool,
+  showGithubVerificationModal: PropTypes.bool,
 
   getPublicName: PropTypes.func,
   getPublicGithub: PropTypes.func,
@@ -771,6 +787,8 @@ EditProfile.propTypes = {
   getPublicLocation: PropTypes.func,
   getPublicDescription: PropTypes.func,
   getActivity: PropTypes.func,
+
+  handleGithubVerificationModal: PropTypes.func,
 };
 
 EditProfile.defaultProps = {
@@ -793,6 +811,7 @@ EditProfile.defaultProps = {
   image: [],
   coverPhoto: [],
   ifFetchingThreeBox: false,
+  showGithubVerificationModal: true,
 
   getPublicName: getPublicName(),
   getPublicGithub: getPublicGithub(),
@@ -811,11 +830,13 @@ EditProfile.defaultProps = {
   getPrivateBirthday: getPrivateBirthday(),
   getPublicEmoji: getPublicEmoji(),
   getActivity: getActivity(),
+  handleGithubVerificationModal: handleGithubVerificationModal(),
 };
 
 function mapState(state) {
   return {
     box: state.threeBox.box,
+    showGithubVerificationModal: state.threeBox.showGithubVerificationModal,
     name: state.threeBox.name,
     github: state.threeBox.github,
     description: state.threeBox.description,
@@ -856,4 +877,5 @@ export default withRouter(connect(mapState,
     getPrivateBirthday,
     getPublicEmoji,
     getActivity,
+    handleGithubVerificationModal,
   })(EditProfile));

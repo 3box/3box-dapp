@@ -291,6 +291,104 @@
   }
 }
 
+.githubModal {
+  width: 800px;
+  padding: 0;
+}
+
+.modal__github__description {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid #f1f1f1;
+  padding: 40px;
+}
+
+.modal__github__description__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.modal__github__description__copy__text {
+  text-align: left;
+  color: $lighterFont;
+  width: 80%;
+}
+
+.modal__github__description__copy__button {
+  padding: 0;
+  color: $threeBoxBlue;
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+
+  &:hover {
+    background-color: transparent;
+    color: $threeBoxBlue;
+  }
+}
+
+.modal__github__description__githubIcon {
+  width: 30px !important;
+  margin-right: 18px;
+}
+
+.modal__github__description__copy__header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 16px;
+}
+
+.modal__github__steps__text {
+  height: 100px;
+  text-align: left;
+}
+
+.modal__github__steps__step {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 28%;
+}
+
+.modal__github__steps {
+  display: flex;
+  padding: 40px;
+  justify-content: space-between;
+}
+
+.modal__github__steps__number {
+  background-color: $threeBoxBlueShade;
+  color: $threeBoxAccentBlue;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.modal__github__description__copy__input {
+  border-radius: 6px;
+  border: 1px solid $threeBoxBlue;
+  background-color: $threeBoxBlueShade;
+  padding: 15px 20px;
+  width: 70%;
+  margin-bottom: 20px;
+}
+
+.modal__github__done {
+  background-color: $threeBoxBlueShade;
+  width: 100%;
+  padding: 20px;
+  height: 100%;
+}
+
 @media only screen and (max-width: 600px) {
   .mobileInvisible {
     display: none;

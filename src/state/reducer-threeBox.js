@@ -321,6 +321,12 @@ export const threeBoxReducer = (state = {}, action) => {
         mobileWalletRequiredModal: action.mobileWalletRequiredModal,
       };
 
+    case 'HANDLE_GITHUB_MODAL':
+      return {
+        ...state,
+        showGithubVerificationModal: action.showGithubVerificationModal,
+      };
+
     case 'HANDLE_ACCESS_MODAL':
       return {
         ...state,

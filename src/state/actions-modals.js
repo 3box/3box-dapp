@@ -60,6 +60,13 @@ export const handleSwitchedNetworkModal = () => async (dispatch) => {
   });
 };
 
+export const handleGithubVerificationModal = () => async (dispatch) => {
+  dispatch({
+    type: 'HANDLE_GITHUB_MODAL',
+    showGithubVerificationModal: !store.getState().threeBox.showGithubVerificationModal,
+  });
+};
+
 export const handleOnboardingModal = mobile => async (dispatch) => {
   if (mobile) {
     dispatch({
