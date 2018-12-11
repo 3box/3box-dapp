@@ -223,7 +223,7 @@ nav {
   color: $threeBoxBlue !important;
 }
 
-.landing .createProfileLInk{
+.landing .createProfileLInk {
   color: white !important;
 }
 
@@ -260,11 +260,6 @@ nav {
   button:hover {
     background-color: $threeBoxBlueHover !important;
   }
-}
-
-#nav__reportBug {
-  background-color: $backgroundHue;
-  color: $lighterFont;
 }
 
 #nav__divideBug {
@@ -377,6 +372,7 @@ nav {
     p {
       color: $threeBoxBlue !important;
     }
+
     button {
       color: white;
     }
@@ -472,12 +468,6 @@ nav {
     background: rgba(0, 0, 0, 0.76);
     z-index: 99998;
     transition: all .3s ease-out;
-  }
-
-  #nav__reportBug {
-    border-top: none;
-    background: none;
-    padding: 0 1.3em;
   }
 
   #mobileNav__signout {
