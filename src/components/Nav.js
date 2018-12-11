@@ -9,7 +9,6 @@ import * as routes from '../utils/routes';
 import Profile from '../assets/Profile.svg';
 import Edit from '../assets/Edit.svg';
 import SignOut from '../assets/SignOut.svg';
-import Report from '../assets/Report.svg';
 import './styles/Nav.css';
 
 class Nav extends Component {
@@ -80,6 +79,12 @@ class Nav extends Component {
             <img src={SignOut} className="nav__dropdown__icon" alt="profile" role="button" />
               Sign Out
             </li>
+            {/* <div id="nav__divideBug" /> */}
+            {/* <a href="https://airtable.com/shrX4fI8MDuaPpef9">
+            <li id="nav__reportBug" className="nav__dropdown__wrapper">
+            <img src={Report} className="nav__dropdown__icon" alt="profile" role="button" />
+            Report a bug
+            </li></a> */}
           </ul>
         </div>
 
