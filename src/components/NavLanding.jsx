@@ -11,10 +11,7 @@ const NavLanding = ({
   downloadBanner,
   classHide,
   landing,
-  isMobile,
   pathname,
-  handleSideNav,
-  showSideNav,
 }) => (
     <nav id="landing__nav" className={`${downloadBanner ? 'bannerMargin' : ''} ${classHide} ${landing}`}>
       <div id="nav__logo--marginLeft">

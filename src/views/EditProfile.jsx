@@ -28,7 +28,7 @@ import {
 import { address } from '../utils/address';
 import { FileSizeModal } from '../components/Modals';
 import history from '../history';
-import Nav from '../components/Nav';
+import Nav from '../components/Nav.jsx';
 import * as routes from '../utils/routes';
 import Private from '../assets/Private.svg';
 import AddImage from '../assets/AddImage.svg';

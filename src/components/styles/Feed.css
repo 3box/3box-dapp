@@ -199,7 +199,8 @@
   width: .9em !important; }
 
 .feed__activity__address__function {
-  width: 130px; }
+  width: 130px;
+  overflow: scroll; }
 
 .feed__activity__address__toFrom {
   display: flex;
@@ -294,6 +295,9 @@
     white-space: nowrap;
     overflow: hidden;
     overflow-x: scroll; }
+    .feed__activity__address h4 {
+      width: 94%;
+      overflow-x: scroll; }
   .feed__activity__address__time {
     width: 26%;
     white-space: nowrap;
@@ -312,6 +316,8 @@
   .feed__activity__address__dataType {
     width: 8%; }
   .feed__activity__address__toFrom {
-    width: 13%; }
+    width: 15%; }
   .feed__activity__address__function {
-    width: 13%; } }
+    width: 13%; }
+  .feed__footer {
+    margin-bottom: 28px; } }
