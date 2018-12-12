@@ -1,3 +1,5 @@
+import Web3 from 'web3/index';
+
 import {
   address,
 } from '../utils/address';
@@ -56,6 +58,7 @@ export const requestAccess = directLogin => async (dispatch) => {
   if (window.ethereum) { // eslint-disable-line no-undef
     try {
       window.web3 = new Web3(ethereum); // eslint-disable-line no-undef
+
       dispatch({
         type: 'HANDLE_ACCESS_MODAL',
         allowAccessModal: true,

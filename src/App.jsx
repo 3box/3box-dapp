@@ -289,6 +289,8 @@ class App extends Component {
     const { userAgent: ua } = navigator;
     const isIOS = ua.includes('iPhone');
 
+    console.log(window.web3 && window.web3.currentProvider);
+
     return (
       <div className="App">
         {!isLoggedIn
