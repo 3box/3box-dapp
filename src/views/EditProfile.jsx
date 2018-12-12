@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Prompt } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
@@ -219,7 +219,7 @@ class EditProfile extends Component {
 
     if (box.public) {
       e.preventDefault();
-      this.setState({ saveLoading: true });
+      this.setState({ saveLoading: true, disableSave: true });
 
       const nameChanged = name !== this.props.name;
       const githubChanged = github !== this.props.github;
@@ -336,6 +336,11 @@ class EditProfile extends Component {
 
     return (
       <div id="edit__page">
+
+        <Prompt
+          when={!disableSave}
+          message="Continue without saving changes to your profile?"
+        />
         <Nav />
         {saveLoading
           && (
