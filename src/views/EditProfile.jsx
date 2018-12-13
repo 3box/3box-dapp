@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Prompt } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
@@ -30,7 +30,7 @@ import { handleGithubVerificationModal } from '../state/actions-modals';
 import { address } from '../utils/address';
 import { FileSizeModal, GithubVerificationModal } from '../components/Modals';
 import history from '../history';
-import Nav from '../components/Nav';
+import Nav from '../components/Nav.jsx';
 import * as routes from '../utils/routes';
 import Private from '../assets/Private.svg';
 import AddImage from '../assets/AddImage.svg';
@@ -228,7 +228,7 @@ class EditProfile extends Component {
 
     if (box.public) {
       e.preventDefault();
-      this.setState({ saveLoading: true });
+      this.setState({ saveLoading: true, disableSave: true });
 
       const nameChanged = name !== this.props.name;
       const githubChanged = github !== this.props.github;
@@ -345,6 +345,11 @@ class EditProfile extends Component {
 
     return (
       <div id="edit__page">
+
+        <Prompt
+          when={!disableSave}
+          message="Continue without saving changes to your profile?"
+        />
         <Nav />
         {saveLoading
           && (
@@ -627,6 +632,37 @@ class EditProfile extends Component {
                         <p className="edit__profile__fields__entry--memberSince">{memberSince}</p>
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="edit__profile__info--verified">
+                <div className="edit__profile__categories">
+                  <h3>Connect your accounts</h3>
+                  <p>Connect your existing social accounts to build a stronger reputation.</p>
+                </div>
+                <div id="edit__profile__fields">
+                  <div id="edit__info">
+
+                    <div className="edit__profile__fields__entry noMargin">
+                      <div className="edit__profile__keyContainer">
+                        <h5>Github</h5>
+                      </div>
+                      <div className="edit__profile__value--privateContainer">
+                        <button type="button">
+                          Connect
+                        </button>
+                        {/* <img id="edit__profile__input__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
+                        <input
+                          name="email"
+                          type="email"
+                          className="edit__profile__value privateInput"
+                          value={email}
+                          onChange={e => this.handleFormChange(e, 'email')}
+                        /> */}
+                      </div>
+                    </div>
+
                   </div>
                 </div>
               </div>

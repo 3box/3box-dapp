@@ -2,7 +2,7 @@ import React from 'react';
 
 import Feed from '../components/Feed.jsx';
 import ProfileDetails from '../components/ProfileDetails.jsx';
-import Nav from '../components/Nav';
+import Nav from '../components/Nav.jsx';
 import './styles/Profile.css';
 
 const Profile = () => (

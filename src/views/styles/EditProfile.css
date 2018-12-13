@@ -81,6 +81,13 @@
     padding-top: 40px;
     padding-bottom: 44px;
     border-bottom: 1px solid #f1f1f1; }
+  #edit__form .edit__profile__info--verified {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 40px;
+    padding-bottom: 44px;
+    border-bottom: 1px solid #f1f1f1;
+    background-color: #f2f8ff; }
   #edit__form .noBorder {
     border: none !important; }
   #edit__form .edit__profile__address {

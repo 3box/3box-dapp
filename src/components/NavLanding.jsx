@@ -11,10 +11,7 @@ const NavLanding = ({
   downloadBanner,
   classHide,
   landing,
-  isMobile,
   pathname,
-  handleSideNav,
-  showSideNav,
 }) => (
     <nav id="landing__nav" className={`${downloadBanner ? 'bannerMargin' : ''} ${classHide} ${landing}`}>
       <div id="nav__logo--marginLeft">
@@ -44,34 +41,8 @@ const NavLanding = ({
         <button onClick={handleSignInUp} className={`landing__nav__createProfile ${landing}`} type="button">
           Sign In
         </button>
-
-        {/* {isMobile
-          && (
-            <div className={`landing__nav__mobileMenu ${landing}`} onClick={handleSideNav}>
-              <div className="bar1"></div>
-              <div className="bar1"></div>
-              <div className="bar1"></div>
-            </div>)} */}
-
       </div>
-
-      {/* {showSideNav
-        && <div className='onClickOutside' onClick={handleSideNav} />} */}
-      {/* mobile nav dropdown */}
-      {/* <div className={`${showSideNav ? 'sideDrawer' : undefined} nav__dropdown mobileDropDown`} onMouseLeave={handleSideNav} onClick={handleSideNav}>
-        <ul>
-          <div className='nav__dropdown__mobileLogo'>
-            <img src={ThreeBoxLogoBlue} alt="" className="landing__nav__logo" />
-          </div>
-          <Link to={routes.PROFILES}><li className={pathname === routes.PROFILES ? 'nav__activePage' : ''}>Profiles</li></Link>
-          <Link to={routes.JOBS}><li className={pathname === routes.JOBS ? 'nav__activePage' : ''}>Jobs</li></Link>
-          <Link to={routes.CREATE}><li className={pathname === routes.CREATE ? 'nav__activePage' : ''}>Create Profile</li></Link>
-          <li id="mobileNav__signout" onClick={handleSignInUp}>Sign In</li>
-          <a href="https://airtable.com/shrX4fI8MDuaPpef9"><li id="nav__reportBug">Report a bug</li></a>
-        </ul>
-      </div> */}
-
-    </nav >
+    </nav>
   );
 
 export default NavLanding;
