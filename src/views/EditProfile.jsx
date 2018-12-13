@@ -621,6 +621,37 @@ class EditProfile extends Component {
                 </div>
               </div>
 
+              <div className="edit__profile__info--verified">
+                <div className="edit__profile__categories">
+                  <h3>Connect your accounts</h3>
+                  <p>Connect your existing social accounts to build a stronger reputation.</p>
+                </div>
+                <div id="edit__profile__fields">
+                  <div id="edit__info">
+
+                    <div className="edit__profile__fields__entry noMargin">
+                      <div className="edit__profile__keyContainer">
+                        <h5>Github</h5>
+                      </div>
+                      <div className="edit__profile__value--privateContainer">
+                        <button type="button">
+                          Connect
+                        </button>
+                        {/* <img id="edit__profile__input__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
+                        <input
+                          name="email"
+                          type="email"
+                          className="edit__profile__value privateInput"
+                          value={email}
+                          onChange={e => this.handleFormChange(e, 'email')}
+                        /> */}
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
               <div className="edit__profile__info">
                 <div className="edit__profile__categories">
                   <h3>Work</h3>

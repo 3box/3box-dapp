@@ -111,6 +111,15 @@
     border-bottom: 1px solid #f1f1f1;
   }
 
+  .edit__profile__info--verified {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 40px;
+    padding-bottom: 44px;
+    border-bottom: 1px solid #f1f1f1;
+    background-color: $threeBoxBlueLightBG;
+  }
+
   .noBorder {
     border: none !important;
   }
