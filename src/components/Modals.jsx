@@ -174,7 +174,7 @@ export const ProvideAccessModal = ({
     </div>
   );
 
-export const GithubVerificationModal = ({ show, copyToClipBoard, handleGithubVerificationModal, did, message, turnPollingOff, verifiedGithub }) => (
+export const GithubVerificationModal = ({ show, copyToClipBoard, handleGithubVerificationModal, did, message, startPollingForGists, githubVerified }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
       <div className="modal githubModal">
@@ -193,7 +193,9 @@ export const GithubVerificationModal = ({ show, copyToClipBoard, handleGithubVer
           <button
             className="modal__github__description__copy__button"
             type="button"
-            onClick={() => { handleGithubVerificationModal(); turnPollingOff() }}
+            onClick={() => {
+              handleGithubVerificationModal();
+            }}
           >
             Close
           </button>
@@ -222,14 +224,20 @@ export const GithubVerificationModal = ({ show, copyToClipBoard, handleGithubVer
             <p className="modal__github__steps__text">
               Your verified Github account will appear below when successful!
             </p>
-            <div className="modal__github__description__copy__input">{verifiedGithub || 'Github not yet verified'}</div>
+            <button
+              type="button"
+              onClick={startPollingForGists}
+            >
+              Check verification
+            </button>
+            <div className="modal__github__description__copy__input">{githubVerified ? 'Your github is verified!' : 'Github not yet verified'}</div>
           </div>
         </div>
 
         <div className="modal__github__done">
           <button
             type="button"
-            onClick={() => { handleGithubVerificationModal(); turnPollingOff(); }}
+            onClick={() => { handleGithubVerificationModal(); }}
           >
             Done
           </button>

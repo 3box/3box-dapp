@@ -57,11 +57,10 @@ class EditProfile extends Component {
       major: '',
       year: '',
       employer: '',
-      verifiedGithub: '',
       disableSave: true,
       saveLoading: false,
-      poll: false,
       removeUserPic: false,
+      githubVerified: false,
       editPic: false,
       editCoverPic: false,
       showFileSizeModal: false,
@@ -213,40 +212,25 @@ class EditProfile extends Component {
     });
   }
 
-  turnPollingOff = () => {
-    this.setState({ poll: false });
-  }
-
   startPollingForGists = () => {
-    const { poll, data } = this.state;
+    const { github } = this.state;
     const { box } = this.props;
 
-    if (poll) {
-      setTimeout(() => {
-        fetch('https://api.github.com/gists/public')
-          .then(response => response.json())
-          .then((returnedData) => {
-            this.setState({ data: returnedData });
-            return returnedData;
-          })
-          .then((returnedData) => {
-            if (returnedData.length) {
-              returnedData.map((gist) => {
-                const url = gist.files[Object.keys(gist.files)[0]].raw_url;
-                // add urls that have been checked and skip over them
-                return box.verified.addGithub(url);
-              });
-            }
-          })
-          .then((res) => {
-            if (typeof res === 'string') {
-              this.setState({ verifiedGithub: res });
-            }
+    fetch(`https://api.github.com/users/${github}/gists`)
+      .then(response => response.json())
+      .then((returnedData) => {
+        if (returnedData.length) {
+          returnedData.map((gist) => {
+            const url = gist.files[Object.keys(gist.files)[0]].raw_url;
+            return box.verified.addGithub(url).then((res) => {
+              if (res === true) {
+                this.setState({ githubVerified: true });
+                // box.verified.github().then(result => console.log(result));
+              }
+            });
           });
-
-        this.startPollingForGists();
-      }, 500);
-    }
+        }
+      });
   }
 
   async handleSubmit(e) {
@@ -390,7 +374,7 @@ class EditProfile extends Component {
       saveLoading,
       showFileSizeModal,
       showEmoji,
-      verifiedGithub,
+      githubVerified,
     } = this.state;
 
     const message = (`3Box is a social profiles network for web3. This post links my 3Box profile to my Github account!
@@ -422,8 +406,8 @@ class EditProfile extends Component {
           copyToClipBoard={this.copyToClipBoard}
           did={did}
           message={message}
-          turnPollingOff={this.turnPollingOff}
-          verifiedGithub={verifiedGithub}
+          startPollingForGists={this.startPollingForGists}
+          githubVerified={githubVerified}
           handleGithubVerificationModal={this.props.handleGithubVerificationModal}
         />
 
@@ -655,7 +639,7 @@ class EditProfile extends Component {
                       />
                     </div>
 
-                    <div className="edit__profile__fields__entry">
+                    {/* <div className="edit__profile__fields__entry">
                       <div className="edit__profile__keyContainer">
                         <h5 className="edit__profile__key">Github</h5>
                       </div>
@@ -666,7 +650,7 @@ class EditProfile extends Component {
                         value={github}
                         onChange={e => this.handleFormChange(e, 'github')}
                       />
-                    </div>
+                    </div> */}
 
                     <div className="edit__profile__fields__entry">
                       <div className="edit__profile__keyContainer">
@@ -708,21 +692,22 @@ class EditProfile extends Component {
                       <div className="edit__profile__keyContainer">
                         <h5>Github</h5>
                       </div>
-                      <div className="edit__profile__value--privateContainer">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            this.props.getPublicDID();
-                            this.props.handleGithubVerificationModal();
-                            this.setState({ poll: true },
-                              () => {
-                                this.startPollingForGists();
-                              });
-                          }}
-                        >
-                          Connect
+                      <input
+                        name="github"
+                        type="text"
+                        className="edit__profile__value"
+                        value={github}
+                        onChange={e => this.handleFormChange(e, 'github')}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => {
+                          this.props.getPublicDID();
+                          this.props.handleGithubVerificationModal();
+                        }}
+                      >
+                        Verify
                         </button>
-                      </div>
                     </div>
 
                   </div>
