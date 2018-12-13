@@ -302,7 +302,8 @@
   background-color: #C5D7F2;
   padding: 15px 20px;
   width: 70%;
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+  word-break: break-all; }
 
 .modal__github__done {
   background-color: #C5D7F2;

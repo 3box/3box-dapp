@@ -150,6 +150,21 @@ class App extends Component {
     });
   }
 
+  hideBar = () => {
+    if (window.scrollY < 1) {
+      this.setState({ retractNav: false });
+    } else {
+      this.setState({ retractNav: true });
+    }
+  }
+
+  handleSideNav = () => {
+    const { showSideNav } = this.state;
+    this.setState({
+      showSideNav: !showSideNav,
+    });
+  }
+
   async loadData() {
     const { location } = this.props;
     const { pathname } = location;
@@ -228,21 +243,6 @@ class App extends Component {
       this.props.requireMetaMaskModal();
       this.props.handleMobileWalletModal();
     }
-  }
-
-  hideBar = () => {
-    if (window.scrollY < 1) {
-      this.setState({ retractNav: false });
-    } else {
-      this.setState({ retractNav: true });
-    }
-  }
-
-  handleSideNav = () => {
-    const { showSideNav } = this.state;
-    this.setState({
-      showSideNav: !showSideNav,
-    });
   }
 
   render() {
@@ -550,7 +550,7 @@ App.propTypes = {
 
   showDifferentNetworkModal: PropTypes.bool,
   accessDeniedModal: PropTypes.bool,
-  errorMessage: PropTypes.bool,
+  errorMessage: PropTypes.string,
   allowAccessModal: PropTypes.bool,
   alertRequireMetaMask: PropTypes.bool,
   provideConsent: PropTypes.bool,
@@ -578,7 +578,7 @@ App.propTypes = {
 App.defaultProps = {
   showDifferentNetworkModal: false,
   accessDeniedModal: false,
-  errorMessage: false,
+  errorMessage: '',
   allowAccessModal: false,
   alertRequireMetaMask: false,
   provideConsent: false,

@@ -23,6 +23,7 @@ import {
   getPrivateBirthday,
   getPublicEmoji,
   getActivity,
+  getPublicDID,
 } from '../state/actions';
 
 import { handleGithubVerificationModal } from '../state/actions-modals';
@@ -56,8 +57,10 @@ class EditProfile extends Component {
       major: '',
       year: '',
       employer: '',
+      verifiedGithub: '',
       disableSave: true,
       saveLoading: false,
+      poll: false,
       removeUserPic: false,
       editPic: false,
       editCoverPic: false,
@@ -185,11 +188,21 @@ class EditProfile extends Component {
     this.setState({ disableSave: false, removeCoverPic: true });
   }
 
-  copyToClipBoard = () => {
-    var copyText = document.getElementById("muportDID");
-    copyText.select();
-    document.execCommand("copy");
-    alert("Copied the text");
+  copyToClipBoard = (text) => {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+      var successful = document.execCommand('copy');
+      var msg = successful ? 'successful' : 'unsuccessful';
+    } catch (err) {
+      console.error('Unable to copy', err);
+    }
+
+    document.body.removeChild(textArea);
   }
 
   addEmoji = (emoji) => {
@@ -198,6 +211,42 @@ class EditProfile extends Component {
       showEmoji: false,
       disableSave: false,
     });
+  }
+
+  turnPollingOff = () => {
+    this.setState({ poll: false });
+  }
+
+  startPollingForGists = () => {
+    const { poll, data } = this.state;
+    const { box } = this.props;
+
+    if (poll) {
+      setTimeout(() => {
+        fetch('https://api.github.com/gists/public')
+          .then(response => response.json())
+          .then((returnedData) => {
+            this.setState({ data: returnedData });
+            return returnedData;
+          })
+          .then((returnedData) => {
+            if (returnedData.length) {
+              returnedData.map((gist) => {
+                const url = gist.files[Object.keys(gist.files)[0]].raw_url;
+                // add urls that have been checked and skip over them
+                return box.verified.addGithub(url);
+              });
+            }
+          })
+          .then((res) => {
+            if (typeof res === 'string') {
+              this.setState({ verifiedGithub: res });
+            }
+          });
+
+        this.startPollingForGists();
+      }, 500);
+    }
   }
 
   async handleSubmit(e) {
@@ -319,7 +368,7 @@ class EditProfile extends Component {
   }
 
   render() {
-    const { image, coverPhoto, memberSince, showGithubVerificationModal } = this.props;
+    const { image, coverPhoto, memberSince, showGithubVerificationModal, did } = this.props;
     const {
       github,
       email,
@@ -341,7 +390,14 @@ class EditProfile extends Component {
       saveLoading,
       showFileSizeModal,
       showEmoji,
+      verifiedGithub,
     } = this.state;
+
+    const message = (`3Box is a social profiles network for web3. This post links my 3Box profile to my Github account!
+
+    ✅ ${did} ✅
+    
+    Create your profile today to start building social connection and trust online. https://3box.io/`)
 
     return (
       <div id="edit__page">
@@ -364,6 +420,10 @@ class EditProfile extends Component {
         <GithubVerificationModal
           show={showGithubVerificationModal}
           copyToClipBoard={this.copyToClipBoard}
+          did={did}
+          message={message}
+          turnPollingOff={this.turnPollingOff}
+          verifiedGithub={verifiedGithub}
           handleGithubVerificationModal={this.props.handleGithubVerificationModal}
         />
 
@@ -649,17 +709,19 @@ class EditProfile extends Component {
                         <h5>Github</h5>
                       </div>
                       <div className="edit__profile__value--privateContainer">
-                        <button type="button">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            this.props.getPublicDID();
+                            this.props.handleGithubVerificationModal();
+                            this.setState({ poll: true },
+                              () => {
+                                this.startPollingForGists();
+                              });
+                          }}
+                        >
                           Connect
                         </button>
-                        {/* <img id="edit__profile__input__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
-                        <input
-                          name="email"
-                          type="email"
-                          className="edit__profile__value privateInput"
-                          value={email}
-                          onChange={e => this.handleFormChange(e, 'email')}
-                        /> */}
                       </div>
                     </div>
 
@@ -788,6 +850,7 @@ EditProfile.propTypes = {
   box: PropTypes.object,
   name: PropTypes.string,
   github: PropTypes.string,
+  did: PropTypes.string,
   year: PropTypes.string,
   emoji: PropTypes.string,
   description: PropTypes.string,
@@ -823,6 +886,7 @@ EditProfile.propTypes = {
   getPublicLocation: PropTypes.func,
   getPublicDescription: PropTypes.func,
   getActivity: PropTypes.func,
+  getPublicDID: PropTypes.func,
 
   handleGithubVerificationModal: PropTypes.func,
 };
@@ -831,6 +895,7 @@ EditProfile.defaultProps = {
   box: {},
   name: '',
   github: '',
+  did: '',
   description: '',
   location: '',
   website: '',
@@ -847,7 +912,7 @@ EditProfile.defaultProps = {
   image: [],
   coverPhoto: [],
   ifFetchingThreeBox: false,
-  showGithubVerificationModal: true,
+  showGithubVerificationModal: false,
 
   getPublicName: getPublicName(),
   getPublicGithub: getPublicGithub(),
@@ -866,6 +931,7 @@ EditProfile.defaultProps = {
   getPrivateBirthday: getPrivateBirthday(),
   getPublicEmoji: getPublicEmoji(),
   getActivity: getActivity(),
+  getPublicDID: getPublicDID(),
   handleGithubVerificationModal: handleGithubVerificationModal(),
 };
 
@@ -875,6 +941,7 @@ function mapState(state) {
     showGithubVerificationModal: state.threeBox.showGithubVerificationModal,
     name: state.threeBox.name,
     github: state.threeBox.github,
+    did: state.threeBox.did,
     description: state.threeBox.description,
     memberSince: state.threeBox.memberSince,
     location: state.threeBox.location,
@@ -913,5 +980,6 @@ export default withRouter(connect(mapState,
     getPrivateBirthday,
     getPublicEmoji,
     getActivity,
+    getPublicDID,
     handleGithubVerificationModal,
   })(EditProfile));

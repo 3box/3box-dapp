@@ -174,7 +174,7 @@ export const ProvideAccessModal = ({
     </div>
   );
 
-export const GithubVerificationModal = ({ show, copyToClipBoard, handleGithubVerificationModal }) => (
+export const GithubVerificationModal = ({ show, copyToClipBoard, handleGithubVerificationModal, did, message, turnPollingOff, verifiedGithub }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
       <div className="modal githubModal">
@@ -193,7 +193,7 @@ export const GithubVerificationModal = ({ show, copyToClipBoard, handleGithubVer
           <button
             className="modal__github__description__copy__button"
             type="button"
-            onClick={() => { handleGithubVerificationModal(); }}
+            onClick={() => { handleGithubVerificationModal(); turnPollingOff() }}
           >
             Close
           </button>
@@ -204,15 +204,17 @@ export const GithubVerificationModal = ({ show, copyToClipBoard, handleGithubVer
             <div className="modal__github__steps__number">1</div>
             <p className="modal__github__steps__text">
               Copy your information by clicking this button.
+              Do not close this modal!  This modal needs to be opened when you publish your gist in order for a successful verification, otherwise this process will need to be redone.
             </p>
-            <textarea name="" className="modal__github__description__copy__input" id="muportDID" cols="30" rows="4" type="text">Filler text</textarea>
-            <button type="button" onClick={() => copyToClipBoard()}>Click to Copy</button>
+            <div className="modal__github__description__copy__input" id="muportDID">{did}</div>
+            <button type="button" onClick={() => copyToClipBoard(message)}>Click to Copy</button>
           </div>
 
           <div className="modal__github__steps__step">
             <div className="modal__github__steps__number">2</div>
-            <p className="modal__github__steps__text">Paste this information into the Github gist file we opened for you.  Make sure to save as a public gist.</p>
+            <p className="modal__github__steps__text">Paste this information into the Github gist file we opened for you.  Be sure that you are signed into your own Github account.  Make sure to save as a public gist.</p>
             <img src={GithubIcon} className="modal__github__description__githubIcon" alt="Github icon" />
+            <button type="button" onClick={() => window.open('https://gist.github.com/', '_blank')}>Open a gist file</button>
           </div>
 
           <div className="modal__github__steps__step">
@@ -220,14 +222,14 @@ export const GithubVerificationModal = ({ show, copyToClipBoard, handleGithubVer
             <p className="modal__github__steps__text">
               Your verified Github account will appear below when successful!
             </p>
-            <div className="modal__github__description__copy__input">yourGithubName</div>
+            <div className="modal__github__description__copy__input">{verifiedGithub || 'Github not yet verified'}</div>
           </div>
         </div>
 
         <div className="modal__github__done">
           <button
             type="button"
-            onClick={() => { handleGithubVerificationModal(); }}
+            onClick={() => { handleGithubVerificationModal(); turnPollingOff(); }}
           >
             Done
           </button>
@@ -235,7 +237,7 @@ export const GithubVerificationModal = ({ show, copyToClipBoard, handleGithubVer
       </div>
     </div>
     <div className="modal__overlay" />
-  </div>
+  </div >
 );
 
 export const AccessDeniedModal = ({
@@ -576,14 +578,14 @@ ProvideAccessModal.defaultProps = {
 };
 
 GithubVerificationModal.propTypes = {
-  // isMobile: PropTypes.bool.isRequired,
-  // handleAccessModal: PropTypes.func.isRequired,
-  // show: PropTypes.bool.isRequired,
-  // directLogin: PropTypes.string,
+  did: PropTypes.string,
+  show: PropTypes.bool.isRequired,
+  copyToClipBoard: PropTypes.func.isRequired,
+  handleGithubVerificationModal: PropTypes.func.isRequired,
 };
 
 GithubVerificationModal.defaultProps = {
-  // directLogin: '',
+  did: '',
 };
 
 AccessDeniedModal.propTypes = {

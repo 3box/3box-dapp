@@ -541,6 +541,15 @@ export const getPrivateBirthday = () => async (dispatch) => {
   });
 };
 
+export const getPublicDID = () => async (dispatch) => {
+  const did = await store.getState().threeBox.box.public.get('did');
+
+  dispatch({
+    type: 'GET_PUBLIC_DID',
+    did,
+  });
+};
+
 export const getPublicStatus = () => async (dispatch) => {
   const status = await store.getState().threeBox.box.public.get('status');
 

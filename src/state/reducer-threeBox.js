@@ -178,6 +178,12 @@ export const threeBoxReducer = (state = {}, action) => {
         memberSince: action.memberSince,
       };
 
+    case 'GET_PUBLIC_DID':
+      return {
+        ...state,
+        did: action.did,
+      };
+
     case 'HANDLE_SIGNOUT':
       return {
         ...state,
