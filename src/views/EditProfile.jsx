@@ -67,6 +67,8 @@ class EditProfile extends Component {
       saveLoading: false,
       removeUserPic: false,
       githubVerified: false,
+      verificationLoading: false,
+      githubVerifiedFailed: false,
       editPic: false,
       editCoverPic: false,
       showFileSizeModal: false,
@@ -236,6 +238,7 @@ class EditProfile extends Component {
   verifyGithub = () => {
     const { verifiedGithub } = this.state;
     const { box } = this.props;
+    this.setState({ verificationLoading: true });
 
     fetch(`https://api.github.com/users/${verifiedGithub}/gists`)
       .then(response => response.json())
@@ -246,11 +249,13 @@ class EditProfile extends Component {
             return box.verified.addGithub(url).then((res) => {
               if (res === true) {
                 console.log('Github username verified');
-                this.setState({ githubVerified: true });
+                this.setState({ githubVerified: true, verificationLoading: false });
                 store.dispatch({
                   type: 'GET_VERIFIED_PUBLIC_GITHUB',
                   verifiedGithub,
                 });
+              } else {
+                this.setState({ githubVerifiedFailed: true, verificationLoading: false });
               }
             });
           });
@@ -410,8 +415,10 @@ class EditProfile extends Component {
       showFileSizeModal,
       showEmoji,
       githubVerified,
+      githubVerifiedFailed,
       githubEdited,
       githubRemoved,
+      verificationLoading,
     } = this.state;
 
     const message = (`3Box is a social profiles network for web3. This post links my 3Box profile to my Github account!
@@ -447,6 +454,8 @@ class EditProfile extends Component {
           message={message}
           verifyGithub={this.verifyGithub}
           githubVerified={githubVerified}
+          verificationLoading={verificationLoading}
+          githubVerifiedFailed={githubVerifiedFailed}
           handleGithubVerificationModal={this.props.handleGithubVerificationModal}
         />
 

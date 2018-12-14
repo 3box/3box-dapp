@@ -236,7 +236,7 @@
   justify-content: space-between;
   align-items: flex-start;
   border-bottom: 1px solid #f1f1f1;
-  padding: 40px; }
+  padding: 40px 40px 34px 40px; }
 
 .modal__github__description__copy {
   display: flex;
@@ -270,8 +270,8 @@
   margin-bottom: 16px; }
 
 .modal__github__steps__text {
-  height: 100px;
-  text-align: left; }
+  text-align: left;
+  margin-bottom: 26px; }
 
 .modal__github__steps__step {
   display: flex;
@@ -281,6 +281,8 @@
   width: 30%; }
   .modal__github__steps__step p {
     color: #6b6b6b; }
+  .modal__github__steps__step button {
+    margin-top: 26px; }
 
 .modal__github__steps {
   display: flex;
@@ -305,6 +307,7 @@
   padding: 15px 20px;
   width: 70%;
   margin-bottom: 20px;
+  text-align: left;
   word-break: break-all; }
 
 .modal__github__description__copy__input--github {
@@ -313,7 +316,8 @@
   background-color: #EFF5FE;
   padding: 15px 20px;
   width: 70%;
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+  text-align: left; }
 
 .modal__github__done {
   background-color: #EFF5FE;
@@ -321,7 +325,12 @@
   padding: 20px;
   height: 100%; }
   .modal__github__done button {
-    background-color: #29B6AF; }
+    background-color: #00C77F;
+    border: none; }
+    .modal__github__done button:hover {
+      background-color: #00b472;
+      -webkit-transition: all 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out; }
 
 @media only screen and (max-width: 600px) {
   .mobileInvisible {
