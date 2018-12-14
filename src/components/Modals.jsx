@@ -181,7 +181,9 @@ export const GithubVerificationModal = ({
   did,
   message,
   verifyGithub,
-  githubVerified
+  githubVerified,
+  githubVerifiedFailed,
+  verificationLoading,
 }) => (
     <div>
       <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
@@ -215,9 +217,9 @@ export const GithubVerificationModal = ({
                 <div className="modal__github__steps__number">1</div>
                 <p className="modal__github__steps__text">
                   Copy your unique key below.
-              </p>
+                </p>
+                <p className="modal__github__description__copy__input" id="muportDID">{did}</p>
               </div>
-              <p className="modal__github__description__copy__input" id="muportDID">{did}</p>
               <button type="button" onClick={() => copyToClipBoard(message)}>Click to copy</button>
             </div>
 
@@ -235,9 +237,19 @@ export const GithubVerificationModal = ({
                 <div className="modal__github__steps__number">3</div>
                 <p className="modal__github__steps__text">
                   Your verified Github account will appear below when successful!
-              </p>
+                </p>
+                <p className="modal__github__description__copy__input--github">
+                  {githubVerified
+                    ? 'Your github is verified!'
+                    : githubVerifiedFailed
+                      ? 'Verification failed'
+                      : verificationLoading
+                        ? (
+                          <img src={Loading} alt="Loading" id="modal__loadingGraphic" />
+                        )
+                        : 'Github not yet verified'}
+                </p>
               </div>
-              <p className="modal__github__description__copy__input--github">{githubVerified ? 'Your github is verified!' : 'Github not yet verified'}</p>
               <button
                 type="button"
                 onClick={verifyGithub}
@@ -607,6 +619,8 @@ GithubVerificationModal.propTypes = {
   message: PropTypes.string.isRequired,
   verifyGithub: PropTypes.func.isRequired,
   githubVerified: PropTypes.bool.isRequired,
+  githubVerifiedFailed: PropTypes.bool.isRequired,
+  verificationLoading: PropTypes.bool.isRequired,
 };
 
 GithubVerificationModal.defaultProps = {
