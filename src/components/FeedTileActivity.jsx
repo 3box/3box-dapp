@@ -9,7 +9,7 @@ import Save from '../assets/Save.svg';
 import Delete from '../assets/Delete.svg';
 import './styles/Feed.css';
 
-const FeedTileTXS = ({ item, isEven }) => (
+const FeedTileTXS = ({ item, isEven, verifiedGithub }) => (
   <div className={`feed__activity___data ${isEven ? 'darkFeed' : 'lightFeed'}`}>
     <div className="feed__activity__address__dataType">
       {item.dataType === 'Private'
@@ -26,7 +26,9 @@ const FeedTileTXS = ({ item, isEven }) => (
     <p className="feed__activity__address__function">
       {item.dataType === 'Private'
         ? 'Private'
-        : item.key && (item.key.charAt(0).toUpperCase() + item.key.slice(1)).replace(/([A-Z])/g, ' $1').trim()
+        : item.key === 'proof_github'
+          ? 'Github'
+          : item.key && (item.key.charAt(0).toUpperCase() + item.key.slice(1)).replace(/([A-Z])/g, ' $1').trim()
       }
     </p>
     <p className="feed__activity__address__amount">
@@ -40,9 +42,11 @@ const FeedTileTXS = ({ item, isEven }) => (
                 {typeof item.value === 'object' ? Object.keys(item.value)[0] : item.value}
               </span>
             )
-            : typeof item.value === 'object'
-              ? `${item.value ? Object.keys(item.value)[0] : '-----'}`
-              : item.value}
+            : item.key === 'proof_github'
+              ? verifiedGithub
+              : typeof item.value === 'object'
+                ? `${item.value ? Object.keys(item.value)[0] : '-----'}`
+                : item.value}
     </p>
     <p className="feed__activity__address__time">
       {timeSince(item.timeStamp * 1000)}

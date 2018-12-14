@@ -22,7 +22,7 @@ import '../views/styles/Profile.css';
 
 const ProfileDetails = ({
   name,
-  github,
+  verifiedGithub,
   image,
   coverPhoto,
   email,
@@ -123,9 +123,9 @@ const ProfileDetails = ({
               <div className="profile__category__field" title="Github">
                 <div>
                   <img src={GithubIcon} className="profile__category__field__icon" alt="Github Icon" />
-                  {github
+                  {verifiedGithub
                     && (
-                      <p id="profile__github">{github}</p>
+                      <p id="profile__github">{verifiedGithub}</p>
                     )
                   }
                 </div>
@@ -251,7 +251,7 @@ const ProfileDetails = ({
 
 ProfileDetails.propTypes = {
   name: PropTypes.string,
-  github: PropTypes.string,
+  verifiedGithub: PropTypes.string,
   email: PropTypes.string,
   location: PropTypes.string,
   website: PropTypes.string,
@@ -271,7 +271,7 @@ ProfileDetails.propTypes = {
 
 ProfileDetails.defaultProps = {
   name: '',
-  github: '',
+  verifiedGithub: '',
   email: '',
   description: '',
   image: [],
@@ -292,7 +292,7 @@ ProfileDetails.defaultProps = {
 function mapState(state) {
   return {
     name: state.threeBox.name,
-    github: state.threeBox.github,
+    verifiedGithub: state.threeBox.verifiedGithub,
     image: state.threeBox.image,
     coverPhoto: state.threeBox.coverPhoto,
     emoji: state.threeBox.emoji,

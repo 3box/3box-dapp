@@ -349,12 +349,15 @@
 
 .modal__github__steps__step {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: flex-start;
   flex-direction: column;
-  width: 28%;
-}
+  width: 30%;
 
+  p {
+    color: $lightFont;
+  }
+}
 .modal__github__steps {
   display: flex;
   padding: 40px;
@@ -362,7 +365,7 @@
 }
 
 .modal__github__steps__number {
-  background-color: $threeBoxBlueShade;
+  background-color: $threeBoxBlueLightShade;
   color: $threeBoxAccentBlue;
   width: 48px;
   height: 48px;
@@ -376,18 +379,31 @@
 .modal__github__description__copy__input {
   border-radius: 6px;
   border: 1px solid $threeBoxBlue;
-  background-color: $threeBoxBlueShade;
+  background-color: $threeBoxBlueLightShade;
   padding: 15px 20px;
   width: 70%;
   margin-bottom: 20px;
   word-break: break-all;
 }
 
+.modal__github__description__copy__input--github {
+  border-radius: 6px;
+  border: 1px solid $threeBoxBlue;
+  background-color: $threeBoxBlueLightShade;
+  padding: 15px 20px;
+  width: 70%;
+  margin-bottom: 20px;
+  // word-break: break-all;
+}
+
 .modal__github__done {
-  background-color: $threeBoxBlueShade;
+  background-color: $threeBoxBlueLightShade;
   width: 100%;
   padding: 20px;
   height: 100%;
+  button{
+    background-color: #29B6AF;
+  }
 }
 
 @media only screen and (max-width: 600px) {

@@ -103,6 +103,23 @@ button {
   transition: background-color .4s ease;
 }
 
+.unstyledButton {
+  padding: 0;
+  color: $threeBoxBlue;
+  background-color: transparent;
+  -webkit-transition: color .4s ease;
+  -o-transition: color .4s ease;
+  transition: color .4s ease;
+  border: none;
+
+  &:hover{
+    color: $threeBoxBlueHover;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+  }
+}
+
 button:hover {
   cursor: pointer;
 }

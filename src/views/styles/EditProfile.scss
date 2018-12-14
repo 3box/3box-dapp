@@ -277,6 +277,31 @@
   box-sizing: border-box;
 }
 
+.uneditedGithub{
+  color: $lighterFont !important;
+  border: none !important;
+}
+
+.edit__profile__value--github{
+  width: 100%;
+  border-radius: 5px;
+  border-style: none;
+  border: solid 1px #E4E4E4;
+  background-color: rgb(255, 255, 255);
+  height: 44px;
+  padding: 0 15px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-right: 20px;
+}
+
+.edit__profile__verifiedWrapper {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+}
+
 .edit__profile__value--description {
   width: 70%;
   border-radius: 5px;

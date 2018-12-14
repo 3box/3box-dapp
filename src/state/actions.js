@@ -406,6 +406,15 @@ export const getPublicGithub = () => async (dispatch) => {
   });
 };
 
+export const getVerifiedPublicGithub = () => async (dispatch) => {
+  const verifiedGithub = await store.getState().threeBox.box.verified.github();
+  
+  dispatch({
+    type: 'GET_VERIFIED_PUBLIC_GITHUB',
+    verifiedGithub,
+  });
+};
+
 export const getPublicDescription = () => async (dispatch) => {
   const description = await store.getState().threeBox.box.public.get('description');
 

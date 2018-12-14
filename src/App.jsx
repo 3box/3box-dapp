@@ -44,6 +44,7 @@ import {
   getPublicName,
   getPublicMemberSince,
   getPublicGithub,
+  getVerifiedPublicGithub,
   getPublicWebsite,
   getPublicEmployer,
   getPublicJob,
@@ -181,7 +182,8 @@ class App extends Component {
         this.props.getPublicStatus();
         this.props.getPublicName();
         this.props.getPublicMemberSince();
-        this.props.getPublicGithub();
+        // this.props.getPublicGithub();
+        this.props.getVerifiedPublicGithub();
         this.props.getPublicDescription();
         this.props.getPublicImage();
         this.props.getPublicCoverPhoto();
@@ -219,7 +221,8 @@ class App extends Component {
           this.props.getPublicStatus();
           this.props.getPublicName();
           this.props.getPublicMemberSince();
-          this.props.getPublicGithub();
+          // this.props.getPublicGithub();
+          this.props.getVerifiedPublicGithub();
           this.props.getPublicDescription();
           this.props.getPublicImage();
           this.props.getPublicCoverPhoto();
@@ -513,6 +516,7 @@ App.propTypes = {
   getPublicName: PropTypes.func.isRequired,
   getPublicMemberSince: PropTypes.func.isRequired,
   getPublicGithub: PropTypes.func.isRequired,
+  getVerifiedPublicGithub: PropTypes.func.isRequired,
   getPublicDescription: PropTypes.func.isRequired,
   getPublicWebsite: PropTypes.func.isRequired,
   getPublicEmployer: PropTypes.func.isRequired,
@@ -633,6 +637,7 @@ export default withRouter(connect(mapState,
     getPublicName,
     getPublicMemberSince,
     getPublicGithub,
+    getVerifiedPublicGithub,
     getPublicLocation,
     getPublicWebsite,
     getPublicEmployer,

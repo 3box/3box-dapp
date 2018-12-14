@@ -174,79 +174,93 @@ export const ProvideAccessModal = ({
     </div>
   );
 
-export const GithubVerificationModal = ({ show, copyToClipBoard, handleGithubVerificationModal, did, message, startPollingForGists, githubVerified }) => (
-  <div>
-    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
-      <div className="modal githubModal">
+export const GithubVerificationModal = ({
+  show,
+  copyToClipBoard,
+  handleGithubVerificationModal,
+  did,
+  message,
+  verifyGithub,
+  githubVerified
+}) => (
+    <div>
+      <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+        <div className="modal githubModal">
 
-        <div className="modal__github__description">
-          <div className="modal__github__description__copy">
-            <div className="modal__github__description__copy__header">
-              <img src={GithubIcon} className="modal__github__description__githubIcon" alt="Github icon" />
-              <h2>Verify your Github account</h2>
+          <div className="modal__github__description">
+            <div className="modal__github__description__copy">
+              <div className="modal__github__description__copy__header">
+                <img src={GithubIcon} className="modal__github__description__githubIcon" alt="Github icon" />
+                <h2>Verify your Github account</h2>
+              </div>
+              <p className="modal__github__description__copy__text">
+                Linking your Github account to your 3Box profile
+                allows your friends and apps to trust you more.
+              </p>
             </div>
-            <p className="modal__github__description__copy__text">
-              This action publicly links your Github account to your 3Box profile
-              and allows your friends and apps to trust you more.
-            </p>
-          </div>
-          <button
-            className="modal__github__description__copy__button"
-            type="button"
-            onClick={() => {
-              handleGithubVerificationModal();
-            }}
-          >
-            Close
+            <button
+              className="modal__github__description__copy__button"
+              type="button"
+              onClick={() => {
+                handleGithubVerificationModal();
+              }}
+            >
+              Close
           </button>
-        </div>
-
-        <div className="modal__github__steps">
-          <div className="modal__github__steps__step">
-            <div className="modal__github__steps__number">1</div>
-            <p className="modal__github__steps__text">
-              Copy your information by clicking this button.
-              Do not close this modal!  This modal needs to be opened when you publish your gist in order for a successful verification, otherwise this process will need to be redone.
-            </p>
-            <div className="modal__github__description__copy__input" id="muportDID">{did}</div>
-            <button type="button" onClick={() => copyToClipBoard(message)}>Click to Copy</button>
           </div>
 
-          <div className="modal__github__steps__step">
-            <div className="modal__github__steps__number">2</div>
-            <p className="modal__github__steps__text">Paste this information into the Github gist file we opened for you.  Be sure that you are signed into your own Github account.  Make sure to save as a public gist.</p>
-            <img src={GithubIcon} className="modal__github__description__githubIcon" alt="Github icon" />
-            <button type="button" onClick={() => window.open('https://gist.github.com/', '_blank')}>Open a gist file</button>
+          <div className="modal__github__steps">
+            <div className="modal__github__steps__step">
+              <div>
+                <div className="modal__github__steps__number">1</div>
+                <p className="modal__github__steps__text">
+                  Copy your unique key below.
+              </p>
+              </div>
+              <p className="modal__github__description__copy__input" id="muportDID">{did}</p>
+              <button type="button" onClick={() => copyToClipBoard(message)}>Click to copy</button>
+            </div>
+
+            <div className="modal__github__steps__step">
+              <div>
+                <div className="modal__github__steps__number">2</div>
+                <p className="modal__github__steps__text">Open a new gist file in Github and paste the key in the body of the file.  Save the gist as public with any valid name and file type.</p>
+              </div>
+              {/* <img src={GithubIcon} className="modal__github__description__githubIcon" alt="Github icon" /> */}
+              <button type="button" onClick={() => window.open('https://gist.github.com/', '_blank')}>Open a gist file</button>
+            </div>
+
+            <div className="modal__github__steps__step">
+              <div>
+                <div className="modal__github__steps__number">3</div>
+                <p className="modal__github__steps__text">
+                  Your verified Github account will appear below when successful!
+              </p>
+              </div>
+              <p className="modal__github__description__copy__input--github">{githubVerified ? 'Your github is verified!' : 'Github not yet verified'}</p>
+              <button
+                type="button"
+                onClick={verifyGithub}
+              >
+                Check verification
+            </button>
+            </div>
           </div>
 
-          <div className="modal__github__steps__step">
-            <div className="modal__github__steps__number">3</div>
-            <p className="modal__github__steps__text">
-              Your verified Github account will appear below when successful!
-            </p>
+          <div className="modal__github__done">
             <button
               type="button"
-              onClick={startPollingForGists}
+
+              onClick={() => { handleGithubVerificationModal(); }}
             >
-              Check verification
-            </button>
-            <div className="modal__github__description__copy__input">{githubVerified ? 'Your github is verified!' : 'Github not yet verified'}</div>
+              Done
+          </button>
           </div>
         </div>
-
-        <div className="modal__github__done">
-          <button
-            type="button"
-            onClick={() => { handleGithubVerificationModal(); }}
-          >
-            Done
-          </button>
-        </div>
       </div>
-    </div>
-    <div className="modal__overlay" />
-  </div >
-);
+      <div className="modal__overlay" />
+    </div >
+  );
 
 export const AccessDeniedModal = ({
   handleDeniedAccessModal, show, isMobile,
@@ -590,6 +604,9 @@ GithubVerificationModal.propTypes = {
   show: PropTypes.bool.isRequired,
   copyToClipBoard: PropTypes.func.isRequired,
   handleGithubVerificationModal: PropTypes.func.isRequired,
+  message: PropTypes.string.isRequired,
+  verifyGithub: PropTypes.func.isRequired,
+  githubVerified: PropTypes.bool.isRequired,
 };
 
 GithubVerificationModal.defaultProps = {

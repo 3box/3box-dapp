@@ -275,10 +275,12 @@
 
 .modal__github__steps__step {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: flex-start;
   flex-direction: column;
-  width: 28%; }
+  width: 30%; }
+  .modal__github__steps__step p {
+    color: #6b6b6b; }
 
 .modal__github__steps {
   display: flex;
@@ -286,7 +288,7 @@
   justify-content: space-between; }
 
 .modal__github__steps__number {
-  background-color: #C5D7F2;
+  background-color: #EFF5FE;
   color: #021333;
   width: 48px;
   height: 48px;
@@ -299,17 +301,27 @@
 .modal__github__description__copy__input {
   border-radius: 6px;
   border: 1px solid #1168df;
-  background-color: #C5D7F2;
+  background-color: #EFF5FE;
   padding: 15px 20px;
   width: 70%;
   margin-bottom: 20px;
   word-break: break-all; }
 
+.modal__github__description__copy__input--github {
+  border-radius: 6px;
+  border: 1px solid #1168df;
+  background-color: #EFF5FE;
+  padding: 15px 20px;
+  width: 70%;
+  margin-bottom: 20px; }
+
 .modal__github__done {
-  background-color: #C5D7F2;
+  background-color: #EFF5FE;
   width: 100%;
   padding: 20px;
   height: 100%; }
+  .modal__github__done button {
+    background-color: #29B6AF; }
 
 @media only screen and (max-width: 600px) {
   .mobileInvisible {
