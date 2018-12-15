@@ -55,15 +55,15 @@ const ProfileDetails = ({
             }
 
             <div className="profile__basic">
-              {name
-                ? (
-                  <div className="profile__basic__wrapper">
-                    <h2 id="profile__user__name">{name}</h2>
-                    <span className="profile__basic__emoji">
-                      {emoji.code ? emoji.code : emoji}
-                    </span>
-                  </div>)
-                : <Link to={routes.EDITPROFILE}><h2 id="profile__user__name__add">Add name</h2></Link>}
+              <div className="profile__basic__wrapper">
+                {name
+                  ? <h2 id="profile__user__name">{name}</h2>
+                  : <Link to={routes.EDITPROFILE}><h2 id="profile__user__name__add">Add name</h2></Link>
+                }
+                <span className="profile__basic__emoji">
+                  {emoji.code ? emoji.code : emoji}
+                </span>
+              </div>
 
               <div id="profile__network" title="Network">
                 <img id="profile__network__networkLogo" src={EthereumLogo} alt="Ethereum Logo" />

@@ -7,7 +7,7 @@ import './styles/Feed.css';
 
 import {
   getActivity,
-  getPublicStatus,
+  getProfileData,
 } from '../state/actions';
 
 class StatusUpdate extends Component {
@@ -56,7 +56,7 @@ class StatusUpdate extends Component {
     if (statusChanged && status !== '') await box.public.set('status', status);
     if ((statusChanged && status === '') || remove) await box.public.remove('status');
 
-    if (statusChanged) await this.props.getPublicStatus();
+    if (statusChanged) await this.props.getProfileData('public', 'status');
     this.props.getActivity();
     this.setState({ saveLoading: false, disableSave: true });
     if (remove) this.setState({ status: '' });
@@ -123,14 +123,14 @@ StatusUpdate.propTypes = {
   box: PropTypes.object,
   status: PropTypes.string,
   getActivity: PropTypes.func,
-  getPublicStatus: PropTypes.func,
+  getProfileData: PropTypes.func,
 };
 
 StatusUpdate.defaultProps = {
   box: {},
   status: '',
   getActivity: getActivity(),
-  getPublicStatus: getPublicStatus(),
+  getProfileData: getProfileData(),
 };
 
 function mapState(state) {
@@ -143,5 +143,5 @@ function mapState(state) {
 export default withRouter(connect(mapState,
   {
     getActivity,
-    getPublicStatus,
+    getProfileData,
   })(StatusUpdate));

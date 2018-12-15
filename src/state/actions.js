@@ -389,26 +389,16 @@ export const getActivity = () => async (dispatch) => {
   }
 };
 
-export const getPublicName = () => async (dispatch) => {
+export const getProfileData = (type, key) => async (dispatch) => {
   try {
-    const name = await store.getState().threeBox.box.public.get('name');
+    const keyUppercase = key.toUpperCase();
+    const keyToAdd = await store.getState().threeBox.box[type].get(key);
 
+    const typeUppercase = type.toUpperCase();
+    
     dispatch({
-      type: 'GET_PUBLIC_NAME',
-      name,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const getPublicGithub = () => async (dispatch) => {
-  try {
-    const github = await store.getState().threeBox.box.public.get('github');
-
-    dispatch({
-      type: 'GET_PUBLIC_GITHUB',
-      github,
+      type: `GET_${typeUppercase}_${keyUppercase}`,
+      [key]: keyToAdd,
     });
   } catch (error) {
     console.error(error);
@@ -428,226 +418,44 @@ export const getVerifiedPublicGithub = () => async (dispatch) => {
   }
 };
 
-export const getPublicDescription = () => async (dispatch) => {
-  try {
-    const description = await store.getState().threeBox.box.public.get('description');
+// export const getPublicMemberSince = () => async (dispatch) => {
+//   try {
+//     const memberSince = await store.getState().threeBox.box.public.get('memberSince');
 
-    dispatch({
-      type: 'GET_PUBLIC_DESCRIPTION',
-      description,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
+//     dispatch({
+//       type: 'GET_PUBLIC_MEMBERSINCE',
+//       memberSince,
+//     });
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
-export const getPublicLocation = () => async (dispatch) => {
-  try {
-    const location = await store.getState().threeBox.box.public.get('location');
+// export const getPublicDID = () => async (dispatch) => {
+//   try {
+//     const did = await store.getState().threeBox.box.public.get('did');
 
-    dispatch({
-      type: 'GET_PUBLIC_LOCATION',
-      location,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
+//     dispatch({
+//       type: 'GET_PUBLIC_DID',
+//       did,
+//     });
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
-export const getPublicWebsite = () => async (dispatch) => {
-  try {
-    const website = await store.getState().threeBox.box.public.get('website');
+// export const getPublicStatus = () => async (dispatch) => {
+//   try {
+//     const status = await store.getState().threeBox.box.public.get('status');
 
-    dispatch({
-      type: 'GET_PUBLIC_WEBSITE',
-      website,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const getPublicEmployer = () => async (dispatch) => {
-  try {
-    const employer = await store.getState().threeBox.box.public.get('employer');
-
-    dispatch({
-      type: 'GET_PUBLIC_EMPLOYER',
-      employer,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const getPublicJob = () => async (dispatch) => {
-  try {
-    const job = await store.getState().threeBox.box.public.get('job');
-
-    dispatch({
-      type: 'GET_PUBLIC_JOB',
-      job,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const getPublicMemberSince = () => async (dispatch) => {
-  try {
-    const memberSince = await store.getState().threeBox.box.public.get('memberSince');
-
-    dispatch({
-      type: 'GET_PUBLIC_MEMBERSINCE',
-      memberSince,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const getPublicSchool = () => async (dispatch) => {
-  try {
-    const school = await store.getState().threeBox.box.public.get('school');
-
-    dispatch({
-      type: 'GET_PUBLIC_SCHOOL',
-      school,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const getPublicDegree = () => async (dispatch) => {
-  try {
-    const degree = await store.getState().threeBox.box.public.get('degree');
-
-    dispatch({
-      type: 'GET_PUBLIC_DEGREE',
-      degree,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const getPublicImage = () => async (dispatch) => {
-  try {
-    const image = await store.getState().threeBox.box.public.get('image');
-
-    dispatch({
-      type: 'GET_PUBLIC_IMAGE',
-      image,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const getPublicCoverPhoto = () => async (dispatch) => {
-  try {
-    const coverPhoto = await store.getState().threeBox.box.public.get('coverPhoto');
-
-    dispatch({
-      type: 'GET_PUBLIC_COVERPHOTO',
-      coverPhoto,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const getPublicEmoji = () => async (dispatch) => {
-  try {
-    const emoji = await store.getState().threeBox.box.public.get('emoji');
-
-    dispatch({
-      type: 'GET_PUBLIC_EMOJI',
-      emoji,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const getPublicSubject = () => async (dispatch) => {
-  try {
-    const major = await store.getState().threeBox.box.public.get('major');
-
-    dispatch({
-      type: 'GET_PUBLIC_MAJOR',
-      major,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const getPublicYear = () => async (dispatch) => {
-  try {
-    const year = await store.getState().threeBox.box.public.get('year');
-
-    dispatch({
-      type: 'GET_PUBLIC_YEAR',
-      year,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const getPrivateEmail = () => async (dispatch) => {
-  try {
-    const email = await store.getState().threeBox.box.private.get('email');
-
-    dispatch({
-      type: 'GET_PRIVATE_EMAIL',
-      email,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const getPrivateBirthday = () => async (dispatch) => {
-  try {
-    const birthday = await store.getState().threeBox.box.private.get('birthday');
-
-    dispatch({
-      type: 'GET_PRIVATE_BIRTHDAY',
-      birthday,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const getPublicDID = () => async (dispatch) => {
-  try {
-    const did = await store.getState().threeBox.box.public.get('did');
-
-    dispatch({
-      type: 'GET_PUBLIC_DID',
-      did,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const getPublicStatus = () => async (dispatch) => {
-  try {
-    const status = await store.getState().threeBox.box.public.get('status');
-
-    dispatch({
-      type: 'GET_PUBLIC_STATUS',
-      status,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
+//     dispatch({
+//       type: 'GET_PUBLIC_STATUS',
+//       status,
+//     });
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
 export const handleSignOut = () => async (dispatch) => {
   if (store.getState().threeBox.isLoggedIn) {

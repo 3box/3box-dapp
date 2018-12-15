@@ -10,25 +10,8 @@ import {
 } from '../state/store';
 
 import {
-  getPublicName,
-  getPublicGithub,
-  getPublicDescription,
-  getPublicLocation,
-  getPublicWebsite,
-  getPublicEmployer,
-  getPublicJob,
-  getPublicSchool,
-  getPublicDegree,
-  getPublicSubject,
-  getPublicYear,
-  getPublicImage,
-  getPublicCoverPhoto,
-  getPrivateEmail,
-  getVerifiedPublicGithub,
-  getPrivateBirthday,
-  getPublicEmoji,
+  getProfileData,
   getActivity,
-  getPublicDID,
 } from '../state/actions';
 
 import { handleGithubVerificationModal } from '../state/actions-modals';
@@ -137,7 +120,6 @@ class EditProfile extends Component {
     } = nextProps;
 
     if (name !== this.props.name) this.setState({ name });
-    // if (github !== this.props.github) this.setState({ github });
     if (verifiedGithub !== this.props.verifiedGithub) this.setState({ verifiedGithub });
     if (email !== this.props.email) this.setState({ email });
     if (description !== this.props.description) this.setState({ description });
@@ -151,6 +133,7 @@ class EditProfile extends Component {
     if (year !== this.props.year) this.setState({ year });
     if (emoji !== this.props.emoji) this.setState({ emoji });
     if (employer !== this.props.employer) this.setState({ employer });
+    // if (github !== this.props.github) this.setState({ github });
   }
 
   handleFormChange = (e, property) => {
@@ -202,12 +185,8 @@ class EditProfile extends Component {
     }
   }
 
-  removePic = () => {
-    this.setState({ disableSave: false, removeUserPic: true });
-  }
-
-  removeCoverPic = () => {
-    this.setState({ disableSave: false, removeCoverPic: true });
+  removePicture = (type) => {
+    this.setState({ disableSave: false, [`remove${type}Pic`]: true });
   }
 
   copyToClipBoard = (text) => {
@@ -312,12 +291,8 @@ class EditProfile extends Component {
       // if value changed and is not empty, save new value, else remove value
       if (nameChanged && name !== '') await box.public.set('name', name);
       if (nameChanged && name === '') await box.public.remove('name');
-
       // if (githubChanged && github !== '') await box.public.set('github', github);
       if (verifiedGithubChanged && verifiedGithub === '') await box.public.remove('proof_github');
-
-      if (emailChanged && email !== '') await box.private.set('email', email);
-      if (emailChanged && email === '') await box.private.remove('email');
       if (descriptionChanged && description !== '') await box.public.set('description', description);
       if (descriptionChanged && description === '') await box.public.remove('description');
       if (locationChanged && location !== '') await box.public.set('location', location);
@@ -338,10 +313,13 @@ class EditProfile extends Component {
       if (yearChanged && year === '') await box.public.remove('year');
       if (emojiChanged && emoji !== '') await box.public.set('emoji', emoji);
       if (emojiChanged && emoji === '') await box.public.remove('emoji');
-      if (birthdayChanged && birthday !== '') await box.private.set('birthday', birthday);
-      if (birthdayChanged && birthday === '') await box.private.remove('birthday');
       if (removeUserPic) await box.public.remove('image');
       if (removeCoverPic) await box.public.remove('coverPhoto');
+
+      if (birthdayChanged && birthday !== '') await box.private.set('birthday', birthday);
+      if (birthdayChanged && birthday === '') await box.private.remove('birthday');
+      if (emailChanged && email !== '') await box.private.set('email', email);
+      if (emailChanged && email === '') await box.private.remove('email');
 
       // save profile picture
       const fetch = editPic && await window.fetch('https://ipfs.infura.io:5001/api/v0/add', {
@@ -361,28 +339,28 @@ class EditProfile extends Component {
       if (editCoverPic) await box.public.set('coverPhoto', [{ '@type': 'ImageObject', contentUrl: { '/': returnedCoverData.Hash } }]);
 
       // only get values that have changed
-      if (nameChanged) await this.props.getPublicName();
-      // if (githubChanged) await this.props.getPublicGithub();
       if (verifiedGithubChanged) {
         store.dispatch({
           type: 'GET_VERIFIED_PUBLIC_GITHUB',
           verifiedGithub: null,
         });
       }
-      if (emailChanged) await this.props.getPrivateEmail();
-      if (descriptionChanged) await this.props.getPublicDescription();
-      if (locationChanged) await this.props.getPublicLocation();
-      if (websiteChanged) await this.props.getPublicWebsite();
-      if (employerChanged) await this.props.getPublicEmployer();
-      if (jobChanged) await this.props.getPublicJob();
-      if (schoolChanged) await this.props.getPublicSchool();
-      if (degreeChanged) await this.props.getPublicDegree();
-      if (majorChanged) await this.props.getPublicSubject();
-      if (yearChanged) await this.props.getPublicYear();
-      if (emojiChanged) await this.props.getPublicEmoji();
-      if (birthdayChanged) await this.props.getPrivateBirthday();
-      if (removeUserPic || editPic) await this.props.getPublicImage();
-      if (removeCoverPic || editCoverPic) await this.props.getPublicCoverPhoto();
+      if (nameChanged) await this.props.getProfileData('public', 'name');
+      if (descriptionChanged) await this.props.getProfileData('public', 'description');
+      if (locationChanged) await this.props.getProfileData('public', 'location');
+      if (websiteChanged) await this.props.getProfileData('public', 'website');
+      if (employerChanged) await this.props.getProfileData('public', 'employer');
+      if (jobChanged) await this.props.getProfileData('public', 'job');
+      if (schoolChanged) await this.props.getProfileData('public', 'school');
+      if (degreeChanged) await this.props.getProfileData('public', 'degree');
+      if (majorChanged) await this.props.getProfileData('public', 'major');
+      if (yearChanged) await this.props.getProfileData('public', 'year');
+      if (emojiChanged) await this.props.getProfileData('public', 'emoji');
+      if (removeUserPic || editPic) await this.props.getProfileData('public', 'image');
+      if (removeCoverPic || editCoverPic) await this.props.getProfileData('public', 'coverPhoto');
+      if (emailChanged) await this.props.getProfileData('private', 'email');
+      if (birthdayChanged) await this.props.getProfileData('private', 'birthday');
+
       this.props.getActivity();
 
       this.setState({ saveLoading: false });
@@ -477,7 +455,7 @@ class EditProfile extends Component {
                   <button
                     id="removeCoverPic"
                     className="removeButton"
-                    onClick={this.removeCoverPic}
+                    onClick={() => this.removePicture('Cover')}
                     disabled={(coverPhoto.length > 0 || (this.coverUpload && this.coverUpload.files && this.coverUpload.files[0])) ? false : true}
                     text="remove"
                     type="button"
@@ -530,7 +508,7 @@ class EditProfile extends Component {
                     <button
                       id="removePic"
                       className="removeButton"
-                      onClick={this.removePic}
+                      onClick={() => this.removePicture('User')}
                       disabled={(image.length > 0 || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])) ? false : true}
                       text="remove"
                       type="button"
@@ -768,7 +746,7 @@ class EditProfile extends Component {
                               className={`unstyledButton ${!githubEdited && 'uneditedGithub'}`}
                               disabled={!githubEdited}
                               onClick={() => {
-                                this.props.getPublicDID();
+                                this.props.getProfileData('public', 'did');
                                 this.props.handleGithubVerificationModal();
                               }}
                             >
@@ -923,25 +901,8 @@ EditProfile.propTypes = {
   ifFetchingThreeBox: PropTypes.bool,
   showGithubVerificationModal: PropTypes.bool,
 
-  getPublicName: PropTypes.func,
-  getPublicGithub: PropTypes.func,
-  getPublicImage: PropTypes.func,
-  getPublicCoverPhoto: PropTypes.func,
-  getPrivateEmail: PropTypes.func,
-  getVerifiedPublicGithub: PropTypes.func,
-  getPrivateBirthday: PropTypes.func,
-  getPublicEmoji: PropTypes.func,
-  getPublicWebsite: PropTypes.func,
-  getPublicEmployer: PropTypes.func,
-  getPublicJob: PropTypes.func,
-  getPublicSchool: PropTypes.func,
-  getPublicDegree: PropTypes.func,
-  getPublicSubject: PropTypes.func,
-  getPublicYear: PropTypes.func,
-  getPublicLocation: PropTypes.func,
-  getPublicDescription: PropTypes.func,
+  getProfileData: PropTypes.func,
   getActivity: PropTypes.func,
-  getPublicDID: PropTypes.func,
 
   handleGithubVerificationModal: PropTypes.func,
 };
@@ -970,25 +931,8 @@ EditProfile.defaultProps = {
   ifFetchingThreeBox: false,
   showGithubVerificationModal: false,
 
-  getPublicName: getPublicName(),
-  getPublicGithub: getPublicGithub(),
-  getPublicDescription: getPublicDescription(),
-  getPublicLocation: getPublicLocation(),
-  getPublicWebsite: getPublicWebsite(),
-  getPublicEmployer: getPublicEmployer(),
-  getPublicJob: getPublicJob(),
-  getPublicSchool: getPublicSchool(),
-  getPublicDegree: getPublicDegree(),
-  getPublicSubject: getPublicSubject(),
-  getPublicYear: getPublicYear(),
-  getPublicImage: getPublicImage(),
-  getPublicCoverPhoto: getPublicCoverPhoto(),
-  getPrivateEmail: getPrivateEmail(),
-  getVerifiedPublicGithub: getVerifiedPublicGithub(),
-  getPrivateBirthday: getPrivateBirthday(),
-  getPublicEmoji: getPublicEmoji(),
+  getProfileData: getProfileData(),
   getActivity: getActivity(),
-  getPublicDID: getPublicDID(),
   handleGithubVerificationModal: handleGithubVerificationModal(),
 };
 
@@ -1021,24 +965,7 @@ function mapState(state) {
 
 export default withRouter(connect(mapState,
   {
-    getPublicName,
-    getPublicGithub,
-    getPublicDescription,
-    getPublicLocation,
-    getPublicWebsite,
-    getPublicEmployer,
-    getPublicJob,
-    getPublicSchool,
-    getPublicDegree,
-    getPublicSubject,
-    getPublicYear,
-    getPublicImage,
-    getPublicCoverPhoto,
-    getPrivateEmail,
-    getVerifiedPublicGithub,
-    getPrivateBirthday,
-    getPublicEmoji,
+    getProfileData,
     getActivity,
-    getPublicDID,
     handleGithubVerificationModal,
   })(EditProfile));
