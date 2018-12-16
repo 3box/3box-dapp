@@ -395,7 +395,7 @@ export const getProfileData = (type, key) => async (dispatch) => {
     const keyToAdd = await store.getState().threeBox.box[type].get(key);
 
     const typeUppercase = type.toUpperCase();
-    
+
     dispatch({
       type: `GET_${typeUppercase}_${keyUppercase}`,
       [key]: keyToAdd,
@@ -416,6 +416,17 @@ export const getVerifiedPublicGithub = () => async (dispatch) => {
   } catch (error) {
     console.error(error);
   }
+};
+
+export const handleSignOut = () => async (dispatch) => {
+  if (store.getState().threeBox.isLoggedIn) {
+    store.getState().threeBox.box.logout();
+    dispatch({
+      type: 'HANDLE_SIGNOUT',
+      isLoggedIn: false,
+    });
+  }
+  history.push(routes.LANDING);
 };
 
 // export const getPublicMemberSince = () => async (dispatch) => {
@@ -456,14 +467,3 @@ export const getVerifiedPublicGithub = () => async (dispatch) => {
 //     console.error(error);
 //   }
 // };
-
-export const handleSignOut = () => async (dispatch) => {
-  if (store.getState().threeBox.isLoggedIn) {
-    store.getState().threeBox.box.logout();
-    dispatch({
-      type: 'HANDLE_SIGNOUT',
-      isLoggedIn: false,
-    });
-  }
-  history.push(routes.LANDING);
-};

@@ -11,7 +11,6 @@ import networkArray from '../utils/networkArray';
 import Loading from '../assets/Loading.svg';
 import './styles/Feed.css';
 import './styles/NetworkArray.css';
-// import Loading from '../assets/Loading.svg';
 
 const Feed = ({ ifFetchingActivity, feedByAddress, verifiedGithub }) => (
   <div>

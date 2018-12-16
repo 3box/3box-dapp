@@ -222,24 +222,84 @@ class EditProfile extends Component {
     fetch(`https://api.github.com/users/${verifiedGithub}/gists`)
       .then(response => response.json())
       .then((returnedData) => {
-        if (returnedData.length) {
-          returnedData.map((gist) => {
-            const url = gist.files[Object.keys(gist.files)[0]].raw_url;
-            return box.verified.addGithub(url).then((res) => {
-              if (res === true) {
-                console.log('Github username verified');
-                this.setState({ githubVerified: true, verificationLoading: false });
-                store.dispatch({
-                  type: 'GET_VERIFIED_PUBLIC_GITHUB',
-                  verifiedGithub,
-                });
-              } else {
-                this.setState({ githubVerifiedFailed: true, verificationLoading: false });
-              }
-            });
+        const verify = ((index) => {
+          if (index >= returnedData.length) {
+            this.setState({ githubVerifiedFailed: true, verificationLoading: false });
+            return;
+          }
+          const url = returnedData[index].files[Object.keys(returnedData[index].files)[0]].raw_url;
+
+          box.verified.addGithub(url).then((res) => {
+            if (res === true) {
+              console.log('Github username verified');
+              this.setState({ githubVerified: true, verificationLoading: false });
+              store.dispatch({
+                type: 'GET_VERIFIED_PUBLIC_GITHUB',
+                verifiedGithub,
+              });
+            } else {
+              verify(index + 1);
+            }
           });
-        }
+        })(0);
+
+        // if (returnedData.length) {
+
+        // for (let i = 0; i < returnedData.length; i++) {
+        //   const url = returnedData[i].files[Object.keys(returnedData[i].files)[0]].raw_url;
+        //   box.verified.addGithub(url).then((res) => {
+        //     if (res === true) {
+        //       console.log('Github username verified');
+        //       this.setState({ githubVerified: true, verificationLoading: false });
+        //       store.dispatch({
+        //         type: 'GET_VERIFIED_PUBLIC_GITHUB',
+        //         verifiedGithub,
+        //       });
+        //       break;
+        //     } else if (i === returnedData.length + 1) {
+        //       this.setState({ githubVerifiedFailed: true, verificationLoading: false });
+        //     }
+        //   });
+        // }
+
+        // returnedData.map((gist) => {
+        //   const url = gist.files[Object.keys(gist.files)[0]].raw_url;
+        //   return box.verified.addGithub(url).then((res) => {
+        //     if (res === true) {
+        //       console.log('Github username verified');
+        //       this.setState({ githubVerified: true, verificationLoading: false });
+        //       store.dispatch({
+        //         type: 'GET_VERIFIED_PUBLIC_GITHUB',
+        //         verifiedGithub,
+        //       });
+        //     } else {
+        //       this.setState({ githubVerifiedFailed: true, verificationLoading: false });
+        //     }
+        //   });
+        // });
+        // }
       });
+    // fetch(`https://api.github.com/users/${verifiedGithub}/gists`)
+    //   .then(response => response.json())
+    //   .then((returnedData) => {
+    //     if (returnedData.length) {
+    //       returnedData.map((gist) => {
+    //         const url = gist.files[Object.keys(gist.files)[0]].raw_url;
+    //         return box.verified.addGithub(url).then((res) => {
+    //           if (res === true) {
+    //             console.log('Github username verified');
+    //             this.setState({ githubVerified: true, verificationLoading: false });
+    //             store.dispatch({
+    //               type: 'GET_VERIFIED_PUBLIC_GITHUB',
+    //               verifiedGithub,
+    //             });
+    //           } else {
+    //             this.setState({ githubVerifiedFailed: true, verificationLoading: false });
+    //           }
+    //         });
+    //       });
+    //     }
+    //   });
   }
 
   async handleSubmit(e) {

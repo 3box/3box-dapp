@@ -13,10 +13,8 @@ import Jobs from './views/Jobs';
 import Privacy from './views/Privacy';
 import Terms from './views/Terms';
 import Create from './views/Create';
-
 import NavLanding from './components/NavLanding';
 import Nav from './components/Nav.jsx';
-
 import history from './history';
 import './index.css';
 
