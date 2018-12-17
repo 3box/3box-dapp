@@ -208,7 +208,14 @@ export const getBox = fromSignIn => async (dispatch) => {
           type: 'HANDLE_ONBOARDING_MODAL',
           onBoardingModal: true,
         });
-        store.getState().threeBox.box.public.set('memberSince', Date.now());
+        const date = Date.now();
+        const dateJoined = new Date(date);
+        const memberSinceDate = `${(dateJoined.getMonth() + 1)}/${dateJoined.getDate()}/${dateJoined.getFullYear()}`;
+        store.getState().threeBox.box.public.set('memberSince', dateJoined);
+        dispatch({
+          type: 'GET_PUBLIC_MEMBERSINCE',
+          memberSince: memberSinceDate,
+        });
         history.push(routes.EDITPROFILE);
       } else if (!memberSince && (privateActivity.length || publicActivity.length)) {
         store.getState().threeBox.box.public.set('memberSince', 'Alpha');
@@ -387,8 +394,8 @@ export const getPublicJob = () => async (dispatch) => {
 
 export const getPublicMemberSince = () => async (dispatch) => {
   const date = await store.getState().threeBox.box.public.get('memberSince');
-  const memberSince = new Date(date);
-  const memberSinceDate = `${(memberSince.getMonth() + 1)}/${memberSince.getDate()}/${memberSince.getFullYear()}`;
+  const memberSince = date && new Date(date);
+  const memberSinceDate = date && `${(memberSince.getMonth() + 1)}/${memberSince.getDate()}/${memberSince.getFullYear()}`;
 
   dispatch({
     type: 'GET_PUBLIC_MEMBERSINCE',
