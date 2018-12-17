@@ -39,7 +39,7 @@ import {
 } from './components/Modals';
 
 import {
-  profileGetBox,
+  getBox,
   requestAccess,
   getPublicName,
   getPublicMemberSince,
@@ -60,7 +60,6 @@ import {
   getPrivateEmail,
   getPrivateBirthday,
   getActivity,
-  signInGetBox,
   checkWeb3Wallet,
   checkNetwork,
   handleSignOut,
@@ -160,7 +159,7 @@ class App extends Component {
     await this.props.checkNetwork();
 
     if (this.props.isSignedIntoWallet && this.props.isLoggedIn) {
-      await this.props.profileGetBox();
+      await this.props.getBox();
       if (!this.props.showErrorModal) {
         this.props.getActivity(); // remove await
         this.props.getPublicStatus();
@@ -198,7 +197,7 @@ class App extends Component {
       await this.props.checkNetwork();
 
       if (this.props.isSignedIntoWallet) {
-        await this.props.signInGetBox();
+        await this.props.getBox('fromSignIn');
         if (!this.props.showErrorModal) {
           this.props.getActivity();
           this.props.getPublicStatus();
@@ -508,7 +507,7 @@ class App extends Component {
 }
 
 App.propTypes = {
-  profileGetBox: PropTypes.func.isRequired,
+  getBox: PropTypes.func.isRequired,
   requestAccess: PropTypes.func.isRequired,
   getPublicName: PropTypes.func.isRequired,
   getPublicMemberSince: PropTypes.func.isRequired,
@@ -529,7 +528,6 @@ App.propTypes = {
   getPrivateEmail: PropTypes.func.isRequired,
   getPrivateBirthday: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
-  signInGetBox: PropTypes.func.isRequired,
   checkWeb3Wallet: PropTypes.func.isRequired,
   requireMetaMaskModal: PropTypes.func.isRequired,
   handleDownloadMetaMaskBanner: PropTypes.func.isRequired,
@@ -550,7 +548,7 @@ App.propTypes = {
 
   showDifferentNetworkModal: PropTypes.bool,
   accessDeniedModal: PropTypes.bool,
-  errorMessage: PropTypes.bool,
+  errorMessage: PropTypes.string,
   allowAccessModal: PropTypes.bool,
   alertRequireMetaMask: PropTypes.bool,
   provideConsent: PropTypes.bool,
@@ -578,7 +576,7 @@ App.propTypes = {
 App.defaultProps = {
   showDifferentNetworkModal: false,
   accessDeniedModal: false,
-  errorMessage: false,
+  errorMessage: '',
   allowAccessModal: false,
   alertRequireMetaMask: false,
   provideConsent: false,
@@ -621,14 +619,13 @@ const mapState = state => ({
   isLoggedIn: state.threeBox.isLoggedIn,
   showErrorModal: state.threeBox.showErrorModal,
   accessDeniedModal: state.threeBox.accessDeniedModal,
-  errorMessage: state.threeBox.errorMessage,
   isSignedIntoWallet: state.threeBox.isSignedIntoWallet,
   downloadBanner: state.threeBox.downloadBanner,
 });
 
 export default withRouter(connect(mapState,
   {
-    profileGetBox,
+    getBox,
     requestAccess,
     getPublicName,
     getPublicMemberSince,
@@ -649,7 +646,6 @@ export default withRouter(connect(mapState,
     getPrivateEmail,
     getPrivateBirthday,
     getActivity,
-    signInGetBox,
     checkWeb3Wallet,
     requireMetaMaskModal,
     handleDownloadMetaMaskBanner,

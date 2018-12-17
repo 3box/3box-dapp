@@ -16,7 +16,23 @@ class Create extends Component {
 
   componentDidMount() {
     const { previousRoute } = this.props;
+    if (previousRoute === '/profiles') {
+      setTimeout(() => {
+        this.setState({
+          fadeOut: '',
+        });
+      }, 100);
 
+      setTimeout(() => {
+        this.setState({
+          fadeOut: 'fadeOut',
+        });
+      }, 5000);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { previousRoute } = nextProps;
     if (previousRoute === '/profiles') {
       setTimeout(() => {
         this.setState({
@@ -111,8 +127,13 @@ class Create extends Component {
 
 Create.propTypes = {
   handleSignInUp: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool,
   previousRoute: PropTypes.string,
+};
+
+Create.defaultProps = {
+  isLoggedIn: false,
+  previousRoute: '',
 };
 
 const mapState = state => ({

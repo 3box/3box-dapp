@@ -16,7 +16,23 @@ class Profiles extends Component {
 
   componentDidMount() {
     const { previousRoute } = this.props;
+    if (previousRoute === '/create') {
+      setTimeout(() => {
+        this.setState({
+          fadeOut: '',
+        });
+      }, 100);
 
+      setTimeout(() => {
+        this.setState({
+          fadeOut: 'fadeOut',
+        });
+      }, 5000);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { previousRoute } = nextProps;
     if (previousRoute === '/create') {
       setTimeout(() => {
         this.setState({
@@ -35,7 +51,6 @@ class Profiles extends Component {
   render() {
     const { handleSignInUp, isLoggedIn } = this.props;
     const { fadeOut } = this.state;
-
     return (
       <div className="create">
 
@@ -66,7 +81,7 @@ class Profiles extends Component {
               <p className="create__action__form__body">
                 Create a profile for your Ethereum account and
                 join the hundreds already building connection.
-      </p>
+              </p>
 
               <div className="create__action__form__profileDetails">
                 <img src={Narwhal} alt="" className="create__action__form__narwhal" />
@@ -97,22 +112,29 @@ class Profiles extends Component {
                     Sign in.
                   </a>)}
 
-              {isLoggedIn && <p>
-                You already have a profile, have fun!
-                    </p>}
+              {isLoggedIn
+                && (
+                  <p>
+                    You already have a profile, have fun!
+                  </p>)}
 
             </div>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
 Profiles.propTypes = {
   handleSignInUp: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool,
   previousRoute: PropTypes.string,
+};
+
+Profiles.defaultProps = {
+  isLoggedIn: false,
+  previousRoute: '',
 };
 
 const mapState = state => ({

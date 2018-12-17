@@ -2,16 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import FeedTileTXS from './FeedTileTXS.jsx';
-import FeedTileToken from './FeedTileToken.jsx';
-import FeedTileInternal from './FeedTileInternal.jsx';
-import FeedTileActivity from './FeedTileActivity.jsx';
+import {
+  FeedTileTXS,
+  FeedTileToken,
+  FeedTileInternal,
+  FeedTileActivity,
+} from './FeedTile';
+
 import StatusUpdate from './StatusUpdate';
 import networkArray from '../utils/networkArray';
 import Loading from '../assets/Loading.svg';
 import './styles/Feed.css';
 import './styles/NetworkArray.css';
-// import Loading from '../assets/Loading.svg';
 
 const Feed = ({ ifFetchingActivity, feedByAddress }) => (
   <div>
