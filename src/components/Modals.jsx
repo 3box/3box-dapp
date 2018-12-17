@@ -184,6 +184,7 @@ export const GithubVerificationModal = ({
   githubVerified,
   githubVerifiedFailed,
   verificationLoading,
+  resetVerification,
 }) => (
     <div>
       <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
@@ -205,6 +206,7 @@ export const GithubVerificationModal = ({
               type="button"
               onClick={() => {
                 handleGithubVerificationModal();
+                resetVerification();
               }}
             >
               Close
@@ -245,7 +247,7 @@ export const GithubVerificationModal = ({
                       ? 'Verification failed'
                       : verificationLoading
                         ? (
-                          <img src={Loading} alt="Loading" id="modal__loadingGraphic" />
+                          <img src={Loading} alt="Loading" id="modal__loadingGraphic--noMargin" />
                         )
                         : 'Github not yet verified'}
                 </p>
@@ -263,7 +265,10 @@ export const GithubVerificationModal = ({
             <button
               type="button"
 
-              onClick={() => { handleGithubVerificationModal(); }}
+              onClick={() => {
+                handleGithubVerificationModal();
+                resetVerification();
+              }}
             >
               Done
           </button>

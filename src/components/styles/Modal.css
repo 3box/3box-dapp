@@ -171,6 +171,9 @@
   width: 60px;
   margin-top: 60px; }
 
+#modal__loadingGraphic--noMargin {
+  width: 60px; }
+
 #modal__loadingGraphic--access {
   width: 60px;
   margin-top: 20px; }
@@ -230,13 +233,16 @@
 .githubModal {
   width: 800px;
   padding: 0; }
+  .githubModal p {
+    font-size: 14px !important; }
 
 .modal__github__description {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   border-bottom: 1px solid #f1f1f1;
-  padding: 40px 40px 34px 40px; }
+  padding: 40px 40px 34px 40px;
+  width: 90%; }
 
 .modal__github__description__copy {
   display: flex;
@@ -280,7 +286,10 @@
   flex-direction: column;
   width: 30%; }
   .modal__github__steps__step p {
-    color: #6b6b6b; }
+    color: #6b6b6b;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
   .modal__github__steps__step button {
     margin-top: 26px; }
 
@@ -317,7 +326,8 @@
   padding: 15px 20px;
   width: 70%;
   margin-bottom: 20px;
-  text-align: left; }
+  text-align: left;
+  height: 70px; }
 
 .modal__github__done {
   background-color: #EFF5FE;

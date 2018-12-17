@@ -145,6 +145,9 @@ h5 {
 ul {
   margin: 0; }
 
+input:focus {
+  border-radius: 5px; }
+
 .webThreeBanner {
   width: 100vw;
   height: 54px;

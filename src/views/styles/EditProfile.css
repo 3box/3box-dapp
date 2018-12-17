@@ -6,7 +6,6 @@
   margin: 0 auto;
   padding: 5.5em 0; }
   #edit h3 {
-    font-weight: 400;
     font-size: 18px;
     color: #747677;
     margin-top: 10px; }
@@ -214,7 +213,7 @@
   box-sizing: border-box; }
 
 .uneditedGithub {
-  color: #747677 !important;
+  color: #bbbbbb !important;
   border: none !important; }
 
 .edit__profile__value--github {
@@ -227,13 +226,24 @@
   padding: 0 15px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  margin-right: 20px; }
+  box-sizing: border-box; }
 
 .edit__profile__verifiedWrapper {
+  position: relative;
   width: 70%;
   display: flex;
   justify-content: space-between; }
+
+.edit__profile__verifiedWrapper__warning {
+  color: #E78888;
+  position: absolute;
+  bottom: 0;
+  left: 27%; }
+
+.verificationButton {
+  position: absolute;
+  right: 24px;
+  top: 13px; }
 
 .edit__profile__value--description {
   width: 70%;
@@ -247,6 +257,15 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   resize: vertical; }
+
+.edit__profile__verifiedName {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; }
+  .edit__profile__verifiedName img {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px; }
 
 .edit__profile__value--spirit {
   width: 16%;
@@ -374,13 +393,14 @@
   width: 25%;
   padding-left: 3em; }
   .edit__profile__categories p {
-    color: #747677;
+    color: #b1b1b1;
     margin-top: 8px; }
 
 #edit__profile__fields {
   display: flex;
   align-items: center;
-  width: 75%; }
+  width: 75%;
+  position: relative; }
 
 .removeButton {
   font-size: 1em;
@@ -395,6 +415,14 @@
   .removeButton:hover {
     color: white;
     background-color: #6b6b6b; }
+
+.removeGithub {
+  color: #bbbbbb; }
+  .removeGithub:hover {
+    color: #E78888;
+    -webkit-transition: background-color .4s ease;
+    -o-transition: background-color .4s ease;
+    transition: background-color .4s ease; }
 
 .edit__profile__editCanvas__wrapper {
   display: flex;

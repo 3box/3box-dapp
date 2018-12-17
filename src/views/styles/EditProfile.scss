@@ -10,7 +10,6 @@
   padding: 5.5em 0;
 
   h3 {
-    font-weight: 400;
     font-size: 18px;
     color: $lighterFont;
     margin-top: 10px;
@@ -277,12 +276,12 @@
   box-sizing: border-box;
 }
 
-.uneditedGithub{
-  color: $lighterFont !important;
+.uneditedGithub {
+  color: #bbbbbb !important;
   border: none !important;
 }
 
-.edit__profile__value--github{
+.edit__profile__value--github {
   width: 100%;
   border-radius: 5px;
   border-style: none;
@@ -293,13 +292,26 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  margin-right: 20px;
 }
 
 .edit__profile__verifiedWrapper {
+  position: relative;
   width: 70%;
   display: flex;
   justify-content: space-between;
+}
+
+.edit__profile__verifiedWrapper__warning {
+  color: #E78888;
+  position: absolute;
+  bottom: 0;
+  left: 27%;
+}
+
+.verificationButton {
+  position: absolute;
+  right: 24px;
+  top: 13px;
 }
 
 .edit__profile__value--description {
@@ -314,6 +326,18 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   resize: vertical;
+}
+
+.edit__profile__verifiedName {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  img {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+  }
 }
 
 .edit__profile__value--spirit {
@@ -467,7 +491,7 @@
   padding-left: 3em;
 
   p {
-    color: $lighterFont;
+    color: $lightestFont;
     margin-top: 8px;
   }
 }
@@ -476,6 +500,7 @@
   display: flex;
   align-items: center;
   width: 75%;
+  position: relative;
 }
 
 .removeButton {
@@ -492,6 +517,17 @@
   &:hover {
     color: white;
     background-color: $lightFont;
+  }
+}
+
+.removeGithub {
+  color: #bbbbbb;
+
+  &:hover {
+    color: #E78888;
+    -webkit-transition: background-color .4s ease;
+    -o-transition: background-color .4s ease;
+    transition: background-color .4s ease;
   }
 }
 
@@ -571,7 +607,7 @@
   top: 13px;
 }
 
-.edit__profile__fields__entry--memberSince{
+.edit__profile__fields__entry--memberSince {
   color: $lighterFont;
 }
 

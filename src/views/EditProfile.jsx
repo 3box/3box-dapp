@@ -22,6 +22,7 @@ import history from '../history';
 import Nav from '../components/Nav.jsx';
 import * as routes from '../utils/routes';
 import Private from '../assets/Private.svg';
+import Verified from '../assets/Verified.svg';
 import AddImage from '../assets/AddImage.svg';
 import Loading from '../assets/Loading.svg';
 import './styles/EditProfile.css';
@@ -31,7 +32,6 @@ class EditProfile extends Component {
     super(props);
     this.state = {
       name: '',
-      // github: '',
       verifiedGithub: '',
       email: '',
       buffer: '',
@@ -65,7 +65,6 @@ class EditProfile extends Component {
   componentDidMount() {
     const {
       name,
-      // github,
       verifiedGithub,
       email,
       description,
@@ -83,7 +82,6 @@ class EditProfile extends Component {
 
     this.setState({
       name,
-      // github,
       verifiedGithub,
       email,
       description,
@@ -103,7 +101,6 @@ class EditProfile extends Component {
   componentWillReceiveProps(nextProps) {
     const {
       name,
-      // github,
       verifiedGithub,
       email,
       description,
@@ -133,7 +130,6 @@ class EditProfile extends Component {
     if (year !== this.props.year) this.setState({ year });
     if (emoji !== this.props.emoji) this.setState({ emoji });
     if (employer !== this.props.employer) this.setState({ employer });
-    // if (github !== this.props.github) this.setState({ github });
   }
 
   handleFormChange = (e, property) => {
@@ -143,7 +139,9 @@ class EditProfile extends Component {
 
     this.setState({ [property]: e.target.value },
       () => {
-        if (verifiedGithub !== this.state.verifiedGithub) {
+        if (this.state.verifiedGithub === '') {
+          this.setState({ githubEdited: false });
+        } else if (verifiedGithub !== this.state.verifiedGithub && this.state.verifiedGithub !== '') {
           this.setState({ githubEdited: true });
         }
       });
@@ -222,14 +220,9 @@ class EditProfile extends Component {
     fetch(`https://api.github.com/users/${verifiedGithub}/gists`)
       .then(response => response.json())
       .then((returnedData) => {
-        const verify = ((index) => {
-          if (index >= returnedData.length) {
-            this.setState({ githubVerifiedFailed: true, verificationLoading: false });
-            return;
-          }
-          const url = returnedData[index].files[Object.keys(returnedData[index].files)[0]].raw_url;
-
-          box.verified.addGithub(url).then((res) => {
+        returnedData.map((gist, i) => {
+          const url = gist.files[Object.keys(gist.files)[0]].raw_url;
+          return box.verified.addGithub(url).then((res) => {
             if (res === true) {
               console.log('Github username verified');
               this.setState({ githubVerified: true, verificationLoading: false });
@@ -237,75 +230,26 @@ class EditProfile extends Component {
                 type: 'GET_VERIFIED_PUBLIC_GITHUB',
                 verifiedGithub,
               });
-            } else {
-              verify(index + 1);
+            }
+          }).catch((err) => {
+            console.log(err);
+            if (i === returnedData.length - 1) {
+              this.setState({ githubVerifiedFailed: true, verificationLoading: false });
             }
           });
-        })(0);
-
-        // if (returnedData.length) {
-
-        // for (let i = 0; i < returnedData.length; i++) {
-        //   const url = returnedData[i].files[Object.keys(returnedData[i].files)[0]].raw_url;
-        //   box.verified.addGithub(url).then((res) => {
-        //     if (res === true) {
-        //       console.log('Github username verified');
-        //       this.setState({ githubVerified: true, verificationLoading: false });
-        //       store.dispatch({
-        //         type: 'GET_VERIFIED_PUBLIC_GITHUB',
-        //         verifiedGithub,
-        //       });
-        //       break;
-        //     } else if (i === returnedData.length + 1) {
-        //       this.setState({ githubVerifiedFailed: true, verificationLoading: false });
-        //     }
-        //   });
-        // }
-
-        // returnedData.map((gist) => {
-        //   const url = gist.files[Object.keys(gist.files)[0]].raw_url;
-        //   return box.verified.addGithub(url).then((res) => {
-        //     if (res === true) {
-        //       console.log('Github username verified');
-        //       this.setState({ githubVerified: true, verificationLoading: false });
-        //       store.dispatch({
-        //         type: 'GET_VERIFIED_PUBLIC_GITHUB',
-        //         verifiedGithub,
-        //       });
-        //     } else {
-        //       this.setState({ githubVerifiedFailed: true, verificationLoading: false });
-        //     }
-        //   });
-        // });
-        // }
+        });
       });
-    // fetch(`https://api.github.com/users/${verifiedGithub}/gists`)
-    //   .then(response => response.json())
-    //   .then((returnedData) => {
-    //     if (returnedData.length) {
-    //       returnedData.map((gist) => {
-    //         const url = gist.files[Object.keys(gist.files)[0]].raw_url;
-    //         return box.verified.addGithub(url).then((res) => {
-    //           if (res === true) {
-    //             console.log('Github username verified');
-    //             this.setState({ githubVerified: true, verificationLoading: false });
-    //             store.dispatch({
-    //               type: 'GET_VERIFIED_PUBLIC_GITHUB',
-    //               verifiedGithub,
-    //             });
-    //           } else {
-    //             this.setState({ githubVerifiedFailed: true, verificationLoading: false });
-    //           }
-    //         });
-    //       });
-    //     }
-    //   });
+  }
+
+  resetVerification = () => {
+    this.setState({
+      githubVerifiedFailed: false,
+    });
   }
 
   async handleSubmit(e) {
     const {
       name,
-      // github,
       verifiedGithub,
       email,
       removeUserPic,
@@ -351,7 +295,6 @@ class EditProfile extends Component {
       // if value changed and is not empty, save new value, else remove value
       if (nameChanged && name !== '') await box.public.set('name', name);
       if (nameChanged && name === '') await box.public.remove('name');
-      // if (githubChanged && github !== '') await box.public.set('github', github);
       if (verifiedGithubChanged && verifiedGithub === '') await box.public.remove('proof_github');
       if (descriptionChanged && description !== '') await box.public.set('description', description);
       if (descriptionChanged && description === '') await box.public.remove('description');
@@ -431,7 +374,6 @@ class EditProfile extends Component {
   render() {
     const { image, coverPhoto, memberSince, showGithubVerificationModal, did } = this.props;
     const {
-      // github,
       verifiedGithub,
       email,
       name,
@@ -494,6 +436,7 @@ class EditProfile extends Component {
           githubVerified={githubVerified}
           verificationLoading={verificationLoading}
           githubVerifiedFailed={githubVerifiedFailed}
+          resetVerification={this.resetVerification}
           handleGithubVerificationModal={this.props.handleGithubVerificationModal}
         />
 
@@ -755,7 +698,7 @@ class EditProfile extends Component {
 
               <div className="edit__profile__info--verified">
                 <div className="edit__profile__categories">
-                  <h3>Connect your accounts</h3>
+                  <h3 className="noMargin">Connect your accounts</h3>
                   <p>Connect your existing social accounts to build a stronger reputation.</p>
                 </div>
                 <div id="edit__profile__fields">
@@ -768,12 +711,15 @@ class EditProfile extends Component {
                       {this.props.verifiedGithub
                         ? (
                           <div className="edit__profile__verifiedWrapper">
-                            <p>{verifiedGithub}</p>
+                            <div className="edit__profile__verifiedName">
+                              <img src={Verified} alt="Verified" />
+                              <p>{verifiedGithub}</p>
+                            </div>
 
                             {!githubRemoved
                               ? (<button
                                 type="button"
-                                className={`unstyledButton ${!githubEdited && 'uneditedGithub'}`}
+                                className={`unstyledButton ${!githubEdited && 'uneditedGithub'} removeGithub`}
                                 onClick={() => {
                                   this.setState({ verifiedGithub: '', disableSave: false, githubRemoved: true });
                                 }}
@@ -803,7 +749,7 @@ class EditProfile extends Component {
                             />
                             <button
                               type="button"
-                              className={`unstyledButton ${!githubEdited && 'uneditedGithub'}`}
+                              className={`unstyledButton ${!githubEdited && 'uneditedGithub'} verificationButton`}
                               disabled={!githubEdited}
                               onClick={() => {
                                 this.props.getProfileData('public', 'did');
@@ -815,7 +761,11 @@ class EditProfile extends Component {
                           </div>
                         )}
                     </div>
-
+                    {(!this.props.verifiedGithub && githubEdited && !githubVerified)
+                      && (
+                        <p className="edit__profile__verifiedWrapper__warning">Verification is required for your Github username to save.</p>
+                      )
+                    }
                   </div>
                 </div>
               </div>
@@ -940,7 +890,6 @@ class EditProfile extends Component {
 EditProfile.propTypes = {
   box: PropTypes.object,
   name: PropTypes.string,
-  // github: PropTypes.string,
   verifiedGithub: PropTypes.string,
   did: PropTypes.string,
   year: PropTypes.string,
@@ -970,7 +919,6 @@ EditProfile.propTypes = {
 EditProfile.defaultProps = {
   box: {},
   name: '',
-  // github: '',
   verifiedGithub: '',
   did: '',
   description: '',
@@ -1001,7 +949,6 @@ function mapState(state) {
     box: state.threeBox.box,
     showGithubVerificationModal: state.threeBox.showGithubVerificationModal,
     name: state.threeBox.name,
-    // github: state.threeBox.github,
     verifiedGithub: state.threeBox.verifiedGithub,
     did: state.threeBox.did,
     description: state.threeBox.description,

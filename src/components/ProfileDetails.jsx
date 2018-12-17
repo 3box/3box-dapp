@@ -6,6 +6,7 @@ import { address } from '../utils/address';
 import * as routes from '../utils/routes';
 import EthereumLogo from '../assets/EthereumIcon.svg';
 import GithubIcon from '../assets/GithubIcon.svg';
+import Verified from '../assets/Verified.svg';
 import Private from '../assets/Private.svg';
 import Email from '../assets/Email.svg';
 import School from '../assets/School.svg';
@@ -123,6 +124,11 @@ const ProfileDetails = ({
               <div className="profile__category__field" title="Github">
                 <div>
                   <img src={GithubIcon} className="profile__category__field__icon" alt="Github Icon" />
+                  {verifiedGithub
+                    && (
+                      <img src={Verified} alt="Verified" className="profile__category__verified__icon" />
+                    )
+                  }
                   {verifiedGithub
                     && (
                       <p id="profile__github">{verifiedGithub}</p>
