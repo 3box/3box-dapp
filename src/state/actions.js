@@ -198,7 +198,7 @@ export const getBox = fromSignIn => async (dispatch) => {
     });
 
     const memberSince = await store.getState().threeBox.box.public.get('memberSince');
-    
+
     box.onSyncDone(() => {
       const publicActivity = store.getState().threeBox.box.public.log;
       const privateActivity = store.getState().threeBox.box.private.log;
@@ -394,8 +394,19 @@ export const getPublicJob = () => async (dispatch) => {
 
 export const getPublicMemberSince = () => async (dispatch) => {
   const date = await store.getState().threeBox.box.public.get('memberSince');
-  const memberSince = date && new Date(date);
-  const memberSinceDate = date && `${(memberSince.getMonth() + 1)}/${memberSince.getDate()}/${memberSince.getFullYear()}`;
+
+  let memberSince;
+  let memberSinceDate;
+
+  if (date === 'Alpha') {
+    memberSinceDate = date;
+  } else if (date) {
+    memberSince = new Date(date);
+    memberSinceDate = `${(memberSince.getMonth() + 1)}/${memberSince.getDate()}/${memberSince.getFullYear()}`;
+  }
+
+  // const memberSince = date === 'Alpha' ? date : new Date(date);
+  // const memberSinceDate = date === 'Alpha' ? date : `${(memberSince.getMonth() + 1)}/${memberSince.getDate()}/${memberSince.getFullYear()}`;
 
   dispatch({
     type: 'GET_PUBLIC_MEMBERSINCE',
