@@ -15,7 +15,7 @@ import Loading from '../assets/Loading.svg';
 import './styles/Feed.css';
 import './styles/NetworkArray.css';
 
-const Feed = ({ ifFetchingActivity, feedByAddress }) => (
+const Feed = ({ ifFetchingActivity, feedByAddress, verifiedGithub }) => (
   <div>
     <StatusUpdate />
     <div id="feed">
@@ -72,7 +72,7 @@ const Feed = ({ ifFetchingActivity, feedByAddress }) => (
                     if (item.dataType === 'Internal') return <FeedTileInternal item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
                     if (item.dataType === 'Token') return <FeedTileToken item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
                     if (item.dataType === 'Txs') return <FeedTileTXS item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
-                    if (item.dataType === 'Public') return <FeedTileActivity item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
+                    if (item.dataType === 'Public') return <FeedTileActivity item={item} key={index} verifiedGithub={verifiedGithub} isEven={parseInt(index, 10) % 2 === 0} />;
                     if (item.dataType === 'Private') return <FeedTileActivity item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
                   })()
                 ))
@@ -98,16 +98,19 @@ const Feed = ({ ifFetchingActivity, feedByAddress }) => (
 Feed.propTypes = {
   feedByAddress: PropTypes.array,
   ifFetchingActivity: PropTypes.bool,
+  verifiedGithub: PropTypes.string,
 };
 
 Feed.defaultProps = {
   feedByAddress: [],
   ifFetchingActivity: false,
+  verifiedGithub: '',
 };
 
 const mapState = state => ({
   feedByAddress: state.threeBox.feedByAddress,
   ifFetchingActivity: state.threeBox.ifFetchingActivity,
+  verifiedGithub: state.threeBox.verifiedGithub,
 });
 
 export default connect(mapState)(Feed);

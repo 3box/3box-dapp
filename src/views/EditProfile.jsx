@@ -6,31 +6,23 @@ import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
 
 import {
-  getPublicName,
-  getPublicGithub,
-  getPublicDescription,
-  getPublicLocation,
-  getPublicWebsite,
-  getPublicEmployer,
-  getPublicJob,
-  getPublicSchool,
-  getPublicDegree,
-  getPublicSubject,
-  getPublicYear,
-  getPublicImage,
-  getPublicCoverPhoto,
-  getPrivateEmail,
-  getPrivateBirthday,
-  getPublicEmoji,
+  store,
+} from '../state/store';
+
+import {
+  getProfileData,
   getActivity,
 } from '../state/actions';
 
+import { handleGithubVerificationModal } from '../state/actions-modals';
+
 import { address } from '../utils/address';
-import { FileSizeModal } from '../components/Modals';
+import { FileSizeModal, GithubVerificationModal } from '../components/Modals';
 import history from '../history';
 import Nav from '../components/Nav.jsx';
 import * as routes from '../utils/routes';
 import Private from '../assets/Private.svg';
+import Verified from '../assets/Verified.svg';
 import AddImage from '../assets/AddImage.svg';
 import Loading from '../assets/Loading.svg';
 import './styles/EditProfile.css';
@@ -40,7 +32,7 @@ class EditProfile extends Component {
     super(props);
     this.state = {
       name: '',
-      github: '',
+      verifiedGithub: '',
       email: '',
       buffer: '',
       description: '',
@@ -57,9 +49,14 @@ class EditProfile extends Component {
       disableSave: true,
       saveLoading: false,
       removeUserPic: false,
+      githubVerified: false,
+      verificationLoading: false,
+      githubVerifiedFailed: false,
       editPic: false,
       editCoverPic: false,
       showFileSizeModal: false,
+      githubRemoved: false,
+      githubEdited: false,
       showEmoji: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -68,7 +65,7 @@ class EditProfile extends Component {
   componentDidMount() {
     const {
       name,
-      github,
+      verifiedGithub,
       email,
       description,
       location,
@@ -85,7 +82,7 @@ class EditProfile extends Component {
 
     this.setState({
       name,
-      github,
+      verifiedGithub,
       email,
       description,
       location,
@@ -104,7 +101,7 @@ class EditProfile extends Component {
   componentWillReceiveProps(nextProps) {
     const {
       name,
-      github,
+      verifiedGithub,
       email,
       description,
       location,
@@ -120,7 +117,7 @@ class EditProfile extends Component {
     } = nextProps;
 
     if (name !== this.props.name) this.setState({ name });
-    if (github !== this.props.github) this.setState({ github });
+    if (verifiedGithub !== this.props.verifiedGithub) this.setState({ verifiedGithub });
     if (email !== this.props.email) this.setState({ email });
     if (description !== this.props.description) this.setState({ description });
     if (location !== this.props.location) this.setState({ location });
@@ -137,11 +134,22 @@ class EditProfile extends Component {
 
   handleFormChange = (e, property) => {
     if (e.target.value === this.props[property]) {
-      console.log('in same');
       this.setState({ [property]: e.target.value, disableSave: true });
     } else {
       this.setState({ [property]: e.target.value, disableSave: false });
     }
+    const { verifiedGithub } = this.props;
+
+    if (property !== 'verifiedGithub') this.setState({ disableSave: false });
+
+    this.setState({ [property]: e.target.value },
+      () => {
+        if (this.state.verifiedGithub === '') {
+          this.setState({ githubEdited: false });
+        } else if (verifiedGithub !== this.state.verifiedGithub && this.state.verifiedGithub !== '') {
+          this.setState({ githubEdited: true });
+        }
+      });
   }
 
   closeFileSizeModal = () => {
@@ -180,12 +188,25 @@ class EditProfile extends Component {
     }
   }
 
-  removePic = () => {
-    this.setState({ disableSave: false, removeUserPic: true });
+  removePicture = (type) => {
+    this.setState({ disableSave: false, [`remove${type}Pic`]: true });
   }
 
-  removeCoverPic = () => {
-    this.setState({ disableSave: false, removeCoverPic: true });
+  copyToClipBoard = (text) => {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+      var successful = document.execCommand('copy');
+      var msg = successful ? 'successful' : 'unsuccessful';
+    } catch (err) {
+      console.error('Unable to copy', err);
+    }
+
+    document.body.removeChild(textArea);
   }
 
   addEmoji = (emoji) => {
@@ -196,10 +217,49 @@ class EditProfile extends Component {
     });
   }
 
+  verifyGithub = () => {
+    const { verifiedGithub } = this.state;
+    const { box } = this.props;
+    this.setState({ verificationLoading: true });
+
+    fetch(`https://api.github.com/users/${verifiedGithub}/gists`)
+      .then(response => response.json())
+      .then((returnedData) => {
+        if (returnedData.length) {
+          returnedData.map((gist, i) => {
+            const url = gist.files[Object.keys(gist.files)[0]].raw_url;
+            return box.verified.addGithub(url).then((res) => {
+              if (res === true) {
+                console.log('Github username verified');
+                this.setState({ githubVerified: true, verificationLoading: false });
+                store.dispatch({
+                  type: 'GET_VERIFIED_PUBLIC_GITHUB',
+                  verifiedGithub,
+                });
+              }
+            }).catch((err) => {
+              console.log(err);
+              if (i === returnedData.length - 1) {
+                this.setState({ githubVerifiedFailed: true, verificationLoading: false });
+              }
+            });
+          });
+        } else {
+          this.setState({ githubVerifiedFailed: true, verificationLoading: false });
+        }
+      });
+  }
+
+  resetVerification = () => {
+    this.setState({
+      githubVerifiedFailed: false,
+    });
+  }
+
   async handleSubmit(e) {
     const {
       name,
-      github,
+      verifiedGithub,
       email,
       removeUserPic,
       removeCoverPic,
@@ -224,10 +284,10 @@ class EditProfile extends Component {
 
     if (box.public) {
       e.preventDefault();
-      this.setState({ saveLoading: true, disableSave: true });
+      this.setState({ saveLoading: true });
 
       const nameChanged = name !== this.props.name;
-      const githubChanged = github !== this.props.github;
+      const verifiedGithubChanged = verifiedGithub !== this.props.verifiedGithub;
       const emailChanged = email !== this.props.email;
       const descriptionChanged = description !== this.props.description;
       const locationChanged = location !== this.props.location;
@@ -244,10 +304,7 @@ class EditProfile extends Component {
       // if value changed and is not empty, save new value, else remove value
       if (nameChanged && name !== '') await box.public.set('name', name);
       if (nameChanged && name === '') await box.public.remove('name');
-      if (githubChanged && github !== '') await box.public.set('github', github);
-      if (githubChanged && github === '') await box.public.remove('github');
-      if (emailChanged && email !== '') await box.private.set('email', email);
-      if (emailChanged && email === '') await box.private.remove('email');
+      if (verifiedGithubChanged && verifiedGithub === '') await box.public.remove('proof_github');
       if (descriptionChanged && description !== '') await box.public.set('description', description);
       if (descriptionChanged && description === '') await box.public.remove('description');
       if (locationChanged && location !== '') await box.public.set('location', location);
@@ -268,10 +325,13 @@ class EditProfile extends Component {
       if (yearChanged && year === '') await box.public.remove('year');
       if (emojiChanged && emoji !== '') await box.public.set('emoji', emoji);
       if (emojiChanged && emoji === '') await box.public.remove('emoji');
-      if (birthdayChanged && birthday !== '') await box.private.set('birthday', birthday);
-      if (birthdayChanged && birthday === '') await box.private.remove('birthday');
       if (removeUserPic) await box.public.remove('image');
       if (removeCoverPic) await box.public.remove('coverPhoto');
+
+      if (birthdayChanged && birthday !== '') await box.private.set('birthday', birthday);
+      if (birthdayChanged && birthday === '') await box.private.remove('birthday');
+      if (emailChanged && email !== '') await box.private.set('email', email);
+      if (emailChanged && email === '') await box.private.remove('email');
 
       // save profile picture
       const fetch = editPic && await window.fetch('https://ipfs.infura.io:5001/api/v0/add', {
@@ -291,22 +351,28 @@ class EditProfile extends Component {
       if (editCoverPic) await box.public.set('coverPhoto', [{ '@type': 'ImageObject', contentUrl: { '/': returnedCoverData.Hash } }]);
 
       // only get values that have changed
-      if (nameChanged) await this.props.getPublicName();
-      if (githubChanged) await this.props.getPublicGithub();
-      if (emailChanged) await this.props.getPrivateEmail();
-      if (descriptionChanged) await this.props.getPublicDescription();
-      if (locationChanged) await this.props.getPublicLocation();
-      if (websiteChanged) await this.props.getPublicWebsite();
-      if (employerChanged) await this.props.getPublicEmployer();
-      if (jobChanged) await this.props.getPublicJob();
-      if (schoolChanged) await this.props.getPublicSchool();
-      if (degreeChanged) await this.props.getPublicDegree();
-      if (majorChanged) await this.props.getPublicSubject();
-      if (yearChanged) await this.props.getPublicYear();
-      if (emojiChanged) await this.props.getPublicEmoji();
-      if (birthdayChanged) await this.props.getPrivateBirthday();
-      if (removeUserPic || editPic) await this.props.getPublicImage();
-      if (removeCoverPic || editCoverPic) await this.props.getPublicCoverPhoto();
+      if (verifiedGithubChanged) {
+        store.dispatch({
+          type: 'GET_VERIFIED_PUBLIC_GITHUB',
+          verifiedGithub: null,
+        });
+      }
+      if (nameChanged) await this.props.getProfileData('public', 'name');
+      if (descriptionChanged) await this.props.getProfileData('public', 'description');
+      if (locationChanged) await this.props.getProfileData('public', 'location');
+      if (websiteChanged) await this.props.getProfileData('public', 'website');
+      if (employerChanged) await this.props.getProfileData('public', 'employer');
+      if (jobChanged) await this.props.getProfileData('public', 'job');
+      if (schoolChanged) await this.props.getProfileData('public', 'school');
+      if (degreeChanged) await this.props.getProfileData('public', 'degree');
+      if (majorChanged) await this.props.getProfileData('public', 'major');
+      if (yearChanged) await this.props.getProfileData('public', 'year');
+      if (emojiChanged) await this.props.getProfileData('public', 'emoji');
+      if (removeUserPic || editPic) await this.props.getProfileData('public', 'image');
+      if (removeCoverPic || editCoverPic) await this.props.getProfileData('public', 'coverPhoto');
+      if (emailChanged) await this.props.getProfileData('private', 'email');
+      if (birthdayChanged) await this.props.getProfileData('private', 'birthday');
+
       this.props.getActivity();
 
       this.setState({ saveLoading: false });
@@ -315,9 +381,9 @@ class EditProfile extends Component {
   }
 
   render() {
-    const { image, coverPhoto, memberSince } = this.props;
+    const { image, coverPhoto, memberSince, showGithubVerificationModal, did } = this.props;
     const {
-      github,
+      verifiedGithub,
       email,
       name,
       description,
@@ -337,7 +403,18 @@ class EditProfile extends Component {
       saveLoading,
       showFileSizeModal,
       showEmoji,
+      githubVerified,
+      githubVerifiedFailed,
+      githubEdited,
+      githubRemoved,
+      verificationLoading,
     } = this.state;
+
+    const message = (`3Box is a social profiles network for web3. This post links my 3Box profile to my Github account!
+
+    ✅ ${did} ✅
+    
+    Create your profile today to start building social connection and trust online. https://3box.io/`)
 
     return (
       <div id="edit__page">
@@ -359,6 +436,19 @@ class EditProfile extends Component {
         {showFileSizeModal
           && <FileSizeModal show={showFileSizeModal} closeFileSizeModal={this.closeFileSizeModal} />}
 
+        <GithubVerificationModal
+          show={showGithubVerificationModal}
+          copyToClipBoard={this.copyToClipBoard}
+          did={did}
+          message={message}
+          verifyGithub={this.verifyGithub}
+          githubVerified={githubVerified}
+          verificationLoading={verificationLoading}
+          githubVerifiedFailed={githubVerifiedFailed}
+          resetVerification={this.resetVerification}
+          handleGithubVerificationModal={this.props.handleGithubVerificationModal}
+        />
+
         <div id="edit__breadCrumb">
           <div id="edit__breadCrumb__crumbs">
             <p className="light">
@@ -377,7 +467,7 @@ class EditProfile extends Component {
                   <button
                     id="removeCoverPic"
                     className="removeButton"
-                    onClick={this.removeCoverPic}
+                    onClick={() => this.removePicture('Cover')}
                     disabled={(coverPhoto.length > 0 || (this.coverUpload && this.coverUpload.files && this.coverUpload.files[0])) ? false : true}
                     text="remove"
                     type="button"
@@ -430,7 +520,7 @@ class EditProfile extends Component {
                     <button
                       id="removePic"
                       className="removeButton"
-                      onClick={this.removePic}
+                      onClick={() => this.removePicture('User')}
                       disabled={(image.length > 0 || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])) ? false : true}
                       text="remove"
                       type="button"
@@ -589,19 +679,6 @@ class EditProfile extends Component {
 
                     <div className="edit__profile__fields__entry">
                       <div className="edit__profile__keyContainer">
-                        <h5 className="edit__profile__key">Github</h5>
-                      </div>
-                      <input
-                        name="github"
-                        type="text"
-                        className="edit__profile__value"
-                        value={github}
-                        onChange={e => this.handleFormChange(e, 'github')}
-                      />
-                    </div>
-
-                    <div className="edit__profile__fields__entry">
-                      <div className="edit__profile__keyContainer">
                         <h5>Birthday</h5>
                       </div>
                       <div className="edit__profile__value--privateContainer">
@@ -624,6 +701,82 @@ class EditProfile extends Component {
                         <p className="edit__profile__fields__entry--memberSince">{memberSince}</p>
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="edit__profile__info--verified">
+                <div className="edit__profile__categories">
+                  <h3 className="noMargin">Connect your accounts</h3>
+                  <p>Connect your existing social accounts to build a stronger reputation.</p>
+                </div>
+                <div id="edit__profile__fields">
+                  <div id="edit__info">
+
+                    <div className="edit__profile__fields__entry noMargin">
+                      <div className="edit__profile__keyContainer">
+                        <h5>Github</h5>
+                      </div>
+                      {this.props.verifiedGithub
+                        ? (
+                          <div className="edit__profile__verifiedWrapper">
+                            <div className="edit__profile__verifiedName">
+                              {!githubRemoved
+                                && <img src={Verified} alt="Verified" />
+                              }
+                              <p>{verifiedGithub}</p>
+                            </div>
+
+                            {!githubRemoved
+                              ? (<button
+                                type="button"
+                                className={`unstyledButton ${!githubEdited && 'uneditedGithub'} removeGithub`}
+                                onClick={() => {
+                                  this.setState({ verifiedGithub: '', disableSave: false, githubRemoved: true });
+                                }}
+                              >
+                                Remove
+                            </button>)
+                              : (<button
+                                type="button"
+                                className={`unstyledButton ${!githubEdited && 'uneditedGithub'}`}
+                                onClick={() => {
+                                  this.setState({ verifiedGithub: this.props.verifiedGithub, disableSave: true, githubRemoved: false });
+                                }}
+                              >
+                                Cancel
+                            </button>
+                              )}
+                          </div>
+                        )
+                        : (
+                          <div className="edit__profile__verifiedWrapper">
+                            <input
+                              name="verifiedGithub"
+                              type="text"
+                              className="edit__profile__value--github"
+                              value={verifiedGithub}
+                              onChange={e => this.handleFormChange(e, 'verifiedGithub')}
+                            />
+                            <button
+                              type="button"
+                              className={`unstyledButton ${!githubEdited && 'uneditedGithub'} verificationButton`}
+                              disabled={!githubEdited}
+                              onClick={() => {
+                                this.props.getProfileData('public', 'did');
+                                this.props.handleGithubVerificationModal();
+                              }}
+                            >
+                              Verify
+                            </button>
+                          </div>
+                        )}
+                    </div>
+                    {(!this.props.verifiedGithub && githubEdited && !githubVerified)
+                      && (
+                        <p className="edit__profile__verifiedWrapper__warning">Verification is required for your Github username to save.</p>
+                      )
+                    }
                   </div>
                 </div>
               </div>
@@ -732,7 +885,7 @@ class EditProfile extends Component {
             </div>
             <div id="edit__formControls">
               <div id="edit__formControls__content">
-                <button type="submit" disabled={disableSave} onClick={e => this.handleSubmit(e)}>Save</button>
+                <button type="submit" disabled={disableSave} onClick={e => this.setState({ disableSave: true }, () => this.handleSubmit(e))}>Save</button>
                 <Link to={routes.PROFILE} className="subtext" id="edit__cancel">
                   Cancel
                 </Link>
@@ -748,7 +901,8 @@ class EditProfile extends Component {
 EditProfile.propTypes = {
   box: PropTypes.object,
   name: PropTypes.string,
-  github: PropTypes.string,
+  verifiedGithub: PropTypes.string,
+  did: PropTypes.string,
   year: PropTypes.string,
   emoji: PropTypes.string,
   description: PropTypes.string,
@@ -765,30 +919,19 @@ EditProfile.propTypes = {
   image: PropTypes.array,
   coverPhoto: PropTypes.array,
   ifFetchingThreeBox: PropTypes.bool,
+  showGithubVerificationModal: PropTypes.bool,
 
-  getPublicName: PropTypes.func,
-  getPublicGithub: PropTypes.func,
-  getPublicImage: PropTypes.func,
-  getPublicCoverPhoto: PropTypes.func,
-  getPrivateEmail: PropTypes.func,
-  getPrivateBirthday: PropTypes.func,
-  getPublicEmoji: PropTypes.func,
-  getPublicWebsite: PropTypes.func,
-  getPublicEmployer: PropTypes.func,
-  getPublicJob: PropTypes.func,
-  getPublicSchool: PropTypes.func,
-  getPublicDegree: PropTypes.func,
-  getPublicSubject: PropTypes.func,
-  getPublicYear: PropTypes.func,
-  getPublicLocation: PropTypes.func,
-  getPublicDescription: PropTypes.func,
+  getProfileData: PropTypes.func,
   getActivity: PropTypes.func,
+
+  handleGithubVerificationModal: PropTypes.func,
 };
 
 EditProfile.defaultProps = {
   box: {},
   name: '',
-  github: '',
+  verifiedGithub: '',
+  did: '',
   description: '',
   location: '',
   website: '',
@@ -805,31 +948,20 @@ EditProfile.defaultProps = {
   image: [],
   coverPhoto: [],
   ifFetchingThreeBox: false,
+  showGithubVerificationModal: false,
 
-  getPublicName: getPublicName(),
-  getPublicGithub: getPublicGithub(),
-  getPublicDescription: getPublicDescription(),
-  getPublicLocation: getPublicLocation(),
-  getPublicWebsite: getPublicWebsite(),
-  getPublicEmployer: getPublicEmployer(),
-  getPublicJob: getPublicJob(),
-  getPublicSchool: getPublicSchool(),
-  getPublicDegree: getPublicDegree(),
-  getPublicSubject: getPublicSubject(),
-  getPublicYear: getPublicYear(),
-  getPublicImage: getPublicImage(),
-  getPublicCoverPhoto: getPublicCoverPhoto(),
-  getPrivateEmail: getPrivateEmail(),
-  getPrivateBirthday: getPrivateBirthday(),
-  getPublicEmoji: getPublicEmoji(),
+  getProfileData: getProfileData(),
   getActivity: getActivity(),
+  handleGithubVerificationModal: handleGithubVerificationModal(),
 };
 
 function mapState(state) {
   return {
     box: state.threeBox.box,
+    showGithubVerificationModal: state.threeBox.showGithubVerificationModal,
     name: state.threeBox.name,
-    github: state.threeBox.github,
+    verifiedGithub: state.threeBox.verifiedGithub,
+    did: state.threeBox.did,
     description: state.threeBox.description,
     memberSince: state.threeBox.memberSince,
     location: state.threeBox.location,
@@ -851,21 +983,7 @@ function mapState(state) {
 
 export default withRouter(connect(mapState,
   {
-    getPublicName,
-    getPublicGithub,
-    getPublicDescription,
-    getPublicLocation,
-    getPublicWebsite,
-    getPublicEmployer,
-    getPublicJob,
-    getPublicSchool,
-    getPublicDegree,
-    getPublicSubject,
-    getPublicYear,
-    getPublicImage,
-    getPublicCoverPhoto,
-    getPrivateEmail,
-    getPrivateBirthday,
-    getPublicEmoji,
+    getProfileData,
     getActivity,
+    handleGithubVerificationModal,
   })(EditProfile));

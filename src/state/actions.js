@@ -329,67 +329,19 @@ export const getActivity = () => async (dispatch) => {
   }
 };
 
-export const getPublicName = () => async (dispatch) => {
-  const name = await store.getState().threeBox.box.public.get('name');
+export const getProfileData = (type, key) => async (dispatch) => {
+  try {
+    const keyUppercase = key.toUpperCase();
+    const keyToAdd = await store.getState().threeBox.box[type].get(key);
+    const typeUppercase = type.toUpperCase();
 
-  dispatch({
-    type: 'GET_PUBLIC_NAME',
-    name,
-  });
-};
-
-export const getPublicGithub = () => async (dispatch) => {
-  const github = await store.getState().threeBox.box.public.get('github');
-
-  dispatch({
-    type: 'GET_PUBLIC_GITHUB',
-    github,
-  });
-};
-
-export const getPublicDescription = () => async (dispatch) => {
-  const description = await store.getState().threeBox.box.public.get('description');
-
-  dispatch({
-    type: 'GET_PUBLIC_DESCRIPTION',
-    description,
-  });
-};
-
-export const getPublicLocation = () => async (dispatch) => {
-  const location = await store.getState().threeBox.box.public.get('location');
-
-  dispatch({
-    type: 'GET_PUBLIC_LOCATION',
-    location,
-  });
-};
-
-export const getPublicWebsite = () => async (dispatch) => {
-  const website = await store.getState().threeBox.box.public.get('website');
-
-  dispatch({
-    type: 'GET_PUBLIC_WEBSITE',
-    website,
-  });
-};
-
-export const getPublicEmployer = () => async (dispatch) => {
-  const employer = await store.getState().threeBox.box.public.get('employer');
-
-  dispatch({
-    type: 'GET_PUBLIC_EMPLOYER',
-    employer,
-  });
-};
-
-export const getPublicJob = () => async (dispatch) => {
-  const job = await store.getState().threeBox.box.public.get('job');
-
-  dispatch({
-    type: 'GET_PUBLIC_JOB',
-    job,
-  });
+    dispatch({
+      type: `GET_${typeUppercase}_${keyUppercase}`,
+      [key]: keyToAdd,
+    });
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getPublicMemberSince = () => async (dispatch) => {
@@ -405,103 +357,23 @@ export const getPublicMemberSince = () => async (dispatch) => {
     memberSinceDate = `${(memberSince.getMonth() + 1)}/${memberSince.getDate()}/${memberSince.getFullYear()}`;
   }
 
-  // const memberSince = date === 'Alpha' ? date : new Date(date);
-  // const memberSinceDate = date === 'Alpha' ? date : `${(memberSince.getMonth() + 1)}/${memberSince.getDate()}/${memberSince.getFullYear()}`;
-
   dispatch({
     type: 'GET_PUBLIC_MEMBERSINCE',
     memberSince: memberSinceDate,
   });
 };
 
-export const getPublicSchool = () => async (dispatch) => {
-  const school = await store.getState().threeBox.box.public.get('school');
+export const getVerifiedPublicGithub = () => async (dispatch) => {
+  try {
+    const verifiedGithub = await store.getState().threeBox.box.verified.github();
 
-  dispatch({
-    type: 'GET_PUBLIC_SCHOOL',
-    school,
-  });
-};
-
-export const getPublicDegree = () => async (dispatch) => {
-  const degree = await store.getState().threeBox.box.public.get('degree');
-
-  dispatch({
-    type: 'GET_PUBLIC_DEGREE',
-    degree,
-  });
-};
-
-export const getPublicImage = () => async (dispatch) => {
-  const image = await store.getState().threeBox.box.public.get('image');
-
-  dispatch({
-    type: 'GET_PUBLIC_IMAGE',
-    image,
-  });
-};
-
-export const getPublicCoverPhoto = () => async (dispatch) => {
-  const coverPhoto = await store.getState().threeBox.box.public.get('coverPhoto');
-
-  dispatch({
-    type: 'GET_PUBLIC_COVERPHOTO',
-    coverPhoto,
-  });
-};
-
-export const getPublicEmoji = () => async (dispatch) => {
-  const emoji = await store.getState().threeBox.box.public.get('emoji');
-
-  dispatch({
-    type: 'GET_PUBLIC_EMOJI',
-    emoji,
-  });
-};
-
-export const getPublicSubject = () => async (dispatch) => {
-  const major = await store.getState().threeBox.box.public.get('major');
-
-  dispatch({
-    type: 'GET_PUBLIC_MAJOR',
-    major,
-  });
-};
-
-export const getPublicYear = () => async (dispatch) => {
-  const year = await store.getState().threeBox.box.public.get('year');
-
-  dispatch({
-    type: 'GET_PUBLIC_YEAR',
-    year,
-  });
-};
-
-export const getPrivateEmail = () => async (dispatch) => {
-  const email = await store.getState().threeBox.box.private.get('email');
-
-  dispatch({
-    type: 'GET_PRIVATE_EMAIL',
-    email,
-  });
-};
-
-export const getPrivateBirthday = () => async (dispatch) => {
-  const birthday = await store.getState().threeBox.box.private.get('birthday');
-
-  dispatch({
-    type: 'GET_PRIVATE_BIRTHDAY',
-    birthday,
-  });
-};
-
-export const getPublicStatus = () => async (dispatch) => {
-  const status = await store.getState().threeBox.box.public.get('status');
-
-  dispatch({
-    type: 'GET_PUBLIC_STATUS',
-    status,
-  });
+    dispatch({
+      type: 'GET_VERIFIED_PUBLIC_GITHUB',
+      verifiedGithub,
+    });
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const handleSignOut = () => async (dispatch) => {
@@ -515,137 +387,41 @@ export const handleSignOut = () => async (dispatch) => {
   history.push(routes.LANDING);
 };
 
-
-// export const signInGetBox = () => async (dispatch) => {
-//   dispatch({
-//     type: 'HANDLE_CONSENT_MODAL',
-//     provideConsent: true,
-//   });
-
-//   const consentGiven = () => {
-//     history.push(routes.PROFILE);
-//     dispatch({
-//       type: 'LOADING_3BOX',
-//     });
-//     dispatch({
-//       type: 'LOADING_ACTIVITY',
-//     });
-//   };
-
-//   const opts = {
-//     consentCallback: consentGiven,
-//   };
-
+// export const getPublicMemberSince = () => async (dispatch) => {
 //   try {
-//     const box = await Box // eslint-disable-line no-undef
-//       .openBox(
-//         store.getState().threeBox.accountAddress || address,
-//         window.web3.currentProvider, // eslint-disable-line no-undef
-//         opts,
-//       );
-
-//     dispatch({
-//       type: 'UPDATE_THREEBOX',
-//       ifFetchingThreeBox: false,
-//       isLoggedIn: true,
-//       box,
-//     });
-
 //     const memberSince = await store.getState().threeBox.box.public.get('memberSince');
 
-//     box.onSyncDone(() => {
-//       const publicActivity = store.getState().threeBox.box.public.log;
-//       const privateActivity = store.getState().threeBox.box.private.log;
-//       if (!privateActivity.length && !publicActivity.length) {
-//         dispatch({
-//           type: 'HANDLE_ONBOARDING_MODAL',
-//           onBoardingModal: true,
-//         });
-//         store.getState().threeBox.box.public.set('memberSince', Date.now());
-//         history.push(routes.EDITPROFILE);
-//       } else if (!memberSince && (privateActivity.length || publicActivity.length)) {
-//         store.getState().threeBox.box.public.set('memberSince', 'Alpha');
-//       }
-
-//       dispatch({
-//         type: 'UPDATE_THREEBOX',
-//         ifFetchingThreeBox: false,
-//         isLoggedIn: true,
-//         box,
-//       });
-//     });
-//   } catch (err) {
 //     dispatch({
-//       type: 'FAILED_LOADING_3BOX',
-//       errorMessage: err,
-//       showErrorModal: true,
-//       provideConsent: false,
+//       type: 'GET_PUBLIC_MEMBERSINCE',
+//       memberSince,
 //     });
+//   } catch (error) {
+//     console.error(error);
 //   }
 // };
 
-// export const profileGetBox = () => async (dispatch) => {
-//   dispatch({
-//     type: 'HANDLE_CONSENT_MODAL',
-//     provideConsent: true,
-//   });
-
-//   const consentGiven = () => {
-//     dispatch({
-//       type: 'LOADING_3BOX',
-//     });
-//     dispatch({
-//       type: 'LOADING_ACTIVITY',
-//     });
-//   };
-
-//   const opts = {
-//     consentCallback: consentGiven,
-//   };
-
+// export const getPublicDID = () => async (dispatch) => {
 //   try {
-//     const box = await Box // eslint-disable-line no-undef
-//       .openBox(
-//         store.getState().threeBox.accountAddress || address,
-//         window.web3.currentProvider, // eslint-disable-line no-undef
-//         opts,
-//       );
+//     const did = await store.getState().threeBox.box.public.get('did');
 
 //     dispatch({
-//       type: 'UPDATE_THREEBOX',
-//       ifFetchingThreeBox: false,
-//       box,
-//       isLoggedIn: true,
+//       type: 'GET_PUBLIC_DID',
+//       did,
 //     });
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
-//     const memberSince = await store.getState().threeBox.box.public.get('memberSince');
+// export const getPublicStatus = () => async (dispatch) => {
+//   try {
+//     const status = await store.getState().threeBox.box.public.get('status');
 
-//     box.onSyncDone(() => {
-//       const publicActivity = store.getState().threeBox.box.public.log;
-//       const privateActivity = store.getState().threeBox.box.private.log;
-//       if (!privateActivity.length && !publicActivity.length) {
-//         dispatch({
-//           type: 'HANDLE_ONBOARDING_MODAL',
-//           onBoardingModal: true,
-//         });
-//         history.push(routes.EDITPROFILE);
-//       } else if (!memberSince && (privateActivity.length || publicActivity.length)) {
-//         store.getState().threeBox.box.public.set('memberSince', 'Alpha');
-//       }
-
-//       dispatch({
-//         type: 'UPDATE_THREEBOX',
-//         ifFetchingThreeBox: false,
-//         isLoggedIn: true,
-//         box,
-//       });
-//     });
-//   } catch (err) {
 //     dispatch({
-//       type: 'FAILED_LOADING_3BOX',
-//       errorMessage: err,
-//       showErrorModal: true,
-//       provideConsent: false,
+//       type: 'GET_PUBLIC_STATUS',
+//       status,
 //     });
+//   } catch (error) {
+//     console.error(error);
 //   }
 // };

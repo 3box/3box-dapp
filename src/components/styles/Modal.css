@@ -171,6 +171,9 @@
   width: 60px;
   margin-top: 60px; }
 
+#modal__loadingGraphic--noMargin {
+  width: 60px; }
+
 #modal__loadingGraphic--access {
   width: 60px;
   margin-top: 20px; }
@@ -226,6 +229,118 @@
     height: 6px;
     background: rgba(255, 255, 255, 0.336);
     border-radius: 50%; }
+
+.githubModal {
+  width: 800px;
+  padding: 0; }
+  .githubModal p {
+    font-size: 14px !important; }
+
+.modal__github__description {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid #f1f1f1;
+  padding: 40px 40px 34px 40px;
+  width: 90%; }
+
+.modal__github__description__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; }
+
+.modal__github__description__copy__text {
+  text-align: left;
+  color: #747677;
+  width: 80%; }
+
+.modal__github__description__copy__button {
+  padding: 0;
+  color: #1168df;
+  background-color: transparent;
+  border: none;
+  font-size: 16px; }
+  .modal__github__description__copy__button:hover {
+    background-color: transparent;
+    color: #1168df; }
+
+.modal__github__description__githubIcon {
+  width: 30px !important;
+  margin-right: 18px; }
+
+.modal__github__description__copy__header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 16px; }
+
+.modal__github__steps__text {
+  text-align: left;
+  margin-bottom: 26px; }
+
+.modal__github__steps__step {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 30%; }
+  .modal__github__steps__step p {
+    color: #6b6b6b;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+  .modal__github__steps__step button {
+    margin-top: 26px; }
+
+.modal__github__steps {
+  display: flex;
+  padding: 40px;
+  justify-content: space-between; }
+
+.modal__github__steps__number {
+  background-color: #EFF5FE;
+  color: #021333;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 18px; }
+
+.modal__github__description__copy__input {
+  border-radius: 6px;
+  border: 1px solid #1168df;
+  background-color: #EFF5FE;
+  padding: 15px 20px;
+  width: 70%;
+  margin-bottom: 20px;
+  text-align: left;
+  word-break: break-all; }
+
+.modal__github__description__copy__input--github {
+  border-radius: 6px;
+  border: 1px solid #1168df;
+  background-color: #EFF5FE;
+  padding: 15px 20px;
+  width: 70%;
+  margin-bottom: 20px;
+  text-align: left;
+  height: 70px; }
+
+.modal__github__done {
+  background-color: #EFF5FE;
+  width: 100%;
+  padding: 20px;
+  height: 100%; }
+  .modal__github__done button {
+    background-color: #00C77F;
+    border: none; }
+    .modal__github__done button:hover {
+      background-color: #00b472;
+      -webkit-transition: all 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out; }
 
 @media only screen and (max-width: 600px) {
   .mobileInvisible {

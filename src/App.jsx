@@ -13,10 +13,8 @@ import Jobs from './views/Jobs';
 import Privacy from './views/Privacy';
 import Terms from './views/Terms';
 import Create from './views/Create';
-
 import NavLanding from './components/NavLanding';
 import Nav from './components/Nav.jsx';
-
 import history from './history';
 import './index.css';
 
@@ -39,27 +37,12 @@ import {
 } from './components/Modals';
 
 import {
+  getProfileData,
+  getPublicMemberSince,
+  getVerifiedPublicGithub,
+  getActivity,
   getBox,
   requestAccess,
-  getPublicName,
-  getPublicMemberSince,
-  getPublicGithub,
-  getPublicWebsite,
-  getPublicEmployer,
-  getPublicJob,
-  getPublicSchool,
-  getPublicDegree,
-  getPublicSubject,
-  getPublicYear,
-  getPublicStatus,
-  getPublicEmoji,
-  getPublicLocation,
-  getPublicDescription,
-  getPublicImage,
-  getPublicCoverPhoto,
-  getPrivateEmail,
-  getPrivateBirthday,
-  getActivity,
   checkWeb3Wallet,
   checkNetwork,
   handleSignOut,
@@ -177,24 +160,26 @@ class App extends Component {
       await this.props.getBox();
       if (!this.props.showErrorModal) {
         this.props.getActivity(); // remove await
-        this.props.getPublicStatus();
-        this.props.getPublicName();
+        this.props.getVerifiedPublicGithub();
+
+        // this.props.getProfileData('public', 'memberSince');
         this.props.getPublicMemberSince();
-        this.props.getPublicGithub();
-        this.props.getPublicDescription();
-        this.props.getPublicImage();
-        this.props.getPublicCoverPhoto();
-        this.props.getPublicLocation();
-        this.props.getPublicWebsite();
-        this.props.getPublicEmployer();
-        this.props.getPublicJob();
-        this.props.getPublicSchool();
-        this.props.getPublicDegree();
-        this.props.getPublicSubject();
-        this.props.getPublicYear();
-        this.props.getPublicEmoji();
-        this.props.getPrivateEmail();
-        this.props.getPrivateBirthday();
+        this.props.getProfileData('public', 'status');
+        this.props.getProfileData('public', 'name');
+        this.props.getProfileData('public', 'description');
+        this.props.getProfileData('public', 'image');
+        this.props.getProfileData('public', 'coverPhoto');
+        this.props.getProfileData('public', 'location');
+        this.props.getProfileData('public', 'website');
+        this.props.getProfileData('public', 'employer');
+        this.props.getProfileData('public', 'job');
+        this.props.getProfileData('public', 'school');
+        this.props.getProfileData('public', 'degree');
+        this.props.getProfileData('public', 'major');
+        this.props.getProfileData('public', 'year');
+        this.props.getProfileData('public', 'emoji');
+        this.props.getProfileData('private', 'email');
+        this.props.getProfileData('private', 'birthday');
       }
     } else if (!this.props.isSignedIntoWallet) {
       history.push(routes.LANDING);
@@ -215,25 +200,26 @@ class App extends Component {
         await this.props.getBox('fromSignIn');
         if (!this.props.showErrorModal) {
           this.props.getActivity();
-          this.props.getPublicStatus();
-          this.props.getPublicName();
+          this.props.getVerifiedPublicGithub();
+
+          // this.props.getProfileData('public', 'memberSince');
           this.props.getPublicMemberSince();
-          this.props.getPublicGithub();
-          this.props.getPublicDescription();
-          this.props.getPublicImage();
-          this.props.getPublicCoverPhoto();
-          this.props.getPublicLocation();
-          this.props.getPublicWebsite();
-          this.props.getPublicEmployer();
-          this.props.getPublicJob();
-          this.props.getPublicSchool();
-          this.props.getPublicDegree();
-          this.props.getPublicSubject();
-          this.props.getPublicYear();
-          this.props.getPublicEmoji();
-          this.props.getPublicEmoji();
-          this.props.getPrivateEmail();
-          this.props.getPrivateBirthday();
+          this.props.getProfileData('public', 'status');
+          this.props.getProfileData('public', 'name');
+          this.props.getProfileData('public', 'description');
+          this.props.getProfileData('public', 'image');
+          this.props.getProfileData('public', 'coverPhoto');
+          this.props.getProfileData('public', 'location');
+          this.props.getProfileData('public', 'website');
+          this.props.getProfileData('public', 'employer');
+          this.props.getProfileData('public', 'job');
+          this.props.getProfileData('public', 'school');
+          this.props.getProfileData('public', 'degree');
+          this.props.getProfileData('public', 'major');
+          this.props.getProfileData('public', 'year');
+          this.props.getProfileData('public', 'emoji');
+          this.props.getProfileData('private', 'email');
+          this.props.getProfileData('private', 'birthday');
         }
       } else if (!this.props.isSignedIntoWallet && !this.props.accessDeniedModal) {
         this.props.handleRequireWalletLoginModal();
@@ -509,24 +495,9 @@ class App extends Component {
 App.propTypes = {
   getBox: PropTypes.func.isRequired,
   requestAccess: PropTypes.func.isRequired,
-  getPublicName: PropTypes.func.isRequired,
+  getProfileData: PropTypes.func.isRequired,
   getPublicMemberSince: PropTypes.func.isRequired,
-  getPublicGithub: PropTypes.func.isRequired,
-  getPublicDescription: PropTypes.func.isRequired,
-  getPublicWebsite: PropTypes.func.isRequired,
-  getPublicEmployer: PropTypes.func.isRequired,
-  getPublicJob: PropTypes.func.isRequired,
-  getPublicSchool: PropTypes.func.isRequired,
-  getPublicDegree: PropTypes.func.isRequired,
-  getPublicSubject: PropTypes.func.isRequired,
-  getPublicYear: PropTypes.func.isRequired,
-  getPublicStatus: PropTypes.func.isRequired,
-  getPublicEmoji: PropTypes.func.isRequired,
-  getPublicLocation: PropTypes.func.isRequired,
-  getPublicImage: PropTypes.func.isRequired,
-  getPublicCoverPhoto: PropTypes.func.isRequired,
-  getPrivateEmail: PropTypes.func.isRequired,
-  getPrivateBirthday: PropTypes.func.isRequired,
+  getVerifiedPublicGithub: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
   checkWeb3Wallet: PropTypes.func.isRequired,
   requireMetaMaskModal: PropTypes.func.isRequired,
@@ -627,40 +598,25 @@ export default withRouter(connect(mapState,
   {
     getBox,
     requestAccess,
-    getPublicName,
+    getProfileData,
     getPublicMemberSince,
-    getPublicGithub,
-    getPublicLocation,
-    getPublicWebsite,
-    getPublicEmployer,
-    getPublicJob,
-    getPublicSchool,
-    getPublicDegree,
-    getPublicSubject,
-    getPublicYear,
-    getPublicStatus,
-    getPublicEmoji,
-    getPublicDescription,
-    getPublicImage,
-    getPublicCoverPhoto,
-    getPrivateEmail,
-    getPrivateBirthday,
+    getVerifiedPublicGithub,
     getActivity,
     checkWeb3Wallet,
     requireMetaMaskModal,
+    checkNetwork,
     handleDownloadMetaMaskBanner,
     handleMobileWalletModal,
-    checkNetwork,
     handleSignInModal,
-    closeErrorModal,
     handleRequireWalletLoginModal,
     handleSwitchedNetworkModal,
     handleAccessModal,
-    closeRequireMetaMaskModal,
     handleConsentModal,
     handleDeniedAccessModal,
     handleLoggedOutModal,
     handleSignOut,
     handleSwitchedAddressModal,
     handleOnboardingModal,
+    closeErrorModal,
+    closeRequireMetaMaskModal,
   })(App));

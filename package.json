@@ -4,7 +4,7 @@
   "description": "3box dapp",
   "private": true,
   "dependencies": {
-    "3box": "^1.0.6",
+    "3box": "^1.0.7-beta-2",
     "@babel/polyfill": "^7.0.0",
     "babel-preset-env": "^1.7.0",
     "emoji-mart": "^2.9.1",
@@ -20,7 +20,6 @@
     "react-router-redux": "^4.0.8",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
-    "web3": "^0.20.7",
     "web3-eth-personal": "^1.0.0-beta.36"
   },
   "devDependencies": {

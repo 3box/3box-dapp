@@ -6,6 +6,7 @@ import { address } from '../utils/address';
 import * as routes from '../utils/routes';
 import EthereumLogo from '../assets/EthereumIcon.svg';
 import GithubIcon from '../assets/GithubIcon.svg';
+import Verified from '../assets/Verified.svg';
 import Private from '../assets/Private.svg';
 import Email from '../assets/Email.svg';
 import School from '../assets/School.svg';
@@ -22,7 +23,7 @@ import '../views/styles/Profile.css';
 
 const ProfileDetails = ({
   name,
-  github,
+  verifiedGithub,
   image,
   coverPhoto,
   email,
@@ -55,15 +56,15 @@ const ProfileDetails = ({
             }
 
             <div className="profile__basic">
-              {name
-                ? (
-                  <div className="profile__basic__wrapper">
-                    <h2 id="profile__user__name">{name}</h2>
-                    <span className="profile__basic__emoji">
-                      {emoji.code ? emoji.code : emoji}
-                    </span>
-                  </div>)
-                : <Link to={routes.EDITPROFILE}><h2 id="profile__user__name__add">Add name</h2></Link>}
+              <div className="profile__basic__wrapper">
+                {name
+                  ? <h2 id="profile__user__name">{name}</h2>
+                  : <Link to={routes.EDITPROFILE}><h2 id="profile__user__name__add">Add name</h2></Link>
+                }
+                <span className="profile__basic__emoji">
+                  {emoji.code ? emoji.code : emoji}
+                </span>
+              </div>
 
               <div id="profile__network" title="Network">
                 <img id="profile__network__networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
@@ -123,9 +124,14 @@ const ProfileDetails = ({
               <div className="profile__category__field" title="Github">
                 <div>
                   <img src={GithubIcon} className="profile__category__field__icon" alt="Github Icon" />
-                  {github
+                  {verifiedGithub
                     && (
-                      <p id="profile__github">{github}</p>
+                      <img src={Verified} alt="Verified" className="profile__category__verified__icon" />
+                    )
+                  }
+                  {verifiedGithub
+                    && (
+                      <p id="profile__github">{verifiedGithub}</p>
                     )
                   }
                 </div>
@@ -251,7 +257,7 @@ const ProfileDetails = ({
 
 ProfileDetails.propTypes = {
   name: PropTypes.string,
-  github: PropTypes.string,
+  verifiedGithub: PropTypes.string,
   email: PropTypes.string,
   location: PropTypes.string,
   website: PropTypes.string,
@@ -271,7 +277,7 @@ ProfileDetails.propTypes = {
 
 ProfileDetails.defaultProps = {
   name: '',
-  github: '',
+  verifiedGithub: '',
   email: '',
   description: '',
   image: [],
@@ -292,7 +298,7 @@ ProfileDetails.defaultProps = {
 function mapState(state) {
   return {
     name: state.threeBox.name,
-    github: state.threeBox.github,
+    verifiedGithub: state.threeBox.verifiedGithub,
     image: state.threeBox.image,
     coverPhoto: state.threeBox.coverPhoto,
     emoji: state.threeBox.emoji,

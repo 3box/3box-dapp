@@ -82,6 +82,12 @@ export const threeBoxReducer = (state = {}, action) => {
         github: action.github,
       };
 
+    case 'GET_VERIFIED_PUBLIC_GITHUB':
+      return {
+        ...state,
+        verifiedGithub: action.verifiedGithub,
+      };
+
     case 'GET_PUBLIC_DESCRIPTION':
       return {
         ...state,
@@ -176,6 +182,12 @@ export const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         memberSince: action.memberSince,
+      };
+
+    case 'GET_PUBLIC_DID':
+      return {
+        ...state,
+        did: action.did,
       };
 
     case 'HANDLE_SIGNOUT':
@@ -319,6 +331,12 @@ export const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         mobileWalletRequiredModal: action.mobileWalletRequiredModal,
+      };
+
+    case 'HANDLE_GITHUB_MODAL':
+      return {
+        ...state,
+        showGithubVerificationModal: action.showGithubVerificationModal,
       };
 
     case 'HANDLE_ACCESS_MODAL':

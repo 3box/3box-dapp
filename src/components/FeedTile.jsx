@@ -17,7 +17,7 @@ import Tokens from '../assets/Tokens.svg';
 
 import './styles/Feed.css';
 
-export const FeedTileActivity = ({ item, isEven }) => (
+export const FeedTileActivity = ({ item, isEven, verifiedGithub }) => (
   <div className={`feed__activity___data ${isEven ? 'darkFeed' : 'lightFeed'}`}>
     <div className="feed__activity__address__dataType">
       {item.dataType === 'Private'
@@ -34,7 +34,9 @@ export const FeedTileActivity = ({ item, isEven }) => (
     <p className="feed__activity__address__function">
       {item.dataType === 'Private'
         ? 'Private'
-        : item.key && (item.key.charAt(0).toUpperCase() + item.key.slice(1)).replace(/([A-Z])/g, ' $1').trim()
+        : item.key === 'proof_github'
+          ? 'Github'
+          : item.key && (item.key.charAt(0).toUpperCase() + item.key.slice(1)).replace(/([A-Z])/g, ' $1').trim()
       }
     </p>
     <p className="feed__activity__address__amount">
@@ -48,10 +50,8 @@ export const FeedTileActivity = ({ item, isEven }) => (
                 {typeof item.value === 'object' ? Object.keys(item.value)[0] : item.value}
               </span>
             )
-            : item.key === 'memberSince'
-              ? (
-                <p>{`${(new Date(item.value).getMonth() + 1)}/${new Date(item.value).getDate()}/${new Date(item.value).getFullYear()}`}</p>
-              )
+            : item.key === 'proof_github'
+              ? verifiedGithub
               : typeof item.value === 'object'
                 ? `${item.value ? Object.keys(item.value)[0] : '-----'}`
                 : item.value}
@@ -65,6 +65,7 @@ export const FeedTileActivity = ({ item, isEven }) => (
 FeedTileActivity.propTypes = {
   item: PropTypes.object,
   isEven: PropTypes.bool,
+  verifiedGithub: PropTypes.func.isRequired,
 };
 
 FeedTileActivity.defaultProps = {
