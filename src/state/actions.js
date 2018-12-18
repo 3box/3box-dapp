@@ -251,7 +251,6 @@ export const profileGetBox = () => async (dispatch) => {
   };
 
   try {
-    console.log(store.getState().threeBox.accountAddress);
     const box = await Box // eslint-disable-line no-undef
       .openBox(
         store.getState().threeBox.accountAddress || address,
