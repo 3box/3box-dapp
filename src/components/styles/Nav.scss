@@ -210,6 +210,50 @@ nav {
   font-size: 16px;
   color: white;
   font-weight: 400;
+  position: relative;
+}
+
+.hide .underline.landing__nav__link {
+  border-bottom: 3px solid $threeBoxBlue;
+  margin-bottom: -6px;
+  padding-bottom: 3px;
+}
+
+.hide .landing__nav__link:after {
+  content: '';
+  height: 3px;
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0%;
+  background: white;
+  transition: 0.2s;
+}
+
+.underline.landing__nav__link {
+  border-bottom: 3px solid white;
+  margin-bottom: -6px;
+  padding-bottom: 3px;
+}
+
+.landing__nav__link:after {
+  content: '';
+  height: 3px;
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0%;
+  background: white;
+  transition: 0.2s;
+}
+
+.landing__nav__link:hover:after {
+  width: 100%;
+}
+
+.underline.landing__nav__link:hover:after {
+  width: 0% !important;
+  transition: 0s;
 }
 
 .underline {
@@ -223,16 +267,60 @@ nav {
   color: $threeBoxBlue !important;
 }
 
-.landing .createProfileLInk {
+.landing .createProfileLink {
   color: white !important;
 }
 
-.landing.hide .createProfileLInk {
+.landing.hide .createProfileLink {
   color: $threeBoxBlue !important;
+}
+
+.createProfileLink {
+  position: relative;
+}
+
+.createProfileLink:hover:after {
+  width: 100%;
+}
+
+.underline.createProfileLink:hover:after {
+  width: 0;
+  transition: 0s;
+}
+
+.createProfileLink:after {
+  content: '';
+  height: 3px;
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0%;
+  background: rgb(255, 255, 255);
+  transition: 0.2s;
+}
+
+.landing.createProfileLink:hover:after{
+  background: white !important;
+}
+
+.hide .landing.createProfileLink:hover:after{
+  background: $threeBoxBlue !important;
 }
 
 .hide .landing__nav__link {
   color: $threeBoxBlue !important;
+}
+
+.landing .landing__nav__link:after {
+  background: $threeBoxBlue !important;
+}
+
+.hide .landing__nav__link:after {
+  background: $threeBoxBlue;
+}
+
+.hide .createProfileLink:after{
+  background: $threeBoxBlue !important;
 }
 
 .hide {

@@ -149,6 +149,21 @@ class App extends Component {
     });
   }
 
+  hideBar = () => {
+    if (window.scrollY < 1) {
+      this.setState({ retractNav: false });
+    } else {
+      this.setState({ retractNav: true });
+    }
+  }
+
+  handleSideNav = () => {
+    const { showSideNav } = this.state;
+    this.setState({
+      showSideNav: !showSideNav,
+    });
+  }
+
   async loadData() {
     const { location } = this.props;
     const { pathname } = location;
@@ -229,21 +244,6 @@ class App extends Component {
     }
   }
 
-  hideBar = () => {
-    if (window.scrollY < 1) {
-      this.setState({ retractNav: false });
-    } else {
-      this.setState({ retractNav: true });
-    }
-  }
-
-  handleSideNav = () => {
-    const { showSideNav } = this.state;
-    this.setState({
-      showSideNav: !showSideNav,
-    });
-  }
-
   render() {
     const {
       showDifferentNetworkModal,
@@ -290,7 +290,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        {!isLoggedIn
+        {(!isLoggedIn && !ifFetchingThreeBox)
           ? (
             <NavLanding
               downloadBanner={downloadBanner}

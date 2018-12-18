@@ -34,7 +34,7 @@ const NavLanding = ({
       </div>
       <div id="actionButtons">
         <Link to={routes.CREATE}>
-          <p className={`${landing} createProfileLInk ${pathname === routes.CREATE && 'underline'}`}>
+          <p className={`${landing} createProfileLink ${pathname === routes.CREATE && 'underline'}`}>
             Create Profile
           </p>
         </Link>

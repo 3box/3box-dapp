@@ -198,7 +198,7 @@ export const getBox = fromSignIn => async (dispatch) => {
     });
 
     const memberSince = await store.getState().threeBox.box.public.get('memberSince');
-
+    
     box.onSyncDone(() => {
       const publicActivity = store.getState().threeBox.box.public.log;
       const privateActivity = store.getState().threeBox.box.private.log;
