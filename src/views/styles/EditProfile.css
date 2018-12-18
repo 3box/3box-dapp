@@ -237,8 +237,9 @@
 .edit__profile__verifiedWrapper__warning {
   color: #E78888;
   position: absolute;
-  bottom: 0;
-  left: 27%; }
+  bottom: -14px;
+  left: 28%;
+  width: 62%; }
 
 .verificationButton {
   position: absolute;

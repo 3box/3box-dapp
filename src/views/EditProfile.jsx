@@ -58,6 +58,7 @@ class EditProfile extends Component {
       githubRemoved: false,
       githubEdited: false,
       showEmoji: false,
+      editedArray: [],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -133,21 +134,54 @@ class EditProfile extends Component {
   }
 
   handleFormChange = (e, property) => {
-    if (e.target.value === this.props[property]) {
-      this.setState({ [property]: e.target.value, disableSave: true });
-    } else {
-      this.setState({ [property]: e.target.value, disableSave: false });
-    }
-    const { verifiedGithub } = this.props;
+    // if (e.target.value === this.props[property]) {
+    //   this.setState({ [property]: e.target.value, disableSave: true });
+    // } else {
+    //   this.setState({ [property]: e.target.value, disableSave: false });
+    // }
+    // if (property !== 'verifiedGithub') this.setState({ disableSave: false }); // REPLACE WITH EDITED ARRAY
 
-    if (property !== 'verifiedGithub') this.setState({ disableSave: false });
+    // this.setState({ [property]: e.target.value },
+    //   () => {
+    //     if (this.state.verifiedGithub === '') {
+    //       this.setState({ githubEdited: false });
+    //     } else if (verifiedGithub !== this.state.verifiedGithub && this.state.verifiedGithub !== '') {
+    //       this.setState({ githubEdited: true });
+    //     }
+    //   });
+    const { verifiedGithub } = this.props;
+    const { editedArray } = this.state;
 
     this.setState({ [property]: e.target.value },
       () => {
-        if (this.state.verifiedGithub === '') {
-          this.setState({ githubEdited: false });
-        } else if (verifiedGithub !== this.state.verifiedGithub && this.state.verifiedGithub !== '') {
-          this.setState({ githubEdited: true });
+        if (property === 'verifiedGithub') {
+          if (this.state.verifiedGithub === '') {
+            this.setState({ githubEdited: false });
+          } else if (verifiedGithub !== this.state.verifiedGithub && this.state.verifiedGithub !== '') {
+            this.setState({ githubEdited: true });
+          }
+        } else if (this.state[property] !== this.props[property]) {
+
+          if (editedArray.indexOf(property) === -1) {
+            editedArray.push(property);
+          }
+          console.log(editedArray);
+
+          if (Object.values(editedArray).length) {
+            this.setState({ disableSave: false });
+          } else {
+            this.setState({ disableSave: true });
+          }
+        } else if (this.state[property] === this.props[property]) {
+
+          editedArray.splice(editedArray.indexOf(property), 1);
+          console.log(editedArray);
+
+          if (Object.values(editedArray).length) {
+            this.setState({ disableSave: false });
+          } else {
+            this.setState({ disableSave: true });
+          }
         }
       });
   }
