@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
-import Footer from '../components/Footer';
 import LandingBody from '../components/LandingBody';
+// import Footer from '../components/Footer';
 import './styles/Landing.css';
-import '../components/styles/ProfileCard.css';
 import '../components/styles/Nav.css';
+
+const Footer = lazy(() => import('../components/Footer'));
 
 const Landing = ({ isLoggedIn, handleSignInUp, }) => (
   <div id="landing">
@@ -17,10 +18,12 @@ const Landing = ({ isLoggedIn, handleSignInUp, }) => (
       handleSignInUp={handleSignInUp}
     />
 
-    <Footer
-      handleSignInUp={handleSignInUp}
-      isLoggedIn={isLoggedIn}
-    />
+    <Suspense fallback={<div>Loading...</div>}>
+      <Footer
+        handleSignInUp={handleSignInUp}
+        isLoggedIn={isLoggedIn}
+      />
+    </Suspense>
   </div>
 );
 
