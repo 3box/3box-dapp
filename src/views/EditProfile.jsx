@@ -136,7 +136,12 @@ class EditProfile extends Component {
   }
 
   handleFormChange = (e, property) => {
-    this.setState({ [property]: e.target.value, disableSave: false });
+    if (e.target.value === this.props[property]) {
+      console.log('in same');
+      this.setState({ [property]: e.target.value, disableSave: true });
+    } else {
+      this.setState({ [property]: e.target.value, disableSave: false });
+    }
   }
 
   closeFileSizeModal = () => {
@@ -341,7 +346,9 @@ class EditProfile extends Component {
           when={!disableSave}
           message="Continue without saving changes to your profile?"
         />
+
         <Nav />
+
         {saveLoading
           && (
             <div className="container">
