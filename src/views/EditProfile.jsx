@@ -134,21 +134,6 @@ class EditProfile extends Component {
   }
 
   handleFormChange = (e, property) => {
-    // if (e.target.value === this.props[property]) {
-    //   this.setState({ [property]: e.target.value, disableSave: true });
-    // } else {
-    //   this.setState({ [property]: e.target.value, disableSave: false });
-    // }
-    // if (property !== 'verifiedGithub') this.setState({ disableSave: false }); // REPLACE WITH EDITED ARRAY
-
-    // this.setState({ [property]: e.target.value },
-    //   () => {
-    //     if (this.state.verifiedGithub === '') {
-    //       this.setState({ githubEdited: false });
-    //     } else if (verifiedGithub !== this.state.verifiedGithub && this.state.verifiedGithub !== '') {
-    //       this.setState({ githubEdited: true });
-    //     }
-    //   });
     const { verifiedGithub } = this.props;
     const { editedArray } = this.state;
 
@@ -161,22 +146,14 @@ class EditProfile extends Component {
             this.setState({ githubEdited: true });
           }
         } else if (this.state[property] !== this.props[property]) {
-
-          if (editedArray.indexOf(property) === -1) {
-            editedArray.push(property);
-          }
-          console.log(editedArray);
-
+          if (editedArray.indexOf(property) === -1) editedArray.push(property);
           if (Object.values(editedArray).length) {
             this.setState({ disableSave: false });
           } else {
             this.setState({ disableSave: true });
           }
         } else if (this.state[property] === this.props[property]) {
-
           editedArray.splice(editedArray.indexOf(property), 1);
-          console.log(editedArray);
-
           if (Object.values(editedArray).length) {
             this.setState({ disableSave: false });
           } else {
@@ -190,32 +167,21 @@ class EditProfile extends Component {
     this.setState({ showFileSizeModal: false });
   }
 
-  handleUpdatePic = (photoFile, e) => {
+  handleUpdatePic = (photoFile, e, cover) => {
     if (photoFile.size <= 2500000) {
       const formData = new window.FormData();
       formData.append('path', photoFile);
-      this.setState({
-        buffer: formData,
-        disableSave: false,
-        editPic: true,
-        removeUserPic: false,
-      });
-    } else {
-      e.target.value = null;
-      this.setState({ showFileSizeModal: true });
-    }
-  }
+      this.setState({ disableSave: false });
 
-  handleUpdateCoverPic = (photoFile, e) => {
-    if (photoFile.size <= 2500000) {
-      const formData = new window.FormData();
-      formData.append('path', photoFile);
-      this.setState({
-        coverBuffer: formData,
-        disableSave: false,
-        editCoverPic: true,
-        removeCoverPic: false,
-      });
+      if (cover) {
+        this.setState({
+          editCoverPic: true, coverBuffer: formData, removeCoverPic: false,
+        });
+      } else {
+        this.setState({
+          editPic: true, buffer: formData, removeUserPic: false,
+        });
+      }
     } else {
       e.target.value = null;
       this.setState({ showFileSizeModal: true });
@@ -227,7 +193,7 @@ class EditProfile extends Component {
   }
 
   copyToClipBoard = (text) => {
-    const textArea = document.createElement("textarea");
+    const textArea = document.createElement('textarea');
     textArea.value = text;
     document.body.appendChild(textArea);
     textArea.focus();
@@ -239,7 +205,6 @@ class EditProfile extends Component {
     } catch (err) {
       console.error('Unable to copy', err);
     }
-
     document.body.removeChild(textArea);
   }
 
@@ -338,7 +303,6 @@ class EditProfile extends Component {
       // if value changed and is not empty, save new value, else remove value
       if (nameChanged && name !== '') await box.public.set('name', name);
       if (nameChanged && name === '') await box.public.remove('name');
-      if (verifiedGithubChanged && verifiedGithub === '') await box.public.remove('proof_github');
       if (descriptionChanged && description !== '') await box.public.set('description', description);
       if (descriptionChanged && description === '') await box.public.remove('description');
       if (locationChanged && location !== '') await box.public.set('location', location);
@@ -359,14 +323,15 @@ class EditProfile extends Component {
       if (yearChanged && year === '') await box.public.remove('year');
       if (emojiChanged && emoji !== '') await box.public.set('emoji', emoji);
       if (emojiChanged && emoji === '') await box.public.remove('emoji');
-      if (removeUserPic) await box.public.remove('image');
-      if (removeCoverPic) await box.public.remove('coverPhoto');
-
       if (birthdayChanged && birthday !== '') await box.private.set('birthday', birthday);
       if (birthdayChanged && birthday === '') await box.private.remove('birthday');
       if (emailChanged && email !== '') await box.private.set('email', email);
       if (emailChanged && email === '') await box.private.remove('email');
 
+      if (verifiedGithubChanged && verifiedGithub === '') await box.public.remove('proof_github');
+      if (removeUserPic) await box.public.remove('image');
+      if (removeCoverPic) await box.public.remove('coverPhoto');
+      
       // save profile picture
       const fetch = editPic && await window.fetch('https://ipfs.infura.io:5001/api/v0/add', {
         method: 'post',
@@ -415,7 +380,9 @@ class EditProfile extends Component {
   }
 
   render() {
-    const { image, coverPhoto, memberSince, showGithubVerificationModal, did } = this.props;
+    const {
+      image, coverPhoto, memberSince, showGithubVerificationModal, did,
+    } = this.props;
     const {
       verifiedGithub,
       email,
@@ -448,7 +415,7 @@ class EditProfile extends Component {
 
     ✅ ${did} ✅
     
-    Create your profile today to start building social connection and trust online. https://3box.io/`)
+    Create your profile today to start building social connection and trust online. https://3box.io/`);
 
     return (
       <div id="edit__page">
@@ -515,7 +482,7 @@ class EditProfile extends Component {
                       name="coverPic"
                       className="light"
                       accept="image/*"
-                      onChange={e => this.handleUpdateCoverPic(e.target.files[0], e)}
+                      onChange={e => this.handleUpdatePic(e.target.files[0], e, true)}
                       ref={ref => this.coverUpload = ref}
                     />
                     <div className="edit__profile__editCanvas__button">
@@ -560,7 +527,7 @@ class EditProfile extends Component {
                       type="button"
                     >
                       &#10005;
-                  </button>
+                    </button>
 
                     {(((image.length > 0 && image[0].contentUrl) || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])) && !removeUserPic)
                       ? (
@@ -927,7 +894,7 @@ class EditProfile extends Component {
             </div>
           </div>
         </div>
-      </div >
+      </div>
     );
   }
 }

@@ -65,12 +65,13 @@ export const FeedTileActivity = ({ item, isEven, verifiedGithub }) => (
 FeedTileActivity.propTypes = {
   item: PropTypes.object,
   isEven: PropTypes.bool,
-  verifiedGithub: PropTypes.func.isRequired,
+  verifiedGithub: PropTypes.string,
 };
 
 FeedTileActivity.defaultProps = {
   item: {},
   isEven: false,
+  verifiedGithub: '',
 };
 
 export const FeedTileInternal = ({ item, isEven }) => (
