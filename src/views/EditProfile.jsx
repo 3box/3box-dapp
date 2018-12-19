@@ -255,6 +255,12 @@ class EditProfile extends Component {
     });
   }
 
+  fetchPic = buffer => window.fetch('https://ipfs.infura.io:5001/api/v0/add', {
+    method: 'post',
+    'Content-Type': 'multipart/form-data',
+    body: buffer,
+  });
+
   async handleSubmit(e) {
     const {
       name,
@@ -331,21 +337,13 @@ class EditProfile extends Component {
       if (verifiedGithubChanged && verifiedGithub === '') await box.public.remove('proof_github');
       if (removeUserPic) await box.public.remove('image');
       if (removeCoverPic) await box.public.remove('coverPhoto');
-      
+
       // save profile picture
-      const fetch = editPic && await window.fetch('https://ipfs.infura.io:5001/api/v0/add', {
-        method: 'post',
-        'Content-Type': 'multipart/form-data',
-        body: buffer,
-      });
+      const fetch = editPic && await this.fetchPic(buffer);
       const returnedData = editPic && await fetch.json();
       if (editPic) await box.public.set('image', [{ '@type': 'ImageObject', contentUrl: { '/': returnedData.Hash } }]);
 
-      const fetchCover = editCoverPic && await window.fetch('https://ipfs.infura.io:5001/api/v0/add', {
-        method: 'post',
-        'Content-Type': 'multipart/form-data',
-        body: coverBuffer,
-      });
+      const fetchCover = editCoverPic && await this.fetchPic(coverBuffer);
       const returnedCoverData = editCoverPic && await fetchCover.json();
       if (editCoverPic) await box.public.set('coverPhoto', [{ '@type': 'ImageObject', contentUrl: { '/': returnedCoverData.Hash } }]);
 
