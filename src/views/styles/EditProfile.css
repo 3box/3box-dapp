@@ -543,6 +543,8 @@
     #edit h5 {
       padding: 0;
       margin-bottom: 14px; }
+  .edit__profile__verifiedWrapper {
+    width: 100%; }
   #edit__cancel {
     margin-left: 5vw; }
   .edit__profile__value--privateContainer {
@@ -565,6 +567,11 @@
   .edit__profile__info {
     flex-direction: column;
     padding: 0 14px; }
+  .edit__profile__info--verified {
+    flex-direction: column;
+    padding: 0 14px; }
+  .extraMargin {
+    margin-bottom: 36px !important; }
   .edit__profile__categories {
     display: flex;
     flex-direction: column;

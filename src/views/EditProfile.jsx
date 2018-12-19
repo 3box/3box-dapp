@@ -705,8 +705,8 @@ class EditProfile extends Component {
               </div>
 
               <div className="edit__profile__info--verified">
-                <div className="edit__profile__categories">
-                  <h3 className="noMargin">Connect your accounts</h3>
+                <div className="edit__profile__categories extraMargin">
+                  <h3 className="noMargin">Verified Accounts</h3>
                   <p>Connect your existing social accounts to build a stronger reputation.</p>
                 </div>
                 <div id="edit__profile__fields">
