@@ -527,7 +527,7 @@ App.propTypes = {
   signInModal: PropTypes.bool,
   mobileWalletRequiredModal: PropTypes.bool,
   showErrorModal: PropTypes.bool,
-  directLogin: PropTypes.string,
+  directLogin: PropTypes.bool,
   isLoggedIn: PropTypes.bool,
   isSignedIntoWallet: PropTypes.bool,
   loggedOutModal: PropTypes.bool,
@@ -566,7 +566,7 @@ App.defaultProps = {
   prevNetwork: '',
   currentNetwork: '',
   prevAddress: '',
-  directLogin: '',
+  directLogin: false,
 };
 
 const mapState = state => ({

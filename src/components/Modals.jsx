@@ -609,11 +609,11 @@ ProvideAccessModal.propTypes = {
   isMobile: PropTypes.bool.isRequired,
   handleAccessModal: PropTypes.func.isRequired,
   show: PropTypes.bool.isRequired,
-  directLogin: PropTypes.string,
+  directLogin: PropTypes.bool,
 };
 
 ProvideAccessModal.defaultProps = {
-  directLogin: '',
+  directLogin: false,
 };
 
 GithubVerificationModal.propTypes = {
