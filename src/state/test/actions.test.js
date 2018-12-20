@@ -1,14 +1,14 @@
-import {
-  checkWeb3Wallet,
-  requestAccess,
-  checkNetwork,
-  getBox,
-  getActivity,
-  getProfileData,
-  getPublicMemberSince,
-  getVerifiedPublicGithub,
-  handleSignOut,
-} from '../actions';
+// import {
+//   checkWeb3Wallet,
+//   requestAccess,
+//   checkNetwork,
+//   getBox,
+//   getActivity,
+//   getProfileData,
+//   getPublicMemberSince,
+//   getVerifiedPublicGithub,
+//   handleSignOut,
+// } from '../actions';
 
 test('test', () => {
   expect(true).toBeTruthy();

@@ -8,7 +8,6 @@ import Diagram2 from '../assets/Diagram2.svg';
 import Diagram3 from '../assets/Diagram3.svg';
 import ThreeBoxLogoBlue from '../assets/ThreeBoxLogoBlue.svg';
 import ProfileCard from '../assets/ProfileCard.png';
-
 import Profile1 from '../assets/Profile1.png';
 import Profile2 from '../assets/Profile2.png';
 import Profile3 from '../assets/Profile3.png';

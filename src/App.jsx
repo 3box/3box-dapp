@@ -73,7 +73,6 @@ class App extends Component {
       onBoardingModalMobileTwo: false,
       onBoardingModalMobileThree: false,
       width: window.innerWidth,
-
       retractNav: false,
       showSideNav: false,
     };
@@ -95,9 +94,11 @@ class App extends Component {
       this.props.handleMobileWalletModal();
     }
 
-    if (typeof window.web3 !== 'undefined' && (pathname === routes.PROFILE || pathname === routes.EDITPROFILE)) { // no wallet and lands on restricted page
+    if (typeof window.web3 !== 'undefined' // has wallet and lands on restricted page
+      && (pathname === routes.PROFILE || pathname === routes.EDITPROFILE)) {
       this.loadData();
-    } else if (typeof window.web3 === 'undefined' && (pathname === routes.PROFILE || pathname === routes.EDITPROFILE)) { // has wallet and lands on restricted page
+    } else if (typeof window.web3 === 'undefined' // no wallet and lands on restricted page
+      && (pathname === routes.PROFILE || pathname === routes.EDITPROFILE)) {
       history.push(routes.LANDING);
       this.props.requireMetaMaskModal();
       this.props.handleMobileWalletModal();
@@ -147,39 +148,45 @@ class App extends Component {
     });
   }
 
+  loadProfile = () => {
+    this.props.getActivity(); // remove await
+    this.props.getVerifiedPublicGithub();
+    this.props.getPublicMemberSince();
+    this.props.getProfileData('public', 'status');
+    this.props.getProfileData('public', 'name');
+    this.props.getProfileData('public', 'description');
+    this.props.getProfileData('public', 'image');
+    this.props.getProfileData('public', 'coverPhoto');
+    this.props.getProfileData('public', 'location');
+    this.props.getProfileData('public', 'website');
+    this.props.getProfileData('public', 'employer');
+    this.props.getProfileData('public', 'job');
+    this.props.getProfileData('public', 'school');
+    this.props.getProfileData('public', 'degree');
+    this.props.getProfileData('public', 'major');
+    this.props.getProfileData('public', 'year');
+    this.props.getProfileData('public', 'emoji');
+    this.props.getProfileData('private', 'email');
+    this.props.getProfileData('private', 'birthday');
+  }
+
+  async initializeDapp() {
+    await this.props.checkWeb3Wallet();
+    await this.props.requestAccess();
+    await this.props.checkNetwork();
+  }
+
   async loadData() {
     const { location } = this.props;
     const { pathname } = location;
     const lowercasePathname = pathname.toLowerCase();
 
-    await this.props.checkWeb3Wallet();
-    await this.props.requestAccess('directLogin');
-    await this.props.checkNetwork();
+    await this.initializeDapp();
 
     if (this.props.isSignedIntoWallet && this.props.isLoggedIn) {
       await this.props.getBox();
       if (!this.props.showErrorModal) {
-        this.props.getActivity(); // remove await
-        this.props.getVerifiedPublicGithub();
-
-        // this.props.getProfileData('public', 'memberSince');
-        this.props.getPublicMemberSince();
-        this.props.getProfileData('public', 'status');
-        this.props.getProfileData('public', 'name');
-        this.props.getProfileData('public', 'description');
-        this.props.getProfileData('public', 'image');
-        this.props.getProfileData('public', 'coverPhoto');
-        this.props.getProfileData('public', 'location');
-        this.props.getProfileData('public', 'website');
-        this.props.getProfileData('public', 'employer');
-        this.props.getProfileData('public', 'job');
-        this.props.getProfileData('public', 'school');
-        this.props.getProfileData('public', 'degree');
-        this.props.getProfileData('public', 'major');
-        this.props.getProfileData('public', 'year');
-        this.props.getProfileData('public', 'emoji');
-        this.props.getProfileData('private', 'email');
-        this.props.getProfileData('private', 'birthday');
+        this.loadProfile();
       }
     } else if (!this.props.isSignedIntoWallet) {
       history.push(routes.LANDING);
@@ -192,34 +199,12 @@ class App extends Component {
 
   async handleSignInUp() {
     if (typeof window.web3 !== 'undefined') {
-      await this.props.checkWeb3Wallet();
-      await this.props.requestAccess();
-      await this.props.checkNetwork();
+      await this.initializeDapp();
 
       if (this.props.isSignedIntoWallet) {
         await this.props.getBox('fromSignIn');
         if (!this.props.showErrorModal) {
-          this.props.getActivity();
-          this.props.getVerifiedPublicGithub();
-
-          // this.props.getProfileData('public', 'memberSince');
-          this.props.getPublicMemberSince();
-          this.props.getProfileData('public', 'status');
-          this.props.getProfileData('public', 'name');
-          this.props.getProfileData('public', 'description');
-          this.props.getProfileData('public', 'image');
-          this.props.getProfileData('public', 'coverPhoto');
-          this.props.getProfileData('public', 'location');
-          this.props.getProfileData('public', 'website');
-          this.props.getProfileData('public', 'employer');
-          this.props.getProfileData('public', 'job');
-          this.props.getProfileData('public', 'school');
-          this.props.getProfileData('public', 'degree');
-          this.props.getProfileData('public', 'major');
-          this.props.getProfileData('public', 'year');
-          this.props.getProfileData('public', 'emoji');
-          this.props.getProfileData('private', 'email');
-          this.props.getProfileData('private', 'birthday');
+          this.loadProfile();
         }
       } else if (!this.props.isSignedIntoWallet && !this.props.accessDeniedModal) {
         this.props.handleRequireWalletLoginModal();
@@ -296,7 +281,7 @@ class App extends Component {
         <div className={`${!downloadBanner ? 'hideBanner' : ''} webThreeBanner`}>
           <p>
             3Box requires web3.  Download the MetaMask extension to continue.
-              </p>
+          </p>
           <a href="https://metamask.io/" target="_blank" rel="noopener noreferrer">
             <button type="button" className="webThreeBanner__link">
               Download
