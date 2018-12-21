@@ -184,7 +184,7 @@ class App extends Component {
     } else if (!this.props.isSignedIntoWallet) {
       history.push(routes.LANDING);
       this.props.handleRequireWalletLoginModal();
-    } else if (this.props.isSignedIntoWallet && !this.props.isLoggedIn && (lowercasePathname === '/profile' || lowercasePathname === '/editprofile')) {
+    } else if (this.props.isSignedIntoWallet && !this.props.isLoggedIn && (lowercasePathname === routes.PROFILE || lowercasePathname === routes.EDITPROFILE)) {
       history.push(routes.LANDING);
       this.props.handleSignInModal();
     }

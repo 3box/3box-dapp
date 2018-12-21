@@ -146,18 +146,20 @@ class EditProfile extends Component {
             this.setState({ githubEdited: true });
           }
         } else if (this.state[property] !== this.props[property]) {
-          if (editedArray.indexOf(property) === -1) editedArray.push(property);
-          if (Object.values(editedArray).length) {
-            this.setState({ disableSave: false });
+          const updatedEditedArray = editedArray;
+          if (updatedEditedArray.indexOf(property) === -1) updatedEditedArray.push(property);
+          if (Object.values(updatedEditedArray).length) {
+            this.setState({ disableSave: false, editedArray: updatedEditedArray });
           } else {
-            this.setState({ disableSave: true });
+            this.setState({ disableSave: true, editedArray: updatedEditedArray });
           }
         } else if (this.state[property] === this.props[property]) {
-          editedArray.splice(editedArray.indexOf(property), 1);
-          if (Object.values(editedArray).length) {
-            this.setState({ disableSave: false });
+          const updatedEditedArray = editedArray;
+          updatedEditedArray.splice(updatedEditedArray.indexOf(property), 1);
+          if (Object.values(updatedEditedArray).length) {
+            this.setState({ disableSave: false, editedArray: updatedEditedArray });
           } else {
-            this.setState({ disableSave: true });
+            this.setState({ disableSave: true, editedArray: updatedEditedArray });
           }
         }
       });
@@ -168,18 +170,24 @@ class EditProfile extends Component {
   }
 
   handleUpdatePic = (photoFile, e, cover) => {
+    const { editedArray } = this.state;
+    const updatedEditedArray = editedArray;
+    const type = cover ? 'coverPhoto' : 'image';
+
     if (photoFile.size <= 2500000) {
       const formData = new window.FormData();
       formData.append('path', photoFile);
+
+      if (updatedEditedArray.indexOf(type) === -1) updatedEditedArray.push(type);
       this.setState({ disableSave: false });
 
       if (cover) {
         this.setState({
-          editCoverPic: true, coverBuffer: formData, removeCoverPic: false,
+          editCoverPic: true, coverBuffer: formData, removeCoverPic: false, editedArray: updatedEditedArray,
         });
       } else {
         this.setState({
-          editPic: true, buffer: formData, removeUserPic: false,
+          editPic: true, buffer: formData, removeUserPic: false, editedArray: updatedEditedArray,
         });
       }
     } else {
@@ -189,7 +197,26 @@ class EditProfile extends Component {
   }
 
   removePicture = (type) => {
-    this.setState({ disableSave: false, [`remove${type}Pic`]: true });
+    const { editedArray } = this.state;
+    const updatedEditedArray = editedArray;
+
+    if (type === 'Cover' && this.props.coverPhoto) {
+      if (updatedEditedArray.indexOf('coverPhoto') === -1) updatedEditedArray.push('coverPhoto');
+    } else if (type === 'Cover' && !this.props.coverPhoto) {
+      updatedEditedArray.splice(updatedEditedArray.indexOf(type), 1);
+    } else if (type === 'User' && this.props.image) {
+      if (updatedEditedArray.indexOf('image') === -1) updatedEditedArray.push('image');
+    } else if (type === 'User' && !this.props.image) {
+      updatedEditedArray.splice(updatedEditedArray.indexOf(type), 1);
+    }
+
+    if (!updatedEditedArray.length) {
+      this.setState({ disableSave: true });
+    } else {
+      this.setState({ disableSave: false });
+    }
+
+    this.setState({ [`remove${type}Pic`]: true, editedArray: updatedEditedArray });
   }
 
   copyToClipBoard = (text) => {
@@ -247,6 +274,23 @@ class EditProfile extends Component {
           this.setState({ githubVerifiedFailed: true, verificationLoading: false });
         }
       });
+  }
+
+  handleGithubUsername = (remove) => {
+    const { editedArray } = this.state;
+    const updatedEditedArray = editedArray;
+    if (remove) {
+      updatedEditedArray.push('github');
+      this.setState({
+        verifiedGithub: '', disableSave: false, githubRemoved: true, editedArray: updatedEditedArray,
+      });
+    } else {
+      updatedEditedArray.splice(updatedEditedArray.indexOf('github'), 1);
+      if (!updatedEditedArray.length) this.setState({ disableSave: true });
+      this.setState({
+        verifiedGithub: this.props.verifiedGithub, githubRemoved: false, editedArray: updatedEditedArray,
+      });
+    }
   }
 
   resetVerification = () => {
@@ -407,6 +451,7 @@ class EditProfile extends Component {
       githubEdited,
       githubRemoved,
       verificationLoading,
+      editedArray,
     } = this.state;
 
     const message = (`3Box is a social profiles network for web3. This post links my 3Box profile to my Github account!
@@ -727,23 +772,22 @@ class EditProfile extends Component {
                             </div>
 
                             {!githubRemoved
-                              ? (<button
-                                type="button"
-                                className={`unstyledButton ${!githubEdited && 'uneditedGithub'} removeGithub`}
-                                onClick={() => {
-                                  this.setState({ verifiedGithub: '', disableSave: false, githubRemoved: true });
-                                }}
-                              >
-                                Remove
-                            </button>)
-                              : (<button
-                                type="button"
-                                className={`unstyledButton ${!githubEdited && 'uneditedGithub'}`}
-                                onClick={() => {
-                                  this.setState({ verifiedGithub: this.props.verifiedGithub, disableSave: true, githubRemoved: false });
-                                }}
-                              >
-                                Cancel
+                              ? (
+                                <button
+                                  type="button"
+                                  className={`unstyledButton ${!githubEdited && 'uneditedGithub'} removeGithub`}
+                                  onClick={() => this.handleGithubUsername('remove')}
+                                >
+                                  Remove
+                                </button>
+                              )
+                              : (
+                                <button
+                                  type="button"
+                                  className={`unstyledButton ${!githubEdited && 'uneditedGithub'}`}
+                                  onClick={() => this.handleGithubUsername()}
+                                >
+                                  Cancel
                             </button>
                               )}
                           </div>
@@ -771,9 +815,16 @@ class EditProfile extends Component {
                           </div>
                         )}
                     </div>
+
                     {(!this.props.verifiedGithub && githubEdited && !githubVerified)
                       && (
                         <p className="edit__profile__verifiedWrapper__warning">Verification is required for your Github username to save.</p>
+                      )
+                    }
+
+                    {githubRemoved
+                      && (
+                        <p className="edit__profile__verifiedWrapper__warning">Save form to remove your Github username.</p>
                       )
                     }
                   </div>
@@ -892,7 +943,7 @@ class EditProfile extends Component {
             </div>
           </div>
         </div>
-      </div>
+      </div >
     );
   }
 }
