@@ -58,6 +58,7 @@ class EditProfile extends Component {
       githubRemoved: false,
       githubEdited: false,
       showEmoji: false,
+      savedGithub: false,
       editedArray: [],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -227,8 +228,7 @@ class EditProfile extends Component {
     textArea.select();
 
     try {
-      var successful = document.execCommand('copy');
-      var msg = successful ? 'successful' : 'unsuccessful';
+      let successful = document.execCommand('copy');
     } catch (err) {
       console.error('Unable to copy', err);
     }
@@ -244,8 +244,9 @@ class EditProfile extends Component {
   }
 
   verifyGithub = () => {
-    const { verifiedGithub } = this.state;
+    const { verifiedGithub, editedArray } = this.state;
     const { box } = this.props;
+    const updatedEditedArray = editedArray;
     this.setState({ verificationLoading: true });
 
     fetch(`https://api.github.com/users/${verifiedGithub}/gists`)
@@ -257,7 +258,10 @@ class EditProfile extends Component {
             return box.verified.addGithub(url).then((res) => {
               if (res === true) {
                 console.log('Github username verified');
-                this.setState({ githubVerified: true, verificationLoading: false });
+                updatedEditedArray.push('proof_github');
+                this.setState({
+                  githubVerified: true, verificationLoading: false, editedArray: updatedEditedArray, disableSave: false, savedGithub: true,
+                });
                 store.dispatch({
                   type: 'GET_VERIFIED_PUBLIC_GITHUB',
                   verifiedGithub,
@@ -277,15 +281,16 @@ class EditProfile extends Component {
   }
 
   handleGithubUsername = (remove) => {
-    const { editedArray } = this.state;
+    const { editedArray, savedGithub } = this.state;
     const updatedEditedArray = editedArray;
-    if (remove) {
-      updatedEditedArray.push('github');
+    if (remove && this.props.verifiedGithub) {
+      updatedEditedArray.push('proof_github');
       this.setState({
         verifiedGithub: '', disableSave: false, githubRemoved: true, editedArray: updatedEditedArray,
       });
     } else {
-      updatedEditedArray.splice(updatedEditedArray.indexOf('github'), 1);
+      if (remove && savedGithub) this.setState({ savedGithub: false });
+      updatedEditedArray.splice(updatedEditedArray.indexOf('proof_github'), 1);
       if (!updatedEditedArray.length) this.setState({ disableSave: true });
       this.setState({
         verifiedGithub: this.props.verifiedGithub, githubRemoved: false, editedArray: updatedEditedArray,
@@ -451,7 +456,6 @@ class EditProfile extends Component {
       githubEdited,
       githubRemoved,
       verificationLoading,
-      editedArray,
     } = this.state;
 
     const message = (`3Box is a social profiles network for web3. This post links my 3Box profile to my Github account!
@@ -935,8 +939,30 @@ class EditProfile extends Component {
             </div>
             <div id="edit__formControls">
               <div id="edit__formControls__content">
-                <button type="submit" disabled={disableSave} onClick={e => this.setState({ disableSave: true }, () => this.handleSubmit(e))}>Save</button>
-                <Link to={routes.PROFILE} className="subtext" id="edit__cancel">
+                <button
+                  type="submit"
+                  disabled={disableSave}
+                  onClick={
+                    (e) => {
+                      this.setState({ disableSave: true }, () => this.handleSubmit(e));
+                    }}
+                >
+                  Save
+                  </button>
+                <Link
+                  to={routes.PROFILE}
+                  className="subtext"
+                  id="edit__cancel"
+                  onClick={() => {
+                    if (this.state.savedGithub && verifiedGithub !== '') {
+                      this.props.box.public.remove('proof_github');
+                      store.dispatch({
+                        type: 'GET_VERIFIED_PUBLIC_GITHUB',
+                        verifiedGithub: null,
+                      });
+                    }
+                  }}
+                >
                   Cancel
                 </Link>
               </div>
