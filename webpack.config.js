@@ -8,11 +8,13 @@ module.exports = {
   },
   module: {
     loaders: [{
-      test: /\.jsx$/,
+      test: /\.js$/,
       loader: 'babel-loader',
+      exclude: /node_modules/,
       query: {
         presets: ['env', 'react'],
       },
     }],
   },
+  resolve: { extensions: ['.jsx', '.js', '.json'] },
 };

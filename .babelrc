@@ -1,9 +1,7 @@
 {
   "presets": [
-    "es2015",
-    "react",
-    "flow",
-    "stage-0",
+    "@babel/preset-env",
+    "@babel/preset-react",
   ],
   "plugins": [
     ["babel-plugin-idx", {
@@ -15,14 +13,18 @@
     "transform-class-properties",
     "transform-object-rest-spread",
     "@babel/plugin-proposal-class-properties",
-    "transform-decorators-legacy",
     "transform-es2015-destructuring",
-    ],
+    "syntax-class-properties",
+  ],
   "env": {
     "test": {
-      "plugins": ["transform-es2015-modules-commonjs"],        
-      "presets": ["es2015", "react", "stage-0"]
-  },
+      "plugins": ["transform-es2015-modules-commonjs", "transform-export-extensions"],
+      "presets": [ "react", "stage-2", ["env"], "@babel/preset-env", "@babel/preset-react"],
+      "only": [
+        "./**/*.js",
+        "node_modules/jest-runtime"
+      ]
+    },
     "production": {
       "presets": ["react-optimize"]
     },
