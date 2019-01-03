@@ -328,7 +328,7 @@ class EditProfile extends Component {
       },
       body: JSON.stringify({
         did,
-        twitter_handle: verifiedTwitter,
+        twitter_handle: `@${verifiedTwitter}`,
       }),
     })
       .then((response) => {
