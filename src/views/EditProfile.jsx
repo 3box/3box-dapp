@@ -316,47 +316,9 @@ class EditProfile extends Component {
 
   verifyTwitter = () => {
     const { verifiedTwitter, editedArray } = this.state;
-    const { box } = this.props;
-    const updatedEditedArray = editedArray;
-    this.setState({ verificationLoading: true });
-
-    fetch(`https://api.github.com/users/${verifiedTwitter}/gists`)
-      .then(response => response.json())
-      .then((returnedData) => {
-        if (returnedData.length) {
-          returnedData.map((gist, i) => {
-            const url = gist.files[Object.keys(gist.files)[0]].raw_url;
-            return box.verified.addTwitter(url).then((res) => {
-              if (res === true) {
-                console.log('Github username verified');
-                updatedEditedArray.push('proof_github');
-                this.setState({
-                  githubVerified: true, verificationLoading: false, editedArray: updatedEditedArray, disableSave: false, savedGithub: true,
-                });
-                store.dispatch({
-                  type: 'GET_VERIFIED_PUBLIC_GITHUB',
-                  verifiedTwitter,
-                });
-              }
-            }).catch((err) => {
-              console.log(err);
-              if (i === returnedData.length - 1) {
-                this.setState({ githubVerifiedFailed: true, verificationLoading: false });
-              }
-            });
-          });
-        } else {
-          this.setState({ githubVerifiedFailed: true, verificationLoading: false });
-        }
-      });
-  }
-
-  generateTwitterBody = () => {
-    const { verifiedTwitter, editedArray } = this.state;
     const { box, did } = this.props;
     const updatedEditedArray = editedArray;
-    console.log(verifiedTwitter);
-    console.log(did);
+    this.setState({ verificationLoading: true });
 
     fetch('https://verifications.3box.io/twitter', {
       method: 'POST',
@@ -370,11 +332,13 @@ class EditProfile extends Component {
       }),
     })
       .then((response) => {
-        console.log(response);
         response.json();
       })
       .then((returnedData) => {
         console.log(returnedData);
+      })
+      .catch((err) => {
+        throw new Error(err.message);
       });
   }
 
@@ -595,7 +559,7 @@ class EditProfile extends Component {
         <TwitterVerificationModal
           show={showTwitterVerificationModal}
           copyToClipBoard={this.copyToClipBoard}
-          generateTwitterBody={this.generateTwitterBody}
+          verifyTwitter={this.verifyTwitter}
           did={did}
           message={twitterMessage}
           verifyGithub={this.verifyGithub}

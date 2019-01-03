@@ -242,7 +242,7 @@ export const GithubVerificationModal = ({
                 </p>
                 <p className="modal__github__description__copy__input--github">
                   {githubVerified
-                    ? 'Your github is verified!'
+                    ? 'Your Github is verified!'
                     : githubVerifiedFailed
                       ? 'Verification failed'
                       : verificationLoading
@@ -307,7 +307,7 @@ export const TwitterVerificationModal = ({
   githubVerifiedFailed,
   verificationLoading,
   resetVerification,
-  generateTwitterBody,
+  verifyTwitter,
 }) => (
     <div>
       <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
@@ -345,44 +345,34 @@ export const TwitterVerificationModal = ({
                 </p>
                 <p className="modal__github__description__copy__input" id="muportDID">{did}</p>
               </div>
-              <a href={`http://twitter.com/home?status=${message}`} target="_blank">
-                Tweet this
-              </a>
-
-              <button type="button" onClick={() => generateTwitterBody()}>Generate</button>
-              <button type="button" onClick={() => copyToClipBoard(message)}>Click to copy</button>
-            </div>
-
-            <div className="modal__github__steps__step">
-              <div>
-                <div className="modal__github__steps__number">2</div>
-                <p className="modal__github__steps__text">Open a new gist file in Github and paste the key in the body of the file.  Save the gist as public with any valid name and file type.</p>
-              </div>
-              {/* <img src={GithubIcon} className="modal__github__description__githubIcon" alt="Github icon" /> */}
-              <button type="button" onClick={() => window.open('https://gist.github.com/', '_blank')}>Open a gist file</button>
+              <button type="button">
+                <a href={`http://twitter.com/home?status=${message}`} target="_blank">
+                  Tweet this
+                </a>
+              </button>
             </div>
 
             <div className="modal__github__steps__step">
               <div>
                 <div className="modal__github__steps__number">3</div>
                 <p className="modal__github__steps__text">
-                  Your verified Github account will appear below when successful!
+                  Your verified Twitter account will appear below when successful!
                 </p>
                 <p className="modal__github__description__copy__input--github">
                   {githubVerified
-                    ? 'Your github is verified!'
+                    ? 'Your Twitter is verified!'
                     : githubVerifiedFailed
                       ? 'Verification failed'
                       : verificationLoading
                         ? (
                           <img src={Loading} alt="Loading" id="modal__loadingGraphic--noMargin" />
                         )
-                        : 'Github not yet verified'}
+                        : 'Twitter not yet verified'}
                 </p>
               </div>
               <button
                 type="button"
-                onClick={verifyGithub}
+                onClick={verifyTwitter}
               >
                 Check verification
             </button>
