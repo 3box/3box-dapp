@@ -304,7 +304,7 @@
 .edit__profile__verifiedWrapper__warning {
   color: #E78888;
   position: absolute;
-  bottom: -14px;
+  bottom: -18px;
   left: 28%;
   width: 62%;
 }
@@ -611,6 +611,10 @@
 .edit__profile__fields__entry--memberSince {
   color: $lighterFont;
 }
+
+// .edit__profile__fields__entry {
+//   margin-bottom: 20px;
+// }
 
 .loadingProfile {
   position: absolute;

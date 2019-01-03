@@ -33,6 +33,7 @@ class EditProfile extends Component {
     this.state = {
       name: '',
       verifiedGithub: '',
+      verifiedTwitter: '',
       email: '',
       buffer: '',
       description: '',
@@ -68,6 +69,7 @@ class EditProfile extends Component {
     const {
       name,
       verifiedGithub,
+      verifiedTwitter,
       email,
       description,
       location,
@@ -85,6 +87,7 @@ class EditProfile extends Component {
     this.setState({
       name,
       verifiedGithub,
+      verifiedTwitter,
       email,
       description,
       location,
@@ -104,6 +107,7 @@ class EditProfile extends Component {
     const {
       name,
       verifiedGithub,
+      verifiedTwitter,
       email,
       description,
       location,
@@ -120,6 +124,7 @@ class EditProfile extends Component {
 
     if (name !== this.props.name) this.setState({ name });
     if (verifiedGithub !== this.props.verifiedGithub) this.setState({ verifiedGithub });
+    if (verifiedTwitter !== this.props.verifiedTwitter) this.setState({ verifiedTwitter });
     if (email !== this.props.email) this.setState({ email });
     if (description !== this.props.description) this.setState({ description });
     if (location !== this.props.location) this.setState({ location });
@@ -135,7 +140,7 @@ class EditProfile extends Component {
   }
 
   handleFormChange = (e, property) => {
-    const { verifiedGithub } = this.props;
+    const { verifiedGithub, verifiedTwitter } = this.props;
     const { editedArray } = this.state;
 
     this.setState({ [property]: e.target.value },
@@ -432,6 +437,7 @@ class EditProfile extends Component {
     } = this.props;
     const {
       verifiedGithub,
+      verifiedTwitter,
       email,
       name,
       description,
@@ -831,6 +837,86 @@ class EditProfile extends Component {
                         <p className="edit__profile__verifiedWrapper__warning">Save form to remove your Github username.</p>
                       )
                     }
+
+                    <div className="edit__profile__fields__entry">
+                      <div className="edit__profile__keyContainer">
+                        <h5>Twitter</h5>
+                      </div>
+                      <div className="edit__profile__verifiedWrapper">
+                        <input
+                          name="verifiedGithub"
+                          type="text"
+                          className="edit__profile__value--github"
+                          value={verifiedTwitter}
+                          onChange={e => this.handleFormChange(e, 'verifiedTwitter')}
+                        />
+                        <button
+                          type="button"
+                          className={`unstyledButton ${!githubEdited && 'uneditedGithub'} verificationButton`}
+                          disabled={!githubEdited}
+                          onClick={() => {
+                            this.props.getProfileData('public', 'did');
+                            this.props.handleGithubVerificationModal();
+                          }}
+                        >
+                          Verify
+                            </button>
+                      </div>
+                      {/* {this.props.verifiedGithub
+                        ? (
+                          <div className="edit__profile__verifiedWrapper">
+                            <div className="edit__profile__verifiedName">
+                              {!githubRemoved
+                                && <img src={Verified} alt="Verified" />
+                              }
+                              <p>{verifiedGithub}</p>
+                            </div>
+
+                            {!githubRemoved
+                              ? (
+                                <button
+                                  type="button"
+                                  className={`unstyledButton ${!githubEdited && 'uneditedGithub'} removeGithub`}
+                                  onClick={() => this.handleGithubUsername('remove')}
+                                >
+                                  Remove
+                                </button>
+                              )
+                              : (
+                                <button
+                                  type="button"
+                                  className={`unstyledButton ${!githubEdited && 'uneditedGithub'}`}
+                                  onClick={() => this.handleGithubUsername()}
+                                >
+                                  Cancel
+                            </button>
+                              )}
+                          </div>
+                        )
+                        : (
+                          <div className="edit__profile__verifiedWrapper">
+                            <input
+                              name="verifiedGithub"
+                              type="text"
+                              className="edit__profile__value--github"
+                              value={verifiedGithub}
+                              onChange={e => this.handleFormChange(e, 'verifiedGithub')}
+                            />
+                            <button
+                              type="button"
+                              className={`unstyledButton ${!githubEdited && 'uneditedGithub'} verificationButton`}
+                              disabled={!githubEdited}
+                              onClick={() => {
+                                this.props.getProfileData('public', 'did');
+                                this.props.handleGithubVerificationModal();
+                              }}
+                            >
+                              Verify
+                            </button>
+                          </div>
+                        )} */}
+                    </div>
+
                   </div>
                 </div>
               </div>
@@ -978,6 +1064,7 @@ EditProfile.propTypes = {
   box: PropTypes.object,
   name: PropTypes.string,
   verifiedGithub: PropTypes.string,
+  verifiedTwitter: PropTypes.string,
   did: PropTypes.string,
   year: PropTypes.string,
   emoji: PropTypes.string,
@@ -1007,6 +1094,7 @@ EditProfile.defaultProps = {
   box: {},
   name: '',
   verifiedGithub: '',
+  verifiedTwitter: '',
   did: '',
   description: '',
   location: '',
@@ -1037,6 +1125,7 @@ function mapState(state) {
     showGithubVerificationModal: state.threeBox.showGithubVerificationModal,
     name: state.threeBox.name,
     verifiedGithub: state.threeBox.verifiedGithub,
+    verifiedTwitter: state.threeBox.verifiedTwitter,
     did: state.threeBox.did,
     description: state.threeBox.description,
     memberSince: state.threeBox.memberSince,
