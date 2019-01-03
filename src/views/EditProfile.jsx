@@ -355,6 +355,8 @@ class EditProfile extends Component {
     const { verifiedTwitter, editedArray } = this.state;
     const { box, did } = this.props;
     const updatedEditedArray = editedArray;
+    console.log(verifiedTwitter);
+    console.log(did);
 
     fetch('https://verifications.3box.io/twitter', {
       method: 'POST',
@@ -363,13 +365,13 @@ class EditProfile extends Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        did: did,
+        did,
         twitter_handle: verifiedTwitter,
       }),
     })
       .then((response) => {
-        response.json();
         console.log(response);
+        response.json();
       })
       .then((returnedData) => {
         console.log(returnedData);
@@ -551,6 +553,12 @@ class EditProfile extends Component {
     
     Create your profile today to start building social connection and trust online. https://3box.io/`);
 
+    const twitterMessage = (`3Box is a social profiles network for web3. This post links my 3Box profile to my Twitter account!
+
+    ✅ ${did} ✅
+    
+    Create your profile today to start building social connection and trust online. https://3box.io/`);
+
     return (
       <div id="edit__page">
 
@@ -589,7 +597,7 @@ class EditProfile extends Component {
           copyToClipBoard={this.copyToClipBoard}
           generateTwitterBody={this.generateTwitterBody}
           did={did}
-          message={message}
+          message={twitterMessage}
           verifyGithub={this.verifyGithub}
           githubVerified={githubVerified}
           verificationLoading={verificationLoading}

@@ -345,6 +345,10 @@ export const TwitterVerificationModal = ({
                 </p>
                 <p className="modal__github__description__copy__input" id="muportDID">{did}</p>
               </div>
+              <a href={`http://twitter.com/home?status=${message}`} target="_blank">
+                Tweet this
+              </a>
+
               <button type="button" onClick={() => generateTwitterBody()}>Generate</button>
               <button type="button" onClick={() => copyToClipBoard(message)}>Click to copy</button>
             </div>
@@ -400,7 +404,7 @@ export const TwitterVerificationModal = ({
         </div>
       </div>
       <div className="modal__overlay" />
-    </div>
+    </div >
   );
 
 TwitterVerificationModal.propTypes = {
