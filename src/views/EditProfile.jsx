@@ -8,16 +8,20 @@ import { Picker } from 'emoji-mart';
 import {
   store,
 } from '../state/store';
-
 import {
   getProfileData,
   getActivity,
 } from '../state/actions';
-
-import { handleGithubVerificationModal } from '../state/actions-modals';
-
+import {
+  handleGithubVerificationModal,
+  handleTwitterVerificationModal,
+} from '../state/actions-modals';
+import {
+  FileSizeModal,
+  GithubVerificationModal,
+  TwitterVerificationModal,
+} from '../components/Modals';
 import { address } from '../utils/address';
-import { FileSizeModal, GithubVerificationModal } from '../components/Modals';
 import history from '../history';
 import Nav from '../components/Nav.jsx';
 import * as routes from '../utils/routes';
@@ -58,6 +62,7 @@ class EditProfile extends Component {
       showFileSizeModal: false,
       githubRemoved: false,
       githubEdited: false,
+      twitterEdited: false,
       showEmoji: false,
       savedGithub: false,
       editedArray: [],
@@ -150,6 +155,12 @@ class EditProfile extends Component {
             this.setState({ githubEdited: false });
           } else if (verifiedGithub !== this.state.verifiedGithub && this.state.verifiedGithub !== '') {
             this.setState({ githubEdited: true });
+          }
+        } else if (property === 'verifiedTwitter') {
+          if (this.state.verifiedTwitter === '') {
+            this.setState({ twitterEdited: false });
+          } else if (verifiedTwitter !== this.state.verifiedTwitter && this.state.verifiedTwitter !== '') {
+            this.setState({ twitterEdited: true });
           }
         } else if (this.state[property] !== this.props[property]) {
           const updatedEditedArray = editedArray;
@@ -303,6 +314,68 @@ class EditProfile extends Component {
     }
   }
 
+  verifyTwitter = () => {
+    const { verifiedTwitter, editedArray } = this.state;
+    const { box } = this.props;
+    const updatedEditedArray = editedArray;
+    this.setState({ verificationLoading: true });
+
+    fetch(`https://api.github.com/users/${verifiedTwitter}/gists`)
+      .then(response => response.json())
+      .then((returnedData) => {
+        if (returnedData.length) {
+          returnedData.map((gist, i) => {
+            const url = gist.files[Object.keys(gist.files)[0]].raw_url;
+            return box.verified.addTwitter(url).then((res) => {
+              if (res === true) {
+                console.log('Github username verified');
+                updatedEditedArray.push('proof_github');
+                this.setState({
+                  githubVerified: true, verificationLoading: false, editedArray: updatedEditedArray, disableSave: false, savedGithub: true,
+                });
+                store.dispatch({
+                  type: 'GET_VERIFIED_PUBLIC_GITHUB',
+                  verifiedTwitter,
+                });
+              }
+            }).catch((err) => {
+              console.log(err);
+              if (i === returnedData.length - 1) {
+                this.setState({ githubVerifiedFailed: true, verificationLoading: false });
+              }
+            });
+          });
+        } else {
+          this.setState({ githubVerifiedFailed: true, verificationLoading: false });
+        }
+      });
+  }
+
+  generateTwitterBody = () => {
+    const { verifiedTwitter, editedArray } = this.state;
+    const { box, did } = this.props;
+    const updatedEditedArray = editedArray;
+
+    fetch('https://verifications.3box.io/twitter', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        did: did,
+        twitter_handle: verifiedTwitter,
+      }),
+    })
+      .then((response) => {
+        response.json();
+        console.log(response);
+      })
+      .then((returnedData) => {
+        console.log(returnedData);
+      });
+  }
+
   resetVerification = () => {
     this.setState({
       githubVerifiedFailed: false,
@@ -319,6 +392,7 @@ class EditProfile extends Component {
     const {
       name,
       verifiedGithub,
+      verifiedTwitter,
       email,
       removeUserPic,
       removeCoverPic,
@@ -433,8 +507,14 @@ class EditProfile extends Component {
 
   render() {
     const {
-      image, coverPhoto, memberSince, showGithubVerificationModal, did,
+      image,
+      coverPhoto,
+      memberSince,
+      did,
+      showGithubVerificationModal,
+      showTwitterVerificationModal,
     } = this.props;
+
     const {
       verifiedGithub,
       verifiedTwitter,
@@ -460,6 +540,7 @@ class EditProfile extends Component {
       githubVerified,
       githubVerifiedFailed,
       githubEdited,
+      twitterEdited,
       githubRemoved,
       verificationLoading,
     } = this.state;
@@ -501,6 +582,20 @@ class EditProfile extends Component {
           githubVerifiedFailed={githubVerifiedFailed}
           resetVerification={this.resetVerification}
           handleGithubVerificationModal={this.props.handleGithubVerificationModal}
+        />
+
+        <TwitterVerificationModal
+          show={showTwitterVerificationModal}
+          copyToClipBoard={this.copyToClipBoard}
+          generateTwitterBody={this.generateTwitterBody}
+          did={did}
+          message={message}
+          verifyGithub={this.verifyGithub}
+          githubVerified={githubVerified}
+          verificationLoading={verificationLoading}
+          githubVerifiedFailed={githubVerifiedFailed}
+          resetVerification={this.resetVerification}
+          handleTwitterVerificationModal={this.props.handleTwitterVerificationModal}
         />
 
         <div id="edit__breadCrumb">
@@ -852,11 +947,11 @@ class EditProfile extends Component {
                         />
                         <button
                           type="button"
-                          className={`unstyledButton ${!githubEdited && 'uneditedGithub'} verificationButton`}
-                          disabled={!githubEdited}
+                          className={`unstyledButton ${!twitterEdited && 'uneditedGithub'} verificationButton`}
+                          disabled={!twitterEdited}
                           onClick={() => {
                             this.props.getProfileData('public', 'did');
-                            this.props.handleGithubVerificationModal();
+                            this.props.handleTwitterVerificationModal();
                           }}
                         >
                           Verify
@@ -1083,11 +1178,11 @@ EditProfile.propTypes = {
   coverPhoto: PropTypes.array,
   ifFetchingThreeBox: PropTypes.bool,
   showGithubVerificationModal: PropTypes.bool,
-
+  showTwitterVerificationModal: PropTypes.bool,
   getProfileData: PropTypes.func,
   getActivity: PropTypes.func,
-
   handleGithubVerificationModal: PropTypes.func,
+  handleTwitterVerificationModal: PropTypes.func,
 };
 
 EditProfile.defaultProps = {
@@ -1113,16 +1208,18 @@ EditProfile.defaultProps = {
   coverPhoto: [],
   ifFetchingThreeBox: false,
   showGithubVerificationModal: false,
-
+  showTwitterVerificationModal: false,
   getProfileData: getProfileData(),
   getActivity: getActivity(),
   handleGithubVerificationModal: handleGithubVerificationModal(),
+  handleTwitterVerificationModal: handleTwitterVerificationModal(),
 };
 
 function mapState(state) {
   return {
     box: state.threeBox.box,
     showGithubVerificationModal: state.threeBox.showGithubVerificationModal,
+    showTwitterVerificationModal: state.threeBox.showTwitterVerificationModal,
     name: state.threeBox.name,
     verifiedGithub: state.threeBox.verifiedGithub,
     verifiedTwitter: state.threeBox.verifiedTwitter,
@@ -1151,4 +1248,5 @@ export default withRouter(connect(mapState,
     getProfileData,
     getActivity,
     handleGithubVerificationModal,
+    handleTwitterVerificationModal,
   })(EditProfile));

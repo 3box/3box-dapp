@@ -376,6 +376,19 @@ export const getVerifiedPublicGithub = () => async (dispatch) => {
   }
 };
 
+export const getVerifiedPublicTwitter = () => async (dispatch) => {
+  try {
+    const verifiedTwitter = await store.getState().threeBox.box.verified.twitter();
+
+    dispatch({
+      type: 'GET_VERIFIED_PUBLIC_TWITTER',
+      verifiedTwitter,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const handleSignOut = () => async (dispatch) => {
   if (store.getState().threeBox.isLoggedIn) {
     store.getState().threeBox.box.logout();

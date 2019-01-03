@@ -279,6 +279,147 @@ export const GithubVerificationModal = ({
     </div >
   );
 
+GithubVerificationModal.propTypes = {
+  did: PropTypes.string,
+  show: PropTypes.bool.isRequired,
+  copyToClipBoard: PropTypes.func.isRequired,
+  handleGithubVerificationModal: PropTypes.func.isRequired,
+  message: PropTypes.string.isRequired,
+  verifyGithub: PropTypes.func.isRequired,
+  resetVerification: PropTypes.func.isRequired,
+  githubVerified: PropTypes.bool.isRequired,
+  githubVerifiedFailed: PropTypes.bool.isRequired,
+  verificationLoading: PropTypes.bool.isRequired,
+};
+
+GithubVerificationModal.defaultProps = {
+  did: '',
+};
+
+export const TwitterVerificationModal = ({
+  show,
+  copyToClipBoard,
+  handleTwitterVerificationModal,
+  did,
+  message,
+  verifyGithub,
+  githubVerified,
+  githubVerifiedFailed,
+  verificationLoading,
+  resetVerification,
+  generateTwitterBody,
+}) => (
+    <div>
+      <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+        <div className="modal githubModal">
+
+          <div className="modal__github__description">
+            <div className="modal__github__description__copy">
+              <div className="modal__github__description__copy__header">
+                <img src={GithubIcon} className="modal__github__description__githubIcon" alt="Github icon" />
+                <h2>Verify your Twitter account</h2>
+              </div>
+              <p className="modal__github__description__copy__text">
+                Linking your Github account to your 3Box profile
+                allows your friends and apps to trust you more.
+              </p>
+            </div>
+            <button
+              className="modal__github__description__copy__button"
+              type="button"
+              onClick={() => {
+                handleTwitterVerificationModal();
+                resetVerification();
+              }}
+            >
+              Close
+          </button>
+          </div>
+
+          <div className="modal__github__steps">
+            <div className="modal__github__steps__step">
+              <div>
+                <div className="modal__github__steps__number">1</div>
+                <p className="modal__github__steps__text">
+                  Generate a unique key to post from your Twitter account
+                </p>
+                <p className="modal__github__description__copy__input" id="muportDID">{did}</p>
+              </div>
+              <button type="button" onClick={() => generateTwitterBody()}>Generate</button>
+              <button type="button" onClick={() => copyToClipBoard(message)}>Click to copy</button>
+            </div>
+
+            <div className="modal__github__steps__step">
+              <div>
+                <div className="modal__github__steps__number">2</div>
+                <p className="modal__github__steps__text">Open a new gist file in Github and paste the key in the body of the file.  Save the gist as public with any valid name and file type.</p>
+              </div>
+              {/* <img src={GithubIcon} className="modal__github__description__githubIcon" alt="Github icon" /> */}
+              <button type="button" onClick={() => window.open('https://gist.github.com/', '_blank')}>Open a gist file</button>
+            </div>
+
+            <div className="modal__github__steps__step">
+              <div>
+                <div className="modal__github__steps__number">3</div>
+                <p className="modal__github__steps__text">
+                  Your verified Github account will appear below when successful!
+                </p>
+                <p className="modal__github__description__copy__input--github">
+                  {githubVerified
+                    ? 'Your github is verified!'
+                    : githubVerifiedFailed
+                      ? 'Verification failed'
+                      : verificationLoading
+                        ? (
+                          <img src={Loading} alt="Loading" id="modal__loadingGraphic--noMargin" />
+                        )
+                        : 'Github not yet verified'}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={verifyGithub}
+              >
+                Check verification
+            </button>
+            </div>
+          </div>
+
+          <div className="modal__github__done">
+            <button
+              type="button"
+
+              onClick={() => {
+                handleTwitterVerificationModal();
+                resetVerification();
+              }}
+            >
+              Done
+          </button>
+          </div>
+        </div>
+      </div>
+      <div className="modal__overlay" />
+    </div>
+  );
+
+TwitterVerificationModal.propTypes = {
+  did: PropTypes.string,
+  show: PropTypes.bool.isRequired,
+  copyToClipBoard: PropTypes.func.isRequired,
+  handleTwitterVerificationModal: PropTypes.func.isRequired,
+  message: PropTypes.string.isRequired,
+  verifyGithub: PropTypes.func.isRequired,
+  resetVerification: PropTypes.func.isRequired,
+  githubVerified: PropTypes.bool.isRequired,
+  githubVerifiedFailed: PropTypes.bool.isRequired,
+  verificationLoading: PropTypes.bool.isRequired,
+};
+
+TwitterVerificationModal.defaultProps = {
+  did: '',
+};
+
 export const AccessDeniedModal = ({
   handleDeniedAccessModal, show, isMobile,
 }) => (
@@ -614,22 +755,6 @@ ProvideAccessModal.propTypes = {
 
 ProvideAccessModal.defaultProps = {
   directLogin: false,
-};
-
-GithubVerificationModal.propTypes = {
-  did: PropTypes.string,
-  show: PropTypes.bool.isRequired,
-  copyToClipBoard: PropTypes.func.isRequired,
-  handleGithubVerificationModal: PropTypes.func.isRequired,
-  message: PropTypes.string.isRequired,
-  verifyGithub: PropTypes.func.isRequired,
-  githubVerified: PropTypes.bool.isRequired,
-  githubVerifiedFailed: PropTypes.bool.isRequired,
-  verificationLoading: PropTypes.bool.isRequired,
-};
-
-GithubVerificationModal.defaultProps = {
-  did: '',
 };
 
 AccessDeniedModal.propTypes = {

@@ -339,6 +339,12 @@ export const threeBoxReducer = (state = {}, action) => {
         showGithubVerificationModal: action.showGithubVerificationModal,
       };
 
+    case 'HANDLE_TWITTER_MODAL':
+      return {
+        ...state,
+        showTwitterVerificationModal: action.showTwitterVerificationModal,
+      };
+
     case 'HANDLE_ACCESS_MODAL':
       return {
         ...state,
