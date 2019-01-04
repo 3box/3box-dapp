@@ -340,20 +340,23 @@ class EditProfile extends Component {
       })
       .then(claim => box.verified.addTwitter(claim.data.verification))
       .then((twitterUsername) => {
-        console.log('Twitter username verified and saved');
-        console.log(twitterUsername);
-        updatedEditedArray.push('proof_twitter');
-        this.setState({
-          isTwitterVerified: true,
-          verificationLoading: false,
-          editedArray: updatedEditedArray,
-          disableSave: false,
-          savedTwitter: true,
-        });
-        // store.dispatch({
-        //   type: 'GET_VERIFIED_PUBLIC_TWITTER',
-        //   verifiedTwitter: twitterUsername,
-        // });
+        if (twitterUsername) {
+          console.log('Twitter username verified and saved');
+          updatedEditedArray.push('proof_twitter');
+          this.setState({
+            isTwitterVerified: true,
+            verificationLoading: false,
+            editedArray: updatedEditedArray,
+            disableSave: false,
+            savedTwitter: true,
+          });
+          store.dispatch({
+            type: 'GET_VERIFIED_PUBLIC_TWITTER',
+            verifiedTwitter,
+          });
+        } else {
+          throw new Error('Verification failed');
+        }
       })
       .catch((err) => {
         this.setState({
