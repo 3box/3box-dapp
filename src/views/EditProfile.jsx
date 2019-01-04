@@ -333,14 +333,13 @@ class EditProfile extends Component {
       .then((response) => {
         console.log(response);
         if (response.ok) {
-          response.json();
-        } else {
-          this.setState({
-            verificationLoading: false,
-            twitterVerifiedFailed: true,
-          });
-          throw new Error('Verification failed');
+          return response.json();
         }
+        this.setState({
+          verificationLoading: false,
+          twitterVerifiedFailed: true,
+        });
+        throw new Error('Verification failed');
       })
       .then((claim) => {
         console.log(claim);
@@ -348,6 +347,7 @@ class EditProfile extends Component {
       })
       .then((twitterUsername) => {
         console.log('Twitter username verified and saved');
+        console.log(twitterUsername);
         updatedEditedArray.push('proof_twitter');
         this.setState({
           isTwitterVerified: true,
@@ -356,11 +356,10 @@ class EditProfile extends Component {
           disableSave: false,
           savedTwitter: true,
         });
-        store.dispatch({
-          type: 'GET_VERIFIED_PUBLIC_TWITTER',
-          verifiedTwitter: twitterUsername,
-        });
-        console.log(twitterUsername);
+        // store.dispatch({
+        //   type: 'GET_VERIFIED_PUBLIC_TWITTER',
+        //   verifiedTwitter: twitterUsername,
+        // });
       })
       .catch((err) => {
         this.setState({
