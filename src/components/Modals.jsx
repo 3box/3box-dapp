@@ -206,7 +206,7 @@ export const GithubVerificationModal = ({
               type="button"
               onClick={() => {
                 handleGithubVerificationModal();
-                resetVerification();
+                resetVerification('Github');
               }}
             >
               Close
@@ -267,7 +267,7 @@ export const GithubVerificationModal = ({
 
               onClick={() => {
                 handleGithubVerificationModal();
-                resetVerification();
+                resetVerification('Github');
               }}
             >
               Done
@@ -327,7 +327,7 @@ export const TwitterVerificationModal = ({
               type="button"
               onClick={() => {
                 handleTwitterVerificationModal();
-                resetVerification();
+                resetVerification('Twitter');
               }}
             >
               Close
@@ -383,7 +383,7 @@ export const TwitterVerificationModal = ({
 
               onClick={() => {
                 handleTwitterVerificationModal();
-                resetVerification();
+                resetVerification('Twitter');
               }}
             >
               Done

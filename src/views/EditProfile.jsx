@@ -68,6 +68,7 @@ class EditProfile extends Component {
       twitterEdited: false,
       showEmoji: false,
       savedGithub: false,
+      savedTwitter: false,
       editedArray: [],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -279,7 +280,11 @@ class EditProfile extends Component {
                 console.log('Github username verified');
                 updatedEditedArray.push('proof_github');
                 this.setState({
-                  isGithubVerified: true, verificationLoading: false, editedArray: updatedEditedArray, disableSave: false, savedGithub: true,
+                  isGithubVerified: true,
+                  verificationLoading: false,
+                  editedArray: updatedEditedArray,
+                  disableSave: false,
+                  savedGithub: true,
                 });
                 store.dispatch({
                   type: 'GET_VERIFIED_PUBLIC_GITHUB',
@@ -305,14 +310,42 @@ class EditProfile extends Component {
     if (remove && this.props.verifiedGithub) {
       updatedEditedArray.push('proof_github');
       this.setState({
-        verifiedGithub: '', disableSave: false, githubRemoved: true, editedArray: updatedEditedArray,
+        verifiedGithub: '',
+        disableSave: false,
+        githubRemoved: true,
+        editedArray: updatedEditedArray,
       });
     } else {
       if (remove && savedGithub) this.setState({ savedGithub: false });
       updatedEditedArray.splice(updatedEditedArray.indexOf('proof_github'), 1);
       if (!updatedEditedArray.length) this.setState({ disableSave: true });
       this.setState({
-        verifiedGithub: this.props.verifiedGithub, githubRemoved: false, editedArray: updatedEditedArray,
+        verifiedGithub: this.props.verifiedGithub,
+        githubRemoved: false,
+        editedArray: updatedEditedArray,
+      });
+    }
+  }
+
+  handleTwitterUsername = (remove) => {
+    const { editedArray, savedTwitter } = this.state;
+    const updatedEditedArray = editedArray;
+    if (remove && this.props.verifiedTwitter) {
+      updatedEditedArray.push('proof_twitter');
+      this.setState({
+        verifiedTwitter: '',
+        disableSave: false,
+        twitterRemoved: true,
+        editedArray: updatedEditedArray,
+      });
+    } else {
+      if (remove && savedTwitter) this.setState({ savedTwitter: false });
+      updatedEditedArray.splice(updatedEditedArray.indexOf('proof_twitter'), 1);
+      if (!updatedEditedArray.length) this.setState({ disableSave: true });
+      this.setState({
+        verifiedTwitter: this.props.verifiedTwitter,
+        twitterRemoved: false,
+        editedArray: updatedEditedArray,
       });
     }
   }
@@ -367,10 +400,12 @@ class EditProfile extends Component {
       });
   }
 
-  resetVerification = () => {
-    this.setState({
-      githubVerifiedFailed: false,
-    });
+  resetVerification = (platform) => {
+    if (platform === 'Github') {
+      this.setState({ githubVerifiedFailed: false });
+    } else {
+      this.setState({ twitterVerifiedFailed: false });
+    }
   }
 
   fetchPic = buffer => window.fetch('https://ipfs.infura.io:5001/api/v0/add', {
@@ -412,6 +447,7 @@ class EditProfile extends Component {
 
       const nameChanged = name !== this.props.name;
       const verifiedGithubChanged = verifiedGithub !== this.props.verifiedGithub;
+      const verifiedTwitterChanged = verifiedTwitter !== this.props.verifiedTwitter;
       const emailChanged = email !== this.props.email;
       const descriptionChanged = description !== this.props.description;
       const locationChanged = location !== this.props.location;
@@ -454,6 +490,7 @@ class EditProfile extends Component {
       if (emailChanged && email === '') await box.private.remove('email');
 
       if (verifiedGithubChanged && verifiedGithub === '') await box.public.remove('proof_github');
+      if (verifiedTwitterChanged && verifiedTwitter === '') await box.public.remove('proof_twitter');
       if (removeUserPic) await box.public.remove('image');
       if (removeCoverPic) await box.public.remove('coverPhoto');
 
@@ -473,7 +510,13 @@ class EditProfile extends Component {
           verifiedGithub: null,
         });
       }
-      if (nameChanged) await this.props.getProfileData('public', 'name');
+      if (verifiedTwitterChanged) {
+        store.dispatch({
+          type: 'GET_VERIFIED_PUBLIC_TWITTER',
+          verifiedTwitter: null,
+        });
+      }
+      if (nameChanged) await this.props.getProfileData('public', 'name'); // change these to just update the redux store
       if (descriptionChanged) await this.props.getProfileData('public', 'description');
       if (locationChanged) await this.props.getProfileData('public', 'location');
       if (websiteChanged) await this.props.getProfileData('public', 'website');
@@ -936,26 +979,6 @@ class EditProfile extends Component {
                       <div className="edit__profile__keyContainer">
                         <h5>Twitter</h5>
                       </div>
-                      {/* <div className="edit__profile__verifiedWrapper">
-                        <input
-                          name="verifiedGithub"
-                          type="text"
-                          className="edit__profile__value--github"
-                          value={verifiedTwitter}
-                          onChange={e => this.handleFormChange(e, 'verifiedTwitter')}
-                        />
-                        <button
-                          type="button"
-                          className={`unstyledButton ${!twitterEdited && 'uneditedGithub'} verificationButton`}
-                          disabled={!twitterEdited}
-                          onClick={() => {
-                            this.props.getProfileData('public', 'did');
-                            this.props.handleTwitterVerificationModal();
-                          }}
-                        >
-                          Verify
-                            </button>
-                      </div> */}
                       {this.props.verifiedTwitter
                         ? (
                           <div className="edit__profile__verifiedWrapper">
@@ -971,7 +994,7 @@ class EditProfile extends Component {
                                 <button
                                   type="button"
                                   className={`unstyledButton ${!twitterEdited && 'uneditedGithub'} removeGithub`}
-                                  onClick={() => this.handleGithubUsername('remove')}
+                                  onClick={() => this.handleTwitterUsername('remove')}
                                 >
                                   Remove
                                 </button>
@@ -980,7 +1003,7 @@ class EditProfile extends Component {
                                 <button
                                   type="button"
                                   className={`unstyledButton ${!twitterEdited && 'uneditedGithub'}`}
-                                  onClick={() => this.handleGithubUsername()}
+                                  onClick={() => this.handleTwitterUsername()}
                                 >
                                   Cancel
                             </button>
@@ -990,7 +1013,7 @@ class EditProfile extends Component {
                         : (
                           <div className="edit__profile__verifiedWrapper">
                             <input
-                              name="verifiedGithub"
+                              name="verifiedTwitter"
                               type="text"
                               className="edit__profile__value--github"
                               value={verifiedTwitter}
@@ -1151,6 +1174,13 @@ class EditProfile extends Component {
                       store.dispatch({
                         type: 'GET_VERIFIED_PUBLIC_GITHUB',
                         verifiedGithub: null,
+                      });
+                    }
+                    if (this.state.savedTwitter && verifiedTwitter !== '') {
+                      this.props.box.public.remove('proof_twitter');
+                      store.dispatch({
+                        type: 'GET_VERIFIED_PUBLIC_TWITTER',
+                        verifiedTwitter: null,
                       });
                     }
                   }}

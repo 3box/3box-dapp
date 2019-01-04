@@ -40,6 +40,7 @@ import {
   getProfileData,
   getPublicMemberSince,
   getVerifiedPublicGithub,
+  getVerifiedPublicTwitter,
   getActivity,
   getBox,
   requestAccess,
@@ -161,6 +162,7 @@ class App extends Component {
       if (!this.props.showErrorModal) {
         this.props.getActivity(); // remove await
         this.props.getVerifiedPublicGithub();
+        this.props.getVerifiedPublicTwitter();
 
         // this.props.getProfileData('public', 'memberSince');
         this.props.getPublicMemberSince();
@@ -201,6 +203,7 @@ class App extends Component {
         if (!this.props.showErrorModal) {
           this.props.getActivity();
           this.props.getVerifiedPublicGithub();
+          this.props.getVerifiedPublicTwitter();
 
           // this.props.getProfileData('public', 'memberSince');
           this.props.getPublicMemberSince();
@@ -498,6 +501,7 @@ App.propTypes = {
   getProfileData: PropTypes.func.isRequired,
   getPublicMemberSince: PropTypes.func.isRequired,
   getVerifiedPublicGithub: PropTypes.func.isRequired,
+  getVerifiedPublicTwitter: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
   checkWeb3Wallet: PropTypes.func.isRequired,
   requireMetaMaskModal: PropTypes.func.isRequired,
@@ -601,6 +605,7 @@ export default withRouter(connect(mapState,
     getProfileData,
     getPublicMemberSince,
     getVerifiedPublicGithub,
+    getVerifiedPublicTwitter,
     getActivity,
     checkWeb3Wallet,
     requireMetaMaskModal,
