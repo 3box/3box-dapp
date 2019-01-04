@@ -379,10 +379,9 @@ export const getVerifiedPublicGithub = () => async (dispatch) => {
 export const getVerifiedPublicTwitter = () => async (dispatch) => {
   try {
     const verifiedTwitter = await store.getState().threeBox.box.verified.twitter();
-    // console.log(verifiedTwitter);
     dispatch({
       type: 'GET_VERIFIED_PUBLIC_TWITTER',
-      verifiedTwitter,
+      verifiedTwitter: verifiedTwitter.twitter,
     });
   } catch (error) {
     console.error(error);
