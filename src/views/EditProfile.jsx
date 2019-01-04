@@ -331,20 +331,14 @@ class EditProfile extends Component {
       }),
     })
       .then((response) => {
-        console.log(response);
-        if (response.ok) {
-          return response.json();
-        }
+        if (response.ok) return response.json();
         this.setState({
           verificationLoading: false,
           twitterVerifiedFailed: true,
         });
         throw new Error('Verification failed');
       })
-      .then((claim) => {
-        console.log(claim);
-        box.verified.addTwitter(claim.data.verification);
-      })
+      .then(claim => box.verified.addTwitter(claim.data.verification))
       .then((twitterUsername) => {
         console.log('Twitter username verified and saved');
         console.log(twitterUsername);
