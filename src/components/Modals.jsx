@@ -181,7 +181,7 @@ export const GithubVerificationModal = ({
   did,
   message,
   verifyGithub,
-  githubVerified,
+  isGithubVerified,
   githubVerifiedFailed,
   verificationLoading,
   resetVerification,
@@ -241,7 +241,7 @@ export const GithubVerificationModal = ({
                   Your verified Github account will appear below when successful!
                 </p>
                 <p className="modal__github__description__copy__input--github">
-                  {githubVerified
+                  {isGithubVerified
                     ? 'Your Github is verified!'
                     : githubVerifiedFailed
                       ? 'Verification failed'
@@ -287,7 +287,7 @@ GithubVerificationModal.propTypes = {
   message: PropTypes.string.isRequired,
   verifyGithub: PropTypes.func.isRequired,
   resetVerification: PropTypes.func.isRequired,
-  githubVerified: PropTypes.bool.isRequired,
+  isGithubVerified: PropTypes.bool.isRequired,
   githubVerifiedFailed: PropTypes.bool.isRequired,
   verificationLoading: PropTypes.bool.isRequired,
 };
@@ -298,16 +298,14 @@ GithubVerificationModal.defaultProps = {
 
 export const TwitterVerificationModal = ({
   show,
-  copyToClipBoard,
   handleTwitterVerificationModal,
   did,
   message,
-  verifyGithub,
-  githubVerified,
-  githubVerifiedFailed,
+  verifyTwitter,
+  isTwitterVerified,
+  twitterVerifiedFailed,
   verificationLoading,
   resetVerification,
-  verifyTwitter,
 }) => (
     <div>
       <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
@@ -346,7 +344,7 @@ export const TwitterVerificationModal = ({
                 <p className="modal__github__description__copy__input" id="muportDID">{did}</p>
               </div>
               <button type="button">
-                <a href={`http://twitter.com/home?status=${message}`} target="_blank">
+                <a href={`https://twitter.com/intent/tweet?text=${message}`} target="_blank">
                   Tweet this
                 </a>
               </button>
@@ -359,9 +357,9 @@ export const TwitterVerificationModal = ({
                   Your verified Twitter account will appear below when successful!
                 </p>
                 <p className="modal__github__description__copy__input--github">
-                  {githubVerified
+                  {isTwitterVerified
                     ? 'Your Twitter is verified!'
-                    : githubVerifiedFailed
+                    : twitterVerifiedFailed
                       ? 'Verification failed'
                       : verificationLoading
                         ? (
@@ -403,10 +401,10 @@ TwitterVerificationModal.propTypes = {
   copyToClipBoard: PropTypes.func.isRequired,
   handleTwitterVerificationModal: PropTypes.func.isRequired,
   message: PropTypes.string.isRequired,
-  verifyGithub: PropTypes.func.isRequired,
+  verifyTwitter: PropTypes.func.isRequired,
   resetVerification: PropTypes.func.isRequired,
-  githubVerified: PropTypes.bool.isRequired,
-  githubVerifiedFailed: PropTypes.bool.isRequired,
+  isTwitterVerified: PropTypes.bool.isRequired,
+  twitterVerifiedFailed: PropTypes.bool.isRequired,
   verificationLoading: PropTypes.bool.isRequired,
 };
 

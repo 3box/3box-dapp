@@ -54,13 +54,16 @@ class EditProfile extends Component {
       disableSave: true,
       saveLoading: false,
       removeUserPic: false,
-      githubVerified: false,
+      isGithubVerified: false,
+      isTwitterVerified: false,
       verificationLoading: false,
       githubVerifiedFailed: false,
+      twitterVerifiedFailed: false,
       editPic: false,
       editCoverPic: false,
       showFileSizeModal: false,
       githubRemoved: false,
+      twitterRemoved: false,
       githubEdited: false,
       twitterEdited: false,
       showEmoji: false,
@@ -276,7 +279,7 @@ class EditProfile extends Component {
                 console.log('Github username verified');
                 updatedEditedArray.push('proof_github');
                 this.setState({
-                  githubVerified: true, verificationLoading: false, editedArray: updatedEditedArray, disableSave: false, savedGithub: true,
+                  isGithubVerified: true, verificationLoading: false, editedArray: updatedEditedArray, disableSave: false, savedGithub: true,
                 });
                 store.dispatch({
                   type: 'GET_VERIFIED_PUBLIC_GITHUB',
@@ -322,23 +325,48 @@ class EditProfile extends Component {
 
     fetch('https://verifications.3box.io/twitter', {
       method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify({
         did,
-        twitter_handle: `@${verifiedTwitter}`,
+        twitter_handle: `${verifiedTwitter}`,
       }),
     })
       .then((response) => {
-        response.json();
+        if (response.ok) {
+          response.json();
+        } else {
+          this.setState({
+            verificationLoading: false,
+            twitterVerifiedFailed: true,
+          });
+          throw new Error('Verification failed');
+        }
       })
-      .then((returnedData) => {
-        console.log(returnedData);
+      .then((claim) => {
+        console.log(claim);
+        box.verified.addTwitter(claim);
+      })
+      .then((twitterUsername) => {
+        console.log('Twitter username verified and saved');
+        updatedEditedArray.push('proof_twitter');
+        this.setState({
+          isTwitterVerified: true,
+          verificationLoading: false,
+          editedArray: updatedEditedArray,
+          disableSave: false,
+          savedTwitter: true,
+        });
+        store.dispatch({
+          type: 'GET_VERIFIED_PUBLIC_TWITTER',
+          verifiedTwitter,
+        });
+        console.log(twitterUsername);
       })
       .catch((err) => {
-        throw new Error(err.message);
+        this.setState({
+          verificationLoading: false,
+          twitterVerifiedFailed: true,
+        });
+        console.log(err);
       });
   }
 
@@ -503,11 +531,14 @@ class EditProfile extends Component {
       saveLoading,
       showFileSizeModal,
       showEmoji,
-      githubVerified,
+      isGithubVerified,
+      isTwitterVerified,
       githubVerifiedFailed,
+      twitterVerifiedFailed,
       githubEdited,
       twitterEdited,
       githubRemoved,
+      twitterRemoved,
       verificationLoading,
     } = this.state;
 
@@ -517,11 +548,11 @@ class EditProfile extends Component {
     
     Create your profile today to start building social connection and trust online. https://3box.io/`);
 
-    const twitterMessage = (`3Box is a social profiles network for web3. This post links my 3Box profile to my Twitter account!
+    const twitterMessage = (`This tweet links my 3Box profile to my twitter account!
 
     ✅ ${did} ✅
     
-    Create your profile today to start building social connection and trust online. https://3box.io/`);
+    Join web3's social profiles network by creating your account on 3box.io today. @3boxdb`);
 
     return (
       <div id="edit__page">
@@ -549,7 +580,7 @@ class EditProfile extends Component {
           did={did}
           message={message}
           verifyGithub={this.verifyGithub}
-          githubVerified={githubVerified}
+          isGithubVerified={isGithubVerified}
           verificationLoading={verificationLoading}
           githubVerifiedFailed={githubVerifiedFailed}
           resetVerification={this.resetVerification}
@@ -561,11 +592,10 @@ class EditProfile extends Component {
           copyToClipBoard={this.copyToClipBoard}
           verifyTwitter={this.verifyTwitter}
           did={did}
-          message={twitterMessage}
-          verifyGithub={this.verifyGithub}
-          githubVerified={githubVerified}
+          message={did}
+          isTwitterVerified={isTwitterVerified}
           verificationLoading={verificationLoading}
-          githubVerifiedFailed={githubVerifiedFailed}
+          twitterVerifiedFailed={twitterVerifiedFailed}
           resetVerification={this.resetVerification}
           handleTwitterVerificationModal={this.props.handleTwitterVerificationModal}
         />
@@ -893,7 +923,7 @@ class EditProfile extends Component {
                         )}
                     </div>
 
-                    {(!this.props.verifiedGithub && githubEdited && !githubVerified)
+                    {(!this.props.verifiedGithub && githubEdited && !isGithubVerified)
                       && (
                         <p className="edit__profile__verifiedWrapper__warning">Verification is required for your Github username to save.</p>
                       )
@@ -909,7 +939,7 @@ class EditProfile extends Component {
                       <div className="edit__profile__keyContainer">
                         <h5>Twitter</h5>
                       </div>
-                      <div className="edit__profile__verifiedWrapper">
+                      {/* <div className="edit__profile__verifiedWrapper">
                         <input
                           name="verifiedGithub"
                           type="text"
@@ -928,22 +958,22 @@ class EditProfile extends Component {
                         >
                           Verify
                             </button>
-                      </div>
-                      {/* {this.props.verifiedGithub
+                      </div> */}
+                      {this.props.verifiedTwitter
                         ? (
                           <div className="edit__profile__verifiedWrapper">
                             <div className="edit__profile__verifiedName">
-                              {!githubRemoved
+                              {!twitterRemoved
                                 && <img src={Verified} alt="Verified" />
                               }
-                              <p>{verifiedGithub}</p>
+                              <p>{verifiedTwitter}</p>
                             </div>
 
-                            {!githubRemoved
+                            {!twitterRemoved
                               ? (
                                 <button
                                   type="button"
-                                  className={`unstyledButton ${!githubEdited && 'uneditedGithub'} removeGithub`}
+                                  className={`unstyledButton ${!twitterEdited && 'uneditedGithub'} removeGithub`}
                                   onClick={() => this.handleGithubUsername('remove')}
                                 >
                                   Remove
@@ -952,7 +982,7 @@ class EditProfile extends Component {
                               : (
                                 <button
                                   type="button"
-                                  className={`unstyledButton ${!githubEdited && 'uneditedGithub'}`}
+                                  className={`unstyledButton ${!twitterEdited && 'uneditedGithub'}`}
                                   onClick={() => this.handleGithubUsername()}
                                 >
                                   Cancel
@@ -966,22 +996,34 @@ class EditProfile extends Component {
                               name="verifiedGithub"
                               type="text"
                               className="edit__profile__value--github"
-                              value={verifiedGithub}
-                              onChange={e => this.handleFormChange(e, 'verifiedGithub')}
+                              value={verifiedTwitter}
+                              onChange={e => this.handleFormChange(e, 'verifiedTwitter')}
                             />
                             <button
                               type="button"
-                              className={`unstyledButton ${!githubEdited && 'uneditedGithub'} verificationButton`}
-                              disabled={!githubEdited}
+                              className={`unstyledButton ${!twitterEdited && 'uneditedGithub'} verificationButton`}
+                              disabled={!twitterEdited}
                               onClick={() => {
                                 this.props.getProfileData('public', 'did');
-                                this.props.handleGithubVerificationModal();
+                                this.props.handleTwitterVerificationModal();
                               }}
                             >
                               Verify
                             </button>
                           </div>
-                        )} */}
+                        )}
+
+                      {(!this.props.verifiedTwitter && twitterEdited && !isTwitterVerified)
+                        && (
+                          <p className="edit__profile__verifiedWrapper__warning">Verification is required for your Twitter username to save.</p>
+                        )
+                      }
+
+                      {twitterRemoved
+                        && (
+                          <p className="edit__profile__verifiedWrapper__warning">Save form to remove your Twitter username.</p>
+                        )
+                      }
                     </div>
 
                   </div>
