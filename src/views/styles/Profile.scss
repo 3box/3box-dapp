@@ -189,12 +189,16 @@
 
   p {
     color: $lightFont;
-    width: 160px;
+    width: 194px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     display: inline-block;
   }
+}
+
+.profile__category__field--private {
+  width: 156px !important;
 }
 
 #profile__user__name {
@@ -223,8 +227,8 @@
   height: 16px;
 }
 
-.profile__category__field__verified{
-  max-width: 160px;
+.profile__category__field__verified {
+  max-width: 194px;
   width: fit-content !important;
   padding-right: 8px;
 }

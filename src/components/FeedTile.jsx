@@ -17,7 +17,7 @@ import Tokens from '../assets/Tokens.svg';
 
 import './styles/Feed.css';
 
-export const FeedTileActivity = ({ item, isEven, verifiedGithub }) => (
+export const FeedTileActivity = ({ item, isEven, verifiedGithub, verifiedTwitter }) => (
   <div className={`feed__activity___data ${isEven ? 'darkFeed' : 'lightFeed'}`}>
     <div className="feed__activity__address__dataType">
       {item.dataType === 'Private'
@@ -36,7 +36,9 @@ export const FeedTileActivity = ({ item, isEven, verifiedGithub }) => (
         ? 'Private'
         : item.key === 'proof_github'
           ? 'Github'
-          : item.key && (item.key.charAt(0).toUpperCase() + item.key.slice(1)).replace(/([A-Z])/g, ' $1').trim()
+          : item.key === 'proof_twitter'
+            ? 'Twitter'
+            : item.key && (item.key.charAt(0).toUpperCase() + item.key.slice(1)).replace(/([A-Z])/g, ' $1').trim()
       }
     </p>
     <p className="feed__activity__address__amount">
@@ -52,9 +54,11 @@ export const FeedTileActivity = ({ item, isEven, verifiedGithub }) => (
             )
             : item.key === 'proof_github'
               ? verifiedGithub
-              : typeof item.value === 'object'
-                ? `${item.value ? Object.keys(item.value)[0] : '-----'}`
-                : item.value}
+              : item.key === 'proof_twitter'
+                ? verifiedTwitter
+                : typeof item.value === 'object'
+                  ? `${item.value ? Object.keys(item.value)[0] : '-----'}`
+                  : item.value}
     </p>
     <p className="feed__activity__address__time">
       {timeSince(item.timeStamp * 1000)}
@@ -66,12 +70,14 @@ FeedTileActivity.propTypes = {
   item: PropTypes.object,
   isEven: PropTypes.bool,
   verifiedGithub: PropTypes.string,
+  verifiedTwitter: PropTypes.string,
 };
 
 FeedTileActivity.defaultProps = {
   item: {},
   isEven: false,
   verifiedGithub: '',
+  verifiedTwitter: '',
 };
 
 export const FeedTileInternal = ({ item, isEven }) => (

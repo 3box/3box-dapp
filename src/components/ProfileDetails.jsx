@@ -90,7 +90,7 @@ const ProfileDetails = ({
                   <img src={Email} className="profile__category__field__icon" alt="Github Icon" />
                   {email
                     && (
-                      <p>{email}</p>
+                      <p className="profile__category__field--private">{email}</p>
                     )
                   }
                 </div>
@@ -159,7 +159,7 @@ const ProfileDetails = ({
                   <img src={Birthday} className="profile__category__field__icon" alt="Birthday Icon" />
                   {birthday
                     && (
-                      <p>{birthday}</p>
+                      <p className="profile__category__field--private">{birthday}</p>
                     )
                   }
                 </div>
