@@ -39,6 +39,7 @@ const ProfileDetails = ({
   year,
   employer,
   memberSince,
+  verifiedTwitter,
 }) => (
     <div>
       {coverPhoto.length > 0 && coverPhoto[0].contentUrl
@@ -88,7 +89,7 @@ const ProfileDetails = ({
                   <img src={Email} className="profile__category__field__icon" alt="Github Icon" />
                   {email
                     && (
-                      <p id="profile__github">{email}</p>
+                      <p>{email}</p>
                     )
                   }
                 </div>
@@ -104,7 +105,7 @@ const ProfileDetails = ({
                   <img src={Location} className="profile__category__field__icon" alt="Location Icon" />
                   {location
                     && (
-                      <p id="profile__github">{location}</p>
+                      <p>{location}</p>
                     )
                   }
                 </div>
@@ -115,7 +116,7 @@ const ProfileDetails = ({
                   <img src={Website} className="profile__category__field__icon" alt="Website Icon" />
                   {website
                     && (
-                      <p id="profile__github">{website}</p>
+                      <p>{website}</p>
                     )
                   }
                 </div>
@@ -126,14 +127,29 @@ const ProfileDetails = ({
                   <img src={GithubIcon} className="profile__category__field__icon" alt="Github Icon" />
                   {verifiedGithub
                     && (
-                      <img src={Verified} alt="Verified" className="profile__category__verified__icon" />
+                      <p className="profile__category__field__verified">{verifiedGithub}</p>
                     )
                   }
                   {verifiedGithub
                     && (
-                      <p id="profile__github">{verifiedGithub}</p>
+                      <img src={Verified} alt="Verified" className="profile__category__verified__icon" />
                     )
                   }
+                </div>
+              </div>
+
+              <div className="profile__category__field" title="Github">
+                <div>
+                  <img src={GithubIcon} className="profile__category__field__icon" alt="Github Icon" />
+                  {verifiedTwitter
+                    && (
+                      <p className="profile__category__field__verified">{verifiedTwitter}</p>
+                    )
+                  }
+                  {verifiedTwitter
+                    && (
+                      <img src={Verified} alt="Verified" className="profile__category__verified__icon" />
+                    )}
                 </div>
               </div>
 
@@ -142,7 +158,7 @@ const ProfileDetails = ({
                   <img src={Birthday} className="profile__category__field__icon" alt="Birthday Icon" />
                   {birthday
                     && (
-                      <p id="profile__github">{birthday}</p>
+                      <p>{birthday}</p>
                     )
                   }
                 </div>
@@ -158,7 +174,7 @@ const ProfileDetails = ({
                   <img src={ThreeBox3} className="profile__category__field__icon" alt="Birthday Icon" />
                   {memberSince
                     && (
-                      <p id="profile__github">{memberSince}</p>
+                      <p>{memberSince}</p>
                     )
                   }
                 </div>
@@ -175,7 +191,7 @@ const ProfileDetails = ({
                   <img src={Employer} className="profile__category__field__icon" alt="Employer Icon" />
                   {employer
                     && (
-                      <p id="profile__github">{employer}</p>
+                      <p>{employer}</p>
                     )
                   }
                 </div>
@@ -186,7 +202,7 @@ const ProfileDetails = ({
                   <img src={Job} className="profile__category__field__icon" alt="Job Icon" />
                   {job
                     && (
-                      <p id="profile__github">{job}</p>
+                      <p>{job}</p>
                     )
                   }
                 </div>
@@ -201,7 +217,7 @@ const ProfileDetails = ({
                   <img src={School} className="profile__category__field__icon" alt="School Icon" />
                   {school
                     && (
-                      <p id="profile__github">{school}</p>
+                      <p>{school}</p>
                     )
                   }
                 </div>
@@ -212,7 +228,7 @@ const ProfileDetails = ({
                   <img src={Degree} className="profile__category__field__icon" alt="Degree Icon" />
                   {degree
                     && (
-                      <p id="profile__github">{degree}</p>
+                      <p>{degree}</p>
                     )
                   }
                 </div>
@@ -223,7 +239,7 @@ const ProfileDetails = ({
                   <img src={Major} className="profile__category__field__icon" alt="Major Icon" />
                   {major
                     && (
-                      <p id="profile__github">{major}</p>
+                      <p>{major}</p>
                     )
                   }
                 </div>
@@ -234,7 +250,7 @@ const ProfileDetails = ({
                   <img src={Year} className="profile__category__field__icon" alt="Year Icon" />
                   {year
                     && (
-                      <p id="profile__github">{year}</p>
+                      <p>{year}</p>
                     )
                   }
                 </div>
@@ -258,6 +274,7 @@ const ProfileDetails = ({
 ProfileDetails.propTypes = {
   name: PropTypes.string,
   verifiedGithub: PropTypes.string,
+  verifiedTwitter: PropTypes.string,
   email: PropTypes.string,
   location: PropTypes.string,
   website: PropTypes.string,
@@ -278,6 +295,7 @@ ProfileDetails.propTypes = {
 ProfileDetails.defaultProps = {
   name: '',
   verifiedGithub: '',
+  verifiedTwitter: '',
   email: '',
   description: '',
   image: [],
@@ -299,6 +317,7 @@ function mapState(state) {
   return {
     name: state.threeBox.name,
     verifiedGithub: state.threeBox.verifiedGithub,
+    verifiedTwitter: state.threeBox.verifiedTwitter,
     image: state.threeBox.image,
     coverPhoto: state.threeBox.coverPhoto,
     emoji: state.threeBox.emoji,

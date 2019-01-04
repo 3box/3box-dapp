@@ -589,7 +589,7 @@ class EditProfile extends Component {
           copyToClipBoard={this.copyToClipBoard}
           verifyTwitter={this.verifyTwitter}
           did={did}
-          message={did}
+          message={twitterMessage}
           isTwitterVerified={isTwitterVerified}
           verificationLoading={verificationLoading}
           twitterVerifiedFailed={twitterVerifiedFailed}

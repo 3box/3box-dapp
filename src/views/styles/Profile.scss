@@ -189,10 +189,11 @@
 
   p {
     color: $lightFont;
-    width: 136px;
+    width: 161px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: inline-block;
   }
 }
 
@@ -220,7 +221,12 @@
 .profile__category__verified__icon {
   width: 16px;
   height: 16px;
-  margin-right: 8px;
+}
+
+.profile__category__field__verified{
+  max-width: 161px;
+  width: fit-content !important;
+  padding-right: 8px;
 }
 
 #profile__github {

@@ -152,10 +152,11 @@
   width: 230px; }
   .profile__category__field p {
     color: #6b6b6b;
-    width: 136px;
+    width: 161px;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; }
+    text-overflow: ellipsis;
+    display: inline-block; }
 
 #profile__user__name {
   font-size: 1.4em;
@@ -177,8 +178,12 @@
 
 .profile__category__verified__icon {
   width: 16px;
-  height: 16px;
-  margin-right: 8px; }
+  height: 16px; }
+
+.profile__category__field__verified {
+  max-width: 161px;
+  width: fit-content !important;
+  padding-right: 8px; }
 
 #profile__github {
   display: inline-block; }
