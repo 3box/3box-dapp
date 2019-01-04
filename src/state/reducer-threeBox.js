@@ -88,6 +88,12 @@ export const threeBoxReducer = (state = {}, action) => {
         verifiedGithub: action.verifiedGithub,
       };
 
+    case 'GET_VERIFIED_PUBLIC_TWITTER':
+      return {
+        ...state,
+        verifiedTwitter: action.verifiedTwitter,
+      };
+
     case 'GET_PUBLIC_DESCRIPTION':
       return {
         ...state,

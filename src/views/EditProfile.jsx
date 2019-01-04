@@ -331,6 +331,7 @@ class EditProfile extends Component {
       }),
     })
       .then((response) => {
+        console.log(response);
         if (response.ok) {
           response.json();
         } else {
@@ -343,7 +344,7 @@ class EditProfile extends Component {
       })
       .then((claim) => {
         console.log(claim);
-        box.verified.addTwitter(claim);
+        box.verified.addTwitter(claim.data.verification);
       })
       .then((twitterUsername) => {
         console.log('Twitter username verified and saved');
@@ -357,7 +358,7 @@ class EditProfile extends Component {
         });
         store.dispatch({
           type: 'GET_VERIFIED_PUBLIC_TWITTER',
-          verifiedTwitter,
+          verifiedTwitter: twitterUsername,
         });
         console.log(twitterUsername);
       })
