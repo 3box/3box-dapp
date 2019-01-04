@@ -912,10 +912,10 @@ class EditProfile extends Component {
                         ? (
                           <div className="edit__profile__verifiedWrapper">
                             <div className="edit__profile__verifiedName">
+                              <p>{verifiedGithub}</p>
                               {!githubRemoved
                                 && <img src={Verified} alt="Verified" />
                               }
-                              <p>{verifiedGithub}</p>
                             </div>
 
                             {!githubRemoved
@@ -963,18 +963,6 @@ class EditProfile extends Component {
                         )}
                     </div>
 
-                    {(!this.props.verifiedGithub && githubEdited && !isGithubVerified)
-                      && (
-                        <p className="edit__profile__verifiedWrapper__warning">Verification is required for your Github username to save.</p>
-                      )
-                    }
-
-                    {githubRemoved
-                      && (
-                        <p className="edit__profile__verifiedWrapper__warning">Save form to remove your Github username.</p>
-                      )
-                    }
-
                     <div className="edit__profile__fields__entry">
                       <div className="edit__profile__keyContainer">
                         <h5>Twitter</h5>
@@ -983,10 +971,10 @@ class EditProfile extends Component {
                         ? (
                           <div className="edit__profile__verifiedWrapper">
                             <div className="edit__profile__verifiedName">
+                              <p>{verifiedTwitter}</p>
                               {!twitterRemoved
                                 && <img src={Verified} alt="Verified" />
                               }
-                              <p>{verifiedTwitter}</p>
                             </div>
 
                             {!twitterRemoved
@@ -1033,20 +1021,20 @@ class EditProfile extends Component {
                           </div>
                         )}
 
-                      {(!this.props.verifiedTwitter && twitterEdited && !isTwitterVerified)
-                        && (
-                          <p className="edit__profile__verifiedWrapper__warning">Verification is required for your Twitter username to save.</p>
-                        )
-                      }
-
-                      {twitterRemoved
-                        && (
-                          <p className="edit__profile__verifiedWrapper__warning">Save form to remove your Twitter username.</p>
-                        )
-                      }
                     </div>
 
+
                   </div>
+                  {(githubRemoved || twitterRemoved)
+                    && (
+                      <p className="edit__profile__verifiedWrapper__warning">Save form to remove your verified accounts.</p>
+                    )
+                  }
+                  {((!this.props.verifiedGithub && githubEdited && !isGithubVerified) || (!this.props.verifiedTwitter && twitterEdited && !isTwitterVerified))
+                    && (
+                      <p className={`edit__profile__verifiedWrapper__warning ${(githubRemoved || twitterRemoved) && 'second'}`}>Verification is required for your verified accounts to save.</p>
+                    )
+                  }
                 </div>
               </div>
 

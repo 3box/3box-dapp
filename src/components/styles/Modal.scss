@@ -320,6 +320,11 @@
   align-items: flex-start;
 }
 
+.modal__github__description__copy__tweet{
+  color: white;
+  font-weight: 800;
+}
+
 .modal__github__description__copy__text {
   text-align: left;
   color: $lighterFont;
@@ -362,6 +367,24 @@
   align-items: flex-start;
   flex-direction: column;
   width: 30%;
+
+  p {
+    color: $lightFont;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  button{
+    margin-top: 26px;
+  }
+}
+
+.modal__twitter__steps__step {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 45%;
 
   p {
     color: $lightFont;

@@ -8,6 +8,7 @@ import getCoinbaseWallet from '../assets/getCoinbaseWallet.svg';
 import ThreeBoxLogoWhite from '../assets/ThreeBoxLogoWhite.svg';
 import ThreeBoxLogoBlue from '../assets/ThreeBoxLogoBlue.svg';
 import GithubIcon from '../assets/GithubIcon.svg';
+import TwitterIcon from '../assets/twitterGrey.svg';
 import TrustWallet from '../assets/TrustWallet.png';
 import Consent from '../assets/Consent.png';
 import Access from '../assets/Access.png';
@@ -238,7 +239,7 @@ export const GithubVerificationModal = ({
               <div>
                 <div className="modal__github__steps__number">3</div>
                 <p className="modal__github__steps__text">
-                  Your verified Github account will appear below when successful!
+                  Check if your Github account was successfully verified below!
                 </p>
                 <p className="modal__github__description__copy__input--github">
                   {isGithubVerified
@@ -314,11 +315,11 @@ export const TwitterVerificationModal = ({
           <div className="modal__github__description">
             <div className="modal__github__description__copy">
               <div className="modal__github__description__copy__header">
-                <img src={GithubIcon} className="modal__github__description__githubIcon" alt="Github icon" />
+                <img src={TwitterIcon} className="modal__github__description__githubIcon" alt="Github icon" />
                 <h2>Verify your Twitter account</h2>
               </div>
               <p className="modal__github__description__copy__text">
-                Linking your Github account to your 3Box profile
+                Linking your Twitter account to your 3Box profile
                 allows your friends and apps to trust you more.
               </p>
             </div>
@@ -335,26 +336,26 @@ export const TwitterVerificationModal = ({
           </div>
 
           <div className="modal__github__steps">
-            <div className="modal__github__steps__step">
+            <div className="modal__twitter__steps__step">
               <div>
                 <div className="modal__github__steps__number">1</div>
                 <p className="modal__github__steps__text">
-                  Generate a unique key to post from your Twitter account
+                  Tweet a unique key from the account you want to connect
                 </p>
                 <p className="modal__github__description__copy__input" id="muportDID">{did}</p>
               </div>
               <button type="button">
-                <a href={`https://twitter.com/intent/tweet?text=${message}`} target="_blank">
+                <a href={`https://twitter.com/intent/tweet?text=${message}`} target="_blank" className="modal__github__description__copy__tweet">
                   Tweet this
                 </a>
               </button>
             </div>
 
-            <div className="modal__github__steps__step">
+            <div className="modal__twitter__steps__step">
               <div>
-                <div className="modal__github__steps__number">3</div>
+                <div className="modal__github__steps__number">2</div>
                 <p className="modal__github__steps__text">
-                  Your verified Twitter account will appear below when successful!
+                  Check if your Twitter account was successfully verified below!
                 </p>
                 <p className="modal__github__description__copy__input--github">
                   {isTwitterVerified
