@@ -34,6 +34,10 @@ jobs:
               CI=false npm run build
               npm run deploy-master
             fi
+            if [[ "${CIRCLE_BRANCH}" == *"release"* ]]; then
+              CI=false npm run build
+              npm run deploy-test
+            fi
 
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}-{{ checksum "package-lock.json" }}
