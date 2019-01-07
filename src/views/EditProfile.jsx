@@ -592,7 +592,9 @@ class EditProfile extends Component {
     
     Create your profile today to start building social connection and trust online. https://3box.io/`);
 
-    const twitterMessage = (`This tweet links my 3Box profile to my twitter account! %0D%0A✅ ${did} ✅%0D%0A Join web3's social profiles network by creating your account on 3box.io today. @3boxdb`);
+    const twitterMessage = (`This tweet links my 3Box profile to my twitter account! %0D%0A%0D%0AJoin web3's social profiles network by creating your account on http://3box.io/ today. %0D%0A@3boxdb%0D%0A%0D%0A✅
+    %0D%0A${did}
+    %0D%0A✅`);
 
     return (
       <div id="edit__page">

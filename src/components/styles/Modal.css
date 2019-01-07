@@ -407,6 +407,58 @@
       right: 10px; }
     #mobile__landing__prompt p {
       color: white; }
+  .githubModal {
+    padding: 0;
+    width: 84vw;
+    max-height: 540px;
+    top: 90px; }
+    .githubModal button {
+      padding: .8em 1.2em; }
+  .modal__github__description__copy__header {
+    margin-bottom: 16px; }
+    .modal__github__description__copy__header h2 {
+      font-size: 20px; }
+  .modal__github__description__githubIcon {
+    margin-right: 10px;
+    width: 22px !important; }
+  .modal__github__description {
+    padding: 16px 16px 0 16px;
+    height: 120px; }
+  .modal__github__steps {
+    padding: 16px 16px 0 16px;
+    flex-direction: column; }
+  .modal__twitter__steps__step {
+    width: 100%;
+    margin-bottom: 26px; }
+  .modal__github__done {
+    padding: 10px 0; }
+  .modal__github__steps__number {
+    margin-bottom: 9px;
+    width: 30px;
+    height: 22px;
+    background-color: transparent; }
+  .modal__github__steps__text {
+    line-height: 20px !important;
+    margin-bottom: 12px; }
+  .modal__github__description__copy__text {
+    line-height: 20px !important;
+    width: 100%; }
+  .modal__github__description__copy__input {
+    max-height: 70px;
+    overflow: hidden;
+    display: none !important; }
+  .modal__github__description__copy__input--github {
+    height: 36px;
+    margin-bottom: 0;
+    width: 85%; }
+  .modal__github__description__copy__button {
+    display: none; }
+  .modal__twitter__steps__step button {
+    margin-top: 14px; }
+  .modal__github__steps__instructions {
+    display: flex; }
+  .modal__github__description__copy__tweet {
+    padding: .8em 1.2em; }
   #mobile__landing__prompt__logo {
     width: 85vw;
     display: flex;

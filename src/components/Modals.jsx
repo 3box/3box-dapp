@@ -217,17 +217,19 @@ export const GithubVerificationModal = ({
           <div className="modal__github__steps">
             <div className="modal__github__steps__step">
               <div>
-                <div className="modal__github__steps__number">1</div>
-                <p className="modal__github__steps__text">
-                  Copy your unique key below.
-                </p>
+                <div className="modal__github__steps__instructions">
+                  <div className="modal__github__steps__number">1</div>
+                  <p className="modal__github__steps__text">
+                    Copy your unique key below.
+                  </p>
+                </div>
                 <p className="modal__github__description__copy__input" id="muportDID">{did}</p>
               </div>
               <button type="button" onClick={() => copyToClipBoard(message)}>Click to copy</button>
             </div>
 
             <div className="modal__github__steps__step">
-              <div>
+              <div className="modal__github__steps__instructions">
                 <div className="modal__github__steps__number">2</div>
                 <p className="modal__github__steps__text">Open a new gist file in Github and paste the key in the body of the file.  Save the gist as public with any valid name and file type.</p>
               </div>
@@ -237,10 +239,12 @@ export const GithubVerificationModal = ({
 
             <div className="modal__github__steps__step">
               <div>
-                <div className="modal__github__steps__number">3</div>
-                <p className="modal__github__steps__text">
-                  Check if your Github account was successfully verified below!
-                </p>
+                <div className="modal__github__steps__instructions">
+                  <div className="modal__github__steps__number">3</div>
+                  <p className="modal__github__steps__text">
+                    Check if your Github account was successfully verified below!
+                  </p>
+                </div>
                 <p className="modal__github__description__copy__input--github">
                   {isGithubVerified
                     ? 'Your Github is verified!'
@@ -257,7 +261,7 @@ export const GithubVerificationModal = ({
                 type="button"
                 onClick={verifyGithub}
               >
-                Check verification
+                Verify
             </button>
             </div>
           </div>
@@ -338,10 +342,12 @@ export const TwitterVerificationModal = ({
           <div className="modal__github__steps">
             <div className="modal__twitter__steps__step">
               <div>
-                <div className="modal__github__steps__number">1</div>
-                <p className="modal__github__steps__text">
-                  Tweet a unique key from the account you want to connect
-                </p>
+                <div className="modal__github__steps__instructions">
+                  <div className="modal__github__steps__number">1</div>
+                  <p className="modal__github__steps__text">
+                    Tweet a unique key from the account you want to connect
+                  </p>
+                </div>
                 <p className="modal__github__description__copy__input" id="muportDID">{did}</p>
               </div>
               <a href={`https://twitter.com/intent/tweet?text=${message}`} target="_blank" rel="noopener noreferrer" className="modal__github__description__copy__tweet">
@@ -351,10 +357,12 @@ export const TwitterVerificationModal = ({
 
             <div className="modal__twitter__steps__step">
               <div>
-                <div className="modal__github__steps__number">2</div>
-                <p className="modal__github__steps__text">
-                  Check if your Twitter account was successfully verified below!
-                </p>
+                <div className="modal__github__steps__instructions">
+                  <div className="modal__github__steps__number">2</div>
+                  <p className="modal__github__steps__text">
+                    Check if your Twitter account was successfully verified below!
+                  </p>
+                </div>
                 <p className="modal__github__description__copy__input--github">
                   {isTwitterVerified
                     ? 'Your Twitter is verified!'
@@ -371,7 +379,7 @@ export const TwitterVerificationModal = ({
                 type="button"
                 onClick={verifyTwitter}
               >
-                Check verification
+                Verify
             </button>
             </div>
           </div>
