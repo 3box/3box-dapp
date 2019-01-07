@@ -380,7 +380,8 @@
     border-radius: 6px;
     padding: 15px;
     width: 76vw;
-    min-height: 300px; }
+    min-height: 300px;
+    max-height: 450px; }
     .modal img {
       width: 100px; }
   #modal__onBoardingModal__progressBar {

@@ -305,6 +305,7 @@ class EditProfile extends Component {
       });
   }
 
+  // removing and unremoving Github username
   handleGithubUsername = (remove) => {
     const { editedArray, savedGithub } = this.state;
     const updatedEditedArray = editedArray;
@@ -328,6 +329,7 @@ class EditProfile extends Component {
     }
   }
 
+  // removing and unremoving Twitter username
   handleTwitterUsername = (remove) => {
     const { editedArray, savedTwitter } = this.state;
     const updatedEditedArray = editedArray;
@@ -401,6 +403,7 @@ class EditProfile extends Component {
       });
   }
 
+  // resets success / failure state of verification modals
   resetVerification = (platform) => {
     if (platform === 'Github') {
       this.setState({ githubVerifiedFailed: false });
