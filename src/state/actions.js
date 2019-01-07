@@ -169,7 +169,7 @@ export const getBox = fromSignIn => async (dispatch) => {
   });
 
   const consentGiven = () => {
-    if (fromSignIn) history.push(routes.PROFILE);
+    if (fromSignIn) history.push(routes.PROFILE_ACTIVITY);
     dispatch({
       type: 'LOADING_3BOX',
     });

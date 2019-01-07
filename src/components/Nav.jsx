@@ -62,7 +62,7 @@ class Nav extends Component {
         <div className={`${showProfileModal ? 'nav__dropdown--visible' : undefined} nav__dropdown nav__dropdown--desktop`}
           onClick={this.handleDropdown}>
           <ul>
-            <Link to={routes.PROFILE}>
+            <Link to={routes.PROFILE_ACTIVITY}>
               <li className="nav__dropdown__wrapper">
                 <img src={Profile} className="nav__dropdown__icon" alt="profile" role="button" />
                 Profile
@@ -92,7 +92,7 @@ class Nav extends Component {
               <img src={ThreeBoxLogo} alt="3Box Logo" className="landing__nav__logo" />
 
             </div>
-            <Link to={routes.PROFILE}><li className={pathname === routes.PROFILE ? 'nav__activePage' : ''}>Profile</li></Link>
+            <Link to={routes.PROFILE_ACTIVITY}><li className={pathname === routes.PROFILE_ACTIVITY ? 'nav__activePage' : ''}>Profile</li></Link>
             <Link to={routes.EDITPROFILE}><li className={pathname === routes.EDITPROFILE ? 'nav__activePage' : ''}>Edit profile</li></Link>
             <li id="mobileNav__signout" onClick={() => this.handleSignOut()}>Sign Out</li>
           </ul>

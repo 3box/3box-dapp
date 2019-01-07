@@ -539,7 +539,7 @@ class EditProfile extends Component {
       this.props.getActivity();
 
       this.setState({ saveLoading: false });
-      history.push(routes.PROFILE);
+      history.push(routes.PROFILE_ACTIVITY);
     }
   }
 
@@ -1155,7 +1155,7 @@ class EditProfile extends Component {
                   Save
                   </button>
                 <Link
-                  to={routes.PROFILE}
+                  to={routes.PROFILE_ACTIVITY}
                   className="subtext"
                   id="edit__cancel"
                   onClick={() => {

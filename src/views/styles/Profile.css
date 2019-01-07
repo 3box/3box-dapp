@@ -62,15 +62,36 @@
 .profile__category {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   margin: 15px 0 20px 0;
-  width: 230px; }
+  width: 200px; }
+
+.profile__category__sectionWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; }
 
 .profile__category__header {
   font-size: 14px;
   color: #6b6b6b;
   font-weight: 400;
   margin-bottom: 12px; }
+
+.profile__category__section {
+  font-size: 1em;
+  margin-bottom: 8px;
+  color: #b1b1b1;
+  background-color: transparent;
+  border-radius: 30px;
+  padding: 8px 12px;
+  cursor: pointer;
+  width: 100%; }
+  .profile__category__section:hover {
+    background-color: #e6e6e6a6; }
+
+.selectedCategory {
+  background-color: rgba(203, 219, 238, 0.493) !important; }
 
 #profile__user__info {
   padding: 30px 50px;
@@ -79,7 +100,7 @@
   width: 230px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   overflow: hidden;
   text-overflow: ellipsis; }
   #profile__user__info p {
