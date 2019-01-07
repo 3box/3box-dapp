@@ -11,6 +11,7 @@ import {
 import {
   getProfileData,
   getActivity,
+  getPublicDID,
 } from '../state/actions';
 import {
   handleGithubVerificationModal,
@@ -276,7 +277,7 @@ class EditProfile extends Component {
           returnedData.map((gist, i) => {
             const url = gist.files[Object.keys(gist.files)[0]].raw_url;
             return box.verified.addGithub(url).then((res) => {
-              if (res === true) {
+              if (res) {
                 console.log('Github username verified');
                 updatedEditedArray.push('proof_github');
                 this.setState({
@@ -949,7 +950,7 @@ class EditProfile extends Component {
                               className={`unstyledButton ${!githubEdited && 'uneditedGithub'} verificationButton`}
                               disabled={!githubEdited}
                               onClick={() => {
-                                this.props.getProfileData('public', 'did');
+                                this.props.getPublicDID();
                                 this.props.handleGithubVerificationModal();
                               }}
                             >
@@ -1008,7 +1009,7 @@ class EditProfile extends Component {
                               className={`unstyledButton ${!twitterEdited && 'uneditedGithub'} verificationButton`}
                               disabled={!twitterEdited}
                               onClick={() => {
-                                this.props.getProfileData('public', 'did');
+                                this.props.getPublicDID();
                                 this.props.handleTwitterVerificationModal();
                               }}
                             >
@@ -1205,6 +1206,7 @@ EditProfile.propTypes = {
   showGithubVerificationModal: PropTypes.bool,
   showTwitterVerificationModal: PropTypes.bool,
   getProfileData: PropTypes.func,
+  getPublicDID: PropTypes.func,
   getActivity: PropTypes.func,
   handleGithubVerificationModal: PropTypes.func,
   handleTwitterVerificationModal: PropTypes.func,
@@ -1235,6 +1237,7 @@ EditProfile.defaultProps = {
   showGithubVerificationModal: false,
   showTwitterVerificationModal: false,
   getProfileData: getProfileData(),
+  getPublicDID: getPublicDID(),
   getActivity: getActivity(),
   handleGithubVerificationModal: handleGithubVerificationModal(),
   handleTwitterVerificationModal: handleTwitterVerificationModal(),
@@ -1271,6 +1274,7 @@ function mapState(state) {
 export default withRouter(connect(mapState,
   {
     getProfileData,
+    getPublicDID,
     getActivity,
     handleGithubVerificationModal,
     handleTwitterVerificationModal,

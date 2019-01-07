@@ -344,6 +344,19 @@ export const getProfileData = (type, key) => async (dispatch) => {
   }
 };
 
+export const getPublicDID = () => async (dispatch) => {
+  try {
+    const did = await store.getState().threeBox.box.verified.DID();
+
+    dispatch({
+      type: 'GET_PUBLIC_DID',
+      did,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const getPublicMemberSince = () => async (dispatch) => {
   const date = await store.getState().threeBox.box.public.get('memberSince');
 
@@ -369,7 +382,7 @@ export const getVerifiedPublicGithub = () => async (dispatch) => {
 
     dispatch({
       type: 'GET_VERIFIED_PUBLIC_GITHUB',
-      verifiedGithub,
+      verifiedGithub: verifiedGithub.username,
     });
   } catch (error) {
     console.error(error);
@@ -379,9 +392,10 @@ export const getVerifiedPublicGithub = () => async (dispatch) => {
 export const getVerifiedPublicTwitter = () => async (dispatch) => {
   try {
     const verifiedTwitter = await store.getState().threeBox.box.verified.twitter();
+
     dispatch({
       type: 'GET_VERIFIED_PUBLIC_TWITTER',
-      verifiedTwitter: verifiedTwitter.twitter,
+      verifiedTwitter: verifiedTwitter.username,
     });
   } catch (error) {
     console.error(error);
