@@ -58,10 +58,8 @@ const ProfileCategories = ({
 
             <div className="profile__category">
               <div className="profile__category__sectionWrapper">
-                {console.log(location)}
                 <NavLink exact to={routes.PROFILE_ACTIVITY} className={`${location.pathname === routes.PROFILE_ACTIVITY && 'selectedCategory'} profile__category__section`}>Activity</NavLink>
                 <NavLink exact to={routes.PROFILE_ABOUT} className={`${location.pathname === routes.PROFILE_ABOUT && 'selectedCategory'} profile__category__section`}>About</NavLink>
-                {/* <NavLink exact to={routes.PROFILE_COLLECTIBLES} className="profile__category__section" activeClassName="selectedCategory">Collectibles</NavLink> */}
               </div>
             </div>
 

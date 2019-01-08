@@ -7,7 +7,7 @@ import * as routes from '../utils/routes';
 import StatusUpdate from './StatusUpdate';
 import Activity from './Activity';
 import Details from './Details';
-import Collectibles from './Collectibles';
+// import Collectibles from './Collectibles';
 import './styles/Feed.css';
 import './styles/NetworkArray.css';
 
@@ -25,10 +25,10 @@ const ProfileContent = ({ location }) => (
       && <Details />
     }
 
-    {
+    {/* {
       location.pathname === routes.PROFILE_COLLECTIBLES
       && <Collectibles />
-    }
+    } */}
 
     {/* <Switch>
       <Route

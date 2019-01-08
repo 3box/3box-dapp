@@ -37,7 +37,7 @@ const ProfileDetails = ({
   memberSince,
   verifiedTwitter,
 }) => (
-    <div>
+    <div id="feed">
       <div id="profile__user__info">
 
         <div className="profile__category">
