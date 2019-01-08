@@ -1,18 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 
 import * as routes from '../../utils/routes';
 import StatusUpdate from '../StatusUpdate';
 import Activity from './Activity';
 import Details from './Details';
 import '../styles/Feed.css';
+import '../../views/styles/Profile.css';
 import '../styles/NetworkArray.css';
 
 const ProfileContent = ({ location }) => (
   <div>
     <StatusUpdate />
+
+    <div className="profile__category--mobile">
+      <div className="profile__category__sectionWrapper">
+        <NavLink exact to={routes.PROFILE_ACTIVITY} className="profile__category__section borderRight ">Activity</NavLink>
+        <NavLink exact to={routes.PROFILE_ABOUT} className="profile__category__section">Details</NavLink>
+      </div>
+    </div>
 
     {
       location.pathname === routes.PROFILE_ACTIVITY

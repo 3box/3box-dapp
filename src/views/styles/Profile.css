@@ -66,6 +66,9 @@
   margin: 15px 0 20px 0;
   width: 200px; }
 
+.profile__category--mobile {
+  display: none; }
+
 .profile__category__sectionWrapper {
   width: 100%;
   display: flex;
@@ -263,6 +266,8 @@
     width: 100vw;
     text-align: center;
     align-items: flex-start; }
+  .profile__category__header {
+    padding: 30px 0 20px 20px; }
   #profile__fixed {
     position: static;
     width: 100vw;
@@ -286,13 +291,37 @@
     background-color: white;
     border-bottom: 1px solid #E4E4E4; }
   .profile__category {
-    width: 200px; }
+    display: none; }
+  .profile__category--mobile {
+    display: flex;
+    align-items: center;
+    margin: 30px 0 0 0;
+    width: 100%; }
+  .profile__category__section {
+    font-size: 1em;
+    margin-bottom: 0;
+    color: #b1b1b1;
+    background-color: #f5f6f8;
+    border-radius: 0;
+    padding: 12px 18px;
+    cursor: pointer;
+    width: 100%; }
+  .borderRight {
+    border-right: 1px solid #E4E4E4; }
+  .profile__category__sectionWrapper {
+    background-color: white;
+    flex-direction: row;
+    padding: 0;
+    border-top: 1px solid #E4E4E4; }
   #profile__private {
     margin-bottom: 2vh;
     margin-top: 2vh; }
   .profile__user__picture {
     margin-top: 2.4em;
     z-index: 2; }
+  .active {
+    background-color: white !important;
+    height: 100%; }
   #profile__footer {
     display: none; }
   #profile__footer__mobile {

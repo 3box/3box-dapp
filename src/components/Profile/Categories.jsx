@@ -59,7 +59,7 @@ const ProfileCategories = ({
             <div className="profile__category">
               <div className="profile__category__sectionWrapper">
                 <NavLink exact to={routes.PROFILE_ACTIVITY} className="profile__category__section">Activity</NavLink>
-                <NavLink exact to={routes.PROFILE_ABOUT} className="profile__category__section">Details</NavLink>
+                <NavLink exact to={routes.PROFILE_ABOUT} className="profile__category__section ">Details</NavLink>
               </div>
             </div>
 
