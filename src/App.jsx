@@ -160,11 +160,9 @@ class App extends Component {
     if (this.props.isSignedIntoWallet && this.props.isLoggedIn) {
       await this.props.getBox();
       if (!this.props.showErrorModal) {
-        this.props.getActivity(); // remove await
+        this.props.getActivity();
         this.props.getVerifiedPublicGithub();
         this.props.getVerifiedPublicTwitter();
-
-        // this.props.getProfileData('public', 'memberSince');
         this.props.getPublicMemberSince();
         this.props.getProfileData('public', 'status');
         this.props.getProfileData('public', 'name');
@@ -204,8 +202,6 @@ class App extends Component {
           this.props.getActivity();
           this.props.getVerifiedPublicGithub();
           this.props.getVerifiedPublicTwitter();
-
-          // this.props.getProfileData('public', 'memberSince');
           this.props.getPublicMemberSince();
           this.props.getProfileData('public', 'status');
           this.props.getProfileData('public', 'name');

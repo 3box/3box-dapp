@@ -15,7 +15,7 @@ import Loading from '../assets/Loading.svg';
 import './styles/Feed.css';
 import './styles/NetworkArray.css';
 
-const Feed = ({ ifFetchingActivity, feedByAddress, verifiedGithub }) => (
+const Feed = ({ ifFetchingActivity, feedByAddress, verifiedGithub, verifiedTwitter }) => (
   <div>
     <StatusUpdate />
     <div id="feed">
@@ -72,7 +72,7 @@ const Feed = ({ ifFetchingActivity, feedByAddress, verifiedGithub }) => (
                     if (item.dataType === 'Internal') return <FeedTileInternal item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
                     if (item.dataType === 'Token') return <FeedTileToken item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
                     if (item.dataType === 'Txs') return <FeedTileTXS item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
-                    if (item.dataType === 'Public') return <FeedTileActivity item={item} key={index} verifiedGithub={verifiedGithub} isEven={parseInt(index, 10) % 2 === 0} />;
+                    if (item.dataType === 'Public') return <FeedTileActivity item={item} key={index} verifiedGithub={verifiedGithub} verifiedTwitter={verifiedTwitter} isEven={parseInt(index, 10) % 2 === 0} />;
                     if (item.dataType === 'Private') return <FeedTileActivity item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
                   })()
                 ))
@@ -99,18 +99,21 @@ Feed.propTypes = {
   feedByAddress: PropTypes.array,
   ifFetchingActivity: PropTypes.bool,
   verifiedGithub: PropTypes.string,
+  verifiedTwitter: PropTypes.string,
 };
 
 Feed.defaultProps = {
   feedByAddress: [],
   ifFetchingActivity: false,
   verifiedGithub: '',
+  verifiedTwitter: '',
 };
 
 const mapState = state => ({
   feedByAddress: state.threeBox.feedByAddress,
   ifFetchingActivity: state.threeBox.ifFetchingActivity,
   verifiedGithub: state.threeBox.verifiedGithub,
+  verifiedTwitter: state.threeBox.verifiedTwitter,
 });
 
 export default connect(mapState)(Feed);
