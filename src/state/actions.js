@@ -299,9 +299,9 @@ export const getActivity = () => async (dispatch) => {
         Object.keys(feedByAddress[feedByAddress.length - 1])[0] === othersAddress) {
         feedByAddress[feedByAddress.length - 1][othersAddress].push(item);
       } else if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === 'threeBox' && (item.dataType === 'Public' || item.dataType === 'Private')) {
-        feedByAddress[feedByAddress.length - 1].threeBox.push(item);
+        item.key !== 'ethereum_proof' && feedByAddress[feedByAddress.length - 1].threeBox.push(item);
       } else if (item.dataType === 'Public' || item.dataType === 'Private') {
-        feedByAddress.push({
+        item.key !== 'proof_did' && feedByAddress.push({
           threeBox: [item],
         });
       } else {
