@@ -42,7 +42,6 @@ export const FeedTileActivity = ({ item, isEven, verifiedGithub, verifiedTwitter
       }
     </p>
     <p className="feed__activity__address__amount">
-      {console.log(verifiedTwitter)}
       {item.key === 'image' || item.key === 'coverPhoto'
         ? <img src={Image} alt="Transaction Icon" className="feed__activity__address__amount__image" />
         : item.dataType === 'Private'
