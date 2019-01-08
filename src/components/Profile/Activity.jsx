@@ -7,12 +7,13 @@ import {
   FeedTileToken,
   FeedTileInternal,
   FeedTileActivity,
-} from './FeedTile';
+} from '../FeedTile';
 
-import networkArray from '../utils/networkArray';
-import Loading from '../assets/Loading.svg';
-import './styles/Feed.css';
-import './styles/NetworkArray.css';
+import networkArray from '../../utils/networkArray';
+import Loading from '../../assets/Loading.svg';
+import '../styles/Feed.css';
+import '../../views/styles/Profile.css';
+import '../styles/NetworkArray.css';
 
 const ProfileContent = ({ ifFetchingActivity, feedByAddress, verifiedGithub }) => (
   <div id="feed">

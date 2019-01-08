@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, NavLink, withRouter } from 'react-router-dom';
-import { address } from '../utils/address';
-import * as routes from '../utils/routes';
-import EthereumLogo from '../assets/EthereumIcon.svg';
+import { address } from '../../utils/address';
+import * as routes from '../../utils/routes';
+import EthereumLogo from '../../assets/EthereumIcon.svg';
 
-import '../views/styles/Profile.css';
+import '../../views/styles/Profile.css';
 
 const ProfileCategories = ({
   name,
@@ -58,8 +58,8 @@ const ProfileCategories = ({
 
             <div className="profile__category">
               <div className="profile__category__sectionWrapper">
-                <NavLink exact to={routes.PROFILE_ACTIVITY} className={`${location.pathname === routes.PROFILE_ACTIVITY && 'selectedCategory'} profile__category__section`}>Activity</NavLink>
-                <NavLink exact to={routes.PROFILE_ABOUT} className={`${location.pathname === routes.PROFILE_ABOUT && 'selectedCategory'} profile__category__section`}>About</NavLink>
+                <NavLink exact to={routes.PROFILE_ACTIVITY} className="profile__category__section">Activity</NavLink>
+                <NavLink exact to={routes.PROFILE_ABOUT} className="profile__category__section">Details</NavLink>
               </div>
             </div>
 

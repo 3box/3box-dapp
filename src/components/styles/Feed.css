@@ -77,9 +77,8 @@
 
 #feed {
   background-color: white;
-  max-width: 700px;
-  min-width: 700px;
-  padding: 1.3em;
+  max-width: calc(700px + 2.6em) !important;
+  min-width: calc(700px + 2.6em) !important;
   left: calc(50vw - 350px);
   border: 1px solid #E4E4E4;
   border-radius: 12px;
@@ -96,8 +95,19 @@
     text-align: center;
     overflow: scroll; }
 
+.profile__details {
+  padding: 0 !important;
+  max-width: calc(700px + 2.6em) !important;
+  min-width: calc(700px + 2.6em) !important; }
+
 #feed__header {
-  margin-bottom: 1em; }
+  font-size: 20px;
+  line-height: 24px !important;
+  color: #747677;
+  font-weight: 400;
+  margin-bottom: -1px;
+  border-bottom: 1px solid #E4E4E4;
+  padding: 30px 0 20px 30px; }
 
 .feed__activity__tile {
   display: flex;
@@ -115,7 +125,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 1.3em;
-  padding: 0; }
+  padding: 0 0 0 30px; }
   .feed__activity__context .feed__activity__context__network {
     min-width: 2.2em;
     height: 2.2em;
@@ -176,7 +186,8 @@
   display: flex;
   align-items: center;
   margin-top: .6em;
-  margin-left: 52px;
+  margin-left: 30px;
+  margin-right: 30px;
   min-height: 2.5em;
   padding: .4em .8em;
   border-radius: 4px;

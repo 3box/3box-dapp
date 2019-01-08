@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
-import * as routes from '../utils/routes';
-import StatusUpdate from './StatusUpdate';
+import * as routes from '../../utils/routes';
+import StatusUpdate from '../StatusUpdate';
 import Activity from './Activity';
 import Details from './Details';
-// import Collectibles from './Collectibles';
-import './styles/Feed.css';
-import './styles/NetworkArray.css';
+import '../styles/Feed.css';
+import '../styles/NetworkArray.css';
 
 const ProfileContent = ({ location }) => (
   <div>
@@ -52,15 +51,11 @@ const ProfileContent = ({ location }) => (
 );
 
 ProfileContent.propTypes = {
-  feedByAddress: PropTypes.array,
-  ifFetchingActivity: PropTypes.bool,
-  verifiedGithub: PropTypes.string,
+  location: PropTypes.object,
 };
 
 ProfileContent.defaultProps = {
-  feedByAddress: [],
-  ifFetchingActivity: false,
-  verifiedGithub: '',
+  location: {},
 };
 
 const mapState = state => ({

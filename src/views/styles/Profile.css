@@ -73,10 +73,12 @@
   align-items: flex-start; }
 
 .profile__category__header {
-  font-size: 14px;
-  color: #6b6b6b;
+  font-size: 20px;
+  color: #747677;
   font-weight: 400;
-  margin-bottom: 12px; }
+  margin-bottom: 30px;
+  border-bottom: 1px solid #E4E4E4;
+  padding: 30px 0 20px 30px; }
 
 .profile__category__section {
   font-size: 1em;
@@ -90,8 +92,9 @@
   .profile__category__section:hover {
     background-color: #e6e6e6a6; }
 
-.selectedCategory {
-  background-color: rgba(203, 219, 238, 0.493) !important; }
+.active {
+  background-color: rgba(203, 219, 238, 0.493) !important;
+  color: #6b6b6b; }
 
 #profile__user__info {
   padding: 30px 50px;
@@ -167,10 +170,11 @@
 .profile__category__field {
   display: flex;
   align-items: center;
-  margin: 5px 0 6px 0;
+  margin: 5px 0 18px 0;
   display: flex;
   justify-content: space-between;
-  width: 230px; }
+  width: 300px;
+  padding-left: 40px; }
   .profile__category__field p {
     color: #6b6b6b;
     width: 194px;
@@ -180,7 +184,7 @@
     display: inline-block; }
 
 .profile__category__field--private {
-  width: 156px !important; }
+  width: 226px !important; }
 
 #profile__user__name {
   font-size: 1.4em;
@@ -245,6 +249,10 @@
   width: 3em;
   height: 3em;
   z-index: 1; }
+
+.profile__details__category {
+  width: 100%;
+  margin-bottom: 14px; }
 
 @media only screen and (max-width: 600px) {
   .profile__coverPhoto {
