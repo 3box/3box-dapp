@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
+import * as routes from '../../utils/routes';
 import GithubIcon from '../../assets/GithubIcon.svg';
 import TwitterIcon from '../../assets/twitterGrey.svg';
 import Verified from '../../assets/Verified.svg';
@@ -36,7 +39,11 @@ const ProfileDetails = ({
 }) => (
     <div className="profile__details" id="feed">
       <div className="profile__details__category">
-        <h5 className="profile__category__header">About</h5>
+
+        <div className="profile__category__header">
+          <h5>About</h5>
+          <Link to={routes.EDITPROFILE} className="profile__category__editLink">Edit</Link>
+        </div>
 
         <div className="profile__category__field">
           <div>
@@ -85,7 +92,7 @@ const ProfileDetails = ({
               )
             }
           </div>
-          
+
           {birthday
             && (
               <img id="editprofile__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
@@ -106,7 +113,10 @@ const ProfileDetails = ({
       </div>
 
       <div className="profile__details__category">
-        <h5 className="profile__category__header">Verified Accounts</h5>
+        <div className="profile__category__header">
+          <h5>Verified Accounts</h5>
+          <Link to={routes.EDITPROFILE} className="profile__category__editLink">Edit</Link>
+        </div>
 
         <div className="profile__category__field" title="Github">
           <div>
@@ -141,8 +151,11 @@ const ProfileDetails = ({
       </div>
 
       <div className="profile__details__category">
-        <h5 className="profile__category__header">Work</h5>
 
+        <div className="profile__category__header">
+          <h5>Work</h5>
+          <Link to={routes.EDITPROFILE} className="profile__category__editLink">Edit</Link>
+        </div>
 
         <div className="profile__category__field" title="Employer">
           <div>
@@ -168,7 +181,10 @@ const ProfileDetails = ({
       </div>
 
       <div className="profile__details__category">
-        <h5 className="profile__category__header">Education</h5>
+        <div className="profile__category__header">
+          <h5>Education</h5>
+          <Link to={routes.EDITPROFILE} className="profile__category__editLink">Edit</Link>
+        </div>
 
         <div className="profile__category__field" title="School">
           <div>

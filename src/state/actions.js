@@ -73,7 +73,6 @@ export const requestAccess = directLogin => async (dispatch) => {
         allowAccessModal: false,
       });
     } catch (error) {
-      console.log(error);
       history.push(routes.LANDING);
       dispatch({
         type: 'HANDLE_DENIED_ACCESS_MODAL',
