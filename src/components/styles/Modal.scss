@@ -454,6 +454,11 @@
     background-color: #00C77F;
     border: none;
 
+    &:disabled {
+      background-color: transparent !important;
+      border: 1px solid $lighterFont;
+    }
+
     &:hover {
       background-color: rgb(0, 180, 114);
       -webkit-transition: all 0.4s ease-in-out;
@@ -539,19 +544,21 @@
 
   .modal__github__description__copy__header {
     margin-bottom: 16px;
+
     h2 {
       font-size: 20px;
     }
   }
 
-  .modal__github__description__githubIcon{
+  .modal__github__description__githubIcon {
     margin-right: 10px;
     width: 22px !important;
   }
 
-  .modal__github__steps__step{
+  .modal__github__steps__step {
     width: 100%;
     margin-bottom: 20px;
+
     button {
       margin-top: 12px;
     }

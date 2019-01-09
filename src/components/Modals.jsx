@@ -210,7 +210,7 @@ export const GithubVerificationModal = ({
                 resetVerification('Github');
               }}
             >
-              Close
+              Cancel
           </button>
           </div>
 
@@ -269,7 +269,7 @@ export const GithubVerificationModal = ({
           <div className="modal__github__done">
             <button
               type="button"
-
+              disabled={!isGithubVerified}
               onClick={() => {
                 handleGithubVerificationModal();
                 resetVerification('Github');
@@ -335,7 +335,7 @@ export const TwitterVerificationModal = ({
                 resetVerification('Twitter');
               }}
             >
-              Close
+              Cancel
           </button>
           </div>
 
@@ -387,7 +387,7 @@ export const TwitterVerificationModal = ({
           <div className="modal__github__done">
             <button
               type="button"
-
+              disabled={!isTwitterVerified}
               onClick={() => {
                 handleTwitterVerificationModal();
                 resetVerification('Twitter');

@@ -360,6 +360,9 @@
   .modal__github__done button {
     background-color: #00C77F;
     border: none; }
+    .modal__github__done button:disabled {
+      background-color: transparent !important;
+      border: 1px solid #747677; }
     .modal__github__done button:hover {
       background-color: #00b472;
       -webkit-transition: all 0.4s ease-in-out;
