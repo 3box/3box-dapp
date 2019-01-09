@@ -18,7 +18,7 @@ This is the home of the [3Box Profiles Application](https://3box.io), which is d
 For an overview of 3Box and all of our components, check out the [main 3Box project repo](https://github.com/3box/3box).
 
 # Functionality
-## Social Profiles
+## Create a Social Profile
 The primary feature of the 3Box Profiles App is that it allows Ethereum users to create a shareable social profile for their Ethereum account. 3Box profiles consist of various public and private information saved by the user and other applications (with the user's consent). 
 
 #### Public Profile
@@ -27,10 +27,10 @@ Public profiles are available for all to see. The 3Box Profiles App allows users
 #### Private Profile
 Private profiles consist of encrypted data and are only made available to applications that the user approves. The 3Box Profiles App offers users the ability save email and birthday to their private profile, however applications can save additional information there as well.
 
-## Activity Feed
+## View Your Activity Feed
 User activity feeds display a simple, unified view on a user's activity across all Ethereum networks and Box. The 3Box activity feed relies on the `3box-js` getProfile() method and the MetaMask contract metadata library to replace hexadecimal Ethereum addresses with more user-friendly information.
 
-## Verifications
+## Verify Your Existing Social Accounts
 The 3Box Profiles Application allows users to verify certain important profile attributes so others can be more confident in the information that users claim about themselves. Twitter and Github handles are verified and saved to the public profile, and  emails are verified and saved to the private profile. The code for verifications can be found at [`3box-verifications`](https://github.com/3box/3box-verifications), and verifications follow decentralized identity (DID) standards proposed by the decentralized identity foundation (DIF).
 
 # Technical Components
