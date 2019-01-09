@@ -30,7 +30,7 @@ Private profiles consist of encrypted data and are only made available to applic
 ## View Your Activity Feed
 User activity feeds display a simple, unified view on a user's activity across all Ethereum networks and Box. The 3Box activity feed relies on the `3box-js` getProfile() method and the MetaMask contract metadata library to replace hexadecimal Ethereum addresses with more user-friendly information.
 
-## Verify Your Existing Social Accounts
+## Verify Your Web2 Social Accounts
 The 3Box Profiles Application allows users to verify certain important profile attributes so others can be more confident in the information that users claim about themselves. Twitter and Github handles are verified and saved to the public profile, and  emails are verified and saved to the private profile. The code for verifications can be found at [`3box-verifications`](https://github.com/3box/3box-verifications), and verifications follow decentralized identity (DID) standards proposed by the decentralized identity foundation (DIF).
 
 # Technical Components
