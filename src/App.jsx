@@ -96,9 +96,19 @@ class App extends Component {
       this.props.handleMobileWalletModal();
     }
 
-    if (typeof window.web3 !== 'undefined' && (pathname === routes.PROFILE || pathname === routes.EDITPROFILE || pathname === routes.PROFILE_ABOUT || pathname === routes.PROFILE_ACTIVITY || pathname === routes.PROFILE_COLLECTIBLES)) { // no wallet and lands on restricted page
+    if (typeof window.web3 !== 'undefined'
+      && (pathname === routes.PROFILE
+        || pathname === routes.EDITPROFILE
+        || pathname === routes.PROFILE_ABOUT
+        || pathname === routes.PROFILE_ACTIVITY
+        || pathname === routes.PROFILE_COLLECTIBLES)) { // no wallet and lands on restricted page
       this.loadData();
-    } else if (typeof window.web3 === 'undefined' && (pathname === routes.PROFILE || pathname === routes.EDITPROFILE || pathname === routes.PROFILE_ABOUT || pathname === routes.PROFILE_ACTIVITY || pathname === routes.PROFILE_COLLECTIBLES)) { // has wallet and lands on restricted page
+    } else if (typeof window.web3 === 'undefined'
+      && (pathname === routes.PROFILE
+        || pathname === routes.EDITPROFILE
+        || pathname === routes.PROFILE_ABOUT
+        || pathname === routes.PROFILE_ACTIVITY
+        || pathname === routes.PROFILE_COLLECTIBLES)) { // has wallet and lands on restricted page
       history.push(routes.LANDING);
       this.props.requireMetaMaskModal();
       this.props.handleMobileWalletModal();
@@ -163,7 +173,6 @@ class App extends Component {
         this.props.getActivity(); // remove await
         this.props.getVerifiedPublicGithub();
         this.props.getVerifiedPublicTwitter();
-
         this.props.getPublicMemberSince();
         this.props.getProfileData('public', 'status');
         this.props.getProfileData('public', 'name');
@@ -209,7 +218,6 @@ class App extends Component {
           this.props.getActivity();
           this.props.getVerifiedPublicGithub();
           this.props.getVerifiedPublicTwitter();
-
           this.props.getPublicMemberSince();
           this.props.getProfileData('public', 'status');
           this.props.getProfileData('public', 'name');
