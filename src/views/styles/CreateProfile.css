@@ -75,9 +75,7 @@
   max-width: 34vw;
   min-width: 450px;
   height: fit-content;
-  position: absolute;
-  top: 170px;
-  left: 17%; }
+  margin-top: 6vh; }
 
 .create__action__form__header {
   color: #1168df;
@@ -138,6 +136,14 @@
   flex-direction: column;
   align-items: center;
   width: 100%; }
+
+@media only screen and (max-height: 800px) {
+  .create__action {
+    min-height: 800px; }
+  .create__action__form {
+    margin-top: 60px; }
+  .create {
+    min-height: 800px; } }
 
 @media only screen and (max-width: 600px) {
   .create {

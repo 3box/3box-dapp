@@ -88,10 +88,10 @@
   max-width: 34vw;
   min-width: 450px;
   height: fit-content;
-  // margin-top: 120px;
-  position: absolute;
-  top: 170px;
-  left: 17%;
+  margin-top: 6vh;
+  // position: absolute;
+  // top: 170px;
+  // left: 17%;
 }
 
 .create__action__form__header {
@@ -164,8 +164,18 @@
   width: 100%;
 }
 
-@media (max-height: 900px) {
-  .create__action__form {}
+@media only screen and (max-height: 800px) {
+  .create__action {
+    min-height: 800px;
+  }
+
+  .create__action__form {
+    margin-top: 60px;
+  }
+
+  .create {
+    min-height: 800px;
+  }
 }
 
 
