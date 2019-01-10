@@ -4,7 +4,7 @@
   "description": "3box dapp",
   "private": true,
   "dependencies": {
-    "3box": "^1.2.0-beta.6",
+    "3box": "^1.2.0",
     "@babel/polyfill": "^7.0.0",
     "babel-preset-env": "^1.7.0",
     "emoji-mart": "^2.9.1",
