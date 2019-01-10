@@ -7,6 +7,7 @@ import * as routes from './utils/routes';
 import { store } from './state/store';
 import Landing from './views/Landing';
 import Profile from './views/Profile';
+import ProfilePublic from './views/ProfilePublic';
 import EditProfile from './views/EditProfile';
 import Profiles from './views/Profiles';
 import Jobs from './views/Jobs';
@@ -96,7 +97,15 @@ class App extends Component {
       this.props.handleMobileWalletModal();
     }
 
-    if (typeof window.web3 !== 'undefined'
+    if (pathname.substring(6, 8) === '0x') {
+      // await Box // eslint-disable-line no-undef
+      //   .openBox(
+      //     store.getState().threeBox.accountAddress || address,
+      //     window.web3.currentProvider, // eslint-disable-line no-undef
+      //     opts,
+      //   );
+      console.log('public profile in app');
+    } else if (typeof window.web3 !== 'undefined'
       && (pathname === routes.PROFILE
         || pathname === routes.EDITPROFILE
         || pathname === routes.PROFILE_ABOUT
@@ -170,7 +179,7 @@ class App extends Component {
     if (this.props.isSignedIntoWallet && this.props.isLoggedIn) {
       await this.props.getBox();
       if (!this.props.showErrorModal) {
-        this.props.getActivity(); // remove await
+        this.props.getActivity();
         this.props.getVerifiedPublicGithub();
         this.props.getVerifiedPublicTwitter();
         this.props.getPublicMemberSince();
@@ -443,6 +452,11 @@ class App extends Component {
           <Route
             path={routes.EDITPROFILE}
             component={EditProfile}
+          />
+
+          <Route
+            path={routes.PROFILE_PUBLIC}
+            component={ProfilePublic}
           />
 
           <Route

@@ -239,13 +239,19 @@ export const getBox = fromSignIn => async (dispatch) => {
   }
 };
 
-export const getActivity = () => async (dispatch) => {
+export const getActivity = publicProfile => async (dispatch) => {
   try {
     dispatch({
       type: 'LOADING_ACTIVITY',
     });
 
-    const activity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
+    let activity;
+
+    if (publicProfile) {
+      activity = await ThreeBoxActivity.get(publicProfile); // eslint-disable-line no-undef
+    } else {
+      activity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
+    }
 
     // add datatype
     activity.internal = activity.internal.map(object => Object.assign({
@@ -258,27 +264,35 @@ export const getActivity = () => async (dispatch) => {
       dataType: 'Token',
     }, object));
 
-    let publicActivity = await store.getState().threeBox.box.public.log;
-    let privateActivity = await store.getState().threeBox.box.private.log;
+    let feed;
 
-    publicActivity = publicActivity.map((object) => {
-      object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
-      return Object.assign({
-        dataType: 'Public',
-      }, object);
-    });
-    privateActivity = privateActivity.map((object) => {
-      object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
-      return Object.assign({
-        dataType: 'Private',
-      }, object);
-    });
+    if (publicProfile) {
+      feed = activity.internal
+        .concat(activity.txs)
+        .concat(activity.token);
+    } else {
+      let publicActivity = await store.getState().threeBox.box.public.log;
+      let privateActivity = await store.getState().threeBox.box.private.log;
 
-    const feed = activity.internal
-      .concat(activity.txs)
-      .concat(activity.token)
-      .concat(publicActivity)
-      .concat(privateActivity);
+      publicActivity = publicActivity.map((object) => {
+        object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
+        return Object.assign({
+          dataType: 'Public',
+        }, object);
+      });
+      privateActivity = privateActivity.map((object) => {
+        object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
+        return Object.assign({
+          dataType: 'Private',
+        }, object);
+      });
+
+      feed = activity.internal
+        .concat(activity.txs)
+        .concat(activity.token)
+        .concat(publicActivity)
+        .concat(privateActivity);
+    }
 
     // if timestamp is undefined, give it the timestamp of the previous entry
     feed.map((item, i) => {
@@ -312,12 +326,20 @@ export const getActivity = () => async (dispatch) => {
       }
     });
 
-    dispatch({
-      type: 'UPDATE_ACTIVITY',
-      feedByAddress,
-      ifFetchingActivity: false,
-      isLoggedIn: true,
-    });
+    if (publicProfile) {
+      dispatch({
+        type: 'GET_PUBLIC_PROFILE_ACTIVITY',
+        publicProfileActivity: feedByAddress,
+        ifFetchingActivity: false,
+      });
+    } else {
+      dispatch({
+        type: 'UPDATE_ACTIVITY',
+        feedByAddress,
+        ifFetchingActivity: false,
+        isLoggedIn: true,
+      });
+    }
   } catch (err) {
     dispatch({
       type: 'FAILED_LOADING_ACTIVITY',
@@ -327,6 +349,51 @@ export const getActivity = () => async (dispatch) => {
       showErrorModal: true,
       provideConsent: false,
     });
+  }
+};
+
+export const getProfile = (profileAddress, opts) => async (dispatch) => {
+  try {
+    const publicProfile = await Box.getProfile(profileAddress, opts); // eslint-disable-line no-undef
+    const publicVerifiedAccounts = await Box.getVerifiedAccounts(publicProfile); // eslint-disable-line no-undef
+
+    dispatch({
+      type: 'GET_PUBLIC_PROFILE',
+      publicProfile,
+      publicVerifiedAccounts,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getProfilesVerifiedAccounts = claim => async (dispatch) => {
+  try {
+    console.log('hit verfiy');
+    const publicVerifiedAccounts = await Box.getVerifiedAccounts(claim); // eslint-disable-line no-undef
+    dispatch({
+      type: 'GET_PUBLIC_PROFILE_VERFIEDACCOUNTS',
+      publicVerifiedAccounts,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const openBox = profileAddress => async (dispatch) => {
+  try {
+    const publicBox = await Box // eslint-disable-line no-undef
+      .openBox(
+        profileAddress,
+        window.web3.currentProvider, // eslint-disable-line no-undef
+      );
+
+    dispatch({
+      type: 'GET_PUBLIC_BOX',
+      publicBox,
+    });
+  } catch (error) {
+    console.error(error);
   }
 };
 
