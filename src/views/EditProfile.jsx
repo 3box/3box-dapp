@@ -77,6 +77,7 @@ class EditProfile extends Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0)
     const {
       name,
       verifiedGithub,
