@@ -424,6 +424,7 @@ class EditProfile extends Component {
 
     if (platform === 'Github') {
       updatedEditedArray.splice(updatedEditedArray.indexOf('proof_github'), 1);
+      if (!updatedEditedArray.length) this.setState({ disableSave: true });
       if (isGithubVerified) box.public.remove('proof_github');
       this.setState({
         githubVerifiedFailed: false,
@@ -436,7 +437,8 @@ class EditProfile extends Component {
         verifiedGithub: '',
       });
     } else if (platform === 'Twitter') {
-      updatedEditedArray.splice(updatedEditedArray.indexOf('proof_github'), 1);
+      updatedEditedArray.splice(updatedEditedArray.indexOf('proof_twitter'), 1);
+      if (!updatedEditedArray.length) this.setState({ disableSave: true });
       if (isTwitterVerified) box.public.remove('proof_twitter');
       this.setState({
         twitterVerifiedFailed: false,
