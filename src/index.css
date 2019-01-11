@@ -172,6 +172,12 @@ input:focus {
   .hideBanner button {
     background-color: white; }
 
+input[type='text'],
+input[type='number'],
+select:focus,
+textarea {
+  font-size: 16px; }
+
 .webThreeBanner__link {
   border: 1px solid white;
   margin-left: 24px;

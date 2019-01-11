@@ -113,7 +113,7 @@ button {
   transition: color .4s ease;
   border: none;
 
-  &:hover{
+  &:hover {
     color: $threeBoxBlueHover;
     padding: 0;
     background-color: transparent;
@@ -213,6 +213,13 @@ input:focus {
   }
 }
 
+input[type='text'],
+input[type='number'],
+select:focus,
+textarea {
+  font-size: 16px;
+}
+
 .webThreeBanner__link {
   border: 1px solid white;
   margin-left: 24px;
@@ -269,7 +276,7 @@ input:focus {
   opacity: .6;
 }
 
-.clearProfPic{
+.clearProfPic {
   background-color: white !important;
 }
 
