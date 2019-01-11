@@ -418,10 +418,12 @@ class EditProfile extends Component {
 
   // resets success / failure state of verification modals
   resetVerification = (platform) => {
-    const { isGithubVerified, isTwitterVerified } = this.state;
+    const { isGithubVerified, isTwitterVerified, editedArray } = this.state;
+    const updatedEditedArray = editedArray;
     const { box } = this.props;
 
     if (platform === 'Github') {
+      updatedEditedArray.splice(updatedEditedArray.indexOf('proof_github'), 1);
       if (isGithubVerified) box.public.remove('proof_github');
       this.setState({
         githubVerifiedFailed: false,
@@ -434,6 +436,7 @@ class EditProfile extends Component {
         verifiedGithub: '',
       });
     } else if (platform === 'Twitter') {
+      updatedEditedArray.splice(updatedEditedArray.indexOf('proof_github'), 1);
       if (isTwitterVerified) box.public.remove('proof_twitter');
       this.setState({
         twitterVerifiedFailed: false,
