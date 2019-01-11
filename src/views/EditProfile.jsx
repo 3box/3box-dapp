@@ -421,7 +421,6 @@ class EditProfile extends Component {
     const { isGithubVerified, isTwitterVerified, editedArray } = this.state;
     const updatedEditedArray = editedArray;
     const { box } = this.props;
-
     if (platform === 'Github') {
       updatedEditedArray.splice(updatedEditedArray.indexOf('proof_github'), 1);
       if (!updatedEditedArray.length) this.setState({ disableSave: true });
