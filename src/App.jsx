@@ -74,7 +74,6 @@ class App extends Component {
       onBoardingModalMobileTwo: false,
       onBoardingModalMobileThree: false,
       width: window.innerWidth,
-
       retractNav: false,
       showSideNav: false,
     };
@@ -266,7 +265,8 @@ class App extends Component {
     } = this.state;
 
     const { pathname } = location;
-    const isMobile = width <= 600;
+    const isMobile = width <= 812;
+    // const isMobile = width <= 600;
     const classHide = retractNav ? 'hide' : '';
     const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
     const isLandingPage = pathname === routes.LANDING && 'landing';
@@ -295,7 +295,7 @@ class App extends Component {
         <div className={`${!downloadBanner ? 'hideBanner' : ''} webThreeBanner`}>
           <p>
             3Box requires web3.  Download the MetaMask extension to continue.
-              </p>
+          </p>
           <a href="https://metamask.io/" target="_blank" rel="noopener noreferrer">
             <button type="button" className="webThreeBanner__link">
               Download

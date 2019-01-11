@@ -911,7 +911,7 @@ class EditProfile extends Component {
                         <h5>Github</h5>
                       </div>
                       {this.props.verifiedGithub
-                        ? (
+                        && (
                           <div className="edit__profile__verifiedWrapper">
                             <div className="edit__profile__verifiedName">
                               <p>{verifiedGithub}</p>
@@ -940,19 +940,21 @@ class EditProfile extends Component {
                             </button>
                               )}
                           </div>
-                        )
-                        : (
+                        )}
+
+                      {!this.props.verifiedGithub
+                        && (
                           <div className="edit__profile__verifiedWrapper">
                             <input
                               name="verifiedGithub"
                               type="text"
-                              className="edit__profile__value--github"
+                              className="edit__profile__value--github verifiedForm"
                               value={verifiedGithub}
                               onChange={e => this.handleFormChange(e, 'verifiedGithub')}
                             />
                             <button
                               type="button"
-                              className={`unstyledButton ${!githubEdited && 'uneditedGithub'} verificationButton`}
+                              className={`unstyledButton ${!githubEdited && 'uneditedGithub'} verificationButton verifiedForm`}
                               disabled={!githubEdited}
                               onClick={() => {
                                 this.props.getPublicDID();
@@ -960,9 +962,13 @@ class EditProfile extends Component {
                               }}
                             >
                               Verify
-                            </button>
+                              </button>
+                            <p className="edit__profile__verified--NoMobile">
+                              Add verifications using a desktop browser.
+                            </p>
                           </div>
                         )}
+
                     </div>
 
                     <div className="edit__profile__fields__entry">
@@ -970,7 +976,7 @@ class EditProfile extends Component {
                         <h5>Twitter</h5>
                       </div>
                       {this.props.verifiedTwitter
-                        ? (
+                        && (
                           <div className="edit__profile__verifiedWrapper">
                             <div className="edit__profile__verifiedName">
                               <p>{verifiedTwitter}</p>
@@ -999,19 +1005,21 @@ class EditProfile extends Component {
                             </button>
                               )}
                           </div>
-                        )
-                        : (
+                        )}
+
+                      {!this.props.verifiedTwitter
+                        && (
                           <div className="edit__profile__verifiedWrapper">
                             <input
                               name="verifiedTwitter"
                               type="text"
-                              className="edit__profile__value--github"
+                              className="edit__profile__value--github verifiedForm"
                               value={verifiedTwitter}
                               onChange={e => this.handleFormChange(e, 'verifiedTwitter')}
                             />
                             <button
                               type="button"
-                              className={`unstyledButton ${!twitterEdited && 'uneditedGithub'} verificationButton`}
+                              className={`unstyledButton ${!twitterEdited && 'uneditedGithub'} verificationButton verifiedForm`}
                               disabled={!twitterEdited}
                               onClick={() => {
                                 this.props.getPublicDID();
@@ -1020,6 +1028,9 @@ class EditProfile extends Component {
                             >
                               Verify
                             </button>
+                            <p className="edit__profile__verified--NoMobile">
+                              Add verifications using a desktop browser.
+                            </p>
                           </div>
                         )}
 

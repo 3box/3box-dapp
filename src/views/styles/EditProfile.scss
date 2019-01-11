@@ -645,6 +645,10 @@
   z-index: 1;
 }
 
+.edit__profile__verified--NoMobile {
+  display: none;
+}
+
 @media only screen and (max-width: 600px) {
   .edit__profile__editCanvas__wrapper {
     margin-right: 1em;
@@ -712,6 +716,15 @@
 
   .edit__profile__verifiedWrapper {
     width: 100%;
+  }
+
+  .verifiedForm {
+    display: none !important;
+  }
+
+  .edit__profile__verified--NoMobile {
+    display: flex;
+    color: $lightestFont;
   }
 
   #edit__cancel {

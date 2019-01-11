@@ -535,6 +535,9 @@
   height: 3em;
   z-index: 1; }
 
+.edit__profile__verified--NoMobile {
+  display: none; }
+
 @media only screen and (max-width: 600px) {
   .edit__profile__editCanvas__wrapper {
     margin-right: 1em; }
@@ -577,6 +580,11 @@
     border-top-right-radius: 0; }
   .edit__profile__verifiedWrapper {
     width: 100%; }
+  .verifiedForm {
+    display: none !important; }
+  .edit__profile__verified--NoMobile {
+    display: flex;
+    color: #b1b1b1; }
   #edit__cancel {
     margin-left: 5vw; }
   .edit__profile__value--privateContainer {

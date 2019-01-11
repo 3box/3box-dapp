@@ -233,7 +233,6 @@ export const GithubVerificationModal = ({
                 <div className="modal__github__steps__number">2</div>
                 <p className="modal__github__steps__text">Open a new gist file in Github and paste the key in the body of the file.  Save the gist as public with any valid name and file type.</p>
               </div>
-              {/* <img src={GithubIcon} className="modal__github__description__githubIcon" alt="Github icon" /> */}
               <button type="button" onClick={() => window.open('https://gist.github.com/', '_blank')}>Open a gist file</button>
             </div>
 
@@ -276,6 +275,16 @@ export const GithubVerificationModal = ({
               }}
             >
               Done
+          </button>
+            <button
+              className="modal__github__description__copy__button--mobile"
+              type="button"
+              onClick={() => {
+                handleGithubVerificationModal();
+                resetVerification('Github');
+              }}
+            >
+              Cancel
           </button>
           </div>
         </div>
@@ -342,7 +351,7 @@ export const TwitterVerificationModal = ({
           <div className="modal__github__steps">
             <div className="modal__twitter__steps__step">
               <div>
-                <div className="modal__github__steps__instructions">
+                <div className="modal__twitter__steps__instructions">
                   <div className="modal__github__steps__number">1</div>
                   <p className="modal__github__steps__text">
                     Tweet a unique key from the account you want to connect
@@ -357,7 +366,7 @@ export const TwitterVerificationModal = ({
 
             <div className="modal__twitter__steps__step">
               <div>
-                <div className="modal__github__steps__instructions">
+                <div className="modal____steps__instructions">
                   <div className="modal__github__steps__number">2</div>
                   <p className="modal__github__steps__text">
                     Check if your Twitter account was successfully verified below!
@@ -394,6 +403,16 @@ export const TwitterVerificationModal = ({
               }}
             >
               Done
+          </button>
+            <button
+              className="modal__github__description__copy__button--mobile"
+              type="button"
+              onClick={() => {
+                handleTwitterVerificationModal();
+                resetVerification('Twitter');
+              }}
+            >
+              Cancel
           </button>
           </div>
         </div>
