@@ -275,7 +275,6 @@ export const GithubVerificationModal = ({
               disabled={!isGithubVerified}
               onClick={() => {
                 handleGithubVerificationModal();
-                resetVerification('Github');
               }}
             >
               Done
@@ -404,7 +403,6 @@ export const TwitterVerificationModal = ({
               disabled={!isTwitterVerified}
               onClick={() => {
                 handleTwitterVerificationModal();
-                resetVerification('Twitter');
               }}
             >
               Done

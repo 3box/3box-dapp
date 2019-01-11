@@ -418,10 +418,33 @@ class EditProfile extends Component {
 
   // resets success / failure state of verification modals
   resetVerification = (platform) => {
+    const { isGithubVerified, isTwitterVerified } = this.state;
+    const { box } = this.props;
+
     if (platform === 'Github') {
-      this.setState({ githubVerifiedFailed: false });
-    } else {
-      this.setState({ twitterVerifiedFailed: false });
+      if (isGithubVerified) box.public.remove('proof_github');
+      this.setState({
+        githubVerifiedFailed: false,
+        githubEdited: false,
+        isGithubVerified: false,
+        verifiedGithub: '',
+      });
+      store.dispatch({
+        type: 'GET_VERIFIED_PUBLIC_GITHUB',
+        verifiedGithub: '',
+      });
+    } else if (platform === 'Twitter') {
+      if (isTwitterVerified) box.public.remove('proof_twitter');
+      this.setState({
+        twitterVerifiedFailed: false,
+        twitterEdited: false,
+        isTwitterVerified: false,
+        verifiedTwitter: '',
+      });
+      store.dispatch({
+        type: 'GET_VERIFIED_PUBLIC_TWITTER',
+        verifiedTwitter: '',
+      });
     }
   }
 
@@ -604,7 +627,7 @@ class EditProfile extends Component {
 
     ✅ ${did} ✅
     
-    Create your profile today to start building social connection and trust online. https://3box.io/`);
+Create your profile today to start building social connection and trust online. https://3box.io/`);
 
     const twitterMessage = (`This tweet links my 3Box profile to my twitter account! %0D%0A%0D%0AJoin web3's social profiles network by creating your account on http://3box.io/ today. %0D%0A@3boxdb%0D%0A%0D%0A✅
     %0D%0A${did}
