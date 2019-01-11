@@ -186,6 +186,7 @@ export const GithubVerificationModal = ({
   githubVerifiedFailed,
   verificationLoading,
   resetVerification,
+  copySuccessful,
 }) => (
     <div>
       <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
@@ -225,7 +226,10 @@ export const GithubVerificationModal = ({
                 </div>
                 <p className="modal__github__description__copy__input" id="muportDID">{did}</p>
               </div>
-              <button type="button" onClick={() => copyToClipBoard(message)}>Click to copy</button>
+
+              <button type="button" id="clickToCopy" onClick={() => copyToClipBoard(message)}>
+                {`${copySuccessful ? 'Success' : 'Click to copy'}`}
+              </button>
             </div>
 
             <div className="modal__github__steps__step">
@@ -294,7 +298,8 @@ export const GithubVerificationModal = ({
   );
 
 GithubVerificationModal.propTypes = {
-  did: PropTypes.string,
+  did: PropTypes.bool,
+  copySuccessful: PropTypes.string.isRequired,
   show: PropTypes.bool.isRequired,
   copyToClipBoard: PropTypes.func.isRequired,
   handleGithubVerificationModal: PropTypes.func.isRequired,

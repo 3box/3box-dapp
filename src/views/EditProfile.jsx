@@ -52,6 +52,7 @@ class EditProfile extends Component {
       major: '',
       year: '',
       employer: '',
+      copySuccessful: false,
       disableSave: true,
       saveLoading: false,
       removeUserPic: false,
@@ -247,6 +248,18 @@ class EditProfile extends Component {
     document.body.appendChild(textArea);
     textArea.focus();
     textArea.select();
+
+    setTimeout(() => {
+      this.setState({
+        copySuccessful: true,
+      });
+    }, 50);
+
+    setTimeout(() => {
+      this.setState({
+        copySuccessful: false,
+      });
+    }, 2000);
 
     try {
       let successful = document.execCommand('copy');
@@ -584,6 +597,7 @@ class EditProfile extends Component {
       githubRemoved,
       twitterRemoved,
       verificationLoading,
+      copySuccessful,
     } = this.state;
 
     const message = (`3Box is a social profiles network for web3. This post links my 3Box profile to my Github account!
@@ -626,6 +640,7 @@ class EditProfile extends Component {
           verificationLoading={verificationLoading}
           githubVerifiedFailed={githubVerifiedFailed}
           resetVerification={this.resetVerification}
+          copySuccessful={copySuccessful}
           handleGithubVerificationModal={this.props.handleGithubVerificationModal}
         />
 

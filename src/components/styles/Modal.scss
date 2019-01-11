@@ -104,6 +104,24 @@
   }
 }
 
+.copyMessage {
+  height: 0;
+  opacity: 0;
+}
+
+#clickToCopy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 133px;
+}
+
+.copySuccessful.copyMessage {
+  transition: all 0.5s;
+  opacity: 1;
+  height: 1;
+}
+
 .mobile__landing__closeButton {
   border-radius: 4em;
 }
