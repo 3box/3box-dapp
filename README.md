@@ -18,6 +18,8 @@ This is the home of the [3Box Profiles Application](https://3box.io), which is d
 
 For an overview of 3Box and all of our components, check out the [main 3Box project repo](https://github.com/3box/3box).
 
+![3Box Profiles App Hero Image](https://github.com/3box/3box/3Box_Hero_Image.png)
+
 
 
 # Functionality
