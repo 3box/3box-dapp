@@ -474,7 +474,7 @@
 
   button {
     background-color: #00C77F;
-    border: none;
+    border: 1px solid #00C77F;
 
     &:disabled {
       background-color: transparent !important;

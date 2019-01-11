@@ -377,7 +377,7 @@
   height: 100%; }
   .modal__github__done button {
     background-color: #00C77F;
-    border: none; }
+    border: 1px solid #00C77F; }
     .modal__github__done button:disabled {
       background-color: transparent !important;
       border: 1px solid #747677; }
