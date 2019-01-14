@@ -29,23 +29,14 @@ jobs:
               # Fix Warnings CI=false is just a baaad workaround
               CI=false npm run build
               npm run deploy-develop
-              aws s3 cp s3://3box-dapp-develop.3box.io/service-worker.js s3://3box-dapp-develop.3box.io/service-worker.js --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate --content-type application/javascript --acl public-read
-              aws s3 cp s3://3box-dapp-develop.3box.io/index.html s3://3box-dapp-develop.3box.io/index.html --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate --content-type application/javascript --acl public-read
-              npm run invalidate E17Q4403A4B4C8
             fi
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               CI=false npm run build
               npm run deploy-master
-              aws s3 cp s3://3box-dapp-master.3box.io/service-worker.js s3://3box-dapp-master.3box.io/service-worker.js --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate --content-type application/javascript --acl public-read
-              aws s3 cp s3://3box-dapp-master.3box.io/index.html s3://3box-dapp-master.3box.io/index.html --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate --content-type application/javascript --acl public-read
-              npm run invalidate ET1S25F7JOQM6
             fi
             if [[ "${CIRCLE_BRANCH}" == *"release/"* ]]; then
               CI=false npm run build
               npm run deploy-test
-              aws s3 cp s3://3box-dapp-test.3box.io/service-worker.js s3://3box-dapp-test.3box.io/service-worker.js --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate --content-type application/javascript --acl public-read
-              aws s3 cp s3://3box-dapp-test.3box.io/index.html s3://3box-dapp-test.3box.io/index.html --metadata-directive REPLACE --cache-control max-age=0,no-cache,no-store,must-revalidate --content-type application/javascript --acl public-read
-              npm run invalidate E256JNRDZ1B3QM
             fi
 
       - save_cache:
