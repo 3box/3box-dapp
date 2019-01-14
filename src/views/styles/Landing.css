@@ -32,8 +32,10 @@
   line-height: 22px;
   width: 350px; }
 
-.landing__hero__copy__buttons button {
-  margin-right: 14px; }
+.landing__hero__copy__buttons {
+  min-width: 298px; }
+  .landing__hero__copy__buttons button {
+    margin-right: 14px; }
 
 .landing__hero__image {
   position: relative;
