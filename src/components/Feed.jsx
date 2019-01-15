@@ -21,7 +21,7 @@ const Feed = ({ ifFetchingActivity, feedByAddress, verifiedGithub, verifiedTwitt
     <div id="feed">
       <p className="header" id="feed__header">Activity</p>
       <div className="feed__activity__address">
-        {ifFetchingActivity && !onSyncFinished
+        {ifFetchingActivity && !onSyncFinished // only show loading animation on first getActivity
           && (
             <div className="feed__activity__load">
               <img src={Loading} alt="loading" id="activityLoad" />
