@@ -15,13 +15,13 @@ import Loading from '../assets/Loading.svg';
 import './styles/Feed.css';
 import './styles/NetworkArray.css';
 
-const Feed = ({ ifFetchingActivity, feedByAddress, verifiedGithub, verifiedTwitter }) => (
+const Feed = ({ ifFetchingActivity, feedByAddress, verifiedGithub, verifiedTwitter, onSyncFinished }) => (
   <div>
     <StatusUpdate />
     <div id="feed">
       <p className="header" id="feed__header">Activity</p>
       <div className="feed__activity__address">
-        {ifFetchingActivity
+        {ifFetchingActivity && !onSyncFinished
           && (
             <div className="feed__activity__load">
               <img src={Loading} alt="loading" id="activityLoad" />
@@ -98,6 +98,7 @@ const Feed = ({ ifFetchingActivity, feedByAddress, verifiedGithub, verifiedTwitt
 Feed.propTypes = {
   feedByAddress: PropTypes.array,
   ifFetchingActivity: PropTypes.bool,
+  onSyncFinished: PropTypes.bool,
   verifiedGithub: PropTypes.string,
   verifiedTwitter: PropTypes.string,
 };
@@ -105,6 +106,7 @@ Feed.propTypes = {
 Feed.defaultProps = {
   feedByAddress: [],
   ifFetchingActivity: false,
+  onSyncFinished: false,
   verifiedGithub: '',
   verifiedTwitter: '',
 };
@@ -114,6 +116,7 @@ const mapState = state => ({
   ifFetchingActivity: state.threeBox.ifFetchingActivity,
   verifiedGithub: state.threeBox.verifiedGithub,
   verifiedTwitter: state.threeBox.verifiedTwitter,
+  onSyncFinished: state.threeBox.onSyncFinished,
 });
 
 export default connect(mapState)(Feed);

@@ -26,6 +26,7 @@ import {
   LoadingThreeBoxProfileModal,
   OnBoardingModalMobile,
   ProvideAccessModal,
+  SyncingModal,
   RequireMetaMaskModal,
   ProvideConsentModal,
   AccessDeniedModal,
@@ -108,11 +109,24 @@ class App extends Component {
     const { location } = this.props;
     const { pathname } = location;
 
+    // check previous route for banner behavior on /Create & /Profiles
     if (nextProps.location.pathname !== pathname) {
       store.dispatch({
         type: 'PREVIOUS_ROUTE',
         previousRoute: pathname,
       });
+    }
+
+    // get profile data again only when onSyncDone
+    if (nextProps.onSyncFinished && nextProps.isSyncing) {
+      // end onSyncDone animation
+      store.dispatch({
+        type: 'APP_SYNC',
+        onSyncFinished: true,
+        isSyncing: false,
+      });
+      
+      this.loadCalls();
     }
   }
 
@@ -147,6 +161,29 @@ class App extends Component {
     });
   }
 
+  loadCalls = () => {
+    this.props.getActivity();
+    this.props.getVerifiedPublicGithub();
+    this.props.getVerifiedPublicTwitter();
+    this.props.getPublicMemberSince();
+    this.props.getProfileData('public', 'status');
+    this.props.getProfileData('public', 'name');
+    this.props.getProfileData('public', 'description');
+    this.props.getProfileData('public', 'image');
+    this.props.getProfileData('public', 'coverPhoto');
+    this.props.getProfileData('public', 'location');
+    this.props.getProfileData('public', 'website');
+    this.props.getProfileData('public', 'employer');
+    this.props.getProfileData('public', 'job');
+    this.props.getProfileData('public', 'school');
+    this.props.getProfileData('public', 'degree');
+    this.props.getProfileData('public', 'major');
+    this.props.getProfileData('public', 'year');
+    this.props.getProfileData('public', 'emoji');
+    this.props.getProfileData('private', 'email');
+    this.props.getProfileData('private', 'birthday');
+  }
+
   async loadData() {
     const { location } = this.props;
     const { pathname } = location;
@@ -159,26 +196,7 @@ class App extends Component {
     if (this.props.isSignedIntoWallet && this.props.isLoggedIn) {
       await this.props.getBox();
       if (!this.props.showErrorModal) {
-        this.props.getActivity();
-        this.props.getVerifiedPublicGithub();
-        this.props.getVerifiedPublicTwitter();
-        this.props.getPublicMemberSince();
-        this.props.getProfileData('public', 'status');
-        this.props.getProfileData('public', 'name');
-        this.props.getProfileData('public', 'description');
-        this.props.getProfileData('public', 'image');
-        this.props.getProfileData('public', 'coverPhoto');
-        this.props.getProfileData('public', 'location');
-        this.props.getProfileData('public', 'website');
-        this.props.getProfileData('public', 'employer');
-        this.props.getProfileData('public', 'job');
-        this.props.getProfileData('public', 'school');
-        this.props.getProfileData('public', 'degree');
-        this.props.getProfileData('public', 'major');
-        this.props.getProfileData('public', 'year');
-        this.props.getProfileData('public', 'emoji');
-        this.props.getProfileData('private', 'email');
-        this.props.getProfileData('private', 'birthday');
+        this.loadCalls();
       }
     } else if (!this.props.isSignedIntoWallet) {
       history.push(routes.LANDING);
@@ -198,26 +216,7 @@ class App extends Component {
       if (this.props.isSignedIntoWallet) {
         await this.props.getBox('fromSignIn');
         if (!this.props.showErrorModal) {
-          this.props.getActivity();
-          this.props.getVerifiedPublicGithub();
-          this.props.getVerifiedPublicTwitter();
-          this.props.getPublicMemberSince();
-          this.props.getProfileData('public', 'status');
-          this.props.getProfileData('public', 'name');
-          this.props.getProfileData('public', 'description');
-          this.props.getProfileData('public', 'image');
-          this.props.getProfileData('public', 'coverPhoto');
-          this.props.getProfileData('public', 'location');
-          this.props.getProfileData('public', 'website');
-          this.props.getProfileData('public', 'employer');
-          this.props.getProfileData('public', 'job');
-          this.props.getProfileData('public', 'school');
-          this.props.getProfileData('public', 'degree');
-          this.props.getProfileData('public', 'major');
-          this.props.getProfileData('public', 'year');
-          this.props.getProfileData('public', 'emoji');
-          this.props.getProfileData('private', 'email');
-          this.props.getProfileData('private', 'birthday');
+          this.loadCalls();
         }
       } else if (!this.props.isSignedIntoWallet && !this.props.accessDeniedModal) {
         this.props.handleRequireWalletLoginModal();
@@ -253,6 +252,9 @@ class App extends Component {
       isSignedIntoWallet,
       downloadBanner,
       location,
+      onSyncFinished,
+      isSyncing,
+      hasSignedOut,
     } = this.props;
 
     const {
@@ -307,6 +309,10 @@ class App extends Component {
         </div>
 
         <LoadingThreeBoxProfileModal show={ifFetchingThreeBox} />
+
+        <SyncingModal
+          show={!onSyncFinished && !ifFetchingThreeBox && isSyncing && !hasSignedOut}
+        />
 
         <ProvideAccessModal
           handleAccessModal={this.props.handleAccessModal}
@@ -518,6 +524,9 @@ App.propTypes = {
   handleOnboardingModal: PropTypes.func.isRequired,
 
   showDifferentNetworkModal: PropTypes.bool,
+  onSyncFinished: PropTypes.bool,
+  hasSignedOut: PropTypes.bool,
+  isSyncing: PropTypes.bool,
   accessDeniedModal: PropTypes.bool,
   errorMessage: PropTypes.string,
   allowAccessModal: PropTypes.bool,
@@ -547,6 +556,9 @@ App.propTypes = {
 App.defaultProps = {
   showDifferentNetworkModal: false,
   accessDeniedModal: false,
+  onSyncFinished: false,
+  hasSignedOut: false,
+  isSyncing: false,
   errorMessage: '',
   allowAccessModal: false,
   alertRequireMetaMask: false,
@@ -573,6 +585,8 @@ const mapState = state => ({
   showDifferentNetworkModal: state.threeBox.showDifferentNetworkModal,
   allowAccessModal: state.threeBox.allowAccessModal,
   alertRequireMetaMask: state.threeBox.alertRequireMetaMask,
+  onSyncFinished: state.threeBox.onSyncFinished,
+  isSyncing: state.threeBox.isSyncing,
   provideConsent: state.threeBox.provideConsent,
   signInToWalletModal: state.threeBox.signInToWalletModal,
   signInModal: state.threeBox.signInModal,
@@ -581,6 +595,7 @@ const mapState = state => ({
   loggedOutModal: state.threeBox.loggedOutModal,
   switchedAddressModal: state.threeBox.switchedAddressModal,
   onBoardingModal: state.threeBox.onBoardingModal,
+  hasSignedOut: state.threeBox.hasSignedOut,
   onBoardingModalTwo: state.threeBox.onBoardingModalTwo,
   prevNetwork: state.threeBox.prevNetwork,
   currentNetwork: state.threeBox.currentNetwork,

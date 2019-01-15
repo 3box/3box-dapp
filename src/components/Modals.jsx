@@ -22,6 +22,7 @@ import ErrorIcon from '../assets/ErrorIcon.svg';
 import MetaMaskWallet from '../assets/MetaMaskWallet.png';
 import LogOut from '../assets/LogOut.svg';
 import Loading from '../assets/Loading.svg';
+import LoadingWhite from '../assets/LoadingWhite.svg';
 import './styles/Modal.css';
 
 export const SwitchedNetworksModal = ({
@@ -541,6 +542,24 @@ export const SignInToWalletModal = ({ handleRequireWalletLoginModal, show, isMob
       </div>
     </div>
     <div className="modal__overlay" />
+  </div>
+);
+
+export const SyncingModal = ({ show }) => (
+  <div>
+    <div className={`${show ? 'showModal' : ''} modal__container--sync modal--effect`}>
+      <div className="modal--sync ">
+        <img src={LoadingWhite} alt="Loading" id="modal__loadingGraphic" />
+
+        <div id="logo" className="modal__loading3Box">
+          <img src={ThreeBoxLogoWhite} alt="3Box Logo" />
+        </div>
+
+        <div>
+          <p>SYNCING 3BOX DATA</p>
+        </div>
+      </div>
+    </div>
   </div>
 );
 
