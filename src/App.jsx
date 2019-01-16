@@ -85,9 +85,8 @@ class App extends Component {
   }
 
   componentWillMount() {
-    window.addEventListener('resize', this.handleWindowSizeChange);
-    window.addEventListener('scroll', this.hideBar);
-    console.log('willmount');
+    // window.addEventListener('resize', this.handleWindowSizeChange);
+    // window.addEventListener('scroll', this.hideBar);
   }
 
   async componentDidMount() {

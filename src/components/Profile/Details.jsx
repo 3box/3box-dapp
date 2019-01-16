@@ -43,7 +43,6 @@ const ProfileDetails = ({
       <div className="profile__details__category">
 
         {console.log(publicProfile)}
-        {console.log(!publicProfile)}
 
         <div className="profile__category__header">
           <h5>About</h5>

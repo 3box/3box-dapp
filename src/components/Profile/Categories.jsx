@@ -14,44 +14,71 @@ const ProfileCategories = ({
   coverPhoto,
   description,
   emoji,
+  publicProfile,
   location,
 }) => (
     <div>
-      {coverPhoto.length > 0 && coverPhoto[0].contentUrl
-        ? <img src={`https://ipfs.infura.io/ipfs/${coverPhoto[0].contentUrl['/']}`} className="profile__coverPhoto clearProfPic" alt="profile" />
-        : <div className="profile__coverPhoto" />
+
+      {location.pathname.split('/')[1] === 'profile' && (
+        coverPhoto.length > 0 && coverPhoto[0].contentUrl
+          ? <img src={`https://ipfs.infura.io/ipfs/${coverPhoto[0].contentUrl['/']}`} className="profile__coverPhoto clearProfPic" alt="profile" />
+          : <div className="profile__coverPhoto" />)
       }
+
+      {(location.pathname.split('/')[1] === 'user' && publicProfile.coverPhoto) && (
+        publicProfile.coverPhoto.length > 0 && publicProfile.coverPhoto[0].contentUrl
+          ? <img src={`https://ipfs.infura.io/ipfs/${publicProfile.coverPhoto[0].contentUrl['/']}`} className="profile__coverPhoto clearProfPic" alt="profile" />
+          : <div className="profile__coverPhoto" />)
+      }
+
       <div id="profile">
         <div id="profile__fixed">
 
           <div id="profile__user__info">
 
-            {image.length > 0 && image[0].contentUrl
-              ? <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} className="profile__user__picture clearProfPic" alt="profile" />
-              : <div className="profile__user__picture" />
+            {location.pathname.split('/')[1] === 'profile' && (
+              image.length > 0 && image[0].contentUrl
+                ? <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} className="profile__user__picture clearProfPic" alt="profile" />
+                : <div className="profile__user__picture" />)
+            }
+
+            {(location.pathname.split('/')[1] === 'user' && publicProfile.coverPhoto) && (
+              publicProfile.image.length > 0 && publicProfile.image[0].contentUrl
+                ? <img src={`https://ipfs.infura.io/ipfs/${publicProfile.image[0].contentUrl['/']}`} className="profile__user__picture clearProfPic" alt="profile" />
+                : <div className="profile__user__picture" />)
             }
 
             <div className="profile__basic">
               <div className="profile__basic__wrapper">
-                {name
+                {location.pathname.split('/')[1] === 'profile' && (name
                   ? <h2 id="profile__user__name">{name}</h2>
-                  : <Link to={routes.EDITPROFILE}><h2 id="profile__user__name__add">Add name</h2></Link>
+                  : <Link to={routes.EDITPROFILE}><h2 id="profile__user__name__add">Add name</h2></Link>)
                 }
+
+                {(location.pathname.split('/')[1] === 'user' && publicProfile.name) && (publicProfile.name
+                  ? <h2 id="profile__user__name">{publicProfile.name}</h2>
+                  : <Link to={routes.EDITPROFILE}><h2 id="profile__user__name__add">Add name</h2></Link>)
+                }
+
+
                 <span className="profile__basic__emoji">
-                  {emoji.code ? emoji.code : emoji}
+                  {location.pathname.split('/')[1] === 'profile' && emoji.code ? emoji.code : emoji}
+                  {(location.pathname.split('/')[1] === 'user' && publicProfile.emoji) && publicProfile.emoji.code ? publicProfile.emoji.code : publicProfile.emoji}
                 </span>
               </div>
 
               <div id="profile__network" title="Network">
                 <img id="profile__network__networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
                 <p id="profile__details__address" title={address}>
-                  {address && address.substring(0, 8)}
+                  {location.pathname.split('/')[1] === 'profile' && address && address.substring(0, 8)}
+                  {location.pathname.split('/')[1] === 'user' && location.pathname.split('/')[2].substring(0, 8)}
                   ...
-            </p>
+                </p>
               </div>
 
               <p className="profile__basic__description">
-                {description}
+                {location.pathname.split('/')[1] === 'profile' && description}
+                {(location.pathname.split('/')[1] === 'user' && publicProfile.description) && publicProfile.description}
               </p>
 
             </div>
@@ -96,6 +123,7 @@ ProfileCategories.propTypes = {
   image: PropTypes.array,
   coverPhoto: PropTypes.array,
   description: PropTypes.string,
+  publicProfile: PropTypes.object,
 };
 
 ProfileCategories.defaultProps = {
@@ -116,6 +144,7 @@ ProfileCategories.defaultProps = {
   major: '',
   year: '',
   employer: '',
+  publicProfile: {}
 };
 
 function mapState(state) {
@@ -137,6 +166,7 @@ function mapState(state) {
     major: state.threeBox.major,
     year: state.threeBox.year,
     employer: state.threeBox.employer,
+    publicProfile: state.threeBox.publicProfile,
   };
 }
 

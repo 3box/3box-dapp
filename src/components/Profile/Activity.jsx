@@ -21,7 +21,6 @@ const Activity = ({
   verifiedGithub,
   publicProfileActivity }) => (
     <div id="feed">
-      {console.log('in activity')}
       <p className="header" id="feed__header">Activity</p>
       <div className="feed__activity__address">
         {ifFetchingActivity

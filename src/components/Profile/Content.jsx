@@ -21,7 +21,7 @@ const ProfileContent = ({ location, publicProfileActivity, publicProfile, public
       </div>
     </div>
 
-    {console.log('here')}
+    {console.log('ProfileContent')}
 
     {/* {console.log(location.pathname)}
     {console.log(routes.PUBLIC_ABOUT)}
@@ -48,20 +48,11 @@ const ProfileContent = ({ location, publicProfileActivity, publicProfile, public
       && <Details publicProfile={publicProfile} />
     } */}
 
-    <Activity publicProfileActivity={publicProfileActivity} publicVerifiedAccounts={publicVerifiedAccounts} />
-
-    {/* <Route
+    <Route
       exact
       path={routes.PROFILE_ACTIVITY}
       component={() => <Activity />}
     />
-
-    <Route
-      exact
-      path={routes.PUBLIC_ACTIVITY}
-      component={() => <Activity publicProfileActivity={publicProfileActivity} publicVerifiedAccounts={publicVerifiedAccounts} />}
-    />
-
     <Route
       exact
       path={routes.PROFILE_ABOUT}
@@ -70,9 +61,14 @@ const ProfileContent = ({ location, publicProfileActivity, publicProfile, public
 
     <Route
       exact
+      path={routes.PUBLIC_ACTIVITY}
+      component={() => <Activity publicProfileActivity={publicProfileActivity} publicVerifiedAccounts={publicVerifiedAccounts} />}
+    />
+    <Route
+      exact
       path={routes.PUBLIC_ABOUT}
       component={() => <Details publicProfile={publicProfile} publicVerifiedAccounts={publicVerifiedAccounts} />}
-    /> */}
+    />
 
   </div>
 );
