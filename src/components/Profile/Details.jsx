@@ -42,13 +42,15 @@ const ProfileDetails = ({
     <div className="profile__details" id="feed">
       <div className="profile__details__category">
 
-        {console.log(publicVerifiedAccounts)}
-        
+        {console.log(publicProfile)}
+        {console.log(!publicProfile)}
+
         <div className="profile__category__header">
           <h5>About</h5>
           <Link to={routes.EDITPROFILE} className="profile__category__editLink">Edit</Link>
         </div>
 
+        {/* Private fields donot render on public profiles */}
         {!publicProfile
           && (
             <div className="profile__category__field">
@@ -66,6 +68,10 @@ const ProfileDetails = ({
         <div className="profile__category__field" title="Location">
           <div>
             <img src={Location} className="profile__category__field__icon" alt="Location Icon" />
+            {(!publicProfile && location)
+              ? <p>{location}</p>
+              : <p>{publicProfile.location}</p>
+            }
             {(!publicProfile && location)
               ? <p>{location}</p>
               : <p>{publicProfile.location}</p>
@@ -282,6 +288,7 @@ function mapState(state) {
     major: state.threeBox.major,
     year: state.threeBox.year,
     employer: state.threeBox.employer,
+    publicProfile: state.threeBox.publicProfile,
   };
 }
 

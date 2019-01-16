@@ -22,6 +22,7 @@ import ErrorIcon from '../assets/ErrorIcon.svg';
 import MetaMaskWallet from '../assets/MetaMaskWallet.png';
 import LogOut from '../assets/LogOut.svg';
 import Loading from '../assets/Loading.svg';
+import LoadingWhite from '../assets/LoadingWhite.svg';
 import './styles/Modal.css';
 
 export const SwitchedNetworksModal = ({
@@ -186,6 +187,7 @@ export const GithubVerificationModal = ({
   githubVerifiedFailed,
   verificationLoading,
   resetVerification,
+  copySuccessful,
 }) => (
     <div>
       <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
@@ -210,7 +212,7 @@ export const GithubVerificationModal = ({
                 resetVerification('Github');
               }}
             >
-              Close
+              Cancel
           </button>
           </div>
 
@@ -225,7 +227,10 @@ export const GithubVerificationModal = ({
                 </div>
                 <p className="modal__github__description__copy__input" id="muportDID">{did}</p>
               </div>
-              <button type="button" onClick={() => copyToClipBoard(message)}>Click to copy</button>
+
+              <button type="button" id="clickToCopy" onClick={() => copyToClipBoard(message)}>
+                {`${copySuccessful ? 'Success' : 'Click to copy'}`}
+              </button>
             </div>
 
             <div className="modal__github__steps__step">
@@ -233,7 +238,6 @@ export const GithubVerificationModal = ({
                 <div className="modal__github__steps__number">2</div>
                 <p className="modal__github__steps__text">Open a new gist file in Github and paste the key in the body of the file.  Save the gist as public with any valid name and file type.</p>
               </div>
-              {/* <img src={GithubIcon} className="modal__github__description__githubIcon" alt="Github icon" /> */}
               <button type="button" onClick={() => window.open('https://gist.github.com/', '_blank')}>Open a gist file</button>
             </div>
 
@@ -269,13 +273,22 @@ export const GithubVerificationModal = ({
           <div className="modal__github__done">
             <button
               type="button"
-
+              disabled={!isGithubVerified}
+              onClick={() => {
+                handleGithubVerificationModal();
+              }}
+            >
+              Done
+          </button>
+            <button
+              className="modal__github__description__copy__button--mobile"
+              type="button"
               onClick={() => {
                 handleGithubVerificationModal();
                 resetVerification('Github');
               }}
             >
-              Done
+              Cancel
           </button>
           </div>
         </div>
@@ -285,7 +298,8 @@ export const GithubVerificationModal = ({
   );
 
 GithubVerificationModal.propTypes = {
-  did: PropTypes.string,
+  did: PropTypes.bool,
+  copySuccessful: PropTypes.string.isRequired,
   show: PropTypes.bool.isRequired,
   copyToClipBoard: PropTypes.func.isRequired,
   handleGithubVerificationModal: PropTypes.func.isRequired,
@@ -335,14 +349,14 @@ export const TwitterVerificationModal = ({
                 resetVerification('Twitter');
               }}
             >
-              Close
+              Cancel
           </button>
           </div>
 
           <div className="modal__github__steps">
             <div className="modal__twitter__steps__step">
               <div>
-                <div className="modal__github__steps__instructions">
+                <div className="modal__twitter__steps__instructions">
                   <div className="modal__github__steps__number">1</div>
                   <p className="modal__github__steps__text">
                     Tweet a unique key from the account you want to connect
@@ -357,7 +371,7 @@ export const TwitterVerificationModal = ({
 
             <div className="modal__twitter__steps__step">
               <div>
-                <div className="modal__github__steps__instructions">
+                <div className="modal____steps__instructions">
                   <div className="modal__github__steps__number">2</div>
                   <p className="modal__github__steps__text">
                     Check if your Twitter account was successfully verified below!
@@ -387,13 +401,22 @@ export const TwitterVerificationModal = ({
           <div className="modal__github__done">
             <button
               type="button"
-
+              disabled={!isTwitterVerified}
+              onClick={() => {
+                handleTwitterVerificationModal();
+              }}
+            >
+              Done
+          </button>
+            <button
+              className="modal__github__description__copy__button--mobile"
+              type="button"
               onClick={() => {
                 handleTwitterVerificationModal();
                 resetVerification('Twitter');
               }}
             >
-              Done
+              Cancel
           </button>
           </div>
         </div>
@@ -519,6 +542,24 @@ export const SignInToWalletModal = ({ handleRequireWalletLoginModal, show, isMob
       </div>
     </div>
     <div className="modal__overlay" />
+  </div>
+);
+
+export const SyncingModal = ({ show }) => (
+  <div>
+    <div className={`${show ? 'showModal' : ''} modal__container--sync modal--effect`}>
+      <div className="modal--sync ">
+        <img src={LoadingWhite} alt="Loading" id="modal__loadingGraphic" />
+
+        <div id="logo" className="modal__loading3Box">
+          <img src={ThreeBoxLogoWhite} alt="3Box Logo" />
+        </div>
+
+        <div>
+          <p>SYNCING 3BOX DATA</p>
+        </div>
+      </div>
+    </div>
   </div>
 );
 

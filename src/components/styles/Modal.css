@@ -28,6 +28,16 @@
   position: fixed;
   visibility: hidden; }
 
+.modal__container--sync {
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  width: 100vw;
+  visibility: hidden;
+  bottom: 0; }
+
 .modal {
   background: white;
   border-radius: 6px;
@@ -52,6 +62,39 @@
     width: 240px; }
   .modal h3 {
     margin-bottom: 14px; }
+
+.modal--sync {
+  background: #1168df;
+  border-radius: 6px;
+  padding: 0 40px;
+  width: 360px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
+  text-align: center;
+  overflow: hidden;
+  z-index: 7;
+  bottom: 50px;
+  position: absolute; }
+  .modal--sync p {
+    line-height: 24px;
+    font-size: 14px;
+    color: white;
+    opacity: .8; }
+  .modal--sync form {
+    text-align: center;
+    margin-top: 2em; }
+  .modal--sync #logo img {
+    width: 90px !important; }
+  .modal--sync h3 {
+    margin-bottom: 14px; }
+  .modal--sync #modal__loadingGraphic {
+    margin-top: 0;
+    width: 34px; }
+  .modal--sync .modal__loading3Box {
+    margin-bottom: 0; }
 
 .modal--effect .modal {
   opacity: 0;
@@ -82,6 +125,21 @@
   visibility: hidden; }
   .modal__onBoardingModal__container img {
     width: 100px; }
+
+.copyMessage {
+  height: 0;
+  opacity: 0; }
+
+#clickToCopy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 133px; }
+
+.copySuccessful.copyMessage {
+  transition: all 0.5s;
+  opacity: 1;
+  height: 1; }
 
 .mobile__landing__closeButton {
   border-radius: 4em; }
@@ -274,6 +332,9 @@
     background-color: transparent;
     color: #1168df; }
 
+.modal__github__description__copy__button--mobile {
+  display: none; }
+
 .modal__github__description__githubIcon {
   width: 30px !important;
   margin-right: 18px; }
@@ -359,7 +420,10 @@
   height: 100%; }
   .modal__github__done button {
     background-color: #00C77F;
-    border: none; }
+    border: 1px solid #00C77F; }
+    .modal__github__done button:disabled {
+      background-color: transparent !important;
+      border: 1px solid #747677; }
     .modal__github__done button:hover {
       background-color: #00b472;
       -webkit-transition: all 0.4s ease-in-out;
@@ -384,6 +448,31 @@
     max-height: 450px; }
     .modal img {
       width: 100px; }
+  .modal__github__description__copy__button--mobile {
+    display: flex;
+    color: #6b6b6b;
+    font-weight: 400;
+    background-color: transparent !important;
+    border: none;
+    font-size: 16px; }
+  .modal--sync {
+    width: 78vw;
+    padding: 0 24px;
+    bottom: 24px; }
+    .modal--sync p {
+      line-height: 24px;
+      font-size: 12px;
+      color: white;
+      opacity: .8; }
+    .modal--sync #logo img {
+      width: 80px !important; }
+    .modal--sync h3 {
+      margin-bottom: 14px; }
+    .modal--sync #modal__loadingGraphic {
+      margin-top: 0;
+      width: 34px; }
+    .modal--sync .modal__loading3Box {
+      margin-bottom: 0; }
   #modal__onBoardingModal__progressBar {
     width: 60px;
     margin-top: 226px; }
@@ -409,9 +498,9 @@
       color: white; }
   .githubModal {
     padding: 0;
-    width: 84vw;
+    width: 92vw;
     max-height: 550px;
-    top: 90px; }
+    top: 15vh; }
     .githubModal button {
       padding: .8em 1.2em; }
   .modal__github__description__copy__header {
@@ -423,9 +512,9 @@
     width: 22px !important; }
   .modal__github__steps__step {
     width: 100%;
-    margin-bottom: 20px; }
+    margin-bottom: 10px; }
     .modal__github__steps__step button {
-      margin-top: 12px; }
+      margin-top: 10px; }
   .modal__github__description {
     padding: 16px 16px 0 16px;
     height: 44px; }
@@ -434,9 +523,12 @@
     flex-direction: column; }
   .modal__twitter__steps__step {
     width: 100%;
-    margin-bottom: 26px; }
+    margin-bottom: 18px; }
   .modal__github__done {
-    padding: 10px 0; }
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
   .modal__github__steps__number {
     margin-bottom: 0;
     width: 20px;
@@ -467,6 +559,11 @@
     display: flex;
     align-items: flex-start;
     justify-content: flex-start; }
+  .modal__twitter__steps__instructions {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 15px; }
   .modal__github__description__copy__tweet {
     padding: .8em 1.2em; }
   #mobile__landing__prompt__logo {

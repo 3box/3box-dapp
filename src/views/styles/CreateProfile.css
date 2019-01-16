@@ -75,9 +75,7 @@
   max-width: 34vw;
   min-width: 450px;
   height: fit-content;
-  position: absolute;
-  top: 170px;
-  left: 17%; }
+  margin-top: 6vh; }
 
 .create__action__form__header {
   color: #1168df;
@@ -139,6 +137,14 @@
   align-items: center;
   width: 100%; }
 
+@media only screen and (max-height: 800px) {
+  .create__action {
+    min-height: 800px; }
+  .create__action__form {
+    margin-top: 60px; }
+  .create {
+    min-height: 800px; } }
+
 @media only screen and (max-width: 600px) {
   .create {
     flex-direction: column;
@@ -176,15 +182,18 @@
     top: auto;
     left: auto; }
   .create__action__form__body {
-    margin-bottom: 28px; }
+    margin-bottom: 4vh; }
   .create__action__wrapper {
-    padding: 40px 25px 40px 25px; }
+    padding: 4vh 25px 4vh 25px; }
   .create__action__form__header {
-    text-align: center; }
+    text-align: center;
+    margin-bottom: 3vh; }
+  .create__action__form__button {
+    margin-bottom: 3vh; }
   .create__action__form__profileDetails {
     flex-direction: row;
     width: 100%;
-    margin-bottom: 30px; }
+    margin-bottom: 4vh; }
   .create__action__form__narwhal {
     width: 106px;
     height: 106px;

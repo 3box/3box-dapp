@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as routes from './utils/routes';
+import normalizeURL from './utils/funcs';
 import { store } from './state/store';
 import Landing from './views/Landing';
 import Profile from './views/Profile';
@@ -27,6 +28,7 @@ import {
   LoadingThreeBoxProfileModal,
   OnBoardingModalMobile,
   ProvideAccessModal,
+  SyncingModal,
   RequireMetaMaskModal,
   ProvideConsentModal,
   AccessDeniedModal,
@@ -75,7 +77,6 @@ class App extends Component {
       onBoardingModalMobileTwo: false,
       onBoardingModalMobileThree: false,
       width: window.innerWidth,
-
       retractNav: false,
       showSideNav: false,
     };
@@ -86,11 +87,13 @@ class App extends Component {
   componentWillMount() {
     window.addEventListener('resize', this.handleWindowSizeChange);
     window.addEventListener('scroll', this.hideBar);
+    console.log('willmount');
   }
 
   async componentDidMount() {
     const { location } = this.props;
     const { pathname } = location;
+    const normalizedPath = normalizeURL(pathname);
 
     if (typeof window.web3 === 'undefined') {
       this.props.handleDownloadMetaMaskBanner();
@@ -98,26 +101,30 @@ class App extends Component {
     }
 
     if (pathname.substring(6, 8) === '0x') {
+      // 1. fetch public profile
+      // 2. can you openBox?
+      // 3. fetch box & show signedin profile
+      // 4. can you openBox?
+
       // await Box // eslint-disable-line no-undef
       //   .openBox(
       //     store.getState().threeBox.accountAddress || address,
       //     window.web3.currentProvider, // eslint-disable-line no-undef
       //     opts,
       //   );
-      console.log('public profile in app');
     } else if (typeof window.web3 !== 'undefined'
-      && (pathname === routes.PROFILE
-        || pathname === routes.EDITPROFILE
-        || pathname === routes.PROFILE_ABOUT
-        || pathname === routes.PROFILE_ACTIVITY
-        || pathname === routes.PROFILE_COLLECTIBLES)) { // no wallet and lands on restricted page
+      && (normalizedPath === routes.PROFILE
+        || normalizedPath === routes.EDITPROFILE
+        || normalizedPath === routes.PROFILE_ABOUT
+        || normalizedPath === routes.PROFILE_ACTIVITY
+        || normalizedPath === routes.PROFILE_COLLECTIBLES)) { // no wallet and lands on restricted page
       this.loadData();
     } else if (typeof window.web3 === 'undefined'
-      && (pathname === routes.PROFILE
-        || pathname === routes.EDITPROFILE
-        || pathname === routes.PROFILE_ABOUT
-        || pathname === routes.PROFILE_ACTIVITY
-        || pathname === routes.PROFILE_COLLECTIBLES)) { // has wallet and lands on restricted page
+      && (normalizedPath === routes.PROFILE
+        || normalizedPath === routes.EDITPROFILE
+        || normalizedPath === routes.PROFILE_ABOUT
+        || normalizedPath === routes.PROFILE_ACTIVITY
+        || normalizedPath === routes.PROFILE_COLLECTIBLES)) { // has wallet and lands on restricted page
       history.push(routes.LANDING);
       this.props.requireMetaMaskModal();
       this.props.handleMobileWalletModal();
@@ -127,12 +134,26 @@ class App extends Component {
   componentWillReceiveProps(nextProps) {
     const { location } = this.props;
     const { pathname } = location;
+    const normalizedPath = normalizeURL(pathname);
 
-    if (nextProps.location.pathname !== pathname) {
+    // check previous route for banner behavior on /Create & /Profiles
+    if (nextProps.location.pathname !== normalizedPath) {
       store.dispatch({
         type: 'PREVIOUS_ROUTE',
-        previousRoute: pathname,
+        previousRoute: normalizedPath,
       });
+    }
+
+    // get profile data again only when onSyncDone
+    if (nextProps.onSyncFinished && nextProps.isSyncing) {
+      // end onSyncDone animation
+      store.dispatch({
+        type: 'APP_SYNC',
+        onSyncFinished: true,
+        isSyncing: false,
+      });
+
+      this.loadCalls();
     }
   }
 
@@ -167,10 +188,33 @@ class App extends Component {
     });
   }
 
+  loadCalls = () => {
+    this.props.getActivity();
+    this.props.getVerifiedPublicGithub();
+    this.props.getVerifiedPublicTwitter();
+    this.props.getPublicMemberSince();
+    this.props.getProfileData('public', 'status');
+    this.props.getProfileData('public', 'name');
+    this.props.getProfileData('public', 'description');
+    this.props.getProfileData('public', 'image');
+    this.props.getProfileData('public', 'coverPhoto');
+    this.props.getProfileData('public', 'location');
+    this.props.getProfileData('public', 'website');
+    this.props.getProfileData('public', 'employer');
+    this.props.getProfileData('public', 'job');
+    this.props.getProfileData('public', 'school');
+    this.props.getProfileData('public', 'degree');
+    this.props.getProfileData('public', 'major');
+    this.props.getProfileData('public', 'year');
+    this.props.getProfileData('public', 'emoji');
+    this.props.getProfileData('private', 'email');
+    this.props.getProfileData('private', 'birthday');
+  }
+
   async loadData() {
     const { location } = this.props;
     const { pathname } = location;
-    const lowercasePathname = pathname.toLowerCase();
+    const normalizedPath = normalizeURL(pathname);
 
     await this.props.checkWeb3Wallet();
     await this.props.requestAccess('directLogin');
@@ -179,37 +223,18 @@ class App extends Component {
     if (this.props.isSignedIntoWallet && this.props.isLoggedIn) {
       await this.props.getBox();
       if (!this.props.showErrorModal) {
-        this.props.getActivity();
-        this.props.getVerifiedPublicGithub();
-        this.props.getVerifiedPublicTwitter();
-        this.props.getPublicMemberSince();
-        this.props.getProfileData('public', 'status');
-        this.props.getProfileData('public', 'name');
-        this.props.getProfileData('public', 'description');
-        this.props.getProfileData('public', 'image');
-        this.props.getProfileData('public', 'coverPhoto');
-        this.props.getProfileData('public', 'location');
-        this.props.getProfileData('public', 'website');
-        this.props.getProfileData('public', 'employer');
-        this.props.getProfileData('public', 'job');
-        this.props.getProfileData('public', 'school');
-        this.props.getProfileData('public', 'degree');
-        this.props.getProfileData('public', 'major');
-        this.props.getProfileData('public', 'year');
-        this.props.getProfileData('public', 'emoji');
-        this.props.getProfileData('private', 'email');
-        this.props.getProfileData('private', 'birthday');
+        this.loadCalls();
       }
     } else if (!this.props.isSignedIntoWallet) {
       history.push(routes.LANDING);
       this.props.handleRequireWalletLoginModal();
     } else if (this.props.isSignedIntoWallet
       && !this.props.isLoggedIn
-      && (lowercasePathname === routes.PROFILE
-        || lowercasePathname === routes.EDITPROFILE
-        || lowercasePathname === routes.PROFILE_ABOUT
-        || lowercasePathname === routes.PROFILE_ACTIVITY
-        || lowercasePathname === routes.PROFILE_COLLECTIBLES)) {
+      && (normalizedPath === routes.PROFILE
+        || normalizedPath === routes.EDITPROFILE
+        || normalizedPath === routes.PROFILE_ABOUT
+        || normalizedPath === routes.PROFILE_ACTIVITY
+        || normalizedPath === routes.PROFILE_COLLECTIBLES)) {
       history.push(routes.LANDING);
       this.props.handleSignInModal();
     }
@@ -224,26 +249,7 @@ class App extends Component {
       if (this.props.isSignedIntoWallet) {
         await this.props.getBox('fromSignIn');
         if (!this.props.showErrorModal) {
-          this.props.getActivity();
-          this.props.getVerifiedPublicGithub();
-          this.props.getVerifiedPublicTwitter();
-          this.props.getPublicMemberSince();
-          this.props.getProfileData('public', 'status');
-          this.props.getProfileData('public', 'name');
-          this.props.getProfileData('public', 'description');
-          this.props.getProfileData('public', 'image');
-          this.props.getProfileData('public', 'coverPhoto');
-          this.props.getProfileData('public', 'location');
-          this.props.getProfileData('public', 'website');
-          this.props.getProfileData('public', 'employer');
-          this.props.getProfileData('public', 'job');
-          this.props.getProfileData('public', 'school');
-          this.props.getProfileData('public', 'degree');
-          this.props.getProfileData('public', 'major');
-          this.props.getProfileData('public', 'year');
-          this.props.getProfileData('public', 'emoji');
-          this.props.getProfileData('private', 'email');
-          this.props.getProfileData('private', 'birthday');
+          this.loadCalls();
         }
       } else if (!this.props.isSignedIntoWallet && !this.props.accessDeniedModal) {
         this.props.handleRequireWalletLoginModal();
@@ -279,6 +285,9 @@ class App extends Component {
       isSignedIntoWallet,
       downloadBanner,
       location,
+      onSyncFinished,
+      isSyncing,
+      hasSignedOut,
     } = this.props;
 
     const {
@@ -291,7 +300,9 @@ class App extends Component {
     } = this.state;
 
     const { pathname } = location;
-    const isMobile = width <= 600;
+    const normalizedPath = normalizeURL(pathname);
+    const isMobile = width <= 812;
+    // const isMobile = width <= 600;
     const classHide = retractNav ? 'hide' : '';
     const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
     const isLandingPage = pathname === routes.LANDING && 'landing';
@@ -308,9 +319,8 @@ class App extends Component {
               handleSignInUp={this.handleSignInUp}
               handleSideNav={this.handleSideNav}
               landing={isLandingPage}
-              isMobile={isMobile}
               showSideNav={showSideNav}
-              pathname={pathname}
+              pathname={normalizedPath}
             />
           )
           : (
@@ -320,7 +330,7 @@ class App extends Component {
         <div className={`${!downloadBanner ? 'hideBanner' : ''} webThreeBanner`}>
           <p>
             3Box requires web3.  Download the MetaMask extension to continue.
-              </p>
+          </p>
           <a href="https://metamask.io/" target="_blank" rel="noopener noreferrer">
             <button type="button" className="webThreeBanner__link">
               Download
@@ -332,6 +342,10 @@ class App extends Component {
         </div>
 
         <LoadingThreeBoxProfileModal show={ifFetchingThreeBox} />
+
+        <SyncingModal
+          show={!onSyncFinished && !ifFetchingThreeBox && isSyncing && !hasSignedOut}
+        />
 
         <ProvideAccessModal
           handleAccessModal={this.props.handleAccessModal}
@@ -548,6 +562,9 @@ App.propTypes = {
   handleOnboardingModal: PropTypes.func.isRequired,
 
   showDifferentNetworkModal: PropTypes.bool,
+  onSyncFinished: PropTypes.bool,
+  hasSignedOut: PropTypes.bool,
+  isSyncing: PropTypes.bool,
   accessDeniedModal: PropTypes.bool,
   errorMessage: PropTypes.string,
   allowAccessModal: PropTypes.bool,
@@ -577,6 +594,9 @@ App.propTypes = {
 App.defaultProps = {
   showDifferentNetworkModal: false,
   accessDeniedModal: false,
+  onSyncFinished: false,
+  hasSignedOut: false,
+  isSyncing: false,
   errorMessage: '',
   allowAccessModal: false,
   alertRequireMetaMask: false,
@@ -603,6 +623,8 @@ const mapState = state => ({
   showDifferentNetworkModal: state.threeBox.showDifferentNetworkModal,
   allowAccessModal: state.threeBox.allowAccessModal,
   alertRequireMetaMask: state.threeBox.alertRequireMetaMask,
+  onSyncFinished: state.threeBox.onSyncFinished,
+  isSyncing: state.threeBox.isSyncing,
   provideConsent: state.threeBox.provideConsent,
   signInToWalletModal: state.threeBox.signInToWalletModal,
   signInModal: state.threeBox.signInModal,
@@ -611,6 +633,7 @@ const mapState = state => ({
   loggedOutModal: state.threeBox.loggedOutModal,
   switchedAddressModal: state.threeBox.switchedAddressModal,
   onBoardingModal: state.threeBox.onBoardingModal,
+  hasSignedOut: state.threeBox.hasSignedOut,
   onBoardingModalTwo: state.threeBox.onBoardingModalTwo,
   prevNetwork: state.threeBox.prevNetwork,
   currentNetwork: state.threeBox.currentNetwork,

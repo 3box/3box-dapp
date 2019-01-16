@@ -20,20 +20,37 @@ const ProfileContent = ({ location, publicProfileActivity, publicProfile, public
         <NavLink exact to={routes.PROFILE_ABOUT} className="profile__category__section">Details</NavLink>
       </div>
     </div>
-    {/* 
-    {
-      (location.pathname === routes.PROFILE_ACTIVITY
-        || location.pathname.substring(6, 8) === '0x')
+
+    {console.log('here')}
+
+    {/* {console.log(location.pathname)}
+    {console.log(routes.PUBLIC_ABOUT)}
+    {console.log(location.pathname === routes.PUBLIC_ABOUT)} */}
+    {/* pathmatching doesnt work with this method */}
+
+    {/* {
+      location.pathname === routes.PROFILE_ACTIVITY
       && <Activity publicProfileActivity={publicProfileActivity} />
     }
 
     {
-      (location.pathname === routes.PROFILE_ABOUT
-        || location.pathname.substring(6, 8) === '0x')
+      location.pathname === routes.PROFILE_ABOUT
+      && <Details />
+    }
+
+    {
+      location.pathname === routes.PUBLIC_ACTIVITY
+      && <Activity publicProfileActivity={publicProfileActivity} />
+    }
+
+    {
+      location.pathname === routes.PUBLIC_ABOUT
       && <Details publicProfile={publicProfile} />
     } */}
 
-    <Route
+    <Activity publicProfileActivity={publicProfileActivity} publicVerifiedAccounts={publicVerifiedAccounts} />
+
+    {/* <Route
       exact
       path={routes.PROFILE_ACTIVITY}
       component={() => <Activity />}
@@ -55,8 +72,7 @@ const ProfileContent = ({ location, publicProfileActivity, publicProfile, public
       exact
       path={routes.PUBLIC_ABOUT}
       component={() => <Details publicProfile={publicProfile} publicVerifiedAccounts={publicVerifiedAccounts} />}
-    />
-
+    /> */}
 
   </div>
 );

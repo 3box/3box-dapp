@@ -33,6 +33,17 @@
   visibility: hidden;
 }
 
+.modal__container--sync {
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  width: 100vw;
+  visibility: hidden;
+  bottom: 0;
+}
+
 .modal {
   background: white;
   border-radius: 6px;
@@ -64,6 +75,52 @@
 
   h3 {
     margin-bottom: 14px;
+  }
+}
+
+.modal--sync {
+  background: $threeBoxBlue;
+  border-radius: 6px;
+  padding: 0 40px;
+  width: 360px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
+  text-align: center;
+  overflow: hidden;
+  z-index: 7;
+  bottom: 50px;
+  position: absolute;
+
+  p {
+    line-height: 24px;
+    font-size: 14px;
+    color: white;
+    opacity: .8;
+  }
+
+  form {
+    text-align: center;
+    margin-top: 2em;
+  }
+
+  #logo img {
+    width: 90px !important;
+  }
+
+  h3 {
+    margin-bottom: 14px;
+  }
+
+  #modal__loadingGraphic {
+    margin-top: 0;
+    width: 34px;
+  }
+
+  .modal__loading3Box {
+    margin-bottom: 0;
   }
 }
 
@@ -102,6 +159,24 @@
   img {
     width: 100px;
   }
+}
+
+.copyMessage {
+  height: 0;
+  opacity: 0;
+}
+
+#clickToCopy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 133px;
+}
+
+.copySuccessful.copyMessage {
+  transition: all 0.5s;
+  opacity: 1;
+  height: 1;
 }
 
 .mobile__landing__closeButton {
@@ -349,6 +424,10 @@
   }
 }
 
+.modal__github__description__copy__button--mobile {
+  display: none;
+}
+
 .modal__github__description__githubIcon {
   width: 30px !important;
   margin-right: 18px;
@@ -452,7 +531,12 @@
 
   button {
     background-color: #00C77F;
-    border: none;
+    border: 1px solid #00C77F;
+
+    &:disabled {
+      background-color: transparent !important;
+      border: 1px solid $lighterFont;
+    }
 
     &:hover {
       background-color: rgb(0, 180, 114);
@@ -495,6 +579,45 @@
     }
   }
 
+  .modal__github__description__copy__button--mobile {
+    display: flex;
+    color: $lightFont;
+    font-weight: 400;
+    background-color: transparent !important;
+    border: none;
+    font-size: 16px;
+  }
+
+  .modal--sync {
+    width: 78vw;
+    padding: 0 24px;
+    bottom: 24px;
+    
+    p {
+      line-height: 24px;
+      font-size: 12px;
+      color: white;
+      opacity: .8;
+    }
+
+    #logo img {
+      width: 80px !important;
+    }
+
+    h3 {
+      margin-bottom: 14px;
+    }
+
+    #modal__loadingGraphic {
+      margin-top: 0;
+      width: 34px;
+    }
+
+    .modal__loading3Box {
+      margin-bottom: 0;
+    }
+  }
+
   #modal__onBoardingModal__progressBar {
     width: 60px;
     margin-top: 226px;
@@ -528,9 +651,10 @@
 
   .githubModal {
     padding: 0;
-    width: 84vw;
+    width: 92vw;
     max-height: 550px;
-    top: 90px;
+    // top: 85px;
+    top: 15vh;
 
     button {
       padding: .8em 1.2em;
@@ -539,21 +663,23 @@
 
   .modal__github__description__copy__header {
     margin-bottom: 16px;
+
     h2 {
       font-size: 20px;
     }
   }
 
-  .modal__github__description__githubIcon{
+  .modal__github__description__githubIcon {
     margin-right: 10px;
     width: 22px !important;
   }
 
-  .modal__github__steps__step{
+  .modal__github__steps__step {
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+
     button {
-      margin-top: 12px;
+      margin-top: 10px;
     }
   }
 
@@ -569,11 +695,14 @@
 
   .modal__twitter__steps__step {
     width: 100%;
-    margin-bottom: 26px;
+    margin-bottom: 18px;
   }
 
   .modal__github__done {
     padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .modal__github__steps__number {
@@ -622,6 +751,13 @@
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
+  }
+
+  .modal__twitter__steps__instructions {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 15px;
   }
 
   .modal__github__description__copy__tweet {

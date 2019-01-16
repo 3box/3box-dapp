@@ -506,7 +506,8 @@
   margin-right: 1vw; }
 
 #editprofile__privateIcon {
-  height: 22px; }
+  height: 22px;
+  margin-left: 10px; }
 
 #edit__profile__input__privateIcon {
   height: 18px;
@@ -533,6 +534,9 @@
   width: 3em;
   height: 3em;
   z-index: 1; }
+
+.edit__profile__verified--NoMobile {
+  display: none; }
 
 @media only screen and (max-width: 600px) {
   .edit__profile__editCanvas__wrapper {
@@ -576,6 +580,11 @@
     border-top-right-radius: 0; }
   .edit__profile__verifiedWrapper {
     width: 100%; }
+  .verifiedForm {
+    display: none !important; }
+  .edit__profile__verified--NoMobile {
+    display: flex;
+    color: #b1b1b1; }
   #edit__cancel {
     margin-left: 5vw; }
   .edit__profile__value--privateContainer {

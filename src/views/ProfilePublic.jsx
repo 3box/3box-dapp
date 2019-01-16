@@ -15,6 +15,12 @@ import './styles/Profile.css';
 
 
 class ProfilePublic extends Component {
+  componentWillMount() {
+    console.log('willUmount');
+    window.removeEventListener('resize', this.handleWindowSizeChange);
+    window.removeEventListener('scroll', this.hideBar);
+  }
+
   async componentDidMount() {
     const { location: { pathname } } = this.props;
     const profileAddress = pathname.split('/')[2];
@@ -23,6 +29,7 @@ class ProfilePublic extends Component {
   }
 
   render() {
+    console.log('in profile public');
     return (
       <div>
         <Nav />
@@ -49,6 +56,7 @@ ProfilePublic.propTypes = {
   publicProfileActivity: PropTypes.array,
   getProfile: PropTypes.func,
   getActivity: PropTypes.func,
+  getProfilesVerifiedAccounts: PropTypes.func,
 };
 
 ProfilePublic.defaultProps = {
@@ -58,8 +66,8 @@ ProfilePublic.defaultProps = {
   publicProfileActivity: [],
   location: {},
   getProfile: getProfile(),
-  getProfilesVerifiedAccounts: getProfilesVerifiedAccounts(),
   getActivity: getActivity(),
+  getProfilesVerifiedAccounts: getProfilesVerifiedAccounts(),
 };
 
 const mapState = state => ({

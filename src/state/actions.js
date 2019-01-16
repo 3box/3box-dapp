@@ -73,6 +73,7 @@ export const requestAccess = directLogin => async (dispatch) => {
         allowAccessModal: false,
       });
     } catch (error) {
+      console.log(error);
       history.push(routes.LANDING);
       dispatch({
         type: 'HANDLE_DENIED_ACCESS_MODAL',
@@ -369,7 +370,6 @@ export const getProfile = (profileAddress, opts) => async (dispatch) => {
 
 export const getProfilesVerifiedAccounts = claim => async (dispatch) => {
   try {
-    console.log('hit verfiy');
     const publicVerifiedAccounts = await Box.getVerifiedAccounts(claim); // eslint-disable-line no-undef
     dispatch({
       type: 'GET_PUBLIC_PROFILE_VERFIEDACCOUNTS',

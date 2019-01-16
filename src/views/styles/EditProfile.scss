@@ -608,6 +608,7 @@
 
 #editprofile__privateIcon {
   height: 22px;
+  margin-left: 10px;
 }
 
 #edit__profile__input__privateIcon {
@@ -642,6 +643,10 @@
   width: 3em;
   height: 3em;
   z-index: 1;
+}
+
+.edit__profile__verified--NoMobile {
+  display: none;
 }
 
 @media only screen and (max-width: 600px) {
@@ -711,6 +716,15 @@
 
   .edit__profile__verifiedWrapper {
     width: 100%;
+  }
+
+  .verifiedForm {
+    display: none !important;
+  }
+
+  .edit__profile__verified--NoMobile {
+    display: flex;
+    color: $lightestFont;
   }
 
   #edit__cancel {

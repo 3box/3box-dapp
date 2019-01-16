@@ -52,6 +52,7 @@ class EditProfile extends Component {
       major: '',
       year: '',
       employer: '',
+      copySuccessful: false,
       disableSave: true,
       saveLoading: false,
       removeUserPic: false,
@@ -75,7 +76,13 @@ class EditProfile extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentWillMount() {
+    window.removeEventListener('resize', this.handleWindowSizeChange);
+    window.removeEventListener('scroll', this.hideBar);
+  }
+
   componentDidMount() {
+    window.scrollTo(0, 0)
     const {
       name,
       verifiedGithub,
@@ -248,6 +255,18 @@ class EditProfile extends Component {
     textArea.focus();
     textArea.select();
 
+    setTimeout(() => {
+      this.setState({
+        copySuccessful: true,
+      });
+    }, 50);
+
+    setTimeout(() => {
+      this.setState({
+        copySuccessful: false,
+      });
+    }, 2000);
+
     try {
       let successful = document.execCommand('copy');
     } catch (err) {
@@ -405,10 +424,37 @@ class EditProfile extends Component {
 
   // resets success / failure state of verification modals
   resetVerification = (platform) => {
+    const { isGithubVerified, isTwitterVerified, editedArray } = this.state;
+    const updatedEditedArray = editedArray;
+    const { box } = this.props;
     if (platform === 'Github') {
-      this.setState({ githubVerifiedFailed: false });
-    } else {
-      this.setState({ twitterVerifiedFailed: false });
+      updatedEditedArray.splice(updatedEditedArray.indexOf('proof_github'), 1);
+      if (!updatedEditedArray.length) this.setState({ disableSave: true });
+      if (isGithubVerified) box.public.remove('proof_github');
+      this.setState({
+        githubVerifiedFailed: false,
+        githubEdited: false,
+        isGithubVerified: false,
+        verifiedGithub: '',
+      });
+      store.dispatch({
+        type: 'GET_VERIFIED_PUBLIC_GITHUB',
+        verifiedGithub: '',
+      });
+    } else if (platform === 'Twitter') {
+      updatedEditedArray.splice(updatedEditedArray.indexOf('proof_twitter'), 1);
+      if (!updatedEditedArray.length) this.setState({ disableSave: true });
+      if (isTwitterVerified) box.public.remove('proof_twitter');
+      this.setState({
+        twitterVerifiedFailed: false,
+        twitterEdited: false,
+        isTwitterVerified: false,
+        verifiedTwitter: '',
+      });
+      store.dispatch({
+        type: 'GET_VERIFIED_PUBLIC_TWITTER',
+        verifiedTwitter: '',
+      });
     }
   }
 
@@ -584,13 +630,14 @@ class EditProfile extends Component {
       githubRemoved,
       twitterRemoved,
       verificationLoading,
+      copySuccessful,
     } = this.state;
 
     const message = (`3Box is a social profiles network for web3. This post links my 3Box profile to my Github account!
 
     ✅ ${did} ✅
     
-    Create your profile today to start building social connection and trust online. https://3box.io/`);
+Create your profile today to start building social connection and trust online. https://3box.io/`);
 
     const twitterMessage = (`This tweet links my 3Box profile to my twitter account! %0D%0A%0D%0AJoin web3's social profiles network by creating your account on http://3box.io/ today. %0D%0A@3boxdb%0D%0A%0D%0A✅
     %0D%0A${did}
@@ -626,6 +673,7 @@ class EditProfile extends Component {
           verificationLoading={verificationLoading}
           githubVerifiedFailed={githubVerifiedFailed}
           resetVerification={this.resetVerification}
+          copySuccessful={copySuccessful}
           handleGithubVerificationModal={this.props.handleGithubVerificationModal}
         />
 
@@ -911,7 +959,7 @@ class EditProfile extends Component {
                         <h5>Github</h5>
                       </div>
                       {this.props.verifiedGithub
-                        ? (
+                        && (
                           <div className="edit__profile__verifiedWrapper">
                             <div className="edit__profile__verifiedName">
                               <p>{verifiedGithub}</p>
@@ -940,19 +988,21 @@ class EditProfile extends Component {
                             </button>
                               )}
                           </div>
-                        )
-                        : (
+                        )}
+
+                      {!this.props.verifiedGithub
+                        && (
                           <div className="edit__profile__verifiedWrapper">
                             <input
                               name="verifiedGithub"
                               type="text"
-                              className="edit__profile__value--github"
+                              className="edit__profile__value--github verifiedForm"
                               value={verifiedGithub}
                               onChange={e => this.handleFormChange(e, 'verifiedGithub')}
                             />
                             <button
                               type="button"
-                              className={`unstyledButton ${!githubEdited && 'uneditedGithub'} verificationButton`}
+                              className={`unstyledButton ${!githubEdited && 'uneditedGithub'} verificationButton verifiedForm`}
                               disabled={!githubEdited}
                               onClick={() => {
                                 this.props.getPublicDID();
@@ -960,9 +1010,13 @@ class EditProfile extends Component {
                               }}
                             >
                               Verify
-                            </button>
+                              </button>
+                            <p className="edit__profile__verified--NoMobile">
+                              Add verifications using a desktop browser.
+                            </p>
                           </div>
                         )}
+
                     </div>
 
                     <div className="edit__profile__fields__entry">
@@ -970,7 +1024,7 @@ class EditProfile extends Component {
                         <h5>Twitter</h5>
                       </div>
                       {this.props.verifiedTwitter
-                        ? (
+                        && (
                           <div className="edit__profile__verifiedWrapper">
                             <div className="edit__profile__verifiedName">
                               <p>{verifiedTwitter}</p>
@@ -999,19 +1053,21 @@ class EditProfile extends Component {
                             </button>
                               )}
                           </div>
-                        )
-                        : (
+                        )}
+
+                      {!this.props.verifiedTwitter
+                        && (
                           <div className="edit__profile__verifiedWrapper">
                             <input
                               name="verifiedTwitter"
                               type="text"
-                              className="edit__profile__value--github"
+                              className="edit__profile__value--github verifiedForm"
                               value={verifiedTwitter}
                               onChange={e => this.handleFormChange(e, 'verifiedTwitter')}
                             />
                             <button
                               type="button"
-                              className={`unstyledButton ${!twitterEdited && 'uneditedGithub'} verificationButton`}
+                              className={`unstyledButton ${!twitterEdited && 'uneditedGithub'} verificationButton verifiedForm`}
                               disabled={!twitterEdited}
                               onClick={() => {
                                 this.props.getPublicDID();
@@ -1020,6 +1076,9 @@ class EditProfile extends Component {
                             >
                               Verify
                             </button>
+                            <p className="edit__profile__verified--NoMobile">
+                              Add verifications using a desktop browser.
+                            </p>
                           </div>
                         )}
 

@@ -41,12 +41,6 @@ export const threeBoxReducer = (state = {}, action) => {
         isLoggedIn: action.isLoggedIn,
       };
 
-    case 'LOADING_ACTIVITY':
-      return {
-        ...state,
-        ifFetchingActivity: true,
-      };
-
     case 'UPDATE_ACTIVITY':
       return {
         ...state,
@@ -220,6 +214,7 @@ export const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         isLoggedIn: false,
+        onSyncFinished: false,
         birthday: '',
         name: '',
         github: '',
@@ -239,6 +234,7 @@ export const threeBoxReducer = (state = {}, action) => {
         coverPhoto: [],
         emoji: '',
         status: '',
+        hasSignedOut: action.hasSignedOut,
       };
 
       // MODALS
@@ -253,6 +249,19 @@ export const threeBoxReducer = (state = {}, action) => {
         ...state,
         provideConsent: false,
         ifFetchingThreeBox: true,
+      };
+
+    case 'LOADING_ACTIVITY':
+      return {
+        ...state,
+        ifFetchingActivity: true,
+      };
+
+    case 'APP_SYNC':
+      return {
+        ...state,
+        isSyncing: action.isSyncing,
+        onSyncFinished: action.onSyncFinished,
       };
 
     case 'FAILED_LOADING_3BOX':

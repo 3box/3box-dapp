@@ -177,9 +177,10 @@ nav {
   position: absolute;
   bottom: -6px;
   left: 0;
-  width: 0%;
+  width: 100%;
+  opacity: 0;
   background: white;
-  transition: 0.2s; }
+  transition: 0.6s; }
 
 .underline.landing__nav__link {
   border-bottom: 3px solid white;
@@ -192,16 +193,19 @@ nav {
   position: absolute;
   bottom: -6px;
   left: 0;
-  width: 0%;
+  opacity: 0;
+  width: 100%;
   background: white;
-  transition: 0.2s; }
+  transition: 0.6s; }
 
 .landing__nav__link:hover:after {
-  width: 100%; }
+  width: 100%;
+  opacity: 1; }
 
 .underline.landing__nav__link:hover:after {
   width: 0% !important;
-  transition: 0s; }
+  transition: 0s;
+  opacity: 0; }
 
 .underline {
   border-bottom: 3px solid white;
@@ -222,11 +226,13 @@ nav {
   position: relative; }
 
 .createProfileLink:hover:after {
-  width: 100%; }
+  width: 100%;
+  opacity: 1; }
 
 .underline.createProfileLink:hover:after {
   width: 0;
-  transition: 0s; }
+  transition: 0s;
+  opacity: 0; }
 
 .createProfileLink:after {
   content: '';
@@ -234,9 +240,10 @@ nav {
   position: absolute;
   bottom: -6px;
   left: 0;
-  width: 0%;
+  width: 100%;
+  opacity: 0;
   background: white;
-  transition: 0.2s; }
+  transition: 0.6s; }
 
 .landing.createProfileLink:hover:after {
   background: white !important; }
@@ -388,7 +395,8 @@ nav {
     #actionButtons button {
       cursor: pointer;
       font-size: 14px;
-      border: none; }
+      border: none;
+      padding: 2vh 5vw; }
   .nav__dropdown {
     display: block !important;
     position: fixed;

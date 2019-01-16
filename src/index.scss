@@ -109,7 +109,7 @@ button {
   transition: color .4s ease;
   border: none;
 
-  &:hover{
+  &:hover {
     color: $threeBoxBlueHover;
     padding: 0;
     background-color: transparent;
@@ -265,12 +265,31 @@ input:focus {
   opacity: .6;
 }
 
-.clearProfPic{
+.clearProfPic {
   background-color: white !important;
 }
 
 @media only screen and (max-width: 600px) {
   .webThreeBanner {
     display: none;
+  }
+
+  input[type="color"],
+  input[type="date"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="email"],
+  input[type="month"],
+  input[type="number"],
+  input[type="password"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="text"],
+  input[type="time"],
+  input[type="url"],
+  input[type="week"],
+  select:focus,
+  textarea {
+    font-size: 16px;
   }
 }
