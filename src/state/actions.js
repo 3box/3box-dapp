@@ -73,11 +73,13 @@ export const requestAccess = directLogin => async (dispatch) => {
         allowAccessModal: false,
       });
     } catch (error) {
+      console.log(error);
       history.push(routes.LANDING);
       dispatch({
         type: 'HANDLE_DENIED_ACCESS_MODAL',
         accessDeniedModal: true,
         allowAccessModal: false,
+        isSignedIntoWallet: accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi',
       });
     }
   } else if (window.web3) { // eslint-disable-line no-undef
@@ -176,17 +178,6 @@ export const getBox = fromSignIn => async (dispatch) => {
     dispatch({
       type: 'LOADING_ACTIVITY',
     });
-
-    // onSyncDone only happens on first openBox so only run
-    // this when a user hasn't signed out and signed back in again
-    if (!store.getState().threeBox.hasSignedOut) {
-      // initialize onSyncDone process
-      dispatch({
-        type: 'APP_SYNC',
-        onSyncFinished: false,
-        isSyncing: false,
-      });
-    }
   };
 
   const opts = {
@@ -207,17 +198,6 @@ export const getBox = fromSignIn => async (dispatch) => {
       isLoggedIn: true,
       box,
     });
-
-    // onSyncDone only happens on first openBox so only run
-    // this when a user hasn't signed out and signed back in again
-    if (!store.getState().threeBox.hasSignedOut) {
-      // start onSyncDone loading animation
-      dispatch({
-        type: 'APP_SYNC',
-        onSyncFinished: false,
-        isSyncing: true,
-      });
-    }
 
     const memberSince = await store.getState().threeBox.box.public.get('memberSince');
 
@@ -249,13 +229,6 @@ export const getBox = fromSignIn => async (dispatch) => {
         isLoggedIn: true,
         box,
       });
-
-      // call data with new box object from onSyncDone
-      dispatch({
-        type: 'APP_SYNC',
-        onSyncFinished: true,
-        isSyncing: true,
-      });
     });
   } catch (err) {
     dispatch({
@@ -267,13 +240,19 @@ export const getBox = fromSignIn => async (dispatch) => {
   }
 };
 
-export const getActivity = () => async (dispatch) => {
+export const getActivity = publicProfile => async (dispatch) => {
   try {
     dispatch({
       type: 'LOADING_ACTIVITY',
     });
 
-    const activity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
+    let activity;
+
+    if (publicProfile) {
+      activity = await ThreeBoxActivity.get(publicProfile); // eslint-disable-line no-undef
+    } else {
+      activity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
+    }
 
     // add datatype
     activity.internal = activity.internal.map(object => Object.assign({
@@ -286,27 +265,35 @@ export const getActivity = () => async (dispatch) => {
       dataType: 'Token',
     }, object));
 
-    let publicActivity = await store.getState().threeBox.box.public.log;
-    let privateActivity = await store.getState().threeBox.box.private.log;
+    let feed;
 
-    publicActivity = publicActivity.map((object) => {
-      object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
-      return Object.assign({
-        dataType: 'Public',
-      }, object);
-    });
-    privateActivity = privateActivity.map((object) => {
-      object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
-      return Object.assign({
-        dataType: 'Private',
-      }, object);
-    });
+    if (publicProfile) {
+      feed = activity.internal
+        .concat(activity.txs)
+        .concat(activity.token);
+    } else {
+      let publicActivity = await store.getState().threeBox.box.public.log;
+      let privateActivity = await store.getState().threeBox.box.private.log;
 
-    const feed = activity.internal
-      .concat(activity.txs)
-      .concat(activity.token)
-      .concat(publicActivity)
-      .concat(privateActivity);
+      publicActivity = publicActivity.map((object) => {
+        object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
+        return Object.assign({
+          dataType: 'Public',
+        }, object);
+      });
+      privateActivity = privateActivity.map((object) => {
+        object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
+        return Object.assign({
+          dataType: 'Private',
+        }, object);
+      });
+
+      feed = activity.internal
+        .concat(activity.txs)
+        .concat(activity.token)
+        .concat(publicActivity)
+        .concat(privateActivity);
+    }
 
     // if timestamp is undefined, give it the timestamp of the previous entry
     feed.map((item, i) => {
@@ -328,9 +315,9 @@ export const getActivity = () => async (dispatch) => {
         Object.keys(feedByAddress[feedByAddress.length - 1])[0] === othersAddress) {
         feedByAddress[feedByAddress.length - 1][othersAddress].push(item);
       } else if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === 'threeBox' && (item.dataType === 'Public' || item.dataType === 'Private')) {
-        item.key !== 'ethereum_proof' && feedByAddress[feedByAddress.length - 1].threeBox.push(item);
+        feedByAddress[feedByAddress.length - 1].threeBox.push(item);
       } else if (item.dataType === 'Public' || item.dataType === 'Private') {
-        item.key !== 'proof_did' && feedByAddress.push({
+        feedByAddress.push({
           threeBox: [item],
         });
       } else {
@@ -340,12 +327,20 @@ export const getActivity = () => async (dispatch) => {
       }
     });
 
-    dispatch({
-      type: 'UPDATE_ACTIVITY',
-      feedByAddress,
-      ifFetchingActivity: false,
-      isLoggedIn: true,
-    });
+    if (publicProfile) {
+      dispatch({
+        type: 'GET_PUBLIC_PROFILE_ACTIVITY',
+        publicProfileActivity: feedByAddress,
+        ifFetchingActivity: false,
+      });
+    } else {
+      dispatch({
+        type: 'UPDATE_ACTIVITY',
+        feedByAddress,
+        ifFetchingActivity: false,
+        isLoggedIn: true,
+      });
+    }
   } catch (err) {
     dispatch({
       type: 'FAILED_LOADING_ACTIVITY',
@@ -355,6 +350,50 @@ export const getActivity = () => async (dispatch) => {
       showErrorModal: true,
       provideConsent: false,
     });
+  }
+};
+
+export const getProfile = (profileAddress, opts) => async (dispatch) => {
+  try {
+    const publicProfile = await Box.getProfile(profileAddress, opts); // eslint-disable-line no-undef
+    const publicVerifiedAccounts = await Box.getVerifiedAccounts(publicProfile); // eslint-disable-line no-undef
+
+    dispatch({
+      type: 'GET_PUBLIC_PROFILE',
+      publicProfile,
+      publicVerifiedAccounts,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getProfilesVerifiedAccounts = claim => async (dispatch) => {
+  try {
+    const publicVerifiedAccounts = await Box.getVerifiedAccounts(claim); // eslint-disable-line no-undef
+    dispatch({
+      type: 'GET_PUBLIC_PROFILE_VERFIEDACCOUNTS',
+      publicVerifiedAccounts,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const openBox = profileAddress => async (dispatch) => {
+  try {
+    const publicBox = await Box // eslint-disable-line no-undef
+      .openBox(
+        profileAddress,
+        window.web3.currentProvider, // eslint-disable-line no-undef
+      );
+
+    dispatch({
+      type: 'GET_PUBLIC_BOX',
+      publicBox,
+    });
+  } catch (error) {
+    console.error(error);
   }
 };
 
@@ -437,7 +476,6 @@ export const handleSignOut = () => async (dispatch) => {
     dispatch({
       type: 'HANDLE_SIGNOUT',
       isLoggedIn: false,
-      hasSignedOut: true,
     });
   }
   history.push(routes.LANDING);

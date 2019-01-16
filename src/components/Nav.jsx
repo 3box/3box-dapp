@@ -6,6 +6,7 @@ import { Link, withRouter } from 'react-router-dom';
 import ThreeBoxLogo from '../assets/ThreeBoxLogoBlue.svg';
 import { handleSignOut } from '../state/actions';
 import * as routes from '../utils/routes';
+import normalizeURL from '../utils/funcs';
 import Profile from '../assets/Profile.svg';
 import Edit from '../assets/Edit.svg';
 import SignOut from '../assets/SignOut.svg';
@@ -37,6 +38,7 @@ class Nav extends Component {
     const { showProfileModal } = this.state;
     const { image, location } = this.props;
     const { pathname } = location;
+    const normalizedPath = normalizeURL(pathname);
     const networkColor = this.props.currentNetwork;
 
     return (
@@ -92,8 +94,8 @@ class Nav extends Component {
               <img src={ThreeBoxLogo} alt="3Box Logo" className="landing__nav__logo" />
 
             </div>
-            <Link to={routes.PROFILE}><li className={pathname === routes.PROFILE ? 'nav__activePage' : ''}>Profile</li></Link>
-            <Link to={routes.EDITPROFILE}><li className={pathname === routes.EDITPROFILE ? 'nav__activePage' : ''}>Edit profile</li></Link>
+            <Link to={routes.PROFILE}><li className={normalizedPath === routes.PROFILE ? 'nav__activePage' : ''}>Profile</li></Link>
+            <Link to={routes.EDITPROFILE}><li className={normalizedPath === routes.EDITPROFILE ? 'nav__activePage' : ''}>Edit profile</li></Link>
             <li id="mobileNav__signout" onClick={() => this.handleSignOut()}>Sign Out</li>
           </ul>
         </div>

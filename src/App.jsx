@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as routes from './utils/routes';
+import normalizeURL from './utils/funcs';
 import { store } from './state/store';
 import Landing from './views/Landing';
 import Profile from './views/Profile';
@@ -90,15 +91,17 @@ class App extends Component {
   async componentDidMount() {
     const { location } = this.props;
     const { pathname } = location;
+    const normalizedPath = normalizeURL(pathname);
 
     if (typeof window.web3 === 'undefined') {
       this.props.handleDownloadMetaMaskBanner();
       this.props.handleMobileWalletModal();
     }
 
-    if (typeof window.web3 !== 'undefined' && (pathname === routes.PROFILE || pathname === routes.EDITPROFILE)) { // no wallet and lands on restricted page
+    if (typeof window.web3 !== 'undefined'
+      && (normalizedPath === routes.PROFILE || normalizedPath === routes.EDITPROFILE)) { // no wallet and lands on restricted page
       this.loadData();
-    } else if (typeof window.web3 === 'undefined' && (pathname === routes.PROFILE || pathname === routes.EDITPROFILE)) { // has wallet and lands on restricted page
+    } else if (typeof window.web3 === 'undefined' && (normalizedPath === routes.PROFILE || normalizedPath === routes.EDITPROFILE)) { // has wallet and lands on restricted page
       history.push(routes.LANDING);
       this.props.requireMetaMaskModal();
       this.props.handleMobileWalletModal();
@@ -108,12 +111,13 @@ class App extends Component {
   componentWillReceiveProps(nextProps) {
     const { location } = this.props;
     const { pathname } = location;
+    const normalizedPath = normalizeURL(pathname);
 
     // check previous route for banner behavior on /Create & /Profiles
-    if (nextProps.location.pathname !== pathname) {
+    if (nextProps.location.pathname !== normalizedPath) {
       store.dispatch({
         type: 'PREVIOUS_ROUTE',
-        previousRoute: pathname,
+        previousRoute: normalizedPath,
       });
     }
 
@@ -125,7 +129,7 @@ class App extends Component {
         onSyncFinished: true,
         isSyncing: false,
       });
-      
+
       this.loadCalls();
     }
   }
@@ -187,7 +191,7 @@ class App extends Component {
   async loadData() {
     const { location } = this.props;
     const { pathname } = location;
-    const lowercasePathname = pathname.toLowerCase();
+    const normalizedPath = normalizeURL(pathname);
 
     await this.props.checkWeb3Wallet();
     await this.props.requestAccess('directLogin');
@@ -201,7 +205,7 @@ class App extends Component {
     } else if (!this.props.isSignedIntoWallet) {
       history.push(routes.LANDING);
       this.props.handleRequireWalletLoginModal();
-    } else if (this.props.isSignedIntoWallet && !this.props.isLoggedIn && (lowercasePathname === routes.PROFILE || lowercasePathname === routes.EDITPROFILE)) {
+    } else if (this.props.isSignedIntoWallet && !this.props.isLoggedIn && (normalizedPath === routes.PROFILE || normalizedPath === routes.EDITPROFILE)) {
       history.push(routes.LANDING);
       this.props.handleSignInModal();
     }
@@ -267,6 +271,7 @@ class App extends Component {
     } = this.state;
 
     const { pathname } = location;
+    const normalizedPath = normalizeURL(pathname);
     const isMobile = width <= 812;
     // const isMobile = width <= 600;
     const classHide = retractNav ? 'hide' : '';
@@ -287,7 +292,7 @@ class App extends Component {
               landing={isLandingPage}
               isMobile={isMobile}
               showSideNav={showSideNav}
-              pathname={pathname}
+              pathname={normalizedPath}
             />
           )
           : (
