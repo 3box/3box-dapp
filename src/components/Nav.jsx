@@ -111,14 +111,13 @@ Nav.propTypes = {
   image: PropTypes.array,
   threeBox: PropTypes.object,
   location: PropTypes.object,
-  handleSignOut: PropTypes.func,
+  handleSignOut: PropTypes.func.isRequired,
   currentNetwork: PropTypes.string,
 };
 
 Nav.defaultProps = {
   image: [],
   threeBox: {},
-  handleSignOut: handleSignOut(),
   currentNetwork: '',
   location: {},
 };

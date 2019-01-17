@@ -20,6 +20,7 @@ const Content = ({
 }) => (
     <div>
       <StatusUpdate />
+
       <div className="profile__category--mobile">
         <div className="profile__category__sectionWrapper">
           <NavLink exact to={isPublicProfilePage ? `${routes.PUBLIC_BASE}/${location.pathname.split('/')[2]}${routes.PUBLIC_ACTIVITY_ROUTE}` : routes.PROFILE_ACTIVITY} className="profile__category__section">Activity</NavLink>
@@ -41,12 +42,12 @@ const Content = ({
       <Route
         exact
         path={routes.PUBLIC_ACTIVITY}
-        component={() => <Activity publicProfileActivity={publicProfileActivity} publicVerifiedAccounts={publicVerifiedAccounts} />}
+        component={() => <Activity publicProfileActivity={publicProfileActivity} publicVerifiedAccounts={publicVerifiedAccounts} isPublicProfilePage={isPublicProfilePage} />}
       />
       <Route
         exact
         path={routes.PUBLIC_DETAILS}
-        component={() => <Details publicProfile={publicProfile} publicVerifiedAccounts={publicVerifiedAccounts} isPublicProfilePage={!!(location.pathname.split('/')[1] === routes.PUBLIC_BASE.substring(1))} />}
+        component={() => <Details publicProfile={publicProfile} publicVerifiedAccounts={publicVerifiedAccounts} isPublicProfilePage={isPublicProfilePage} />}
       />
     </div>
   );

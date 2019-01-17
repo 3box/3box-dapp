@@ -1269,11 +1269,11 @@ EditProfile.propTypes = {
   ifFetchingThreeBox: PropTypes.bool,
   showGithubVerificationModal: PropTypes.bool,
   showTwitterVerificationModal: PropTypes.bool,
-  getProfileData: PropTypes.func,
-  getPublicDID: PropTypes.func,
-  getActivity: PropTypes.func,
-  handleGithubVerificationModal: PropTypes.func,
-  handleTwitterVerificationModal: PropTypes.func,
+  getProfileData: PropTypes.func.isRequired,
+  getPublicDID: PropTypes.func.isRequired,
+  getActivity: PropTypes.func.isRequired,
+  handleGithubVerificationModal: PropTypes.func.isRequired,
+  handleTwitterVerificationModal: PropTypes.func.isRequired,
 };
 
 EditProfile.defaultProps = {
@@ -1300,11 +1300,6 @@ EditProfile.defaultProps = {
   ifFetchingThreeBox: false,
   showGithubVerificationModal: false,
   showTwitterVerificationModal: false,
-  getProfileData: getProfileData(),
-  getPublicDID: getPublicDID(),
-  getActivity: getActivity(),
-  handleGithubVerificationModal: handleGithubVerificationModal(),
-  handleTwitterVerificationModal: handleTwitterVerificationModal(),
 };
 
 function mapState(state) {

@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, NavLink, withRouter } from 'react-router-dom';
+
 import { address } from '../../utils/address';
+import { copyToClipBoard } from '../../state/actions';
 import * as routes from '../../utils/routes';
 import EthereumLogo from '../../assets/EthereumIcon.svg';
 import Copy from '../../assets/Copy.svg';
-
 import '../../views/styles/Profile.css';
 import '../styles/Modal.css';
 
@@ -19,11 +20,10 @@ const ProfileCategories = ({
   publicProfile,
   location,
   isPublicProfilePage,
-  show,
   copyToClipBoard,
+  copySuccessful,
 }) => (
     <div>
-      {console.log(show)}
       {!isPublicProfilePage && (
         coverPhoto.length > 0 && coverPhoto[0].contentUrl
           ? <img src={`https://ipfs.infura.io/ipfs/${coverPhoto[0].contentUrl['/']}`} className="profile__coverPhoto clearProfPic" alt="profile" />
@@ -92,14 +92,9 @@ const ProfileCategories = ({
               {/* If /profile show link to my profile */}
               {!isPublicProfilePage
                 ? (
-                  <React.Fragment>
-                    <Link to={`${routes.PUBLIC_BASE}/${address}${routes.PUBLIC_ACTIVITY_ROUTE}`}>
-                      View
+                  <Link to={`${routes.PUBLIC_BASE}/${address}${routes.PUBLIC_ACTIVITY_ROUTE}`}>
+                    View
                     </Link>
-                    <button type="button" onClick={e => copyToClipBoard(e)} className="profile__links__copy">
-                      Share
-                    </button>
-                  </React.Fragment>
                 )
                 : address === location.pathname.split('/')[2] && (
                   <Link to={routes.PROFILE_ACTIVITY}>
@@ -107,6 +102,9 @@ const ProfileCategories = ({
                   </Link>
                 )
               }
+              <button type="button" onClick={() => copyToClipBoard()} className="profile__links__copy">
+                Share
+              </button>
             </div>
 
             <div className="profile__category">
@@ -129,7 +127,7 @@ const ProfileCategories = ({
         </div>
       </div>
 
-      <div className={`${show ? 'showModal' : ''} modal__container--copied modal--effect`}>
+      <div className={`${copySuccessful ? 'showModal' : ''} modal__container--copied modal--effect`}>
         <div className="modal--sync">
           <div className="modal--sync__copy__wrapper">
             <img src={Copy} className="modal__copy__ico" alt="Copied" />
@@ -137,10 +135,11 @@ const ProfileCategories = ({
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 
 ProfileCategories.propTypes = {
+  copyToClipBoard: PropTypes.func.isRequired,
   name: PropTypes.string,
   verifiedGithub: PropTypes.string,
   verifiedTwitter: PropTypes.string,
@@ -161,6 +160,7 @@ ProfileCategories.propTypes = {
   publicProfile: PropTypes.object,
   location: PropTypes.object.isRequired,
   isPublicProfilePage: PropTypes.bool.isRequired,
+  copySuccessful: PropTypes.bool,
 };
 
 ProfileCategories.defaultProps = {
@@ -181,7 +181,8 @@ ProfileCategories.defaultProps = {
   major: '',
   year: '',
   employer: '',
-  publicProfile: {}
+  publicProfile: {},
+  copySuccessful: false,
 };
 
 function mapState(state) {
@@ -204,7 +205,11 @@ function mapState(state) {
     year: state.threeBox.year,
     employer: state.threeBox.employer,
     publicProfile: state.threeBox.publicProfile,
+    copySuccessful: state.threeBox.copySuccessful,
   };
 }
 
-export default withRouter(connect(mapState)(ProfileCategories));
+export default withRouter(connect(mapState,
+  {
+    copyToClipBoard,
+  })(ProfileCategories));

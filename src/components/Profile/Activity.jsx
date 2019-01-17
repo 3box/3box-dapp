@@ -20,18 +20,20 @@ const Activity = ({
   feedByAddress,
   verifiedGithub,
   verifiedTwitter,
-  publicProfileActivity }) => (
+  publicProfileActivity,
+  isPublicProfilePage,
+}) => (
     <div id="feed">
       <p className="header" id="feed__header">Activity</p>
       <div className="feed__activity__address">
-        {ifFetchingActivity
+        {(ifFetchingActivity && !isPublicProfilePage)
           && (
             <div className="feed__activity__load">
               <img src={Loading} alt="loading" id="activityLoad" />
             </div>
           )
         }
-        {(!publicProfileActivity.length && feedByAddress.length > 0)
+        {(!isPublicProfilePage && feedByAddress.length > 0)
           ? feedByAddress.map((feedAddress, i) => (
             <div key={i} className="feed__activity__tile">
               <div className="feed__activity__context">
@@ -90,7 +92,7 @@ const Activity = ({
           )
         }
 
-        {(publicProfileActivity.length > 0)
+        {(isPublicProfilePage && publicProfileActivity.length > 0)
           ? publicProfileActivity.map((feedAddress, i) => (
             <div key={i} className="feed__activity__tile">
               <div className="feed__activity__context">
@@ -161,6 +163,7 @@ const Activity = ({
 Activity.propTypes = {
   feedByAddress: PropTypes.array,
   ifFetchingActivity: PropTypes.bool,
+  isPublicProfilePage: PropTypes.bool.isRequired,
   verifiedGithub: PropTypes.string,
   verifiedTwitter: PropTypes.string,
   publicProfile: PropTypes.object,

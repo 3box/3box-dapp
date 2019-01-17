@@ -131,11 +131,11 @@ class StatusUpdate extends Component {
 }
 
 StatusUpdate.propTypes = {
-  box: PropTypes.object,
   status: PropTypes.string,
-  getActivity: PropTypes.func,
-  getProfileData: PropTypes.func,
+  getActivity: PropTypes.func.isRequired,
+  getProfileData: PropTypes.func.isRequired,
   publicProfile: PropTypes.object,
+  box: PropTypes.object,
   location: PropTypes.object.isRequired,
 };
 
@@ -143,8 +143,6 @@ StatusUpdate.defaultProps = {
   box: {},
   status: '',
   publicProfile: {},
-  getActivity: getActivity(),
-  getProfileData: getProfileData(),
 };
 
 function mapState(state) {

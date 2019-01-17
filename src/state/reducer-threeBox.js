@@ -406,6 +406,12 @@ export const threeBoxReducer = (state = {}, action) => {
         previousRoute: action.previousRoute,
       };
 
+    case 'COPY_SUCCESSFUL':
+      return {
+        ...state,
+        copySuccessful: action.copySuccessful,
+      };
+
     default:
       return state;
   }

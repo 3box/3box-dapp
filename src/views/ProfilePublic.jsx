@@ -44,9 +44,8 @@ class ProfilePublic extends Component {
 }
 
 ProfilePublic.propTypes = {
-  getProfile: PropTypes.func,
-  getActivity: PropTypes.func,
-  getProfilesVerifiedAccounts: PropTypes.func,
+  getProfile: PropTypes.func.isRequired,
+  getActivity: PropTypes.func.isRequired,
   publicVerifiedAccounts: PropTypes.object,
   box: PropTypes.object,
   pathname: PropTypes.object,
@@ -61,9 +60,6 @@ ProfilePublic.defaultProps = {
   publicProfile: {},
   publicProfileActivity: [],
   location: {},
-  getProfile: getProfile(),
-  getActivity: getActivity(),
-  getProfilesVerifiedAccounts: getProfilesVerifiedAccounts(),
 };
 
 const mapState = state => ({

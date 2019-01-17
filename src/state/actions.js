@@ -480,3 +480,32 @@ export const handleSignOut = () => async (dispatch) => {
   }
   history.push(routes.LANDING);
 };
+
+export const copyToClipBoard = () => async (dispatch) => {
+  const textArea = document.createElement('textarea');
+  const profileURL = `https://www.3box.io${routes.PUBLIC_BASE}/${address}${routes.PUBLIC_ACTIVITY_ROUTE}`;
+  textArea.value = profileURL;
+  try {
+    document.body.appendChild(textArea);
+    textArea.focus({
+      preventScroll: true,
+    });
+    textArea.select();
+    document.execCommand('copy');
+    setTimeout(() => {
+      dispatch({
+        type: 'COPY_SUCCESSFUL',
+        copySuccessful: true,
+      });
+    }, 1);
+    setTimeout(() => {
+      dispatch({
+        type: 'COPY_SUCCESSFUL',
+        copySuccessful: false,
+      });
+    }, 2000);
+  } catch (err) {
+    console.error('Unable to copy', err);
+  }
+  document.body.removeChild(textArea);
+};
