@@ -9,7 +9,7 @@ import {
   getProfilesVerifiedAccounts,
 } from '../state/actions';
 import Content from '../components/Profile/Content';
-import Categories from '../components/Profile/Categories';
+import SideBar from '../components/Profile/SideBar';
 import Nav from '../components/Nav';
 import './styles/Profile.css';
 
@@ -29,7 +29,7 @@ class ProfilePublic extends Component {
         <Nav />
         <div id="profile__page">
           <div id="profile__contents">
-            <Categories isPublicProfilePage />
+            <SideBar isPublicProfilePage />
             <Content
               publicProfile={publicProfile}
               publicProfileActivity={publicProfileActivity}

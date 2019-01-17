@@ -282,8 +282,7 @@ class App extends Component {
 
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
-    const isMobile = width <= 812;
-    // const isMobile = width <= 600;
+    const isMobile = width <= 812; // 600
     const classHide = retractNav ? 'hide' : '';
     const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
     const isLandingPage = pathname === routes.LANDING && 'landing';

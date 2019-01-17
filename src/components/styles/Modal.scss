@@ -44,6 +44,17 @@
   bottom: 0;
 }
 
+.modal__container--copied {
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  width: 100vw;
+  visibility: hidden;
+  bottom: 0;
+}
+
 .modal {
   background: white;
   border-radius: 6px;
@@ -82,7 +93,7 @@
   background: $threeBoxBlue;
   border-radius: 6px;
   padding: 0 40px;
-  width: 360px;
+  width: fit-content;
   height: 72px;
   display: flex;
   align-items: center;
@@ -98,7 +109,7 @@
     line-height: 24px;
     font-size: 14px;
     color: white;
-    opacity: .8;
+    opacity: .9;
   }
 
   form {
@@ -132,6 +143,34 @@
 
 .showModal.modal--effect .modal {
   opacity: 1;
+}
+
+.modal--effect .modal--sync {
+  opacity: 0;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.showModal.modal--effect .modal--sync {
+  opacity: 1;
+}
+
+.modal__copy__ico{
+  width: 20px;
+}
+
+.modal--sync__copy__wrapper{
+  width: 180px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal--sync__wrapper{
+  width: 340px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .showModal {
@@ -589,7 +628,7 @@
   }
 
   .modal--sync {
-    width: 78vw;
+    width: fit-content;
     padding: 0 24px;
     bottom: 24px;
     

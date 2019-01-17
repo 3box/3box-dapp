@@ -259,7 +259,7 @@ class EditProfile extends Component {
       this.setState({
         copySuccessful: true,
       });
-    }, 50);
+    }, 1);
 
     setTimeout(() => {
       this.setState({

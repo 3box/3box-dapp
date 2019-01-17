@@ -549,14 +549,16 @@ export const SyncingModal = ({ show }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container--sync modal--effect`}>
       <div className="modal--sync ">
-        <img src={LoadingWhite} alt="Loading" id="modal__loadingGraphic" />
+        <div className="modal--sync__wrapper">
+          <img src={LoadingWhite} alt="Loading" id="modal__loadingGraphic" />
 
-        <div id="logo" className="modal__loading3Box">
-          <img src={ThreeBoxLogoWhite} alt="3Box Logo" />
-        </div>
+          <div id="logo" className="modal__loading3Box">
+            <img src={ThreeBoxLogoWhite} alt="3Box Logo" />
+          </div>
 
-        <div>
-          <p>SYNCING 3BOX DATA</p>
+          <div>
+            <p>SYNCING 3BOX DATA</p>
+          </div>
         </div>
       </div>
     </div>

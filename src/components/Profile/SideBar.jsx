@@ -5,8 +5,10 @@ import { Link, NavLink, withRouter } from 'react-router-dom';
 import { address } from '../../utils/address';
 import * as routes from '../../utils/routes';
 import EthereumLogo from '../../assets/EthereumIcon.svg';
+import Copy from '../../assets/Copy.svg';
 
 import '../../views/styles/Profile.css';
+import '../styles/Modal.css';
 
 const ProfileCategories = ({
   name,
@@ -17,9 +19,11 @@ const ProfileCategories = ({
   publicProfile,
   location,
   isPublicProfilePage,
+  show,
+  copyToClipBoard,
 }) => (
     <div>
-
+      {console.log(show)}
       {!isPublicProfilePage && (
         coverPhoto.length > 0 && coverPhoto[0].contentUrl
           ? <img src={`https://ipfs.infura.io/ipfs/${coverPhoto[0].contentUrl['/']}`} className="profile__coverPhoto clearProfPic" alt="profile" />
@@ -84,6 +88,27 @@ const ProfileCategories = ({
 
             </div>
 
+            <div className="profile__links">
+              {/* If /profile show link to my profile */}
+              {!isPublicProfilePage
+                ? (
+                  <React.Fragment>
+                    <Link to={`${routes.PUBLIC_BASE}/${address}${routes.PUBLIC_ACTIVITY_ROUTE}`}>
+                      View
+                    </Link>
+                    <button type="button" onClick={e => copyToClipBoard(e)} className="profile__links__copy">
+                      Share
+                    </button>
+                  </React.Fragment>
+                )
+                : address === location.pathname.split('/')[2] && (
+                  <Link to={routes.PROFILE_ACTIVITY}>
+                    Return
+                  </Link>
+                )
+              }
+            </div>
+
             <div className="profile__category">
               <div className="profile__category__sectionWrapper">
                 <NavLink exact to={isPublicProfilePage ? `${routes.PUBLIC_BASE}/${location.pathname.split('/')[2]}${routes.PUBLIC_ACTIVITY_ROUTE}` : routes.PROFILE_ACTIVITY} className="profile__category__section">Activity</NavLink>
@@ -101,6 +126,15 @@ const ProfileCategories = ({
             </div>
           </div>
 
+        </div>
+      </div>
+
+      <div className={`${show ? 'showModal' : ''} modal__container--copied modal--effect`}>
+        <div className="modal--sync">
+          <div className="modal--sync__copy__wrapper">
+            <img src={Copy} className="modal__copy__ico" alt="Copied" />
+            <p>COPIED PROFILE URL</p>
+          </div>
         </div>
       </div>
     </div>

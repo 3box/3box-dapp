@@ -19,6 +19,7 @@ const Activity = ({
   ifFetchingActivity,
   feedByAddress,
   verifiedGithub,
+  verifiedTwitter,
   publicProfileActivity }) => (
     <div id="feed">
       <p className="header" id="feed__header">Activity</p>
@@ -74,7 +75,7 @@ const Activity = ({
                     if (item.dataType === 'Internal') return <FeedTileInternal item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
                     if (item.dataType === 'Token') return <FeedTileToken item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
                     if (item.dataType === 'Txs') return <FeedTileTXS item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
-                    if (item.dataType === 'Public') return <FeedTileActivity item={item} key={index} verifiedGithub={verifiedGithub} isEven={parseInt(index, 10) % 2 === 0} />;
+                    if (item.dataType === 'Public') return <FeedTileActivity item={item} key={index} verifiedGithub={verifiedGithub} verifiedTwitter={verifiedTwitter} isEven={parseInt(index, 10) % 2 === 0} />;
                     if (item.dataType === 'Private') return <FeedTileActivity item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
                   })()
                 ))
@@ -161,6 +162,7 @@ Activity.propTypes = {
   feedByAddress: PropTypes.array,
   ifFetchingActivity: PropTypes.bool,
   verifiedGithub: PropTypes.string,
+  verifiedTwitter: PropTypes.string,
   publicProfile: PropTypes.object,
   publicProfileActivity: PropTypes.array,
   location: PropTypes.object,
@@ -170,6 +172,7 @@ Activity.defaultProps = {
   feedByAddress: [],
   ifFetchingActivity: false,
   verifiedGithub: '',
+  verifiedTwitter: '',
   publicProfile: {},
   publicProfileActivity: [],
   location: {},
@@ -179,6 +182,7 @@ const mapState = state => ({
   feedByAddress: state.threeBox.feedByAddress,
   ifFetchingActivity: state.threeBox.ifFetchingActivity,
   verifiedGithub: state.threeBox.verifiedGithub,
+  verifiedTwitter: state.threeBox.verifiedTwitter,
   publicProfile: state.threeBox.publicProfile,
   publicProfileActivity: state.threeBox.publicProfileActivity,
 });
