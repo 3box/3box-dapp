@@ -84,7 +84,7 @@ const Activity = ({
           : (!ifFetchingActivity && !publicProfileActivity.length)
           && (
             <div className="feed__activity__load">
-              <p>No activity at this address yet 2</p>
+              <p>No activity at this address yet</p>
             </div>
           )
         }
@@ -143,7 +143,7 @@ const Activity = ({
           : (!ifFetchingActivity && publicProfileActivity.length > 0)
           && (
             <div className="feed__activity__load">
-              <p>No activity at this address yet 3</p>
+              <p>No activity at this address yet</p>
             </div>
           )
         }

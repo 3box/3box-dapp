@@ -16,16 +16,17 @@ const ProfileCategories = ({
   emoji,
   publicProfile,
   location,
+  isPublicProfilePage,
 }) => (
     <div>
 
-      {location.pathname.split('/')[1] === 'profile' && (
+      {!isPublicProfilePage && (
         coverPhoto.length > 0 && coverPhoto[0].contentUrl
           ? <img src={`https://ipfs.infura.io/ipfs/${coverPhoto[0].contentUrl['/']}`} className="profile__coverPhoto clearProfPic" alt="profile" />
           : <div className="profile__coverPhoto" />)
       }
 
-      {(location.pathname.split('/')[1] === 'user' && publicProfile.coverPhoto) && (
+      {(isPublicProfilePage && publicProfile.coverPhoto) && (
         publicProfile.coverPhoto.length > 0 && publicProfile.coverPhoto[0].contentUrl
           ? <img src={`https://ipfs.infura.io/ipfs/${publicProfile.coverPhoto[0].contentUrl['/']}`} className="profile__coverPhoto clearProfPic" alt="profile" />
           : <div className="profile__coverPhoto" />)
@@ -36,13 +37,13 @@ const ProfileCategories = ({
 
           <div id="profile__user__info">
 
-            {location.pathname.split('/')[1] === 'profile' && (
+            {!isPublicProfilePage && (
               image.length > 0 && image[0].contentUrl
                 ? <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} className="profile__user__picture clearProfPic" alt="profile" />
                 : <div className="profile__user__picture" />)
             }
 
-            {(location.pathname.split('/')[1] === 'user' && publicProfile.coverPhoto) && (
+            {(isPublicProfilePage && publicProfile.image) && (
               publicProfile.image.length > 0 && publicProfile.image[0].contentUrl
                 ? <img src={`https://ipfs.infura.io/ipfs/${publicProfile.image[0].contentUrl['/']}`} className="profile__user__picture clearProfPic" alt="profile" />
                 : <div className="profile__user__picture" />)
@@ -50,43 +51,43 @@ const ProfileCategories = ({
 
             <div className="profile__basic">
               <div className="profile__basic__wrapper">
-                {location.pathname.split('/')[1] === 'profile' && (name
+                {!isPublicProfilePage && (name
                   ? <h2 id="profile__user__name">{name}</h2>
                   : <Link to={routes.EDITPROFILE}><h2 id="profile__user__name__add">Add name</h2></Link>)
                 }
 
-                {(location.pathname.split('/')[1] === 'user' && publicProfile.name) && (publicProfile.name
+                {(isPublicProfilePage && publicProfile.name) && (publicProfile.name
                   ? <h2 id="profile__user__name">{publicProfile.name}</h2>
                   : <Link to={routes.EDITPROFILE}><h2 id="profile__user__name__add">Add name</h2></Link>)
                 }
 
 
                 <span className="profile__basic__emoji">
-                  {location.pathname.split('/')[1] === 'profile' && emoji.code ? emoji.code : emoji}
-                  {(location.pathname.split('/')[1] === 'user' && publicProfile.emoji) && publicProfile.emoji.code ? publicProfile.emoji.code : publicProfile.emoji}
+                  {!isPublicProfilePage && emoji.code ? emoji.code : emoji}
+                  {(isPublicProfilePage && publicProfile.emoji) && publicProfile.emoji.code ? publicProfile.emoji.code : publicProfile.emoji}
                 </span>
               </div>
 
               <div id="profile__network" title="Network">
                 <img id="profile__network__networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
                 <p id="profile__details__address" title={address}>
-                  {location.pathname.split('/')[1] === 'profile' && address && address.substring(0, 8)}
-                  {location.pathname.split('/')[1] === 'user' && location.pathname.split('/')[2].substring(0, 8)}
+                  {!isPublicProfilePage && address && address.substring(0, 8)}
+                  {isPublicProfilePage && location.pathname.split('/')[2].substring(0, 8)}
                   ...
                 </p>
               </div>
 
               <p className="profile__basic__description">
-                {location.pathname.split('/')[1] === 'profile' && description}
-                {(location.pathname.split('/')[1] === 'user' && publicProfile.description) && publicProfile.description}
+                {!isPublicProfilePage && description}
+                {(isPublicProfilePage && publicProfile.description) && publicProfile.description}
               </p>
 
             </div>
 
             <div className="profile__category">
               <div className="profile__category__sectionWrapper">
-                <NavLink exact to={routes.PROFILE_ACTIVITY} className="profile__category__section">Activity</NavLink>
-                <NavLink exact to={routes.PROFILE_ABOUT} className="profile__category__section ">Details</NavLink>
+                <NavLink exact to={isPublicProfilePage ? `${routes.PUBLIC_BASE}/${location.pathname.split('/')[2]}${routes.PUBLIC_ACTIVITY_ROUTE}` : routes.PROFILE_ACTIVITY} className="profile__category__section">Activity</NavLink>
+                <NavLink exact to={isPublicProfilePage ? `${routes.PUBLIC_BASE}/${location.pathname.split('/')[2]}${routes.PUBLIC_DETAILS_ROUTE}` : routes.PROFILE_ABOUT} className="profile__category__section ">Details</NavLink>
               </div>
             </div>
 
@@ -124,6 +125,8 @@ ProfileCategories.propTypes = {
   coverPhoto: PropTypes.array,
   description: PropTypes.string,
   publicProfile: PropTypes.object,
+  location: PropTypes.object.isRequired,
+  isPublicProfilePage: PropTypes.bool.isRequired,
 };
 
 ProfileCategories.defaultProps = {

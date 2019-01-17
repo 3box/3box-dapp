@@ -13,6 +13,12 @@ export const JOBS = '/jobs';
 export const CREATE = '/create';
 export const PROFILES = '/profiles';
 
-export const PROFILE_PUBLIC = '/user/:ethaddress';
-export const PUBLIC_ACTIVITY = '/user/:ethAddress/activity';
-export const PUBLIC_ABOUT = '/user/:ethAddress/about';
+// public profile routes
+export const PUBLIC_BASE = '/user';
+
+export const PUBLIC_ACTIVITY_ROUTE = '/activity';
+export const PUBLIC_DETAILS_ROUTE = '/details';
+
+export const PUBLIC_PROFILE = `${PUBLIC_BASE}/:ethaddress`;
+export const PUBLIC_ACTIVITY = `${PUBLIC_BASE}/:ethaddress${PUBLIC_ACTIVITY_ROUTE}`;
+export const PUBLIC_DETAILS = `${PUBLIC_BASE}/:ethaddress${PUBLIC_DETAILS_ROUTE}`;

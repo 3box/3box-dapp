@@ -36,6 +36,16 @@
   .statusUpdate__field::placeholder {
     color: #a8a8a8; }
 
+.statusUpdate__displayPublic {
+  width: 100%;
+  font-size: 1.1em;
+  height: 44px;
+  font-weight: 400;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; }
+
 .statusUpdate:hover .hideStatusButton {
   display: block; }
 

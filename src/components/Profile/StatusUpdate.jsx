@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Loading from '../assets/Loading.svg';
-import './styles/Feed.css';
+import Loading from '../../assets/Loading.svg';
+import '../styles/Feed.css';
 
 import {
   getActivity,
   getProfileData,
-} from '../state/actions';
+} from '../../state/actions';
 
 class StatusUpdate extends Component {
   constructor(props) {
@@ -64,57 +64,68 @@ class StatusUpdate extends Component {
 
   render() {
     const { status, disableSave, saveLoading } = this.state;
+    const { location, publicProfile } = this.props;
 
     return (
-      <div className="statusUpdate">
+      <React.Fragment>
 
-        {saveLoading
-          && (
-            <div className="statusUpdate__loading">
-              <img src={Loading} alt="loading" />
+        {(location.pathname.split('/')[1] === 'user') && (
+          <div className="statusUpdate">
+            <div className="statusUpdate__displayPublic">
+              {publicProfile.status}
             </div>
-          )}
+          </div>)}
 
-        <input
-          name="name"
-          type="text"
-          value={status}
-          className="statusUpdate__field"
-          placeholder="Set a status..."
-          onChange={e => this.handleFormChange(e, 'status')}
-        />
+        {location.pathname.split('/')[1] === 'profile' && (
+          <div className="statusUpdate">
+            {saveLoading
+              && (
+                <div className="statusUpdate__loading">
+                  <img src={Loading} alt="loading" />
+                </div>
+              )}
 
-        {!disableSave
-          && (
-            <button
-              type="button"
-              className="statusUpdate__button statusUpdate__button--save"
-              onClick={e => this.handleSubmit(e)}
-            >
-              Save
-            </button>)}
+            <input
+              name="name"
+              type="text"
+              value={status}
+              className="statusUpdate__field"
+              placeholder="Set a status..."
+              onChange={e => this.handleFormChange(e, 'status')}
+            />
 
-        {!disableSave
-          && (
-            <button
-              type="button"
-              className="statusUpdate__button statusUpdate__button--cancel"
-              onClick={e => this.cancelChange(e)}
-            >
-              Cancel
-            </button>)}
+            {!disableSave
+              && (
+                <button
+                  type="button"
+                  className="statusUpdate__button statusUpdate__button--save"
+                  onClick={e => this.handleSubmit(e)}
+                >
+                  Save
+                </button>)}
 
-        {(disableSave && status !== '')
-          && (
-            <button
-              type="button"
-              className="statusUpdate__button statusUpdate__button--remove hideStatusButton"
-              onClick={e => this.handleSubmit(e, 'remove')}
-            >
-              Remove
-            </button>)}
+            {!disableSave
+              && (
+                <button
+                  type="button"
+                  className="statusUpdate__button statusUpdate__button--cancel"
+                  onClick={e => this.cancelChange(e)}
+                >
+                  Cancel
+                </button>)}
 
-      </div >
+            {(disableSave && status !== '')
+              && (
+                <button
+                  type="button"
+                  className="statusUpdate__button statusUpdate__button--remove hideStatusButton"
+                  onClick={e => this.handleSubmit(e, 'remove')}
+                >
+                  Remove
+                </button>)}
+          </div>)}
+
+      </React.Fragment>
     );
   }
 }
@@ -124,11 +135,14 @@ StatusUpdate.propTypes = {
   status: PropTypes.string,
   getActivity: PropTypes.func,
   getProfileData: PropTypes.func,
+  publicProfile: PropTypes.object,
+  location: PropTypes.object.isRequired,
 };
 
 StatusUpdate.defaultProps = {
   box: {},
   status: '',
+  publicProfile: {},
   getActivity: getActivity(),
   getProfileData: getProfileData(),
 };
@@ -137,6 +151,7 @@ function mapState(state) {
   return {
     box: state.threeBox.box,
     status: state.threeBox.status,
+    publicProfile: state.threeBox.publicProfile,
   };
 }
 

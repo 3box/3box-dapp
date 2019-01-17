@@ -13,15 +13,9 @@ import Categories from '../components/Profile/Categories';
 import Nav from '../components/Nav';
 import './styles/Profile.css';
 
-
 class ProfilePublic extends Component {
-  componentWillMount() {
-    console.log('willUmount');
-    window.removeEventListener('resize', this.handleWindowSizeChange);
-    window.removeEventListener('scroll', this.hideBar);
-  }
-
   async componentDidMount() {
+    window.scrollTo(0, 0);
     const { location: { pathname } } = this.props;
     const profileAddress = pathname.split('/')[2];
     this.props.getActivity(profileAddress);
@@ -29,17 +23,18 @@ class ProfilePublic extends Component {
   }
 
   render() {
-    console.log('in profile public');
+    const { publicProfile, publicProfileActivity, publicVerifiedAccounts } = this.props;
     return (
       <div>
         <Nav />
         <div id="profile__page">
           <div id="profile__contents">
-            <Categories />
+            <Categories isPublicProfilePage />
             <Content
-              publicProfile={this.props.publicProfile}
-              publicProfileActivity={this.props.publicProfileActivity}
-              publicVerifiedAccounts={this.props.publicVerifiedAccounts}
+              publicProfile={publicProfile}
+              publicProfileActivity={publicProfileActivity}
+              publicVerifiedAccounts={publicVerifiedAccounts}
+              isPublicProfilePage
             />
           </div>
         </div>
@@ -49,14 +44,15 @@ class ProfilePublic extends Component {
 }
 
 ProfilePublic.propTypes = {
+  getProfile: PropTypes.func,
+  getActivity: PropTypes.func,
+  getProfilesVerifiedAccounts: PropTypes.func,
+  publicVerifiedAccounts: PropTypes.object,
   box: PropTypes.object,
   pathname: PropTypes.object,
   location: PropTypes.object,
   publicProfile: PropTypes.object,
   publicProfileActivity: PropTypes.array,
-  getProfile: PropTypes.func,
-  getActivity: PropTypes.func,
-  getProfilesVerifiedAccounts: PropTypes.func,
 };
 
 ProfilePublic.defaultProps = {

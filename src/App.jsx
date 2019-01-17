@@ -20,24 +20,7 @@ import Nav from './components/Nav.jsx';
 import history from './history';
 import './index.css';
 
-import {
-  SwitchedAddressModal,
-  SwitchedNetworksModal,
-  LoggedOutModal,
-  OnBoardingModalDesktop,
-  LoadingThreeBoxProfileModal,
-  OnBoardingModalMobile,
-  ProvideAccessModal,
-  SyncingModal,
-  RequireMetaMaskModal,
-  ProvideConsentModal,
-  AccessDeniedModal,
-  ErrorModal,
-  MustConsentModal,
-  MobileWalletRequiredModal,
-  SignInToWalletModal,
-  SignInToThreeBox,
-} from './components/Modals';
+import AppModals from './components/AppModals';
 
 import {
   getProfileData,
@@ -103,7 +86,6 @@ class App extends Component {
       // 1. fetch public profile
       // 2. can you openBox?
       // 3. fetch box & show signedin profile
-      // 4. can you openBox?
 
       // await Box // eslint-disable-line no-undef
       //   .openBox(
@@ -326,119 +308,51 @@ class App extends Component {
             <Nav />
           )}
 
-        <div className={`${!downloadBanner ? 'hideBanner' : ''} webThreeBanner`}>
-          <p>
-            3Box requires web3.  Download the MetaMask extension to continue.
-          </p>
-          <a href="https://metamask.io/" target="_blank" rel="noopener noreferrer">
-            <button type="button" className="webThreeBanner__link">
-              Download
-            </button>
-          </a>
-          <p onClick={this.props.handleDownloadMetaMaskBanner} className="webThreeBanner__close">
-            &#10005;
-          </p>
-        </div>
-
-        <LoadingThreeBoxProfileModal show={ifFetchingThreeBox} />
-
-        <SyncingModal
-          show={!onSyncFinished && !ifFetchingThreeBox && isSyncing && !hasSignedOut}
-        />
-
-        <ProvideAccessModal
-          handleAccessModal={this.props.handleAccessModal}
-          show={allowAccessModal}
+        <AppModals
+          downloadBanner={downloadBanner}
+          ifFetchingThreeBox={ifFetchingThreeBox}
+          onSyncFinished={onSyncFinished}
+          isSyncing={isSyncing}
+          hasSignedOut={hasSignedOut}
+          allowAccessModal={allowAccessModal}
           directLogin={directLogin}
           isMobile={isMobile}
-        />
-
-        <RequireMetaMaskModal
-          closeRequireMetaMaskModal={this.props.closeRequireMetaMaskModal}
-          show={alertRequireMetaMask}
-          isMobile={isMobile}
-        />
-
-        <ProvideConsentModal
-          handleConsentModal={this.props.handleConsentModal}
-          show={provideConsent}
-          isMobile={isMobile}
-        />
-
-        <AccessDeniedModal
-          handleDeniedAccessModal={this.props.handleDeniedAccessModal}
-          show={accessDeniedModal}
-          isMobile={isMobile}
-        />
-
-        <SignInToWalletModal
-          handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal}
-          show={signInToWalletModal}
-          isMobile={isMobile}
-        />
-
-        <SignInToThreeBox
-          show={signInModal}
-          handleSignInModal={this.props.handleSignInModal}
-        />
-
-        <MobileWalletRequiredModal
+          alertRequireMetaMask={alertRequireMetaMask}
+          accessDeniedModal={accessDeniedModal}
+          signInToWalletModal={signInToWalletModal}
+          signInModal={signInModal}
           isIOS={isIOS}
-          handleMobileWalletModal={this.props.handleMobileWalletModal}
-          show={mobileWalletRequiredModal}
-          isMobile={isMobile}
-        />
-
-        <ErrorModal
+          mobileWalletRequiredModal={mobileWalletRequiredModal}
           errorMessage={errorMessage}
-          closeErrorModal={this.props.closeErrorModal}
-          show={showErrorModal && !mustConsentError}
-          isMobile={isMobile}
-        />
-
-        <MustConsentModal
-          closeErrorModal={this.props.closeErrorModal}
-          show={mustConsentError}
-          isMobile={isMobile}
-        />
-
-        <SwitchedNetworksModal
+          mustConsentError={mustConsentError}
+          showErrorModal={showErrorModal}
           prevNetwork={prevNetwork}
           currentNetwork={currentNetwork}
+          showDifferentNetworkModal={showDifferentNetworkModal}
+          loggedOutModal={loggedOutModal}
+          switchedAddressModal={switchedAddressModal}
+          prevAddress={prevAddress}
+          onBoardingModal={onBoardingModal}
+          onBoardingModalTwo={onBoardingModalTwo}
+          provideConsent={provideConsent}
+          onBoardingModalMobileOne={onBoardingModalMobileOne}
+          onBoardingModalMobileTwo={onBoardingModalMobileTwo}
+          onBoardingModalMobileThree={onBoardingModalMobileThree}
+          handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal}
+          handleSignInModal={this.props.handleSignInModal}
+          handleMobileWalletModal={this.props.handleMobileWalletModal}
+          handleConsentModal={this.props.handleConsentModal}
+          handleDeniedAccessModal={this.props.handleDeniedAccessModal}
+          closeErrorModal={this.props.closeErrorModal}
           handleSwitchedNetworkModal={this.props.handleSwitchedNetworkModal}
-          show={showDifferentNetworkModal}
-        />
-
-        <LoggedOutModal
-          isMobile={isMobile}
+          handleDownloadMetaMaskBanner={this.props.handleDownloadMetaMaskBanner}
           handleLoggedOutModal={this.props.handleLoggedOutModal}
           handleSignOut={this.props.handleSignOut}
-          show={loggedOutModal}
-        />
-
-        <SwitchedAddressModal
           handleSwitchedAddressModal={this.props.handleSwitchedAddressModal}
-          show={switchedAddressModal}
-          isMobile={isMobile}
-          handleSignOut={this.props.handleSignOut}
-          prevAddress={prevAddress}
-        />
-
-        <OnBoardingModalDesktop
-          isMobile={isMobile}
-          showOne={onBoardingModal}
-          showTwo={onBoardingModalTwo}
           handleOnboardingModal={this.props.handleOnboardingModal}
-        />
-
-        <OnBoardingModalMobile
-          isMobile={isMobile}
-          handleOnboardingModal={this.props.handleOnboardingModal}
-          showOne={onBoardingModal}
-          showTwo={onBoardingModalMobileOne}
-          showThree={onBoardingModalMobileTwo}
-          showFour={onBoardingModalMobileThree}
+          handleAccessModal={this.props.handleAccessModal}
           handleNextMobileModal={this.handleNextMobileModal}
+          closeRequireMetaMaskModal={this.props.closeRequireMetaMaskModal}
         />
 
         <Switch>
@@ -458,6 +372,11 @@ class App extends Component {
           />
 
           <Route
+            path={routes.PUBLIC_PROFILE}
+            component={ProfilePublic}
+          />
+
+          <Route
             path={routes.PROFILE}
             component={Profile}
           />
@@ -465,11 +384,6 @@ class App extends Component {
           <Route
             path={routes.EDITPROFILE}
             component={EditProfile}
-          />
-
-          <Route
-            path={routes.PROFILE_PUBLIC}
-            component={ProfilePublic}
           />
 
           <Route
@@ -673,3 +587,119 @@ export default withRouter(connect(mapState,
     closeErrorModal,
     closeRequireMetaMaskModal,
   })(App));
+
+
+{/* <div className={`${!downloadBanner ? 'hideBanner' : ''} webThreeBanner`}>
+  <p>
+    3Box requires web3.  Download the MetaMask extension to continue.
+  </p>
+  <a href="https://metamask.io/" target="_blank" rel="noopener noreferrer">
+    <button type="button" className="webThreeBanner__link">
+      Download
+    </button>
+  </a>
+  <p onClick={this.props.handleDownloadMetaMaskBanner} className="webThreeBanner__close">
+    &#10005;
+  </p>
+</div>
+
+  <LoadingThreeBoxProfileModal show={ifFetchingThreeBox} />
+
+  <SyncingModal
+    show={!onSyncFinished && !ifFetchingThreeBox && isSyncing && !hasSignedOut}
+  />
+
+  <ProvideAccessModal
+    handleAccessModal={this.props.handleAccessModal}
+    show={allowAccessModal}
+    directLogin={directLogin}
+    isMobile={isMobile}
+  />
+
+  <RequireMetaMaskModal
+    closeRequireMetaMaskModal={this.props.closeRequireMetaMaskModal}
+    show={alertRequireMetaMask}
+    isMobile={isMobile}
+  />
+
+  <ProvideConsentModal
+    handleConsentModal={this.props.handleConsentModal}
+    show={provideConsent}
+    isMobile={isMobile}
+  />
+
+  <AccessDeniedModal
+    handleDeniedAccessModal={this.props.handleDeniedAccessModal}
+    show={accessDeniedModal}
+    isMobile={isMobile}
+  />
+
+  <SignInToWalletModal
+    handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal}
+    show={signInToWalletModal}
+    isMobile={isMobile}
+  />
+
+  <SignInToThreeBox
+    show={signInModal}
+    handleSignInModal={this.props.handleSignInModal}
+  />
+
+  <MobileWalletRequiredModal
+    isIOS={isIOS}
+    handleMobileWalletModal={this.props.handleMobileWalletModal}
+    show={mobileWalletRequiredModal}
+    isMobile={isMobile}
+  />
+
+  <ErrorModal
+    errorMessage={errorMessage}
+    closeErrorModal={this.props.closeErrorModal}
+    show={showErrorModal && !mustConsentError}
+    isMobile={isMobile}
+  />
+
+  <MustConsentModal
+    closeErrorModal={this.props.closeErrorModal}
+    show={mustConsentError}
+    isMobile={isMobile}
+  />
+
+  <SwitchedNetworksModal
+    prevNetwork={prevNetwork}
+    currentNetwork={currentNetwork}
+    handleSwitchedNetworkModal={this.props.handleSwitchedNetworkModal}
+    show={showDifferentNetworkModal}
+  />
+
+  <LoggedOutModal
+    isMobile={isMobile}
+    handleLoggedOutModal={this.props.handleLoggedOutModal}
+    handleSignOut={this.props.handleSignOut}
+    show={loggedOutModal}
+  />
+
+  <SwitchedAddressModal
+    handleSwitchedAddressModal={this.props.handleSwitchedAddressModal}
+    show={switchedAddressModal}
+    isMobile={isMobile}
+    handleSignOut={this.props.handleSignOut}
+    prevAddress={prevAddress}
+  />
+
+  <OnBoardingModalDesktop
+    isMobile={isMobile}
+    showOne={onBoardingModal}
+    showTwo={onBoardingModalTwo}
+    handleOnboardingModal={this.props.handleOnboardingModal}
+  />
+
+  <OnBoardingModalMobile
+    isMobile={isMobile}
+    handleOnboardingModal={this.props.handleOnboardingModal}
+    showOne={onBoardingModal}
+    showTwo={onBoardingModalMobileOne}
+    showThree={onBoardingModalMobileTwo}
+    showFour={onBoardingModalMobileThree}
+    handleNextMobileModal={this.handleNextMobileModal}
+  /> */}

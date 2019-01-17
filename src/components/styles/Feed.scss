@@ -1,6 +1,5 @@
 @import "../../variables.scss";
 
-
 .statusUpdate {
   background-color: white;
   max-width: 700px;
@@ -16,7 +15,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  // position: relative;
 
   ul {
     padding: 0;
@@ -36,7 +34,6 @@
   font-size: 1.1em;
   background-color: rgb(255, 255, 255);
   height: 44px;
-  // padding: 0 15px;
   font-weight: 400;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -49,6 +46,17 @@
   &::placeholder {
     color: #a8a8a8;
   }
+}
+
+.statusUpdate__displayPublic {
+  width: 100%;
+  font-size: 1.1em;
+  height: 44px;
+  font-weight: 400;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .statusUpdate:hover .hideStatusButton {
@@ -168,7 +176,6 @@
   align-items: center;
   margin-bottom: 1.3em;
   padding: 0 0 0 30px;
-  // padding: 0 .5em;
 
   .feed__activity__context__network {
     min-width: 2.2em;
@@ -227,7 +234,6 @@
 .feed__activity__address {
   display: flex;
   flex-direction: column;
-  // height: fit-content;
 
   h4 {
     margin-bottom: .2em;
