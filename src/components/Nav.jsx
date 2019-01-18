@@ -6,7 +6,7 @@ import { Link, withRouter } from 'react-router-dom';
 import ThreeBoxLogo from '../assets/ThreeBoxLogoBlue.svg';
 import { handleSignOut } from '../state/actions';
 import * as routes from '../utils/routes';
-import normalizeURL from '../utils/funcs';
+import { normalizeURL } from '../utils/funcs';
 import Profile from '../assets/Profile.svg';
 import Edit from '../assets/Edit.svg';
 import SignOut from '../assets/SignOut.svg';
@@ -36,13 +36,13 @@ class Nav extends Component {
 
   render() {
     const { showProfileModal } = this.state;
-    const { image, location } = this.props;
+    const { image, location, showDownloadBanner, isLoggedIn } = this.props;
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
     const networkColor = this.props.currentNetwork;
 
     return (
-      <nav>
+      <nav className={`${showDownloadBanner ? 'bannerMargin' : ''} ${!isLoggedIn && 'hideNav'}`}>
         <div id="nav__logo--marginLeft">
           <Link to={routes.LANDING}>
             <img src={ThreeBoxLogo} alt="3Box Logo" className="landing__nav__logo" />
@@ -113,6 +113,8 @@ Nav.propTypes = {
   location: PropTypes.object,
   handleSignOut: PropTypes.func.isRequired,
   currentNetwork: PropTypes.string,
+  showDownloadBanner: PropTypes.bool,
+  isLoggedIn: PropTypes.bool,
 };
 
 Nav.defaultProps = {
@@ -120,6 +122,8 @@ Nav.defaultProps = {
   threeBox: {},
   currentNetwork: '',
   location: {},
+  showDownloadBanner: false,
+  isLoggedIn: false,
 };
 
 function mapState(state) {
@@ -127,6 +131,8 @@ function mapState(state) {
     image: state.threeBox.image,
     threeBox: state.threeBox.box,
     currentNetwork: state.threeBox.currentNetwork,
+    showDownloadBanner: state.threeBox.showDownloadBanner,
+    isLoggedIn: state.threeBox.isLoggedIn,
   };
 }
 

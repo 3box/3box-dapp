@@ -4,7 +4,7 @@ export const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         hasWallet: action.hasWallet,
-        downloadBanner: action.downloadBanner,
+        showDownloadBanner: action.showDownloadBanner,
         currentWallet: action.currentWallet,
         mobileWalletRequiredModal: action.mobileWalletRequiredModal,
       };
@@ -397,13 +397,14 @@ export const threeBoxReducer = (state = {}, action) => {
     case 'HANDLE_DOWNLOAD_BANNER':
       return {
         ...state,
-        downloadBanner: action.downloadBanner,
+        showDownloadBanner: action.showDownloadBanner,
       };
 
-    case 'PREVIOUS_ROUTE':
+    case 'UPDATE_ROUTE':
       return {
         ...state,
-        previousRoute: action.previousRoute,
+        currentRoute: action.currentRoute,
+        onPublicProfilePage: action.onPublicProfilePage,
       };
 
     case 'COPY_SUCCESSFUL':

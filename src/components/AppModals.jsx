@@ -20,7 +20,7 @@ import {
 } from './Modals';
 
 const AppModals = ({
-  downloadBanner,
+  showDownloadBanner,
   ifFetchingThreeBox,
   onSyncFinished,
   isSyncing,
@@ -66,7 +66,7 @@ const AppModals = ({
   handleAccessModal,
 }) => (
     <React.Fragment>
-      <div className={`${!downloadBanner ? 'hideBanner' : ''} webThreeBanner`}>
+      <div className={`${showDownloadBanner ? '' : 'hideBanner'} webThreeBanner`}>
         <p>
           3Box requires web3.  Download the MetaMask extension to continue.
           </p>
@@ -204,14 +204,14 @@ AppModals.propTypes = {
   handleAccessModal: PropTypes.func.isRequired,
 
   isMobile: PropTypes.bool.isRequired,
-  downloadBanner: PropTypes.bool,
+  showDownloadBanner: PropTypes.bool,
   ifFetchingThreeBox: PropTypes.bool,
   onSyncFinished: PropTypes.bool,
   isSyncing: PropTypes.bool,
   hasSignedOut: PropTypes.bool,
   allowAccessModal: PropTypes.bool,
   accessDeniedModal: PropTypes.bool,
-  directLogin: PropTypes.bool,
+  directLogin: PropTypes.string,
   showDifferentNetworkModal: PropTypes.bool,
   loggedOutModal: PropTypes.bool,
   switchedAddressModal: PropTypes.bool,
@@ -221,9 +221,9 @@ AppModals.propTypes = {
   onBoardingModalMobileTwo: PropTypes.bool,
   onBoardingModalMobileThree: PropTypes.bool,
   showErrorModal: PropTypes.bool,
-  handleRequireWalletLoginModal: PropTypes.bool,
-  handleSignInModal: PropTypes.bool,
-  handleMobileWalletModal: PropTypes.bool,
+  handleRequireWalletLoginModal: PropTypes.func.isRequired,
+  handleSignInModal: PropTypes.func.isRequired,
+  handleMobileWalletModal: PropTypes.func.isRequired,
   isIOS: PropTypes.bool,
   mobileWalletRequiredModal: PropTypes.bool,
   signInToWalletModal: PropTypes.bool,
@@ -238,15 +238,15 @@ AppModals.defaultProps = {
   prevNetwork: '',
   currentNetwork: '',
   prevAddress: '',
+  directLogin: '',
 
-  downloadBanner: false,
+  showDownloadBanner: false,
   ifFetchingThreeBox: false,
   onSyncFinished: false,
   isSyncing: false,
   hasSignedOut: false,
   allowAccessModal: false,
   accessDeniedModal: false,
-  directLogin: false,
   showDifferentNetworkModal: false,
   loggedOutModal: false,
   switchedAddressModal: false,
@@ -256,9 +256,6 @@ AppModals.defaultProps = {
   onBoardingModalMobileTwo: false,
   onBoardingModalMobileThree: false,
   showErrorModal: false,
-  handleRequireWalletLoginModal: false,
-  handleSignInModal: false,
-  handleMobileWalletModal: false,
   isIOS: false,
   mobileWalletRequiredModal: false,
   signInToWalletModal: false,

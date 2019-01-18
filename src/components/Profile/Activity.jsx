@@ -163,7 +163,7 @@ const Activity = ({
 Activity.propTypes = {
   feedByAddress: PropTypes.array,
   ifFetchingActivity: PropTypes.bool,
-  isPublicProfilePage: PropTypes.bool.isRequired,
+  isPublicProfilePage: PropTypes.bool,
   verifiedGithub: PropTypes.string,
   verifiedTwitter: PropTypes.string,
   publicProfile: PropTypes.object,
@@ -174,6 +174,7 @@ Activity.propTypes = {
 Activity.defaultProps = {
   feedByAddress: [],
   ifFetchingActivity: false,
+  isPublicProfilePage: false,
   verifiedGithub: '',
   verifiedTwitter: '',
   publicProfile: {},

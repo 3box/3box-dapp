@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as routes from './utils/routes';
-import normalizeURL from './utils/funcs';
+import { normalizeURL, matchProtectedRoutes } from './utils/funcs';
 import { store } from './state/store';
 import Landing from './views/Landing';
 import Profile from './views/Profile';
@@ -61,7 +61,6 @@ class App extends Component {
       onBoardingModalMobileThree: false,
       width: window.innerWidth,
       retractNav: false,
-      showSideNav: false,
     };
     this.loadData = this.loadData.bind(this);
     this.handleSignInUp = this.handleSignInUp.bind(this);
@@ -77,35 +76,17 @@ class App extends Component {
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
 
+    // Initial warning to users without web3
     if (typeof window.web3 === 'undefined') {
       this.props.handleDownloadMetaMaskBanner();
       this.props.handleMobileWalletModal();
     }
 
-    if (pathname.substring(6, 8) === '0x') {
-      // 1. fetch public profile
-      // 2. can you openBox?
-      // 3. fetch box & show signedin profile
-
-      // await Box // eslint-disable-line no-undef
-      //   .openBox(
-      //     store.getState().threeBox.accountAddress || address,
-      //     window.web3.currentProvider, // eslint-disable-line no-undef
-      //     opts,
-      //   );
-    } else if (typeof window.web3 !== 'undefined'
-      && (normalizedPath === routes.PROFILE
-        || normalizedPath === routes.EDITPROFILE
-        || normalizedPath === routes.PROFILE_ABOUT
-        || normalizedPath === routes.PROFILE_ACTIVITY
-        || normalizedPath === routes.PROFILE_COLLECTIBLES)) { // no wallet and lands on restricted page
+    if (pathname.split('/')[1] === 'user') {
+      this.loadForLandOnPublicProfile();
+    } else if (typeof window.web3 !== 'undefined' && matchProtectedRoutes(normalizedPath)) { // no wallet and lands on restricted page
       this.loadData();
-    } else if (typeof window.web3 === 'undefined'
-      && (normalizedPath === routes.PROFILE
-        || normalizedPath === routes.EDITPROFILE
-        || normalizedPath === routes.PROFILE_ABOUT
-        || normalizedPath === routes.PROFILE_ACTIVITY
-        || normalizedPath === routes.PROFILE_COLLECTIBLES)) { // has wallet and lands on restricted page
+    } else if (typeof window.web3 === 'undefined' && matchProtectedRoutes(normalizedPath)) { // has wallet and lands on restricted page
       history.push(routes.LANDING);
       this.props.requireMetaMaskModal();
       this.props.handleMobileWalletModal();
@@ -116,12 +97,13 @@ class App extends Component {
     const { location } = this.props;
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
-
     // check previous route for banner behavior on /Create & /Profiles
+
     if (nextProps.location.pathname !== normalizedPath) {
       store.dispatch({
-        type: 'PREVIOUS_ROUTE',
-        previousRoute: normalizedPath,
+        type: 'UPDATE_ROUTE',
+        currentRoute: normalizedPath,
+        onPublicProfilePage: pathname.split('/')[1] === 'user',
       });
     }
 
@@ -160,13 +142,6 @@ class App extends Component {
     } else {
       this.setState({ retractNav: true });
     }
-  }
-
-  handleSideNav = () => {
-    const { showSideNav } = this.state;
-    this.setState({
-      showSideNav: !showSideNav,
-    });
   }
 
   loadCalls = () => {
@@ -211,14 +186,51 @@ class App extends Component {
       this.props.handleRequireWalletLoginModal();
     } else if (this.props.isSignedIntoWallet
       && !this.props.isLoggedIn
-      && (normalizedPath === routes.PROFILE
-        || normalizedPath === routes.EDITPROFILE
-        || normalizedPath === routes.PROFILE_ABOUT
-        || normalizedPath === routes.PROFILE_ACTIVITY
-        || normalizedPath === routes.PROFILE_COLLECTIBLES)) {
+      && matchProtectedRoutes(normalizedPath)) {
       history.push(routes.LANDING);
       this.props.handleSignInModal();
     }
+  }
+
+  async loadForLandOnPublicProfile() {
+    // const { location } = this.props;
+    // const { pathname } = location;
+    // const normalizedPath = normalizeURL(pathname);
+
+    if (typeof window.web3 !== 'undefined') {
+      await this.props.checkWeb3Wallet();
+      await this.props.requestAccess('directLogin'); // request connect, show smaller allow access modal
+      // if logged in, change to logged in nav
+      // if not logged in, keep current(fake?) nav
+      // if not signed in to wallet, show smaller sign into wallet modal
+      await this.props.checkNetwork(); // dont checknetwork if no wallet
+      // turn off share button in profile
+    } else {
+      // if no wallet, show wallet required banner
+      store.dispatch({
+        type: 'HANDLE_DOWNLOAD_BANNER',
+        showDownloadBanner: true,
+      });
+      // this.props.requireMetaMaskModal(); this is a blocking modal
+      this.props.handleMobileWalletModal();
+    }
+    // if no network, show that in new nav
+    // until this point, freeze all buttons that would allow the user to move away from that page
+    // what if the user goes to the landing page?
+    // what routes CAN the user move to?
+    // if (this.props.isSignedIntoWallet && this.props.isLoggedIn) { // CAN move on to 3box
+    //   await this.props.getBox(); // get box in the background with small loading box modals
+    //   if (!this.props.showErrorModal) {
+    //     this.loadCalls(); // this should populate the redux store and your profile page in nav
+    //   }
+    // } else if (!this.props.isSignedIntoWallet) { // CANNOT move on to 3box
+    //   // history.push(routes.LANDING);
+    //   this.props.handleRequireWalletLoginModal(); // show small require wallet modal
+    // } else if (this.props.isSignedIntoWallet && !this.props.isLoggedIn && matchProtectedRoutes(normalizedPath)) { // CANNOT move on to 3box
+    //   // history.push(routes.LANDING);
+    //   this.props.handleSignInModal(); // show small require wallet modal
+    //   // show 
+    // }
   }
 
   async handleSignInUp() {
@@ -264,7 +276,7 @@ class App extends Component {
       showErrorModal,
       isLoggedIn,
       isSignedIntoWallet,
-      downloadBanner,
+      showDownloadBanner,
       location,
       onSyncFinished,
       isSyncing,
@@ -277,7 +289,6 @@ class App extends Component {
       onBoardingModalMobileThree,
       width,
       retractNav,
-      showSideNav,
     } = this.state;
 
     const { pathname } = location;
@@ -285,30 +296,25 @@ class App extends Component {
     const isMobile = width <= 812; // 600
     const classHide = retractNav ? 'hide' : '';
     const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
-    const isLandingPage = pathname === routes.LANDING && 'landing';
+    const landing = pathname === routes.LANDING && 'landing';
     const { userAgent: ua } = navigator;
     const isIOS = ua.includes('iPhone');
 
     return (
       <div className="App">
         {(!isLoggedIn && !ifFetchingThreeBox)
-          ? (
+          && (
             <NavLanding
-              downloadBanner={downloadBanner}
               classHide={classHide}
               handleSignInUp={this.handleSignInUp}
-              handleSideNav={this.handleSideNav}
-              landing={isLandingPage}
-              showSideNav={showSideNav}
+              landing={landing}
               pathname={normalizedPath}
             />
           )
-          : (
-            <Nav />
-          )}
+        }
 
         <AppModals
-          downloadBanner={downloadBanner}
+          showDownloadBanner={showDownloadBanner}
           ifFetchingThreeBox={ifFetchingThreeBox}
           onSyncFinished={onSyncFinished}
           isSyncing={isSyncing}
@@ -486,7 +492,7 @@ App.propTypes = {
   signInModal: PropTypes.bool,
   mobileWalletRequiredModal: PropTypes.bool,
   showErrorModal: PropTypes.bool,
-  directLogin: PropTypes.bool,
+  directLogin: PropTypes.string,
   isLoggedIn: PropTypes.bool,
   isSignedIntoWallet: PropTypes.bool,
   loggedOutModal: PropTypes.bool,
@@ -494,7 +500,7 @@ App.propTypes = {
   onBoardingModal: PropTypes.bool,
   onBoardingModalTwo: PropTypes.bool,
   ifFetchingThreeBox: PropTypes.bool,
-  downloadBanner: PropTypes.bool,
+  showDownloadBanner: PropTypes.bool,
   prevNetwork: PropTypes.string,
   currentNetwork: PropTypes.string,
   location: PropTypes.shape({
@@ -517,7 +523,7 @@ App.defaultProps = {
   signInModal: false,
   mobileWalletRequiredModal: false,
   showErrorModal: false,
-  downloadBanner: false,
+  showDownloadBanner: false,
   loggedOutModal: false,
   switchedAddressModal: false,
   onBoardingModal: false,
@@ -528,7 +534,7 @@ App.defaultProps = {
   prevNetwork: '',
   currentNetwork: '',
   prevAddress: '',
-  directLogin: false,
+  directLogin: '',
 };
 
 const mapState = state => ({
@@ -556,7 +562,7 @@ const mapState = state => ({
   showErrorModal: state.threeBox.showErrorModal,
   accessDeniedModal: state.threeBox.accessDeniedModal,
   isSignedIntoWallet: state.threeBox.isSignedIntoWallet,
-  downloadBanner: state.threeBox.downloadBanner,
+  showDownloadBanner: state.threeBox.showDownloadBanner,
 });
 
 export default withRouter(connect(mapState,
@@ -588,7 +594,7 @@ export default withRouter(connect(mapState,
   })(App));
 
 
-{/* <div className={`${!downloadBanner ? 'hideBanner' : ''} webThreeBanner`}>
+{/* <div className={`${!showDownloadBanner ? 'hideBanner' : ''} webThreeBanner`}>
   <p>
     3Box requires web3.  Download the MetaMask extension to continue.
   </p>

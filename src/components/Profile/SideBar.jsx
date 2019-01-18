@@ -11,7 +11,7 @@ import Copy from '../../assets/Copy.svg';
 import '../../views/styles/Profile.css';
 import '../styles/Modal.css';
 
-const ProfileCategories = ({
+const SideBar = ({
   name,
   image,
   coverPhoto,
@@ -22,24 +22,25 @@ const ProfileCategories = ({
   isPublicProfilePage,
   copyToClipBoard,
   copySuccessful,
+  showDownloadBanner,
 }) => (
     <div>
       {!isPublicProfilePage && (
         coverPhoto.length > 0 && coverPhoto[0].contentUrl
-          ? <img src={`https://ipfs.infura.io/ipfs/${coverPhoto[0].contentUrl['/']}`} className="profile__coverPhoto clearProfPic" alt="profile" />
-          : <div className="profile__coverPhoto" />)
+          ? <img src={`https://ipfs.infura.io/ipfs/${coverPhoto[0].contentUrl['/']}`} className={`${showDownloadBanner ? 'bannerMargin' : ''} profile__coverPhoto clearProfPic`} alt="profile" />
+          : <div className={`${showDownloadBanner ? 'bannerMargin' : ''} profile__coverPhoto`} />)
       }
 
       {(isPublicProfilePage && publicProfile.coverPhoto) && (
         publicProfile.coverPhoto.length > 0 && publicProfile.coverPhoto[0].contentUrl
-          ? <img src={`https://ipfs.infura.io/ipfs/${publicProfile.coverPhoto[0].contentUrl['/']}`} className="profile__coverPhoto clearProfPic" alt="profile" />
-          : <div className="profile__coverPhoto" />)
+          ? <img src={`https://ipfs.infura.io/ipfs/${publicProfile.coverPhoto[0].contentUrl['/']}`} className={`${showDownloadBanner ? 'bannerMargin' : ''} profile__coverPhoto clearProfPic`} alt="profile" />
+          : <div className={`${showDownloadBanner ? 'bannerMargin' : ''} profile__coverPhoto`} />)
       }
 
       <div id="profile">
         <div id="profile__fixed">
 
-          <div id="profile__user__info">
+          <div className={`${showDownloadBanner ? 'bannerMargin' : ''} profile__user__info`} >
 
             {!isPublicProfilePage && (
               image.length > 0 && image[0].contentUrl
@@ -138,7 +139,7 @@ const ProfileCategories = ({
     </div >
   );
 
-ProfileCategories.propTypes = {
+SideBar.propTypes = {
   copyToClipBoard: PropTypes.func.isRequired,
   name: PropTypes.string,
   verifiedGithub: PropTypes.string,
@@ -159,11 +160,12 @@ ProfileCategories.propTypes = {
   description: PropTypes.string,
   publicProfile: PropTypes.object,
   location: PropTypes.object.isRequired,
-  isPublicProfilePage: PropTypes.bool.isRequired,
+  isPublicProfilePage: PropTypes.bool,
   copySuccessful: PropTypes.bool,
+  showDownloadBanner: PropTypes.bool,
 };
 
-ProfileCategories.defaultProps = {
+SideBar.defaultProps = {
   name: '',
   verifiedGithub: '',
   verifiedTwitter: '',
@@ -183,6 +185,8 @@ ProfileCategories.defaultProps = {
   employer: '',
   publicProfile: {},
   copySuccessful: false,
+  isPublicProfilePage: false,
+  showDownloadBanner: false,
 };
 
 function mapState(state) {
@@ -206,10 +210,11 @@ function mapState(state) {
     employer: state.threeBox.employer,
     publicProfile: state.threeBox.publicProfile,
     copySuccessful: state.threeBox.copySuccessful,
+    showDownloadBanner: state.threeBox.showDownloadBanner,
   };
 }
 
 export default withRouter(connect(mapState,
   {
     copyToClipBoard,
-  })(ProfileCategories));
+  })(SideBar));

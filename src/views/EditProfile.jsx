@@ -268,7 +268,7 @@ class EditProfile extends Component {
     }, 2000);
 
     try {
-      let successful = document.execCommand('copy');
+      document.execCommand('copy');
     } catch (err) {
       console.error('Unable to copy', err);
     }

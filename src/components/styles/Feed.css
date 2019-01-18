@@ -20,6 +20,9 @@
     text-align: center;
     overflow: scroll; }
 
+.statusUpdate--bannerMargin {
+  margin-top: 182px !important; }
+
 .statusUpdate__field {
   border-style: none;
   border: none;

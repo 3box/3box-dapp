@@ -792,11 +792,11 @@ ProvideAccessModal.propTypes = {
   isMobile: PropTypes.bool.isRequired,
   handleAccessModal: PropTypes.func.isRequired,
   show: PropTypes.bool.isRequired,
-  directLogin: PropTypes.bool,
+  directLogin: PropTypes.string,
 };
 
 ProvideAccessModal.defaultProps = {
-  directLogin: false,
+  directLogin: '',
 };
 
 AccessDeniedModal.propTypes = {

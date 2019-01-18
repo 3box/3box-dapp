@@ -64,20 +64,20 @@ class StatusUpdate extends Component {
 
   render() {
     const { status, disableSave, saveLoading } = this.state;
-    const { location, publicProfile } = this.props;
+    const { location, publicProfile, showDownloadBanner } = this.props;
 
     return (
       <React.Fragment>
 
         {(location.pathname.split('/')[1] === 'user') && (
-          <div className="statusUpdate">
+          <div className={`${showDownloadBanner ? 'statusUpdate--bannerMargin' : ''} statusUpdate`}>
             <div className="statusUpdate__displayPublic">
               {publicProfile.status}
             </div>
           </div>)}
 
         {location.pathname.split('/')[1] === 'profile' && (
-          <div className="statusUpdate">
+          <div className={`${showDownloadBanner ? 'statusUpdate--bannerMargin' : ''} statusUpdate`}>
             {saveLoading
               && (
                 <div className="statusUpdate__loading">
@@ -132,6 +132,7 @@ class StatusUpdate extends Component {
 
 StatusUpdate.propTypes = {
   status: PropTypes.string,
+  showDownloadBanner: PropTypes.bool,
   getActivity: PropTypes.func.isRequired,
   getProfileData: PropTypes.func.isRequired,
   publicProfile: PropTypes.object,
@@ -143,6 +144,7 @@ StatusUpdate.defaultProps = {
   box: {},
   status: '',
   publicProfile: {},
+  showDownloadBanner: false,
 };
 
 function mapState(state) {
@@ -150,6 +152,7 @@ function mapState(state) {
     box: state.threeBox.box,
     status: state.threeBox.status,
     publicProfile: state.threeBox.publicProfile,
+    showDownloadBanner: state.threeBox.showDownloadBanner,
   };
 }
 

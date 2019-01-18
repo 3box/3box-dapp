@@ -13,6 +13,9 @@ nav {
   nav p {
     color: #1168df; }
 
+.hideNav {
+  display: none !important; }
+
 .bannerMargin {
   margin-top: 54px; }
 

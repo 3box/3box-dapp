@@ -57,13 +57,14 @@ Content.propTypes = {
   publicVerifiedAccounts: PropTypes.object,
   publicProfileActivity: PropTypes.array,
   location: PropTypes.object,
-  isPublicProfilePage: PropTypes.bool.isRequired,
+  isPublicProfilePage: PropTypes.bool,
 };
 
 Content.defaultProps = {
   publicProfile: {},
   publicVerifiedAccounts: {},
   publicProfileActivity: [],
+  isPublicProfilePage: false,
 };
 
 const mapState = state => ({

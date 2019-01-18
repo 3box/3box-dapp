@@ -1,4 +1,6 @@
-const normalizeURL = (pathname) => {
+import * as routes from './routes';
+
+export const normalizeURL = (pathname) => {
   const lowercasePathname = pathname.toLowerCase();
   const fuzzyLowercasePathname = lowercasePathname.charAt(lowercasePathname.length - 1) === '/' ?
     lowercasePathname.slice(0, -1) :
@@ -7,4 +9,13 @@ const normalizeURL = (pathname) => {
   return fuzzyLowercasePathname;
 };
 
-export default normalizeURL;
+export const matchProtectedRoutes = (normalizedPath) => {
+  if (normalizedPath === routes.PROFILE ||
+    normalizedPath === routes.EDITPROFILE ||
+    normalizedPath === routes.PROFILE_ABOUT ||
+    normalizedPath === routes.PROFILE_ACTIVITY ||
+    normalizedPath === routes.PROFILE_COLLECTIBLES) {
+    return true;
+  }
+  return false;
+};
