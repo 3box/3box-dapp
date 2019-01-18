@@ -12,66 +12,58 @@ import '../../views/styles/Profile.css';
 import '../styles/NetworkArray.css';
 
 const Content = ({
-  publicProfileActivity,
-  publicProfile,
-  publicVerifiedAccounts,
   location,
-  isPublicProfilePage,
+  onPublicProfilePage,
 }) => (
     <div>
       <StatusUpdate />
 
       <div className="profile__category--mobile">
         <div className="profile__category__sectionWrapper">
-          <NavLink exact to={isPublicProfilePage ? `${routes.PUBLIC_BASE}/${location.pathname.split('/')[2]}${routes.PUBLIC_ACTIVITY_ROUTE}` : routes.PROFILE_ACTIVITY} className="profile__category__section">Activity</NavLink>
-          <NavLink exact to={isPublicProfilePage ? `${routes.PUBLIC_BASE}/${location.pathname.split('/')[2]}${routes.PUBLIC_DETAILS_ROUTE}` : routes.PROFILE_ABOUT} className="profile__category__section ">Details</NavLink>
+          <NavLink exact to={onPublicProfilePage ? `${routes.PUBLIC_BASE}/${location.pathname.split('/')[2]}${routes.PUBLIC_ACTIVITY_ROUTE}` : routes.PROFILE_ACTIVITY} className="profile__category__section">Activity</NavLink>
+          <NavLink exact to={onPublicProfilePage ? `${routes.PUBLIC_BASE}/${location.pathname.split('/')[2]}${routes.PUBLIC_DETAILS_ROUTE}` : routes.PROFILE_ABOUT} className="profile__category__section ">Details</NavLink>
         </div>
       </div>
 
       <Route
         exact
         path={routes.PROFILE_ACTIVITY}
-        component={() => <Activity />}
+        component={Activity}
       />
       <Route
         exact
         path={routes.PROFILE_ABOUT}
-        component={() => <Details />}
+        component={Details}
       />
 
       <Route
         exact
         path={routes.PUBLIC_ACTIVITY}
-        component={() => <Activity publicProfileActivity={publicProfileActivity} publicVerifiedAccounts={publicVerifiedAccounts} isPublicProfilePage={isPublicProfilePage} />}
+        component={Activity}
       />
+
       <Route
         exact
         path={routes.PUBLIC_DETAILS}
-        component={() => <Details publicProfile={publicProfile} publicVerifiedAccounts={publicVerifiedAccounts} isPublicProfilePage={isPublicProfilePage} />}
+        component={Details}
       />
     </div>
   );
 
 Content.propTypes = {
-  publicProfile: PropTypes.object,
-  publicVerifiedAccounts: PropTypes.object,
-  publicProfileActivity: PropTypes.array,
   location: PropTypes.object,
-  isPublicProfilePage: PropTypes.bool,
+  onPublicProfilePage: PropTypes.bool,
 };
 
 Content.defaultProps = {
-  publicProfile: {},
-  publicVerifiedAccounts: {},
-  publicProfileActivity: [],
-  isPublicProfilePage: false,
+  onPublicProfilePage: false,
 };
 
 const mapState = state => ({
   feedByAddress: state.threeBox.feedByAddress,
   ifFetchingActivity: state.threeBox.ifFetchingActivity,
   verifiedGithub: state.threeBox.verifiedGithub,
-  publicVerifiedAccounts: state.threeBox.publicVerifiedAccounts,
+  onPublicProfilePage: state.threeBox.onPublicProfilePage,
 });
 
 export default withRouter(connect(mapState)(Content));

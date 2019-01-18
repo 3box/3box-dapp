@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import box from '3box';
 
 import * as routes from './utils/routes';
 import { normalizeURL, matchProtectedRoutes } from './utils/funcs';
@@ -16,7 +17,6 @@ import Privacy from './views/Privacy';
 import Terms from './views/Terms';
 import Create from './views/Create';
 import NavLanding from './components/NavLanding';
-import Nav from './components/Nav.jsx';
 import history from './history';
 import './index.css';
 
@@ -67,8 +67,8 @@ class App extends Component {
   }
 
   componentWillMount() {
-    // window.addEventListener('resize', this.handleWindowSizeChange);
-    // window.addEventListener('scroll', this.hideBar);
+    window.addEventListener('resize', this.handleWindowSizeChange);
+    window.addEventListener('scroll', this.hideBar);
   }
 
   async componentDidMount() {
@@ -127,7 +127,7 @@ class App extends Component {
 
   handleWindowSizeChange = () => {
     this.setState({ width: window.innerWidth });
-  };
+  }
 
   handleNextMobileModal = (thisModal, nextModal) => {
     this.setState({
@@ -196,22 +196,21 @@ class App extends Component {
     // const { location } = this.props;
     // const { pathname } = location;
     // const normalizedPath = normalizeURL(pathname);
-
+    // loading animation
     if (typeof window.web3 !== 'undefined') {
-      await this.props.checkWeb3Wallet();
-      await this.props.requestAccess('directLogin'); // request connect, show smaller allow access modal
+      // await this.props.checkWeb3Wallet();
+      // await this.props.requestAccess('directLogin'); // request connect, show smaller allow access modal
+      // what we get if we at least connect: is logged in, in which case
       // if logged in, change to logged in nav
       // if not logged in, keep current(fake?) nav
       // if not signed in to wallet, show smaller sign into wallet modal
-      await this.props.checkNetwork(); // dont checknetwork if no wallet
+      // await this.props.checkNetwork(); // disable changed network flow when youre on a public profile
       // turn off share button in profile
     } else {
-      // if no wallet, show wallet required banner
       store.dispatch({
         type: 'HANDLE_DOWNLOAD_BANNER',
         showDownloadBanner: true,
       });
-      // this.props.requireMetaMaskModal(); this is a blocking modal
       this.props.handleMobileWalletModal();
     }
     // if no network, show that in new nav
@@ -363,6 +362,7 @@ class App extends Component {
         />
 
         <Switch>
+          {/* needs event listeners */}
           <Route
             exact
             path={routes.LANDING}
@@ -393,6 +393,7 @@ class App extends Component {
             component={EditProfile}
           />
 
+          {/* needs event listeners */}
           <Route
             path={routes.JOBS}
             component={() => (
@@ -404,6 +405,7 @@ class App extends Component {
             )}
           />
 
+          {/* needs event listeners */}
           <Route
             path={routes.PRIVACY}
             component={() => (
@@ -415,6 +417,7 @@ class App extends Component {
             )}
           />
 
+          {/* needs event listeners */}
           <Route
             path={routes.TERMS}
             component={() => (

@@ -100,7 +100,8 @@
   height: fit-content;
   display: flex;
   flex-direction: column;
-  margin-bottom: 60px; }
+  margin-bottom: 60px;
+  justify-content: space-between; }
   #feed ul {
     padding: 0; }
   #feed li {

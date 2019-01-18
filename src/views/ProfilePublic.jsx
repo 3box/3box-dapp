@@ -8,6 +8,8 @@ import {
   getActivity,
   getProfilesVerifiedAccounts,
 } from '../state/actions';
+import { store } from '../state/store';
+import { normalizeURL } from '../utils/funcs';
 import Content from '../components/Profile/Content';
 import SideBar from '../components/Profile/SideBar';
 import Nav from '../components/Nav';
@@ -18,12 +20,30 @@ class ProfilePublic extends Component {
     window.scrollTo(0, 0);
     const { location: { pathname } } = this.props;
     const profileAddress = pathname.split('/')[2];
+
+    const normalizedPath = normalizeURL(pathname);
+    store.dispatch({
+      type: 'UPDATE_ROUTE',
+      currentRoute: normalizedPath,
+      onPublicProfilePage: true,
+    });
+
     this.props.getActivity(profileAddress);
     this.props.getProfile(profileAddress);
   }
 
+  componentWillUnmount() {
+    const { location: { pathname } } = this.props;
+    const normalizedPath = normalizeURL(pathname);
+
+    store.dispatch({
+      type: 'UPDATE_ROUTE',
+      currentRoute: normalizedPath,
+      onPublicProfilePage: false,
+    });
+  }
+
   render() {
-    const { publicProfile, publicProfileActivity, publicVerifiedAccounts } = this.props;
     return (
       <div>
         <Nav />
@@ -31,10 +51,6 @@ class ProfilePublic extends Component {
           <div id="profile__contents">
             <SideBar isPublicProfilePage />
             <Content
-              publicProfile={publicProfile}
-              publicProfileActivity={publicProfileActivity}
-              publicVerifiedAccounts={publicVerifiedAccounts}
-              isPublicProfilePage
             />
           </div>
         </div>
@@ -46,26 +62,19 @@ class ProfilePublic extends Component {
 ProfilePublic.propTypes = {
   getProfile: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
-  publicVerifiedAccounts: PropTypes.object,
   box: PropTypes.object,
   pathname: PropTypes.object,
   location: PropTypes.object,
-  publicProfile: PropTypes.object,
-  publicProfileActivity: PropTypes.array,
 };
 
 ProfilePublic.defaultProps = {
   box: {},
   pathname: {},
-  publicProfile: {},
-  publicProfileActivity: [],
   location: {},
 };
 
 const mapState = state => ({
   box: state.threeBox.box,
-  publicProfile: state.threeBox.publicProfile,
-  publicProfileActivity: state.threeBox.publicProfileActivity,
 });
 
 export default withRouter(connect(mapState,

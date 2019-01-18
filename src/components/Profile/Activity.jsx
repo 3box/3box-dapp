@@ -21,136 +21,138 @@ const Activity = ({
   verifiedGithub,
   verifiedTwitter,
   publicProfileActivity,
-  isPublicProfilePage,
+  onPublicProfilePage,
 }) => (
     <div id="feed">
-      <p className="header" id="feed__header">Activity</p>
-      <div className="feed__activity__address">
-        {(ifFetchingActivity && !isPublicProfilePage)
-          && (
-            <div className="feed__activity__load">
-              <img src={Loading} alt="loading" id="activityLoad" />
-            </div>
-          )
-        }
-        {(!isPublicProfilePage && feedByAddress.length > 0)
-          ? feedByAddress.map((feedAddress, i) => (
-            <div key={i} className="feed__activity__tile">
-              <div className="feed__activity__context">
-                {Object.keys(feedAddress)[0] === 'threeBox' ? (
-                  <div className="logo__icon feed__activity__context__network">
-                    <h2>3</h2>
-                  </div>
-                )
-                  : (
-                    <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
-                      0x
+      <div>
+        <p className="header" id="feed__header">Activity</p>
+        <div className="feed__activity__address">
+          {(ifFetchingActivity && !onPublicProfilePage)
+            && (
+              <div className="feed__activity__load">
+                <img src={Loading} alt="loading" id="activityLoad" />
+              </div>
+            )
+          }
+          {(!onPublicProfilePage && feedByAddress.length > 0)
+            ? feedByAddress.map((feedAddress, i) => (
+              <div key={i} className="feed__activity__tile">
+                <div className="feed__activity__context">
+                  {Object.keys(feedAddress)[0] === 'threeBox' ? (
+                    <div className="logo__icon feed__activity__context__network">
+                      <h2>3</h2>
+                    </div>
+                  )
+                    : (
+                      <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
+                        0x
                     </div>)
-                }
-                <div className="feed__activity__address">
-                  {Object.keys(feedAddress)[0] === 'threeBox'
-                    ? (
-                      <div>
-                        <h4>
-                          3Box
+                  }
+                  <div className="feed__activity__address">
+                    {Object.keys(feedAddress)[0] === 'threeBox'
+                      ? (
+                        <div>
+                          <h4>
+                            3Box
                         </h4>
-                        <p>
-                          Activity
+                          <p>
+                            Activity
                         </p>
-                      </div>
-                    )
-                    : (
-                      <div>
-                        <h4>
-                          {Object.keys(feedAddress)[0]}
-                        </h4>
-                        <p>
-                          Ethereum Address
+                        </div>
+                      )
+                      : (
+                        <div>
+                          <h4>
+                            {Object.keys(feedAddress)[0]}
+                          </h4>
+                          <p>
+                            Ethereum Address
                         </p>
-                      </div>
-                    )}
-                </div>
-              </div>
-              {
-                Object.values(feedAddress)[0].map((item, index) => (
-                  (() => {
-                    if (item.dataType === 'Internal') return <FeedTileInternal item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
-                    if (item.dataType === 'Token') return <FeedTileToken item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
-                    if (item.dataType === 'Txs') return <FeedTileTXS item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
-                    if (item.dataType === 'Public') return <FeedTileActivity item={item} key={index} verifiedGithub={verifiedGithub} verifiedTwitter={verifiedTwitter} isEven={parseInt(index, 10) % 2 === 0} />;
-                    if (item.dataType === 'Private') return <FeedTileActivity item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
-                  })()
-                ))
-              }
-            </div>
-          ))
-          : (!ifFetchingActivity && !publicProfileActivity.length)
-          && (
-            <div className="feed__activity__load">
-              <p>No activity at this address yet</p>
-            </div>
-          )
-        }
-
-        {(isPublicProfilePage && publicProfileActivity.length > 0)
-          ? publicProfileActivity.map((feedAddress, i) => (
-            <div key={i} className="feed__activity__tile">
-              <div className="feed__activity__context">
-                {Object.keys(feedAddress)[0] === 'threeBox' ? (
-                  <div className="logo__icon feed__activity__context__network">
-                    <h2>3</h2>
+                        </div>
+                      )}
                   </div>
-                )
-                  : (
-                    <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
-                      0x
-                  </div>)
-                }
-                <div className="feed__activity__address">
-                  {Object.keys(feedAddress)[0] === 'threeBox'
-                    ? (
-                      <div>
-                        <h4>
-                          3Box
-                      </h4>
-                        <p>
-                          Activity
-                      </p>
-                      </div>
-                    )
-                    : (
-                      <div>
-                        <h4>
-                          {Object.keys(feedAddress)[0]}
-                        </h4>
-                        <p>
-                          Ethereum Address
-                      </p>
-                      </div>
-                    )}
                 </div>
+                {
+                  Object.values(feedAddress)[0].map((item, index) => (
+                    (() => {
+                      if (item.dataType === 'Internal') return <FeedTileInternal item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
+                      if (item.dataType === 'Token') return <FeedTileToken item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
+                      if (item.dataType === 'Txs') return <FeedTileTXS item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
+                      if (item.dataType === 'Public') return <FeedTileActivity item={item} key={index} verifiedGithub={verifiedGithub} verifiedTwitter={verifiedTwitter} isEven={parseInt(index, 10) % 2 === 0} />;
+                      if (item.dataType === 'Private') return <FeedTileActivity item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
+                    })()
+                  ))
+                }
               </div>
-              {
-                Object.values(feedAddress)[0].map((item, index) => (
-                  (() => {
-                    if (item.dataType === 'Internal') return <FeedTileInternal item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
-                    if (item.dataType === 'Token') return <FeedTileToken item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
-                    if (item.dataType === 'Txs') return <FeedTileTXS item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
-                    if (item.dataType === 'Public') return <FeedTileActivity item={item} key={index} verifiedGithub={verifiedGithub} isEven={parseInt(index, 10) % 2 === 0} />;
-                    if (item.dataType === 'Private') return <FeedTileActivity item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
-                  })()
-                ))
-              }
-            </div>
-          ))
-          : (!ifFetchingActivity && publicProfileActivity.length > 0)
-          && (
-            <div className="feed__activity__load">
-              <p>No activity at this address yet</p>
-            </div>
-          )
-        }
+            ))
+            : (!ifFetchingActivity && !publicProfileActivity.length)
+            && (
+              <div className="feed__activity__load">
+                <p>No activity at this address yet</p>
+              </div>
+            )
+          }
 
+          {(onPublicProfilePage && publicProfileActivity.length > 0)
+            ? publicProfileActivity.map((feedAddress, i) => (
+              <div key={i} className="feed__activity__tile">
+                <div className="feed__activity__context">
+                  {Object.keys(feedAddress)[0] === 'threeBox' ? (
+                    <div className="logo__icon feed__activity__context__network">
+                      <h2>3</h2>
+                    </div>
+                  )
+                    : (
+                      <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
+                        0x
+                  </div>)
+                  }
+                  <div className="feed__activity__address">
+                    {Object.keys(feedAddress)[0] === 'threeBox'
+                      ? (
+                        <div>
+                          <h4>
+                            3Box
+                      </h4>
+                          <p>
+                            Activity
+                      </p>
+                        </div>
+                      )
+                      : (
+                        <div>
+                          <h4>
+                            {Object.keys(feedAddress)[0]}
+                          </h4>
+                          <p>
+                            Ethereum Address
+                      </p>
+                        </div>
+                      )}
+                  </div>
+                </div>
+                {
+                  Object.values(feedAddress)[0].map((item, index) => (
+                    (() => {
+                      if (item.dataType === 'Internal') return <FeedTileInternal item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
+                      if (item.dataType === 'Token') return <FeedTileToken item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
+                      if (item.dataType === 'Txs') return <FeedTileTXS item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
+                      if (item.dataType === 'Public') return <FeedTileActivity item={item} key={index} verifiedGithub={verifiedGithub} isEven={parseInt(index, 10) % 2 === 0} />;
+                      if (item.dataType === 'Private') return <FeedTileActivity item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
+                    })()
+                  ))
+                }
+              </div>
+            ))
+            : (!ifFetchingActivity && publicProfileActivity.length > 0)
+            && (
+              <div className="feed__activity__load">
+                <p>No activity at this address yet</p>
+              </div>
+            )
+          }
+
+        </div>
       </div>
       <div className="feed__footer">
         <div className="logo__icon--footer">
@@ -163,7 +165,7 @@ const Activity = ({
 Activity.propTypes = {
   feedByAddress: PropTypes.array,
   ifFetchingActivity: PropTypes.bool,
-  isPublicProfilePage: PropTypes.bool,
+  onPublicProfilePage: PropTypes.bool,
   verifiedGithub: PropTypes.string,
   verifiedTwitter: PropTypes.string,
   publicProfile: PropTypes.object,
@@ -174,7 +176,7 @@ Activity.propTypes = {
 Activity.defaultProps = {
   feedByAddress: [],
   ifFetchingActivity: false,
-  isPublicProfilePage: false,
+  onPublicProfilePage: false,
   verifiedGithub: '',
   verifiedTwitter: '',
   publicProfile: {},
@@ -189,6 +191,7 @@ const mapState = state => ({
   verifiedTwitter: state.threeBox.verifiedTwitter,
   publicProfile: state.threeBox.publicProfile,
   publicProfileActivity: state.threeBox.publicProfileActivity,
+  onPublicProfilePage: state.threeBox.onPublicProfilePage,
 });
 
 export default connect(mapState)(Activity);

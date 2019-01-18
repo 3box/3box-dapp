@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 import LandingBody from '../components/LandingBody';
-// import Footer from '../components/Footer';
 import './styles/Landing.css';
 import '../components/styles/Nav.css';
 

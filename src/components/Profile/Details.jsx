@@ -38,7 +38,7 @@ const ProfileDetails = ({
   verifiedTwitter,
   publicProfile,
   publicVerifiedAccounts,
-  isPublicProfilePage,
+  onPublicProfilePage,
 }) => (
     <div className="profile__details" id="feed">
       <div className="profile__details__category">
@@ -49,7 +49,7 @@ const ProfileDetails = ({
         </div>
 
         {/* Do not render private fields on public profiles */}
-        {!isPublicProfilePage
+        {!onPublicProfilePage
           && (
             <div className="profile__category__field">
               <div>
@@ -62,21 +62,21 @@ const ProfileDetails = ({
         <div className="profile__category__field" title="Location">
           <div>
             <img src={Location} className="profile__category__field__icon" alt="Location Icon" />
-            {!isPublicProfilePage && <p>{location}</p>}
-            {(isPublicProfilePage && publicProfile.location) && <p>{publicProfile.location}</p>}
+            {!onPublicProfilePage && <p>{location}</p>}
+            {(onPublicProfilePage && publicProfile.location) && <p>{publicProfile.location}</p>}
           </div>
         </div>
 
         <div className="profile__category__field" title="Website">
           <div>
             <img src={Website} className="profile__category__field__icon" alt="Website Icon" />
-            {!isPublicProfilePage && <p>{website}</p>}
-            {(isPublicProfilePage && publicProfile.website) && <p>{publicProfile.website}</p>}
+            {!onPublicProfilePage && <p>{website}</p>}
+            {(onPublicProfilePage && publicProfile.website) && <p>{publicProfile.website}</p>}
           </div>
         </div>
 
         {/* Private fields donot render on public profiles */}
-        {!isPublicProfilePage
+        {!onPublicProfilePage
           && (
             <div className="profile__category__field" title="Birthday">
               <div>
@@ -90,8 +90,8 @@ const ProfileDetails = ({
         <div className="profile__category__field" title="Birthday">
           <div>
             <img src={ThreeBox3} className="profile__category__field__icon" alt="Birthday Icon" />
-            {!isPublicProfilePage && <p>{memberSince}</p>}
-            {(isPublicProfilePage && publicProfile.memberSince) && <p>{publicProfile.memberSince}</p>}
+            {!onPublicProfilePage && <p>{memberSince}</p>}
+            {(onPublicProfilePage && publicProfile.memberSince) && <p>{publicProfile.memberSince}</p>}
           </div>
         </div>
       </div>
@@ -105,14 +105,14 @@ const ProfileDetails = ({
         <div className="profile__category__field" title="Github">
           <div>
             <img src={GithubIcon} className="profile__category__field__icon" alt="Github Icon" />
-            {!isPublicProfilePage && (
+            {!onPublicProfilePage && (
               <React.Fragment>
                 <p className="profile__category__field__verified">{verifiedGithub}</p>
                 <img src={Verified} alt="Verified" className="profile__category__verified__icon" />
               </React.Fragment>
             )}
 
-            {(isPublicProfilePage && publicVerifiedAccounts.github) && (
+            {(onPublicProfilePage && publicVerifiedAccounts.github) && (
               <React.Fragment>
                 <p className="profile__category__field__verified">{publicVerifiedAccounts.github.username}</p>
                 <img src={Verified} alt="Verified" className="profile__category__verified__icon" />
@@ -124,14 +124,14 @@ const ProfileDetails = ({
         <div className="profile__category__field" title="Github">
           <div>
             <img src={TwitterIcon} className="profile__category__field__icon" alt="Github Icon" />
-            {!isPublicProfilePage && (
+            {!onPublicProfilePage && (
               <React.Fragment>
                 <p className="profile__category__field__verified">{verifiedTwitter}</p>
                 <img src={Verified} alt="Verified" className="profile__category__verified__icon" />
               </React.Fragment>
             )}
 
-            {(isPublicProfilePage && publicVerifiedAccounts.twitter) && (
+            {(onPublicProfilePage && publicVerifiedAccounts.twitter) && (
               <React.Fragment>
                 <p className="profile__category__field__verified">{publicVerifiedAccounts.twitter.username}</p>
                 <img src={Verified} alt="Verified" className="profile__category__verified__icon" />
@@ -151,16 +151,16 @@ const ProfileDetails = ({
         <div className="profile__category__field" title="Employer">
           <div>
             <img src={Employer} className="profile__category__field__icon" alt="Employer Icon" />
-            {!isPublicProfilePage && <p>{employer}</p>}
-            {(isPublicProfilePage && publicProfile.employer) && <p>{publicProfile.employer}</p>}
+            {!onPublicProfilePage && <p>{employer}</p>}
+            {(onPublicProfilePage && publicProfile.employer) && <p>{publicProfile.employer}</p>}
           </div>
         </div>
 
         <div className="profile__category__field" title="Job Title">
           <div>
             <img src={Job} className="profile__category__field__icon" alt="Job Icon" />
-            {!isPublicProfilePage && <p>{job}</p>}
-            {(isPublicProfilePage && publicProfile.job) && <p>{publicProfile.job}</p>}
+            {!onPublicProfilePage && <p>{job}</p>}
+            {(onPublicProfilePage && publicProfile.job) && <p>{publicProfile.job}</p>}
           </div>
         </div>
       </div>
@@ -174,32 +174,32 @@ const ProfileDetails = ({
         <div className="profile__category__field" title="School">
           <div>
             <img src={School} className="profile__category__field__icon" alt="School Icon" />
-            {!isPublicProfilePage && <p>{school}</p>}
-            {(isPublicProfilePage && publicProfile.school) && <p>{publicProfile.school}</p>}
+            {!onPublicProfilePage && <p>{school}</p>}
+            {(onPublicProfilePage && publicProfile.school) && <p>{publicProfile.school}</p>}
           </div>
         </div>
 
         <div className="profile__category__field" title="Degree">
           <div>
             <img src={Degree} className="profile__category__field__icon" alt="Degree Icon" />
-            {!isPublicProfilePage && <p>{degree}</p>}
-            {(isPublicProfilePage && publicProfile.degree) && <p>{publicProfile.degree}</p>}
+            {!onPublicProfilePage && <p>{degree}</p>}
+            {(onPublicProfilePage && publicProfile.degree) && <p>{publicProfile.degree}</p>}
           </div>
         </div>
 
         <div className="profile__category__field" title="Major">
           <div>
             <img src={Major} className="profile__category__field__icon" alt="Major Icon" />
-            {!isPublicProfilePage && <p>{major}</p>}
-            {(isPublicProfilePage && publicProfile.major) && <p>{publicProfile.major}</p>}
+            {!onPublicProfilePage && <p>{major}</p>}
+            {(onPublicProfilePage && publicProfile.major) && <p>{publicProfile.major}</p>}
           </div>
         </div>
 
         <div className="profile__category__field" title="Graduation Year">
           <div>
             <img src={Year} className="profile__category__field__icon" alt="Year Icon" />
-            {!isPublicProfilePage && <p>{year}</p>}
-            {(isPublicProfilePage && publicProfile.year) && <p>{publicProfile.year}</p>}
+            {!onPublicProfilePage && <p>{year}</p>}
+            {(onPublicProfilePage && publicProfile.year) && <p>{publicProfile.year}</p>}
           </div>
         </div>
       </div>
@@ -222,7 +222,7 @@ ProfileDetails.propTypes = {
   birthday: PropTypes.string,
   publicProfile: PropTypes.object,
   publicVerifiedAccounts: PropTypes.object,
-  isPublicProfilePage: PropTypes.bool,
+  onPublicProfilePage: PropTypes.bool,
 };
 
 ProfileDetails.defaultProps = {
@@ -241,7 +241,7 @@ ProfileDetails.defaultProps = {
   employer: '',
   publicProfile: {},
   publicVerifiedAccounts: {},
-  isPublicProfilePage: false,
+  onPublicProfilePage: false,
 };
 
 function mapState(state) {
@@ -260,6 +260,8 @@ function mapState(state) {
     year: state.threeBox.year,
     employer: state.threeBox.employer,
     publicProfile: state.threeBox.publicProfile,
+    onPublicProfilePage: state.threeBox.onPublicProfilePage,
+    publicVerifiedAccounts: state.threeBox.publicVerifiedAccounts,
   };
 }
 
