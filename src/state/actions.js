@@ -180,6 +180,17 @@ export const getBox = fromSignIn => async (dispatch) => {
     });
   };
 
+  // onSyncDone only happens on first openBox so only run
+  // this when a user hasn't signed out and signed back in again
+  if (!store.getState().threeBox.hasSignedOut) {
+    // initialize onSyncDone process
+    dispatch({
+      type: 'APP_SYNC',
+      onSyncFinished: false,
+      isSyncing: false,
+    });
+  }
+
   const opts = {
     consentCallback: consentGiven,
   };
@@ -198,6 +209,17 @@ export const getBox = fromSignIn => async (dispatch) => {
       isLoggedIn: true,
       box,
     });
+
+    // onSyncDone only happens on first openBox so only run
+    // this when a user hasn't signed out and signed back in again
+    if (!store.getState().threeBox.hasSignedOut) {
+      // start onSyncDone loading animation
+      dispatch({
+        type: 'APP_SYNC',
+        onSyncFinished: false,
+        isSyncing: true,
+      });
+    }
 
     const memberSince = await store.getState().threeBox.box.public.get('memberSince');
 
@@ -228,6 +250,13 @@ export const getBox = fromSignIn => async (dispatch) => {
         ifFetchingThreeBox: false,
         isLoggedIn: true,
         box,
+      });
+
+      // call data with new box object from onSyncDone
+      dispatch({
+        type: 'APP_SYNC',
+        onSyncFinished: true,
+        isSyncing: true,
       });
     });
   } catch (err) {
