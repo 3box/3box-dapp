@@ -17,6 +17,7 @@ import Privacy from './views/Privacy';
 import Terms from './views/Terms';
 import Create from './views/Create';
 import NavLanding from './components/NavLanding';
+import Nav from './components/Nav';
 import history from './history';
 import './index.css';
 
@@ -303,7 +304,7 @@ class App extends Component {
     return (
       <div className="App">
         {(!isLoggedIn && !ifFetchingThreeBox)
-          && (
+          ? (
             <NavLanding
               classHide={classHide}
               handleSignInUp={this.handleSignInUp}
@@ -311,7 +312,7 @@ class App extends Component {
               landing={landing}
               pathname={normalizedPath}
             />
-          )
+          ) : <Nav />
         }
 
         <AppModals
