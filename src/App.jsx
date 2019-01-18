@@ -297,6 +297,7 @@ class App extends Component {
     const classHide = retractNav ? 'hide' : '';
     const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
     const landing = pathname === routes.LANDING && 'landing';
+    const onPublicProfilePage = location.pathname.split('/')[1] === 'user';
     const { userAgent: ua } = navigator;
     const isIOS = ua.includes('iPhone');
 
@@ -307,6 +308,7 @@ class App extends Component {
             <NavLanding
               classHide={classHide}
               handleSignInUp={this.handleSignInUp}
+              onPublicProfilePage={onPublicProfilePage}
               landing={landing}
               pathname={normalizedPath}
             />

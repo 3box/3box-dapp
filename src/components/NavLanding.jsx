@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -15,7 +15,8 @@ const NavLanding = ({
   classHide,
   landing,
   pathname,
-  onPublicProfilePage }) => (
+  onPublicProfilePage,
+}) => (
     <nav
       id="landing__nav"
       className={`
@@ -81,11 +82,10 @@ function mapState(state) {
   return {
     isLoggedIn: state.threeBox.isLoggedIn,
     showDownloadBanner: state.threeBox.showDownloadBanner,
-    onPublicProfilePage: state.threeBox.onPublicProfilePage,
   };
 }
 
-export default connect(mapState)(NavLanding);
+export default withRouter(connect(mapState)(NavLanding));
 // export default NavLanding;
 
 

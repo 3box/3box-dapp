@@ -89,24 +89,26 @@ const SideBar = ({
 
             </div>
 
-            <div className="profile__links">
-              {/* If /profile show link to my profile */}
-              {!isPublicProfilePage
-                ? (
-                  <Link to={`${routes.PUBLIC_BASE}/${address}${routes.PUBLIC_ACTIVITY_ROUTE}`}>
-                    View
-                    </Link>
-                )
-                : address === location.pathname.split('/')[2] && (
-                  <Link to={routes.PROFILE_ACTIVITY}>
-                    Return
-                  </Link>
-                )
-              }
-              <button type="button" onClick={() => copyToClipBoard()} className="profile__links__copy">
-                Share
-              </button>
-            </div>
+            {(!isPublicProfilePage || address === location.pathname.split('/')[2])
+              && (
+                <div className="profile__links">
+                  {/* If /profile show link to my profile */}
+                  {!isPublicProfilePage
+                    ? (
+                      <Link to={`${routes.PUBLIC_BASE}/${address}${routes.PUBLIC_ACTIVITY_ROUTE}`}>
+                        View
+                      </Link>
+                    )
+                    : address === location.pathname.split('/')[2] && (
+                      <Link to={routes.PROFILE_ACTIVITY}>
+                        Return
+                      </Link>
+                    )
+                  }
+                  <button type="button" onClick={() => copyToClipBoard()} className="profile__links__copy">
+                    Share
+                  </button>
+                </div>)}
 
             <div className="profile__category">
               <div className="profile__category__sectionWrapper">
