@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, NavLink, withRouter } from 'react-router-dom';
 
-import PublicDetails from './PublicDetails.jsx';
+import PubSideBar from './PubSideBar.jsx';
 import { address } from '../../utils/address';
 import { copyToClipBoard } from '../../state/actions';
 import * as routes from '../../utils/routes';
@@ -59,12 +59,12 @@ const SideBar = ({
               <div className="profile__basic__wrapper">
                 {!onPublicProfilePage && (name
                   ? <h2 id="profile__user__name">{name}</h2>
-                  : <Link to={routes.EDITPROFILE}><h2 id="profile__user__name__add">Add name</h2></Link>)
+                  : <Link to={`/${address}/${routes.EDIT}`}><h2 id="profile__user__name__add">Add name</h2></Link>)
                 }
 
                 {(onPublicProfilePage && publicProfile.name) && (publicProfile.name
                   ? <h2 id="profile__user__name">{publicProfile.name}</h2>
-                  : <Link to={routes.EDITPROFILE}><h2 id="profile__user__name__add">Add name</h2></Link>)
+                  : <Link to={`/${address}/${routes.EDIT}`}><h2 id="profile__user__name__add">Add name</h2></Link>)
                 }
 
 
@@ -78,7 +78,7 @@ const SideBar = ({
                 <img id="profile__network__networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
                 <p id="profile__details__address" title={address}>
                   {!onPublicProfilePage && address && address.substring(0, 8)}
-                  {onPublicProfilePage && location.pathname.split('/')[2].substring(0, 8)}
+                  {onPublicProfilePage && location.pathname.split('/')[1].substring(0, 8)}
                   ...
                 </p>
               </div>
@@ -91,22 +91,9 @@ const SideBar = ({
             </div>
 
             {/* this is showing when its not supposed to, how does it know that its my address??? */}
-            {(!onPublicProfilePage || address === location.pathname.split('/')[2])
+            {(!onPublicProfilePage)
               && (
                 <div className="profile__links">
-                  {/* If /profile show link to my profile */}
-                  {!onPublicProfilePage
-                    ? (
-                      <Link to={`${routes.PUBLIC_BASE}/${address}${routes.PUBLIC_ACTIVITY_ROUTE}`}>
-                        View
-                      </Link>
-                    )
-                    : address === location.pathname.split('/')[2] && (
-                      <Link to={routes.PROFILE_ACTIVITY}>
-                        Return
-                      </Link>
-                    )
-                  }
                   <button type="button" onClick={() => copyToClipBoard()} className="profile__links__copy">
                     Share
                   </button>
@@ -116,11 +103,11 @@ const SideBar = ({
               <div className="profile__category__sectionWrapper">
                 {!onPublicProfilePage ? (
                   <React.Fragment>
-                    <NavLink exact to={onPublicProfilePage ? `${routes.PUBLIC_BASE}/${location.pathname.split('/')[2]}${routes.PUBLIC_ACTIVITY_ROUTE}` : routes.PROFILE_ACTIVITY} className="profile__category__section">Activity</NavLink>
-                    <NavLink exact to={onPublicProfilePage ? `${routes.PUBLIC_BASE}/${location.pathname.split('/')[2]}${routes.PUBLIC_DETAILS_ROUTE}` : routes.PROFILE_ABOUT} className="profile__category__section ">Details</NavLink>
+                    <NavLink exact to={`/${address}/${routes.ACTIVITY}`} className="profile__category__section">Activity</NavLink>
+                    <NavLink exact to={`/${address}/${routes.ABOUT}`} className="profile__category__section ">Details</NavLink>
                   </React.Fragment>)
                   : (
-                    <PublicDetails />)}
+                    <PubSideBar />)}
               </div>
             </div>
 

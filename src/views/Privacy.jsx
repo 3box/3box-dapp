@@ -69,7 +69,7 @@ const Privacy = ({ isLoggedIn, handleSignInUp }) => (
         </p>
 
         <h3>USE OF PERSONAL INFORMATION</h3>
-        <p>
+        <div>
           <b>To provide our service</b>
           We will use your personal information in the following ways:
           • To enable you to access and use the Services
@@ -100,11 +100,11 @@ const Privacy = ({ isLoggedIn, handleSignInUp }) => (
           <br />
           <b>For compliance, fraud prevention, and safety</b>
           We may use your personal information to protect, investigate, and deter against fraudulent, unauthorized, or illegal activity.
-        </p>
+        </div>
 
 
         <h3>SHARING OF PERSONAL INFORMATION</h3>
-        <p>
+        <div>
           <b>Affiliates.</b>
           We may disclose your personal information to our subsidiaries and corporate affiliates for purposes consistent with this Privacy Policy.
 
@@ -137,7 +137,7 @@ const Privacy = ({ isLoggedIn, handleSignInUp }) => (
 
           <br />
           We may also share aggregated and/or anonymized data with others for their own uses.
-        </p>
+        </div>
 
         <h3>INTERNATIONAL TRANSFER</h3>
         <p>
@@ -205,6 +205,7 @@ const Privacy = ({ isLoggedIn, handleSignInUp }) => (
 
         <div id="privacy__processing">
           <table>
+            <tbody>
             <tr>
               <th>
                 <b>Processing Purpose</b>
@@ -261,10 +262,10 @@ const Privacy = ({ isLoggedIn, handleSignInUp }) => (
                 </p>
               </td>
             </tr>
-
+            </tbody>
           </table>
         </div>
-          <p>
+          <div>
             <b>Use for New Purposes</b>
             We may use your personal information for reasons not described in this Privacy Policy, where we are permitted by law to do so and where the reason is compatible with the purpose for which we collected it. If we need to use your personal information for an unrelated purpose, we will notify you and explain the applicable legal basis for that use. If we have relied upon your consent for a particular use of your personal information, we will seek your consent for any unrelated purpose.
 
@@ -293,7 +294,7 @@ const Privacy = ({ isLoggedIn, handleSignInUp }) => (
             Please be aware that your personal data will be transferred to, processed, and stored in the United States. Data protection laws in the U.S. may be different from those in your country of residence. You consent to the transfer of your information, including personal information, to the U.S. as set forth in this Privacy Policy by visiting our site or using our service.
             Whenever we transfer your personal information out of the EEA to the U.S. or countries not deemed by the European Commission to provide an adequate level of personal information protection, the transfer will be based on a data transfer mechanism recognized by the European Commission as providing adequate protection for personal information.
             Please contact us if you want further information on the specific mechanism used by us when transferring your personal information out of the EEA.
-          </p>
+          </div>
 
 
         <h3>COOKIES POLICY</h3>
@@ -342,7 +343,8 @@ const Privacy = ({ isLoggedIn, handleSignInUp }) => (
         </p>
 
         <table>
-            <tr>
+          <tbody>
+          <tr>
               <th>
                 <b>Name of Cookie/Identifier</b>
               </th>
@@ -388,6 +390,7 @@ const Privacy = ({ isLoggedIn, handleSignInUp }) => (
                 </p>
               </td>
             </tr>
+          </tbody>
           </table>
 
       </div>

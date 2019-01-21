@@ -10,11 +10,9 @@ export const normalizeURL = (pathname) => {
 };
 
 export const matchProtectedRoutes = (normalizedPath) => {
-  if (normalizedPath === routes.PROFILE ||
-    normalizedPath === routes.EDITPROFILE ||
-    normalizedPath === routes.PROFILE_ABOUT ||
-    normalizedPath === routes.PROFILE_ACTIVITY ||
-    normalizedPath === routes.PROFILE_COLLECTIBLES) {
+  if (normalizedPath === routes.ACTIVITY ||
+    normalizedPath === routes.ABOUT ||
+    normalizedPath === routes.EDIT) {
     return true;
   }
   return false;

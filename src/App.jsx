@@ -69,6 +69,8 @@ class App extends Component {
     const { location } = this.props;
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
+    const splitRoute = normalizedPath.split('/');
+    const isProtectedPath = matchProtectedRoutes(splitRoute[2]);
 
     // Initial warning to users without web3
     if (typeof window.web3 === 'undefined') {
@@ -76,28 +78,36 @@ class App extends Component {
       this.props.handleMobileWalletModal();
     }
 
-    if (pathname.split('/')[1] === 'user') {
-      this.loadForLandOnPublicProfile();
-    } else if (typeof window.web3 !== 'undefined' && matchProtectedRoutes(normalizedPath)) { // no wallet and lands on restricted page
+    if (typeof window.web3 !== 'undefined' && isProtectedPath) { // no wallet and lands on restricted page
+      console.log('1');
       this.loadData();
-    } else if (typeof window.web3 === 'undefined' && matchProtectedRoutes(normalizedPath)) { // has wallet and lands on restricted page
+    } else if (typeof window.web3 === 'undefined' && isProtectedPath) { // has wallet and lands on restricted page
+      console.log('2');
       history.push(routes.LANDING);
       this.props.requireMetaMaskModal();
       this.props.handleMobileWalletModal();
+    } else if (splitRoute.length > 1 && splitRoute[1].substring(0, 2) === '0x' && !isProtectedPath) {
+      console.log('3');
+      this.loadForLandOnPublicProfile();
+    } else {
+      console.log('landed on unprotected route that isnt a public profile');
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { location } = this.props;
+    const { location } = nextProps;
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
-
+    const splitRoute = normalizedPath.split('/');
+    console.log(splitRoute);
+    console.log(normalizedPath);
     // check previous route for banner behavior on /Create & /Profiles
+    // does not work with back button
     if (nextProps.location.pathname !== normalizedPath) {
       store.dispatch({
         type: 'UPDATE_ROUTE',
         currentRoute: normalizedPath,
-        onPublicProfilePage: pathname.split('/')[1] === 'user',
+        onPublicProfilePage: splitRoute.length > 1 && splitRoute[1].substring(0, 2) === '0x' && !matchProtectedRoutes(splitRoute[2]),
       });
     }
 
@@ -257,6 +267,7 @@ class App extends Component {
       onSyncFinished,
       isSyncing,
       hasSignedOut,
+      onPublicProfilePage,
     } = this.props;
 
     const {
@@ -270,8 +281,7 @@ class App extends Component {
     const normalizedPath = normalizeURL(pathname);
     // const isMobile = width <= 812; // 600
     const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
-    const landing = pathname === routes.LANDING && 'landing';
-    const onPublicProfilePage = location.pathname.split('/')[1] === 'user';
+    const landing = pathname === routes.LANDING ? 'landing' : '';
     const { userAgent: ua } = navigator;
     const isIOS = ua.includes('iPhone');
 
@@ -352,22 +362,23 @@ class App extends Component {
           />
 
           <Route
-            path={routes.PUBLIC_PROFILE}
-            component={ProfilePublic}
-          />
-
-          <Route
-            path={routes.PROFILE}
+            path={routes.FORMAT_PROFILE_ACTIVITY}
             component={Profile}
           />
 
           <Route
-            path={routes.EDITPROFILE}
+            path={routes.FORMAT_PROFILE_ABOUT}
+            component={Profile}
+          />
+
+          <Route
+            exact
+            path={routes.FORMAT_PROFILE_EDIT}
             component={EditProfile}
           />
 
-          {/* needs event listeners */}
           <Route
+            exact
             path={routes.JOBS}
             component={() => (
               <Jobs
@@ -377,8 +388,8 @@ class App extends Component {
             )}
           />
 
-          {/* needs event listeners */}
           <Route
+            exact
             path={routes.PRIVACY}
             component={() => (
               <Privacy
@@ -388,8 +399,8 @@ class App extends Component {
             )}
           />
 
-          {/* needs event listeners */}
           <Route
+            exact
             path={routes.TERMS}
             component={() => (
               <Terms
@@ -401,6 +412,7 @@ class App extends Component {
 
           <Route
             path={routes.CREATE}
+            exact
             component={() => (
               <Create
                 isLoggedIn={isLoggedIn}
@@ -411,12 +423,19 @@ class App extends Component {
 
           <Route
             path={routes.PROFILES}
+            exact
             component={() => (
               <Profiles
                 isLoggedIn={isLoggedIn}
                 handleSignInUp={this.handleSignInUp}
               />
             )}
+          />
+
+          <Route
+            exact
+            path={routes.PUBLIC_PROFILE}
+            component={ProfilePublic}
           />
 
         </Switch>
@@ -474,6 +493,7 @@ App.propTypes = {
   onBoardingModalTwo: PropTypes.bool,
   ifFetchingThreeBox: PropTypes.bool,
   showDownloadBanner: PropTypes.bool,
+  onPublicProfilePage: PropTypes.bool,
   prevNetwork: PropTypes.string,
   currentNetwork: PropTypes.string,
   location: PropTypes.shape({
@@ -487,6 +507,7 @@ App.defaultProps = {
   accessDeniedModal: false,
   onSyncFinished: false,
   hasSignedOut: false,
+  onPublicProfilePage: false,
   isSyncing: false,
   errorMessage: '',
   allowAccessModal: false,
@@ -536,6 +557,7 @@ const mapState = state => ({
   accessDeniedModal: state.threeBox.accessDeniedModal,
   isSignedIntoWallet: state.threeBox.isSignedIntoWallet,
   showDownloadBanner: state.threeBox.showDownloadBanner,
+  onPublicProfilePage: state.threeBox.onPublicProfilePage,
 });
 
 export default withRouter(connect(mapState,

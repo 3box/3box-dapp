@@ -64,18 +64,18 @@ class StatusUpdate extends Component {
 
   render() {
     const { status, disableSave, saveLoading } = this.state;
-    const { location, publicProfile, showDownloadBanner, onPublicProfilePage } = this.props;
+    const { publicProfile, showDownloadBanner, onPublicProfilePage } = this.props;
 
     return (
       <React.Fragment>
-        {(location.pathname.split('/')[1] === 'user') && (
+        {onPublicProfilePage && (
           <div className={`${showDownloadBanner ? 'statusUpdate--bannerMargin' : ''} statusUpdate ${onPublicProfilePage ? 'publicStatusUpdate' : ''}`}>
             <div className="statusUpdate__displayPublic">
               {publicProfile.status}
             </div>
           </div>)}
 
-        {location.pathname.split('/')[1] === 'profile' && (
+        {!onPublicProfilePage && (
           <div className={`${showDownloadBanner ? 'statusUpdate--bannerMargin' : ''} statusUpdate`}>
             {saveLoading
               && (

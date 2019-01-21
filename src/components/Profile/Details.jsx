@@ -5,6 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 
 import { addhttp } from '../../utils/funcs';
 import * as routes from '../../utils/routes';
+import { address } from '../../utils/address';
 import GithubIcon from '../../assets/GithubIcon.svg';
 import TwitterIcon from '../../assets/twitterGrey.svg';
 import Verified from '../../assets/Verified.svg';
@@ -44,7 +45,7 @@ const ProfileDetails = ({
 
         <div className="profile__category__header">
           <h5>About</h5>
-          <Link to={routes.EDITPROFILE} className="profile__category__editLink">Edit</Link>
+          <Link to={`/${address}/${routes.EDIT}`} className="profile__category__editLink">Edit</Link>
         </div>
 
         {/* Do not render private fields on public profiles */}

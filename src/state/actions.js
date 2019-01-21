@@ -171,7 +171,7 @@ export const getBox = fromSignIn => async (dispatch) => {
   });
 
   const consentGiven = () => {
-    if (fromSignIn) history.push(routes.PROFILE_ACTIVITY);
+    if (fromSignIn) history.push(`/${address}/${routes.ACTIVITY}`);
     dispatch({
       type: 'LOADING_3BOX',
     });
@@ -240,7 +240,7 @@ export const getBox = fromSignIn => async (dispatch) => {
           type: 'GET_PUBLIC_MEMBERSINCE',
           memberSince: memberSinceDate,
         });
-        history.push(routes.EDITPROFILE);
+        history.push(`/${address}/${routes.EDIT}`);
       } else if (!memberSince && (privateActivity.length || publicActivity.length)) {
         store.getState().threeBox.box.public.set('memberSince', 'Alpha');
       }
@@ -524,7 +524,7 @@ export const handleSignOut = () => async (dispatch) => {
 
 export const copyToClipBoard = () => async (dispatch) => {
   const textArea = document.createElement('textarea');
-  const profileURL = `https://www.3box.io${routes.PUBLIC_BASE}/${address}${routes.PUBLIC_ACTIVITY_ROUTE}`;
+  const profileURL = `https://www.3box.io/${address}`;
   textArea.value = profileURL;
   try {
     document.body.appendChild(textArea);

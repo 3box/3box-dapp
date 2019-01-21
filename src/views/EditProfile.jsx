@@ -585,7 +585,7 @@ class EditProfile extends Component {
       this.props.getActivity();
 
       this.setState({ saveLoading: false });
-      history.push(routes.PROFILE_ACTIVITY);
+      history.push(`/${address}/${routes.ACTIVITY}`);
     }
   }
 
@@ -1214,7 +1214,7 @@ Create your profile today to start building social connection and trust online. 
                   Save
                   </button>
                 <Link
-                  to={routes.PROFILE_ACTIVITY}
+                  to={`/${address}/${routes.ACTIVITY}`}
                   className="subtext"
                   id="edit__cancel"
                   onClick={() => {

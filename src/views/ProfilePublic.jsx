@@ -10,7 +10,7 @@ import {
 } from '../state/actions';
 import { store } from '../state/store';
 import { normalizeURL } from '../utils/funcs';
-import Content from '../components/Profile/Content';
+import PubContent from '../components/Profile/PubContent';
 import SideBar from '../components/Profile/SideBar';
 import Nav from '../components/Nav';
 import './styles/Profile.css';
@@ -19,9 +19,9 @@ class ProfilePublic extends Component {
   async componentDidMount() {
     window.scrollTo(0, 0);
     const { location: { pathname } } = this.props;
-    const profileAddress = pathname.split('/')[2];
-
+    const profileAddress = pathname.split('/')[1];
     const normalizedPath = normalizeURL(pathname);
+
     store.dispatch({
       type: 'UPDATE_ROUTE',
       currentRoute: normalizedPath,
@@ -50,7 +50,7 @@ class ProfilePublic extends Component {
         <div id="profile__page">
           <div id="profile__contents">
             <SideBar isPublicProfilePage />
-            <Content />
+            <PubContent />
           </div>
         </div>
       </div>
