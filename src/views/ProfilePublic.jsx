@@ -46,13 +46,11 @@ class ProfilePublic extends Component {
   render() {
     return (
       <div>
-        {console.log('public profile')}
         <Nav />
         <div id="profile__page">
           <div id="profile__contents">
             <SideBar isPublicProfilePage />
-            <Content
-            />
+            <Content />
           </div>
         </div>
       </div>

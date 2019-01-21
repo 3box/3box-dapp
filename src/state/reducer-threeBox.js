@@ -69,6 +69,18 @@ export const threeBoxReducer = (state = {}, action) => {
         ...state,
         publicProfile: action.publicProfile,
         publicVerifiedAccounts: action.publicVerifiedAccounts,
+        publicGithub: action.publicGithub,
+        publicTwitter: action.publicTwitter,
+        publicDescription: action.publicDescription,
+        publicLocation: action.publicLocation,
+        publicWebsite: action.publicWebsite,
+        publicMemberSince: action.publicMemberSince,
+        publicJob: action.publicJob,
+        publicSchool: action.publicSchool,
+        publicDegree: action.publicDegree,
+        publicMajor: action.publicMajor,
+        publicYear: action.publicYear,
+        publicEmployer: action.publicEmployer,
       };
 
     case 'GET_PUBLIC_PROFILE_ACTIVITY':

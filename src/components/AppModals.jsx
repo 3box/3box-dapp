@@ -230,7 +230,6 @@ AppModals.propTypes = {
   closeRequireMetaMaskModal: PropTypes.func.isRequired,
   handleAccessModal: PropTypes.func.isRequired,
 
-  isMobile: PropTypes.bool.isRequired,
   showDownloadBanner: PropTypes.bool,
   ifFetchingThreeBox: PropTypes.bool,
   onSyncFinished: PropTypes.bool,

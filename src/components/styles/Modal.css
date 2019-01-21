@@ -489,7 +489,7 @@
     border: none;
     font-size: 16px; }
   .modal--sync {
-    width: fit-content;
+    width: 78vw;
     padding: 0 24px;
     bottom: 24px; }
     .modal--sync p {

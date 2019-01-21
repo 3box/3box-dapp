@@ -92,7 +92,7 @@ NavLanding.propTypes = {
   showDownloadBanner: PropTypes.bool,
   onPublicProfilePage: PropTypes.bool,
   classHide: PropTypes.string,
-  landing: PropTypes.string,
+  landing: PropTypes.bool,
   normalizedPath: PropTypes.string,
   pathname: PropTypes.string,
   handleSignInUp: PropTypes.func.isRequired,
@@ -104,7 +104,7 @@ NavLanding.defaultProps = {
   showDownloadBanner: false,
   onPublicProfilePage: false,
   classHide: '',
-  landing: '',
+  landing: true,
   pathname: '',
   normalizedPath: '',
 };

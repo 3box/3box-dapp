@@ -391,6 +391,18 @@ export const getProfile = (profileAddress, opts) => async (dispatch) => {
       type: 'GET_PUBLIC_PROFILE',
       publicProfile,
       publicVerifiedAccounts,
+      publicGithub: publicVerifiedAccounts.github && publicVerifiedAccounts.github.username,
+      publicTwitter: publicVerifiedAccounts.twitter && publicVerifiedAccounts.twitter.username,
+      publicDescription: publicProfile.description,
+      publicLocation: publicProfile.location,
+      publicWebsite: publicProfile.website,
+      publicMemberSince: publicProfile.memberSince,
+      publicJob: publicProfile.job,
+      publicSchool: publicProfile.school,
+      publicDegree: publicProfile.degree,
+      publicMajor: publicProfile.major,
+      publicYear: publicProfile.year,
+      publicEmployer: publicProfile.employer,
     });
   } catch (error) {
     console.error(error);

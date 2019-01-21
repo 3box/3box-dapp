@@ -33,7 +33,7 @@
   justify-content: center;
   align-items: center;
   margin-top: 34px;
-  margin-bottom: 48px;
+  margin-bottom: 12px;
   width: 230px; }
 
 .profile__basic__emoji {
@@ -142,6 +142,32 @@
   .profile__user__info p {
     text-align: left;
     font-size: 14.5px; }
+
+.public__about {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-bottom: 30px; }
+
+.public__about__header {
+  color: #b1b1b1;
+  font-size: 16px;
+  margin: 0 0 10px 0; }
+
+.public__about__field {
+  display: flex;
+  align-items: center;
+  margin: 6px 0 5px 0;
+  justify-content: flex-start;
+  width: 300px; }
+  .public__about__field p {
+    color: #6b6b6b;
+    width: 194px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block; }
 
 #profile__page {
   height: calc(100% - 133px); }

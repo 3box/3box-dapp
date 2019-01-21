@@ -44,7 +44,8 @@
   justify-content: center;
   align-items: center;
   margin-top: 34px;
-  margin-bottom: 48px;
+  margin-bottom: 12px;
+  // margin-bottom: 48px;
   width: 230px;
 }
 
@@ -173,6 +174,37 @@
   p {
     text-align: left;
     font-size: 14.5px;
+  }
+}
+
+.public__about {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+
+.public__about__header{
+  color: $lightestFont;
+  font-size: 16px;
+  margin: 0 0 10px 0;
+}
+
+.public__about__field {
+  display: flex;
+  align-items: center;
+  margin: 6px 0 5px 0;
+  justify-content: flex-start;
+  width: 300px;
+
+  p {
+    color: $lightFont;
+    width: 194px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
   }
 }
 

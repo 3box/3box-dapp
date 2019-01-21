@@ -41,7 +41,6 @@ const ProfileDetails = ({
   onPublicProfilePage,
 }) => (
     <div className="profile__details" id="feed">
-      {console.log('details')}
       <div className="profile__details__category">
 
         <div className="profile__category__header">

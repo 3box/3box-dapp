@@ -24,8 +24,6 @@ const Activity = ({
   onPublicProfilePage,
 }) => (
     <div id="feed">
-      {console.log('activity')}
-
       <div>
         <p className="header" id="feed__header">Activity</p>
         <div className="feed__activity__address">
@@ -48,7 +46,7 @@ const Activity = ({
                     : (
                       <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
                         0x
-                    </div>)
+                      </div>)
                   }
                   <div className="feed__activity__address">
                     {Object.keys(feedAddress)[0] === 'threeBox'
@@ -56,10 +54,10 @@ const Activity = ({
                         <div>
                           <h4>
                             3Box
-                        </h4>
+                          </h4>
                           <p>
                             Activity
-                        </p>
+                          </p>
                         </div>
                       )
                       : (
@@ -69,7 +67,7 @@ const Activity = ({
                           </h4>
                           <p>
                             Ethereum Address
-                        </p>
+                          </p>
                         </div>
                       )}
                   </div>

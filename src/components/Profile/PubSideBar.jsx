@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, NavLink, withRouter } from 'react-router-dom';
 
-import PublicDetails from './PublicDetails.jsx';
 import { address } from '../../utils/address';
 import { copyToClipBoard } from '../../state/actions';
 import * as routes from '../../utils/routes';
@@ -114,13 +113,7 @@ const SideBar = ({
 
             <div className="profile__category">
               <div className="profile__category__sectionWrapper">
-                {!onPublicProfilePage ? (
-                  <React.Fragment>
-                    <NavLink exact to={onPublicProfilePage ? `${routes.PUBLIC_BASE}/${location.pathname.split('/')[2]}${routes.PUBLIC_ACTIVITY_ROUTE}` : routes.PROFILE_ACTIVITY} className="profile__category__section">Activity</NavLink>
-                    <NavLink exact to={onPublicProfilePage ? `${routes.PUBLIC_BASE}/${location.pathname.split('/')[2]}${routes.PUBLIC_DETAILS_ROUTE}` : routes.PROFILE_ABOUT} className="profile__category__section ">Details</NavLink>
-                  </React.Fragment>)
-                  : (
-                    <PublicDetails />)}
+                  
               </div>
             </div>
 
@@ -149,25 +142,49 @@ const SideBar = ({
   );
 
 SideBar.propTypes = {
+  copyToClipBoard: PropTypes.func.isRequired,
   name: PropTypes.string,
-  description: PropTypes.string,
+  verifiedGithub: PropTypes.string,
+  verifiedTwitter: PropTypes.string,
+  email: PropTypes.string,
+  website: PropTypes.string,
+  job: PropTypes.string,
+  school: PropTypes.string,
+  degree: PropTypes.string,
+  memberSince: PropTypes.string,
+  major: PropTypes.string,
+  year: PropTypes.string,
+  employer: PropTypes.string,
+  birthday: PropTypes.string,
   emoji: PropTypes.string,
   image: PropTypes.array,
   coverPhoto: PropTypes.array,
+  description: PropTypes.string,
+  publicProfile: PropTypes.object,
   location: PropTypes.object.isRequired,
   onPublicProfilePage: PropTypes.bool,
-  publicProfile: PropTypes.object,
   copySuccessful: PropTypes.bool,
   showDownloadBanner: PropTypes.bool,
-  copyToClipBoard: PropTypes.func.isRequired,
 };
 
 SideBar.defaultProps = {
   name: '',
+  verifiedGithub: '',
+  verifiedTwitter: '',
+  email: '',
   description: '',
   image: [],
   coverPhoto: [],
   emoji: '',
+  memberSince: '',
+  website: '',
+  birthday: '',
+  job: '',
+  school: '',
+  degree: '',
+  major: '',
+  year: '',
+  employer: '',
   publicProfile: {},
   copySuccessful: false,
   onPublicProfilePage: false,
@@ -177,14 +194,26 @@ SideBar.defaultProps = {
 function mapState(state) {
   return {
     name: state.threeBox.name,
+    verifiedGithub: state.threeBox.verifiedGithub,
+    verifiedTwitter: state.threeBox.verifiedTwitter,
     image: state.threeBox.image,
     coverPhoto: state.threeBox.coverPhoto,
     emoji: state.threeBox.emoji,
+    email: state.threeBox.email,
     description: state.threeBox.description,
+    website: state.threeBox.website,
+    birthday: state.threeBox.birthday,
+    memberSince: state.threeBox.memberSince,
+    job: state.threeBox.job,
+    school: state.threeBox.school,
+    degree: state.threeBox.degree,
+    major: state.threeBox.major,
+    year: state.threeBox.year,
+    employer: state.threeBox.employer,
+    publicProfile: state.threeBox.publicProfile,
     copySuccessful: state.threeBox.copySuccessful,
     showDownloadBanner: state.threeBox.showDownloadBanner,
     onPublicProfilePage: state.threeBox.onPublicProfilePage,
-    publicProfile: state.threeBox.publicProfile,
   };
 }
 
