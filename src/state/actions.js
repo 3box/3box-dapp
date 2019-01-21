@@ -73,7 +73,7 @@ export const requestAccess = directLogin => async (dispatch) => {
         allowAccessModal: false,
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       history.push(routes.LANDING);
       dispatch({
         type: 'HANDLE_DENIED_ACCESS_MODAL',
@@ -171,7 +171,7 @@ export const getBox = fromSignIn => async (dispatch) => {
   });
 
   const consentGiven = () => {
-    if (fromSignIn) history.push(`/${address}/${routes.ACTIVITY}`);
+    if (fromSignIn) history.push(`/${address || store.getState().threeBox.accountAddress}/${routes.ACTIVITY}`);
     dispatch({
       type: 'LOADING_3BOX',
     });
