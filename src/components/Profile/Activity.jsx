@@ -24,6 +24,8 @@ const Activity = ({
   onPublicProfilePage,
 }) => (
     <div id="feed">
+      {console.log('activity')}
+
       <div>
         <p className="header" id="feed__header">Activity</p>
         <div className="feed__activity__address">

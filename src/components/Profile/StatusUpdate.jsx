@@ -68,6 +68,7 @@ class StatusUpdate extends Component {
 
     return (
       <React.Fragment>
+        {console.log('status update')}
 
         {(location.pathname.split('/')[1] === 'user') && (
           <div className={`${showDownloadBanner ? 'statusUpdate--bannerMargin' : ''} statusUpdate`}>

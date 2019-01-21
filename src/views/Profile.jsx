@@ -14,6 +14,8 @@ class Profile extends Component {
   render() {
     return (
       <div>
+        {console.log('profile')}
+
         <Nav />
         <div id="profile__page">
           <div id="profile__contents">

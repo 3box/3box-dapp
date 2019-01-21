@@ -60,16 +60,9 @@ class App extends Component {
       onBoardingModalMobileOne: false,
       onBoardingModalMobileTwo: false,
       onBoardingModalMobileThree: false,
-      width: window.innerWidth,
-      retractNav: false,
     };
     this.loadData = this.loadData.bind(this);
     this.handleSignInUp = this.handleSignInUp.bind(this);
-  }
-
-  componentWillMount() {
-    window.addEventListener('resize', this.handleWindowSizeChange);
-    window.addEventListener('scroll', this.hideBar);
   }
 
   async componentDidMount() {
@@ -98,8 +91,8 @@ class App extends Component {
     const { location } = this.props;
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
-    // check previous route for banner behavior on /Create & /Profiles
 
+    // check previous route for banner behavior on /Create & /Profiles
     if (nextProps.location.pathname !== normalizedPath) {
       store.dispatch({
         type: 'UPDATE_ROUTE',
@@ -121,28 +114,11 @@ class App extends Component {
     }
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleWindowSizeChange);
-    window.removeEventListener('scroll', this.hideBar);
-  }
-
-  handleWindowSizeChange = () => {
-    this.setState({ width: window.innerWidth });
-  }
-
   handleNextMobileModal = (thisModal, nextModal) => {
     this.setState({
       [`onBoardingModalMobile${thisModal}`]: false,
       [`onBoardingModalMobile${nextModal}`]: true,
     });
-  }
-
-  hideBar = () => {
-    if (window.scrollY < 1) {
-      this.setState({ retractNav: false });
-    } else {
-      this.setState({ retractNav: true });
-    }
   }
 
   loadCalls = () => {
@@ -287,14 +263,12 @@ class App extends Component {
       onBoardingModalMobileOne,
       onBoardingModalMobileTwo,
       onBoardingModalMobileThree,
-      width,
-      retractNav,
+      // width,
     } = this.state;
 
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
-    const isMobile = width <= 812; // 600
-    const classHide = retractNav ? 'hide' : '';
+    // const isMobile = width <= 812; // 600
     const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
     const landing = pathname === routes.LANDING && 'landing';
     const onPublicProfilePage = location.pathname.split('/')[1] === 'user';
@@ -306,7 +280,6 @@ class App extends Component {
         {(!isLoggedIn && !ifFetchingThreeBox)
           ? (
             <NavLanding
-              classHide={classHide}
               handleSignInUp={this.handleSignInUp}
               onPublicProfilePage={onPublicProfilePage}
               landing={landing}
@@ -323,7 +296,6 @@ class App extends Component {
           hasSignedOut={hasSignedOut}
           allowAccessModal={allowAccessModal}
           directLogin={directLogin}
-          isMobile={isMobile}
           alertRequireMetaMask={alertRequireMetaMask}
           accessDeniedModal={accessDeniedModal}
           signInToWalletModal={signInToWalletModal}
@@ -401,7 +373,6 @@ class App extends Component {
               <Jobs
                 isLoggedIn={isLoggedIn}
                 handleSignInUp={this.handleSignInUp}
-                classHide={classHide}
               />
             )}
           />
@@ -413,7 +384,6 @@ class App extends Component {
               <Privacy
                 isLoggedIn={isLoggedIn}
                 handleSignInUp={this.handleSignInUp}
-                classHide={classHide}
               />
             )}
           />
@@ -425,7 +395,6 @@ class App extends Component {
               <Terms
                 isLoggedIn={isLoggedIn}
                 handleSignInUp={this.handleSignInUp}
-                classHide={classHide}
               />
             )}
           />
@@ -436,7 +405,6 @@ class App extends Component {
               <Create
                 isLoggedIn={isLoggedIn}
                 handleSignInUp={this.handleSignInUp}
-                classHide={classHide}
               />
             )}
           />
@@ -447,7 +415,6 @@ class App extends Component {
               <Profiles
                 isLoggedIn={isLoggedIn}
                 handleSignInUp={this.handleSignInUp}
-                classHide={classHide}
               />
             )}
           />
@@ -598,119 +565,3 @@ export default withRouter(connect(mapState,
     closeErrorModal,
     closeRequireMetaMaskModal,
   })(App));
-
-
-{/* <div className={`${!showDownloadBanner ? 'hideBanner' : ''} webThreeBanner`}>
-  <p>
-    3Box requires web3.  Download the MetaMask extension to continue.
-  </p>
-  <a href="https://metamask.io/" target="_blank" rel="noopener noreferrer">
-    <button type="button" className="webThreeBanner__link">
-      Download
-    </button>
-  </a>
-  <p onClick={this.props.handleDownloadMetaMaskBanner} className="webThreeBanner__close">
-    &#10005;
-  </p>
-</div>
-
-  <LoadingThreeBoxProfileModal show={ifFetchingThreeBox} />
-
-  <SyncingModal
-    show={!onSyncFinished && !ifFetchingThreeBox && isSyncing && !hasSignedOut}
-  />
-
-  <ProvideAccessModal
-    handleAccessModal={this.props.handleAccessModal}
-    show={allowAccessModal}
-    directLogin={directLogin}
-    isMobile={isMobile}
-  />
-
-  <RequireMetaMaskModal
-    closeRequireMetaMaskModal={this.props.closeRequireMetaMaskModal}
-    show={alertRequireMetaMask}
-    isMobile={isMobile}
-  />
-
-  <ProvideConsentModal
-    handleConsentModal={this.props.handleConsentModal}
-    show={provideConsent}
-    isMobile={isMobile}
-  />
-
-  <AccessDeniedModal
-    handleDeniedAccessModal={this.props.handleDeniedAccessModal}
-    show={accessDeniedModal}
-    isMobile={isMobile}
-  />
-
-  <SignInToWalletModal
-    handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal}
-    show={signInToWalletModal}
-    isMobile={isMobile}
-  />
-
-  <SignInToThreeBox
-    show={signInModal}
-    handleSignInModal={this.props.handleSignInModal}
-  />
-
-  <MobileWalletRequiredModal
-    isIOS={isIOS}
-    handleMobileWalletModal={this.props.handleMobileWalletModal}
-    show={mobileWalletRequiredModal}
-    isMobile={isMobile}
-  />
-
-  <ErrorModal
-    errorMessage={errorMessage}
-    closeErrorModal={this.props.closeErrorModal}
-    show={showErrorModal && !mustConsentError}
-    isMobile={isMobile}
-  />
-
-  <MustConsentModal
-    closeErrorModal={this.props.closeErrorModal}
-    show={mustConsentError}
-    isMobile={isMobile}
-  />
-
-  <SwitchedNetworksModal
-    prevNetwork={prevNetwork}
-    currentNetwork={currentNetwork}
-    handleSwitchedNetworkModal={this.props.handleSwitchedNetworkModal}
-    show={showDifferentNetworkModal}
-  />
-
-  <LoggedOutModal
-    isMobile={isMobile}
-    handleLoggedOutModal={this.props.handleLoggedOutModal}
-    handleSignOut={this.props.handleSignOut}
-    show={loggedOutModal}
-  />
-
-  <SwitchedAddressModal
-    handleSwitchedAddressModal={this.props.handleSwitchedAddressModal}
-    show={switchedAddressModal}
-    isMobile={isMobile}
-    handleSignOut={this.props.handleSignOut}
-    prevAddress={prevAddress}
-  />
-
-  <OnBoardingModalDesktop
-    isMobile={isMobile}
-    showOne={onBoardingModal}
-    showTwo={onBoardingModalTwo}
-    handleOnboardingModal={this.props.handleOnboardingModal}
-  />
-
-  <OnBoardingModalMobile
-    isMobile={isMobile}
-    handleOnboardingModal={this.props.handleOnboardingModal}
-    showOne={onBoardingModal}
-    showTwo={onBoardingModalMobileOne}
-    showThree={onBoardingModalMobileTwo}
-    showFour={onBoardingModalMobileThree}
-    handleNextMobileModal={this.handleNextMobileModal}
-  /> */}

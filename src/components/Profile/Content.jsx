@@ -17,7 +17,7 @@ const Content = ({
 }) => (
     <div>
       <StatusUpdate />
-
+      {console.log('content')}
       <div className="profile__category--mobile">
         <div className="profile__category__sectionWrapper">
           <NavLink exact to={onPublicProfilePage ? `${routes.PUBLIC_BASE}/${location.pathname.split('/')[2]}${routes.PUBLIC_ACTIVITY_ROUTE}` : routes.PROFILE_ACTIVITY} className="profile__category__section">Activity</NavLink>

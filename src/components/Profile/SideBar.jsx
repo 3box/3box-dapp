@@ -25,6 +25,8 @@ const SideBar = ({
   showDownloadBanner,
 }) => (
     <div>
+      {console.log('side bar')}
+
       {!onPublicProfilePage && (
         coverPhoto.length > 0 && coverPhoto[0].contentUrl
           ? <img src={`https://ipfs.infura.io/ipfs/${coverPhoto[0].contentUrl['/']}`} className={`${showDownloadBanner ? 'bannerMargin' : ''} profile__coverPhoto clearProfPic`} alt="profile" />

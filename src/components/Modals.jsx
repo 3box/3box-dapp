@@ -26,7 +26,10 @@ import LoadingWhite from '../assets/LoadingWhite.svg';
 import './styles/Modal.css';
 
 export const SwitchedNetworksModal = ({
-  prevNetwork, currentNetwork, handleSwitchedNetworkModal, show,
+  prevNetwork,
+  currentNetwork,
+  handleSwitchedNetworkModal,
+  show,
 }) => (
     <div>
       <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
@@ -57,8 +60,18 @@ export const SwitchedNetworksModal = ({
     </div>
   );
 
+SwitchedNetworksModal.propTypes = {
+  prevNetwork: PropTypes.string.isRequired,
+  currentNetwork: PropTypes.string.isRequired,
+  handleSwitchedNetworkModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
 export const LoggedOutModal = ({
-  handleLoggedOutModal, handleSignOut, show, isMobile,
+  handleLoggedOutModal,
+  handleSignOut,
+  show,
+  isMobile,
 }) => (
     <div>
       <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
@@ -68,7 +81,8 @@ export const LoggedOutModal = ({
           <div>
             <h3>
               Logged out
-             </h3>
+            </h3>
+
             {isMobile
               ? <p>Sign back in to your web3 wallet or exit 3Box</p>
               : <p>Sign back in to your MetaMask wallet or exit 3Box</p>
@@ -83,6 +97,13 @@ export const LoggedOutModal = ({
       <div className="modal__overlay" />
     </div>
   );
+
+LoggedOutModal.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  handleLoggedOutModal: PropTypes.func.isRequired,
+  handleSignOut: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
 
 export const SwitchedAddressModal = ({
   handleSwitchedAddressModal, show, handleSignOut, isMobile, prevAddress,
@@ -119,6 +140,13 @@ export const SwitchedAddressModal = ({
     </div>
   );
 
+SwitchedAddressModal.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  handleSwitchedAddressModal: PropTypes.func.isRequired,
+  handleSignOut: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
 // Landing Page Modals
 export const ProvideConsentModal = ({
   handleConsentModal, show, isMobile,
@@ -151,6 +179,12 @@ export const ProvideConsentModal = ({
     </div>
   );
 
+ProvideConsentModal.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  handleConsentModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
 export const ProvideAccessModal = ({
   handleAccessModal, show, isMobile, directLogin,
 }) => (
@@ -175,6 +209,17 @@ export const ProvideAccessModal = ({
       <div className="modal__overlay" />
     </div>
   );
+
+ProvideAccessModal.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  handleAccessModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+  directLogin: PropTypes.string,
+};
+
+ProvideAccessModal.defaultProps = {
+  directLogin: '',
+};
 
 export const GithubVerificationModal = ({
   show,
@@ -465,6 +510,12 @@ export const AccessDeniedModal = ({
     </div>
   );
 
+AccessDeniedModal.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  handleDeniedAccessModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
 export const LoadingThreeBoxProfileModal = ({ show }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
@@ -484,6 +535,10 @@ export const LoadingThreeBoxProfileModal = ({ show }) => (
   </div>
 );
 
+LoadingThreeBoxProfileModal.propTypes = {
+  show: PropTypes.bool.isRequired,
+};
+
 export const FileSizeModal = ({ show, closeFileSizeModal }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
@@ -499,6 +554,11 @@ export const FileSizeModal = ({ show, closeFileSizeModal }) => (
     <div className="modal__overlay" />
   </div>
 );
+
+FileSizeModal.propTypes = {
+  closeFileSizeModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
 
 export const RequireMetaMaskModal = ({ closeRequireMetaMaskModal, show, isMobile }) => (
   <div className="mobileInvisible">
@@ -523,6 +583,12 @@ export const RequireMetaMaskModal = ({ closeRequireMetaMaskModal, show, isMobile
   </div>
 );
 
+RequireMetaMaskModal.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  closeRequireMetaMaskModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
 export const SignInToWalletModal = ({ handleRequireWalletLoginModal, show, isMobile }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
@@ -545,6 +611,13 @@ export const SignInToWalletModal = ({ handleRequireWalletLoginModal, show, isMob
   </div>
 );
 
+SignInToWalletModal.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  handleRequireWalletLoginModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
+
 export const SyncingModal = ({ show }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container--sync modal--effect`}>
@@ -564,6 +637,10 @@ export const SyncingModal = ({ show }) => (
     </div>
   </div>
 );
+
+SyncingModal.propTypes = {
+  show: PropTypes.bool.isRequired,
+};
 
 export const ErrorModal = ({ closeErrorModal, errorMessage, show }) => (
   <div>
@@ -601,6 +678,16 @@ export const ErrorModal = ({ closeErrorModal, errorMessage, show }) => (
   </div>
 );
 
+ErrorModal.propTypes = {
+  errorMessage: PropTypes.string,
+  closeErrorModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
+ErrorModal.defaultProps = {
+  errorMessage: '',
+};
+
 export const MustConsentModal = ({ closeErrorModal, show, isMobile }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
@@ -619,6 +706,12 @@ export const MustConsentModal = ({ closeErrorModal, show, isMobile }) => (
     <div className="modal__overlay" />
   </div>
 );
+
+MustConsentModal.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  closeErrorModal: PropTypes.func.isRequired,
+  show: PropTypes.string.isRequired,
+};
 
 export const SignInToThreeBox = ({ handleSignInModal, show }) => (
   <div>
@@ -641,6 +734,11 @@ export const SignInToThreeBox = ({ handleSignInModal, show }) => (
     <div className="modal__overlay" />
   </div>
 );
+
+SignInToThreeBox.propTypes = {
+  handleSignInModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
 
 export const MobileWalletRequiredModal = ({ isIOS, handleMobileWalletModal, show }) => (
   <div id="mobile__landing__prompt" className={`${show ? 'showMobileModal' : 'hideMobileModal'}`}>
@@ -675,6 +773,12 @@ export const MobileWalletRequiredModal = ({ isIOS, handleMobileWalletModal, show
   </div>
 );
 
+MobileWalletRequiredModal.propTypes = {
+  isIOS: PropTypes.bool.isRequired,
+  handleMobileWalletModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
 export const OnBoardingModalDesktop = ({ handleOnboardingModal, showOne, showTwo, isMobile }) => (
   <div>
     <div className={`${(showOne || showTwo) && !isMobile ? 'showModal' : ''} modal__onBoardingModal__container modal--effect`}>
@@ -699,6 +803,13 @@ export const OnBoardingModalDesktop = ({ handleOnboardingModal, showOne, showTwo
     <div className="modal__overlay" />
   </div>
 );
+
+OnBoardingModalDesktop.propTypes = {
+  handleOnboardingModal: PropTypes.func.isRequired,
+  showOne: PropTypes.bool.isRequired,
+  showTwo: PropTypes.bool.isRequired,
+  isMobile: PropTypes.bool.isRequired,
+};
 
 export const OnBoardingModalMobile = ({
   isMobile,
@@ -760,105 +871,6 @@ export const OnBoardingModalMobile = ({
       <div className="modal__overlay" />
     </div>
   );
-
-SwitchedNetworksModal.propTypes = {
-  prevNetwork: PropTypes.string.isRequired,
-  currentNetwork: PropTypes.string.isRequired,
-  handleSwitchedNetworkModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-};
-
-LoggedOutModal.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-  handleLoggedOutModal: PropTypes.func.isRequired,
-  handleSignOut: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-};
-
-SwitchedAddressModal.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-  handleSwitchedAddressModal: PropTypes.func.isRequired,
-  handleSignOut: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-};
-
-ProvideConsentModal.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-  handleConsentModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-};
-
-ProvideAccessModal.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-  handleAccessModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-  directLogin: PropTypes.string,
-};
-
-ProvideAccessModal.defaultProps = {
-  directLogin: '',
-};
-
-AccessDeniedModal.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-  handleDeniedAccessModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-};
-
-LoadingThreeBoxProfileModal.propTypes = {
-  show: PropTypes.bool.isRequired,
-};
-
-FileSizeModal.propTypes = {
-  closeFileSizeModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-};
-
-RequireMetaMaskModal.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-  closeRequireMetaMaskModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-};
-
-SignInToWalletModal.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-  handleRequireWalletLoginModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-};
-
-ErrorModal.propTypes = {
-  errorMessage: PropTypes.string,
-  closeErrorModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-};
-
-ErrorModal.defaultProps = {
-  errorMessage: '',
-};
-
-MustConsentModal.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-  closeErrorModal: PropTypes.func.isRequired,
-  show: PropTypes.string.isRequired,
-};
-
-SignInToThreeBox.propTypes = {
-  handleSignInModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-};
-
-MobileWalletRequiredModal.propTypes = {
-  isIOS: PropTypes.bool.isRequired,
-  handleMobileWalletModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-};
-
-OnBoardingModalDesktop.propTypes = {
-  handleOnboardingModal: PropTypes.func.isRequired,
-  showOne: PropTypes.bool.isRequired,
-  showTwo: PropTypes.bool.isRequired,
-  isMobile: PropTypes.bool.isRequired,
-};
 
 OnBoardingModalMobile.propTypes = {
   handleNextMobileModal: PropTypes.func.isRequired,
