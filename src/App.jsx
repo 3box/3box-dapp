@@ -61,7 +61,6 @@ class App extends Component {
       onBoardingModalMobileTwo: false,
       onBoardingModalMobileThree: false,
     };
-    this.loadData = this.loadData.bind(this);
     this.handleSignInUp = this.handleSignInUp.bind(this);
   }
 
@@ -79,7 +78,8 @@ class App extends Component {
     }
 
     if (typeof window.web3 !== 'undefined' && isProtectedPath) { // no wallet and lands on restricted page
-      this.loadData();
+      history.push(`/${splitRoute[1]}`);
+      this.loadForLandOnPublicProfile();
     } else if (typeof window.web3 === 'undefined' && isProtectedPath) { // has wallet and lands on restricted page
       history.push(routes.LANDING);
       this.props.requireMetaMaskModal();
@@ -96,7 +96,7 @@ class App extends Component {
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
     const splitRoute = normalizedPath.split('/');
-    
+
     // check previous route for banner behavior on /Create & /Profiles
     // does not work with back button
     if (nextProps.location.pathname !== normalizedPath) {
@@ -150,69 +150,15 @@ class App extends Component {
     this.props.getProfileData('private', 'birthday');
   }
 
-  async loadData() {
-    const { location } = this.props;
-    const { pathname } = location;
-    const normalizedPath = normalizeURL(pathname);
-
-    await this.props.checkWeb3Wallet();
-    await this.props.requestAccess('directLogin');
-    await this.props.checkNetwork();
-
-    if (this.props.isSignedIntoWallet && this.props.isLoggedIn) {
-      await this.props.getBox();
-      if (!this.props.showErrorModal) {
-        this.loadCalls();
-      }
-    } else if (!this.props.isSignedIntoWallet) {
-      history.push(routes.LANDING);
-      this.props.handleRequireWalletLoginModal();
-    } else if (this.props.isSignedIntoWallet
-      && !this.props.isLoggedIn
-      && matchProtectedRoutes(normalizedPath)) {
-      history.push(routes.LANDING);
-      this.props.handleSignInModal();
-    }
-  }
-
   async loadForLandOnPublicProfile() {
-    // const { location } = this.props;
-    // const { pathname } = location;
-    // const normalizedPath = normalizeURL(pathname);
     // loading animation
-    if (typeof window.web3 !== 'undefined') {
-      // await this.props.checkWeb3Wallet();
-      // await this.props.requestAccess('directLogin'); // request connect, show smaller allow access modal
-      // what we get if we at least connect: is logged in, in which case
-      // if logged in, change to logged in nav
-      // if not logged in, keep current(fake?) nav
-      // if not signed in to wallet, show smaller sign into wallet modal
-      // await this.props.checkNetwork(); // disable changed network flow when youre on a public profile
-      // turn off share button in profile
-    } else {
+    if (typeof window.web3 === 'undefined') {
       store.dispatch({
         type: 'HANDLE_DOWNLOAD_BANNER',
         showDownloadBanner: true,
       });
       this.props.handleMobileWalletModal();
     }
-    // if no network, show that in new nav
-    // until this point, freeze all buttons that would allow the user to move away from that page
-    // what if the user goes to the landing page?
-    // what routes CAN the user move to?
-    // if (this.props.isSignedIntoWallet && this.props.isLoggedIn) { // CAN move on to 3box
-    //   await this.props.getBox(); // get box in the background with small loading box modals
-    //   if (!this.props.showErrorModal) {
-    //     this.loadCalls(); // this should populate the redux store and your profile page in nav
-    //   }
-    // } else if (!this.props.isSignedIntoWallet) { // CANNOT move on to 3box
-    //   // history.push(routes.LANDING);
-    //   this.props.handleRequireWalletLoginModal(); // show small require wallet modal
-    // } else if (this.props.isSignedIntoWallet && !this.props.isLoggedIn && matchProtectedRoutes(normalizedPath)) { // CANNOT move on to 3box
-    //   // history.push(routes.LANDING);
-    //   this.props.handleSignInModal(); // show small require wallet modal
-    //   // show 
-    // }
   }
 
   async handleSignInUp() {
@@ -270,12 +216,10 @@ class App extends Component {
       onBoardingModalMobileOne,
       onBoardingModalMobileTwo,
       onBoardingModalMobileThree,
-      // width,
     } = this.state;
 
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
-    // const isMobile = width <= 812; // 600
     const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
     const landing = pathname === routes.LANDING ? 'landing' : '';
     const { userAgent: ua } = navigator;
@@ -341,7 +285,6 @@ class App extends Component {
         />
 
         <Switch>
-          {/* needs event listeners */}
           <Route
             exact
             path={routes.LANDING}

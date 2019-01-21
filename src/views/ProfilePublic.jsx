@@ -21,7 +21,7 @@ class ProfilePublic extends Component {
     const { location: { pathname } } = this.props;
     const profileAddress = pathname.split('/')[1];
     const normalizedPath = normalizeURL(pathname);
-
+    
     store.dispatch({
       type: 'UPDATE_ROUTE',
       currentRoute: normalizedPath,
