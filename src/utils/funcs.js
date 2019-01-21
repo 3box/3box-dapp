@@ -19,3 +19,13 @@ export const matchProtectedRoutes = (normalizedPath) => {
   }
   return false;
 };
+
+export const addhttp = (url) => {
+  let correctedURL;
+  if (!/^(?:f|ht)tps?\:\/\//.test(url)) {
+    correctedURL = `http://${url}`;
+  } else {
+    correctedURL = url;
+  }
+  return correctedURL;
+};

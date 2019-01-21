@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { addhttp } from '../../utils/funcs';
 import GithubIcon from '../../assets/GithubIcon.svg';
 import TwitterIcon from '../../assets/twitterGrey.svg';
 import Verified from '../../assets/Verified.svg';
@@ -35,56 +36,59 @@ const PublicDetails = ({
 
         <div className="public__about__field" title="Location">
           <img src={Location} className="profile__category__field__icon" alt="Location Icon" />
-          {publicLocation
-            && (
-              <p>{publicLocation}</p>
-            )
-          }
+          <p>{publicLocation}</p>
         </div>
 
         <div className="public__about__field" title="Website">
           <img src={Website} className="profile__category__field__icon" alt="Website Icon" />
-          {publicWebsite
-            && (
-              <p>{publicWebsite}</p>
-            )
-          }
+          {publicWebsite && (
+            <a
+              href={`${addhttp(publicWebsite)}`}
+              className="profile__category__field__verified"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {publicWebsite}
+            </a>)}
         </div>
 
         <div className="public__about__field" title="Github">
           <img src={GithubIcon} className="profile__category__field__icon" alt="Github Icon" />
-          {publicGithub
-            && (
-              <p className="profile__category__field__verified">{publicGithub}</p>
-            )
-          }
-          {publicGithub
-            && (
+          {publicGithub && (
+            <React.Fragment>
+              <a
+                href={`https://www.github.com/${publicGithub}`}
+                className="profile__category__field__verified"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {publicGithub}
+              </a>
               <img src={Verified} alt="Verified" className="profile__category__verified__icon" />
-            )
-          }
+            </React.Fragment>
+          )}
         </div>
 
         <div className="public__about__field" title="Github">
           <img src={TwitterIcon} className="profile__category__field__icon" alt="Github Icon" />
-          {publicTwitter
-            && (
-              <p className="profile__category__field__verified">{publicTwitter}</p>
-            )
-          }
-          {publicTwitter
-            && (
+          {publicTwitter && (
+            <React.Fragment>
+              <a
+                href={`https://www.twitter.com/${publicTwitter}`}
+                className="profile__category__field__verified"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {publicTwitter}
+              </a>
               <img src={Verified} alt="Verified" className="profile__category__verified__icon" />
-            )}
+            </React.Fragment>
+          )}
         </div>
 
         <div className="public__about__field" title="Birthday">
           <img src={ThreeBox3} className="profile__category__field__icon" alt="Birthday Icon" />
-          {publicMemberSince
-            && (
-              <p>{publicMemberSince}</p>
-            )
-          }
+          <p>{publicMemberSince}</p>
         </div>
 
       </div>
@@ -95,20 +99,12 @@ const PublicDetails = ({
 
         <div className="public__about__field" title="Employer">
           <img src={Employer} className="profile__category__field__icon" alt="Employer Icon" />
-          {publicEmployer
-            && (
-              <p>{publicEmployer}</p>
-            )
-          }
+          <p>{publicEmployer}</p>
         </div>
 
         <div className="public__about__field" title="Job Title">
           <img src={Job} className="profile__category__field__icon" alt="Job Icon" />
-          {publicJob
-            && (
-              <p>{publicJob}</p>
-            )
-          }
+          <p>{publicJob}</p>
         </div>
       </div>
 
@@ -117,38 +113,22 @@ const PublicDetails = ({
 
         <div className="public__about__field" title="School">
           <img src={School} className="profile__category__field__icon" alt="School Icon" />
-          {publicSchool
-            && (
-              <p>{publicSchool}</p>
-            )
-          }
+          <p>{publicSchool}</p>
         </div>
 
         <div className="public__about__field" title="Degree">
           <img src={Degree} className="profile__category__field__icon" alt="Degree Icon" />
-          {publicDegree
-            && (
-              <p>{publicDegree}</p>
-            )
-          }
+          <p>{publicDegree}</p>
         </div>
 
         <div className="public__about__field" title="Major">
           <img src={Major} className="profile__category__field__icon" alt="Major Icon" />
-          {publicMajor
-            && (
-              <p>{publicMajor}</p>
-            )
-          }
+          <p>{publicMajor}</p>
         </div>
 
         <div className="public__about__field" title="Graduation Year">
           <img src={Year} className="profile__category__field__icon" alt="Year Icon" />
-          {publicYear
-            && (
-              <p>{publicYear}</p>
-            )
-          }
+          <p>{publicYear}</p>
         </div>
       </div>
     </React.Fragment>

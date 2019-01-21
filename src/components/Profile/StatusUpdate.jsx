@@ -64,12 +64,12 @@ class StatusUpdate extends Component {
 
   render() {
     const { status, disableSave, saveLoading } = this.state;
-    const { location, publicProfile, showDownloadBanner } = this.props;
+    const { location, publicProfile, showDownloadBanner, onPublicProfilePage } = this.props;
 
     return (
       <React.Fragment>
         {(location.pathname.split('/')[1] === 'user') && (
-          <div className={`${showDownloadBanner ? 'statusUpdate--bannerMargin' : ''} statusUpdate`}>
+          <div className={`${showDownloadBanner ? 'statusUpdate--bannerMargin' : ''} statusUpdate ${onPublicProfilePage ? 'publicStatusUpdate' : ''}`}>
             <div className="statusUpdate__displayPublic">
               {publicProfile.status}
             </div>
@@ -137,6 +137,7 @@ StatusUpdate.propTypes = {
   publicProfile: PropTypes.object,
   box: PropTypes.object,
   location: PropTypes.object.isRequired,
+  onPublicProfilePage: PropTypes.bool,
 };
 
 StatusUpdate.defaultProps = {
@@ -144,6 +145,7 @@ StatusUpdate.defaultProps = {
   status: '',
   publicProfile: {},
   showDownloadBanner: false,
+  onPublicProfilePage: false,
 };
 
 function mapState(state) {
@@ -152,6 +154,7 @@ function mapState(state) {
     status: state.threeBox.status,
     publicProfile: state.threeBox.publicProfile,
     showDownloadBanner: state.threeBox.showDownloadBanner,
+    onPublicProfilePage: state.threeBox.onPublicProfilePage,
   };
 }
 

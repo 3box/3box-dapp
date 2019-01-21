@@ -97,12 +97,12 @@
 .profile__category__header {
   margin-bottom: 30px;
   border-bottom: 1px solid $borderColor;
-  padding: 30px 0 20px 30px;
+  padding: 20px 0 14px 20px;
   display: flex;
   justify-content: space-between;
 
   h5 {
-    font-size: 20px;
+    font-size: 18px;
     color: $lighterFont;
     font-weight: 400;
   }
@@ -110,8 +110,7 @@
 
 .profile__category__editLink {
   margin-right: 40px;
-  color: $faintFont;
-  display: none;
+  color: $threeBoxBlue;
 }
 
 .profile__category__section {
@@ -185,7 +184,7 @@
   margin-bottom: 30px;
 }
 
-.public__about__header{
+.public__about__header {
   color: $lightestFont;
   font-size: 16px;
   margin: 0 0 10px 0;
@@ -206,6 +205,11 @@
     text-overflow: ellipsis;
     display: inline-block;
   }
+}
+
+.publicStatusUpdate {
+  padding: 0.3em 1.3em;
+  margin-top: 208px;
 }
 
 #profile__page {
@@ -383,10 +387,6 @@
 .profile__details__category {
   width: 100%;
   margin-bottom: 14px;
-
-  &:hover .profile__category__editLink {
-    display: block;
-  }
 }
 
 @media only screen and (max-width: 600px) {
