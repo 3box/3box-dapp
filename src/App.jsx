@@ -79,18 +79,15 @@ class App extends Component {
     }
 
     if (typeof window.web3 !== 'undefined' && isProtectedPath) { // no wallet and lands on restricted page
-      console.log('1');
       this.loadData();
     } else if (typeof window.web3 === 'undefined' && isProtectedPath) { // has wallet and lands on restricted page
-      console.log('2');
       history.push(routes.LANDING);
       this.props.requireMetaMaskModal();
       this.props.handleMobileWalletModal();
     } else if (splitRoute.length > 1 && splitRoute[1].substring(0, 2) === '0x' && !isProtectedPath) {
-      console.log('3');
       this.loadForLandOnPublicProfile();
     } else {
-      console.log('landed on unprotected route that isnt a public profile');
+      // console.log('landed on unprotected route that isnt a public profile');
     }
   }
 
@@ -99,8 +96,7 @@ class App extends Component {
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
     const splitRoute = normalizedPath.split('/');
-    console.log(splitRoute);
-    console.log(normalizedPath);
+    
     // check previous route for banner behavior on /Create & /Profiles
     // does not work with back button
     if (nextProps.location.pathname !== normalizedPath) {
