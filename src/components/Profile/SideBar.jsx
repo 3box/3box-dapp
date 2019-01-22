@@ -18,12 +18,16 @@ const SideBar = ({
   coverPhoto,
   description,
   emoji,
-  publicProfile,
   location,
   onPublicProfilePage,
   copyToClipBoard,
   copySuccessful,
   showDownloadBanner,
+  publicCoverPhoto,
+  publicImage,
+  publicName,
+  publicEmoji,
+  publicDescription,
 }) => (
     <div>
       {!onPublicProfilePage && (
@@ -31,10 +35,9 @@ const SideBar = ({
           ? <img src={`https://ipfs.infura.io/ipfs/${coverPhoto[0].contentUrl['/']}`} className={`${showDownloadBanner ? 'bannerMargin' : ''} profile__coverPhoto clearProfPic`} alt="profile" />
           : <div className={`${showDownloadBanner ? 'bannerMargin' : ''} profile__coverPhoto`} />)
       }
-
-      {(onPublicProfilePage && publicProfile.coverPhoto) && (
-        publicProfile.coverPhoto.length > 0 && publicProfile.coverPhoto[0].contentUrl
-          ? <img src={`https://ipfs.infura.io/ipfs/${publicProfile.coverPhoto[0].contentUrl['/']}`} className={`${showDownloadBanner ? 'bannerMargin' : ''} profile__coverPhoto clearProfPic`} alt="profile" />
+      {onPublicProfilePage && (
+        publicCoverPhoto.length > 0 && publicCoverPhoto[0].contentUrl
+          ? <img src={`https://ipfs.infura.io/ipfs/${publicCoverPhoto[0].contentUrl['/']}`} className={`${showDownloadBanner ? 'bannerMargin' : ''} profile__coverPhoto clearProfPic`} alt="profile" />
           : <div className={`${showDownloadBanner ? 'bannerMargin' : ''} profile__coverPhoto`} />)
       }
 
@@ -49,9 +52,9 @@ const SideBar = ({
                 : <div className="profile__user__picture" />)
             }
 
-            {(onPublicProfilePage && publicProfile.image) && (
-              publicProfile.image.length > 0 && publicProfile.image[0].contentUrl
-                ? <img src={`https://ipfs.infura.io/ipfs/${publicProfile.image[0].contentUrl['/']}`} className="profile__user__picture clearProfPic" alt="profile" />
+            {onPublicProfilePage && (
+              publicImage.length > 0 && publicImage[0].contentUrl
+                ? <img src={`https://ipfs.infura.io/ipfs/${publicImage[0].contentUrl['/']}`} className="profile__user__picture clearProfPic" alt="profile" />
                 : <div className="profile__user__picture" />)
             }
 
@@ -62,15 +65,15 @@ const SideBar = ({
                   : <Link to={`/${address}/${routes.EDIT}`}><h2 id="profile__user__name__add">Add name</h2></Link>)
                 }
 
-                {(onPublicProfilePage && publicProfile.name) && (publicProfile.name
-                  ? <h2 id="profile__user__name">{publicProfile.name}</h2>
-                  : <Link to={`/${address}/${routes.EDIT}`}><h2 id="profile__user__name__add">Add name</h2></Link>)
+                {onPublicProfilePage && (publicName
+                  ? <h2 id="profile__user__name">{publicName}</h2>
+                  : <h2 id="profile__user__name__add"></h2>)
                 }
 
 
                 <span className="profile__basic__emoji">
                   {!onPublicProfilePage && (emoji.code ? emoji.code : emoji)}
-                  {(onPublicProfilePage && publicProfile.emoji) && (publicProfile.emoji.code ? publicProfile.emoji.code : publicProfile.emoji)}
+                  {(onPublicProfilePage && publicEmoji) && (publicEmoji.code ? publicEmoji.code : publicEmoji)}
                 </span>
               </div>
 
@@ -85,7 +88,7 @@ const SideBar = ({
 
               <p className="profile__basic__description">
                 {!onPublicProfilePage && description}
-                {(onPublicProfilePage && publicProfile.description) && publicProfile.description}
+                {onPublicProfilePage && publicDescription}
               </p>
 
             </div>
@@ -95,7 +98,7 @@ const SideBar = ({
               && (
                 <div className="profile__links">
                   <button type="button" onClick={() => copyToClipBoard()} className="profile__links__copy">
-                    Share
+                    Share profile
                   </button>
                 </div>)}
 
@@ -139,11 +142,15 @@ SideBar.propTypes = {
   name: PropTypes.string,
   description: PropTypes.string,
   emoji: PropTypes.string,
+  publicEmoji: PropTypes.string,
+  publicName: PropTypes.string,
+  publicDescription: PropTypes.string,
   image: PropTypes.array,
   coverPhoto: PropTypes.array,
+  publicCoverPhoto: PropTypes.array,
+  publicImage: PropTypes.array,
   location: PropTypes.object.isRequired,
   onPublicProfilePage: PropTypes.bool,
-  publicProfile: PropTypes.object,
   copySuccessful: PropTypes.bool,
   showDownloadBanner: PropTypes.bool,
   copyToClipBoard: PropTypes.func.isRequired,
@@ -151,11 +158,15 @@ SideBar.propTypes = {
 
 SideBar.defaultProps = {
   name: '',
+  publicName: '',
   description: '',
+  publicEmoji: '',
+  publicDescription: '',
   image: [],
   coverPhoto: [],
+  publicImage: [],
+  publicCoverPhoto: [],
   emoji: '',
-  publicProfile: {},
   copySuccessful: false,
   onPublicProfilePage: false,
   showDownloadBanner: false,
@@ -171,7 +182,11 @@ function mapState(state) {
     copySuccessful: state.threeBox.copySuccessful,
     showDownloadBanner: state.threeBox.showDownloadBanner,
     onPublicProfilePage: state.threeBox.onPublicProfilePage,
-    publicProfile: state.threeBox.publicProfile,
+    publicCoverPhoto: state.threeBox.publicCoverPhoto,
+    publicImage: state.threeBox.publicImage,
+    publicName: state.threeBox.publicName,
+    publicEmoji: state.threeBox.publicEmoji,
+    publicDescription: state.threeBox.publicDescription,
   };
 }
 

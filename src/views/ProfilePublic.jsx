@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import {
   getProfile,
   getActivity,
-  getProfilesVerifiedAccounts,
 } from '../state/actions';
 import { store } from '../state/store';
 import { normalizeURL } from '../utils/funcs';
@@ -19,10 +18,8 @@ class ProfilePublic extends Component {
   async componentDidMount() {
     window.scrollTo(0, 0);
     const { location: { pathname } } = this.props;
-    const profileAddress = pathname.split('/')[1];
+    const publicProfileAddress = pathname.split('/')[1];
     const normalizedPath = normalizeURL(pathname);
-    console.log('profile public');
-    console.log(profileAddress);
 
     store.dispatch({
       type: 'UPDATE_ROUTE',
@@ -30,8 +27,8 @@ class ProfilePublic extends Component {
       onPublicProfilePage: true,
     });
 
-    this.props.getProfile(profileAddress);
-    this.props.getActivity(profileAddress);
+    this.props.getProfile(publicProfileAddress);
+    this.props.getActivity(publicProfileAddress);
   }
 
   componentWillUnmount() {
@@ -81,6 +78,5 @@ const mapState = state => ({
 export default withRouter(connect(mapState,
   {
     getProfile,
-    getProfilesVerifiedAccounts,
     getActivity,
   })(ProfilePublic));

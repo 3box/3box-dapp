@@ -301,6 +301,8 @@
     padding: .4em .8em;
     align-items: center;
     justify-content: space-between; }
+  .hideUpdateOnMobile {
+    display: none; }
   #feed {
     padding: 0;
     width: 100vw;

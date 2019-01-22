@@ -269,7 +269,7 @@ export const getBox = fromSignIn => async (dispatch) => {
   }
 };
 
-export const getActivity = publicProfile => async (dispatch) => {
+export const getActivity = publicProfileAddress => async (dispatch) => {
   try {
     dispatch({
       type: 'LOADING_ACTIVITY',
@@ -277,8 +277,8 @@ export const getActivity = publicProfile => async (dispatch) => {
 
     let activity;
 
-    if (publicProfile) {
-      activity = await ThreeBoxActivity.get(publicProfile); // eslint-disable-line no-undef
+    if (publicProfileAddress) {
+      activity = await ThreeBoxActivity.get(publicProfileAddress); // eslint-disable-line no-undef
     } else {
       activity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
     }
@@ -296,7 +296,7 @@ export const getActivity = publicProfile => async (dispatch) => {
 
     let feed;
 
-    if (publicProfile) {
+    if (publicProfileAddress) {
       feed = activity.internal
         .concat(activity.txs)
         .concat(activity.token);
@@ -356,7 +356,7 @@ export const getActivity = publicProfile => async (dispatch) => {
       }
     });
 
-    if (publicProfile) {
+    if (publicProfileAddress) {
       dispatch({
         type: 'GET_PUBLIC_PROFILE_ACTIVITY',
         publicProfileActivity: feedByAddress,
@@ -384,15 +384,11 @@ export const getActivity = publicProfile => async (dispatch) => {
 
 export const getProfile = (profileAddress, opts) => async (dispatch) => {
   try {
-    console.log('in get profile');
-    console.log(profileAddress);
     const publicProfile = await Box.getProfile(profileAddress, opts); // eslint-disable-line no-undef
     const publicVerifiedAccounts = await Box.getVerifiedAccounts(publicProfile); // eslint-disable-line no-undef
 
     dispatch({
       type: 'GET_PUBLIC_PROFILE',
-      publicProfile,
-      publicVerifiedAccounts,
       publicGithub: publicVerifiedAccounts.github && publicVerifiedAccounts.github.username,
       publicTwitter: publicVerifiedAccounts.twitter && publicVerifiedAccounts.twitter.username,
       publicDescription: publicProfile.description,
@@ -405,18 +401,11 @@ export const getProfile = (profileAddress, opts) => async (dispatch) => {
       publicMajor: publicProfile.major,
       publicYear: publicProfile.year,
       publicEmployer: publicProfile.employer,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const getProfilesVerifiedAccounts = claim => async (dispatch) => {
-  try {
-    const publicVerifiedAccounts = await Box.getVerifiedAccounts(claim); // eslint-disable-line no-undef
-    dispatch({
-      type: 'GET_PUBLIC_PROFILE_VERFIEDACCOUNTS',
-      publicVerifiedAccounts,
+      publicCoverPhoto: publicProfile.coverPhoto,
+      publicImage: publicProfile.image,
+      publicName: publicProfile.name,
+      publicEmoji: publicProfile.emoji,
+      publicStatus: publicProfile.status,
     });
   } catch (error) {
     console.error(error);

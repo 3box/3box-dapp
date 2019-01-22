@@ -69,7 +69,7 @@ const PubSideBar = ({
           )}
         </div>
 
-        <div className="public__about__field" title="Github">
+        <div className="public__about__field" title="Twitter">
           <img src={TwitterIcon} className="profile__category__field__icon" alt="Github Icon" />
           {publicTwitter && (
             <React.Fragment>
@@ -86,9 +86,9 @@ const PubSideBar = ({
           )}
         </div>
 
-        <div className="public__about__field" title="Birthday">
+        <div className="public__about__field" title="3Box logo">
           <img src={ThreeBox3} className="profile__category__field__icon" alt="Birthday Icon" />
-          <p>{publicMemberSince}</p>
+          <p>{publicMemberSince.substring(0, 10)}</p>
         </div>
 
       </div>
@@ -166,7 +166,6 @@ function mapState(state) {
   return {
     publicGithub: state.threeBox.publicGithub,
     publicTwitter: state.threeBox.publicTwitter,
-    publicDescription: state.threeBox.publicDescription,
     publicLocation: state.threeBox.publicLocation,
     publicWebsite: state.threeBox.publicWebsite,
     publicMemberSince: state.threeBox.publicMemberSince,

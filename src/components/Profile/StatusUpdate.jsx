@@ -64,14 +64,19 @@ class StatusUpdate extends Component {
 
   render() {
     const { status, disableSave, saveLoading } = this.state;
-    const { publicProfile, showDownloadBanner, onPublicProfilePage } = this.props;
+    const { showDownloadBanner, onPublicProfilePage, publicStatus } = this.props;
 
     return (
       <React.Fragment>
-        {(onPublicProfilePage && publicProfile.status) && (
-          <div className={`${showDownloadBanner ? 'statusUpdate--bannerMargin' : ''} statusUpdate ${onPublicProfilePage ? 'publicStatusUpdate' : ''}`}>
+        {onPublicProfilePage && (
+          <div
+            className={`${showDownloadBanner ? 'statusUpdate--bannerMargin' : ''} 
+          statusUpdate ${onPublicProfilePage ? 'publicStatusUpdate' : ''}
+          ${!publicStatus ? 'hideUpdateOnMobile' : ''}
+          `
+          }>
             <div className="statusUpdate__displayPublic">
-              {publicProfile.status}
+              {publicStatus}
             </div>
           </div>)}
 
@@ -131,10 +136,10 @@ class StatusUpdate extends Component {
 
 StatusUpdate.propTypes = {
   status: PropTypes.string,
+  publicStatus: PropTypes.string,
   showDownloadBanner: PropTypes.bool,
   getActivity: PropTypes.func.isRequired,
   getProfileData: PropTypes.func.isRequired,
-  publicProfile: PropTypes.object,
   box: PropTypes.object,
   location: PropTypes.object.isRequired,
   onPublicProfilePage: PropTypes.bool,
@@ -143,7 +148,7 @@ StatusUpdate.propTypes = {
 StatusUpdate.defaultProps = {
   box: {},
   status: '',
-  publicProfile: {},
+  publicStatus: '',
   showDownloadBanner: false,
   onPublicProfilePage: false,
 };
@@ -152,7 +157,7 @@ function mapState(state) {
   return {
     box: state.threeBox.box,
     status: state.threeBox.status,
-    publicProfile: state.threeBox.publicProfile,
+    publicStatus: state.threeBox.publicStatus,
     showDownloadBanner: state.threeBox.showDownloadBanner,
     onPublicProfilePage: state.threeBox.onPublicProfilePage,
   };

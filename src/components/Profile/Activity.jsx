@@ -168,7 +168,6 @@ Activity.propTypes = {
   onPublicProfilePage: PropTypes.bool,
   verifiedGithub: PropTypes.string,
   verifiedTwitter: PropTypes.string,
-  publicProfile: PropTypes.object,
   publicProfileActivity: PropTypes.array,
   location: PropTypes.object,
 };
@@ -179,7 +178,6 @@ Activity.defaultProps = {
   onPublicProfilePage: false,
   verifiedGithub: '',
   verifiedTwitter: '',
-  publicProfile: {},
   publicProfileActivity: [],
   location: {},
 };
@@ -189,7 +187,6 @@ const mapState = state => ({
   ifFetchingActivity: state.threeBox.ifFetchingActivity,
   verifiedGithub: state.threeBox.verifiedGithub,
   verifiedTwitter: state.threeBox.verifiedTwitter,
-  publicProfile: state.threeBox.publicProfile,
   publicProfileActivity: state.threeBox.publicProfileActivity,
   onPublicProfilePage: state.threeBox.onPublicProfilePage,
 });
