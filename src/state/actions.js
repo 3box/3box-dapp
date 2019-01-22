@@ -384,6 +384,8 @@ export const getActivity = publicProfile => async (dispatch) => {
 
 export const getProfile = (profileAddress, opts) => async (dispatch) => {
   try {
+    console.log('in get profile');
+    console.log(profileAddress);
     const publicProfile = await Box.getProfile(profileAddress, opts); // eslint-disable-line no-undef
     const publicVerifiedAccounts = await Box.getVerifiedAccounts(publicProfile); // eslint-disable-line no-undef
 

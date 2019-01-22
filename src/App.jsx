@@ -110,6 +110,7 @@ class App extends Component {
     // get profile data again only when onSyncDone
     if (nextProps.onSyncFinished && nextProps.isSyncing) {
       // end onSyncDone animation
+      console.log('hitting sync finished');
       store.dispatch({
         type: 'APP_SYNC',
         onSyncFinished: true,
@@ -128,6 +129,7 @@ class App extends Component {
   }
 
   loadCalls = () => {
+    console.log('hitting loadcalls');
     this.props.getActivity();
     this.props.getVerifiedPublicGithub();
     this.props.getVerifiedPublicTwitter();

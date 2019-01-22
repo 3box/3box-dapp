@@ -398,6 +398,11 @@
     z-index: 0;
   }
 
+  .publicStatusUpdate {
+    padding: 0.3em 1.3em;
+    margin-top: 20px;
+  }
+
   #profile {
     position: static;
     height: auto;
@@ -447,7 +452,7 @@
   .profile__category--mobile {
     display: flex;
     align-items: center;
-    margin: 30px 0 0 0;
+    margin: 30px 0 -18px 0;
     width: 100%;
   }
 

@@ -68,7 +68,7 @@ class StatusUpdate extends Component {
 
     return (
       <React.Fragment>
-        {onPublicProfilePage && (
+        {(onPublicProfilePage && publicProfile.status) && (
           <div className={`${showDownloadBanner ? 'statusUpdate--bannerMargin' : ''} statusUpdate ${onPublicProfilePage ? 'publicStatusUpdate' : ''}`}>
             <div className="statusUpdate__displayPublic">
               {publicProfile.status}

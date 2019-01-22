@@ -21,15 +21,17 @@ class ProfilePublic extends Component {
     const { location: { pathname } } = this.props;
     const profileAddress = pathname.split('/')[1];
     const normalizedPath = normalizeURL(pathname);
-    
+    console.log('profile public');
+    console.log(profileAddress);
+
     store.dispatch({
       type: 'UPDATE_ROUTE',
       currentRoute: normalizedPath,
       onPublicProfilePage: true,
     });
 
-    this.props.getActivity(profileAddress);
     this.props.getProfile(profileAddress);
+    this.props.getActivity(profileAddress);
   }
 
   componentWillUnmount() {
