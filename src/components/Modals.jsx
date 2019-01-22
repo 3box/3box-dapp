@@ -646,6 +646,30 @@ SyncingModal.propTypes = {
   show: PropTypes.bool.isRequired,
 };
 
+export const PublicProfileLoading = ({ show }) => (
+  <div>
+    <div className={`${show ? 'showModal' : ''} modal__container--sync modal--effect`}>
+      <div className="modal--sync ">
+        <div className="modal--sync__wrapper">
+          <img src={LoadingWhite} alt="Loading" id="modal__loadingGraphic" />
+
+          <div id="logo" className="modal__loading3Box">
+            <img src={ThreeBoxLogoWhite} alt="3Box Logo" />
+          </div>
+
+          <div>
+            <p>LOADING PUBLIC PROFILE</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+PublicProfileLoading.propTypes = {
+  show: PropTypes.bool.isRequired,
+};
+
 export const ErrorModal = ({ closeErrorModal, errorMessage, show }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>

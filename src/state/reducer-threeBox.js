@@ -64,6 +64,12 @@ export const threeBoxReducer = (state = {}, action) => {
         isLoggedIn: action.isLoggedIn,
       };
 
+    case 'LOADING_PUBLIC_PROFILE':
+      return {
+        ...state,
+        isLoadingPublicProfile: action.isLoadingPublicProfile,
+      };
+
     case 'GET_PUBLIC_PROFILE':
       return {
         ...state,

@@ -7,6 +7,9 @@ import {
   getProfile,
   getActivity,
 } from '../state/actions';
+import {
+  PublicProfileLoading,
+} from '../components/Modals.jsx';
 import { store } from '../state/store';
 import { normalizeURL } from '../utils/funcs';
 import PubContent from '../components/Profile/PubContent';
@@ -43,6 +46,7 @@ class ProfilePublic extends Component {
   }
 
   render() {
+    const { isLoadingPublicProfile } = this.props;
     return (
       <div>
         <Nav />
@@ -51,6 +55,7 @@ class ProfilePublic extends Component {
             <SideBar isPublicProfilePage />
             <PubContent />
           </div>
+          <PublicProfileLoading show={isLoadingPublicProfile} />
         </div>
       </div>
     );
@@ -60,19 +65,19 @@ class ProfilePublic extends Component {
 ProfilePublic.propTypes = {
   getProfile: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
-  box: PropTypes.object,
   pathname: PropTypes.object,
   location: PropTypes.object,
+  isLoadingPublicProfile: PropTypes.bool,
 };
 
 ProfilePublic.defaultProps = {
-  box: {},
   pathname: {},
   location: {},
+  isLoadingPublicProfile: true,
 };
 
 const mapState = state => ({
-  box: state.threeBox.box,
+  isLoadingPublicProfile: state.threeBox.isLoadingPublicProfile,
 });
 
 export default withRouter(connect(mapState,

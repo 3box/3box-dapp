@@ -382,16 +382,22 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
   }
 };
 
-export const getProfile = (profileAddress, opts) => async (dispatch) => {
+export const getProfile = profileAddress => async (dispatch) => {
   try {
-    console.log('before get profile');
-    console.log(profileAddress);
-    const publicProfile = await Box.getProfile(profileAddress, opts); // eslint-disable-line no-undef
-    console.log(publicProfile);
-    console.log('after get profile');
-    const publicVerifiedAccounts = await Box.getVerifiedAccounts(publicProfile); // eslint-disable-line no-undef
-    console.log('after verified accounts');
+    dispatch({
+      type: 'LOADING_PUBLIC_PROFILE',
+      isLoadingPublicProfile: true,
+    });
 
+    console.log(profileAddress);
+    console.log('before getprofile');
+    console.log(Box); // eslint-disable-line no-undef
+    const publicProfile = await Box.getProfile(profileAddress); // eslint-disable-line no-undef
+    console.log(publicProfile);
+    console.log('after getprofile');
+
+    const publicVerifiedAccounts = await Box.getVerifiedAccounts(publicProfile); // eslint-disable-line no-undef
+    console.log(publicVerifiedAccounts);
     dispatch({
       type: 'GET_PUBLIC_PROFILE',
       publicGithub: publicVerifiedAccounts.github && publicVerifiedAccounts.github.username,
@@ -411,6 +417,11 @@ export const getProfile = (profileAddress, opts) => async (dispatch) => {
       publicName: publicProfile.name,
       publicEmoji: publicProfile.emoji,
       publicStatus: publicProfile.status,
+    });
+
+    dispatch({
+      type: 'LOADING_PUBLIC_PROFILE',
+      isLoadingPublicProfile: false,
     });
   } catch (error) {
     console.error(error);

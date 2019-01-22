@@ -89,10 +89,10 @@ class App extends Component {
       console.log('2');
       if (isProtectedPath) history.push(`/${splitRoute[1]}`);
       if (typeof window.web3 === 'undefined') {
+        this.props.handleDownloadMetaMaskBanner();
         this.props.requireMetaMaskModal();
         this.props.handleMobileWalletModal();
       }
-      this.loadForLandOnPublicProfile();
     } else if (typeof window.web3 === 'undefined') {
       console.log('3');
       this.props.requireMetaMaskModal();
@@ -196,17 +196,6 @@ class App extends Component {
       this.props.handleSignInModal();
     }
     console.log('2 4');
-  }
-
-  async loadForLandOnPublicProfile() {
-    // loading animation
-    if (typeof window.web3 === 'undefined') {
-      store.dispatch({
-        type: 'HANDLE_DOWNLOAD_BANNER',
-        showDownloadBanner: true,
-      });
-      this.props.handleMobileWalletModal();
-    }
   }
 
   async handleSignInUp() {
