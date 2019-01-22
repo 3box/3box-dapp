@@ -79,7 +79,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 15px 0 20px 0;
+  margin: 30px 0 20px 0;
   width: 200px;
 }
 
@@ -139,28 +139,44 @@
   align-items: center;
   margin: 4px 0 30px 0;
   width: 110px;
-
-  button {
-    color: $lightestFont;
-  }
 }
 
 .profile__links__copy {
   background-color: transparent;
   border: none;
-  padding: 0;
-  color: #010c16;
-  border: none;
+  padding: 5px 9px;
+  border: 1px solid $lightestFont;
+  border-radius: 6px;
   font-weight: 300;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 126px;
+  transition: all ease .3s;
+  margin-top: 110px;
+  p {
+    width: 82px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #a2a2a2 !important;
+    // transition: all ease .3s;
+  }
 
   &:hover {
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    color: #010c16;
-    border: none;
-    font-weight: 300;
+    background-color: $threeBoxBlueLightShade;
+    background-color: white;
+    // background-color: #ededed;
+    // border-color: $threeBoxBlue;
+
+    p {
+      // color: $threeBoxBlue !important;
+    }
   }
+}
+
+.profile__links__copy__icon {
+  width: 14px !important;
 }
 
 .profile__user__info {
@@ -228,12 +244,16 @@
 
 #profile__footer {
   width: 300px;
-  padding: 20px 35px;
+  // padding: 20px 0;
+  margin-top: 33px;
   max-width: 200px;
   min-width: 200px;
   text-align: center;
   z-index: 1;
   background-color: $backgroundHue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #profile__footer__mobile {
@@ -242,19 +262,20 @@
 
 #profile__footer__contents {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
+  width: 160px;
 
   p {
     font-size: .8em;
     display: inline-block;
-    margin: 1vh 1em 1vh 0;
+    margin: 1vh 0 1vh 0;
     opacity: .5;
   }
 
   a {
     font-size: .8em;
     display: inline-block;
-    margin: 1vh 1em 1vh 0;
+    margin: 1vh 0 1vh 0;
     opacity: .5;
   }
 }
@@ -429,6 +450,10 @@
 
   #profile__user__name {
     font-size: 1.4em;
+  }
+
+  .profile__links__copy{
+    margin-top: 16px;
   }
 
   .profile__user__info {

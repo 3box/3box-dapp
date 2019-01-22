@@ -9,6 +9,7 @@ import { copyToClipBoard } from '../../state/actions';
 import * as routes from '../../utils/routes';
 import EthereumLogo from '../../assets/EthereumIcon.svg';
 import Copy from '../../assets/Copy.svg';
+import CopyGrey from '../../assets/CopyGrey.svg';
 import '../../views/styles/Profile.css';
 import '../styles/Modal.css';
 
@@ -93,15 +94,6 @@ const SideBar = ({
 
             </div>
 
-            {/* this is showing when its not supposed to, how does it know that its my address??? */}
-            {(!onPublicProfilePage)
-              && (
-                <div className="profile__links">
-                  <button type="button" onClick={() => copyToClipBoard()} className="profile__links__copy">
-                    Share profile
-                  </button>
-                </div>)}
-
             <div className="profile__category">
               <div className="profile__category__sectionWrapper">
                 {!onPublicProfilePage ? (
@@ -114,16 +106,26 @@ const SideBar = ({
               </div>
             </div>
 
-          </div>
+            {/* this is showing when its not supposed to, how does it know that its my address??? */}
+            {(!onPublicProfilePage)
+              && (
+                <button type="button" onClick={() => copyToClipBoard()} className="profile__links__copy">
+                  <img className="profile__links__copy__icon" src={CopyGrey} alt="Copy icon" />
+                  <p>
+                    Share profile
+                    </p>
+                </button>
+              )}
 
-          <div id="profile__footer">
-            <div id="profile__footer__contents">
-              <p>3Box 2018</p>
-              <Link to={routes.TERMS}>Terms</Link>
-              <Link to={routes.PRIVACY}>Privacy</Link>
+
+            <div id="profile__footer">
+              <div id="profile__footer__contents">
+                <p>3Box 2018</p>
+                <Link to={routes.TERMS}>Terms</Link>
+                <Link to={routes.PRIVACY}>Privacy</Link>
+              </div>
             </div>
           </div>
-
         </div>
       </div>
 
