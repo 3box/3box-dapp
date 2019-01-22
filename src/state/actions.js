@@ -384,8 +384,13 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
 
 export const getProfile = (profileAddress, opts) => async (dispatch) => {
   try {
+    console.log('before get profile');
+    console.log(profileAddress);
     const publicProfile = await Box.getProfile(profileAddress, opts); // eslint-disable-line no-undef
+    console.log(publicProfile);
+    console.log('after get profile');
     const publicVerifiedAccounts = await Box.getVerifiedAccounts(publicProfile); // eslint-disable-line no-undef
+    console.log('after verified accounts');
 
     dispatch({
       type: 'GET_PUBLIC_PROFILE',
@@ -406,23 +411,6 @@ export const getProfile = (profileAddress, opts) => async (dispatch) => {
       publicName: publicProfile.name,
       publicEmoji: publicProfile.emoji,
       publicStatus: publicProfile.status,
-    });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const openBox = profileAddress => async (dispatch) => {
-  try {
-    const publicBox = await Box // eslint-disable-line no-undef
-      .openBox(
-        profileAddress,
-        window.web3.currentProvider, // eslint-disable-line no-undef
-      );
-
-    dispatch({
-      type: 'GET_PUBLIC_BOX',
-      publicBox,
     });
   } catch (error) {
     console.error(error);
@@ -478,6 +466,7 @@ export const getPublicMemberSince = () => async (dispatch) => {
 
 export const getVerifiedPublicGithub = () => async (dispatch) => {
   try {
+    console.log('in get verified github');
     const verifiedGithub = await store.getState().threeBox.box.verified.github();
 
     dispatch({

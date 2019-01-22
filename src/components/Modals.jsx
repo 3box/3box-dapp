@@ -61,10 +61,14 @@ export const SwitchedNetworksModal = ({
   );
 
 SwitchedNetworksModal.propTypes = {
-  prevNetwork: PropTypes.string.isRequired,
+  prevNetwork: PropTypes.string,
   currentNetwork: PropTypes.string.isRequired,
   handleSwitchedNetworkModal: PropTypes.func.isRequired,
   show: PropTypes.bool.isRequired,
+};
+
+SwitchedNetworksModal.defaultProps = {
+  prevNetwork: '',
 };
 
 export const LoggedOutModal = ({
@@ -343,8 +347,8 @@ export const GithubVerificationModal = ({
   );
 
 GithubVerificationModal.propTypes = {
-  did: PropTypes.bool,
-  copySuccessful: PropTypes.string.isRequired,
+  did: PropTypes.string,
+  copySuccessful: PropTypes.bool.isRequired,
   show: PropTypes.bool.isRequired,
   copyToClipBoard: PropTypes.func.isRequired,
   handleGithubVerificationModal: PropTypes.func.isRequired,

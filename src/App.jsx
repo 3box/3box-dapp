@@ -62,6 +62,7 @@ class App extends Component {
       onBoardingModalMobileThree: false,
     };
     this.handleSignInUp = this.handleSignInUp.bind(this);
+    this.loadData = this.loadData.bind(this);
   }
 
   async componentDidMount() {
@@ -71,24 +72,39 @@ class App extends Component {
     const splitRoute = normalizedPath.split('/');
     const isProtectedPath = matchProtectedRoutes(splitRoute[2]);
 
+    const currentEthAddress = window.localStorage.getItem('userEthAddress');
+
     // Initial warning to users without web3
     if (typeof window.web3 === 'undefined') {
       this.props.handleDownloadMetaMaskBanner();
       this.props.handleMobileWalletModal();
     }
 
-    if (typeof window.web3 !== 'undefined' && isProtectedPath) { // no wallet and lands on restricted page
-      history.push(`/${splitRoute[1]}`);
+    if (typeof window.web3 !== 'undefined' && splitRoute[1].substring(0, 2) === '0x' && splitRoute[1] === currentEthAddress && isProtectedPath) {
+      // Has web3 && Land on profile && Matches address
+      console.log('1');
+      this.loadData();
+    } else if (splitRoute.length > 1 && splitRoute[1].substring(0, 2) === '0x' && isProtectedPath) {
+      // Land on profile page && Does not match address
+      console.log('2');
+      if (isProtectedPath) history.push(`/${splitRoute[1]}`);
+      if (typeof window.web3 === 'undefined') {
+        this.props.requireMetaMaskModal();
+        this.props.handleMobileWalletModal();
+      }
       this.loadForLandOnPublicProfile();
-    } else if (typeof window.web3 === 'undefined' && isProtectedPath) { // has wallet and lands on restricted page
-      history.push(routes.LANDING);
+    } else if (typeof window.web3 === 'undefined') {
+      console.log('3');
       this.props.requireMetaMaskModal();
       this.props.handleMobileWalletModal();
-    } else if (splitRoute.length > 1 && splitRoute[1].substring(0, 2) === '0x' && !isProtectedPath) {
-      this.loadForLandOnPublicProfile();
-    } else {
-      // console.log('landed on unprotected route that isnt a public profile');
     }
+    // else if (typeof window.web3 === 'undefined' && isProtectedPath) { // No wallet and lands on restricted page
+    //   history.push(routes.LANDING);
+    // } else if (splitRoute.length > 1 && splitRoute[1].substring(0, 2) === '0x' && !isProtectedPath) {
+    //   this.loadForLandOnPublicProfile();
+    // } else {
+    //   // console.log('landed on unprotected route that isnt a public profile');
+    // }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -150,6 +166,36 @@ class App extends Component {
     this.props.getProfileData('public', 'emoji');
     this.props.getProfileData('private', 'email');
     this.props.getProfileData('private', 'birthday');
+  }
+
+  async loadData() {
+    console.log('in load data');
+    const { location } = this.props;
+    const { pathname } = location;
+    const normalizedPath = normalizeURL(pathname);
+
+    await this.props.checkWeb3Wallet();
+    await this.props.requestAccess('directLogin');
+    await this.props.checkNetwork();
+
+    if (this.props.isSignedIntoWallet && this.props.isLoggedIn) {
+      console.log('2 1');
+      await this.props.getBox();
+      if (!this.props.showErrorModal) {
+        this.loadCalls();
+      }
+    } else if (!this.props.isSignedIntoWallet) {
+      console.log('2 2');
+      history.push(routes.LANDING);
+      this.props.handleRequireWalletLoginModal();
+    } else if (this.props.isSignedIntoWallet
+      && !this.props.isLoggedIn
+      && matchProtectedRoutes(normalizedPath.split('/')[2])) {
+      console.log('2 3');
+      history.push(routes.LANDING);
+      this.props.handleSignInModal();
+    }
+    console.log('2 4');
   }
 
   async loadForLandOnPublicProfile() {
@@ -226,10 +272,11 @@ class App extends Component {
     const landing = pathname === routes.LANDING ? 'landing' : '';
     const { userAgent: ua } = navigator;
     const isIOS = ua.includes('iPhone');
+    const isProtectedPath = matchProtectedRoutes(normalizedPath.split('/'));
 
     return (
       <div className="App">
-        {(!isLoggedIn && !ifFetchingThreeBox)
+        {(!isLoggedIn && !ifFetchingThreeBox && !isProtectedPath) // show landing nav when user is not logged in, 3box is not fetching, and when route is not a protected route
           ? (
             <NavLanding
               handleSignInUp={this.handleSignInUp}

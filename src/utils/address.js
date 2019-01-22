@@ -5,6 +5,8 @@ import {
 export let address =
   typeof window.web3 !== 'undefined' ? window.web3.eth.accounts[0] : ''; // eslint-disable-line no-undef
 
+window.localStorage.setItem('userEthAddress', address);
+
 let prevAddress;
 
 const pollNetworkAndAddress = () => {
@@ -20,8 +22,10 @@ const pollNetworkAndAddress = () => {
         type: 'HANDLE_LOGGEDOUT_MODAL',
         loggedOutModal: true,
       });
+      window.localStorage.setItem('userEthAddress', currentAddress);
     }
 
+    // Logs out of 3Box
     if (currentAddress !== address &&
       currentAddress === undefined &&
       store.getState().threeBox.isLoggedIn) {
@@ -29,6 +33,7 @@ const pollNetworkAndAddress = () => {
         type: 'HANDLE_LOGGEDOUT_MODAL',
         loggedOutModal: true,
       });
+      window.localStorage.setItem('userEthAddress', currentAddress);
     }
 
     // Switched address
@@ -43,6 +48,7 @@ const pollNetworkAndAddress = () => {
         switchedAddressModal: true,
         prevAddress,
       });
+      window.localStorage.setItem('userEthAddress', currentAddress);
     }
 
     // Switched back to previous address
@@ -57,6 +63,7 @@ const pollNetworkAndAddress = () => {
         switchedAddressModal: false,
         prevAddress: '',
       });
+      window.localStorage.setItem('userEthAddress', currentAddress);
     }
 
     // Logged in to MM
@@ -69,6 +76,7 @@ const pollNetworkAndAddress = () => {
         isSignedIntoWallet: true,
         hasWallet: true,
       });
+      window.localStorage.setItem('userEthAddress', currentAddress);
     }
 
     // Logged out of MM while not signed in to 3Box
@@ -79,6 +87,7 @@ const pollNetworkAndAddress = () => {
         isSignedIntoWallet: false,
         hasWallet: false,
       });
+      window.localStorage.setItem('userEthAddress', currentAddress);
     }
 
     address = currentAddress;

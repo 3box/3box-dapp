@@ -92,12 +92,6 @@ export const threeBoxReducer = (state = {}, action) => {
         ifFetchingActivity: action.ifFetchingActivity,
       };
 
-    case 'GET_PUBLIC_BOX':
-      return {
-        ...state,
-        publicBox: action.publicBox,
-      };
-
     case 'GET_PUBLIC_NAME':
       return {
         ...state,
