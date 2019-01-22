@@ -123,3 +123,10 @@ export const handleDownloadMetaMaskBanner = () => async (dispatch) => {
     showDownloadBanner: !store.getState().threeBox.showDownloadBanner,
   });
 };
+
+export const handleSignInBanner = () => async (dispatch) => {
+  dispatch({
+    type: 'HANDLE_SIGNIN_BANNER',
+    showSignInBanner: !store.getState().threeBox.showSignInBanner,
+  });
+};

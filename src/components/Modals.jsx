@@ -670,6 +670,24 @@ PublicProfileLoading.propTypes = {
   show: PropTypes.bool.isRequired,
 };
 
+export const SignInThroughPublicProfileBanner = ({ show, handleSignInBanner }) => (
+  <React.Fragment>
+    <div className={`${show ? '' : 'hideBanner'} webThreeBanner`}>
+      <p>
+        This is the public version of your profile.  Sign in to access your full profile.
+      </p>
+      <p onClick={handleSignInBanner} className="webThreeBanner__close">
+        &#10005;
+      </p>
+    </div>
+  </React.Fragment>
+);
+
+SignInThroughPublicProfileBanner.propTypes = {
+  show: PropTypes.bool.isRequired,
+  handleSignInBanner: PropTypes.func.isRequired,
+};
+
 export const ErrorModal = ({ closeErrorModal, errorMessage, show }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>

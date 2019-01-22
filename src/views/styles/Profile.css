@@ -57,7 +57,8 @@
   height: 174px;
   background-color: #C5D7F2;
   z-index: -1;
-  object-fit: cover; }
+  object-fit: cover;
+  transition: all ease .5s; }
 
 .profile__category {
   display: flex;
@@ -148,7 +149,8 @@
   flex-direction: column;
   align-items: center;
   overflow: hidden;
-  text-overflow: ellipsis; }
+  text-overflow: ellipsis;
+  transition: all ease .5s; }
   .profile__user__info p {
     text-align: left;
     font-size: 14.5px; }
@@ -182,6 +184,9 @@
 .publicStatusUpdate {
   padding: 0.3em 1.3em;
   margin-top: 208px; }
+
+.publicStatusUpdate--bannerMargin {
+  margin-top: 262px !important; }
 
 #profile__page {
   height: calc(100% - 133px); }

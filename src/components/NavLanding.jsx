@@ -41,6 +41,7 @@ class NavLanding extends Component {
       landing,
       pathname,
       onPublicProfilePage,
+      showSignInBanner,
     } = this.props;
 
     const classHide = retractNav ? 'hide' : '';
@@ -49,7 +50,7 @@ class NavLanding extends Component {
       <nav
         id="landing__nav"
         className={`
-            ${showDownloadBanner ? 'bannerMargin' : ''} 
+            ${(showDownloadBanner || showSignInBanner) ? 'bannerMargin' : ''} 
             ${classHide} 
             ${onPublicProfilePage && 'hide'} 
             ${landing}`}
@@ -90,6 +91,7 @@ class NavLanding extends Component {
 NavLanding.propTypes = {
   isLoggedIn: PropTypes.bool,
   showDownloadBanner: PropTypes.bool,
+  showSignInBanner: PropTypes.bool,
   onPublicProfilePage: PropTypes.bool,
   classHide: PropTypes.string,
   landing: PropTypes.string,
@@ -103,6 +105,7 @@ NavLanding.defaultProps = {
   isLoggedIn: false,
   showDownloadBanner: false,
   onPublicProfilePage: false,
+  showSignInBanner: false,
   classHide: '',
   landing: '',
   pathname: '',
@@ -113,6 +116,7 @@ function mapState(state) {
   return {
     isLoggedIn: state.threeBox.isLoggedIn,
     showDownloadBanner: state.threeBox.showDownloadBanner,
+    showSignInBanner: state.threeBox.showSignInBanner,
   };
 }
 

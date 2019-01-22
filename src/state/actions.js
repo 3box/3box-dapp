@@ -391,7 +391,6 @@ export const getProfile = profileAddress => async (dispatch) => {
 
     console.log(profileAddress);
     console.log('before getprofile');
-    console.log(Box); // eslint-disable-line no-undef
     const publicProfile = await Box.getProfile(profileAddress); // eslint-disable-line no-undef
     console.log(publicProfile);
     console.log('after getprofile');

@@ -73,6 +73,8 @@
   background-color: $threeBoxBlueShade;
   z-index: -1;
   object-fit: cover;
+
+  transition: all ease .5s;
 }
 
 .profile__category {
@@ -194,6 +196,8 @@
     text-align: left;
     font-size: 14.5px;
   }
+
+  transition: all ease .5s;
 }
 
 .public__about {
@@ -230,6 +234,10 @@
 .publicStatusUpdate {
   padding: 0.3em 1.3em;
   margin-top: 208px;
+}
+
+.publicStatusUpdate--bannerMargin{
+  margin-top: 262px !important;
 }
 
 #profile__page {

@@ -12,7 +12,8 @@
   z-index: 1;
   display: flex;
   align-items: center;
-  justify-content: center; }
+  justify-content: center;
+  transition: all ease .5s; }
   .statusUpdate ul {
     padding: 0; }
   .statusUpdate li {

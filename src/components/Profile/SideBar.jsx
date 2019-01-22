@@ -29,6 +29,7 @@ const SideBar = ({
   publicName,
   publicEmoji,
   publicDescription,
+  showSignInBanner,
 }) => (
     <div>
       {!onPublicProfilePage && (
@@ -38,14 +39,14 @@ const SideBar = ({
       }
       {onPublicProfilePage && (
         publicCoverPhoto.length > 0 && publicCoverPhoto[0].contentUrl
-          ? <img src={`https://ipfs.infura.io/ipfs/${publicCoverPhoto[0].contentUrl['/']}`} className={`${showDownloadBanner ? 'bannerMargin' : ''} profile__coverPhoto clearProfPic`} alt="profile" />
-          : <div className={`${showDownloadBanner ? 'bannerMargin' : ''} profile__coverPhoto`} />)
+          ? <img src={`https://ipfs.infura.io/ipfs/${publicCoverPhoto[0].contentUrl['/']}`} className={`${(showDownloadBanner || showSignInBanner) ? 'bannerMargin' : ''} profile__coverPhoto clearProfPic`} alt="profile" />
+          : <div className={`${(showDownloadBanner || showSignInBanner) ? 'bannerMargin' : ''} profile__coverPhoto`} />)
       }
 
       <div id="profile">
         <div id="profile__fixed">
 
-          <div className={`${showDownloadBanner ? 'bannerMargin' : ''} profile__user__info`} >
+          <div className={`${(showDownloadBanner || showSignInBanner) ? 'bannerMargin' : ''} profile__user__info`} >
 
             {!onPublicProfilePage && (
               image.length > 0 && image[0].contentUrl
@@ -155,6 +156,7 @@ SideBar.propTypes = {
   onPublicProfilePage: PropTypes.bool,
   copySuccessful: PropTypes.bool,
   showDownloadBanner: PropTypes.bool,
+  showSignInBanner: PropTypes.bool,
   copyToClipBoard: PropTypes.func.isRequired,
 };
 
@@ -172,6 +174,7 @@ SideBar.defaultProps = {
   copySuccessful: false,
   onPublicProfilePage: false,
   showDownloadBanner: false,
+  showSignInBanner: false,
 };
 
 function mapState(state) {
@@ -183,6 +186,7 @@ function mapState(state) {
     description: state.threeBox.description,
     copySuccessful: state.threeBox.copySuccessful,
     showDownloadBanner: state.threeBox.showDownloadBanner,
+    showSignInBanner: state.threeBox.showSignInBanner,
     onPublicProfilePage: state.threeBox.onPublicProfilePage,
     publicCoverPhoto: state.threeBox.publicCoverPhoto,
     publicImage: state.threeBox.publicImage,

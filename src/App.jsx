@@ -71,7 +71,6 @@ class App extends Component {
     const normalizedPath = normalizeURL(pathname);
     const splitRoute = normalizedPath.split('/');
     const isProtectedPath = matchProtectedRoutes(splitRoute[2]);
-
     const currentEthAddress = window.localStorage.getItem('userEthAddress');
 
     // Initial warning to users without web3
@@ -82,29 +81,11 @@ class App extends Component {
 
     if (typeof window.web3 !== 'undefined' && splitRoute[1].substring(0, 2) === '0x' && splitRoute[1] === currentEthAddress && isProtectedPath) {
       // Has web3 && Land on profile && Matches address
-      console.log('1');
       this.loadData();
-    } else if (splitRoute.length > 1 && splitRoute[1].substring(0, 2) === '0x' && isProtectedPath) {
+    } else if (splitRoute.length > 1 && splitRoute[1].substring(0, 2) === '0x') {
       // Land on profile page && Does not match address
-      console.log('2');
       if (isProtectedPath) history.push(`/${splitRoute[1]}`);
-      if (typeof window.web3 === 'undefined') {
-        this.props.handleDownloadMetaMaskBanner();
-        this.props.requireMetaMaskModal();
-        this.props.handleMobileWalletModal();
-      }
-    } else if (typeof window.web3 === 'undefined') {
-      console.log('3');
-      this.props.requireMetaMaskModal();
-      this.props.handleMobileWalletModal();
     }
-    // else if (typeof window.web3 === 'undefined' && isProtectedPath) { // No wallet and lands on restricted page
-    //   history.push(routes.LANDING);
-    // } else if (splitRoute.length > 1 && splitRoute[1].substring(0, 2) === '0x' && !isProtectedPath) {
-    //   this.loadForLandOnPublicProfile();
-    // } else {
-    //   // console.log('landed on unprotected route that isnt a public profile');
-    // }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -564,3 +545,11 @@ export default withRouter(connect(mapState,
     closeErrorModal,
     closeRequireMetaMaskModal,
   })(App));
+
+      // else if (typeof window.web3 === 'undefined' && isProtectedPath) { // No wallet and lands on restricted page
+    //   history.push(routes.LANDING);
+    // } else if (splitRoute.length > 1 && splitRoute[1].substring(0, 2) === '0x' && !isProtectedPath) {
+    //   this.loadForLandOnPublicProfile();
+    // } else {
+    //   // console.log('landed on unprotected route that isnt a public profile');
+    // }
