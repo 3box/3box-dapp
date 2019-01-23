@@ -79,7 +79,7 @@ class App extends Component {
       this.props.handleMobileWalletModal();
     }
 
-    if (typeof window.web3 !== 'undefined' && splitRoute[1].substring(0, 2) === '0x' && splitRoute[1] === currentEthAddress && isProtectedPath) {
+    if (typeof window.web3 !== 'undefined' && splitRoute.length > 1 && splitRoute[1].substring(0, 2) === '0x' && splitRoute[1] === currentEthAddress && isProtectedPath) {
       // Has web3 && Land on profile && Matches address
       this.loadData();
     } else if (splitRoute.length > 1 && splitRoute[1].substring(0, 2) === '0x') {

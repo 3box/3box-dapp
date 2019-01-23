@@ -128,7 +128,7 @@
   transition: all ease .3s;
   margin-top: 110px; }
   .profile__links__copy p {
-    width: 82px;
+    min-width: 82px;
     display: flex;
     justify-content: center;
     align-items: center;
