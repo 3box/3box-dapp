@@ -30,21 +30,21 @@ jobs:
               CI=false npm run build
               npm run deploy-develop
               chmod +x cache.sh
-              ./cache-service-worker.sh develop
+              ./cache.sh develop
               npm run invalidate E17Q4403A4B4C8
             fi
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               CI=false npm run build
               npm run deploy-master
               chmod +x cache.sh
-              ./cache-service-worker.sh master
+              ./cache.sh master
               npm run invalidate ET1S25F7JOQM6
             fi
             if [[ "${CIRCLE_BRANCH}" == *"release/"* ]]; then
               CI=false npm run build
               npm run deploy-test
               chmod +x cache.sh
-              ./cache-service-worker.sh test
+              ./cache.sh test
               npm run invalidate E256JNRDZ1B3QM
             fi
 
