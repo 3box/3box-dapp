@@ -277,7 +277,7 @@ export const GithubVerificationModal = ({
                 <p className="modal__github__description__copy__input" id="muportDID">{did}</p>
               </div>
 
-              <button type="button" id="clickToCopy" onClick={() => copyToClipBoard(message)}>
+              <button type="button" id="clickToCopy" onClick={() => copyToClipBoard('did', message)}>
                 {`${copySuccessful ? 'Success' : 'Click to copy'}`}
               </button>
             </div>
@@ -477,7 +477,6 @@ export const TwitterVerificationModal = ({
 TwitterVerificationModal.propTypes = {
   did: PropTypes.string,
   show: PropTypes.bool.isRequired,
-  copyToClipBoard: PropTypes.func.isRequired,
   handleTwitterVerificationModal: PropTypes.func.isRequired,
   message: PropTypes.string.isRequired,
   verifyTwitter: PropTypes.func.isRequired,

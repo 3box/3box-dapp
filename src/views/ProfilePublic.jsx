@@ -40,16 +40,16 @@ class ProfilePublic extends Component {
     this.props.getActivity(publicProfileAddress);
   }
 
-  // componentWillUnmount() {
-  //   const { location: { pathname } } = this.props;
-  //   const normalizedPath = normalizeURL(pathname);
+  componentWillUnmount() {
+    const { location: { pathname } } = this.props;
+    const normalizedPath = normalizeURL(pathname);
 
-  //   store.dispatch({
-  //     type: 'UPDATE_ROUTE',
-  //     currentRoute: normalizedPath,
-  //     onPublicProfilePage: false,
-  //   });
-  // }
+    store.dispatch({
+      type: 'UPDATE_ROUTE',
+      currentRoute: normalizedPath,
+      onPublicProfilePage: false,
+    });
+  }
 
   render() {
     const { isLoadingPublicProfile, showSignInBanner } = this.props;
@@ -62,7 +62,7 @@ class ProfilePublic extends Component {
         >
           <div id="profile__contents">
             <SideBar isPublicProfilePage />
-            <PubContent showSignInBanner={showSignInBanner}/>
+            <PubContent showSignInBanner={showSignInBanner} />
           </div>
           <PublicProfileLoading show={isLoadingPublicProfile} />
         </div>

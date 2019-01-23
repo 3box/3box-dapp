@@ -12,6 +12,7 @@ import {
   getProfileData,
   getActivity,
   getPublicDID,
+  copyToClipBoard,
 } from '../state/actions';
 import {
   handleGithubVerificationModal,
@@ -52,7 +53,6 @@ class EditProfile extends Component {
       major: '',
       year: '',
       employer: '',
-      copySuccessful: false,
       disableSave: true,
       saveLoading: false,
       removeUserPic: false,
@@ -246,33 +246,6 @@ class EditProfile extends Component {
     }
 
     this.setState({ [`remove${type}Pic`]: true, editedArray: updatedEditedArray });
-  }
-
-  copyToClipBoard = (text) => {
-    const textArea = document.createElement('textarea');
-    textArea.value = text;
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-
-    setTimeout(() => {
-      this.setState({
-        copySuccessful: true,
-      });
-    }, 1);
-
-    setTimeout(() => {
-      this.setState({
-        copySuccessful: false,
-      });
-    }, 2000);
-
-    try {
-      document.execCommand('copy');
-    } catch (err) {
-      console.error('Unable to copy', err);
-    }
-    document.body.removeChild(textArea);
   }
 
   addEmoji = (emoji) => {
@@ -597,6 +570,7 @@ class EditProfile extends Component {
       did,
       showGithubVerificationModal,
       showTwitterVerificationModal,
+      copySuccessful,
     } = this.props;
 
     const {
@@ -630,7 +604,6 @@ class EditProfile extends Component {
       githubRemoved,
       twitterRemoved,
       verificationLoading,
-      copySuccessful,
     } = this.state;
 
     const message = (`3Box is a social profiles network for web3. This post links my 3Box profile to my Github account!
@@ -665,7 +638,7 @@ Create your profile today to start building social connection and trust online. 
 
         <GithubVerificationModal
           show={showGithubVerificationModal}
-          copyToClipBoard={this.copyToClipBoard}
+          copyToClipBoard={this.props.copyToClipBoard}
           did={did}
           message={message}
           verifyGithub={this.verifyGithub}
@@ -679,7 +652,6 @@ Create your profile today to start building social connection and trust online. 
 
         <TwitterVerificationModal
           show={showTwitterVerificationModal}
-          copyToClipBoard={this.copyToClipBoard}
           verifyTwitter={this.verifyTwitter}
           did={did}
           message={twitterMessage}
@@ -1269,11 +1241,13 @@ EditProfile.propTypes = {
   ifFetchingThreeBox: PropTypes.bool,
   showGithubVerificationModal: PropTypes.bool,
   showTwitterVerificationModal: PropTypes.bool,
+  copySuccessful: PropTypes.bool,
   getProfileData: PropTypes.func.isRequired,
   getPublicDID: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
   handleGithubVerificationModal: PropTypes.func.isRequired,
   handleTwitterVerificationModal: PropTypes.func.isRequired,
+  copyToClipBoard: PropTypes.func.isRequired,
 };
 
 EditProfile.defaultProps = {
@@ -1300,6 +1274,7 @@ EditProfile.defaultProps = {
   ifFetchingThreeBox: false,
   showGithubVerificationModal: false,
   showTwitterVerificationModal: false,
+  copySuccessful: false,
 };
 
 function mapState(state) {
@@ -1327,6 +1302,7 @@ function mapState(state) {
     image: state.threeBox.image,
     coverPhoto: state.threeBox.coverPhoto,
     ifFetchingThreeBox: state.threeBox.ifFetchingThreeBox,
+    copySuccessful: state.threeBox.copySuccessful,
   };
 }
 
@@ -1337,4 +1313,5 @@ export default withRouter(connect(mapState,
     getActivity,
     handleGithubVerificationModal,
     handleTwitterVerificationModal,
+    copyToClipBoard,
   })(EditProfile));

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, NavLink, withRouter } from 'react-router-dom';
@@ -110,14 +110,17 @@ const SideBar = ({
             {/* this is showing when its not supposed to, how does it know that its my address??? */}
             {(!onPublicProfilePage)
               && (
-                <button type="button" onClick={() => copyToClipBoard()} className="profile__links__copy">
+                <button type="button" onClick={() => copyToClipBoard('profile')} className="profile__links__copy">
                   <img className="profile__links__copy__icon" src={CopyGrey} alt="Copy icon" />
                   <p>
                     Share profile
-                    </p>
+                  </p>
+                  {/* <textarea
+                    ref={textAreaRef}
+                    value={`https://www.3box.io/${address}`}
+                  /> */}
                 </button>
               )}
-
 
             <div id="profile__footer">
               <div id="profile__footer__contents">
@@ -130,15 +133,16 @@ const SideBar = ({
         </div>
       </div>
 
-      <div className={`${copySuccessful ? 'showModal' : ''} modal__container--copied modal--effect`}>
-        <div className="modal--sync">
-          <div className="modal--sync__copy__wrapper">
-            <img src={Copy} className="modal__copy__ico" alt="Copied" />
-            <p>COPIED PROFILE URL</p>
+      {document.queryCommandSupported('copy') && (
+        <div className={`${copySuccessful ? 'showModal' : ''} modal__container--copied modal--effect`}>
+          <div className="modal--sync">
+            <div className="modal--sync__copy__wrapper">
+              <img src={Copy} className="modal__copy__ico" alt="Copied" />
+              <p>COPIED PROFILE URL</p>
+            </div>
           </div>
-        </div>
-      </div>
-    </div >
+        </div>)}
+    </div>
   );
 
 SideBar.propTypes = {

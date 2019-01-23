@@ -512,17 +512,23 @@ export const handleSignOut = () => async (dispatch) => {
   history.push(routes.LANDING);
 };
 
-export const copyToClipBoard = () => async (dispatch) => {
-  const textArea = document.createElement('textarea');
-  const profileURL = `https://www.3box.io/${address}`;
-  textArea.value = profileURL;
+export const copyToClipBoard = (type, message) => async (dispatch) => {
   try {
+    const textArea = document.createElement('textarea');
+
+    if (type === 'did') {
+      textArea.value = message;
+    } else if (type === 'profile') {
+      textArea.value = `https://www.3box.io/${address}`;
+    }
+
     document.body.appendChild(textArea);
     textArea.focus({
       preventScroll: true,
     });
     textArea.select();
     document.execCommand('copy');
+
     setTimeout(() => {
       dispatch({
         type: 'COPY_SUCCESSFUL',
@@ -535,8 +541,36 @@ export const copyToClipBoard = () => async (dispatch) => {
         copySuccessful: false,
       });
     }, 2000);
+
+    document.body.removeChild(textArea);
   } catch (err) {
     console.error('Unable to copy', err);
   }
-  document.body.removeChild(textArea);
 };
+
+// copyToClipBoard = (text) => {
+//   const textArea = document.createElement('textarea');
+//   textArea.value = text;
+//   document.body.appendChild(textArea);
+//   textArea.focus();
+//   textArea.select();
+
+//   setTimeout(() => {
+//     this.setState({
+//       copySuccessful: true,
+//     });
+//   }, 1);
+
+//   setTimeout(() => {
+//     this.setState({
+//       copySuccessful: false,
+//     });
+//   }, 2000);
+
+//   try {
+//     document.execCommand('copy');
+//   } catch (err) {
+//     console.error('Unable to copy', err);
+//   }
+//   document.body.removeChild(textArea);
+// }
