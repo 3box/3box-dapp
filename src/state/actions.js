@@ -522,29 +522,27 @@ export const copyToClipBoard = (type, message) => async (dispatch) => {
       textArea.value = `https://www.3box.io/${address}`;
     }
 
-    const isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
-    console.log(isiOSDevice);
-    console.log(navigator.userAgent);
+    // const isiOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-    if (isiOSDevice) {
-      // const range = document.createRange();
-      const editable = textArea.contentEditable;
-      const readOnly = textArea.readOnly;
+    // if (isiOSDevice) {
+    // const range = document.createRange();
+    const editable = textArea.contentEditable;
+    const readOnly = textArea.readOnly;
 
-      textArea.contentEditable = true;
-      textArea.readOnly = false;
+    textArea.contentEditable = true;
+    textArea.readOnly = false;
 
-      const range = document.createRange();
-      range.selectNodeContents(textArea);
+    const range = document.createRange();
+    range.selectNodeContents(textArea);
 
-      const selection = window.getSelection();
-      selection.removeAllRanges();
-      selection.addRange(range);
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
 
-      textArea.setSelectionRange(0, 999999);
-      textArea.contentEditable = editable;
-      textArea.readOnly = readOnly;
-    }
+    textArea.setSelectionRange(0, 999999);
+    textArea.contentEditable = editable;
+    textArea.readOnly = readOnly;
+    // }
 
     document.body.appendChild(textArea);
     textArea.focus({
