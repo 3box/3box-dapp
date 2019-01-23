@@ -110,11 +110,12 @@ const SideBar = ({
             {/* this is showing when its not supposed to, how does it know that its my address??? */}
             {(!onPublicProfilePage)
               && (
-                <button type="button" onClick={() => copyToClipBoard('profile')} className="profile__links__copy">
+                <button type="button" onClick={() => copyToClipBoard('profile', null, 'hiddenProfileURL')} className="profile__links__copy">
                   <img className="profile__links__copy__icon" src={CopyGrey} alt="Copy icon" />
                   <p>
                     Share profile
                   </p>
+                  <textarea name="" id="hiddenProfileURL" cols="30" rows="10" defaultValue={`https://www.3box.io/${address}`} />
                 </button>
               )}
 

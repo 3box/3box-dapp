@@ -156,6 +156,7 @@
   min-width: 126px;
   transition: all ease .3s;
   margin-top: 110px;
+
   p {
     min-width: 82px;
     display: flex;
@@ -179,6 +180,10 @@
 
 .profile__links__copy__icon {
   width: 14px !important;
+}
+
+#hiddenProfileURL {
+  display: none;
 }
 
 .profile__user__info {
@@ -236,7 +241,7 @@
   margin-top: 208px;
 }
 
-.publicStatusUpdate--bannerMargin{
+.publicStatusUpdate--bannerMargin {
   margin-top: 262px !important;
 }
 
@@ -460,7 +465,7 @@
     font-size: 1.4em;
   }
 
-  .profile__links__copy{
+  .profile__links__copy {
     margin-top: 16px;
   }
 

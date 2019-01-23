@@ -140,6 +140,9 @@
 .profile__links__copy__icon {
   width: 14px !important; }
 
+#hiddenProfileURL {
+  display: none; }
+
 .profile__user__info {
   padding: 30px 50px;
   max-width: 230px;

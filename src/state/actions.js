@@ -512,44 +512,73 @@ export const handleSignOut = () => async (dispatch) => {
   history.push(routes.LANDING);
 };
 
-export const copyToClipBoard = (type, message) => async (dispatch) => {
+export const copyToClipBoard = (type, message, elementId) => async (dispatch) => {
   try {
     const textArea = document.createElement('textarea');
 
-    if (type === 'did') {
-      textArea.value = message;
-    } else if (type === 'profile') {
-      textArea.value = `https://www.3box.io/${address}`;
-    }
-
-    // const isiOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-
-    // if (isiOSDevice) {
-    // const range = document.createRange();
-    const editable = textArea.contentEditable;
-    const readOnly = textArea.readOnly;
-
-    textArea.contentEditable = true;
-    textArea.readOnly = false;
-
-    const range = document.createRange();
-    range.selectNodeContents(textArea);
-
-    const selection = window.getSelection();
-    selection.removeAllRanges();
-    selection.addRange(range);
-
-    textArea.setSelectionRange(0, 999999);
-    textArea.contentEditable = editable;
-    textArea.readOnly = readOnly;
+    console.log(type);
+    console.log(message);
+    console.log(elementId);
+    console.log(`"${elementId}"`);
+    // if (type === 'did') {
+    //   textArea.value = message;
+    // } else if (type === 'profile') {
+    //   textArea.value = `https://www.3box.io/${address}`;
     // }
 
-    document.body.appendChild(textArea);
-    textArea.focus({
-      preventScroll: true,
-    });
-    textArea.select();
+    const input = document.getElementById(elementId);
+    const isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
+
+    if (isiOSDevice) {
+      const editable = input.contentEditable;
+      const readOnly = input.readOnly;
+
+      input.contentEditable = true;
+      input.readOnly = false;
+
+      const range = document.createRange();
+      range.selectNodeContents(input);
+
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+
+      input.setSelectionRange(0, 999999);
+      input.contentEditable = editable;
+      input.readOnly = readOnly;
+
+      console.log(input);
+    } else {
+      input.select();
+      console.log(input);
+    }
+    console.log(input);
     document.execCommand('copy');
+
+    // const editable = textArea.contentEditable;
+    // const readOnly = textArea.readOnly;
+
+    // textArea.contentEditable = true;
+    // textArea.readOnly = false;
+
+    // const range = document.createRange();
+    // range.selectNodeContents(textArea);
+
+    // const selection = window.getSelection();
+    // selection.removeAllRanges();
+    // selection.addRange(range);
+
+    // textArea.setSelectionRange(0, 999999);
+    // textArea.contentEditable = editable;
+    // textArea.readOnly = readOnly;
+    // // }
+
+    // document.body.appendChild(textArea);
+    // textArea.focus({
+    //   preventScroll: true,
+    // });
+    // textArea.select();
+    // document.execCommand('copy');
 
     setTimeout(() => {
       dispatch({
