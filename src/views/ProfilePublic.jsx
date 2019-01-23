@@ -38,7 +38,6 @@ class ProfilePublic extends Component {
     if (publicProfileAddress === address) this.props.handleSignInBanner();
     this.props.getProfile(publicProfileAddress);
     this.props.getActivity(publicProfileAddress);
-
   }
 
   // componentWillUnmount() {

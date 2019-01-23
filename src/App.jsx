@@ -62,7 +62,7 @@ class App extends Component {
       onBoardingModalMobileThree: false,
     };
     this.handleSignInUp = this.handleSignInUp.bind(this);
-    this.loadData = this.loadData.bind(this);
+    this.directSignIn = this.directSignIn.bind(this);
   }
 
   async componentDidMount() {
@@ -79,11 +79,19 @@ class App extends Component {
       this.props.handleMobileWalletModal();
     }
 
-    if (typeof window.web3 !== 'undefined' && splitRoute.length > 1 && splitRoute[1].substring(0, 2) === '0x' && splitRoute[1] === currentEthAddress && isProtectedPath) {
-      // Has web3 && Land on profile && Matches address
-      this.loadData();
-    } else if (splitRoute.length > 1 && splitRoute[1].substring(0, 2) === '0x') {
-      // Land on profile page && Does not match address
+    if (
+      typeof window.web3 !== 'undefined' // Has web3
+      && splitRoute.length > 1 // Route has more than one
+      && splitRoute[1].substring(0, 2) === '0x' // Lands on profile page
+      && isProtectedPath // Lands on protected page
+      && splitRoute[1] === currentEthAddress // Eth address is own
+    ) {
+      // Lands on protected route on their own profile and begins auto sign in process
+      this.directSignIn();
+    } else if (
+      splitRoute.length > 1 // Route has more than one
+      && splitRoute[1].substring(0, 2) === '0x') { // Lands on profile page
+      // Lands on base route and loads public profile
       if (isProtectedPath) history.push(`/${splitRoute[1]}`);
     }
   }
@@ -149,7 +157,7 @@ class App extends Component {
     this.props.getProfileData('private', 'birthday');
   }
 
-  async loadData() {
+  async directSignIn() {
     console.log('in load data');
     const { location } = this.props;
     const { pathname } = location;
