@@ -115,10 +115,6 @@ const SideBar = ({
                   <p>
                     Share profile
                   </p>
-                  {/* <textarea
-                    ref={textAreaRef}
-                    value={`https://www.3box.io/${address}`}
-                  /> */}
                 </button>
               )}
 

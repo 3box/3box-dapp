@@ -522,6 +522,15 @@ export const copyToClipBoard = (type, message) => async (dispatch) => {
       textArea.value = `https://www.3box.io/${address}`;
     }
 
+    // const range = document.createRange();
+    textArea.contentEditable = true;
+    textArea.readOnly = false;
+    // range.selectNodeContents(el);
+    // var s = window.getSelection();
+    // s.removeAllRanges();
+    // s.addRange(range);
+    // el.setSelectionRange(0, 999999); // A big number, to cover anything that could be inside the element.
+
     document.body.appendChild(textArea);
     textArea.focus({
       preventScroll: true,
@@ -547,30 +556,3 @@ export const copyToClipBoard = (type, message) => async (dispatch) => {
     console.error('Unable to copy', err);
   }
 };
-
-// copyToClipBoard = (text) => {
-//   const textArea = document.createElement('textarea');
-//   textArea.value = text;
-//   document.body.appendChild(textArea);
-//   textArea.focus();
-//   textArea.select();
-
-//   setTimeout(() => {
-//     this.setState({
-//       copySuccessful: true,
-//     });
-//   }, 1);
-
-//   setTimeout(() => {
-//     this.setState({
-//       copySuccessful: false,
-//     });
-//   }, 2000);
-
-//   try {
-//     document.execCommand('copy');
-//   } catch (err) {
-//     console.error('Unable to copy', err);
-//   }
-//   document.body.removeChild(textArea);
-// }

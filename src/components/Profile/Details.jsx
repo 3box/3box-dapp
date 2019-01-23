@@ -50,32 +50,26 @@ const ProfileDetails = ({
 
         {/* Do not render private fields on public profiles */}
         <div className="profile__category__field">
-          <div>
-            <img src={Email} className="profile__category__field__icon" alt="Github Icon" />
-            <p className="profile__category__field--private">{email}</p>
-          </div>
+          <img src={Email} className="profile__category__field__icon" alt="Github Icon" />
+          <p className="profile__category__field--private">{email}</p>
           {email && <img id="editprofile__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />}
         </div>
 
         <div className="profile__category__field" title="Location">
-          <div>
-            <img src={Location} className="profile__category__field__icon" alt="Location Icon" />
-            <p>{location}</p>
-          </div>
+          <img src={Location} className="profile__category__field__icon" alt="Location Icon" />
+          <p>{location}</p>
         </div>
 
         <div className="profile__category__field" title="Website">
-          <div>
-            <img src={Website} className="profile__category__field__icon" alt="Website Icon" />
-            {website && (
-              <a
-                href={addhttp(website)}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {website}
-              </a>)}
-          </div>
+          <img src={Website} className="profile__category__field__icon" alt="Website Icon" />
+          {website && (
+            <a
+              href={addhttp(website)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {website}
+            </a>)}
         </div>
 
         {/* Private fields donot render on public profiles */}
@@ -89,10 +83,8 @@ const ProfileDetails = ({
         </div>
 
         <div className="profile__category__field" title="Birthday">
-          <div>
-            <img src={ThreeBox3} className="profile__category__field__icon" alt="Birthday Icon" />
-            <p>{memberSince}</p>
-          </div>
+          <img src={ThreeBox3} className="profile__category__field__icon" alt="Birthday Icon" />
+          <p>{memberSince}</p>
         </div>
       </div>
 
@@ -102,23 +94,19 @@ const ProfileDetails = ({
         </div>
 
         <div className="profile__category__field" title="Github">
-          <div>
-            <img src={GithubIcon} className="profile__category__field__icon" alt="Github Icon" />
-            <React.Fragment>
-              <a href={`https://www.github.com/${verifiedGithub}`} className="profile__category__field__verified" target="_blank" rel="noopener noreferrer">{verifiedGithub}</a>
-              {verifiedGithub && <img src={Verified} alt="Verified" className="profile__category__verified__icon" />}
-            </React.Fragment>
-          </div>
+          <img src={GithubIcon} className="profile__category__field__icon" alt="Github Icon" />
+          <React.Fragment>
+            <a href={`https://www.github.com/${verifiedGithub}`} className="profile__category__field__verified" target="_blank" rel="noopener noreferrer">{verifiedGithub}</a>
+            {verifiedGithub && <img src={Verified} alt="Verified" className="profile__category__verified__icon" />}
+          </React.Fragment>
         </div>
 
         <div className="profile__category__field" title="Github">
-          <div>
-            <img src={TwitterIcon} className="profile__category__field__icon" alt="Github Icon" />
-            <React.Fragment>
-              <a href={`https://www.twitter.com/${verifiedTwitter}`} className="profile__category__field__verified" target="_blank" rel="noopener noreferrer">{verifiedTwitter}</a>
-              {verifiedTwitter && <img src={Verified} alt="Verified" className="profile__category__verified__icon" />}
-            </React.Fragment>
-          </div>
+          <img src={TwitterIcon} className="profile__category__field__icon" alt="Github Icon" />
+          <React.Fragment>
+            <a href={`https://www.twitter.com/${verifiedTwitter}`} className="profile__category__field__verified" target="_blank" rel="noopener noreferrer">{verifiedTwitter}</a>
+            {verifiedTwitter && <img src={Verified} alt="Verified" className="profile__category__verified__icon" />}
+          </React.Fragment>
         </div>
       </div>
 
@@ -129,17 +117,13 @@ const ProfileDetails = ({
         </div>
 
         <div className="profile__category__field" title="Employer">
-          <div>
-            <img src={Employer} className="profile__category__field__icon" alt="Employer Icon" />
-            {!onPublicProfilePage && <p>{employer}</p>}
-          </div>
+          <img src={Employer} className="profile__category__field__icon" alt="Employer Icon" />
+          {!onPublicProfilePage && <p>{employer}</p>}
         </div>
 
         <div className="profile__category__field" title="Job Title">
-          <div>
-            <img src={Job} className="profile__category__field__icon" alt="Job Icon" />
-            {!onPublicProfilePage && <p>{job}</p>}
-          </div>
+          <img src={Job} className="profile__category__field__icon" alt="Job Icon" />
+          {!onPublicProfilePage && <p>{job}</p>}
         </div>
       </div>
 
@@ -149,31 +133,23 @@ const ProfileDetails = ({
         </div>
 
         <div className="profile__category__field" title="School">
-          <div>
-            <img src={School} className="profile__category__field__icon" alt="School Icon" />
-            {!onPublicProfilePage && <p>{school}</p>}
-          </div>
+          <img src={School} className="profile__category__field__icon" alt="School Icon" />
+          {!onPublicProfilePage && <p>{school}</p>}
         </div>
 
         <div className="profile__category__field" title="Degree">
-          <div>
-            <img src={Degree} className="profile__category__field__icon" alt="Degree Icon" />
-            {!onPublicProfilePage && <p>{degree}</p>}
-          </div>
+          <img src={Degree} className="profile__category__field__icon" alt="Degree Icon" />
+          {!onPublicProfilePage && <p>{degree}</p>}
         </div>
 
         <div className="profile__category__field" title="Major">
-          <div>
-            <img src={Major} className="profile__category__field__icon" alt="Major Icon" />
-            {!onPublicProfilePage && <p>{major}</p>}
-          </div>
+          <img src={Major} className="profile__category__field__icon" alt="Major Icon" />
+          {!onPublicProfilePage && <p>{major}</p>}
         </div>
 
         <div className="profile__category__field" title="Graduation Year">
-          <div>
-            <img src={Year} className="profile__category__field__icon" alt="Year Icon" />
-            {!onPublicProfilePage && <p>{year}</p>}
-          </div>
+          <img src={Year} className="profile__category__field__icon" alt="Year Icon" />
+          {!onPublicProfilePage && <p>{year}</p>}
         </div>
       </div>
     </div>
