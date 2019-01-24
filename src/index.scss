@@ -233,6 +233,10 @@ input:focus {
   }
 }
 
+.hideBanner.signInFromPublicProfileBanner{
+  display: none;
+}
+
 .hideBanner {
   top: -54px;
   background: white;

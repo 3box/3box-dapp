@@ -192,6 +192,9 @@ input:focus {
   .signInFromPublicProfileBanner .webThreeBanner__close {
     width: 5%; }
 
+.hideBanner.signInFromPublicProfileBanner {
+  display: none; }
+
 .hideBanner {
   top: -54px;
   background: white; }
