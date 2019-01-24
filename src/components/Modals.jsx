@@ -671,13 +671,15 @@ PublicProfileLoading.propTypes = {
 
 export const SignInThroughPublicProfileBanner = ({ show, handleSignInBanner }) => (
   <React.Fragment>
-    <div className={`${show ? '' : 'hideBanner'} webThreeBanner`}>
-      <p>
-        This is the public version of your profile.  Sign in to access your full profile.
+    <div className={`${show ? '' : 'hideBanner'} signInFromPublicProfileBanner`}>
+      <div className="signInFromPublicProfileBanner__wrapper">
+        <p>
+          This is the public version of your profile.  Sign in to access your full profile.
+        </p>
+        <p onClick={handleSignInBanner} className="webThreeBanner__close">
+          &#10005;
       </p>
-      <p onClick={handleSignInBanner} className="webThreeBanner__close">
-        &#10005;
-      </p>
+      </div>
     </div>
   </React.Fragment>
 );

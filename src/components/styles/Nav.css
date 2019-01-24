@@ -379,6 +379,8 @@ nav {
     background-color: #1168df !important; }
   .bannerMargin {
     margin-top: 0; }
+  .showSignInBanner.bannerMargin {
+    margin-top: 64px; }
   .landing__nav__link {
     margin-left: 15px;
     font-size: 14px;

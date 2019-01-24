@@ -166,6 +166,32 @@ input:focus {
   .webThreeBanner p {
     color: white; }
 
+.signInFromPublicProfileBanner {
+  width: 100vw;
+  height: 54px;
+  background: #1168df;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  transition: all .5s ease; }
+  .signInFromPublicProfileBanner .signInFromPublicProfileBanner__wrapper {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+  .signInFromPublicProfileBanner p {
+    color: white;
+    width: fit-content; }
+  .signInFromPublicProfileBanner .webThreeBanner__close {
+    width: 5%; }
+
 .hideBanner {
   top: -54px;
   background: white; }
@@ -222,6 +248,31 @@ input:focus {
 @media only screen and (max-width: 600px) {
   .webThreeBanner {
     display: none; }
+  .signInFromPublicProfileBanner {
+    height: 64px;
+    width: 100vw;
+    background: #1168df;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease; }
+    .signInFromPublicProfileBanner p {
+      color: white;
+      width: 85%; }
+    .signInFromPublicProfileBanner .signInFromPublicProfileBanner__wrapper {
+      width: 90%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between; }
+    .signInFromPublicProfileBanner .webThreeBanner__close {
+      width: 5%; }
   input[type="color"],
   input[type="date"],
   input[type="datetime"],

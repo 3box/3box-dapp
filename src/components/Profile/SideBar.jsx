@@ -39,14 +39,14 @@ const SideBar = ({
       }
       {onPublicProfilePage && (
         publicCoverPhoto.length > 0 && publicCoverPhoto[0].contentUrl
-          ? <img src={`https://ipfs.infura.io/ipfs/${publicCoverPhoto[0].contentUrl['/']}`} className={`${(showDownloadBanner || showSignInBanner) ? 'bannerMargin' : ''} profile__coverPhoto clearProfPic`} alt="profile" />
-          : <div className={`${(showDownloadBanner || showSignInBanner) ? 'bannerMargin' : ''} profile__coverPhoto`} />)
+          ? <img src={`https://ipfs.infura.io/ipfs/${publicCoverPhoto[0].contentUrl['/']}`} className={`${showSignInBanner ? 'showSignInBanner' : ''} ${(showDownloadBanner || showSignInBanner) ? 'bannerMargin' : ''} profile__coverPhoto clearProfPic`} alt="profile" />
+          : <div className={`${showSignInBanner ? 'showSignInBanner' : ''} ${(showDownloadBanner || showSignInBanner) ? 'bannerMargin' : ''} profile__coverPhoto`} />)
       }
 
       <div id="profile">
         <div id="profile__fixed">
 
-          <div className={`${(showDownloadBanner || showSignInBanner) ? 'bannerMargin' : ''} profile__user__info`}>
+          <div className={`${showSignInBanner ? 'showSignInBanner' : ''} ${(showDownloadBanner || showSignInBanner) ? 'bannerMargin' : ''} profile__user__info`}>
 
             {!onPublicProfilePage && (
               image.length > 0 && image[0].contentUrl

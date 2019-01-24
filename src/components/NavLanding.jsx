@@ -50,6 +50,7 @@ class NavLanding extends Component {
       <nav
         id="landing__nav"
         className={`
+            ${showSignInBanner ? 'showSignInBanner' : ''} 
             ${(showDownloadBanner || showSignInBanner) ? 'bannerMargin' : ''} 
             ${classHide} 
             ${onPublicProfilePage && 'hide'} 

@@ -289,6 +289,8 @@
     margin-bottom: -1px; }
     .statusUpdate input {
       padding: 10px 10px; }
+  .statusUpdate--bannerMargin {
+    margin-top: 310px !important; }
   .profile__details {
     padding: 0 !important;
     max-width: 100vw;
