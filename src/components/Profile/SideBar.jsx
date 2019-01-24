@@ -93,9 +93,10 @@ const SideBar = ({
                 {onPublicProfilePage && publicDescription}
               </p>
 
-              <div className="publicProfile__basic--mobile">
-                <PubSideBar />
-              </div>
+              {onPublicProfilePage && (
+                <div className="publicProfile__basic--mobile">
+                  <PubSideBar />
+                </div>)}
 
             </div>
 
