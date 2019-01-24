@@ -213,6 +213,10 @@
   margin-bottom: 30px;
 }
 
+.publicProfile__basic--mobile {
+  display: none;
+}
+
 .public__about__header {
   color: $lightestFont;
   font-size: 16px;
@@ -461,12 +465,20 @@
     height: fit-content;
   }
 
+  .publicProfile__basic--mobile {
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+    margin-top: 50px;
+  }
+
   #profile__user__name {
     font-size: 1.4em;
   }
 
   .profile__links__copy {
-    margin-top: 16px;
+    // margin-top: 16px;
+    display: none;
   }
 
   .profile__user__info {

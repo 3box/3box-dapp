@@ -46,7 +46,7 @@ const SideBar = ({
       <div id="profile">
         <div id="profile__fixed">
 
-          <div className={`${(showDownloadBanner || showSignInBanner) ? 'bannerMargin' : ''} profile__user__info`} >
+          <div className={`${(showDownloadBanner || showSignInBanner) ? 'bannerMargin' : ''} profile__user__info`}>
 
             {!onPublicProfilePage && (
               image.length > 0 && image[0].contentUrl
@@ -93,13 +93,16 @@ const SideBar = ({
                 {onPublicProfilePage && publicDescription}
               </p>
 
+              <div className="publicProfile__basic--mobile">
+                <PubSideBar />
+              </div>
+
             </div>
 
             <div className="profile__category">
               <div className="profile__category__sectionWrapper">
                 {!onPublicProfilePage ? (
                   <React.Fragment>
-                    <NavLink exact to={`/${address}/${routes.ACTIVITY}`} className="profile__category__section">Activity</NavLink>
                     <NavLink exact to={`/${address}/${routes.ABOUT}`} className="profile__category__section ">Details</NavLink>
                   </React.Fragment>)
                   : (
@@ -110,12 +113,11 @@ const SideBar = ({
             {/* this is showing when its not supposed to, how does it know that its my address??? */}
             {(!onPublicProfilePage)
               && (
-                <button type="button" onClick={() => copyToClipBoard('profile', null, 'hiddenProfileURL')} className="profile__links__copy">
+                <button type="button" onClick={() => copyToClipBoard('profile', null)} className="profile__links__copy">
                   <img className="profile__links__copy__icon" src={CopyGrey} alt="Copy icon" />
                   <p>
                     Share profile
                   </p>
-                  <textarea name="" id="hiddenProfileURL" cols="30" rows="10" defaultValue={`https://www.3box.io/${address}`} />
                 </button>
               )}
 
