@@ -73,7 +73,7 @@ class App extends Component {
     const isProtectedPath = matchProtectedRoutes(splitRoute[2]);
     const currentEthAddress = window.localStorage.getItem('userEthAddress');
 
-    // addLocalStorage(); // add localstorage if not default
+    addLocalStorage(); // add localstorage if not default
 
     // Initial warning to users without web3
     if (typeof window.web3 === 'undefined') {
