@@ -37,13 +37,22 @@ export const checkWeb3Wallet = () => async (dispatch) => {
 };
 
 export const accountsPromise = new Promise((resolve, reject) => {
-  window.web3.eth.getAccounts((e, accountsFound) => { // eslint-disable-line no-undef
-    if (e != null) {
-      reject(e);
+  try {
+    if (window.web3) {
+      console.log('in web3');
+      window.web3.eth.getAccounts((e, accountsFound) => { // eslint-disable-line no-undef
+        if (e != null) {
+          reject(e);
+        } else {
+          resolve(accountsFound);
+        }
+      });
     } else {
-      resolve(accountsFound);
+      console.error('no web3');
     }
-  });
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 // inject for breaking change

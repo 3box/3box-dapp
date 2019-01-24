@@ -36,14 +36,19 @@ class ProfilePublic extends Component {
       onPublicProfilePage: true,
     });
 
-    if (!currentAddress) {
-      const returnedAddress = await accountsPromise;
-      [activeAddress] = returnedAddress;
-    } else {
-      activeAddress = currentAddress;
+    console.log('in prof public');
+    if (typeof window.web3 !== 'undefined') {
+      if (!currentAddress) {
+        const returnedAddress = await accountsPromise;
+        [activeAddress] = returnedAddress;
+      } else {
+        activeAddress = currentAddress;
+      }
+      if (publicProfileAddress === activeAddress) this.props.handleSignInBanner();
     }
 
-    if (publicProfileAddress === activeAddress) this.props.handleSignInBanner();
+    console.log('publicProfileAddress', publicProfileAddress);
+
     this.props.getProfile(publicProfileAddress);
     this.props.getActivity(publicProfileAddress);
   }
