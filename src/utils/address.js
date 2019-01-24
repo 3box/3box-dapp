@@ -1,15 +1,34 @@
 import {
   store,
 } from '../state/store';
+import {
+  accountsPromise,
+} from '../state/actions';
 
-export let address =
-  typeof window.web3 !== 'undefined' ? window.web3.eth.accounts[0] : ''; // eslint-disable-line no-undef
+let address;
 
-let prevAddress;
+export const initialAddress = async () => {
+  if (typeof window.web3 !== 'undefined') {
+    if (window.web3.eth.accounts[0]) {
+      [address] = window.web3.eth.accounts;
+    } else {
+      const returnedAddress = await accountsPromise;
+      [address] = returnedAddress;
+    }
+  } else {
+    address = null;
+  }
+  store.dispatch({
+    type: 'UPDATE_ADDRESS',
+    currentAddress: address,
+  });
+};
 
-const pollNetworkAndAddress = () => {
+export const pollNetworkAndAddress = () => {
   setTimeout(() => {
+    let prevAddress;
     const currentAddress = typeof window.web3 !== 'undefined' ? window.web3.eth.accounts[0] : ''; // eslint-disable-line no-undef
+
     // Logged out of MM while logged in to 3Box
     if (currentAddress !== address &&
       currentAddress === undefined &&
@@ -18,6 +37,10 @@ const pollNetworkAndAddress = () => {
       store.dispatch({
         type: 'HANDLE_LOGGEDOUT_MODAL',
         loggedOutModal: true,
+      });
+      store.dispatch({
+        type: 'UPDATE_ADDRESS',
+        currentAddress,
       });
       window.localStorage.setItem('userEthAddress', currentAddress);
     }
@@ -29,6 +52,10 @@ const pollNetworkAndAddress = () => {
       store.dispatch({
         type: 'HANDLE_LOGGEDOUT_MODAL',
         loggedOutModal: true,
+      });
+      store.dispatch({
+        type: 'UPDATE_ADDRESS',
+        currentAddress,
       });
       window.localStorage.setItem('userEthAddress', currentAddress);
     }
@@ -45,6 +72,10 @@ const pollNetworkAndAddress = () => {
         switchedAddressModal: true,
         prevAddress,
       });
+      store.dispatch({
+        type: 'UPDATE_ADDRESS',
+        currentAddress,
+      });
       window.localStorage.setItem('userEthAddress', currentAddress);
     }
 
@@ -60,6 +91,10 @@ const pollNetworkAndAddress = () => {
         switchedAddressModal: false,
         prevAddress: '',
       });
+      store.dispatch({
+        type: 'UPDATE_ADDRESS',
+        currentAddress,
+      });
       window.localStorage.setItem('userEthAddress', currentAddress);
     }
 
@@ -73,6 +108,10 @@ const pollNetworkAndAddress = () => {
         isSignedIntoWallet: true,
         hasWallet: true,
       });
+      store.dispatch({
+        type: 'UPDATE_ADDRESS',
+        currentAddress,
+      });
       window.localStorage.setItem('userEthAddress', currentAddress);
     }
 
@@ -84,6 +123,10 @@ const pollNetworkAndAddress = () => {
         isSignedIntoWallet: false,
         hasWallet: false,
       });
+      store.dispatch({
+        type: 'UPDATE_ADDRESS',
+        currentAddress,
+      });
       window.localStorage.setItem('userEthAddress', currentAddress);
     }
 
@@ -91,7 +134,3 @@ const pollNetworkAndAddress = () => {
     pollNetworkAndAddress();
   }, 1000);
 };
-
-pollNetworkAndAddress();
-
-export default address;

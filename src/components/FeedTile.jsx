@@ -8,7 +8,6 @@ import Image from '../assets/Image.svg';
 import Save from '../assets/Save.svg';
 import Delete from '../assets/Delete.svg';
 
-import { address } from '../utils/address';
 import Internal from '../assets/Internal.svg';
 import EthereumLine from '../assets/EthereumLine.svg';
 import Send from '../assets/Send.svg';
@@ -80,12 +79,12 @@ FeedTileActivity.defaultProps = {
   verifiedTwitter: '',
 };
 
-export const FeedTileInternal = ({ item, isEven }) => (
+export const FeedTileInternal = ({ item, isEven, currentAddress }) => (
   <div className={`feed__activity___data ${isEven ? 'darkFeed' : 'lightFeed'}`}>
     <div className="feed__activity__address__dataType">
       <img src={Internal} alt="Transaction Icon" />
     </div>
-    {item.from === address
+    {item.from === currentAddress
       ? (
         <div className="feed__activity__address__toFrom">
           <img src={Send} alt="Transaction Icon" />
@@ -125,12 +124,12 @@ FeedTileInternal.defaultProps = {
   isEven: false,
 };
 
-export const FeedTileToken = ({ item, isEven }) => (
+export const FeedTileToken = ({ item, isEven, currentAddress }) => (
   <div className={`feed__activity___data ${isEven ? 'darkFeed' : 'lightFeed'}`}>
     <div className="feed__activity__address__dataType">
       <img src={Tokens} alt="Token Icon" />
     </div>
-    {item.from === address
+    {item.from === currentAddress
       ? (
         <div className="feed__activity__address__toFrom">
           <img src={Send} alt="Transaction Icon" />
@@ -170,12 +169,12 @@ FeedTileToken.defaultProps = {
   isEven: false,
 };
 
-export const FeedTileTXS = ({ item, isEven }) => (
+export const FeedTileTXS = ({ item, isEven, currentAddress }) => (
   <div className={`feed__activity___data ${isEven ? 'darkFeed' : 'lightFeed'}`}>
     <div className="feed__activity__address__dataType">
       <img src={EthereumLine} alt="Transaction Icon" className="feed__activity__address__dataType--ethereum" />
     </div>
-    {item.from === address
+    {item.from === currentAddress
       ? (
         <div className="feed__activity__address__toFrom">
           <img src={Send} alt="Transaction Icon" />

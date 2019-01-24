@@ -1,8 +1,4 @@
 import {
-  address,
-} from '../utils/address';
-
-import {
   store,
 } from './store';
 
@@ -40,18 +36,19 @@ export const checkWeb3Wallet = () => async (dispatch) => {
   });
 };
 
+export const accountsPromise = new Promise((resolve, reject) => {
+  window.web3.eth.getAccounts((e, accountsFound) => { // eslint-disable-line no-undef
+    if (e != null) {
+      reject(e);
+    } else {
+      resolve(accountsFound);
+    }
+  });
+});
+
 // inject for breaking change
 export const requestAccess = directLogin => async (dispatch) => {
   let accounts;
-  const accountsPromise = new Promise((resolve, reject) => {
-    window.web3.eth.getAccounts((e, accountsFound) => { // eslint-disable-line no-undef
-      if (e != null) {
-        reject(e);
-      } else {
-        resolve(accountsFound);
-      }
-    });
-  });
 
   if (window.ethereum) { // eslint-disable-line no-undef
     try {
@@ -72,6 +69,7 @@ export const requestAccess = directLogin => async (dispatch) => {
         isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
         accountAddress: accounts[0],
         allowAccessModal: false,
+        currentAddress: accounts[0],
       });
     } catch (error) {
       console.error(error);
@@ -93,6 +91,7 @@ export const requestAccess = directLogin => async (dispatch) => {
       type: 'UPDATE_ADDRESSES',
       isSignedIntoWallet: accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi',
       isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
+      currentAddress: accounts[0],
     });
   } else {
     console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
@@ -173,7 +172,7 @@ export const getBox = fromSignIn => async (dispatch) => {
   });
 
   const consentGiven = () => {
-    if (fromSignIn) history.push(`/${address || store.getState().threeBox.accountAddress}/${routes.ACTIVITY}`);
+    if (fromSignIn) history.push(`/${store.getState().threeBox.currentAddress || store.getState().threeBox.accountAddress}/${routes.ACTIVITY}`);
     dispatch({
       type: 'LOADING_3BOX',
     });
@@ -200,7 +199,7 @@ export const getBox = fromSignIn => async (dispatch) => {
   try {
     const box = await Box // eslint-disable-line no-undef
       .openBox(
-        store.getState().threeBox.accountAddress || address,
+        store.getState().threeBox.accountAddress || store.getState().threeBox.currentAddress,
         window.web3.currentProvider, // eslint-disable-line no-undef
         opts,
       );
@@ -242,7 +241,7 @@ export const getBox = fromSignIn => async (dispatch) => {
           type: 'GET_PUBLIC_MEMBERSINCE',
           memberSince: memberSinceDate,
         });
-        history.push(`/${address}/${routes.EDIT}`);
+        history.push(`/${store.getState().threeBox.currentAddress}/${routes.EDIT}`);
       } else if (!memberSince && (privateActivity.length || publicActivity.length)) {
         store.getState().threeBox.box.public.set('memberSince', 'Alpha');
       }
@@ -282,7 +281,7 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
     if (publicProfileAddress) {
       activity = await ThreeBoxActivity.get(publicProfileAddress); // eslint-disable-line no-undef
     } else {
-      activity = await ThreeBoxActivity.get(address); // eslint-disable-line no-undef
+      activity = await ThreeBoxActivity.get(store.getState().threeBox.currentAddress); // eslint-disable-line no-undef
     }
 
     // add datatype
@@ -338,10 +337,10 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
 
     feed.sort((a, b) => b.timeStamp - a.timeStamp);
 
-    // order feed chronologically and by address
+    // order feed chronologically and by currentAddress
     const feedByAddress = [];
     feed.forEach((item) => {
-      const othersAddress = item.from === address ? item.to : item.from;
+      const othersAddress = item.from === store.getState().threeBox.currentAddress ? item.to : item.from;
       if (feedByAddress.length > 0 &&
         Object.keys(feedByAddress[feedByAddress.length - 1])[0] === othersAddress) {
         feedByAddress[feedByAddress.length - 1][othersAddress].push(item);
@@ -391,14 +390,9 @@ export const getProfile = profileAddress => async (dispatch) => {
       isLoadingPublicProfile: true,
     });
 
-    console.log(profileAddress);
-    console.log('before getprofile');
     const publicProfile = await Box.getProfile(profileAddress); // eslint-disable-line no-undef
-    console.log(publicProfile);
-    console.log('after getprofile');
-
     const publicVerifiedAccounts = await Box.getVerifiedAccounts(publicProfile); // eslint-disable-line no-undef
-    console.log(publicVerifiedAccounts);
+
     dispatch({
       type: 'GET_PUBLIC_PROFILE',
       publicGithub: publicVerifiedAccounts.github && publicVerifiedAccounts.github.username,
@@ -478,7 +472,6 @@ export const getPublicMemberSince = () => async (dispatch) => {
 
 export const getVerifiedPublicGithub = () => async (dispatch) => {
   try {
-    console.log('in get verified github');
     const verifiedGithub = await store.getState().threeBox.box.verified.github();
 
     dispatch({
@@ -505,7 +498,7 @@ export const getVerifiedPublicTwitter = () => async (dispatch) => {
 
 export const handleSignOut = () => async (dispatch) => {
   if (store.getState().threeBox.isLoggedIn) {
-    store.getState().threeBox.box.logout();
+    if (store.getState().threeBox.box) store.getState().threeBox.box.logout();
     dispatch({
       type: 'HANDLE_SIGNOUT',
       isLoggedIn: false,
@@ -521,7 +514,7 @@ export const copyToClipBoard = (type, message) => async (dispatch) => {
     if (type === 'did') {
       textArea.value = message;
     } else if (type === 'profile') {
-      textArea.value = `https://www.3box.io/${address}`;
+      textArea.value = `https://www.3box.io/${store.getState().threeBox.currentAddress}`;
     }
 
     document.body.appendChild(textArea);
@@ -549,32 +542,3 @@ export const copyToClipBoard = (type, message) => async (dispatch) => {
     console.error('Unable to copy', err);
   }
 };
-
-// const input = document.getElementById(elementId);
-// const isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
-
-// if (isiOSDevice) {
-//   const editable = input.contentEditable;
-//   const readOnly = input.readOnly;
-
-//   input.contentEditable = true;
-//   input.readOnly = false;
-
-//   const range = document.createRange();
-//   range.selectNodeContents(input);
-
-//   const selection = window.getSelection();
-//   selection.removeAllRanges();
-//   selection.addRange(range);
-
-//   input.setSelectionRange(0, 999999);
-//   input.contentEditable = editable;
-//   input.readOnly = readOnly;
-
-//   console.log(input);
-// } else {
-//   input.select();
-//   console.log(input);
-// }
-// console.log(input);
-// document.execCommand('copy');

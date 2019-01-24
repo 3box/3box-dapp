@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import box from '3box';
 
 import * as routes from './utils/routes';
-import { normalizeURL, matchProtectedRoutes, addLocalStorage } from './utils/funcs';
+import { pollNetworkAndAddress, initialAddress } from './utils/address';
+import { normalizeURL, matchProtectedRoutes } from './utils/funcs';
 import { store } from './state/store';
 import Landing from './views/Landing';
 import Profile from './views/Profile';
@@ -73,7 +74,8 @@ class App extends Component {
     const isProtectedPath = matchProtectedRoutes(splitRoute[2]);
     const currentEthAddress = window.localStorage.getItem('userEthAddress');
 
-    addLocalStorage(); // add localstorage if not default
+    initialAddress(); // Initial get address
+    pollNetworkAndAddress(); // Start polling for address change
 
     // Initial warning to users without web3
     if (typeof window.web3 === 'undefined') {
@@ -117,7 +119,6 @@ class App extends Component {
     // get profile data again only when onSyncDone
     if (nextProps.onSyncFinished && nextProps.isSyncing) {
       // end onSyncDone animation
-      console.log('hitting sync finished');
       store.dispatch({
         type: 'APP_SYNC',
         onSyncFinished: true,
@@ -136,7 +137,6 @@ class App extends Component {
   }
 
   loadCalls = () => {
-    console.log('hitting loadcalls');
     this.props.getActivity();
     this.props.getVerifiedPublicGithub();
     this.props.getVerifiedPublicTwitter();
@@ -160,7 +160,6 @@ class App extends Component {
   }
 
   async directSignIn() {
-    console.log('in load data');
     const { location } = this.props;
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
@@ -170,23 +169,19 @@ class App extends Component {
     await this.props.checkNetwork();
 
     if (this.props.isSignedIntoWallet && this.props.isLoggedIn) {
-      console.log('2 1');
       await this.props.getBox();
       if (!this.props.showErrorModal) {
         this.loadCalls();
       }
     } else if (!this.props.isSignedIntoWallet) {
-      console.log('2 2');
       history.push(routes.LANDING);
       this.props.handleRequireWalletLoginModal();
     } else if (this.props.isSignedIntoWallet
       && !this.props.isLoggedIn
       && matchProtectedRoutes(normalizedPath.split('/')[2])) {
-      console.log('2 3');
       history.push(routes.LANDING);
       this.props.handleSignInModal();
     }
-    console.log('2 4');
   }
 
   async handleSignInUp() {
@@ -330,11 +325,13 @@ class App extends Component {
           />
 
           <Route
+            exact
             path={routes.FORMAT_PROFILE_ACTIVITY}
             component={Profile}
           />
 
           <Route
+            exact
             path={routes.FORMAT_PROFILE_ABOUT}
             component={Profile}
           />

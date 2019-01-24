@@ -1,10 +1,3 @@
-import {
-  address,
-} from './address';
-import {
-  normalizeURL,
-} from './funcs';
-
 export const LANDING = '/';
 export const PRIVACY = '/privacy';
 export const TERMS = '/terms';
@@ -26,6 +19,6 @@ export const FORMAT_PROFILE_ABOUT = `/:ethAddress/${DETAILS}`;
 export const FORMAT_PROFILE_EDIT = `/:ethAddress/${EDIT}`;
 
 // PROTECTED ROUTES
-export const LIVE_PROFILE_ACTIVITY = address ? `/${normalizeURL(address)}/${ACTIVITY}` : '';
-export const LIVE_PROFILE_ABOUT = address ? `/${normalizeURL(address)}/${DETAILS}` : '';
-export const LIVE_PROFILE_EDIT = address ? `/${normalizeURL(address)}/${EDIT}` : '';
+// export const LIVE_PROFILE_ACTIVITY = store.getState().threeBox.currentAddress ? `/${normalizeURL(store.getState().threeBox.currentAddress)}/${ACTIVITY}` : '';
+// export const LIVE_PROFILE_ABOUT = store.getState().threeBox.currentAddress ? `/${normalizeURL(store.getState().threeBox.currentAddress)}/${DETAILS}` : '';
+// export const LIVE_PROFILE_EDIT = store.getState().threeBox.currentAddress ? `/${normalizeURL(store.getState().threeBox.currentAddress)}/${EDIT}` : '';

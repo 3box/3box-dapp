@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 
-import { address } from '../utils/address';
 import ThreeBoxLogo from '../assets/ThreeBoxLogoBlue.svg';
 import { handleSignOut } from '../state/actions';
 import * as routes from '../utils/routes';
@@ -37,7 +36,7 @@ class Nav extends Component {
 
   render() {
     const { showProfileModal } = this.state;
-    const { image, location, showDownloadBanner, isLoggedIn } = this.props;
+    const { image, location, showDownloadBanner, isLoggedIn, currentAddress } = this.props;
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
     const networkColor = this.props.currentNetwork;
@@ -65,13 +64,13 @@ class Nav extends Component {
         <div className={`${showProfileModal ? 'nav__dropdown--visible' : undefined} nav__dropdown nav__dropdown--desktop`}
           onClick={this.handleDropdown}>
           <ul>
-            <Link to={`/${address}/${routes.ACTIVITY}`}>
+            <Link to={`/${currentAddress}/${routes.ACTIVITY}`}>
               <li className="nav__dropdown__wrapper">
                 <img src={Profile} className="nav__dropdown__icon" alt="profile" role="button" />
                 Profile
               </li>
             </Link>
-            <Link to={`/${address}/${routes.EDIT}`}>
+            <Link to={`/${currentAddress}/${routes.EDIT}`}>
               <li className="nav__dropdown__wrapper">
                 <img src={Edit} className="nav__dropdown__icon" alt="profile" role="button" />
                 Edit profile
@@ -95,8 +94,8 @@ class Nav extends Component {
               <img src={ThreeBoxLogo} alt="3Box Logo" className="landing__nav__logo" />
 
             </div>
-            <Link to={`/${address}/${routes.ACTIVITY}`}><li className={normalizedPath === `/${address}/${routes.ACTIVITY}` ? 'nav__activePage' : ''}>Profile</li></Link>
-            <Link to={`/${address}/${routes.EDIT}`}><li className={normalizedPath === `/${address}/${routes.EDIT}` ? 'nav__activePage' : ''}>Edit profile</li></Link>
+            <Link to={`/${currentAddress}/${routes.ACTIVITY}`}><li className={normalizedPath === `/${currentAddress}/${routes.ACTIVITY}` ? 'nav__activePage' : ''}>Profile</li></Link>
+            <Link to={`/${currentAddress}/${routes.EDIT}`}><li className={normalizedPath === `/${currentAddress}/${routes.EDIT}` ? 'nav__activePage' : ''}>Edit profile</li></Link>
             <li id="mobileNav__signout" onClick={() => this.handleSignOut()}>Sign Out</li>
           </ul>
         </div>
@@ -114,6 +113,7 @@ Nav.propTypes = {
   location: PropTypes.object,
   handleSignOut: PropTypes.func.isRequired,
   currentNetwork: PropTypes.string,
+  currentAddress: PropTypes.string,
   showDownloadBanner: PropTypes.bool,
   isLoggedIn: PropTypes.bool,
 };
@@ -122,6 +122,7 @@ Nav.defaultProps = {
   image: [],
   threeBox: {},
   currentNetwork: '',
+  currentAddress: '',
   location: {},
   showDownloadBanner: false,
   isLoggedIn: false,
@@ -134,6 +135,7 @@ function mapState(state) {
     currentNetwork: state.threeBox.currentNetwork,
     showDownloadBanner: state.threeBox.showDownloadBanner,
     isLoggedIn: state.threeBox.isLoggedIn,
+    currentAddress: state.threeBox.currentAddress,
   };
 }
 

@@ -5,7 +5,6 @@ import { Link, withRouter } from 'react-router-dom';
 
 import { addhttp } from '../../utils/funcs';
 import * as routes from '../../utils/routes';
-import { address } from '../../utils/address';
 import GithubIcon from '../../assets/GithubIcon.svg';
 import TwitterIcon from '../../assets/twitterGrey.svg';
 import Verified from '../../assets/Verified.svg';
@@ -39,13 +38,14 @@ const ProfileDetails = ({
   memberSince,
   verifiedTwitter,
   onPublicProfilePage,
+  currentAddress,
 }) => (
     <div className="profile__details" id="feed">
       <div className="profile__details__category">
 
         <div className="profile__category__header">
           <h5>About</h5>
-          <Link to={`/${address}/${routes.EDIT}`} className="profile__category__editLink">Edit</Link>
+          <Link to={`/${currentAddress}/${routes.EDIT}`} className="profile__category__editLink">Edit</Link>
         </div>
 
         {/* Do not render private fields on public profiles */}
@@ -169,6 +169,7 @@ ProfileDetails.propTypes = {
   employer: PropTypes.string,
   location: PropTypes.string,
   birthday: PropTypes.string,
+  currentAddress: PropTypes.string,
   onPublicProfilePage: PropTypes.bool,
 };
 
@@ -186,6 +187,7 @@ ProfileDetails.defaultProps = {
   major: '',
   year: '',
   employer: '',
+  currentAddress: '',
   onPublicProfilePage: false,
 };
 
@@ -205,6 +207,7 @@ function mapState(state) {
     year: state.threeBox.year,
     employer: state.threeBox.employer,
     onPublicProfilePage: state.threeBox.onPublicProfilePage,
+    currentAddress: state.threeBox.currentAddress,
   };
 }
 

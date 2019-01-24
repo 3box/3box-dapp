@@ -23,7 +23,6 @@ import {
   GithubVerificationModal,
   TwitterVerificationModal,
 } from '../components/Modals';
-import { address } from '../utils/address';
 import history from '../history';
 import Nav from '../components/Nav.jsx';
 import * as routes from '../utils/routes';
@@ -462,7 +461,7 @@ class EditProfile extends Component {
       emoji,
     } = this.state;
 
-    const { box } = this.props;
+    const { box, currentAddress } = this.props;
 
     if (box.public) {
       e.preventDefault();
@@ -558,7 +557,7 @@ class EditProfile extends Component {
       this.props.getActivity();
 
       this.setState({ saveLoading: false });
-      history.push(`/${address}/${routes.ACTIVITY}`);
+      history.push(`/${currentAddress}/${routes.ACTIVITY}`);
     }
   }
 
@@ -571,6 +570,7 @@ class EditProfile extends Component {
       showGithubVerificationModal,
       showTwitterVerificationModal,
       copySuccessful,
+      currentAddress,
     } = this.props;
 
     const {
@@ -760,7 +760,7 @@ Create your profile today to start building social connection and trust online. 
                   </label>
 
                 </div>
-                <p title={address} className="edit__profile__address">{address && `${address.substring(0, 8)}...`}</p>
+                <p title={currentAddress} className="edit__profile__address">{currentAddress && `${currentAddress.substring(0, 8)}...`}</p>
               </div>
             </div>
 
@@ -1186,7 +1186,7 @@ Create your profile today to start building social connection and trust online. 
                   Save
                   </button>
                 <Link
-                  to={`/${address}/${routes.ACTIVITY}`}
+                  to={`/${currentAddress}/${routes.ACTIVITY}`}
                   className="subtext"
                   id="edit__cancel"
                   onClick={() => {
@@ -1236,6 +1236,7 @@ EditProfile.propTypes = {
   employer: PropTypes.string,
   email: PropTypes.string,
   memberSince: PropTypes.string,
+  currentAddress: PropTypes.string,
   image: PropTypes.array,
   coverPhoto: PropTypes.array,
   ifFetchingThreeBox: PropTypes.bool,
@@ -1269,6 +1270,7 @@ EditProfile.defaultProps = {
   employer: '',
   memberSince: '',
   email: '',
+  currentAddress: '',
   image: [],
   coverPhoto: [],
   ifFetchingThreeBox: false,
@@ -1303,6 +1305,7 @@ function mapState(state) {
     coverPhoto: state.threeBox.coverPhoto,
     ifFetchingThreeBox: state.threeBox.ifFetchingThreeBox,
     copySuccessful: state.threeBox.copySuccessful,
+    currentAddress: state.threeBox.currentAddress,
   };
 }
 

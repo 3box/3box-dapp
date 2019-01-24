@@ -16,6 +16,7 @@ export const threeBoxReducer = (state = {}, action) => {
         isLoggedIn: action.isLoggedIn,
         accountAddress: action.accountAddress,
         allowAccessModal: action.allowAccessModal,
+        currentAddress: action.currentAddress,
       };
 
     case 'UPDATE_NETWORK':
@@ -431,6 +432,12 @@ export const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         copySuccessful: action.copySuccessful,
+      };
+
+    case 'UPDATE_ADDRESS':
+      return {
+        ...state,
+        currentAddress: action.currentAddress,
       };
 
     default:

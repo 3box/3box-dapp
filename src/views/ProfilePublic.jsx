@@ -3,10 +3,10 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { address } from '../utils/address';
 import {
   getProfile,
   getActivity,
+  accountsPromise,
 } from '../state/actions';
 import {
   PublicProfileLoading,
@@ -25,9 +25,10 @@ import './styles/Profile.css';
 class ProfilePublic extends Component {
   async componentDidMount() {
     window.scrollTo(0, 0);
-    const { location: { pathname } } = this.props;
+    const { location: { pathname }, currentAddress } = this.props;
     const publicProfileAddress = pathname.split('/')[1];
     const normalizedPath = normalizeURL(pathname);
+    let activeAddress;
 
     store.dispatch({
       type: 'UPDATE_ROUTE',
@@ -35,7 +36,14 @@ class ProfilePublic extends Component {
       onPublicProfilePage: true,
     });
 
-    if (publicProfileAddress === address) this.props.handleSignInBanner();
+    if (!currentAddress) {
+      const returnedAddress = await accountsPromise;
+      [activeAddress] = returnedAddress;
+    } else {
+      activeAddress = currentAddress;
+    }
+
+    if (publicProfileAddress === activeAddress) this.props.handleSignInBanner();
     this.props.getProfile(publicProfileAddress);
     this.props.getActivity(publicProfileAddress);
   }
@@ -79,6 +87,7 @@ ProfilePublic.propTypes = {
   location: PropTypes.object,
   isLoadingPublicProfile: PropTypes.bool,
   showSignInBanner: PropTypes.bool,
+  currentAddress: PropTypes.string,
 };
 
 ProfilePublic.defaultProps = {
@@ -86,11 +95,13 @@ ProfilePublic.defaultProps = {
   location: {},
   isLoadingPublicProfile: true,
   showSignInBanner: false,
+  currentAddress: '',
 };
 
 const mapState = state => ({
   isLoadingPublicProfile: state.threeBox.isLoadingPublicProfile,
   showSignInBanner: state.threeBox.showSignInBanner,
+  currentAddress: state.threeBox.currentAddress,
 });
 
 export default withRouter(connect(mapState,

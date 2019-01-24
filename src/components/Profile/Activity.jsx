@@ -22,6 +22,7 @@ const Activity = ({
   verifiedTwitter,
   publicProfileActivity,
   onPublicProfilePage,
+  currentAddress,
 }) => (
     <div id="feed">
       <div>
@@ -75,9 +76,9 @@ const Activity = ({
                 {
                   Object.values(feedAddress)[0].map((item, index) => (
                     (() => {
-                      if (item.dataType === 'Internal') return <FeedTileInternal item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
-                      if (item.dataType === 'Token') return <FeedTileToken item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
-                      if (item.dataType === 'Txs') return <FeedTileTXS item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
+                      if (item.dataType === 'Internal') return <FeedTileInternal item={item} key={index} currentAddress={currentAddress} isEven={parseInt(index, 10) % 2 === 0} />;
+                      if (item.dataType === 'Token') return <FeedTileToken item={item} key={index} currentAddress={currentAddress} isEven={parseInt(index, 10) % 2 === 0} />;
+                      if (item.dataType === 'Txs') return <FeedTileTXS item={item} key={index} currentAddress={currentAddress} isEven={parseInt(index, 10) % 2 === 0} />;
                       if (item.dataType === 'Public') return <FeedTileActivity item={item} key={index} verifiedGithub={verifiedGithub} verifiedTwitter={verifiedTwitter} isEven={parseInt(index, 10) % 2 === 0} />;
                       if (item.dataType === 'Private') return <FeedTileActivity item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
                     })()
@@ -168,6 +169,7 @@ Activity.propTypes = {
   onPublicProfilePage: PropTypes.bool,
   verifiedGithub: PropTypes.string,
   verifiedTwitter: PropTypes.string,
+  currentAddress: PropTypes.string,
   publicProfileActivity: PropTypes.array,
   location: PropTypes.object,
 };
@@ -178,6 +180,7 @@ Activity.defaultProps = {
   onPublicProfilePage: false,
   verifiedGithub: '',
   verifiedTwitter: '',
+  currentAddress: '',
   publicProfileActivity: [],
   location: {},
 };
@@ -189,6 +192,7 @@ const mapState = state => ({
   verifiedTwitter: state.threeBox.verifiedTwitter,
   publicProfileActivity: state.threeBox.publicProfileActivity,
   onPublicProfilePage: state.threeBox.onPublicProfilePage,
+  currentAddress: state.threeBox.currentAddress,
 });
 
 export default connect(mapState)(Activity);

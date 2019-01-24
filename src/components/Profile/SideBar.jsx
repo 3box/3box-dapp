@@ -1,10 +1,9 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, NavLink, withRouter } from 'react-router-dom';
 
 import PubSideBar from './PubSideBar.jsx';
-import { address } from '../../utils/address';
 import { copyToClipBoard } from '../../state/actions';
 import * as routes from '../../utils/routes';
 import EthereumLogo from '../../assets/EthereumIcon.svg';
@@ -30,6 +29,7 @@ const SideBar = ({
   publicEmoji,
   publicDescription,
   showSignInBanner,
+  currentAddress,
 }) => (
     <div>
       {!onPublicProfilePage && (
@@ -64,7 +64,7 @@ const SideBar = ({
               <div className="profile__basic__wrapper">
                 {!onPublicProfilePage && (name
                   ? <h2 id="profile__user__name">{name}</h2>
-                  : <Link to={`/${address}/${routes.EDIT}`}><h2 id="profile__user__name__add">Add name</h2></Link>)
+                  : <Link to={`/${currentAddress}/${routes.EDIT}`}><h2 id="profile__user__name__add">Add name</h2></Link>)
                 }
 
                 {onPublicProfilePage && (publicName
@@ -81,8 +81,8 @@ const SideBar = ({
 
               <div id="profile__network" title="Network">
                 <img id="profile__network__networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
-                <p id="profile__details__address" title={address}>
-                  {!onPublicProfilePage && address && address.substring(0, 8)}
+                <p id="profile__details__address" title={currentAddress}>
+                  {!onPublicProfilePage && currentAddress && currentAddress.substring(0, 8)}
                   {onPublicProfilePage && location.pathname.split('/')[1].substring(0, 8)}
                   ...
                 </p>
@@ -103,15 +103,15 @@ const SideBar = ({
               <div className="profile__category__sectionWrapper">
                 {!onPublicProfilePage ? (
                   <React.Fragment>
-                    <NavLink exact to={`/${address}/${routes.ACTIVITY}`} className="profile__category__section">Activity</NavLink>
-                    <NavLink exact to={`/${address}/${routes.DETAILS}`} className="profile__category__section ">Details</NavLink>
+                    <NavLink exact to={`/${currentAddress}/${routes.ACTIVITY}`} className="profile__category__section">Activity</NavLink>
+                    <NavLink exact to={`/${currentAddress}/${routes.DETAILS}`} className="profile__category__section ">Details</NavLink>
                   </React.Fragment>)
                   : (
                     <PubSideBar />)}
               </div>
             </div>
 
-            {/* this is showing when its not supposed to, how does it know that its my address??? */}
+            {/* this is showing when its not supposed to, how does it know that its my currentAddress??? */}
             {(!onPublicProfilePage)
               && (
                 <button type="button" onClick={() => copyToClipBoard('profile', null)} className="profile__links__copy">
@@ -150,6 +150,7 @@ SideBar.propTypes = {
   description: PropTypes.string,
   emoji: PropTypes.string,
   publicEmoji: PropTypes.string,
+  currentAddress: PropTypes.string,
   publicName: PropTypes.string,
   publicDescription: PropTypes.string,
   image: PropTypes.array,
@@ -170,6 +171,7 @@ SideBar.defaultProps = {
   description: '',
   publicEmoji: '',
   publicDescription: '',
+  currentAddress: '',
   image: [],
   coverPhoto: [],
   publicImage: [],
@@ -197,6 +199,7 @@ function mapState(state) {
     publicName: state.threeBox.publicName,
     publicEmoji: state.threeBox.publicEmoji,
     publicDescription: state.threeBox.publicDescription,
+    currentAddress: state.threeBox.currentAddress,
   };
 }
 
