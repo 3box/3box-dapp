@@ -64,6 +64,7 @@ export const requestAccess = directLogin => async (dispatch) => {
 
       accounts = await window.ethereum.enable(); // eslint-disable-line no-undef
       accounts = !accounts ? await accountsPromise : accounts;
+      window.localStorage.setItem('userEthAddress', accounts[0]);
 
       dispatch({
         type: 'UPDATE_ADDRESSES',
@@ -86,6 +87,7 @@ export const requestAccess = directLogin => async (dispatch) => {
     window.web3 = new Web3(web3.currentProvider); // eslint-disable-line no-undef
 
     accounts = await accountsPromise;
+    window.localStorage.setItem('userEthAddress', accounts[0]);
 
     dispatch({
       type: 'UPDATE_ADDRESSES',

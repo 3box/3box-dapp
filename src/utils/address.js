@@ -5,14 +5,11 @@ import {
 export let address =
   typeof window.web3 !== 'undefined' ? window.web3.eth.accounts[0] : ''; // eslint-disable-line no-undef
 
-window.localStorage.setItem('userEthAddress', address);
-
 let prevAddress;
 
 const pollNetworkAndAddress = () => {
   setTimeout(() => {
     const currentAddress = typeof window.web3 !== 'undefined' ? window.web3.eth.accounts[0] : ''; // eslint-disable-line no-undef
-
     // Logged out of MM while logged in to 3Box
     if (currentAddress !== address &&
       currentAddress === undefined &&

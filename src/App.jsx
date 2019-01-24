@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import box from '3box';
 
 import * as routes from './utils/routes';
-import { normalizeURL, matchProtectedRoutes } from './utils/funcs';
+import { normalizeURL, matchProtectedRoutes, addLocalStorage } from './utils/funcs';
 import { store } from './state/store';
 import Landing from './views/Landing';
 import Profile from './views/Profile';
@@ -72,6 +72,8 @@ class App extends Component {
     const splitRoute = normalizedPath.split('/');
     const isProtectedPath = matchProtectedRoutes(splitRoute[2]);
     const currentEthAddress = window.localStorage.getItem('userEthAddress');
+
+    // addLocalStorage(); // add localstorage if not default
 
     // Initial warning to users without web3
     if (typeof window.web3 === 'undefined') {
