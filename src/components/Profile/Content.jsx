@@ -16,7 +16,7 @@ const Content = () => (
     <div className="profile__category--mobile">
       <div className="profile__category__sectionWrapper">
         <NavLink exact to={`/${address}/${routes.ACTIVITY}`} className="profile__category__section">Activity</NavLink>
-        <NavLink exact to={`/${address}/${routes.ABOUT}`} className="profile__category__section ">Details</NavLink>
+        <NavLink exact to={`/${address}/${routes.DETAILS}`} className="profile__category__section ">Details</NavLink>
       </div>
     </div>
 

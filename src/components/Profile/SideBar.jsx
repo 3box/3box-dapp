@@ -103,7 +103,8 @@ const SideBar = ({
               <div className="profile__category__sectionWrapper">
                 {!onPublicProfilePage ? (
                   <React.Fragment>
-                    <NavLink exact to={`/${address}/${routes.ABOUT}`} className="profile__category__section ">Details</NavLink>
+                    <NavLink exact to={`/${address}/${routes.ACTIVITY}`} className="profile__category__section">Activity</NavLink>
+                    <NavLink exact to={`/${address}/${routes.DETAILS}`} className="profile__category__section ">Details</NavLink>
                   </React.Fragment>)
                   : (
                     <PubSideBar />)}

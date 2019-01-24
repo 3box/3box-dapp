@@ -11,7 +11,7 @@ export const normalizeURL = (pathname) => {
 
 export const matchProtectedRoutes = (normalizedPath) => {
   if (normalizedPath === routes.ACTIVITY ||
-    normalizedPath === routes.ABOUT ||
+    normalizedPath === routes.DETAILS ||
     normalizedPath === routes.EDIT) {
     return true;
   }
