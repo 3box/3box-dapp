@@ -1,4 +1,4 @@
-import Box from '3box';
+// import Box from '3box';
 
 import {
   store,
@@ -75,7 +75,7 @@ export const requestAccess = directLogin => async (dispatch) => {
       dispatch({
         type: 'UPDATE_ADDRESSES',
         isSignedIntoWallet: accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi',
-        isLoggedIn: accounts && Box.isLoggedIn(accounts[0]),
+        isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
         accountAddress: accounts[0],
         allowAccessModal: false,
         currentAddress: accounts[0],
@@ -99,7 +99,7 @@ export const requestAccess = directLogin => async (dispatch) => {
     dispatch({
       type: 'UPDATE_ADDRESSES',
       isSignedIntoWallet: accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi',
-      isLoggedIn: accounts && Box.isLoggedIn(accounts[0]),
+      isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
       currentAddress: accounts[0],
     });
   } else {
@@ -206,7 +206,7 @@ export const getBox = fromSignIn => async (dispatch) => {
   };
 
   try {
-    const box = await Box
+    const box = await Box // eslint-disable-line no-undef
       .openBox(
         store.getState().threeBox.accountAddress || store.getState().threeBox.currentAddress,
         window.web3.currentProvider, // eslint-disable-line no-undef
@@ -399,9 +399,9 @@ export const getProfile = profileAddress => async (dispatch) => {
       isLoadingPublicProfile: true,
     });
 
-    const publicProfile = await Box.getProfile(profileAddress);
+    const publicProfile = await Box.getProfile(profileAddress); // eslint-disable-line no-undef
     const publicVerifiedAccounts = Object.entries(publicProfile).lenght > 0 ?
-      await Box.getVerifiedAccounts(publicProfile) : {
+      await Box.getVerifiedAccounts(publicProfile) : { // eslint-disable-line no-undef
         github: null,
         twitter: null,
       };
