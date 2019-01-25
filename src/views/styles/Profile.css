@@ -270,6 +270,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     display: inline-block; }
+  .profile__category__field a {
+    color: #1168df; }
 
 .profile__category__field--private {
   width: 226px !important; }
@@ -299,7 +301,9 @@
 .profile__category__field__verified {
   max-width: 194px;
   width: fit-content !important;
-  padding-right: 8px; }
+  padding-right: 8px;
+  color: #1168df;
+  font-size: 14.5px; }
 
 #profile__github {
   display: inline-block; }

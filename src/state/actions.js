@@ -1,7 +1,8 @@
+import Box from '3box';
+
 import {
   store,
 } from './store';
-
 import * as routes from '../utils/routes';
 import history from '../history';
 
@@ -39,7 +40,6 @@ export const checkWeb3Wallet = () => async (dispatch) => {
 export const accountsPromise = new Promise((resolve, reject) => {
   try {
     if (window.web3) {
-      console.log('in web3');
       window.web3.eth.getAccounts((e, accountsFound) => { // eslint-disable-line no-undef
         if (e != null) {
           reject(e);
@@ -48,7 +48,7 @@ export const accountsPromise = new Promise((resolve, reject) => {
         }
       });
     } else {
-      console.error('no web3');
+      console.error('You must have web3 to continue');
     }
   } catch (err) {
     console.error(err);
@@ -75,7 +75,7 @@ export const requestAccess = directLogin => async (dispatch) => {
       dispatch({
         type: 'UPDATE_ADDRESSES',
         isSignedIntoWallet: accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi',
-        isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
+        isLoggedIn: accounts && Box.isLoggedIn(accounts[0]),
         accountAddress: accounts[0],
         allowAccessModal: false,
         currentAddress: accounts[0],
@@ -99,7 +99,7 @@ export const requestAccess = directLogin => async (dispatch) => {
     dispatch({
       type: 'UPDATE_ADDRESSES',
       isSignedIntoWallet: accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi',
-      isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
+      isLoggedIn: accounts && Box.isLoggedIn(accounts[0]),
       currentAddress: accounts[0],
     });
   } else {
@@ -206,7 +206,7 @@ export const getBox = fromSignIn => async (dispatch) => {
   };
 
   try {
-    const box = await Box // eslint-disable-line no-undef
+    const box = await Box
       .openBox(
         store.getState().threeBox.accountAddress || store.getState().threeBox.currentAddress,
         window.web3.currentProvider, // eslint-disable-line no-undef
@@ -399,8 +399,12 @@ export const getProfile = profileAddress => async (dispatch) => {
       isLoadingPublicProfile: true,
     });
 
-    const publicProfile = await Box.getProfile(profileAddress); // eslint-disable-line no-undef
-    const publicVerifiedAccounts = await Box.getVerifiedAccounts(publicProfile); // eslint-disable-line no-undef
+    const publicProfile = await Box.getProfile(profileAddress);
+    const publicVerifiedAccounts = Object.entries(publicProfile).lenght > 0 ?
+      await Box.getVerifiedAccounts(publicProfile) : {
+        github: null,
+        twitter: null,
+      };
 
     dispatch({
       type: 'GET_PUBLIC_PROFILE',
