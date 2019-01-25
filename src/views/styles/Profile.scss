@@ -344,6 +344,10 @@
     text-overflow: ellipsis;
     display: inline-block;
   }
+
+  a{
+    color: $threeBoxBlue;
+  }
 }
 
 .profile__category__field--private {
@@ -380,6 +384,8 @@
   max-width: 194px;
   width: fit-content !important;
   padding-right: 8px;
+  color: $threeBoxBlue;
+  font-size: 14.5px;
 }
 
 #profile__github {

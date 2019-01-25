@@ -39,7 +39,6 @@ export const checkWeb3Wallet = () => async (dispatch) => {
 export const accountsPromise = new Promise((resolve, reject) => {
   try {
     if (window.web3) {
-      console.log('in web3');
       window.web3.eth.getAccounts((e, accountsFound) => { // eslint-disable-line no-undef
         if (e != null) {
           reject(e);
@@ -48,7 +47,7 @@ export const accountsPromise = new Promise((resolve, reject) => {
         }
       });
     } else {
-      console.error('no web3');
+      console.error('You must have web3 to continue');
     }
   } catch (err) {
     console.error(err);
@@ -400,7 +399,11 @@ export const getProfile = profileAddress => async (dispatch) => {
     });
 
     const publicProfile = await Box.getProfile(profileAddress); // eslint-disable-line no-undef
-    const publicVerifiedAccounts = await Box.getVerifiedAccounts(publicProfile); // eslint-disable-line no-undef
+    const publicVerifiedAccounts = Object.entries(publicProfile).length > 0 ?
+      await Box.getVerifiedAccounts(publicProfile) : { // eslint-disable-line no-undef
+        github: null,
+        twitter: null,
+      };
 
     dispatch({
       type: 'GET_PUBLIC_PROFILE',

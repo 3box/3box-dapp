@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import box from '3box';
 
 import * as routes from './utils/routes';
 import { pollNetworkAndAddress, initialAddress } from './utils/address';
