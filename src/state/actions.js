@@ -400,7 +400,7 @@ export const getProfile = profileAddress => async (dispatch) => {
     });
 
     const publicProfile = await Box.getProfile(profileAddress); // eslint-disable-line no-undef
-    const publicVerifiedAccounts = Object.entries(publicProfile).lenght > 0 ?
+    const publicVerifiedAccounts = Object.entries(publicProfile).length > 0 ?
       await Box.getVerifiedAccounts(publicProfile) : { // eslint-disable-line no-undef
         github: null,
         twitter: null,
