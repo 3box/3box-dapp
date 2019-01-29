@@ -66,9 +66,11 @@ const Activity = ({
                       )
                       : (
                         <div>
-                          <h4>
-                            {(feedAddress.metaData && feedAddress.metaData.name) ? feedAddress.metaData.name : Object.keys(feedAddress)[0]}
-                          </h4>
+                          <a href={`https://3box.io/${Object.keys(feedAddress)[0]}`} >
+                            <h4>
+                              {(feedAddress.metaData && feedAddress.metaData.name) ? feedAddress.metaData.name : Object.keys(feedAddress)[0]}
+                            </h4>
+                          </a>
                           <p>
                             Ethereum Address
                           </p>
@@ -100,7 +102,6 @@ const Activity = ({
           {(onPublicProfilePage && publicProfileActivity.length > 0)
             ? publicProfileActivity.map((feedAddress, i) => (
               <div key={i} className="feed__activity__tile">
-                {console.log(feedAddress)}
                 <div className="feed__activity__context">
                   {Object.keys(feedAddress)[0] === 'threeBox' ? (
                     <div className="logo__icon feed__activity__context__network">
@@ -129,10 +130,13 @@ const Activity = ({
                       )
                       : (
                         <div>
-                          <h4>
-                            {/* {Object.keys(feedAddress)[0] === publicProfileAddress ? publicName : Object.keys(feedAddress)[0]} */}
-                            {(feedAddress.metaData && feedAddress.metaData.name) ? feedAddress.metaData.name : Object.keys(feedAddress)[0]}
-                          </h4>
+                          <a href={`https://3box.io/${Object.keys(feedAddress)[0]}`} >
+                            <h4>
+                              {console.log(feedAddress.metaData)}
+                              {/* {Object.keys(feedAddress)[0] === publicProfileAddress ? publicName : Object.keys(feedAddress)[0]} */}
+                              {(feedAddress.metaData && feedAddress.metaData.name) ? feedAddress.metaData.name : Object.keys(feedAddress)[0]}
+                            </h4>
+                          </a>
                           <p>
                             Ethereum Address
                       </p>
