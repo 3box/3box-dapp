@@ -29,7 +29,6 @@ const Activity = ({
   publicName,
 }) => (
     <div id="feed">
-      {console.log(feedByAddress)}
       <div>
         <p className="header" id="feed__header">Activity</p>
         <div className="feed__activity__address">
@@ -68,7 +67,7 @@ const Activity = ({
                       : (
                         <div>
                           <h4>
-                            {Object.keys(feedAddress)[0]}
+                            {(feedAddress.metaData && feedAddress.metaData.name) ? feedAddress.metaData.name : Object.keys(feedAddress)[0]}
                           </h4>
                           <p>
                             Ethereum Address
@@ -80,9 +79,9 @@ const Activity = ({
                 {
                   Object.values(feedAddress)[0].map((item, index) => (
                     (() => {
-                      if (item.dataType === 'Internal') return <FeedTileInternal item={item} key={index} currentAddress={currentAddress} name={name} isEven={parseInt(index, 10) % 2 === 0} />;
-                      if (item.dataType === 'Token') return <FeedTileToken item={item} key={index} currentAddress={currentAddress} name={name} isEven={parseInt(index, 10) % 2 === 0} />;
-                      if (item.dataType === 'Txs') return <FeedTileTXS item={item} key={index} currentAddress={currentAddress} name={name} isEven={parseInt(index, 10) % 2 === 0} />;
+                      if (item.dataType === 'Internal') return <FeedTileInternal item={item} key={index} metaDataName={feedAddress.metaData.name} currentAddress={currentAddress} name={name} isEven={parseInt(index, 10) % 2 === 0} />;
+                      if (item.dataType === 'Token') return <FeedTileToken item={item} key={index} metaDataName={feedAddress.metaData && feedAddress.metaData.name} currentAddress={currentAddress} name={name} isEven={parseInt(index, 10) % 2 === 0} />;
+                      if (item.dataType === 'Txs') return <FeedTileTXS item={item} key={index} metaDataName={feedAddress.metaData && feedAddress.metaData.name} currentAddress={currentAddress} name={name} isEven={parseInt(index, 10) % 2 === 0} />;
                       if (item.dataType === 'Public') return <FeedTileActivity item={item} key={index} verifiedGithub={verifiedGithub} verifiedTwitter={verifiedTwitter} isEven={parseInt(index, 10) % 2 === 0} />;
                       if (item.dataType === 'Private') return <FeedTileActivity item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
                     })()
@@ -101,12 +100,16 @@ const Activity = ({
           {(onPublicProfilePage && publicProfileActivity.length > 0)
             ? publicProfileActivity.map((feedAddress, i) => (
               <div key={i} className="feed__activity__tile">
+                {console.log(feedAddress)}
                 <div className="feed__activity__context">
                   {Object.keys(feedAddress)[0] === 'threeBox' ? (
                     <div className="logo__icon feed__activity__context__network">
                       <h2>3</h2>
                     </div>
                   )
+                    : ''}
+                  {(feedAddress.metaData && feedAddress.metaData.image) ?
+                    <img src={`https://ipfs.infura.io/ipfs/${feedAddress.metaData.image}`} className="feed__activity__user" alt="profile" />
                     : (
                       <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
                         0x
@@ -118,16 +121,17 @@ const Activity = ({
                         <div>
                           <h4>
                             3Box
-                      </h4>
+                          </h4>
                           <p>
                             Activity
-                      </p>
+                          </p>
                         </div>
                       )
                       : (
                         <div>
                           <h4>
-                            {Object.keys(feedAddress)[0] === publicProfileAddress ? publicName : Object.keys(feedAddress)[0]}
+                            {/* {Object.keys(feedAddress)[0] === publicProfileAddress ? publicName : Object.keys(feedAddress)[0]} */}
+                            {(feedAddress.metaData && feedAddress.metaData.name) ? feedAddress.metaData.name : Object.keys(feedAddress)[0]}
                           </h4>
                           <p>
                             Ethereum Address
@@ -139,9 +143,9 @@ const Activity = ({
                 {
                   Object.values(feedAddress)[0].map((item, index) => (
                     (() => {
-                      if (item.dataType === 'Internal') return <FeedTileInternal currentAddress={publicProfileAddress} onPublicProfilePage name={publicName} item={item} key={index} />;
-                      if (item.dataType === 'Token') return <FeedTileToken currentAddress={publicProfileAddress} onPublicProfilePage name={publicName} item={item} key={index} />;
-                      if (item.dataType === 'Txs') return <FeedTileTXS currentAddress={publicProfileAddress} onPublicProfilePage name={publicName} item={item} key={index} />;
+                      if (item.dataType === 'Internal') return <FeedTileInternal currentAddress={publicProfileAddress} metaDataName={feedAddress.metaData && feedAddress.metaData.name} onPublicProfilePage name={publicName} item={item} key={index} />;
+                      if (item.dataType === 'Token') return <FeedTileToken currentAddress={publicProfileAddress} metaDataName={feedAddress.metaData && feedAddress.metaData.name} onPublicProfilePage name={publicName} item={item} key={index} />;
+                      if (item.dataType === 'Txs') return <FeedTileTXS currentAddress={publicProfileAddress} metaDataName={feedAddress.metaData && feedAddress.metaData.name} onPublicProfilePage name={publicName} item={item} key={index} />;
                     })()
                   ))
                 }

@@ -67,8 +67,6 @@ export const FeedTileActivity = ({ item, verifiedGithub, verifiedTwitter }) => (
       </div>
     </div>
 
-
-
     {((item.key === 'image' || item.key === 'coverPhoto')
       && item.value
       && item.value.length > 0
@@ -92,15 +90,15 @@ FeedTileActivity.defaultProps = {
   verifiedTwitter: '',
 };
 
-export const FeedTileInternal = ({ item, currentAddress, name, onPublicProfilePage }) => (
-  <div className="feed__activity">
+export const FeedTileInternal = ({ item, currentAddress, name, onPublicProfilePage, metaDataName }) => (
+  <a href={`https://etherscan.io/tx/${item.hash}`} target="_blank" rel="noopener noreferrer" className="feed__activity">
     <div className="feed__activity__data">
       <div className="feed__activity__info">
         <img src={Internal} alt="Transaction Icon" />
         <p className="feed__activity__info__key">
           {onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
             ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} sent`
-            : `${item.from.toLowerCase().substring(0, 12)}... sent`)
+            : `${metaDataName || item.from.toLowerCase().substring(0, 12)}... sent`)
           }
           {!onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
             ? 'You sent'
@@ -112,7 +110,7 @@ export const FeedTileInternal = ({ item, currentAddress, name, onPublicProfilePa
         </p>
         <p className="feed__activity__info__key">
           {item.from.toLowerCase() === currentAddress.toLowerCase()
-            ? `to ${item.to.toLowerCase().substring(0, 12)}...`
+            ? `to ${metaDataName || item.to.toLowerCase().substring(0, 12)}...`
             : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`
           }
         </p>
@@ -130,11 +128,12 @@ export const FeedTileInternal = ({ item, currentAddress, name, onPublicProfilePa
         }
       </div>
     </div>
-  </div>
+  </a>
 );
 
 FeedTileInternal.propTypes = {
   item: PropTypes.object,
+  metaDataName: PropTypes.string,
   currentAddress: PropTypes.string,
   name: PropTypes.string,
   onPublicProfilePage: PropTypes.bool,
@@ -142,20 +141,21 @@ FeedTileInternal.propTypes = {
 
 FeedTileInternal.defaultProps = {
   item: {},
+  metaDataName: '',
   currentAddress: '',
   name: '',
   onPublicProfilePage: false,
 };
 
-export const FeedTileToken = ({ item, currentAddress, name, onPublicProfilePage }) => (
-  <div className="feed__activity">
+export const FeedTileToken = ({ item, currentAddress, name, onPublicProfilePage, metaDataName }) => (
+  <a href={`https://etherscan.io/tx/${item.hash}`} target="_blank" rel="noopener noreferrer" className="feed__activity">
     <div className="feed__activity__data">
       <div className="feed__activity__info">
         <img src={Tokens} alt="Transaction Icon" />
         <p className="feed__activity__info__key">
           {onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
             ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} sent`
-            : `${item.from.toLowerCase().substring(0, 12)}... sent`)
+            : `${metaDataName || item.from.toLowerCase().substring(0, 12)}... sent`)
           }
           {!onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
             ? 'You sent'
@@ -170,7 +170,7 @@ export const FeedTileToken = ({ item, currentAddress, name, onPublicProfilePage 
         </p>
         <p className="feed__activity__info__key">
           {item.from.toLowerCase() === currentAddress.toLowerCase()
-            ? `to ${item.to.toLowerCase().substring(0, 12)}...`
+            ? `to ${metaDataName || item.to.toLowerCase().substring(0, 12)}...`
             : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`
           }
         </p>
@@ -185,11 +185,12 @@ export const FeedTileToken = ({ item, currentAddress, name, onPublicProfilePage 
         }
       </div>
     </div>
-  </div>
+  </a>
 );
 
 FeedTileToken.propTypes = {
   item: PropTypes.object,
+  metaDataName: PropTypes.string,
   currentAddress: PropTypes.string,
   name: PropTypes.string,
   onPublicProfilePage: PropTypes.bool,
@@ -197,20 +198,21 @@ FeedTileToken.propTypes = {
 
 FeedTileToken.defaultProps = {
   item: {},
+  metaDataName: '',
   currentAddress: '',
   name: '',
   onPublicProfilePage: false,
 };
 
-export const FeedTileTXS = ({ item, currentAddress, name, onPublicProfilePage }) => (
-  <div className="feed__activity">
+export const FeedTileTXS = ({ item, currentAddress, name, onPublicProfilePage, metaDataName }) => (
+  <a href={`https://etherscan.io/tx/${item.hash}`} target="_blank" rel="noopener noreferrer" className="feed__activity">
     <div className="feed__activity__data">
       <div className="feed__activity__info">
         <img src={EthereumLine} alt="Transaction Icon" />
         <p className="feed__activity__info__key">
           {onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
             ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} sent`
-            : `${item.from.toLowerCase().substring(0, 12)}... sent`)
+            : `${metaDataName || item.from.toLowerCase().substring(0, 12)}... sent`)
           }
           {!onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
             ? 'You sent'
@@ -222,7 +224,7 @@ export const FeedTileTXS = ({ item, currentAddress, name, onPublicProfilePage })
         </p>
         <p className="feed__activity__info__key">
           {item.from.toLowerCase() === currentAddress.toLowerCase()
-            ? `to ${item.to.toLowerCase().substring(0, 12)}...`
+            ? `to ${metaDataName || item.to.toLowerCase().substring(0, 12)}...`
             : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`
           }
         </p>
@@ -237,11 +239,12 @@ export const FeedTileTXS = ({ item, currentAddress, name, onPublicProfilePage })
         }
       </div>
     </div>
-  </div>
+  </a>
 );
 
 FeedTileTXS.propTypes = {
   item: PropTypes.object,
+  metaDataName: PropTypes.string,
   currentAddress: PropTypes.string,
   name: PropTypes.string,
   onPublicProfilePage: PropTypes.bool,
@@ -249,6 +252,7 @@ FeedTileTXS.propTypes = {
 
 FeedTileTXS.defaultProps = {
   item: {},
+  metaDataName: '',
   currentAddress: '',
   name: '',
   onPublicProfilePage: false,

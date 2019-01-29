@@ -377,10 +377,32 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
       }
     });
 
+    let checkedAddresses = {};
+    feedByAddress.map(async (counterPartyAddress, i) => {
+      const otherAddress = Object.keys(counterPartyAddress)[0];
+      let metaData;
+
+      if (!checkedAddresses[otherAddress]) {
+        const graphqlQueryObject = `
+        {
+          profile(id: "${otherAddress}") {
+            name
+            image
+          }
+        }
+        `;
+        metaData = await Box.profileGraphQL(graphqlQueryObject); // eslint-disable-line no-undef
+        checkedAddresses[otherAddress] = metaData;
+      } else {
+        metaData = checkedAddresses[otherAddress];
+      }
+
+      feedByAddress[i].metaData = {
+        name: metaData.profile.name,
+        image: metaData.profile.image,
+      };
+    });
     console.log(feedByAddress);
-    // for each address in the feed, get:
-    // 
-    // feedByAddress.map()
 
     if (publicProfileAddress) {
       dispatch({
