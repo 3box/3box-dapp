@@ -196,12 +196,13 @@
   margin-right: 6px;
 }
 
-.feed__activity__info__value {
+.feed__activity__info__token {
   font-weight: 500;
-  max-width: 60%;
+  max-width: 52%;
   overflow: hidden;
   white-space: nowrap;
   font-weight: 800;
+  margin-right: 6px;
 }
 
 .feed__activity__data {
@@ -311,7 +312,9 @@
 
   img {
     width: 24px;
+    min-width: 24px;
     margin-right: 18px;
+    height: 25px;
   }
 }
 
@@ -375,10 +378,13 @@
 }
 
 .feed__activity__address__amount {
-  width: 20%;
+  width: fit-content;
+  // width: 20%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-right: 6px;
+  font-weight: 800;
 }
 
 .feed__activity__address__time {

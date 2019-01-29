@@ -143,12 +143,13 @@
   min-width: fit-content;
   margin-right: 6px; }
 
-.feed__activity__info__value {
+.feed__activity__info__token {
   font-weight: 500;
-  max-width: 60%;
+  max-width: 52%;
   overflow: hidden;
   white-space: nowrap;
-  font-weight: 800; }
+  font-weight: 800;
+  margin-right: 6px; }
 
 .feed__activity__data {
   display: flex;
@@ -239,7 +240,9 @@
   width: 80%; }
   .feed__activity__info img {
     width: 24px;
-    margin-right: 18px; }
+    min-width: 24px;
+    margin-right: 18px;
+    height: 25px; }
 
 .feed__activity__address__amount__emoji {
   font-size: 24px;
@@ -287,10 +290,12 @@
   width: .8em !important; }
 
 .feed__activity__address__amount {
-  width: 20%;
+  width: fit-content;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; }
+  text-overflow: ellipsis;
+  margin-right: 6px;
+  font-weight: 800; }
 
 .feed__activity__address__time {
   width: 80%;

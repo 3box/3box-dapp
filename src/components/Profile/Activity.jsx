@@ -23,10 +23,13 @@ const Activity = ({
   publicProfileActivity,
   onPublicProfilePage,
   currentAddress,
+  publicProfileAddress,
   name,
   image,
+  publicName,
 }) => (
     <div id="feed">
+      {console.log(feedByAddress)}
       <div>
         <p className="header" id="feed__header">Activity</p>
         <div className="feed__activity__address">
@@ -77,9 +80,9 @@ const Activity = ({
                 {
                   Object.values(feedAddress)[0].map((item, index) => (
                     (() => {
-                      if (item.dataType === 'Internal') return <FeedTileInternal item={item} key={index} currentAddress={currentAddress} isEven={parseInt(index, 10) % 2 === 0} />;
-                      if (item.dataType === 'Token') return <FeedTileToken item={item} key={index} currentAddress={currentAddress} isEven={parseInt(index, 10) % 2 === 0} />;
-                      if (item.dataType === 'Txs') return <FeedTileTXS item={item} key={index} currentAddress={currentAddress} isEven={parseInt(index, 10) % 2 === 0} />;
+                      if (item.dataType === 'Internal') return <FeedTileInternal item={item} key={index} currentAddress={currentAddress} name={name} isEven={parseInt(index, 10) % 2 === 0} />;
+                      if (item.dataType === 'Token') return <FeedTileToken item={item} key={index} currentAddress={currentAddress} name={name} isEven={parseInt(index, 10) % 2 === 0} />;
+                      if (item.dataType === 'Txs') return <FeedTileTXS item={item} key={index} currentAddress={currentAddress} name={name} isEven={parseInt(index, 10) % 2 === 0} />;
                       if (item.dataType === 'Public') return <FeedTileActivity item={item} key={index} verifiedGithub={verifiedGithub} verifiedTwitter={verifiedTwitter} isEven={parseInt(index, 10) % 2 === 0} />;
                       if (item.dataType === 'Private') return <FeedTileActivity item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
                     })()
@@ -107,7 +110,7 @@ const Activity = ({
                     : (
                       <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
                         0x
-                  </div>)
+                      </div>)
                   }
                   <div className="feed__activity__address">
                     {Object.keys(feedAddress)[0] === 'threeBox'
@@ -124,7 +127,7 @@ const Activity = ({
                       : (
                         <div>
                           <h4>
-                            {Object.keys(feedAddress)[0]}
+                            {Object.keys(feedAddress)[0] === publicProfileAddress ? publicName : Object.keys(feedAddress)[0]}
                           </h4>
                           <p>
                             Ethereum Address
@@ -136,11 +139,9 @@ const Activity = ({
                 {
                   Object.values(feedAddress)[0].map((item, index) => (
                     (() => {
-                      if (item.dataType === 'Internal') return <FeedTileInternal item={item} key={index} />;
-                      if (item.dataType === 'Token') return <FeedTileToken item={item} key={index} />;
-                      if (item.dataType === 'Txs') return <FeedTileTXS item={item} key={index} />;
-                      if (item.dataType === 'Public') return <FeedTileActivity item={item} key={index} verifiedGithub={verifiedGithub} />;
-                      if (item.dataType === 'Private') return <FeedTileActivity item={item} key={index} />;
+                      if (item.dataType === 'Internal') return <FeedTileInternal currentAddress={publicProfileAddress} onPublicProfilePage name={publicName} item={item} key={index} />;
+                      if (item.dataType === 'Token') return <FeedTileToken currentAddress={publicProfileAddress} onPublicProfilePage name={publicName} item={item} key={index} />;
+                      if (item.dataType === 'Txs') return <FeedTileTXS currentAddress={publicProfileAddress} onPublicProfilePage name={publicName} item={item} key={index} />;
                     })()
                   ))
                 }
@@ -172,9 +173,11 @@ Activity.propTypes = {
   verifiedTwitter: PropTypes.string,
   currentAddress: PropTypes.string,
   name: PropTypes.string,
+  publicProfileAddress: PropTypes.string,
   image: PropTypes.array,
   publicProfileActivity: PropTypes.array,
   location: PropTypes.object,
+  publicName: PropTypes.string,
 };
 
 Activity.defaultProps = {
@@ -185,7 +188,9 @@ Activity.defaultProps = {
   onPublicProfilePage: false,
   verifiedGithub: '',
   verifiedTwitter: '',
+  publicProfileAddress: '',
   currentAddress: '',
+  publicName: '',
   publicProfileActivity: [],
   location: {},
 };
@@ -198,8 +203,10 @@ const mapState = state => ({
   publicProfileActivity: state.threeBox.publicProfileActivity,
   onPublicProfilePage: state.threeBox.onPublicProfilePage,
   currentAddress: state.threeBox.currentAddress,
+  publicProfileAddress: state.threeBox.publicProfileAddress,
   name: state.threeBox.name,
   image: state.threeBox.image,
+  publicName: state.threeBox.publicName,
 });
 
 export default connect(mapState)(Activity);

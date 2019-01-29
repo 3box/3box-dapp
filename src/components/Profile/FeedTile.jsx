@@ -20,39 +20,41 @@ export const FeedTileActivity = ({ item, verifiedGithub, verifiedTwitter }) => (
     <div className="feed__activity__data">
       <div className="feed__activity__info">
         <img src={item.op === 'PUT' ? Save : Delete} alt="Transaction Icon" />
+
         <p className="feed__activity__info__key">
           {` You 
         ${item.op === 'PUT' ? 'updated your' : 'removed your'}
-        ${item.dataType === 'Private'
-              ? 'private data'
-              : item.key === 'proof_github'
-                ? 'a Github username'
-                : item.key === 'proof_twitter'
-                  ? 'a Twitter username'
-                  // : item.key && (item.key).replace(/([A-Z])/g, ' $1').trim()
-                  : item.key && (item.key.charAt(0).toUpperCase() + item.key.slice(1)).replace(/([A-Z])/g, ' $1').trim()
-            // : item.key
-            } to`}
+        ${item.dataType === 'Private' ? 'private data' : ''}
+        ${item.key === 'proof_github' ? 'Github username' : ''}
+        ${item.key === 'proof_twitter' ? 'Twitter username' : ''}
+        ${(item.key !== 'proof_twitter' ? item.key !== 'proof_github' : '')
+              ? (item.key).replace(/([A-Z])/g, ' $1').trim().toLowerCase()
+              : ''} 
+            `}
+          {item.op === 'PUT' ? 'to' : ''}
         </p>
-        <p className="feed__activity__info__value">
-          {(item.key === 'image' || item.key === 'coverPhoto')
-            ? ""
-            : item.dataType === 'Private'
-              ? '*****'
-              : item.key === 'emoji'
-                ? (
-                  <span className="feed__activity__address__amount__emoji">
-                    {typeof item.value === 'object' ? Object.keys(item.value)[0] : item.value}
-                  </span>
-                )
-                : item.key === 'proof_github'
-                  ? verifiedGithub
-                  : item.key === 'proof_twitter'
-                    ? verifiedTwitter
-                    : typeof item.value === 'object'
-                      ? `${item.value ? Object.keys(item.value)[0] : '-----'}`
-                      : item.value}
-        </p>
+
+        {item.op === 'PUT' ? (
+          <p className="feed__activity__info__token">
+            {(item.key === 'image' || item.key === 'coverPhoto')
+              ? '' : ''}
+            {item.dataType === 'Private'
+              ? '*****' : ''}
+            {item.key === 'emoji'
+              ? (
+                <span className="feed__activity__address__amount__emoji">
+                  {typeof item.value === 'object' ? Object.keys(item.value)[0] : item.value}
+                </span>
+              ) : ''}
+            {item.key === 'proof_github'
+              ? verifiedGithub : ''}
+            {item.key === 'proof_twitter'
+              ? verifiedTwitter : ''}
+            {typeof item.value === 'object'
+              ? `${item.value ? Object.keys(item.value)[0] : '-----'}` : ''}
+            {typeof item.value === 'string'
+              ? item.value : ''}
+          </p>) : ''}
       </div>
       <div className="feed__activity__metaData">
         <p className="feed__activity__address__time">
@@ -71,9 +73,9 @@ export const FeedTileActivity = ({ item, verifiedGithub, verifiedTwitter }) => (
       && item.value
       && item.value.length > 0
       && item.value[0].contentUrl)
-      && (
+      ? (
         <img src={`https://ipfs.infura.io/ipfs/${item.value[0].contentUrl['/']}`} className="feed__activity__image clearProfPic" alt="profile" />
-      )
+      ) : ''
     }
   </div>
 );
@@ -90,66 +92,87 @@ FeedTileActivity.defaultProps = {
   verifiedTwitter: '',
 };
 
-export const FeedTileInternal = ({ item, currentAddress }) => (
+export const FeedTileInternal = ({ item, currentAddress, name, onPublicProfilePage }) => (
   <div className="feed__activity">
-    {item.from === currentAddress
-      ? (
-        <div className="feed__activity__address__toFrom">
-          <img src={Send} alt="Transaction Icon" />
-          <p>
-            Send
-          </p>
-        </div>
-      )
-      : (
-        <div className="feed__activity__address__toFrom">
-          <img src={Receive} alt="Transaction Icon" />
-          <p>
-            Receive
-          </p>
-        </div>
-      )
-    }
-    <p className="feed__activity__address__function">
-      {item.type && item.type.charAt(0).toUpperCase() + item.type.slice(1)}
-    </p>
-    <p className="feed__activity__address__amount" title={(Number(item.value) / 1000000000000000000).toString()}>
-      {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ETH`}
-    </p>
-
-    <div className="feed__activity__metaData">
-      <p className="feed__activity__address__time">
-        {timeSince(item.timeStamp * 1000)}
-      </p>
-      <img src={Internal} alt="Transaction Icon" className="feed__activity__address__dataType" />
+    <div className="feed__activity__data">
+      <div className="feed__activity__info">
+        <img src={Internal} alt="Transaction Icon" />
+        <p className="feed__activity__info__key">
+          {onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
+            ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} sent`
+            : `${item.from.toLowerCase().substring(0, 12)}... sent`)
+          }
+          {!onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
+            ? 'You sent'
+            : 'sent you')
+          }
+        </p>
+        <p className="feed__activity__address__amount" title={(Number(item.value) / 1000000000000000000).toString()}>
+          {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ${item.tokenSymbol ? item.tokenSymbol : 'Tokens'}`}
+        </p>
+        <p className="feed__activity__info__key">
+          {item.from.toLowerCase() === currentAddress.toLowerCase()
+            ? `to ${item.to.toLowerCase().substring(0, 12)}...`
+            : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`
+          }
+        </p>
+        {/* <p className="feed__activity__info__token" title={item.tokenName}>
+          {item.tokenName ? item.tokenName : 'Token'}
+        </p> */}
+      </div>
+      <div className="feed__activity__metaData">
+        <p className="feed__activity__address__time">
+          {timeSince(item.timeStamp * 1000)}
+        </p>
+        {item.dataType === 'Private'
+          ? <img src={PrivateActivity} alt="Transaction Icon" className="feed__activity__address__dataType" />
+          : <img src={Globe} alt="Transaction Icon" className="feed__activity__address__dataType" />
+        }
+      </div>
     </div>
   </div>
 );
 
 FeedTileInternal.propTypes = {
   item: PropTypes.object,
+  currentAddress: PropTypes.string,
+  name: PropTypes.string,
+  onPublicProfilePage: PropTypes.bool,
 };
 
 FeedTileInternal.defaultProps = {
   item: {},
+  currentAddress: '',
+  name: '',
+  onPublicProfilePage: false,
 };
 
-export const FeedTileToken = ({ item, currentAddress }) => (
+export const FeedTileToken = ({ item, currentAddress, name, onPublicProfilePage }) => (
   <div className="feed__activity">
     <div className="feed__activity__data">
       <div className="feed__activity__info">
-        <img src={item.op === 'PUT' ? Save : Delete} alt="Transaction Icon" />
+        <img src={Tokens} alt="Transaction Icon" />
         <p className="feed__activity__info__key">
-          {item.from === currentAddress
-            ? "You sent"
-            : "sent you"
+          {onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
+            ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} sent`
+            : `${item.from.toLowerCase().substring(0, 12)}... sent`)
+          }
+          {!onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
+            ? 'You sent'
+            : 'sent you')
           }
         </p>
-        <p className="feed__activity__info__value" title={item.tokenName}>
+        {/* <p className="feed__activity__info__token" title={item.tokenName}>
           {item.tokenName ? item.tokenName : 'Token'}
-        </p>
+        </p> */}
         <p className="feed__activity__address__amount" title={(Number(item.value) / 1000000000000000000).toString()}>
           {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ${item.tokenSymbol ? item.tokenSymbol : 'Tokens'}`}
+        </p>
+        <p className="feed__activity__info__key">
+          {item.from.toLowerCase() === currentAddress.toLowerCase()
+            ? `to ${item.to.toLowerCase().substring(0, 12)}...`
+            : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`
+          }
         </p>
       </div>
       <div className="feed__activity__metaData">
@@ -167,25 +190,41 @@ export const FeedTileToken = ({ item, currentAddress }) => (
 
 FeedTileToken.propTypes = {
   item: PropTypes.object,
+  currentAddress: PropTypes.string,
+  name: PropTypes.string,
+  onPublicProfilePage: PropTypes.bool,
 };
 
 FeedTileToken.defaultProps = {
   item: {},
+  currentAddress: '',
+  name: '',
+  onPublicProfilePage: false,
 };
 
-export const FeedTileTXS = ({ item, currentAddress }) => (
+export const FeedTileTXS = ({ item, currentAddress, name, onPublicProfilePage }) => (
   <div className="feed__activity">
     <div className="feed__activity__data">
       <div className="feed__activity__info">
-        <img src={item.op === 'PUT' ? Save : Delete} alt="Transaction Icon" />
+        <img src={EthereumLine} alt="Transaction Icon" />
         <p className="feed__activity__info__key">
-          {item.from === currentAddress
-            ? "You sent"
-            : "sent you"
+          {onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
+            ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} sent`
+            : `${item.from.toLowerCase().substring(0, 12)}... sent`)
+          }
+          {!onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
+            ? 'You sent'
+            : 'sent you')
           }
         </p>
-        <p className="feed__activity__info__value" title={`${(Number(item.value) / 1000000000000000000).toString()} ETH`}>
+        <p className="feed__activity__info__token" title={`${(Number(item.value) / 1000000000000000000).toString()} ETH`}>
           {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ETH`}
+        </p>
+        <p className="feed__activity__info__key">
+          {item.from.toLowerCase() === currentAddress.toLowerCase()
+            ? `to ${item.to.toLowerCase().substring(0, 12)}...`
+            : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`
+          }
         </p>
       </div>
       <div className="feed__activity__metaData">
@@ -204,11 +243,15 @@ export const FeedTileTXS = ({ item, currentAddress }) => (
 FeedTileTXS.propTypes = {
   item: PropTypes.object,
   currentAddress: PropTypes.string,
+  name: PropTypes.string,
+  onPublicProfilePage: PropTypes.bool,
 };
 
 FeedTileTXS.defaultProps = {
   item: {},
   currentAddress: '',
+  name: '',
+  onPublicProfilePage: false,
 };
 
 
@@ -337,3 +380,63 @@ FeedTileTXS.defaultProps = {
   <img src={EthereumLine} alt="Transaction Icon" className="feed__activity__address__dataType--ethereum feed__activity__address__dataType" />
 </div>
 </div> */}
+
+// Internal
+{/* <div className="feed__activity">
+    {item.from === currentAddress
+      ? (
+        <div className="feed__activity__address__toFrom">
+          <img src={Send} alt="Transaction Icon" />
+          <p>
+            Send
+          </p>
+        </div>
+      )
+      : (
+        <div className="feed__activity__address__toFrom">
+          <img src={Receive} alt="Transaction Icon" />
+          <p>
+            Receive
+          </p>
+        </div>
+      )
+    }
+    <p className="feed__activity__address__function">
+      {item.type && item.type.charAt(0).toUpperCase() + item.type.slice(1)}
+    </p>
+    <p className="feed__activity__address__amount" title={(Number(item.value) / 1000000000000000000).toString()}>
+      {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ETH`}
+    </p>
+
+    <div className="feed__activity__metaData">
+      <p className="feed__activity__address__time">
+        {timeSince(item.timeStamp * 1000)}
+      </p>
+      <img src={Internal} alt="Transaction Icon" className="feed__activity__address__dataType" />
+    </div>
+  </div> */}
+
+
+// : item.key && (item.key.charAt(0).toUpperCase() + item.key.slice(1)).replace(/([A-Z])/g, ' $1').trim()
+// : item.key
+
+
+// from activity tile
+{/* {item.op === 'PUT' && (
+            (item.key === 'image' || item.key === 'coverPhoto')
+              ? ""
+              : item.dataType === 'Private'
+                ? '*****'
+                : item.key === 'emoji'
+                  ? (
+                    <span className="feed__activity__address__amount__emoji">
+                      {typeof item.value === 'object' ? Object.keys(item.value)[0] : item.value}
+                    </span>
+                  )
+                  : item.key === 'proof_github'
+                    ? verifiedGithub
+                    : item.key === 'proof_twitter'
+                      ? verifiedTwitter
+                      : typeof item.value === 'object'
+                        ? `${item.value ? Object.keys(item.value)[0] : '-----'}`
+                        : item.value)} */}
