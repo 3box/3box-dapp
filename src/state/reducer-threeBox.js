@@ -96,6 +96,7 @@ export const threeBoxReducer = (state = {}, action) => {
         publicImage: action.publicImage,
         publicName: action.publicName,
         publicEmoji: action.publicEmoji,
+        publicStatus: action.publicStatus,
       };
 
     case 'GET_PUBLIC_PROFILE_ACTIVITY':
