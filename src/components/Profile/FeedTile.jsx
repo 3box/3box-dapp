@@ -254,9 +254,6 @@ FeedTileTXS.defaultProps = {
   onPublicProfilePage: false,
 };
 
-
-
-
 // ACTIVITY
 // export const FeedTileActivity = ({ item, isEven, verifiedGithub, verifiedTwitter }) => (
 //   <div className={`feed__activity ${isEven ? 'darkFeed' : 'lightFeed'}`}>

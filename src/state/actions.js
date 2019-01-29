@@ -1,7 +1,6 @@
 import {
   store,
 } from './store';
-
 import * as routes from '../utils/routes';
 import history from '../history';
 
