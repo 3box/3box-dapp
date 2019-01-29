@@ -117,11 +117,13 @@ export const FeedTileInternal = ({ item, isEven, currentAddress }) => (
 FeedTileInternal.propTypes = {
   item: PropTypes.object,
   isEven: PropTypes.bool,
+  currentAddress: PropTypes.string,
 };
 
 FeedTileInternal.defaultProps = {
   item: {},
   isEven: false,
+  currentAddress: '',
 };
 
 export const FeedTileToken = ({ item, isEven, currentAddress }) => (
@@ -162,11 +164,13 @@ export const FeedTileToken = ({ item, isEven, currentAddress }) => (
 FeedTileToken.propTypes = {
   item: PropTypes.object,
   isEven: PropTypes.bool,
+  currentAddress: PropTypes.string,
 };
 
 FeedTileToken.defaultProps = {
   item: {},
   isEven: false,
+  currentAddress: '',
 };
 
 export const FeedTileTXS = ({ item, isEven, currentAddress }) => (
@@ -207,9 +211,11 @@ export const FeedTileTXS = ({ item, isEven, currentAddress }) => (
 FeedTileTXS.propTypes = {
   item: PropTypes.object,
   isEven: PropTypes.bool,
+  currentAddress: PropTypes.string,
 };
 
 FeedTileTXS.defaultProps = {
   item: {},
   isEven: false,
+  currentAddress: '',
 };
