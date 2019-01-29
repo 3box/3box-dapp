@@ -115,6 +115,14 @@
   max-width: calc(700px + 2.6em) !important;
   min-width: calc(700px + 2.6em) !important; }
 
+.feed__activity__user {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  object-fit: cover;
+  margin-right: 15px; }
+
 #feed__header {
   font-size: 18px;
   line-height: 24px !important;
@@ -125,12 +133,28 @@
   padding: 20px 0 14px 20px; }
 
 .feed__activity__tile {
+  margin-top: 20px;
+  border: 1px solid #E4E4E4;
+  padding: 1em;
+  width: 90%;
+  border-radius: 6px; }
+
+.feed__activity__info__key {
+  min-width: fit-content;
+  margin-right: 6px; }
+
+.feed__activity__info__value {
+  font-weight: 500;
+  max-width: 60%;
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: 800; }
+
+.feed__activity__data {
   display: flex;
-  flex-direction: column;
-  border-top: solid 1px #E4E4E4;
-  border-bottom: solid 1px #E4E4E4;
-  padding: 2.3em 0;
-  margin-bottom: -1px; }
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; }
 
 .feed__activity__address__amount__emoji {
   height: 34px;
@@ -140,29 +164,40 @@
   display: flex;
   align-items: center;
   margin-bottom: 1.3em;
-  padding: 0 0 0 30px; }
-  .feed__activity__context .feed__activity__context__network {
-    min-width: 2.2em;
-    height: 2.2em;
-    margin-right: 12px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  padding: 0; }
+
+.feed__activity__context__network {
+  min-width: 2.2em;
+  height: 2.2em;
+  margin-right: 12px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 500; }
+
+.logo__icon {
+  width: 2.1em;
+  height: 2.1em;
+  border-radius: 4px;
+  background-color: #006ECC;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .logo__icon h2 {
     color: white;
-    font-weight: 500; }
-  .feed__activity__context .logo__icon {
-    width: 2.1em;
-    height: 2.1em;
-    border-radius: 4px;
-    background-color: #006ECC;
-    display: flex;
-    align-items: center;
-    justify-content: center; }
-    .feed__activity__context .logo__icon h2 {
-      color: white;
-      font-size: 1.5em !important;
-      font-weight: 700; }
+    font-size: 1.5em !important;
+    font-weight: 700; }
+
+.feed__activity__image {
+  border-radius: 6px;
+  min-width: 639px;
+  width: 639px;
+  margin: 0;
+  object-fit: cover;
+  background-color: #006ECC;
+  margin-top: 20px; }
 
 .logo__icon--footer {
   width: 2.1em;
@@ -187,39 +222,44 @@
 
 .feed__activity__address {
   display: flex;
-  flex-direction: column; }
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; }
   .feed__activity__address h4 {
     margin-bottom: .2em; }
   .feed__activity__address p {
     color: #747677; }
 
+.feed__activity__info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  max-width: 80%;
+  overflow: auto;
+  width: 80%; }
+  .feed__activity__info img {
+    width: 24px;
+    margin-right: 18px; }
+
 .feed__activity__address__amount__emoji {
   font-size: 24px;
   padding-top: 6px; }
 
-.feed__activity___data {
+.feed__activity {
   display: flex;
   align-items: center;
-  margin-top: .6em;
-  margin-left: 30px;
-  margin-right: 30px;
-  min-height: 2.5em;
-  padding: .4em .8em;
-  border-radius: 4px;
-  justify-content: space-between; }
-
-.darkFeed {
-  background-color: #f9f9f9; }
-
-.lightFeed {
-  background-color: white; }
+  margin-top: .8em;
+  padding: .8em .8em;
+  border-radius: 6px;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #f9f9f9;
+  border: solid 1px #E4E4E4; }
 
 .feed__activity__address__dataType {
-  width: 76px;
+  width: 18px;
   display: flex;
   align-items: center; }
-  .feed__activity__address__dataType img {
-    width: 1.2em; }
 
 .feed__activity__address__dataType--ethereum {
   width: .9em !important; }
@@ -237,6 +277,12 @@
     width: 1em;
     margin-right: 1vw; }
 
+.feed__activity__metaData {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 17%; }
+
 .saveDelete img {
   width: .8em !important; }
 
@@ -246,14 +292,13 @@
   overflow: hidden;
   text-overflow: ellipsis; }
 
-.feed__activity__address__amount__image {
-  width: 24px; }
-
 .feed__activity__address__time {
-  width: 18%;
+  width: 80%;
   justify-content: center;
   align-items: center;
-  display: flex; }
+  display: flex;
+  color: #b8b8b8 !important;
+  font-size: 12px !important; }
 
 .feed__activity__load {
   border-top: solid 1px #E4E4E4;
@@ -298,7 +343,7 @@
     margin-top: 18px !important; }
   .hideStatusButton {
     display: block; }
-  .feed__activity___data {
+  .feed__activity {
     margin-left: 0;
     display: flex;
     padding: .4em .8em;
@@ -321,11 +366,6 @@
     margin-top: 18px; }
   #feed__header {
     padding: 30px 0 20px 20px; }
-  #feed__activity {
-    width: 100vw;
-    white-space: nowrap;
-    overflow: hidden;
-    overflow-x: scroll; }
   .feed__activity__context {
     padding-left: .8em; }
   .feed__activity__address {
@@ -340,7 +380,7 @@
     white-space: nowrap;
     overflow: hidden;
     overflow-x: scroll; }
-  .feed__activity___data {
+  .feed__activity {
     width: calc(100vw - 1.6em);
     white-space: nowrap;
     overflow: hidden;

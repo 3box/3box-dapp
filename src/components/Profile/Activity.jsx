@@ -7,7 +7,7 @@ import {
   FeedTileToken,
   FeedTileInternal,
   FeedTileActivity,
-} from '../FeedTile';
+} from './FeedTile';
 
 import networkArray from '../../utils/networkArray';
 import Loading from '../../assets/Loading.svg';
@@ -23,6 +23,8 @@ const Activity = ({
   publicProfileActivity,
   onPublicProfilePage,
   currentAddress,
+  name,
+  image,
 }) => (
     <div id="feed">
       <div>
@@ -39,11 +41,10 @@ const Activity = ({
             ? feedByAddress.map((feedAddress, i) => (
               <div key={i} className="feed__activity__tile">
                 <div className="feed__activity__context">
-                  {Object.keys(feedAddress)[0] === 'threeBox' ? (
-                    <div className="logo__icon feed__activity__context__network">
-                      <h2>3</h2>
-                    </div>
-                  )
+                  {Object.keys(feedAddress)[0] === 'threeBox' ?
+                    image.length > 0 && image[0].contentUrl
+                      ? <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} className="feed__activity__user" alt="profile" />
+                      : <div className="feed__activity__user" />
                     : (
                       <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
                         0x
@@ -54,10 +55,10 @@ const Activity = ({
                       ? (
                         <div>
                           <h4>
-                            3Box
+                            {name}
                           </h4>
                           <p>
-                            Activity
+                            3Box Profile
                           </p>
                         </div>
                       )
@@ -135,11 +136,11 @@ const Activity = ({
                 {
                   Object.values(feedAddress)[0].map((item, index) => (
                     (() => {
-                      if (item.dataType === 'Internal') return <FeedTileInternal item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
-                      if (item.dataType === 'Token') return <FeedTileToken item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
-                      if (item.dataType === 'Txs') return <FeedTileTXS item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
-                      if (item.dataType === 'Public') return <FeedTileActivity item={item} key={index} verifiedGithub={verifiedGithub} isEven={parseInt(index, 10) % 2 === 0} />;
-                      if (item.dataType === 'Private') return <FeedTileActivity item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
+                      if (item.dataType === 'Internal') return <FeedTileInternal item={item} key={index} />;
+                      if (item.dataType === 'Token') return <FeedTileToken item={item} key={index} />;
+                      if (item.dataType === 'Txs') return <FeedTileTXS item={item} key={index} />;
+                      if (item.dataType === 'Public') return <FeedTileActivity item={item} key={index} verifiedGithub={verifiedGithub} />;
+                      if (item.dataType === 'Private') return <FeedTileActivity item={item} key={index} />;
                     })()
                   ))
                 }
@@ -170,12 +171,16 @@ Activity.propTypes = {
   verifiedGithub: PropTypes.string,
   verifiedTwitter: PropTypes.string,
   currentAddress: PropTypes.string,
+  name: PropTypes.string,
+  image: PropTypes.array,
   publicProfileActivity: PropTypes.array,
   location: PropTypes.object,
 };
 
 Activity.defaultProps = {
   feedByAddress: [],
+  image: [],
+  name: '',
   ifFetchingActivity: false,
   onPublicProfilePage: false,
   verifiedGithub: '',
@@ -193,6 +198,8 @@ const mapState = state => ({
   publicProfileActivity: state.threeBox.publicProfileActivity,
   onPublicProfilePage: state.threeBox.onPublicProfilePage,
   currentAddress: state.threeBox.currentAddress,
+  name: state.threeBox.name,
+  image: state.threeBox.image,
 });
 
 export default connect(mapState)(Activity);
