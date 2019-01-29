@@ -102,7 +102,6 @@ class App extends Component {
     const { location } = nextProps;
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
-    const splitRoute = normalizedPath.split('/');
 
     // check previous route for banner behavior on /Create & /Profiles
     // does not work with back button
@@ -110,7 +109,6 @@ class App extends Component {
       store.dispatch({
         type: 'UPDATE_ROUTE',
         currentRoute: normalizedPath,
-        onPublicProfilePage: splitRoute.length > 1 && splitRoute[1].substring(0, 2) === '0x' && !matchProtectedRoutes(splitRoute[2]),
       });
     }
 

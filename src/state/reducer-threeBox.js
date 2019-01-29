@@ -426,7 +426,13 @@ export const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         currentRoute: action.currentRoute,
+      };
+
+    case 'UPDATE_PUBLIC_PROFILE':
+      return {
+        ...state,
         onPublicProfilePage: action.onPublicProfilePage,
+        publicProfileAddress: action.publicProfileAddress,
       };
 
     case 'COPY_SUCCESSFUL':

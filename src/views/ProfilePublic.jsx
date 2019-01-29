@@ -27,13 +27,12 @@ class ProfilePublic extends Component {
     window.scrollTo(0, 0);
     const { location: { pathname }, currentAddress } = this.props;
     const publicProfileAddress = pathname.split('/')[1];
-    const normalizedPath = normalizeURL(pathname);
     let activeAddress;
 
     store.dispatch({
-      type: 'UPDATE_ROUTE',
-      currentRoute: normalizedPath,
+      type: 'UPDATE_PUBLIC_PROFILE',
       onPublicProfilePage: true,
+      publicProfileAddress,
     });
 
     if (typeof window.web3 !== 'undefined') {
@@ -51,13 +50,10 @@ class ProfilePublic extends Component {
   }
 
   componentWillUnmount() {
-    const { location: { pathname } } = this.props;
-    const normalizedPath = normalizeURL(pathname);
-
     store.dispatch({
-      type: 'UPDATE_ROUTE',
-      currentRoute: normalizedPath,
+      type: 'UPDATE_PUBLIC_PROFILE',
       onPublicProfilePage: false,
+      publicProfileAddress: '',
     });
   }
 

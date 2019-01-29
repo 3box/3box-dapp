@@ -23,6 +23,7 @@ const Activity = ({
   publicProfileActivity,
   onPublicProfilePage,
   currentAddress,
+  publicProfileAddress,
 }) => (
     <div id="feed">
       <div>
@@ -106,7 +107,7 @@ const Activity = ({
                     : (
                       <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
                         0x
-                  </div>)
+                      </div>)
                   }
                   <div className="feed__activity__address">
                     {Object.keys(feedAddress)[0] === 'threeBox'
@@ -135,9 +136,9 @@ const Activity = ({
                 {
                   Object.values(feedAddress)[0].map((item, index) => (
                     (() => {
-                      if (item.dataType === 'Internal') return <FeedTileInternal item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
-                      if (item.dataType === 'Token') return <FeedTileToken item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
-                      if (item.dataType === 'Txs') return <FeedTileTXS item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
+                      if (item.dataType === 'Internal') return <FeedTileInternal item={item} key={index} currentAddress={publicProfileAddress} isEven={parseInt(index, 10) % 2 === 0} />;
+                      if (item.dataType === 'Token') return <FeedTileToken item={item} key={index} currentAddress={publicProfileAddress} isEven={parseInt(index, 10) % 2 === 0} />;
+                      if (item.dataType === 'Txs') return <FeedTileTXS item={item} key={index} currentAddress={publicProfileAddress} isEven={parseInt(index, 10) % 2 === 0} />;
                       if (item.dataType === 'Public') return <FeedTileActivity item={item} key={index} verifiedGithub={verifiedGithub} isEven={parseInt(index, 10) % 2 === 0} />;
                       if (item.dataType === 'Private') return <FeedTileActivity item={item} key={index} isEven={parseInt(index, 10) % 2 === 0} />;
                     })()
@@ -170,6 +171,7 @@ Activity.propTypes = {
   verifiedGithub: PropTypes.string,
   verifiedTwitter: PropTypes.string,
   currentAddress: PropTypes.string,
+  publicProfileAddress: PropTypes.string,
   publicProfileActivity: PropTypes.array,
   location: PropTypes.object,
 };
@@ -181,6 +183,7 @@ Activity.defaultProps = {
   verifiedGithub: '',
   verifiedTwitter: '',
   currentAddress: '',
+  publicProfileAddress: '',
   publicProfileActivity: [],
   location: {},
 };
@@ -193,6 +196,7 @@ const mapState = state => ({
   publicProfileActivity: state.threeBox.publicProfileActivity,
   onPublicProfilePage: state.threeBox.onPublicProfilePage,
   currentAddress: state.threeBox.currentAddress,
+  publicProfileAddress: state.threeBox.publicProfileAddress,
 });
 
 export default connect(mapState)(Activity);

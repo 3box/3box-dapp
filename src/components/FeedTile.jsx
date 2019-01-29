@@ -84,7 +84,7 @@ export const FeedTileInternal = ({ item, isEven, currentAddress }) => (
     <div className="feed__activity__address__dataType">
       <img src={Internal} alt="Transaction Icon" />
     </div>
-    {item.from === currentAddress
+    {item.from.toLowerCase() === currentAddress.toLowerCase()
       ? (
         <div className="feed__activity__address__toFrom">
           <img src={Send} alt="Transaction Icon" />
@@ -129,7 +129,7 @@ export const FeedTileToken = ({ item, isEven, currentAddress }) => (
     <div className="feed__activity__address__dataType">
       <img src={Tokens} alt="Token Icon" />
     </div>
-    {item.from === currentAddress
+    {item.from.toLowerCase() === currentAddress.toLowerCase()
       ? (
         <div className="feed__activity__address__toFrom">
           <img src={Send} alt="Transaction Icon" />
@@ -174,7 +174,7 @@ export const FeedTileTXS = ({ item, isEven, currentAddress }) => (
     <div className="feed__activity__address__dataType">
       <img src={EthereumLine} alt="Transaction Icon" className="feed__activity__address__dataType--ethereum" />
     </div>
-    {item.from === currentAddress
+    {item.from.toLowerCase() === currentAddress.toLowerCase()
       ? (
         <div className="feed__activity__address__toFrom">
           <img src={Send} alt="Transaction Icon" />
