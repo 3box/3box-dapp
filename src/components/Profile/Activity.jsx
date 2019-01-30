@@ -37,8 +37,7 @@ const Activity = ({
               <div className="feed__activity__load">
                 <img src={Loading} alt="loading" id="activityLoad" />
               </div>
-            )
-          }
+            )}
           {(!onPublicProfilePage && feedByAddress.length > 0)
             ? feedByAddress.map((feedAddress, i) => (
               <div key={i} className="feed__activity__tile">
@@ -81,7 +80,7 @@ const Activity = ({
                 {
                   Object.values(feedAddress)[0].map((item, index) => (
                     (() => {
-                      if (item.dataType === 'Internal') return <FeedTileInternal item={item} key={index} metaDataName={feedAddress.metaData.name} currentAddress={currentAddress} name={name} isEven={parseInt(index, 10) % 2 === 0} />;
+                      if (item.dataType === 'Internal') return <FeedTileInternal item={item} key={index} metaDataName={feedAddress.metaData && feedAddress.metaData.name} currentAddress={currentAddress} name={name} isEven={parseInt(index, 10) % 2 === 0} />;
                       if (item.dataType === 'Token') return <FeedTileToken item={item} key={index} metaDataName={feedAddress.metaData && feedAddress.metaData.name} currentAddress={currentAddress} name={name} isEven={parseInt(index, 10) % 2 === 0} />;
                       if (item.dataType === 'Txs') return <FeedTileTXS item={item} key={index} metaDataName={feedAddress.metaData && feedAddress.metaData.name} currentAddress={currentAddress} name={name} isEven={parseInt(index, 10) % 2 === 0} />;
                       if (item.dataType === 'Public') return <FeedTileActivity item={item} key={index} verifiedGithub={verifiedGithub} verifiedTwitter={verifiedTwitter} isEven={parseInt(index, 10) % 2 === 0} />;
@@ -132,8 +131,6 @@ const Activity = ({
                         <div>
                           <a href={`https://3box.io/${Object.keys(feedAddress)[0]}`} >
                             <h4>
-                              {console.log(feedAddress.metaData)}
-                              {/* {Object.keys(feedAddress)[0] === publicProfileAddress ? publicName : Object.keys(feedAddress)[0]} */}
                               {(feedAddress.metaData && feedAddress.metaData.name) ? feedAddress.metaData.name : Object.keys(feedAddress)[0]}
                             </h4>
                           </a>
