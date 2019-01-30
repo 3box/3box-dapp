@@ -98,55 +98,70 @@ const Activity = ({
             )
           }
 
+          {console.log(publicProfileActivity)}
           {(onPublicProfilePage && publicProfileActivity.length > 0)
             ? publicProfileActivity.map((feedAddress, i) => (
               <div key={i} className="feed__activity__tile">
                 <div className="feed__activity__context">
-                  {Object.keys(feedAddress)[0] === 'threeBox' ? (
-                    <div className="logo__icon feed__activity__context__network">
-                      <h2>3</h2>
-                    </div>
-                  )
-                    : ''}
-                  {(feedAddress.metaData && feedAddress.metaData.image) ?
-                    <img src={`https://ipfs.infura.io/ipfs/${feedAddress.metaData.image}`} className="feed__activity__user" alt="profile" />
-                    : (
-                      <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
-                        0x
-                      </div>)
-                  }
-                  <div className="feed__activity__address">
-                    {Object.keys(feedAddress)[0] === 'threeBox'
-                      ? (
-                        <div>
-                          <h4>
-                            3Box
-                          </h4>
-                          <p>
-                            Activity
-                          </p>
-                        </div>
-                      )
+                  {(feedAddress.metaData && feedAddress.metaData.image)
+                    ? <img src={`https://ipfs.infura.io/ipfs/${feedAddress.metaData.image}`} className="feed__activity__user" alt="profile" />
+                    : (feedAddress.metaData && feedAddress.metaData.contractImg)
+                      ? <img src={feedAddress.metaData.contractImg.src} className="feed__activity__user" alt="profile" />
                       : (
-                        <div>
-                          <a href={`https://3box.io/${Object.keys(feedAddress)[0]}`} >
-                            <h4>
-                              {(feedAddress.metaData && feedAddress.metaData.name) ? feedAddress.metaData.name : Object.keys(feedAddress)[0]}
-                            </h4>
-                          </a>
-                          <p>
-                            Ethereum Address
+                        <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
+                          0x
+                      </div>)}
+                  <div className="feed__activity__address">
+                    <div>
+                      <a href={`https://3box.io/${Object.keys(feedAddress)[0]}`}>
+                        <h4>
+                          {(feedAddress.metaData && feedAddress.metaData.name) ? feedAddress.metaData.name : ''}
+                          {(feedAddress.metaData && feedAddress.metaData.contractDetails) ? feedAddress.metaData.contractDetails.name : ''}
+                          {(feedAddress.metaData && (!feedAddress.metaData.contractDetails && !feedAddress.metaData.name)) ? Object.keys(feedAddress)[0] : ''}
+                        </h4>
+                      </a>
+                      <p>
+                        Ethereum Address
                       </p>
-                        </div>
-                      )}
+                    </div>
                   </div>
                 </div>
                 {
                   Object.values(feedAddress)[0].map((item, index) => (
                     (() => {
-                      if (item.dataType === 'Internal') return <FeedTileInternal currentAddress={publicProfileAddress} metaDataName={feedAddress.metaData && feedAddress.metaData.name} onPublicProfilePage name={publicName} item={item} key={index} />;
-                      if (item.dataType === 'Token') return <FeedTileToken currentAddress={publicProfileAddress} metaDataName={feedAddress.metaData && feedAddress.metaData.name} onPublicProfilePage name={publicName} item={item} key={index} />;
-                      if (item.dataType === 'Txs') return <FeedTileTXS currentAddress={publicProfileAddress} metaDataName={feedAddress.metaData && feedAddress.metaData.name} onPublicProfilePage name={publicName} item={item} key={index} />;
+                      if (item.dataType === 'Internal') {
+                        return (
+                          <FeedTileInternal
+                            currentAddress={publicProfileAddress}
+                            metaDataName={feedAddress.metaData && (feedAddress.metaData.name || (feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name))}
+                            onPublicProfilePage
+                            name={publicName}
+                            item={item}
+                            key={index}
+                          />);
+                      }
+                      if (item.dataType === 'Token') {
+                        return (
+                          <FeedTileToken
+                            currentAddress={publicProfileAddress}
+                            metaDataName={feedAddress.metaData && (feedAddress.metaData.name || (feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name))}
+                            onPublicProfilePage
+                            name={publicName}
+                            item={item}
+                            key={index}
+                          />);
+                      }
+                      if (item.dataType === 'Txs') {
+                        return (
+                          <FeedTileTXS
+                            currentAddress={publicProfileAddress}
+                            metaDataName={feedAddress.metaData && (feedAddress.metaData.name || (feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name))}
+                            onPublicProfilePage
+                            name={publicName}
+                            item={item}
+                            key={index}
+                          />);
+                      }
                     })()
                   ))
                 }

@@ -1,3 +1,8 @@
+import contractMap from 'eth-contract-metadata';
+import {
+  toChecksumAddress,
+} from 'ethereumjs-util';
+
 import {
   store,
 } from './store';
@@ -91,7 +96,7 @@ export const requestAccess = directLogin => async (dispatch) => {
   } else if (window.web3) { // eslint-disable-line no-undef
     window.web3 = new Web3(web3.currentProvider); // eslint-disable-line no-undef
 
-    accounts = await accountsPromise;
+    accounts = window.web3.eth.accounts; // eslint-disable-line no-undef
     window.localStorage.setItem('userEthAddress', accounts[0]);
 
     dispatch({
@@ -377,32 +382,63 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
       }
     });
 
+    const imageElFor = (address) => {
+      const contractMetaData = contractMap[toChecksumAddress(address)];
+
+      if (!contractMetaData || (!('logo' in contractMetaData))) {
+        return false;
+      }
+      // this isnt necessary
+      const fileName = contractMetaData.logo;
+      const path = `/contractIcons/${fileName}`;
+      const contractImg = document.createElement('img');
+      contractImg.src = path;
+      contractImg.style.width = '100%';
+      return [contractImg, contractMetaData];
+    };
+
     let checkedAddresses = {};
+
     feedByAddress.map(async (counterPartyAddress, i) => {
       const otherAddress = Object.keys(counterPartyAddress)[0];
-      let metaData;
+      let metaData = {};
 
       if (!checkedAddresses[otherAddress]) {
-        const graphqlQueryObject = `
-        {
-          profile(id: "${otherAddress}") {
-            name
-            image
+        try {
+          const graphqlQueryObject = `
+          {
+            profile(id: "${otherAddress}") {
+              name
+              image
+            }
           }
+          `;
+          metaData = await Box.profileGraphQL(graphqlQueryObject); // eslint-disable-line no-undef
+        } catch (error) {
+          console.log(error);
         }
-        `;
-        metaData = await Box.profileGraphQL(graphqlQueryObject); // eslint-disable-line no-undef
-        checkedAddresses[otherAddress] = metaData;
+
+        const contractArray = imageElFor(otherAddress);
+        const name = metaData.profile && metaData.profile.name;
+        const image = metaData.profile && metaData.profile.image;
+
+        checkedAddresses[otherAddress] = {
+          name,
+          image,
+          contractImg: contractArray[0],
+          contractDetails: contractArray[1],
+        };
+        feedByAddress[i].metaData = {
+          name,
+          image,
+          contractImg: contractArray[0],
+          contractDetails: contractArray[1],
+        };
       } else {
         metaData = checkedAddresses[otherAddress];
+        feedByAddress[i].metaData = metaData;
       }
-
-      feedByAddress[i].metaData = {
-        name: metaData.profile.name,
-        image: metaData.profile.image,
-      };
     });
-    console.log(feedByAddress);
 
     if (publicProfileAddress) {
       dispatch({

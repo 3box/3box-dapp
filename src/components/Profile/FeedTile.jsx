@@ -98,7 +98,7 @@ export const FeedTileInternal = ({ item, currentAddress, name, onPublicProfilePa
         <p className="feed__activity__info__key">
           {onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
             ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} sent`
-            : `${metaDataName || item.from.toLowerCase().substring(0, 12)}... sent`)
+            : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
           }
           {!onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
             ? 'You sent'
@@ -110,7 +110,7 @@ export const FeedTileInternal = ({ item, currentAddress, name, onPublicProfilePa
         </p>
         <p className="feed__activity__info__key">
           {item.from.toLowerCase() === currentAddress.toLowerCase()
-            ? `to ${metaDataName || item.to.toLowerCase().substring(0, 12)}...`
+            ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
             : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`
           }
         </p>
@@ -155,7 +155,7 @@ export const FeedTileToken = ({ item, currentAddress, name, onPublicProfilePage,
         <p className="feed__activity__info__key">
           {onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
             ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} sent`
-            : `${metaDataName || item.from.toLowerCase().substring(0, 12)}... sent`)
+            : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
           }
           {!onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
             ? 'You sent'
@@ -170,7 +170,7 @@ export const FeedTileToken = ({ item, currentAddress, name, onPublicProfilePage,
         </p>
         <p className="feed__activity__info__key">
           {item.from.toLowerCase() === currentAddress.toLowerCase()
-            ? `to ${metaDataName || item.to.toLowerCase().substring(0, 12)}...`
+            ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
             : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`
           }
         </p>
@@ -212,7 +212,7 @@ export const FeedTileTXS = ({ item, currentAddress, name, onPublicProfilePage, m
         <p className="feed__activity__info__key">
           {onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
             ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} sent`
-            : `${metaDataName || item.from.toLowerCase().substring(0, 12)}... sent`)
+            : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
           }
           {!onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
             ? 'You sent'
@@ -224,7 +224,7 @@ export const FeedTileTXS = ({ item, currentAddress, name, onPublicProfilePage, m
         </p>
         <p className="feed__activity__info__key">
           {item.from.toLowerCase() === currentAddress.toLowerCase()
-            ? `to ${metaDataName || item.to.toLowerCase().substring(0, 12)}...`
+            ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
             : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`
           }
         </p>
