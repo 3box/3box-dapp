@@ -28,7 +28,9 @@ const ActivityTiles = ({
                 <FeedTileInternal
                   item={item}
                   key={index}
-                  metaDataName={feedAddress.metaData && feedAddress.metaData.name}
+                  metaDataName={feedAddress.metaData
+                    && (feedAddress.metaData.name
+                      || (feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name))}
                   currentAddress={currentAddress}
                   name={name}
                   isEven={parseInt(index, 10) % 2 === 0} />
@@ -39,7 +41,9 @@ const ActivityTiles = ({
                 <FeedTileToken
                   item={item}
                   key={index}
-                  metaDataName={feedAddress.metaData && feedAddress.metaData.name}
+                  metaDataName={feedAddress.metaData
+                    && (feedAddress.metaData.name
+                      || (feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name))}
                   currentAddress={currentAddress}
                   name={name}
                   isEven={parseInt(index, 10) % 2 === 0}
@@ -50,7 +54,9 @@ const ActivityTiles = ({
                 <FeedTileTXS
                   item={item}
                   key={index}
-                  metaDataName={feedAddress.metaData && feedAddress.metaData.name}
+                  metaDataName={feedAddress.metaData
+                    && (feedAddress.metaData.name
+                      || (feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name))}
                   currentAddress={currentAddress}
                   name={name}
                   isEven={parseInt(index, 10) % 2 === 0}

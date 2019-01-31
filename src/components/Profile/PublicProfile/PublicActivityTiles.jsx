@@ -25,7 +25,9 @@ const PublicActivity = ({
               return (
                 <FeedTileInternal
                   currentAddress={publicProfileAddress}
-                  metaDataName={feedAddress.metaData && (feedAddress.metaData.name || (feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name))}
+                  metaDataName={feedAddress.metaData
+                    && (feedAddress.metaData.name
+                      || (feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name))}
                   onPublicProfilePage
                   name={publicName}
                   item={item}
@@ -36,7 +38,9 @@ const PublicActivity = ({
               return (
                 <FeedTileToken
                   currentAddress={publicProfileAddress}
-                  metaDataName={feedAddress.metaData && (feedAddress.metaData.name || (feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name))}
+                  metaDataName={feedAddress.metaData
+                    && (feedAddress.metaData.name
+                      || (feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name))}
                   onPublicProfilePage
                   name={publicName}
                   item={item}
@@ -47,7 +51,9 @@ const PublicActivity = ({
               return (
                 <FeedTileTXS
                   currentAddress={publicProfileAddress}
-                  metaDataName={feedAddress.metaData && (feedAddress.metaData.name || (feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name))}
+                  metaDataName={feedAddress.metaData
+                    && (feedAddress.metaData.name
+                      || (feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name))}
                   onPublicProfilePage
                   name={publicName}
                   item={item}

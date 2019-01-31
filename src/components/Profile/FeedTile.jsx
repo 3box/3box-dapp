@@ -22,11 +22,11 @@ export const FeedTileActivity = ({ item, verifiedGithub, verifiedTwitter }) => (
 
         <p className="feed__activity__info__key">
           {` You 
-        ${item.op === 'PUT' ? 'updated your' : 'removed your'}
-        ${item.dataType === 'Private' ? 'private data' : ''}
-        ${item.key === 'proof_github' ? 'Github username' : ''}
-        ${item.key === 'proof_twitter' ? 'Twitter username' : ''}
-        ${(item.key !== 'proof_twitter' ? item.key !== 'proof_github' : '')
+            ${item.op === 'PUT' ? 'updated your' : 'removed your'}
+            ${item.dataType === 'Private' ? 'private data' : ''}
+            ${item.key === 'proof_github' ? 'Github username' : ''}
+            ${item.key === 'proof_twitter' ? 'Twitter username' : ''}
+            ${(item.key !== 'proof_twitter' && item.key !== 'proof_github' && item.dataType !== 'Private')
               ? (item.key).replace(/([A-Z])/g, ' $1').trim().toLowerCase()
               : ''} 
             `}
@@ -37,8 +37,8 @@ export const FeedTileActivity = ({ item, verifiedGithub, verifiedTwitter }) => (
           <p className="feed__activity__info__token">
             {(item.key === 'image' || item.key === 'coverPhoto')
               ? '' : ''}
-            {item.dataType === 'Private'
-              ? '*****' : ''}
+            {/* {item.dataType === 'Private'
+              ? '*****' : ''} */}
             {item.key === 'emoji'
               ? (
                 <span className="feed__activity__address__amount__emoji">
@@ -49,9 +49,12 @@ export const FeedTileActivity = ({ item, verifiedGithub, verifiedTwitter }) => (
               ? verifiedGithub : ''}
             {item.key === 'proof_twitter'
               ? verifiedTwitter : ''}
-            {typeof item.value === 'object'
-              ? `${item.value ? Object.keys(item.value)[0] : '-----'}` : ''}
-            {typeof item.value === 'string'
+
+            {(typeof item.value === 'object' && (item.key !== 'image' && item.key !== 'coverPhoto'))
+              ? (item.value ? Object.keys(item.value)[0] : '-----')
+              : ''}
+
+            {typeof item.value === 'string' && (item.key !== 'proof_github' && item.key !== 'proof_twitter')
               ? item.value : ''}
           </p>) : ''}
       </div>
@@ -101,16 +104,20 @@ export const FeedTileInternal = ({ item, currentAddress, name, onPublicProfilePa
           }
           {!onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
             ? 'You sent'
-            : 'sent you')
+            : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
           }
         </p>
         <p className="feed__activity__address__amount" title={(Number(item.value) / 1000000000000000000).toString()}>
           {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ${item.tokenSymbol ? item.tokenSymbol : 'Tokens'}`}
         </p>
         <p className="feed__activity__info__key">
-          {item.from.toLowerCase() === currentAddress.toLowerCase()
+          {onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
             ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
-            : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`
+            : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`)
+          }
+          {!onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
+            ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
+            : `to you`)
           }
         </p>
       </div>
@@ -155,16 +162,20 @@ export const FeedTileToken = ({ item, currentAddress, name, onPublicProfilePage,
           }
           {!onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
             ? 'You sent'
-            : 'sent you')
+            : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
           }
         </p>
         <p className="feed__activity__address__amount" title={(Number(item.value) / 1000000000000000000).toString()}>
           {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ${item.tokenSymbol ? item.tokenSymbol : 'Tokens'}`}
         </p>
         <p className="feed__activity__info__key">
-          {item.from.toLowerCase() === currentAddress.toLowerCase()
+          {onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
             ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
-            : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`
+            : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`)
+          }
+          {!onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
+            ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
+            : `to you`)
           }
         </p>
       </div>
@@ -209,16 +220,20 @@ export const FeedTileTXS = ({ item, currentAddress, name, onPublicProfilePage, m
           }
           {!onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
             ? 'You sent'
-            : 'sent you')
+            : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
           }
         </p>
         <p className="feed__activity__info__token" title={`${(Number(item.value) / 1000000000000000000).toString()} ETH`}>
           {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ETH`}
         </p>
         <p className="feed__activity__info__key">
-          {item.from.toLowerCase() === currentAddress.toLowerCase()
+          {onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
             ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
-            : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`
+            : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`)
+          }
+          {!onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
+            ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
+            : `to you`)
           }
         </p>
       </div>
