@@ -8,8 +8,8 @@ import { pollNetworkAndAddress, initialAddress } from './utils/address';
 import { normalizeURL, matchProtectedRoutes } from './utils/funcs';
 import { store } from './state/store';
 import Landing from './views/Landing';
-import Profile from './views/Profile';
-import ProfilePublic from './views/ProfilePublic';
+import MyProfile from './views/MyProfile';
+import PubProfile from './views/PubProfile';
 import EditProfile from './views/EditProfile';
 import Profiles from './views/Profiles';
 import Jobs from './views/Jobs';
@@ -323,13 +323,13 @@ class App extends Component {
           <Route
             exact
             path={routes.FORMAT_PROFILE_ACTIVITY}
-            component={Profile}
+            component={MyProfile}
           />
 
           <Route
             exact
             path={routes.FORMAT_PROFILE_ABOUT}
-            component={Profile}
+            component={MyProfile}
           />
 
           <Route
@@ -396,7 +396,7 @@ class App extends Component {
           <Route
             exact
             path={routes.PUBLIC_PROFILE}
-            component={ProfilePublic}
+            component={PubProfile}
           />
 
         </Switch>

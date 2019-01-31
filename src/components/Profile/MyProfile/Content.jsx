@@ -5,13 +5,13 @@ import {
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import * as routes from '../../utils/routes';
-import StatusUpdate from './StatusUpdate';
+import * as routes from '../../../utils/routes';
+import StatusUpdate from '../StatusUpdate';
 import Activity from './Activity';
-import Details from './Details';
-import '../styles/Feed.css';
-import '../../views/styles/Profile.css';
-import '../styles/NetworkArray.css';
+import Details from '../Details';
+import '../../styles/Feed.css';
+import '../../../views/styles/Profile.css';
+import '../../styles/NetworkArray.css';
 
 const Content = ({ currentAddress }) => (
   <div>

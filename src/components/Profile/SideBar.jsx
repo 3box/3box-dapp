@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, NavLink, withRouter } from 'react-router-dom';
 
-import PubSideBar from './PubSideBar.jsx';
+import PubSideBar from './PublicProfile/PubSideBar';
 import { copyToClipBoard } from '../../state/actions';
 import * as routes from '../../utils/routes';
 import EthereumLogo from '../../assets/EthereumIcon.svg';

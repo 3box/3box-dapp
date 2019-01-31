@@ -16,8 +16,7 @@ import {
   handleSignInBanner,
 } from '../state/actions-modals';
 import { store } from '../state/store';
-import { normalizeURL } from '../utils/funcs';
-import PubContent from '../components/Profile/PubContent';
+import PubContent from '../components/Profile/PublicProfile/PubContent';
 import SideBar from '../components/Profile/SideBar';
 import Nav from '../components/Nav';
 import './styles/Profile.css';

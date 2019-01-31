@@ -2,20 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { addhttp } from '../../utils/funcs';
-import GithubIcon from '../../assets/GithubIcon.svg';
-import TwitterIcon from '../../assets/twitterGrey.svg';
-import Verified from '../../assets/Verified.svg';
-import School from '../../assets/School.svg';
-import Location from '../../assets/Location.svg';
-import Website from '../../assets/Website.png';
-import ThreeBox3 from '../../assets/3Box3.svg';
-import Job from '../../assets/Job.svg';
-import Degree from '../../assets/Degree.svg';
-import Major from '../../assets/Major.svg';
-import Year from '../../assets/Year.png';
-import Employer from '../../assets/Employer.svg';
-import '../../views/styles/Profile.css';
+import { addhttp } from '../../../utils/funcs';
+import GithubIcon from '../../../assets/GithubIcon.svg';
+import TwitterIcon from '../../../assets/twitterGrey.svg';
+import Verified from '../../../assets/Verified.svg';
+import School from '../../../assets/School.svg';
+import Location from '../../../assets/Location.svg';
+import Website from '../../../assets/Website.png';
+import ThreeBox3 from '../../../assets/3Box3.svg';
+import Job from '../../../assets/Job.svg';
+import Degree from '../../../assets/Degree.svg';
+import Major from '../../../assets/Major.svg';
+import Year from '../../../assets/Year.png';
+import Employer from '../../../assets/Employer.svg';
+import '../../../views/styles/Profile.css';
 
 const PubSideBar = ({
   publicGithub,
