@@ -49,7 +49,7 @@ const Activity = ({ name, image, feedAddress }) => (
               )}
             {(feedAddress.metaData && feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name)
               && (
-                <a href={`https://etherscan.io/tx/${Object.keys(feedAddress)[0]}`}>
+                <a href={`https://etherscan.io/tx/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer">
                   <h4>
                     {feedAddress.metaData.contractDetails.name}
                   </h4>
@@ -57,7 +57,7 @@ const Activity = ({ name, image, feedAddress }) => (
               )}
             {(!feedAddress.metaData || (!feedAddress.metaData.contractDetails && !feedAddress.metaData.name))
               && (
-                <a href={`https://ethstats.io/account/${Object.keys(feedAddress)[0]}`}>
+                <a href={`https://ethstats.io/account/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer">
                   <h4>
                     {Object.keys(feedAddress)[0]}
                   </h4>

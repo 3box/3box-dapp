@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import contractMap from 'eth-contract-metadata';
+import tokenToData from '../../utils/tokenToData.json';
 
-import { timeSince } from '../../utils/time';
-import PrivateActivity from '../../assets/PrivateActivity.svg';
-import Globe from '../../assets/Globe.svg';
 import Save from '../../assets/Save.svg';
 import Delete from '../../assets/Delete.svg';
-
+import FeedTileContext from './FeedTileContext';
 import Internal from '../../assets/Internal.svg';
 import EthereumLine from '../../assets/EthereumLine.svg';
 import Tokens from '../../assets/Tokens.svg';
@@ -37,8 +36,6 @@ export const FeedTileActivity = ({ item, verifiedGithub, verifiedTwitter }) => (
           <p className="feed__activity__info__token">
             {(item.key === 'image' || item.key === 'coverPhoto')
               ? '' : ''}
-            {/* {item.dataType === 'Private'
-              ? '*****' : ''} */}
             {item.key === 'emoji'
               ? (
                 <span className="feed__activity__address__amount__emoji">
@@ -58,15 +55,7 @@ export const FeedTileActivity = ({ item, verifiedGithub, verifiedTwitter }) => (
               ? item.value : ''}
           </p>) : ''}
       </div>
-      <div className="feed__activity__metaData">
-        <p className="feed__activity__address__time">
-          {timeSince(item.timeStamp * 1000)}
-        </p>
-        {item.dataType === 'Private'
-          ? <img src={PrivateActivity} alt="Transaction Icon" className="feed__activity__address__dataType" />
-          : <img src={Globe} alt="Transaction Icon" className="feed__activity__address__dataType" />
-        }
-      </div>
+      <FeedTileContext item={item} />
     </div>
 
     {((item.key === 'image' || item.key === 'coverPhoto')
@@ -92,17 +81,21 @@ FeedTileActivity.defaultProps = {
   verifiedTwitter: '',
 };
 
-export const FeedTileInternal = ({ item, currentAddress, name, onPublicProfilePage, metaDataName }) => (
+export const FeedTileInternal = ({ item, name, onPublicProfilePage, metaDataName, isFromProfile }) => (
   <a href={`https://etherscan.io/tx/${item.hash}`} target="_blank" rel="noopener noreferrer" className="feed__activity">
     <div className="feed__activity__data">
       <div className="feed__activity__info">
-        <img src={Internal} alt="Transaction Icon" />
+        {
+          (tokenToData[item.tokenSymbol])
+            ? <img src={`/contractIcons/${tokenToData[item.tokenSymbol].logo}`} alt="token icon" />
+            : <img src={Internal} alt="Internal Transaction Icon" />
+        }
         <p className="feed__activity__info__key">
-          {onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
+          {onPublicProfilePage && (isFromProfile
             ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} sent`
             : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
           }
-          {!onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
+          {!onPublicProfilePage && (isFromProfile
             ? 'You sent'
             : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
           }
@@ -111,25 +104,17 @@ export const FeedTileInternal = ({ item, currentAddress, name, onPublicProfilePa
           {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ${item.tokenSymbol ? item.tokenSymbol : 'Tokens'}`}
         </p>
         <p className="feed__activity__info__key">
-          {onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
+          {onPublicProfilePage && (isFromProfile
             ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
             : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`)
           }
-          {!onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
+          {!onPublicProfilePage && (isFromProfile
             ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
             : `to you`)
           }
         </p>
       </div>
-      <div className="feed__activity__metaData">
-        <p className="feed__activity__address__time">
-          {timeSince(item.timeStamp * 1000)}
-        </p>
-        {item.dataType === 'Private'
-          ? <img src={PrivateActivity} alt="Transaction Icon" className="feed__activity__address__dataType" />
-          : <img src={Globe} alt="Transaction Icon" className="feed__activity__address__dataType" />
-        }
-      </div>
+      <FeedTileContext item={item} />
     </div>
   </a>
 );
@@ -137,30 +122,34 @@ export const FeedTileInternal = ({ item, currentAddress, name, onPublicProfilePa
 FeedTileInternal.propTypes = {
   item: PropTypes.object,
   metaDataName: PropTypes.string,
-  currentAddress: PropTypes.string,
   name: PropTypes.string,
   onPublicProfilePage: PropTypes.bool,
+  isFromProfile: PropTypes.bool,
 };
 
 FeedTileInternal.defaultProps = {
   item: {},
   metaDataName: '',
-  currentAddress: '',
   name: '',
   onPublicProfilePage: false,
+  isFromProfile: false,
 };
 
-export const FeedTileToken = ({ item, currentAddress, name, onPublicProfilePage, metaDataName }) => (
+export const FeedTileToken = ({ item, name, onPublicProfilePage, metaDataName, isFromProfile }) => (
   <a href={`https://etherscan.io/tx/${item.hash}`} target="_blank" rel="noopener noreferrer" className="feed__activity">
     <div className="feed__activity__data">
       <div className="feed__activity__info">
-        <img src={Tokens} alt="Transaction Icon" />
+        {
+          (tokenToData[item.tokenSymbol])
+            ? <img src={`/contractIcons/${tokenToData[item.tokenSymbol].logo}`} alt="token icon" />
+            : <img src={Tokens} alt="Token Transaction Icon" />
+        }
         <p className="feed__activity__info__key">
-          {onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
+          {onPublicProfilePage && (isFromProfile
             ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} sent`
             : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
           }
-          {!onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
+          {!onPublicProfilePage && (isFromProfile
             ? 'You sent'
             : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
           }
@@ -169,25 +158,17 @@ export const FeedTileToken = ({ item, currentAddress, name, onPublicProfilePage,
           {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ${item.tokenSymbol ? item.tokenSymbol : 'Tokens'}`}
         </p>
         <p className="feed__activity__info__key">
-          {onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
+          {onPublicProfilePage && (isFromProfile
             ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
             : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`)
           }
-          {!onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
+          {!onPublicProfilePage && (isFromProfile
             ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
             : `to you`)
           }
         </p>
       </div>
-      <div className="feed__activity__metaData">
-        <p className="feed__activity__address__time">
-          {timeSince(item.timeStamp * 1000)}
-        </p>
-        {item.dataType === 'Private'
-          ? <img src={PrivateActivity} alt="Transaction Icon" className="feed__activity__address__dataType" />
-          : <img src={Globe} alt="Transaction Icon" className="feed__activity__address__dataType" />
-        }
-      </div>
+      <FeedTileContext item={item} />
     </div>
   </a>
 );
@@ -195,30 +176,30 @@ export const FeedTileToken = ({ item, currentAddress, name, onPublicProfilePage,
 FeedTileToken.propTypes = {
   item: PropTypes.object,
   metaDataName: PropTypes.string,
-  currentAddress: PropTypes.string,
   name: PropTypes.string,
   onPublicProfilePage: PropTypes.bool,
+  isFromProfile: PropTypes.bool,
 };
 
 FeedTileToken.defaultProps = {
   item: {},
   metaDataName: '',
-  currentAddress: '',
   name: '',
   onPublicProfilePage: false,
+  isFromProfile: false,
 };
 
-export const FeedTileTXS = ({ item, currentAddress, name, onPublicProfilePage, metaDataName }) => (
+export const FeedTileTXS = ({ item, name, onPublicProfilePage, metaDataName, isFromProfile }) => (
   <a href={`https://etherscan.io/tx/${item.hash}`} target="_blank" rel="noopener noreferrer" className="feed__activity">
     <div className="feed__activity__data">
       <div className="feed__activity__info">
-        <img src={EthereumLine} alt="Transaction Icon" />
+        <img src={EthereumLine} alt="Ethereum Transaction Icon" />
         <p className="feed__activity__info__key">
-          {onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
+          {onPublicProfilePage && (isFromProfile
             ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} sent`
             : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
           }
-          {!onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
+          {!onPublicProfilePage && (isFromProfile
             ? 'You sent'
             : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
           }
@@ -227,25 +208,17 @@ export const FeedTileTXS = ({ item, currentAddress, name, onPublicProfilePage, m
           {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ETH`}
         </p>
         <p className="feed__activity__info__key">
-          {onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
+          {onPublicProfilePage && (isFromProfile
             ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
             : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`)
           }
-          {!onPublicProfilePage && (item.from.toLowerCase() === currentAddress.toLowerCase()
+          {!onPublicProfilePage && (isFromProfile
             ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
             : `to you`)
           }
         </p>
       </div>
-      <div className="feed__activity__metaData">
-        <p className="feed__activity__address__time">
-          {timeSince(item.timeStamp * 1000)}
-        </p>
-        {item.dataType === 'Private'
-          ? <img src={PrivateActivity} alt="Transaction Icon" className="feed__activity__address__dataType" />
-          : <img src={Globe} alt="Transaction Icon" className="feed__activity__address__dataType" />
-        }
-      </div>
+      <FeedTileContext item={item} />
     </div>
   </a>
 );
@@ -253,15 +226,15 @@ export const FeedTileTXS = ({ item, currentAddress, name, onPublicProfilePage, m
 FeedTileTXS.propTypes = {
   item: PropTypes.object,
   metaDataName: PropTypes.string,
-  currentAddress: PropTypes.string,
   name: PropTypes.string,
   onPublicProfilePage: PropTypes.bool,
+  isFromProfile: PropTypes.bool,
 };
 
 FeedTileTXS.defaultProps = {
   item: {},
   metaDataName: '',
-  currentAddress: '',
   name: '',
   onPublicProfilePage: false,
+  isFromProfile: false,
 };

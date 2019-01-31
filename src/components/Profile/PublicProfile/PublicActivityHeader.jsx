@@ -20,13 +20,30 @@ const PublicActivityContext = ({
                       </div>)}
       <div className="feed__activity__address">
         <div>
-          <a href={`https://3box.io/${Object.keys(feedAddress)[0]}`}>
-            <h4>
-              {(feedAddress.metaData && feedAddress.metaData.name) ? feedAddress.metaData.name : ''}
-              {(feedAddress.metaData && feedAddress.metaData.contractDetails) ? feedAddress.metaData.contractDetails.name : ''}
-              {(feedAddress.metaData && (!feedAddress.metaData.contractDetails && !feedAddress.metaData.name)) ? Object.keys(feedAddress)[0] : ''}
-            </h4>
-          </a>
+          {(feedAddress.metaData && feedAddress.metaData.name)
+            && (
+              <a href={`https://3box.io/${Object.keys(feedAddress)[0]}`}>
+                <h4>
+                  {feedAddress.metaData.name}
+                </h4>
+              </a>
+            )}
+          {(feedAddress.metaData && feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name)
+            && (
+              <a href={`https://etherscan.io/tx/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer">
+                <h4>
+                  {feedAddress.metaData.contractDetails.name}
+                </h4>
+              </a>
+            )}
+          {(!feedAddress.metaData || (!feedAddress.metaData.contractDetails && !feedAddress.metaData.name))
+            && (
+              <a href={`https://ethstats.io/account/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer">
+                <h4>
+                  {Object.keys(feedAddress)[0]}
+                </h4>
+              </a>
+            )}
           <p>
             Ethereum Address
           </p>

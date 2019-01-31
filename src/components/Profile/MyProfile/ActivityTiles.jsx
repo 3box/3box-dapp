@@ -31,11 +31,12 @@ const ActivityTiles = ({
                   metaDataName={feedAddress.metaData
                     && (feedAddress.metaData.name
                       || (feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name))}
-                  currentAddress={currentAddress}
                   name={name}
+                  isFromProfile={item.from.toLowerCase() === currentAddress.toLowerCase()}
                   isEven={parseInt(index, 10) % 2 === 0} />
               );
             }
+
             if (item.dataType === 'Token') {
               return (
                 <FeedTileToken
@@ -44,11 +45,12 @@ const ActivityTiles = ({
                   metaDataName={feedAddress.metaData
                     && (feedAddress.metaData.name
                       || (feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name))}
-                  currentAddress={currentAddress}
+                  isFromProfile={item.from.toLowerCase() === currentAddress.toLowerCase()}
                   name={name}
                   isEven={parseInt(index, 10) % 2 === 0}
                 />);
             }
+
             if (item.dataType === 'Txs') {
               return (
                 <FeedTileTXS
@@ -57,11 +59,12 @@ const ActivityTiles = ({
                   metaDataName={feedAddress.metaData
                     && (feedAddress.metaData.name
                       || (feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name))}
-                  currentAddress={currentAddress}
+                  isFromProfile={item.from.toLowerCase() === currentAddress.toLowerCase()}
                   name={name}
                   isEven={parseInt(index, 10) % 2 === 0}
                 />);
             }
+
             if (item.dataType === 'Public') {
               return (
                 <FeedTileActivity
@@ -72,6 +75,7 @@ const ActivityTiles = ({
                   isEven={parseInt(index, 10) % 2 === 0}
                 />);
             }
+
             if (item.dataType === 'Private') {
               return (
                 <FeedTileActivity

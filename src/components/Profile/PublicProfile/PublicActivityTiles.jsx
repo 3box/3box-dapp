@@ -29,6 +29,7 @@ const PublicActivity = ({
                     && (feedAddress.metaData.name
                       || (feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name))}
                   onPublicProfilePage
+                  isFromProfile={item.from.toLowerCase() === publicProfileAddress.toLowerCase()}
                   name={publicName}
                   item={item}
                   key={index}
@@ -42,6 +43,7 @@ const PublicActivity = ({
                     && (feedAddress.metaData.name
                       || (feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name))}
                   onPublicProfilePage
+                  isFromProfile={item.from.toLowerCase() === publicProfileAddress.toLowerCase()}
                   name={publicName}
                   item={item}
                   key={index}
@@ -55,6 +57,7 @@ const PublicActivity = ({
                     && (feedAddress.metaData.name
                       || (feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name))}
                   onPublicProfilePage
+                  isFromProfile={item.from.toLowerCase() === publicProfileAddress.toLowerCase()}
                   name={publicName}
                   item={item}
                   key={index}
