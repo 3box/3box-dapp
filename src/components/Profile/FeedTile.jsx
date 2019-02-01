@@ -33,7 +33,7 @@ export const FeedTileActivity = ({ item, verifiedGithub, verifiedTwitter }) => (
         </p>
 
         {item.op === 'PUT' ? (
-          <p className="feed__activity__info__token">
+          <p className="feed__activity__info__value">
             {(item.key === 'image' || item.key === 'coverPhoto')
               ? '' : ''}
             {item.key === 'emoji'
@@ -100,7 +100,7 @@ export const FeedTileInternal = ({ item, name, onPublicProfilePage, metaDataName
             : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
           }
         </p>
-        <p className="feed__activity__address__amount" title={(Number(item.value) / 1000000000000000000).toString()}>
+        <p className={`feed__activity__info__token ${isFromProfile ? 'sentCurrency' : 'receivedCurrency'}`} title={(Number(item.value) / 1000000000000000000).toString()}>
           {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ${item.tokenSymbol ? item.tokenSymbol : 'Tokens'}`}
         </p>
         <p className="feed__activity__info__key">
@@ -154,7 +154,7 @@ export const FeedTileToken = ({ item, name, onPublicProfilePage, metaDataName, i
             : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
           }
         </p>
-        <p className="feed__activity__address__amount" title={(Number(item.value) / 1000000000000000000).toString()}>
+        <p className={`feed__activity__info__token ${isFromProfile ? 'sentCurrency' : 'receivedCurrency'}`} title={(Number(item.value) / 1000000000000000000).toString()}>
           {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ${item.tokenSymbol ? item.tokenSymbol : 'Tokens'}`}
         </p>
         <p className="feed__activity__info__key">
@@ -204,7 +204,7 @@ export const FeedTileTXS = ({ item, name, onPublicProfilePage, metaDataName, isF
             : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
           }
         </p>
-        <p className="feed__activity__info__token" title={`${(Number(item.value) / 1000000000000000000).toString()} ETH`}>
+        <p className={`feed__activity__info__token ${isFromProfile ? 'sentCurrency' : 'receivedCurrency'}`} title={`${(Number(item.value) / 1000000000000000000).toString()} ETH`}>
           {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ETH`}
         </p>
         <p className="feed__activity__info__key">

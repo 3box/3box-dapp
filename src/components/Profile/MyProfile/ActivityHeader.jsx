@@ -38,35 +38,47 @@ const Activity = ({ name, image, feedAddress }) => (
           </div>
         )
         : (
-          <div>
+          <React.Fragment>
             {(feedAddress.metaData && feedAddress.metaData.name)
               && (
-                <a href={`https://3box.io/${Object.keys(feedAddress)[0]}`}>
-                  <h4>
-                    {feedAddress.metaData.name}
-                  </h4>
-                </a>
+                <div>
+                  <a href={`https://3box.io/${Object.keys(feedAddress)[0]}`}>
+                    <h4>
+                      {feedAddress.metaData.name}
+                    </h4>
+                  </a>
+                  <p className="feed__activity__address__type">
+                    Address
+                  </p>
+                </div>
               )}
             {(feedAddress.metaData && feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name)
               && (
-                <a href={`https://etherscan.io/tx/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer">
-                  <h4>
-                    {feedAddress.metaData.contractDetails.name}
-                  </h4>
-                </a>
+                <div>
+                  <a href={`https://etherscan.io/tx/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer">
+                    <h4>
+                      {feedAddress.metaData.contractDetails.name}
+                    </h4>
+                  </a>
+                  <p className="feed__activity__address__type">
+                    Contract
+                  </p>
+                </div>
               )}
             {(!feedAddress.metaData || (!feedAddress.metaData.contractDetails && !feedAddress.metaData.name))
               && (
-                <a href={`https://ethstats.io/account/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer">
-                  <h4>
-                    {Object.keys(feedAddress)[0]}
-                  </h4>
-                </a>
+                <div>
+                  <a href={`https://ethstats.io/account/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer">
+                    <h4>
+                      {Object.keys(feedAddress)[0]}
+                    </h4>
+                  </a>
+                  <p className="feed__activity__address__type">
+                    Address
+                  </p>
+                </div>
               )}
-            <p>
-              Ethereum Address
-            </p>
-          </div>
+          </React.Fragment>
         )}
     </div>
   </div>

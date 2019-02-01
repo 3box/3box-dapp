@@ -168,7 +168,7 @@
   align-items: center;
 }
 
-.clear{
+.clear {
   background-color: transparent !important;
 }
 
@@ -206,6 +206,23 @@
 }
 
 .feed__activity__info__token {
+  font-weight: 500;
+  max-width: 52%;
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: 800;
+  margin-right: 6px;
+}
+
+.sentCurrency {
+  color: #ca2641 !important;
+}
+
+.receivedCurrency {
+  color: #22bd6f !important;
+}
+
+.feed__activity__info__value {
   font-weight: 500;
   max-width: 52%;
   overflow: hidden;
@@ -312,14 +329,7 @@
 }
 
 .feed__activity__address__type {
-  color: $lighterFont;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-  // color: $lighterFont;
-  // border: solid 1px $borderColor;
-  // border-radius: 8px;
-  // background-color: rgb(173, 173, 173);
+  color: $lightestFont !important;
 }
 
 .feed__activity__info {
@@ -397,9 +407,9 @@
   }
 }
 
+///////
 .feed__activity__address__amount {
   width: fit-content;
-  // width: 20%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

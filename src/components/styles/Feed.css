@@ -159,6 +159,20 @@
   font-weight: 800;
   margin-right: 6px; }
 
+.sentCurrency {
+  color: #ca2641 !important; }
+
+.receivedCurrency {
+  color: #22bd6f !important; }
+
+.feed__activity__info__value {
+  font-weight: 500;
+  max-width: 52%;
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: 800;
+  margin-right: 6px; }
+
 .feed__activity__data {
   display: flex;
   justify-content: space-between;
@@ -240,7 +254,7 @@
     color: #747677; }
 
 .feed__activity__address__type {
-  color: #747677; }
+  color: #b1b1b1 !important; }
 
 .feed__activity__info {
   display: flex;
