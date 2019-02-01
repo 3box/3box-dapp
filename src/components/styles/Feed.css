@@ -188,6 +188,8 @@
   align-items: center;
   margin-bottom: 1.3em;
   padding: 0; }
+  .feed__activity__context:hover h4 {
+    text-decoration: underline; }
 
 .feed__activity__context__network {
   min-width: 40px;
@@ -254,7 +256,8 @@
     color: #747677; }
 
 .feed__activity__address__type {
-  color: #b1b1b1 !important; }
+  color: #b1b1b1 !important;
+  font-size: 13px; }
 
 .feed__activity__info {
   display: flex;

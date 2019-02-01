@@ -27,7 +27,8 @@ const PublicActivity = ({
                   currentAddress={publicProfileAddress}
                   metaDataName={feedAddress.metaData
                     && (feedAddress.metaData.name
-                      || (feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name))}
+                      || (feedAddress.metaData.contractDetails
+                        && (feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()))}
                   onPublicProfilePage
                   isFromProfile={item.from.toLowerCase() === publicProfileAddress.toLowerCase()}
                   name={publicName}
@@ -41,7 +42,8 @@ const PublicActivity = ({
                   currentAddress={publicProfileAddress}
                   metaDataName={feedAddress.metaData
                     && (feedAddress.metaData.name
-                      || (feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name))}
+                      || (feedAddress.metaData.contractDetails
+                        && (feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()))}
                   onPublicProfilePage
                   isFromProfile={item.from.toLowerCase() === publicProfileAddress.toLowerCase()}
                   name={publicName}
@@ -55,7 +57,9 @@ const PublicActivity = ({
                   currentAddress={publicProfileAddress}
                   metaDataName={feedAddress.metaData
                     && (feedAddress.metaData.name
-                      || (feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name))}
+                      || (feedAddress.metaData.contractDetails
+                        && (feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()))}
+
                   onPublicProfilePage
                   isFromProfile={item.from.toLowerCase() === publicProfileAddress.toLowerCase()}
                   name={publicName}

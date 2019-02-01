@@ -248,6 +248,10 @@
   align-items: center;
   margin-bottom: 1.3em;
   padding: 0;
+
+  &:hover h4 {
+    text-decoration: underline;
+  }
 }
 
 .feed__activity__context__network {
@@ -330,6 +334,7 @@
 
 .feed__activity__address__type {
   color: $lightestFont !important;
+  font-size: 13px;
 }
 
 .feed__activity__info {

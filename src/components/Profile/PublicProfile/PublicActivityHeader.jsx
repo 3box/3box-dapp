@@ -30,6 +30,7 @@ const PublicActivityContext = ({
               </a>
               <p className="feed__activity__address__type">
                 Address
+                {` ${Object.keys(feedAddress)[0].substring(0, 12)}...`}
               </p>
             </div>
           )}
@@ -38,11 +39,12 @@ const PublicActivityContext = ({
             <div>
               <a href={`https://etherscan.io/tx/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer">
                 <h4>
-                  {feedAddress.metaData.contractDetails.name}
+                  {(feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()}
                 </h4>
               </a>
               <p className="feed__activity__address__type">
                 Contract
+                {` ${Object.keys(feedAddress)[0].substring(0, 12)}...`}
               </p>
             </div>
           )}
