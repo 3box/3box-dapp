@@ -27,15 +27,15 @@ const Jobs = ({ isLoggedIn, handleSignInUp }) => (
             <div className="info__content__job__text">
               <h2 className="info__content__job__text__title">
                 Distributed Systems Engineer
-            </h2>
+              </h2>
               <p className="info__content__job__text__description">
                 We are seeking a distributed systems engineer to drive the development of our
                 database infrastructure, contribute to exceptional developer operations, and
                 anchor a stellar backend engineering team.
-            </p>
+              </p>
               <p className="info__content__job__text__location">
                 Location: Remote
-            </p>
+              </p>
             </div>
             <div className="info__content__job__link">
               <a href="https://www.notion.so/Distributed-Systems-Engineer-967dad0c601e46349e83f57ef94c1279" target="_blank" rel="noopener noreferrer">

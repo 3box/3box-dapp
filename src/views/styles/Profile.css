@@ -350,8 +350,9 @@
   .profile__coverPhoto {
     z-index: 0; }
   .publicStatusUpdate {
-    padding: 0.3em 1.3em;
-    margin-top: 20px; }
+    padding: 0;
+    margin-top: 20px;
+    height: 80px; }
   #profile {
     position: static;
     height: auto;
@@ -416,7 +417,7 @@
     margin-bottom: 2vh;
     margin-top: 2vh; }
   .profile__user__picture {
-    margin-top: 2.4em;
+    margin-top: 3.4em;
     z-index: 2; }
   .active {
     background-color: white !important;

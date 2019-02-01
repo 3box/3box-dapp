@@ -443,8 +443,9 @@
   }
 
   .publicStatusUpdate {
-    padding: 0.3em 1.3em;
+    padding: 0;
     margin-top: 20px;
+    height: 80px;
   }
 
   #profile {
@@ -540,7 +541,7 @@
   }
 
   .profile__user__picture {
-    margin-top: 2.4em;
+    margin-top: 3.4em;
     z-index: 2;
   }
 
