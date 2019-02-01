@@ -13,7 +13,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column; }
+  flex-direction: column;
+  position: relative; }
   .info__banner h1 {
     color: white; }
   .info__banner p {
@@ -23,6 +24,23 @@
     width: 50vw;
     line-height: 24px;
     text-align: center; }
+
+.info__article {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  padding: 15px;
+  border: solid 1px #E4E4E4;
+  border-radius: 6px;
+  margin-top: 26px;
+  position: absolute;
+  bottom: 45px;
+  cursor: pointer;
+  transition: all ease-in-out .3s;
+  color: white; }
+  .info__article:hover {
+    background-color: #ffffff42; }
 
 .info__content {
   display: flex;

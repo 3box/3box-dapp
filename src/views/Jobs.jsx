@@ -14,7 +14,10 @@ const Jobs = ({ isLoggedIn, handleSignInUp }) => (
           We're looking for exceptional individuals who are comfortable working on
           a remote-first team.  If you're passionate about helping people establish
           trust and social connection on web3, apply to one of our open positions below.
-      </p>
+        </p>
+        <a className="info__article" href="https://medium.com/3box/3box-culture-a-team-community-and-company-595004959b61">
+          Find out how we've commited to creating a positive and effective distributed work culture.
+        </a>
       </div>
 
       <div className="info__content">
