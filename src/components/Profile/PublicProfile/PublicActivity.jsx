@@ -13,7 +13,7 @@ const PublicActivity = ({ ifFetchingActivity, publicProfileActivity }) => (
   <div id="feed">
     <div>
       <p className="header" id="feed__header">Activity</p>
-      <div className="feed__activity__address">
+      <div className="feed__activity__header">
         {(ifFetchingActivity)
           && (
             <div className="feed__activity__load">

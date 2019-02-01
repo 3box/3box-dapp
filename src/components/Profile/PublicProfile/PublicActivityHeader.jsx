@@ -10,7 +10,6 @@ const PublicActivityContext = ({
   feedAddress,
 }) => (
     <div className="feed__activity__context">
-      {console.log(feedAddress)}
       {(feedAddress.metaData && feedAddress.metaData.image)
         ? <img src={`https://ipfs.infura.io/ipfs/${feedAddress.metaData.image}`} className="feed__activity__user clear" alt="profile" />
         : (feedAddress.metaData && feedAddress.metaData.contractImg)
@@ -22,7 +21,7 @@ const PublicActivityContext = ({
       <React.Fragment>
         {(feedAddress.metaData && feedAddress.metaData.name)
           && (
-            <div>
+            <div className="feed__activity__address__wrapper">
               <a href={`https://3box.io/${Object.keys(feedAddress)[0]}`}>
                 <h4>
                   {feedAddress.metaData.name}
@@ -36,7 +35,7 @@ const PublicActivityContext = ({
           )}
         {(feedAddress.metaData && feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name)
           && (
-            <div>
+            <div className="feed__activity__address__wrapper">
               <a href={`https://etherscan.io/tx/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer">
                 <h4>
                   {(feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()}
@@ -50,7 +49,7 @@ const PublicActivityContext = ({
           )}
         {(!feedAddress.metaData || (!feedAddress.metaData.contractDetails && !feedAddress.metaData.name))
           && (
-            <div>
+            <div className="feed__activity__address__wrapper">
               <a href={`https://ethstats.io/account/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer">
                 <h4>
                   {Object.keys(feedAddress)[0]}

@@ -196,7 +196,7 @@
   line-height: 24px !important;
   color: $lighterFont;
   font-weight: 400;
-  margin-bottom: -1px;
+  margin-bottom: 24px;
   border-bottom: 1px solid #E4E4E4;
   padding: 20px 0 14px 20px;
 }
@@ -334,6 +334,21 @@
   display: flex;
   align-self: flex-end;
   justify-content: center;
+}
+
+.feed__activity__header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h4 {
+    margin-bottom: .2em;
+  }
+
+  p {
+    color: $lighterFont;
+  }
 }
 
 .feed__activity__address {
@@ -512,10 +527,14 @@
   }
 
   .feed__activity__tile {
-    width: 100.5%;
+    width: 100%;
     padding: 18px 0;
     border-radius: 0;
     background-color: white;
+    border-bottom: 1px solid $borderColor;
+    border-top: 1px solid $borderColor;
+    border-left: none;
+    border-right: none;
   }
 
   .feed__activity {
@@ -529,11 +548,15 @@
     overflow: hidden;
     overflow-x: scroll;
     border-radius: 0;
-    margin-left: -1px;
     width: 100%;
+
+    border-bottom: 1px solid $borderColor;
+    border-top: 1px solid $borderColor;
+    border-left: none;
+    border-right: none;
   }
 
-  .feed__activity__data{
+  .feed__activity__data {
     padding: 0;
     width: 94%;
     flex-direction: column;
@@ -543,11 +566,12 @@
     display: none;
   }
 
-  .feed__activity__info{
+  .feed__activity__info {
     max-width: 100%;
     width: 100%;
+
     img {
-      margin-right: 12px;
+      margin-right: 7px;
     }
   }
 
@@ -555,6 +579,12 @@
     max-width: 22%;
     white-space: nowrap;
     overflow: visible;
+  }
+
+  .feed__activity__image {
+    width: 100%;
+    min-width: 100%;
+    border-radius: 0;
   }
 
   #feed {
@@ -572,7 +602,7 @@
     margin-top: 18px;
   }
 
-  .feed__activity__metaData{
+  .feed__activity__metaData {
     width: 100%;
     justify-content: flex-end;
     margin-top: 8px;
@@ -583,23 +613,44 @@
   }
 
   .feed__activity__context {
-    // padding-left: .8em;
     padding: 0 10px;
     white-space: nowrap;
-    overflow: hidden;
-    overflow-x: scroll;
+    // overflow: hidden;
+    // overflow-x: scroll;
   }
 
   .feed__activity__address {
     white-space: nowrap;
     overflow: hidden;
     overflow-x: scroll;
-    background-color: $backgroundHue;
+    width: 100%;
+
 
     h4 {
       width: 94%;
       overflow-x: scroll;
     }
+  }
+
+  .feed__activity__address__wrapper {
+    width: 100%;
+  }
+
+  .feed__activity__header {
+    white-space: nowrap;
+    overflow: hidden;
+    overflow-x: scroll;
+    background-color: $backgroundHue;
+
+    h4 {
+      width: 100%;
+      // width: 94%;
+      overflow-x: scroll;
+    }
+  }
+
+  .whiteBG {
+    background-color: white !important;
   }
 
   .feed__activity__address__time {
