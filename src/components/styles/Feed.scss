@@ -168,6 +168,24 @@
   align-items: center;
 }
 
+.feed__activity__userWrapper {
+  position: relative;
+}
+
+.feed__activity__threeBoxEmblem {
+  background-color: $threeBoxBlue;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: absolute;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: -4px;
+  right: 14px;
+}
+
 .clear {
   background-color: transparent !important;
 }

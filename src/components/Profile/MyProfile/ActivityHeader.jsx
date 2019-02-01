@@ -12,11 +12,17 @@ const Activity = ({ name, image, feedAddress }) => (
     {(Object.keys(feedAddress)[0] === 'threeBox')
       && (image.length > 0 && image[0].contentUrl
         ? (
-          <img
-            src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`}
-            className="feed__activity__user clear"
-            alt="profile"
-          />)
+          <div className="feed__activity__userWrapper">
+            <img
+              src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`}
+              className="feed__activity__user clear"
+              alt="profile"
+            />
+            <h5 className="feed__activity__threeBoxEmblem">
+              3
+            </h5>
+          </div>
+        )
         : <h4 className="feed__activity__user">3B</h4>)
     }
     {Object.keys(feedAddress)[0] !== 'threeBox'

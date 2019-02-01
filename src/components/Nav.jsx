@@ -44,7 +44,7 @@ class Nav extends Component {
     return (
       <nav className={`${showDownloadBanner ? 'bannerMargin' : ''} ${!isLoggedIn && 'hideNav'}`}>
         <div id="nav__logo--marginLeft">
-          <Link to={routes.LANDING}>
+          <Link to={`/${currentAddress}/${routes.ACTIVITY}`}>
             <img src={ThreeBoxLogo} alt="3Box Logo" className="landing__nav__logo" />
           </Link>
         </div>
