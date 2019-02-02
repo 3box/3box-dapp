@@ -2,6 +2,7 @@ import contractMap from 'eth-contract-metadata';
 import {
   toChecksumAddress,
 } from 'ethereumjs-util';
+import abiDecoder from 'abi-decoder';
 
 import {
   store,
@@ -9,7 +10,12 @@ import {
 import * as routes from '../utils/routes';
 import history from '../history';
 
-console.log(contractMap);
+// const stripEndQuotes = (s) => {
+//   let t = s.length;
+//   if (s.charAt(0) === "'") s = s.substring(1, t--);
+//   if (s.charAt(--t) === "'") s = s.substring(0, t);
+//   return s;
+// };
 
 export const checkWeb3Wallet = () => async (dispatch) => {
   const cp = typeof window.web3 !== 'undefined' ? window.web3.currentProvider : null; // eslint-disable-line no-undef
@@ -400,9 +406,44 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
 
     let checkedAddresses = {};
 
-    feedByAddress.map(async (counterPartyAddress, i) => {
-      const otherAddress = Object.keys(counterPartyAddress)[0];
+    feedByAddress.map(async (txGroup, i) => {
+      const otherAddress = Object.keys(txGroup)[0];
       let metaData = {};
+      let contractData;
+
+      const code = web3.eth.getCode(otherAddress, (err, transactionHash) => { // eslint-disable-line no-undef
+        if (!err) {
+          // console.log(transactionHash);
+        }
+      });
+      if (code !== '0x') { // then address is contract
+        fetch(`https://api.etherscan.io/api?module=contract&action=getabi&address=${otherAddress}&apikey=3VTI9D585DCX4RD4QSP3MYWKACCIVZID23`)
+          .then(
+            (response) => {
+              if (response.status !== 200) {
+                console.log(`Looks like there was a problem. Status Code: ${response.status}`);
+                return;
+              }
+              response.json()
+                .then((data) => {
+                  if (data.status === '1') {
+                    contractData = JSON.parse(data.result);
+                    console.log(contractData);
+                    abiDecoder.addABI(contractData);
+
+                    // feedByAddress.map(txGroup)
+                    txGroup[otherAddress].map((lineItem, index) => {
+                      const methodCall = abiDecoder.decodeMethod(txGroup[otherAddress][index].input);
+                      lineItem.methodCall = methodCall && methodCall.name && (methodCall.name.charAt(0).toUpperCase() + methodCall.name.slice(1)).replace(/([A-Z])/g, ' $1').trim();
+                    });
+                  }
+                });
+            },
+          )
+          .catch((err) => {
+            console.log('Fetch Error :-S', err);
+          });
+      }
 
       if (!checkedAddresses[otherAddress]) {
         try {
@@ -428,12 +469,14 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
           image,
           contractImg: contractArray[0],
           contractDetails: contractArray[1],
+          contractData,
         };
         feedByAddress[i].metaData = {
           name,
           image,
           contractImg: contractArray[0],
           contractDetails: contractArray[1],
+          contractData,
         };
       } else {
         metaData = checkedAddresses[otherAddress];

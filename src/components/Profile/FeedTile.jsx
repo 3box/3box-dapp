@@ -113,6 +113,11 @@ export const FeedTileInternal = ({ item, name, onPublicProfilePage, metaDataName
             : `to you`)
           }
         </p>
+        {item.methodCall && (
+          <p>
+            {`for ${item.methodCall}`}
+          </p>
+        )}
       </div>
       <FeedTileContext item={item} />
     </div>
@@ -167,6 +172,11 @@ export const FeedTileToken = ({ item, name, onPublicProfilePage, metaDataName, i
             : `to you`)
           }
         </p>
+        {item.methodCall && (
+          <p>
+            {`for ${item.methodCall}`}
+          </p>
+        )}
       </div>
       <FeedTileContext item={item} />
     </div>
@@ -217,6 +227,11 @@ export const FeedTileTXS = ({ item, name, onPublicProfilePage, metaDataName, isF
             : `to you`)
           }
         </p>
+        {item.methodCall && (
+          <p>
+            {`for ${item.methodCall}`}
+          </p>
+        )}
       </div>
       <FeedTileContext item={item} />
     </div>
