@@ -556,6 +556,48 @@ class EditProfile extends Component {
 
       this.props.getActivity();
 
+
+      //Analytics
+      let changedFields = []
+      let removedFields = []
+      if (nameChanged && name !== '') changedFields.push('name');
+      if (nameChanged && name === '') removedFields.push('name');
+      if (descriptionChanged && description !== '') changedFields.push('description');
+      if (descriptionChanged && description === '') removedFields.push('description');
+      if (locationChanged && location !== '') changedFields.push('location');
+      if (locationChanged && location === '') removedFields.push('location');
+      if (websiteChanged && website !== '') changedFields.push('website');
+      if (websiteChanged && website === '') removedFields.push('website');
+      if (employerChanged && employer !== '') changedFields.push('employer');
+      if (employerChanged && employer === '') removedFields.push('employer');
+      if (jobChanged && job !== '') changedFields.push('job');
+      if (jobChanged && job === '') removedFields.push('job');
+      if (schoolChanged && school !== '') changedFields.push('school');
+      if (schoolChanged && school === '') removedFields.push('school');
+      if (degreeChanged && degree !== '') changedFields.push('degree');
+      if (degreeChanged && degree === '') removedFields.push('degree');
+      if (majorChanged && major !== '') changedFields.push('major');
+      if (majorChanged && major === '') removedFields.push('major');
+      if (yearChanged && year !== '') changedFields.push('year');
+      if (yearChanged && year === '') removedFields.push('year');
+      if (emojiChanged && emoji !== '') changedFields.push('emoji');
+      if (emojiChanged && emoji === '') removedFields.push('emoji');
+      if (birthdayChanged && birthday !== '') changedFields.push('birthday');
+      if (birthdayChanged && birthday === '') removedFields.push('birthday');
+      if (emailChanged && email !== '') changedFields.push('email');
+      if (emailChanged && email === '') removedFields.push('email');
+
+      if (changedFields.length > 0) {
+        analytics.track('update_profile', {
+          fields: changedFields
+        });
+      }
+      if (removedFields.length > 0) {
+        analytics.track('remove_profile', {
+          fields: removedFields
+        });
+      }
+
       this.setState({ saveLoading: false });
       history.push(`/${currentAddress}/${routes.ACTIVITY}`);
     }
@@ -609,7 +651,7 @@ class EditProfile extends Component {
     const message = (`3Box is a social profiles network for web3. This post links my 3Box profile to my Github account!
 
     ✅ ${did} ✅
-    
+
 Create your profile today to start building social connection and trust online. https://3box.io/`);
 
     const twitterMessage = (`This tweet links my 3Box profile to my twitter account! %0D%0A%0D%0AJoin web3's social profiles network by creating your account on http://3box.io/ today. %0D%0A@3boxdb%0D%0A%0D%0A✅
