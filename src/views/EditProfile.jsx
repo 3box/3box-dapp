@@ -4,7 +4,7 @@ import { Link, withRouter, Prompt } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
-import { trackUpdateProfile, trackRemoveProfile } from './analytics.js'
+import { trackUpdateProfile, trackRemoveProfile } from '../analytics.js'
 
 import {
   store,
