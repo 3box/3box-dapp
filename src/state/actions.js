@@ -1,7 +1,3 @@
-import contractMap from 'eth-contract-metadata';
-import {
-  toChecksumAddress,
-} from 'ethereumjs-util';
 import abiDecoder from 'abi-decoder';
 
 import {
@@ -10,7 +6,8 @@ import {
 import * as routes from '../utils/routes';
 import history from '../history';
 import {
-  fetchAsync
+  fetchAsync,
+  imageElFor,
 } from '../utils/funcs';
 
 export const checkWeb3Wallet = () => async (dispatch) => {
@@ -385,20 +382,6 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
       }
     });
 
-    const imageElFor = (address) => {
-      const contractMetaData = contractMap[toChecksumAddress(address)];
-      if (!contractMetaData || (!('logo' in contractMetaData))) {
-        return false;
-      }
-      // this isnt necessary
-      const fileName = contractMetaData.logo;
-      const path = `/contractIcons/${fileName}`;
-      const contractImg = document.createElement('img');
-      contractImg.src = path;
-      contractImg.style.width = '100%';
-      return [contractImg, contractMetaData];
-    };
-
     let checkedAddresses = {};
 
     feedByAddress.map(async (txGroup, i) => {
@@ -406,41 +389,41 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
       let metaData = {};
       let contractData;
       let code;
+      let contractArray;
+      let name;
+      let image;
 
-      try {
-        code = web3.eth.getCode(otherAddress, (err, transactionHash) => { // eslint-disable-line no-undef
-          if (!err) {
-            console.error(err);
-          }
-        });
-      } catch (err) {
-        console.log(err);
-      }
-
-      if (code !== '0x') { // then address is contract
-        fetchAsync(otherAddress)
-          .then((data) => {
-            if (data.status === '1') {
-              contractData = JSON.parse(data.result);
-              abiDecoder.addABI(contractData);
-              txGroup[otherAddress].map((lineItem, index) => {
-                const methodCall = abiDecoder.decodeMethod(txGroup[otherAddress][index].input);
-                lineItem.methodCall = methodCall && methodCall.name && (methodCall.name.charAt(0).toUpperCase() + methodCall.name.slice(1)).replace(/([A-Z])/g, ' $1').trim();
-              });
-            }
-          })
-          .catch((err) => {
-            // console.log('Fetch Error :-S', err);
-          });
-      }
-
-      console.log('checkedAddresses', checkedAddresses);
       if (!checkedAddresses[otherAddress]) {
-        // look for contract or 3box metadata
-        console.log('in not checked');
         try {
+          code = web3.eth.getCode(otherAddress, (err, transactionHash) => { // eslint-disable-line no-undef
+            if (!err) {
+              console.error(err);
+            }
+          });
+        } catch (err) {
+          console.log(err);
+        }
+
+        if (code !== '0x') { // then address is contract
+          fetchAsync(otherAddress)
+            .then((data) => {
+              if (data.status === '1') {
+                contractData = JSON.parse(data.result);
+                abiDecoder.addABI(contractData);
+                txGroup[otherAddress].map((lineItem, index) => {
+                  const methodCall = abiDecoder.decodeMethod(txGroup[otherAddress][index].input);
+                  lineItem.methodCall = methodCall && methodCall.name && (methodCall.name.charAt(0).toUpperCase() + methodCall.name.slice(1)).replace(/([A-Z])/g, ' $1').trim();
+                });
+              }
+            })
+            .catch((err) => {
+              // console.log('Fetch Error :-S', err);
+            });
+          contractArray = imageElFor(otherAddress);
+        } else {
           // look for 3box metadata
-          const graphqlQueryObject = `
+          try {
+            const graphqlQueryObject = `
           {
             profile(id: "${otherAddress}") {
               name
@@ -448,16 +431,13 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
             }
           }
           `;
-          metaData = await Box.profileGraphQL(graphqlQueryObject); // eslint-disable-line no-undef
-          console.log('metaData', metaData);
-        } catch (error) {
-          // console.log(error);
+            metaData = await Box.profileGraphQL(graphqlQueryObject); // eslint-disable-line no-undef
+            name = metaData.profile && metaData.profile.name;
+            image = metaData.profile && metaData.profile.image;
+          } catch (error) {
+            // console.log(error);
+          }
         }
-
-        // look for contract metadata
-        const contractArray = imageElFor(otherAddress);
-        const name = metaData.profile && metaData.profile.name;
-        const image = metaData.profile && metaData.profile.image;
 
         checkedAddresses[otherAddress] = {
           name,
@@ -466,7 +446,6 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
           contractDetails: contractArray[1],
           contractData,
         };
-        console.log('checkedAddresses2', checkedAddresses);
         feedByAddress[i].metaData = {
           name,
           image,
@@ -475,7 +454,6 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
           contractData,
         };
       } else {
-        console.log('in else');
         metaData = checkedAddresses[otherAddress];
         feedByAddress[i].metaData = metaData;
       }

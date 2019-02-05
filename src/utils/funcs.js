@@ -1,3 +1,8 @@
+import contractMap from 'eth-contract-metadata';
+import {
+  toChecksumAddress,
+} from 'ethereumjs-util';
+
 import * as routes from './routes';
 
 export const normalizeURL = (pathname) => {
@@ -39,26 +44,16 @@ export async function fetchAsync(otherAddress) {
   return data;
 };
 
-// fetch(`https://api.etherscan.io/api?module=contract&action=getabi&address=${otherAddress}&apikey=3VTI9D585DCX4RD4QSP3MYWKACCIVZID23`)
-//   .then(
-//     (response) => {
-//       if (response.status !== 200) {
-//         console.log(`Looks like there was a problem. Status Code: ${response.status}`);
-//         return;
-//       }
-//       response.json()
-//         .then((data) => {
-//           if (data.status === '1') {
-//             contractData = JSON.parse(data.result);
-//             abiDecoder.addABI(contractData);
-//             txGroup[otherAddress].map((lineItem, index) => {
-//               const methodCall = abiDecoder.decodeMethod(txGroup[otherAddress][index].input);
-//               lineItem.methodCall = methodCall && methodCall.name && (methodCall.name.charAt(0).toUpperCase() + methodCall.name.slice(1)).replace(/([A-Z])/g, ' $1').trim();
-//             });
-//           }
-//         });
-//     },
-//   )
-//   .catch((err) => {
-//     console.log('Fetch Error :-S', err);
-//   });
+export const imageElFor = (address) => {
+  const contractMetaData = contractMap[toChecksumAddress(address)];
+  if (!contractMetaData || (!('logo' in contractMetaData))) {
+    return false;
+  }
+  // this isnt necessary
+  const fileName = contractMetaData.logo;
+  const path = `/contractIcons/${fileName}`;
+  const contractImg = document.createElement('img');
+  contractImg.src = path;
+  contractImg.style.width = '100%';
+  return [contractImg, contractMetaData];
+};
