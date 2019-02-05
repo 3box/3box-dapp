@@ -267,9 +267,13 @@
   justify-content: center;
   align-items: center; }
   .feed__activity__header h4 {
-    margin-bottom: .2em; }
+    margin-bottom: .2em;
+    color: #1168df; }
   .feed__activity__header p {
     color: #747677; }
+
+.feed__activity__info__method {
+  font-weight: 600; }
 
 .feed__activity__address {
   display: flex;
@@ -322,6 +326,8 @@
   flex-direction: column;
   background-color: #f9f9f9;
   border: solid 1px #E4E4E4; }
+  .feed__activity:hover {
+    background-color: #efefef; }
 
 .feed__activity__address__dataType {
   width: 18px;

@@ -404,6 +404,8 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
           console.log(err);
         }
 
+        console.log('otherAddress', otherAddress);
+        console.log('code', code);
         if (code !== '0x') { // then address is contract
           fetchAsync(otherAddress)
             .then((data) => {
@@ -648,21 +650,3 @@ export const copyToClipBoard = (type, message) => async (dispatch) => {
     console.error('Unable to copy', err);
   }
 };
-
-// feed.forEach((item) => {
-//   const othersAddress = item.from === store.getState().threeBox.currentAddress ? item.to : item.from;
-//   if (feedByAddress.length > 0 &&
-//     Object.keys(feedByAddress[feedByAddress.length - 1])[0] === othersAddress) {
-//     feedByAddress[feedByAddress.length - 1][othersAddress].push(item);
-//   } else if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === 'threeBox' && (item.dataType === 'Public' || item.dataType === 'Private')) {
-//     feedByAddress[feedByAddress.length - 1].threeBox.push(item);
-//   } else if (item.dataType === 'Public' || item.dataType === 'Private') {
-//     feedByAddress.push({
-//       threeBox: [item],
-//     });
-//   } else {
-//     feedByAddress.push({
-//       [othersAddress]: [item],
-//     });
-//   }
-// });

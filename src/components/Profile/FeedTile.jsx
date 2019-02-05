@@ -144,12 +144,12 @@ export const FeedTileInternal = ({ item, name, onPublicProfilePage, metaDataName
             </span>)}
 
           {(item.methodCall && item.value !== '0') && (
-            <span>
+            <span className="feed__activity__info__method">
               {`for ${item.methodCall}`}
             </span>
           )}
           {(item.methodCall && item.value === '0') && (
-            <span>
+            <span className="feed__activity__info__method">
               {`${item.methodCall}`}
             </span>
           )}
@@ -236,12 +236,12 @@ export const FeedTileToken = ({ item, name, onPublicProfilePage, metaDataName, i
               }
             </span>)}
           {(item.methodCall && item.value !== '0') && (
-            <span>
+            <span className="feed__activity__info__method">
               {`for ${item.methodCall}`}
             </span>
           )}
           {(item.methodCall && item.value === '0') && (
-            <span>
+            <span className="feed__activity__info__method">
               {`${item.methodCall}`}
             </span>
           )}
@@ -328,12 +328,12 @@ export const FeedTileTXS = ({ item, name, onPublicProfilePage, metaDataName, isF
             </span>)}
 
           {(item.methodCall && item.value !== '0') && (
-            <span>
+            <span className="feed__activity__info__method">
               {`for ${item.methodCall}`}
             </span>
           )}
           {(item.methodCall && item.value === '0') && (
-            <span>
+            <span className="feed__activity__info__method">
               {`${item.methodCall}`}
             </span>
           )}

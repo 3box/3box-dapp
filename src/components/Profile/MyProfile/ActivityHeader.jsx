@@ -47,43 +47,37 @@ const Activity = ({ name, image, feedAddress }) => (
           <React.Fragment>
             {(feedAddress.metaData && feedAddress.metaData.name)
               && (
-                <div className="feed__activity__address__wrapper">
-                  <a href={`https://3box.io/${Object.keys(feedAddress)[0]}`}>
-                    <h4>
-                      {feedAddress.metaData.name}
-                    </h4>
-                  </a>
+                <a href={`https://3box.io/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer" className="feed__activity__address__wrapper">
+                  <h4>
+                    {feedAddress.metaData.name}
+                  </h4>
                   <p className="feed__activity__address__type">
                     Address
                   </p>
-                </div>
+                </a>
               )}
             {(feedAddress.metaData && feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name)
               && (
-                <div className="feed__activity__address__wrapper">
-                  <a href={`https://etherscan.io/tx/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer">
-                    <h4>
-                      {(feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()}
-                    </h4>
-                  </a>
+                <a href={`https://ethstats.io/account/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer" className="feed__activity__address__wrapper">
+                  <h4>
+                    {(feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()}
+                  </h4>
                   <p className="feed__activity__address__type">
                     Contract
                     {` ${Object.keys(feedAddress)[0].substring(0, 12)}...`}
                   </p>
-                </div>
+                </a>
               )}
             {(!feedAddress.metaData || (!feedAddress.metaData.contractDetails && !feedAddress.metaData.name))
               && (
-                <div className="feed__activity__address__wrapper">
-                  <a href={`https://ethstats.io/account/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer">
-                    <h4>
-                      {Object.keys(feedAddress)[0]}
-                    </h4>
-                  </a>
+                <a href={`https://ethstats.io/account/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer" className="feed__activity__address__wrapper">
+                  <h4>
+                    {Object.keys(feedAddress)[0]}
+                  </h4>
                   <p className="feed__activity__address__type">
                     Address
                   </p>
-                </div>
+                </a>
               )}
           </React.Fragment>
         )}

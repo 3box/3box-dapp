@@ -335,11 +335,16 @@
 
   h4 {
     margin-bottom: .2em;
+    color: $threeBoxBlue;
   }
 
   p {
     color: $lighterFont;
   }
+}
+
+.feed__activity__info__method {
+  font-weight: 600;
 }
 
 .feed__activity__address {
@@ -406,6 +411,11 @@
   flex-direction: column;
   background-color: $feedTileGrey;
   border: solid 1px $borderColor;
+
+
+  &:hover {
+    background-color: #efefef;
+  }
 }
 
 .feed__activity__address__dataType {
@@ -547,13 +557,8 @@
     padding: 11px 0;
     align-items: center;
     justify-content: space-between;
-
-    // white-space: nowrap;
-    // overflow: hidden;
-    // overflow-x: scroll;
     border-radius: 0;
     width: 100%;
-
     border-bottom: 1px solid $borderColor;
     border-top: 1px solid $borderColor;
     border-left: none;

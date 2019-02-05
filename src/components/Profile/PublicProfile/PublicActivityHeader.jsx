@@ -8,7 +8,6 @@ import '../../styles/NetworkArray.css';
 
 const PublicActivityContext = ({ feedAddress, i }) => (
   <div className="feed__activity__context">
-    {console.log(i, feedAddress.metaData)}
     {(feedAddress.metaData && feedAddress.metaData.image)
       && <img src={`https://ipfs.infura.io/ipfs/${feedAddress.metaData.image}`} className="feed__activity__user clear" alt="profile" />}
 
@@ -29,44 +28,38 @@ const PublicActivityContext = ({ feedAddress, i }) => (
     <React.Fragment>
       {(feedAddress.metaData && feedAddress.metaData.name)
         && (
-          <div className="feed__activity__address__wrapper">
-            <a href={`https://3box.io/${Object.keys(feedAddress)[0]}`}>
-              <h4>
-                {feedAddress.metaData.name}
-              </h4>
-            </a>
+          <a href={`https://3box.io/${Object.keys(feedAddress)[0]}`} className="feed__activity__address__wrapper" >
+            <h4>
+              {feedAddress.metaData.name}
+            </h4>
             <p className="feed__activity__address__type">
               Address
               {` ${Object.keys(feedAddress)[0].substring(0, 12)}...`}
             </p>
-          </div>
+          </a>
         )}
       {(feedAddress.metaData && feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name)
         && (
-          <div className="feed__activity__address__wrapper">
-            <a href={`https://etherscan.io/address/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer">
-              <h4>
-                {(feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()}
-              </h4>
-            </a>
+          <a href={`https://etherscan.io/address/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer" className="feed__activity__address__wrapper">
+            <h4>
+              {(feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()}
+            </h4>
             <p className="feed__activity__address__type">
               Contract
               {` ${Object.keys(feedAddress)[0].substring(0, 12)}...`}
             </p>
-          </div>
+          </a>
         )}
       {(!feedAddress.metaData || (!feedAddress.metaData.contractDetails && !feedAddress.metaData.name))
         && (
-          <div className="feed__activity__address__wrapper">
-            <a href={`https://ethstats.io/account/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer">
-              <h4>
-                {Object.keys(feedAddress)[0]}
-              </h4>
-            </a>
+          <a href={`https://etherscan.io/address/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer" className="feed__activity__address__wrapper">
+            <h4>
+              {Object.keys(feedAddress)[0]}
+            </h4>
             <p className="feed__activity__address__type">
               Address
             </p>
-          </div>
+          </a>
         )}
     </React.Fragment>
   </div>
