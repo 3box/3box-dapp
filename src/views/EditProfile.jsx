@@ -4,6 +4,7 @@ import { Link, withRouter, Prompt } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
+import { trackUpdateProfile, trackRemoveProfile } from './analytics.js'
 
 import {
   store,
@@ -588,14 +589,10 @@ class EditProfile extends Component {
       if (emailChanged && email === '') removedFields.push('email');
 
       if (changedFields.length > 0) {
-        analytics.track('update_profile', {
-          fields: changedFields
-        });
+        trackUpdateProfile(changedFields)
       }
       if (removedFields.length > 0) {
-        analytics.track('remove_profile', {
-          fields: removedFields
-        });
+        trackRemoveProfile(removedFields)
       }
 
       this.setState({ saveLoading: false });
