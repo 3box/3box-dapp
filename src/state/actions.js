@@ -9,13 +9,9 @@ import {
 } from './store';
 import * as routes from '../utils/routes';
 import history from '../history';
-
-// const stripEndQuotes = (s) => {
-//   let t = s.length;
-//   if (s.charAt(0) === "'") s = s.substring(1, t--);
-//   if (s.charAt(--t) === "'") s = s.substring(0, t);
-//   return s;
-// };
+import {
+  fetchAsync
+} from '../utils/funcs';
 
 export const checkWeb3Wallet = () => async (dispatch) => {
   const cp = typeof window.web3 !== 'undefined' ? window.web3.currentProvider : null; // eslint-disable-line no-undef
@@ -159,7 +155,6 @@ export const checkNetwork = () => async (dispatch) => {
 
   const prevPrevNetwork = window.localStorage.getItem('prevNetwork'); // eslint-disable-line no-undef
   const prevNetwork = window.localStorage.getItem('currentNetwork'); // eslint-disable-line no-undef
-
   const shouldShowSwitchNetwork = window.localStorage.getItem('shouldShowSwitchNetwork'); // eslint-disable-line no-undef
   window.localStorage.setItem('prevPrevNetwork', prevPrevNetwork); // eslint-disable-line no-undef
   window.localStorage.setItem('prevNetwork', prevNetwork); // eslint-disable-line no-undef
@@ -410,43 +405,41 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
       const otherAddress = Object.keys(txGroup)[0];
       let metaData = {};
       let contractData;
+      let code;
 
-      const code = web3.eth.getCode(otherAddress, (err, transactionHash) => { // eslint-disable-line no-undef
-        if (!err) {
-          // console.log(transactionHash);
-        }
-      });
+      try {
+        code = web3.eth.getCode(otherAddress, (err, transactionHash) => { // eslint-disable-line no-undef
+          if (!err) {
+            console.error(err);
+          }
+        });
+      } catch (err) {
+        console.log(err);
+      }
+
       if (code !== '0x') { // then address is contract
-        fetch(`https://api.etherscan.io/api?module=contract&action=getabi&address=${otherAddress}&apikey=3VTI9D585DCX4RD4QSP3MYWKACCIVZID23`)
-          .then(
-            (response) => {
-              if (response.status !== 200) {
-                console.log(`Looks like there was a problem. Status Code: ${response.status}`);
-                return;
-              }
-              response.json()
-                .then((data) => {
-                  if (data.status === '1') {
-                    contractData = JSON.parse(data.result);
-                    console.log(contractData);
-                    abiDecoder.addABI(contractData);
-
-                    // feedByAddress.map(txGroup)
-                    txGroup[otherAddress].map((lineItem, index) => {
-                      const methodCall = abiDecoder.decodeMethod(txGroup[otherAddress][index].input);
-                      lineItem.methodCall = methodCall && methodCall.name && (methodCall.name.charAt(0).toUpperCase() + methodCall.name.slice(1)).replace(/([A-Z])/g, ' $1').trim();
-                    });
-                  }
-                });
-            },
-          )
+        fetchAsync(otherAddress)
+          .then((data) => {
+            if (data.status === '1') {
+              contractData = JSON.parse(data.result);
+              abiDecoder.addABI(contractData);
+              txGroup[otherAddress].map((lineItem, index) => {
+                const methodCall = abiDecoder.decodeMethod(txGroup[otherAddress][index].input);
+                lineItem.methodCall = methodCall && methodCall.name && (methodCall.name.charAt(0).toUpperCase() + methodCall.name.slice(1)).replace(/([A-Z])/g, ' $1').trim();
+              });
+            }
+          })
           .catch((err) => {
-            console.log('Fetch Error :-S', err);
+            // console.log('Fetch Error :-S', err);
           });
       }
 
+      console.log('checkedAddresses', checkedAddresses);
       if (!checkedAddresses[otherAddress]) {
+        // look for contract or 3box metadata
+        console.log('in not checked');
         try {
+          // look for 3box metadata
           const graphqlQueryObject = `
           {
             profile(id: "${otherAddress}") {
@@ -456,10 +449,12 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
           }
           `;
           metaData = await Box.profileGraphQL(graphqlQueryObject); // eslint-disable-line no-undef
+          console.log('metaData', metaData);
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         }
 
+        // look for contract metadata
         const contractArray = imageElFor(otherAddress);
         const name = metaData.profile && metaData.profile.name;
         const image = metaData.profile && metaData.profile.image;
@@ -471,6 +466,7 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
           contractDetails: contractArray[1],
           contractData,
         };
+        console.log('checkedAddresses2', checkedAddresses);
         feedByAddress[i].metaData = {
           name,
           image,
@@ -479,6 +475,7 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
           contractData,
         };
       } else {
+        console.log('in else');
         metaData = checkedAddresses[otherAddress];
         feedByAddress[i].metaData = metaData;
       }

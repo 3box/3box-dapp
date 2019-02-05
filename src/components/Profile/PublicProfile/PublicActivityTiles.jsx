@@ -30,6 +30,7 @@ const PublicActivity = ({
                       || (feedAddress.metaData.contractDetails
                         && (feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()))}
                   onPublicProfilePage
+                  contractImg={feedAddress.metaData && feedAddress.metaData.contractImg && feedAddress.metaData.contractImg.src}
                   isFromProfile={item.from.toLowerCase() === publicProfileAddress.toLowerCase()}
                   name={publicName}
                   item={item}
@@ -45,6 +46,7 @@ const PublicActivity = ({
                       || (feedAddress.metaData.contractDetails
                         && (feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()))}
                   onPublicProfilePage
+                  contractImg={feedAddress.metaData && feedAddress.metaData.contractImg && feedAddress.metaData.contractImg.src}
                   isFromProfile={item.from.toLowerCase() === publicProfileAddress.toLowerCase()}
                   name={publicName}
                   item={item}
@@ -59,8 +61,8 @@ const PublicActivity = ({
                     && (feedAddress.metaData.name
                       || (feedAddress.metaData.contractDetails
                         && (feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()))}
-
                   onPublicProfilePage
+                  contractImg={feedAddress.metaData && feedAddress.metaData.contractImg && feedAddress.metaData.contractImg.src}
                   isFromProfile={item.from.toLowerCase() === publicProfileAddress.toLowerCase()}
                   name={publicName}
                   item={item}

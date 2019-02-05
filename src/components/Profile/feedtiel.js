@@ -10,8 +10,6 @@ import Internal from '../../assets/Internal.svg';
 import EthereumLine from '../../assets/EthereumLine.svg';
 import Tokens from '../../assets/Tokens.svg';
 import '../styles/Feed.css';
-import networkArray from '../../utils/networkArray';
-import '../styles/NetworkArray.css';
 // import Send from '../../assets/Send.svg';
 // import Receive from '../../assets/Receive.svg';
 
@@ -84,7 +82,7 @@ FeedTileActivity.defaultProps = {
   verifiedTwitter: '',
 };
 
-export const FeedTileInternal = ({ item, name, onPublicProfilePage, metaDataName, isFromProfile, contractImg }) => (
+export const FeedTileInternal = ({ item, name, onPublicProfilePage, metaDataName, isFromProfile }) => (
   <a href={`https://etherscan.io/tx/${item.hash}`} target="_blank" rel="noopener noreferrer" className="feed__activity">
     <div className="feed__activity__data">
       <div className="feed__activity__info">
@@ -92,18 +90,6 @@ export const FeedTileInternal = ({ item, name, onPublicProfilePage, metaDataName
           (tokenToData[item.tokenSymbol])
             ? <img src={`/contractIcons/${tokenToData[item.tokenSymbol].logo}`} alt="token icon" />
             : <img src={Internal} alt="Internal Transaction Icon" />
-        }
-        {
-          (item.value === '0' && contractImg)
-          && <img src={contractImg} alt="token icon" />
-        }
-        {
-          (item.value === '0' && !contractImg)
-          && (
-            <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
-              0x
-            </div>
-          )
         }
         <p>
           <span className="feed__activity__info__key">
@@ -128,7 +114,7 @@ export const FeedTileInternal = ({ item, name, onPublicProfilePage, metaDataName
 
           {item.value !== '0' && (
             <span className={`feed__activity__info__token ${isFromProfile ? 'sentCurrency' : 'receivedCurrency'}`} title={(Number(item.value) / 1000000000000000000).toString()}>
-              {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ${item.tokenSymbol ? item.tokenSymbol : 'ETH'}`}
+              {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ${item.tokenSymbol ? item.tokenSymbol : 'Tokens'}`}
             </span>)}
 
           {item.value !== '0' && (
@@ -166,19 +152,17 @@ FeedTileInternal.propTypes = {
   name: PropTypes.string,
   onPublicProfilePage: PropTypes.bool,
   isFromProfile: PropTypes.bool,
-  contractImg: PropTypes.string,
 };
 
 FeedTileInternal.defaultProps = {
   item: {},
   metaDataName: '',
   name: '',
-  contractImg: '',
   onPublicProfilePage: false,
   isFromProfile: false,
 };
 
-export const FeedTileToken = ({ item, name, onPublicProfilePage, metaDataName, isFromProfile, contractImg }) => (
+export const FeedTileToken = ({ item, name, onPublicProfilePage, metaDataName, isFromProfile }) => (
   <a href={`https://etherscan.io/tx/${item.hash}`} target="_blank" rel="noopener noreferrer" className="feed__activity">
     <div className="feed__activity__data">
       <div className="feed__activity__info">
@@ -186,18 +170,6 @@ export const FeedTileToken = ({ item, name, onPublicProfilePage, metaDataName, i
           (tokenToData[item.tokenSymbol])
             ? <img src={`/contractIcons/${tokenToData[item.tokenSymbol].logo}`} alt="token icon" />
             : <img src={Tokens} alt="Token Transaction Icon" />
-        }
-        {
-          (item.value === '0' && contractImg)
-          && <img src={contractImg} alt="token icon" />
-        }
-        {
-          (item.value === '0' && !contractImg)
-          && (
-            <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
-              0x
-            </div>
-          )
         }
         <p>
           <span className="feed__activity__info__key">
@@ -255,7 +227,6 @@ export const FeedTileToken = ({ item, name, onPublicProfilePage, metaDataName, i
 FeedTileToken.propTypes = {
   item: PropTypes.object,
   metaDataName: PropTypes.string,
-  contractImgƒ: PropTypes.string,
   name: PropTypes.string,
   onPublicProfilePage: PropTypes.bool,
   isFromProfile: PropTypes.bool,
@@ -264,31 +235,16 @@ FeedTileToken.propTypes = {
 FeedTileToken.defaultProps = {
   item: {},
   metaDataName: '',
-  contractImg: '',
   name: '',
   onPublicProfilePage: false,
   isFromProfile: false,
 };
 
-export const FeedTileTXS = ({ item, name, onPublicProfilePage, metaDataName, isFromProfile, contractImg }) => (
+export const FeedTileTXS = ({ item, name, onPublicProfilePage, metaDataName, isFromProfile }) => (
   <a href={`https://etherscan.io/tx/${item.hash}`} target="_blank" rel="noopener noreferrer" className="feed__activity">
     <div className="feed__activity__data">
       <div className="feed__activity__info">
-        {
-          (item.value === '0' && contractImg)
-          && <img src={contractImg} alt="token icon" />
-        }
-        {
-          (item.value === '0' && !contractImg)
-          && (
-            <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
-              0x
-            </div>)
-        }
-        {
-          item.value !== '0'
-          && <img src={EthereumLine} alt="Ethereum Transaction Icon" />
-        }
+        <img src={EthereumLine} alt="Ethereum Transaction Icon" />
         <p>
           <span className="feed__activity__info__key">
             {(onPublicProfilePage && item.value === '0') && (isFromProfile
@@ -347,7 +303,6 @@ export const FeedTileTXS = ({ item, name, onPublicProfilePage, metaDataName, isF
 FeedTileTXS.propTypes = {
   item: PropTypes.object,
   metaDataName: PropTypes.string,
-  contractImg: PropTypes.string,
   name: PropTypes.string,
   onPublicProfilePage: PropTypes.bool,
   isFromProfile: PropTypes.bool,
@@ -356,7 +311,6 @@ FeedTileTXS.propTypes = {
 FeedTileTXS.defaultProps = {
   item: {},
   metaDataName: '',
-  contractImg: '',
   name: '',
   onPublicProfilePage: false,
   isFromProfile: false,

@@ -26,26 +26,32 @@ const ActivityTiles = ({
             if (item.dataType === 'Internal') {
               return (
                 <FeedTileInternal
-                  item={item}
-                  key={index}
+                  currentAddress={currentAddress}
                   metaDataName={feedAddress.metaData
                     && (feedAddress.metaData.name
-                      || (feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name))}
-                  name={name}
+                      || (feedAddress.metaData.contractDetails
+                        && (feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()))}
+                  contractImg={feedAddress.metaData && feedAddress.metaData.contractImg && feedAddress.metaData.contractImg.src}
                   isFromProfile={item.from.toLowerCase() === currentAddress.toLowerCase()}
-                  isEven={parseInt(index, 10) % 2 === 0} />
-              );
+                  name={name}
+                  item={item}
+                  key={index}
+                  isEven={parseInt(index, 10) % 2 === 0}
+                />);
             }
 
             if (item.dataType === 'Token') {
               return (
                 <FeedTileToken
-                  item={item}
-                  key={index}
+                  currentAddress={currentAddress}
                   metaDataName={feedAddress.metaData
                     && (feedAddress.metaData.name
-                      || (feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name))}
+                      || (feedAddress.metaData.contractDetails
+                        && (feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()))}
+                  item={item}
+                  key={index}
                   isFromProfile={item.from.toLowerCase() === currentAddress.toLowerCase()}
+                  contractImg={feedAddress.metaData && feedAddress.metaData.contractImg && feedAddress.metaData.contractImg.src}
                   name={name}
                   isEven={parseInt(index, 10) % 2 === 0}
                 />);
@@ -54,12 +60,15 @@ const ActivityTiles = ({
             if (item.dataType === 'Txs') {
               return (
                 <FeedTileTXS
+                  currentAddress={currentAddress}
                   item={item}
                   key={index}
                   metaDataName={feedAddress.metaData
                     && (feedAddress.metaData.name
-                      || (feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name))}
+                      || (feedAddress.metaData.contractDetails
+                        && (feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()))}
                   isFromProfile={item.from.toLowerCase() === currentAddress.toLowerCase()}
+                  contractImg={feedAddress.metaData && feedAddress.metaData.contractImg && feedAddress.metaData.contractImg.src}
                   name={name}
                   isEven={parseInt(index, 10) % 2 === 0}
                 />);

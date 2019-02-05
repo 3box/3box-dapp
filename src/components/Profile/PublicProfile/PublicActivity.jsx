@@ -23,7 +23,7 @@ const PublicActivity = ({ ifFetchingActivity, publicProfileActivity }) => (
         {publicProfileActivity.length > 0
           ? publicProfileActivity.map((feedAddress, i) => (
             <div key={i} className="feed__activity__tile">
-              <PublicActivityHeader feedAddress={feedAddress} />
+              <PublicActivityHeader i={i} feedAddress={feedAddress} />
               <PublicActivityTiles feedAddress={feedAddress} />
             </div>
           ))
