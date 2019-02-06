@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import tokenToData from '../../utils/tokenToData.json';
-// import contractMap from 'eth-contract-metadata';
 
 import Save from '../../assets/Save.svg';
 import Delete from '../../assets/Delete.svg';

@@ -451,7 +451,8 @@
     .feed__activity__info img {
       margin-right: 7px; }
     .feed__activity__info p {
-      width: 300px; }
+      width: 300px;
+      word-wrap: break-word; }
   .feed__activity__image {
     width: 100%;
     min-width: 100%;

@@ -6,8 +6,10 @@ import {
 import * as routes from '../utils/routes';
 import history from '../history';
 import {
-  fetchAsync,
+  getContract,
   imageElFor,
+  getPublicProfile,
+  updateFeed,
 } from '../utils/funcs';
 
 export const checkWeb3Wallet = () => async (dispatch) => {
@@ -383,98 +385,115 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
     });
 
     let checkedAddresses = {};
+    let abiData = {};
+    let isContract = {};
+    let counter = 0;
 
-    feedByAddress.map(async (txGroup, i) => {
+    await feedByAddress.map(async (txGroup, i) => {
       const otherAddress = Object.keys(txGroup)[0];
       let metaData = {};
       let contractData;
-      let code;
-      let contractArray;
+      let contractArray = [];
       let name;
       let image;
 
       if (!checkedAddresses[otherAddress]) {
-        try {
-          code = web3.eth.getCode(otherAddress, (err, transactionHash) => { // eslint-disable-line no-undef
-            if (!err) {
-              console.error(err);
-            }
-          });
-        } catch (err) {
-          console.log(err);
-        }
-
-        console.log('otherAddress', otherAddress);
-        console.log('code', code);
-        if (code !== '0x') { // then address is contract
-          fetchAsync(otherAddress)
-            .then((data) => {
-              if (data.status === '1') {
-                contractData = JSON.parse(data.result);
-                abiDecoder.addABI(contractData);
-                txGroup[otherAddress].map((lineItem, index) => {
-                  const methodCall = abiDecoder.decodeMethod(txGroup[otherAddress][index].input);
-                  lineItem.methodCall = methodCall && methodCall.name && (methodCall.name.charAt(0).toUpperCase() + methodCall.name.slice(1)).replace(/([A-Z])/g, ' $1').trim();
-                });
-              }
-            })
-            .catch((err) => {
-              // console.log('Fetch Error :-S', err);
-            });
-          contractArray = imageElFor(otherAddress);
-        } else {
-          // look for 3box metadata
-          try {
+        web3.eth.getCode(otherAddress, (err, code) => { // eslint-disable-line no-undef
+          if (err) {
+            console.error(err);
+            checkedAddresses[otherAddress] = true;
+            counter += 1;
+            console.log('counter0', counter);
+            if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, checkedAddresses);
+          }
+          if (code !== '0x' && typeof code !== 'undefined') { // then address is contract
+            isContract[otherAddress] = true;
+            getContract(otherAddress)
+              .then((data) => {
+                if (data.status === '1') {
+                  contractData = JSON.parse(data.result);
+                  abiData[otherAddress] = contractData;
+                  abiDecoder.addABI(contractData);
+                  txGroup[otherAddress].map((lineItem, index) => {
+                    const methodCall = abiDecoder.decodeMethod(txGroup[otherAddress][index].input);
+                    lineItem.methodCall = methodCall && methodCall.name && (methodCall.name.charAt(0).toUpperCase() + methodCall.name.slice(1)).replace(/([A-Z])/g, ' $1').trim();
+                  });
+                  contractArray = imageElFor(otherAddress);
+                  checkedAddresses[otherAddress] = {
+                    contractImg: contractArray[0],
+                    contractDetails: contractArray[1],
+                    contractData,
+                  };
+                  feedByAddress[i].metaData = {
+                    contractImg: contractArray.length > 0 && contractArray[0],
+                    contractDetails: contractArray.length > 0 && contractArray[1],
+                    contractData,
+                  };
+                  console.log('counter contract', counter);
+                  counter += 1;
+                } else {
+                  console.log('counter contract2', counter);
+                  checkedAddresses[otherAddress] = true;
+                  counter += 1;
+                }
+                if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, checkedAddresses);
+              })
+              .catch((err) => {
+                // console.log('Fetch Error :-S', err);
+                // checkedAddresses[otherAddress] = true;
+                counter += 1;
+                console.log('counter too many', counter);
+                if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, checkedAddresses);
+              });
+          } else { // look for 3box metadata
             const graphqlQueryObject = `
-          {
-            profile(id: "${otherAddress}") {
-              name
-              image
-            }
+              {
+                profile(id: "${otherAddress}") {
+                  name
+                  image
+                }
+              }
+              `;
+            getPublicProfile(graphqlQueryObject).then((profile) => {
+              metaData = profile;
+              name = metaData && metaData.profile && metaData.profile.name;
+              image = metaData && metaData.profile && metaData.profile.image;
+              checkedAddresses[otherAddress] = {
+                name,
+                image,
+              };
+              feedByAddress[i].metaData = {
+                name,
+                image,
+              };
+              counter += 1;
+              console.log('counter profile', counter);
+              if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, checkedAddresses);
+            }).catch((error) => {
+              checkedAddresses[otherAddress] = true;
+              counter += 1;
+              console.log('counter profile', counter);
+              console.log('get prof err');
+              if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, checkedAddresses);
+            });
           }
-          `;
-            metaData = await Box.profileGraphQL(graphqlQueryObject); // eslint-disable-line no-undef
-            name = metaData.profile && metaData.profile.name;
-            image = metaData.profile && metaData.profile.image;
-          } catch (error) {
-            // console.log(error);
-          }
-        }
-
-        checkedAddresses[otherAddress] = {
-          name,
-          image,
-          contractImg: contractArray[0],
-          contractDetails: contractArray[1],
-          contractData,
-        };
-        feedByAddress[i].metaData = {
-          name,
-          image,
-          contractImg: contractArray[0],
-          contractDetails: contractArray[1],
-          contractData,
-        };
+        });
       } else {
+        console.log('in again');
+        if (isContract[otherAddress]) {
+          txGroup[otherAddress].map((lineItem, index) => {
+            abiDecoder.addABI(abiData[otherAddress]);
+            const methodCall = abiDecoder.decodeMethod(txGroup[otherAddress][index].input);
+            lineItem.methodCall = methodCall && methodCall.name && (methodCall.name.charAt(0).toUpperCase() + methodCall.name.slice(1)).replace(/([A-Z])/g, ' $1').trim();
+          });
+        }
         metaData = checkedAddresses[otherAddress];
         feedByAddress[i].metaData = metaData;
+        counter += 1;
+        console.log('counter again', counter);
+        if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, checkedAddresses);
       }
     });
-
-    if (publicProfileAddress) {
-      dispatch({
-        type: 'GET_PUBLIC_PROFILE_ACTIVITY',
-        publicProfileActivity: feedByAddress,
-        ifFetchingActivity: false,
-      });
-    } else {
-      dispatch({
-        type: 'UPDATE_ACTIVITY',
-        feedByAddress,
-        ifFetchingActivity: false,
-        isLoggedIn: true,
-      });
-    }
   } catch (err) {
     dispatch({
       type: 'FAILED_LOADING_ACTIVITY',
@@ -650,3 +669,19 @@ export const copyToClipBoard = (type, message) => async (dispatch) => {
     console.error('Unable to copy', err);
   }
 };
+
+
+// checkedAddresses[otherAddress] = {
+//   name,
+//   image,
+//   contractImg: contractArray.length > 0 && contractArray[0],
+//   contractDetails: contractArray.length > 0 && contractArray[1],
+//   contractData,
+// };
+// feedByAddress[i].metaData = {
+//   name,
+//   image,
+//   contractImg: contractArray.length > 0 && contractArray[0],
+//   contractDetails: contractArray.length > 0 && contractArray[1],
+//   contractData,
+// };

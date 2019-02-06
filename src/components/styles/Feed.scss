@@ -30,7 +30,6 @@
 
 .statusUpdate--bannerMargin {
   margin-top: 262px !important;
-  // margin-top: 182px !important;
 }
 
 .statusUpdate__field {
@@ -203,7 +202,6 @@
 
 .feed__activity__tile {
   margin-bottom: 20px;
-
   border: 1px solid $borderColor;
   padding: 1em;
   width: 90%;
@@ -217,7 +215,6 @@
 
 .feed__activity__info__token {
   font-weight: 500;
-  // max-width: 52%;
   overflow: hidden;
   white-space: nowrap;
   font-weight: 800;
@@ -372,7 +369,6 @@
   justify-content: flex-start;
   align-items: center;
   max-width: 80%;
-  // overflow: auto;
   width: 80%;
 
   img {
@@ -460,7 +456,6 @@
   }
 }
 
-///////
 .feed__activity__address__amount {
   width: fit-content;
   white-space: nowrap;
@@ -585,14 +580,8 @@
 
     p {
       width: 300px;
-      // width: 90%;
+      word-wrap: break-word;
     }
-  }
-
-  .feed__activity__info__token {
-    // max-width: 22%;
-    // white-space: nowrap;
-    // overflow: visible;
   }
 
   .feed__activity__image {
@@ -629,8 +618,6 @@
   .feed__activity__context {
     padding: 0 10px;
     white-space: nowrap;
-    // overflow: hidden;
-    // overflow-x: scroll;
   }
 
   .feed__activity__address {
@@ -651,14 +638,10 @@
   }
 
   .feed__activity__header {
-    // white-space: nowrap;
-    // overflow: hidden;
-    // overflow-x: scroll;
     background-color: $backgroundHue;
 
     h4 {
       width: 100%;
-      // width: 94%;
       overflow-x: scroll;
     }
   }
