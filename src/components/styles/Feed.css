@@ -382,7 +382,8 @@
   margin-bottom: -1px;
   display: flex;
   align-items: center;
-  justify-content: center; }
+  justify-content: center;
+  width: 100%; }
   .feed__activity__load p {
     color: #747677; }
 

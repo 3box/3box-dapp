@@ -385,7 +385,7 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
     });
 
     let checkedAddresses = {};
-    let abiData = {};
+    let addressData = {};
     let isContract = {};
     let counter = 0;
 
@@ -398,52 +398,39 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
       let image;
 
       if (!checkedAddresses[otherAddress]) {
+        checkedAddresses[otherAddress] = true;
         web3.eth.getCode(otherAddress, (err, code) => { // eslint-disable-line no-undef
           if (err) {
             console.error(err);
-            checkedAddresses[otherAddress] = true;
+            addressData[otherAddress] = false;
             counter += 1;
-            console.log('counter0', counter);
-            if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, checkedAddresses);
+            if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
           }
+
           if (code !== '0x' && typeof code !== 'undefined') { // then address is contract
             isContract[otherAddress] = true;
             getContract(otherAddress)
               .then((data) => {
                 if (data.status === '1') {
                   contractData = JSON.parse(data.result);
-                  abiData[otherAddress] = contractData;
-                  abiDecoder.addABI(contractData);
-                  txGroup[otherAddress].map((lineItem, index) => {
-                    const methodCall = abiDecoder.decodeMethod(txGroup[otherAddress][index].input);
-                    lineItem.methodCall = methodCall && methodCall.name && (methodCall.name.charAt(0).toUpperCase() + methodCall.name.slice(1)).replace(/([A-Z])/g, ' $1').trim();
-                  });
                   contractArray = imageElFor(otherAddress);
-                  checkedAddresses[otherAddress] = {
+                  addressData[otherAddress] = {
                     contractImg: contractArray[0],
                     contractDetails: contractArray[1],
                     contractData,
                   };
-                  feedByAddress[i].metaData = {
-                    contractImg: contractArray.length > 0 && contractArray[0],
-                    contractDetails: contractArray.length > 0 && contractArray[1],
-                    contractData,
-                  };
-                  console.log('counter contract', counter);
                   counter += 1;
                 } else {
-                  console.log('counter contract2', counter);
-                  checkedAddresses[otherAddress] = true;
+                  addressData[otherAddress] = false;
                   counter += 1;
                 }
-                if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, checkedAddresses);
+                if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
               })
               .catch((err) => {
                 // console.log('Fetch Error :-S', err);
-                // checkedAddresses[otherAddress] = true;
+                addressData[otherAddress] = false;
                 counter += 1;
-                console.log('counter too many', counter);
-                if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, checkedAddresses);
+                if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
               });
           } else { // look for 3box metadata
             const graphqlQueryObject = `
@@ -458,40 +445,22 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
               metaData = profile;
               name = metaData && metaData.profile && metaData.profile.name;
               image = metaData && metaData.profile && metaData.profile.image;
-              checkedAddresses[otherAddress] = {
-                name,
-                image,
-              };
-              feedByAddress[i].metaData = {
+              addressData[otherAddress] = {
                 name,
                 image,
               };
               counter += 1;
-              console.log('counter profile', counter);
-              if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, checkedAddresses);
+              if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
             }).catch((error) => {
-              checkedAddresses[otherAddress] = true;
+              addressData[otherAddress] = false;
               counter += 1;
-              console.log('counter profile', counter);
-              console.log('get prof err');
-              if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, checkedAddresses);
+              if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
             });
           }
         });
       } else {
-        console.log('in again');
-        if (isContract[otherAddress]) {
-          txGroup[otherAddress].map((lineItem, index) => {
-            abiDecoder.addABI(abiData[otherAddress]);
-            const methodCall = abiDecoder.decodeMethod(txGroup[otherAddress][index].input);
-            lineItem.methodCall = methodCall && methodCall.name && (methodCall.name.charAt(0).toUpperCase() + methodCall.name.slice(1)).replace(/([A-Z])/g, ' $1').trim();
-          });
-        }
-        metaData = checkedAddresses[otherAddress];
-        feedByAddress[i].metaData = metaData;
         counter += 1;
-        console.log('counter again', counter);
-        if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, checkedAddresses);
+        if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
       }
     });
   } catch (err) {
@@ -669,19 +638,3 @@ export const copyToClipBoard = (type, message) => async (dispatch) => {
     console.error('Unable to copy', err);
   }
 };
-
-
-// checkedAddresses[otherAddress] = {
-//   name,
-//   image,
-//   contractImg: contractArray.length > 0 && contractArray[0],
-//   contractDetails: contractArray.length > 0 && contractArray[1],
-//   contractData,
-// };
-// feedByAddress[i].metaData = {
-//   name,
-//   image,
-//   contractImg: contractArray.length > 0 && contractArray[0],
-//   contractDetails: contractArray.length > 0 && contractArray[1],
-//   contractData,
-// };

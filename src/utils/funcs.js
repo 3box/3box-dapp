@@ -1,4 +1,5 @@
 import contractMap from 'eth-contract-metadata';
+import abiDecoder from 'abi-decoder';
 import {
   toChecksumAddress,
 } from 'ethereumjs-util';
@@ -73,8 +74,7 @@ export async function getPublicProfile(graphqlQueryObject) {
   return profile;
 };
 
-export const updateFeed = (publicProfileAddress, feedByAddress, checkedAddresses) => {
-  console.log('checkedAddresses', checkedAddresses);
+const fireDispatch = (publicProfileAddress, feedByAddress) => {
   if (publicProfileAddress) {
     store.dispatch({
       type: 'GET_PUBLIC_PROFILE_ACTIVITY',
@@ -89,4 +89,37 @@ export const updateFeed = (publicProfileAddress, feedByAddress, checkedAddresses
       isLoggedIn: true,
     });
   }
+}
+
+export const updateFeed = (publicProfileAddress, feedByAddress, addressData, isContract) => {
+  console.log('checkedAddresses', addressData);
+  let contractArray = [];
+  let counter = 0;
+
+  feedByAddress.map(async (txGroup, i) => {
+    const otherAddress = Object.keys(txGroup)[0];
+    if (isContract[otherAddress]) { // then address is contract
+      abiDecoder.addABI(addressData[otherAddress].contractData);
+      txGroup[otherAddress].map((lineItem, index) => {
+        const methodCall = abiDecoder.decodeMethod(txGroup[otherAddress][index].input);
+        lineItem.methodCall = methodCall && methodCall.name && (methodCall.name.charAt(0).toUpperCase() + methodCall.name.slice(1)).replace(/([A-Z])/g, ' $1').trim();
+      });
+      contractArray = imageElFor(otherAddress);
+      feedByAddress[i].metaData = {
+        contractImg: contractArray.length > 0 && contractArray[0],
+        contractDetails: contractArray.length > 0 && contractArray[1],
+        // contractData,
+      };
+      counter += 1;
+      if (counter === feedByAddress.length) fireDispatch(publicProfileAddress, feedByAddress);
+    } else { // look for 3box metadata
+      feedByAddress[i].metaData = {
+        name: addressData && addressData[otherAddress] && addressData[otherAddress].name,
+        image: addressData && addressData[otherAddress] && addressData[otherAddress].image,
+      };
+      counter += 1;
+      console.log('counter profile', counter);
+      if (counter === feedByAddress.length) fireDispatch(publicProfileAddress, feedByAddress);
+    }
+  });
 };
