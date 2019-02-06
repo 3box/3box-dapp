@@ -397,6 +397,11 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
       let name;
       let image;
 
+      if (otherAddress === 'threeBox') {
+        counter += 1;
+        return;
+      }
+
       if (!checkedAddresses[otherAddress]) {
         checkedAddresses[otherAddress] = true;
         web3.eth.getCode(otherAddress, (err, code) => { // eslint-disable-line no-undef
@@ -449,11 +454,14 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
                 name,
                 image,
               };
+              console.log('in returned profile');
               counter += 1;
               if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
             }).catch((error) => {
+              console.log('in profile error');
               addressData[otherAddress] = false;
               counter += 1;
+              console.log(counter, feedByAddress.length);
               if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
             });
           }

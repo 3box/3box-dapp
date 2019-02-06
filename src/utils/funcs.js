@@ -92,7 +92,7 @@ const fireDispatch = (publicProfileAddress, feedByAddress) => {
 }
 
 export const updateFeed = (publicProfileAddress, feedByAddress, addressData, isContract) => {
-  console.log('checkedAddresses', addressData);
+  console.log('addressData', addressData);
   let contractArray = [];
   let counter = 0;
 

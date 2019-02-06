@@ -232,8 +232,7 @@
 .feed__activity__info__value {
   font-weight: 500;
   max-width: 52%;
-  overflow: hidden;
-  white-space: nowrap;
+  word-wrap: break-word;
   font-weight: 800;
   margin-right: 6px;
 }
@@ -337,6 +336,7 @@
 
   p {
     color: $lighterFont;
+    width: 96%;
   }
 }
 
@@ -483,7 +483,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  
+
   p {
     color: $lighterFont;
   }
