@@ -107,12 +107,12 @@ export const FeedTileInternal = ({ item, name, onPublicProfilePage, metaDataName
         <p>
           <span className="feed__activity__info__key">
             {(onPublicProfilePage && item.value === '0') && (isFromProfile
-              ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} performed the method`
-              : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the method`)
+              ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`
+              : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`)
             }
             {(!onPublicProfilePage && item.value === '0') && (isFromProfile
-              ? 'You performed the method'
-              : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the method`)
+              ? 'You performed the action'
+              : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`)
             }
 
             {(onPublicProfilePage && item.value !== '0') && (isFromProfile
@@ -201,12 +201,12 @@ export const FeedTileToken = ({ item, name, onPublicProfilePage, metaDataName, i
         <p>
           <span className="feed__activity__info__key">
             {(onPublicProfilePage && item.value === '0') && (isFromProfile
-              ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} performed the method`
-              : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the method`)
+              ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`
+              : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`)
             }
             {(!onPublicProfilePage && item.value === '0') && (isFromProfile
-              ? 'You performed the method'
-              : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the method`)
+              ? 'You performed the action'
+              : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`)
             }
 
             {(onPublicProfilePage && item.value !== '0') && (isFromProfile
@@ -291,12 +291,12 @@ export const FeedTileTXS = ({ item, name, onPublicProfilePage, metaDataName, isF
         <p>
           <span className="feed__activity__info__key">
             {(onPublicProfilePage && item.value === '0') && (isFromProfile
-              ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} performed the method`
-              : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the method`)
+              ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`
+              : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`)
             }
             {(!onPublicProfilePage && item.value === '0') && (isFromProfile
-              ? 'You performed the method'
-              : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the method`)
+              ? 'You performed the action'
+              : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`)
             }
 
             {(onPublicProfilePage && item.value !== '0') && (isFromProfile

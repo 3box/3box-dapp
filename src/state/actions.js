@@ -454,14 +454,11 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
                 name,
                 image,
               };
-              console.log('in returned profile');
               counter += 1;
               if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
             }).catch((error) => {
-              console.log('in profile error');
               addressData[otherAddress] = false;
               counter += 1;
-              console.log(counter, feedByAddress.length);
               if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
             });
           }
