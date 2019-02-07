@@ -488,6 +488,9 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  background-color: white;
+  border-radius: 6px;
+  border: solid 1px $borderColor;
 
   p {
     color: $lighterFont;

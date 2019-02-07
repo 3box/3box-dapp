@@ -390,7 +390,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%; }
+  width: 100%;
+  background-color: white;
+  border-radius: 6px;
+  border: solid 1px #E4E4E4; }
   .feed__activity__load p {
     color: #747677; }
 

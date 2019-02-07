@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import {
+  Route, Switch, withRouter, Redirect,
+} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -10,6 +12,7 @@ import { store } from './state/store';
 import Landing from './views/Landing';
 import MyProfile from './views/MyProfile';
 import PubProfile from './views/PubProfile';
+import NoMatch from './views/NoMatch';
 import EditProfile from './views/EditProfile';
 import Profiles from './views/Profiles';
 import Jobs from './views/Jobs';
@@ -229,6 +232,7 @@ class App extends Component {
       isSyncing,
       hasSignedOut,
       onPublicProfilePage,
+      currentAddress,
     } = this.props;
 
     const {
@@ -322,19 +326,24 @@ class App extends Component {
 
           <Route
             exact
-            path={routes.FORMAT_PROFILE_ACTIVITY}
+            path="(^[/][0][xX]\w{40}\b)/activity"
+            // path={routes.FORMAT_PROFILE_ACTIVITY}
+            component={MyProfile}
+          />
+          <Redirect from="/profile" to="/" />
+          <Redirect from="/editprofile" to="/" />
+
+          <Route
+            exact
+            path="(^[/][0][xX]\w{40}\b)/details"
+            // path={routes.FORMAT_PROFILE_ABOUT}
             component={MyProfile}
           />
 
           <Route
             exact
-            path={routes.FORMAT_PROFILE_ABOUT}
-            component={MyProfile}
-          />
-
-          <Route
-            exact
-            path={routes.FORMAT_PROFILE_EDIT}
+            path="(^[/][0][xX]\w{40}\b)/edit"
+            // path={routes.FORMAT_PROFILE_EDIT}
             component={EditProfile}
           />
 
@@ -395,8 +404,20 @@ class App extends Component {
 
           <Route
             exact
-            path={routes.PUBLIC_PROFILE}
+            path="(^[/][0][xX]\w{40}\b)"
+            // path={routes.PUBLIC_PROFILE}
             component={PubProfile}
+          />
+
+          <Route
+            // exact
+            // path="/:anythingelse"
+            component={() => (
+              <NoMatch
+                isLoggedIn={isLoggedIn}
+                handleSignInUp={this.handleSignInUp}
+              />
+            )}
           />
 
         </Switch>
@@ -457,6 +478,7 @@ App.propTypes = {
   onPublicProfilePage: PropTypes.bool,
   prevNetwork: PropTypes.string,
   currentNetwork: PropTypes.string,
+  currentAddress: PropTypes.string,
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
   }).isRequired,
@@ -490,6 +512,7 @@ App.defaultProps = {
   currentNetwork: '',
   prevAddress: '',
   directLogin: '',
+  currentAddress: '',
 };
 
 const mapState = state => ({
@@ -519,6 +542,7 @@ const mapState = state => ({
   isSignedIntoWallet: state.threeBox.isSignedIntoWallet,
   showDownloadBanner: state.threeBox.showDownloadBanner,
   onPublicProfilePage: state.threeBox.onPublicProfilePage,
+  currentAddress: state.threeBox.currentAddress,
 });
 
 export default withRouter(connect(mapState,

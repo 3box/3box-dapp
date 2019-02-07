@@ -34,6 +34,22 @@
   }
 }
 
+.info__banner--NoMatchPage {
+  width: 100vw;
+  height: 100vh;
+  background-color: #004AA8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+
+  h1 {
+    color: white;
+    margin-bottom: 20vh;
+  }
+}
+
 .info__article {
   display: flex;
   justify-content: center;
@@ -52,6 +68,10 @@
   &:hover {
     background-color: #ffffff42;
   }
+}
+
+.NoMatchPage{
+  min-height: 100vh;
 }
 
 .info__content {
