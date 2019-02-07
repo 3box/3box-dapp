@@ -447,7 +447,8 @@
   align-items: center;
   justify-content: space-between;
   width: 17%;
-
+  align-self: flex-start;
+  padding-top: 3px;
 }
 
 .saveDelete {
