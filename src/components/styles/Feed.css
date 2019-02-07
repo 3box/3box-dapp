@@ -1,19 +1,20 @@
 .statusUpdate {
   background-color: white;
-  max-width: 700px;
-  min-width: 700px;
+  max-width: 694px;
+  min-width: 694px;
   height: 50px;
-  padding: 1.3em;
+  padding: 10px 10px;
   margin-top: 128px;
   top: 194px;
   left: calc(50vw - 350px);
   border: 1px solid #E4E4E4;
-  border-radius: 14px;
+  border-radius: 6px;
   z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all ease .5s; }
+  transition: all ease .5s;
+  margin-left: 13px; }
   .statusUpdate ul {
     padding: 0; }
   .statusUpdate li {
@@ -91,19 +92,17 @@
     height: 40px; }
 
 #feed {
-  background-color: white;
-  max-width: calc(700px + 2.6em) !important;
-  min-width: calc(700px + 2.6em) !important;
+  max-width: calc(694px + 20px) !important;
+  min-width: calc(694px + 20px) !important;
   left: calc(50vw - 350px);
-  border: 1px solid #E4E4E4;
-  border-radius: 12px;
-  margin-top: 30px;
+  margin-top: 18px;
   min-height: 610px;
   height: fit-content;
   display: flex;
   flex-direction: column;
   margin-bottom: 60px;
-  justify-content: space-between; }
+  justify-content: space-between;
+  margin-left: 13px; }
   #feed ul {
     padding: 0; }
   #feed li {
@@ -113,8 +112,11 @@
 
 .profile__details {
   padding: 0 !important;
-  max-width: calc(700px + 2.6em) !important;
-  min-width: calc(700px + 2.6em) !important; }
+  max-width: calc(694px + 2.6em) !important;
+  min-width: calc(694px + 2.6em) !important;
+  background-color: white;
+  border: solid 1px #E4E4E4;
+  border-radius: 6px; }
 
 .feed__activity__user {
   border-radius: 50%;
@@ -153,16 +155,16 @@
   line-height: 24px !important;
   color: #747677;
   font-weight: 400;
-  margin-bottom: 24px;
-  border-bottom: 1px solid #E4E4E4;
+  margin-bottom: 6px;
   padding: 20px 0 14px 20px; }
 
 .feed__activity__tile {
   margin-bottom: 20px;
   border: 1px solid #E4E4E4;
-  padding: 1em;
-  width: 90%;
-  border-radius: 6px; }
+  padding: 15px;
+  width: 95.4%;
+  border-radius: 6px;
+  background-color: white; }
 
 .feed__activity__info__key {
   min-width: fit-content;
@@ -191,12 +193,14 @@
 .feed__activity__data {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   width: 100%; }
 
 .feed__activity__address__amount__emoji {
   height: 34px;
-  margin-left: 0; }
+  margin-left: 6px;
+  font-size: 24px;
+  padding-top: 6px; }
 
 .feed__activity__context {
   display: flex;
@@ -269,8 +273,10 @@
     margin-bottom: .2em;
     color: #1168df; }
   .feed__activity__header p {
-    color: #747677;
-    width: 96%; }
+    color: #747677; }
+
+.feed__activity__text {
+  width: 96%; }
 
 .feed__activity__info__method {
   font-weight: 600; }
@@ -289,17 +295,19 @@
   color: #b1b1b1 !important;
   font-size: 13px; }
 
+.feed__activity__data__icon {
+  width: 24px;
+  min-width: 24px;
+  margin-right: 16px;
+  height: 25px; }
+
 .feed__activity__info {
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   max-width: 80%;
-  width: 80%; }
-  .feed__activity__info img {
-    width: 24px;
-    min-width: 24px;
-    margin-right: 18px;
-    height: 25px; }
+  width: 80%;
+  padding-top: 3px; }
   .feed__activity__info div {
     width: 24px;
     min-width: 24px;
@@ -312,14 +320,10 @@
     color: white;
     font-weight: 500; }
 
-.feed__activity__address__amount__emoji {
-  font-size: 24px;
-  padding-top: 6px; }
-
 .feed__activity {
   display: flex;
   align-items: center;
-  margin-top: .8em;
+  margin-top: 11px;
   padding: .8em .8em;
   border-radius: 6px;
   justify-content: center;
@@ -353,8 +357,8 @@
 .feed__activity__metaData {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 17%;
+  justify-content: flex-end;
+  width: 23%;
   align-self: flex-start;
   padding-top: 3px; }
 
@@ -371,7 +375,8 @@
 
 .feed__activity__address__time {
   width: 80%;
-  justify-content: center;
+  justify-content: flex-end;
+  padding-right: 12px;
   align-items: center;
   display: flex;
   color: #b8b8b8 !important;
@@ -409,7 +414,7 @@
     max-width: 100vw;
     min-width: 100vw;
     padding: 0;
-    margin-bottom: -1px; }
+    margin-left: 0; }
     .statusUpdate input {
       padding: 10px 10px; }
   .statusUpdate--bannerMargin {
@@ -445,12 +450,14 @@
   .feed__activity__data {
     padding: 0;
     width: 94%;
+    align-items: flex-start;
     flex-direction: column; }
   .hideUpdateOnMobile {
     display: none; }
   .feed__activity__info {
     max-width: 100%;
-    width: 100%; }
+    width: 100%;
+    padding: 0; }
     .feed__activity__info img {
       margin-right: 7px; }
     .feed__activity__info p {
@@ -466,19 +473,20 @@
     max-width: 100vw !important;
     min-width: 100vw !important;
     border: none;
-    border-top: 1px solid #E4E4E4;
-    border-bottom: 1px solid #E4E4E4;
     position: relative;
     left: 0;
     top: 0;
     border-radius: 0;
-    margin-top: 18px; }
+    margin-top: 18px;
+    margin-left: 0; }
   .feed__activity__metaData {
     width: 100%;
     justify-content: flex-end;
     margin-top: 8px; }
   #feed__header {
     padding: 30px 0 20px 20px; }
+  .publicHeader {
+    display: none; }
   .feed__activity__context {
     padding: 0 10px;
     white-space: nowrap; }
@@ -491,7 +499,10 @@
       width: 94%;
       overflow-x: scroll; }
   .feed__activity__address__wrapper {
-    width: 84%; }
+    width: 86%;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start; }
   .feed__activity__header {
     background-color: #f5f6f8; }
     .feed__activity__header h4 {

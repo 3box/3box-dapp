@@ -241,7 +241,7 @@
 }
 
 .publicStatusUpdate {
-  padding: 0.3em 1.3em;
+  padding: 0.3em 10px;
   margin-top: 208px;
 }
 
@@ -444,7 +444,7 @@
 
   .publicStatusUpdate {
     padding: 0;
-    margin-top: 20px;
+    margin: 20px 0 0 0;
     height: 80px;
   }
 
@@ -458,6 +458,7 @@
 
   .profile__category__header {
     padding: 30px 0 20px 20px;
+    border-top: solid 1px $borderColor;
   }
 
   #profile__fixed {

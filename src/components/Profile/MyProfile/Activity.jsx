@@ -16,7 +16,7 @@ const Activity = ({
 }) => (
     <div id="feed">
       <div>
-        <p className="header" id="feed__header">Activity</p>
+        <p className="header publicHeader" id="feed__header">Activity</p>
         <div className="feed__activity__header">
           {(ifFetchingActivity)
             && (

@@ -18,8 +18,8 @@ export const FeedTileActivity = ({ item, verifiedGithub, verifiedTwitter }) => (
   <div className="feed__activity">
     <div className="feed__activity__data">
       <div className="feed__activity__info">
-        <img src={item.op === 'PUT' ? Save : Delete} alt="Transaction Icon" />
-        <p>
+        <img className="feed__activity__data__icon" src={item.op === 'PUT' ? Save : Delete} alt="Transaction Icon" />
+        <p className="feed__activity__text">
           <span className="feed__activity__info__key">
             {` You 
             ${item.op === 'PUT' ? 'updated your' : 'removed your'}
@@ -52,7 +52,7 @@ export const FeedTileActivity = ({ item, verifiedGithub, verifiedTwitter }) => (
                 ? (item.value ? Object.keys(item.value)[0] : '-----')
                 : ''}
 
-              {typeof item.value === 'string' && (item.key !== 'proof_github' && item.key !== 'proof_twitter')
+              {typeof item.value === 'string' && item.key !== 'emoji' && (item.key !== 'proof_github' && item.key !== 'proof_twitter')
                 ? item.value : ''}
             </span>) : ''}
         </p>
@@ -86,25 +86,30 @@ FeedTileActivity.defaultProps = {
 export const FeedTileInternal = ({ item, name, onPublicProfilePage, metaDataName, isFromProfile, contractImg }) => (
   <a href={`https://etherscan.io/tx/${item.hash}`} target="_blank" rel="noopener noreferrer" className="feed__activity">
     <div className="feed__activity__data">
+
       <div className="feed__activity__info">
-        {
-          (tokenToData[item.tokenSymbol])
-            ? <img src={`/contractIcons/${tokenToData[item.tokenSymbol].logo}`} alt="token icon" />
-            : <img src={Internal} alt="Internal Transaction Icon" />
+        {(item.tokenSymbol && (
+          ((tokenToData[item.tokenSymbol])
+            ? <img src={`/contractIcons/${tokenToData[item.tokenSymbol].logo}`} alt="token icon" className="feed__activity__data__icon" />
+            : <img src={Internal} alt="Internal Transaction Icon" className="feed__activity__data__icon" />)
+        ))}
+
+        {(item.value === '0' && contractImg)
+          && <img src={contractImg} alt="token icon" className="feed__activity__data__icon" />
         }
-        {
-          (item.value === '0' && contractImg)
-          && <img src={contractImg} alt="token icon" />
-        }
-        {
-          (item.value === '0' && !contractImg)
+
+        {(item.value === '0' && !contractImg)
           && (
-            <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
+            <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`} className="feed__activity__data__icon">
               0x
-            </div>
+          </div>
           )
         }
-        <p>
+
+        {(item.value !== '0' && !item.tokenSymbol)
+          && <img src={EthereumLine} alt="token icon" className="feed__activity__data__icon" />
+        }
+        <p className="feed__activity__text">
           <span className="feed__activity__info__key">
             {(onPublicProfilePage && item.value === '0') && (isFromProfile
               ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`
@@ -183,22 +188,22 @@ export const FeedTileToken = ({ item, name, onPublicProfilePage, metaDataName, i
       <div className="feed__activity__info">
         {
           (tokenToData[item.tokenSymbol])
-            ? <img src={`/contractIcons/${tokenToData[item.tokenSymbol].logo}`} alt="token icon" />
-            : <img src={Tokens} alt="Token Transaction Icon" />
+            ? <img src={`/contractIcons/${tokenToData[item.tokenSymbol].logo}`} alt="token icon" className="feed__activity__data__icon" />
+            : <img src={Tokens} alt="Token Transaction Icon" className="feed__activity__data__icon" />
         }
         {
           (item.value === '0' && contractImg)
-          && <img src={contractImg} alt="token icon" />
+          && <img src={contractImg} alt="token icon" className="feed__activity__data__icon" />
         }
         {
           (item.value === '0' && !contractImg)
           && (
-            <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
+            <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`} className="feed__activity__data__icon">
               0x
-            </div>
+          </div>
           )
         }
-        <p>
+        <p className="feed__activity__text">
           <span className="feed__activity__info__key">
             {(onPublicProfilePage && item.value === '0') && (isFromProfile
               ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`
@@ -275,20 +280,20 @@ export const FeedTileTXS = ({ item, name, onPublicProfilePage, metaDataName, isF
       <div className="feed__activity__info">
         {
           (item.value === '0' && contractImg)
-          && <img src={contractImg} alt="token icon" />
+          && <img src={contractImg} alt="token icon" className="feed__activity__data__icon" />
         }
         {
           (item.value === '0' && !contractImg)
           && (
-            <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
+            <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`} className="feed__activity__data__icon">
               0x
-            </div>)
+          </div>)
         }
         {
           item.value !== '0'
-          && <img src={EthereumLine} alt="Ethereum Transaction Icon" />
+          && <img src={EthereumLine} alt="Ethereum Transaction Icon" className="feed__activity__data__icon" />
         }
-        <p>
+        <p className="feed__activity__text">
           <span className="feed__activity__info__key">
             {(onPublicProfilePage && item.value === '0') && (isFromProfile
               ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`

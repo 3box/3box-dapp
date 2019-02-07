@@ -316,8 +316,9 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
         .concat(activity.txs)
         .concat(activity.token);
     } else {
-      let publicActivity = await store.getState().threeBox.box.public.log;
+      const unFilteredPublicActivity = await store.getState().threeBox.box.public.log;
       let privateActivity = await store.getState().threeBox.box.private.log;
+      let publicActivity = unFilteredPublicActivity.filter(item => (item.key !== 'ethereum_proof' && item.key !== 'proof_did'));
 
       publicActivity = publicActivity.map((object) => {
         object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
