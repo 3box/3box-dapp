@@ -6,9 +6,6 @@
 }
 
 .App {
-  // height: fit-content;
-  // width: fit-content;
-  // position: relative;
   height: 100%;
   width: 100%;
 }
@@ -36,7 +33,6 @@ button {
   border: none;
   border-radius: 2em;
   padding: 1.2em 1.8em;
-  // padding: 1em 1.5em;
   color: white;
   transition: background-color .4s ease;
   font-family: 'Lato', sans-serif;
@@ -104,6 +100,23 @@ button {
   transition: background-color .4s ease;
 }
 
+.unstyledButton {
+  padding: 0;
+  color: $threeBoxBlue;
+  background-color: transparent;
+  -webkit-transition: color .4s ease;
+  -o-transition: color .4s ease;
+  transition: color .4s ease;
+  border: none;
+
+  &:hover {
+    color: $threeBoxBlueHover;
+    padding: 0;
+    background-color: transparent;
+    border: none;
+  }
+}
+
 button:hover {
   cursor: pointer;
 }
@@ -162,6 +175,10 @@ ul {
   margin: 0;
 }
 
+input:focus {
+  border-radius: 5px;
+}
+
 .webThreeBanner {
   width: 100vw;
   height: 54px;
@@ -181,6 +198,43 @@ ul {
   p {
     color: white;
   }
+}
+
+.signInFromPublicProfileBanner {
+  width: 100vw;
+  height: 54px;
+  background: $threeBoxBlue;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  transition: all .5s ease;
+
+  .signInFromPublicProfileBanner__wrapper {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  p {
+    color: white;
+    width: fit-content;
+  }
+
+  .webThreeBanner__close {
+    width: 5%;
+  }
+}
+
+.hideBanner.signInFromPublicProfileBanner{
+  display: none;
 }
 
 .hideBanner {
@@ -248,12 +302,64 @@ ul {
   opacity: .6;
 }
 
-.clearProfPic{
+.clearProfPic {
   background-color: white !important;
 }
 
 @media only screen and (max-width: 600px) {
   .webThreeBanner {
     display: none;
+  }
+
+  .signInFromPublicProfileBanner {
+    height: 64px;
+    width: 100vw;
+    background: $threeBoxBlue;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-transition: all .5s ease;
+    -moz-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+
+    p {
+      color: white;
+      width: 85%;
+    }
+
+    .signInFromPublicProfileBanner__wrapper {
+      width: 90%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .webThreeBanner__close {
+      width: 5%;
+    }
+  }
+
+  input[type="color"],
+  input[type="date"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="email"],
+  input[type="month"],
+  input[type="number"],
+  input[type="password"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="text"],
+  input[type="time"],
+  input[type="url"],
+  input[type="week"],
+  select:focus,
+  textarea {
+    font-size: 16px;
   }
 }

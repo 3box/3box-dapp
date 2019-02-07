@@ -7,6 +7,8 @@ import Status from '../assets/Status.png';
 import getCoinbaseWallet from '../assets/getCoinbaseWallet.svg';
 import ThreeBoxLogoWhite from '../assets/ThreeBoxLogoWhite.svg';
 import ThreeBoxLogoBlue from '../assets/ThreeBoxLogoBlue.svg';
+import GithubIcon from '../assets/GithubIcon.svg';
+import TwitterIcon from '../assets/twitterGrey.svg';
 import TrustWallet from '../assets/TrustWallet.png';
 import Consent from '../assets/Consent.png';
 import Access from '../assets/Access.png';
@@ -20,10 +22,14 @@ import ErrorIcon from '../assets/ErrorIcon.svg';
 import MetaMaskWallet from '../assets/MetaMaskWallet.png';
 import LogOut from '../assets/LogOut.svg';
 import Loading from '../assets/Loading.svg';
+import LoadingWhite from '../assets/LoadingWhite.svg';
 import './styles/Modal.css';
 
 export const SwitchedNetworksModal = ({
-  prevNetwork, currentNetwork, handleSwitchedNetworkModal, show,
+  prevNetwork,
+  currentNetwork,
+  handleSwitchedNetworkModal,
+  show,
 }) => (
     <div>
       <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
@@ -54,8 +60,22 @@ export const SwitchedNetworksModal = ({
     </div>
   );
 
+SwitchedNetworksModal.propTypes = {
+  prevNetwork: PropTypes.string,
+  currentNetwork: PropTypes.string.isRequired,
+  handleSwitchedNetworkModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
+SwitchedNetworksModal.defaultProps = {
+  prevNetwork: '',
+};
+
 export const LoggedOutModal = ({
-  handleLoggedOutModal, handleSignOut, show, isMobile,
+  handleLoggedOutModal,
+  handleSignOut,
+  show,
+  isMobile,
 }) => (
     <div>
       <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
@@ -65,7 +85,8 @@ export const LoggedOutModal = ({
           <div>
             <h3>
               Logged out
-             </h3>
+            </h3>
+
             {isMobile
               ? <p>Sign back in to your web3 wallet or exit 3Box</p>
               : <p>Sign back in to your MetaMask wallet or exit 3Box</p>
@@ -80,6 +101,13 @@ export const LoggedOutModal = ({
       <div className="modal__overlay" />
     </div>
   );
+
+LoggedOutModal.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  handleLoggedOutModal: PropTypes.func.isRequired,
+  handleSignOut: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
 
 export const SwitchedAddressModal = ({
   handleSwitchedAddressModal, show, handleSignOut, isMobile, prevAddress,
@@ -116,6 +144,13 @@ export const SwitchedAddressModal = ({
     </div>
   );
 
+SwitchedAddressModal.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  handleSwitchedAddressModal: PropTypes.func.isRequired,
+  handleSignOut: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
 // Landing Page Modals
 export const ProvideConsentModal = ({
   handleConsentModal, show, isMobile,
@@ -148,6 +183,12 @@ export const ProvideConsentModal = ({
     </div>
   );
 
+ProvideConsentModal.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  handleConsentModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
 export const ProvideAccessModal = ({
   handleAccessModal, show, isMobile, directLogin,
 }) => (
@@ -173,6 +214,282 @@ export const ProvideAccessModal = ({
     </div>
   );
 
+ProvideAccessModal.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  handleAccessModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+  directLogin: PropTypes.string,
+};
+
+ProvideAccessModal.defaultProps = {
+  directLogin: '',
+};
+
+export const GithubVerificationModal = ({
+  show,
+  copyToClipBoard,
+  handleGithubVerificationModal,
+  did,
+  message,
+  verifyGithub,
+  isGithubVerified,
+  githubVerifiedFailed,
+  verificationLoading,
+  resetVerification,
+  copySuccessful,
+}) => (
+    <div>
+      <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+        <div className="modal githubModal">
+
+          <div className="modal__github__description">
+            <div className="modal__github__description__copy">
+              <div className="modal__github__description__copy__header">
+                <img src={GithubIcon} className="modal__github__description__githubIcon" alt="Github icon" />
+                <h2>Verify your Github account</h2>
+              </div>
+              <p className="modal__github__description__copy__text">
+                Linking your Github account to your 3Box profile
+                allows your friends and apps to trust you more.
+              </p>
+            </div>
+            <button
+              className="modal__github__description__copy__button"
+              type="button"
+              onClick={() => {
+                handleGithubVerificationModal();
+                resetVerification('Github');
+              }}
+            >
+              Cancel
+          </button>
+          </div>
+
+          <div className="modal__github__steps">
+            <div className="modal__github__steps__step">
+              <div>
+                <div className="modal__github__steps__instructions">
+                  <div className="modal__github__steps__number">1</div>
+                  <p className="modal__github__steps__text">
+                    Copy your unique key below.
+                  </p>
+                </div>
+                <p className="modal__github__description__copy__input" id="muportDID">{did}</p>
+              </div>
+
+              <button type="button" id="clickToCopy" onClick={() => copyToClipBoard('did', message)}>
+                {`${copySuccessful ? 'Success' : 'Click to copy'}`}
+              </button>
+            </div>
+
+            <div className="modal__github__steps__step">
+              <div className="modal__github__steps__instructions">
+                <div className="modal__github__steps__number">2</div>
+                <p className="modal__github__steps__text">Open a new gist file in Github and paste the key in the body of the file.  Save the gist as public with any valid name and file type.</p>
+              </div>
+              <button type="button" onClick={() => window.open('https://gist.github.com/', '_blank')}>Open a gist file</button>
+            </div>
+
+            <div className="modal__github__steps__step">
+              <div>
+                <div className="modal__github__steps__instructions">
+                  <div className="modal__github__steps__number">3</div>
+                  <p className="modal__github__steps__text">
+                    Check if your Github account was successfully verified below!
+                  </p>
+                </div>
+                <p className="modal__github__description__copy__input--github">
+                  {isGithubVerified
+                    ? 'Your Github is verified!'
+                    : githubVerifiedFailed
+                      ? 'Verification failed'
+                      : verificationLoading
+                        ? (
+                          <img src={Loading} alt="Loading" id="modal__loadingGraphic--noMargin" />
+                        )
+                        : 'Github not yet verified'}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={verifyGithub}
+              >
+                Verify
+            </button>
+            </div>
+          </div>
+
+          <div className="modal__github__done">
+            <button
+              type="button"
+              disabled={!isGithubVerified}
+              onClick={() => {
+                handleGithubVerificationModal();
+              }}
+            >
+              Done
+          </button>
+            <button
+              className="modal__github__description__copy__button--mobile"
+              type="button"
+              onClick={() => {
+                handleGithubVerificationModal();
+                resetVerification('Github');
+              }}
+            >
+              Cancel
+          </button>
+          </div>
+        </div>
+      </div>
+      <div className="modal__overlay" />
+    </div >
+  );
+
+GithubVerificationModal.propTypes = {
+  did: PropTypes.string,
+  copySuccessful: PropTypes.bool.isRequired,
+  show: PropTypes.bool.isRequired,
+  copyToClipBoard: PropTypes.func.isRequired,
+  handleGithubVerificationModal: PropTypes.func.isRequired,
+  message: PropTypes.string.isRequired,
+  verifyGithub: PropTypes.func.isRequired,
+  resetVerification: PropTypes.func.isRequired,
+  isGithubVerified: PropTypes.bool.isRequired,
+  githubVerifiedFailed: PropTypes.bool.isRequired,
+  verificationLoading: PropTypes.bool.isRequired,
+};
+
+GithubVerificationModal.defaultProps = {
+  did: '',
+};
+
+export const TwitterVerificationModal = ({
+  show,
+  handleTwitterVerificationModal,
+  did,
+  message,
+  verifyTwitter,
+  isTwitterVerified,
+  twitterVerifiedFailed,
+  verificationLoading,
+  resetVerification,
+}) => (
+    <div>
+      <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+        <div className="modal githubModal">
+
+          <div className="modal__github__description">
+            <div className="modal__github__description__copy">
+              <div className="modal__github__description__copy__header">
+                <img src={TwitterIcon} className="modal__github__description__githubIcon" alt="Github icon" />
+                <h2>Verify your Twitter account</h2>
+              </div>
+              <p className="modal__github__description__copy__text">
+                Linking your Twitter account to your 3Box profile
+                allows your friends and apps to trust you more.
+              </p>
+            </div>
+            <button
+              className="modal__github__description__copy__button"
+              type="button"
+              onClick={() => {
+                handleTwitterVerificationModal();
+                resetVerification('Twitter');
+              }}
+            >
+              Cancel
+          </button>
+          </div>
+
+          <div className="modal__github__steps">
+            <div className="modal__twitter__steps__step">
+              <div>
+                <div className="modal__twitter__steps__instructions">
+                  <div className="modal__github__steps__number">1</div>
+                  <p className="modal__github__steps__text">
+                    Tweet a unique key from the account you want to connect
+                  </p>
+                </div>
+                <p className="modal__github__description__copy__input" id="muportDID">{did}</p>
+              </div>
+              <a href={`https://twitter.com/intent/tweet?text=${message}`} target="_blank" rel="noopener noreferrer" className="modal__github__description__copy__tweet">
+                Tweet this
+                </a>
+            </div>
+
+            <div className="modal__twitter__steps__step">
+              <div>
+                <div className="modal____steps__instructions">
+                  <div className="modal__github__steps__number">2</div>
+                  <p className="modal__github__steps__text">
+                    Check if your Twitter account was successfully verified below!
+                  </p>
+                </div>
+                <p className="modal__github__description__copy__input--github">
+                  {isTwitterVerified
+                    ? 'Your Twitter is verified!'
+                    : twitterVerifiedFailed
+                      ? 'Verification failed'
+                      : verificationLoading
+                        ? (
+                          <img src={Loading} alt="Loading" id="modal__loadingGraphic--noMargin" />
+                        )
+                        : 'Twitter not yet verified'}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={verifyTwitter}
+              >
+                Verify
+            </button>
+            </div>
+          </div>
+
+          <div className="modal__github__done">
+            <button
+              type="button"
+              disabled={!isTwitterVerified}
+              onClick={() => {
+                handleTwitterVerificationModal();
+              }}
+            >
+              Done
+          </button>
+            <button
+              className="modal__github__description__copy__button--mobile"
+              type="button"
+              onClick={() => {
+                handleTwitterVerificationModal();
+                resetVerification('Twitter');
+              }}
+            >
+              Cancel
+          </button>
+          </div>
+        </div>
+      </div>
+      <div className="modal__overlay" />
+    </div >
+  );
+
+TwitterVerificationModal.propTypes = {
+  did: PropTypes.string,
+  show: PropTypes.bool.isRequired,
+  handleTwitterVerificationModal: PropTypes.func.isRequired,
+  message: PropTypes.string.isRequired,
+  verifyTwitter: PropTypes.func.isRequired,
+  resetVerification: PropTypes.func.isRequired,
+  isTwitterVerified: PropTypes.bool.isRequired,
+  twitterVerifiedFailed: PropTypes.bool.isRequired,
+  verificationLoading: PropTypes.bool.isRequired,
+};
+
+TwitterVerificationModal.defaultProps = {
+  did: '',
+};
+
 export const AccessDeniedModal = ({
   handleDeniedAccessModal, show, isMobile,
 }) => (
@@ -196,6 +513,12 @@ export const AccessDeniedModal = ({
     </div>
   );
 
+AccessDeniedModal.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  handleDeniedAccessModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
 export const LoadingThreeBoxProfileModal = ({ show }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
@@ -204,7 +527,7 @@ export const LoadingThreeBoxProfileModal = ({ show }) => (
 
         <div>
           <div id="logo" className="modal__loading3Box">
-          <img src={ThreeBoxLogoBlue} alt="3Box Logo" />
+            <img src={ThreeBoxLogoBlue} alt="3Box Logo" />
           </div>
           <p>LOADING</p>
         </div>
@@ -214,6 +537,10 @@ export const LoadingThreeBoxProfileModal = ({ show }) => (
     <div className="modal__overlay" />
   </div>
 );
+
+LoadingThreeBoxProfileModal.propTypes = {
+  show: PropTypes.bool.isRequired,
+};
 
 export const FileSizeModal = ({ show, closeFileSizeModal }) => (
   <div>
@@ -230,6 +557,11 @@ export const FileSizeModal = ({ show, closeFileSizeModal }) => (
     <div className="modal__overlay" />
   </div>
 );
+
+FileSizeModal.propTypes = {
+  closeFileSizeModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
 
 export const RequireMetaMaskModal = ({ closeRequireMetaMaskModal, show, isMobile }) => (
   <div className="mobileInvisible">
@@ -254,6 +586,12 @@ export const RequireMetaMaskModal = ({ closeRequireMetaMaskModal, show, isMobile
   </div>
 );
 
+RequireMetaMaskModal.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  closeRequireMetaMaskModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
 export const SignInToWalletModal = ({ handleRequireWalletLoginModal, show, isMobile }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
@@ -275,6 +613,81 @@ export const SignInToWalletModal = ({ handleRequireWalletLoginModal, show, isMob
     <div className="modal__overlay" />
   </div>
 );
+
+SignInToWalletModal.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  handleRequireWalletLoginModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
+
+export const SyncingModal = ({ show }) => (
+  <div>
+    <div className={`${show ? 'showModal' : ''} modal__container--sync modal--effect`}>
+      <div className="modal--sync ">
+        <div className="modal--sync__wrapper">
+          <img src={LoadingWhite} alt="Loading" id="modal__loadingGraphic" />
+
+          <div id="logo" className="modal__loading3Box">
+            <img src={ThreeBoxLogoWhite} alt="3Box Logo" />
+          </div>
+
+          <div>
+            <p>SYNCING 3BOX DATA</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+SyncingModal.propTypes = {
+  show: PropTypes.bool.isRequired,
+};
+
+export const PublicProfileLoading = ({ show }) => (
+  <div>
+    <div className={`${show ? 'showModal' : ''} modal__container--sync modal--effect`}>
+      <div className="modal--sync ">
+        <div className="modal--sync__wrapper">
+          <img src={LoadingWhite} alt="Loading" id="modal__loadingGraphic" />
+
+          <div id="logo" className="modal__loading3Box">
+            <img src={ThreeBoxLogoWhite} alt="3Box Logo" />
+          </div>
+
+          <div>
+            <p>LOADING PUBLIC PROFILE</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+PublicProfileLoading.propTypes = {
+  show: PropTypes.bool.isRequired,
+};
+
+export const SignInThroughPublicProfileBanner = ({ show, handleSignInBanner }) => (
+  <React.Fragment>
+    <div className={`${show ? '' : 'hideBanner'} signInFromPublicProfileBanner`}>
+      <div className="signInFromPublicProfileBanner__wrapper">
+        <p>
+          This is the public version of your profile.  Sign in to access your full profile.
+        </p>
+        <p onClick={handleSignInBanner} className="webThreeBanner__close">
+          &#10005;
+      </p>
+      </div>
+    </div>
+  </React.Fragment>
+);
+
+SignInThroughPublicProfileBanner.propTypes = {
+  show: PropTypes.bool.isRequired,
+  handleSignInBanner: PropTypes.func.isRequired,
+};
 
 export const ErrorModal = ({ closeErrorModal, errorMessage, show }) => (
   <div>
@@ -312,6 +725,16 @@ export const ErrorModal = ({ closeErrorModal, errorMessage, show }) => (
   </div>
 );
 
+ErrorModal.propTypes = {
+  errorMessage: PropTypes.string,
+  closeErrorModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
+ErrorModal.defaultProps = {
+  errorMessage: '',
+};
+
 export const MustConsentModal = ({ closeErrorModal, show, isMobile }) => (
   <div>
     <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
@@ -330,6 +753,12 @@ export const MustConsentModal = ({ closeErrorModal, show, isMobile }) => (
     <div className="modal__overlay" />
   </div>
 );
+
+MustConsentModal.propTypes = {
+  isMobile: PropTypes.bool.isRequired,
+  closeErrorModal: PropTypes.func.isRequired,
+  show: PropTypes.string.isRequired,
+};
 
 export const SignInToThreeBox = ({ handleSignInModal, show }) => (
   <div>
@@ -352,6 +781,11 @@ export const SignInToThreeBox = ({ handleSignInModal, show }) => (
     <div className="modal__overlay" />
   </div>
 );
+
+SignInToThreeBox.propTypes = {
+  handleSignInModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
 
 export const MobileWalletRequiredModal = ({ isIOS, handleMobileWalletModal, show }) => (
   <div id="mobile__landing__prompt" className={`${show ? 'showMobileModal' : 'hideMobileModal'}`}>
@@ -386,6 +820,12 @@ export const MobileWalletRequiredModal = ({ isIOS, handleMobileWalletModal, show
   </div>
 );
 
+MobileWalletRequiredModal.propTypes = {
+  isIOS: PropTypes.bool.isRequired,
+  handleMobileWalletModal: PropTypes.func.isRequired,
+  show: PropTypes.bool.isRequired,
+};
+
 export const OnBoardingModalDesktop = ({ handleOnboardingModal, showOne, showTwo, isMobile }) => (
   <div>
     <div className={`${(showOne || showTwo) && !isMobile ? 'showModal' : ''} modal__onBoardingModal__container modal--effect`}>
@@ -410,6 +850,13 @@ export const OnBoardingModalDesktop = ({ handleOnboardingModal, showOne, showTwo
     <div className="modal__overlay" />
   </div>
 );
+
+OnBoardingModalDesktop.propTypes = {
+  handleOnboardingModal: PropTypes.func.isRequired,
+  showOne: PropTypes.bool.isRequired,
+  showTwo: PropTypes.bool.isRequired,
+  isMobile: PropTypes.bool.isRequired,
+};
 
 export const OnBoardingModalMobile = ({
   isMobile,
@@ -471,105 +918,6 @@ export const OnBoardingModalMobile = ({
       <div className="modal__overlay" />
     </div>
   );
-
-SwitchedNetworksModal.propTypes = {
-  prevNetwork: PropTypes.string.isRequired,
-  currentNetwork: PropTypes.string.isRequired,
-  handleSwitchedNetworkModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-};
-
-LoggedOutModal.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-  handleLoggedOutModal: PropTypes.func.isRequired,
-  handleSignOut: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-};
-
-SwitchedAddressModal.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-  handleSwitchedAddressModal: PropTypes.func.isRequired,
-  handleSignOut: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-};
-
-ProvideConsentModal.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-  handleConsentModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-};
-
-ProvideAccessModal.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-  handleAccessModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-  directLogin: PropTypes.string,
-};
-
-ProvideAccessModal.defaultProps = {
-  directLogin: '',
-};
-
-AccessDeniedModal.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-  handleDeniedAccessModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-};
-
-LoadingThreeBoxProfileModal.propTypes = {
-  show: PropTypes.bool.isRequired,
-};
-
-FileSizeModal.propTypes = {
-  closeFileSizeModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-};
-
-RequireMetaMaskModal.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-  closeRequireMetaMaskModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-};
-
-SignInToWalletModal.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-  handleRequireWalletLoginModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-};
-
-ErrorModal.propTypes = {
-  errorMessage: PropTypes.string,
-  closeErrorModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-};
-
-ErrorModal.defaultProps = {
-  errorMessage: '',
-};
-
-MustConsentModal.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-  closeErrorModal: PropTypes.func.isRequired,
-  show: PropTypes.string.isRequired,
-};
-
-SignInToThreeBox.propTypes = {
-  handleSignInModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-};
-
-MobileWalletRequiredModal.propTypes = {
-  isIOS: PropTypes.bool.isRequired,
-  handleMobileWalletModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-};
-
-OnBoardingModalDesktop.propTypes = {
-  handleOnboardingModal: PropTypes.func.isRequired,
-  showOne: PropTypes.bool.isRequired,
-  showTwo: PropTypes.bool.isRequired,
-  isMobile: PropTypes.bool.isRequired,
-};
 
 OnBoardingModalMobile.propTypes = {
   handleNextMobileModal: PropTypes.func.isRequired,

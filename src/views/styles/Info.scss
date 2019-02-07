@@ -18,6 +18,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  position: relative;
 
   h1 {
     color: white;
@@ -30,6 +31,26 @@
     width: 50vw;
     line-height: 24px;
     text-align: center;
+  }
+}
+
+.info__article {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  padding: 15px;
+  border: solid 1px $borderColor;
+  border-radius: 6px;
+  margin-top: 26px;
+  position: absolute;
+  bottom: 45px;
+  cursor: pointer;
+  transition: all ease-in-out .3s;
+  color: white;
+
+  &:hover {
+    background-color: #ffffff42;
   }
 }
 
@@ -141,7 +162,7 @@
     width: 80vw;
   }
 
-  .info tr{
+  .info tr {
     display: flex;
     flex-direction: column;
   }
@@ -152,7 +173,7 @@
     margin-bottom: 70px;
   }
 
-  .info__content__text{
+  .info__content__text {
     width: 80vw;
   }
 
@@ -182,5 +203,5 @@
   .info__content__contact__body {
     width: 80vw;
   }
-  
+
 }

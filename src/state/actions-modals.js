@@ -60,6 +60,20 @@ export const handleSwitchedNetworkModal = () => async (dispatch) => {
   });
 };
 
+export const handleGithubVerificationModal = () => async (dispatch) => {
+  dispatch({
+    type: 'HANDLE_GITHUB_MODAL',
+    showGithubVerificationModal: !store.getState().threeBox.showGithubVerificationModal,
+  });
+};
+
+export const handleTwitterVerificationModal = () => async (dispatch) => {
+  dispatch({
+    type: 'HANDLE_TWITTER_MODAL',
+    showTwitterVerificationModal: !store.getState().threeBox.showTwitterVerificationModal,
+  });
+};
+
 export const handleOnboardingModal = mobile => async (dispatch) => {
   if (mobile) {
     dispatch({
@@ -106,6 +120,13 @@ export const handleDeniedAccessModal = () => async (dispatch) => {
 export const handleDownloadMetaMaskBanner = () => async (dispatch) => {
   dispatch({
     type: 'HANDLE_DOWNLOAD_BANNER',
-    downloadBanner: !store.getState().threeBox.downloadBanner,
+    showDownloadBanner: !store.getState().threeBox.showDownloadBanner,
+  });
+};
+
+export const handleSignInBanner = () => async (dispatch) => {
+  dispatch({
+    type: 'HANDLE_SIGNIN_BANNER',
+    showSignInBanner: !store.getState().threeBox.showSignInBanner,
   });
 };

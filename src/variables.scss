@@ -4,6 +4,7 @@ $threeBoxBlueHover: #0950b0;
 $threeBoxBlueDeep: #004AA8;
 $threeBoxBlueDeeper: #00357D;
 $threeBoxBlueLight: #CBDBEE;
+$threeBoxBlueLightTransparency: rgba(187, 218, 255, 0.493);
 
 $threeBoxAccentBlue: #021333;
 $threeBoxAccentBlueHover: #254277;
@@ -14,19 +15,27 @@ $threeBoxBlueLightBG: rgb(242, 248, 255);
 $threeBoxBlueHue: rgb(251, 254, 255);
 $threeBoxBlueHueSecondary: #EDEEEF;
 
+$threeBoxBlueLightShade: #EFF5FE;
+
 $backgroundGrey: rgb(248, 248, 248);
-// $backgroundGrey: #fbfbfb;
+$backgroundGreyDark: #dfdfdfa6;
+
 $backgroundHue: rgb(245, 246, 248);
 
 $threeBoxRed: #E78888;
 $threeBoxGreen: rgb(103, 204, 125);
 
+
 // Font Colors
 
 $lightFont: #6b6b6b;
 $lighterFont: #747677;
+$lightestFont: #b1b1b1;
+
+
 $faintFont: #b8b8b8;
 $lightBlueFont: rgb(79, 117, 153);
+$medFont: #546983;
 // $lighterFont: rgb(177, 177, 177);
 
 $threeBoxBlack: rgb(1, 12, 22);

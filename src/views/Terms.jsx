@@ -4,7 +4,7 @@ import Footer from '../components/Footer';
 import './styles/Landing.css';
 import './styles/Info.css';
 
-const Terms = ({ isLoggedIn, handleSignInUp, classHide }) => (
+const Terms = ({ isLoggedIn, handleSignInUp }) => (
   <div className="info">
      
     <div className="info__page">

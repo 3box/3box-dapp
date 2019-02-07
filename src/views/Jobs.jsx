@@ -14,7 +14,10 @@ const Jobs = ({ isLoggedIn, handleSignInUp }) => (
           We're looking for exceptional individuals who are comfortable working on
           a remote-first team.  If you're passionate about helping people establish
           trust and social connection on web3, apply to one of our open positions below.
-      </p>
+        </p>
+        <a className="info__article" href="https://medium.com/3box/3box-culture-a-team-community-and-company-595004959b61">
+          Find out how we've commited to creating a positive and effective distributed work culture.
+        </a>
       </div>
 
       <div className="info__content">
@@ -24,15 +27,15 @@ const Jobs = ({ isLoggedIn, handleSignInUp }) => (
             <div className="info__content__job__text">
               <h2 className="info__content__job__text__title">
                 Distributed Systems Engineer
-            </h2>
+              </h2>
               <p className="info__content__job__text__description">
                 We are seeking a distributed systems engineer to drive the development of our
                 database infrastructure, contribute to exceptional developer operations, and
                 anchor a stellar backend engineering team.
-            </p>
+              </p>
               <p className="info__content__job__text__location">
                 Location: Remote
-            </p>
+              </p>
             </div>
             <div className="info__content__job__link">
               <a href="https://www.notion.so/Distributed-Systems-Engineer-967dad0c601e46349e83f57ef94c1279" target="_blank" rel="noopener noreferrer">

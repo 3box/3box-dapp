@@ -33,6 +33,28 @@
   visibility: hidden;
 }
 
+.modal__container--sync {
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  width: 100vw;
+  visibility: hidden;
+  bottom: 0;
+}
+
+.modal__container--copied {
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  width: 100vw;
+  visibility: hidden;
+  bottom: 0;
+}
+
 .modal {
   background: white;
   border-radius: 6px;
@@ -67,6 +89,52 @@
   }
 }
 
+.modal--sync {
+  background: $threeBoxBlue;
+  border-radius: 6px;
+  padding: 0 40px;
+  width: fit-content;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
+  text-align: center;
+  overflow: hidden;
+  z-index: 7;
+  bottom: 50px;
+  position: absolute;
+
+  p {
+    line-height: 24px;
+    font-size: 14px;
+    color: white;
+    opacity: .9;
+  }
+
+  form {
+    text-align: center;
+    margin-top: 2em;
+  }
+
+  #logo img {
+    width: 90px !important;
+  }
+
+  h3 {
+    margin-bottom: 14px;
+  }
+
+  #modal__loadingGraphic {
+    margin-top: 0;
+    width: 34px;
+  }
+
+  .modal__loading3Box {
+    margin-bottom: 0;
+  }
+}
+
 .modal--effect .modal {
   opacity: 0;
   -webkit-transition: all 0.4s ease-in-out;
@@ -75,6 +143,34 @@
 
 .showModal.modal--effect .modal {
   opacity: 1;
+}
+
+.modal--effect .modal--sync {
+  opacity: 0;
+  -webkit-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+
+.showModal.modal--effect .modal--sync {
+  opacity: 1;
+}
+
+.modal__copy__ico {
+  width: 20px;
+}
+
+.modal--sync__copy__wrapper {
+  width: 180px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal--sync__wrapper {
+  width: 340px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .showModal {
@@ -102,6 +198,24 @@
   img {
     width: 100px;
   }
+}
+
+.copyMessage {
+  height: 0;
+  opacity: 0;
+}
+
+#clickToCopy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 133px;
+}
+
+.copySuccessful.copyMessage {
+  transition: all 0.5s;
+  opacity: 1;
+  height: 1;
 }
 
 .mobile__landing__closeButton {
@@ -218,6 +332,10 @@
   margin-top: 60px;
 }
 
+#modal__loadingGraphic--noMargin {
+  width: 60px;
+}
+
 #modal__loadingGraphic--access {
   width: 60px;
   margin-top: 20px;
@@ -291,6 +409,182 @@
   }
 }
 
+.githubModal {
+  width: 800px;
+  padding: 0;
+
+  p {
+    font-size: 14px !important;
+  }
+}
+
+.modal__github__description {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid #f1f1f1;
+  padding: 40px 40px 34px 40px;
+  width: 90%;
+}
+
+.modal__github__description__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.modal__github__description__copy__tweet {
+  color: white;
+  font-weight: 800;
+  background-color: #1168df;
+  border-radius: 2em;
+  padding: 1.2em 1.8em;
+  transition: background-color .4s ease;
+  border: 1px solid #1168df;
+}
+
+.modal__github__description__copy__text {
+  text-align: left;
+  color: $lighterFont;
+  width: 80%;
+}
+
+.modal__github__description__copy__button {
+  padding: 0;
+  color: $threeBoxBlue;
+  background-color: transparent;
+  border: none;
+  font-size: 16px;
+
+  &:hover {
+    background-color: transparent;
+    color: $threeBoxBlue;
+  }
+}
+
+.modal__github__description__copy__button--mobile {
+  display: none;
+}
+
+.modal__github__description__githubIcon {
+  width: 30px !important;
+  margin-right: 18px;
+}
+
+.modal__github__description__copy__header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 16px;
+}
+
+.modal__github__steps__text {
+  text-align: left;
+  margin-bottom: 26px;
+}
+
+.modal__github__steps__step {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 30%;
+
+  p {
+    color: $lightFont;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  button {
+    margin-top: 26px;
+  }
+}
+
+.modal__twitter__steps__step {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 45%;
+
+  p {
+    color: $lightFont;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  button {
+    margin-top: 26px;
+  }
+}
+
+.modal__github__steps {
+  display: flex;
+  padding: 40px;
+  justify-content: space-between;
+}
+
+.modal__github__steps__number {
+  background-color: $threeBoxBlueLightShade;
+  color: $threeBoxAccentBlue;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.modal__github__description__copy__input {
+  border-radius: 6px;
+  border: 1px solid $threeBoxBlue;
+  background-color: $threeBoxBlueLightShade;
+  padding: 15px 20px;
+  width: 70%;
+  margin-bottom: 20px;
+  text-align: left;
+  word-break: break-all;
+}
+
+.modal__github__description__copy__input--github {
+  border-radius: 6px;
+  border: 1px solid $threeBoxBlue;
+  background-color: $threeBoxBlueLightShade;
+  padding: 15px 20px;
+  width: 70%;
+  margin-bottom: 20px;
+  text-align: left;
+  height: 70px;
+}
+
+.modal__github__done {
+  background-color: $threeBoxBlueLightShade;
+  width: 100%;
+  padding: 20px;
+  height: 100%;
+
+  button {
+    background-color: #00C77F;
+    border: 1px solid #00C77F;
+
+    &:disabled {
+      background-color: transparent !important;
+      border: 1px solid $lighterFont;
+    }
+
+    &:hover {
+      background-color: rgb(0, 180, 114);
+      -webkit-transition: all 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out;
+    }
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .mobileInvisible {
     display: none;
@@ -317,9 +611,49 @@
     padding: 15px;
     width: 76vw;
     min-height: 300px;
+    max-height: 450px;
 
     img {
       width: 100px;
+    }
+  }
+
+  .modal__github__description__copy__button--mobile {
+    display: flex;
+    color: $lightFont;
+    font-weight: 400;
+    background-color: transparent !important;
+    border: none;
+    font-size: 16px;
+  }
+
+  .modal--sync {
+    width: 78vw;
+    padding: 0 24px;
+    bottom: 24px;
+
+    p {
+      line-height: 24px;
+      font-size: 12px;
+      color: white;
+      opacity: .8;
+    }
+
+    #logo img {
+      width: 80px !important;
+    }
+
+    h3 {
+      margin-bottom: 14px;
+    }
+
+    #modal__loadingGraphic {
+      margin-top: 0;
+      width: 34px;
+    }
+
+    .modal__loading3Box {
+      margin-bottom: 0;
     }
   }
 
@@ -352,6 +686,121 @@
     p {
       color: white;
     }
+  }
+
+  .githubModal {
+    padding: 0;
+    width: 92vw;
+    max-height: 550px;
+    // top: 85px;
+    top: 15vh;
+
+    button {
+      padding: .8em 1.2em;
+    }
+  }
+
+  .modal__github__description__copy__header {
+    margin-bottom: 16px;
+
+    h2 {
+      font-size: 20px;
+    }
+  }
+
+  .modal__github__description__githubIcon {
+    margin-right: 10px;
+    width: 22px !important;
+  }
+
+  .modal__github__steps__step {
+    width: 100%;
+    margin-bottom: 10px;
+
+    button {
+      margin-top: 10px;
+    }
+  }
+
+  .modal__github__description {
+    padding: 16px 16px 0 16px;
+    height: 44px;
+  }
+
+  .modal__github__steps {
+    padding: 16px 16px 0 16px;
+    flex-direction: column;
+  }
+
+  .modal__twitter__steps__step {
+    width: 100%;
+    margin-bottom: 18px;
+  }
+
+  .modal__github__done {
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal__github__steps__number {
+    margin-bottom: 0;
+    width: 20px;
+    height: 22px;
+    margin-right: 7px;
+    background-color: transparent;
+  }
+
+  .modal__github__steps__text {
+    line-height: 20px !important;
+    margin-bottom: 0;
+  }
+
+  .modal__github__description__copy__text {
+    line-height: 20px !important;
+    width: 100%;
+    display: none !important;
+  }
+
+  .modal__github__description__copy__input {
+    max-height: 70px;
+    overflow: hidden;
+    display: none !important;
+  }
+
+  .modal__github__description__copy__input--github {
+    height: 28px;
+    margin-bottom: 0;
+    margin-top: 10px;
+    width: 85%;
+  }
+
+  .modal__github__description__copy__button {
+    display: none;
+  }
+
+  .modal__twitter__steps__step {
+    button {
+      margin-top: 14px;
+    }
+  }
+
+  .modal__github__steps__instructions {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .modal__twitter__steps__instructions {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-bottom: 15px;
+  }
+
+  .modal__github__description__copy__tweet {
+    padding: .8em 1.2em;
   }
 
   #mobile__landing__prompt__logo {

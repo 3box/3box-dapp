@@ -4,7 +4,7 @@ export const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         hasWallet: action.hasWallet,
-        downloadBanner: action.downloadBanner,
+        showDownloadBanner: action.showDownloadBanner,
         currentWallet: action.currentWallet,
         mobileWalletRequiredModal: action.mobileWalletRequiredModal,
       };
@@ -16,6 +16,7 @@ export const threeBoxReducer = (state = {}, action) => {
         isLoggedIn: action.isLoggedIn,
         accountAddress: action.accountAddress,
         allowAccessModal: action.allowAccessModal,
+        currentAddress: action.currentAddress,
       };
 
     case 'UPDATE_NETWORK':
@@ -41,12 +42,6 @@ export const threeBoxReducer = (state = {}, action) => {
         isLoggedIn: action.isLoggedIn,
       };
 
-    case 'LOADING_ACTIVITY':
-      return {
-        ...state,
-        ifFetchingActivity: true,
-      };
-
     case 'UPDATE_ACTIVITY':
       return {
         ...state,
@@ -70,6 +65,47 @@ export const threeBoxReducer = (state = {}, action) => {
         isLoggedIn: action.isLoggedIn,
       };
 
+    case 'LOADING_PUBLIC_PROFILE':
+      return {
+        ...state,
+        isLoadingPublicProfile: action.isLoadingPublicProfile,
+      };
+
+    case 'HANDLE_SIGNIN_BANNER':
+      return {
+        ...state,
+        showSignInBanner: action.showSignInBanner,
+      };
+
+    case 'GET_PUBLIC_PROFILE':
+      return {
+        ...state,
+        publicGithub: action.publicGithub,
+        publicTwitter: action.publicTwitter,
+        publicDescription: action.publicDescription,
+        publicLocation: action.publicLocation,
+        publicWebsite: action.publicWebsite,
+        publicMemberSince: action.publicMemberSince,
+        publicJob: action.publicJob,
+        publicSchool: action.publicSchool,
+        publicDegree: action.publicDegree,
+        publicMajor: action.publicMajor,
+        publicYear: action.publicYear,
+        publicEmployer: action.publicEmployer,
+        publicCoverPhoto: action.publicCoverPhoto,
+        publicImage: action.publicImage,
+        publicName: action.publicName,
+        publicEmoji: action.publicEmoji,
+        publicStatus: action.publicStatus,
+      };
+
+    case 'GET_PUBLIC_PROFILE_ACTIVITY':
+      return {
+        ...state,
+        publicProfileActivity: action.publicProfileActivity,
+        ifFetchingActivity: action.ifFetchingActivity,
+      };
+
     case 'GET_PUBLIC_NAME':
       return {
         ...state,
@@ -80,6 +116,18 @@ export const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         github: action.github,
+      };
+
+    case 'GET_VERIFIED_PUBLIC_GITHUB':
+      return {
+        ...state,
+        verifiedGithub: action.verifiedGithub,
+      };
+
+    case 'GET_VERIFIED_PUBLIC_TWITTER':
+      return {
+        ...state,
+        verifiedTwitter: action.verifiedTwitter,
       };
 
     case 'GET_PUBLIC_DESCRIPTION':
@@ -178,10 +226,17 @@ export const threeBoxReducer = (state = {}, action) => {
         memberSince: action.memberSince,
       };
 
+    case 'GET_PUBLIC_DID':
+      return {
+        ...state,
+        did: action.did,
+      };
+
     case 'HANDLE_SIGNOUT':
       return {
         ...state,
         isLoggedIn: false,
+        onSyncFinished: false,
         birthday: '',
         name: '',
         github: '',
@@ -201,6 +256,7 @@ export const threeBoxReducer = (state = {}, action) => {
         coverPhoto: [],
         emoji: '',
         status: '',
+        hasSignedOut: action.hasSignedOut,
       };
 
       // MODALS
@@ -215,6 +271,19 @@ export const threeBoxReducer = (state = {}, action) => {
         ...state,
         provideConsent: false,
         ifFetchingThreeBox: true,
+      };
+
+    case 'LOADING_ACTIVITY':
+      return {
+        ...state,
+        ifFetchingActivity: true,
+      };
+
+    case 'APP_SYNC':
+      return {
+        ...state,
+        isSyncing: action.isSyncing,
+        onSyncFinished: action.onSyncFinished,
       };
 
     case 'FAILED_LOADING_3BOX':
@@ -321,6 +390,18 @@ export const threeBoxReducer = (state = {}, action) => {
         mobileWalletRequiredModal: action.mobileWalletRequiredModal,
       };
 
+    case 'HANDLE_GITHUB_MODAL':
+      return {
+        ...state,
+        showGithubVerificationModal: action.showGithubVerificationModal,
+      };
+
+    case 'HANDLE_TWITTER_MODAL':
+      return {
+        ...state,
+        showTwitterVerificationModal: action.showTwitterVerificationModal,
+      };
+
     case 'HANDLE_ACCESS_MODAL':
       return {
         ...state,
@@ -338,13 +419,32 @@ export const threeBoxReducer = (state = {}, action) => {
     case 'HANDLE_DOWNLOAD_BANNER':
       return {
         ...state,
-        downloadBanner: action.downloadBanner,
+        showDownloadBanner: action.showDownloadBanner,
       };
 
-    case 'PREVIOUS_ROUTE':
+    case 'UPDATE_ROUTE':
       return {
         ...state,
-        previousRoute: action.previousRoute,
+        currentRoute: action.currentRoute,
+      };
+
+    case 'UPDATE_PUBLIC_PROFILE':
+      return {
+        ...state,
+        onPublicProfilePage: action.onPublicProfilePage,
+        publicProfileAddress: action.publicProfileAddress,
+      };
+
+    case 'COPY_SUCCESSFUL':
+      return {
+        ...state,
+        copySuccessful: action.copySuccessful,
+      };
+
+    case 'UPDATE_ADDRESS':
+      return {
+        ...state,
+        currentAddress: action.currentAddress,
       };
 
     default:

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="68px" height="84px" viewBox="0 0 68 84" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>Copy</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Copy" fill="#B1B1B1">
+            <path d="M54.1,8.7 C52.4,3.9 47.8,0.4 42.4,0.4 L25.7,0.4 C20.3,0.4 15.7,3.9 14,8.7 L13.2,8.7 C6.3,8.7 0.7,14.3 0.7,21.2 L0.7,71.2 C0.7,78.1 6.3,83.7 13.2,83.7 L54.9,83.7 C61.8,83.7 67.4,78.1 67.4,71.2 L67.4,21.2 C67.4,14.3 61.8,8.7 54.9,8.7 L54.1,8.7 Z M25.7,8.7 L42.4,8.7 C44.7,8.7 46.6,10.6 46.6,12.9 C46.6,15.2 44.6,17 42.3,17 L25.7,17 C23.4,17 21.5,15.1 21.5,12.8 C21.5,10.5 23.4,8.7 25.7,8.7 Z M59,21.2 L59,71.2 C59,73.5 57.1,75.4 54.8,75.4 L13.2,75.4 C10.9,75.4 9,73.5 9,71.2 L9,21.2 C9,18.9 10.9,17 13.2,17 L14,17 C15.7,21.8 20.3,25.3 25.7,25.3 L42.4,25.3 C47.8,25.3 52.4,21.8 54.1,17 L54.9,17 C57.1,17 59,18.9 59,21.2 Z" id="Shape" fill-rule="nonzero"></path>
+            <polygon id="Path" points="29.8 52.8 20.3 43.2 14.4 49.1 29.8 64.6 53.6 40.8 47.7 34.9"></polygon>
+        </g>
+    </g>
+</svg>

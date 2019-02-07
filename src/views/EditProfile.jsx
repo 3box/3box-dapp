@@ -6,31 +6,28 @@ import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
 
 import {
-  getPublicName,
-  getPublicGithub,
-  getPublicDescription,
-  getPublicLocation,
-  getPublicWebsite,
-  getPublicEmployer,
-  getPublicJob,
-  getPublicSchool,
-  getPublicDegree,
-  getPublicSubject,
-  getPublicYear,
-  getPublicImage,
-  getPublicCoverPhoto,
-  getPrivateEmail,
-  getPrivateBirthday,
-  getPublicEmoji,
+  store,
+} from '../state/store';
+import {
+  getProfileData,
   getActivity,
+  getPublicDID,
+  copyToClipBoard,
 } from '../state/actions';
-
-import { address } from '../utils/address';
-import { FileSizeModal } from '../components/Modals';
+import {
+  handleGithubVerificationModal,
+  handleTwitterVerificationModal,
+} from '../state/actions-modals';
+import {
+  FileSizeModal,
+  GithubVerificationModal,
+  TwitterVerificationModal,
+} from '../components/Modals';
 import history from '../history';
 import Nav from '../components/Nav.jsx';
 import * as routes from '../utils/routes';
 import Private from '../assets/Private.svg';
+import Verified from '../assets/Verified.svg';
 import AddImage from '../assets/AddImage.svg';
 import Loading from '../assets/Loading.svg';
 import './styles/EditProfile.css';
@@ -40,7 +37,8 @@ class EditProfile extends Component {
     super(props);
     this.state = {
       name: '',
-      github: '',
+      verifiedGithub: '',
+      verifiedTwitter: '',
       email: '',
       buffer: '',
       description: '',
@@ -57,18 +55,37 @@ class EditProfile extends Component {
       disableSave: true,
       saveLoading: false,
       removeUserPic: false,
+      isGithubVerified: false,
+      isTwitterVerified: false,
+      verificationLoading: false,
+      githubVerifiedFailed: false,
+      twitterVerifiedFailed: false,
       editPic: false,
       editCoverPic: false,
       showFileSizeModal: false,
+      githubRemoved: false,
+      twitterRemoved: false,
+      githubEdited: false,
+      twitterEdited: false,
       showEmoji: false,
+      savedGithub: false,
+      savedTwitter: false,
+      editedArray: [],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentWillMount() {
+    window.removeEventListener('resize', this.handleWindowSizeChange);
+    window.removeEventListener('scroll', this.hideBar);
+  }
+
   componentDidMount() {
+    window.scrollTo(0, 0)
     const {
       name,
-      github,
+      verifiedGithub,
+      verifiedTwitter,
       email,
       description,
       location,
@@ -85,7 +102,8 @@ class EditProfile extends Component {
 
     this.setState({
       name,
-      github,
+      verifiedGithub,
+      verifiedTwitter,
       email,
       description,
       location,
@@ -104,7 +122,8 @@ class EditProfile extends Component {
   componentWillReceiveProps(nextProps) {
     const {
       name,
-      github,
+      verifiedGithub,
+      verifiedTwitter,
       email,
       description,
       location,
@@ -120,7 +139,8 @@ class EditProfile extends Component {
     } = nextProps;
 
     if (name !== this.props.name) this.setState({ name });
-    if (github !== this.props.github) this.setState({ github });
+    if (verifiedGithub !== this.props.verifiedGithub) this.setState({ verifiedGithub });
+    if (verifiedTwitter !== this.props.verifiedTwitter) this.setState({ verifiedTwitter });
     if (email !== this.props.email) this.setState({ email });
     if (description !== this.props.description) this.setState({ description });
     if (location !== this.props.location) this.setState({ location });
@@ -136,56 +156,95 @@ class EditProfile extends Component {
   }
 
   handleFormChange = (e, property) => {
-    if (e.target.value === this.props[property]) {
-      console.log('in same');
-      this.setState({ [property]: e.target.value, disableSave: true });
-    } else {
-      this.setState({ [property]: e.target.value, disableSave: false });
-    }
+    const { verifiedGithub, verifiedTwitter } = this.props;
+    const { editedArray } = this.state;
+
+    this.setState({ [property]: e.target.value },
+      () => {
+        if (property === 'verifiedGithub') {
+          if (this.state.verifiedGithub === '') {
+            this.setState({ githubEdited: false });
+          } else if (verifiedGithub !== this.state.verifiedGithub && this.state.verifiedGithub !== '') {
+            this.setState({ githubEdited: true });
+          }
+        } else if (property === 'verifiedTwitter') {
+          if (this.state.verifiedTwitter === '') {
+            this.setState({ twitterEdited: false });
+          } else if (verifiedTwitter !== this.state.verifiedTwitter && this.state.verifiedTwitter !== '') {
+            this.setState({ twitterEdited: true });
+          }
+        } else if (this.state[property] !== this.props[property]) {
+          const updatedEditedArray = editedArray;
+          if (updatedEditedArray.indexOf(property) === -1) updatedEditedArray.push(property);
+          if (Object.values(updatedEditedArray).length) {
+            this.setState({ disableSave: false, editedArray: updatedEditedArray });
+          } else {
+            this.setState({ disableSave: true, editedArray: updatedEditedArray });
+          }
+        } else if (this.state[property] === this.props[property]) {
+          const updatedEditedArray = editedArray;
+          updatedEditedArray.splice(updatedEditedArray.indexOf(property), 1);
+          if (Object.values(updatedEditedArray).length) {
+            this.setState({ disableSave: false, editedArray: updatedEditedArray });
+          } else {
+            this.setState({ disableSave: true, editedArray: updatedEditedArray });
+          }
+        }
+      });
   }
 
   closeFileSizeModal = () => {
     this.setState({ showFileSizeModal: false });
   }
 
-  handleUpdatePic = (photoFile, e) => {
+  handleUpdatePic = (photoFile, e, cover) => {
+    const { editedArray } = this.state;
+    const updatedEditedArray = editedArray;
+    const type = cover ? 'coverPhoto' : 'image';
+
     if (photoFile.size <= 2500000) {
       const formData = new window.FormData();
       formData.append('path', photoFile);
-      this.setState({
-        buffer: formData,
-        disableSave: false,
-        editPic: true,
-        removeUserPic: false,
-      });
+
+      if (updatedEditedArray.indexOf(type) === -1) updatedEditedArray.push(type);
+      this.setState({ disableSave: false });
+
+      if (cover) {
+        this.setState({
+          editCoverPic: true, coverBuffer: formData, removeCoverPic: false, editedArray: updatedEditedArray,
+        });
+      } else {
+        this.setState({
+          editPic: true, buffer: formData, removeUserPic: false, editedArray: updatedEditedArray,
+        });
+      }
     } else {
       e.target.value = null;
       this.setState({ showFileSizeModal: true });
     }
   }
 
-  handleUpdateCoverPic = (photoFile, e) => {
-    if (photoFile.size <= 2500000) {
-      const formData = new window.FormData();
-      formData.append('path', photoFile);
-      this.setState({
-        coverBuffer: formData,
-        disableSave: false,
-        editCoverPic: true,
-        removeCoverPic: false,
-      });
-    } else {
-      e.target.value = null;
-      this.setState({ showFileSizeModal: true });
+  removePicture = (type) => {
+    const { editedArray } = this.state;
+    const updatedEditedArray = editedArray;
+
+    if (type === 'Cover' && this.props.coverPhoto) {
+      if (updatedEditedArray.indexOf('coverPhoto') === -1) updatedEditedArray.push('coverPhoto');
+    } else if (type === 'Cover' && !this.props.coverPhoto) {
+      updatedEditedArray.splice(updatedEditedArray.indexOf(type), 1);
+    } else if (type === 'User' && this.props.image) {
+      if (updatedEditedArray.indexOf('image') === -1) updatedEditedArray.push('image');
+    } else if (type === 'User' && !this.props.image) {
+      updatedEditedArray.splice(updatedEditedArray.indexOf(type), 1);
     }
-  }
 
-  removePic = () => {
-    this.setState({ disableSave: false, removeUserPic: true });
-  }
+    if (!updatedEditedArray.length) {
+      this.setState({ disableSave: true });
+    } else {
+      this.setState({ disableSave: false });
+    }
 
-  removeCoverPic = () => {
-    this.setState({ disableSave: false, removeCoverPic: true });
+    this.setState({ [`remove${type}Pic`]: true, editedArray: updatedEditedArray });
   }
 
   addEmoji = (emoji) => {
@@ -196,10 +255,192 @@ class EditProfile extends Component {
     });
   }
 
+  verifyGithub = () => {
+    const { verifiedGithub, editedArray } = this.state;
+    const { box } = this.props;
+    const updatedEditedArray = editedArray;
+    this.setState({ verificationLoading: true });
+
+    fetch(`https://api.github.com/users/${verifiedGithub}/gists`)
+      .then(response => response.json())
+      .then((returnedData) => {
+        if (returnedData.length) {
+          returnedData.map((gist, i) => {
+            const url = gist.files[Object.keys(gist.files)[0]].raw_url;
+            return box.verified.addGithub(url).then((res) => {
+              if (res) {
+                console.log('Github username verified');
+                updatedEditedArray.push('proof_github');
+                this.setState({
+                  isGithubVerified: true,
+                  verificationLoading: false,
+                  editedArray: updatedEditedArray,
+                  disableSave: false,
+                  savedGithub: true,
+                });
+                store.dispatch({
+                  type: 'GET_VERIFIED_PUBLIC_GITHUB',
+                  verifiedGithub,
+                });
+              }
+            }).catch((err) => {
+              console.log(err);
+              if (i === returnedData.length - 1) {
+                this.setState({ githubVerifiedFailed: true, verificationLoading: false });
+              }
+            });
+          });
+        } else {
+          this.setState({ githubVerifiedFailed: true, verificationLoading: false });
+        }
+      });
+  }
+
+  // removing and unremoving Github username
+  handleGithubUsername = (remove) => {
+    const { editedArray, savedGithub } = this.state;
+    const updatedEditedArray = editedArray;
+    if (remove && this.props.verifiedGithub) {
+      updatedEditedArray.push('proof_github');
+      this.setState({
+        verifiedGithub: '',
+        disableSave: false,
+        githubRemoved: true,
+        editedArray: updatedEditedArray,
+      });
+    } else {
+      if (remove && savedGithub) this.setState({ savedGithub: false });
+      updatedEditedArray.splice(updatedEditedArray.indexOf('proof_github'), 1);
+      if (!updatedEditedArray.length) this.setState({ disableSave: true });
+      this.setState({
+        verifiedGithub: this.props.verifiedGithub,
+        githubRemoved: false,
+        editedArray: updatedEditedArray,
+      });
+    }
+  }
+
+  // removing and unremoving Twitter username
+  handleTwitterUsername = (remove) => {
+    const { editedArray, savedTwitter } = this.state;
+    const updatedEditedArray = editedArray;
+    if (remove && this.props.verifiedTwitter) {
+      updatedEditedArray.push('proof_twitter');
+      this.setState({
+        verifiedTwitter: '',
+        disableSave: false,
+        twitterRemoved: true,
+        editedArray: updatedEditedArray,
+      });
+    } else {
+      if (remove && savedTwitter) this.setState({ savedTwitter: false });
+      updatedEditedArray.splice(updatedEditedArray.indexOf('proof_twitter'), 1);
+      if (!updatedEditedArray.length) this.setState({ disableSave: true });
+      this.setState({
+        verifiedTwitter: this.props.verifiedTwitter,
+        twitterRemoved: false,
+        editedArray: updatedEditedArray,
+      });
+    }
+  }
+
+  verifyTwitter = () => {
+    const { verifiedTwitter, editedArray } = this.state;
+    const { box, did } = this.props;
+    const updatedEditedArray = editedArray;
+    this.setState({ verificationLoading: true });
+
+    fetch('https://verifications.3box.io/twitter', {
+      method: 'POST',
+      body: JSON.stringify({
+        did,
+        twitter_handle: `${verifiedTwitter}`,
+      }),
+    })
+      .then((response) => {
+        if (response.ok) return response.json();
+        this.setState({
+          verificationLoading: false,
+          twitterVerifiedFailed: true,
+        });
+        throw new Error('Verification failed');
+      })
+      .then(claim => box.verified.addTwitter(claim.data.verification))
+      .then((twitterUsername) => {
+        if (twitterUsername) {
+          console.log('Twitter username verified and saved');
+          updatedEditedArray.push('proof_twitter');
+          this.setState({
+            isTwitterVerified: true,
+            verificationLoading: false,
+            editedArray: updatedEditedArray,
+            disableSave: false,
+            savedTwitter: true,
+          });
+          store.dispatch({
+            type: 'GET_VERIFIED_PUBLIC_TWITTER',
+            verifiedTwitter,
+          });
+        } else {
+          throw new Error('Verification failed');
+        }
+      })
+      .catch((err) => {
+        this.setState({
+          verificationLoading: false,
+          twitterVerifiedFailed: true,
+        });
+        console.log(err);
+      });
+  }
+
+  // resets success / failure state of verification modals
+  resetVerification = (platform) => {
+    const { isGithubVerified, isTwitterVerified, editedArray } = this.state;
+    const updatedEditedArray = editedArray;
+    const { box } = this.props;
+    if (platform === 'Github') {
+      updatedEditedArray.splice(updatedEditedArray.indexOf('proof_github'), 1);
+      if (!updatedEditedArray.length) this.setState({ disableSave: true });
+      if (isGithubVerified) box.public.remove('proof_github');
+      this.setState({
+        githubVerifiedFailed: false,
+        githubEdited: false,
+        isGithubVerified: false,
+        verifiedGithub: '',
+      });
+      store.dispatch({
+        type: 'GET_VERIFIED_PUBLIC_GITHUB',
+        verifiedGithub: '',
+      });
+    } else if (platform === 'Twitter') {
+      updatedEditedArray.splice(updatedEditedArray.indexOf('proof_twitter'), 1);
+      if (!updatedEditedArray.length) this.setState({ disableSave: true });
+      if (isTwitterVerified) box.public.remove('proof_twitter');
+      this.setState({
+        twitterVerifiedFailed: false,
+        twitterEdited: false,
+        isTwitterVerified: false,
+        verifiedTwitter: '',
+      });
+      store.dispatch({
+        type: 'GET_VERIFIED_PUBLIC_TWITTER',
+        verifiedTwitter: '',
+      });
+    }
+  }
+
+  fetchPic = buffer => window.fetch('https://ipfs.infura.io:5001/api/v0/add', {
+    method: 'post',
+    'Content-Type': 'multipart/form-data',
+    body: buffer,
+  });
+
   async handleSubmit(e) {
     const {
       name,
-      github,
+      verifiedGithub,
+      verifiedTwitter,
       email,
       removeUserPic,
       removeCoverPic,
@@ -220,14 +461,15 @@ class EditProfile extends Component {
       emoji,
     } = this.state;
 
-    const { box } = this.props;
+    const { box, currentAddress } = this.props;
 
     if (box.public) {
       e.preventDefault();
-      this.setState({ saveLoading: true, disableSave: true });
+      this.setState({ saveLoading: true });
 
       const nameChanged = name !== this.props.name;
-      const githubChanged = github !== this.props.github;
+      const verifiedGithubChanged = verifiedGithub !== this.props.verifiedGithub;
+      const verifiedTwitterChanged = verifiedTwitter !== this.props.verifiedTwitter;
       const emailChanged = email !== this.props.email;
       const descriptionChanged = description !== this.props.description;
       const locationChanged = location !== this.props.location;
@@ -244,10 +486,6 @@ class EditProfile extends Component {
       // if value changed and is not empty, save new value, else remove value
       if (nameChanged && name !== '') await box.public.set('name', name);
       if (nameChanged && name === '') await box.public.remove('name');
-      if (githubChanged && github !== '') await box.public.set('github', github);
-      if (githubChanged && github === '') await box.public.remove('github');
-      if (emailChanged && email !== '') await box.private.set('email', email);
-      if (emailChanged && email === '') await box.private.remove('email');
       if (descriptionChanged && description !== '') await box.public.set('description', description);
       if (descriptionChanged && description === '') await box.public.remove('description');
       if (locationChanged && location !== '') await box.public.set('location', location);
@@ -270,54 +508,74 @@ class EditProfile extends Component {
       if (emojiChanged && emoji === '') await box.public.remove('emoji');
       if (birthdayChanged && birthday !== '') await box.private.set('birthday', birthday);
       if (birthdayChanged && birthday === '') await box.private.remove('birthday');
+      if (emailChanged && email !== '') await box.private.set('email', email);
+      if (emailChanged && email === '') await box.private.remove('email');
+
+      if (verifiedGithubChanged && verifiedGithub === '') await box.public.remove('proof_github');
+      if (verifiedTwitterChanged && verifiedTwitter === '') await box.public.remove('proof_twitter');
       if (removeUserPic) await box.public.remove('image');
       if (removeCoverPic) await box.public.remove('coverPhoto');
 
       // save profile picture
-      const fetch = editPic && await window.fetch('https://ipfs.infura.io:5001/api/v0/add', {
-        method: 'post',
-        'Content-Type': 'multipart/form-data',
-        body: buffer,
-      });
+      const fetch = editPic && await this.fetchPic(buffer);
       const returnedData = editPic && await fetch.json();
       if (editPic) await box.public.set('image', [{ '@type': 'ImageObject', contentUrl: { '/': returnedData.Hash } }]);
 
-      const fetchCover = editCoverPic && await window.fetch('https://ipfs.infura.io:5001/api/v0/add', {
-        method: 'post',
-        'Content-Type': 'multipart/form-data',
-        body: coverBuffer,
-      });
+      const fetchCover = editCoverPic && await this.fetchPic(coverBuffer);
       const returnedCoverData = editCoverPic && await fetchCover.json();
       if (editCoverPic) await box.public.set('coverPhoto', [{ '@type': 'ImageObject', contentUrl: { '/': returnedCoverData.Hash } }]);
 
       // only get values that have changed
-      if (nameChanged) await this.props.getPublicName();
-      if (githubChanged) await this.props.getPublicGithub();
-      if (emailChanged) await this.props.getPrivateEmail();
-      if (descriptionChanged) await this.props.getPublicDescription();
-      if (locationChanged) await this.props.getPublicLocation();
-      if (websiteChanged) await this.props.getPublicWebsite();
-      if (employerChanged) await this.props.getPublicEmployer();
-      if (jobChanged) await this.props.getPublicJob();
-      if (schoolChanged) await this.props.getPublicSchool();
-      if (degreeChanged) await this.props.getPublicDegree();
-      if (majorChanged) await this.props.getPublicSubject();
-      if (yearChanged) await this.props.getPublicYear();
-      if (emojiChanged) await this.props.getPublicEmoji();
-      if (birthdayChanged) await this.props.getPrivateBirthday();
-      if (removeUserPic || editPic) await this.props.getPublicImage();
-      if (removeCoverPic || editCoverPic) await this.props.getPublicCoverPhoto();
+      if (verifiedGithubChanged) {
+        store.dispatch({
+          type: 'GET_VERIFIED_PUBLIC_GITHUB',
+          verifiedGithub: null,
+        });
+      }
+      if (verifiedTwitterChanged) {
+        store.dispatch({
+          type: 'GET_VERIFIED_PUBLIC_TWITTER',
+          verifiedTwitter: null,
+        });
+      }
+      if (nameChanged) await this.props.getProfileData('public', 'name'); // change these to just update the redux store
+      if (descriptionChanged) await this.props.getProfileData('public', 'description');
+      if (locationChanged) await this.props.getProfileData('public', 'location');
+      if (websiteChanged) await this.props.getProfileData('public', 'website');
+      if (employerChanged) await this.props.getProfileData('public', 'employer');
+      if (jobChanged) await this.props.getProfileData('public', 'job');
+      if (schoolChanged) await this.props.getProfileData('public', 'school');
+      if (degreeChanged) await this.props.getProfileData('public', 'degree');
+      if (majorChanged) await this.props.getProfileData('public', 'major');
+      if (yearChanged) await this.props.getProfileData('public', 'year');
+      if (emojiChanged) await this.props.getProfileData('public', 'emoji');
+      if (removeUserPic || editPic) await this.props.getProfileData('public', 'image');
+      if (removeCoverPic || editCoverPic) await this.props.getProfileData('public', 'coverPhoto');
+      if (emailChanged) await this.props.getProfileData('private', 'email');
+      if (birthdayChanged) await this.props.getProfileData('private', 'birthday');
+
       this.props.getActivity();
 
       this.setState({ saveLoading: false });
-      history.push(routes.PROFILE);
+      history.push(`/${currentAddress}/${routes.ACTIVITY}`);
     }
   }
 
   render() {
-    const { image, coverPhoto, memberSince } = this.props;
     const {
-      github,
+      image,
+      coverPhoto,
+      memberSince,
+      did,
+      showGithubVerificationModal,
+      showTwitterVerificationModal,
+      copySuccessful,
+      currentAddress,
+    } = this.props;
+
+    const {
+      verifiedGithub,
+      verifiedTwitter,
       email,
       name,
       description,
@@ -337,7 +595,26 @@ class EditProfile extends Component {
       saveLoading,
       showFileSizeModal,
       showEmoji,
+      isGithubVerified,
+      isTwitterVerified,
+      githubVerifiedFailed,
+      twitterVerifiedFailed,
+      githubEdited,
+      twitterEdited,
+      githubRemoved,
+      twitterRemoved,
+      verificationLoading,
     } = this.state;
+
+    const message = (`3Box is a social profiles network for web3. This post links my 3Box profile to my Github account!
+
+    ✅ ${did} ✅
+    
+Create your profile today to start building social connection and trust online. https://3box.io/`);
+
+    const twitterMessage = (`This tweet links my 3Box profile to my twitter account! %0D%0A%0D%0AJoin web3's social profiles network by creating your account on http://3box.io/ today. %0D%0A@3boxdb%0D%0A%0D%0A✅
+    %0D%0A${did}
+    %0D%0A✅`);
 
     return (
       <div id="edit__page">
@@ -359,6 +636,32 @@ class EditProfile extends Component {
         {showFileSizeModal
           && <FileSizeModal show={showFileSizeModal} closeFileSizeModal={this.closeFileSizeModal} />}
 
+        <GithubVerificationModal
+          show={showGithubVerificationModal}
+          copyToClipBoard={this.props.copyToClipBoard}
+          did={did}
+          message={message}
+          verifyGithub={this.verifyGithub}
+          isGithubVerified={isGithubVerified}
+          verificationLoading={verificationLoading}
+          githubVerifiedFailed={githubVerifiedFailed}
+          resetVerification={this.resetVerification}
+          copySuccessful={copySuccessful}
+          handleGithubVerificationModal={this.props.handleGithubVerificationModal}
+        />
+
+        <TwitterVerificationModal
+          show={showTwitterVerificationModal}
+          verifyTwitter={this.verifyTwitter}
+          did={did}
+          message={twitterMessage}
+          isTwitterVerified={isTwitterVerified}
+          verificationLoading={verificationLoading}
+          twitterVerifiedFailed={twitterVerifiedFailed}
+          resetVerification={this.resetVerification}
+          handleTwitterVerificationModal={this.props.handleTwitterVerificationModal}
+        />
+
         <div id="edit__breadCrumb">
           <div id="edit__breadCrumb__crumbs">
             <p className="light">
@@ -377,7 +680,7 @@ class EditProfile extends Component {
                   <button
                     id="removeCoverPic"
                     className="removeButton"
-                    onClick={this.removeCoverPic}
+                    onClick={() => this.removePicture('Cover')}
                     disabled={(coverPhoto.length > 0 || (this.coverUpload && this.coverUpload.files && this.coverUpload.files[0])) ? false : true}
                     text="remove"
                     type="button"
@@ -391,7 +694,7 @@ class EditProfile extends Component {
                       name="coverPic"
                       className="light"
                       accept="image/*"
-                      onChange={e => this.handleUpdateCoverPic(e.target.files[0], e)}
+                      onChange={e => this.handleUpdatePic(e.target.files[0], e, true)}
                       ref={ref => this.coverUpload = ref}
                     />
                     <div className="edit__profile__editCanvas__button">
@@ -430,13 +733,13 @@ class EditProfile extends Component {
                     <button
                       id="removePic"
                       className="removeButton"
-                      onClick={this.removePic}
+                      onClick={() => this.removePicture('User')}
                       disabled={(image.length > 0 || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])) ? false : true}
                       text="remove"
                       type="button"
                     >
                       &#10005;
-                  </button>
+                    </button>
 
                     {(((image.length > 0 && image[0].contentUrl) || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])) && !removeUserPic)
                       ? (
@@ -457,7 +760,7 @@ class EditProfile extends Component {
                   </label>
 
                 </div>
-                <p title={address} className="edit__profile__address">{address && `${address.substring(0, 8)}...`}</p>
+                <p title={currentAddress} className="edit__profile__address">{currentAddress && `${currentAddress.substring(0, 8)}...`}</p>
               </div>
             </div>
 
@@ -589,19 +892,6 @@ class EditProfile extends Component {
 
                     <div className="edit__profile__fields__entry">
                       <div className="edit__profile__keyContainer">
-                        <h5 className="edit__profile__key">Github</h5>
-                      </div>
-                      <input
-                        name="github"
-                        type="text"
-                        className="edit__profile__value"
-                        value={github}
-                        onChange={e => this.handleFormChange(e, 'github')}
-                      />
-                    </div>
-
-                    <div className="edit__profile__fields__entry">
-                      <div className="edit__profile__keyContainer">
                         <h5>Birthday</h5>
                       </div>
                       <div className="edit__profile__value--privateContainer">
@@ -625,6 +915,159 @@ class EditProfile extends Component {
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+
+              <div className="edit__profile__info--verified">
+                <div className="edit__profile__categories extraMargin">
+                  <h3 className="noMargin">Verified Accounts</h3>
+                  <p>Connect your existing social accounts to build a stronger reputation.</p>
+                </div>
+                <div id="edit__profile__fields">
+                  <div id="edit__info">
+
+                    <div className="edit__profile__fields__entry noMargin">
+                      <div className="edit__profile__keyContainer">
+                        <h5>Github</h5>
+                      </div>
+                      {this.props.verifiedGithub
+                        && (
+                          <div className="edit__profile__verifiedWrapper">
+                            <div className="edit__profile__verifiedName">
+                              <p>{verifiedGithub}</p>
+                              {!githubRemoved
+                                && <img src={Verified} alt="Verified" />
+                              }
+                            </div>
+
+                            {!githubRemoved
+                              ? (
+                                <button
+                                  type="button"
+                                  className={`unstyledButton ${!githubEdited && 'uneditedGithub'} removeGithub`}
+                                  onClick={() => this.handleGithubUsername('remove')}
+                                >
+                                  Remove
+                                </button>
+                              )
+                              : (
+                                <button
+                                  type="button"
+                                  className={`unstyledButton ${!githubEdited && 'uneditedGithub'}`}
+                                  onClick={() => this.handleGithubUsername()}
+                                >
+                                  Cancel
+                            </button>
+                              )}
+                          </div>
+                        )}
+
+                      {!this.props.verifiedGithub
+                        && (
+                          <div className="edit__profile__verifiedWrapper">
+                            <input
+                              name="verifiedGithub"
+                              type="text"
+                              className="edit__profile__value--github verifiedForm"
+                              value={verifiedGithub}
+                              onChange={e => this.handleFormChange(e, 'verifiedGithub')}
+                            />
+                            <button
+                              type="button"
+                              className={`unstyledButton ${!githubEdited && 'uneditedGithub'} verificationButton verifiedForm`}
+                              disabled={!githubEdited}
+                              onClick={() => {
+                                this.props.getPublicDID();
+                                this.props.handleGithubVerificationModal();
+                              }}
+                            >
+                              Verify
+                              </button>
+                            <p className="edit__profile__verified--NoMobile">
+                              Add verifications using a desktop browser.
+                            </p>
+                          </div>
+                        )}
+
+                    </div>
+
+                    <div className="edit__profile__fields__entry">
+                      <div className="edit__profile__keyContainer">
+                        <h5>Twitter</h5>
+                      </div>
+                      {this.props.verifiedTwitter
+                        && (
+                          <div className="edit__profile__verifiedWrapper">
+                            <div className="edit__profile__verifiedName">
+                              <p>{verifiedTwitter}</p>
+                              {!twitterRemoved
+                                && <img src={Verified} alt="Verified" />
+                              }
+                            </div>
+
+                            {!twitterRemoved
+                              ? (
+                                <button
+                                  type="button"
+                                  className={`unstyledButton ${!twitterEdited && 'uneditedGithub'} removeGithub`}
+                                  onClick={() => this.handleTwitterUsername('remove')}
+                                >
+                                  Remove
+                                </button>
+                              )
+                              : (
+                                <button
+                                  type="button"
+                                  className={`unstyledButton ${!twitterEdited && 'uneditedGithub'}`}
+                                  onClick={() => this.handleTwitterUsername()}
+                                >
+                                  Cancel
+                            </button>
+                              )}
+                          </div>
+                        )}
+
+                      {!this.props.verifiedTwitter
+                        && (
+                          <div className="edit__profile__verifiedWrapper">
+                            <input
+                              name="verifiedTwitter"
+                              type="text"
+                              className="edit__profile__value--github verifiedForm"
+                              value={verifiedTwitter}
+                              onChange={e => this.handleFormChange(e, 'verifiedTwitter')}
+                            />
+                            <button
+                              type="button"
+                              className={`unstyledButton ${!twitterEdited && 'uneditedGithub'} verificationButton verifiedForm`}
+                              disabled={!twitterEdited}
+                              onClick={() => {
+                                this.props.getPublicDID();
+                                this.props.handleTwitterVerificationModal();
+                              }}
+                            >
+                              Verify
+                            </button>
+                            <p className="edit__profile__verified--NoMobile">
+                              Add verifications using a desktop browser.
+                            </p>
+                          </div>
+                        )}
+
+                    </div>
+
+
+                  </div>
+                  {(githubRemoved || twitterRemoved)
+                    && (
+                      <p className="edit__profile__verifiedWrapper__warning">Save form to remove your verified accounts.</p>
+                    )
+                  }
+                  {((!this.props.verifiedGithub && githubEdited && !isGithubVerified) || (!this.props.verifiedTwitter && twitterEdited && !isTwitterVerified))
+                    && (
+                      <p className={`edit__profile__verifiedWrapper__warning ${(githubRemoved || twitterRemoved) && 'second'}`}>Verification is required for your verified accounts to save.</p>
+                    )
+                  }
                 </div>
               </div>
 
@@ -732,8 +1175,37 @@ class EditProfile extends Component {
             </div>
             <div id="edit__formControls">
               <div id="edit__formControls__content">
-                <button type="submit" disabled={disableSave} onClick={e => this.handleSubmit(e)}>Save</button>
-                <Link to={routes.PROFILE} className="subtext" id="edit__cancel">
+                <button
+                  type="submit"
+                  disabled={disableSave}
+                  onClick={
+                    (e) => {
+                      this.setState({ disableSave: true }, () => this.handleSubmit(e));
+                    }}
+                >
+                  Save
+                  </button>
+                <Link
+                  to={`/${currentAddress}/${routes.ACTIVITY}`}
+                  className="subtext"
+                  id="edit__cancel"
+                  onClick={() => {
+                    if (this.state.savedGithub && verifiedGithub !== '') {
+                      this.props.box.public.remove('proof_github');
+                      store.dispatch({
+                        type: 'GET_VERIFIED_PUBLIC_GITHUB',
+                        verifiedGithub: null,
+                      });
+                    }
+                    if (this.state.savedTwitter && verifiedTwitter !== '') {
+                      this.props.box.public.remove('proof_twitter');
+                      store.dispatch({
+                        type: 'GET_VERIFIED_PUBLIC_TWITTER',
+                        verifiedTwitter: null,
+                      });
+                    }
+                  }}
+                >
                   Cancel
                 </Link>
               </div>
@@ -748,7 +1220,9 @@ class EditProfile extends Component {
 EditProfile.propTypes = {
   box: PropTypes.object,
   name: PropTypes.string,
-  github: PropTypes.string,
+  verifiedGithub: PropTypes.string,
+  verifiedTwitter: PropTypes.string,
+  did: PropTypes.string,
   year: PropTypes.string,
   emoji: PropTypes.string,
   description: PropTypes.string,
@@ -762,33 +1236,27 @@ EditProfile.propTypes = {
   employer: PropTypes.string,
   email: PropTypes.string,
   memberSince: PropTypes.string,
+  currentAddress: PropTypes.string,
   image: PropTypes.array,
   coverPhoto: PropTypes.array,
   ifFetchingThreeBox: PropTypes.bool,
-
-  getPublicName: PropTypes.func,
-  getPublicGithub: PropTypes.func,
-  getPublicImage: PropTypes.func,
-  getPublicCoverPhoto: PropTypes.func,
-  getPrivateEmail: PropTypes.func,
-  getPrivateBirthday: PropTypes.func,
-  getPublicEmoji: PropTypes.func,
-  getPublicWebsite: PropTypes.func,
-  getPublicEmployer: PropTypes.func,
-  getPublicJob: PropTypes.func,
-  getPublicSchool: PropTypes.func,
-  getPublicDegree: PropTypes.func,
-  getPublicSubject: PropTypes.func,
-  getPublicYear: PropTypes.func,
-  getPublicLocation: PropTypes.func,
-  getPublicDescription: PropTypes.func,
-  getActivity: PropTypes.func,
+  showGithubVerificationModal: PropTypes.bool,
+  showTwitterVerificationModal: PropTypes.bool,
+  copySuccessful: PropTypes.bool,
+  getProfileData: PropTypes.func.isRequired,
+  getPublicDID: PropTypes.func.isRequired,
+  getActivity: PropTypes.func.isRequired,
+  handleGithubVerificationModal: PropTypes.func.isRequired,
+  handleTwitterVerificationModal: PropTypes.func.isRequired,
+  copyToClipBoard: PropTypes.func.isRequired,
 };
 
 EditProfile.defaultProps = {
   box: {},
   name: '',
-  github: '',
+  verifiedGithub: '',
+  verifiedTwitter: '',
+  did: '',
   description: '',
   location: '',
   website: '',
@@ -802,34 +1270,24 @@ EditProfile.defaultProps = {
   employer: '',
   memberSince: '',
   email: '',
+  currentAddress: '',
   image: [],
   coverPhoto: [],
   ifFetchingThreeBox: false,
-
-  getPublicName: getPublicName(),
-  getPublicGithub: getPublicGithub(),
-  getPublicDescription: getPublicDescription(),
-  getPublicLocation: getPublicLocation(),
-  getPublicWebsite: getPublicWebsite(),
-  getPublicEmployer: getPublicEmployer(),
-  getPublicJob: getPublicJob(),
-  getPublicSchool: getPublicSchool(),
-  getPublicDegree: getPublicDegree(),
-  getPublicSubject: getPublicSubject(),
-  getPublicYear: getPublicYear(),
-  getPublicImage: getPublicImage(),
-  getPublicCoverPhoto: getPublicCoverPhoto(),
-  getPrivateEmail: getPrivateEmail(),
-  getPrivateBirthday: getPrivateBirthday(),
-  getPublicEmoji: getPublicEmoji(),
-  getActivity: getActivity(),
+  showGithubVerificationModal: false,
+  showTwitterVerificationModal: false,
+  copySuccessful: false,
 };
 
 function mapState(state) {
   return {
     box: state.threeBox.box,
+    showGithubVerificationModal: state.threeBox.showGithubVerificationModal,
+    showTwitterVerificationModal: state.threeBox.showTwitterVerificationModal,
     name: state.threeBox.name,
-    github: state.threeBox.github,
+    verifiedGithub: state.threeBox.verifiedGithub,
+    verifiedTwitter: state.threeBox.verifiedTwitter,
+    did: state.threeBox.did,
     description: state.threeBox.description,
     memberSince: state.threeBox.memberSince,
     location: state.threeBox.location,
@@ -846,26 +1304,17 @@ function mapState(state) {
     image: state.threeBox.image,
     coverPhoto: state.threeBox.coverPhoto,
     ifFetchingThreeBox: state.threeBox.ifFetchingThreeBox,
+    copySuccessful: state.threeBox.copySuccessful,
+    currentAddress: state.threeBox.currentAddress,
   };
 }
 
 export default withRouter(connect(mapState,
   {
-    getPublicName,
-    getPublicGithub,
-    getPublicDescription,
-    getPublicLocation,
-    getPublicWebsite,
-    getPublicEmployer,
-    getPublicJob,
-    getPublicSchool,
-    getPublicDegree,
-    getPublicSubject,
-    getPublicYear,
-    getPublicImage,
-    getPublicCoverPhoto,
-    getPrivateEmail,
-    getPrivateBirthday,
-    getPublicEmoji,
+    getProfileData,
+    getPublicDID,
     getActivity,
+    handleGithubVerificationModal,
+    handleTwitterVerificationModal,
+    copyToClipBoard,
   })(EditProfile));

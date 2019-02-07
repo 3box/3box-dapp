@@ -20,6 +20,10 @@ nav {
   }
 }
 
+.hideNav{
+  display: none !important;
+}
+
 .bannerMargin {
   margin-top: 54px;
 }
@@ -225,9 +229,10 @@ nav {
   position: absolute;
   bottom: -6px;
   left: 0;
-  width: 0%;
+  width: 100%;;
+  opacity: 0;
   background: white;
-  transition: 0.2s;
+  transition: 0.6s;
 }
 
 .underline.landing__nav__link {
@@ -242,18 +247,21 @@ nav {
   position: absolute;
   bottom: -6px;
   left: 0;
-  width: 0%;
+  opacity: 0;
+  width: 100%;;
   background: white;
-  transition: 0.2s;
+  transition: 0.6s;
 }
 
 .landing__nav__link:hover:after {
   width: 100%;
+  opacity: 1;
 }
 
 .underline.landing__nav__link:hover:after {
   width: 0% !important;
   transition: 0s;
+  opacity: 0;
 }
 
 .underline {
@@ -281,11 +289,13 @@ nav {
 
 .createProfileLink:hover:after {
   width: 100%;
+  opacity: 1;
 }
 
 .underline.createProfileLink:hover:after {
   width: 0;
   transition: 0s;
+  opacity: 0;
 }
 
 .createProfileLink:after {
@@ -294,9 +304,10 @@ nav {
   position: absolute;
   bottom: -6px;
   left: 0;
-  width: 0%;
+  width: 100%;;
+  opacity: 0;
   background: rgb(255, 255, 255);
-  transition: 0.2s;
+  transition: 0.6s;
 }
 
 .landing.createProfileLink:hover:after{
@@ -481,6 +492,10 @@ nav {
     margin-top: 0;
   }
 
+  .showSignInBanner.bannerMargin {
+    margin-top: 64px;
+  }
+
   .landing__nav__link {
     margin-left: 15px;
     font-size: 14px;
@@ -510,6 +525,7 @@ nav {
       cursor: pointer;
       font-size: 14px;
       border: none;
+      padding: 2vh 5vw;
     }
   }
 

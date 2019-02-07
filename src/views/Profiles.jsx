@@ -15,8 +15,8 @@ class Profiles extends Component {
   }
 
   componentDidMount() {
-    const { previousRoute } = this.props;
-    if (previousRoute === '/create') {
+    const { currentRoute } = this.props;
+    if (currentRoute === '/create') {
       setTimeout(() => {
         this.setState({
           fadeOut: '',
@@ -32,8 +32,8 @@ class Profiles extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { previousRoute } = nextProps;
-    if (previousRoute === '/create') {
+    const { currentRoute } = nextProps;
+    if (currentRoute === '/create') {
       setTimeout(() => {
         this.setState({
           fadeOut: '',
@@ -129,17 +129,17 @@ class Profiles extends Component {
 Profiles.propTypes = {
   handleSignInUp: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool,
-  previousRoute: PropTypes.string,
+  currentRoute: PropTypes.string,
 };
 
 Profiles.defaultProps = {
   isLoggedIn: false,
-  previousRoute: '',
+  currentRoute: '',
 };
 
 const mapState = state => ({
   isLoggedIn: state.threeBox.isLoggedIn,
-  previousRoute: state.threeBox.previousRoute,
+  currentRoute: state.threeBox.currentRoute,
 });
 
 export default withRouter(connect(mapState)(Profiles));
