@@ -406,15 +406,13 @@ class EditProfile extends Component {
         code: verificationCode
       }
     }
-    let jwt = await box._3id.signJWT(payload)
-
-
-    fetch('https://verifications.3box.io/email-verify', {
-      method: 'POST',
-      body: JSON.stringify({
-        verification: jwt
-      }),
-    })
+    box._3id.signJWT(payload).then((jwt) => {
+      fetch('https://verifications.3box.io/email-verify', {
+        method: 'POST',
+        body: JSON.stringify({
+          verification: jwt
+        }),
+      })
       .then((response) => {
         if (response.ok) return response.json();
         this.setState({
@@ -437,7 +435,7 @@ class EditProfile extends Component {
           });
           store.dispatch({
             type: 'GET_VERIFIED_PUBLIC_EMAIL',
-            verifiedTwitter,
+            email_address,
           });
         } else {
           throw new Error('Verification failed');
@@ -450,6 +448,7 @@ class EditProfile extends Component {
         });
         console.log(err);
       });
+    })
   }
 
   // resets success / failure state of verification modals
