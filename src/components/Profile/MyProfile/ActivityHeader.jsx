@@ -25,12 +25,22 @@ const Activity = ({ name, image, feedAddress }) => (
         )
         : <h4 className="feed__activity__user">3B</h4>)
     }
-    {Object.keys(feedAddress)[0] !== 'threeBox'
+    {(Object.keys(feedAddress)[0] !== 'threeBox' && feedAddress.metaData && feedAddress.metaData.image)
+      && <img src={`https://ipfs.infura.io/ipfs/${feedAddress.metaData.image}`} className="feed__activity__user clear" alt="profile" />}
+
+    {(Object.keys(feedAddress)[0] !== 'threeBox' && feedAddress.metaData && feedAddress.metaData.contractImg)
+      && <img src={feedAddress.metaData.contractImg.src} className="feed__activity__user clear" alt="profile" />}
+
+    {(Object.keys(feedAddress)[0] !== 'threeBox' && (!feedAddress.metaData
+      || (!feedAddress.metaData.image
+        && !feedAddress.metaData.contractImg
+        && !feedAddress.metaData.contractData
+        && !feedAddress.metaData.name
+        && !feedAddress.metaData.contractDetails)))
       && (
         <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
           0x
-        </div>)
-    }
+        </div>)}
     <div className="feed__activity__address">
       {Object.keys(feedAddress)[0] === 'threeBox'
         ? (
@@ -58,7 +68,7 @@ const Activity = ({ name, image, feedAddress }) => (
               )}
             {(feedAddress.metaData && feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name)
               && (
-                <a href={`https://ethstats.io/account/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer" className="feed__activity__address__wrapper">
+                <a href={`https://etherscan.io/address/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer" className="feed__activity__address__wrapper">
                   <h4>
                     {(feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()}
                   </h4>

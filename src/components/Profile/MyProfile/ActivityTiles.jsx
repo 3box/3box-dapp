@@ -36,7 +36,6 @@ const ActivityTiles = ({
                   name={name}
                   item={item}
                   key={index}
-                  isEven={parseInt(index, 10) % 2 === 0}
                 />);
             }
 
@@ -53,7 +52,6 @@ const ActivityTiles = ({
                   isFromProfile={item.from.toLowerCase() === currentAddress.toLowerCase()}
                   contractImg={feedAddress.metaData && feedAddress.metaData.contractImg && feedAddress.metaData.contractImg.src}
                   name={name}
-                  isEven={parseInt(index, 10) % 2 === 0}
                 />);
             }
 
@@ -70,7 +68,6 @@ const ActivityTiles = ({
                   isFromProfile={item.from.toLowerCase() === currentAddress.toLowerCase()}
                   contractImg={feedAddress.metaData && feedAddress.metaData.contractImg && feedAddress.metaData.contractImg.src}
                   name={name}
-                  isEven={parseInt(index, 10) % 2 === 0}
                 />);
             }
 
@@ -81,7 +78,6 @@ const ActivityTiles = ({
                   key={index}
                   verifiedGithub={verifiedGithub}
                   verifiedTwitter={verifiedTwitter}
-                  isEven={parseInt(index, 10) % 2 === 0}
                 />);
             }
 
@@ -90,7 +86,6 @@ const ActivityTiles = ({
                 <FeedTileActivity
                   item={item}
                   key={index}
-                  isEven={parseInt(index, 10) % 2 === 0}
                 />);
             }
           })()

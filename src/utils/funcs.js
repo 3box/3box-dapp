@@ -38,14 +38,12 @@ export const addhttp = (url) => {
 };
 
 export async function getContract(otherAddress) {
-  // limit to five calls a second
   const response = await fetch(`https://api.etherscan.io/api?module=contract&action=getabi&address=${otherAddress}&apikey=${process.env.ETHERSCAN_TOKEN}`);
   if (response.status !== 200) {
     console.log(`Looks like there was a problem. Status Code: ${response.status}`);
     return;
   }
   const data = await response.json();
-  // only proceed once second promise is resolved
   return data;
 };
 
@@ -108,7 +106,6 @@ export const updateFeed = (publicProfileAddress, feedByAddress, addressData, isC
       feedByAddress[i].metaData = {
         contractImg: contractArray.length > 0 && contractArray[0],
         contractDetails: contractArray.length > 0 && contractArray[1],
-        // contractData,
       };
       counter += 1;
       if (counter === feedByAddress.length) fireDispatch(publicProfileAddress, feedByAddress);
@@ -118,7 +115,6 @@ export const updateFeed = (publicProfileAddress, feedByAddress, addressData, isC
         image: addressData && addressData[otherAddress] && addressData[otherAddress].image,
       };
       counter += 1;
-      console.log('counter profile', counter);
       if (counter === feedByAddress.length) fireDispatch(publicProfileAddress, feedByAddress);
     }
   });
