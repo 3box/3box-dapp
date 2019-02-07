@@ -394,6 +394,64 @@ class EditProfile extends Component {
       });
   }
 
+  verifyEmail = () => {
+    const { verificationCode, editedArray } = this.state;
+    const { box } = this.props;
+    const updatedEditedArray = editedArray;
+    this.setState({ verificationLoading: true });
+
+    let payload = {
+      sub: 'did:https:verifications.3box.io',
+      claim: {
+        code: verificationCode
+      }
+    }
+    let jwt = await box._3id.signJWT(payload)
+
+
+    fetch('https://verifications.3box.io/email-verify', {
+      method: 'POST',
+      body: JSON.stringify({
+        verification: jwt
+      }),
+    })
+      .then((response) => {
+        if (response.ok) return response.json();
+        this.setState({
+          verificationLoading: false,
+          emailVerifiedFailed: true,
+        });
+        throw new Error('Verification failed');
+      })
+      .then(claim => box.verified.addEmail(claim.data.verification))
+      .then((email_address) => {
+        if (email_address) {
+          console.log('Email address verified and saved');
+          updatedEditedArray.push('proof_email');
+          this.setState({
+            isEmailVerified: true,
+            verificationLoading: false,
+            editedArray: updatedEditedArray,
+            disableSave: false,
+            savedEmail: true,
+          });
+          store.dispatch({
+            type: 'GET_VERIFIED_PUBLIC_EMAIL',
+            verifiedTwitter,
+          });
+        } else {
+          throw new Error('Verification failed');
+        }
+      })
+      .catch((err) => {
+        this.setState({
+          verificationLoading: false,
+          emailVerifiedFailed: true,
+        });
+        console.log(err);
+      });
+  }
+
   // resets success / failure state of verification modals
   resetVerification = (platform) => {
     const { isGithubVerified, isTwitterVerified, editedArray } = this.state;
@@ -576,6 +634,7 @@ class EditProfile extends Component {
     const {
       verifiedGithub,
       verifiedTwitter,
+      verifiedEmail,
       email,
       name,
       description,
@@ -597,19 +656,23 @@ class EditProfile extends Component {
       showEmoji,
       isGithubVerified,
       isTwitterVerified,
+      isEmailVerified,
       githubVerifiedFailed,
       twitterVerifiedFailed,
+      emailVerifiedFailed,
       githubEdited,
       twitterEdited,
+      emailEdited,
       githubRemoved,
       twitterRemoved,
+      emailRemoved,
       verificationLoading,
     } = this.state;
 
     const message = (`3Box is a social profiles network for web3. This post links my 3Box profile to my Github account!
 
     ✅ ${did} ✅
-    
+
 Create your profile today to start building social connection and trust online. https://3box.io/`);
 
     const twitterMessage = (`This tweet links my 3Box profile to my twitter account! %0D%0A%0D%0AJoin web3's social profiles network by creating your account on http://3box.io/ today. %0D%0A@3boxdb%0D%0A%0D%0A✅
