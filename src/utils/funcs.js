@@ -87,7 +87,7 @@ const fireDispatch = (publicProfileAddress, feedByAddress) => {
       isLoggedIn: true,
     });
   }
-}
+};
 
 export const updateFeed = (publicProfileAddress, feedByAddress, addressData, isContract) => {
   let contractArray = [];
@@ -119,3 +119,24 @@ export const updateFeed = (publicProfileAddress, feedByAddress, addressData, isC
     }
   });
 };
+
+export const addDataType = (activity) => {
+  activity.internal = activity.internal.map(object => Object.assign({
+    dataType: 'Internal',
+  }, object));
+  activity.txs = activity.txs.map(object => Object.assign({
+    dataType: 'Txs',
+  }, object));
+  activity.token = activity.token.map(object => Object.assign({
+    dataType: 'Token',
+  }, object));
+
+  return activity;
+};
+
+export const addPublicOrPrivateDataType = (activity, dataType) => activity.map((row) => {
+  row.timeStamp = row.timeStamp && row.timeStamp.toString().substring(0, 10);
+  return Object.assign({
+    dataType,
+  }, row);
+});

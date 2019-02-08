@@ -10,6 +10,8 @@ import {
   imageElFor,
   getPublicProfile,
   updateFeed,
+  addDataType,
+  addPublicOrPrivateDataType,
 } from '../utils/funcs';
 
 export const checkWeb3Wallet = () => async (dispatch) => {
@@ -291,54 +293,35 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
       type: 'LOADING_ACTIVITY',
     });
 
-    let activity;
+    // get activity from the profile page's address
+    const activity = await ThreeBoxActivity.get(publicProfileAddress || store.getState().threeBox.currentAddress); // eslint-disable-line no-undef
 
-    if (publicProfileAddress) {
-      activity = await ThreeBoxActivity.get(publicProfileAddress); // eslint-disable-line no-undef
-    } else {
-      activity = await ThreeBoxActivity.get(store.getState().threeBox.currentAddress); // eslint-disable-line no-undef
-    }
-
-    // add datatype
-    activity.internal = activity.internal.map(object => Object.assign({
-      dataType: 'Internal',
-    }, object));
-    activity.txs = activity.txs.map(object => Object.assign({
-      dataType: 'Txs',
-    }, object));
-    activity.token = activity.token.map(object => Object.assign({
-      dataType: 'Token',
-    }, object));
+    // add datatype to each row
+    const categorizedActivity = addDataType(activity);
 
     let feed;
-
+    // sort and merge feed
     if (publicProfileAddress) {
-      feed = activity.internal
-        .concat(activity.txs)
-        .concat(activity.token);
+      feed = categorizedActivity.internal
+        .concat(categorizedActivity.txs)
+        .concat(categorizedActivity.token);
     } else {
+      // get 3box logs
       const unFilteredPublicActivity = await store.getState().threeBox.box.public.log;
-      let privateActivity = await store.getState().threeBox.box.private.log;
-      let publicActivity = unFilteredPublicActivity.filter(item => (item.key !== 'ethereum_proof' && item.key !== 'proof_did'));
+      const privateActivity = await store.getState().threeBox.box.private.log;
 
-      publicActivity = publicActivity.map((object) => {
-        object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
-        return Object.assign({
-          dataType: 'Public',
-        }, object);
-      });
-      privateActivity = privateActivity.map((object) => {
-        object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
-        return Object.assign({
-          dataType: 'Private',
-        }, object);
-      });
+      // remove ethereum_proof & proof_did
+      const publicActivity = unFilteredPublicActivity.filter(item => (item.key !== 'ethereum_proof' && item.key !== 'proof_did'));
 
-      feed = activity.internal
-        .concat(activity.txs)
-        .concat(activity.token)
-        .concat(publicActivity)
-        .concat(privateActivity);
+      // assign public or private data type
+      const categorizedPublicActivity = addPublicOrPrivateDataType(publicActivity, 'Public');
+      const categorizedPrivateActivity = addPublicOrPrivateDataType(privateActivity, 'Private');
+
+      feed = categorizedActivity.internal
+        .concat(categorizedActivity.txs)
+        .concat(categorizedActivity.token)
+        .concat(categorizedPublicActivity)
+        .concat(categorizedPrivateActivity);
     }
 
     // if timestamp is undefined, give it the timestamp of the previous entry
@@ -358,6 +341,7 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
     feed.forEach((item) => {
       let othersAddress;
 
+      // check if to or from is counterparty's address
       if (publicProfileAddress) {
         othersAddress = item.from.toLowerCase() ===
           store.getState().threeBox.publicProfileAddress.toLowerCase() ?
@@ -370,6 +354,7 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
           item.from;
       }
 
+      // group feed by 3box or counterparty address activity
       if (feedByAddress.length > 0 &&
         Object.keys(feedByAddress[feedByAddress.length - 1])[0] === othersAddress) {
         feedByAddress[feedByAddress.length - 1][othersAddress].push(item);
@@ -386,13 +371,15 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
       }
     });
 
-    let checkedAddresses = {};
-    let addressData = {};
-    let isContract = {};
+    const checkedAddresses = {};
+    const addressData = {};
+    const isContract = {};
     let counter = 0;
 
+    // if there is no feed length, move on to next step
     if (feedByAddress.length === 0) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
 
+    // get contract and 3box profile metadata
     await feedByAddress.map(async (txGroup) => {
       const otherAddress = Object.keys(txGroup)[0];
       let metaData = {};
