@@ -287,7 +287,6 @@ export const getBox = fromSignIn => async (dispatch) => {
 
 export const getActivity = publicProfileAddress => async (dispatch) => {
   try {
-    console.log('1');
     dispatch({
       type: 'LOADING_ACTIVITY',
     });
@@ -299,7 +298,6 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
     } else {
       activity = await ThreeBoxActivity.get(store.getState().threeBox.currentAddress); // eslint-disable-line no-undef
     }
-    console.log('2');
 
     // add datatype
     activity.internal = activity.internal.map(object => Object.assign({
@@ -322,7 +320,6 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
       const unFilteredPublicActivity = await store.getState().threeBox.box.public.log;
       let privateActivity = await store.getState().threeBox.box.private.log;
       let publicActivity = unFilteredPublicActivity.filter(item => (item.key !== 'ethereum_proof' && item.key !== 'proof_did'));
-      console.log('3');
 
       publicActivity = publicActivity.map((object) => {
         object.timeStamp = object.timeStamp && object.timeStamp.toString().substring(0, 10);
@@ -353,7 +350,6 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
       }
       return feedItem;
     });
-    console.log('4');
 
     feed.sort((a, b) => b.timeStamp - a.timeStamp);
 
@@ -389,15 +385,15 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
         });
       }
     });
-    console.log('5');
 
     let checkedAddresses = {};
     let addressData = {};
     let isContract = {};
     let counter = 0;
-    console.log('feedByAddress', feedByAddress);
 
-    await feedByAddress.map(async (txGroup, i) => {
+    if (feedByAddress.length === 0) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
+
+    await feedByAddress.map(async (txGroup) => {
       const otherAddress = Object.keys(txGroup)[0];
       let metaData = {};
       let contractData;
@@ -410,7 +406,6 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
         if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
         return;
       }
-      console.log('6');
 
       if (!checkedAddresses[otherAddress]) {
         checkedAddresses[otherAddress] = true;
@@ -421,13 +416,11 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
             counter += 1;
             if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
           }
-          console.log('7');
 
           if (code !== '0x' && typeof code !== 'undefined') { // then address is contract
             isContract[otherAddress] = true;
             getContract(otherAddress)
               .then((data) => {
-                console.log('8');
                 if (data.status === '1') {
                   contractData = JSON.parse(data.result);
                   contractArray = imageElFor(otherAddress);
@@ -476,7 +469,6 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
           }
         });
       } else {
-        console.log('9');
         counter += 1;
         if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
       }

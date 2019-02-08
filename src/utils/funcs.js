@@ -90,9 +90,9 @@ const fireDispatch = (publicProfileAddress, feedByAddress) => {
 }
 
 export const updateFeed = (publicProfileAddress, feedByAddress, addressData, isContract) => {
-  console.log('addressData', addressData);
   let contractArray = [];
   let counter = 0;
+  if (feedByAddress.length === 0) fireDispatch(publicProfileAddress, feedByAddress);
 
   feedByAddress.map(async (txGroup, i) => {
     const otherAddress = Object.keys(txGroup)[0];
