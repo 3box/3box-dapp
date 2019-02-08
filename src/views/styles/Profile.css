@@ -362,6 +362,8 @@
   .profile__category__header {
     padding: 30px 0 20px 20px;
     border-top: solid 1px #E4E4E4; }
+  .publicStatusUpdate--bannerMargin {
+    margin-top: 0 !important; }
   #profile__fixed {
     position: static;
     width: 100vw;

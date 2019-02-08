@@ -461,6 +461,11 @@
     border-top: solid 1px $borderColor;
   }
 
+
+  .publicStatusUpdate--bannerMargin {
+    margin-top: 0 !important;
+  }
+
   #profile__fixed {
     position: static;
     width: 100vw;

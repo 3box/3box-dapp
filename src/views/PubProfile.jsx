@@ -67,7 +67,7 @@ class ProfilePublic extends Component {
         >
           <div id="profile__contents">
             <SideBar isPublicProfilePage />
-            <PubContent showSignInBanner={showSignInBanner} />
+            <PubContent />
           </div>
           <PublicProfileLoading show={isLoadingPublicProfile} />
         </div>
