@@ -183,6 +183,7 @@ export const getBox = fromSignIn => async (dispatch) => {
   dispatch({
     type: 'HANDLE_CONSENT_MODAL',
     provideConsent: true,
+    showSignInBanner: false,
   });
 
   const consentGiven = () => {
