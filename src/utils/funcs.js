@@ -62,15 +62,14 @@ export const imageElFor = (address) => {
 };
 
 export async function getPublicProfile(graphqlQueryObject) {
-  // let profile;
-  // try {
-  const profile = await Box.profileGraphQL(graphqlQueryObject); // eslint-disable-line no-undef
-  // } catch (err) {
-  //   // console.log(err);
-  // }
-  // return profile;
+  let profile;
+  try {
+    profile = await Box.profileGraphQL(graphqlQueryObject); // eslint-disable-line no-undef
+  } catch (err) {
+    // console.log(err);
+  }
   return profile;
-};
+}
 
 const fireDispatch = (publicProfileAddress, feedByAddress) => {
   if (publicProfileAddress) {

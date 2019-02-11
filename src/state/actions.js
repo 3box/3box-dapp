@@ -1,5 +1,3 @@
-import abiDecoder from 'abi-decoder';
-
 import {
   store,
 } from './store';

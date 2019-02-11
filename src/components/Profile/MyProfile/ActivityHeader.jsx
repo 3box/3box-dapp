@@ -23,9 +23,16 @@ const Activity = ({ name, image, feedAddress }) => (
             </h5>
           </div>
         )
-        : <h4 className="feed__activity__user">3B</h4>)
+        : (
+          <div className="feed__activity__userWrapper">
+            <div className="feed__activity__user" />
+            <h5 className="feed__activity__threeBoxEmblem">
+              3
+            </h5>
+          </div>
+        ))
     }
-    
+
     {(Object.keys(feedAddress)[0] !== 'threeBox' && feedAddress.metaData && feedAddress.metaData.image)
       && <img src={`https://ipfs.infura.io/ipfs/${feedAddress.metaData.image}`} className="feed__activity__user clear" alt="profile" />}
 

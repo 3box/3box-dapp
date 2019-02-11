@@ -159,7 +159,7 @@
   padding: 20px 0 14px 20px; }
 
 .feed__activity__tile {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   border: 1px solid #E4E4E4;
   padding: 15px;
   width: 95.4%;
@@ -236,8 +236,8 @@
 
 .feed__activity__image {
   border-radius: 6px;
-  min-width: 639px;
-  width: 639px;
+  min-width: 654px;
+  width: 654px;
   margin: 0;
   object-fit: cover;
   background-color: #006ECC;
