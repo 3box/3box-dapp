@@ -402,6 +402,9 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
             if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
           }
 
+          console.log('code', code);
+          console.log('otherAddress', otherAddress);
+
           if (code !== '0x' && typeof code !== 'undefined') { // then address is contract
             isContract[otherAddress] = true;
             getContract(otherAddress)

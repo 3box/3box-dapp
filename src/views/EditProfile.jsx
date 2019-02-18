@@ -394,63 +394,6 @@ class EditProfile extends Component {
       });
   }
 
-  verifyEmail = () => {
-    const { verificationCode, editedArray } = this.state;
-    const { box } = this.props;
-    const updatedEditedArray = editedArray;
-    this.setState({ verificationLoading: true });
-
-    let payload = {
-      sub: 'did:https:verifications.3box.io',
-      claim: {
-        code: verificationCode
-      }
-    }
-    box._3id.signJWT(payload).then((jwt) => {
-      fetch('https://verifications.3box.io/email-verify', {
-        method: 'POST',
-        body: JSON.stringify({
-          verification: jwt
-        }),
-      })
-      .then((response) => {
-        if (response.ok) return response.json();
-        this.setState({
-          verificationLoading: false,
-          emailVerifiedFailed: true,
-        });
-        throw new Error('Verification failed');
-      })
-      .then(claim => box.verified.addEmail(claim.data.verification))
-      .then((email_address) => {
-        if (email_address) {
-          console.log('Email address verified and saved');
-          updatedEditedArray.push('proof_email');
-          this.setState({
-            isEmailVerified: true,
-            verificationLoading: false,
-            editedArray: updatedEditedArray,
-            disableSave: false,
-            savedEmail: true,
-          });
-          store.dispatch({
-            type: 'GET_VERIFIED_PUBLIC_EMAIL',
-            email_address,
-          });
-        } else {
-          throw new Error('Verification failed');
-        }
-      })
-      .catch((err) => {
-        this.setState({
-          verificationLoading: false,
-          emailVerifiedFailed: true,
-        });
-        console.log(err);
-      });
-    })
-  }
-
   // resets success / failure state of verification modals
   resetVerification = (platform) => {
     const { isGithubVerified, isTwitterVerified, editedArray } = this.state;
