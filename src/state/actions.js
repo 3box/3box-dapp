@@ -325,7 +325,6 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
     // if timestamp is undefined, give it the timestamp of the previous entry
     feed.map((item, i) => {
       const feedItem = item;
-      console.log(feedItem)
       if (!feedItem.timeStamp) {
         const deletedTime = parseInt(feed[i - 1].timeStamp, 10) + 1;
         feedItem.timeStamp = deletedTime.toString();
