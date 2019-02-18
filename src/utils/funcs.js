@@ -94,14 +94,13 @@ export const updateFeed = (publicProfileAddress, feedByAddress, addressData, isC
   if (feedByAddress.length === 0) fireDispatch(publicProfileAddress, feedByAddress);
   feedByAddress.map(async (txGroup, i) => {
     const otherAddress = Object.keys(txGroup)[0];
-    console.log(isContract);  
-    if (isContract[otherAddress]) { // then address is contract
-      const {
-        contractData,
-      } = addressData[otherAddress].contractData;
+    console.log(addressData);
 
-      if (Array.isArray(contractData)) {
-        abiDecoder.addABI(contractData);
+    if (isContract[otherAddress]) { // then address is contract
+      const contractDataABI = addressData[otherAddress].contractData;
+
+      if (contractDataABI) {
+        abiDecoder.addABI(contractDataABI);
         txGroup[otherAddress].map((lineItem, index) => {
           const methodCall = abiDecoder.decodeMethod(txGroup[otherAddress][index].input);
           lineItem.methodCall = methodCall && methodCall.name && (methodCall.name.charAt(0).toUpperCase() + methodCall.name.slice(1)).replace(/([A-Z])/g, ' $1').trim();
