@@ -105,12 +105,14 @@ export const updateFeed = (publicProfileAddress, feedByAddress, addressData, isC
           const methodCall = abiDecoder.decodeMethod(txGroup[otherAddress][index].input);
           lineItem.methodCall = methodCall && methodCall.name && (methodCall.name.charAt(0).toUpperCase() + methodCall.name.slice(1)).replace(/([A-Z])/g, ' $1').trim();
         });
-        contractArray = imageElFor(otherAddress);
-        feedByAddress[i].metaData = {
-          contractImg: contractArray.length > 0 && contractArray[0],
-          contractDetails: contractArray.length > 0 && contractArray[1],
-        };
       }
+
+      contractArray = imageElFor(otherAddress);
+
+      feedByAddress[i].metaData = {
+        contractImg: contractArray.length > 0 && contractArray[0],
+        contractDetails: contractArray.length > 0 && contractArray[1],
+      };
 
       counter += 1;
       if (counter === feedByAddress.length) fireDispatch(publicProfileAddress, feedByAddress);
