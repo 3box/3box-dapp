@@ -74,6 +74,13 @@ export const handleTwitterVerificationModal = () => async (dispatch) => {
   });
 };
 
+export const handleEmailVerificationModal = () => async (dispatch) => {
+  dispatch({
+    type: 'HANDLE_EMAIL_MODAL',
+    showEmailVerificationModal: !store.getState().threeBox.showEmailVerificationModal,
+  });
+};
+
 export const handleOnboardingModal = mobile => async (dispatch) => {
   if (mobile) {
     dispatch({

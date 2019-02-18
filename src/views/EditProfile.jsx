@@ -17,11 +17,13 @@ import {
 import {
   handleGithubVerificationModal,
   handleTwitterVerificationModal,
+  handleEmailVerificationModal,
 } from '../state/actions-modals';
 import {
   FileSizeModal,
   GithubVerificationModal,
   TwitterVerificationModal,
+  EmailVerificationModal,
 } from '../components/Modals';
 import history from '../history';
 import Nav from '../components/Nav.jsx';
@@ -39,6 +41,7 @@ class EditProfile extends Component {
       name: '',
       verifiedGithub: '',
       verifiedTwitter: '',
+      verifiedEmail: '',
       email: '',
       buffer: '',
       description: '',
@@ -52,6 +55,7 @@ class EditProfile extends Component {
       major: '',
       year: '',
       employer: '',
+      emailVerificationMessage: '',
       disableSave: true,
       saveLoading: false,
       removeUserPic: false,
@@ -81,11 +85,12 @@ class EditProfile extends Component {
   }
 
   componentDidMount() {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
     const {
       name,
       verifiedGithub,
       verifiedTwitter,
+      verifiedEmail,
       email,
       description,
       location,
@@ -104,6 +109,7 @@ class EditProfile extends Component {
       name,
       verifiedGithub,
       verifiedTwitter,
+      verifiedEmail,
       email,
       description,
       location,
@@ -124,6 +130,7 @@ class EditProfile extends Component {
       name,
       verifiedGithub,
       verifiedTwitter,
+      verifiedEmail,
       email,
       description,
       location,
@@ -141,6 +148,7 @@ class EditProfile extends Component {
     if (name !== this.props.name) this.setState({ name });
     if (verifiedGithub !== this.props.verifiedGithub) this.setState({ verifiedGithub });
     if (verifiedTwitter !== this.props.verifiedTwitter) this.setState({ verifiedTwitter });
+    if (verifiedEmail !== this.props.verifiedEmail) this.setState({ verifiedEmail });
     if (email !== this.props.email) this.setState({ email });
     if (description !== this.props.description) this.setState({ description });
     if (location !== this.props.location) this.setState({ location });
@@ -156,7 +164,7 @@ class EditProfile extends Component {
   }
 
   handleFormChange = (e, property) => {
-    const { verifiedGithub, verifiedTwitter } = this.props;
+    const { verifiedGithub, verifiedTwitter, verifiedEmail } = this.props;
     const { editedArray } = this.state;
 
     this.setState({ [property]: e.target.value },
@@ -172,6 +180,12 @@ class EditProfile extends Component {
             this.setState({ twitterEdited: false });
           } else if (verifiedTwitter !== this.state.verifiedTwitter && this.state.verifiedTwitter !== '') {
             this.setState({ twitterEdited: true });
+          }
+        } else if (property === 'verifiedEmail') {
+          if (this.state.verifiedEmail === '') {
+            this.setState({ emailEdited: false });
+          } else if (verifiedEmail !== this.state.verifiedEmail && this.state.verifiedEmail !== '') {
+            this.setState({ emailEdited: true });
           }
         } else if (this.state[property] !== this.props[property]) {
           const updatedEditedArray = editedArray;
@@ -296,7 +310,7 @@ class EditProfile extends Component {
       });
   }
 
-  // removing and unremoving Github username
+  // adding and removing Github username
   handleGithubUsername = (remove) => {
     const { editedArray, savedGithub } = this.state;
     const updatedEditedArray = editedArray;
@@ -320,7 +334,7 @@ class EditProfile extends Component {
     }
   }
 
-  // removing and unremoving Twitter username
+  // adding and removing Twitter username
   handleTwitterUsername = (remove) => {
     const { editedArray, savedTwitter } = this.state;
     const updatedEditedArray = editedArray;
@@ -339,6 +353,30 @@ class EditProfile extends Component {
       this.setState({
         verifiedTwitter: this.props.verifiedTwitter,
         twitterRemoved: false,
+        editedArray: updatedEditedArray,
+      });
+    }
+  }
+
+  // adding and removing Twitter username
+  handleEmailAddress = (remove) => {
+    const { editedArray, savedEmail } = this.state;
+    const updatedEditedArray = editedArray;
+    if (remove && this.props.verifiedEmail) {
+      updatedEditedArray.push('proof_email');
+      this.setState({
+        verifiedEmail: '',
+        disableSave: false,
+        emailRemoved: true,
+        editedArray: updatedEditedArray,
+      });
+    } else {
+      if (remove && savedEmail) this.setState({ savedEmail: false });
+      updatedEditedArray.splice(updatedEditedArray.indexOf('proof_email'), 1);
+      if (!updatedEditedArray.length) this.setState({ disableSave: true });
+      this.setState({
+        verifiedEmail: this.props.verifiedEmail,
+        emailRemoved: false,
         editedArray: updatedEditedArray,
       });
     }
@@ -394,61 +432,81 @@ class EditProfile extends Component {
       });
   }
 
+  sendVerificationEmail = (did) => {
+    const { verifiedEmail } = this.state;
+    const payload = {
+      did,
+      email_address: verifiedEmail,
+    };
+
+    fetch('https://verifications-dev.3box.io/send-email-verification', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }).then(res => res.json())
+      .then((json) => {
+        this.setState({ emailVerificationMessage: json.status });
+      })
+      .catch((err) => {
+        this.setState({ emailVerificationMessage: err.response });
+      });
+  }
+
   verifyEmail = () => {
     const { verificationCode, editedArray } = this.state;
     const { box } = this.props;
     const updatedEditedArray = editedArray;
     this.setState({ verificationLoading: true });
 
-    let payload = {
+    const payload = {
       sub: 'did:https:verifications.3box.io',
       claim: {
-        code: verificationCode
-      }
-    }
+        code: verificationCode,
+      },
+    };
+
     box._3id.signJWT(payload).then((jwt) => {
       fetch('https://verifications.3box.io/email-verify', {
         method: 'POST',
         body: JSON.stringify({
-          verification: jwt
+          verification: jwt,
         }),
       })
-      .then((response) => {
-        if (response.ok) return response.json();
-        this.setState({
-          verificationLoading: false,
-          emailVerifiedFailed: true,
-        });
-        throw new Error('Verification failed');
-      })
-      .then(claim => box.verified.addEmail(claim.data.verification))
-      .then((email_address) => {
-        if (email_address) {
-          console.log('Email address verified and saved');
-          updatedEditedArray.push('proof_email');
+        .then((response) => {
+          if (response.ok) return response.json();
           this.setState({
-            isEmailVerified: true,
             verificationLoading: false,
-            editedArray: updatedEditedArray,
-            disableSave: false,
-            savedEmail: true,
+            emailVerifiedFailed: true,
           });
-          store.dispatch({
-            type: 'GET_VERIFIED_PUBLIC_EMAIL',
-            email_address,
-          });
-        } else {
           throw new Error('Verification failed');
-        }
-      })
-      .catch((err) => {
-        this.setState({
-          verificationLoading: false,
-          emailVerifiedFailed: true,
+        })
+        .then(claim => box.verified.addEmail(claim.data.verification))
+        .then((verifiedEmail) => {
+          if (verifiedEmail) {
+            console.log('Email address verified and saved');
+            updatedEditedArray.push('proof_email');
+            this.setState({
+              isEmailVerified: true,
+              verificationLoading: false,
+              editedArray: updatedEditedArray,
+              disableSave: false,
+              savedEmail: true,
+            });
+            store.dispatch({
+              type: 'GET_VERIFIED_PRIVATE_EMAIL',
+              verifiedEmail,
+            });
+          } else {
+            throw new Error('Verification failed');
+          }
+        })
+        .catch((err) => {
+          this.setState({
+            verificationLoading: false,
+            emailVerifiedFailed: true,
+          });
+          console.log(err);
         });
-        console.log(err);
-      });
-    })
+    });
   }
 
   // resets success / failure state of verification modals
@@ -626,6 +684,7 @@ class EditProfile extends Component {
       did,
       showGithubVerificationModal,
       showTwitterVerificationModal,
+      showEmailVerificationModal,
       copySuccessful,
       currentAddress,
     } = this.props;
@@ -666,6 +725,7 @@ class EditProfile extends Component {
       twitterRemoved,
       emailRemoved,
       verificationLoading,
+      emailVerificationMessage,
     } = this.state;
 
     const message = (`3Box is a social profiles network for web3. This post links my 3Box profile to my Github account!
@@ -722,6 +782,20 @@ Create your profile today to start building social connection and trust online. 
           twitterVerifiedFailed={twitterVerifiedFailed}
           resetVerification={this.resetVerification}
           handleTwitterVerificationModal={this.props.handleTwitterVerificationModal}
+        />
+
+        <EmailVerificationModal
+          show={showEmailVerificationModal}
+          verifyEmail={this.verifyEmail}
+          did={did}
+          sendVerificationEmail={this.sendVerificationEmail}
+          emailVerificationMessage={emailVerificationMessage}
+          // message={twitterMessage}
+          isEmailVerified={isEmailVerified}
+          verificationLoading={verificationLoading}
+          emailVerifiedFailed={emailVerifiedFailed}
+          resetVerification={this.resetVerification}
+          handleEmailVerificationModal={this.props.handleEmailVerificationModal}
         />
 
         <div id="edit__breadCrumb">
@@ -1118,16 +1192,85 @@ Create your profile today to start building social connection and trust online. 
 
                     </div>
 
+                    <div className="edit__profile__fields__entry">
+                      <div className="edit__profile__keyContainer">
+                        <h5>Email</h5>
+                      </div>
+                      {this.props.verifiedEmail
+                        && (
+                          <div className="edit__profile__verifiedWrapper">
+                            <div className="edit__profile__verifiedName">
+                              <p>{verifiedEmail}</p>
+                              {!emailRemoved
+                                && <img src={Verified} alt="Verified" />
+                              }
+                            </div>
+
+                            {!emailRemoved
+                              ? (
+                                <button
+                                  type="button"
+                                  className={`unstyledButton ${!emailEdited && 'uneditedGithub'} removeGithub`}
+                                  onClick={() => this.handleEmailAddress('remove')}
+                                >
+                                  Remove
+                                </button>
+                              )
+                              : (
+                                <button
+                                  type="button"
+                                  className={`unstyledButton ${!emailEdited && 'uneditedGithub'}`}
+                                  onClick={() => this.handleEmailAddress()}
+                                >
+                                  Cancel
+                                </button>
+                              )}
+                          </div>
+                        )}
+
+                      {!this.props.verifiedEmail
+                        && (
+                          <div className="edit__profile__verifiedWrapper">
+                            <input
+                              name="verifiedEmail"
+                              type="text"
+                              className="edit__profile__value--github verifiedForm"
+                              value={verifiedEmail}
+                              onChange={e => this.handleFormChange(e, 'verifiedEmail')}
+                            />
+                            <button
+                              type="button"
+                              className={`unstyledButton ${!emailEdited && 'uneditedGithub'} verificationButton verifiedForm`}
+                              disabled={!emailEdited}
+                              onClick={() => {
+                                this.props.handleEmailVerificationModal();
+                                this.props.getPublicDID();
+                              }}
+                            >
+                              Verify
+                            </button>
+                            <p className="edit__profile__verified--NoMobile">
+                              Add verifications using a desktop browser.
+                            </p>
+                          </div>
+                        )}
+
+                    </div>
+
 
                   </div>
-                  {(githubRemoved || twitterRemoved)
+                  {(githubRemoved || twitterRemoved || emailRemoved)
                     && (
                       <p className="edit__profile__verifiedWrapper__warning">Save form to remove your verified accounts.</p>
                     )
                   }
-                  {((!this.props.verifiedGithub && githubEdited && !isGithubVerified) || (!this.props.verifiedTwitter && twitterEdited && !isTwitterVerified))
+                  {((!this.props.verifiedGithub && githubEdited && !isGithubVerified)
+                    || (!this.props.verifiedTwitter && twitterEdited && !isTwitterVerified)
+                    || (!this.props.verfiedEmail && emailEdited && !isEmailVerified))
                     && (
-                      <p className={`edit__profile__verifiedWrapper__warning ${(githubRemoved || twitterRemoved) && 'second'}`}>Verification is required for your verified accounts to save.</p>
+                      <p className={`edit__profile__verifiedWrapper__warning ${(githubRemoved || twitterRemoved || emailRemoved) && 'second'}`}>
+                        Verification is required for your verified accounts to save.
+                      </p>
                     )
                   }
                 </div>
@@ -1304,12 +1447,14 @@ EditProfile.propTypes = {
   ifFetchingThreeBox: PropTypes.bool,
   showGithubVerificationModal: PropTypes.bool,
   showTwitterVerificationModal: PropTypes.bool,
+  showEmailVerificationModal: PropTypes.bool,
   copySuccessful: PropTypes.bool,
   getProfileData: PropTypes.func.isRequired,
   getPublicDID: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
   handleGithubVerificationModal: PropTypes.func.isRequired,
   handleTwitterVerificationModal: PropTypes.func.isRequired,
+  handleEmailVerificationModal: PropTypes.func.isRequired,
   copyToClipBoard: PropTypes.func.isRequired,
 };
 
@@ -1338,6 +1483,7 @@ EditProfile.defaultProps = {
   ifFetchingThreeBox: false,
   showGithubVerificationModal: false,
   showTwitterVerificationModal: false,
+  showEmailVerificationModal: false,
   copySuccessful: false,
 };
 
@@ -1346,6 +1492,7 @@ function mapState(state) {
     box: state.threeBox.box,
     showGithubVerificationModal: state.threeBox.showGithubVerificationModal,
     showTwitterVerificationModal: state.threeBox.showTwitterVerificationModal,
+    showEmailVerificationModal: state.threeBox.showEmailVerificationModal,
     name: state.threeBox.name,
     verifiedGithub: state.threeBox.verifiedGithub,
     verifiedTwitter: state.threeBox.verifiedTwitter,
@@ -1378,5 +1525,6 @@ export default withRouter(connect(mapState,
     getActivity,
     handleGithubVerificationModal,
     handleTwitterVerificationModal,
+    handleEmailVerificationModal,
     copyToClipBoard,
   })(EditProfile));

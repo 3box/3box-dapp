@@ -130,6 +130,12 @@ export const threeBoxReducer = (state = {}, action) => {
         verifiedTwitter: action.verifiedTwitter,
       };
 
+    case 'GET_VERIFIED_PRIVATE_EMAIL':
+      return {
+        ...state,
+        verifiedEmail: action.verifiedEmail,
+      };
+
     case 'GET_PUBLIC_DESCRIPTION':
       return {
         ...state,
@@ -401,6 +407,12 @@ export const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         showTwitterVerificationModal: action.showTwitterVerificationModal,
+      };
+
+    case 'HANDLE_EMAIL_MODAL':
+      return {
+        ...state,
+        showEmailVerificationModal: action.showEmailVerificationModal,
       };
 
     case 'HANDLE_ACCESS_MODAL':

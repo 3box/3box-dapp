@@ -489,6 +489,133 @@ TwitterVerificationModal.propTypes = {
 TwitterVerificationModal.defaultProps = {
   did: '',
 };
+export const EmailVerificationModal = ({
+  show,
+  handleEmailVerificationModal,
+  did,
+  message,
+  verifyEmail,
+  isEmailVerified,
+  emailVerifiedFailed,
+  verificationLoading,
+  resetVerification,
+  sendVerificationEmail,
+  emailVerificationMessage,
+}) => (
+    <div>
+      <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+        <div className="modal githubModal">
+
+          <div className="modal__github__description">
+            <div className="modal__github__description__copy">
+              <div className="modal__github__description__copy__header">
+                <img src={TwitterIcon} className="modal__github__description__githubIcon" alt="Github icon" />
+                <h2>Verify your Email Address</h2>
+              </div>
+              <p className="modal__github__description__copy__text">
+                Linking your Email address to your 3Box profile
+                allows your friends and apps to trust you more.
+              </p>
+            </div>
+            <button
+              className="modal__github__description__copy__button"
+              type="button"
+              onClick={() => {
+                handleEmailVerificationModal();
+                resetVerification('Email');
+              }}
+            >
+              Cancel
+          </button>
+          </div>
+
+          <div className="modal__github__steps">
+            <div className="modal__twitter__steps__step">
+              <div>
+                <div className="modal__twitter__steps__instructions">
+                  <div className="modal__github__steps__number">1</div>
+                  <p className="modal__github__steps__text">
+                    Send a code to your email address
+                  </p>
+                </div>
+                <p className="modal__github__description__copy__input" id="muportDID">{emailVerificationMessage}</p>
+              </div>
+              <button onClick={() => sendVerificationEmail(did)} className="modal__github__description__copy__tweet" type="button">
+                Send verification email
+              </button>
+            </div>
+
+            <div className="modal__twitter__steps__step">
+              <div>
+                <div className="modal____steps__instructions">
+                  <div className="modal__github__steps__number">2</div>
+                  <p className="modal__github__steps__text">
+                    Check if your Twitter account was successfully verified below!
+                  </p>
+                </div>
+                <p className="modal__github__description__copy__input--github">
+                  {isEmailVerified
+                    ? 'Your Email is verified!'
+                    : emailVerifiedFailed
+                      ? 'Verification failed'
+                      : verificationLoading
+                        ? (
+                          <img src={Loading} alt="Loading" id="modal__loadingGraphic--noMargin" />
+                        )
+                        : 'Email not yet verified'}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={verifyEmail}
+              >
+                Verify
+            </button>
+            </div>
+          </div>
+
+          <div className="modal__github__done">
+            <button
+              type="button"
+              disabled={!isEmailVerified}
+              onClick={() => {
+                handleEmailVerificationModal();
+              }}
+            >
+              Done
+            </button>
+            <button
+              className="modal__github__description__copy__button--mobile"
+              type="button"
+              onClick={() => {
+                handleEmailVerificationModal();
+                resetVerification('Email');
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="modal__overlay" />
+    </div>
+  );
+
+EmailVerificationModal.propTypes = {
+  did: PropTypes.string,
+  show: PropTypes.bool.isRequired,
+  handleEmailVerificationModal: PropTypes.func.isRequired,
+  message: PropTypes.string.isRequired,
+  verifyEmail: PropTypes.func.isRequired,
+  resetVerification: PropTypes.func.isRequired,
+  isEmailVerified: PropTypes.bool.isRequired,
+  emailVerifiedFailed: PropTypes.bool.isRequired,
+  verificationLoading: PropTypes.bool.isRequired,
+};
+
+EmailVerificationModal.defaultProps = {
+  did: '',
+};
 
 export const AccessDeniedModal = ({
   handleDeniedAccessModal, show, isMobile,
