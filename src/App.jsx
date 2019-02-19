@@ -572,11 +572,3 @@ export default withRouter(connect(mapState,
     closeErrorModal,
     closeRequireMetaMaskModal,
   })(App));
-
-      // else if (typeof window.web3 === 'undefined' && isProtectedPath) { // No wallet and lands on restricted page
-    //   history.push(routes.LANDING);
-    // } else if (splitRoute.length > 1 && splitRoute[1].substring(0, 2) === '0x' && !isProtectedPath) {
-    //   this.loadForLandOnPublicProfile();
-    // } else {
-    //   // console.log('landed on unprotected route that isnt a public profile');
-    // }

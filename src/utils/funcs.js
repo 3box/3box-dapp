@@ -66,7 +66,7 @@ export async function getPublicProfile(graphqlQueryObject) {
   try {
     profile = await Box.profileGraphQL(graphqlQueryObject); // eslint-disable-line no-undef
   } catch (err) {
-    // console.log(err);
+    return err;
   }
   return profile;
 }
@@ -97,7 +97,7 @@ export const updateFeed = (publicProfileAddress, feedByAddress, addressData, isC
 
     if (isContract[otherAddress]) { // then address is contract
       const contractDataABI = addressData[otherAddress].contractData;
-      
+
       if (contractDataABI) {
         abiDecoder.addABI(contractDataABI);
         txGroup[otherAddress].map((lineItem, index) => {
