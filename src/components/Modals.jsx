@@ -715,7 +715,15 @@ export const ErrorModal = ({ closeErrorModal, errorMessage, show }) => (
             (errorMessage && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.')
               || ((errorMessage && errorMessage.message.substring(0, 26) === 'value/</<@moz-extension://'))
               ? <p>You must provide consent to 3Box in your web3 wallet (e.g. MetaMask) to sign in or create a profile, please try again</p>
-              : <p>{errorMessage && errorMessage.message.substring(0, 200)}</p>
+              : (
+                <React.Fragment>
+                  <p>{errorMessage && errorMessage.message.substring(0, 200)}</p>
+                  <br />
+                  <p>
+                    Please refresh the page and try again
+                  </p>
+                </React.Fragment>
+              )
           }
         </div>
         <button onClick={closeErrorModal} type="button" className="tertiaryButton">Close</button>

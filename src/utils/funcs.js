@@ -94,11 +94,10 @@ export const updateFeed = (publicProfileAddress, feedByAddress, addressData, isC
   if (feedByAddress.length === 0) fireDispatch(publicProfileAddress, feedByAddress);
   feedByAddress.map(async (txGroup, i) => {
     const otherAddress = Object.keys(txGroup)[0];
-    console.log(addressData);
 
     if (isContract[otherAddress]) { // then address is contract
       const contractDataABI = addressData[otherAddress].contractData;
-
+      
       if (contractDataABI) {
         abiDecoder.addABI(contractDataABI);
         txGroup[otherAddress].map((lineItem, index) => {
