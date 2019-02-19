@@ -444,14 +444,14 @@ class EditProfile extends Component {
       body: JSON.stringify(payload),
     }).then(res => res.json())
       .then((json) => {
-        this.setState({ emailVerificationMessage: json.status });
+        this.setState({ emailVerificationMessage: 'Sent!' });
       })
       .catch((err) => {
         this.setState({ emailVerificationMessage: err.response });
       });
   }
 
-  verifyEmail = () => {
+  verifyEmail = (emailCode) => {
     const { verificationCode, editedArray } = this.state;
     const { box } = this.props;
     const updatedEditedArray = editedArray;
@@ -790,7 +790,6 @@ Create your profile today to start building social connection and trust online. 
           did={did}
           sendVerificationEmail={this.sendVerificationEmail}
           emailVerificationMessage={emailVerificationMessage}
-          // message={twitterMessage}
           isEmailVerified={isEmailVerified}
           verificationLoading={verificationLoading}
           emailVerifiedFailed={emailVerifiedFailed}

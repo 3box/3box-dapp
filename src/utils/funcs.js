@@ -66,7 +66,7 @@ export async function getPublicProfile(graphqlQueryObject) {
   try {
     profile = await Box.profileGraphQL(graphqlQueryObject); // eslint-disable-line no-undef
   } catch (err) {
-    // console.log(err);
+    return err;
   }
   return profile;
 }
@@ -92,20 +92,27 @@ export const updateFeed = (publicProfileAddress, feedByAddress, addressData, isC
   let contractArray = [];
   let counter = 0;
   if (feedByAddress.length === 0) fireDispatch(publicProfileAddress, feedByAddress);
-
   feedByAddress.map(async (txGroup, i) => {
     const otherAddress = Object.keys(txGroup)[0];
+
     if (isContract[otherAddress]) { // then address is contract
-      abiDecoder.addABI(addressData[otherAddress].contractData);
-      txGroup[otherAddress].map((lineItem, index) => {
-        const methodCall = abiDecoder.decodeMethod(txGroup[otherAddress][index].input);
-        lineItem.methodCall = methodCall && methodCall.name && (methodCall.name.charAt(0).toUpperCase() + methodCall.name.slice(1)).replace(/([A-Z])/g, ' $1').trim();
-      });
+      const contractDataABI = addressData[otherAddress].contractData;
+
+      if (contractDataABI) {
+        abiDecoder.addABI(contractDataABI);
+        txGroup[otherAddress].map((lineItem, index) => {
+          const methodCall = abiDecoder.decodeMethod(txGroup[otherAddress][index].input);
+          lineItem.methodCall = methodCall && methodCall.name && (methodCall.name.charAt(0).toUpperCase() + methodCall.name.slice(1)).replace(/([A-Z])/g, ' $1').trim();
+        });
+      }
+
       contractArray = imageElFor(otherAddress);
+
       feedByAddress[i].metaData = {
         contractImg: contractArray.length > 0 && contractArray[0],
         contractDetails: contractArray.length > 0 && contractArray[1],
       };
+
       counter += 1;
       if (counter === feedByAddress.length) fireDispatch(publicProfileAddress, feedByAddress);
     } else { // look for 3box metadata

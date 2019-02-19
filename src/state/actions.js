@@ -63,7 +63,7 @@ export const accountsPromise = new Promise((resolve, reject) => {
 
 // inject for breaking change
 export const requestAccess = directLogin => async (dispatch) => {
-  let accounts;
+  let accounts = [];
 
   if (window.ethereum) { // eslint-disable-line no-undef
     try {
@@ -80,7 +80,7 @@ export const requestAccess = directLogin => async (dispatch) => {
 
       dispatch({
         type: 'UPDATE_ADDRESSES',
-        isSignedIntoWallet: accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi',
+        isSignedIntoWallet: accounts && accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi',
         isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
         accountAddress: accounts[0],
         allowAccessModal: false,
@@ -93,7 +93,7 @@ export const requestAccess = directLogin => async (dispatch) => {
         type: 'HANDLE_DENIED_ACCESS_MODAL',
         accessDeniedModal: true,
         allowAccessModal: false,
-        isSignedIntoWallet: accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi',
+        isSignedIntoWallet: accounts && accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi',
       });
     }
   } else if (window.web3) { // eslint-disable-line no-undef
@@ -104,7 +104,7 @@ export const requestAccess = directLogin => async (dispatch) => {
 
     dispatch({
       type: 'UPDATE_ADDRESSES',
-      isSignedIntoWallet: accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi',
+      isSignedIntoWallet: accounts && accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi',
       isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
       currentAddress: accounts[0],
     });
@@ -276,6 +276,7 @@ export const getBox = fromSignIn => async (dispatch) => {
       });
     });
   } catch (err) {
+    history.push(routes.LANDING);
     dispatch({
       type: 'FAILED_LOADING_3BOX',
       errorMessage: err,
@@ -309,7 +310,7 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
       const privateActivity = await store.getState().threeBox.box.private.log;
 
       // remove ethereum_proof & proof_did
-      const publicActivity = unFilteredPublicActivity.filter(item => (item.key !== 'ethereum_proof' && item.key !== 'proof_did'));
+      const publicActivity = unFilteredPublicActivity.filter(item => (item.key !== 'ethereum_proof' && item.key !== 'proof_did' && item.key !== 'memberSince'));
 
       // assign public or private data type
       const categorizedPublicActivity = addPublicOrPrivateDataType(publicActivity, 'Public');

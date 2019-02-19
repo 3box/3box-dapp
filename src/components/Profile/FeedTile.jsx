@@ -287,7 +287,7 @@ export const FeedTileTXS = ({ item, name, onPublicProfilePage, metaDataName, isF
           && (
             <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`} className="feed__activity__data__icon">
               0x
-          </div>)
+            </div>)
         }
         {
           item.value !== '0'

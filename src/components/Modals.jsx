@@ -493,7 +493,6 @@ export const EmailVerificationModal = ({
   show,
   handleEmailVerificationModal,
   did,
-  message,
   verifyEmail,
   isEmailVerified,
   emailVerifiedFailed,
@@ -535,7 +534,8 @@ export const EmailVerificationModal = ({
                 <div className="modal__twitter__steps__instructions">
                   <div className="modal__github__steps__number">1</div>
                   <p className="modal__github__steps__text">
-                    Send a code to your email address
+                    Send a verification code to your email address.
+                    You can skip this step if you already have a verification code.
                   </p>
                 </div>
                 <p className="modal__github__description__copy__input" id="muportDID">{emailVerificationMessage}</p>
@@ -550,7 +550,7 @@ export const EmailVerificationModal = ({
                 <div className="modal____steps__instructions">
                   <div className="modal__github__steps__number">2</div>
                   <p className="modal__github__steps__text">
-                    Check if your Twitter account was successfully verified below!
+                    Verify your email address by entering the code you received below.
                   </p>
                 </div>
                 <p className="modal__github__description__copy__input--github">
@@ -564,13 +564,14 @@ export const EmailVerificationModal = ({
                         )
                         : 'Email not yet verified'}
                 </p>
+                <input type="text" id="emailCode" />
               </div>
               <button
                 type="button"
-                onClick={verifyEmail}
+                onClick={() => verifyEmail(document.getElementById('emailCode').value)}
               >
                 Verify
-            </button>
+              </button>
             </div>
           </div>
 
@@ -842,7 +843,15 @@ export const ErrorModal = ({ closeErrorModal, errorMessage, show }) => (
             (errorMessage && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.')
               || ((errorMessage && errorMessage.message.substring(0, 26) === 'value/</<@moz-extension://'))
               ? <p>You must provide consent to 3Box in your web3 wallet (e.g. MetaMask) to sign in or create a profile, please try again</p>
-              : <p>{errorMessage && errorMessage.message.substring(0, 200)}</p>
+              : (
+                <React.Fragment>
+                  <p>{errorMessage && errorMessage.message.substring(0, 200)}</p>
+                  <br />
+                  <p>
+                    Please refresh the page and try again
+                  </p>
+                </React.Fragment>
+              )
           }
         </div>
         <button onClick={closeErrorModal} type="button" className="tertiaryButton">Close</button>
