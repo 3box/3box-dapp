@@ -232,7 +232,6 @@ class App extends Component {
       isSyncing,
       hasSignedOut,
       onPublicProfilePage,
-      currentAddress,
     } = this.props;
 
     const {

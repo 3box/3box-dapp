@@ -576,7 +576,6 @@ class EditProfile extends Component {
     const {
       verifiedGithub,
       verifiedTwitter,
-      verifiedEmail,
       email,
       name,
       description,
@@ -598,10 +597,8 @@ class EditProfile extends Component {
       showEmoji,
       isGithubVerified,
       isTwitterVerified,
-      isEmailVerified,
       githubVerifiedFailed,
       twitterVerifiedFailed,
-      emailVerifiedFailed,
       githubEdited,
       twitterEdited,
       emailEdited,
@@ -835,9 +832,9 @@ Create your profile today to start building social connection and trust online. 
                               </span>
                             )
                             : (
-                              <span className="edit__profile__value--spirit__character" role="img">
+                              <span className="edit__profile__value--spirit__character" role="img" aria-label="unicorn">
                                 🦄
-                            </span>)
+                              </span>)
                         }
                       </div>
                     </div>

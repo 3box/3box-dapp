@@ -40,8 +40,7 @@ export const addhttp = (url) => {
 export async function getContract(otherAddress) {
   const response = await fetch(`https://api.etherscan.io/api?module=contract&action=getabi&address=${otherAddress}&apikey=${process.env.ETHERSCAN_TOKEN}`);
   if (response.status !== 200) {
-    console.log(`Looks like there was a problem. Status Code: ${response.status}`);
-    return;
+    return console.log(`Looks like there was a problem. Status Code: ${response.status}`);
   }
   const data = await response.json();
   return data;

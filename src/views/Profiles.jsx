@@ -62,7 +62,12 @@ class Profiles extends Component {
 
         <div className="create__copy">
           <div className="create__copy__wrapper">
-            <h1 className="create__copy__headline">Welcome to your new home on web3. 💙</h1>
+            <h1 className="create__copy__headline">
+              Welcome to your new home on web3.
+              <span role="img" aria-label="check">
+                💙
+              </span>
+            </h1>
             <p className="create__copy__body">
               3Box is where people build identity, trust, and
               connection online.  Create an ethereum profile,
@@ -87,14 +92,44 @@ class Profiles extends Component {
                 <img src={Narwhal} alt="" className="create__action__form__narwhal" />
                 <div className="create__action__form__example">
                   <div className="create__action__form__example__column">
-                    <p>✅ Name</p>
-                    <p>✅ Description</p>
-                    <p>✅ Spirit Emoji</p>
+                    <p>
+                      <span role="img" aria-label="check">
+                        ✅
+                      </span>
+                      Name
+                    </p>
+                    <p>
+                      <span role="img" aria-label="check">
+                        ✅
+                      </span>
+                      Description
+                    </p>
+                    <p>
+                      <span role="img" aria-label="check">
+                        ✅
+                      </span>
+                      Spirit Emoji
+                    </p>
                   </div>
                   <div className="create__action__form__example__column hideMobile">
-                    <p>✅ Website</p>
-                    <p>✅ Work</p>
-                    <p>✅ Education</p>
+                    <p>
+                      <span role="img" aria-label="check">
+                        ✅
+                      </span>
+                      Website
+                    </p>
+                    <p>
+                      <span role="img" aria-label="check">
+                        ✅
+                      </span>
+                      Work
+                    </p>
+                    <p>
+                      <span role="img" aria-label="check">
+                        ✅
+                      </span>
+                      Education
+                    </p>
                   </div>
                 </div>
               </div>
@@ -108,9 +143,9 @@ class Profiles extends Component {
               }
               {!isLoggedIn
                 && (
-                  <a onClick={handleSignInUp} className="create__action__form__signIn">
+                  <p onClick={handleSignInUp} className="create__action__form__signIn">
                     Sign in.
-                  </a>)}
+                  </p>)}
 
               {isLoggedIn
                 && (

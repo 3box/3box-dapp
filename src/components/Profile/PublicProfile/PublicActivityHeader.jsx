@@ -74,13 +74,3 @@ PublicActivityContext.defaultProps = {
 };
 
 export default PublicActivityContext;
-
-
-{/* {(feedAddress.metaData && feedAddress.metaData.image)
-        ? <img src={`https://ipfs.infura.io/ipfs/${feedAddress.metaData.image}`} className="feed__activity__user clear" alt="profile" />
-        : (feedAddress.metaData && feedAddress.metaData.contractImg)
-          ? <img src={feedAddress.metaData.contractImg.src} className="feed__activity__user clear" alt="profile" />
-          : (
-            <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
-              0x
-            </div>)} */}
