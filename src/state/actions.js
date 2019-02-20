@@ -292,8 +292,13 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
       type: 'LOADING_ACTIVITY',
     });
 
+    console.log(store.getState().threeBox.currentNetwork.toLowerCase());
+
     // get activity from the profile page's address
-    const activity = await ThreeBoxActivity.get(publicProfileAddress || store.getState().threeBox.currentAddress); // eslint-disable-line no-undef
+    const activity = await ThreeBoxActivity.get( // eslint-disable-line no-undef
+      publicProfileAddress || store.getState().threeBox.currentAddress,
+      store.getState().threeBox.currentNetwork.toLowerCase(),
+    );
 
     // add datatype to each row
     const categorizedActivity = addDataType(activity);
