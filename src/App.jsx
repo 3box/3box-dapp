@@ -82,6 +82,8 @@ class App extends Component {
     // Initial warning to users without web3
     if (typeof window.web3 === 'undefined') {
       this.props.handleDownloadMetaMaskBanner();
+    } else {
+      await this.props.checkNetwork();
     }
 
     if (
