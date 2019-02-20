@@ -64,6 +64,7 @@ class EditProfile extends Component {
       verificationLoading: false,
       githubVerifiedFailed: false,
       twitterVerifiedFailed: false,
+      isEmailSending: false,
       editPic: false,
       editCoverPic: false,
       showFileSizeModal: false,
@@ -439,33 +440,37 @@ class EditProfile extends Component {
       email_address: verifiedEmail,
     };
 
+    this.setState({ isEmailSending: true });
+
     fetch('https://verifications-dev.3box.io/send-email-verification', {
       method: 'POST',
       body: JSON.stringify(payload),
     }).then(res => res.json())
       .then((json) => {
-        this.setState({ emailVerificationMessage: 'Sent!' });
+        this.setState({ emailVerificationMessage: 'Sent!', isEmailSending: false });
       })
       .catch((err) => {
-        this.setState({ emailVerificationMessage: err.response });
+        this.setState({ emailVerificationMessage: err.response, isEmailSending: false });
       });
   }
 
   verifyEmail = (emailCode) => {
-    const { verificationCode, editedArray } = this.state;
-    const { box } = this.props;
+    const { editedArray } = this.state;
+    const { box, did } = this.props;
     const updatedEditedArray = editedArray;
-    this.setState({ verificationLoading: true });
+    this.setState({ verificationLoading: true, emailVerifiedFailed: false });
 
     const payload = {
+      iss: did,
       sub: 'did:https:verifications.3box.io',
+      iat: new Date().getTime() / 1000,
       claim: {
-        code: verificationCode,
+        code: emailCode,
       },
     };
 
     box._3id.signJWT(payload).then((jwt) => {
-      fetch('https://verifications.3box.io/email-verify', {
+      fetch('https://verifications-dev.3box.io/email-verify', {
         method: 'POST',
         body: JSON.stringify({
           verification: jwt,
@@ -541,6 +546,20 @@ class EditProfile extends Component {
       store.dispatch({
         type: 'GET_VERIFIED_PUBLIC_TWITTER',
         verifiedTwitter: '',
+      });
+    } else if (platform === 'Email') {
+      updatedEditedArray.splice(updatedEditedArray.indexOf('proof_email'), 1);
+      if (!updatedEditedArray.length) this.setState({ disableSave: true });
+      if (isTwitterVerified) box.public.remove('proof_email');
+      this.setState({
+        emailVerifiedFailed: false,
+        emailEdited: false,
+        isEmailVerified: false,
+        verifiedEmail: '',
+      });
+      store.dispatch({
+        type: 'GET_VERIFIED_PRIVATE_EMAIL',
+        verifiedEmail: '',
       });
     }
   }
@@ -726,17 +745,18 @@ class EditProfile extends Component {
       emailRemoved,
       verificationLoading,
       emailVerificationMessage,
+      isEmailSending,
     } = this.state;
 
     const message = (`3Box is a social profiles network for web3. This post links my 3Box profile to my Github account!
-
+    
     ✅ ${did} ✅
-
-Create your profile today to start building social connection and trust online. https://3box.io/`);
+      
+      Create your profile today to start building social connection and trust online. https://3box.io/`);
 
     const twitterMessage = (`This tweet links my 3Box profile to my twitter account! %0D%0A%0D%0AJoin web3's social profiles network by creating your account on http://3box.io/ today. %0D%0A@3boxdb%0D%0A%0D%0A✅
     %0D%0A${did}
-    %0D%0A✅`);
+          %0D%0A✅`);
 
     return (
       <div id="edit__page">
@@ -793,6 +813,7 @@ Create your profile today to start building social connection and trust online. 
           isEmailVerified={isEmailVerified}
           verificationLoading={verificationLoading}
           emailVerifiedFailed={emailVerifiedFailed}
+          isEmailSending={isEmailSending}
           resetVerification={this.resetVerification}
           handleEmailVerificationModal={this.props.handleEmailVerificationModal}
         />
@@ -967,7 +988,8 @@ Create your profile today to start building social connection and trust online. 
                             : (
                               <span className="edit__profile__value--spirit__character" role="img">
                                 🦄
-                            </span>)
+                              </span>
+                            )
                         }
                       </div>
                     </div>
@@ -983,7 +1005,7 @@ Create your profile today to start building social connection and trust online. 
                 <div id="edit__profile__fields">
                   <div id="edit__info">
 
-                    <div className="edit__profile__fields__entry noMargin">
+                    {/* <div className="edit__profile__fields__entry noMargin">
                       <div className="edit__profile__keyContainer">
                         <h5>Email Address</h5>
                       </div>
@@ -997,9 +1019,9 @@ Create your profile today to start building social connection and trust online. 
                           onChange={e => this.handleFormChange(e, 'email')}
                         />
                       </div>
-                    </div>
+                    </div> */}
 
-                    <div className="edit__profile__fields__entry">
+                    <div className="edit__profile__fields__entry noMargin">
                       <div className="edit__profile__keyContainer">
                         <h5>Location</h5>
                       </div>
@@ -1230,6 +1252,7 @@ Create your profile today to start building social connection and trust online. 
                       {!this.props.verifiedEmail
                         && (
                           <div className="edit__profile__verifiedWrapper">
+                            <img id="edit__profile__input__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
                             <input
                               name="verifiedEmail"
                               type="text"
@@ -1242,8 +1265,8 @@ Create your profile today to start building social connection and trust online. 
                               className={`unstyledButton ${!emailEdited && 'uneditedGithub'} verificationButton verifiedForm`}
                               disabled={!emailEdited}
                               onClick={() => {
-                                this.props.handleEmailVerificationModal();
                                 this.props.getPublicDID();
+                                this.props.handleEmailVerificationModal();
                               }}
                             >
                               Verify

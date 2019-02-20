@@ -436,6 +436,12 @@
   text-align: left;
   word-break: break-all; }
 
+.modal__twitter__steps__step--wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column; }
+
 .modal__github__description__copy__input--github {
   border-radius: 6px;
   border: 1px solid #1168df;
@@ -445,6 +451,29 @@
   margin-bottom: 20px;
   text-align: left;
   height: 70px; }
+
+.modal__github__description__copy__input--email {
+  border-radius: 6px;
+  border: 1px solid #E4E4E4;
+  background-color: #f9f9f9;
+  padding: 15px 20px;
+  width: 70%;
+  margin-bottom: 20px;
+  text-align: left;
+  height: 20px; }
+
+.modal__email__button {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; }
+  .modal__email__button p {
+    margin: 26px 0 0 20px;
+    color: #1168df; }
+
+.modal__loadingGraphic--email {
+  height: 28px;
+  width: 28px !important;
+  margin: 26px 0 0 20px; }
 
 .modal__github__done {
   background-color: #EFF5FE;
