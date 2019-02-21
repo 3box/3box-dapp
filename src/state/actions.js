@@ -299,6 +299,7 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
     const categorizedActivity = addDataType(activity);
 
     let feed;
+    let emailProof;
     // sort and merge feed
     if (publicProfileAddress) {
       feed = categorizedActivity.internal
@@ -308,6 +309,7 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
       // get 3box logs
       const unFilteredPublicActivity = await store.getState().threeBox.box.public.log;
       const privateActivity = await store.getState().threeBox.box.private.log;
+      emailProof = await store.getState().threeBox.box.private._genDbKey('proof_email');
 
       // remove ethereum_proof & proof_did
       const publicActivity = unFilteredPublicActivity.filter(item => (item.key !== 'ethereum_proof' && item.key !== 'proof_did' && item.key !== 'memberSince'));
@@ -330,6 +332,10 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
         const deletedTime = parseInt(feed[i - 1].timeStamp, 10) + 1;
         feedItem.timeStamp = deletedTime.toString();
       }
+      if (!publicProfileAddress && feedItem.key === emailProof) {
+        feedItem.key = 'proof_email';
+      }
+
       return feedItem;
     });
 
@@ -582,6 +588,19 @@ export const getVerifiedPublicTwitter = () => async (dispatch) => {
     dispatch({
       type: 'GET_VERIFIED_PUBLIC_TWITTER',
       verifiedTwitter: verifiedTwitter.username,
+    });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getVerifiedPrivateEmail = () => async (dispatch) => {
+  try {
+    const verifiedEmail = await store.getState().threeBox.box.verified.email();
+
+    dispatch({
+      type: 'GET_VERIFIED_PRIVATE_EMAIL',
+      verifiedEmail: verifiedEmail.email_address,
     });
   } catch (error) {
     console.error(error);

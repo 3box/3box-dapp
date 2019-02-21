@@ -538,6 +538,9 @@
 .edit__profile__verified--NoMobile {
   display: none; }
 
+.verifiedForm--email {
+  padding: 0 15px 0 36px; }
+
 @media only screen and (max-width: 600px) {
   .edit__profile__editCanvas__wrapper {
     margin-right: 1em; }

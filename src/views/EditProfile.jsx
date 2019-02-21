@@ -458,14 +458,15 @@ class EditProfile extends Component {
     const { editedArray } = this.state;
     const { box, did } = this.props;
     const updatedEditedArray = editedArray;
+    const codeAsNumber = parseInt(emailCode, 10);
     this.setState({ verificationLoading: true, emailVerifiedFailed: false });
 
     const payload = {
       iss: did,
       sub: 'did:https:verifications.3box.io',
-      iat: new Date().getTime() / 1000,
+      iat: Math.floor(Date.now() / 1000),
       claim: {
-        code: emailCode,
+        code: codeAsNumber,
       },
     };
 
@@ -477,7 +478,9 @@ class EditProfile extends Component {
         }),
       })
         .then((response) => {
-          if (response.ok) return response.json();
+          const data = response.json();
+          if (response.ok) return data;
+
           this.setState({
             verificationLoading: false,
             emailVerifiedFailed: true,
@@ -498,7 +501,7 @@ class EditProfile extends Component {
             });
             store.dispatch({
               type: 'GET_VERIFIED_PRIVATE_EMAIL',
-              verifiedEmail,
+              verifiedEmail: verifiedEmail.email_address,
             });
           } else {
             throw new Error('Verification failed');
@@ -550,12 +553,13 @@ class EditProfile extends Component {
     } else if (platform === 'Email') {
       updatedEditedArray.splice(updatedEditedArray.indexOf('proof_email'), 1);
       if (!updatedEditedArray.length) this.setState({ disableSave: true });
-      if (isTwitterVerified) box.public.remove('proof_email');
+      if (isTwitterVerified) box.private.remove('proof_email');
       this.setState({
         emailVerifiedFailed: false,
         emailEdited: false,
         isEmailVerified: false,
         verifiedEmail: '',
+        emailVerificationMessage: '',
       });
       store.dispatch({
         type: 'GET_VERIFIED_PRIVATE_EMAIL',
@@ -575,6 +579,7 @@ class EditProfile extends Component {
       name,
       verifiedGithub,
       verifiedTwitter,
+      verifiedEmail,
       email,
       removeUserPic,
       removeCoverPic,
@@ -604,6 +609,7 @@ class EditProfile extends Component {
       const nameChanged = name !== this.props.name;
       const verifiedGithubChanged = verifiedGithub !== this.props.verifiedGithub;
       const verifiedTwitterChanged = verifiedTwitter !== this.props.verifiedTwitter;
+      const verifiedEmailChanged = verifiedEmail !== this.props.verifiedEmail;
       const emailChanged = email !== this.props.email;
       const descriptionChanged = description !== this.props.description;
       const locationChanged = location !== this.props.location;
@@ -647,6 +653,7 @@ class EditProfile extends Component {
 
       if (verifiedGithubChanged && verifiedGithub === '') await box.public.remove('proof_github');
       if (verifiedTwitterChanged && verifiedTwitter === '') await box.public.remove('proof_twitter');
+      if (verifiedEmailChanged && verifiedEmail === '') await box.private.remove('proof_email');
       if (removeUserPic) await box.public.remove('image');
       if (removeCoverPic) await box.public.remove('coverPhoto');
 
@@ -670,6 +677,12 @@ class EditProfile extends Component {
         store.dispatch({
           type: 'GET_VERIFIED_PUBLIC_TWITTER',
           verifiedTwitter: null,
+        });
+      }
+      if (verifiedEmailChanged) {
+        store.dispatch({
+          type: 'GET_VERIFIED_PRIVATE_EMAIL',
+          verifiedEmail: null,
         });
       }
       if (nameChanged) await this.props.getProfileData('public', 'name'); // change these to just update the redux store
@@ -1256,7 +1269,7 @@ class EditProfile extends Component {
                             <input
                               name="verifiedEmail"
                               type="text"
-                              className="edit__profile__value--github verifiedForm"
+                              className="edit__profile__value--github verifiedForm verifiedForm--email"
                               value={verifiedEmail}
                               onChange={e => this.handleFormChange(e, 'verifiedEmail')}
                             />
@@ -1449,6 +1462,7 @@ EditProfile.propTypes = {
   name: PropTypes.string,
   verifiedGithub: PropTypes.string,
   verifiedTwitter: PropTypes.string,
+  verifiedEmail: PropTypes.string,
   did: PropTypes.string,
   year: PropTypes.string,
   emoji: PropTypes.string,
@@ -1482,9 +1496,11 @@ EditProfile.propTypes = {
 
 EditProfile.defaultProps = {
   box: {},
+  verifiedEmail: {},
   name: '',
   verifiedGithub: '',
   verifiedTwitter: '',
+  verifiedEmail: '',
   did: '',
   description: '',
   location: '',
@@ -1518,6 +1534,7 @@ function mapState(state) {
     name: state.threeBox.name,
     verifiedGithub: state.threeBox.verifiedGithub,
     verifiedTwitter: state.threeBox.verifiedTwitter,
+    verifiedEmail: state.threeBox.verifiedEmail,
     did: state.threeBox.did,
     description: state.threeBox.description,
     memberSince: state.threeBox.memberSince,

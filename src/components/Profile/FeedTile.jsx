@@ -14,7 +14,7 @@ import '../styles/NetworkArray.css';
 // import Send from '../../assets/Send.svg';
 // import Receive from '../../assets/Receive.svg';
 
-export const FeedTileActivity = ({ item, verifiedGithub, verifiedTwitter }) => (
+export const FeedTileActivity = ({ item, verifiedGithub, verifiedTwitter, verifiedEmail }) => (
   <div className="feed__activity">
     <div className="feed__activity__data">
       <div className="feed__activity__info">
@@ -23,10 +23,11 @@ export const FeedTileActivity = ({ item, verifiedGithub, verifiedTwitter }) => (
           <span className="feed__activity__info__key">
             {` You 
             ${item.op === 'PUT' ? 'updated your' : 'removed your'}
-            ${item.dataType === 'Private' ? 'private data' : ''}
+            ${(item.dataType === 'Private' && item.key !== 'proof_email') ? 'private data' : ''}
             ${item.key === 'proof_github' ? 'Github username' : ''}
+            ${item.key === 'proof_email' ? 'private email address' : ''}
             ${item.key === 'proof_twitter' ? 'Twitter username' : ''}
-            ${(item.key !== 'proof_twitter' && item.key !== 'proof_github' && item.dataType !== 'Private')
+            ${(item.key !== 'proof_twitter' && item.key !== 'proof_github' && item.key !== 'proof_email' && item.dataType !== 'Private')
                 ? (item.key).replace(/([A-Z])/g, ' $1').trim().toLowerCase()
                 : ''} 
             `}
@@ -47,12 +48,14 @@ export const FeedTileActivity = ({ item, verifiedGithub, verifiedTwitter }) => (
                 ? verifiedGithub : ''}
               {item.key === 'proof_twitter'
                 ? verifiedTwitter : ''}
+              {item.key === 'proof_email'
+                ? verifiedEmail : ''}
 
               {(typeof item.value === 'object' && (item.key !== 'image' && item.key !== 'coverPhoto'))
                 ? (item.value ? Object.keys(item.value)[0] : '-----')
                 : ''}
 
-              {typeof item.value === 'string' && item.key !== 'emoji' && (item.key !== 'proof_github' && item.key !== 'proof_twitter')
+              {typeof item.value === 'string' && item.key !== 'emoji' && (item.key !== 'proof_github' && item.key !== 'proof_twitter' && item.key !== 'proof_email')
                 ? item.value : ''}
             </span>) : ''}
         </p>
@@ -75,12 +78,14 @@ FeedTileActivity.propTypes = {
   item: PropTypes.object,
   verifiedGithub: PropTypes.string,
   verifiedTwitter: PropTypes.string,
+  verifiedEmail: PropTypes.string,
 };
 
 FeedTileActivity.defaultProps = {
   item: {},
   verifiedGithub: '',
   verifiedTwitter: '',
+  verifiedEmail: '',
 };
 
 export const FeedTileInternal = ({ item, name, onPublicProfilePage, metaDataName, isFromProfile, contractImg }) => (

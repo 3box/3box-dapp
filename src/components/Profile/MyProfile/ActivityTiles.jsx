@@ -15,6 +15,7 @@ import '../../styles/NetworkArray.css';
 const ActivityTiles = ({
   verifiedGithub,
   verifiedTwitter,
+  verifiedEmail,
   currentAddress,
   name,
   feedAddress,
@@ -84,6 +85,7 @@ const ActivityTiles = ({
             if (item.dataType === 'Private') {
               return (
                 <FeedTileActivity
+                  verifiedEmail={verifiedEmail}
                   item={item}
                   key={index}
                 />);
@@ -98,6 +100,7 @@ const ActivityTiles = ({
 ActivityTiles.propTypes = {
   feedAddress: PropTypes.object,
   verifiedGithub: PropTypes.string,
+  verifiedEmail: PropTypes.string,
   verifiedTwitter: PropTypes.string,
   currentAddress: PropTypes.string,
   name: PropTypes.string,
@@ -114,6 +117,7 @@ ActivityTiles.defaultProps = {
 const mapState = state => ({
   verifiedGithub: state.threeBox.verifiedGithub,
   verifiedTwitter: state.threeBox.verifiedTwitter,
+  verifiedEmail: state.threeBox.verifiedEmail,
   currentAddress: state.threeBox.currentAddress,
   name: state.threeBox.name,
 });

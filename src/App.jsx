@@ -31,6 +31,7 @@ import {
   getPublicMemberSince,
   getVerifiedPublicGithub,
   getVerifiedPublicTwitter,
+  getVerifiedPrivateEmail,
   getActivity,
   getBox,
   requestAccess,
@@ -139,6 +140,7 @@ class App extends Component {
     this.props.getActivity();
     this.props.getVerifiedPublicGithub();
     this.props.getVerifiedPublicTwitter();
+    this.props.getVerifiedPrivateEmail();
     this.props.getPublicMemberSince();
     this.props.getProfileData('public', 'status');
     this.props.getProfileData('public', 'name');
@@ -434,6 +436,7 @@ App.propTypes = {
   getPublicMemberSince: PropTypes.func.isRequired,
   getVerifiedPublicGithub: PropTypes.func.isRequired,
   getVerifiedPublicTwitter: PropTypes.func.isRequired,
+  getVerifiedPrivateEmail: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
   checkWeb3Wallet: PropTypes.func.isRequired,
   requireMetaMaskModal: PropTypes.func.isRequired,
@@ -553,6 +556,7 @@ export default withRouter(connect(mapState,
     getPublicMemberSince,
     getVerifiedPublicGithub,
     getVerifiedPublicTwitter,
+    getVerifiedPrivateEmail,
     getActivity,
     checkWeb3Wallet,
     requireMetaMaskModal,
