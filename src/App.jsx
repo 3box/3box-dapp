@@ -82,8 +82,6 @@ class App extends Component {
     // Initial warning to users without web3
     if (typeof window.web3 === 'undefined') {
       this.props.handleDownloadMetaMaskBanner();
-    } else {
-      await this.props.checkNetwork();
     }
 
     if (
@@ -188,7 +186,7 @@ class App extends Component {
   async handleSignInUp() {
     if (typeof window.web3 !== 'undefined') {
       await this.props.checkWeb3Wallet();
-      await this.props.requestAccess(); // this is not working for cb
+      await this.props.requestAccess();
       await this.props.checkNetwork();
 
       if (this.props.isSignedIntoWallet) {

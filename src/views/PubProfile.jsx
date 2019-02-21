@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import {
   getProfile,
+  checkNetwork,
   getActivity,
   accountsPromise,
 } from '../state/actions';
@@ -44,6 +45,7 @@ class ProfilePublic extends Component {
       if (publicProfileAddress === activeAddress) this.props.handleSignInBanner();
     }
 
+    await this.props.checkNetwork(); // this needs to happen before
     this.props.getProfile(publicProfileAddress);
     this.props.getActivity(publicProfileAddress);
   }
@@ -78,6 +80,7 @@ class ProfilePublic extends Component {
 
 ProfilePublic.propTypes = {
   getProfile: PropTypes.func.isRequired,
+  checkNetwork: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
   handleSignInBanner: PropTypes.func.isRequired,
   pathname: PropTypes.object,
@@ -104,6 +107,7 @@ const mapState = state => ({
 export default withRouter(connect(mapState,
   {
     getProfile,
+    checkNetwork,
     getActivity,
     handleSignInBanner,
   })(ProfilePublic));

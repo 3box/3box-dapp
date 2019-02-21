@@ -115,6 +115,7 @@ export const requestAccess = directLogin => async (dispatch) => {
 
 // if has web3 wallet
 export const checkNetwork = () => async (dispatch) => {
+  console.log('in check');
   const checkNetworkFunc = new Promise((resolve) => {
     window.web3.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
       switch (netId) {
