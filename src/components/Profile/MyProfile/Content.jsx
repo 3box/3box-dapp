@@ -18,7 +18,7 @@ const Content = ({ currentAddress }) => (
     <StatusUpdate />
     <div className="profile__category--mobile">
       <div className="profile__category__sectionWrapper">
-        <NavLink exact to={`/${currentAddress}/${routes.ACTIVITY}`} className="profile__category__section">Activity</NavLink>
+        <NavLink exact to={`/${currentAddress}/${routes.ACTIVITY}`} className="profile__category__section rightBorder">Activity</NavLink>
         <NavLink exact to={`/${currentAddress}/${routes.DETAILS}`} className="profile__category__section ">Details</NavLink>
       </div>
     </div>

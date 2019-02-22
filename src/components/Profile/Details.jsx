@@ -66,10 +66,8 @@ const Details = ({
         </div>
 
         <div className="profile__category__field" title="Birthday">
-          <div>
-            <img src={Birthday} className="profile__category__field__icon" alt="Birthday Icon" />
-            {birthday && <p className="profile__category__field--private">{birthday}</p>}
-          </div>
+          <img src={Birthday} className="profile__category__field__icon" alt="Birthday Icon" />
+          {birthday && <p className="profile__category__field--private">{birthday}</p>}
 
           {birthday && <img id="editprofile__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />}
         </div>
@@ -109,9 +107,11 @@ const Details = ({
 
         <div className="profile__category__field">
           <img src={Email} className="profile__category__field__icon" alt="Github Icon" />
-          <p className="profile__category__field--private">{verifiedEmail}</p>
-          {verifiedEmail && <img id="editprofile__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />}
+          <p className="profile__category__field--private">
+            {verifiedEmail}
+          </p>
           {verifiedEmail && <img src={Verified} alt="Verified" className="profile__category__verified__icon" />}
+          {verifiedEmail && <img id="editprofile__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />}
         </div>
 
       </div>

@@ -351,7 +351,10 @@
 }
 
 .profile__category__field--private {
-  width: 226px !important;
+  width: fit-content !important;
+  display: flex !important;
+  // align-items: center;
+  padding-right: 8px;
 }
 
 #profile__user__name {
