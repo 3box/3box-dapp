@@ -436,6 +436,9 @@
   text-align: left;
   word-break: break-all; }
 
+.blueFont {
+  color: #1168df !important; }
+
 .modal__twitter__steps__step--wrapper {
   display: flex;
   justify-content: flex-start;

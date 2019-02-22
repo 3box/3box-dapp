@@ -275,7 +275,7 @@ export const GithubVerificationModal = ({
                     Copy your unique key below.
                   </p>
                 </div>
-                <p className="modal__github__description__copy__input" id="muportDID">{did}</p>
+                <p className="modal__github__description__copy__input blueFont" id="muportDID">{did}</p>
               </div>
 
               <button type="button" id="clickToCopy" onClick={() => copyToClipBoard('did', message)}>
@@ -299,7 +299,7 @@ export const GithubVerificationModal = ({
                     Check if your Github account was successfully verified below!
                   </p>
                 </div>
-                <p className="modal__github__description__copy__input--github">
+                <p className="modal__github__description__copy__input--github blueFont">
                   {isGithubVerified
                     ? 'Your Github is verified!'
                     : githubVerifiedFailed
@@ -412,7 +412,7 @@ export const TwitterVerificationModal = ({
                     Tweet a unique key from the account you want to connect
                   </p>
                 </div>
-                <p className="modal__github__description__copy__input" id="muportDID">{did}</p>
+                <p className="modal__github__description__copy__input blueFont" id="muportDID">{did}</p>
               </div>
               <a href={`https://twitter.com/intent/tweet?text=${message}`} target="_blank" rel="noopener noreferrer" className="modal__github__description__copy__tweet">
                 Tweet this
@@ -427,7 +427,7 @@ export const TwitterVerificationModal = ({
                     Check if your Twitter account was successfully verified below!
                   </p>
                 </div>
-                <p className="modal__github__description__copy__input--github">
+                <p className="modal__github__description__copy__input--github blueFont">
                   {isTwitterVerified
                     ? 'Your Twitter is verified!'
                     : twitterVerifiedFailed
@@ -564,7 +564,7 @@ export const EmailVerificationModal = ({
                   className="modal__github__description__copy__input--email"
                   type="text"
                   id="emailCode" />
-                <p className="modal__github__description__copy__input--github">
+                <p className="modal__github__description__copy__input--github blueFont">
                   {isEmailVerified
                     ? 'Your Email is verified!'
                     : emailVerifiedFailed

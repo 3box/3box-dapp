@@ -551,6 +551,10 @@
   word-break: break-all;
 }
 
+.blueFont {
+  color: $threeBoxBlue !important;
+}
+
 .modal__twitter__steps__step--wrapper {
   display: flex;
   justify-content: flex-start;
