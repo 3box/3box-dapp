@@ -340,7 +340,7 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
     });
 
     feed.sort((a, b) => b.timeStamp - a.timeStamp);
-
+    
     // order feed chronologically and by currentAddress
     const feedByAddress = [];
     feed.forEach((item) => {

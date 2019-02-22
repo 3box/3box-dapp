@@ -344,6 +344,13 @@ class App extends Component {
 
           <Route
             exact
+            path="(^[/][0][xX]\w{40}\b)/collectibles"
+            // path={routes.FORMAT_PROFILE_ABOUT}
+            component={MyProfile}
+          />
+
+          <Route
+            exact
             path="(^[/][0][xX]\w{40}\b)/edit"
             // path={routes.FORMAT_PROFILE_EDIT}
             component={EditProfile}

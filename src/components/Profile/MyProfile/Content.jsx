@@ -9,6 +9,7 @@ import * as routes from '../../../utils/routes';
 import StatusUpdate from '../StatusUpdate';
 import Activity from './Activity';
 import Details from '../Details';
+import Collectibles from '../Collectibles';
 import '../../styles/Feed.css';
 import '../../../views/styles/Profile.css';
 import '../../styles/NetworkArray.css';
@@ -34,6 +35,12 @@ const Content = ({ currentAddress }) => (
         exact
         path={routes.FORMAT_PROFILE_ABOUT}
         component={Details}
+      />
+
+      <Route
+        exact
+        path={routes.FORMAT_PROFILE_COLLECTIBLES}
+        component={Collectibles}
       />
     </Switch>
 
