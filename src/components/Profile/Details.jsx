@@ -23,9 +23,8 @@ import Employer from '../../assets/Employer.svg';
 import '../../views/styles/Profile.css';
 import '../styles/Feed.css';
 
-const ProfileDetails = ({
+const Details = ({
   verifiedGithub,
-  email,
   website,
   location,
   birthday,
@@ -37,6 +36,7 @@ const ProfileDetails = ({
   employer,
   memberSince,
   verifiedTwitter,
+  verifiedEmail,
   onPublicProfilePage,
   currentAddress,
 }) => (
@@ -46,13 +46,6 @@ const ProfileDetails = ({
         <div className="profile__category__header">
           <h5>About</h5>
           <Link to={`/${currentAddress}/${routes.EDIT}`} className="profile__category__editLink">Edit</Link>
-        </div>
-
-        {/* Do not render private fields on public profiles */}
-        <div className="profile__category__field">
-          <img src={Email} className="profile__category__field__icon" alt="Github Icon" />
-          <p className="profile__category__field--private">{email}</p>
-          {email && <img id="editprofile__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />}
         </div>
 
         <div className="profile__category__field" title="Location">
@@ -72,7 +65,6 @@ const ProfileDetails = ({
             </a>)}
         </div>
 
-        {/* Private fields donot render on public profiles */}
         <div className="profile__category__field" title="Birthday">
           <div>
             <img src={Birthday} className="profile__category__field__icon" alt="Birthday Icon" />
@@ -108,6 +100,20 @@ const ProfileDetails = ({
             {verifiedTwitter && <img src={Verified} alt="Verified" className="profile__category__verified__icon" />}
           </React.Fragment>
         </div>
+      </div>
+
+      <div className="profile__details__category">
+        <div className="profile__category__header">
+          <h5>Contact</h5>
+        </div>
+
+        <div className="profile__category__field">
+          <img src={Email} className="profile__category__field__icon" alt="Github Icon" />
+          <p className="profile__category__field--private">{verifiedEmail}</p>
+          {verifiedEmail && <img id="editprofile__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />}
+          {verifiedEmail && <img src={Verified} alt="Verified" className="profile__category__verified__icon" />}
+        </div>
+
       </div>
 
       <div className="profile__details__category">
@@ -155,10 +161,10 @@ const ProfileDetails = ({
     </div>
   );
 
-ProfileDetails.propTypes = {
+Details.propTypes = {
   verifiedGithub: PropTypes.string,
   verifiedTwitter: PropTypes.string,
-  email: PropTypes.string,
+  verifiedEmail: PropTypes.string,
   website: PropTypes.string,
   job: PropTypes.string,
   school: PropTypes.string,
@@ -173,10 +179,10 @@ ProfileDetails.propTypes = {
   onPublicProfilePage: PropTypes.bool,
 };
 
-ProfileDetails.defaultProps = {
+Details.defaultProps = {
   verifiedGithub: '',
   verifiedTwitter: '',
-  email: '',
+  verifiedEmail: '',
   memberSince: '',
   website: '',
   birthday: '',
@@ -195,7 +201,7 @@ function mapState(state) {
   return {
     verifiedGithub: state.threeBox.verifiedGithub,
     verifiedTwitter: state.threeBox.verifiedTwitter,
-    email: state.threeBox.email,
+    verifiedEmail: state.threeBox.verifiedEmail,
     website: state.threeBox.website,
     birthday: state.threeBox.birthday,
     memberSince: state.threeBox.memberSince,
@@ -211,4 +217,4 @@ function mapState(state) {
   };
 }
 
-export default withRouter(connect(mapState)(ProfileDetails));
+export default withRouter(connect(mapState)(Details));

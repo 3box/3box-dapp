@@ -427,7 +427,7 @@
 
 #edit__profile__fields {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   width: 75%;
   position: relative; }
 

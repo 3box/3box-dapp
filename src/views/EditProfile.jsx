@@ -461,6 +461,8 @@ class EditProfile extends Component {
     const codeAsNumber = parseInt(emailCode, 10);
     this.setState({ verificationLoading: true, emailVerifiedFailed: false });
 
+    console.log(codeAsNumber);
+
     const payload = {
       iss: did,
       sub: 'did:https:verifications.3box.io',
@@ -479,6 +481,7 @@ class EditProfile extends Component {
       })
         .then((response) => {
           const data = response.json();
+          console.log(response);
           if (response.ok) return data;
 
           this.setState({
@@ -1226,7 +1229,99 @@ class EditProfile extends Component {
 
                     </div>
 
-                    <div className="edit__profile__fields__entry">
+                    {/* <div className="edit__profile__fields__entry">
+                      <div className="edit__profile__keyContainer">
+                        <h5>Email</h5>
+                      </div>
+                      {this.props.verifiedEmail
+                        && (
+                          <div className="edit__profile__verifiedWrapper">
+                            <div className="edit__profile__verifiedName">
+                              <p>{verifiedEmail}</p>
+                              {!emailRemoved
+                                && <img src={Verified} alt="Verified" />
+                              }
+                            </div>
+
+                            {!emailRemoved
+                              ? (
+                                <button
+                                  type="button"
+                                  className={`unstyledButton ${!emailEdited && 'uneditedGithub'} removeGithub`}
+                                  onClick={() => this.handleEmailAddress('remove')}
+                                >
+                                  Remove
+                                </button>
+                              )
+                              : (
+                                <button
+                                  type="button"
+                                  className={`unstyledButton ${!emailEdited && 'uneditedGithub'}`}
+                                  onClick={() => this.handleEmailAddress()}
+                                >
+                                  Cancel
+                                </button>
+                              )}
+                          </div>
+                        )}
+
+                      {!this.props.verifiedEmail
+                        && (
+                          <div className="edit__profile__verifiedWrapper">
+                            <img id="edit__profile__input__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
+                            <input
+                              name="verifiedEmail"
+                              type="text"
+                              className="edit__profile__value--github verifiedForm verifiedForm--email"
+                              value={verifiedEmail}
+                              onChange={e => this.handleFormChange(e, 'verifiedEmail')}
+                            />
+                            <button
+                              type="button"
+                              className={`unstyledButton ${!emailEdited && 'uneditedGithub'} verificationButton verifiedForm`}
+                              disabled={!emailEdited}
+                              onClick={() => {
+                                this.props.getPublicDID();
+                                this.props.handleEmailVerificationModal();
+                              }}
+                            >
+                              Verify
+                            </button>
+                            <p className="edit__profile__verified--NoMobile">
+                              Add verifications using a desktop browser.
+                            </p>
+                          </div>
+                        )}
+
+                    </div> */}
+
+
+                  </div>
+                  {(githubRemoved || twitterRemoved)
+                    && (
+                      <p className="edit__profile__verifiedWrapper__warning">Save form to remove your verified accounts.</p>
+                    )
+                  }
+                  {((!this.props.verifiedGithub && githubEdited && !isGithubVerified)
+                    || (!this.props.verifiedTwitter && twitterEdited && !isTwitterVerified))
+                    && (
+                      <p className={`edit__profile__verifiedWrapper__warning ${(githubRemoved || twitterRemoved) && 'second'}`}>
+                        Verification is required for your verified accounts to save.
+                      </p>
+                    )
+                  }
+                </div>
+              </div>
+
+              <div className="edit__profile__info">
+                <div className="edit__profile__categories extraMargin">
+                  <h3 className="noMargin">Contact</h3>
+                  <p>Confirm your email to add trusted contact information to your account. This will remain private unless you choose to share it with third-party services.</p>
+                </div>
+                <div id="edit__profile__fields">
+                  <div id="edit__info">
+
+                    <div className="edit__profile__fields__entry noMargin">
                       <div className="edit__profile__keyContainer">
                         <h5>Email</h5>
                       </div>
@@ -1294,20 +1389,17 @@ class EditProfile extends Component {
 
 
                   </div>
-                  {(githubRemoved || twitterRemoved || emailRemoved)
+                  {emailRemoved
                     && (
                       <p className="edit__profile__verifiedWrapper__warning">Save form to remove your verified accounts.</p>
                     )
                   }
-                  {((!this.props.verifiedGithub && githubEdited && !isGithubVerified)
-                    || (!this.props.verifiedTwitter && twitterEdited && !isTwitterVerified)
-                    || (!this.props.verfiedEmail && emailEdited && !isEmailVerified))
+                  {(!this.props.verfiedEmail && emailEdited && !isEmailVerified)
                     && (
-                      <p className={`edit__profile__verifiedWrapper__warning ${(githubRemoved || twitterRemoved || emailRemoved) && 'second'}`}>
+                      <p className={`edit__profile__verifiedWrapper__warning ${emailRemoved && 'second'}`}>
                         Verification is required for your verified accounts to save.
                       </p>
-                    )
-                  }
+                    )}
                 </div>
               </div>
 
