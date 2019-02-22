@@ -1,0 +1,192 @@
+@import "../../variables.scss";
+
+.collectibles {
+  background-color: white;
+  border: 1px solid $borderColor;
+}
+
+@media only screen and (max-width: 600px) {
+  .statusUpdate {
+    margin-top: 30px;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    width: 100vw;
+    max-width: 100vw;
+    min-width: 100vw;
+    padding: 0;
+    margin-left: 0;
+
+    input {
+      padding: 10px 10px;
+    }
+  }
+
+  .statusUpdate--bannerMargin {
+    margin-top: 310px !important;
+  }
+
+  .profile__details {
+    padding: 0 !important;
+    max-width: 100vw;
+    min-width: 100vw;
+    margin-top: 18px !important;
+  }
+
+  .hideStatusButton {
+    display: block;
+  }
+
+  .feed__activity__tile {
+    width: 100%;
+    padding: 18px 0;
+    border-radius: 0;
+    background-color: white;
+    border-bottom: 1px solid $borderColor;
+    border-top: 1px solid $borderColor;
+    border-left: none;
+    border-right: none;
+  }
+
+  .feed__activity {
+    margin-left: 0;
+    display: flex;
+    padding: 11px 0;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 0;
+    width: 100%;
+    border-bottom: 1px solid $borderColor;
+    border-top: 1px solid $borderColor;
+    border-left: none;
+    border-right: none;
+  }
+
+  .feed__activity__data {
+    padding: 0;
+    width: 94%;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .hideUpdateOnMobile {
+    display: none;
+  }
+
+  .feed__activity__info {
+    max-width: 100%;
+    width: 100%;
+    padding: 0;
+    // flex-direction: column;
+
+    img {
+      margin-right: 7px;
+    }
+
+    p {
+      width: 300px;
+      word-wrap: break-word;
+    }
+  }
+
+  .feed__activity__image {
+    width: 100%;
+    min-width: 100%;
+    border-radius: 0;
+  }
+
+  #feed {
+    padding: 0;
+    width: 100vw;
+    max-width: 100vw !important;
+    min-width: 100vw !important;
+    border: none;
+    position: relative;
+    left: 0;
+    top: 0;
+    border-radius: 0;
+    margin-top: 18px;
+    margin-left: 0;
+  }
+
+  .feed__activity__metaData {
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 8px;
+  }
+
+  #feed__header {
+    padding: 30px 0 20px 20px;
+  }
+
+  .publicHeader {
+    display: none;
+  }
+
+  .feed__activity__context {
+    padding: 0 10px;
+    white-space: nowrap;
+  }
+
+  .feed__activity__address {
+    white-space: nowrap;
+    overflow: hidden;
+    overflow-x: scroll;
+    width: 100%;
+
+
+    h4 {
+      width: 94%;
+      overflow-x: scroll;
+    }
+  }
+
+  .feed__activity__address__wrapper {
+    width: 86%;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+  }
+
+  .feed__activity__header {
+    background-color: $backgroundHue;
+
+    h4 {
+      width: 100%;
+      overflow-x: scroll;
+    }
+  }
+
+  .whiteBG {
+    background-color: white !important;
+  }
+
+  .feed__activity__address__time {
+    width: 26%;
+    white-space: nowrap;
+    overflow: hidden;
+    overflow-x: scroll;
+  }
+
+  .feed__activity__address__amount {
+    white-space: nowrap;
+    overflow: hidden;
+    overflow-x: scroll;
+  }
+
+  .feed__activity__address__dataType {
+    width: 18px;
+  }
+
+  .feed__activity__address__toFrom {
+    width: 15%;
+  }
+
+  .feed__activity__address__function {
+    width: 13%;
+  }
+
+  .feed__footer {
+    margin-bottom: 28px;
+  }
+}

@@ -461,8 +461,6 @@ class EditProfile extends Component {
     const codeAsNumber = parseInt(emailCode, 10);
     this.setState({ verificationLoading: true, emailVerifiedFailed: false });
 
-    console.log(codeAsNumber);
-
     const payload = {
       iss: did,
       sub: 'did:https:verifications.3box.io',
@@ -481,7 +479,6 @@ class EditProfile extends Component {
       })
         .then((response) => {
           const data = response.json();
-          console.log(response);
           if (response.ok) return data;
 
           this.setState({
