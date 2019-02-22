@@ -1360,7 +1360,7 @@ class EditProfile extends Component {
                       {!this.props.verifiedEmail
                         && (
                           <div className="edit__profile__verifiedWrapper">
-                            <img id="edit__profile__input__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
+                            <img id="edit__profile__input__privateIcon" className="verifiedForm" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
                             <input
                               name="verifiedEmail"
                               type="text"
