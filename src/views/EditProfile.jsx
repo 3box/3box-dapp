@@ -73,6 +73,8 @@ class EditProfile extends Component {
       githubEdited: false,
       twitterEdited: false,
       showEmoji: false,
+      isEmailVerified: false,
+      emailVerifiedFailed: false,
       savedGithub: false,
       savedTwitter: false,
       editedArray: [],
@@ -724,8 +726,6 @@ class EditProfile extends Component {
     const {
       verifiedGithub,
       verifiedTwitter,
-      verifiedEmail,
-      email,
       name,
       description,
       location,
@@ -746,10 +746,8 @@ class EditProfile extends Component {
       showEmoji,
       isGithubVerified,
       isTwitterVerified,
-      isEmailVerified,
       githubVerifiedFailed,
       twitterVerifiedFailed,
-      emailVerifiedFailed,
       githubEdited,
       twitterEdited,
       emailEdited,
@@ -759,6 +757,9 @@ class EditProfile extends Component {
       verificationLoading,
       emailVerificationMessage,
       isEmailSending,
+      isEmailVerified,
+      emailVerifiedFailed,
+      verifiedEmail,
     } = this.state;
 
     const message = (`3Box is a social profiles network for web3. This post links my 3Box profile to my Github account!
@@ -999,7 +1000,7 @@ class EditProfile extends Component {
                               </span>
                             )
                             : (
-                              <span className="edit__profile__value--spirit__character" role="img">
+                              <span className="edit__profile__value--spirit__character" role="img" aria-label="unicorn">
                                 🦄
                               </span>
                             )
@@ -1585,11 +1586,10 @@ EditProfile.propTypes = {
 
 EditProfile.defaultProps = {
   box: {},
-  verifiedEmail: {},
+  verifiedEmail: '',
   name: '',
   verifiedGithub: '',
   verifiedTwitter: '',
-  verifiedEmail: '',
   did: '',
   description: '',
   location: '',

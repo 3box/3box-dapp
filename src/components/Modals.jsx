@@ -9,6 +9,7 @@ import ThreeBoxLogoWhite from '../assets/ThreeBoxLogoWhite.svg';
 import ThreeBoxLogoBlue from '../assets/ThreeBoxLogoBlue.svg';
 import GithubIcon from '../assets/GithubIcon.svg';
 import TwitterIcon from '../assets/twitterGrey.svg';
+import Email from '../assets/Email.svg';
 import TrustWallet from '../assets/TrustWallet.png';
 import Consent from '../assets/Consent.png';
 import Access from '../assets/Access.png';
@@ -509,7 +510,7 @@ export const EmailVerificationModal = ({
           <div className="modal__github__description">
             <div className="modal__github__description__copy">
               <div className="modal__github__description__copy__header">
-                <img src={TwitterIcon} className="modal__github__description__githubIcon" alt="Github icon" />
+                <img src={Email} className="modal__github__description__githubIcon" alt="Github icon" />
                 <h2>Verify your Email Address</h2>
               </div>
               <p className="modal__github__description__copy__text">
@@ -613,11 +614,13 @@ export const EmailVerificationModal = ({
 
 EmailVerificationModal.propTypes = {
   did: PropTypes.string,
+  emailVerificationMessage: PropTypes.string,
   show: PropTypes.bool.isRequired,
+  isEmailSending: PropTypes.bool.isRequired,
   handleEmailVerificationModal: PropTypes.func.isRequired,
-  message: PropTypes.string.isRequired,
   verifyEmail: PropTypes.func.isRequired,
   resetVerification: PropTypes.func.isRequired,
+  sendVerificationEmail: PropTypes.func.isRequired,
   isEmailVerified: PropTypes.bool.isRequired,
   emailVerifiedFailed: PropTypes.bool.isRequired,
   verificationLoading: PropTypes.bool.isRequired,
@@ -625,6 +628,7 @@ EmailVerificationModal.propTypes = {
 
 EmailVerificationModal.defaultProps = {
   did: '',
+  emailVerificationMessage: '',
 };
 
 export const AccessDeniedModal = ({

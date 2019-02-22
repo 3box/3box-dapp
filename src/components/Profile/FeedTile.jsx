@@ -105,7 +105,7 @@ export const FeedTileInternal = ({ item, name, onPublicProfilePage, metaDataName
 
         {(item.value === '0' && !contractImg)
           && (
-            <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`} className="feed__activity__data__icon">
+            <div className={`feed__activity__context__network feed__activity__data__icon ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
               0x
           </div>
           )
@@ -203,7 +203,7 @@ export const FeedTileToken = ({ item, name, onPublicProfilePage, metaDataName, i
         {
           (item.value === '0' && !contractImg)
           && (
-            <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`} className="feed__activity__data__icon">
+            <div className={`feed__activity__context__network feed__activity__data__icon ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
               0x
           </div>
           )
@@ -290,7 +290,7 @@ export const FeedTileTXS = ({ item, name, onPublicProfilePage, metaDataName, isF
         {
           (item.value === '0' && !contractImg)
           && (
-            <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`} className="feed__activity__data__icon">
+            <div className={`feed__activity__context__network feed__activity__data__icon ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
               0x
             </div>)
         }

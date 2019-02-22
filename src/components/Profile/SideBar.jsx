@@ -69,7 +69,7 @@ const SideBar = ({
 
                 {onPublicProfilePage && (publicName
                   ? <h2 id="profile__user__name">{publicName}</h2>
-                  : <h2 id="profile__user__name__add"></h2>)
+                  : '')
                 }
 
 
