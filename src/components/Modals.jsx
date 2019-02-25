@@ -490,6 +490,7 @@ TwitterVerificationModal.propTypes = {
 TwitterVerificationModal.defaultProps = {
   did: '',
 };
+
 export const EmailVerificationModal = ({
   show,
   handleEmailVerificationModal,
@@ -502,7 +503,10 @@ export const EmailVerificationModal = ({
   sendVerificationEmail,
   emailVerificationMessage,
   isEmailSending,
+  emailVerificationErrMsg,
   disableSendVerificationEmail,
+  handleFormChange,
+  emailCode,
 }) => (
     <div>
       <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
@@ -565,14 +569,21 @@ export const EmailVerificationModal = ({
                 </div>
                 <input
                   placeholder="Enter code"
-                  className="modal__github__description__copy__input--email"
+                  className={`modal__github__description__copy__input--email ${emailVerificationErrMsg && 'noBottomMargin'}`}
                   type="text"
                   id="emailCode"
+                  onChange={e => handleFormChange(e, 'emailCode')}
+                  value={emailCode}
                 />
+                {emailVerificationErrMsg && (
+                  <p className="modal__email__error">
+                    {emailVerificationErrMsg}
+                  </p>
+                )}
               </div>
               <button
                 type="button"
-                onClick={() => verifyEmail(document.getElementById('emailCode').value)}
+                onClick={() => verifyEmail()}
                 className={`modal__github__description__copy__tweet ${verificationLoading && 'loadingPadding'} ${(emailVerifiedFailed || isEmailVerified) && 'darker'}`}
               >
                 {isEmailVerified
@@ -616,8 +627,8 @@ export const EmailVerificationModal = ({
   );
 
 EmailVerificationModal.propTypes = {
-  did: PropTypes.string,
-  emailVerificationMessage: PropTypes.string,
+  did: PropTypes.string.isRequired,
+  emailVerificationMessage: PropTypes.string.isRequired,
   show: PropTypes.bool.isRequired,
   isEmailSending: PropTypes.bool.isRequired,
   handleEmailVerificationModal: PropTypes.func.isRequired,
@@ -627,11 +638,10 @@ EmailVerificationModal.propTypes = {
   isEmailVerified: PropTypes.bool.isRequired,
   emailVerifiedFailed: PropTypes.bool.isRequired,
   verificationLoading: PropTypes.bool.isRequired,
-};
-
-EmailVerificationModal.defaultProps = {
-  did: '',
-  emailVerificationMessage: '',
+  emailVerificationErrMsg: PropTypes.string.isRequired,
+  disableSendVerificationEmail: PropTypes.bool.isRequired,
+  handleFormChange: PropTypes.func.isRequired,
+  emailCode: PropTypes.string.isRequired,
 };
 
 export const AccessDeniedModal = ({

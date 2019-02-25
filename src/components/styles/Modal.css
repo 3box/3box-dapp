@@ -351,6 +351,15 @@
   border: 1px solid #1168df;
   min-width: 130px; }
 
+.modal__email__error {
+  color: #E78888 !important;
+  line-height: 20px !important;
+  margin-top: 4px;
+  margin-bottom: -4px; }
+
+.noBottomMargin {
+  margin-bottom: 0 !important; }
+
 .modal__github__description__copy__text {
   text-align: left;
   color: #747677;

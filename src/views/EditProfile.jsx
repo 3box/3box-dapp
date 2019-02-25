@@ -56,6 +56,8 @@ class EditProfile extends Component {
       year: '',
       employer: '',
       emailVerificationMessage: '',
+      emailVerificationErrMsg: '',
+      emailCode: '',
       disableSave: true,
       saveLoading: false,
       removeUserPic: false,
@@ -173,6 +175,7 @@ class EditProfile extends Component {
 
     this.setState({ [property]: e.target.value },
       () => {
+        if (property === 'emailCode') return;
         if (property === 'verifiedGithub') {
           if (this.state.verifiedGithub === '') {
             this.setState({ githubEdited: false });
@@ -457,8 +460,8 @@ class EditProfile extends Component {
       });
   }
 
-  verifyEmail = (emailCode) => {
-    const { editedArray } = this.state;
+  verifyEmail = () => {
+    const { editedArray, emailCode } = this.state;
     const { box, did } = this.props;
     const updatedEditedArray = editedArray;
     const codeAsNumber = parseInt(emailCode, 10);
@@ -483,12 +486,7 @@ class EditProfile extends Component {
         .then((response) => {
           const data = response.json();
           if (response.ok) return data;
-
-          this.setState({
-            verificationLoading: false,
-            emailVerifiedFailed: true,
-          });
-          throw new Error('Verification failed');
+          throw data;
         })
         .then(claim => box.verified.addEmail(claim.data.verification))
         .then((verifiedEmail) => {
@@ -501,6 +499,7 @@ class EditProfile extends Component {
               editedArray: updatedEditedArray,
               disableSave: false,
               savedEmail: true,
+              emailVerificationErrMsg: '',
             });
             store.dispatch({
               type: 'GET_VERIFIED_PRIVATE_EMAIL',
@@ -510,12 +509,14 @@ class EditProfile extends Component {
             throw new Error('Verification failed');
           }
         })
-        .catch((err) => {
-          this.setState({
-            verificationLoading: false,
-            emailVerifiedFailed: true,
+        .catch((data) => {
+          data.then((error) => {
+            this.setState({
+              verificationLoading: false,
+              emailVerifiedFailed: true,
+              emailVerificationErrMsg: error.message,
+            });
           });
-          console.log(err);
         });
     });
   }
@@ -562,7 +563,10 @@ class EditProfile extends Component {
         emailEdited: false,
         isEmailVerified: false,
         verifiedEmail: '',
+        disableSendVerificationEmail: false,
         emailVerificationMessage: '',
+        emailVerificationErrMsg: '',
+        emailCode: '',
       });
       store.dispatch({
         type: 'GET_VERIFIED_PRIVATE_EMAIL',
@@ -762,6 +766,8 @@ class EditProfile extends Component {
       isEmailVerified,
       emailVerifiedFailed,
       verifiedEmail,
+      emailVerificationErrMsg,
+      emailCode,
     } = this.state;
 
     const message = (`3Box is a social profiles network for web3. This post links my 3Box profile to my Github account!
@@ -825,11 +831,14 @@ class EditProfile extends Component {
           verifyEmail={this.verifyEmail}
           did={did}
           sendVerificationEmail={this.sendVerificationEmail}
+          handleFormChange={this.handleFormChange}
           emailVerificationMessage={emailVerificationMessage}
+          emailCode={emailCode}
           isEmailVerified={isEmailVerified}
           verificationLoading={verificationLoading}
           emailVerifiedFailed={emailVerifiedFailed}
           isEmailSending={isEmailSending}
+          emailVerificationErrMsg={emailVerificationErrMsg}
           disableSendVerificationEmail={disableSendVerificationEmail}
           resetVerification={this.resetVerification}
           handleEmailVerificationModal={this.props.handleEmailVerificationModal}

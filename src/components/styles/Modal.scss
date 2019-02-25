@@ -445,6 +445,17 @@
   min-width: 130px;
 }
 
+.modal__email__error {
+  color: $threeBoxRed !important;
+  line-height: 20px !important;
+  margin-top: 4px;
+  margin-bottom: -4px;
+}
+
+.noBottomMargin {
+  margin-bottom: 0 !important;
+}
+
 .modal__github__description__copy__text {
   text-align: left;
   color: $lighterFont;
