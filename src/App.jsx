@@ -28,6 +28,7 @@ import AppModals from './components/AppModals';
 
 import {
   getProfileData,
+  getCollectibles,
   getPublicMemberSince,
   getVerifiedPublicGithub,
   getVerifiedPublicTwitter,
@@ -137,6 +138,7 @@ class App extends Component {
   }
 
   loadCalls = () => {
+    const { currentAddress } = this.props;
     this.props.getActivity();
     this.props.getVerifiedPublicGithub();
     this.props.getVerifiedPublicTwitter();
@@ -158,6 +160,7 @@ class App extends Component {
     this.props.getProfileData('public', 'emoji');
     this.props.getProfileData('private', 'email');
     this.props.getProfileData('private', 'birthday');
+    this.props.getCollectibles(currentAddress);
   }
 
   async directSignIn() {
@@ -234,7 +237,6 @@ class App extends Component {
       isSyncing,
       hasSignedOut,
       onPublicProfilePage,
-      currentAddress,
     } = this.props;
 
     const {
@@ -440,6 +442,7 @@ App.propTypes = {
   getBox: PropTypes.func.isRequired,
   requestAccess: PropTypes.func.isRequired,
   getProfileData: PropTypes.func.isRequired,
+  getCollectibles: PropTypes.func.isRequired,
   getPublicMemberSince: PropTypes.func.isRequired,
   getVerifiedPublicGithub: PropTypes.func.isRequired,
   getVerifiedPublicTwitter: PropTypes.func.isRequired,
@@ -560,6 +563,7 @@ export default withRouter(connect(mapState,
     getBox,
     requestAccess,
     getProfileData,
+    getCollectibles,
     getPublicMemberSince,
     getVerifiedPublicGithub,
     getVerifiedPublicTwitter,

@@ -7,13 +7,53 @@
   box-shadow: 0 7px 14px 0 rgba(59, 65, 94, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
   cursor: pointer; }
 
+.collectibles__image__wrapper {
+  height: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px; }
+  .collectibles__image__wrapper button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 5; }
+  .collectibles__image__wrapper h4 {
+    text-align: center;
+    width: 60%;
+    color: #747677; }
+
 .collectibles__image {
-  height: 70%; }
+  height: 100%; }
+
+.padded {
+  height: 75% !important; }
+
+.collectibles__like {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  color: #1168df;
+  font-size: 34px; }
+  .collectibles__like img {
+    width: 30px; }
+  .collectibles__like:hover {
+    background-color: transparent; }
+    .collectibles__like:hover .collectibles__like__heart {
+      opacity: 1; }
+
+.collectibles__like__heart {
+  opacity: .6; }
 
 .collectibles__info {
   border-top: 1px solid #E4E4E4;
-  height: 30%;
+  height: calc(30% - 25px);
   padding: 10px 15px 15px 15px; }
+  .collectibles__info h3 {
+    margin-bottom: 7px; }
+  .collectibles__info p {
+    color: #b1b1b1; }
 
 .collectibles__wrapper {
   justify-content: flex-start !important; }
@@ -23,19 +63,7 @@
   grid-template-columns: repeat(3, 33.33333% [col-start]);
   width: 714px;
   max-width: 714px;
-  margin-bottom: 100px; }
-
-.collectibles__image {
-  display: flex;
-  justify-content: center;
-  align-items: center; }
-  .collectibles__image img {
-    height: 100%; }
-  .collectibles__image button {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    z-index: 5; }
+  margin-bottom: 26px; }
 
 @media only screen and (max-width: 1278px) {
   .collectibles__grid {

@@ -118,6 +118,12 @@ export const threeBoxReducer = (state = {}, action) => {
         github: action.github,
       };
 
+    case 'GET_PUBLIC_COLLECTIBLES':
+      return {
+        ...state,
+        publicCollectibles: action.publicCollectibles,
+      };
+
     case 'GET_VERIFIED_PUBLIC_GITHUB':
       return {
         ...state,
@@ -236,6 +242,12 @@ export const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         did: action.did,
+      };
+
+    case 'GET_MY_COLLECTIBLES':
+      return {
+        ...state,
+        collection: action.collection,
       };
 
     case 'HANDLE_SIGNOUT':

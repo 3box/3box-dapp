@@ -340,7 +340,7 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
     });
 
     feed.sort((a, b) => b.timeStamp - a.timeStamp);
-    
+
     // order feed chronologically and by currentAddress
     const feedByAddress = [];
     feed.forEach((item) => {
@@ -531,6 +531,28 @@ export const getProfileData = (type, key) => async (dispatch) => {
       type: `GET_${typeUppercase}_${keyUppercase}`,
       [key]: keyToAdd,
     });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getCollectibles = (address, onPublicProfile) => async (dispatch) => {
+  try {
+    const res = await fetch(`https://api.opensea.io/api/v1/assets?owner=${address}&order_by=current_price&order_direction=asc`);
+    const data = await res.json();
+    const collection = data.assets;
+
+    if (onPublicProfile) {
+      dispatch({
+        type: 'GET_PUBLIC_COLLECTIBLES',
+        publicCollectibles: collection,
+      });
+    } else {
+      dispatch({
+        type: 'GET_MY_COLLECTIBLES',
+        collection,
+      });
+    }
   } catch (error) {
     console.error(error);
   }
