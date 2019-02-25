@@ -77,6 +77,7 @@ class EditProfile extends Component {
       emailVerifiedFailed: false,
       savedGithub: false,
       savedTwitter: false,
+      disableSendVerificationEmail: false,
       editedArray: [],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -449,7 +450,7 @@ class EditProfile extends Component {
       body: JSON.stringify(payload),
     }).then(res => res.json())
       .then((json) => {
-        this.setState({ emailVerificationMessage: 'Sent!', isEmailSending: false });
+        this.setState({ emailVerificationMessage: 'Sent!', isEmailSending: false, disableSendVerificationEmail: true });
       })
       .catch((err) => {
         this.setState({ emailVerificationMessage: err.response, isEmailSending: false });
@@ -757,6 +758,7 @@ class EditProfile extends Component {
       verificationLoading,
       emailVerificationMessage,
       isEmailSending,
+      disableSendVerificationEmail,
       isEmailVerified,
       emailVerifiedFailed,
       verifiedEmail,
@@ -828,6 +830,7 @@ class EditProfile extends Component {
           verificationLoading={verificationLoading}
           emailVerifiedFailed={emailVerifiedFailed}
           isEmailSending={isEmailSending}
+          disableSendVerificationEmail={disableSendVerificationEmail}
           resetVerification={this.resetVerification}
           handleEmailVerificationModal={this.props.handleEmailVerificationModal}
         />
@@ -1314,7 +1317,7 @@ class EditProfile extends Component {
               <div className="edit__profile__info">
                 <div className="edit__profile__categories extraMargin">
                   <h3 className="noMargin">Contact</h3>
-                  <p>Confirm your email to add trusted contact information to your account. This will remain private unless you choose to share it with third-party services.</p>
+                  <p>Confirm your email to add trusted contact information to your account.</p>
                 </div>
                 <div id="edit__profile__fields">
                   <div id="edit__info">

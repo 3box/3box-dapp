@@ -502,6 +502,7 @@ export const EmailVerificationModal = ({
   sendVerificationEmail,
   emailVerificationMessage,
   isEmailSending,
+  disableSendVerificationEmail,
 }) => (
     <div>
       <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
@@ -534,53 +535,55 @@ export const EmailVerificationModal = ({
             <div className="modal__twitter__steps__step">
               <div>
                 <div className="modal__twitter__steps__instructions">
-                  <div className="modal__github__steps__number">1</div>
+                  <div className="modal__github__steps__wrapper">
+                    <div className="modal__github__steps__number">1</div>
+                    <h3>Send code</h3>
+                  </div>
                   <p className="modal__github__steps__text">
                     Send a verification code to your email address.
-                    <br />
-                    You may skip this step if you already have a verification code.
                   </p>
                 </div>
               </div>
               <div className="modal__email__button">
-                <button onClick={() => sendVerificationEmail(did)} className="modal__github__description__copy__tweet" type="button">
-                  Send verification email
+                <button disabled={disableSendVerificationEmail} onClick={() => sendVerificationEmail(did)} className={`modal__github__description__copy__tweet ${isEmailSending && 'loadingPadding'} ${emailVerificationMessage && 'darker'}`} type="button">
+                  {(!emailVerificationMessage && !isEmailSending) ? 'Send code' : emailVerificationMessage}
+                  {isEmailSending && <img src={LoadingWhite} alt="Loading" className="modal__loadingGraphic--email" />}
                 </button>
-                {emailVerificationMessage && <p>{emailVerificationMessage}</p>}
-                {isEmailSending && <img src={Loading} alt="Loading" className="modal__loadingGraphic--email" />}
               </div>
             </div>
 
             <div className="modal__twitter__steps__step">
               <div className="modal__twitter__steps__step--wrapper">
                 <div className="modal____steps__instructions">
-                  <div className="modal__github__steps__number">2</div>
+                  <div className="modal__github__steps__wrapper">
+                    <div className="modal__github__steps__number">2</div>
+                    <h3>Verify code</h3>
+                  </div>
                   <p className="modal__github__steps__text">
                     Verify your email address by entering the code you received below.
                   </p>
                 </div>
                 <input
-                  placeholder="Enter your verification code here"
+                  placeholder="Enter code"
                   className="modal__github__description__copy__input--email"
                   type="text"
-                  id="emailCode" />
-                <p className="modal__github__description__copy__input--github blueFont">
-                  {isEmailVerified
-                    ? 'Your Email is verified!'
-                    : emailVerifiedFailed
-                      ? 'Verification failed'
-                      : verificationLoading
-                        ? (
-                          <img src={Loading} alt="Loading" id="modal__loadingGraphic--noMargin" />
-                        )
-                        : 'Email not yet verified'}
-                </p>
+                  id="emailCode"
+                />
               </div>
               <button
                 type="button"
                 onClick={() => verifyEmail(document.getElementById('emailCode').value)}
+                className={`modal__github__description__copy__tweet ${verificationLoading && 'loadingPadding'} ${(emailVerifiedFailed || isEmailVerified) && 'darker'}`}
               >
-                Verify
+                {isEmailVerified
+                  ? 'Verified!'
+                  : emailVerifiedFailed
+                    ? 'Verification failed'
+                    : verificationLoading
+                      ? (
+                        <img src={LoadingWhite} alt="Loading" className="modal__loadingGraphic--email" />
+                      )
+                      : 'Verify'}
               </button>
             </div>
           </div>

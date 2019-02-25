@@ -442,6 +442,7 @@
   padding: 1.2em 1.8em;
   transition: background-color .4s ease;
   border: 1px solid #1168df;
+  min-width: 130px;
 }
 
 .modal__github__description__copy__text {
@@ -538,6 +539,7 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 18px;
+  font-weight: 800;
 }
 
 .modal__github__description__copy__input {
@@ -598,7 +600,26 @@
 .modal__loadingGraphic--email {
   height: 28px;
   width: 28px !important;
-  margin: 26px 0 0 20px;
+}
+
+.darker {
+  background-color: $threeBoxBlueHover !important;
+  color: white !important;
+  border: solid 1px $threeBoxBlueHover !important;
+}
+
+.modal__github__steps__wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  h3 {
+    margin-left: 15px;
+  }
+}
+
+.loadingPadding {
+  padding: 10px 1.8em !important;
 }
 
 .modal__github__done {
@@ -783,18 +804,18 @@
     align-items: center;
   }
 
-  .modal__github__steps__number {
-    margin-bottom: 0;
-    width: 20px;
-    height: 22px;
-    margin-right: 7px;
-    background-color: transparent;
-  }
+  // .modal__github__steps__number {
+  //   margin-bottom: 0;
+  //   width: 20px;
+  //   height: 22px;
+  //   margin-right: 7px;
+  //   background-color: transparent;
+  // }
 
-  .modal__github__steps__text {
-    line-height: 20px !important;
-    margin-bottom: 0;
-  }
+  // .modal__github__steps__text {
+  //   line-height: 20px !important;
+  //   margin-bottom: 0;
+  // }
 
   .modal__github__description__copy__text {
     line-height: 20px !important;
@@ -831,12 +852,12 @@
     justify-content: flex-start;
   }
 
-  .modal__twitter__steps__instructions {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin-bottom: 15px;
-  }
+  // .modal__twitter__steps__instructions {
+  //   display: flex;
+  //   align-items: flex-start;
+  //   justify-content: flex-start;
+  //   margin-bottom: 15px;
+  // }
 
   .modal__github__description__copy__tweet {
     padding: .8em 1.2em;
