@@ -3,7 +3,9 @@
   border: 1px solid #E4E4E4;
   border-radius: 6px;
   height: 300px;
-  position: relative; }
+  position: relative;
+  box-shadow: 0 7px 14px 0 rgba(59, 65, 94, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
+  cursor: pointer; }
 
 .collectibles__image {
   height: 70%; }
