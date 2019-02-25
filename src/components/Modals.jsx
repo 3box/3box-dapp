@@ -578,7 +578,7 @@ export const EmailVerificationModal = ({
                 {isEmailVerified
                   ? 'Verified!'
                   : emailVerifiedFailed
-                    ? 'Verification failed'
+                    ? 'Failed'
                     : verificationLoading
                       ? (
                         <img src={LoadingWhite} alt="Loading" className="modal__loadingGraphic--email" />
