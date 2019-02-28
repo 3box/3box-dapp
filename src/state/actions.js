@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import {
   store,
 } from './store';
@@ -510,6 +511,7 @@ export const getProfile = profileAddress => async (dispatch) => {
       publicName: publicProfile.name,
       publicEmoji: publicProfile.emoji,
       publicStatus: publicProfile.status,
+      publicCollectiblesGallery: publicProfile.collectiblesGallery,
     });
 
     dispatch({
@@ -540,14 +542,27 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
   try {
     const res = await fetch(`https://api.opensea.io/api/v1/assets?owner=${address}&order_by=current_price&order_direction=asc`);
     const data = await res.json();
-    const collection = data.assets;
+    let collection = data.assets;
 
     if (onPublicProfile) {
       dispatch({
         type: 'GET_PUBLIC_COLLECTIBLES',
-        publicCollectibles: collection,
+        publicCollectiblesGallery: collection,
       });
     } else {
+      const favorites = store.getState().threeBox.collectiblesGallery;
+
+      console.log(collection);
+      console.log(favorites);
+
+      if (favorites.length > 0) {
+        collection = collection.filter((collectible) => {
+          favorites.map((col) => {
+            if (!_.isEqual(collectible, col)) return collectible;
+          });
+        });
+      }
+
       dispatch({
         type: 'GET_MY_COLLECTIBLES',
         collection,

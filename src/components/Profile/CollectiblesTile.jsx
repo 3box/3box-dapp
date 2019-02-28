@@ -8,10 +8,9 @@ import '../../views/styles/Profile.css';
 import '../styles/Collectibles.css';
 
 export const CollectiblesTile = ({
-  image, description, name, favoriteCollectible, padded, bgStyle, tokenId,
+  image, description, name, addToGallery, padded, bgStyle, tokenId, id, favorite,
 }) => (
     <div className="collectiblesTile">
-      {console.log(bgStyle)}
       <div
         className="collectibles__image__wrapper"
         style={{ backgroundColor: `#${bgStyle}` }}
@@ -21,16 +20,30 @@ export const CollectiblesTile = ({
           src={image}
           alt=""
         />
-        <button
-          type="button"
-          className="collectibles__like"
-          onClick={favoriteCollectible}
-        >
-          {/* <img src={HeartBlue} alt="" /> */}
-          <img src={HeartGrey} alt="" className="collectibles__like__heart" />
-          {/* <img src={HeartDarkGrey} alt="" /> */}
-          {/* &#x2764; */}
-        </button>
+        {!favorite
+          ? (
+            <button
+              type="button"
+              className="collectibles__like"
+              onClick={() => addToGallery(id)}
+            >
+              {/* <img src={HeartBlue} alt="" /> */}
+              <img src={HeartGrey} alt="" className="collectibles__like__heart" />
+              {/* <img src={HeartDarkGrey} alt="" /> */}
+              {/* &#x2764; */}
+            </button>
+          )
+          : (
+            <button
+              type="button"
+              className="collectibles__like"
+              onClick={() => addToGallery(id, 'remove')}
+            >
+              &#10005;
+            </button>
+          )
+        }
+
       </div>
 
       <div className="collectibles__info">
@@ -43,9 +56,11 @@ export const CollectiblesTile = ({
 CollectiblesTile.propTypes = {
   image: PropTypes.string,
   name: PropTypes.string,
+  id: PropTypes.string,
   description: PropTypes.string,
   padded: PropTypes.string,
-  favoriteCollectible: PropTypes.func.isRequired,
+  addToGallery: PropTypes.func.isRequired,
+  favorite: PropTypes.bool.isRequired,
   tokenId: PropTypes.string,
   bgStyle: PropTypes.string,
 };
@@ -55,42 +70,23 @@ CollectiblesTile.defaultProps = {
   name: '',
   description: '',
   padded: '',
+  id: '',
   tokenId: '',
   bgStyle: '',
 };
 
-export const EmptyCollectiblesTile = ({
-  image, description, name, favoriteCollectible, padded, bgStyle, tokenId,
-}) => (
-    <div className="collectiblesTile">
-      {console.log(bgStyle)}
-      <div
-        className="collectibles__image__wrapper"
-        style={{ backgroundColor: `#${bgStyle}` }}
-      >
-        <img
-          className={`collectibles__image ${padded === 'padded' && 'padded'}`}
-          src={image}
-          alt=""
-        />
-        <button
-          type="button"
-          className="collectibles__like"
-          onClick={favoriteCollectible}
-        >
-          {/* <img src={HeartBlue} alt="" /> */}
-          <img src={HeartGrey} alt="" className="collectibles__like__heart" />
-          {/* <img src={HeartDarkGrey} alt="" /> */}
-          {/* &#x2764; */}
-        </button>
-      </div>
-
-      <div className="collectibles__info">
-        <h3>{name}</h3>
-        <p>{`${description} ${tokenId}`}</p>
-      </div>
+export const EmptyCollectiblesTile = () => (
+  <div className="collectiblesTile">
+    <div
+      className="collectibles__image__wrapper"
+      style={{ backgroundColor: '#efefef' }}
+    >
+      <h4>Add a collectible to your public gallery</h4>
     </div>
-  );
+
+    <div className="collectibles__info" />
+  </div>
+);
 
 EmptyCollectiblesTile.propTypes = {
   image: PropTypes.string,

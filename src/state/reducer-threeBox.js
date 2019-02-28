@@ -214,6 +214,12 @@ export const threeBoxReducer = (state = {}, action) => {
         emoji: action.emoji,
       };
 
+    case 'GET_PUBLIC_COLLECTIBLESGALLERY':
+      return {
+        ...state,
+        collectiblesGallery: action.collectiblesGallery,
+      };
+
     case 'GET_PUBLIC_STATUS':
       return {
         ...state,
