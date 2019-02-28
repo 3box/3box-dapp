@@ -448,7 +448,7 @@ class EditProfile extends Component {
 
     this.setState({ isEmailSending: true });
 
-    fetch('https://verifications-dev.3box.io/send-email-verification', {
+    fetch('https://verifications.3box.io/send-email-verification', {
       method: 'POST',
       body: JSON.stringify(payload),
     }).then(res => res.json())
@@ -477,7 +477,7 @@ class EditProfile extends Component {
     };
 
     box._3id.signJWT(payload).then((jwt) => {
-      fetch('https://verifications-dev.3box.io/email-verify', {
+      fetch('https://verifications.3box.io/email-verify', {
         method: 'POST',
         body: JSON.stringify({
           verification: jwt,
