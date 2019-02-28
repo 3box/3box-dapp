@@ -34,22 +34,24 @@ class Collectibles extends Component {
   }
 
   // only visible on myprofile
-  addToGallery = (collectibleID, remove) => {
+  addToGallery = (collectibleID, removeFavorite) => {
     const { box, collection, collectiblesGallery } = this.props;
     let updatedCollectiblesGallery = collectiblesGallery;
     let removedCollectible;
     let updatedCollection = [];
 
+    console.log(updatedCollection);
+
     const contractAddress = collectibleID.split('-')[0];
     const tokenId = collectibleID.split('-')[1];
-    const selectedCollectible = !remove
+    const selectedCollectible = !removeFavorite
       ? collection.filter(collectible => collectible.asset_contract.address === contractAddress
         && collectible.token_id === tokenId)[0]
       : collectiblesGallery.filter(collectible => collectible.asset_contract.address === contractAddress
         && collectible.token_id === tokenId)[0];
 
     // update favorites
-    if (!remove) {
+    if (!removeFavorite) {
       if (updatedCollectiblesGallery.length > 2) removedCollectible = updatedCollectiblesGallery.pop();
       // are we popping the right one?
       updatedCollectiblesGallery.push(selectedCollectible);
@@ -60,7 +62,7 @@ class Collectibles extends Component {
     }
 
     // update collection
-    if (!remove) {
+    if (!removeFavorite) {
       updatedCollection = collection.filter((collectible) => {
         return (collectible.asset_contract.address !== contractAddress
           && collectible.token_id !== tokenId);
@@ -69,6 +71,8 @@ class Collectibles extends Component {
     } else {
       updatedCollection.push(selectedCollectible);
     }
+
+    console.log(updatedCollection);
 
     box.public.set('collectiblesGallery', updatedCollectiblesGallery);
     store.dispatch({
@@ -83,7 +87,8 @@ class Collectibles extends Component {
 
   render() {
     const { collection, collectiblesGallery, showCollectiblesModal, selectedCollectible } = this.props;
-
+    console.log(collection);
+    
     return (
       <React.Fragment>
         <CollectiblesModal show={showCollectiblesModal} handleCollectiblesModal={this.props.handleCollectiblesModal} selectedCollectible={selectedCollectible} />

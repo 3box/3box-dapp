@@ -570,15 +570,17 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
     } else {
       const favorites = store.getState().threeBox.collectiblesGallery;
 
-      console.log(collection);
-      console.log(favorites);
-
       if (favorites.length > 0) {
-        collection = collection.filter((collectible) => {
-          favorites.map((col) => {
-            if (!_.isEqual(collectible, col)) return collectible;
+        for (let i = collection.length - 1; i >= 0; i -= 1) {
+          // not performant
+          // is looping through entirety of collection even
+          // if favorites has finished.
+          favorites.map((collectible) => {
+            if (_.isEqual(collectible, collection[i])) {
+              collection.splice(i, 1);
+            }
           });
-        });
+        }
       }
 
       dispatch({
