@@ -4,14 +4,16 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import _ from 'lodash';
 
-import '../../views/styles/Profile.css';
-import '../styles/Feed.css';
+import CollectiblesTile from './CollectiblesTile';
+import { CollectiblesModal } from '../Modals';
 import {
-  CollectiblesTile,
   EmptyGalleryCollectiblesTile,
   EmptyCollectiblesTile,
-} from './CollectiblesTile';
+} from './EmptyCollectiblesTile';
+import { handleCollectiblesModal } from '../../state/actions-modals';
 import { store } from '../../state/store';
+import '../../views/styles/Profile.css';
+import '../styles/Feed.css';
 
 class Collectibles extends Component {
   constructor(props) {
@@ -80,77 +82,86 @@ class Collectibles extends Component {
   }
 
   render() {
-    const { collection, collectiblesGallery } = this.props;
+    const { collection, collectiblesGallery, showCollectiblesModal, selectedCollectible } = this.props;
 
     return (
-      <div id="feed" className="collectibles__wrapper">
-        <p className="header" id="feed__header">Gallery</p>
-        <div className="collectibles__grid">
-          {collectiblesGallery.length > 0
-            ? collectiblesGallery.map(collectible => (
-              <CollectiblesTile
-                addToGallery={this.addToGallery}
-                collectible={collectible}
-                image={collectible.image_preview_url}
-                description={collectible.asset_contract && collectible.asset_contract.name}
-                tokenId={collectible.token_id}
-                name={collectible.name}
-                bgStyle={collectible.background_color}
-                padded={collectible.asset_contract
-                  && collectible.asset_contract.display_data
-                  && collectible.asset_contract.display_data.card_display_style}
-                key={`${collectible.asset_contract.address}-${collectible.token_id}`}
-                id={`${collectible.asset_contract.address}-${collectible.token_id}`}
-                favorite
-              />
-            ))
-            : <EmptyGalleryCollectiblesTile />}
-        </div>
-        <p className="header" id="feed__header">Collectibles</p>
-        <div className="collectibles__grid">
-          {collection.length > 0
-            ? collection.map(collectible => (
-              <CollectiblesTile
-                addToGallery={this.addToGallery}
-                collectible={collectible}
-                image={collectible.image_preview_url}
-                description={collectible.asset_contract && collectible.asset_contract.name}
-                tokenId={collectible.token_id}
-                name={collectible.name}
-                bgStyle={collectible.background_color}
-                padded={collectible.asset_contract
-                  && collectible.asset_contract.display_data
-                  && collectible.asset_contract.display_data.card_display_style}
-                key={`${collectible.asset_contract.address}-${collectible.token_id}`}
-                id={`${collectible.asset_contract.address}-${collectible.token_id}`}
-              />
-            ))
-            : <EmptyCollectiblesTile />}
-        </div>
+      <React.Fragment>
+        <CollectiblesModal show={showCollectiblesModal} handleCollectiblesModal={this.props.handleCollectiblesModal} selectedCollectible={selectedCollectible} />
+        <div id="feed" className="collectibles__wrapper">
+          <p className="header" id="feed__header">Gallery</p>
+          <div className="collectibles__grid">
+            {collectiblesGallery.length > 0
+              ? collectiblesGallery.map(collectible => (
+                <CollectiblesTile
+                  addToGallery={this.addToGallery}
+                  collectible={collectible}
+                  image={collectible.image_preview_url}
+                  description={collectible.asset_contract && collectible.asset_contract.name}
+                  tokenId={collectible.token_id}
+                  name={collectible.name}
+                  bgStyle={collectible.background_color}
+                  padded={collectible.asset_contract
+                    && collectible.asset_contract.display_data
+                    && collectible.asset_contract.display_data.card_display_style}
+                  key={`${collectible.asset_contract.address}-${collectible.token_id}`}
+                  id={`${collectible.asset_contract.address}-${collectible.token_id}`}
+                  favorite
+                />
+              ))
+              : <EmptyGalleryCollectiblesTile />}
+          </div>
+          <p className="header" id="feed__header">Collectibles</p>
+          <div className="collectibles__grid">
+            {collection.length > 0
+              ? collection.map(collectible => (
+                <CollectiblesTile
+                  addToGallery={this.addToGallery}
+                  collectible={collectible}
+                  image={collectible.image_preview_url}
+                  description={collectible.asset_contract && collectible.asset_contract.name}
+                  tokenId={collectible.token_id}
+                  name={collectible.name}
+                  bgStyle={collectible.background_color}
+                  padded={collectible.asset_contract
+                    && collectible.asset_contract.display_data
+                    && collectible.asset_contract.display_data.card_display_style}
+                  key={`${collectible.asset_contract.address}-${collectible.token_id}`}
+                  id={`${collectible.asset_contract.address}-${collectible.token_id}`}
+                />
+              ))
+              : <EmptyCollectiblesTile />}
+          </div>
 
-      </div>
+        </div>
+      </React.Fragment>
     );
   }
 }
 
 Collectibles.propTypes = {
   box: PropTypes.object,
+  selectedCollectible: PropTypes.object,
   collection: PropTypes.array,
   collectiblesGallery: PropTypes.array,
+  handleCollectiblesModal: PropTypes.func.isRequired,
+  showCollectiblesModal: PropTypes.bool.isRequired,
 };
 
 Collectibles.defaultProps = {
   box: {},
   collection: [],
   collectiblesGallery: [],
+  selectedCollectible: {},
 };
 
 function mapState(state) {
   return {
     box: state.threeBox.box,
+    selectedCollectible: state.threeBox.selectedCollectible,
     collection: state.threeBox.collection,
     collectiblesGallery: state.threeBox.collectiblesGallery,
+    showCollectiblesModal: state.threeBox.showCollectiblesModal,
   };
 }
 
-export default withRouter(connect(mapState)(Collectibles));
+export default withRouter(connect(mapState, { handleCollectiblesModal })(Collectibles));

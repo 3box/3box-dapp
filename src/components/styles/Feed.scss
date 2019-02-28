@@ -147,6 +147,19 @@
   }
 }
 
+.gallery {
+  max-width: calc(694px + 20px) !important;
+  min-width: calc(694px + 20px) !important;
+  left: calc(50vw - 350px);
+  margin-top: 18px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 60px;
+  justify-content: space-between;
+  margin-left: 13px;
+}
+
 .profile__details {
   padding: 0 !important;
   max-width: calc(694px + 2.6em) !important;

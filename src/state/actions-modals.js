@@ -24,6 +24,14 @@ export const closeErrorModal = () => async (dispatch) => {
   });
 };
 
+export const handleCollectiblesModal = collectible => async (dispatch) => {
+  dispatch({
+    type: 'HANDLE_COLLECTIBLES_MODAL',
+    showCollectiblesModal: !store.getState().threeBox.showCollectiblesModal,
+    selectedCollectible: collectible,
+  });
+};
+
 export const handleSignInModal = () => async (dispatch) => {
   dispatch({
     type: 'HANDLE_SIGNIN_MODAL',

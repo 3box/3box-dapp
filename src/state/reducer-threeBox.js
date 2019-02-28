@@ -97,6 +97,7 @@ export const threeBoxReducer = (state = {}, action) => {
         publicName: action.publicName,
         publicEmoji: action.publicEmoji,
         publicStatus: action.publicStatus,
+        publicCollectiblesGallery: action.publicCollectiblesGallery,
       };
 
     case 'GET_PUBLIC_PROFILE_ACTIVITY':
@@ -438,6 +439,13 @@ export const threeBoxReducer = (state = {}, action) => {
         ...state,
         allowAccessModal: action.allowAccessModal,
         directLogin: action.directLogin,
+      };
+
+    case 'HANDLE_COLLECTIBLES_MODAL':
+      return {
+        ...state,
+        showCollectiblesModal: action.showCollectiblesModal,
+        selectedCollectible: action.selectedCollectible,
       };
 
     case 'HANDLE_DENIED_ACCESS_MODAL':

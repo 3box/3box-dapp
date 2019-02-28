@@ -73,6 +73,99 @@
   .modal h3 {
     margin-bottom: 14px; }
 
+.collectiblesModal {
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; }
+
+.collectiblesMiniModal {
+  padding: 30px 25px !important;
+  width: 470px !important;
+  height: 100px !important;
+  min-height: 100px !important;
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  position: relative; }
+
+.collectiblesTileModal {
+  padding: 0;
+  width: 520px;
+  height: 520px;
+  position: relative;
+  overflow: visible; }
+
+.modal__collectibles__image__wrapper {
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  width: 100%; }
+  .modal__collectibles__image__wrapper button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 5; }
+  .modal__collectibles__image__wrapper h4 {
+    text-align: center;
+    width: 60%;
+    color: #747677; }
+
+.modal__collectibles__image {
+  height: 100%;
+  width: auto !important; }
+
+.padded {
+  height: 75% !important; }
+
+.modal__collectibles__info {
+  border-top: 1px solid #E4E4E4;
+  height: calc(20% - 25px);
+  padding: 15px 0 20px 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column; }
+  .modal__collectibles__info h3 {
+    margin-bottom: 7px; }
+  .modal__collectibles__info p {
+    color: #b1b1b1; }
+
+.modal__collectibles__opensea {
+  width: 120px !important;
+  height: auto;
+  position: absolute;
+  bottom: 15px;
+  right: 15px; }
+
+.collectiblesClose {
+  position: absolute;
+  top: -30px;
+  right: 0px;
+  padding: 0;
+  border: none;
+  z-index: 20;
+  transition: all .3s; }
+  .collectiblesClose:hover {
+    background-color: transparent;
+    border: none;
+    color: #c2c2c2; }
+
+.modal__collectibles__traits {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; }
+  .modal__collectibles__traits p {
+    background-color: pink;
+    padding: 4px 8px;
+    margin-right: 10px; }
+
 .modal--sync {
   background: #1168df;
   border-radius: 6px;

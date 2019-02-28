@@ -23,6 +23,7 @@ import MetaMaskWallet from '../assets/MetaMaskWallet.png';
 import LogOut from '../assets/LogOut.svg';
 import Loading from '../assets/Loading.svg';
 import LoadingWhite from '../assets/LoadingWhite.svg';
+import OpenSea from '../assets/OpenSea.png';
 import './styles/Modal.css';
 
 export const SwitchedNetworksModal = ({
@@ -107,6 +108,61 @@ LoggedOutModal.propTypes = {
   handleLoggedOutModal: PropTypes.func.isRequired,
   handleSignOut: PropTypes.func.isRequired,
   show: PropTypes.bool.isRequired,
+};
+
+export const CollectiblesModal = ({
+  show,
+  handleCollectiblesModal,
+  selectedCollectible,
+}) => (
+    <div>
+      <div className={`${show ? 'showModal' : ''} modal__container modal--effect collectiblesModal`}>
+        <div className="modal collectiblesTileModal">
+          <button onClick={handleCollectiblesModal} type="button" className="tertiaryButton collectiblesClose">Close</button>
+          <div
+            className="modal__collectibles__image__wrapper"
+            style={{ backgroundColor: `#${selectedCollectible.background_color}` }}
+          >
+            <img
+              className={`modal__collectibles__image ${selectedCollectible.asset_contract
+                && selectedCollectible.asset_contract.display_data
+                && selectedCollectible.asset_contract.display_data.card_display_style === 'padded' && 'padded'}`}
+              src={selectedCollectible.image_preview_url}
+              alt="Collectible"
+            />
+          </div>
+
+          <div className="modal__collectibles__info">
+            <h3>{selectedCollectible.name}</h3>
+            <p>{`${selectedCollectible.asset_contract && selectedCollectible.asset_contract.name} ${selectedCollectible.token_id}`}</p>
+          </div>
+        </div>
+        <div className="modal collectiblesMiniModal">
+          <p>{selectedCollectible.description}</p>
+          {/* <p>{selectedCollectible.asset_contract && selectedCollectible.asset_contract.description}</p> */}
+          <div className="modal__collectibles__traits">
+            {selectedCollectible.traits && selectedCollectible.traits.length > 0 &&
+              selectedCollectible.traits.map((trait, i) => (
+                <p key={i}>{trait.value}</p>
+              ))}
+          </div>
+          <a href="https://opensea.io/">
+            <img src={OpenSea} alt="OpenSea.io" className="modal__collectibles__opensea" />
+          </a>
+        </div>
+      </div>
+      <div className="modal__overlay" />
+    </div>
+  );
+
+CollectiblesModal.propTypes = {
+  show: PropTypes.bool.isRequired,
+  handleCollectiblesModal: PropTypes.func.isRequired,
+  selectedCollectible: PropTypes.object
+};
+
+CollectiblesModal.defaultProps = {
+  selectedCollectible: {},
 };
 
 export const SwitchedAddressModal = ({
