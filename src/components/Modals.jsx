@@ -9,6 +9,7 @@ import ThreeBoxLogoWhite from '../assets/ThreeBoxLogoWhite.svg';
 import ThreeBoxLogoBlue from '../assets/ThreeBoxLogoBlue.svg';
 import GithubIcon from '../assets/GithubIcon.svg';
 import TwitterIcon from '../assets/twitterGrey.svg';
+import Email from '../assets/Email.svg';
 import TrustWallet from '../assets/TrustWallet.png';
 import Consent from '../assets/Consent.png';
 import Access from '../assets/Access.png';
@@ -330,7 +331,7 @@ export const GithubVerificationModal = ({
                     Copy your unique key below.
                   </p>
                 </div>
-                <p className="modal__github__description__copy__input" id="muportDID">{did}</p>
+                <p className="modal__github__description__copy__input blueFont" id="muportDID">{did}</p>
               </div>
 
               <button type="button" id="clickToCopy" onClick={() => copyToClipBoard('did', message)}>
@@ -354,7 +355,7 @@ export const GithubVerificationModal = ({
                     Check if your Github account was successfully verified below!
                   </p>
                 </div>
-                <p className="modal__github__description__copy__input--github">
+                <p className="modal__github__description__copy__input--github blueFont">
                   {isGithubVerified
                     ? 'Your Github is verified!'
                     : githubVerifiedFailed
@@ -467,7 +468,7 @@ export const TwitterVerificationModal = ({
                     Tweet a unique key from the account you want to connect
                   </p>
                 </div>
-                <p className="modal__github__description__copy__input" id="muportDID">{did}</p>
+                <p className="modal__github__description__copy__input blueFont" id="muportDID">{did}</p>
               </div>
               <a href={`https://twitter.com/intent/tweet?text=${message}`} target="_blank" rel="noopener noreferrer" className="modal__github__description__copy__tweet">
                 Tweet this
@@ -482,7 +483,7 @@ export const TwitterVerificationModal = ({
                     Check if your Twitter account was successfully verified below!
                   </p>
                 </div>
-                <p className="modal__github__description__copy__input--github">
+                <p className="modal__github__description__copy__input--github blueFont">
                   {isTwitterVerified
                     ? 'Your Twitter is verified!'
                     : twitterVerifiedFailed
@@ -545,6 +546,7 @@ TwitterVerificationModal.propTypes = {
 TwitterVerificationModal.defaultProps = {
   did: '',
 };
+
 export const EmailVerificationModal = ({
   show,
   handleEmailVerificationModal,
@@ -557,6 +559,10 @@ export const EmailVerificationModal = ({
   sendVerificationEmail,
   emailVerificationMessage,
   isEmailSending,
+  emailVerificationErrMsg,
+  disableSendVerificationEmail,
+  handleFormChange,
+  emailCode,
 }) => (
     <div>
       <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
@@ -565,7 +571,7 @@ export const EmailVerificationModal = ({
           <div className="modal__github__description">
             <div className="modal__github__description__copy">
               <div className="modal__github__description__copy__header">
-                <img src={TwitterIcon} className="modal__github__description__githubIcon" alt="Github icon" />
+                <img src={Email} className="modal__github__description__githubIcon" alt="Github icon" />
                 <h2>Verify your Email Address</h2>
               </div>
               <p className="modal__github__description__copy__text">
@@ -589,53 +595,62 @@ export const EmailVerificationModal = ({
             <div className="modal__twitter__steps__step">
               <div>
                 <div className="modal__twitter__steps__instructions">
-                  <div className="modal__github__steps__number">1</div>
+                  <div className="modal__github__steps__wrapper">
+                    <div className="modal__github__steps__number">1</div>
+                    <h3>Send code</h3>
+                  </div>
                   <p className="modal__github__steps__text">
                     Send a verification code to your email address.
-                    <br />
-                    You may skip this step if you already have a verification code.
                   </p>
                 </div>
               </div>
               <div className="modal__email__button">
-                <button onClick={() => sendVerificationEmail(did)} className="modal__github__description__copy__tweet" type="button">
-                  Send verification email
+                <button disabled={disableSendVerificationEmail} onClick={() => sendVerificationEmail(did)} className={`modal__github__description__copy__tweet ${isEmailSending && 'loadingPadding'} ${emailVerificationMessage && 'darker'}`} type="button">
+                  {(!emailVerificationMessage && !isEmailSending) ? 'Send code' : emailVerificationMessage}
+                  {isEmailSending && <img src={LoadingWhite} alt="Loading" className="modal__loadingGraphic--email" />}
                 </button>
-                {emailVerificationMessage && <p>{emailVerificationMessage}</p>}
-                {isEmailSending && <img src={Loading} alt="Loading" className="modal__loadingGraphic--email" />}
               </div>
             </div>
 
             <div className="modal__twitter__steps__step">
               <div className="modal__twitter__steps__step--wrapper">
                 <div className="modal____steps__instructions">
-                  <div className="modal__github__steps__number">2</div>
+                  <div className="modal__github__steps__wrapper">
+                    <div className="modal__github__steps__number">2</div>
+                    <h3>Verify code</h3>
+                  </div>
                   <p className="modal__github__steps__text">
                     Verify your email address by entering the code you received below.
                   </p>
                 </div>
                 <input
-                  placeholder="Enter your verification code here"
-                  className="modal__github__description__copy__input--email"
+                  placeholder="Enter code"
+                  className={`modal__github__description__copy__input--email ${emailVerificationErrMsg && 'noBottomMargin'}`}
                   type="text"
-                  id="emailCode" />
-                <p className="modal__github__description__copy__input--github">
-                  {isEmailVerified
-                    ? 'Your Email is verified!'
-                    : emailVerifiedFailed
-                      ? 'Verification failed'
-                      : verificationLoading
-                        ? (
-                          <img src={Loading} alt="Loading" id="modal__loadingGraphic--noMargin" />
-                        )
-                        : 'Email not yet verified'}
-                </p>
+                  id="emailCode"
+                  onChange={e => handleFormChange(e, 'emailCode')}
+                  value={emailCode}
+                />
+                {emailVerificationErrMsg && (
+                  <p className="modal__email__error">
+                    {emailVerificationErrMsg}
+                  </p>
+                )}
               </div>
               <button
                 type="button"
-                onClick={() => verifyEmail(document.getElementById('emailCode').value)}
+                onClick={() => verifyEmail()}
+                className={`modal__github__description__copy__tweet ${verificationLoading && 'loadingPadding'} ${(emailVerifiedFailed || isEmailVerified) && 'darker'}`}
               >
-                Verify
+                {isEmailVerified
+                  ? 'Verified!'
+                  : emailVerifiedFailed
+                    ? 'Failed'
+                    : verificationLoading
+                      ? (
+                        <img src={LoadingWhite} alt="Loading" className="modal__loadingGraphic--email" />
+                      )
+                      : 'Verify'}
               </button>
             </div>
           </div>
@@ -668,19 +683,21 @@ export const EmailVerificationModal = ({
   );
 
 EmailVerificationModal.propTypes = {
-  did: PropTypes.string,
+  did: PropTypes.string.isRequired,
+  emailVerificationMessage: PropTypes.string.isRequired,
   show: PropTypes.bool.isRequired,
+  isEmailSending: PropTypes.bool.isRequired,
   handleEmailVerificationModal: PropTypes.func.isRequired,
-  message: PropTypes.string.isRequired,
   verifyEmail: PropTypes.func.isRequired,
   resetVerification: PropTypes.func.isRequired,
+  sendVerificationEmail: PropTypes.func.isRequired,
   isEmailVerified: PropTypes.bool.isRequired,
   emailVerifiedFailed: PropTypes.bool.isRequired,
   verificationLoading: PropTypes.bool.isRequired,
-};
-
-EmailVerificationModal.defaultProps = {
-  did: '',
+  emailVerificationErrMsg: PropTypes.string.isRequired,
+  disableSendVerificationEmail: PropTypes.bool.isRequired,
+  handleFormChange: PropTypes.func.isRequired,
+  emailCode: PropTypes.string.isRequired,
 };
 
 export const AccessDeniedModal = ({

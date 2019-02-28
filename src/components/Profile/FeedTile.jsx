@@ -11,8 +11,6 @@ import Tokens from '../../assets/Tokens.svg';
 import '../styles/Feed.css';
 import networkArray from '../../utils/networkArray';
 import '../styles/NetworkArray.css';
-// import Send from '../../assets/Send.svg';
-// import Receive from '../../assets/Receive.svg';
 
 export const FeedTileActivity = ({ item, verifiedGithub, verifiedTwitter, verifiedEmail }) => (
   <div className="feed__activity">
@@ -31,7 +29,10 @@ export const FeedTileActivity = ({ item, verifiedGithub, verifiedTwitter, verifi
                 ? (item.key).replace(/([A-Z])/g, ' $1').trim().toLowerCase()
                 : ''} 
             `}
-            {item.op === 'PUT' ? 'to' : ''}
+            {(item.op === 'PUT' && item.key === 'proof_email' && verifiedEmail) ? 'to' : ''}
+            {(item.op === 'PUT' && item.key === 'proof_twitter' && verifiedTwitter) ? 'to' : ''}
+            {(item.op === 'PUT' && item.key === 'proof_github' && verifiedGithub) ? 'to' : ''}
+            {(item.op === 'PUT' && item.key !== 'proof_github' && item.key !== 'proof_twitter' && item.key !== 'proof_email') ? 'to' : ''}
           </span>
 
           {item.op === 'PUT' ? (

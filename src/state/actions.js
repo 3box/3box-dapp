@@ -81,7 +81,7 @@ export const requestAccess = directLogin => async (dispatch) => {
 
       dispatch({
         type: 'UPDATE_ADDRESSES',
-        isSignedIntoWallet: accounts && accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi',
+        isSignedIntoWallet: accounts && (accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi'),
         isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
         accountAddress: accounts[0],
         allowAccessModal: false,
@@ -94,7 +94,7 @@ export const requestAccess = directLogin => async (dispatch) => {
         type: 'HANDLE_DENIED_ACCESS_MODAL',
         accessDeniedModal: true,
         allowAccessModal: false,
-        isSignedIntoWallet: accounts && accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi',
+        isSignedIntoWallet: accounts && (accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi'),
       });
     }
   } else if (window.web3) { // eslint-disable-line no-undef
@@ -105,7 +105,7 @@ export const requestAccess = directLogin => async (dispatch) => {
 
     dispatch({
       type: 'UPDATE_ADDRESSES',
-      isSignedIntoWallet: accounts && accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi',
+      isSignedIntoWallet: accounts && (accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi'),
       isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
       currentAddress: accounts[0],
     });
@@ -294,7 +294,17 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
     });
 
     // get activity from the profile page's address
-    const activity = await ThreeBoxActivity.get(publicProfileAddress || store.getState().threeBox.currentAddress); // eslint-disable-line no-undef
+    let activity;
+    if (store.getState().threeBox.currentNetwork) {
+      activity = await ThreeBoxActivity.get( // eslint-disable-line no-undef
+        publicProfileAddress || store.getState().threeBox.currentAddress,
+        store.getState().threeBox.currentNetwork.toLowerCase(),
+      );
+    } else {
+      activity = await ThreeBoxActivity.get( // eslint-disable-line no-undef
+        publicProfileAddress || store.getState().threeBox.currentAddress,
+      );
+    }
 
     // add datatype to each row
     const categorizedActivity = addDataType(activity);
@@ -402,65 +412,73 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
 
       if (!checkedAddresses[otherAddress]) {
         checkedAddresses[otherAddress] = true;
-        web3.eth.getCode(otherAddress, (err, code) => { // eslint-disable-line no-undef
-          if (err) {
-            console.error(err);
-            addressData[otherAddress] = false;
-            counter += 1;
-            if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
-          }
-
-          if (code !== '0x' && typeof code !== 'undefined') { // then address is contract
-            isContract[otherAddress] = true;
-            getContract(otherAddress)
-              .then((data) => {
-                if (data.status === '1') {
-                  contractData = JSON.parse(data.result);
-                  contractArray = imageElFor(otherAddress);
-                  addressData[otherAddress] = {
-                    contractImg: contractArray[0],
-                    contractDetails: contractArray[1],
-                    contractData,
-                  };
-                  counter += 1;
-                } else {
-                  addressData[otherAddress] = false;
-                  counter += 1;
-                }
-                if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
-              })
-              .catch((err) => {
-                // console.log('Fetch Error :-S', err);
-                addressData[otherAddress] = false;
-                counter += 1;
-                if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
-              });
-          } else { // look for 3box metadata
-            const graphqlQueryObject = `
-              {
-                profile(id: "${otherAddress}") {
-                  name
-                  image
-                }
-              }
-              `;
-            getPublicProfile(graphqlQueryObject).then((profile) => {
-              metaData = profile;
-              name = metaData && metaData.profile && metaData.profile.name;
-              image = metaData && metaData.profile && metaData.profile.image;
-              addressData[otherAddress] = {
-                name,
-                image,
-              };
-              counter += 1;
-              if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
-            }).catch((error) => {
+        try {
+          web3.eth.getCode(otherAddress, (err, code) => { // eslint-disable-line no-undef
+            if (err) {
               addressData[otherAddress] = false;
               counter += 1;
               if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
-            });
-          }
-        });
+              return console.error(err);
+            }
+
+            if (code !== '0x' && typeof code !== 'undefined') { // then address is contract
+              isContract[otherAddress] = true;
+              getContract(otherAddress)
+                .then((data) => {
+                  if (data.status === '1') {
+                    contractData = JSON.parse(data.result);
+                    contractArray = imageElFor(otherAddress);
+                    addressData[otherAddress] = {
+                      contractImg: contractArray[0],
+                      contractDetails: contractArray[1],
+                      contractData,
+                    };
+                    counter += 1;
+                  } else {
+                    addressData[otherAddress] = false;
+                    counter += 1;
+                  }
+                  if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
+                })
+                .catch((error) => {
+                  addressData[otherAddress] = false;
+                  counter += 1;
+                  if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
+                  return console.log(error);
+                });
+            } else { // look for 3box metadata
+              const graphqlQueryObject = `
+                {
+                  profile(id: "${otherAddress}") {
+                    name
+                    image
+                  }
+                }
+                `;
+              getPublicProfile(graphqlQueryObject).then((profile) => {
+                metaData = profile;
+                name = metaData && metaData.profile && metaData.profile.name;
+                image = metaData && metaData.profile && metaData.profile.image;
+                addressData[otherAddress] = {
+                  name,
+                  image,
+                };
+                counter += 1;
+                if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
+              }).catch((error) => {
+                addressData[otherAddress] = false;
+                counter += 1;
+                if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
+                return console.error(error);
+              });
+            }
+          });
+        } catch (err) {
+          console.error(err);
+          addressData[otherAddress] = false;
+          counter += 1;
+          if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
+        }
       } else {
         counter += 1;
         if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);

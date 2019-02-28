@@ -4,7 +4,8 @@
   "description": "3box dapp",
   "private": true,
   "dependencies": {
-    "3box": "^1.4.0-beta.1",
+    "3box": "^1.4.0",
+    "3box-activity": "0.0.9",
     "@babel/polyfill": "^7.0.0",
     "abi-decoder": "^1.2.0",
     "babel-preset-env": "^1.7.0",

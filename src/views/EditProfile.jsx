@@ -56,6 +56,8 @@ class EditProfile extends Component {
       year: '',
       employer: '',
       emailVerificationMessage: '',
+      emailVerificationErrMsg: '',
+      emailCode: '',
       disableSave: true,
       saveLoading: false,
       removeUserPic: false,
@@ -73,8 +75,11 @@ class EditProfile extends Component {
       githubEdited: false,
       twitterEdited: false,
       showEmoji: false,
+      isEmailVerified: false,
+      emailVerifiedFailed: false,
       savedGithub: false,
       savedTwitter: false,
+      disableSendVerificationEmail: false,
       editedArray: [],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -170,6 +175,7 @@ class EditProfile extends Component {
 
     this.setState({ [property]: e.target.value },
       () => {
+        if (property === 'emailCode') return;
         if (property === 'verifiedGithub') {
           if (this.state.verifiedGithub === '') {
             this.setState({ githubEdited: false });
@@ -442,20 +448,20 @@ class EditProfile extends Component {
 
     this.setState({ isEmailSending: true });
 
-    fetch('https://verifications-dev.3box.io/send-email-verification', {
+    fetch('https://verifications.3box.io/send-email-verification', {
       method: 'POST',
       body: JSON.stringify(payload),
     }).then(res => res.json())
       .then((json) => {
-        this.setState({ emailVerificationMessage: 'Sent!', isEmailSending: false });
+        this.setState({ emailVerificationMessage: 'Sent!', isEmailSending: false, disableSendVerificationEmail: true });
       })
       .catch((err) => {
         this.setState({ emailVerificationMessage: err.response, isEmailSending: false });
       });
   }
 
-  verifyEmail = (emailCode) => {
-    const { editedArray } = this.state;
+  verifyEmail = () => {
+    const { editedArray, emailCode } = this.state;
     const { box, did } = this.props;
     const updatedEditedArray = editedArray;
     const codeAsNumber = parseInt(emailCode, 10);
@@ -471,7 +477,7 @@ class EditProfile extends Component {
     };
 
     box._3id.signJWT(payload).then((jwt) => {
-      fetch('https://verifications-dev.3box.io/email-verify', {
+      fetch('https://verifications.3box.io/email-verify', {
         method: 'POST',
         body: JSON.stringify({
           verification: jwt,
@@ -479,14 +485,8 @@ class EditProfile extends Component {
       })
         .then((response) => {
           const data = response.json();
-          console.log(response);
           if (response.ok) return data;
-
-          this.setState({
-            verificationLoading: false,
-            emailVerifiedFailed: true,
-          });
-          throw new Error('Verification failed');
+          throw data;
         })
         .then(claim => box.verified.addEmail(claim.data.verification))
         .then((verifiedEmail) => {
@@ -499,6 +499,7 @@ class EditProfile extends Component {
               editedArray: updatedEditedArray,
               disableSave: false,
               savedEmail: true,
+              emailVerificationErrMsg: '',
             });
             store.dispatch({
               type: 'GET_VERIFIED_PRIVATE_EMAIL',
@@ -508,12 +509,14 @@ class EditProfile extends Component {
             throw new Error('Verification failed');
           }
         })
-        .catch((err) => {
-          this.setState({
-            verificationLoading: false,
-            emailVerifiedFailed: true,
+        .catch((data) => {
+          data.then((error) => {
+            this.setState({
+              verificationLoading: false,
+              emailVerifiedFailed: true,
+              emailVerificationErrMsg: error.message,
+            });
           });
-          console.log(err);
         });
     });
   }
@@ -560,7 +563,10 @@ class EditProfile extends Component {
         emailEdited: false,
         isEmailVerified: false,
         verifiedEmail: '',
+        disableSendVerificationEmail: false,
         emailVerificationMessage: '',
+        emailVerificationErrMsg: '',
+        emailCode: '',
       });
       store.dispatch({
         type: 'GET_VERIFIED_PRIVATE_EMAIL',
@@ -725,8 +731,6 @@ class EditProfile extends Component {
     const {
       verifiedGithub,
       verifiedTwitter,
-      verifiedEmail,
-      email,
       name,
       description,
       location,
@@ -747,10 +751,8 @@ class EditProfile extends Component {
       showEmoji,
       isGithubVerified,
       isTwitterVerified,
-      isEmailVerified,
       githubVerifiedFailed,
       twitterVerifiedFailed,
-      emailVerifiedFailed,
       githubEdited,
       twitterEdited,
       emailEdited,
@@ -760,6 +762,12 @@ class EditProfile extends Component {
       verificationLoading,
       emailVerificationMessage,
       isEmailSending,
+      disableSendVerificationEmail,
+      isEmailVerified,
+      emailVerifiedFailed,
+      verifiedEmail,
+      emailVerificationErrMsg,
+      emailCode,
     } = this.state;
 
     const message = (`3Box is a social profiles network for web3. This post links my 3Box profile to my Github account!
@@ -823,11 +831,15 @@ class EditProfile extends Component {
           verifyEmail={this.verifyEmail}
           did={did}
           sendVerificationEmail={this.sendVerificationEmail}
+          handleFormChange={this.handleFormChange}
           emailVerificationMessage={emailVerificationMessage}
+          emailCode={emailCode}
           isEmailVerified={isEmailVerified}
           verificationLoading={verificationLoading}
           emailVerifiedFailed={emailVerifiedFailed}
           isEmailSending={isEmailSending}
+          emailVerificationErrMsg={emailVerificationErrMsg}
+          disableSendVerificationEmail={disableSendVerificationEmail}
           resetVerification={this.resetVerification}
           handleEmailVerificationModal={this.props.handleEmailVerificationModal}
         />
@@ -1000,7 +1012,7 @@ class EditProfile extends Component {
                               </span>
                             )
                             : (
-                              <span className="edit__profile__value--spirit__character" role="img">
+                              <span className="edit__profile__value--spirit__character" role="img" aria-label="unicorn">
                                 🦄
                               </span>
                             )
@@ -1314,7 +1326,7 @@ class EditProfile extends Component {
               <div className="edit__profile__info">
                 <div className="edit__profile__categories extraMargin">
                   <h3 className="noMargin">Contact</h3>
-                  <p>Confirm your email to add trusted contact information to your account. This will remain private unless you choose to share it with third-party services.</p>
+                  <p>Confirm your email to add trusted contact information to your account.</p>
                 </div>
                 <div id="edit__profile__fields">
                   <div id="edit__info">
@@ -1586,11 +1598,10 @@ EditProfile.propTypes = {
 
 EditProfile.defaultProps = {
   box: {},
-  verifiedEmail: {},
+  verifiedEmail: '',
   name: '',
   verifiedGithub: '',
   verifiedTwitter: '',
-  verifiedEmail: '',
   did: '',
   description: '',
   location: '',

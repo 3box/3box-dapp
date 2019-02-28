@@ -557,6 +557,11 @@
     display: block;
   }
 
+
+  .rightBorder {
+    border-right: 1px solid $borderColor !important;
+  }
+
   .feed__activity__tile {
     width: 100%;
     padding: 18px 0;

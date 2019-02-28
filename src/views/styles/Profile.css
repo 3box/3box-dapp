@@ -274,7 +274,9 @@
     color: #1168df; }
 
 .profile__category__field--private {
-  width: 226px !important; }
+  width: fit-content !important;
+  display: flex !important;
+  padding-right: 8px; }
 
 #profile__user__name {
   font-size: 1.4em;

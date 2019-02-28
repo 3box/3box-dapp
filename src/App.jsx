@@ -192,7 +192,7 @@ class App extends Component {
   async handleSignInUp() {
     if (typeof window.web3 !== 'undefined') {
       await this.props.checkWeb3Wallet();
-      await this.props.requestAccess(); // this is not working for cb
+      await this.props.requestAccess();
       await this.props.checkNetwork();
 
       if (this.props.isSignedIntoWallet) {
