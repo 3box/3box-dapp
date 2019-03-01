@@ -158,7 +158,7 @@ class App extends Component {
     this.props.getProfileData('public', 'major');
     this.props.getProfileData('public', 'year');
     this.props.getProfileData('public', 'emoji');
-    this.props.getProfileData('public', 'collectiblesGallery');
+    this.props.getProfileData('public', 'collectiblesFavorites');
     this.props.getProfileData('private', 'email');
     this.props.getProfileData('private', 'birthday');
     this.props.getCollectibles(currentAddress);

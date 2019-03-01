@@ -529,7 +529,7 @@ export const getProfile = profileAddress => async (dispatch) => {
       publicName: publicProfile.name,
       publicEmoji: publicProfile.emoji,
       publicStatus: publicProfile.status,
-      publicCollectiblesGallery: publicProfile.collectiblesGallery,
+      publicCollectiblesGallery: publicProfile.collectiblesFavorites,
     });
 
     dispatch({
@@ -570,7 +570,7 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
         publicCollectiblesGallery: collection,
       });
     } else {
-      const favorites = store.getState().threeBox.collectiblesGallery;
+      const favorites = store.getState().threeBox.collectiblesFavorites;
 
       if (favorites && favorites.length > 0) {
         for (let i = collection.length - 1; i >= 0; i -= 1) {

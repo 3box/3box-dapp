@@ -10,6 +10,28 @@
   cursor: pointer;
 }
 
+.emptyCollectiblesTile {
+  border: 2px solid $borderColor;
+  border-radius: 6px;
+  height: 300px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all .3s;
+
+  h4 {
+    width: 70%;
+    color: $lightestFont;
+    text-align: center;
+  }
+
+  &:hover {
+    background-color: #f3f3f3;
+  }
+}
+
 .collectibles__image__wrapper {
   height: 70%;
   display: flex;
@@ -22,7 +44,6 @@
     position: absolute;
     top: 15px;
     right: 15px;
-    z-index: 5;
   }
 
   h4 {
@@ -85,9 +106,11 @@
 .collectibles__grid {
   display: inline-grid;
   grid-template-columns: repeat(3, 33.333333333% [col-start]);
-  width: 714px;
-  max-width: 714px;
+  width: 684px;
+  max-width: 684px;
   margin-bottom: 26px;
+  column-gap: 15px;
+  row-gap: 20px;
 }
 
 @media only screen and (max-width: 1278px) {

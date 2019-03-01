@@ -24,11 +24,12 @@ export const closeErrorModal = () => async (dispatch) => {
   });
 };
 
-export const handleCollectiblesModal = collectible => async (dispatch) => {
+export const handleCollectiblesModal = (selectedCollectible, isFavorite) => async (dispatch) => {
   dispatch({
     type: 'HANDLE_COLLECTIBLES_MODAL',
     showCollectiblesModal: !store.getState().threeBox.showCollectiblesModal,
-    selectedCollectible: collectible,
+    selectedCollectible,
+    isFavorite,
   });
 };
 

@@ -7,6 +7,23 @@
   box-shadow: 0 7px 14px 0 rgba(59, 65, 94, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
   cursor: pointer; }
 
+.emptyCollectiblesTile {
+  border: 2px solid #E4E4E4;
+  border-radius: 6px;
+  height: 300px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all .3s; }
+  .emptyCollectiblesTile h4 {
+    width: 70%;
+    color: #b1b1b1;
+    text-align: center; }
+  .emptyCollectiblesTile:hover {
+    background-color: #f3f3f3; }
+
 .collectibles__image__wrapper {
   height: 70%;
   display: flex;
@@ -17,8 +34,7 @@
   .collectibles__image__wrapper button {
     position: absolute;
     top: 15px;
-    right: 15px;
-    z-index: 5; }
+    right: 15px; }
   .collectibles__image__wrapper h4 {
     text-align: center;
     width: 60%;
@@ -61,9 +77,11 @@
 .collectibles__grid {
   display: inline-grid;
   grid-template-columns: repeat(3, 33.33333% [col-start]);
-  width: 714px;
-  max-width: 714px;
-  margin-bottom: 26px; }
+  width: 684px;
+  max-width: 684px;
+  margin-bottom: 26px;
+  column-gap: 15px;
+  row-gap: 20px; }
 
 @media only screen and (max-width: 1278px) {
   .collectibles__grid {

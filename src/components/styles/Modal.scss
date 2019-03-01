@@ -99,17 +99,33 @@
 }
 
 .collectiblesMiniModal {
-  padding: 30px 25px !important;
+  padding: 20px 25px !important;
   width: 470px !important;
   height: 100px !important;
   min-height: 100px !important;
   margin-top: 20px;
-
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-
   position: relative;
+
+  p {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+}
+
+.modalLike {
+  top: 20px !important;
+  right: 20px !important;
+
+  img {
+    width: 40px !important;
+  }
 }
 
 .collectiblesTileModal {
@@ -155,8 +171,15 @@
 .modal__collectibles__info {
   border-top: 1px solid $borderColor;
   height: calc(20% - 25px);
-  padding: 15px 0 20px 0;
   width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.modal__collectibles__info__wrapper {
+  padding: 15px 25px 25px 25px;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
@@ -168,11 +191,12 @@
 
   p {
     color: $lightestFont;
+    font-size: 14px;
   }
 }
 
 .modal__collectibles__opensea {
-  width: 120px !important;
+  width: 80px !important;
   height: auto;
   position: absolute;
   bottom: 15px;
@@ -202,7 +226,8 @@
 
   p {
     background-color: pink;
-    padding: 4px 8px;
+    border-radius: 18px;
+    padding: 4px 10px;
     margin-right: 10px;
   }
 }

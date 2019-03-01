@@ -5,15 +5,8 @@ import '../../views/styles/Profile.css';
 import '../styles/Collectibles.css';
 
 export const EmptyCollectiblesTile = () => (
-  <div className="collectiblesTile">
-    <div
-      className="collectibles__image__wrapper"
-      style={{ backgroundColor: '#efefef' }}
-    >
-      <h4>Add a collectible to your public gallery</h4>
-    </div>
-
-    <div className="collectibles__info" />
+  <div className="emptyCollectiblesTile">
+    <h4>Add a collectible to your public gallery</h4>
   </div>
 );
 
@@ -37,15 +30,8 @@ EmptyCollectiblesTile.defaultProps = {
 };
 
 export const EmptyGalleryCollectiblesTile = () => (
-  <div className="collectiblesTile">
-    <div
-      className="collectibles__image__wrapper"
-      style={{ backgroundColor: '#efefef' }}
-    >
-      <h4>Add a collectible to your public gallery</h4>
-    </div>
-
-    <div className="collectibles__info" />
+  <div className="emptyCollectiblesTile">
+    <h4>Add to favorites</h4>
   </div>
 );
 

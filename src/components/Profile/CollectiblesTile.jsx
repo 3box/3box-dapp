@@ -14,17 +14,16 @@ const CollectiblesTile = ({
   image,
   description,
   name,
-  addToGallery,
+  updateGallery,
   padded,
   bgStyle,
   tokenId,
-  id,
   favorite,
   onPublicProfile,
   handleCollectiblesModal,
   collectible,
 }) => (
-    <div className="collectiblesTile" onClick={() => handleCollectiblesModal(collectible)}>
+    <div className="collectiblesTile" onClick={() => handleCollectiblesModal(collectible, favorite)}>
       <div
         className="collectibles__image__wrapper"
         style={{ backgroundColor: `#${bgStyle}` }}
@@ -39,7 +38,7 @@ const CollectiblesTile = ({
           <button
             type="button"
             className="collectibles__like"
-            onClick={() => addToGallery(id)}
+            onClick={e => updateGallery(e, collectible)}
           >
             <img src={HeartGrey} alt="" className="collectibles__like__heart" />
           </button>
@@ -49,7 +48,7 @@ const CollectiblesTile = ({
           <button
             type="button"
             className="collectibles__like"
-            onClick={() => addToGallery(id, 'remove')}
+            onClick={e => updateGallery(e, collectible, 'remove')}
           >
             &#10005;
           </button>
@@ -66,10 +65,9 @@ const CollectiblesTile = ({
 CollectiblesTile.propTypes = {
   image: PropTypes.string,
   name: PropTypes.string,
-  id: PropTypes.string,
   description: PropTypes.string,
   padded: PropTypes.string,
-  addToGallery: PropTypes.func.isRequired,
+  updateGallery: PropTypes.func.isRequired,
   handleCollectiblesModal: PropTypes.func.isRequired,
   favorite: PropTypes.bool.isRequired,
   onPublicProfile: PropTypes.bool.isRequired,
@@ -83,7 +81,6 @@ CollectiblesTile.defaultProps = {
   name: '',
   description: '',
   padded: '',
-  id: '',
   tokenId: '',
   bgStyle: '',
   collectible: {},

@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import _ from "lodash";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import _ from 'lodash';
 
-import CollectiblesTile from "./CollectiblesTile";
-import { CollectiblesModal } from "../Modals";
-import { EmptyGalleryCollectiblesTile, EmptyCollectiblesTile } from "./EmptyCollectiblesTile";
-import { handleCollectiblesModal } from "../../state/actions-modals";
-import { store } from "../../state/store";
-import "../../views/styles/Profile.css";
-import "../styles/Feed.css";
+import CollectiblesTile from './CollectiblesTile';
+import { CollectiblesModal } from '../Modals';
+import { EmptyGalleryCollectiblesTile, EmptyCollectiblesTile } from './EmptyCollectiblesTile';
+import { handleCollectiblesModal } from '../../state/actions-modals';
+import { store } from '../../state/store';
+import '../../views/styles/Profile.css';
+import '../styles/Feed.css';
 
 class Collectibles extends Component {
   constructor(props) {
@@ -18,76 +18,59 @@ class Collectibles extends Component {
     this.state = {};
   }
 
-  async componentDidMount() {
-    // const { location: { pathname } } = this.props;
-    // const profileAddress = pathname.split('/')[1];
-    // fetch(`https://api.opensea.io/api/v1/assets?owner=${profileAddress}&order_by=current_price&order_direction=asc`)
-    //   .then(response => response.json())
-    //   .then((collection) => {
-    //     this.setState({ collection: collection.assets });
-    //   });
-  }
-
-  // only visible on myprofile
-  addToGallery = (collectibleID, removeFavorite) => {
-    const { box, collection, collectiblesGallery } = this.props;
-    let updatedCollectiblesGallery = collectiblesGallery;
+  updateGallery = (e, selectedCollectible, removeFavorite, fromModal) => {
+    e.stopPropagation();
+    const { box, collection, collectiblesFavorites, isFavorite, showCollectiblesModal } = this.props;
+    const contractAddress = selectedCollectible.asset_contract.address;
+    const tokenId = selectedCollectible.token_id;
+    const updatedCollectiblesFavorites = collectiblesFavorites;
+    const updatedCollection = [];
     let removedCollectible;
-    let updatedCollection = [];
 
-    console.log(updatedCollection);
-
-    const contractAddress = collectibleID.split('-')[0];
-    const tokenId = collectibleID.split('-')[1];
-    const selectedCollectible = !removeFavorite
-      ? collection.filter(
-        collectible => collectible.asset_contract.address === contractAddress
-          && collectible.token_id === tokenId,
-      )[0]
-      : collectiblesGallery.filter(
-        collectible => collectible.asset_contract.address === contractAddress
-          && collectible.token_id === tokenId,
-      )[0];
-
-    // update favorites
     if (!removeFavorite) {
-      if (updatedCollectiblesGallery.length > 2) removedCollectible = updatedCollectiblesGallery.pop();
-      // are we popping the right one?
-      updatedCollectiblesGallery.push(selectedCollectible);
-    } else {
-      updatedCollectiblesGallery = updatedCollectiblesGallery.filter((collectible) => {
-        if (!_.isEqual(collectible, selectedCollectible)) return collectible;
-      });
-    }
-
-    // update collection
-    if (!removeFavorite) {
-      updatedCollection = collection.filter((collectible) => {
-        return collectible.asset_contract.address !== contractAddress && collectible.token_id !== tokenId;
+      if (updatedCollectiblesFavorites.length > 2) removedCollectible = updatedCollectiblesFavorites.pop();
+      updatedCollectiblesFavorites.push(selectedCollectible); // are we popping the right one?
+      collection.forEach((collectible) => {
+        if (collectible.asset_contract.address !== contractAddress
+          || collectible.token_id !== tokenId) {
+          updatedCollection.push(collectible);
+        }
       });
       if (removedCollectible) updatedCollection.push(removedCollectible);
-    } else {
+    } else if (removeFavorite) {
+      collectiblesFavorites.map((favorite, i) => {
+        if (favorite.asset_contract.address === contractAddress
+          && favorite.token_id === tokenId) {
+          updatedCollectiblesFavorites.splice(i, 1);
+        }
+      });
+      collection.forEach(collectible => updatedCollection.push(collectible));
       updatedCollection.push(selectedCollectible);
     }
 
-    console.log(updatedCollection);
-
-    box.public.set('collectiblesGallery', updatedCollectiblesGallery);
+    box.public.set('collectiblesFavorites', updatedCollectiblesFavorites);
     store.dispatch({
       type: 'GET_MY_COLLECTIBLES',
       collection: updatedCollection,
     });
     store.dispatch({
-      type: 'GET_PUBLIC_COLLECTIBLESGALLERY',
-      collectiblesGallery: updatedCollectiblesGallery,
+      type: 'GET_PUBLIC_COLLECTIBLESFAVORITES',
+      collectiblesFavorites: updatedCollectiblesFavorites,
     });
+    if (fromModal) {
+      store.dispatch({
+        type: 'HANDLE_COLLECTIBLES_MODAL',
+        isFavorite: !isFavorite,
+        showCollectiblesModal,
+        selectedCollectible: this.props.selectedCollectible,
+      });
+    }
   };
 
   render() {
     const {
-      collection, collectiblesGallery, showCollectiblesModal, selectedCollectible,
+      collection, collectiblesFavorites, showCollectiblesModal, selectedCollectible, isFavorite,
     } = this.props;
-    console.log(collection);
 
     return (
       <React.Fragment>
@@ -95,16 +78,18 @@ class Collectibles extends Component {
           show={showCollectiblesModal}
           handleCollectiblesModal={this.props.handleCollectiblesModal}
           selectedCollectible={selectedCollectible}
+          updateGallery={this.updateGallery}
+          isFavorite={isFavorite}
         />
         <div id="feed" className="collectibles__wrapper">
           <p className="header" id="feed__header">
             Gallery
           </p>
           <div className="collectibles__grid">
-            {collectiblesGallery.length > 0 ? (
-              collectiblesGallery.map(collectible => (
+            {collectiblesFavorites.length > 0 ? (
+              collectiblesFavorites.map(collectible => (
                 <CollectiblesTile
-                  addToGallery={this.addToGallery}
+                  updateGallery={this.updateGallery}
                   collectible={collectible}
                   image={collectible.image_preview_url}
                   description={collectible.asset_contract && collectible.asset_contract.name}
@@ -117,12 +102,15 @@ class Collectibles extends Component {
                     collectible.asset_contract.display_data.card_display_style
                   }
                   key={`${collectible.asset_contract.address}-${collectible.token_id}`}
-                  id={`${collectible.asset_contract.address}-${collectible.token_id}`}
                   favorite
                 />
               ))
             ) : (
-                <EmptyGalleryCollectiblesTile />
+                <React.Fragment>
+                  <EmptyGalleryCollectiblesTile />
+                  <EmptyGalleryCollectiblesTile />
+                  <EmptyGalleryCollectiblesTile />
+                </React.Fragment>
               )}
           </div>
           <p className="header" id="feed__header">
@@ -132,7 +120,7 @@ class Collectibles extends Component {
             {collection.length > 0 ? (
               collection.map(collectible => (
                 <CollectiblesTile
-                  addToGallery={this.addToGallery}
+                  updateGallery={this.updateGallery}
                   collectible={collectible}
                   image={collectible.image_preview_url}
                   description={collectible.asset_contract && collectible.asset_contract.name}
@@ -145,7 +133,6 @@ class Collectibles extends Component {
                     collectible.asset_contract.display_data.card_display_style
                   }
                   key={`${collectible.asset_contract.address}-${collectible.token_id}`}
-                  id={`${collectible.asset_contract.address}-${collectible.token_id}`}
                 />
               ))
             ) : (
@@ -162,15 +149,16 @@ Collectibles.propTypes = {
   box: PropTypes.object,
   selectedCollectible: PropTypes.object,
   collection: PropTypes.array,
-  collectiblesGallery: PropTypes.array,
+  collectiblesFavorites: PropTypes.array,
   handleCollectiblesModal: PropTypes.func.isRequired,
-  showCollectiblesModal: PropTypes.bool.isRequired
+  showCollectiblesModal: PropTypes.bool.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
 };
 
 Collectibles.defaultProps = {
   box: {},
   collection: [],
-  collectiblesGallery: [],
+  collectiblesFavorites: [],
   selectedCollectible: {}
 };
 
@@ -179,8 +167,9 @@ function mapState(state) {
     box: state.threeBox.box,
     selectedCollectible: state.threeBox.selectedCollectible,
     collection: state.threeBox.collection,
-    collectiblesGallery: state.threeBox.collectiblesGallery,
-    showCollectiblesModal: state.threeBox.showCollectiblesModal
+    collectiblesFavorites: state.threeBox.collectiblesFavorites,
+    showCollectiblesModal: state.threeBox.showCollectiblesModal,
+    isFavorite: state.threeBox.isFavorite,
   };
 }
 

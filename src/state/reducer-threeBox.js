@@ -215,10 +215,10 @@ export const threeBoxReducer = (state = {}, action) => {
         emoji: action.emoji,
       };
 
-    case 'GET_PUBLIC_COLLECTIBLESGALLERY':
+    case 'GET_PUBLIC_COLLECTIBLESFAVORITES':
       return {
         ...state,
-        collectiblesGallery: action.collectiblesGallery,
+        collectiblesFavorites: action.collectiblesFavorites,
       };
 
     case 'GET_PUBLIC_STATUS':
@@ -446,6 +446,7 @@ export const threeBoxReducer = (state = {}, action) => {
         ...state,
         showCollectiblesModal: action.showCollectiblesModal,
         selectedCollectible: action.selectedCollectible,
+        isFavorite: action.isFavorite,
       };
 
     case 'HANDLE_DENIED_ACCESS_MODAL':

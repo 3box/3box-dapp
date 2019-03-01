@@ -7,6 +7,7 @@ import Status from '../assets/Status.png';
 import getCoinbaseWallet from '../assets/getCoinbaseWallet.svg';
 import ThreeBoxLogoWhite from '../assets/ThreeBoxLogoWhite.svg';
 import ThreeBoxLogoBlue from '../assets/ThreeBoxLogoBlue.svg';
+import HeartGrey from '../assets/HeartGrey.svg';
 import GithubIcon from '../assets/GithubIcon.svg';
 import TwitterIcon from '../assets/twitterGrey.svg';
 import Email from '../assets/Email.svg';
@@ -115,6 +116,8 @@ export const CollectiblesModal = ({
   show,
   handleCollectiblesModal,
   selectedCollectible,
+  updateGallery,
+  isFavorite,
 }) => (
     <div>
       <div className={`${show ? 'showModal' : ''} modal__container modal--effect collectiblesModal`}>
@@ -124,6 +127,22 @@ export const CollectiblesModal = ({
             className="modal__collectibles__image__wrapper"
             style={{ backgroundColor: `#${selectedCollectible.background_color}` }}
           >
+            {(updateGallery && isFavorite) && (
+              <button
+                type="button"
+                className="collectibles__like modalLike"
+                onClick={e => updateGallery(e, selectedCollectible, 'remove', 'fromModal')}
+              >
+                &#10005;
+              </button>)}
+            {(updateGallery && !isFavorite) && (
+              <button
+                type="button"
+                className="collectibles__like modalLike"
+                onClick={e => updateGallery(e, selectedCollectible, null, 'fromModal')}
+              >
+                <img src={HeartGrey} alt="" className="collectibles__like__heart" />
+              </button>)}
             <img
               className={`modal__collectibles__image ${selectedCollectible.asset_contract
                 && selectedCollectible.asset_contract.display_data
@@ -134,13 +153,14 @@ export const CollectiblesModal = ({
           </div>
 
           <div className="modal__collectibles__info">
-            <h3>{selectedCollectible.name}</h3>
-            <p>{`${selectedCollectible.asset_contract && selectedCollectible.asset_contract.name} ${selectedCollectible.token_id}`}</p>
+            <div className="modal__collectibles__info__wrapper">
+              <h3>{selectedCollectible.name}</h3>
+              <p>{`${selectedCollectible.asset_contract && selectedCollectible.asset_contract.name} ${selectedCollectible.token_id}`}</p>
+            </div>
           </div>
         </div>
         <div className="modal collectiblesMiniModal">
           <p>{selectedCollectible.description}</p>
-          {/* <p>{selectedCollectible.asset_contract && selectedCollectible.asset_contract.description}</p> */}
           <div className="modal__collectibles__traits">
             {selectedCollectible.traits && selectedCollectible.traits.length > 0 &&
               selectedCollectible.traits.map((trait, i) => (
@@ -158,12 +178,15 @@ export const CollectiblesModal = ({
 
 CollectiblesModal.propTypes = {
   show: PropTypes.bool.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
   handleCollectiblesModal: PropTypes.func.isRequired,
+  updateGallery: PropTypes.func,
   selectedCollectible: PropTypes.object
 };
 
 CollectiblesModal.defaultProps = {
   selectedCollectible: {},
+  updateGallery: {},
 };
 
 export const SwitchedAddressModal = ({
