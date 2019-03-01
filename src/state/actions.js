@@ -562,6 +562,8 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
     const data = await res.json();
     const collection = data.assets;
 
+    console.log(collection);
+
     if (onPublicProfile) {
       dispatch({
         type: 'GET_PUBLIC_COLLECTIBLES',
@@ -583,6 +585,7 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
         }
       }
 
+      console.log(collection);
       dispatch({
         type: 'GET_MY_COLLECTIBLES',
         collection,
