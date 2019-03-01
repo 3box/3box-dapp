@@ -8,6 +8,7 @@ import CollectiblesTile from './CollectiblesTile';
 import { CollectiblesModal } from '../Modals';
 import { EmptyGalleryCollectiblesTile, EmptyCollectiblesTile } from './EmptyCollectiblesTile';
 import { handleCollectiblesModal } from '../../state/actions-modals';
+import OpenSea from '../../assets/OpenSea.png';
 import { store } from '../../state/store';
 import '../../views/styles/Profile.css';
 import '../styles/Feed.css';
@@ -85,12 +86,12 @@ class Collectibles extends Component {
           {collection.length > 0
             && (
               <p className="header" id="feed__header">
-                Gallery
+                Favorites
               </p>
             )}
           {collectiblesFavorites.length > 0 && (
-            collectiblesFavorites.map(collectible => (
-              <div className="collectibles__grid">
+            <div className="collectibles__grid">
+              {collectiblesFavorites.map(collectible => (
                 <CollectiblesTile
                   updateGallery={this.updateGallery}
                   collectible={collectible}
@@ -107,8 +108,8 @@ class Collectibles extends Component {
                   key={`${collectible.asset_contract.address}-${collectible.token_id}`}
                   favorite
                 />
-              </div>
-            ))
+              ))}
+            </div>
           )}
           {(collectiblesFavorites.length === 0 && collection.length > 0) && (
             <div className="collectibles__grid">
@@ -117,10 +118,10 @@ class Collectibles extends Component {
               <EmptyGalleryCollectiblesTile />
             </div>
           )}
-          {collectiblesFavorites.length > 0
+          {collection.length > 0
             ? (
               <p className="header" id="feed__header">
-                Collectibles
+                Gallery
               </p>)
             : (
               <p className="header" id="feed__header">
@@ -150,6 +151,9 @@ class Collectibles extends Component {
                 <EmptyCollectiblesTile />
               )}
           </div>
+          <a href="https://opensea.io/">
+            <img src={OpenSea} alt="OpenSea.io" className="modal__collectibles__opensea" />
+          </a>
         </div>
       </React.Fragment>
     );

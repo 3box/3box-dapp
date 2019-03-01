@@ -8,6 +8,7 @@ import getCoinbaseWallet from '../assets/getCoinbaseWallet.svg';
 import ThreeBoxLogoWhite from '../assets/ThreeBoxLogoWhite.svg';
 import ThreeBoxLogoBlue from '../assets/ThreeBoxLogoBlue.svg';
 import HeartGrey from '../assets/HeartGrey.svg';
+import HeartBlue from '../assets/HeartBlue.svg';
 import GithubIcon from '../assets/GithubIcon.svg';
 import TwitterIcon from '../assets/twitterGrey.svg';
 import Email from '../assets/Email.svg';
@@ -25,7 +26,6 @@ import MetaMaskWallet from '../assets/MetaMaskWallet.png';
 import LogOut from '../assets/LogOut.svg';
 import Loading from '../assets/Loading.svg';
 import LoadingWhite from '../assets/LoadingWhite.svg';
-import OpenSea from '../assets/OpenSea.png';
 import './styles/Modal.css';
 
 export const SwitchedNetworksModal = ({
@@ -133,7 +133,7 @@ export const CollectiblesModal = ({
                 className="collectibles__like modalLike"
                 onClick={e => updateGallery(e, selectedCollectible, 'remove', 'fromModal')}
               >
-                &#10005;
+                <img src={HeartBlue} alt="" className="collectibles__like__heart--modal" />
               </button>)}
             {(updateGallery && !isFavorite) && (
               <button
@@ -141,7 +141,7 @@ export const CollectiblesModal = ({
                 className="collectibles__like modalLike"
                 onClick={e => updateGallery(e, selectedCollectible, null, 'fromModal')}
               >
-                <img src={HeartGrey} alt="" className="collectibles__like__heart" />
+                <img src={HeartGrey} alt="" className="collectibles__like__heart--modal" />
               </button>)}
             <img
               className={`modal__collectibles__image ${selectedCollectible.asset_contract
@@ -164,12 +164,12 @@ export const CollectiblesModal = ({
           <div className="modal__collectibles__traits">
             {selectedCollectible.traits && selectedCollectible.traits.length > 0 &&
               selectedCollectible.traits.map((trait, i) => (
-                <p key={i}>{trait.value}</p>
+                <div key={i} className="modal__collectibles__traits__trait">
+                  <p className="modal__collectibles__traits__trait__type">{trait.trait_type.toUpperCase()}</p>
+                  <p>{trait.value}</p>
+                </div>
               ))}
           </div>
-          <a href="https://opensea.io/">
-            <img src={OpenSea} alt="OpenSea.io" className="modal__collectibles__opensea" />
-          </a>
         </div>
       </div>
       <div className="modal__overlay" />

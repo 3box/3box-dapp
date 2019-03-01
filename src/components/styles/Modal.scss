@@ -115,6 +115,7 @@
     align-items: flex-start;
     text-align: left;
     font-size: 14px;
+    line-height: 18px;
     margin-bottom: 10px;
   }
 }
@@ -134,6 +135,15 @@
   height: 520px;
   position: relative;
   overflow: visible;
+  cursor: pointer;
+
+  &:hover .collectibles__like__heart--modal {
+    opacity: .8;
+  }
+}
+
+.collectibles__like__heart--modal {
+  opacity: 0;
 }
 
 .modal__collectibles__image__wrapper {
@@ -223,13 +233,28 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+}
+
+.modal__collectibles__traits__trait {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: pink;
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin-right: 10px;
 
   p {
-    background-color: pink;
-    border-radius: 18px;
-    padding: 4px 10px;
-    margin-right: 10px;
+    margin: 0 !important;
   }
+}
+
+.modal__collectibles__traits__trait__type {
+  font-size: 10px !important;
+  color: white;
+  line-height: 12px !important;
+  margin-bottom: 4px;
 }
 
 .modal--sync {

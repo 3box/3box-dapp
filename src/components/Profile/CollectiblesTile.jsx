@@ -7,6 +7,7 @@ import {
   handleCollectiblesModal,
 } from '../../state/actions-modals';
 import HeartGrey from '../../assets/HeartGrey.svg';
+import HeartBlue from '../../assets/HeartBlue.svg';
 import '../../views/styles/Profile.css';
 import '../styles/Collectibles.css';
 
@@ -51,7 +52,7 @@ const CollectiblesTile = ({
             className="collectibles__like"
             onClick={e => updateGallery(e, collectible, 'remove')}
           >
-            &#10005;
+            <img src={HeartBlue} alt="" className="collectibles__like__heart" />
           </button>
         )}
       </div>

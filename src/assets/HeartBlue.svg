@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="90px" height="78px" viewBox="0 0 90 78" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 53.1 (72631) - https://sketchapp.com -->
-    <title>Path</title>
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>HeartGrey</title>
     <desc>Created with Sketch.</desc>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="noun_Heart_682473" fill="#1168DF" fill-rule="nonzero">
+        <g id="HeartGrey" fill="#1168DF" fill-rule="nonzero">
             <path d="M45.056,77.113 C45.018,77.114 44.981,77.114 44.943,77.113 C44.511,77.113 44.074,76.984 43.694,76.714 C42.495,75.863 14.192,55.676 3.764,38.647 C3.75,38.624 3.737,38.601 3.723,38.578 C1.396,34.718 0.166,30.286 0.166,25.755 C0.166,12.043 11.322,0.887 25.034,0.887 C32.973,0.887 40.345,4.659 44.999,10.924 C49.653,4.659 57.026,0.887 64.964,0.887 C78.676,0.887 89.832,12.043 89.832,25.755 C89.832,30.286 88.602,34.718 86.275,38.578 C86.262,38.601 86.249,38.624 86.234,38.647 C75.807,55.676 47.504,75.863 46.304,76.714 C45.926,76.984 45.489,77.113 45.056,77.113 Z" id="Path"></path>
         </g>
     </g>

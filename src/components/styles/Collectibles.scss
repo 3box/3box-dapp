@@ -8,10 +8,18 @@
   position: relative;
   box-shadow: 0 7px 14px 0 rgba(59, 65, 94, .1), 0 3px 6px 0 rgba(0, 0, 0, .07);
   cursor: pointer;
+
+  &:hover .collectibles__like__heart {
+    opacity: .8;
+  }
+}
+
+.collectibles__like__heart {
+  opacity: 0;
 }
 
 .emptyCollectiblesTile {
-  border: 2px solid $borderColor;
+  border: 1px solid $borderColor;
   border-radius: 6px;
   height: 300px;
   position: relative;
@@ -77,24 +85,16 @@
   background-color: transparent;
   border: none;
   padding: 0;
-  color: $threeBoxBlue;
+  color: #C6C6C6;
   font-size: 34px;
 
   img {
-    width: 30px;
+    width: 22px;
   }
 
   &:hover {
-    .collectibles__like__heart {
-      opacity: 1;
-    }
-
     background-color: transparent;
   }
-}
-
-.collectibles__like__heart {
-  opacity: .6;
 }
 
 .collectibles__info {
