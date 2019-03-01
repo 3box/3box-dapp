@@ -219,6 +219,7 @@ export const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         collectiblesFavorites: action.collectiblesFavorites,
+        collectiblesFavoritesToRender: action.collectiblesFavoritesToRender,
       };
 
     case 'GET_PUBLIC_STATUS':

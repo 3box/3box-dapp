@@ -21,16 +21,21 @@ class Collectibles extends Component {
 
   updateGallery = (e, selectedCollectible, removeFavorite, fromModal) => {
     e.stopPropagation();
-    const { box, collection, collectiblesFavorites, isFavorite, showCollectiblesModal } = this.props;
+    const { box, collection, collectiblesFavorites, isFavorite, showCollectiblesModal, collectiblesFavoritesToRender } = this.props;
     const contractAddress = selectedCollectible.asset_contract.address;
     const tokenId = selectedCollectible.token_id;
-    const updatedCollectiblesFavorites = collectiblesFavorites;
+    const updatedCollectiblesFavoritesToRender = collectiblesFavoritesToRender.slice()  || [];
+    const updatedCollectiblesFavorites = collectiblesFavorites.slice() || [];
     const updatedCollection = [];
     let removedCollectible;
 
     if (!removeFavorite) {
-      if (updatedCollectiblesFavorites.length > 2) removedCollectible = updatedCollectiblesFavorites.pop();
-      updatedCollectiblesFavorites.push(selectedCollectible); // are we popping the right one?
+      if (updatedCollectiblesFavoritesToRender.length > 2) removedCollectible = updatedCollectiblesFavoritesToRender.pop();
+      updatedCollectiblesFavoritesToRender.push(selectedCollectible); // are we popping the right one?
+      updatedCollectiblesFavorites.push({
+        address: selectedCollectible.asset_contract.address,
+        token_id: selectedCollectible.token_id,
+      });
       collection.forEach((collectible) => {
         if (collectible.asset_contract.address !== contractAddress
           || collectible.token_id !== tokenId) {
@@ -40,9 +45,10 @@ class Collectibles extends Component {
       if (removedCollectible) updatedCollection.push(removedCollectible);
     } else if (removeFavorite) {
       collectiblesFavorites.map((favorite, i) => {
-        if (favorite.asset_contract.address === contractAddress
+        if (favorite.address === contractAddress
           && favorite.token_id === tokenId) {
           updatedCollectiblesFavorites.splice(i, 1);
+          updatedCollectiblesFavoritesToRender.splice(i, 1);
         }
       });
       collection.forEach(collectible => updatedCollection.push(collectible));
@@ -57,6 +63,7 @@ class Collectibles extends Component {
     store.dispatch({
       type: 'GET_PUBLIC_COLLECTIBLESFAVORITES',
       collectiblesFavorites: updatedCollectiblesFavorites,
+      collectiblesFavoritesToRender: updatedCollectiblesFavoritesToRender,
     });
     if (fromModal) {
       store.dispatch({
@@ -70,7 +77,7 @@ class Collectibles extends Component {
 
   render() {
     const {
-      collection, collectiblesFavorites, showCollectiblesModal, selectedCollectible, isFavorite,
+      collection, collectiblesFavoritesToRender, showCollectiblesModal, selectedCollectible, isFavorite,
     } = this.props;
 
     return (
@@ -89,9 +96,9 @@ class Collectibles extends Component {
                 Favorites
               </p>
             )}
-          {collectiblesFavorites.length > 0 && (
+          {collectiblesFavoritesToRender.length > 0 && (
             <div className="collectibles__grid">
-              {collectiblesFavorites.map(collectible => (
+              {collectiblesFavoritesToRender.map(collectible => (
                 <CollectiblesTile
                   updateGallery={this.updateGallery}
                   collectible={collectible}
@@ -111,7 +118,7 @@ class Collectibles extends Component {
               ))}
             </div>
           )}
-          {(collectiblesFavorites.length === 0 && collection.length > 0) && (
+          {(collectiblesFavoritesToRender.length === 0 && collection.length > 0) && (
             <div className="collectibles__grid">
               <EmptyGalleryCollectiblesTile />
               <EmptyGalleryCollectiblesTile />
@@ -165,6 +172,7 @@ Collectibles.propTypes = {
   selectedCollectible: PropTypes.object,
   collection: PropTypes.array,
   collectiblesFavorites: PropTypes.array,
+  collectiblesFavoritesToRender: PropTypes.array,
   handleCollectiblesModal: PropTypes.func.isRequired,
   showCollectiblesModal: PropTypes.bool.isRequired,
   isFavorite: PropTypes.bool.isRequired,
@@ -174,6 +182,7 @@ Collectibles.defaultProps = {
   box: {},
   collection: [],
   collectiblesFavorites: [],
+  collectiblesFavoritesToRender: [],
   selectedCollectible: {}
 };
 
@@ -183,6 +192,7 @@ function mapState(state) {
     selectedCollectible: state.threeBox.selectedCollectible,
     collection: state.threeBox.collection,
     collectiblesFavorites: state.threeBox.collectiblesFavorites,
+    collectiblesFavoritesToRender: state.threeBox.collectiblesFavoritesToRender,
     showCollectiblesModal: state.threeBox.showCollectiblesModal,
     isFavorite: state.threeBox.isFavorite,
   };

@@ -565,8 +565,7 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
     const res = await fetch(`https://api.opensea.io/api/v1/assets?owner=${address}&order_by=current_price&order_direction=asc`);
     const data = await res.json();
     const collection = data.assets;
-
-    console.log(collection);
+    const collectiblesFavoritesToRender = [];
 
     if (onPublicProfile) {
       dispatch({
@@ -574,25 +573,31 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
         publicCollectiblesGallery: collection,
       });
     } else {
-      const favorites = store.getState().threeBox.collectiblesFavorites;
+      const collectiblesFavorites = store.getState().threeBox.collectiblesFavorites;
 
-      if (favorites && favorites.length > 0) {
+      if (collectiblesFavorites && collectiblesFavorites.length > 0) {
         for (let i = collection.length - 1; i >= 0; i -= 1) {
           const colAddress = collection[i].asset_contract.address;
           const tokenId = collection[i].token_id;
-          favorites.map((col) => {
-            if (colAddress === col.asset_contract.address &&
+          collectiblesFavorites.map((col) => {
+            if (colAddress === col.address &&
               tokenId === col.token_id) {
-              collection.splice(i, 1);
+              collectiblesFavoritesToRender.push(collection.splice(i, 1)[0]);
             }
           });
         }
       }
 
-      console.log(collection);
+      collectiblesFavoritesToRender.reverse();
+
       dispatch({
         type: 'GET_MY_COLLECTIBLES',
         collection,
+      });
+      dispatch({
+        type: 'GET_PUBLIC_COLLECTIBLESFAVORITES',
+        collectiblesFavorites,
+        collectiblesFavoritesToRender,
       });
     }
   } catch (error) {
