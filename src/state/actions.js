@@ -322,8 +322,12 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
       const privateActivity = await store.getState().threeBox.box.private.log;
       emailProof = await store.getState().threeBox.box.private._genDbKey('proof_email');
 
-      // remove ethereum_proof & proof_did
-      const publicActivity = unFilteredPublicActivity.filter(item => (item.key !== 'ethereum_proof' && item.key !== 'proof_did' && item.key !== 'memberSince'));
+      // remove ethereum_proof & proof_did & memberSince
+      const publicActivity = unFilteredPublicActivity
+        .filter(item => (item.key !== 'ethereum_proof' &&
+          item.key !== 'proof_did' &&
+          item.key !== 'collectiblesFavorites' &&
+          item.key !== 'memberSince'));
 
       // assign public or private data type
       const categorizedPublicActivity = addPublicOrPrivateDataType(publicActivity, 'Public');

@@ -82,12 +82,15 @@ class Collectibles extends Component {
           isFavorite={isFavorite}
         />
         <div id="feed" className="collectibles__wrapper">
-          <p className="header" id="feed__header">
-            Gallery
-          </p>
-          <div className="collectibles__grid">
-            {collectiblesFavorites.length > 0 ? (
-              collectiblesFavorites.map(collectible => (
+          {collection.length > 0
+            && (
+              <p className="header" id="feed__header">
+                Gallery
+              </p>
+            )}
+          {collectiblesFavorites.length > 0 && (
+            collectiblesFavorites.map(collectible => (
+              <div className="collectibles__grid">
                 <CollectiblesTile
                   updateGallery={this.updateGallery}
                   collectible={collectible}
@@ -104,18 +107,26 @@ class Collectibles extends Component {
                   key={`${collectible.asset_contract.address}-${collectible.token_id}`}
                   favorite
                 />
-              ))
-            ) : (
-                <React.Fragment>
-                  <EmptyGalleryCollectiblesTile />
-                  <EmptyGalleryCollectiblesTile />
-                  <EmptyGalleryCollectiblesTile />
-                </React.Fragment>
-              )}
-          </div>
-          <p className="header" id="feed__header">
-            Collectibles
-          </p>
+              </div>
+            ))
+          )}
+          {(collectiblesFavorites.length === 0 && collection.length > 0) && (
+            <div className="collectibles__grid">
+              <EmptyGalleryCollectiblesTile />
+              <EmptyGalleryCollectiblesTile />
+              <EmptyGalleryCollectiblesTile />
+            </div>
+          )}
+          {collectiblesFavorites.length > 0
+            ? (
+              <p className="header" id="feed__header">
+                Collectibles
+              </p>)
+            : (
+              <p className="header" id="feed__header">
+                You don't have any collectibles
+              </p>
+            )}
           <div className="collectibles__grid">
             {collection.length > 0 ? (
               collection.map(collectible => (

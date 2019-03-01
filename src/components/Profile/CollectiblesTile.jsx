@@ -28,6 +28,7 @@ const CollectiblesTile = ({
         className="collectibles__image__wrapper"
         style={{ backgroundColor: `#${bgStyle}` }}
       >
+        <span class="collectibles__image__shadow"></span>
         <img
           className={`collectibles__image ${padded === 'padded' && 'padded'}`}
           src={image}

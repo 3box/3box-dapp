@@ -39,6 +39,7 @@
   align-items: center;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
+  position: relative;
 
   button {
     position: absolute;
@@ -55,6 +56,17 @@
 
 .collectibles__image {
   height: 100%;
+}
+
+.collectibles__image__shadow {
+  background: #000000;
+  width: 120px;
+  height: 10px;
+  border-radius: 50%;
+  opacity: .2;
+  position: absolute;
+  bottom: 10px;
+  filter: blur(2px);
 }
 
 .padded {
