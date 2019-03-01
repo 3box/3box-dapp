@@ -560,7 +560,7 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
   try {
     const res = await fetch(`https://api.opensea.io/api/v1/assets?owner=${address}&order_by=current_price&order_direction=asc`);
     const data = await res.json();
-    let collection = data.assets;
+    const collection = data.assets;
 
     if (onPublicProfile) {
       dispatch({
@@ -572,11 +572,11 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
 
       if (favorites.length > 0) {
         for (let i = collection.length - 1; i >= 0; i -= 1) {
-          // not performant
-          // is looping through entirety of collection even
-          // if favorites has finished.
-          favorites.map((collectible) => {
-            if (_.isEqual(collectible, collection[i])) {
+          const colAddress = collection[i].asset_contract.address;
+          const tokenId = collection[i].token_id;
+          favorites.map((col) => {
+            if (colAddress === col.asset_contract.address &&
+              tokenId === col.token_id) {
               collection.splice(i, 1);
             }
           });
