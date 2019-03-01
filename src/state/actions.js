@@ -572,7 +572,7 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
     } else {
       const favorites = store.getState().threeBox.collectiblesGallery;
 
-      if (favorites.length > 0) {
+      if (favorites && favorites.length > 0) {
         for (let i = collection.length - 1; i >= 0; i -= 1) {
           const colAddress = collection[i].asset_contract.address;
           const tokenId = collection[i].token_id;
