@@ -564,8 +564,9 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
   try {
     const res = await fetch(`https://api.opensea.io/api/v1/assets?owner=${address}&order_by=current_price&order_direction=asc`);
     const data = await res.json();
-    const collection = data.assets;
-    const collectiblesFavoritesToRender = [];
+    let collection = data.assets;
+    let collectiblesFavoritesToRender = [];
+    let updatedCollectiblesFavorites = []
 
     if (onPublicProfile) {
       dispatch({
@@ -574,21 +575,65 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
       });
     } else {
       const collectiblesFavorites = store.getState().threeBox.collectiblesFavorites;
+      const box = store.getState().threeBox.box;
+
+      console.log(collectiblesFavorites);
 
       if (collectiblesFavorites && collectiblesFavorites.length > 0) {
-        for (let i = collection.length - 1; i >= 0; i -= 1) {
-          const colAddress = collection[i].asset_contract.address;
-          const tokenId = collection[i].token_id;
-          collectiblesFavorites.map((col) => {
-            if (colAddress === col.address &&
-              tokenId === col.token_id) {
-              collectiblesFavoritesToRender.push(collection.splice(i, 1)[0]);
-            }
+
+        // for (let i = collectiblesFavorites.length - 1; i >= 0; i -= 1) {
+        //   const colAddress = collectiblesFavorites[i].address;
+        //   const tokenId = collectiblesFavorites[i].token_id;
+        //   let favoriteExists = false;
+        //   collection.forEach((col, x) => {
+        //     if (colAddress === col.address &&
+        //       tokenId === col.token_id) {
+        //       favoriteExists = true;
+        //     }
+        //     if (collection.length === x && !favoriteExists) {
+        //       collectiblesFavorites.splice(i, 1);
+        //       box.public.set('collectiblesFavorites', collectiblesFavorites);
+        //     }
+        //   });
+        // }
+
+        // let favoriteCount = 0;
+        // for (let i = collection.length - 1; i >= 0; i -= 1) {
+        //   const colAddress = collection[i].asset_contract.address;
+        //   const tokenId = collection[i].token_id;
+        //   collectiblesFavorites.forEach((col) => {
+        //     if (colAddress === col.address &&
+        //       tokenId === col.token_id) {
+        //       collectiblesFavoritesToRender.push(collection.splice(i, 1)[0]);
+        //       favoriteCount += 1
+        //     }
+        //   });
+        //   if (favoriteCount === 3) {
+        //     break;
+        //   }
+        // }
+
+        const haveFavorite = [false, false, false];
+        collection = collection.filter((nft) => {
+          const idx = collectiblesFavorites.findIndex((col) => {
+            return (col.address === nft.asset_contract.address && col.token_id === nft.token_id)
           });
+          if (idx === -1) {
+            return true;
+          }
+          collectiblesFavoritesToRender.push(nft);
+          haveFavorite[idx] = true;
+          return false;
+        });
+
+        updatedCollectiblesFavorites = collectiblesFavorites.filter((entry, idx) => haveFavorite[idx]);
+
+        if (collectiblesFavorites.length !== updatedCollectiblesFavorites.length) { // does this work?
+          box.public.set('collectiblesFavorites', collectiblesFavorites);
         }
       }
 
-      collectiblesFavoritesToRender.reverse();
+      // collectiblesFavoritesToRender.reverse();
 
       dispatch({
         type: 'GET_MY_COLLECTIBLES',
@@ -596,7 +641,7 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
       });
       dispatch({
         type: 'GET_PUBLIC_COLLECTIBLESFAVORITES',
-        collectiblesFavorites,
+        collectiblesFavorites: updatedCollectiblesFavorites,
         collectiblesFavoritesToRender,
       });
     }
@@ -604,6 +649,35 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
     console.error(error);
   }
 };
+
+// uncheckedCollectiblesFavorites.forEach((collectible, i) => {
+//   fetch(`https://api.opensea.io/api/v1/asset/${collectible.address}/${collectible.token_id}/`)
+//     .then(result => result.json())
+//     .then((collectibleData) => {
+//       if (collectibleData.owner.address === address) {
+//         collectiblesFavorites.push(collectible);
+//       } else {
+
+//       }
+//     });
+// });
+
+// for (let i = uncheckedCollectiblesFavorites.length - 1; i >= 0; i -= 1) {
+//   console.log('addy', uncheckedCollectiblesFavorites[i].address);
+//   console.log('tokenD', uncheckedCollectiblesFavorites[i].token_id);
+
+//   fetch(`https://api.opensea.io/api/v1/asset/${uncheckedCollectiblesFavorites[i].address}/${uncheckedCollectiblesFavorites[i].token_id}/`)
+//     .then(result => result.json())
+//     .then((collectibleData) => {
+//       console.log(collectibleData);
+//       if (collectibleData.owner.address === address) {
+//         collectiblesFavorites.push(uncheckedCollectiblesFavorites[i]);
+//       } else {
+//         uncheckedCollectiblesFavorites.splice(i, 1);
+//         box.public.set('collectiblesFavorites', uncheckedCollectiblesFavorites);
+//       }
+//     });
+// };
 
 export const getPublicDID = () => async (dispatch) => {
   try {
