@@ -111,6 +111,10 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
+
+  max-height: 160px;
+
+  overflow-y: scroll;
 }
 
 .collectiblesMiniModal__wrapper {
@@ -123,21 +127,15 @@
   height: fit-content;
 
   p {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
     text-align: left;
     font-size: 14px;
     line-height: 18px;
-    margin-bottom: 10px;
   }
 }
 
 .collectiblesMiniModal__description {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
   min-width: 400px;
+  margin-bottom: 14px;
 }
 
 .modalLike {
@@ -189,6 +187,8 @@
 .modal__collectibles__image__wrapper {
   height: fit-content;
   width: fit-content;
+
+  min-height: 85%;
   // height: 82%;
   // width: 100%;
 
