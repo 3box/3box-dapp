@@ -99,15 +99,28 @@
 }
 
 .collectiblesMiniModal {
-  padding: 20px 25px !important;
-  width: 470px !important;
-  height: 100px !important;
+  // width: 470px !important;
+  // height: 100px !important;
+  width: calc(100% - 50px) !important;
+  // min-height: 10% !important;
+  height: fit-content !important;
   min-height: 100px !important;
+
+  padding: 20px 25px !important;
   margin-top: 20px;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  position: relative;
+}
+
+.collectiblesMiniModal__wrapper {
+  flex-grow: 1;
+  width: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  height: fit-content;
 
   p {
     display: flex;
@@ -120,22 +133,48 @@
   }
 }
 
+.collectiblesMiniModal__description {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  min-width: 400px;
+}
+
 .modalLike {
+  position: absolute;
   top: 20px !important;
   right: 20px !important;
+  z-index: 1000;
 
   img {
     width: 40px !important;
+    z-index: 1000;
   }
+}
+
+.collectiblesWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  // display: inline-block;
+
+  width: fit-content;
+  height: fit-content;
 }
 
 .collectiblesTileModal {
   padding: 0;
-  width: 520px;
-  height: 520px;
+  width: fit-content;
+  height: fit-content;
+  // min-width: 520px;
+  // min-height: 520px;
+  // min-width: 520px;
+
+  // margin-top: -10%;
   position: relative;
   overflow: visible;
-  cursor: pointer;
 
   &:hover .collectibles__like__heart--modal {
     opacity: .8;
@@ -144,16 +183,21 @@
 
 .collectibles__like__heart--modal {
   opacity: 0;
+  transition: all .3s;
 }
 
 .modal__collectibles__image__wrapper {
-  height: 80%;
+  height: fit-content;
+  width: fit-content;
+  // height: 82%;
+  // width: 100%;
+
   display: flex;
   justify-content: center;
   align-items: center;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
-  width: 100%;
+  position: relative;
 
   button {
     position: absolute;
@@ -169,23 +213,46 @@
   }
 }
 
+.collectibles__image__shadow--modal {
+  background: #000000;
+  width: 40%;
+  height: 14px;
+  border-radius: 50%;
+  opacity: .2;
+  position: absolute;
+  bottom: 32px;
+  filter: blur(2px);
+}
+
 .modal__collectibles__image {
-  height: 100%;
+  height: 100% !important;
+  // width: 100% !important;
   width: auto !important;
+  max-height: 52vh;
+  min-height: 200px;
+
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+
+  object-fit: cover;
 }
 
 .padded {
   height: 75% !important;
+  width: auto !important;
+  object-fit: contain !important;
 }
 
 .modal__collectibles__info {
   border-top: 1px solid $borderColor;
-  height: calc(20% - 25px);
+  height: 15%;
   width: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
+
+  max-height: 90px;
 }
 
 .modal__collectibles__info__wrapper {
@@ -196,7 +263,7 @@
   flex-direction: column;
 
   h3 {
-    margin-bottom: 7px;
+    margin-bottom: 3px;
   }
 
   p {
@@ -233,6 +300,17 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  width: fit-content;
+  flex-wrap: wrap;
+  min-width: 342px;
+
+  // display: inline-grid;
+  // grid-template-columns: repeat(3, 33.333333333% [col-start]);
+  // width: 684px;
+  // max-width: 684px;
+  // margin-bottom: 26px;
+  // column-gap: 15px;
+  // row-gap: 20px;
 }
 
 .modal__collectibles__traits__trait {
@@ -240,21 +318,24 @@
   justify-content: flex-start;
   flex-direction: column;
   align-items: flex-start;
-  background-color: pink;
+  background-color: $threeBoxBlue;
   border-radius: 8px;
   padding: 8px 10px;
-  margin-right: 10px;
-
-  p {
-    margin: 0 !important;
-  }
+  margin: 0 10px 10px 0;
 }
 
 .modal__collectibles__traits__trait__type {
   font-size: 10px !important;
   color: white;
   line-height: 12px !important;
-  margin-bottom: 4px;
+  margin-bottom: 6px !important;
+  opacity: .6;
+}
+
+.modal__collectibles__traits__trait__value {
+  font-size: 16px;
+  color: white;
+  margin: 0 !important;
 }
 
 .modal--sync {

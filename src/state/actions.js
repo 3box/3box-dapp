@@ -577,41 +577,7 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
       const collectiblesFavorites = store.getState().threeBox.collectiblesFavorites;
       const box = store.getState().threeBox.box;
 
-      console.log(collectiblesFavorites);
-
       if (collectiblesFavorites && collectiblesFavorites.length > 0) {
-
-        // for (let i = collectiblesFavorites.length - 1; i >= 0; i -= 1) {
-        //   const colAddress = collectiblesFavorites[i].address;
-        //   const tokenId = collectiblesFavorites[i].token_id;
-        //   let favoriteExists = false;
-        //   collection.forEach((col, x) => {
-        //     if (colAddress === col.address &&
-        //       tokenId === col.token_id) {
-        //       favoriteExists = true;
-        //     }
-        //     if (collection.length === x && !favoriteExists) {
-        //       collectiblesFavorites.splice(i, 1);
-        //       box.public.set('collectiblesFavorites', collectiblesFavorites);
-        //     }
-        //   });
-        // }
-
-        // let favoriteCount = 0;
-        // for (let i = collection.length - 1; i >= 0; i -= 1) {
-        //   const colAddress = collection[i].asset_contract.address;
-        //   const tokenId = collection[i].token_id;
-        //   collectiblesFavorites.forEach((col) => {
-        //     if (colAddress === col.address &&
-        //       tokenId === col.token_id) {
-        //       collectiblesFavoritesToRender.push(collection.splice(i, 1)[0]);
-        //       favoriteCount += 1
-        //     }
-        //   });
-        //   if (favoriteCount === 3) {
-        //     break;
-        //   }
-        // }
 
         const haveFavorite = [false, false, false];
         collection = collection.filter((nft) => {
@@ -633,8 +599,6 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
         }
       }
 
-      // collectiblesFavoritesToRender.reverse();
-
       dispatch({
         type: 'GET_MY_COLLECTIBLES',
         collection,
@@ -649,6 +613,39 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
     console.error(error);
   }
 };
+
+// for (let i = collectiblesFavorites.length - 1; i >= 0; i -= 1) {
+//   const colAddress = collectiblesFavorites[i].address;
+//   const tokenId = collectiblesFavorites[i].token_id;
+//   let favoriteExists = false;
+//   collection.forEach((col, x) => {
+//     if (colAddress === col.address &&
+//       tokenId === col.token_id) {
+//       favoriteExists = true;
+//     }
+//     if (collection.length === x && !favoriteExists) {
+//       collectiblesFavorites.splice(i, 1);
+//       box.public.set('collectiblesFavorites', collectiblesFavorites);
+//     }
+//   });
+// }
+
+// let favoriteCount = 0;
+// for (let i = collection.length - 1; i >= 0; i -= 1) {
+//   const colAddress = collection[i].asset_contract.address;
+//   const tokenId = collection[i].token_id;
+//   collectiblesFavorites.forEach((col) => {
+//     if (colAddress === col.address &&
+//       tokenId === col.token_id) {
+//       collectiblesFavoritesToRender.push(collection.splice(i, 1)[0]);
+//       favoriteCount += 1
+//     }
+//   });
+//   if (favoriteCount === 3) {
+//     break;
+//   }
+// }
+// collectiblesFavoritesToRender.reverse();
 
 // uncheckedCollectiblesFavorites.forEach((collectible, i) => {
 //   fetch(`https://api.opensea.io/api/v1/asset/${collectible.address}/${collectible.token_id}/`)

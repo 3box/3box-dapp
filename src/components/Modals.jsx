@@ -121,54 +121,62 @@ export const CollectiblesModal = ({
 }) => (
     <div>
       <div className={`${show ? 'showModal' : ''} modal__container modal--effect collectiblesModal`}>
-        <div className="modal collectiblesTileModal">
-          <button onClick={handleCollectiblesModal} type="button" className="tertiaryButton collectiblesClose">Close</button>
-          <div
-            className="modal__collectibles__image__wrapper"
-            style={{ backgroundColor: `#${selectedCollectible.background_color}` }}
-          >
-            {(updateGallery && isFavorite) && (
-              <button
-                type="button"
-                className="collectibles__like modalLike"
-                onClick={e => updateGallery(e, selectedCollectible, 'remove', 'fromModal')}
-              >
-                <img src={HeartBlue} alt="" className="collectibles__like__heart--modal" />
-              </button>)}
-            {(updateGallery && !isFavorite) && (
-              <button
-                type="button"
-                className="collectibles__like modalLike"
-                onClick={e => updateGallery(e, selectedCollectible, null, 'fromModal')}
-              >
-                <img src={HeartGrey} alt="" className="collectibles__like__heart--modal" />
-              </button>)}
-            <img
-              className={`modal__collectibles__image ${selectedCollectible.asset_contract
-                && selectedCollectible.asset_contract.display_data
-                && selectedCollectible.asset_contract.display_data.card_display_style === 'padded' && 'padded'}`}
-              src={selectedCollectible.image_preview_url}
-              alt="Collectible"
-            />
-          </div>
+        <div className="collectiblesWrapper">
+          <button onClick={handleCollectiblesModal} type="button" className="tertiaryButton collectiblesClose">
+            Close
+          </button>
+          <div className="modal collectiblesTileModal">
+            <div
+              className="modal__collectibles__image__wrapper"
+              style={{ backgroundColor: `#${selectedCollectible.background_color}` }}
+            >
+              {(updateGallery && isFavorite) && (
+                <button
+                  type="button"
+                  className="collectibles__like modalLike"
+                  onClick={e => updateGallery(e, selectedCollectible, 'remove', 'fromModal')}
+                >
+                  <img src={HeartBlue} alt="" className="collectibles__like__heart--modal" />
+                </button>)}
+              {(updateGallery && !isFavorite) && (
+                <button
+                  type="button"
+                  className="collectibles__like modalLike"
+                  onClick={e => updateGallery(e, selectedCollectible, null, 'fromModal')}
+                >
+                  <img src={HeartGrey} alt="" className="collectibles__like__heart--modal" />
+                </button>)}
+              <span className="collectibles__image__shadow--modal" />
+              <img
+                className={`modal__collectibles__image ${selectedCollectible.asset_contract
+                  && selectedCollectible.asset_contract.display_data
+                  && selectedCollectible.asset_contract.display_data.card_display_style === 'padded' && 'padded'}`}
+                src={selectedCollectible.image_preview_url}
+                alt="Collectible"
+              />
+            </div>
 
-          <div className="modal__collectibles__info">
-            <div className="modal__collectibles__info__wrapper">
-              <h3>{selectedCollectible.name}</h3>
-              <p>{`${selectedCollectible.asset_contract && selectedCollectible.asset_contract.name} ${selectedCollectible.token_id}`}</p>
+            <div className="modal__collectibles__info">
+              <div className="modal__collectibles__info__wrapper">
+                <h3>{selectedCollectible.name}</h3>
+                <p>{`${selectedCollectible.asset_contract && selectedCollectible.asset_contract.name} ${selectedCollectible.token_id}`}</p>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="modal collectiblesMiniModal">
-          <p>{selectedCollectible.description}</p>
-          <div className="modal__collectibles__traits">
-            {selectedCollectible.traits && selectedCollectible.traits.length > 0 &&
-              selectedCollectible.traits.map((trait, i) => (
-                <div key={i} className="modal__collectibles__traits__trait">
-                  <p className="modal__collectibles__traits__trait__type">{trait.trait_type.toUpperCase()}</p>
-                  <p>{trait.value}</p>
-                </div>
-              ))}
+
+          <div className="modal collectiblesMiniModal">
+            <div className="collectiblesMiniModal__wrapper">
+              <p className="collectiblesMiniModal__description">{selectedCollectible.description}</p>
+              <div className="modal__collectibles__traits">
+                {selectedCollectible.traits && selectedCollectible.traits.length > 0 &&
+                  selectedCollectible.traits.map((trait, i) => (
+                    <div key={i} className="modal__collectibles__traits__trait">
+                      <p className="modal__collectibles__traits__trait__type">{trait.trait_type.toUpperCase()}</p>
+                      <p className="modal__collectibles__traits__trait__value">{trait.value}</p>
+                    </div>
+                  ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
