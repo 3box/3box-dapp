@@ -565,40 +565,45 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
     const res = await fetch(`https://api.opensea.io/api/v1/assets?owner=${address}&order_by=current_price&order_direction=asc`);
     const data = await res.json();
     let collection = data.assets;
-    let collectiblesFavoritesToRender = [];
-    let updatedCollectiblesFavorites = []
+
+    const collectiblesFavoritesToRender = [];
+    let updatedCollectiblesFavorites = [];
+    let collectiblesFavorites = [];
+
+    if (onPublicProfile) {
+      collectiblesFavorites = await store.getState().threeBox.publicCollectiblesGallery;
+    } else {
+      collectiblesFavorites = await store.getState().threeBox.box.public.get('collectiblesFavorites');
+    }
+
+    if (collectiblesFavorites && collectiblesFavorites.length > 0) {
+      const haveFavorite = [false, false, false];
+      collection = collection.filter((nft) => {
+        const idx = collectiblesFavorites.findIndex((col) => {
+          return (col.address === nft.asset_contract.address && col.token_id === nft.token_id)
+        });
+        if (idx === -1) {
+          return true;
+        }
+        collectiblesFavoritesToRender.push(nft);
+        haveFavorite[idx] = true;
+        return false;
+      });
+
+      updatedCollectiblesFavorites = collectiblesFavorites.filter((entry, idx) => haveFavorite[idx]);
+
+      if (collectiblesFavorites.length !== updatedCollectiblesFavorites.length && !onPublicProfile) { // does this work?
+        const box = store.getState().threeBox.box;
+        box.public.set('collectiblesFavorites', collectiblesFavorites);
+      }
+    }
 
     if (onPublicProfile) {
       dispatch({
-        type: 'GET_PUBLIC_COLLECTIBLES',
-        publicCollectiblesGallery: collection,
+        type: 'UPDATE_PUBLIC_PROFILE_FAVORITE_COLLECTIBLES',
+        publicCollectiblesFavorites: collectiblesFavoritesToRender,
       });
     } else {
-      const collectiblesFavorites = store.getState().threeBox.collectiblesFavorites;
-      const box = store.getState().threeBox.box;
-
-      if (collectiblesFavorites && collectiblesFavorites.length > 0) {
-
-        const haveFavorite = [false, false, false];
-        collection = collection.filter((nft) => {
-          const idx = collectiblesFavorites.findIndex((col) => {
-            return (col.address === nft.asset_contract.address && col.token_id === nft.token_id)
-          });
-          if (idx === -1) {
-            return true;
-          }
-          collectiblesFavoritesToRender.push(nft);
-          haveFavorite[idx] = true;
-          return false;
-        });
-
-        updatedCollectiblesFavorites = collectiblesFavorites.filter((entry, idx) => haveFavorite[idx]);
-
-        if (collectiblesFavorites.length !== updatedCollectiblesFavorites.length) { // does this work?
-          box.public.set('collectiblesFavorites', collectiblesFavorites);
-        }
-      }
-
       dispatch({
         type: 'GET_MY_COLLECTIBLES',
         collection,
@@ -613,68 +618,6 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
     console.error(error);
   }
 };
-
-// for (let i = collectiblesFavorites.length - 1; i >= 0; i -= 1) {
-//   const colAddress = collectiblesFavorites[i].address;
-//   const tokenId = collectiblesFavorites[i].token_id;
-//   let favoriteExists = false;
-//   collection.forEach((col, x) => {
-//     if (colAddress === col.address &&
-//       tokenId === col.token_id) {
-//       favoriteExists = true;
-//     }
-//     if (collection.length === x && !favoriteExists) {
-//       collectiblesFavorites.splice(i, 1);
-//       box.public.set('collectiblesFavorites', collectiblesFavorites);
-//     }
-//   });
-// }
-
-// let favoriteCount = 0;
-// for (let i = collection.length - 1; i >= 0; i -= 1) {
-//   const colAddress = collection[i].asset_contract.address;
-//   const tokenId = collection[i].token_id;
-//   collectiblesFavorites.forEach((col) => {
-//     if (colAddress === col.address &&
-//       tokenId === col.token_id) {
-//       collectiblesFavoritesToRender.push(collection.splice(i, 1)[0]);
-//       favoriteCount += 1
-//     }
-//   });
-//   if (favoriteCount === 3) {
-//     break;
-//   }
-// }
-// collectiblesFavoritesToRender.reverse();
-
-// uncheckedCollectiblesFavorites.forEach((collectible, i) => {
-//   fetch(`https://api.opensea.io/api/v1/asset/${collectible.address}/${collectible.token_id}/`)
-//     .then(result => result.json())
-//     .then((collectibleData) => {
-//       if (collectibleData.owner.address === address) {
-//         collectiblesFavorites.push(collectible);
-//       } else {
-
-//       }
-//     });
-// });
-
-// for (let i = uncheckedCollectiblesFavorites.length - 1; i >= 0; i -= 1) {
-//   console.log('addy', uncheckedCollectiblesFavorites[i].address);
-//   console.log('tokenD', uncheckedCollectiblesFavorites[i].token_id);
-
-//   fetch(`https://api.opensea.io/api/v1/asset/${uncheckedCollectiblesFavorites[i].address}/${uncheckedCollectiblesFavorites[i].token_id}/`)
-//     .then(result => result.json())
-//     .then((collectibleData) => {
-//       console.log(collectibleData);
-//       if (collectibleData.owner.address === address) {
-//         collectiblesFavorites.push(uncheckedCollectiblesFavorites[i]);
-//       } else {
-//         uncheckedCollectiblesFavorites.splice(i, 1);
-//         box.public.set('collectiblesFavorites', uncheckedCollectiblesFavorites);
-//       }
-//     });
-// };
 
 export const getPublicDID = () => async (dispatch) => {
   try {

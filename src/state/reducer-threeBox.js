@@ -100,6 +100,12 @@ export const threeBoxReducer = (state = {}, action) => {
         publicCollectiblesGallery: action.publicCollectiblesGallery,
       };
 
+    case 'UPDATE_PUBLIC_PROFILE_FAVORITE_COLLECTIBLES':
+      return {
+        ...state,
+        publicCollectiblesFavorites: action.publicCollectiblesFavorites,
+      };
+
     case 'GET_PUBLIC_PROFILE_ACTIVITY':
       return {
         ...state,
@@ -446,6 +452,17 @@ export const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         showCollectiblesModal: action.showCollectiblesModal,
+        selectedCollectible: action.selectedCollectible,
+        isFavorite: action.isFavorite,
+      };
+    case 'CLOSE_COLLECTIBLES_MODAL':
+      return {
+        ...state,
+        showCollectiblesModal: action.showCollectiblesModal,
+      };
+    case 'RESET_SELECTED_COLLECTIBLE':
+      return {
+        ...state,
         selectedCollectible: action.selectedCollectible,
         isFavorite: action.isFavorite,
       };

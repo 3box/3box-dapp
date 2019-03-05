@@ -8,6 +8,7 @@ import {
   checkNetwork,
   getActivity,
   accountsPromise,
+  getCollectibles,
 } from '../state/actions';
 import {
   PublicProfileLoading,
@@ -46,7 +47,8 @@ class ProfilePublic extends Component {
     }
 
     await this.props.checkNetwork(); // this needs to happen before
-    this.props.getProfile(publicProfileAddress);
+    await this.props.getProfile(publicProfileAddress);
+    this.props.getCollectibles(publicProfileAddress, true);
     this.props.getActivity(publicProfileAddress);
   }
 
@@ -83,6 +85,7 @@ ProfilePublic.propTypes = {
   checkNetwork: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
   handleSignInBanner: PropTypes.func.isRequired,
+  getCollectibles: PropTypes.func.isRequired,
   pathname: PropTypes.object,
   location: PropTypes.object,
   isLoadingPublicProfile: PropTypes.bool,
@@ -110,4 +113,5 @@ export default withRouter(connect(mapState,
     checkNetwork,
     getActivity,
     handleSignInBanner,
+    getCollectibles,
   })(ProfilePublic));

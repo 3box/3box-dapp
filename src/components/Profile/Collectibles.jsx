@@ -24,7 +24,7 @@ class Collectibles extends Component {
     const { box, collection, collectiblesFavorites, isFavorite, showCollectiblesModal, collectiblesFavoritesToRender } = this.props;
     const contractAddress = selectedCollectible.asset_contract.address;
     const tokenId = selectedCollectible.token_id;
-    const updatedCollectiblesFavoritesToRender = collectiblesFavoritesToRender.slice()  || [];
+    const updatedCollectiblesFavoritesToRender = collectiblesFavoritesToRender.slice() || [];
     const updatedCollectiblesFavorites = collectiblesFavorites.slice() || [];
     const updatedCollection = [];
     let removedCollectible;
@@ -86,6 +86,9 @@ class Collectibles extends Component {
           show={showCollectiblesModal}
           handleCollectiblesModal={this.props.handleCollectiblesModal}
           selectedCollectible={selectedCollectible}
+          padded={selectedCollectible.asset_contract &&
+            selectedCollectible.asset_contract.display_data &&
+            selectedCollectible.asset_contract.display_data.card_display_style}
           updateGallery={this.updateGallery}
           isFavorite={isFavorite}
         />
