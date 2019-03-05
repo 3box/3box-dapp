@@ -9,19 +9,19 @@ import {
   getActivity,
   accountsPromise,
   getCollectibles,
-} from '../state/actions';
+} from '../../state/actions';
 import {
   PublicProfileLoading,
   SignInThroughPublicProfileBanner,
-} from '../components/Modals.jsx';
+} from '../../components/Modals.jsx';
 import {
   handleSignInBanner,
-} from '../state/actions-modals';
-import { store } from '../state/store';
-import PubContent from '../components/Profile/PublicProfile/PubContent';
-import SideBar from '../components/Profile/SideBar';
-import Nav from '../components/Nav';
-import './styles/Profile.css';
+} from '../../state/actions-modals';
+import { store } from '../../state/store';
+import PubContent from '../../components/Profile/PublicProfile/PubContent';
+import SideBar from '../../components/Profile/SideBar';
+import Nav from '../../components/Nav';
+import '../styles/Profile.css';
 
 class ProfilePublic extends Component {
   async componentDidMount() {
@@ -46,7 +46,7 @@ class ProfilePublic extends Component {
       if (publicProfileAddress === activeAddress) this.props.handleSignInBanner();
     }
 
-    await this.props.checkNetwork(); // this needs to happen before
+    await this.props.checkNetwork();
     await this.props.getProfile(publicProfileAddress);
     this.props.getCollectibles(publicProfileAddress, true);
     this.props.getActivity(publicProfileAddress);

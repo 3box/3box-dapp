@@ -580,7 +580,7 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
       const haveFavorite = [false, false, false];
       collection = collection.filter((nft) => {
         const idx = collectiblesFavorites.findIndex((col) => {
-          return (col.address === nft.asset_contract.address && col.token_id === nft.token_id)
+          return (col.address === nft.asset_contract.address && col.token_id === nft.token_id);
         });
         if (idx === -1) {
           return true;
@@ -593,7 +593,9 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
       updatedCollectiblesFavorites = collectiblesFavorites.filter((entry, idx) => haveFavorite[idx]);
 
       if (collectiblesFavorites.length !== updatedCollectiblesFavorites.length && !onPublicProfile) { // does this work?
-        const box = store.getState().threeBox.box;
+        const {
+          box,
+        } = store.getState().threeBox;
         box.public.set('collectiblesFavorites', collectiblesFavorites);
       }
     }

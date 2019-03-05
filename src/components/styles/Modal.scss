@@ -137,6 +137,7 @@
 .collectiblesMiniModal__description {
   min-width: 342px;
   margin-bottom: 14px;
+  color: $lighterFont;
 }
 
 .onClickOutsideCollectibles {
@@ -228,7 +229,7 @@
   width: 40%;
   height: 14px;
   border-radius: 50%;
-  opacity: .2;
+  opacity: .1;
   position: absolute;
   bottom: 32px;
   filter: blur(2px);
@@ -280,14 +281,6 @@
     color: $lightestFont;
     font-size: 14px;
   }
-}
-
-.modal__collectibles__opensea {
-  width: 80px !important;
-  height: auto;
-  position: absolute;
-  bottom: 15px;
-  right: 15px;
 }
 
 .collectiblesClose {
@@ -1017,6 +1010,19 @@
     p {
       color: white;
     }
+  }
+
+  .collectiblesMiniModal {
+    width: 76vw!important;
+    height: fit-content !important;
+    min-height: 100px !important;
+    padding: 20px 25px !important;
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    max-height: 160px;
+    overflow-y: scroll;
   }
 
   .githubModal {

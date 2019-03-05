@@ -110,7 +110,7 @@
     text-align: center;
     overflow: scroll; }
 
-.gallery {
+.collectibles {
   max-width: calc(694px + 20px) !important;
   min-width: calc(694px + 20px) !important;
   left: calc(50vw - 350px);
@@ -118,7 +118,7 @@
   height: fit-content;
   display: flex;
   flex-direction: column;
-  margin-bottom: 60px;
+  margin-bottom: 0;
   justify-content: space-between;
   margin-left: 13px; }
 
@@ -432,6 +432,30 @@
     margin-left: 0; }
     .statusUpdate input {
       padding: 10px 10px; }
+  .feed__activity__load {
+    min-height: 80px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: white;
+    border-radius: 0;
+    border-top: solid 1px #E4E4E4;
+    border-bottom: solid 1px #E4E4E4;
+    border-right: none;
+    border-left: none; }
+    .feed__activity__load p {
+      color: #747677; }
+  .collectibles {
+    max-width: calc(100vw - 22.5px) !important;
+    min-width: calc(100vw - 22.5px) !important;
+    left: calc(50vw - 350px);
+    margin: 0;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; }
   .statusUpdate--bannerMargin {
     margin-top: 310px !important; }
   .profile__details {
@@ -441,8 +465,6 @@
     margin-top: 18px !important; }
   .hideStatusButton {
     display: block; }
-  .rightBorder {
-    border-right: 1px solid #E4E4E4 !important; }
   .feed__activity__tile {
     width: 100%;
     padding: 18px 0;
@@ -495,7 +517,8 @@
     top: 0;
     border-radius: 0;
     margin-top: 18px;
-    margin-left: 0; }
+    margin-left: 0;
+    min-height: fit-content; }
   .feed__activity__metaData {
     width: 100%;
     justify-content: flex-end;

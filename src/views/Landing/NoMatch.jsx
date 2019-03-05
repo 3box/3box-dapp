@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Footer from '../components/Footer';
-import './styles/Info.css';
-import './styles/Landing.css';
+import Footer from '../../components/Footer';
+import '../styles/Info.css';
+import '../styles/Landing.css';
 
 const NoMatch = ({ isLoggedIn, handleSignInUp }) => (
   <div className="info NoMatchPage">

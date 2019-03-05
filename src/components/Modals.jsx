@@ -137,6 +137,7 @@ export const CollectiblesModal = ({
                 <button
                   type="button"
                   className="collectibles__like modalLike"
+                  title="Remove from favorites"
                   onClick={e => updateGallery(e, selectedCollectible, 'remove', 'fromModal')}
                 >
                   <img src={HeartBlue} alt="" className="collectibles__like__heart--modal" />
@@ -146,6 +147,7 @@ export const CollectiblesModal = ({
                 <button
                   type="button"
                   className="collectibles__like modalLike"
+                  title="Add to favorites"
                   onClick={e => updateGallery(e, selectedCollectible, null, 'fromModal')}
                 >
                   <img src={HeartGrey} alt="" className="collectibles__like__heart--modal" />

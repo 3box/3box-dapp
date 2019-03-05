@@ -22,11 +22,14 @@ const PublicCollectiblesGallery = ({
         handleCollectiblesModal={handleCollectiblesModal}
         selectedCollectible={selectedCollectible}
         onPublicProfile
+        padded={selectedCollectible.asset_contract &&
+          selectedCollectible.asset_contract.display_data &&
+          selectedCollectible.asset_contract.display_data.card_display_style}
       />
       {
         publicCollectiblesFavorites.length > 0
         && (
-          <div className="gallery">
+          <div className="collectibles">
             <p className="header" id="feed__header">Gallery</p>
             <div className="collectibles__grid">
               {publicCollectiblesFavorites.length > 0

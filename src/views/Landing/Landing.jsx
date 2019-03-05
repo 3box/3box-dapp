@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
-import LandingBody from '../components/LandingBody';
-import './styles/Landing.css';
-import '../components/styles/Nav.css';
+import LandingBody from '../../components/LandingBody';
+import '../styles/Landing.css';
+import '../../components/styles/Nav.css';
 
-const Footer = lazy(() => import('../components/Footer'));
+const Footer = lazy(() => import('../../components/Footer'));
 
 const Landing = ({ isLoggedIn, handleSignInUp, }) => (
   <div id="landing">

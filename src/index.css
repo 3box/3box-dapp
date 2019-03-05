@@ -248,6 +248,9 @@ input:focus {
 .clearProfPic {
   background-color: white !important; }
 
+.noTopMargin {
+  margin-top: 0 !important; }
+
 @media only screen and (max-width: 600px) {
   .webThreeBanner {
     display: none; }

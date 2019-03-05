@@ -40,6 +40,7 @@ const CollectiblesTile = ({
           <button
             type="button"
             className="collectibles__like"
+            title="Add to favorites"
             onClick={e => updateGallery(e, collectible)}
           >
             <img src={HeartGrey} alt="" className="collectibles__like__heart" />
@@ -50,6 +51,7 @@ const CollectiblesTile = ({
           <button
             type="button"
             className="collectibles__like"
+            title="Remove from favorites"
             onClick={e => updateGallery(e, collectible, 'remove')}
           >
             <img src={HeartBlue} alt="" className="collectibles__like__heart" />

@@ -4,7 +4,6 @@
   border-radius: 6px;
   height: 300px;
   position: relative;
-  box-shadow: 0 7px 14px 0 rgba(59, 65, 94, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
   cursor: pointer;
   overflow: hidden; }
   .collectiblesTile:hover .collectibles__like__heart {
@@ -12,6 +11,14 @@
 
 .collectibles__like__heart {
   opacity: 0; }
+
+.collectibles__opensea {
+  width: 80px !important;
+  height: auto;
+  bottom: 15px;
+  right: 15px;
+  opacity: .6;
+  margin-top: 20px; }
 
 .emptyCollectiblesTile {
   border: 1px solid #E4E4E4;
@@ -101,6 +108,18 @@
     left: 350px; } }
 
 @media only screen and (max-width: 600px) {
+  .collectibles__opensea {
+    opacity: .6;
+    margin: 5px 0 0 7.5px; }
+  .collectibles__grid {
+    display: inline-grid;
+    grid-template-columns: repeat(2, 50% [col-start]);
+    width: calc(100% - 22.5px);
+    max-width: calc(100vw - 22.5px);
+    padding: 7.5px;
+    column-gap: 7.5px;
+    row-gap: 7.5px;
+    margin-bottom: 7.5px; }
   .statusUpdate {
     margin-top: 30px;
     border-radius: 0;

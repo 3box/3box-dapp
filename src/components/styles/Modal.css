@@ -108,7 +108,8 @@
 
 .collectiblesMiniModal__description {
   min-width: 342px;
-  margin-bottom: 14px; }
+  margin-bottom: 14px;
+  color: #747677; }
 
 .onClickOutsideCollectibles {
   position: fixed;
@@ -174,7 +175,7 @@
   width: 40%;
   height: 14px;
   border-radius: 50%;
-  opacity: .2;
+  opacity: .1;
   position: absolute;
   bottom: 32px;
   filter: blur(2px); }
@@ -214,13 +215,6 @@
   .modal__collectibles__info__wrapper p {
     color: #b1b1b1;
     font-size: 14px; }
-
-.modal__collectibles__opensea {
-  width: 80px !important;
-  height: auto;
-  position: absolute;
-  bottom: 15px;
-  right: 15px; }
 
 .collectiblesClose {
   position: absolute;
@@ -779,6 +773,17 @@
       right: 10px; }
     #mobile__landing__prompt p {
       color: white; }
+  .collectiblesMiniModal {
+    width: 76vw !important;
+    height: fit-content !important;
+    min-height: 100px !important;
+    padding: 20px 25px !important;
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    max-height: 160px;
+    overflow-y: scroll; }
   .githubModal {
     padding: 0;
     width: 92vw;

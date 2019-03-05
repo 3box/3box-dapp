@@ -162,7 +162,7 @@ class Collectibles extends Component {
               )}
           </div>
           <a href="https://opensea.io/">
-            <img src={OpenSea} alt="OpenSea.io" className="modal__collectibles__opensea" />
+            <img src={OpenSea} alt="OpenSea.io" className="collectibles__opensea" />
           </a>
         </div>
       </React.Fragment>

@@ -9,16 +9,16 @@ import * as routes from './utils/routes';
 import { pollNetworkAndAddress, initialAddress } from './utils/address';
 import { normalizeURL, matchProtectedRoutes } from './utils/funcs';
 import { store } from './state/store';
-import Landing from './views/Landing';
-import MyProfile from './views/MyProfile';
-import PubProfile from './views/PubProfile';
-import NoMatch from './views/NoMatch';
-import EditProfile from './views/EditProfile';
-import Profiles from './views/Profiles';
-import Jobs from './views/Jobs';
-import Privacy from './views/Privacy';
-import Terms from './views/Terms';
-import Create from './views/Create';
+import Landing from './views/Landing/Landing';
+import MyProfile from './views/Profile/MyProfile';
+import PubProfile from './views/Profile/PubProfile';
+import NoMatch from './views/Landing/NoMatch';
+import EditProfile from './views/Profile/EditProfile';
+import Profiles from './views/Landing/Profiles';
+import Jobs from './views/Landing/Jobs';
+import Privacy from './views/Landing/Privacy';
+import Terms from './views/Landing/Terms';
+import Create from './views/Landing/Create';
 import NavLanding from './components/NavLanding';
 import Nav from './components/Nav';
 import history from './history';
@@ -332,7 +332,6 @@ class App extends Component {
           <Route
             exact
             path="(^[/][0][xX]\w{40}\b)/activity"
-            // path={routes.FORMAT_PROFILE_ACTIVITY}
             component={MyProfile}
           />
           <Redirect from="/profile" to="/" />
@@ -341,21 +340,18 @@ class App extends Component {
           <Route
             exact
             path="(^[/][0][xX]\w{40}\b)/details"
-            // path={routes.FORMAT_PROFILE_ABOUT}
             component={MyProfile}
           />
 
           <Route
             exact
             path="(^[/][0][xX]\w{40}\b)/collectibles"
-            // path={routes.FORMAT_PROFILE_ABOUT}
             component={MyProfile}
           />
 
           <Route
             exact
             path="(^[/][0][xX]\w{40}\b)/edit"
-            // path={routes.FORMAT_PROFILE_EDIT}
             component={EditProfile}
           />
 
@@ -417,13 +413,10 @@ class App extends Component {
           <Route
             exact
             path="(^[/][0][xX]\w{40}\b)"
-            // path={routes.PUBLIC_PROFILE}
             component={PubProfile}
           />
 
           <Route
-            // exact
-            // path="/:anythingelse"
             component={() => (
               <NoMatch
                 isLoggedIn={isLoggedIn}

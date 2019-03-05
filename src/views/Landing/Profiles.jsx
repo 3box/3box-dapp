@@ -3,10 +3,10 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import Narwhal from '../assets/Narwhal.png';
-import './styles/CreateProfile.css';
+import Narwhal from '../../assets/Narwhal.png';
+import '../styles/CreateProfile.css';
 
-class Create extends Component {
+class Profiles extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,7 +16,7 @@ class Create extends Component {
 
   componentDidMount() {
     const { currentRoute } = this.props;
-    if (currentRoute === '/profiles') {
+    if (currentRoute === '/create') {
       setTimeout(() => {
         this.setState({
           fadeOut: '',
@@ -33,7 +33,7 @@ class Create extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { currentRoute } = nextProps;
-    if (currentRoute === '/profiles') {
+    if (currentRoute === '/create') {
       setTimeout(() => {
         this.setState({
           fadeOut: '',
@@ -51,21 +51,20 @@ class Create extends Component {
   render() {
     const { handleSignInUp, isLoggedIn } = this.props;
     const { fadeOut } = this.state;
-
     return (
       <div className="create">
 
         {!isLoggedIn
           && (
             <div className={`create__banner ${fadeOut}`}>
-              <p>Create your profile below.</p>
+              <p>Experience profiles by joining 3Box below.</p>
             </div>)}
 
         <div className="create__copy">
           <div className="create__copy__wrapper">
             <h1 className="create__copy__headline">
               Welcome to your new home on web3.
-              <span role="img" aria-label="heart">
+              <span role="img" aria-label="check">
                 💙
               </span>
             </h1>
@@ -148,25 +147,27 @@ class Create extends Component {
                     Sign in.
                   </p>)}
 
-              {isLoggedIn && <p>
-                You already have a profile, have fun!
-                    </p>}
+              {isLoggedIn
+                && (
+                  <p>
+                    You already have a profile, have fun!
+                  </p>)}
 
             </div>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-Create.propTypes = {
+Profiles.propTypes = {
   handleSignInUp: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool,
   currentRoute: PropTypes.string,
 };
 
-Create.defaultProps = {
+Profiles.defaultProps = {
   isLoggedIn: false,
   currentRoute: '',
 };
@@ -176,4 +177,4 @@ const mapState = state => ({
   currentRoute: state.threeBox.currentRoute,
 });
 
-export default withRouter(connect(mapState)(Create));
+export default withRouter(connect(mapState)(Profiles));

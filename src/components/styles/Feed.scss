@@ -147,7 +147,7 @@
   }
 }
 
-.gallery {
+.collectibles {
   max-width: calc(694px + 20px) !important;
   min-width: calc(694px + 20px) !important;
   left: calc(50vw - 350px);
@@ -155,7 +155,7 @@
   height: fit-content;
   display: flex;
   flex-direction: column;
-  margin-bottom: 60px;
+  margin-bottom: 0;
   justify-content: space-between;
   margin-left: 13px;
 }
@@ -542,6 +542,36 @@
     }
   }
 
+  .feed__activity__load {
+    min-height: 80px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: white;
+    border-radius: 0;
+    border-top: solid 1px $borderColor;
+    border-bottom: solid 1px $borderColor;
+    border-right: none;
+    border-left: none;
+    
+    p {
+      color: $lighterFont;
+    }
+  }
+
+  .collectibles {
+    max-width: calc(100vw - 22.5px) !important;
+    min-width: calc(100vw - 22.5px) !important;
+    left: calc(50vw - 350px);
+    margin: 0;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
   .statusUpdate--bannerMargin {
     margin-top: 310px !important;
   }
@@ -555,11 +585,6 @@
 
   .hideStatusButton {
     display: block;
-  }
-
-
-  .rightBorder {
-    border-right: 1px solid $borderColor !important;
   }
 
   .feed__activity__tile {
@@ -632,6 +657,7 @@
     border-radius: 0;
     margin-top: 18px;
     margin-left: 0;
+    min-height: fit-content;
   }
 
   .feed__activity__metaData {

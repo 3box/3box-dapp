@@ -10,6 +10,9 @@ import StatusUpdate from '../StatusUpdate';
 import Activity from './Activity';
 import Details from '../Details';
 import Collectibles from '../Collectibles';
+import ActivityIcon from '../../../assets/Activity.svg';
+import DetailsIcon from '../../../assets/Details.svg';
+import CollectiblesIcon from '../../../assets/Collectibles.svg';
 import '../../styles/Feed.css';
 import '../../../views/styles/Profile.css';
 import '../../styles/NetworkArray.css';
@@ -19,8 +22,30 @@ const Content = ({ currentAddress }) => (
     <StatusUpdate />
     <div className="profile__category--mobile">
       <div className="profile__category__sectionWrapper">
-        <NavLink exact to={`/${currentAddress}/${routes.ACTIVITY}`} className="profile__category__section rightBorder">Activity</NavLink>
-        <NavLink exact to={`/${currentAddress}/${routes.DETAILS}`} className="profile__category__section ">Details</NavLink>
+        <NavLink
+          exact
+          to={`/${currentAddress}/${routes.ACTIVITY}`}
+          className="profile__category__section"
+        >
+          <img src={ActivityIcon} alt="Activity" className="profile__category__tabIcon" />
+          Activity
+        </NavLink>
+        <NavLink
+          exact
+          to={`/${currentAddress}/${routes.DETAILS}`}
+          className="profile__category__section "
+        >
+          <img src={DetailsIcon} alt="Activity" className="profile__category__tabIcon" />
+          Details
+        </NavLink>
+        <NavLink
+          exact
+          to={`/${currentAddress}/${routes.COLLECTIBLES}`}
+          className="profile__category__section "
+        >
+          <img src={CollectiblesIcon} alt="Activity" className="profile__category__tabIcon" />
+          Collectibles
+        </NavLink>
       </div>
     </div>
 
