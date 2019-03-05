@@ -43,10 +43,16 @@ const SideBar = ({
           : <div className={`${showSignInBanner ? 'showSignInBanner' : ''} ${(showDownloadBanner || showSignInBanner) ? 'bannerMargin' : ''} profile__coverPhoto`} />)
       }
 
-      <div id="profile">
+      <div id="profile" className={!onPublicProfilePage && 'onMyProfile'}>
         <div id="profile__fixed">
 
-          <div className={`${showSignInBanner ? 'showSignInBanner' : ''} ${(showDownloadBanner || showSignInBanner) ? 'bannerMargin' : ''} profile__user__info`}>
+          <div className={`
+            ${showSignInBanner ? 'showSignInBanner' : ''} 
+            ${onPublicProfilePage ? 'addBorderBottom' : ''} 
+            ${(showDownloadBanner || showSignInBanner) ? 'bannerMargin' : ''} 
+            profile__user__info
+          `}
+          >
 
             {!onPublicProfilePage && (
               image.length > 0 && image[0].contentUrl

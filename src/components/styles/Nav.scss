@@ -1,7 +1,8 @@
 @import "../../variables.scss";
 
 nav {
-  position: fixed;
+  position: relative;
+  // position: fixed;
   width: 100vw;
   top: 0;
   background-color: #fff;

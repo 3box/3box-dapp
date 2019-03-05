@@ -79,19 +79,21 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  transition: all 0; }
+  transition: all 0;
+  height: 100vh;
+  overflow-y: scroll; }
 
 .collectiblesMiniModal {
   width: calc(100% - 50px) !important;
   height: fit-content !important;
-  min-height: 100px !important;
   padding: 20px 25px !important;
   margin-top: 20px;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  max-height: 160px;
-  overflow-y: scroll; }
+  min-height: fit-content;
+  margin-bottom: 75px;
+  position: relative; }
 
 .collectiblesMiniModal__wrapper {
   flex-grow: 1;
@@ -134,6 +136,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  height: 100vh;
   width: fit-content;
   height: fit-content; }
 
@@ -142,7 +145,8 @@
   width: fit-content;
   height: fit-content;
   position: relative;
-  overflow: visible; }
+  overflow: visible;
+  min-height: 400px; }
   .collectiblesTileModal:hover .collectibles__like__heart--modal {
     opacity: .8; }
 
@@ -153,7 +157,7 @@
 .modal__collectibles__image__wrapper {
   height: fit-content;
   width: fit-content;
-  min-height: 85%;
+  min-height: 300px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -202,7 +206,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
-  max-height: 90px; }
+  min-height: 80px; }
 
 .modal__collectibles__info__wrapper {
   padding: 15px 25px 25px 25px;
@@ -217,13 +221,15 @@
     font-size: 14px; }
 
 .collectiblesClose {
-  position: absolute;
+  position: relative;
   top: -30px;
   right: 0px;
   padding: 0;
   border: none;
   z-index: 20;
-  transition: all .3s; }
+  transition: all .3s;
+  align-self: flex-end;
+  margin-top: 100px; }
   .collectiblesClose:hover {
     background-color: transparent;
     border: none;
@@ -711,6 +717,15 @@
     display: none; }
   .modal__container img {
     width: 100px; }
+  .collectiblesModal {
+    height: fit-content !important;
+    overflow-y: scroll; }
+  .collectiblesWrapper {
+    height: 100vh;
+    overflow-y: scroll; }
+  .collectiblesTileModal {
+    position: relative !important;
+    overflow: hidden; }
   .modal__onBoardingModal__container img {
     width: 88vw !important;
     height: 400px !important; }
@@ -725,6 +740,8 @@
     max-height: 450px; }
     .modal img {
       width: 100px; }
+  .modal__collectibles__traits {
+    min-width: 76vw; }
   .modal__github__description__copy__button--mobile {
     display: flex;
     color: #6b6b6b;
@@ -777,13 +794,14 @@
     width: 76vw !important;
     height: fit-content !important;
     min-height: 100px !important;
-    padding: 20px 25px !important;
+    padding: 20px 15px !important;
     margin-top: 20px;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
     max-height: 160px;
-    overflow-y: scroll; }
+    overflow-y: scroll;
+    position: relative; }
   .githubModal {
     padding: 0;
     width: 92vw;

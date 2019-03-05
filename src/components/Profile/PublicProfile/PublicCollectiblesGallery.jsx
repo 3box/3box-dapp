@@ -31,26 +31,28 @@ const PublicCollectiblesGallery = ({
         && (
           <div className="collectibles">
             <p className="header" id="feed__header">Gallery</p>
-            <div className="collectibles__grid">
-              {publicCollectiblesFavorites.length > 0
-                ? publicCollectiblesFavorites.map(collectible => (
-                  <CollectiblesTile
-                    collectible={collectible}
-                    image={collectible.image_preview_url}
-                    description={collectible.asset_contract && collectible.asset_contract.name}
-                    tokenId={collectible.token_id}
-                    name={collectible.name}
-                    bgStyle={collectible.background_color}
-                    padded={collectible.asset_contract
-                      && collectible.asset_contract.display_data
-                      && collectible.asset_contract.display_data.card_display_style}
-                    key={`${collectible.asset_contract && collectible.asset_contract.address}-${collectible.token_id}`}
-                    id={`${collectible.asset_contract && collectible.asset_contract.address}-${collectible.token_id}`}
-                    favorite
-                    onPublicProfile
-                  />
-                ))
-                : <EmptyGalleryCollectiblesTile />}
+            <div className="favorites__grid__wrapper">
+              <div className="collectibles__grid favorites__grid">
+                {publicCollectiblesFavorites.length > 0
+                  ? publicCollectiblesFavorites.map(collectible => (
+                    <CollectiblesTile
+                      collectible={collectible}
+                      image={collectible.image_preview_url}
+                      description={collectible.asset_contract && collectible.asset_contract.name}
+                      tokenId={collectible.token_id}
+                      name={collectible.name}
+                      bgStyle={collectible.background_color}
+                      padded={collectible.asset_contract
+                        && collectible.asset_contract.display_data
+                        && collectible.asset_contract.display_data.card_display_style}
+                      key={`${collectible.asset_contract && collectible.asset_contract.address}-${collectible.token_id}`}
+                      id={`${collectible.asset_contract && collectible.asset_contract.address}-${collectible.token_id}`}
+                      favorite
+                      onPublicProfile
+                    />
+                  ))
+                  : <EmptyGalleryCollectiblesTile />}
+              </div>
             </div>
           </div>)
       }

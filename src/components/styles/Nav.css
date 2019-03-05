@@ -1,5 +1,5 @@
 nav {
-  position: fixed;
+  position: relative;
   width: 100vw;
   top: 0;
   background-color: #fff;

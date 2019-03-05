@@ -19,7 +19,6 @@ import '../../styles/NetworkArray.css';
 
 const Content = ({ currentAddress }) => (
   <div>
-    <StatusUpdate />
     <div className="profile__category--mobile">
       <div className="profile__category__sectionWrapper">
         <NavLink
@@ -27,7 +26,7 @@ const Content = ({ currentAddress }) => (
           to={`/${currentAddress}/${routes.ACTIVITY}`}
           className="profile__category__section"
         >
-          <img src={ActivityIcon} alt="Activity" className="profile__category__tabIcon" />
+          <img src={ActivityIcon} alt="Activity" className="profile__category__tabIcon--activity" />
           Activity
         </NavLink>
         <NavLink
@@ -35,7 +34,7 @@ const Content = ({ currentAddress }) => (
           to={`/${currentAddress}/${routes.DETAILS}`}
           className="profile__category__section "
         >
-          <img src={DetailsIcon} alt="Activity" className="profile__category__tabIcon" />
+          <img src={DetailsIcon} alt="Activity" className="profile__category__tabIcon--details" />
           Details
         </NavLink>
         <NavLink
@@ -43,7 +42,7 @@ const Content = ({ currentAddress }) => (
           to={`/${currentAddress}/${routes.COLLECTIBLES}`}
           className="profile__category__section "
         >
-          <img src={CollectiblesIcon} alt="Activity" className="profile__category__tabIcon" />
+          <img src={CollectiblesIcon} alt="Activity" className="profile__category__tabIcon--collectibles" />
           Collectibles
         </NavLink>
       </div>

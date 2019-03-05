@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import StatusUpdate from '../StatusUpdate';
 import PublicActivityHeader from './PublicActivityHeader';
 import PublicActivityTiles from './PublicActivityTiles';
 import Loading from '../../../assets/Loading.svg';
@@ -13,10 +14,12 @@ const PublicActivity = ({
   ifFetchingActivity,
   publicProfileActivity,
   publicCollectiblesFavorites,
+  publicStatus,
 }) => (
     <div id="feed" className={`${publicCollectiblesFavorites.length > 0 && 'noTopMargin'}`}>
       <div>
         <p className="header" id="feed__header">Activity</p>
+        {publicStatus && <StatusUpdate />}
         <div className="feed__activity__header">
           {(ifFetchingActivity)
             && (
@@ -52,12 +55,14 @@ PublicActivity.propTypes = {
   ifFetchingActivity: PropTypes.bool,
   publicCollectiblesFavorites: PropTypes.array,
   publicProfileActivity: PropTypes.array,
+  publicStatus: PropTypes.string,
 };
 
 PublicActivity.defaultProps = {
   ifFetchingActivity: false,
   publicCollectiblesFavorites: [],
   publicProfileActivity: [],
+  publicStatus: '',
 };
 
 const mapState = state => ({
@@ -65,6 +70,7 @@ const mapState = state => ({
   publicProfileActivity: state.threeBox.publicProfileActivity,
   publicProfileAddress: state.threeBox.publicProfileAddress,
   publicName: state.threeBox.publicName,
+  publicStatus: state.threeBox.publicStatus,
   publicCollectiblesFavorites: state.threeBox.publicCollectiblesFavorites,
 });
 

@@ -92,35 +92,39 @@ class Collectibles extends Component {
           updateGallery={this.updateGallery}
           isFavorite={isFavorite}
         />
-        <div id="feed" className="collectibles__wrapper">
+        <div id="feed">
+          {/* <div id="feed" className="collectibles__wrapper"> */}
           {collection.length > 0
             && (
               <p className="header" id="feed__header">
                 Favorites
               </p>
             )}
-          {collectiblesFavoritesToRender.length > 0 && (
-            <div className="collectibles__grid">
-              {collectiblesFavoritesToRender.map(collectible => (
-                <CollectiblesTile
-                  updateGallery={this.updateGallery}
-                  collectible={collectible}
-                  image={collectible.image_preview_url}
-                  description={collectible.asset_contract && collectible.asset_contract.name}
-                  tokenId={collectible.token_id}
-                  name={collectible.name}
-                  bgStyle={collectible.background_color}
-                  padded={
-                    collectible.asset_contract &&
-                    collectible.asset_contract.display_data &&
-                    collectible.asset_contract.display_data.card_display_style
-                  }
-                  key={`${collectible.asset_contract.address}-${collectible.token_id}`}
-                  favorite
-                />
-              ))}
-            </div>
-          )}
+          <div className="favorites__grid__wrapper">
+            {collectiblesFavoritesToRender.length > 0 && (
+              <div className="collectibles__grid favorites__grid">
+                {collectiblesFavoritesToRender.map(collectible => (
+                  <CollectiblesTile
+                    updateGallery={this.updateGallery}
+                    collectible={collectible}
+                    image={collectible.image_preview_url}
+                    description={collectible.asset_contract && collectible.asset_contract.name}
+                    tokenId={collectible.token_id}
+                    name={collectible.name}
+                    bgStyle={collectible.background_color}
+                    padded={
+                      collectible.asset_contract &&
+                      collectible.asset_contract.display_data &&
+                      collectible.asset_contract.display_data.card_display_style
+                    }
+                    key={`${collectible.asset_contract.address}-${collectible.token_id}`}
+                    favorite
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+
           {(collectiblesFavoritesToRender.length === 0 && collection.length > 0) && (
             <div className="collectibles__grid">
               <EmptyGalleryCollectiblesTile />
@@ -161,8 +165,9 @@ class Collectibles extends Component {
                 <EmptyCollectiblesTile />
               )}
           </div>
-          <a href="https://opensea.io/">
-            <img src={OpenSea} alt="OpenSea.io" className="collectibles__opensea" />
+          <a href="https://opensea.io/" className="collectibles__opensea">
+            <p>Collectibles data provided by</p>
+            <img src={OpenSea} alt="OpenSea.io" />
           </a>
         </div>
       </React.Fragment>

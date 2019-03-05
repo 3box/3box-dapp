@@ -13,12 +13,24 @@
   opacity: 0; }
 
 .collectibles__opensea {
-  width: 80px !important;
-  height: auto;
-  bottom: 15px;
-  right: 15px;
-  opacity: .6;
+  align-self: flex-end;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 20px; }
+  .collectibles__opensea p {
+    color: #cacacb;
+    margin-right: 10px;
+    font-size: 12px; }
+  .collectibles__opensea img {
+    width: 80px !important;
+    height: auto;
+    bottom: 15px;
+    right: 15px;
+    opacity: .6; }
+
+.favorites__grid {
+  margin-bottom: 10px !important; }
 
 .emptyCollectiblesTile {
   border: 1px solid #E4E4E4;
@@ -97,8 +109,8 @@
 .collectibles__grid {
   display: inline-grid;
   grid-template-columns: repeat(3, 33.33333% [col-start]);
-  width: 684px;
-  max-width: 684px;
+  width: 685px;
+  max-width: 685px;
   margin-bottom: 26px;
   column-gap: 15px;
   row-gap: 20px; }
@@ -109,8 +121,31 @@
 
 @media only screen and (max-width: 600px) {
   .collectibles__opensea {
-    opacity: .6;
-    margin: 5px 0 0 7.5px; }
+    margin-right: 30px; }
+    .collectibles__opensea img {
+      opacity: .6;
+      margin: 5px 0 0 7.5px; }
+  .collectibles__like__heart {
+    opacity: 1 !important; }
+  .favorites__grid__wrapper {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    overflow: scroll; }
+  .favorites__grid {
+    padding: 0 0 0 7.5px !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    overflow: scroll !important;
+    white-space: nowrap !important;
+    width: fit-content !important;
+    max-width: fit-content !important;
+    grid-template-columns: none !important; }
+    .favorites__grid .collectiblesTile {
+      width: 75vw !important;
+      margin-right: 7.5px; }
+  .collectibles__wrapper {
+    margin-bottom: 20px !important; }
   .collectibles__grid {
     display: inline-grid;
     grid-template-columns: repeat(2, 50% [col-start]);
@@ -119,126 +154,4 @@
     padding: 7.5px;
     column-gap: 7.5px;
     row-gap: 7.5px;
-    margin-bottom: 7.5px; }
-  .statusUpdate {
-    margin-top: 30px;
-    border-radius: 0;
-    border-left: none;
-    border-right: none;
-    width: 100vw;
-    max-width: 100vw;
-    min-width: 100vw;
-    padding: 0;
-    margin-left: 0; }
-    .statusUpdate input {
-      padding: 10px 10px; }
-  .statusUpdate--bannerMargin {
-    margin-top: 310px !important; }
-  .profile__details {
-    padding: 0 !important;
-    max-width: 100vw;
-    min-width: 100vw;
-    margin-top: 18px !important; }
-  .hideStatusButton {
-    display: block; }
-  .feed__activity__tile {
-    width: 100%;
-    padding: 18px 0;
-    border-radius: 0;
-    background-color: white;
-    border-bottom: 1px solid #E4E4E4;
-    border-top: 1px solid #E4E4E4;
-    border-left: none;
-    border-right: none; }
-  .feed__activity {
-    margin-left: 0;
-    display: flex;
-    padding: 11px 0;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 0;
-    width: 100%;
-    border-bottom: 1px solid #E4E4E4;
-    border-top: 1px solid #E4E4E4;
-    border-left: none;
-    border-right: none; }
-  .feed__activity__data {
-    padding: 0;
-    width: 94%;
-    align-items: flex-start;
-    flex-direction: column; }
-  .hideUpdateOnMobile {
-    display: none; }
-  .feed__activity__info {
-    max-width: 100%;
-    width: 100%;
-    padding: 0; }
-    .feed__activity__info img {
-      margin-right: 7px; }
-    .feed__activity__info p {
-      width: 300px;
-      word-wrap: break-word; }
-  .feed__activity__image {
-    width: 100%;
-    min-width: 100%;
-    border-radius: 0; }
-  #feed {
-    padding: 0;
-    width: 100vw;
-    max-width: 100vw !important;
-    min-width: 100vw !important;
-    border: none;
-    position: relative;
-    left: 0;
-    top: 0;
-    border-radius: 0;
-    margin-top: 18px;
-    margin-left: 0; }
-  .feed__activity__metaData {
-    width: 100%;
-    justify-content: flex-end;
-    margin-top: 8px; }
-  #feed__header {
-    padding: 30px 0 20px 20px; }
-  .publicHeader {
-    display: none; }
-  .feed__activity__context {
-    padding: 0 10px;
-    white-space: nowrap; }
-  .feed__activity__address {
-    white-space: nowrap;
-    overflow: hidden;
-    overflow-x: scroll;
-    width: 100%; }
-    .feed__activity__address h4 {
-      width: 94%;
-      overflow-x: scroll; }
-  .feed__activity__address__wrapper {
-    width: 86%;
-    display: flex;
-    flex-direction: column;
-    align-self: flex-start; }
-  .feed__activity__header {
-    background-color: #f5f6f8; }
-    .feed__activity__header h4 {
-      width: 100%;
-      overflow-x: scroll; }
-  .whiteBG {
-    background-color: white !important; }
-  .feed__activity__address__time {
-    width: 26%;
-    white-space: nowrap;
-    overflow: hidden;
-    overflow-x: scroll; }
-  .feed__activity__address__amount {
-    white-space: nowrap;
-    overflow: hidden;
-    overflow-x: scroll; }
-  .feed__activity__address__dataType {
-    width: 18px; }
-  .feed__activity__address__toFrom {
-    width: 15%; }
-  .feed__activity__address__function {
-    width: 13%; }
-  .feed__footer {
-    margin-bottom: 28px; } }
+    margin-bottom: 7.5px; } }
