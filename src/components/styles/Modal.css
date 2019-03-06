@@ -91,7 +91,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  min-height: 80px;
+  min-height: fit-content;
   margin-bottom: 75px;
   position: relative; }
 

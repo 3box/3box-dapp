@@ -4,6 +4,7 @@
   border-radius: 6px;
   height: 300px;
   position: relative;
+  box-shadow: 0 3px 8px 0 rgba(59, 65, 94, 0.15);
   cursor: pointer;
   overflow: hidden; }
   .collectiblesTile:hover .collectibles__like__heart {
