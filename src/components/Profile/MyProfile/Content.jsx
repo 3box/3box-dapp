@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import * as routes from '../../../utils/routes';
-import StatusUpdate from '../StatusUpdate';
 import Activity from './Activity';
 import Details from '../Details';
 import Collectibles from '../Collectibles';
@@ -26,7 +25,7 @@ const Content = ({ currentAddress }) => (
           to={`/${currentAddress}/${routes.ACTIVITY}`}
           className="profile__category__section"
         >
-          <img src={ActivityIcon} alt="Activity" className="profile__category__tabIcon--activity" />
+          <img src={ActivityIcon} alt="Activity" className="profile__category__tabIcon--activity--mobile" />
           Activity
         </NavLink>
         <NavLink
@@ -34,7 +33,7 @@ const Content = ({ currentAddress }) => (
           to={`/${currentAddress}/${routes.DETAILS}`}
           className="profile__category__section "
         >
-          <img src={DetailsIcon} alt="Activity" className="profile__category__tabIcon--details" />
+          <img src={DetailsIcon} alt="Activity" className="profile__category__tabIcon--details--mobile" />
           Details
         </NavLink>
         <NavLink
@@ -42,7 +41,7 @@ const Content = ({ currentAddress }) => (
           to={`/${currentAddress}/${routes.COLLECTIBLES}`}
           className="profile__category__section "
         >
-          <img src={CollectiblesIcon} alt="Activity" className="profile__category__tabIcon--collectibles" />
+          <img src={CollectiblesIcon} alt="Activity" className="profile__category__tabIcon--collectibles--mobile" />
           Collectibles
         </NavLink>
       </div>

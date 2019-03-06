@@ -6,6 +6,9 @@ import { Link, NavLink, withRouter } from 'react-router-dom';
 import PubSideBar from './PublicProfile/PubSideBar';
 import { copyToClipBoard } from '../../state/actions';
 import * as routes from '../../utils/routes';
+import ActivityIcon from '../../assets/Activity.svg';
+import DetailsIcon from '../../assets/Details.svg';
+import CollectiblesIcon from '../../assets/Collectibles.svg';
 import EthereumLogo from '../../assets/EthereumIcon.svg';
 import Copy from '../../assets/Copy.svg';
 import CopyGrey from '../../assets/CopyGrey.svg';
@@ -110,9 +113,24 @@ const SideBar = ({
               <div className="profile__category__sectionWrapper">
                 {!onPublicProfilePage ? (
                   <React.Fragment>
-                    <NavLink exact to={`/${currentAddress}/${routes.ACTIVITY}`} className="profile__category__section">Activity</NavLink>
-                    <NavLink exact to={`/${currentAddress}/${routes.DETAILS}`} className="profile__category__section ">Details</NavLink>
-                    <NavLink exact to={`/${currentAddress}/${routes.COLLECTIBLES}`} className="profile__category__section ">Collectibles</NavLink>
+                    <NavLink exact to={`/${currentAddress}/${routes.ACTIVITY}`} className="profile__category__section">
+                      <div className="profile__category__tabIcon__wrappper">
+                        <img src={ActivityIcon} alt="Activity" className="profile__category__tabIcon--activity" />
+                      </div>
+                      Activity
+                    </NavLink>
+                    <NavLink exact to={`/${currentAddress}/${routes.DETAILS}`} className="profile__category__section ">
+                      <div className="profile__category__tabIcon__wrappper">
+                        <img src={DetailsIcon} alt="Activity" className="profile__category__tabIcon--details" />
+                      </div>
+                      Details
+                    </NavLink>
+                    <NavLink exact to={`/${currentAddress}/${routes.COLLECTIBLES}`} className="profile__category__section ">
+                      <div className="profile__category__tabIcon__wrappper">
+                        <img src={CollectiblesIcon} alt="Activity" className="profile__category__tabIcon--collectibles" />
+                      </div>
+                      Collectibles
+                    </NavLink>
                   </React.Fragment>)
                   : (
                     <PubSideBar />)}

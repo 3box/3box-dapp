@@ -21,38 +21,39 @@ class Collectibles extends Component {
 
   updateGallery = (e, selectedCollectible, removeFavorite, fromModal) => {
     e.stopPropagation();
-    const { box, collection, collectiblesFavorites, isFavorite, showCollectiblesModal, collectiblesFavoritesToRender } = this.props;
+    const {
+      box, collection, collectiblesFavorites, isFavorite, showCollectiblesModal, collectiblesFavoritesToRender,
+    } = this.props;
     const contractAddress = selectedCollectible.asset_contract.address;
     const tokenId = selectedCollectible.token_id;
     const updatedCollectiblesFavoritesToRender = collectiblesFavoritesToRender.slice() || [];
     const updatedCollectiblesFavorites = collectiblesFavorites.slice() || [];
-    const updatedCollection = [];
+    let updatedCollection = [];
     let removedCollectible;
 
     if (!removeFavorite) {
-      if (updatedCollectiblesFavoritesToRender.length > 2) removedCollectible = updatedCollectiblesFavoritesToRender.pop();
-      updatedCollectiblesFavoritesToRender.push(selectedCollectible); // are we popping the right one?
-      updatedCollectiblesFavorites.push({
-        address: selectedCollectible.asset_contract.address,
-        token_id: selectedCollectible.token_id,
+      if (updatedCollectiblesFavoritesToRender.length > 2) {
+        removedCollectible = updatedCollectiblesFavoritesToRender.pop();
+        updatedCollectiblesFavorites.pop();
+      }
+      updatedCollectiblesFavoritesToRender.unshift(selectedCollectible);
+      updatedCollectiblesFavorites.unshift({
+        address: contractAddress,
+        token_id: tokenId,
       });
-      collection.forEach((collectible) => {
-        if (collectible.asset_contract.address !== contractAddress
-          || collectible.token_id !== tokenId) {
-          updatedCollection.push(collectible);
-        }
-      });
+      const idx = collection.findIndex(nft => (nft.asset_contract.address === contractAddress
+        && nft.token_id === tokenId));
+      
+      collection.splice(idx, 1);
+      updatedCollection = collection.slice();
       if (removedCollectible) updatedCollection.push(removedCollectible);
     } else if (removeFavorite) {
-      collectiblesFavorites.map((favorite, i) => {
-        if (favorite.address === contractAddress
-          && favorite.token_id === tokenId) {
-          updatedCollectiblesFavorites.splice(i, 1);
-          updatedCollectiblesFavoritesToRender.splice(i, 1);
-        }
-      });
-      collection.forEach(collectible => updatedCollection.push(collectible));
-      updatedCollection.push(selectedCollectible);
+      const idx = updatedCollectiblesFavorites.findIndex(favorite => favorite.address === contractAddress
+        && favorite.token_id === tokenId);
+
+      updatedCollectiblesFavorites.splice(idx, 1);
+      updatedCollectiblesFavoritesToRender.splice(idx, 1);
+      updatedCollection = [...collection, selectedCollectible];
     }
 
     box.public.set('collectiblesFavorites', updatedCollectiblesFavorites);
@@ -93,7 +94,6 @@ class Collectibles extends Component {
           isFavorite={isFavorite}
         />
         <div id="feed">
-          {/* <div id="feed" className="collectibles__wrapper"> */}
           {collection.length > 0
             && (
               <p className="header" id="feed__header">
@@ -126,7 +126,7 @@ class Collectibles extends Component {
           </div>
 
           {(collectiblesFavoritesToRender.length === 0 && collection.length > 0) && (
-            <div className="collectibles__grid">
+            <div className="collectibles__grid favorites__grid">
               <EmptyGalleryCollectiblesTile />
               <EmptyGalleryCollectiblesTile />
               <EmptyGalleryCollectiblesTile />

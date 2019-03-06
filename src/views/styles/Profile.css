@@ -109,7 +109,7 @@
   .profile__category__section:hover {
     color: #6b6b6b; }
 
-.profile__category__tabIcon--activity {
+.profile__category__tabIcon--activity--mobile {
   height: 17px;
   margin-right: 6px;
   filter: none;
@@ -119,9 +119,43 @@
   -o-filter: grayscale(100%);
   opacity: .5; }
 
-.profile__category__tabIcon--details {
+.profile__category__tabIcon--details--mobile {
   height: 16px;
   margin-right: 6px;
+  filter: none;
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  opacity: .5; }
+
+.profile__category__tabIcon--collectibles--mobile {
+  height: 16px;
+  margin-right: 6px;
+  filter: none;
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  opacity: .5; }
+
+.profile__category__tabIcon__wrappper {
+  width: 28px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; }
+
+.profile__category__tabIcon--activity {
+  height: 20px;
+  filter: none;
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  opacity: .5; }
+
+.profile__category__tabIcon--details {
+  height: 16px;
   filter: none;
   -webkit-filter: grayscale(100%);
   -moz-filter: grayscale(100%);
@@ -131,7 +165,6 @@
 
 .profile__category__tabIcon--collectibles {
   height: 16px;
-  margin-right: 6px;
   filter: none;
   -webkit-filter: grayscale(100%);
   -moz-filter: grayscale(100%);
@@ -141,7 +174,7 @@
 
 .active {
   background-color: #dfdfdfa6 !important;
-  color: #6b6b6b; }
+  color: #1168df; }
   .active img {
     filter: none;
     opacity: 1; }

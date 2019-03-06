@@ -591,6 +591,7 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
       });
 
       updatedCollectiblesFavorites = collectiblesFavorites.filter((entry, idx) => haveFavorite[idx]);
+      collectiblesFavoritesToRender.reverse();
 
       if (collectiblesFavorites.length !== updatedCollectiblesFavorites.length && !onPublicProfile) { // does this work?
         const {
