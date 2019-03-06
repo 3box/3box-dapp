@@ -594,7 +594,7 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
         return false;
       });
 
-      if (collectiblesFavorites.length !== updatedCollectiblesFavorites.length && !onPublicProfile) { // does this work?
+      if (collectiblesFavorites.length !== updatedCollectiblesFavorites.length && !onPublicProfile) {
         const {
           box,
         } = store.getState().threeBox;

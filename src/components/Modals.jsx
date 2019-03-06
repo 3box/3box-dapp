@@ -123,7 +123,6 @@ export const CollectiblesModal = ({
 }) => (
     <div>
       <div className={`${show ? 'showModal' : ''} modal__container modal--effect collectiblesModal`}>
-        {show && <div className='onClickOutsideCollectibles' onClick={() => handleCollectiblesModal()} />}
         <div className="collectiblesWrapper">
           <button onClick={() => handleCollectiblesModal()} type="button" className="tertiaryButton collectiblesClose">
             Close
@@ -190,6 +189,7 @@ export const CollectiblesModal = ({
             </div>
           </div>
         </div>
+        {show && <div className='onClickOutsideCollectibles' onClick={() => handleCollectiblesModal()} />}
       </div>
 
       <div className="modal__overlay" />

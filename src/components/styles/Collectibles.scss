@@ -187,7 +187,8 @@
     display: flex !important;
     justify-content: flex-start !important;
     align-items: center !important;
-    overflow: scroll !important;
+    // overflow: scroll !important;
+    overflow: visible !important;
     white-space: nowrap !important;
     width: fit-content !important;
     max-width: fit-content !important;

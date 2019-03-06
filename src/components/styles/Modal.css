@@ -119,7 +119,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 6; }
+  z-index: 3; }
 
 .modalLike {
   position: absolute;
@@ -734,7 +734,8 @@
     width: 100vw;
     overflow-y: scroll;
     justify-content: flex-start;
-    -webkit-overflow-scrolling: touch; }
+    -webkit-overflow-scrolling: touch;
+    z-index: 6; }
   .collectiblesTileModal {
     position: relative !important;
     overflow: hidden;
