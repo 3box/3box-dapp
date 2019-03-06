@@ -109,7 +109,7 @@
     line-height: 18px; }
 
 .collectiblesMiniModal__description {
-  min-width: 342px;
+  min-width: 28vw;
   margin-bottom: 14px;
   color: #747677; }
 
@@ -136,7 +136,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
   width: fit-content;
   height: fit-content; }
 
@@ -199,7 +198,7 @@
   object-fit: contain !important; }
 
 .modal__collectibles__info {
-  border-top: 1px solid #E4E4E4;
+  border-top: 1px solid #ececec;
   height: 15%;
   width: 100%;
   display: flex;
@@ -241,7 +240,7 @@
   align-items: center;
   width: fit-content;
   flex-wrap: wrap;
-  min-width: 342px; }
+  min-width: 28vw; }
 
 .modal__collectibles__traits__trait {
   display: flex;
@@ -265,6 +264,9 @@
   color: white;
   margin: 0 !important;
   display: inline; }
+
+.emtpy__grid--mobile {
+  display: none; }
 
 .modal--sync {
   background: #1168df;
@@ -661,7 +663,7 @@
 
 .modal__github__description__copy__input--email {
   border-radius: 6px;
-  border: 1px solid #E4E4E4;
+  border: 1px solid #ececec;
   background-color: #f9f9f9;
   padding: 15px 20px;
   width: 70%;
@@ -715,17 +717,32 @@
 @media only screen and (max-width: 600px) {
   .mobileInvisible {
     display: none; }
+  .collectiblesClose {
+    margin-right: 12vw;
+    margin-top: 60px; }
   .modal__container img {
     width: 100px; }
+  .modal__collectibles__image__wrapper {
+    width: 100%;
+    height: 100%; }
   .collectiblesModal {
     height: fit-content !important;
     overflow-y: scroll; }
   .collectiblesWrapper {
     height: 100vh;
-    overflow-y: scroll; }
+    width: 100vw;
+    overflow-y: scroll;
+    justify-content: flex-start; }
   .collectiblesTileModal {
     position: relative !important;
-    overflow: hidden; }
+    overflow: hidden;
+    max-height: fit-content !important;
+    min-height: fit-content !important;
+    padding: 0 !important;
+    border: none !important;
+    width: 80vw !important; }
+  .collectibles__like__heart--modal {
+    opacity: .8; }
   .modal__onBoardingModal__container img {
     width: 88vw !important;
     height: 400px !important; }
@@ -740,8 +757,10 @@
     max-height: 450px; }
     .modal img {
       width: 100px; }
+  .collectiblesMiniModal__description {
+    min-width: 70vw; }
   .modal__collectibles__traits {
-    min-width: 76vw; }
+    min-width: 70vw; }
   .modal__github__description__copy__button--mobile {
     display: flex;
     color: #6b6b6b;
@@ -791,17 +810,18 @@
     #mobile__landing__prompt p {
       color: white; }
   .collectiblesMiniModal {
-    width: 76vw !important;
+    width: calc(80vw - 40px) !important;
     height: fit-content !important;
-    min-height: 100px !important;
-    padding: 20px 15px !important;
+    min-height: fit-content !important;
+    padding: 20px 20px !important;
     margin-top: 20px;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-    max-height: 160px;
-    overflow-y: scroll;
-    position: relative; }
+    position: relative;
+    border: none !important; }
+  .modal__collectibles__info__wrapper {
+    padding: 15px 20px 25px 20px; }
   .githubModal {
     padding: 0;
     width: 92vw;

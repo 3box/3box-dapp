@@ -80,8 +80,6 @@
   align-items: flex-start; }
 
 .profile__category__header {
-  margin-bottom: 30px;
-  border-bottom: 1px solid #E4E4E4;
   padding: 20px 0 14px 20px;
   display: flex;
   justify-content: space-between; }
@@ -89,6 +87,13 @@
     font-size: 18px;
     color: #747677;
     font-weight: 400; }
+
+.profile__category__divider {
+  width: 90vw;
+  margin-left: 5vw;
+  border-bottom: 1px solid #ececec;
+  margin-bottom: 30px;
+  align-self: center; }
 
 .profile__category__editLink {
   margin-right: 40px;
@@ -432,7 +437,7 @@
     width: 100%;
     margin: 18px 0 0 0;
     background-color: white;
-    border-bottom: 1px solid #E4E4E4;
+    border-bottom: 1px solid #ececec;
     padding-bottom: 18px; }
   .publicStatusUpdate {
     padding: 0;
@@ -445,8 +450,8 @@
     text-align: center;
     align-items: flex-start; }
   .profile__category__header {
-    padding: 30px 0 20px 20px;
-    border-top: solid 1px #E4E4E4; }
+    padding: 30px 0 20px 30px;
+    border-top: solid 1px #ececec; }
   .publicStatusUpdate--bannerMargin {
     margin-top: 0 !important; }
   #profile__fixed {
@@ -466,6 +471,8 @@
     font-size: 1.4em; }
   .profile__links__copy {
     display: none; }
+  .profile__category__field {
+    padding-left: 30px; }
   .profile__user__info {
     height: fit-content;
     max-width: 100vw;
@@ -490,7 +497,7 @@
     top: 0;
     z-index: 3;
     height: fit-content;
-    border-bottom: solid 1px #E4E4E4; }
+    border-bottom: solid 1px #ececec; }
   .profile__category__section {
     font-size: 14px;
     margin-bottom: 0;
@@ -505,7 +512,7 @@
     width: 100%;
     height: 100%; }
   .borderRight {
-    border-right: 1px solid #E4E4E4; }
+    border-right: 1px solid #ececec; }
   .profile__category__sectionWrapper {
     background-color: white;
     flex-direction: row;

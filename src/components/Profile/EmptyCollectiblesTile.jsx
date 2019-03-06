@@ -30,7 +30,7 @@ EmptyCollectiblesTile.defaultProps = {
 };
 
 export const EmptyGalleryCollectiblesTile = () => (
-  <div className="emptyCollectiblesTile">
+  <div className="emptyCollectiblesTile collectiblesTile">
     <h4>Add to favorites</h4>
   </div>
 );

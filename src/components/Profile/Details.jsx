@@ -48,6 +48,8 @@ const Details = ({
           <Link to={`/${currentAddress}/${routes.EDIT}`} className="profile__category__editLink">Edit</Link>
         </div>
 
+        <div className="profile__category__divider" />
+
         <div className="profile__category__field" title="Location">
           <img src={Location} className="profile__category__field__icon" alt="Location Icon" />
           <p>{location}</p>
@@ -83,6 +85,8 @@ const Details = ({
           <h5>Verified Accounts</h5>
         </div>
 
+        <div className="profile__category__divider" />
+
         <div className="profile__category__field" title="Github">
           <img src={GithubIcon} className="profile__category__field__icon" alt="Github Icon" />
           <React.Fragment>
@@ -105,6 +109,8 @@ const Details = ({
           <h5>Contact</h5>
         </div>
 
+        <div className="profile__category__divider" />
+
         <div className="profile__category__field">
           <img src={Email} className="profile__category__field__icon" alt="Github Icon" />
           <p className="profile__category__field--private">
@@ -122,6 +128,8 @@ const Details = ({
           <h5>Work</h5>
         </div>
 
+        <div className="profile__category__divider" />
+
         <div className="profile__category__field" title="Employer">
           <img src={Employer} className="profile__category__field__icon" alt="Employer Icon" />
           {!onPublicProfilePage && <p>{employer}</p>}
@@ -137,6 +145,8 @@ const Details = ({
         <div className="profile__category__header">
           <h5>Education</h5>
         </div>
+
+        <div className="profile__category__divider" />
 
         <div className="profile__category__field" title="School">
           <img src={School} className="profile__category__field__icon" alt="School Icon" />

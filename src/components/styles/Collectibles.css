@@ -1,6 +1,6 @@
 .collectiblesTile {
   background-color: white;
-  border: 1px solid #E4E4E4;
+  border: 1px solid #ececec;
   border-radius: 6px;
   height: 300px;
   position: relative;
@@ -33,7 +33,7 @@
   margin-bottom: 10px !important; }
 
 .emptyCollectiblesTile {
-  border: 1px solid #E4E4E4;
+  border: 1px solid #ececec;
   border-radius: 6px;
   height: 300px;
   position: relative;
@@ -94,7 +94,7 @@
     background-color: transparent; }
 
 .collectibles__info {
-  border-top: 1px solid #E4E4E4;
+  border-top: 1px solid #ececec;
   height: calc(30% - 25px);
   padding: 15px; }
   .collectibles__info h3 {
@@ -130,7 +130,8 @@
   .favorites__grid__wrapper {
     width: 100vw !important;
     max-width: 100vw !important;
-    overflow: scroll; }
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch; }
   .favorites__grid {
     padding: 0 0 0 7.5px !important;
     display: flex !important;
@@ -154,4 +155,7 @@
     padding: 7.5px;
     column-gap: 7.5px;
     row-gap: 7.5px;
-    margin-bottom: 7.5px; } }
+    margin-bottom: 7.5px; }
+  .emptyCollectiblesTile {
+    width: 100%;
+    background-color: transparent; } }

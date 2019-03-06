@@ -170,7 +170,7 @@ export const CollectiblesModal = ({
             </div>
           </div>
 
-          <div className={`modal collectiblesMiniModal ${(selectedCollectible.description || (selectedCollectible.orderedTraits && selectedCollectible.orderedTraits.length > 0)) && 'show'}`}>
+          <div className={`modal collectiblesMiniModal ${(selectedCollectible.description || (selectedCollectible.orderedTraits && selectedCollectible.orderedTraits.length > 0)) && 'showModal'}`}>
             <div className="collectiblesMiniModal__wrapper">
               <p className="collectiblesMiniModal__description">{selectedCollectible.description}</p>
               <div className="modal__collectibles__traits">

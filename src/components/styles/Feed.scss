@@ -604,15 +604,19 @@
   .feed__activity {
     margin-left: 0;
     display: flex;
-    padding: 11px 0;
+    padding: 11px 0 0 0;
+    margin-left: 3vw;
+    margin-right: 3vw;
     align-items: center;
     justify-content: space-between;
-    border-radius: 0;
-    width: 100%;
-    border-bottom: 1px solid $borderColor;
+    // border-radius: 6;
+    width: 94vw;
+    // border-bottom: 1px solid $borderColor;
+    // border-top: 1px solid $borderColor;
+    // border-left: none;
+    // border-right: none;
+
     border-top: 1px solid $borderColor;
-    border-left: none;
-    border-right: none;
   }
 
   .feed__activity__data {
@@ -646,6 +650,9 @@
     width: 100%;
     min-width: 100%;
     border-radius: 0;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    margin-top: 0;
   }
 
   #feed {
@@ -667,6 +674,7 @@
     width: 100%;
     justify-content: flex-end;
     margin-top: 8px;
+    margin-bottom: 11px;
   }
 
   #feed__header {

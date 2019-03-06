@@ -43,7 +43,7 @@ class Collectibles extends Component {
       });
       const idx = collection.findIndex(nft => (nft.asset_contract.address === contractAddress
         && nft.token_id === tokenId));
-      
+
       collection.splice(idx, 1);
       updatedCollection = collection.slice();
       if (removedCollectible) updatedCollection.push(removedCollectible);
@@ -126,13 +126,15 @@ class Collectibles extends Component {
           </div>
 
           {(collectiblesFavoritesToRender.length === 0 && collection.length > 0) && (
-            <div className="collectibles__grid favorites__grid">
-              <EmptyGalleryCollectiblesTile />
-              <EmptyGalleryCollectiblesTile />
-              <EmptyGalleryCollectiblesTile />
+            <div className="favorites__grid__wrapper">
+              <div className="collectibles__grid favorites__grid">
+                <EmptyGalleryCollectiblesTile />
+                <EmptyGalleryCollectiblesTile />
+                <EmptyGalleryCollectiblesTile />
+              </div>
             </div>
           )}
-          {collection.length > 0
+          {(collection.length > 0 || collectiblesFavoritesToRender.length > 0)
             ? (
               <p className="header" id="feed__header">
                 Gallery

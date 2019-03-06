@@ -39,7 +39,7 @@
   z-index: 1;
   flex-direction: column;
   margin-top: 0;
-  border: #E4E4E4 solid 1px;
+  border: #ececec solid 1px;
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 7px 14px 0 rgba(59, 65, 94, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07); }
@@ -62,7 +62,7 @@
 
 #edit__myProfile {
   width: 100%;
-  border-bottom: #E4E4E4 solid 1px;
+  border-bottom: #ececec solid 1px;
   height: 4em;
   display: flex;
   align-items: center; }

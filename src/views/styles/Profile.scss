@@ -101,8 +101,8 @@
 }
 
 .profile__category__header {
-  margin-bottom: 30px;
-  border-bottom: 1px solid $borderColor;
+  // margin-bottom: 30px;
+  // border-bottom: 1px solid $borderColor;
   padding: 20px 0 14px 20px;
   display: flex;
   justify-content: space-between;
@@ -112,6 +112,14 @@
     color: $lighterFont;
     font-weight: 400;
   }
+}
+
+.profile__category__divider {
+  width: 90vw;
+  margin-left: 5vw;
+  border-bottom: 1px solid $borderColor;
+  margin-bottom: 30px;
+  align-self: center;
 }
 
 .profile__category__editLink {
@@ -170,7 +178,7 @@
   opacity: .5;
 }
 
-.profile__category__tabIcon__wrappper{
+.profile__category__tabIcon__wrappper {
   width: 28px;
   display: flex;
   justify-content: flex-start;
@@ -326,7 +334,7 @@
   transition: all ease .5s;
 }
 
-.onMyProfile{
+.onMyProfile {
   margin-top: -69px;
 }
 
@@ -558,7 +566,7 @@
   }
 
   .profile__category__header {
-    padding: 30px 0 20px 20px;
+    padding: 30px 0 20px 30px;
     border-top: solid 1px $borderColor;
   }
 
@@ -593,6 +601,10 @@
     display: none;
   }
 
+  .profile__category__field {
+    padding-left: 30px;
+  }
+
   .profile__user__info {
     height: fit-content;
     max-width: 100vw;
@@ -606,7 +618,7 @@
     background-color: white;
   }
 
-  .addBorderBottom{
+  .addBorderBottom {
     border-bottom: 1px solid #E4E4E4;
   }
 

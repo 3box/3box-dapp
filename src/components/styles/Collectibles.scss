@@ -41,7 +41,7 @@
   }
 }
 
-.favorites__grid{
+.favorites__grid {
   margin-bottom: 10px !important;
 }
 
@@ -177,6 +177,7 @@
     width: 100vw !important;
     max-width: 100vw !important;
     overflow: scroll;
+    -webkit-overflow-scrolling: touch;
   }
 
   .favorites__grid {
@@ -209,5 +210,10 @@
     column-gap: 7.5px;
     row-gap: 7.5px;
     margin-bottom: 7.5px;
+  }
+
+  .emptyCollectiblesTile {
+    width: 100%;
+    background-color: transparent;
   }
 }
