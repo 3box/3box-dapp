@@ -41,7 +41,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all .3s; }
+  transition: all .3s;
+  background-color: transparent; }
   .emptyCollectiblesTile h4 {
     width: 70%;
     color: #b1b1b1;
@@ -157,5 +158,4 @@
     row-gap: 7.5px;
     margin-bottom: 7.5px; }
   .emptyCollectiblesTile {
-    width: 100%;
-    background-color: transparent; } }
+    width: 100%; } }

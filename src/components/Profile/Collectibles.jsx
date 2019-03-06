@@ -43,13 +43,13 @@ class Collectibles extends Component {
       });
       const idx = collection.findIndex(nft => (nft.asset_contract.address === contractAddress
         && nft.token_id === tokenId));
-
       collection.splice(idx, 1);
       updatedCollection = collection.slice();
       if (removedCollectible) updatedCollection.push(removedCollectible);
     } else if (removeFavorite) {
-      const idx = updatedCollectiblesFavorites.findIndex(favorite => favorite.address === contractAddress
-        && favorite.token_id === tokenId);
+      const idx = updatedCollectiblesFavorites.findIndex(favorite => (favorite.address === contractAddress
+        && favorite.token_id === tokenId));
+      console.log(idx);
 
       updatedCollectiblesFavorites.splice(idx, 1);
       updatedCollectiblesFavoritesToRender.splice(idx, 1);
