@@ -62,6 +62,16 @@ nav {
     justify-content: flex-start;
     align-items: center; }
 
+#landing__nav__logo--marginLeft {
+  margin-left: 3vw;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; }
+  #landing__nav__logo--marginLeft a {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; }
+
 #nav__logo--mobile {
   display: none; }
 
