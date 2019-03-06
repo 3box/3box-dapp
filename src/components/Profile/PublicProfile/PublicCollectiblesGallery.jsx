@@ -30,7 +30,7 @@ const PublicCollectiblesGallery = ({
         publicCollectiblesFavorites.length > 0
         && (
           <div className="collectibles">
-            <p className="header" id="feed__header">Gallery</p>
+            <p className="header" id="feed__header">Favorites</p>
             <div className="favorites__grid__wrapper">
               <div className="collectibles__grid favorites__grid">
                 {publicCollectiblesFavorites.length > 0

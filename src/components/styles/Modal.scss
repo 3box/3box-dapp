@@ -106,7 +106,6 @@
   // height: 100px !important;
   // min-height: 10% !important;
   // min-height: 100px !important;
-
   width: calc(100% - 50px) !important;
   height: fit-content !important;
   padding: 20px 25px !important;
@@ -114,11 +113,10 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  min-height: fit-content;
+  min-height: 80px;
+  // min-height: fit-content;
   margin-bottom: 75px;
   position: relative;
-  // max-height: 160px;
-  // overflow-y: scroll;
 }
 
 .collectiblesMiniModal__wrapper {
@@ -139,7 +137,6 @@
 
 .collectiblesMiniModal__description {
   min-width: 28vw;
-  // min-width: 342px;
   margin-bottom: 14px;
   color: $lighterFont;
 }
@@ -919,6 +916,7 @@
   }
 
   .collectiblesClose{
+    position: absolute;
     margin-right: 12vw;
     margin-top: 60px;
   }
@@ -955,6 +953,7 @@
     padding: 0 !important;
     border: none !important;
     width: 80vw !important;
+    margin-top: 60px;
   }
 
   .collectibles__like__heart--modal{

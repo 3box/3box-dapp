@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 
 import ThreeBoxLogo from '../assets/ThreeBoxLogoBlue.svg';
+import ThreeBoxB from '../assets/3Box3Blue.svg';
 import { handleSignOut } from '../state/actions';
 import * as routes from '../utils/routes';
 import { normalizeURL } from '../utils/funcs';
@@ -49,6 +50,12 @@ class Nav extends Component {
           </Link>
         </div>
 
+        <div id="nav__logo--mobile">
+          <Link to={`/${currentAddress}/${routes.ACTIVITY}`}>
+            <img src={ThreeBoxB} alt="3Box Logo" className="landing__nav__logo" />
+          </Link>
+        </div>
+
         <div id="nav__networkStatus">
           <div id="nav__networkStatus__networkColor" className={`${networkColor}`} />
           <p>{networkColor}</p>
@@ -90,10 +97,14 @@ class Nav extends Component {
         {/* mobile nav dropdown */}
         <div className={`${showProfileModal ? 'sideDrawer' : undefined} nav__dropdown mobileDropDown`} onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
           <ul>
-            <div className='nav__dropdown__mobileLogo'>
+            <div className="nav__dropdown__mobileLogo">
               <img src={ThreeBoxLogo} alt="3Box Logo" className="landing__nav__logo" />
-
             </div>
+            <div id="nav__networkStatus--mobile">
+              <div id="nav__networkStatus__networkColor" className={`${networkColor}`} />
+              <p>{networkColor}</p>
+            </div>
+
             <Link to={`/${currentAddress}/${routes.ACTIVITY}`}><li className={normalizedPath === `/${currentAddress}/${routes.ACTIVITY}` ? 'nav__activePage' : ''}>Profile</li></Link>
             <Link to={`/${currentAddress}/${routes.EDIT}`}><li className={normalizedPath === `/${currentAddress}/${routes.EDIT}` ? 'nav__activePage' : ''}>Edit profile</li></Link>
             <li id="mobileNav__signout" onClick={() => this.handleSignOut()}>Sign Out</li>

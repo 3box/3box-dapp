@@ -91,7 +91,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  min-height: fit-content;
+  min-height: 80px;
   margin-bottom: 75px;
   position: relative; }
 
@@ -718,6 +718,7 @@
   .mobileInvisible {
     display: none; }
   .collectiblesClose {
+    position: absolute;
     margin-right: 12vw;
     margin-top: 60px; }
   .modal__container img {
@@ -741,7 +742,8 @@
     min-height: fit-content !important;
     padding: 0 !important;
     border: none !important;
-    width: 80vw !important; }
+    width: 80vw !important;
+    margin-top: 60px; }
   .collectibles__like__heart--modal {
     opacity: .8; }
   .modal__onBoardingModal__container img {

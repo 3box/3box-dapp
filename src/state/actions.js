@@ -594,9 +594,6 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
         return false;
       });
 
-      // updatedCollectiblesFavorites = collectiblesFavorites.filter((entry, idx) => haveFavorite[idx]);
-      // collectiblesFavoritesToRender.reverse();
-
       if (collectiblesFavorites.length !== updatedCollectiblesFavorites.length && !onPublicProfile) { // does this work?
         const {
           box,

@@ -93,7 +93,7 @@ class Collectibles extends Component {
           isFavorite={isFavorite}
         />
         <div id="feed">
-          {collection.length > 0
+          {(collection.length > 0 || collectiblesFavoritesToRender.length > 0)
             && (
               <p className="header" id="feed__header">
                 Favorites
