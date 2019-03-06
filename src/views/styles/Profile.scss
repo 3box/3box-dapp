@@ -14,12 +14,10 @@
 
 #profile__fixed {
   position: sticky;
-  bottom: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
-  // height: calc(100% - 69px);
   width: 100%;
 }
 

@@ -782,13 +782,12 @@ class EditProfile extends Component {
 
     return (
       <div id="edit__page">
-
+        <Nav />
+        
         <Prompt
           when={!disableSave}
           message="Continue without saving changes to your profile?"
         />
-
-        {/* <Nav /> */}
 
         {saveLoading
           && (

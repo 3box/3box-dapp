@@ -14,6 +14,7 @@ class Profile extends Component {
   render() {
     return (
       <div>
+        <Nav />
         <div id="profile__page">
           <div id="profile__contents">
             <SideBar />

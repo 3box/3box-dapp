@@ -55,6 +55,7 @@ class Collectibles extends Component {
       updatedCollection = [...collection, selectedCollectible];
     }
 
+    updatedCollectiblesFavorites.slice(0, 3); // Guarantee only three get saved
     box.public.set('collectiblesFavorites', updatedCollectiblesFavorites);
     store.dispatch({
       type: 'GET_MY_COLLECTIBLES',

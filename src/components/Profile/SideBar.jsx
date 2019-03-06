@@ -52,7 +52,7 @@ const SideBar = ({
           <div className={`
             ${showSignInBanner ? 'showSignInBanner' : ''} 
             ${onPublicProfilePage ? 'addBorderBottom' : ''} 
-            ${(showDownloadBanner || showSignInBanner) ? 'bannerMargin' : ''} 
+            ${(onPublicProfilePage && (showDownloadBanner || showSignInBanner)) ? 'bannerMargin' : ''} 
             profile__user__info
           `}
           >

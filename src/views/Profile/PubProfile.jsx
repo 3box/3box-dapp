@@ -65,7 +65,6 @@ class ProfilePublic extends Component {
     return (
       <div>
         <SignInThroughPublicProfileBanner show={showSignInBanner} handleSignInBanner={this.props.handleSignInBanner} />
-        <Nav />
         <div
           id="profile__page"
         >

@@ -257,15 +257,14 @@ class App extends Component {
     return (
       <div className="App">
         {(!isLoggedIn && !ifFetchingThreeBox && !isProtectedPath) // show landing nav when user is not logged in, 3box is not fetching, and when route is not a protected route
-          ? (
+          && (
             <NavLanding
               handleSignInUp={this.handleSignInUp}
               onPublicProfilePage={onPublicProfilePage}
               landing={landing}
               pathname={normalizedPath}
             />
-          ) : <Nav />
-        }
+          )}
 
         <AppModals
           showDownloadBanner={showDownloadBanner}
