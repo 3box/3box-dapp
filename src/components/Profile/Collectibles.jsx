@@ -49,7 +49,6 @@ class Collectibles extends Component {
     } else if (removeFavorite) {
       const idx = updatedCollectiblesFavorites.findIndex(favorite => (favorite.address === contractAddress
         && favorite.token_id === tokenId));
-      console.log(idx);
 
       updatedCollectiblesFavorites.splice(idx, 1);
       updatedCollectiblesFavoritesToRender.splice(idx, 1);

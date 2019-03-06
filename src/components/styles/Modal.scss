@@ -944,6 +944,7 @@
     width: 100vw;
     overflow-y: scroll;
     justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
   }
 
   .collectiblesTileModal {
