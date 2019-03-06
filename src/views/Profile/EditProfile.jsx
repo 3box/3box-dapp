@@ -788,7 +788,7 @@ class EditProfile extends Component {
           message="Continue without saving changes to your profile?"
         />
 
-        <Nav />
+        {/* <Nav /> */}
 
         {saveLoading
           && (
