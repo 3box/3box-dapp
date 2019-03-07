@@ -52,7 +52,8 @@
   background: white;
   border-radius: 6px;
   padding: 60px 50px;
-  width: 420px;
+  width: auto;
+  max-width: 600px;
   min-height: 400px;
   display: flex;
   align-items: center;
@@ -197,7 +198,7 @@
 .modal__collectibles__image {
   height: 100% !important;
   width: 100% !important;
-  min-height: 400px;
+  min-height: 300px;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
   object-fit: cover; }

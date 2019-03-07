@@ -60,7 +60,8 @@
   background: white;
   border-radius: 6px;
   padding: 60px 50px;
-  width: 420px;
+  width: auto;
+  max-width: 600px;
   min-height: 400px;
   display: flex;
   align-items: center;
@@ -253,22 +254,11 @@
 .modal__collectibles__image {
   height: 100% !important;
   width: 100% !important;
-  // width: auto !important; JUST NOW
-  // max-height: 52vh;
-  min-height: 400px;
-
+  min-height: 300px;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
-
   object-fit: cover;
 }
-
-// .padded {
-//   height: 75% !important;
-//   width: 75% !important;
-//   // width: auto !important;
-//   object-fit: contain !important;
-// }
 
 .contain {
   height: fit-content;
