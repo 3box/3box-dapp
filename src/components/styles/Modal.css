@@ -202,11 +202,6 @@
   border-top-right-radius: 6px;
   object-fit: cover; }
 
-.padded {
-  height: 75% !important;
-  width: 75% !important;
-  object-fit: contain !important; }
-
 .contain {
   height: fit-content;
   overflow: hidden; }

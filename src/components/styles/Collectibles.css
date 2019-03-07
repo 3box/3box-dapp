@@ -96,7 +96,13 @@
 
 .padded {
   height: 75% !important;
-  padding: 0 12.5%; }
+  width: 75% !important;
+  min-height: 75% !important;
+  min-width: 75% !important;
+  max-height: 75% !important;
+  max-width: 75% !important;
+  padding: 0 12.5%;
+  object-fit: contain !important; }
 
 .collectibles__like {
   background-color: transparent;
@@ -141,6 +147,9 @@
     .collectibles__opensea img {
       opacity: .6;
       margin: 5px 0 0 7.5px; }
+  .collectibles__image {
+    min-width: 100%;
+    min-height: 100%; }
   .collectibles__like__heart {
     opacity: 1 !important; }
   .favorites__grid__wrapper {

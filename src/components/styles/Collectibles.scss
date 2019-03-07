@@ -127,7 +127,13 @@
 
 .padded {
   height: 75% !important;
+  width: 75% !important;
+  min-height: 75% !important;
+  min-width: 75% !important;
+  max-height: 75% !important;
+  max-width: 75% !important;
   padding: 0 12.5%;
+  object-fit: contain !important;
 }
 
 // .cover {
@@ -208,6 +214,12 @@
       opacity: .6;
       margin: 5px 0 0 7.5px;
     }
+  }
+
+  .collectibles__image {
+    min-width: 100%;
+    min-height: 100%;
+    // object-fit: cover;
   }
 
   .collectibles__like__heart {
