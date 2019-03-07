@@ -130,14 +130,19 @@
 
 .cover {
   // width: 100%;
-  object-fit: cover;
+  // object-fit: cover;
+  overflow: hidden;
+  object-fit: contain;
+  height: fit-content;
+  min-height: 100%;
+  width: fit-content;
+  min-width: 100%;
 }
 
 .contain {
   overflow: hidden;
   object-fit: contain;
   height: fit-content;
-  min-height: 100%;
   width: fit-content;
   min-width: 100%;
 }
