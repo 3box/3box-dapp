@@ -11,6 +11,13 @@ import HeartBlue from '../../assets/HeartBlue.svg';
 import '../../views/styles/Profile.css';
 import '../styles/Collectibles.css';
 
+// className={`
+// collectibles__image 
+// ${padded && 'padded'} 
+// ${cover && 'cover'}
+// ${contain && 'contain'}
+// `}
+
 const CollectiblesTile = ({
   image,
   description,
@@ -36,8 +43,6 @@ const CollectiblesTile = ({
           className={`
           collectibles__image 
           ${padded && 'padded'} 
-          ${cover && 'cover'}
-          ${contain && 'contain'}
           `}
           src={image}
           alt=""

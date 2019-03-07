@@ -80,8 +80,9 @@
     color: #747677; }
 
 .collectibles__image {
-  height: 100%;
-  width: auto; }
+  width: 228px;
+  height: 210px;
+  object-fit: cover; }
 
 .collectibles__image__shadow {
   background: #000000;
@@ -96,20 +97,6 @@
 .padded {
   height: 75% !important;
   padding: 0 12.5%; }
-
-.cover {
-  overflow: hidden;
-  object-fit: contain;
-  height: fit-content;
-  min-height: 100%;
-  width: fit-content;
-  min-width: 100%; }
-
-.contain {
-  overflow: hidden;
-  object-fit: contain;
-  width: fit-content;
-  min-width: 100%; }
 
 .collectibles__like {
   background-color: transparent;
