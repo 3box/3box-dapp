@@ -44,7 +44,7 @@ const PublicCollectiblesGallery = ({
                       bgStyle={collectible.background_color}
                       padded={collectible.asset_contract
                         && collectible.asset_contract.display_data
-                        && collectible.asset_contract.display_data.card_display_style}
+                        && collectible.asset_contract.display_data.card_display_style === 'padded'}
                       key={`${collectible.asset_contract && collectible.asset_contract.address}-${collectible.token_id}`}
                       id={`${collectible.asset_contract && collectible.asset_contract.address}-${collectible.token_id}`}
                       favorite
