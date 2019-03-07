@@ -7,32 +7,32 @@ import { Picker } from 'emoji-mart';
 
 import {
   store,
-} from '../state/store';
+} from '../../state/store';
 import {
   getProfileData,
   getActivity,
   getPublicDID,
   copyToClipBoard,
-} from '../state/actions';
+} from '../../state/actions';
 import {
   handleGithubVerificationModal,
   handleTwitterVerificationModal,
   handleEmailVerificationModal,
-} from '../state/actions-modals';
+} from '../../state/actions-modals';
 import {
   FileSizeModal,
   GithubVerificationModal,
   TwitterVerificationModal,
   EmailVerificationModal,
-} from '../components/Modals';
-import history from '../history';
-import Nav from '../components/Nav.jsx';
-import * as routes from '../utils/routes';
-import Private from '../assets/Private.svg';
-import Verified from '../assets/Verified.svg';
-import AddImage from '../assets/AddImage.svg';
-import Loading from '../assets/Loading.svg';
-import './styles/EditProfile.css';
+} from '../../components/Modals';
+import history from '../../history';
+import Nav from '../../components/Nav.jsx';
+import * as routes from '../../utils/routes';
+import Private from '../../assets/Private.svg';
+import Verified from '../../assets/Verified.svg';
+import AddImage from '../../assets/AddImage.svg';
+import Loading from '../../assets/Loading.svg';
+import '../styles/EditProfile.css';
 
 class EditProfile extends Component {
   constructor(props) {
@@ -782,13 +782,12 @@ class EditProfile extends Component {
 
     return (
       <div id="edit__page">
-
+        <Nav />
+        
         <Prompt
           when={!disableSave}
           message="Continue without saving changes to your profile?"
         />
-
-        <Nav />
 
         {saveLoading
           && (

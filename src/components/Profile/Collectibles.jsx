@@ -1,214 +1,243 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
-
-import { addhttp } from '../../utils/funcs';
-import * as routes from '../../utils/routes';
-import GithubIcon from '../../assets/GithubIcon.svg';
-import TwitterIcon from '../../assets/twitterGrey.svg';
-import Verified from '../../assets/Verified.svg';
-import Private from '../../assets/Private.svg';
-import Email from '../../assets/Email.svg';
-import School from '../../assets/School.svg';
-import Location from '../../assets/Location.svg';
-import Website from '../../assets/Website.png';
-import Birthday from '../../assets/Birthday.svg';
-import ThreeBox3 from '../../assets/3Box3.svg';
-import Job from '../../assets/Job.svg';
-import Degree from '../../assets/Degree.svg';
-import Major from '../../assets/Major.svg';
-import Year from '../../assets/Year.png';
-import Employer from '../../assets/Employer.svg';
+import { withRouter } from 'react-router-dom';
+  
+import CollectiblesTile from './CollectiblesTile';
+import { CollectiblesModal } from '../Modals';
+import { EmptyGalleryCollectiblesTile } from './EmptyCollectiblesTile';
+import { handleCollectiblesModal } from '../../state/actions-modals';
+import OpenSea from '../../assets/OpenSea.png';
+import { store } from '../../state/store';
 import '../../views/styles/Profile.css';
 import '../styles/Feed.css';
 
-const ProfileDetails = ({
-  verifiedGithub,
-  email,
-  website,
-  location,
-  birthday,
-  job,
-  school,
-  degree,
-  major,
-  year,
-  employer,
-  memberSince,
-  verifiedTwitter,
-  onPublicProfilePage,
-  currentAddress,
-}) => (
-    <div className="profile__details" id="feed">
-      <div className="profile__details__category">
+class Collectibles extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-        <div className="profile__category__header">
-          <h5>About</h5>
-          <Link to={`/${currentAddress}/${routes.EDIT}`} className="profile__category__editLink">Edit</Link>
-        </div>
+  updateGallery = (e, selectedCollectible, removeFavorite, fromModal) => {
+    e.stopPropagation();
+    const {
+      box, collection, collectiblesFavorites, isFavorite, showCollectiblesModal, collectiblesFavoritesToRender,
+    } = this.props;
+    const contractAddress = selectedCollectible.asset_contract.address;
+    const tokenId = selectedCollectible.token_id;
+    const updatedCollectiblesFavoritesToRender = collectiblesFavoritesToRender.slice() || [];
+    const updatedCollectiblesFavorites = collectiblesFavorites.slice() || [];
+    let updatedCollection = [];
+    let removedCollectible;
 
-        {/* Do not render private fields on public profiles */}
-        <div className="profile__category__field">
-          <img src={Email} className="profile__category__field__icon" alt="Github Icon" />
-          <p className="profile__category__field--private">{email}</p>
-          {email && <img id="editprofile__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />}
-        </div>
+    if (!removeFavorite) {
+      if (updatedCollectiblesFavoritesToRender.length > 2) {
+        removedCollectible = updatedCollectiblesFavoritesToRender.pop();
+        updatedCollectiblesFavorites.pop();
+      }
+      updatedCollectiblesFavoritesToRender.unshift(selectedCollectible);
+      updatedCollectiblesFavorites.unshift({
+        address: contractAddress,
+        token_id: tokenId,
+      });
+      const idx = collection.findIndex(nft => (nft.asset_contract.address === contractAddress
+        && nft.token_id === tokenId));
+      collection.splice(idx, 1);
+      updatedCollection = collection.slice();
+      if (removedCollectible) updatedCollection.push(removedCollectible);
+    } else if (removeFavorite) {
+      const idx = updatedCollectiblesFavorites.findIndex(favorite => (favorite.address === contractAddress
+        && favorite.token_id === tokenId));
 
-        <div className="profile__category__field" title="Location">
-          <img src={Location} className="profile__category__field__icon" alt="Location Icon" />
-          <p>{location}</p>
-        </div>
+      updatedCollectiblesFavorites.splice(idx, 1);
+      updatedCollectiblesFavoritesToRender.splice(idx, 1);
+      updatedCollection = [...collection, selectedCollectible];
+    }
 
-        <div className="profile__category__field" title="Website">
-          <img src={Website} className="profile__category__field__icon" alt="Website Icon" />
-          {website && (
-            <a
-              href={addhttp(website)}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {website}
-            </a>)}
-        </div>
+    updatedCollectiblesFavorites.slice(0, 3); // Guarantee only three get saved
+    box.public.set('collectiblesFavorites', updatedCollectiblesFavorites);
+    store.dispatch({
+      type: 'GET_MY_COLLECTIBLES',
+      collection: updatedCollection,
+    });
+    store.dispatch({
+      type: 'GET_PUBLIC_COLLECTIBLESFAVORITES',
+      collectiblesFavorites: updatedCollectiblesFavorites,
+      collectiblesFavoritesToRender: updatedCollectiblesFavoritesToRender,
+    });
+    if (fromModal) {
+      store.dispatch({
+        type: 'HANDLE_COLLECTIBLES_MODAL',
+        isFavorite: !isFavorite,
+        showCollectiblesModal,
+        selectedCollectible: this.props.selectedCollectible,
+      });
+    }
+  };
 
-        {/* Private fields donot render on public profiles */}
-        <div className="profile__category__field" title="Birthday">
-          <div>
-            <img src={Birthday} className="profile__category__field__icon" alt="Birthday Icon" />
-            {birthday && <p className="profile__category__field--private">{birthday}</p>}
+  render() {
+    const {
+      collection, collectiblesFavoritesToRender, showCollectiblesModal, selectedCollectible, isFavorite,
+    } = this.props;
+
+    return (
+      <React.Fragment>
+        <CollectiblesModal
+          show={showCollectiblesModal}
+          handleCollectiblesModal={this.props.handleCollectiblesModal}
+          selectedCollectible={selectedCollectible}
+          padded={selectedCollectible.asset_contract &&
+            selectedCollectible.asset_contract.display_data &&
+            selectedCollectible.asset_contract.display_data.card_display_style === 'padded'}
+          cover={
+            selectedCollectible.asset_contract &&
+            selectedCollectible.asset_contract.display_data &&
+            selectedCollectible.asset_contract.display_data.card_display_style === 'cover'
+          }
+          contain={
+            selectedCollectible.asset_contract &&
+            selectedCollectible.asset_contract.display_data &&
+            selectedCollectible.asset_contract.display_data.card_display_style === 'contain'
+          }
+          updateGallery={this.updateGallery}
+          isFavorite={isFavorite}
+        />
+        <div id="feed">
+          {(collection.length > 0 || collectiblesFavoritesToRender.length > 0)
+            && (
+              <p className="header" id="feed__header">
+                Favorites
+              </p>
+            )}
+          <div className="favorites__grid__wrapper">
+            {collectiblesFavoritesToRender.length > 0 && (
+              <div className="collectibles__grid favorites__grid">
+                {collectiblesFavoritesToRender.map(collectible => (
+                  <CollectiblesTile
+                    updateGallery={this.updateGallery}
+                    collectible={collectible}
+                    image={collectible.image_preview_url}
+                    description={collectible.asset_contract && collectible.asset_contract.name}
+                    tokenId={collectible.token_id}
+                    name={collectible.name}
+                    bgStyle={collectible.background_color}
+                    padded={
+                      collectible.asset_contract &&
+                      collectible.asset_contract.display_data &&
+                      collectible.asset_contract.display_data.card_display_style === 'padded'
+                    }
+                    cover={
+                      collectible.asset_contract &&
+                      collectible.asset_contract.display_data &&
+                      collectible.asset_contract.display_data.card_display_style === 'cover'
+                    }
+                    contain={
+                      collectible.asset_contract &&
+                      collectible.asset_contract.display_data &&
+                      collectible.asset_contract.display_data.card_display_style === 'contain'
+                    }
+                    key={`${collectible.asset_contract.address}-${collectible.token_id}`}
+                    favorite
+                  />
+                ))}
+              </div>
+            )}
           </div>
 
-          {birthday && <img id="editprofile__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />}
+          {(collectiblesFavoritesToRender.length === 0 && collection.length > 0) && (
+            <div className="favorites__grid__wrapper">
+              <div className="collectibles__grid favorites__grid">
+                <EmptyGalleryCollectiblesTile />
+                <EmptyGalleryCollectiblesTile />
+                <EmptyGalleryCollectiblesTile />
+              </div>
+            </div>
+          )}
+          {(collection.length > 0 || collectiblesFavoritesToRender.length > 0)
+            ? (
+              <p className="header" id="feed__header">
+                Gallery
+              </p>)
+            : (
+              <p className="header" id="feed__header">
+                You don't have any collectibles
+              </p>
+            )}
+          <div className="collectibles__grid">
+            {collection.length > 0 && (
+              collection.map(collectible => (
+                <CollectiblesTile
+                  updateGallery={this.updateGallery}
+                  collectible={collectible}
+                  image={collectible.image_preview_url}
+                  description={collectible.asset_contract && collectible.asset_contract.name}
+                  tokenId={collectible.token_id}
+                  name={collectible.name}
+                  bgStyle={collectible.background_color}
+                  padded={
+                    collectible.asset_contract &&
+                    collectible.asset_contract.display_data &&
+                    collectible.asset_contract.display_data.card_display_style === 'padded'
+                  }
+                  cover={
+                    collectible.asset_contract &&
+                    collectible.asset_contract.display_data &&
+                    collectible.asset_contract.display_data.card_display_style === 'cover'
+                  }
+                  contain={
+                    collectible.asset_contract &&
+                    collectible.asset_contract.display_data &&
+                    collectible.asset_contract.display_data.card_display_style === 'contain'
+                  }
+                  key={`${collectible.asset_contract.address}-${collectible.token_id}`}
+                />
+              ))
+            )}
+          </div>
+          <a href="https://opensea.io/" className="collectibles__opensea">
+            <p>Collectibles data provided by</p>
+            <img src={OpenSea} alt="OpenSea.io" />
+          </a>
         </div>
+      </React.Fragment>
+    );
+  }
+}
 
-        <div className="profile__category__field" title="Birthday">
-          <img src={ThreeBox3} className="profile__category__field__icon" alt="Birthday Icon" />
-          <p>{memberSince}</p>
-        </div>
-      </div>
-
-      <div className="profile__details__category">
-        <div className="profile__category__header">
-          <h5>Verified Accounts</h5>
-        </div>
-
-        <div className="profile__category__field" title="Github">
-          <img src={GithubIcon} className="profile__category__field__icon" alt="Github Icon" />
-          <React.Fragment>
-            <a href={`https://www.github.com/${verifiedGithub}`} className="profile__category__field__verified" target="_blank" rel="noopener noreferrer">{verifiedGithub}</a>
-            {verifiedGithub && <img src={Verified} alt="Verified" className="profile__category__verified__icon" />}
-          </React.Fragment>
-        </div>
-
-        <div className="profile__category__field" title="Github">
-          <img src={TwitterIcon} className="profile__category__field__icon" alt="Github Icon" />
-          <React.Fragment>
-            <a href={`https://www.twitter.com/${verifiedTwitter}`} className="profile__category__field__verified" target="_blank" rel="noopener noreferrer">{verifiedTwitter}</a>
-            {verifiedTwitter && <img src={Verified} alt="Verified" className="profile__category__verified__icon" />}
-          </React.Fragment>
-        </div>
-      </div>
-
-      <div className="profile__details__category">
-
-        <div className="profile__category__header">
-          <h5>Work</h5>
-        </div>
-
-        <div className="profile__category__field" title="Employer">
-          <img src={Employer} className="profile__category__field__icon" alt="Employer Icon" />
-          {!onPublicProfilePage && <p>{employer}</p>}
-        </div>
-
-        <div className="profile__category__field" title="Job Title">
-          <img src={Job} className="profile__category__field__icon" alt="Job Icon" />
-          {!onPublicProfilePage && <p>{job}</p>}
-        </div>
-      </div>
-
-      <div className="profile__details__category">
-        <div className="profile__category__header">
-          <h5>Education</h5>
-        </div>
-
-        <div className="profile__category__field" title="School">
-          <img src={School} className="profile__category__field__icon" alt="School Icon" />
-          {!onPublicProfilePage && <p>{school}</p>}
-        </div>
-
-        <div className="profile__category__field" title="Degree">
-          <img src={Degree} className="profile__category__field__icon" alt="Degree Icon" />
-          {!onPublicProfilePage && <p>{degree}</p>}
-        </div>
-
-        <div className="profile__category__field" title="Major">
-          <img src={Major} className="profile__category__field__icon" alt="Major Icon" />
-          {!onPublicProfilePage && <p>{major}</p>}
-        </div>
-
-        <div className="profile__category__field" title="Graduation Year">
-          <img src={Year} className="profile__category__field__icon" alt="Year Icon" />
-          {!onPublicProfilePage && <p>{year}</p>}
-        </div>
-      </div>
-    </div>
-  );
-
-ProfileDetails.propTypes = {
-  verifiedGithub: PropTypes.string,
-  verifiedTwitter: PropTypes.string,
-  email: PropTypes.string,
-  website: PropTypes.string,
-  job: PropTypes.string,
-  school: PropTypes.string,
-  degree: PropTypes.string,
-  memberSince: PropTypes.string,
-  major: PropTypes.string,
-  year: PropTypes.string,
-  employer: PropTypes.string,
-  location: PropTypes.string,
-  birthday: PropTypes.string,
-  currentAddress: PropTypes.string,
-  onPublicProfilePage: PropTypes.bool,
+Collectibles.propTypes = {
+  box: PropTypes.object,
+  selectedCollectible: PropTypes.object,
+  collection: PropTypes.array,
+  collectiblesFavorites: PropTypes.array,
+  collectiblesFavoritesToRender: PropTypes.array,
+  handleCollectiblesModal: PropTypes.func.isRequired,
+  showCollectiblesModal: PropTypes.bool.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
 };
 
-ProfileDetails.defaultProps = {
-  verifiedGithub: '',
-  verifiedTwitter: '',
-  email: '',
-  memberSince: '',
-  website: '',
-  birthday: '',
-  location: '',
-  job: '',
-  school: '',
-  degree: '',
-  major: '',
-  year: '',
-  employer: '',
-  currentAddress: '',
-  onPublicProfilePage: false,
+Collectibles.defaultProps = {
+  box: {},
+  collection: [],
+  collectiblesFavorites: [],
+  collectiblesFavoritesToRender: [],
+  selectedCollectible: {},
 };
 
 function mapState(state) {
   return {
-    verifiedGithub: state.threeBox.verifiedGithub,
-    verifiedTwitter: state.threeBox.verifiedTwitter,
-    email: state.threeBox.email,
-    website: state.threeBox.website,
-    birthday: state.threeBox.birthday,
-    memberSince: state.threeBox.memberSince,
-    location: state.threeBox.location,
-    job: state.threeBox.job,
-    school: state.threeBox.school,
-    degree: state.threeBox.degree,
-    major: state.threeBox.major,
-    year: state.threeBox.year,
-    employer: state.threeBox.employer,
-    onPublicProfilePage: state.threeBox.onPublicProfilePage,
-    currentAddress: state.threeBox.currentAddress,
+    box: state.threeBox.box,
+    selectedCollectible: state.threeBox.selectedCollectible,
+    collection: state.threeBox.collection,
+    collectiblesFavorites: state.threeBox.collectiblesFavorites,
+    collectiblesFavoritesToRender: state.threeBox.collectiblesFavoritesToRender,
+    showCollectiblesModal: state.threeBox.showCollectiblesModal,
+    isFavorite: state.threeBox.isFavorite,
   };
 }
 
-export default withRouter(connect(mapState)(ProfileDetails));
+export default withRouter(
+  connect(
+    mapState,
+    { handleCollectiblesModal },
+  )(Collectibles),
+);

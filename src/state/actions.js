@@ -321,8 +321,12 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
       const privateActivity = await store.getState().threeBox.box.private.log;
       emailProof = await store.getState().threeBox.box.private._genDbKey('proof_email');
 
-      // remove ethereum_proof & proof_did
-      const publicActivity = unFilteredPublicActivity.filter(item => (item.key !== 'ethereum_proof' && item.key !== 'proof_did' && item.key !== 'memberSince'));
+      // remove ethereum_proof & proof_did & memberSince
+      const publicActivity = unFilteredPublicActivity
+        .filter(item => (item.key !== 'ethereum_proof' &&
+          item.key !== 'proof_did' &&
+          item.key !== 'collectiblesFavorites' &&
+          item.key !== 'memberSince'));
 
       // assign public or private data type
       const categorizedPublicActivity = addPublicOrPrivateDataType(publicActivity, 'Public');
@@ -528,6 +532,7 @@ export const getProfile = profileAddress => async (dispatch) => {
       publicName: publicProfile.name,
       publicEmoji: publicProfile.emoji,
       publicStatus: publicProfile.status,
+      publicCollectiblesGallery: publicProfile.collectiblesFavorites,
     });
 
     dispatch({
@@ -549,6 +554,65 @@ export const getProfileData = (type, key) => async (dispatch) => {
       type: `GET_${typeUppercase}_${keyUppercase}`,
       [key]: keyToAdd,
     });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getCollectibles = (address, onPublicProfile) => async (dispatch) => {
+  try {
+    const res = await fetch(`https://api.opensea.io/api/v1/assets?owner=${address}&order_by=current_price&order_direction=asc`);
+    const data = await res.json();
+    let collection = data.assets;
+
+    const collectiblesFavoritesToRender = [];
+    let updatedCollectiblesFavorites = [];
+    let collectiblesFavorites = [];
+
+    if (onPublicProfile) {
+      collectiblesFavorites = await store.getState().threeBox.publicCollectiblesGallery;
+    } else {
+      collectiblesFavorites = await store.getState().threeBox.box.public.get('collectiblesFavorites');
+    }
+
+    if (collectiblesFavorites && collectiblesFavorites.length > 0) {
+      collection = collection.filter((nft) => {
+        const idx = collectiblesFavorites.findIndex((col) => {
+          return (col.address === nft.asset_contract.address && col.token_id === nft.token_id);
+        });
+        if (idx === -1) return true;
+        collectiblesFavoritesToRender.push(nft);
+        updatedCollectiblesFavorites.push({
+          address: nft.asset_contract.address,
+          token_id: nft.token_id,
+        });
+        return false;
+      });
+
+      if (collectiblesFavorites.length !== updatedCollectiblesFavorites.length && !onPublicProfile) {
+        const {
+          box,
+        } = store.getState().threeBox;
+        box.public.set('collectiblesFavorites', collectiblesFavorites);
+      }
+    }
+
+    if (onPublicProfile) {
+      dispatch({
+        type: 'UPDATE_PUBLIC_PROFILE_FAVORITE_COLLECTIBLES',
+        publicCollectiblesFavorites: collectiblesFavoritesToRender,
+      });
+    } else {
+      dispatch({
+        type: 'GET_MY_COLLECTIBLES',
+        collection,
+      });
+      dispatch({
+        type: 'GET_PUBLIC_COLLECTIBLESFAVORITES',
+        collectiblesFavorites: updatedCollectiblesFavorites,
+        collectiblesFavoritesToRender,
+      });
+    }
   } catch (error) {
     console.error(error);
   }

@@ -56,7 +56,7 @@ class NavLanding extends Component {
             ${onPublicProfilePage && 'hide'} 
             ${landing}`}
       >
-        <div id="nav__logo--marginLeft">
+        <div id="landing__nav__logo--marginLeft">
           <Link to={routes.LANDING}>
             {(classHide || landing || onPublicProfilePage)
               ? <img src={ThreeBoxLogoBlue} alt="3Box Logo" className="landing__nav__logo" />

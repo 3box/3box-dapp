@@ -97,6 +97,13 @@ export const threeBoxReducer = (state = {}, action) => {
         publicName: action.publicName,
         publicEmoji: action.publicEmoji,
         publicStatus: action.publicStatus,
+        publicCollectiblesGallery: action.publicCollectiblesGallery,
+      };
+
+    case 'UPDATE_PUBLIC_PROFILE_FAVORITE_COLLECTIBLES':
+      return {
+        ...state,
+        publicCollectiblesFavorites: action.publicCollectiblesFavorites,
       };
 
     case 'GET_PUBLIC_PROFILE_ACTIVITY':
@@ -116,6 +123,12 @@ export const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         github: action.github,
+      };
+
+    case 'GET_PUBLIC_COLLECTIBLES':
+      return {
+        ...state,
+        publicCollectibles: action.publicCollectibles,
       };
 
     case 'GET_VERIFIED_PUBLIC_GITHUB':
@@ -208,6 +221,13 @@ export const threeBoxReducer = (state = {}, action) => {
         emoji: action.emoji,
       };
 
+    case 'GET_PUBLIC_COLLECTIBLESFAVORITES':
+      return {
+        ...state,
+        collectiblesFavorites: action.collectiblesFavorites,
+        collectiblesFavoritesToRender: action.collectiblesFavoritesToRender,
+      };
+
     case 'GET_PUBLIC_STATUS':
       return {
         ...state,
@@ -236,6 +256,12 @@ export const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         did: action.did,
+      };
+
+    case 'GET_MY_COLLECTIBLES':
+      return {
+        ...state,
+        collection: action.collection,
       };
 
     case 'HANDLE_SIGNOUT':
@@ -420,6 +446,25 @@ export const threeBoxReducer = (state = {}, action) => {
         ...state,
         allowAccessModal: action.allowAccessModal,
         directLogin: action.directLogin,
+      };
+
+    case 'HANDLE_COLLECTIBLES_MODAL':
+      return {
+        ...state,
+        showCollectiblesModal: action.showCollectiblesModal,
+        selectedCollectible: action.selectedCollectible,
+        isFavorite: action.isFavorite,
+      };
+    case 'CLOSE_COLLECTIBLES_MODAL':
+      return {
+        ...state,
+        showCollectiblesModal: action.showCollectiblesModal,
+      };
+    case 'RESET_SELECTED_COLLECTIBLE':
+      return {
+        ...state,
+        selectedCollectible: action.selectedCollectible,
+        isFavorite: action.isFavorite,
       };
 
     case 'HANDLE_DENIED_ACCESS_MODAL':

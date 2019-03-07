@@ -8,19 +8,20 @@ import {
   checkNetwork,
   getActivity,
   accountsPromise,
-} from '../state/actions';
+  getCollectibles,
+} from '../../state/actions';
 import {
   PublicProfileLoading,
   SignInThroughPublicProfileBanner,
-} from '../components/Modals.jsx';
+} from '../../components/Modals.jsx';
 import {
   handleSignInBanner,
-} from '../state/actions-modals';
-import { store } from '../state/store';
-import PubContent from '../components/Profile/PublicProfile/PubContent';
-import SideBar from '../components/Profile/SideBar';
-import Nav from '../components/Nav';
-import './styles/Profile.css';
+} from '../../state/actions-modals';
+import { store } from '../../state/store';
+import PubContent from '../../components/Profile/PublicProfile/PubContent';
+import SideBar from '../../components/Profile/SideBar';
+import Nav from '../../components/Nav';
+import '../styles/Profile.css';
 
 class ProfilePublic extends Component {
   async componentDidMount() {
@@ -45,8 +46,9 @@ class ProfilePublic extends Component {
       if (publicProfileAddress === activeAddress) this.props.handleSignInBanner();
     }
 
-    await this.props.checkNetwork(); // this needs to happen before
-    this.props.getProfile(publicProfileAddress);
+    await this.props.checkNetwork();
+    await this.props.getProfile(publicProfileAddress);
+    this.props.getCollectibles(publicProfileAddress, true);
     this.props.getActivity(publicProfileAddress);
   }
 
@@ -63,7 +65,6 @@ class ProfilePublic extends Component {
     return (
       <div>
         <SignInThroughPublicProfileBanner show={showSignInBanner} handleSignInBanner={this.props.handleSignInBanner} />
-        <Nav />
         <div
           id="profile__page"
         >
@@ -83,6 +84,7 @@ ProfilePublic.propTypes = {
   checkNetwork: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
   handleSignInBanner: PropTypes.func.isRequired,
+  getCollectibles: PropTypes.func.isRequired,
   pathname: PropTypes.object,
   location: PropTypes.object,
   isLoadingPublicProfile: PropTypes.bool,
@@ -110,4 +112,5 @@ export default withRouter(connect(mapState,
     checkNetwork,
     getActivity,
     handleSignInBanner,
+    getCollectibles,
   })(ProfilePublic));

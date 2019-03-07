@@ -21,6 +21,7 @@ export const normalizeURL = (pathname) => {
 export const matchProtectedRoutes = (normalizedPath) => {
   if (normalizedPath === routes.ACTIVITY ||
     normalizedPath === routes.DETAILS ||
+    normalizedPath === routes.COLLECTIBLES ||
     normalizedPath === routes.EDIT) {
     return true;
   }

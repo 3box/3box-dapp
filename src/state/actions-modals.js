@@ -24,6 +24,44 @@ export const closeErrorModal = () => async (dispatch) => {
   });
 };
 
+export const handleCollectiblesModal = (selectedCollectible, isFavorite) => async (dispatch) => {
+  let orderedCollectible;
+
+  if (selectedCollectible) {
+    const stringTraits = [];
+    const intTraits = [];
+    orderedCollectible = selectedCollectible;
+
+    selectedCollectible.traits.forEach((trait) => {
+      if (typeof trait.value === 'string') {
+        stringTraits.push(trait);
+      } else {
+        intTraits.push(trait);
+      }
+    });
+
+    orderedCollectible.orderedTraits = stringTraits.concat(intTraits);
+    dispatch({
+      type: 'HANDLE_COLLECTIBLES_MODAL',
+      showCollectiblesModal: !store.getState().threeBox.showCollectiblesModal,
+      selectedCollectible: orderedCollectible,
+      isFavorite,
+    });
+  } else {
+    dispatch({
+      type: 'CLOSE_COLLECTIBLES_MODAL',
+      showCollectiblesModal: false,
+    });
+    setTimeout(() => {
+      dispatch({
+        type: 'RESET_SELECTED_COLLECTIBLE',
+        selectedCollectible: undefined,
+        isFavorite: undefined,
+      });
+    }, 300);
+  }
+};
+
 export const handleSignInModal = () => async (dispatch) => {
   dispatch({
     type: 'HANDLE_SIGNIN_MODAL',

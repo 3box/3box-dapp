@@ -73,6 +73,211 @@
   .modal h3 {
     margin-bottom: 14px; }
 
+.collectiblesModal {
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition: all 0;
+  height: 100vh;
+  overflow-y: scroll; }
+
+.collectiblesMiniModal {
+  width: calc(100% - 50px) !important;
+  height: fit-content !important;
+  padding: 20px 25px !important;
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-height: fit-content;
+  margin-bottom: 75px;
+  position: relative;
+  visibility: hidden; }
+
+.collectiblesMiniModal__wrapper {
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  min-height: fit-content;
+  padding: 0 0 25px 0; }
+  .collectiblesMiniModal__wrapper p {
+    text-align: left;
+    font-size: 14px;
+    line-height: 18px; }
+
+.collectiblesMiniModal__description {
+  color: #747677;
+  padding: 0 25px; }
+
+.onClickOutsideCollectibles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3; }
+
+.onClickOutsideCollectibles--mobile {
+  display: none; }
+
+.modalLike {
+  position: absolute;
+  top: 20px !important;
+  right: 20px !important;
+  z-index: 1000; }
+  .modalLike img {
+    width: 26px !important;
+    z-index: 1000; }
+
+.collectiblesWrapper {
+  position: absolute;
+  top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: fit-content;
+  height: fit-content; }
+
+.collectiblesTileModal {
+  padding: 0 !important;
+  margin-bottom: 80px;
+  width: auto !important;
+  max-width: 600px; }
+  .collectiblesTileModal:hover .collectibles__like__heart--modal {
+    opacity: .8; }
+
+.gallery__like {
+  filter: none;
+  -webkit-filter: grayscale(100%) brightness(2);
+  -moz-filter: grayscale(100%) brightness(2);
+  -ms-filter: grayscale(100%) brightness(2);
+  -o-filter: grayscale(100%) brightness(2);
+  transition: all .3s; }
+  .gallery__like:hover {
+    filter: none; }
+
+.collectibles__like__heart--modal {
+  opacity: 0;
+  transition: all .3s; }
+
+.modal__collectibles__image__wrapper {
+  height: fit-content;
+  min-height: 300px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  position: relative; }
+  .modal__collectibles__image__wrapper button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 5; }
+  .modal__collectibles__image__wrapper h4 {
+    text-align: center;
+    width: 60%;
+    color: #747677; }
+
+.collectibles__image__shadow--modal {
+  background: #000000;
+  width: 40%;
+  height: 14px;
+  border-radius: 50%;
+  opacity: .1;
+  position: absolute;
+  bottom: 14px;
+  filter: blur(2px); }
+
+.modal__collectibles__image {
+  height: 100% !important;
+  width: 100% !important;
+  min-height: 300px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  object-fit: cover; }
+
+.contain {
+  height: fit-content;
+  overflow: hidden; }
+
+.modal__collectibles__info {
+  border-top: 1px solid #ececec;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  min-height: 80px; }
+
+.modal__collectibles__info__wrapper {
+  padding: 20px 25px 25px 25px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column; }
+  .modal__collectibles__info__wrapper h3 {
+    margin-bottom: 3px; }
+  .modal__collectibles__info__wrapper p {
+    color: #b1b1b1;
+    font-size: 14px; }
+
+.collectiblesClose {
+  position: relative;
+  top: -30px;
+  right: 0px;
+  padding: 0;
+  border: none;
+  z-index: 20;
+  transition: all .3s;
+  align-self: flex-end;
+  margin-top: 60px; }
+  .collectiblesClose:hover {
+    background-color: transparent;
+    border: none;
+    color: #c2c2c2; }
+
+.modal__collectibles__traits {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: fit-content;
+  flex-wrap: wrap;
+  padding: 20px 25px 0 25px; }
+
+.modal__collectibles__traits__trait {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #1168df;
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin: 0 10px 10px 0; }
+
+.modal__collectibles__traits__trait__type {
+  font-size: 10px !important;
+  color: white;
+  line-height: 12px !important;
+  margin-bottom: 6px !important;
+  opacity: .6; }
+
+.modal__collectibles__traits__trait__value {
+  font-size: 16px;
+  color: white;
+  margin: 0 !important;
+  display: inline; }
+
+.emtpy__grid--mobile {
+  display: none; }
+
 .modal--sync {
   background: #1168df;
   border-radius: 6px;
@@ -468,7 +673,7 @@
 
 .modal__github__description__copy__input--email {
   border-radius: 6px;
-  border: 1px solid #E4E4E4;
+  border: 1px solid #ececec;
   background-color: #f9f9f9;
   padding: 15px 20px;
   width: 70%;
@@ -503,6 +708,11 @@
 .loadingPadding {
   padding: 10px 1.8em !important; }
 
+.collectibles__modal {
+  height: 100vh;
+  left: 0;
+  overflow: scroll; }
+
 .modal__github__done {
   background-color: #EFF5FE;
   width: 100%;
@@ -522,8 +732,50 @@
 @media only screen and (max-width: 600px) {
   .mobileInvisible {
     display: none; }
+  .collectiblesClose {
+    position: absolute;
+    margin-right: 12vw;
+    margin-top: 60px; }
   .modal__container img {
     width: 100px; }
+  .onClickOutsideCollectibles {
+    display: none; }
+  .onClickOutsideCollectibles--mobile {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3; }
+  .modal__collectibles__image__wrapper {
+    width: 100%;
+    height: 100%; }
+  .collectiblesModal {
+    height: fit-content !important;
+    overflow-y: scroll; }
+  .collectiblesWrapper {
+    height: 100vh;
+    width: 100vw;
+    overflow-y: scroll;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+    z-index: 6;
+    top: 0;
+    position: relative; }
+  .collectiblesTileModal {
+    position: relative !important;
+    overflow: hidden;
+    max-height: fit-content !important;
+    min-height: fit-content !important;
+    padding: 0 !important;
+    border: none !important;
+    width: 80vw !important;
+    margin-top: 60px; }
+  .modal__collectibles__image {
+    min-height: 0; }
+  .collectibles__like__heart--modal {
+    opacity: .8; }
   .modal__onBoardingModal__container img {
     width: 88vw !important;
     height: 400px !important; }
@@ -586,6 +838,19 @@
       right: 10px; }
     #mobile__landing__prompt p {
       color: white; }
+  .collectiblesMiniModal {
+    width: calc(80vw - 40px) !important;
+    height: fit-content !important;
+    min-height: fit-content !important;
+    padding: 20px 20px !important;
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    position: relative;
+    border: none !important; }
+  .modal__collectibles__info__wrapper {
+    padding: 15px 20px 25px 20px; }
   .githubModal {
     padding: 0;
     width: 92vw;

@@ -70,11 +70,19 @@ class StatusUpdate extends Component {
       <React.Fragment>
         {onPublicProfilePage && (
           <div
+            className={`${showDownloadBanner ? 'statusUpdate--bannerMargin' : ''}
+          statusUpdate
+          ${!publicStatus ? 'hideUpdateOnMobile' : ''}
+          `
+            }
+          >
+            {/* <div
             className={`${showDownloadBanner ? 'statusUpdate--bannerMargin' : ''} ${showSignInBanner ? 'publicStatusUpdate--bannerMargin' : ''} 
           statusUpdate ${onPublicProfilePage ? 'publicStatusUpdate' : ''}
           ${!publicStatus ? 'hideUpdateOnMobile' : ''}
           `
-            }>
+            }
+          > */}
             <div className="statusUpdate__displayPublic">
               {publicStatus}
             </div>

@@ -7,6 +7,7 @@ import Status from '../assets/Status.png';
 import getCoinbaseWallet from '../assets/getCoinbaseWallet.svg';
 import ThreeBoxLogoWhite from '../assets/ThreeBoxLogoWhite.svg';
 import ThreeBoxLogoBlue from '../assets/ThreeBoxLogoBlue.svg';
+import HeartBlue from '../assets/HeartBlue.svg';
 import GithubIcon from '../assets/GithubIcon.svg';
 import TwitterIcon from '../assets/twitterGrey.svg';
 import Email from '../assets/Email.svg';
@@ -108,6 +109,134 @@ LoggedOutModal.propTypes = {
   handleLoggedOutModal: PropTypes.func.isRequired,
   handleSignOut: PropTypes.func.isRequired,
   show: PropTypes.bool.isRequired,
+};
+
+export const CollectiblesModal = ({
+  show,
+  handleCollectiblesModal,
+  selectedCollectible,
+  updateGallery,
+  isFavorite,
+  padded,
+  onPublicProfile,
+  cover,
+  contain,
+}) => (
+    <div>
+      <div className={`${show ? 'showModal' : ''} modal__container modal--effect collectibles__modal`}>
+        <div className="collectiblesWrapper">
+          <button onClick={() => handleCollectiblesModal()} type="button" className="tertiaryButton collectiblesClose">
+            Close
+          </button>
+          <div className="modal collectiblesTileModal">
+            <div
+              className="modal__collectibles__image__wrapper"
+              style={{ backgroundColor: `#${selectedCollectible.background_color}` }}
+            >
+              {(updateGallery && isFavorite && !onPublicProfile) && (
+                <button
+                  type="button"
+                  className="collectibles__like modalLike"
+                  title="Remove from favorites"
+                  onClick={e => updateGallery(e, selectedCollectible, 'remove', 'fromModal')}
+                >
+                  <img src={HeartBlue} alt="" className="collectibles__like__heart--modal" />
+                </button>)}
+
+              {(updateGallery && !isFavorite && !onPublicProfile) && (
+                <button
+                  type="button"
+                  className="collectibles__like modalLike"
+                  title="Add to favorites"
+                  onClick={e => updateGallery(e, selectedCollectible, null, 'fromModal')}
+                >
+                  <img src={HeartBlue} alt="" className="collectibles__like__heart--modal gallery__like" />
+                </button>)}
+
+              {padded && <span className="collectibles__image__shadow--modal" />}
+
+              <img
+                className={`
+                modal__collectibles__image 
+                ${padded && 'padded'}
+                ${cover && 'cover'}
+                ${contain && 'contain'}
+                `}
+                src={selectedCollectible.image_preview_url}
+                alt="Collectible"
+              />
+            </div>
+
+            <div className="modal__collectibles__info">
+              <div className="modal__collectibles__info__wrapper">
+                <h3>{selectedCollectible.name}</h3>
+                <p>{`${selectedCollectible.asset_contract && selectedCollectible.asset_contract.name} ${selectedCollectible.token_id}`}</p>
+              </div>
+            </div>
+            <div className="collectiblesMiniModal__wrapper">
+              {selectedCollectible.description && (
+                <p className="collectiblesMiniModal__description">
+                  {selectedCollectible.description}
+                </p>)}
+
+              {selectedCollectible.orderedTraits && selectedCollectible.orderedTraits.length > 0
+                && (
+                  <div className="modal__collectibles__traits">
+                    {selectedCollectible.orderedTraits.map((trait, i) => (
+                      <div key={i} className="modal__collectibles__traits__trait">
+                        <p className="modal__collectibles__traits__trait__type">{trait.trait_type.toUpperCase()}</p>
+                        <p className="modal__collectibles__traits__trait__value">{trait.value}</p>
+                      </div>
+                    ))}
+                  </div>)}
+            </div>
+          </div>
+
+          {/* <div className={`modal collectiblesMiniModal ${(selectedCollectible.description || (selectedCollectible.orderedTraits && selectedCollectible.orderedTraits.length > 0)) && 'showModal'}`}>
+            <div className="collectiblesMiniModal__wrapper">
+              {selectedCollectible.description && (
+                <p className="collectiblesMiniModal__description">
+                  {selectedCollectible.description}
+                </p>)}
+
+              {selectedCollectible.orderedTraits && selectedCollectible.orderedTraits.length > 0
+                && (
+                  <div className="modal__collectibles__traits">
+                    {selectedCollectible.orderedTraits.map((trait, i) => (
+                      <div key={i} className="modal__collectibles__traits__trait">
+                        <p className="modal__collectibles__traits__trait__type">{trait.trait_type.toUpperCase()}</p>
+                        <p className="modal__collectibles__traits__trait__value">{trait.value}</p>
+                      </div>
+                    ))}
+                  </div>)}
+            </div>
+          </div> */}
+          {show && <div className='onClickOutsideCollectibles--mobile' onClick={() => handleCollectiblesModal()} />}
+        </div>
+        {show && <div className='onClickOutsideCollectibles' onClick={() => handleCollectiblesModal()} />}
+      </div>
+
+      <div className="modal__overlay" />
+    </div>
+  );
+
+CollectiblesModal.propTypes = {
+  show: PropTypes.bool.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
+  handleCollectiblesModal: PropTypes.func.isRequired,
+  updateGallery: PropTypes.func,
+  selectedCollectible: PropTypes.object,
+  padded: PropTypes.bool,
+  contain: PropTypes.bool,
+  cover: PropTypes.bool,
+};
+
+CollectiblesModal.defaultProps = {
+  selectedCollectible: {},
+  updateGallery: {},
+  cover: false,
+  padded: false,
+  contain: false,
 };
 
 export const SwitchedAddressModal = ({

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import ActivityHeader from './ActivityHeader';
 import ActivityTiles from './ActivityTiles';
+import StatusUpdate from '../StatusUpdate';
 import Loading from '../../../assets/Loading.svg';
 import '../../styles/Feed.css';
 import '../../../views/styles/Profile.css';
@@ -17,6 +18,7 @@ const Activity = ({
     <div id="feed">
       <div>
         <p className="header publicHeader" id="feed__header">Activity</p>
+        <StatusUpdate />
         <div className="feed__activity__header">
           {(ifFetchingActivity)
             && (

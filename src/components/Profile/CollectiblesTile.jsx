@@ -1,38 +1,115 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
-import { addhttp } from '../../utils/funcs';
-import * as routes from '../../utils/routes';
+import {
+  handleCollectiblesModal,
+} from '../../state/actions-modals';
+import HeartGrey from '../../assets/HeartGrey.svg';
+import HeartBlue from '../../assets/HeartBlue.svg';
 import '../../views/styles/Profile.css';
 import '../styles/Collectibles.css';
-import '../styles/Feed.css';
 
-const CollectiblesTile = () => (
-  <div className="collectibles">
-    <div className="collectibles__image">
-      <img src="" alt="" />
-      <button></button>
-    </div>
-    <div className="collectibles__info">
+// className={`
+// collectibles__image 
+// ${padded && 'padded'} 
+// ${cover && 'cover'}
+// ${contain && 'contain'}
+// `}
 
+const CollectiblesTile = ({
+  image,
+  description,
+  name,
+  updateGallery,
+  padded,
+  cover,
+  contain,
+  bgStyle,
+  tokenId,
+  favorite,
+  onPublicProfile,
+  handleCollectiblesModal,
+  collectible,
+}) => (
+    <div className="collectiblesTile" onClick={() => handleCollectiblesModal(collectible, favorite)}>
+      <div
+        className="collectibles__image__wrapper"
+        style={{ backgroundColor: `#${bgStyle}` }}
+      >
+        {padded && <span className="collectibles__image__shadow" />}
+        <img
+          className={`
+          collectibles__image 
+          ${padded && 'padded'} 
+          `}
+          src={image}
+          alt=""
+        />
+
+        {(!onPublicProfile && !favorite) && (
+          <button
+            type="button"
+            className="collectibles__like"
+            title="Add to favorites"
+            onClick={e => updateGallery(e, collectible)}
+          >
+            <img src={HeartBlue} alt="" className="collectibles__like__heart gallery__like" />
+          </button>
+        )}
+
+        {(!onPublicProfile && favorite) && (
+          <button
+            type="button"
+            className="collectibles__like"
+            title="Remove from favorites"
+            onClick={e => updateGallery(e, collectible, 'remove')}
+          >
+            <img src={HeartBlue} alt="" className="collectibles__like__heart" />
+          </button>
+        )}
+      </div>
+
+      <div className="collectibles__info">
+        <h3>{name}</h3>
+        <p>{`${description} ${tokenId}`}</p>
+      </div>
     </div>
-  </div>
-);
+  );
 
 CollectiblesTile.propTypes = {
-  verifiedGithub: PropTypes.string,
+  image: PropTypes.string,
+  name: PropTypes.string,
+  description: PropTypes.string,
+  padded: PropTypes.bool,
+  contain: PropTypes.bool,
+  cover: PropTypes.bool,
+  updateGallery: PropTypes.func,
+  handleCollectiblesModal: PropTypes.func.isRequired,
+  favorite: PropTypes.bool.isRequired,
+  onPublicProfile: PropTypes.bool.isRequired,
+  tokenId: PropTypes.string,
+  bgStyle: PropTypes.string,
+  collectible: PropTypes.object,
 };
 
 CollectiblesTile.defaultProps = {
-  verifiedGithub: '',
+  image: '',
+  name: '',
+  description: '',
+  cover: false,
+  padded: false,
+  contain: false,
+  tokenId: '',
+  bgStyle: '',
+  collectible: {},
+  updateGallery: {},
 };
 
 function mapState(state) {
   return {
-    verifiedGithub: state.threeBox.verifiedGithub,
   };
 }
 
-export default withRouter(connect(mapState)(CollectiblesTile));
+export default withRouter(connect(mapState, { handleCollectiblesModal })(CollectiblesTile));

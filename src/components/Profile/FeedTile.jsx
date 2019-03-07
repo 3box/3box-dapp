@@ -265,7 +265,7 @@ export const FeedTileToken = ({ item, name, onPublicProfilePage, metaDataName, i
 FeedTileToken.propTypes = {
   item: PropTypes.object,
   metaDataName: PropTypes.string,
-  contractImgƒ: PropTypes.string,
+  contractImg: PropTypes.string,
   name: PropTypes.string,
   onPublicProfilePage: PropTypes.bool,
   isFromProfile: PropTypes.bool,

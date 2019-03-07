@@ -1,7 +1,8 @@
 @import "../../variables.scss";
 
 nav {
-  position: fixed;
+  position: relative;
+  // position: fixed;
   width: 100vw;
   top: 0;
   background-color: #fff;
@@ -20,7 +21,7 @@ nav {
   }
 }
 
-.hideNav{
+.hideNav {
   display: none !important;
 }
 
@@ -81,6 +82,23 @@ nav {
     justify-content: flex-start;
     align-items: center;
   }
+}
+
+#landing__nav__logo--marginLeft {
+  margin-left: 3vw;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  a {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+}
+
+#nav__logo--mobile {
+  display: none;
 }
 
 .nav__dropdown__mobileLogo {
@@ -192,7 +210,7 @@ nav {
 
 .landing__nav__logo {
   width: 90px;
-  height: 30px;
+  height: 32px;
 }
 
 #landing__nav {
@@ -229,7 +247,8 @@ nav {
   position: absolute;
   bottom: -6px;
   left: 0;
-  width: 100%;;
+  width: 100%;
+  ;
   opacity: 0;
   background: white;
   transition: 0.6s;
@@ -248,7 +267,8 @@ nav {
   bottom: -6px;
   left: 0;
   opacity: 0;
-  width: 100%;;
+  width: 100%;
+  ;
   background: white;
   transition: 0.6s;
 }
@@ -304,17 +324,18 @@ nav {
   position: absolute;
   bottom: -6px;
   left: 0;
-  width: 100%;;
+  width: 100%;
+  ;
   opacity: 0;
   background: rgb(255, 255, 255);
   transition: 0.6s;
 }
 
-.landing.createProfileLink:hover:after{
+.landing.createProfileLink:hover:after {
   background: white !important;
 }
 
-.hide .landing.createProfileLink:hover:after{
+.hide .landing.createProfileLink:hover:after {
   background: $threeBoxBlue !important;
 }
 
@@ -330,7 +351,7 @@ nav {
   background: $threeBoxBlue;
 }
 
-.hide .createProfileLink:after{
+.hide .createProfileLink:after {
   background: $threeBoxBlue !important;
 }
 
@@ -458,6 +479,11 @@ nav {
 }
 
 @media only screen and (max-width: 600px) {
+  nav {
+    justify-content: center;
+    align-items: center;
+  }
+
   .hide {
     border-bottom: 1px solid #E4E4E4 !important;
     height: 68px !important;
@@ -504,10 +530,33 @@ nav {
 
   #nav__logo--marginLeft {
     margin-left: 6vw;
+    display: none;
+  }
+
+  #nav__logo--mobile {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    a {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+  }
+
+  #landing__nav__logo--marginLeft {
+    margin-left: 6vw;
   }
 
   .nav__userPicture {
-    margin-right: 6vw;
+    margin: 0;
+    align-self: flex-end;
+    position: absolute;
+    left: 6vw;
+    top: 16px;
+    width: 36px;
+    height: 36px;
   }
 
   #actionButtons {
@@ -549,12 +598,28 @@ nav {
     transition: transform .3s ease-out;
 
     li {
-      line-height: 4.5em;
+      line-height: 3.5em;
     }
   }
 
   #nav__networkStatus {
-    margin-left: 20px;
+    display: none;
+  }
+
+  #nav__networkStatus--mobile {
+    border: 1px solid #e4e4e4;
+    padding: 5px 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    margin: 0 0 30px 10px;
+    width: fit-content;
+
+    p {
+      font-size: 11px !important;
+      color: $lightFont;
+    }
   }
 
   .nav__dropdown.sideDrawer {
@@ -581,7 +646,8 @@ nav {
   .nav__dropdown__mobileLogo {
     display: flex;
     justify-content: flex-start;
-    margin: 4px 0 40px 6vw;
+    align-items: center;
+    margin: 4px 0 25px 6vw;
   }
 
   .nav__activePage {
