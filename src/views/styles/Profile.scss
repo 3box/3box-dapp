@@ -113,8 +113,8 @@
 }
 
 .profile__category__divider {
-  width: 90vw;
-  margin-left: 5vw;
+  width: 94%;
+  margin-left: 3%;
   border-bottom: 1px solid $borderColor;
   margin-bottom: 30px;
   align-self: center;
@@ -221,7 +221,7 @@
 
 .active {
   background-color: $backgroundGreyDark !important;
-  color: $threeBoxBlue;
+  color: $threeBoxBlue !important;
 
   img {
     filter: none;
@@ -545,6 +545,11 @@
 @media only screen and (max-width: 600px) {
   .profile__coverPhoto {
     z-index: 0;
+  }
+
+  .profile__category__divider {
+    width: 90vw;
+    margin-left: 5vw;
   }
 
   .profile__details__category {

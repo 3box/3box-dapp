@@ -88,8 +88,8 @@
     font-weight: 400; }
 
 .profile__category__divider {
-  width: 90vw;
-  margin-left: 5vw;
+  width: 94%;
+  margin-left: 3%;
   border-bottom: 1px solid #ececec;
   margin-bottom: 30px;
   align-self: center; }
@@ -180,7 +180,7 @@
 
 .active {
   background-color: #dfdfdfa6 !important;
-  color: #1168df; }
+  color: #1168df !important; }
   .active img {
     filter: none;
     opacity: 1; }
@@ -434,6 +434,9 @@
 @media only screen and (max-width: 600px) {
   .profile__coverPhoto {
     z-index: 0; }
+  .profile__category__divider {
+    width: 90vw;
+    margin-left: 5vw; }
   .profile__details__category {
     width: 100%;
     margin: 18px 0 0 0;

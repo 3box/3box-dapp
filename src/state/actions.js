@@ -577,20 +577,16 @@ export const getCollectibles = (address, onPublicProfile) => async (dispatch) =>
     }
 
     if (collectiblesFavorites && collectiblesFavorites.length > 0) {
-      const haveFavorite = [false, false, false];
       collection = collection.filter((nft) => {
         const idx = collectiblesFavorites.findIndex((col) => {
           return (col.address === nft.asset_contract.address && col.token_id === nft.token_id);
         });
-        if (idx === -1) {
-          return true;
-        }
+        if (idx === -1) return true;
         collectiblesFavoritesToRender.push(nft);
         updatedCollectiblesFavorites.push({
           address: nft.asset_contract.address,
           token_id: nft.token_id,
         });
-        haveFavorite[idx] = true;
         return false;
       });
 
