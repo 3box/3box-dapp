@@ -5,10 +5,12 @@ import { connect } from 'react-redux';
 import CollectiblesTile from '../CollectiblesTile';
 import { CollectiblesModal } from '../../Modals';
 import { EmptyGalleryCollectiblesTile } from '../EmptyCollectiblesTile';
-import { handleCollectiblesModal } from '../../../state/actions-modals';
+import actions from '../../../state/actions';
 import '../../styles/Feed.css';
 import '../../../views/styles/Profile.css';
 import '../../styles/NetworkArray.css';
+
+const { handleCollectiblesModal } = actions.modal;
 
 const PublicCollectiblesGallery = ({
   publicCollectiblesFavorites,

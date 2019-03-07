@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link, NavLink, withRouter } from 'react-router-dom';
 
 import PubSideBar from './PublicProfile/PubSideBar';
-import { copyToClipBoard } from '../../state/actions';
+import { copyToClipBoard } from '../../utils/funcs';
 import * as routes from '../../utils/routes';
 import ActivityIcon from '../../assets/Activity.svg';
 import DetailsIcon from '../../assets/Details.svg';

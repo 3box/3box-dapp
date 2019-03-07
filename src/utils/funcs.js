@@ -146,3 +146,39 @@ export const addPublicOrPrivateDataType = (activity, dataType) => activity.map((
     dataType,
   }, row);
 });
+
+export const copyToClipBoard = (type, message) => async (dispatch) => {
+  try {
+    const textArea = document.createElement('textarea');
+
+    if (type === 'did') {
+      textArea.value = message;
+    } else if (type === 'profile') {
+      textArea.value = `https://www.3box.io/${store.getState().threeBox.currentAddress}`;
+    }
+
+    document.body.appendChild(textArea);
+    textArea.focus({
+      preventScroll: true,
+    });
+    textArea.select();
+    document.execCommand('copy');
+
+    setTimeout(() => {
+      dispatch({
+        type: 'COPY_SUCCESSFUL',
+        copySuccessful: true,
+      });
+    }, 1);
+    setTimeout(() => {
+      dispatch({
+        type: 'COPY_SUCCESSFUL',
+        copySuccessful: false,
+      });
+    }, 2000);
+
+    document.body.removeChild(textArea);
+  } catch (err) {
+    console.error('Unable to copy', err);
+  }
+};

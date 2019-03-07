@@ -3,25 +3,33 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {
-  getProfile,
-  checkNetwork,
-  getActivity,
-  accountsPromise,
-  getCollectibles,
-} from '../../state/actions';
+import actions from '../../state/actions';
 import {
   PublicProfileLoading,
   SignInThroughPublicProfileBanner,
 } from '../../components/Modals.jsx';
-import {
-  handleSignInBanner,
-} from '../../state/actions-modals';
 import { store } from '../../state/store';
 import PubContent from '../../components/Profile/PublicProfile/PubContent';
 import SideBar from '../../components/Profile/SideBar';
-import Nav from '../../components/Nav';
 import '../styles/Profile.css';
+
+const {
+  handleSignInBanner,
+} = actions.modal;
+
+const {
+  checkNetwork,
+} = actions.land;
+
+const {
+  accountsPromise,
+} = actions.signin;
+
+const {
+  getOtherProfile,
+  getActivity,
+  getCollectibles,
+} = actions.profile;
 
 class ProfilePublic extends Component {
   async componentDidMount() {
@@ -44,10 +52,10 @@ class ProfilePublic extends Component {
         activeAddress = currentAddress;
       }
       if (publicProfileAddress === activeAddress) this.props.handleSignInBanner();
+      await this.props.checkNetwork();
     }
 
-    await this.props.checkNetwork();
-    await this.props.getProfile(publicProfileAddress);
+    await this.props.getOtherProfile(publicProfileAddress);
     this.props.getCollectibles(publicProfileAddress, true);
     this.props.getActivity(publicProfileAddress);
   }
@@ -80,7 +88,7 @@ class ProfilePublic extends Component {
 }
 
 ProfilePublic.propTypes = {
-  getProfile: PropTypes.func.isRequired,
+  getOtherProfile: PropTypes.func.isRequired,
   checkNetwork: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
   handleSignInBanner: PropTypes.func.isRequired,
@@ -108,7 +116,7 @@ const mapState = state => ({
 
 export default withRouter(connect(mapState,
   {
-    getProfile,
+    getOtherProfile,
     checkNetwork,
     getActivity,
     handleSignInBanner,

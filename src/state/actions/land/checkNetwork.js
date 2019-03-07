@@ -2,39 +2,8 @@ import {
   store,
 } from '../../store';
 
-export const checkWeb3Wallet = () => async (dispatch) => {
-  const cp = typeof window.web3 !== 'undefined' ? window.web3.currentProvider : null; // eslint-disable-line no-undef
-
-  let isToshi;
-  let isCipher;
-  let isMetaMask;
-  let currentWallet;
-
-  if (cp) {
-    isToshi = !!cp.isToshi;
-    isCipher = !!cp.isCipher;
-    isMetaMask = !!cp.isMetaMask;
-
-    if (isToshi) {
-      currentWallet = 'isToshi';
-    } else if (isCipher) {
-      currentWallet = 'isCipher';
-    } else if (isMetaMask) {
-      currentWallet = 'isMetaMask';
-    }
-  }
-
-  dispatch({
-    type: 'CHECK_WALLET',
-    hasWallet: typeof window.web3 !== 'undefined', // eslint-disable-line no-undef
-    showDownloadBanner: typeof window.web3 === 'undefined', // eslint-disable-line no-undef
-    mobileWalletRequiredModal: typeof window.web3 === 'undefined', // eslint-disable-line no-undef
-    currentWallet,
-  });
-};
-
 // if has web3 wallet
-export const checkNetwork = () => async (dispatch) => {
+const checkNetwork = () => async (dispatch) => {
   const checkNetworkFunc = new Promise((resolve) => {
     window.web3.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
       switch (netId) {
@@ -98,3 +67,5 @@ export const checkNetwork = () => async (dispatch) => {
     });
   }
 };
+
+export default checkNetwork;

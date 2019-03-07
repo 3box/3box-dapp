@@ -5,13 +5,15 @@ import { Link, withRouter } from 'react-router-dom';
 
 import ThreeBoxLogo from '../assets/ThreeBoxLogoBlue.svg';
 import ThreeBoxB from '../assets/3Box3Blue.svg';
-import { handleSignOut } from '../state/actions';
+import actions from '../state/actions';
 import * as routes from '../utils/routes';
 import { normalizeURL } from '../utils/funcs';
 import Profile from '../assets/Profile.svg';
 import Edit from '../assets/Edit.svg';
 import SignOut from '../assets/SignOut.svg';
 import './styles/Nav.css';
+
+const { handleSignOut } = actions.signin;
 
 class Nav extends Component {
   constructor(props) {

@@ -6,13 +6,15 @@ import { withRouter } from 'react-router-dom';
 import CollectiblesTile from './CollectiblesTile';
 import { CollectiblesModal } from '../Modals';
 import { EmptyGalleryCollectiblesTile } from './EmptyCollectiblesTile';
-import { handleCollectiblesModal } from '../../state/actions-modals';
+import actions from '../../state/actions';
 import OpenSea from '../../assets/OpenSea.png';
 import Globe from '../../assets/Globe.svg';
 import Private from '../../assets/Private.svg';
 import { store } from '../../state/store';
 import '../../views/styles/Profile.css';
 import '../styles/Feed.css';
+
+const { handleCollectiblesModal } = actions.modal;
 
 class Collectibles extends Component {
   constructor(props) {

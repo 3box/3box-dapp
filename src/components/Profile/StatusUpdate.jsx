@@ -5,10 +5,12 @@ import PropTypes from 'prop-types';
 import Loading from '../../assets/Loading.svg';
 import '../styles/Feed.css';
 
-import {
+import actions from '../../state/actions';
+
+const {
   getActivity,
-  getProfileData,
-} from '../../state/actions';
+  getProfileValue,
+} = actions.profile;
 
 class StatusUpdate extends Component {
   constructor(props) {
@@ -56,7 +58,7 @@ class StatusUpdate extends Component {
     if (statusChanged && status !== '') await box.public.set('status', status);
     if ((statusChanged && status === '') || remove) await box.public.remove('status');
 
-    if (statusChanged) await this.props.getProfileData('public', 'status');
+    if (statusChanged) await this.props.getProfileValue('public', 'status');
     this.props.getActivity();
     this.setState({ saveLoading: false, disableSave: true });
     if (remove) this.setState({ status: '' });
@@ -148,7 +150,7 @@ StatusUpdate.propTypes = {
   showDownloadBanner: PropTypes.bool,
   showSignInBanner: PropTypes.bool,
   getActivity: PropTypes.func.isRequired,
-  getProfileData: PropTypes.func.isRequired,
+  getProfileValue: PropTypes.func.isRequired,
   box: PropTypes.object,
   location: PropTypes.object.isRequired,
   onPublicProfilePage: PropTypes.bool,
@@ -177,5 +179,5 @@ function mapState(state) {
 export default withRouter(connect(mapState,
   {
     getActivity,
-    getProfileData,
+    getProfileValue,
   })(StatusUpdate));

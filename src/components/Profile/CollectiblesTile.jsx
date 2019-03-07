@@ -3,20 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import {
-  handleCollectiblesModal,
-} from '../../state/actions-modals';
-import HeartGrey from '../../assets/HeartGrey.svg';
+import actions from '../../state/actions';
+// import HeartGrey from '../../assets/HeartGrey.svg';
 import HeartBlue from '../../assets/HeartBlue.svg';
 import '../../views/styles/Profile.css';
 import '../styles/Collectibles.css';
 
-// className={`
-// collectibles__image 
-// ${padded && 'padded'} 
-// ${cover && 'cover'}
-// ${contain && 'contain'}
-// `}
+const {
+  handleCollectiblesModal,
+} = actions.modal;
 
 const CollectiblesTile = ({
   image,
@@ -24,8 +19,6 @@ const CollectiblesTile = ({
   name,
   updateGallery,
   padded,
-  cover,
-  contain,
   bgStyle,
   tokenId,
   favorite,
@@ -83,8 +76,6 @@ CollectiblesTile.propTypes = {
   name: PropTypes.string,
   description: PropTypes.string,
   padded: PropTypes.bool,
-  contain: PropTypes.bool,
-  cover: PropTypes.bool,
   updateGallery: PropTypes.func,
   handleCollectiblesModal: PropTypes.func.isRequired,
   favorite: PropTypes.bool.isRequired,
@@ -98,9 +89,7 @@ CollectiblesTile.defaultProps = {
   image: '',
   name: '',
   description: '',
-  cover: false,
   padded: false,
-  contain: false,
   tokenId: '',
   bgStyle: '',
   collectible: {},

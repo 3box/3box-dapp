@@ -1,9 +1,9 @@
 export const threeBoxReducer = (state = {}, action) => {
   switch (action.type) {
-    case 'CHECK_WALLET':
+    case 'CHECK_WEB3':
       return {
         ...state,
-        hasWallet: action.hasWallet,
+        hasWeb3: action.hasWeb3,
         showDownloadBanner: action.showDownloadBanner,
         currentWallet: action.currentWallet,
         mobileWalletRequiredModal: action.mobileWalletRequiredModal,
@@ -414,7 +414,7 @@ export const threeBoxReducer = (state = {}, action) => {
       return {
         ...state,
         isSignedIntoWallet: action.isSignedIntoWallet,
-        hasWallet: action.hasWallet,
+        hasWeb3: action.hasWeb3,
       };
 
     case 'HANDLE_MOBILE_WALLET_REQUIRED_MODAL':

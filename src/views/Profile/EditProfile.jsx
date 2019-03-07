@@ -8,17 +8,9 @@ import { Picker } from 'emoji-mart';
 import {
   store,
 } from '../../state/store';
-import {
-  getProfileData,
-  getActivity,
-  getPublicDID,
-  copyToClipBoard,
-} from '../../state/actions';
-import {
-  handleGithubVerificationModal,
-  handleTwitterVerificationModal,
-  handleEmailVerificationModal,
-} from '../../state/actions-modals';
+
+import actions from '../../state/actions';
+import { copyToClipBoard } from '../../utils/funcs';
 import {
   FileSizeModal,
   GithubVerificationModal,
@@ -33,6 +25,13 @@ import Verified from '../../assets/Verified.svg';
 import AddImage from '../../assets/AddImage.svg';
 import Loading from '../../assets/Loading.svg';
 import '../styles/EditProfile.css';
+
+const { getActivity, getProfileValue, getMyDID } = actions.profile;
+const {
+  handleGithubVerificationModal,
+  handleTwitterVerificationModal,
+  handleEmailVerificationModal,
+} = actions.modal;
 
 class EditProfile extends Component {
   constructor(props) {
@@ -692,21 +691,21 @@ class EditProfile extends Component {
           verifiedEmail: null,
         });
       }
-      if (nameChanged) await this.props.getProfileData('public', 'name'); // change these to just update the redux store
-      if (descriptionChanged) await this.props.getProfileData('public', 'description');
-      if (locationChanged) await this.props.getProfileData('public', 'location');
-      if (websiteChanged) await this.props.getProfileData('public', 'website');
-      if (employerChanged) await this.props.getProfileData('public', 'employer');
-      if (jobChanged) await this.props.getProfileData('public', 'job');
-      if (schoolChanged) await this.props.getProfileData('public', 'school');
-      if (degreeChanged) await this.props.getProfileData('public', 'degree');
-      if (majorChanged) await this.props.getProfileData('public', 'major');
-      if (yearChanged) await this.props.getProfileData('public', 'year');
-      if (emojiChanged) await this.props.getProfileData('public', 'emoji');
-      if (removeUserPic || editPic) await this.props.getProfileData('public', 'image');
-      if (removeCoverPic || editCoverPic) await this.props.getProfileData('public', 'coverPhoto');
-      if (emailChanged) await this.props.getProfileData('private', 'email');
-      if (birthdayChanged) await this.props.getProfileData('private', 'birthday');
+      if (nameChanged) await this.props.getProfileValue('public', 'name'); // change these to just update the redux store
+      if (descriptionChanged) await this.props.getProfileValue('public', 'description');
+      if (locationChanged) await this.props.getProfileValue('public', 'location');
+      if (websiteChanged) await this.props.getProfileValue('public', 'website');
+      if (employerChanged) await this.props.getProfileValue('public', 'employer');
+      if (jobChanged) await this.props.getProfileValue('public', 'job');
+      if (schoolChanged) await this.props.getProfileValue('public', 'school');
+      if (degreeChanged) await this.props.getProfileValue('public', 'degree');
+      if (majorChanged) await this.props.getProfileValue('public', 'major');
+      if (yearChanged) await this.props.getProfileValue('public', 'year');
+      if (emojiChanged) await this.props.getProfileValue('public', 'emoji');
+      if (removeUserPic || editPic) await this.props.getProfileValue('public', 'image');
+      if (removeCoverPic || editCoverPic) await this.props.getProfileValue('public', 'coverPhoto');
+      if (emailChanged) await this.props.getProfileValue('private', 'email');
+      if (birthdayChanged) await this.props.getProfileValue('private', 'birthday');
 
       this.props.getActivity();
 
@@ -783,7 +782,7 @@ class EditProfile extends Component {
     return (
       <div id="edit__page">
         <Nav />
-        
+
         <Prompt
           when={!disableSave}
           message="Continue without saving changes to your profile?"
@@ -1159,7 +1158,7 @@ class EditProfile extends Component {
                               className={`unstyledButton ${!githubEdited && 'uneditedGithub'} verificationButton verifiedForm`}
                               disabled={!githubEdited}
                               onClick={() => {
-                                this.props.getPublicDID();
+                                this.props.getMyDID();
                                 this.props.handleGithubVerificationModal();
                               }}
                             >
@@ -1224,7 +1223,7 @@ class EditProfile extends Component {
                               className={`unstyledButton ${!twitterEdited && 'uneditedGithub'} verificationButton verifiedForm`}
                               disabled={!twitterEdited}
                               onClick={() => {
-                                this.props.getPublicDID();
+                                this.props.getMyDID();
                                 this.props.handleTwitterVerificationModal();
                               }}
                             >
@@ -1290,7 +1289,7 @@ class EditProfile extends Component {
                               className={`unstyledButton ${!emailEdited && 'uneditedGithub'} verificationButton verifiedForm`}
                               disabled={!emailEdited}
                               onClick={() => {
-                                this.props.getPublicDID();
+                                this.props.getMyDID();
                                 this.props.handleEmailVerificationModal();
                               }}
                             >
@@ -1382,7 +1381,7 @@ class EditProfile extends Component {
                               className={`unstyledButton ${!emailEdited && 'uneditedGithub'} verificationButton verifiedForm`}
                               disabled={!emailEdited}
                               onClick={() => {
-                                this.props.getPublicDID();
+                                this.props.getMyDID();
                                 this.props.handleEmailVerificationModal();
                               }}
                             >
@@ -1586,8 +1585,8 @@ EditProfile.propTypes = {
   showTwitterVerificationModal: PropTypes.bool,
   showEmailVerificationModal: PropTypes.bool,
   copySuccessful: PropTypes.bool,
-  getProfileData: PropTypes.func.isRequired,
-  getPublicDID: PropTypes.func.isRequired,
+  getProfileValue: PropTypes.func.isRequired,
+  getMyDID: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
   handleGithubVerificationModal: PropTypes.func.isRequired,
   handleTwitterVerificationModal: PropTypes.func.isRequired,
@@ -1659,8 +1658,8 @@ function mapState(state) {
 
 export default withRouter(connect(mapState,
   {
-    getProfileData,
-    getPublicDID,
+    getProfileValue,
+    getMyDID,
     getActivity,
     handleGithubVerificationModal,
     handleTwitterVerificationModal,

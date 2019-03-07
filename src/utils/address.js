@@ -1,9 +1,12 @@
 import {
   store,
 } from '../state/store';
-import {
+
+import actions from '../state/actions';
+
+const {
   accountsPromise,
-} from '../state/actions';
+} = actions.signin;
 
 let address;
 
@@ -106,7 +109,7 @@ export const pollNetworkAndAddress = () => {
       store.dispatch({
         type: 'HANDLE_WALLET_LOGIN_DETECTED_MODAL',
         isSignedIntoWallet: true,
-        hasWallet: true,
+        hasWeb3: true,
       });
       store.dispatch({
         type: 'UPDATE_ADDRESS',
@@ -121,7 +124,7 @@ export const pollNetworkAndAddress = () => {
       store.dispatch({
         type: 'HANDLE_WALLET_LOGIN_DETECTED_MODAL',
         isSignedIntoWallet: false,
-        hasWallet: false,
+        hasWeb3: false,
       });
       store.dispatch({
         type: 'UPDATE_ADDRESS',
