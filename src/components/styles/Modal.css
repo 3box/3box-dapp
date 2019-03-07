@@ -715,7 +715,8 @@
 
 .collectibles__modal {
   height: 100vh;
-  left: 0; }
+  left: 0;
+  overflow: scroll; }
 
 .modal__github__done {
   background-color: #EFF5FE;

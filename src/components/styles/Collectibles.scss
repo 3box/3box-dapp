@@ -108,9 +108,8 @@
 
 .collectibles__image {
   height: 100%;
-  width: 100%;
-  // width: auto;
-  object-fit: scale-down;
+  // width: 100%;
+  width: auto;
 }
 
 .collectibles__image__shadow {
@@ -131,6 +130,7 @@
 
 .cover{
   width: fit-content;
+  width: 100%;
 }
 
 .contain{
