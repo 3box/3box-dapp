@@ -140,6 +140,12 @@
 
   &:hover {
     color: $lightFont;
+
+    .profile__category__tabIcon__wrappper {
+      img {
+        opacity: 1 !important;
+      }
+    }
   }
 }
 

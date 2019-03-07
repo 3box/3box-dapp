@@ -120,9 +120,12 @@ export const CollectiblesModal = ({
   isFavorite,
   padded,
   onPublicProfile,
+  cover,
+  contain,
 }) => (
     <div>
-      <div className={`${show ? 'showModal' : ''} modal__container modal--effect collectiblesModal`}>
+      <div className={`${show ? 'showModal' : ''} modal__container modal--effect collectibles__modal`}>
+        {/* <div className={`${show ? 'showModal' : ''} modal__container modal--effect collectiblesModal`}> */}
         <div className="collectiblesWrapper">
           <button onClick={() => handleCollectiblesModal()} type="button" className="tertiaryButton collectiblesClose">
             Close
@@ -149,13 +152,18 @@ export const CollectiblesModal = ({
                   title="Add to favorites"
                   onClick={e => updateGallery(e, selectedCollectible, null, 'fromModal')}
                 >
-                  <img src={HeartGrey} alt="" className="collectibles__like__heart--modal" />
+                  <img src={HeartBlue} alt="" className="collectibles__like__heart--modal gallery__like" />
                 </button>)}
 
               {padded && <span className="collectibles__image__shadow--modal" />}
 
               <img
-                className={`modal__collectibles__image ${padded === 'padded' && 'padded'}`}
+                className={`
+                modal__collectibles__image 
+                ${padded && 'padded'}
+                ${cover && 'cover'}
+                ${contain && 'contain'}
+                `}
                 src={selectedCollectible.image_preview_url}
                 alt="Collectible"
               />
@@ -175,7 +183,7 @@ export const CollectiblesModal = ({
                 <p className="collectiblesMiniModal__description">
                   {selectedCollectible.description}
                 </p>)}
-                
+
               {selectedCollectible.orderedTraits && selectedCollectible.orderedTraits.length > 0
                 && (
                   <div className="modal__collectibles__traits">
@@ -188,6 +196,7 @@ export const CollectiblesModal = ({
                   </div>)}
             </div>
           </div>
+          {show && <div className='onClickOutsideCollectibles--mobile' onClick={() => handleCollectiblesModal()} />}
         </div>
         {show && <div className='onClickOutsideCollectibles' onClick={() => handleCollectiblesModal()} />}
       </div>
@@ -202,13 +211,17 @@ CollectiblesModal.propTypes = {
   handleCollectiblesModal: PropTypes.func.isRequired,
   updateGallery: PropTypes.func,
   selectedCollectible: PropTypes.object,
-  padded: PropTypes.string
+  padded: PropTypes.bool,
+  contain: PropTypes.bool,
+  cover: PropTypes.bool,
 };
 
 CollectiblesModal.defaultProps = {
   selectedCollectible: {},
   updateGallery: {},
-  padded: "",
+  cover: false,
+  padded: false,
+  contain: false,
 };
 
 export const SwitchedAddressModal = ({

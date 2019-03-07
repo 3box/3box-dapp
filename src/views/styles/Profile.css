@@ -112,6 +112,8 @@
   align-items: center; }
   .profile__category__section:hover {
     color: #6b6b6b; }
+    .profile__category__section:hover .profile__category__tabIcon__wrappper img {
+      opacity: 1 !important; }
 
 .profile__category__tabIcon--activity--mobile {
   height: 17px;

@@ -17,6 +17,8 @@ const CollectiblesTile = ({
   name,
   updateGallery,
   padded,
+  cover,
+  contain,
   bgStyle,
   tokenId,
   favorite,
@@ -29,9 +31,14 @@ const CollectiblesTile = ({
         className="collectibles__image__wrapper"
         style={{ backgroundColor: `#${bgStyle}` }}
       >
-        <span className="collectibles__image__shadow" />
+        {padded && <span className="collectibles__image__shadow" />}
         <img
-          className={`collectibles__image ${padded === 'padded' && 'padded'}`}
+          className={`
+          collectibles__image 
+          ${padded && 'padded'} 
+          ${cover && 'cover'}
+          ${contain && 'contain'}
+          `}
           src={image}
           alt=""
         />
@@ -43,7 +50,7 @@ const CollectiblesTile = ({
             title="Add to favorites"
             onClick={e => updateGallery(e, collectible)}
           >
-            <img src={HeartGrey} alt="" className="collectibles__like__heart" />
+            <img src={HeartBlue} alt="" className="collectibles__like__heart gallery__like" />
           </button>
         )}
 
@@ -70,7 +77,9 @@ CollectiblesTile.propTypes = {
   image: PropTypes.string,
   name: PropTypes.string,
   description: PropTypes.string,
-  padded: PropTypes.string,
+  padded: PropTypes.bool,
+  contain: PropTypes.bool,
+  cover: PropTypes.bool,
   updateGallery: PropTypes.func,
   handleCollectiblesModal: PropTypes.func.isRequired,
   favorite: PropTypes.bool.isRequired,
@@ -84,7 +93,9 @@ CollectiblesTile.defaultProps = {
   image: '',
   name: '',
   description: '',
-  padded: '',
+  cover: false,
+  padded: false,
+  contain: false,
   tokenId: '',
   bgStyle: '',
   collectible: {},

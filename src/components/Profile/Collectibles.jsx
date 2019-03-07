@@ -89,7 +89,17 @@ class Collectibles extends Component {
           selectedCollectible={selectedCollectible}
           padded={selectedCollectible.asset_contract &&
             selectedCollectible.asset_contract.display_data &&
-            selectedCollectible.asset_contract.display_data.card_display_style}
+            selectedCollectible.asset_contract.display_data.card_display_style === 'padded'}
+          cover={
+            selectedCollectible.asset_contract &&
+            selectedCollectible.asset_contract.display_data &&
+            selectedCollectible.asset_contract.display_data.card_display_style === 'cover'
+          }
+          contain={
+            selectedCollectible.asset_contract &&
+            selectedCollectible.asset_contract.display_data &&
+            selectedCollectible.asset_contract.display_data.card_display_style === 'contain'
+          }
           updateGallery={this.updateGallery}
           isFavorite={isFavorite}
         />
@@ -115,7 +125,17 @@ class Collectibles extends Component {
                     padded={
                       collectible.asset_contract &&
                       collectible.asset_contract.display_data &&
-                      collectible.asset_contract.display_data.card_display_style
+                      collectible.asset_contract.display_data.card_display_style === 'padded'
+                    }
+                    cover={
+                      collectible.asset_contract &&
+                      collectible.asset_contract.display_data &&
+                      collectible.asset_contract.display_data.card_display_style === 'cover'
+                    }
+                    contain={
+                      collectible.asset_contract &&
+                      collectible.asset_contract.display_data &&
+                      collectible.asset_contract.display_data.card_display_style === 'contain'
                     }
                     key={`${collectible.asset_contract.address}-${collectible.token_id}`}
                     favorite
@@ -158,7 +178,17 @@ class Collectibles extends Component {
                   padded={
                     collectible.asset_contract &&
                     collectible.asset_contract.display_data &&
-                    collectible.asset_contract.display_data.card_display_style
+                    collectible.asset_contract.display_data.card_display_style === 'padded'
+                  }
+                  cover={
+                    collectible.asset_contract &&
+                    collectible.asset_contract.display_data &&
+                    collectible.asset_contract.display_data.card_display_style === 'cover'
+                  }
+                  contain={
+                    collectible.asset_contract &&
+                    collectible.asset_contract.display_data &&
+                    collectible.asset_contract.display_data.card_display_style === 'contain'
                   }
                   key={`${collectible.asset_contract.address}-${collectible.token_id}`}
                 />

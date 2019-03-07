@@ -13,6 +13,16 @@
 .collectibles__like__heart {
   opacity: 0; }
 
+.gallery__like {
+  filter: none;
+  -webkit-filter: grayscale(100%) brightness(2);
+  -moz-filter: grayscale(100%) brightness(2);
+  -ms-filter: grayscale(100%) brightness(2);
+  -o-filter: grayscale(100%) brightness(2);
+  transition: all .3s; }
+  .gallery__like:hover {
+    filter: none; }
+
 .collectibles__opensea {
   align-self: flex-end;
   display: flex;
@@ -58,7 +68,8 @@
   align-items: center;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
-  position: relative; }
+  position: relative;
+  overflow: hidden; }
   .collectibles__image__wrapper button {
     position: absolute;
     top: 15px;
@@ -69,7 +80,9 @@
     color: #747677; }
 
 .collectibles__image {
-  height: 100%; }
+  height: 100%;
+  width: 100%;
+  object-fit: scale-down; }
 
 .collectibles__image__shadow {
   background: #000000;
@@ -82,7 +95,15 @@
   filter: blur(2px); }
 
 .padded {
-  height: 75% !important; }
+  height: 75% !important;
+  padding: 0 12.5%; }
+
+.cover {
+  width: fit-content; }
+
+.contain {
+  height: fit-content;
+  overflow: hidden; }
 
 .collectibles__like {
   background-color: transparent;
@@ -97,7 +118,7 @@
 
 .collectibles__info {
   border-top: 1px solid #ececec;
-  height: calc(30% - 25px);
+  height: calc(30% - 30px);
   padding: 15px; }
   .collectibles__info h3 {
     margin-bottom: 7px;
