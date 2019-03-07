@@ -7,7 +7,6 @@ import Status from '../assets/Status.png';
 import getCoinbaseWallet from '../assets/getCoinbaseWallet.svg';
 import ThreeBoxLogoWhite from '../assets/ThreeBoxLogoWhite.svg';
 import ThreeBoxLogoBlue from '../assets/ThreeBoxLogoBlue.svg';
-import HeartGrey from '../assets/HeartGrey.svg';
 import HeartBlue from '../assets/HeartBlue.svg';
 import GithubIcon from '../assets/GithubIcon.svg';
 import TwitterIcon from '../assets/twitterGrey.svg';
@@ -125,7 +124,6 @@ export const CollectiblesModal = ({
 }) => (
     <div>
       <div className={`${show ? 'showModal' : ''} modal__container modal--effect collectibles__modal`}>
-        {/* <div className={`${show ? 'showModal' : ''} modal__container modal--effect collectiblesModal`}> */}
         <div className="collectiblesWrapper">
           <button onClick={() => handleCollectiblesModal()} type="button" className="tertiaryButton collectiblesClose">
             Close

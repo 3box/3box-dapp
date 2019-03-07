@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import _ from 'lodash';
-
+  
 import CollectiblesTile from './CollectiblesTile';
 import { CollectiblesModal } from '../Modals';
-import { EmptyGalleryCollectiblesTile, EmptyCollectiblesTile } from './EmptyCollectiblesTile';
+import { EmptyGalleryCollectiblesTile } from './EmptyCollectiblesTile';
 import { handleCollectiblesModal } from '../../state/actions-modals';
 import OpenSea from '../../assets/OpenSea.png';
 import { store } from '../../state/store';
@@ -165,7 +164,7 @@ class Collectibles extends Component {
               </p>
             )}
           <div className="collectibles__grid">
-            {collection.length > 0 ? (
+            {collection.length > 0 && (
               collection.map(collectible => (
                 <CollectiblesTile
                   updateGallery={this.updateGallery}
@@ -193,9 +192,7 @@ class Collectibles extends Component {
                   key={`${collectible.asset_contract.address}-${collectible.token_id}`}
                 />
               ))
-            ) : (
-                <EmptyCollectiblesTile />
-              )}
+            )}
           </div>
           <a href="https://opensea.io/" className="collectibles__opensea">
             <p>Collectibles data provided by</p>
@@ -223,7 +220,7 @@ Collectibles.defaultProps = {
   collection: [],
   collectiblesFavorites: [],
   collectiblesFavoritesToRender: [],
-  selectedCollectible: {}
+  selectedCollectible: {},
 };
 
 function mapState(state) {
@@ -241,6 +238,6 @@ function mapState(state) {
 export default withRouter(
   connect(
     mapState,
-    { handleCollectiblesModal }
-  )(Collectibles)
+    { handleCollectiblesModal },
+  )(Collectibles),
 );

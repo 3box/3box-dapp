@@ -6,8 +6,7 @@
   border-radius: 6px;
   height: 300px;
   position: relative;
-  box-shadow: 0 3px 8px 0 rgba(59, 65, 94, .15);
-  // box-shadow: 0 4px 14px 0 rgba(59, 65, 94, .1), 0 3px 6px 0 rgba(0, 0, 0, .07);
+  box-shadow: 0 3px 8px 0 rgba(87, 87, 87, 0.15);
   cursor: pointer;
   overflow: hidden;
 
@@ -107,8 +106,6 @@
 }
 
 .collectibles__image {
-  // height: 100%;
-  // width: auto;
   width: 228px;
   height: 210px;
   object-fit: cover;
@@ -135,25 +132,6 @@
   padding: 0 12.5%;
   object-fit: contain !important;
 }
-
-// .cover {
-//   // width: 100%;
-//   // object-fit: cover;
-//   overflow: hidden;
-//   object-fit: contain;
-//   height: fit-content;
-//   min-height: 100%;
-//   width: fit-content;
-//   min-width: 100%;
-// }
-
-// .contain {
-//   overflow: hidden;
-//   object-fit: contain;
-//   // height: fit-content;
-//   width: fit-content;
-//   min-width: 100%;
-// }
 
 .collectibles__like {
   background-color: transparent;
@@ -219,7 +197,6 @@
   .collectibles__image {
     min-width: 100%;
     min-height: 100%;
-    // object-fit: cover;
   }
 
   .collectibles__like__heart {
@@ -238,7 +215,6 @@
     display: flex !important;
     justify-content: flex-start !important;
     align-items: center !important;
-    // overflow: scroll !important;
     overflow: visible !important;
     white-space: nowrap !important;
     width: fit-content !important;
