@@ -92,7 +92,7 @@
   border-top-right-radius: 6px;
   position: relative;
   overflow: hidden;
-  
+
   button {
     position: absolute;
     top: 15px;
@@ -128,13 +128,18 @@
   padding: 0 12.5%;
 }
 
-.cover{
-  width: 100%;
+.cover {
+  // width: 100%;
+  object-fit: cover;
 }
 
-.contain{
-  height: fit-content;
+.contain {
   overflow: hidden;
+  object-fit: contain;
+  height: fit-content;
+  min-height: 100%;
+  width: fit-content;
+  min-width: 100%;
 }
 
 .collectibles__like {

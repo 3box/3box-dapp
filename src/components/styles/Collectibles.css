@@ -98,11 +98,15 @@
   padding: 0 12.5%; }
 
 .cover {
-  width: 100%; }
+  object-fit: cover; }
 
 .contain {
+  overflow: hidden;
+  object-fit: contain;
   height: fit-content;
-  overflow: hidden; }
+  min-height: 100%;
+  width: fit-content;
+  min-width: 100%; }
 
 .collectibles__like {
   background-color: transparent;
