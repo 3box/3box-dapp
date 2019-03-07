@@ -108,7 +108,6 @@
 .contain {
   overflow: hidden;
   object-fit: contain;
-  height: fit-content;
   width: fit-content;
   min-width: 100%; }
 

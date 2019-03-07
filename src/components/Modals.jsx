@@ -175,25 +175,22 @@ export const CollectiblesModal = ({
                 <p>{`${selectedCollectible.asset_contract && selectedCollectible.asset_contract.name} ${selectedCollectible.token_id}`}</p>
               </div>
             </div>
+            <div className="collectiblesMiniModal__wrapper">
+              {selectedCollectible.description && (
+                <p className="collectiblesMiniModal__description">
+                  {selectedCollectible.description}
+                </p>)}
 
-            <div className={`modal collectiblesMiniModal ${(selectedCollectible.description || (selectedCollectible.orderedTraits && selectedCollectible.orderedTraits.length > 0)) && 'showModal'}`}>
-              <div className="collectiblesMiniModal__wrapper">
-                {selectedCollectible.description && (
-                  <p className="collectiblesMiniModal__description">
-                    {selectedCollectible.description}
-                  </p>)}
-
-                {selectedCollectible.orderedTraits && selectedCollectible.orderedTraits.length > 0
-                  && (
-                    <div className="modal__collectibles__traits">
-                      {selectedCollectible.orderedTraits.map((trait, i) => (
-                        <div key={i} className="modal__collectibles__traits__trait">
-                          <p className="modal__collectibles__traits__trait__type">{trait.trait_type.toUpperCase()}</p>
-                          <p className="modal__collectibles__traits__trait__value">{trait.value}</p>
-                        </div>
-                      ))}
-                    </div>)}
-              </div>
+              {selectedCollectible.orderedTraits && selectedCollectible.orderedTraits.length > 0
+                && (
+                  <div className="modal__collectibles__traits">
+                    {selectedCollectible.orderedTraits.map((trait, i) => (
+                      <div key={i} className="modal__collectibles__traits__trait">
+                        <p className="modal__collectibles__traits__trait__type">{trait.trait_type.toUpperCase()}</p>
+                        <p className="modal__collectibles__traits__trait__value">{trait.value}</p>
+                      </div>
+                    ))}
+                  </div>)}
             </div>
           </div>
 

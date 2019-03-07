@@ -98,21 +98,21 @@
 
 .collectiblesMiniModal__wrapper {
   flex-grow: 1;
-  width: 0;
+  width: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
-  height: fit-content; }
+  min-height: fit-content;
+  padding: 0 0 25px 0; }
   .collectiblesMiniModal__wrapper p {
     text-align: left;
     font-size: 14px;
     line-height: 18px; }
 
 .collectiblesMiniModal__description {
-  min-width: 28vw;
-  margin-bottom: 14px;
-  color: #747677; }
+  color: #747677;
+  padding: 0 25px; }
 
 .onClickOutsideCollectibles {
   position: fixed;
@@ -145,7 +145,8 @@
   height: fit-content; }
 
 .collectiblesTileModal {
-  padding: 0 !important; }
+  padding: 0 !important;
+  margin-bottom: 80px; }
   .collectiblesTileModal:hover .collectibles__like__heart--modal {
     opacity: .8; }
 
@@ -252,7 +253,7 @@
   align-items: center;
   width: fit-content;
   flex-wrap: wrap;
-  min-width: 28vw; }
+  padding: 20px 25px 0 25px; }
 
 .modal__collectibles__traits__trait {
   display: flex;
@@ -731,54 +732,6 @@
       -webkit-transition: all 0.4s ease-in-out;
       transition: all 0.4s ease-in-out; }
 
-@media only screen and (max-width: 3000px) {
-  .collectiblesMiniModal__description {
-    min-width: 18vw; }
-  .modal__collectibles__traits {
-    min-width: 18vw; } }
-
-@media only screen and (max-width: 2000px) {
-  .collectiblesMiniModal__description {
-    min-width: 25vw; }
-  .modal__collectibles__traits {
-    min-width: 30vw; } }
-
-@media only screen and (max-width: 1500px) {
-  .collectiblesMiniModal__description {
-    min-width: 32vw; }
-  .modal__collectibles__traits {
-    min-width: 35vw; } }
-
-@media only screen and (max-width: 1400px) {
-  .collectiblesMiniModal__description {
-    min-width: 30vw; }
-  .modal__collectibles__traits {
-    min-width: 30vw; } }
-
-@media only screen and (max-width: 1200px) {
-  .collectiblesMiniModal__description {
-    min-width: 40vw; }
-  .modal__collectibles__traits {
-    min-width: 35vw; } }
-
-@media only screen and (max-width: 1000px) {
-  .collectiblesMiniModal__description {
-    min-width: 50vw; }
-  .modal__collectibles__traits {
-    min-width: 40vw; } }
-
-@media only screen and (max-width: 800px) {
-  .collectiblesMiniModal__description {
-    min-width: 60vw; }
-  .modal__collectibles__traits {
-    min-width: 60vw; } }
-
-@media only screen and (max-width: 700px) {
-  .collectiblesMiniModal__description {
-    min-width: 70vw; }
-  .modal__collectibles__traits {
-    min-width: 70vw; } }
-
 @media only screen and (max-width: 600px) {
   .mobileInvisible {
     display: none; }
@@ -840,10 +793,6 @@
     max-height: 450px; }
     .modal img {
       width: 100px; }
-  .collectiblesMiniModal__description {
-    min-width: 70vw; }
-  .modal__collectibles__traits {
-    min-width: 70vw; }
   .modal__github__description__copy__button--mobile {
     display: flex;
     color: #6b6b6b;
