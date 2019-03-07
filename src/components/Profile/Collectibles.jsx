@@ -104,7 +104,7 @@ class Collectibles extends Component {
           updateGallery={this.updateGallery}
           isFavorite={isFavorite}
         />
-        <div id="feed">
+        <div id="myFeed">
           {(collection.length > 0 || collectiblesFavoritesToRender.length > 0)
             && (
               <div className="header collectiblesHeader" id="feed__header">

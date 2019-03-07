@@ -15,7 +15,7 @@ const Activity = ({
   feedByAddress,
   publicProfileActivity,
 }) => (
-    <div id="feed">
+    <div id="myFeed">
       <div>
         <p className="header publicHeader" id="feed__header">Activity</p>
         <StatusUpdate />

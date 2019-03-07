@@ -40,7 +40,7 @@ const Details = ({
   onPublicProfilePage,
   currentAddress,
 }) => (
-    <div className="profile__details" id="feed">
+    <div className="profile__details" id="myFeed">
       <div className="profile__details__category">
 
         <div className="profile__category__header">
