@@ -2,7 +2,7 @@ import {
   store,
 } from '../../store';
 import * as routes from '../../../utils/routes';
-import history from '../../../history';
+import history from '../../../utils/history';
 
 const openBox = fromSignIn => async (dispatch) => {
   dispatch({

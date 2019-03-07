@@ -20,7 +20,7 @@ import Privacy from './views/Landing/Privacy';
 import Terms from './views/Landing/Terms';
 import Create from './views/Landing/Create';
 import NavLanding from './components/NavLanding';
-import history from './history';
+import history from './utils/history';
 import './index.css';
 import AppModals from './components/AppModals';
 import actions from './state/actions';
@@ -76,14 +76,18 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const { location, hasWeb3 } = this.props;
+    const { location } = this.props;
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
     const splitRoute = normalizedPath.split('/');
     const isMyProfilePath = matchProtectedRoutes(splitRoute[2]);
     const currentEthAddress = window.localStorage.getItem('userEthAddress');
 
-    const allowDirectSignIn = (hasWeb3
+    initialAddress(); // Initial get address
+    pollNetworkAndAddress(); // Start polling for address change
+    await this.props.checkWeb3();
+
+    const allowDirectSignIn = (this.props.hasWeb3
       && splitRoute.length > 1 // Route has more than one
       && splitRoute[1].substring(0, 2) === '0x' // Lands on profile page
       && isMyProfilePath // Lands on protected page
@@ -91,10 +95,6 @@ class App extends Component {
     );
     const onProfilePage = (splitRoute.length > 1 // Route has more than one
       && splitRoute[1].substring(0, 2) === '0x');
-
-    initialAddress(); // Initial get address
-    pollNetworkAndAddress(); // Start polling for address change
-    await this.props.checkWeb3();
 
     if (allowDirectSignIn) { // Begin signin
       this.directSignIn();
@@ -165,16 +165,12 @@ class App extends Component {
 
   async directSignIn() {
     const {
-      location, hasWeb3, isSignedIntoWallet, isLoggedIn, showErrorModal,
+      location,
     } = this.props;
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
-    const allowSignIn = (isSignedIntoWallet && isLoggedIn);
-    const notSignedIn = (isSignedIntoWallet
-      && !isLoggedIn
-      && matchProtectedRoutes(normalizedPath.split('/')[2]));
 
-    if (!hasWeb3) {
+    if (!this.props.hasWeb3) {
       history.push(routes.LANDING);
       this.props.requireMetaMaskModal();
       this.props.handleMobileWalletModal();
@@ -184,10 +180,15 @@ class App extends Component {
     await this.props.requestAccess('directLogin');
     await this.props.checkNetwork();
 
+    const allowSignIn = (this.props.isSignedIntoWallet && this.props.isLoggedIn);
+    const notSignedIn = (this.props.isSignedIntoWallet
+      && !this.props.isLoggedIn
+      && matchProtectedRoutes(normalizedPath.split('/')[2]));
+
     if (allowSignIn) {
       await this.props.openBox();
-      if (!showErrorModal) this.getMyData();
-    } else if (!isSignedIntoWallet) {
+      if (!this.props.showErrorModal) this.getMyData();
+    } else if (!this.props.isSignedIntoWallet) {
       history.push(routes.LANDING);
       this.props.handleRequireWalletLoginModal();
     } else if (notSignedIn) {
@@ -197,21 +198,22 @@ class App extends Component {
   }
 
   async handleSignInUp() {
-    const { hasWeb3, isSignedIntoWallet, showErrorModal, accessDeniedModal } = this.props;
+    const {
+      accessDeniedModal,
+    } = this.props;
 
-    if (hasWeb3) {
+    if (this.props.hasWeb3) {
+      // await this.props.checkWeb3();
       await this.props.requestAccess();
       await this.props.checkNetwork();
 
-      if (isSignedIntoWallet) {
+      if (this.props.isSignedIntoWallet) {
         await this.props.openBox('fromSignIn');
-        if (!showErrorModal) {
-          this.getMyData();
-        }
-      } else if (!isSignedIntoWallet && !accessDeniedModal) {
+        if (!this.props.showErrorModal) this.getMyData();
+      } else if (!this.props.isSignedIntoWallet && !accessDeniedModal) {
         this.props.handleRequireWalletLoginModal();
       }
-    } else if (!hasWeb3) {
+    } else if (!this.props.hasWeb3) {
       this.props.requireMetaMaskModal();
       this.props.handleMobileWalletModal();
     }

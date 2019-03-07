@@ -8,7 +8,6 @@ import { Picker } from 'emoji-mart';
 import {
   store,
 } from '../../state/store';
-
 import actions from '../../state/actions';
 import { copyToClipBoard } from '../../utils/funcs';
 import {
@@ -17,7 +16,7 @@ import {
   TwitterVerificationModal,
   EmailVerificationModal,
 } from '../../components/Modals';
-import history from '../../history';
+import history from '../../utils/history';
 import Nav from '../../components/Nav.jsx';
 import * as routes from '../../utils/routes';
 import Private from '../../assets/Private.svg';
@@ -1236,73 +1235,6 @@ class EditProfile extends Component {
                         )}
 
                     </div>
-
-                    {/* <div className="edit__profile__fields__entry">
-                      <div className="edit__profile__keyContainer">
-                        <h5>Email</h5>
-                      </div>
-                      {this.props.verifiedEmail
-                        && (
-                          <div className="edit__profile__verifiedWrapper">
-                            <div className="edit__profile__verifiedName">
-                              <p>{verifiedEmail}</p>
-                              {!emailRemoved
-                                && <img src={Verified} alt="Verified" />
-                              }
-                            </div>
-
-                            {!emailRemoved
-                              ? (
-                                <button
-                                  type="button"
-                                  className={`unstyledButton ${!emailEdited && 'uneditedGithub'} removeGithub`}
-                                  onClick={() => this.handleEmailAddress('remove')}
-                                >
-                                  Remove
-                                </button>
-                              )
-                              : (
-                                <button
-                                  type="button"
-                                  className={`unstyledButton ${!emailEdited && 'uneditedGithub'}`}
-                                  onClick={() => this.handleEmailAddress()}
-                                >
-                                  Cancel
-                                </button>
-                              )}
-                          </div>
-                        )}
-
-                      {!this.props.verifiedEmail
-                        && (
-                          <div className="edit__profile__verifiedWrapper">
-                            <img id="edit__profile__input__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
-                            <input
-                              name="verifiedEmail"
-                              type="text"
-                              className="edit__profile__value--github verifiedForm verifiedForm--email"
-                              value={verifiedEmail}
-                              onChange={e => this.handleFormChange(e, 'verifiedEmail')}
-                            />
-                            <button
-                              type="button"
-                              className={`unstyledButton ${!emailEdited && 'uneditedGithub'} verificationButton verifiedForm`}
-                              disabled={!emailEdited}
-                              onClick={() => {
-                                this.props.getMyDID();
-                                this.props.handleEmailVerificationModal();
-                              }}
-                            >
-                              Verify
-                            </button>
-                            <p className="edit__profile__verified--NoMobile">
-                              Add verifications using a desktop browser.
-                            </p>
-                          </div>
-                        )}
-
-                    </div> */}
-
 
                   </div>
                   {(githubRemoved || twitterRemoved)

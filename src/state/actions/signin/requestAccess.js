@@ -2,7 +2,7 @@ import {
   store,
 } from '../../store';
 import * as routes from '../../../utils/routes';
-import history from '../../../history';
+import history from '../../../utils/history';
 import accountsPromise from './accountsPromise';
 
 // inject for breaking change

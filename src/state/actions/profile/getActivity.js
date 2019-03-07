@@ -16,7 +16,6 @@ const getActivity = publicProfileAddress => async (dispatch) => {
       type: 'LOADING_ACTIVITY',
     });
 
-    // get activity from the profile page's address
     let activity;
     if (store.getState().threeBox.currentNetwork) {
       activity = await ThreeBoxActivity.get( // eslint-disable-line no-undef
