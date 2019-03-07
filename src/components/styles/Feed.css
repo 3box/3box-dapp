@@ -160,6 +160,17 @@
 .clear {
   background-color: transparent !important; }
 
+.collectiblesHeader {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; }
+  .collectiblesHeader p {
+    font-size: 18px;
+    line-height: 24px !important;
+    color: #747677;
+    font-weight: 400;
+    margin: 0; }
+
 #feed__header {
   font-size: 18px;
   line-height: 24px !important;

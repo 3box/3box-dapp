@@ -23,6 +23,18 @@
   .gallery__like:hover {
     filter: none; }
 
+.favorites__publicIcon {
+  width: 17px;
+  height: 17px;
+  margin-left: 10px;
+  opacity: .7; }
+
+.favorites__privateIcon {
+  width: 19px;
+  height: 19px;
+  margin-left: 10px;
+  opacity: .7; }
+
 .collectibles__opensea {
   align-self: flex-end;
   display: flex;

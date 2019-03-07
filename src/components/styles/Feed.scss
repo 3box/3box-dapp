@@ -204,6 +204,20 @@
   background-color: transparent !important;
 }
 
+.collectiblesHeader{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  p {
+    font-size: 18px;
+    line-height: 24px !important;
+    color: $lighterFont;
+    font-weight: 400;
+    margin: 0;
+  }
+}
+
 #feed__header {
   font-size: 18px;
   line-height: 24px !important;
@@ -539,6 +553,7 @@
     margin-left: 0;
     height: fit-content;
     margin-bottom: 18px;
+
     input {
       padding: 10px 10px;
     }
@@ -557,7 +572,7 @@
     border-bottom: solid 1px $borderColor;
     border-right: none;
     border-left: none;
-    
+
     p {
       color: $lighterFont;
     }

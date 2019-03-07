@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-  
+
 import CollectiblesTile from './CollectiblesTile';
 import { CollectiblesModal } from '../Modals';
 import { EmptyGalleryCollectiblesTile } from './EmptyCollectiblesTile';
 import { handleCollectiblesModal } from '../../state/actions-modals';
 import OpenSea from '../../assets/OpenSea.png';
+import Globe from '../../assets/Globe.svg';
+import Private from '../../assets/Private.svg';
 import { store } from '../../state/store';
 import '../../views/styles/Profile.css';
 import '../styles/Feed.css';
@@ -105,9 +107,12 @@ class Collectibles extends Component {
         <div id="feed">
           {(collection.length > 0 || collectiblesFavoritesToRender.length > 0)
             && (
-              <p className="header" id="feed__header">
-                Favorites
-              </p>
+              <div className="header collectiblesHeader" id="feed__header">
+                <p>
+                  Favorites
+                </p>
+                <img src={Globe} alt="Public" className="favorites__publicIcon" title="Favorites will appear in your public profile" />
+              </div>
             )}
           <div className="favorites__grid__wrapper">
             {collectiblesFavoritesToRender.length > 0 && (
@@ -155,9 +160,13 @@ class Collectibles extends Component {
           )}
           {(collection.length > 0 || collectiblesFavoritesToRender.length > 0)
             ? (
-              <p className="header" id="feed__header">
-                Gallery
-              </p>)
+              <div className="header collectiblesHeader" id="feed__header">
+                <p>
+                  Gallery
+                </p>
+                <img src={Private} alt="Public" className="favorites__privateIcon" title="Gallery will not appear in your public profile" />
+              </div>
+            )
             : (
               <p className="header" id="feed__header">
                 You don't have any collectibles
