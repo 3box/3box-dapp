@@ -206,9 +206,6 @@
   width: 75% !important;
   object-fit: contain !important; }
 
-.cover {
-  width: fit-content; }
-
 .contain {
   height: fit-content;
   overflow: hidden; }
