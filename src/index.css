@@ -164,7 +164,7 @@ input:focus {
   -o-transition: all .5s ease;
   transition: all .5s ease; }
   .webThreeBanner p {
-    color: rgba(255, 255, 255, 0.808); }
+    color: rgba(255, 255, 255, 0.904); }
 
 .signInFromPublicProfileBanner {
   width: 100vw;
@@ -200,13 +200,14 @@ input:focus {
     background-color: white; }
 
 .infoBanner__link {
-  border: 1px solid rgba(255, 255, 255, 0.808);
+  border: 1px solid rgba(255, 255, 255, 0.904);
   margin-left: 20px;
   padding: .6em .9em;
-  color: rgba(255, 255, 255, 0.808);
+  color: rgba(255, 255, 255, 0.904);
   background-color: transparent;
   font-weight: 500;
-  font-size: 12px; }
+  font-size: 12px;
+  border-radius: 6px; }
   .infoBanner__link:hover {
     background-color: rgba(255, 255, 255, 0.144); }
 

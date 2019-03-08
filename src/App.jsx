@@ -81,11 +81,6 @@ class App extends Component {
     initialAddress(); // Initial get address
     pollNetworkAndAddress(); // Start polling for address change
 
-    // Initial warning to users without web3
-    if (typeof window.web3 === 'undefined') {
-      this.props.handleInfoBanner();
-    }
-
     if (
       typeof window.web3 !== 'undefined' // Has web3
       && splitRoute.length > 1 // Route has more than one

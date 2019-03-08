@@ -193,7 +193,7 @@ nav {
     background-color: #1168df;
     color: white; }
   .landing__nav__developers:hover .landing__nav__developers__icon {
-    filter: brightness(10); }
+    filter: brightness(0) invert(1); }
 
 .landing__nav__developers__icon {
   width: 18px;

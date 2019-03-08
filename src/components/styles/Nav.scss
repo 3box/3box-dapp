@@ -249,7 +249,7 @@ nav {
   }
 
   &:hover .landing__nav__developers__icon {
-    filter: brightness(10);
+    filter: brightness(0) invert(1);
   }
 }
 

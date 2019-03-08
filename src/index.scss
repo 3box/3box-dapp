@@ -196,7 +196,7 @@ input:focus {
   transition: all .5s ease;
 
   p {
-    color: rgba(255, 255, 255, 0.808);
+    color: rgba(255, 255, 255, 0.904);
   }
 }
 
@@ -243,13 +243,14 @@ input:focus {
 }
 
 .infoBanner__link {
-  border: 1px solid rgba(255, 255, 255, 0.808);
+  border: 1px solid rgba(255, 255, 255, 0.904);
   margin-left: 20px;
   padding: .6em .9em;
-  color: rgba(255, 255, 255, 0.808);
+  color: rgba(255, 255, 255, 0.904);
   background-color: transparent;
   font-weight: 500;
   font-size: 12px;
+  border-radius: 6px;
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.144);
@@ -323,6 +324,7 @@ input:focus {
 @media only screen and (max-width: 600px) {
   .webThreeBanner {
     display: none;
+
     p {
       margin-left: 4vw;
       line-height: 15px;
