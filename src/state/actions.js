@@ -559,9 +559,8 @@ export const getProfileData = (type, key) => async (dispatch) => {
   }
 };
 
-export const getCollectibles = (addraddressess2, onPublicProfile) => async (dispatch) => {
+export const getCollectibles = (address, onPublicProfile) => async (dispatch) => {
   try {
-    const address = '0xd75bb1e6ef53d0c65bcf53ecb19d8c64a7026c58';
     const res = await fetch(`https://api.opensea.io/api/v1/assets?owner=${address}&order_by=current_price&order_direction=asc&limit=500`, {
       method: 'GET',
       headers: {
