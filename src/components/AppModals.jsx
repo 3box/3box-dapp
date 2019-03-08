@@ -17,6 +17,7 @@ import {
   MobileWalletRequiredModal,
   SignInToWalletModal,
   SignInToThreeBox,
+  ThreeBoxInfoBanner,
 } from './Modals';
 
 class AppModals extends Component {
@@ -42,7 +43,7 @@ class AppModals extends Component {
   render() {
     const { width } = this.state;
     const {
-      showDownloadBanner,
+      showInfoBanner,
       ifFetchingThreeBox,
       onSyncFinished,
       isSyncing,
@@ -80,30 +81,23 @@ class AppModals extends Component {
       onBoardingModalMobileOne,
       onBoardingModalMobileTwo,
       onBoardingModalMobileThree,
-      handleDownloadMetaMaskBanner,
+      handleInfoBanner,
       closeRequireMetaMaskModal,
       alertRequireMetaMask,
       provideConsent,
       handleAccessModal,
+      isProtectedPath,
     } = this.props;
 
     const isMobile = width <= 812; // 600
 
     return (
       <React.Fragment>
-        <div className={`${showDownloadBanner ? '' : 'hideBanner'} webThreeBanner`}>
-          <p>
-            3Box requires web3.  Download the MetaMask extension to continue.
-          </p>
-          <a href="https://metamask.io/" target="_blank" rel="noopener noreferrer">
-            <button type="button" className="webThreeBanner__link">
-              Download
-            </button>
-          </a>
-          <p onClick={handleDownloadMetaMaskBanner} className="webThreeBanner__close">
-            &#10005;
-          </p>
-        </div>
+        {!isProtectedPath && (
+          <ThreeBoxInfoBanner
+            showInfoBanner={showInfoBanner}
+            handleInfoBanner={handleInfoBanner}
+          />)}
 
         <LoadingThreeBoxProfileModal show={ifFetchingThreeBox} />
 
@@ -226,11 +220,11 @@ AppModals.propTypes = {
   handleConsentModal: PropTypes.func.isRequired,
   handleDeniedAccessModal: PropTypes.func.isRequired,
   closeErrorModal: PropTypes.func.isRequired,
-  handleDownloadMetaMaskBanner: PropTypes.func.isRequired,
+  handleInfoBanner: PropTypes.func.isRequired,
   closeRequireMetaMaskModal: PropTypes.func.isRequired,
   handleAccessModal: PropTypes.func.isRequired,
 
-  showDownloadBanner: PropTypes.bool,
+  showInfoBanner: PropTypes.bool,
   ifFetchingThreeBox: PropTypes.bool,
   onSyncFinished: PropTypes.bool,
   isSyncing: PropTypes.bool,
@@ -250,6 +244,7 @@ AppModals.propTypes = {
   handleRequireWalletLoginModal: PropTypes.func.isRequired,
   handleSignInModal: PropTypes.func.isRequired,
   handleMobileWalletModal: PropTypes.func.isRequired,
+  isProtectedPath: PropTypes.func.isRequired,
   isIOS: PropTypes.bool,
   mobileWalletRequiredModal: PropTypes.bool,
   signInToWalletModal: PropTypes.bool,
@@ -266,7 +261,7 @@ AppModals.defaultProps = {
   prevAddress: '',
   directLogin: '',
 
-  showDownloadBanner: false,
+  showInfoBanner: false,
   ifFetchingThreeBox: false,
   onSyncFinished: false,
   isSyncing: false,
@@ -288,6 +283,7 @@ AppModals.defaultProps = {
   signInModal: false,
   alertRequireMetaMask: false,
   provideConsent: false,
+  isProtectedPath: false,
 };
 
 export default AppModals;

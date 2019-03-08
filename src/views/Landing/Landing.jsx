@@ -9,8 +9,8 @@ import '../../components/styles/Nav.css';
 
 const Footer = lazy(() => import('../../components/Footer'));
 
-const Landing = ({ isLoggedIn, handleSignInUp, }) => (
-  <div id="landing">
+const Landing = ({ isLoggedIn, handleSignInUp, showInfoBanner }) => (
+  <div id="landing" className={`${(showInfoBanner) ? 'bannerMargin' : ''}`}>
 
     <LandingBody
       isLoggedIn={isLoggedIn}
@@ -29,14 +29,17 @@ const Landing = ({ isLoggedIn, handleSignInUp, }) => (
 Landing.propTypes = {
   handleSignInUp: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool,
+  showInfoBanner: PropTypes.bool,
 };
 
 Landing.defaultProps = {
   isLoggedIn: false,
+  showInfoBanner: false,
 };
 
 const mapState = state => ({
   isLoggedIn: state.threeBox.isLoggedIn,
+  showInfoBanner: state.threeBox.showInfoBanner,
 });
 
 export default withRouter(connect(mapState)(Landing));

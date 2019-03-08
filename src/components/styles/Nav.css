@@ -182,6 +182,23 @@ nav {
   font-weight: 400;
   position: relative; }
 
+.landing__nav__developers {
+  color: #1168df;
+  border: solid 1px #1168df;
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin-left: 36px;
+  transition: all .3s; }
+  .landing__nav__developers:hover {
+    background-color: #1168df;
+    color: white; }
+  .landing__nav__developers:hover .landing__nav__developers__icon {
+    filter: brightness(10); }
+
+.landing__nav__developers__icon {
+  width: 18px;
+  margin-right: 9px; }
+
 .hide .underline.landing__nav__link {
   border-bottom: 3px solid #1168df;
   margin-bottom: -6px;
@@ -388,6 +405,11 @@ nav {
     color: #1168df !important; }
   .hide #actionButtons button {
     color: white; }
+  .landing__nav__developers {
+    display: none !important; }
+  .landing__nav__developers__icon {
+    width: 18px;
+    margin-right: 9px; }
   .landing #actionButtons p {
     color: #1168df !important; }
   .landing .landing__nav__createProfile {

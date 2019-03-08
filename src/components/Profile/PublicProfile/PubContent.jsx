@@ -9,11 +9,11 @@ import '../../styles/Feed.css';
 import '../../../views/styles/Profile.css';
 import '../../styles/NetworkArray.css';
 
-const PubContent = ({ showSignInBanner, onPublicProfilePage, showDownloadBanner }) => (
+const PubContent = ({ showSignInBanner, onPublicProfilePage }) => (
   <div className={` 
   ${onPublicProfilePage ? 'publicStatusUpdate' : ''}
   ${showSignInBanner ? 'publicStatusUpdate--bannerMargin' : ''} 
-  ${(onPublicProfilePage && (showDownloadBanner || showSignInBanner)) ? 'publicStatusUpdate--bannerMargin' : ''} 
+  ${(onPublicProfilePage && showSignInBanner) ? 'publicStatusUpdate--bannerMargin' : ''} 
   pubContent`}
   >
     <PublicCollectiblesGallery />
@@ -24,20 +24,17 @@ const PubContent = ({ showSignInBanner, onPublicProfilePage, showDownloadBanner 
 PubContent.propTypes = {
   showSignInBanner: PropTypes.bool,
   onPublicProfilePage: PropTypes.bool,
-  showDownloadBanner: PropTypes.bool,
 };
 
 PubContent.defaultProps = {
   showSignInBanner: false,
   onPublicProfilePage: false,
-  showDownloadBanner: false,
 };
 
 function mapState(state) {
   return {
     showSignInBanner: state.threeBox.showSignInBanner,
     onPublicProfilePage: state.threeBox.onPublicProfilePage,
-    showDownloadBanner: state.threeBox.onPublicProfilePage,
   };
 }
 

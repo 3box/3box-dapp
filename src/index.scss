@@ -182,7 +182,7 @@ input:focus {
 .webThreeBanner {
   width: 100vw;
   height: 54px;
-  background: $threeBoxBlue;
+  background: #2E3949;
   position: fixed;
   top: 0;
   left: 0;
@@ -196,7 +196,7 @@ input:focus {
   transition: all .5s ease;
 
   p {
-    color: white;
+    color: rgba(255, 255, 255, 0.808);
   }
 }
 
@@ -227,13 +227,9 @@ input:focus {
     color: white;
     width: fit-content;
   }
-
-  .webThreeBanner__close {
-    width: 5%;
-  }
 }
 
-.hideBanner.signInFromPublicProfileBanner{
+.hideBanner.signInFromPublicProfileBanner {
   display: none;
 }
 
@@ -246,17 +242,31 @@ input:focus {
   }
 }
 
-.webThreeBanner__link {
-  border: 1px solid white;
-  margin-left: 24px;
+.infoBanner__link {
+  border: 1px solid rgba(255, 255, 255, 0.808);
+  margin-left: 20px;
   padding: .6em .9em;
+  color: rgba(255, 255, 255, 0.808);
+  background-color: transparent;
+  font-weight: 500;
+  font-size: 12px;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.144);
+  }
+}
+
+.modal__reqWeb3__button {
+  border: 1px solid white;
+  padding: 12px 18px;
+  margin-top: 30px;
   color: white;
 }
 
 .webThreeBanner__close {
-  position: absolute;
-  right: 24px;
   cursor: pointer;
+  position: absolute;
+  right: 32px;
 }
 
 .header {
@@ -313,6 +323,11 @@ input:focus {
 @media only screen and (max-width: 600px) {
   .webThreeBanner {
     display: none;
+    p {
+      margin-left: 4vw;
+      line-height: 15px;
+      width: 50%;
+    }
   }
 
   .signInFromPublicProfileBanner {
@@ -343,9 +358,12 @@ input:focus {
       justify-content: space-between;
     }
 
-    .webThreeBanner__close {
-      width: 5%;
-    }
+  }
+
+  .webThreeBanner__close {
+    position: relative;
+    width: 5% !important;
+    right: 0;
   }
 
   input[type="color"],

@@ -37,14 +37,13 @@ class Nav extends Component {
 
   render() {
     const { showProfileModal } = this.state;
-    const { image, location, showDownloadBanner, currentAddress } = this.props;
+    const { image, location, currentAddress } = this.props;
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
     const networkColor = this.props.currentNetwork;
 
     return (
-      <nav className={`${showDownloadBanner ? 'bannerMargin' : ''}`}
-      >
+      <nav>
         <div id="nav__logo--marginLeft">
           <Link to={`/${currentAddress}/${routes.ACTIVITY}`}>
             <img src={ThreeBoxLogo} alt="3Box Logo" className="landing__nav__logo" />
@@ -126,7 +125,6 @@ Nav.propTypes = {
   handleSignOut: PropTypes.func.isRequired,
   currentNetwork: PropTypes.string,
   currentAddress: PropTypes.string,
-  showDownloadBanner: PropTypes.bool,
 };
 
 Nav.defaultProps = {
@@ -135,7 +133,6 @@ Nav.defaultProps = {
   currentNetwork: '',
   currentAddress: '',
   location: {},
-  showDownloadBanner: false,
 };
 
 function mapState(state) {
@@ -143,7 +140,6 @@ function mapState(state) {
     image: state.threeBox.image,
     threeBox: state.threeBox.box,
     currentNetwork: state.threeBox.currentNetwork,
-    showDownloadBanner: state.threeBox.showDownloadBanner,
     currentAddress: state.threeBox.currentAddress,
   };
 }

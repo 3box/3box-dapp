@@ -64,32 +64,25 @@ class StatusUpdate extends Component {
 
   render() {
     const { status, disableSave, saveLoading } = this.state;
-    const { showDownloadBanner, onPublicProfilePage, publicStatus, showSignInBanner } = this.props;
+    const { onPublicProfilePage, publicStatus, showSignInBanner } = this.props;
 
     return (
       <React.Fragment>
         {onPublicProfilePage && (
           <div
-            className={`${showDownloadBanner ? 'statusUpdate--bannerMargin' : ''}
+            className={`
           statusUpdate
           ${!publicStatus ? 'hideUpdateOnMobile' : ''}
           `
             }
           >
-            {/* <div
-            className={`${showDownloadBanner ? 'statusUpdate--bannerMargin' : ''} ${showSignInBanner ? 'publicStatusUpdate--bannerMargin' : ''} 
-          statusUpdate ${onPublicProfilePage ? 'publicStatusUpdate' : ''}
-          ${!publicStatus ? 'hideUpdateOnMobile' : ''}
-          `
-            }
-          > */}
             <div className="statusUpdate__displayPublic">
               {publicStatus}
             </div>
           </div>)}
 
         {!onPublicProfilePage && (
-          <div className={`${(showDownloadBanner || showDownloadBanner) ? 'statusUpdate--bannerMargin' : ''} statusUpdate`}>
+          <div className="statusUpdate">
             {saveLoading
               && (
                 <div className="statusUpdate__loading">
@@ -145,7 +138,6 @@ class StatusUpdate extends Component {
 StatusUpdate.propTypes = {
   status: PropTypes.string,
   publicStatus: PropTypes.string,
-  showDownloadBanner: PropTypes.bool,
   showSignInBanner: PropTypes.bool,
   getActivity: PropTypes.func.isRequired,
   getProfileData: PropTypes.func.isRequired,
@@ -158,7 +150,6 @@ StatusUpdate.defaultProps = {
   box: {},
   status: '',
   publicStatus: '',
-  showDownloadBanner: false,
   showSignInBanner: false,
   onPublicProfilePage: false,
 };
@@ -168,7 +159,6 @@ function mapState(state) {
     box: state.threeBox.box,
     status: state.threeBox.status,
     publicStatus: state.threeBox.publicStatus,
-    showDownloadBanner: state.threeBox.showDownloadBanner,
     showSignInBanner: state.threeBox.showSignInBanner,
     onPublicProfilePage: state.threeBox.onPublicProfilePage,
   };
