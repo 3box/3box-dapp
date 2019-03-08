@@ -64,10 +64,18 @@ class NavLanding extends Component {
               : <img src={ThreeBoxLogoWhite} alt="3Box Logo" className="landing__nav__logo" />
             }
           </Link>
-          <a href="https://github.com/3box/3box" className="landing__nav__developers" target="_blank" rel="noopener noreferrer">
-            <img src={GithubIconBlue} alt="Github" className="landing__nav__developers__icon" />
-            Developers
-          </a>
+          {(classHide || landing || onPublicProfilePage)
+            ? (
+              <a href="https://github.com/3box/3box" className="landing__nav__developers" target="_blank" rel="noopener noreferrer">
+                <img src={GithubIconBlue} alt="Github" className="landing__nav__developers__icon" />
+                Developers
+              </a>)
+            : (
+              <a href="https://github.com/3box/3box" className="landing__nav__developers--white" target="_blank" rel="noopener noreferrer">
+                <img src={GithubIconBlue} alt="Github" className="landing__nav__developers__icon--white" />
+                Developers
+              </a>
+            )}
         </div>
         <div id="actionButtons">
           <Link to={routes.CREATE}>
