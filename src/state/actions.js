@@ -660,10 +660,12 @@ export const getVerifiedPublicGithub = () => async (dispatch) => {
   try {
     const verifiedGithub = await store.getState().threeBox.box.verified.github();
 
-    dispatch({
-      type: 'GET_VERIFIED_PUBLIC_GITHUB',
-      verifiedGithub: verifiedGithub.username,
-    });
+    if (verifiedGithub) {
+      dispatch({
+        type: 'GET_VERIFIED_PUBLIC_GITHUB',
+        verifiedGithub: verifiedGithub.username,
+      });
+    }
   } catch (error) {
     console.error(error);
   }
@@ -673,10 +675,12 @@ export const getVerifiedPublicTwitter = () => async (dispatch) => {
   try {
     const verifiedTwitter = await store.getState().threeBox.box.verified.twitter();
 
-    dispatch({
-      type: 'GET_VERIFIED_PUBLIC_TWITTER',
-      verifiedTwitter: verifiedTwitter.username,
-    });
+    if (verifiedTwitter) {
+      dispatch({
+        type: 'GET_VERIFIED_PUBLIC_TWITTER',
+        verifiedTwitter: verifiedTwitter.username,
+      });
+    }
   } catch (error) {
     console.error(error);
   }
@@ -686,10 +690,12 @@ export const getVerifiedPrivateEmail = () => async (dispatch) => {
   try {
     const verifiedEmail = await store.getState().threeBox.box.verified.email();
 
-    dispatch({
-      type: 'GET_VERIFIED_PRIVATE_EMAIL',
-      verifiedEmail: verifiedEmail.email_address,
-    });
+    if (verifiedEmail) {
+      dispatch({
+        type: 'GET_VERIFIED_PRIVATE_EMAIL',
+        verifiedEmail: verifiedEmail.email_address,
+      });
+    }
   } catch (error) {
     console.error(error);
   }

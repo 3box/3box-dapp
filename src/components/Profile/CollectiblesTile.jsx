@@ -6,17 +6,9 @@ import { withRouter } from 'react-router-dom';
 import {
   handleCollectiblesModal,
 } from '../../state/actions-modals';
-import HeartGrey from '../../assets/HeartGrey.svg';
 import HeartBlue from '../../assets/HeartBlue.svg';
 import '../../views/styles/Profile.css';
 import '../styles/Collectibles.css';
-
-// className={`
-// collectibles__image 
-// ${padded && 'padded'} 
-// ${cover && 'cover'}
-// ${contain && 'contain'}
-// `}
 
 const CollectiblesTile = ({
   image,
@@ -24,8 +16,6 @@ const CollectiblesTile = ({
   name,
   updateGallery,
   padded,
-  cover,
-  contain,
   bgStyle,
   tokenId,
   favorite,

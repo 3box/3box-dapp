@@ -64,7 +64,7 @@ class StatusUpdate extends Component {
 
   render() {
     const { status, disableSave, saveLoading } = this.state;
-    const { onPublicProfilePage, publicStatus, showSignInBanner } = this.props;
+    const { onPublicProfilePage, publicStatus } = this.props;
 
     return (
       <React.Fragment>

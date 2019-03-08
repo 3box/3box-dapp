@@ -244,7 +244,7 @@ AppModals.propTypes = {
   handleRequireWalletLoginModal: PropTypes.func.isRequired,
   handleSignInModal: PropTypes.func.isRequired,
   handleMobileWalletModal: PropTypes.func.isRequired,
-  isProtectedPath: PropTypes.func.isRequired,
+  isProtectedPath: PropTypes.bool.isRequired,
   isIOS: PropTypes.bool,
   mobileWalletRequiredModal: PropTypes.bool,
   signInToWalletModal: PropTypes.bool,
@@ -283,7 +283,6 @@ AppModals.defaultProps = {
   signInModal: false,
   alertRequireMetaMask: false,
   provideConsent: false,
-  isProtectedPath: false,
 };
 
 export default AppModals;

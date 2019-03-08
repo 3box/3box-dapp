@@ -20,7 +20,6 @@ import Privacy from './views/Landing/Privacy';
 import Terms from './views/Landing/Terms';
 import Create from './views/Landing/Create';
 import NavLanding from './components/NavLanding';
-import Nav from './components/Nav';
 import history from './history';
 import './index.css';
 
