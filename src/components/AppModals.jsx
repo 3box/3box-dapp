@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 import {
   SwitchedAddressModal,
   SwitchedNetworksModal,
@@ -42,7 +44,6 @@ class AppModals extends Component {
   render() {
     const { width } = this.state;
     const {
-      showDownloadBanner,
       ifFetchingThreeBox,
       onSyncFinished,
       isSyncing,
@@ -80,7 +81,6 @@ class AppModals extends Component {
       onBoardingModalMobileOne,
       onBoardingModalMobileTwo,
       onBoardingModalMobileThree,
-      handleDownloadMetaMaskBanner,
       closeRequireMetaMaskModal,
       alertRequireMetaMask,
       provideConsent,
@@ -90,25 +90,20 @@ class AppModals extends Component {
     const isMobile = width <= 812; // 600
 
     return (
-      <React.Fragment>
-        <div className={`${showDownloadBanner ? '' : 'hideBanner'} webThreeBanner`}>
-          <p>
-            3Box requires web3.  Download the MetaMask extension to continue.
-          </p>
-          <a href="https://metamask.io/" target="_blank" rel="noopener noreferrer">
-            <button type="button" className="webThreeBanner__link">
-              Download
-            </button>
-          </a>
-          <p onClick={handleDownloadMetaMaskBanner} className="webThreeBanner__close">
-            &#10005;
-          </p>
-        </div>
+      <ReactCSSTransitionGroup
+        transitionName="app__modals"
+        transitionEnterTimeout={400}
+        transitionLeaveTimeout={400}
+      >
 
-        <LoadingThreeBoxProfileModal show={ifFetchingThreeBox} />
+        <LoadingThreeBoxProfileModal
+          show={ifFetchingThreeBox}
+          key="LoadingThreeBoxProfileModal"
+        />
 
         <SyncingModal
           show={!onSyncFinished && !ifFetchingThreeBox && isSyncing && !hasSignedOut}
+          key="SyncingModal"
         />
 
         <ProvideAccessModal
@@ -116,35 +111,41 @@ class AppModals extends Component {
           show={allowAccessModal}
           directLogin={directLogin}
           isMobile={isMobile}
+          key="ProvideAccessModal"
         />
 
         <RequireMetaMaskModal
           closeRequireMetaMaskModal={closeRequireMetaMaskModal}
           show={alertRequireMetaMask}
           isMobile={isMobile}
+          key="RequireMetaMaskModal"
         />
 
         <ProvideConsentModal
           handleConsentModal={handleConsentModal}
           show={provideConsent}
           isMobile={isMobile}
+          key="ProvideConsentModal"
         />
 
         <AccessDeniedModal
           handleDeniedAccessModal={handleDeniedAccessModal}
           show={accessDeniedModal}
           isMobile={isMobile}
+          key="AccessDeniedModal"
         />
 
         <SignInToWalletModal
           handleRequireWalletLoginModal={handleRequireWalletLoginModal}
           show={signInToWalletModal}
           isMobile={isMobile}
+          key="SignInToWalletModal"
         />
 
         <SignInToThreeBox
           show={signInModal}
           handleSignInModal={handleSignInModal}
+          key="SignInToThreeBox"
         />
 
         <MobileWalletRequiredModal
@@ -152,6 +153,7 @@ class AppModals extends Component {
           handleMobileWalletModal={handleMobileWalletModal}
           show={mobileWalletRequiredModal}
           isMobile={isMobile}
+          key="MobileWalletRequiredModal"
         />
 
         <ErrorModal
@@ -159,12 +161,14 @@ class AppModals extends Component {
           closeErrorModal={closeErrorModal}
           show={showErrorModal && !mustConsentError}
           isMobile={isMobile}
+          key="ErrorModal"
         />
 
         <MustConsentModal
           closeErrorModal={closeErrorModal}
           show={mustConsentError}
           isMobile={isMobile}
+          key="MustConsentModal"
         />
 
         <SwitchedNetworksModal
@@ -172,6 +176,7 @@ class AppModals extends Component {
           currentNetwork={currentNetwork}
           handleSwitchedNetworkModal={handleSwitchedNetworkModal}
           show={showDifferentNetworkModal}
+          key="SwitchedNetworksModal"
         />
 
         <LoggedOutModal
@@ -179,6 +184,7 @@ class AppModals extends Component {
           handleLoggedOutModal={handleLoggedOutModal}
           handleSignOut={handleSignOut}
           show={loggedOutModal}
+          key="LoggedOutModal"
         />
 
         <SwitchedAddressModal
@@ -187,6 +193,7 @@ class AppModals extends Component {
           isMobile={isMobile}
           handleSignOut={handleSignOut}
           prevAddress={prevAddress}
+          key="SwitchedAddressModal"
         />
 
         <OnBoardingModalDesktop
@@ -194,6 +201,7 @@ class AppModals extends Component {
           showOne={onBoardingModal}
           showTwo={onBoardingModalTwo}
           handleOnboardingModal={handleOnboardingModal}
+          key="OnBoardingModalDesktop"
         />
 
         <OnBoardingModalMobile
@@ -204,8 +212,9 @@ class AppModals extends Component {
           showThree={onBoardingModalMobileTwo}
           showFour={onBoardingModalMobileThree}
           handleNextMobileModal={handleNextMobileModal}
+          key="OnBoardingModalMobile"
         />
-      </React.Fragment>
+      </ReactCSSTransitionGroup>
     );
   }
 }

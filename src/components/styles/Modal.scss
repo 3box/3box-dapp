@@ -31,7 +31,6 @@
   justify-content: center;
   position: fixed;
   visibility: hidden;
-  // left: 0;
 }
 
 .modal__container--sync {
@@ -391,6 +390,24 @@
 
 .showModal.modal--effect .modal {
   opacity: 1;
+}
+
+.app__modals-enter {
+  opacity: .01;
+}
+
+.app__modals-enter.app__modals-enter-active {
+  opacity: 1;
+  transition: opacity 400ms ease-in-out;
+}
+
+.app__modals-leave {
+  opacity: 1;
+}
+
+.app__modals-leave.app__modals-leave-active {
+  opacity: 0.01;
+  transition: opacity 400ms ease-in;
 }
 
 .modal--effect .modal--sync {

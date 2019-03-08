@@ -17,6 +17,7 @@
     "history": "^4.7.2",
     "prop-types": "^15.6.1",
     "react": "^16.3.1",
+    "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.3.1",
     "react-mailchimp-subscribe": "^2.0.2",
     "react-redux": "^6.0.0",
