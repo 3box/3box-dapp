@@ -44,9 +44,9 @@ class ProfilePublic extends Component {
         activeAddress = currentAddress;
       }
       if (publicProfileAddress === activeAddress) this.props.handleSignInBanner();
+      await this.props.checkNetwork();
     }
 
-    await this.props.checkNetwork();
     await this.props.getProfile(publicProfileAddress);
     this.props.getCollectibles(publicProfileAddress, true);
     this.props.getActivity(publicProfileAddress);
