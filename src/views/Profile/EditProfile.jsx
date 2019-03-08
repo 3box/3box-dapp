@@ -4,6 +4,7 @@ import { Link, withRouter, Prompt } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import {
   store,
@@ -15,6 +16,7 @@ import {
   GithubVerificationModal,
   TwitterVerificationModal,
   EmailVerificationModal,
+  ModalBackground,
 } from '../../components/Modals';
 import history from '../../utils/history';
 import Nav from '../../components/Nav.jsx';
@@ -794,52 +796,65 @@ class EditProfile extends Component {
             </div>
           )}
 
-        {showFileSizeModal
-          && <FileSizeModal show={showFileSizeModal} closeFileSizeModal={this.closeFileSizeModal} />}
+        <ReactCSSTransitionGroup
+          transitionName="app__modals"
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={300}
+        >
+          {showFileSizeModal
+            && <FileSizeModal show={showFileSizeModal} closeFileSizeModal={this.closeFileSizeModal} />}
 
-        <GithubVerificationModal
-          show={showGithubVerificationModal}
-          copyToClipBoard={this.props.copyToClipBoard}
-          did={did}
-          message={message}
-          verifyGithub={this.verifyGithub}
-          isGithubVerified={isGithubVerified}
-          verificationLoading={verificationLoading}
-          githubVerifiedFailed={githubVerifiedFailed}
-          resetVerification={this.resetVerification}
-          copySuccessful={copySuccessful}
-          handleGithubVerificationModal={this.props.handleGithubVerificationModal}
-        />
+          {showGithubVerificationModal && (
+            <GithubVerificationModal
+              copyToClipBoard={this.props.copyToClipBoard}
+              did={did}
+              message={message}
+              verifyGithub={this.verifyGithub}
+              isGithubVerified={isGithubVerified}
+              verificationLoading={verificationLoading}
+              githubVerifiedFailed={githubVerifiedFailed}
+              resetVerification={this.resetVerification}
+              copySuccessful={copySuccessful}
+              handleGithubVerificationModal={this.props.handleGithubVerificationModal}
+            />)}
 
-        <TwitterVerificationModal
-          show={showTwitterVerificationModal}
-          verifyTwitter={this.verifyTwitter}
-          did={did}
-          message={twitterMessage}
-          isTwitterVerified={isTwitterVerified}
-          verificationLoading={verificationLoading}
-          twitterVerifiedFailed={twitterVerifiedFailed}
-          resetVerification={this.resetVerification}
-          handleTwitterVerificationModal={this.props.handleTwitterVerificationModal}
-        />
+          {showTwitterVerificationModal && (
+            <TwitterVerificationModal
+              verifyTwitter={this.verifyTwitter}
+              did={did}
+              message={twitterMessage}
+              isTwitterVerified={isTwitterVerified}
+              verificationLoading={verificationLoading}
+              twitterVerifiedFailed={twitterVerifiedFailed}
+              resetVerification={this.resetVerification}
+              handleTwitterVerificationModal={this.props.handleTwitterVerificationModal}
+            />)}
 
-        <EmailVerificationModal
-          show={showEmailVerificationModal}
-          verifyEmail={this.verifyEmail}
-          did={did}
-          sendVerificationEmail={this.sendVerificationEmail}
-          handleFormChange={this.handleFormChange}
-          emailVerificationMessage={emailVerificationMessage}
-          emailCode={emailCode}
-          isEmailVerified={isEmailVerified}
-          verificationLoading={verificationLoading}
-          emailVerifiedFailed={emailVerifiedFailed}
-          isEmailSending={isEmailSending}
-          emailVerificationErrMsg={emailVerificationErrMsg}
-          disableSendVerificationEmail={disableSendVerificationEmail}
-          resetVerification={this.resetVerification}
-          handleEmailVerificationModal={this.props.handleEmailVerificationModal}
-        />
+          {showEmailVerificationModal && (
+            <EmailVerificationModal
+              verifyEmail={this.verifyEmail}
+              did={did}
+              sendVerificationEmail={this.sendVerificationEmail}
+              handleFormChange={this.handleFormChange}
+              emailVerificationMessage={emailVerificationMessage}
+              emailCode={emailCode}
+              isEmailVerified={isEmailVerified}
+              verificationLoading={verificationLoading}
+              emailVerifiedFailed={emailVerifiedFailed}
+              isEmailSending={isEmailSending}
+              emailVerificationErrMsg={emailVerificationErrMsg}
+              disableSendVerificationEmail={disableSendVerificationEmail}
+              resetVerification={this.resetVerification}
+              handleEmailVerificationModal={this.props.handleEmailVerificationModal}
+            />)}
+
+          {(showEmailVerificationModal
+            || showTwitterVerificationModal
+            || showGithubVerificationModal
+            || showFileSizeModal) && (
+              <ModalBackground />
+            )}
+        </ReactCSSTransitionGroup>
 
         <div id="edit__breadCrumb">
           <div id="edit__breadCrumb__crumbs">

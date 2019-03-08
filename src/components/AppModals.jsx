@@ -20,6 +20,7 @@ import {
   SignInToWalletModal,
   SignInToThreeBox,
   ThreeBoxInfoBanner,
+  ModalBackground,
 } from './Modals';
 
 class AppModals extends Component {
@@ -96,8 +97,8 @@ class AppModals extends Component {
     return (
       <ReactCSSTransitionGroup
         transitionName="app__modals"
-        transitionEnterTimeout={400}
-        transitionLeaveTimeout={400}
+        transitionEnterTimeout={300}
+        transitionLeaveTimeout={300}
       >
         {!isProtectedPath && (
           <ThreeBoxInfoBanner
@@ -105,124 +106,149 @@ class AppModals extends Component {
             handleInfoBanner={handleInfoBanner}
           />)}
 
-        <LoadingThreeBoxProfileModal
-          show={ifFetchingThreeBox}
-          key="LoadingThreeBoxProfileModal"
-        />
+        {ifFetchingThreeBox && (
+          <LoadingThreeBoxProfileModal
+            key="LoadingThreeBoxProfileModal"
+          />)}
 
-        <SyncingModal
-          show={!onSyncFinished && !ifFetchingThreeBox && isSyncing && !hasSignedOut}
-          key="SyncingModal"
-        />
+        {(!onSyncFinished && !ifFetchingThreeBox && isSyncing && !hasSignedOut) && (
+          <SyncingModal
+            key="SyncingModal"
+          />)}
 
-        <ProvideAccessModal
-          handleAccessModal={handleAccessModal}
-          show={allowAccessModal}
-          directLogin={directLogin}
-          isMobile={isMobile}
-          key="ProvideAccessModal"
-        />
+        {allowAccessModal && (
+          <ProvideAccessModal
+            handleAccessModal={handleAccessModal}
+            directLogin={directLogin}
+            isMobile={isMobile}
+            key="ProvideAccessModal"
+          />)}
 
-        <RequireMetaMaskModal
-          closeRequireMetaMaskModal={closeRequireMetaMaskModal}
-          show={alertRequireMetaMask}
-          isMobile={isMobile}
-          key="RequireMetaMaskModal"
-        />
+        {alertRequireMetaMask && (
+          <RequireMetaMaskModal
+            closeRequireMetaMaskModal={closeRequireMetaMaskModal}
+            isMobile={isMobile}
+            key="RequireMetaMaskModal"
+          />)}
 
-        <ProvideConsentModal
-          handleConsentModal={handleConsentModal}
-          show={provideConsent}
-          isMobile={isMobile}
-          key="ProvideConsentModal"
-        />
+        {provideConsent && (
+          <ProvideConsentModal
+            handleConsentModal={handleConsentModal}
+            isMobile={isMobile}
+            key="ProvideConsentModal"
+          />)}
 
-        <AccessDeniedModal
-          handleDeniedAccessModal={handleDeniedAccessModal}
-          show={accessDeniedModal}
-          isMobile={isMobile}
-          key="AccessDeniedModal"
-        />
+        {accessDeniedModal && (
+          <AccessDeniedModal
+            handleDeniedAccessModal={handleDeniedAccessModal}
+            isMobile={isMobile}
+            key="AccessDeniedModal"
+          />)}
 
-        <SignInToWalletModal
-          handleRequireWalletLoginModal={handleRequireWalletLoginModal}
-          show={signInToWalletModal}
-          isMobile={isMobile}
-          key="SignInToWalletModal"
-        />
+        {signInToWalletModal && (
+          <SignInToWalletModal
+            handleRequireWalletLoginModal={handleRequireWalletLoginModal}
+            isMobile={isMobile}
+            key="SignInToWalletModal"
+          />)}
 
-        <SignInToThreeBox
-          show={signInModal}
-          handleSignInModal={handleSignInModal}
-          key="SignInToThreeBox"
-        />
+        {signInModal && (
+          <SignInToThreeBox
+            handleSignInModal={handleSignInModal}
+            key="SignInToThreeBox"
+          />)}
 
-        <MobileWalletRequiredModal
-          isIOS={isIOS}
-          handleMobileWalletModal={handleMobileWalletModal}
-          show={mobileWalletRequiredModal}
-          isMobile={isMobile}
-          key="MobileWalletRequiredModal"
-        />
+        {mobileWalletRequiredModal && (
+          <MobileWalletRequiredModal
+            isIOS={isIOS}
+            handleMobileWalletModal={handleMobileWalletModal}
+            isMobile={isMobile}
+            key="MobileWalletRequiredModal"
+          />)}
 
-        <ErrorModal
-          errorMessage={errorMessage}
-          closeErrorModal={closeErrorModal}
-          show={showErrorModal && !mustConsentError}
-          isMobile={isMobile}
-          key="ErrorModal"
-        />
+        {(showErrorModal && !mustConsentError) && (
+          <ErrorModal
+            errorMessage={errorMessage}
+            closeErrorModal={closeErrorModal}
+            isMobile={isMobile}
+            key="ErrorModal"
+          />)}
 
-        <MustConsentModal
-          closeErrorModal={closeErrorModal}
-          show={mustConsentError}
-          isMobile={isMobile}
-          key="MustConsentModal"
-        />
+        {!!mustConsentError && (
+          <MustConsentModal
+            closeErrorModal={closeErrorModal}
+            isMobile={isMobile}
+            key="MustConsentModal"
+          />)}
 
-        <SwitchedNetworksModal
-          prevNetwork={prevNetwork}
-          currentNetwork={currentNetwork}
-          handleSwitchedNetworkModal={handleSwitchedNetworkModal}
-          show={showDifferentNetworkModal}
-          key="SwitchedNetworksModal"
-        />
+        {showDifferentNetworkModal && (
+          <SwitchedNetworksModal
+            prevNetwork={prevNetwork}
+            currentNetwork={currentNetwork}
+            handleSwitchedNetworkModal={handleSwitchedNetworkModal}
+            key="SwitchedNetworksModal"
+          />)}
 
-        <LoggedOutModal
-          isMobile={isMobile}
-          handleLoggedOutModal={handleLoggedOutModal}
-          handleSignOut={handleSignOut}
-          show={loggedOutModal}
-          key="LoggedOutModal"
-        />
+        {loggedOutModal && (
+          <LoggedOutModal
+            isMobile={isMobile}
+            handleLoggedOutModal={handleLoggedOutModal}
+            handleSignOut={handleSignOut}
+            key="LoggedOutModal"
+          />)}
 
-        <SwitchedAddressModal
-          handleSwitchedAddressModal={handleSwitchedAddressModal}
-          show={switchedAddressModal}
-          isMobile={isMobile}
-          handleSignOut={handleSignOut}
-          prevAddress={prevAddress}
-          key="SwitchedAddressModal"
-        />
+        {switchedAddressModal && (
+          <SwitchedAddressModal
+            handleSwitchedAddressModal={handleSwitchedAddressModal}
+            show={switchedAddressModal}
+            isMobile={isMobile}
+            handleSignOut={handleSignOut}
+            prevAddress={prevAddress}
+            key="SwitchedAddressModal"
+          />)}
 
-        <OnBoardingModalDesktop
-          isMobile={isMobile}
-          showOne={onBoardingModal}
-          showTwo={onBoardingModalTwo}
-          handleOnboardingModal={handleOnboardingModal}
-          key="OnBoardingModalDesktop"
-        />
+        {(onBoardingModal || onBoardingModalTwo) && (
+          <OnBoardingModalDesktop
+            isMobile={isMobile}
+            showOne={onBoardingModal}
+            showTwo={onBoardingModalTwo}
+            handleOnboardingModal={handleOnboardingModal}
+            key="OnBoardingModalDesktop"
+          />)}
 
-        <OnBoardingModalMobile
-          isMobile={isMobile}
-          handleOnboardingModal={handleOnboardingModal}
-          showOne={onBoardingModal}
-          showTwo={onBoardingModalMobileOne}
-          showThree={onBoardingModalMobileTwo}
-          showFour={onBoardingModalMobileThree}
-          handleNextMobileModal={handleNextMobileModal}
-          key="OnBoardingModalMobile"
-        />
+        {(onBoardingModal || onBoardingModalMobileOne || onBoardingModalMobileTwo || onBoardingModalMobileThree) && (
+          <OnBoardingModalMobile
+            isMobile={isMobile}
+            handleOnboardingModal={handleOnboardingModal}
+            showOne={onBoardingModal}
+            showTwo={onBoardingModalMobileOne}
+            showThree={onBoardingModalMobileTwo}
+            showFour={onBoardingModalMobileThree}
+            handleNextMobileModal={handleNextMobileModal}
+            key="OnBoardingModalMobile"
+          />)}
+
+        {(ifFetchingThreeBox
+          || allowAccessModal
+          || alertRequireMetaMask
+          || provideConsent
+          || accessDeniedModal
+          || signInToWalletModal
+          || signInModal
+          || mobileWalletRequiredModal
+          || (showErrorModal && !mustConsentError)
+          || mustConsentError
+          || showDifferentNetworkModal
+          || loggedOutModal
+          || switchedAddressModal
+          || ((onBoardingModal || onBoardingModalTwo) && !isMobile)
+          || ((onBoardingModal
+            || onBoardingModalMobileOne
+            || onBoardingModalMobileTwo
+            || onBoardingModalMobileThree)
+            && isMobile)
+        ) && <ModalBackground />}
+        
       </ReactCSSTransitionGroup>
     );
   }

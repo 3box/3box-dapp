@@ -8,14 +8,7 @@
   z-index: 5;
   display: flex;
   align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -webkit-transition: all .4s ease-in-out;
-  transition: all .4s ease-in-out; }
+  justify-content: center; }
 
 .modal__container {
   width: 100%;
@@ -25,8 +18,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  position: fixed;
-  visibility: hidden; }
+  position: fixed; }
 
 .modal__container--sync {
   z-index: 7;
@@ -35,7 +27,6 @@
   justify-content: center;
   position: fixed;
   width: 100vw;
-  visibility: hidden;
   bottom: 0; }
 
 .modal__container--copied {
@@ -45,7 +36,6 @@
   justify-content: center;
   position: fixed;
   width: 100vw;
-  visibility: hidden;
   bottom: 0; }
 
 .modal {
@@ -311,14 +301,6 @@
   .modal--sync .modal__loading3Box {
     margin-bottom: 0; }
 
-.modal--effect .modal {
-  opacity: 0;
-  -webkit-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out; }
-
-.showModal.modal--effect .modal {
-  opacity: 1; }
-
 .app__modals-enter {
   opacity: .01; }
 
@@ -332,14 +314,6 @@
 .app__modals-leave.app__modals-leave-active {
   opacity: 0.01;
   transition: opacity 400ms ease-in; }
-
-.modal--effect .modal--sync {
-  opacity: 0;
-  -webkit-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out; }
-
-.showModal.modal--effect .modal--sync {
-  opacity: 1; }
 
 .modal__copy__ico {
   width: 20px; }
@@ -355,13 +329,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center; }
-
-.showModal {
-  visibility: visible !important; }
-
-.showModal ~ .modal__overlay {
-  opacity: 1;
-  visibility: visible; }
 
 .modal__onBoardingModal__container {
   position: fixed;
@@ -407,16 +374,6 @@
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
   position: absolute; }
-
-.showModal.modal--effect .showModalImage.modal__onBoardingModal {
-  opacity: 1;
-  visibility: visible;
-  -webkit-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out; }
-
-.showModal.modal--effect .showModalImage.modal__onBoardingModal .fadeImage.modal__onBoardingModal__image {
-  opacity: 1;
-  visibility: visible; }
 
 #modal__onBoardingModal__image {
   object-fit: cover;

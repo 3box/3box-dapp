@@ -27,6 +27,8 @@ import Loading from '../assets/Loading.svg';
 import LoadingWhite from '../assets/LoadingWhite.svg';
 import './styles/Modal.css';
 
+export const ModalBackground = () => <div className="modal__overlay" />;
+
 export const ThreeBoxInfoBanner = ({
   showInfoBanner,
   handleInfoBanner,
@@ -55,10 +57,9 @@ export const SwitchedNetworksModal = ({
   prevNetwork,
   currentNetwork,
   handleSwitchedNetworkModal,
-  show,
 }) => (
     <div>
-      <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+      <div className="modal__container modal--effect">
         <div className="modal">
           <img src={Switched} alt="Partners background" id="modal__switchedNetworks" />
 
@@ -82,7 +83,7 @@ export const SwitchedNetworksModal = ({
 
         </div>
       </div>
-      <div className="modal__overlay" />
+
     </div>
   );
 
@@ -90,7 +91,6 @@ SwitchedNetworksModal.propTypes = {
   prevNetwork: PropTypes.string,
   currentNetwork: PropTypes.string.isRequired,
   handleSwitchedNetworkModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
 };
 
 SwitchedNetworksModal.defaultProps = {
@@ -100,11 +100,10 @@ SwitchedNetworksModal.defaultProps = {
 export const LoggedOutModal = ({
   handleLoggedOutModal,
   handleSignOut,
-  show,
   isMobile,
 }) => (
     <div>
-      <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+      <div className="modal__container modal--effect">
         <div className="modal">
           <img src={LogOut} alt="Partners background" id="modal__switchedNetworks" />
 
@@ -124,7 +123,7 @@ export const LoggedOutModal = ({
           </Link>
         </div>
       </div>
-      <div className="modal__overlay" />
+
     </div>
   );
 
@@ -132,11 +131,9 @@ LoggedOutModal.propTypes = {
   isMobile: PropTypes.bool.isRequired,
   handleLoggedOutModal: PropTypes.func.isRequired,
   handleSignOut: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
 };
 
 export const CollectiblesModal = ({
-  show,
   handleCollectiblesModal,
   selectedCollectible,
   updateGallery,
@@ -147,7 +144,7 @@ export const CollectiblesModal = ({
   contain,
 }) => (
     <div>
-      <div className={`${show ? 'showModal' : ''} modal__container modal--effect collectibles__modal`}>
+      <div className="modal__container modal--effect collectibles__modal">
         <div className="collectiblesWrapper">
           <button onClick={() => handleCollectiblesModal()} type="button" className="tertiaryButton collectiblesClose">
             Close
@@ -215,32 +212,16 @@ export const CollectiblesModal = ({
                   </div>)}
             </div>
           </div>
-
-          {/* <div className={`modal collectiblesMiniModal ${(selectedCollectible.description || (selectedCollectible.orderedTraits && selectedCollectible.orderedTraits.length > 0)) && 'showModal'}`}>
-            <div className="collectiblesMiniModal__wrapper">
-              {selectedCollectible.description && (
-                <p className="collectiblesMiniModal__description">
-                  {selectedCollectible.description}
-                </p>)}
-
-              {selectedCollectible.orderedTraits && selectedCollectible.orderedTraits.length > 0
-                && (
-                  <div className="modal__collectibles__traits">
-                    {selectedCollectible.orderedTraits.map((trait, i) => (
-                      <div key={i} className="modal__collectibles__traits__trait">
-                        <p className="modal__collectibles__traits__trait__type">{trait.trait_type.toUpperCase()}</p>
-                        <p className="modal__collectibles__traits__trait__value">{trait.value}</p>
-                      </div>
-                    ))}
-                  </div>)}
-            </div>
-          </div> */}
-          {show && <div className='onClickOutsideCollectibles--mobile' onClick={() => handleCollectiblesModal()} />}
+          <div
+            className="onClickOutsideCollectibles--mobile"
+            onClick={() => handleCollectiblesModal()}
+          />
         </div>
-        {show && <div className='onClickOutsideCollectibles' onClick={() => handleCollectiblesModal()} />}
+        <div
+          className="onClickOutsideCollectibles"
+          onClick={() => handleCollectiblesModal()}
+        />
       </div>
-
-      <div className="modal__overlay" />
     </div>
   );
 
@@ -267,7 +248,7 @@ export const SwitchedAddressModal = ({
   handleSwitchedAddressModal, show, handleSignOut, isMobile, prevAddress,
 }) => (
     <div>
-      <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+      <div className="modal__container modal--effect">
         <div className="modal">
           <img src={Switched} alt="Partners background" id="modal__switchedNetworks" />
 
@@ -294,7 +275,7 @@ export const SwitchedAddressModal = ({
           </Link>
         </div>
       </div>
-      <div className="modal__overlay" />
+
     </div>
   );
 
@@ -310,18 +291,10 @@ export const ProvideConsentModal = ({
   handleConsentModal, show, isMobile,
 }) => (
     <div>
-      <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+      <div className="modal__container modal--effect">
         <div className="modal">
           <img src={Consent} alt="Partners background" />
           <img src={Loading} alt="Loading" id="modal__loadingGraphic--access" />
-
-          {/* <div className="sa-folding-box">
-            <div className="sa-box_1 sa-box"></div>
-            <div className="sa-box_2 sa-box"></div>
-            <div className="sa-box_4 sa-box"></div>
-            <div className="sa-box_3 sa-box"></div>
-          </div> */}
-
           <div id="modal__copy__card">
             <h3>Log in to 3Box</h3>
             {isMobile
@@ -333,7 +306,7 @@ export const ProvideConsentModal = ({
           <button onClick={handleConsentModal} type="button" className="tertiaryButton">Close</button>
         </div>
       </div>
-      <div className="modal__overlay" />
+
     </div>
   );
 
@@ -347,7 +320,7 @@ export const ProvideAccessModal = ({
   handleAccessModal, show, isMobile, directLogin,
 }) => (
     <div>
-      <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+      <div className="modal__container modal--effect">
         <div className="modal">
           <img src={Access} alt="Partners background" />
           <img src={Loading} alt="Loading" id="modal__loadingGraphic--access" />
@@ -364,7 +337,7 @@ export const ProvideAccessModal = ({
             && <button onClick={handleAccessModal} type="button" className="tertiaryButton">Close</button>}
         </div>
       </div>
-      <div className="modal__overlay" />
+
     </div>
   );
 
@@ -393,7 +366,7 @@ export const GithubVerificationModal = ({
   copySuccessful,
 }) => (
     <div>
-      <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+      <div className="modal__container modal--effect">
         <div className="modal githubModal">
 
           <div className="modal__github__description">
@@ -496,7 +469,7 @@ export const GithubVerificationModal = ({
           </div>
         </div>
       </div>
-      <div className="modal__overlay" />
+
     </div >
   );
 
@@ -530,7 +503,7 @@ export const TwitterVerificationModal = ({
   resetVerification,
 }) => (
     <div>
-      <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+      <div className="modal__container modal--effect">
         <div className="modal githubModal">
 
           <div className="modal__github__description">
@@ -624,7 +597,7 @@ export const TwitterVerificationModal = ({
           </div>
         </div>
       </div>
-      <div className="modal__overlay" />
+
     </div >
   );
 
@@ -662,7 +635,7 @@ export const EmailVerificationModal = ({
   emailCode,
 }) => (
     <div>
-      <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+      <div className="modal__container modal--effect">
         <div className="modal githubModal">
 
           <div className="modal__github__description">
@@ -775,7 +748,7 @@ export const EmailVerificationModal = ({
           </div>
         </div>
       </div>
-      <div className="modal__overlay" />
+
     </div>
   );
 
@@ -801,7 +774,7 @@ export const AccessDeniedModal = ({
   handleDeniedAccessModal, show, isMobile,
 }) => (
     <div>
-      <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+      <div className="modal__container modal--effect">
         <div className="modal">
           <img src={Access} alt="Partners background" />
 
@@ -816,7 +789,7 @@ export const AccessDeniedModal = ({
           <button onClick={handleDeniedAccessModal} type="button" className="tertiaryButton">Close</button>
         </div>
       </div>
-      <div className="modal__overlay" />
+
     </div>
   );
 
@@ -828,7 +801,7 @@ AccessDeniedModal.propTypes = {
 
 export const LoadingThreeBoxProfileModal = ({ show }) => (
   <div>
-    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+    <div className="modal__container modal--effect">
       <div className="modal">
         <img src={Loading} alt="Loading" id="modal__loadingGraphic" />
 
@@ -841,7 +814,7 @@ export const LoadingThreeBoxProfileModal = ({ show }) => (
 
       </div>
     </div>
-    <div className="modal__overlay" />
+
   </div>
 );
 
@@ -851,7 +824,7 @@ LoadingThreeBoxProfileModal.propTypes = {
 
 export const FileSizeModal = ({ show, closeFileSizeModal }) => (
   <div>
-    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+    <div className="modal__container modal--effect">
       <div className="modal">
 
         <div>
@@ -861,7 +834,7 @@ export const FileSizeModal = ({ show, closeFileSizeModal }) => (
         <button onClick={closeFileSizeModal} type="button" className="tertiaryButton">Close</button>
       </div>
     </div>
-    <div className="modal__overlay" />
+
   </div>
 );
 
@@ -872,7 +845,7 @@ FileSizeModal.propTypes = {
 
 export const RequireMetaMaskModal = ({ closeRequireMetaMaskModal, show, isMobile }) => (
   <div className="mobileInvisible">
-    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+    <div className="modal__container modal--effect">
       <div className="modal">
         <img src={MetaMaskWallet} alt="Partners background" />
 
@@ -894,7 +867,7 @@ export const RequireMetaMaskModal = ({ closeRequireMetaMaskModal, show, isMobile
         <button onClick={closeRequireMetaMaskModal} type="button" className="tertiaryButton">Close</button>
       </div>
     </div>
-    <div className="modal__overlay" />
+
   </div>
 );
 
@@ -906,7 +879,7 @@ RequireMetaMaskModal.propTypes = {
 
 export const SignInToWalletModal = ({ handleRequireWalletLoginModal, show, isMobile }) => (
   <div>
-    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+    <div className="modal__container modal--effect">
       <div className="modal">
         <img src={MetaMaskWallet} alt="Partners background" />
 
@@ -922,7 +895,7 @@ export const SignInToWalletModal = ({ handleRequireWalletLoginModal, show, isMob
         <button onClick={handleRequireWalletLoginModal} type="button" className="tertiaryButton">Close</button>
       </div>
     </div>
-    <div className="modal__overlay" />
+
   </div>
 );
 
@@ -935,7 +908,7 @@ SignInToWalletModal.propTypes = {
 
 export const SyncingModal = ({ show }) => (
   <div>
-    <div className={`${show ? 'showModal' : ''} modal__container--sync modal--effect`}>
+    <div className="modal__container--sync modal--effect">
       <div className="modal--sync ">
         <div className="modal--sync__wrapper">
           <img src={LoadingWhite} alt="Loading" id="modal__loadingGraphic" />
@@ -959,7 +932,7 @@ SyncingModal.propTypes = {
 
 export const PublicProfileLoading = ({ show }) => (
   <div>
-    <div className={`${show ? 'showModal' : ''} modal__container--sync modal--effect`}>
+    <div className="modal__container--sync modal--effect">
       <div className="modal--sync ">
         <div className="modal--sync__wrapper">
           <img src={LoadingWhite} alt="Loading" id="modal__loadingGraphic" />
@@ -1003,7 +976,7 @@ SignInThroughPublicProfileBanner.propTypes = {
 
 export const ErrorModal = ({ closeErrorModal, errorMessage, show }) => (
   <div>
-    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+    <div className="modal__container modal--effect">
       <div className="modal">
         {
           (errorMessage && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.')
@@ -1041,7 +1014,7 @@ export const ErrorModal = ({ closeErrorModal, errorMessage, show }) => (
         <button onClick={closeErrorModal} type="button" className="tertiaryButton">Close</button>
       </div>
     </div>
-    <div className="modal__overlay" />
+
   </div>
 );
 
@@ -1057,7 +1030,7 @@ ErrorModal.defaultProps = {
 
 export const MustConsentModal = ({ closeErrorModal, show, isMobile }) => (
   <div>
-    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+    <div className="modal__container modal--effect">
       <div className="modal">
         <img src={Consent} alt="Consent required" />
         <div id="modal__copy__card">
@@ -1070,7 +1043,7 @@ export const MustConsentModal = ({ closeErrorModal, show, isMobile }) => (
         <button onClick={closeErrorModal} type="button" className="tertiaryButton">Close</button>
       </div>
     </div>
-    <div className="modal__overlay" />
+
   </div>
 );
 
@@ -1080,9 +1053,9 @@ MustConsentModal.propTypes = {
   show: PropTypes.string.isRequired,
 };
 
-export const SignInToThreeBox = ({ handleSignInModal, show }) => (
+export const SignInToThreeBox = ({ handleSignInModal }) => (
   <div>
-    <div className={`${show ? 'showModal' : ''} modal__container modal--effect`}>
+    <div className="modal__container modal--effect">
       <div className="modal">
         <div id="logo" className="modal__loading3Box">
           <img src={ThreeBoxLogoBlue} alt="3Box Logo" />
@@ -1098,7 +1071,7 @@ export const SignInToThreeBox = ({ handleSignInModal, show }) => (
         <button onClick={handleSignInModal} type="button" className="tertiaryButton">Close</button>
       </div>
     </div>
-    <div className="modal__overlay" />
+
   </div>
 );
 
@@ -1148,7 +1121,7 @@ MobileWalletRequiredModal.propTypes = {
 
 export const OnBoardingModalDesktop = ({ handleOnboardingModal, showOne, showTwo, isMobile }) => (
   <div>
-    <div className={`${(showOne || showTwo) && !isMobile ? 'showModal' : ''} modal__onBoardingModal__container modal--effect`}>
+    <div className="modal__onBoardingModal__container modal--effect">
       <div className={`${showOne ? 'showModalImage' : ''} modal__onBoardingModal`}>
         <img src={OnBoardingModalGraphic} alt="Partners background" id="modal__onBoardingModal__image" />
         <button onClick={() => handleOnboardingModal(false)} type="button" id="modal__onBoardingModal__button">Get started</button>
@@ -1167,7 +1140,7 @@ export const OnBoardingModalDesktop = ({ handleOnboardingModal, showOne, showTwo
         </div>
       </div>
     </div>
-    <div className="modal__overlay" />
+
   </div>
 );
 
@@ -1188,7 +1161,7 @@ export const OnBoardingModalMobile = ({
   handleOnboardingModal,
 }) => (
     <div>
-      <div className={`${((showOne || showTwo || showThree || showFour) && isMobile) ? 'showModal' : ''} modal__onBoardingModal__container modal--effect`}>
+      <div className="modal__onBoardingModal__container modal--effect">
 
         <div className={`${showOne ? 'showModalImage' : ''} modal__onBoardingModal`}>
           <img src={OnBoardingModalGraphic} alt="Partners background" className={`${showOne ? 'fadeImage' : ''} modal__onBoardingModal__image`} />
@@ -1235,7 +1208,7 @@ export const OnBoardingModalMobile = ({
         </div>
 
       </div>
-      <div className="modal__overlay" />
+
     </div>
   );
 

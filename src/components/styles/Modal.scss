@@ -12,13 +12,13 @@
   align-items: center;
   justify-content: center;
 
-  opacity: 0;
-  visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -webkit-transition: all .4s ease-in-out;
-  transition: all .4s ease-in-out;
+  // opacity: 0;
+  // visibility: hidden;
+  // -webkit-backface-visibility: hidden;
+  // -moz-backface-visibility: hidden;
+  // backface-visibility: hidden;
+  // -webkit-transition: all .4s ease-in-out;
+  // transition: all .4s ease-in-out;
 }
 
 .modal__container {
@@ -30,7 +30,7 @@
   align-items: center;
   justify-content: center;
   position: fixed;
-  visibility: hidden;
+  // visibility: hidden;
 }
 
 .modal__container--sync {
@@ -40,7 +40,7 @@
   justify-content: center;
   position: fixed;
   width: 100vw;
-  visibility: hidden;
+  // visibility: hidden;
   bottom: 0;
 }
 
@@ -51,7 +51,7 @@
   justify-content: center;
   position: fixed;
   width: 100vw;
-  visibility: hidden;
+  // visibility: hidden;
   bottom: 0;
 }
 
@@ -382,15 +382,15 @@
   }
 }
 
-.modal--effect .modal {
-  opacity: 0;
-  -webkit-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out;
-}
+// .modal--effect .modal {
+//   opacity: 0;
+//   -webkit-transition: all 0.4s ease-in-out;
+//   transition: all 0.4s ease-in-out;
+// }
 
-.showModal.modal--effect .modal {
-  opacity: 1;
-}
+// .showModal.modal--effect .modal {
+//   opacity: 1;
+// }
 
 .app__modals-enter {
   opacity: .01;
@@ -410,15 +410,15 @@
   transition: opacity 400ms ease-in;
 }
 
-.modal--effect .modal--sync {
-  opacity: 0;
-  -webkit-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out;
-}
+// .modal--effect .modal--sync {
+//   opacity: 0;
+//   -webkit-transition: all 0.4s ease-in-out;
+//   transition: all 0.4s ease-in-out;
+// }
 
-.showModal.modal--effect .modal--sync {
-  opacity: 1;
-}
+// .showModal.modal--effect .modal--sync {
+//   opacity: 1;
+// }
 
 .modal__copy__ico {
   width: 20px;
@@ -438,14 +438,14 @@
   align-items: center;
 }
 
-.showModal {
-  visibility: visible !important;
-}
+// .showModal {
+//   visibility: visible !important;
+// }
 
-.showModal~.modal__overlay {
-  opacity: 1;
-  visibility: visible;
-}
+// .showModal~.modal__overlay {
+//   opacity: 1;
+//   visibility: visible;
+// }
 
 .modal__onBoardingModal__container {
   position: fixed;
@@ -500,17 +500,17 @@
   position: absolute;
 }
 
-.showModal.modal--effect .showModalImage.modal__onBoardingModal {
-  opacity: 1;
-  visibility: visible;
-  -webkit-transition: all 0.4s ease-in-out;
-  transition: all 0.4s ease-in-out;
-}
+// .showModal.modal--effect .showModalImage.modal__onBoardingModal {
+//   opacity: 1;
+//   visibility: visible;
+//   -webkit-transition: all 0.4s ease-in-out;
+//   transition: all 0.4s ease-in-out;
+// }
 
-.showModal.modal--effect .showModalImage.modal__onBoardingModal .fadeImage.modal__onBoardingModal__image {
-  opacity: 1;
-  visibility: visible;
-}
+// .showModal.modal--effect .showModalImage.modal__onBoardingModal .fadeImage.modal__onBoardingModal__image {
+//   opacity: 1;
+//   visibility: visible;
+// }
 
 #modal__onBoardingModal__image {
   object-fit: cover;
@@ -944,7 +944,7 @@
     }
   }
 
-  .onClickOutsideCollectibles {
+  .onClickOutsideCollectibles{
     display: none;
   }
 

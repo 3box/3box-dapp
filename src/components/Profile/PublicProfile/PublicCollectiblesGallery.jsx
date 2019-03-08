@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import CollectiblesTile from '../CollectiblesTile';
-import { CollectiblesModal } from '../../Modals';
+import { CollectiblesModal, ModalBackground } from '../../Modals';
 import { EmptyGalleryCollectiblesTile } from '../EmptyCollectiblesTile';
 import actions from '../../../state/actions';
 import '../../styles/Feed.css';
 import '../../../views/styles/Profile.css';
 import '../../styles/NetworkArray.css';
+import '../../styles/Modal.css';
 
 const { handleCollectiblesModal } = actions.modal;
 
@@ -19,15 +21,25 @@ const PublicCollectiblesGallery = ({
   selectedCollectible,
 }) => (
     <React.Fragment>
-      <CollectiblesModal
-        show={showCollectiblesModal}
-        handleCollectiblesModal={handleCollectiblesModal}
-        selectedCollectible={selectedCollectible}
-        onPublicProfile
-        padded={selectedCollectible.asset_contract &&
-          selectedCollectible.asset_contract.display_data &&
-          selectedCollectible.asset_contract.display_data.card_display_style}
-      />
+      <ReactCSSTransitionGroup
+        transitionName="app__modals"
+        transitionEnterTimeout={300}
+        transitionLeaveTimeout={300}
+      >
+        {showCollectiblesModal && (
+          <CollectiblesModal
+            handleCollectiblesModal={handleCollectiblesModal}
+            selectedCollectible={selectedCollectible}
+            onPublicProfile
+            padded={selectedCollectible.asset_contract &&
+              selectedCollectible.asset_contract.display_data &&
+              selectedCollectible.asset_contract.display_data.card_display_style}
+          />)}
+        {showCollectiblesModal && (
+          <ModalBackground />
+        )}
+
+      </ReactCSSTransitionGroup>
       {
         publicCollectiblesFavorites.length > 0
         && (

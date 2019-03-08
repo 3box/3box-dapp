@@ -158,8 +158,8 @@ const SideBar = ({
         </div>
       </div>
 
-      {document.queryCommandSupported('copy') && (
-        <div className={`${copySuccessful ? 'showModal' : ''} modal__container--copied modal--effect`}>
+      {(copySuccessful && document.queryCommandSupported('copy')) && (
+        <div className="modal__container--copied modal--effect">
           <div className="modal--sync">
             <div className="modal--sync__copy__wrapper">
               <img src={Copy} className="modal__copy__ico" alt="Copied" />
