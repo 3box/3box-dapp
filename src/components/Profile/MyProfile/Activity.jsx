@@ -17,15 +17,15 @@ const Activity = ({
 }) => (
     <div id="myFeed">
       <div>
-        <p className="header publicHeader" id="feed__header">Activity</p>
-        <StatusUpdate />
-        <div className="feed__activity__header">
+        <p className="header publicHeader" id="feed__header">
+          Activity
           {(ifFetchingActivity)
             && (
-              <div className="feed__activity__load">
-                <img src={Loading} alt="loading" id="activityLoad" />
-              </div>
+              <img src={Loading} alt="loading" id="activityLoad" />
             )}
+        </p>
+        <StatusUpdate />
+        <div className="feed__activity__header">
           {(feedByAddress.length > 0)
             ? feedByAddress.map((feedAddress, i) => (
               <div key={i} className="feed__activity__tile">

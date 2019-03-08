@@ -196,7 +196,8 @@
   color: #747677;
   font-weight: 400;
   margin-bottom: 6px;
-  padding: 20px 0 14px 20px; }
+  padding: 20px 0 14px 20px;
+  display: flex; }
 
 .feed__activity__tile {
   margin-bottom: 16px;
@@ -438,8 +439,9 @@
     color: #747677; }
 
 #activityLoad {
-  width: 3em;
-  height: 3em; }
+  width: 26px;
+  height: 26px;
+  margin-left: 14px; }
 
 @media only screen and (max-width: 1278px) {
   #feed {
