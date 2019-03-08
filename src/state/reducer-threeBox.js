@@ -296,6 +296,7 @@ export const threeBoxReducer = (state = {}, action) => {
         ...state,
         provideConsent: action.provideConsent,
         showSignInBanner: action.showSignInBanner,
+        showInfoBanner: action.showInfoBanner,
       };
 
     case 'LOADING_3BOX':
