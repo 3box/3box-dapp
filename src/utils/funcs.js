@@ -19,6 +19,7 @@ export const normalizeURL = (pathname) => {
 };
 
 export const matchProtectedRoutes = (normalizedPath) => {
+  console.log(normalizedPath);
   if (normalizedPath === routes.ACTIVITY ||
     normalizedPath === routes.DETAILS ||
     normalizedPath === routes.COLLECTIBLES ||

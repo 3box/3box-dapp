@@ -203,7 +203,6 @@ class App extends Component {
     } = this.props;
 
     if (this.props.hasWeb3) {
-      // await this.props.checkWeb3();
       await this.props.requestAccess();
       await this.props.checkNetwork();
 
@@ -262,11 +261,11 @@ class App extends Component {
     const landing = pathname === routes.LANDING ? 'landing' : '';
     const { userAgent: ua } = navigator;
     const isIOS = ua.includes('iPhone');
-    const isMyProfilePath = matchProtectedRoutes(normalizedPath.split('/'));
+    const isMyProfilePath = matchProtectedRoutes(normalizedPath.split('/')[2]);
 
     return (
       <div className="App">
-        {(!isLoggedIn && !ifFetchingThreeBox && !isMyProfilePath) // show landing nav when user is not logged in, 3box is not fetching, and when route is not a protected route
+        {(!isMyProfilePath) // show landing nav when user is not logged in, 3box is not fetching, and when route is not a protected route
           && (
             <NavLanding
               handleSignInUp={this.handleSignInUp}
@@ -594,3 +593,5 @@ export default withRouter(connect(mapState,
     closeErrorModal,
     closeRequireMetaMaskModal,
   })(App));
+
+  // {(!isLoggedIn && !ifFetchingThreeBox && !isMyProfilePath) // show landing nav when user is not logged in, 3box is not fetching, and when route is not a protected route
