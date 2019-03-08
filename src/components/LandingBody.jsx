@@ -7,6 +7,7 @@ import Diagram1 from '../assets/Diagram1.svg';
 import Diagram2 from '../assets/Diagram2.svg';
 import Diagram3 from '../assets/Diagram3.svg';
 import ThreeBoxLogoBlue from '../assets/ThreeBoxLogoBlue.svg';
+import GithubIcon from '../assets/GithubIcon.svg';
 import ProfileCard from '../assets/ProfileCard.png';
 
 import Profile1 from '../assets/Profile1.png';
@@ -65,6 +66,14 @@ const LandingBody = ({ isLoggedIn, handleSignInUp }) => (
       <div className="landing__hero__image">
         <img src={HeroImage} alt="Network and User" />
       </div>
+    </div>
+
+    <div className="landing__devs--mobile">
+      <h2>Support user profiles and off-chain data storage in your app.</h2>
+      <a href="https://github.com/3box/3box" className="landing__nav__developers--landing" target="_blank" rel="noopener noreferrer">
+        <img src={GithubIcon} alt="Github" className="landing__nav__developers__icon" />
+        Developers
+        </a>
     </div>
 
     <div className="landing__overview">

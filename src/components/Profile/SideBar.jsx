@@ -25,7 +25,6 @@ const SideBar = ({
   onPublicProfilePage,
   copyToClipBoard,
   copySuccessful,
-  showDownloadBanner,
   publicCoverPhoto,
   publicImage,
   publicName,
@@ -37,13 +36,13 @@ const SideBar = ({
     <div>
       {!onPublicProfilePage && (
         coverPhoto.length > 0 && coverPhoto[0].contentUrl
-          ? <img src={`https://ipfs.infura.io/ipfs/${coverPhoto[0].contentUrl['/']}`} className={`${showDownloadBanner ? 'bannerMargin' : ''} profile__coverPhoto clearProfPic`} alt="profile" />
-          : <div className={`${showDownloadBanner ? 'bannerMargin' : ''} profile__coverPhoto`} />)
+          ? <img src={`https://ipfs.infura.io/ipfs/${coverPhoto[0].contentUrl['/']}`} className="profile__coverPhoto clearProfPic" alt="profile" />
+          : <div className="profile__coverPhoto" />)
       }
       {onPublicProfilePage && (
         publicCoverPhoto.length > 0 && publicCoverPhoto[0].contentUrl
-          ? <img src={`https://ipfs.infura.io/ipfs/${publicCoverPhoto[0].contentUrl['/']}`} className={`${showSignInBanner ? 'showSignInBanner' : ''} ${(showDownloadBanner || showSignInBanner) ? 'bannerMargin' : ''} profile__coverPhoto clearProfPic`} alt="profile" />
-          : <div className={`${showSignInBanner ? 'showSignInBanner' : ''} ${(showDownloadBanner || showSignInBanner) ? 'bannerMargin' : ''} profile__coverPhoto`} />)
+          ? <img src={`https://ipfs.infura.io/ipfs/${publicCoverPhoto[0].contentUrl['/']}`} className={`${showSignInBanner ? 'showSignInBanner' : ''} ${showSignInBanner ? 'bannerMargin' : ''} profile__coverPhoto clearProfPic`} alt="profile" />
+          : <div className={`${showSignInBanner ? 'showSignInBanner' : ''} ${showSignInBanner ? 'bannerMargin' : ''} profile__coverPhoto`} />)
       }
 
       <div id="profile" className={!onPublicProfilePage && 'onMyProfile'}>
@@ -52,7 +51,7 @@ const SideBar = ({
           <div className={`
             ${showSignInBanner ? 'showSignInBanner' : ''} 
             ${onPublicProfilePage ? 'addBorderBottom' : ''} 
-            ${(onPublicProfilePage && (showDownloadBanner || showSignInBanner)) ? 'bannerMargin' : ''} 
+            ${(onPublicProfilePage && showSignInBanner) ? 'bannerMargin' : ''} 
             profile__user__info
           `}
           >
@@ -186,7 +185,6 @@ SideBar.propTypes = {
   location: PropTypes.object.isRequired,
   onPublicProfilePage: PropTypes.bool,
   copySuccessful: PropTypes.bool,
-  showDownloadBanner: PropTypes.bool,
   showSignInBanner: PropTypes.bool,
   copyToClipBoard: PropTypes.func.isRequired,
 };
@@ -205,7 +203,6 @@ SideBar.defaultProps = {
   emoji: '',
   copySuccessful: false,
   onPublicProfilePage: false,
-  showDownloadBanner: false,
   showSignInBanner: false,
 };
 
@@ -217,7 +214,6 @@ function mapState(state) {
     emoji: state.threeBox.emoji,
     description: state.threeBox.description,
     copySuccessful: state.threeBox.copySuccessful,
-    showDownloadBanner: state.threeBox.showDownloadBanner,
     showSignInBanner: state.threeBox.showSignInBanner,
     onPublicProfilePage: state.threeBox.onPublicProfilePage,
     publicCoverPhoto: state.threeBox.publicCoverPhoto,

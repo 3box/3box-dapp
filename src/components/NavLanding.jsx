@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import * as routes from '../utils/routes';
 import ThreeBoxLogoWhite from '../assets/ThreeBoxLogoWhite.svg';
 import ThreeBoxLogoBlue from '../assets/ThreeBoxLogoBlue.svg';
+import GithubIconBlue from '../assets/GithubIconBlue.svg';
 import '../views/styles/Landing.css';
 import './styles/Nav.css';
 
@@ -37,7 +38,7 @@ class NavLanding extends Component {
     const { retractNav } = this.state;
     const {
       handleSignInUp,
-      showDownloadBanner,
+      showInfoBanner,
       landing,
       pathname,
       onPublicProfilePage,
@@ -51,7 +52,7 @@ class NavLanding extends Component {
         id="landing__nav"
         className={`
             ${showSignInBanner ? 'showSignInBanner' : ''} 
-            ${(showDownloadBanner || showSignInBanner) ? 'bannerMargin' : ''} 
+            ${(showInfoBanner || showSignInBanner) ? 'bannerMargin' : ''} 
             ${classHide} 
             ${onPublicProfilePage && 'hide'} 
             ${landing}`}
@@ -63,16 +64,10 @@ class NavLanding extends Component {
               : <img src={ThreeBoxLogoWhite} alt="3Box Logo" className="landing__nav__logo" />
             }
           </Link>
-          <Link to={routes.PROFILES}>
-            <h4 className={`landing__nav__link ${landing} ${pathname === routes.PROFILES && 'underline'}`}>
-              Profiles
-            </h4>
-          </Link>
-          <Link to={routes.JOBS}>
-            <h4 className={`landing__nav__link ${landing} ${pathname === routes.JOBS && 'underline'}`}>
-              Jobs
-            </h4>
-          </Link>
+          <a href="https://github.com/3box/3box" className="landing__nav__developers" target="_blank" rel="noopener noreferrer">
+            <img src={GithubIconBlue} alt="Github" className="landing__nav__developers__icon" />
+            Developers
+          </a>
         </div>
         <div id="actionButtons">
           <Link to={routes.CREATE}>
@@ -91,7 +86,7 @@ class NavLanding extends Component {
 
 NavLanding.propTypes = {
   isLoggedIn: PropTypes.bool,
-  showDownloadBanner: PropTypes.bool,
+  showInfoBanner: PropTypes.bool,
   showSignInBanner: PropTypes.bool,
   onPublicProfilePage: PropTypes.bool,
   classHide: PropTypes.string,
@@ -104,7 +99,7 @@ NavLanding.propTypes = {
 
 NavLanding.defaultProps = {
   isLoggedIn: false,
-  showDownloadBanner: false,
+  showInfoBanner: false,
   onPublicProfilePage: false,
   showSignInBanner: false,
   classHide: '',
@@ -116,7 +111,7 @@ NavLanding.defaultProps = {
 function mapState(state) {
   return {
     isLoggedIn: state.threeBox.isLoggedIn,
-    showDownloadBanner: state.threeBox.showDownloadBanner,
+    showInfoBanner: state.threeBox.showInfoBanner,
     showSignInBanner: state.threeBox.showSignInBanner,
   };
 }

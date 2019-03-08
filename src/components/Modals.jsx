@@ -27,6 +27,30 @@ import Loading from '../assets/Loading.svg';
 import LoadingWhite from '../assets/LoadingWhite.svg';
 import './styles/Modal.css';
 
+export const ThreeBoxInfoBanner = ({
+  showInfoBanner,
+  handleInfoBanner,
+}) => (
+    <div className={`${showInfoBanner ? '' : 'hideBanner'} webThreeBanner`}>
+      <p>
+        Support user profiles and off-chain data storage in your app.
+      </p>
+      <a href="https://github.com/3box/3box/" target="_blank" rel="noopener noreferrer">
+        <button type="button" className="infoBanner__link">
+          Learn more
+        </button>
+      </a>
+      <p onClick={handleInfoBanner} className="webThreeBanner__close">
+        &#10005;
+      </p>
+    </div>
+  );
+
+ThreeBoxInfoBanner.propTypes = {
+  handleInfoBanner: PropTypes.func.isRequired,
+  showInfoBanner: PropTypes.bool.isRequired,
+};
+
 export const SwitchedNetworksModal = ({
   prevNetwork,
   currentNetwork,
@@ -860,6 +884,11 @@ export const RequireMetaMaskModal = ({ closeRequireMetaMaskModal, show, isMobile
             ? <p>You must have a web3 wallet to use 3Box</p>
             : <p>You must have MetaMask to use 3Box</p>
           }
+          <a href="https://metamask.io/" target="_blank" rel="noopener noreferrer">
+            <button type="button" className="modal__reqWeb3__button">
+              Download MetaMask
+            </button>
+          </a>
         </div>
 
         <button onClick={closeRequireMetaMaskModal} type="button" className="tertiaryButton">Close</button>

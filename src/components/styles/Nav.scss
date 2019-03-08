@@ -235,6 +235,29 @@ nav {
   position: relative;
 }
 
+.landing__nav__developers {
+  color: $threeBoxBlue;
+  border: solid 1px $threeBoxBlue;
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin-left: 36px;
+  transition: all .3s;
+
+  &:hover {
+    background-color: $threeBoxBlue;
+    color: white;
+  }
+
+  &:hover .landing__nav__developers__icon {
+    filter: brightness(0) invert(1);
+  }
+}
+
+.landing__nav__developers__icon {
+  width: 18px;
+  margin-right: 9px;
+}
+
 .hide .underline.landing__nav__link {
   border-bottom: 3px solid $threeBoxBlue;
   margin-bottom: -6px;
@@ -501,6 +524,16 @@ nav {
     button {
       color: white;
     }
+  }
+
+
+  .landing__nav__developers {
+    display: none !important;
+  }
+
+  .landing__nav__developers__icon {
+    width: 18px;
+    margin-right: 9px;
   }
 
   .landing #actionButtons {

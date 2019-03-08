@@ -37,7 +37,7 @@ const {
   handleLoggedOutModal,
   handleSwitchedAddressModal,
   requireMetaMaskModal,
-  handleDownloadMetaMaskBanner,
+  handleInfoBanner,
   handleMobileWalletModal,
   handleOnboardingModal,
 } = actions.modal;
@@ -242,7 +242,7 @@ class App extends Component {
       showErrorModal,
       isLoggedIn,
       isSignedIntoWallet,
-      showDownloadBanner,
+      showInfoBanner,
       location,
       onSyncFinished,
       isSyncing,
@@ -277,13 +277,14 @@ class App extends Component {
           )}
 
         <AppModals
-          showDownloadBanner={showDownloadBanner}
+          showInfoBanner={showInfoBanner}
           ifFetchingThreeBox={ifFetchingThreeBox}
           onSyncFinished={onSyncFinished}
           isSyncing={isSyncing}
           hasSignedOut={hasSignedOut}
           allowAccessModal={allowAccessModal}
           directLogin={directLogin}
+          isMyProfilePath={isMyProfilePath}
           alertRequireMetaMask={alertRequireMetaMask}
           accessDeniedModal={accessDeniedModal}
           signInToWalletModal={signInToWalletModal}
@@ -312,7 +313,7 @@ class App extends Component {
           handleDeniedAccessModal={this.props.handleDeniedAccessModal}
           closeErrorModal={this.props.closeErrorModal}
           handleSwitchedNetworkModal={this.props.handleSwitchedNetworkModal}
-          handleDownloadMetaMaskBanner={this.props.handleDownloadMetaMaskBanner}
+          handleInfoBanner={this.props.handleInfoBanner}
           handleLoggedOutModal={this.props.handleLoggedOutModal}
           handleSignOut={this.props.handleSignOut}
           handleSwitchedAddressModal={this.props.handleSwitchedAddressModal}
@@ -453,7 +454,7 @@ App.propTypes = {
   getActivity: PropTypes.func.isRequired,
   checkWeb3: PropTypes.func.isRequired,
   requireMetaMaskModal: PropTypes.func.isRequired,
-  handleDownloadMetaMaskBanner: PropTypes.func.isRequired,
+  handleInfoBanner: PropTypes.func.isRequired,
   handleMobileWalletModal: PropTypes.func.isRequired,
   handleSwitchedNetworkModal: PropTypes.func.isRequired,
   handleAccessModal: PropTypes.func.isRequired,
@@ -491,7 +492,7 @@ App.propTypes = {
   onBoardingModal: PropTypes.bool,
   onBoardingModalTwo: PropTypes.bool,
   ifFetchingThreeBox: PropTypes.bool,
-  showDownloadBanner: PropTypes.bool,
+  showInfoBanner: PropTypes.bool,
   onPublicProfilePage: PropTypes.bool,
   prevNetwork: PropTypes.string,
   currentNetwork: PropTypes.string,
@@ -518,7 +519,7 @@ App.defaultProps = {
   signInModal: false,
   mobileWalletRequiredModal: false,
   showErrorModal: false,
-  showDownloadBanner: false,
+  showInfoBanner: false,
   loggedOutModal: false,
   switchedAddressModal: false,
   onBoardingModal: false,
@@ -558,7 +559,7 @@ const mapState = state => ({
   showErrorModal: state.threeBox.showErrorModal,
   accessDeniedModal: state.threeBox.accessDeniedModal,
   isSignedIntoWallet: state.threeBox.isSignedIntoWallet,
-  showDownloadBanner: state.threeBox.showDownloadBanner,
+  showInfoBanner: state.threeBox.showInfoBanner,
   onPublicProfilePage: state.threeBox.onPublicProfilePage,
   currentAddress: state.threeBox.currentAddress,
   hasWeb3: state.threeBox.hasWeb3,
@@ -578,7 +579,7 @@ export default withRouter(connect(mapState,
     checkWeb3,
     requireMetaMaskModal,
     checkNetwork,
-    handleDownloadMetaMaskBanner,
+    handleInfoBanner,
     handleMobileWalletModal,
     handleSignInModal,
     handleRequireWalletLoginModal,

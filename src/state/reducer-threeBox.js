@@ -474,10 +474,10 @@ export const threeBoxReducer = (state = {}, action) => {
         allowAccessModal: action.allowAccessModal,
       };
 
-    case 'HANDLE_DOWNLOAD_BANNER':
+    case 'HANDLE_INFO_BANNER':
       return {
         ...state,
-        showDownloadBanner: action.showDownloadBanner,
+        showInfoBanner: action.showInfoBanner,
       };
 
     case 'UPDATE_ROUTE':
