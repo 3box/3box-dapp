@@ -15,7 +15,7 @@ import '../../styles/Modal.css';
 const { handleCollectiblesModal } = actions.modal;
 
 const PublicCollectiblesGallery = ({
-  publicCollectiblesFavorites,
+  otherCollectiblesFavorites,
   showCollectiblesModal,
   handleCollectiblesModal,
   selectedCollectible,
@@ -41,14 +41,14 @@ const PublicCollectiblesGallery = ({
 
       </ReactCSSTransitionGroup>
       {
-        publicCollectiblesFavorites.length > 0
+        otherCollectiblesFavorites.length > 0
         && (
           <div className="collectibles">
             <p className="header" id="feed__header">Favorites</p>
             <div className="favorites__grid__wrapper">
               <div className="collectibles__grid favorites__grid">
-                {publicCollectiblesFavorites.length > 0
-                  ? publicCollectiblesFavorites.map(collectible => (
+                {otherCollectiblesFavorites.length > 0
+                  ? otherCollectiblesFavorites.map(collectible => (
                     <CollectiblesTile
                       collectible={collectible}
                       image={collectible.image_preview_url}
@@ -74,21 +74,21 @@ const PublicCollectiblesGallery = ({
   );
 
 PublicCollectiblesGallery.propTypes = {
-  publicCollectiblesFavorites: PropTypes.array,
+  otherCollectiblesFavorites: PropTypes.array,
   showCollectiblesModal: PropTypes.bool.isRequired,
   handleCollectiblesModal: PropTypes.func.isRequired,
   selectedCollectible: PropTypes.object,
 };
 
 PublicCollectiblesGallery.defaultProps = {
-  publicCollectiblesFavorites: [],
+  otherCollectiblesFavorites: [],
   selectedCollectible: {},
 };
 
 const mapState = state => ({
-  publicCollectiblesFavorites: state.threeBox.publicCollectiblesFavorites,
-  showCollectiblesModal: state.threeBox.showCollectiblesModal,
-  selectedCollectible: state.threeBox.selectedCollectible,
+  otherCollectiblesFavorites: state.otherProfile.otherCollectiblesFavorites,
+  showCollectiblesModal: state.uiState.showCollectiblesModal,
+  selectedCollectible: state.uiState.selectedCollectible,
 });
 
 export default connect(mapState, { handleCollectiblesModal })(PublicCollectiblesGallery);

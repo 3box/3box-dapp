@@ -89,7 +89,7 @@ FeedTileActivity.defaultProps = {
   verifiedEmail: '',
 };
 
-export const FeedTileInternal = ({ item, name, onPublicProfilePage, metaDataName, isFromProfile, contractImg }) => (
+export const FeedTileInternal = ({ item, name, onOtherProfilePage, metaDataName, isFromProfile, contractImg }) => (
   <a href={`https://etherscan.io/tx/${item.hash}`} target="_blank" rel="noopener noreferrer" className="feed__activity">
     <div className="feed__activity__data">
 
@@ -117,20 +117,20 @@ export const FeedTileInternal = ({ item, name, onPublicProfilePage, metaDataName
         }
         <p className="feed__activity__text">
           <span className="feed__activity__info__key">
-            {(onPublicProfilePage && item.value === '0') && (isFromProfile
+            {(onOtherProfilePage && item.value === '0') && (isFromProfile
               ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`
               : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`)
             }
-            {(!onPublicProfilePage && item.value === '0') && (isFromProfile
+            {(!onOtherProfilePage && item.value === '0') && (isFromProfile
               ? 'You performed the action'
               : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`)
             }
 
-            {(onPublicProfilePage && item.value !== '0') && (isFromProfile
+            {(onOtherProfilePage && item.value !== '0') && (isFromProfile
               ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} sent`
               : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
             }
-            {(!onPublicProfilePage && item.value !== '0') && (isFromProfile
+            {(!onOtherProfilePage && item.value !== '0') && (isFromProfile
               ? 'You sent'
               : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
             }
@@ -143,11 +143,11 @@ export const FeedTileInternal = ({ item, name, onPublicProfilePage, metaDataName
 
           {item.value !== '0' && (
             <span className="feed__activity__info__key">
-              {onPublicProfilePage && (isFromProfile
+              {onOtherProfilePage && (isFromProfile
                 ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
                 : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`)
               }
-              {!onPublicProfilePage && (isFromProfile
+              {!onOtherProfilePage && (isFromProfile
                 ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
                 : `to you`)
               }
@@ -174,7 +174,7 @@ FeedTileInternal.propTypes = {
   item: PropTypes.object,
   metaDataName: PropTypes.string,
   name: PropTypes.string,
-  onPublicProfilePage: PropTypes.bool,
+  onOtherProfilePage: PropTypes.bool,
   isFromProfile: PropTypes.bool,
   contractImg: PropTypes.string,
 };
@@ -184,11 +184,11 @@ FeedTileInternal.defaultProps = {
   metaDataName: '',
   name: '',
   contractImg: '',
-  onPublicProfilePage: false,
+  onOtherProfilePage: false,
   isFromProfile: false,
 };
 
-export const FeedTileToken = ({ item, name, onPublicProfilePage, metaDataName, isFromProfile, contractImg }) => (
+export const FeedTileToken = ({ item, name, onOtherProfilePage, metaDataName, isFromProfile, contractImg }) => (
   <a href={`https://etherscan.io/tx/${item.hash}`} target="_blank" rel="noopener noreferrer" className="feed__activity">
     <div className="feed__activity__data">
       <div className="feed__activity__info">
@@ -211,20 +211,20 @@ export const FeedTileToken = ({ item, name, onPublicProfilePage, metaDataName, i
         }
         <p className="feed__activity__text">
           <span className="feed__activity__info__key">
-            {(onPublicProfilePage && item.value === '0') && (isFromProfile
+            {(onOtherProfilePage && item.value === '0') && (isFromProfile
               ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`
               : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`)
             }
-            {(!onPublicProfilePage && item.value === '0') && (isFromProfile
+            {(!onOtherProfilePage && item.value === '0') && (isFromProfile
               ? 'You performed the action'
               : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`)
             }
 
-            {(onPublicProfilePage && item.value !== '0') && (isFromProfile
+            {(onOtherProfilePage && item.value !== '0') && (isFromProfile
               ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} sent`
               : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
             }
-            {(!onPublicProfilePage && item.value !== '0') && (isFromProfile
+            {(!onOtherProfilePage && item.value !== '0') && (isFromProfile
               ? 'You sent'
               : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
             }
@@ -236,11 +236,11 @@ export const FeedTileToken = ({ item, name, onPublicProfilePage, metaDataName, i
 
           {item.value !== '0' && (
             <span className="feed__activity__info__key">
-              {onPublicProfilePage && (isFromProfile
+              {onOtherProfilePage && (isFromProfile
                 ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
                 : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`)
               }
-              {!onPublicProfilePage && (isFromProfile
+              {!onOtherProfilePage && (isFromProfile
                 ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
                 : `to you`)
               }
@@ -267,7 +267,7 @@ FeedTileToken.propTypes = {
   metaDataName: PropTypes.string,
   contractImg: PropTypes.string,
   name: PropTypes.string,
-  onPublicProfilePage: PropTypes.bool,
+  onOtherProfilePage: PropTypes.bool,
   isFromProfile: PropTypes.bool,
 };
 
@@ -276,11 +276,11 @@ FeedTileToken.defaultProps = {
   metaDataName: '',
   contractImg: '',
   name: '',
-  onPublicProfilePage: false,
+  onOtherProfilePage: false,
   isFromProfile: false,
 };
 
-export const FeedTileTXS = ({ item, name, onPublicProfilePage, metaDataName, isFromProfile, contractImg }) => (
+export const FeedTileTXS = ({ item, name, onOtherProfilePage, metaDataName, isFromProfile, contractImg }) => (
   <a href={`https://etherscan.io/tx/${item.hash}`} target="_blank" rel="noopener noreferrer" className="feed__activity">
     <div className="feed__activity__data">
       <div className="feed__activity__info">
@@ -301,20 +301,20 @@ export const FeedTileTXS = ({ item, name, onPublicProfilePage, metaDataName, isF
         }
         <p className="feed__activity__text">
           <span className="feed__activity__info__key">
-            {(onPublicProfilePage && item.value === '0') && (isFromProfile
+            {(onOtherProfilePage && item.value === '0') && (isFromProfile
               ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`
               : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`)
             }
-            {(!onPublicProfilePage && item.value === '0') && (isFromProfile
+            {(!onOtherProfilePage && item.value === '0') && (isFromProfile
               ? 'You performed the action'
               : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`)
             }
 
-            {(onPublicProfilePage && item.value !== '0') && (isFromProfile
+            {(onOtherProfilePage && item.value !== '0') && (isFromProfile
               ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} sent`
               : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
             }
-            {(!onPublicProfilePage && item.value !== '0') && (isFromProfile
+            {(!onOtherProfilePage && item.value !== '0') && (isFromProfile
               ? 'You sent'
               : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
             }
@@ -327,11 +327,11 @@ export const FeedTileTXS = ({ item, name, onPublicProfilePage, metaDataName, isF
 
           {item.value !== '0' && (
             <span className="feed__activity__info__key">
-              {onPublicProfilePage && (isFromProfile
+              {onOtherProfilePage && (isFromProfile
                 ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
                 : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`)
               }
-              {!onPublicProfilePage && (isFromProfile
+              {!onOtherProfilePage && (isFromProfile
                 ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
                 : `to you`)
               }
@@ -359,7 +359,7 @@ FeedTileTXS.propTypes = {
   metaDataName: PropTypes.string,
   contractImg: PropTypes.string,
   name: PropTypes.string,
-  onPublicProfilePage: PropTypes.bool,
+  onOtherProfilePage: PropTypes.bool,
   isFromProfile: PropTypes.bool,
 };
 
@@ -368,6 +368,6 @@ FeedTileTXS.defaultProps = {
   metaDataName: '',
   contractImg: '',
   name: '',
-  onPublicProfilePage: false,
+  onOtherProfilePage: false,
   isFromProfile: false,
 };

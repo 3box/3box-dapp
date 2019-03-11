@@ -44,7 +44,7 @@ const {
 } = actions.modal;
 
 const {
-  getProfileValue,
+  getMyProfileValue,
   getCollectibles,
   getMyMemberSince,
   getVerifiedPublicGithub,
@@ -144,23 +144,23 @@ class App extends Component {
     this.props.getVerifiedPublicTwitter();
     this.props.getVerifiedPrivateEmail();
     this.props.getMyMemberSince();
-    this.props.getProfileValue('public', 'status');
-    this.props.getProfileValue('public', 'name');
-    this.props.getProfileValue('public', 'description');
-    this.props.getProfileValue('public', 'image');
-    this.props.getProfileValue('public', 'coverPhoto');
-    this.props.getProfileValue('public', 'location');
-    this.props.getProfileValue('public', 'website');
-    this.props.getProfileValue('public', 'employer');
-    this.props.getProfileValue('public', 'job');
-    this.props.getProfileValue('public', 'school');
-    this.props.getProfileValue('public', 'degree');
-    this.props.getProfileValue('public', 'major');
-    this.props.getProfileValue('public', 'year');
-    this.props.getProfileValue('public', 'emoji');
-    this.props.getProfileValue('public', 'collectiblesFavorites');
-    this.props.getProfileValue('private', 'email');
-    this.props.getProfileValue('private', 'birthday');
+    this.props.getMyProfileValue('public', 'status');
+    this.props.getMyProfileValue('public', 'name');
+    this.props.getMyProfileValue('public', 'description');
+    this.props.getMyProfileValue('public', 'image');
+    this.props.getMyProfileValue('public', 'coverPhoto');
+    this.props.getMyProfileValue('public', 'location');
+    this.props.getMyProfileValue('public', 'website');
+    this.props.getMyProfileValue('public', 'employer');
+    this.props.getMyProfileValue('public', 'job');
+    this.props.getMyProfileValue('public', 'school');
+    this.props.getMyProfileValue('public', 'degree');
+    this.props.getMyProfileValue('public', 'major');
+    this.props.getMyProfileValue('public', 'year');
+    this.props.getMyProfileValue('public', 'emoji');
+    this.props.getMyProfileValue('public', 'collectiblesFavorites');
+    this.props.getMyProfileValue('private', 'email');
+    this.props.getMyProfileValue('private', 'birthday');
     this.props.getCollectibles(currentAddress);
   }
 
@@ -237,7 +237,7 @@ class App extends Component {
       currentNetwork,
       onBoardingModal,
       onBoardingModalTwo,
-      ifFetchingThreeBox,
+      isFetchingThreeBox,
       prevAddress,
       showErrorModal,
       isLoggedIn,
@@ -247,7 +247,7 @@ class App extends Component {
       onSyncFinished,
       isSyncing,
       hasSignedOut,
-      onPublicProfilePage,
+      onOtherProfilePage,
     } = this.props;
 
     const {
@@ -270,7 +270,7 @@ class App extends Component {
           && (
             <NavLanding
               handleSignInUp={this.handleSignInUp}
-              onPublicProfilePage={onPublicProfilePage}
+              onOtherProfilePage={onOtherProfilePage}
               landing={landing}
               pathname={normalizedPath}
             />
@@ -278,7 +278,7 @@ class App extends Component {
 
         <AppModals
           showInfoBanner={showInfoBanner}
-          ifFetchingThreeBox={ifFetchingThreeBox}
+          isFetchingThreeBox={isFetchingThreeBox}
           onSyncFinished={onSyncFinished}
           isSyncing={isSyncing}
           hasSignedOut={hasSignedOut}
@@ -451,7 +451,7 @@ class App extends Component {
 App.propTypes = {
   openBox: PropTypes.func.isRequired,
   requestAccess: PropTypes.func.isRequired,
-  getProfileValue: PropTypes.func.isRequired,
+  getMyProfileValue: PropTypes.func.isRequired,
   getCollectibles: PropTypes.func.isRequired,
   getMyMemberSince: PropTypes.func.isRequired,
   getVerifiedPublicGithub: PropTypes.func.isRequired,
@@ -497,9 +497,9 @@ App.propTypes = {
   switchedAddressModal: PropTypes.bool,
   onBoardingModal: PropTypes.bool,
   onBoardingModalTwo: PropTypes.bool,
-  ifFetchingThreeBox: PropTypes.bool,
+  isFetchingThreeBox: PropTypes.bool,
   showInfoBanner: PropTypes.bool,
-  onPublicProfilePage: PropTypes.bool,
+  onOtherProfilePage: PropTypes.bool,
   prevNetwork: PropTypes.string,
   currentNetwork: PropTypes.string,
   currentAddress: PropTypes.string,
@@ -515,7 +515,7 @@ App.defaultProps = {
   accessDeniedModal: false,
   onSyncFinished: false,
   hasSignedOut: false,
-  onPublicProfilePage: false,
+  onOtherProfilePage: false,
   isSyncing: false,
   errorMessage: '',
   allowAccessModal: false,
@@ -530,7 +530,7 @@ App.defaultProps = {
   switchedAddressModal: false,
   onBoardingModal: false,
   onBoardingModalTwo: false,
-  ifFetchingThreeBox: false,
+  isFetchingThreeBox: false,
   isLoggedIn: false,
   isSignedIntoWallet: false,
   prevNetwork: '',
@@ -541,41 +541,42 @@ App.defaultProps = {
 };
 
 const mapState = state => ({
-  showDifferentNetworkModal: state.threeBox.showDifferentNetworkModal,
-  allowAccessModal: state.threeBox.allowAccessModal,
-  alertRequireMetaMask: state.threeBox.alertRequireMetaMask,
-  onSyncFinished: state.threeBox.onSyncFinished,
-  isSyncing: state.threeBox.isSyncing,
-  provideConsent: state.threeBox.provideConsent,
-  signInToWalletModal: state.threeBox.signInToWalletModal,
-  signInModal: state.threeBox.signInModal,
-  mobileWalletRequiredModal: state.threeBox.mobileWalletRequiredModal,
-  directLogin: state.threeBox.directLogin,
-  loggedOutModal: state.threeBox.loggedOutModal,
-  switchedAddressModal: state.threeBox.switchedAddressModal,
-  onBoardingModal: state.threeBox.onBoardingModal,
-  hasSignedOut: state.threeBox.hasSignedOut,
-  onBoardingModalTwo: state.threeBox.onBoardingModalTwo,
-  prevNetwork: state.threeBox.prevNetwork,
-  currentNetwork: state.threeBox.currentNetwork,
-  ifFetchingThreeBox: state.threeBox.ifFetchingThreeBox,
-  errorMessage: state.threeBox.errorMessage,
-  prevAddress: state.threeBox.prevAddress,
-  isLoggedIn: state.threeBox.isLoggedIn,
-  showErrorModal: state.threeBox.showErrorModal,
-  accessDeniedModal: state.threeBox.accessDeniedModal,
-  isSignedIntoWallet: state.threeBox.isSignedIntoWallet,
-  showInfoBanner: state.threeBox.showInfoBanner,
-  onPublicProfilePage: state.threeBox.onPublicProfilePage,
-  currentAddress: state.threeBox.currentAddress,
-  hasWeb3: state.threeBox.hasWeb3,
+  showDifferentNetworkModal: state.uiState.showDifferentNetworkModal,
+  allowAccessModal: state.uiState.allowAccessModal,
+  alertRequireMetaMask: state.uiState.alertRequireMetaMask,
+  provideConsent: state.uiState.provideConsent,
+  signInToWalletModal: state.uiState.signInToWalletModal,
+  signInModal: state.uiState.signInModal,
+  mobileWalletRequiredModal: state.uiState.mobileWalletRequiredModal,
+  directLogin: state.uiState.directLogin,
+  loggedOutModal: state.uiState.loggedOutModal,
+  switchedAddressModal: state.uiState.switchedAddressModal,
+  onBoardingModal: state.uiState.onBoardingModal,
+  onBoardingModalTwo: state.uiState.onBoardingModalTwo,
+  isFetchingThreeBox: state.uiState.isFetchingThreeBox,
+  errorMessage: state.uiState.errorMessage,
+  prevAddress: state.uiState.prevAddress,
+  showErrorModal: state.uiState.showErrorModal,
+  accessDeniedModal: state.uiState.accessDeniedModal,
+  showInfoBanner: state.uiState.showInfoBanner,
+  onOtherProfilePage: state.uiState.onOtherProfilePage,
+
+  onSyncFinished: state.userState.onSyncFinished,
+  isSyncing: state.userState.isSyncing,
+  hasSignedOut: state.userState.hasSignedOut,
+  prevNetwork: state.userState.prevNetwork,
+  currentNetwork: state.userState.currentNetwork,
+  isLoggedIn: state.userState.isLoggedIn,
+  isSignedIntoWallet: state.userState.isSignedIntoWallet,
+  currentAddress: state.userState.currentAddress,
+  hasWeb3: state.userState.hasWeb3,
 });
 
 export default withRouter(connect(mapState,
   {
     openBox,
     requestAccess,
-    getProfileValue,
+    getMyProfileValue,
     getCollectibles,
     getMyMemberSince,
     getVerifiedPublicGithub,
@@ -600,5 +601,3 @@ export default withRouter(connect(mapState,
     closeErrorModal,
     closeRequireMetaMaskModal,
   })(App));
-
-  // {(!isLoggedIn && !ifFetchingThreeBox && !isMyProfilePath) // show landing nav when user is not logged in, 3box is not fetching, and when route is not a protected route

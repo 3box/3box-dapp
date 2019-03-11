@@ -80,7 +80,7 @@ Content.defaultProps = {
 };
 
 const mapState = state => ({
-  currentAddress: state.threeBox.currentAddress,
+  currentAddress: state.userState.currentAddress,
 });
 
 export default withRouter(connect(mapState)(Content));

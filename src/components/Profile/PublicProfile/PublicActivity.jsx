@@ -11,30 +11,30 @@ import '../../../views/styles/Profile.css';
 import '../../styles/NetworkArray.css';
 
 const PublicActivity = ({
-  ifFetchingActivity,
-  publicProfileActivity,
-  publicCollectiblesFavorites,
-  publicStatus,
+  isFetchingActivity,
+  otherProfileActivity,
+  otherCollectiblesFavorites,
+  otherStatus,
 }) => (
-    <div id="feed" className={`${publicCollectiblesFavorites.length > 0 && 'noTopMargin'}`}>
+    <div id="feed" className={`${otherCollectiblesFavorites.length > 0 && 'noTopMargin'}`}>
       <div>
         <p className="header" id="feed__header">Activity</p>
-        {publicStatus && <StatusUpdate />}
+        {otherStatus && <StatusUpdate />}
         <div className="feed__activity__header">
-          {(ifFetchingActivity)
+          {(isFetchingActivity)
             && (
               <div className="feed__activity__load">
                 <img src={Loading} alt="loading" id="activityLoad" />
               </div>
             )}
-          {publicProfileActivity.length > 0
-            ? publicProfileActivity.map((feedAddress, i) => (
+          {otherProfileActivity.length > 0
+            ? otherProfileActivity.map((feedAddress, i) => (
               <div key={i} className="feed__activity__tile">
                 <PublicActivityHeader i={i} feedAddress={feedAddress} />
                 <PublicActivityTiles feedAddress={feedAddress} />
               </div>
             ))
-            : (!ifFetchingActivity && publicProfileActivity.length === 0)
+            : (!isFetchingActivity && otherProfileActivity.length === 0)
             && (
               <div className="feed__activity__load">
                 <p>No activity at this address yet</p>
@@ -52,26 +52,27 @@ const PublicActivity = ({
   );
 
 PublicActivity.propTypes = {
-  ifFetchingActivity: PropTypes.bool,
-  publicCollectiblesFavorites: PropTypes.array,
-  publicProfileActivity: PropTypes.array,
-  publicStatus: PropTypes.string,
+  isFetchingActivity: PropTypes.bool,
+  otherCollectiblesFavorites: PropTypes.array,
+  otherProfileActivity: PropTypes.array,
+  otherStatus: PropTypes.string,
 };
 
 PublicActivity.defaultProps = {
-  ifFetchingActivity: false,
-  publicCollectiblesFavorites: [],
-  publicProfileActivity: [],
-  publicStatus: '',
+  isFetchingActivity: false,
+  otherCollectiblesFavorites: [],
+  otherProfileActivity: [],
+  otherStatus: '',
 };
 
 const mapState = state => ({
-  ifFetchingActivity: state.threeBox.ifFetchingActivity,
-  publicProfileActivity: state.threeBox.publicProfileActivity,
-  publicProfileAddress: state.threeBox.publicProfileAddress,
-  publicName: state.threeBox.publicName,
-  publicStatus: state.threeBox.publicStatus,
-  publicCollectiblesFavorites: state.threeBox.publicCollectiblesFavorites,
+  isFetchingActivity: state.uiState.isFetchingActivity,
+
+  otherProfileActivity: state.otherProfile.otherProfileActivity,
+  otherProfileAddress: state.otherProfile.otherProfileAddress,
+  otherName: state.otherProfile.otherName,
+  otherStatus: state.otherProfile.otherStatus,
+  otherCollectiblesFavorites: state.otherProfile.otherCollectiblesFavorites,
 });
 
 export default connect(mapState)(PublicActivity);

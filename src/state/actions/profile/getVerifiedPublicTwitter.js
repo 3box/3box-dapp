@@ -4,7 +4,7 @@ import {
 
 const getVerifiedPublicTwitter = () => async (dispatch) => {
   try {
-    const verifiedTwitter = await store.getState().threeBox.box.verified.twitter();
+    const verifiedTwitter = await store.getState().myData.box.verified.twitter();
 
     dispatch({
       type: 'GET_VERIFIED_PUBLIC_TWITTER',

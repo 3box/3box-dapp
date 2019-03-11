@@ -1,6 +1,6 @@
 import getCollectibles from './getCollectibles';
 import getOtherProfile from './getOtherProfile';
-import getProfileValue from './getProfileValue';
+import getMyProfileValue from './getMyProfileValue';
 import getMyDID from './getMyDID';
 import getMyMemberSince from './getMyMemberSince';
 import getVerifiedPrivateEmail from './getVerifiedPrivateEmail';
@@ -13,7 +13,7 @@ export default {
   getCollectibles,
   getOtherProfile,
   getActivity,
-  getProfileValue,
+  getMyProfileValue,
   getMyDID,
   getMyMemberSince,
   getVerifiedPrivateEmail,

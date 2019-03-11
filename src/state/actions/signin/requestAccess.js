@@ -26,11 +26,15 @@ const requestAccess = directLogin => async (dispatch) => {
 
       dispatch({
         type: 'UPDATE_ADDRESSES',
-        isSignedIntoWallet: accounts && (accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi'),
+        isSignedIntoWallet: accounts && (accounts.length > 0 || store.getState().userState.currentWallet === 'isToshi'),
         isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
         accountAddress: accounts[0],
-        allowAccessModal: false,
         currentAddress: accounts[0],
+      });
+      dispatch({
+        type: 'HANDLE_ACCESS_MODAL',
+        allowAccessModal: false,
+        directLogin,
       });
     } catch (error) {
       console.error(error);
@@ -39,7 +43,7 @@ const requestAccess = directLogin => async (dispatch) => {
         type: 'HANDLE_DENIED_ACCESS_MODAL',
         accessDeniedModal: true,
         allowAccessModal: false,
-        isSignedIntoWallet: accounts && (accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi'),
+        isSignedIntoWallet: accounts && (accounts.length > 0 || store.getState().userState.currentWallet === 'isToshi'),
       });
     }
   } else if (window.web3) { // eslint-disable-line no-undef
@@ -50,7 +54,7 @@ const requestAccess = directLogin => async (dispatch) => {
 
     dispatch({
       type: 'UPDATE_ADDRESSES',
-      isSignedIntoWallet: accounts && (accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi'),
+      isSignedIntoWallet: accounts && (accounts.length > 0 || store.getState().userState.currentWallet === 'isToshi'),
       isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
       currentAddress: accounts[0],
     });

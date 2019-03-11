@@ -41,7 +41,7 @@ class NavLanding extends Component {
       showInfoBanner,
       landing,
       pathname,
-      onPublicProfilePage,
+      onOtherProfilePage,
       showSignInBanner,
     } = this.props;
 
@@ -54,12 +54,12 @@ class NavLanding extends Component {
             ${showSignInBanner ? 'showSignInBanner' : ''} 
             ${(showInfoBanner || showSignInBanner) ? 'bannerMargin' : ''} 
             ${classHide} 
-            ${onPublicProfilePage && 'hide'} 
+            ${onOtherProfilePage && 'hide'} 
             ${landing}`}
       >
         <div id="landing__nav__logo--marginLeft">
           <Link to={routes.LANDING}>
-            {(classHide || landing || onPublicProfilePage)
+            {(classHide || landing || onOtherProfilePage)
               ? <img src={ThreeBoxLogoBlue} alt="3Box Logo" className="landing__nav__logo" />
               : <img src={ThreeBoxLogoWhite} alt="3Box Logo" className="landing__nav__logo" />
             }
@@ -88,7 +88,7 @@ NavLanding.propTypes = {
   isLoggedIn: PropTypes.bool,
   showInfoBanner: PropTypes.bool,
   showSignInBanner: PropTypes.bool,
-  onPublicProfilePage: PropTypes.bool,
+  onOtherProfilePage: PropTypes.bool,
   classHide: PropTypes.string,
   landing: PropTypes.string,
   normalizedPath: PropTypes.string,
@@ -100,7 +100,7 @@ NavLanding.propTypes = {
 NavLanding.defaultProps = {
   isLoggedIn: false,
   showInfoBanner: false,
-  onPublicProfilePage: false,
+  onOtherProfilePage: false,
   showSignInBanner: false,
   classHide: '',
   landing: '',
@@ -110,9 +110,10 @@ NavLanding.defaultProps = {
 
 function mapState(state) {
   return {
-    isLoggedIn: state.threeBox.isLoggedIn,
-    showInfoBanner: state.threeBox.showInfoBanner,
-    showSignInBanner: state.threeBox.showSignInBanner,
+    isLoggedIn: state.userState.isLoggedIn,
+
+    showInfoBanner: state.uiState.showInfoBanner,
+    showSignInBanner: state.uiState.showSignInBanner,
   };
 }
 

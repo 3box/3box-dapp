@@ -27,7 +27,7 @@ import AddImage from '../../assets/AddImage.svg';
 import Loading from '../../assets/Loading.svg';
 import '../styles/EditProfile.css';
 
-const { getActivity, getProfileValue, getMyDID } = actions.profile;
+const { getActivity, getMyProfileValue, getMyDID } = actions.profile;
 const {
   handleGithubVerificationModal,
   handleTwitterVerificationModal,
@@ -692,21 +692,21 @@ class EditProfile extends Component {
           verifiedEmail: null,
         });
       }
-      if (nameChanged) await this.props.getProfileValue('public', 'name'); // change these to just update the redux store
-      if (descriptionChanged) await this.props.getProfileValue('public', 'description');
-      if (locationChanged) await this.props.getProfileValue('public', 'location');
-      if (websiteChanged) await this.props.getProfileValue('public', 'website');
-      if (employerChanged) await this.props.getProfileValue('public', 'employer');
-      if (jobChanged) await this.props.getProfileValue('public', 'job');
-      if (schoolChanged) await this.props.getProfileValue('public', 'school');
-      if (degreeChanged) await this.props.getProfileValue('public', 'degree');
-      if (majorChanged) await this.props.getProfileValue('public', 'major');
-      if (yearChanged) await this.props.getProfileValue('public', 'year');
-      if (emojiChanged) await this.props.getProfileValue('public', 'emoji');
-      if (removeUserPic || editPic) await this.props.getProfileValue('public', 'image');
-      if (removeCoverPic || editCoverPic) await this.props.getProfileValue('public', 'coverPhoto');
-      if (emailChanged) await this.props.getProfileValue('private', 'email');
-      if (birthdayChanged) await this.props.getProfileValue('private', 'birthday');
+      if (nameChanged) await this.props.getMyProfileValue('public', 'name'); // change these to just update the redux store
+      if (descriptionChanged) await this.props.getMyProfileValue('public', 'description');
+      if (locationChanged) await this.props.getMyProfileValue('public', 'location');
+      if (websiteChanged) await this.props.getMyProfileValue('public', 'website');
+      if (employerChanged) await this.props.getMyProfileValue('public', 'employer');
+      if (jobChanged) await this.props.getMyProfileValue('public', 'job');
+      if (schoolChanged) await this.props.getMyProfileValue('public', 'school');
+      if (degreeChanged) await this.props.getMyProfileValue('public', 'degree');
+      if (majorChanged) await this.props.getMyProfileValue('public', 'major');
+      if (yearChanged) await this.props.getMyProfileValue('public', 'year');
+      if (emojiChanged) await this.props.getMyProfileValue('public', 'emoji');
+      if (removeUserPic || editPic) await this.props.getMyProfileValue('public', 'image');
+      if (removeCoverPic || editCoverPic) await this.props.getMyProfileValue('public', 'coverPhoto');
+      if (emailChanged) await this.props.getMyProfileValue('private', 'email');
+      if (birthdayChanged) await this.props.getMyProfileValue('private', 'birthday');
 
       this.props.getActivity();
 
@@ -1527,12 +1527,12 @@ EditProfile.propTypes = {
   currentAddress: PropTypes.string,
   image: PropTypes.array,
   coverPhoto: PropTypes.array,
-  ifFetchingThreeBox: PropTypes.bool,
+  isFetchingThreeBox: PropTypes.bool,
   showGithubVerificationModal: PropTypes.bool,
   showTwitterVerificationModal: PropTypes.bool,
   showEmailVerificationModal: PropTypes.bool,
   copySuccessful: PropTypes.bool,
-  getProfileValue: PropTypes.func.isRequired,
+  getMyProfileValue: PropTypes.func.isRequired,
   getMyDID: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
   handleGithubVerificationModal: PropTypes.func.isRequired,
@@ -1564,7 +1564,7 @@ EditProfile.defaultProps = {
   currentAddress: '',
   image: [],
   coverPhoto: [],
-  ifFetchingThreeBox: false,
+  isFetchingThreeBox: false,
   showGithubVerificationModal: false,
   showTwitterVerificationModal: false,
   showEmailVerificationModal: false,
@@ -1573,39 +1573,41 @@ EditProfile.defaultProps = {
 
 function mapState(state) {
   return {
-    box: state.threeBox.box,
-    showGithubVerificationModal: state.threeBox.showGithubVerificationModal,
-    showTwitterVerificationModal: state.threeBox.showTwitterVerificationModal,
-    showEmailVerificationModal: state.threeBox.showEmailVerificationModal,
-    name: state.threeBox.name,
-    verifiedGithub: state.threeBox.verifiedGithub,
-    verifiedTwitter: state.threeBox.verifiedTwitter,
-    verifiedEmail: state.threeBox.verifiedEmail,
-    did: state.threeBox.did,
-    description: state.threeBox.description,
-    memberSince: state.threeBox.memberSince,
-    location: state.threeBox.location,
-    website: state.threeBox.website,
-    birthday: state.threeBox.birthday,
-    job: state.threeBox.job,
-    school: state.threeBox.school,
-    degree: state.threeBox.degree,
-    major: state.threeBox.major,
-    year: state.threeBox.year,
-    emoji: state.threeBox.emoji,
-    employer: state.threeBox.employer,
-    email: state.threeBox.email,
-    image: state.threeBox.image,
-    coverPhoto: state.threeBox.coverPhoto,
-    ifFetchingThreeBox: state.threeBox.ifFetchingThreeBox,
-    copySuccessful: state.threeBox.copySuccessful,
-    currentAddress: state.threeBox.currentAddress,
+    box: state.myData.box,
+    showGithubVerificationModal: state.uiState.showGithubVerificationModal,
+    showTwitterVerificationModal: state.uiState.showTwitterVerificationModal,
+    showEmailVerificationModal: state.uiState.showEmailVerificationModal,
+
+    name: state.myData.name,
+    verifiedGithub: state.myData.verifiedGithub,
+    verifiedTwitter: state.myData.verifiedTwitter,
+    verifiedEmail: state.myData.verifiedEmail,
+    did: state.myData.did,
+    description: state.myData.description,
+    memberSince: state.myData.memberSince,
+    location: state.myData.location,
+    website: state.myData.website,
+    birthday: state.myData.birthday,
+    job: state.myData.job,
+    school: state.myData.school,
+    degree: state.myData.degree,
+    major: state.myData.major,
+    year: state.myData.year,
+    emoji: state.myData.emoji,
+    employer: state.myData.employer,
+    email: state.myData.email,
+    image: state.myData.image,
+    coverPhoto: state.myData.coverPhoto,
+
+    isFetchingThreeBox: state.uiState.isFetchingThreeBox,
+    copySuccessful: state.uiState.copySuccessful,
+    currentAddress: state.userState.currentAddress,
   };
 }
 
 export default withRouter(connect(mapState,
   {
-    getProfileValue,
+    getMyProfileValue,
     getMyDID,
     getActivity,
     handleGithubVerificationModal,

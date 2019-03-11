@@ -13,9 +13,9 @@ const getCollectibles = (address, onPublicProfile) => async (dispatch) => {
     let collectiblesFavorites = [];
 
     if (onPublicProfile) {
-      collectiblesFavorites = await store.getState().threeBox.publicCollectiblesGallery;
+      collectiblesFavorites = await store.getState().otherProfile.otherCollectiblesGallery;
     } else {
-      collectiblesFavorites = await store.getState().threeBox.box.public.get('collectiblesFavorites');
+      collectiblesFavorites = await store.getState().myData.box.public.get('collectiblesFavorites');
     }
 
     if (collectiblesFavorites && collectiblesFavorites.length > 0) {
@@ -43,7 +43,7 @@ const getCollectibles = (address, onPublicProfile) => async (dispatch) => {
     if (onPublicProfile) {
       dispatch({
         type: 'UPDATE_PUBLIC_PROFILE_FAVORITE_COLLECTIBLES',
-        publicCollectiblesFavorites: collectiblesFavoritesToRender,
+        otherCollectiblesFavorites: collectiblesFavoritesToRender,
       });
     } else {
       dispatch({
@@ -51,7 +51,7 @@ const getCollectibles = (address, onPublicProfile) => async (dispatch) => {
         collection,
       });
       dispatch({
-        type: 'GET_PUBLIC_COLLECTIBLESFAVORITES',
+        type: 'GET_MY_PUBLIC_COLLECTIBLESFAVORITES',
         collectiblesFavorites: updatedCollectiblesFavorites,
         collectiblesFavoritesToRender,
       });

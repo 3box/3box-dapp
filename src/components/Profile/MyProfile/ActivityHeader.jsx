@@ -117,8 +117,8 @@ Activity.defaultProps = {
 };
 
 const mapState = state => ({
-  name: state.threeBox.name,
-  image: state.threeBox.image,
+  name: state.myData.name,
+  image: state.myData.image,
 });
 
 export default connect(mapState)(Activity);

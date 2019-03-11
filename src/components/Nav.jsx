@@ -32,8 +32,8 @@ class Nav extends Component {
   }
 
   handleSignOut = () => {
-    const { threeBox } = this.props;
-    if (threeBox.logout) {
+    const { box } = this.props;
+    if (box.logout) {
       this.props.handleSignOut();
     }
   }
@@ -128,7 +128,7 @@ class Nav extends Component {
 
 Nav.propTypes = {
   image: PropTypes.array,
-  threeBox: PropTypes.object,
+  box: PropTypes.object,
   location: PropTypes.object,
   handleSignOut: PropTypes.func.isRequired,
   currentNetwork: PropTypes.string,
@@ -137,7 +137,7 @@ Nav.propTypes = {
 
 Nav.defaultProps = {
   image: [],
-  threeBox: {},
+  box: {},
   currentNetwork: '',
   currentAddress: '',
   location: {},
@@ -145,10 +145,11 @@ Nav.defaultProps = {
 
 function mapState(state) {
   return {
-    image: state.threeBox.image,
-    threeBox: state.threeBox.box,
-    currentNetwork: state.threeBox.currentNetwork,
-    currentAddress: state.threeBox.currentAddress,
+    image: state.myData.image,
+    box: state.myData.box,
+
+    currentNetwork: state.userState.currentNetwork,
+    currentAddress: state.userState.currentAddress,
   };
 }
 

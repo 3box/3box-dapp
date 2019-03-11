@@ -9,7 +9,7 @@ import actions from '../../state/actions';
 
 const {
   getActivity,
-  getProfileValue,
+  getMyProfileValue,
 } = actions.profile;
 
 class StatusUpdate extends Component {
@@ -58,7 +58,7 @@ class StatusUpdate extends Component {
     if (statusChanged && status !== '') await box.public.set('status', status);
     if ((statusChanged && status === '') || remove) await box.public.remove('status');
 
-    if (statusChanged) await this.props.getProfileValue('public', 'status');
+    if (statusChanged) await this.props.getMyProfileValue('public', 'status');
     this.props.getActivity();
     this.setState({ saveLoading: false, disableSave: true });
     if (remove) this.setState({ status: '' });
@@ -66,24 +66,24 @@ class StatusUpdate extends Component {
 
   render() {
     const { status, disableSave, saveLoading } = this.state;
-    const { onPublicProfilePage, publicStatus, showSignInBanner } = this.props;
+    const { onOtherProfilePage, otherStatus, showSignInBanner } = this.props;
 
     return (
       <React.Fragment>
-        {onPublicProfilePage && (
+        {onOtherProfilePage && (
           <div
             className={`
           statusUpdate
-          ${!publicStatus ? 'hideUpdateOnMobile' : ''}
+          ${!otherStatus ? 'hideUpdateOnMobile' : ''}
           `
             }
           >
             <div className="statusUpdate__displayPublic">
-              {publicStatus}
+              {otherStatus}
             </div>
           </div>)}
 
-        {!onPublicProfilePage && (
+        {!onOtherProfilePage && (
           <div className="statusUpdate">
             {saveLoading
               && (
@@ -139,35 +139,35 @@ class StatusUpdate extends Component {
 
 StatusUpdate.propTypes = {
   status: PropTypes.string,
-  publicStatus: PropTypes.string,
+  otherStatus: PropTypes.string,
   showSignInBanner: PropTypes.bool,
   getActivity: PropTypes.func.isRequired,
-  getProfileValue: PropTypes.func.isRequired,
+  getMyProfileValue: PropTypes.func.isRequired,
   box: PropTypes.object,
   location: PropTypes.object.isRequired,
-  onPublicProfilePage: PropTypes.bool,
+  onOtherProfilePage: PropTypes.bool,
 };
 
 StatusUpdate.defaultProps = {
   box: {},
   status: '',
-  publicStatus: '',
+  otherStatus: '',
   showSignInBanner: false,
-  onPublicProfilePage: false,
+  onOtherProfilePage: false,
 };
 
 function mapState(state) {
   return {
-    box: state.threeBox.box,
-    status: state.threeBox.status,
-    publicStatus: state.threeBox.publicStatus,
-    showSignInBanner: state.threeBox.showSignInBanner,
-    onPublicProfilePage: state.threeBox.onPublicProfilePage,
+    box: state.myData.box,
+    status: state.myData.status,
+    otherStatus: state.otherProfile.otherStatus,
+    showSignInBanner: state.uiState.showSignInBanner,
+    onOtherProfilePage: state.uiState.onOtherProfilePage,
   };
 }
 
 export default withRouter(connect(mapState,
   {
     getActivity,
-    getProfileValue,
+    getMyProfileValue,
   })(StatusUpdate));

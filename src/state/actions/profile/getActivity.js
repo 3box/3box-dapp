@@ -12,21 +12,21 @@ import {
 } from '../../../utils/funcs';
 import getPublicProfile from './getPublicProfile';
 
-const getActivity = publicProfileAddress => async (dispatch) => {
+const getActivity = otherProfileAddress => async (dispatch) => {
   try {
     dispatch({
       type: 'LOADING_ACTIVITY',
     });
 
     let activity;
-    if (store.getState().threeBox.currentNetwork) {
+    if (store.getState().userState.currentNetwork) {
       activity = await ThreeBoxActivity.get( // eslint-disable-line no-undef
-        publicProfileAddress || store.getState().threeBox.currentAddress,
-        store.getState().threeBox.currentNetwork.toLowerCase(),
+        otherProfileAddress || store.getState().userState.currentAddress,
+        store.getState().userState.currentNetwork.toLowerCase(),
       );
     } else {
       activity = await ThreeBoxActivity.get( // eslint-disable-line no-undef
-        publicProfileAddress || store.getState().threeBox.currentAddress,
+        otherProfileAddress || store.getState().userState.currentAddress,
       );
     }
 
@@ -36,15 +36,15 @@ const getActivity = publicProfileAddress => async (dispatch) => {
     let feed;
     let emailProof;
     // sort and merge feed
-    if (publicProfileAddress) {
+    if (otherProfileAddress) {
       feed = categorizedActivity.internal
         .concat(categorizedActivity.txs)
         .concat(categorizedActivity.token);
     } else {
       // get 3box logs
-      const unFilteredPublicActivity = await store.getState().threeBox.box.public.log;
-      const privateActivity = await store.getState().threeBox.box.private.log;
-      emailProof = await store.getState().threeBox.box.private._genDbKey('proof_email');
+      const unFilteredPublicActivity = await store.getState().myData.box.public.log;
+      const privateActivity = await store.getState().myData.box.private.log;
+      emailProof = await store.getState().myData.box.private._genDbKey('proof_email');
 
       // remove ethereum_proof & proof_did & memberSince
       const publicActivity = unFilteredPublicActivity
@@ -71,7 +71,7 @@ const getActivity = publicProfileAddress => async (dispatch) => {
         const deletedTime = parseInt(feed[i - 1].timeStamp, 10) + 1;
         feedItem.timeStamp = deletedTime.toString();
       }
-      if (!publicProfileAddress && feedItem.key === emailProof) {
+      if (!otherProfileAddress && feedItem.key === emailProof) {
         feedItem.key = 'proof_email';
       }
 
@@ -86,14 +86,14 @@ const getActivity = publicProfileAddress => async (dispatch) => {
       let othersAddress;
 
       // check if to or from is counterparty's address
-      if (publicProfileAddress) {
+      if (otherProfileAddress) {
         othersAddress = item.from.toLowerCase() ===
-          store.getState().threeBox.publicProfileAddress.toLowerCase() ?
+          store.getState().otherProfile.otherProfileAddress.toLowerCase() ?
           item.to :
           item.from;
       } else {
         othersAddress = (item.from && item.from.toLowerCase()) ===
-          store.getState().threeBox.currentAddress.toLowerCase() ?
+          store.getState().userState.currentAddress.toLowerCase() ?
           item.to :
           item.from;
       }
@@ -121,7 +121,7 @@ const getActivity = publicProfileAddress => async (dispatch) => {
     let counter = 0;
 
     // if there is no feed length, move on to next step
-    if (feedByAddress.length === 0) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
+    if (feedByAddress.length === 0) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
 
     // get contract and 3box profile metadata
     await feedByAddress.map(async (txGroup) => {
@@ -134,7 +134,7 @@ const getActivity = publicProfileAddress => async (dispatch) => {
 
       if (otherAddress === 'threeBox') {
         counter += 1;
-        if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
+        if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
         return;
       }
 
@@ -145,7 +145,7 @@ const getActivity = publicProfileAddress => async (dispatch) => {
             if (err) {
               addressData[otherAddress] = false;
               counter += 1;
-              if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
+              if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
               return console.error(err);
             }
 
@@ -166,12 +166,12 @@ const getActivity = publicProfileAddress => async (dispatch) => {
                     addressData[otherAddress] = false;
                     counter += 1;
                   }
-                  if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
+                  if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
                 })
                 .catch((error) => {
                   addressData[otherAddress] = false;
                   counter += 1;
-                  if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
+                  if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
                   return console.log(error);
                 });
             } else { // look for 3box metadata
@@ -192,11 +192,11 @@ const getActivity = publicProfileAddress => async (dispatch) => {
                   image,
                 };
                 counter += 1;
-                if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
+                if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
               }).catch((error) => {
                 addressData[otherAddress] = false;
                 counter += 1;
-                if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
+                if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
                 return console.error(error);
               });
             }
@@ -205,21 +205,23 @@ const getActivity = publicProfileAddress => async (dispatch) => {
           console.error(err);
           addressData[otherAddress] = false;
           counter += 1;
-          if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
+          if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
         }
       } else {
         counter += 1;
-        if (counter === feedByAddress.length) updateFeed(publicProfileAddress, feedByAddress, addressData, isContract);
+        if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
       }
     });
   } catch (err) {
     dispatch({
       type: 'FAILED_LOADING_ACTIVITY',
-      feedByAddress: [],
-      ifFetchingActivity: false,
+      isFetchingActivity: false,
       errorMessage: err,
-      showErrorModal: true,
       provideConsent: false,
+    });
+    dispatch({
+      type: 'UPDATE_MY_ACTIVITY_FEED',
+      feedByAddress: [],
     });
   }
 };

@@ -48,14 +48,20 @@ const checkNetwork = () => async (dispatch) => {
   window.localStorage.setItem('prevNetwork', prevNetwork); // eslint-disable-line no-undef
   window.localStorage.setItem('currentNetwork', currentNetwork); // eslint-disable-line no-undef
 
-  if (prevNetwork && (prevNetwork !== currentNetwork) && store.getState().threeBox.isLoggedIn && shouldShowSwitchNetwork === 'true') {
+  if (prevNetwork && (prevNetwork !== currentNetwork) && store.getState().userState.isLoggedIn && shouldShowSwitchNetwork === 'true') {
     window.localStorage.setItem('shouldShowSwitchNetwork', false); // eslint-disable-line no-undef
     dispatch({
       type: 'DIFFERENT_NETWORK',
-      showDifferentNetworkModal: true,
       currentNetwork,
       prevNetwork,
       prevPrevNetwork,
+    });
+    dispatch({
+      type: 'HANDLE_DIFFERENT_NETWORK_MODAL',
+      showDifferentNetworkModal: true,
+      onBoardingModal: false,
+      onBoardingModal2: false,
+      isFetchingThreeBox: false,
     });
   } else {
     window.localStorage.setItem('shouldShowSwitchNetwork', true); // eslint-disable-line no-undef

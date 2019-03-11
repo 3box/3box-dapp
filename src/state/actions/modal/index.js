@@ -43,7 +43,7 @@ export const handleCollectiblesModal = (selectedCollectible, isFavorite) => asyn
     orderedCollectible.orderedTraits = stringTraits.concat(intTraits);
     dispatch({
       type: 'HANDLE_COLLECTIBLES_MODAL',
-      showCollectiblesModal: !store.getState().threeBox.showCollectiblesModal,
+      showCollectiblesModal: !store.getState().uiState.showCollectiblesModal,
       selectedCollectible: orderedCollectible,
       isFavorite,
     });
@@ -65,8 +65,8 @@ export const handleCollectiblesModal = (selectedCollectible, isFavorite) => asyn
 export const handleSignInModal = () => async (dispatch) => {
   dispatch({
     type: 'HANDLE_SIGNIN_MODAL',
-    errorMessage: store.getState().threeBox.errorMessage,
-    signInModal: !store.getState().threeBox.signInModal,
+    errorMessage: store.getState().uiState.errorMessage,
+    signInModal: !store.getState().uiState.signInModal,
   });
 };
 
@@ -80,14 +80,14 @@ export const handleConsentModal = () => async (dispatch) => {
 export const handleLoggedOutModal = () => async (dispatch) => {
   dispatch({
     type: 'HANDLE_LOGGEDOUT_MODAL',
-    loggedOutModal: !store.getState().threeBox.loggedOutModal,
+    loggedOutModal: !store.getState().uiState.loggedOutModal,
   });
 };
 
 export const handleSwitchedAddressModal = () => async (dispatch) => {
   dispatch({
     type: 'HANDLE_SWITCHED_ADDRESS_MODAL',
-    switchedAddressModal: !store.getState().threeBox.switchedAddressModal,
+    switchedAddressModal: !store.getState().uiState.switchedAddressModal,
   });
 };
 
@@ -101,21 +101,21 @@ export const handleSwitchedNetworkModal = () => async (dispatch) => {
 export const handleGithubVerificationModal = () => async (dispatch) => {
   dispatch({
     type: 'HANDLE_GITHUB_MODAL',
-    showGithubVerificationModal: !store.getState().threeBox.showGithubVerificationModal,
+    showGithubVerificationModal: !store.getState().uiState.showGithubVerificationModal,
   });
 };
 
 export const handleTwitterVerificationModal = () => async (dispatch) => {
   dispatch({
     type: 'HANDLE_TWITTER_MODAL',
-    showTwitterVerificationModal: !store.getState().threeBox.showTwitterVerificationModal,
+    showTwitterVerificationModal: !store.getState().uiState.showTwitterVerificationModal,
   });
 };
 
 export const handleEmailVerificationModal = () => async (dispatch) => {
   dispatch({
     type: 'HANDLE_EMAIL_MODAL',
-    showEmailVerificationModal: !store.getState().threeBox.showEmailVerificationModal,
+    showEmailVerificationModal: !store.getState().uiState.showEmailVerificationModal,
   });
 };
 
@@ -128,7 +128,7 @@ export const handleOnboardingModal = mobile => async (dispatch) => {
   } else {
     dispatch({
       type: 'HANDLE_ONBOARDING_MODAL2',
-      onBoardingModalTwo: !store.getState().threeBox.onBoardingModalTwo,
+      onBoardingModalTwo: !store.getState().uiState.onBoardingModalTwo,
       onBoardingModal: false,
     });
   }
@@ -137,41 +137,41 @@ export const handleOnboardingModal = mobile => async (dispatch) => {
 export const handleRequireWalletLoginModal = () => async (dispatch) => {
   dispatch({
     type: 'HANDLE_REQUIRE_LOGIN_MODAL',
-    signInToWalletModal: !store.getState().threeBox.signInToWalletModal,
+    signInToWalletModal: !store.getState().uiState.signInToWalletModal,
   });
 };
 
 export const handleMobileWalletModal = () => async (dispatch) => {
   dispatch({
     type: 'HANDLE_MOBILE_WALLET_REQUIRED_MODAL',
-    mobileWalletRequiredModal: !store.getState().threeBox.mobileWalletRequiredModal,
+    mobileWalletRequiredModal: !store.getState().uiState.mobileWalletRequiredModal,
   });
 };
 
 export const handleAccessModal = () => async (dispatch) => {
   dispatch({
     type: 'HANDLE_ACCESS_MODAL',
-    allowAccessModal: !store.getState().threeBox.allowAccessModal,
+    allowAccessModal: !store.getState().uiState.allowAccessModal,
   });
 };
 
 export const handleDeniedAccessModal = () => async (dispatch) => {
   dispatch({
     type: 'HANDLE_DENIED_ACCESS_MODAL',
-    accessDeniedModal: !store.getState().threeBox.accessDeniedModal,
+    accessDeniedModal: !store.getState().uiState.accessDeniedModal,
   });
 };
 
 export const handleDownloadMetaMaskBanner = () => async (dispatch) => {
   dispatch({
     type: 'HANDLE_DOWNLOAD_BANNER',
-    showDownloadBanner: !store.getState().threeBox.showDownloadBanner,
+    showDownloadBanner: !store.getState().uiState.showDownloadBanner,
   });
 };
 
 export const handleSignInBanner = () => async (dispatch) => {
   dispatch({
     type: 'HANDLE_SIGNIN_BANNER',
-    showSignInBanner: !store.getState().threeBox.showSignInBanner,
+    showSignInBanner: !store.getState().uiState.showSignInBanner,
   });
 };

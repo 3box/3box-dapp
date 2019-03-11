@@ -3,7 +3,7 @@ import {
 } from '../../store';
 
 const getMyMemberSince = () => async (dispatch) => {
-  const date = await store.getState().threeBox.box.public.get('memberSince');
+  const date = await store.getState().myData.box.public.get('memberSince');
 
   let memberSince;
   let memberSinceDate;

@@ -4,7 +4,7 @@ import {
 
 const getVerifiedPrivateEmail = () => async (dispatch) => {
   try {
-    const verifiedEmail = await store.getState().threeBox.box.verified.email();
+    const verifiedEmail = await store.getState().myData.box.verified.email();
 
     dispatch({
       type: 'GET_VERIFIED_PRIVATE_EMAIL',

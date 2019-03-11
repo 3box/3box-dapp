@@ -4,7 +4,7 @@ import {
 
 const getVerifiedPublicGithub = () => async (dispatch) => {
   try {
-    const verifiedGithub = await store.getState().threeBox.box.verified.github();
+    const verifiedGithub = await store.getState().myData.box.verified.github();
 
     dispatch({
       type: 'GET_VERIFIED_PUBLIC_GITHUB',

@@ -47,7 +47,7 @@ class AppModals extends Component {
     const { width } = this.state;
     const {
       showInfoBanner,
-      ifFetchingThreeBox,
+      isFetchingThreeBox,
       onSyncFinished,
       isSyncing,
       hasSignedOut,
@@ -106,12 +106,12 @@ class AppModals extends Component {
             handleInfoBanner={handleInfoBanner}
           />)}
 
-        {ifFetchingThreeBox && (
+        {isFetchingThreeBox && (
           <LoadingThreeBoxProfileModal
             key="LoadingThreeBoxProfileModal"
           />)}
 
-        {(!onSyncFinished && !ifFetchingThreeBox && isSyncing && !hasSignedOut) && (
+        {(!onSyncFinished && !isFetchingThreeBox && isSyncing && !hasSignedOut) && (
           <SyncingModal
             key="SyncingModal"
           />)}
@@ -228,7 +228,7 @@ class AppModals extends Component {
             key="OnBoardingModalMobile"
           />)}
 
-        {(ifFetchingThreeBox
+        {(isFetchingThreeBox
           || allowAccessModal
           || alertRequireMetaMask
           || provideConsent
@@ -275,7 +275,7 @@ AppModals.propTypes = {
   handleAccessModal: PropTypes.func.isRequired,
 
   showInfoBanner: PropTypes.bool,
-  ifFetchingThreeBox: PropTypes.bool,
+  isFetchingThreeBox: PropTypes.bool,
   onSyncFinished: PropTypes.bool,
   isSyncing: PropTypes.bool,
   hasSignedOut: PropTypes.bool,
@@ -312,7 +312,7 @@ AppModals.defaultProps = {
   directLogin: '',
 
   showInfoBanner: false,
-  ifFetchingThreeBox: false,
+  isFetchingThreeBox: false,
   onSyncFinished: false,
   isSyncing: false,
   hasSignedOut: false,

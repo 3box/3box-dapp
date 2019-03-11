@@ -115,11 +115,11 @@ ActivityTiles.defaultProps = {
 };
 
 const mapState = state => ({
-  verifiedGithub: state.threeBox.verifiedGithub,
-  verifiedTwitter: state.threeBox.verifiedTwitter,
-  verifiedEmail: state.threeBox.verifiedEmail,
-  currentAddress: state.threeBox.currentAddress,
-  name: state.threeBox.name,
+  verifiedGithub: state.myData.verifiedGithub,
+  verifiedTwitter: state.myData.verifiedTwitter,
+  verifiedEmail: state.myData.verifiedEmail,
+  currentAddress: state.userState.currentAddress,
+  name: state.myData.name,
 });
 
 export default connect(mapState)(ActivityTiles);

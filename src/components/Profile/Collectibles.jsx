@@ -66,7 +66,7 @@ class Collectibles extends Component {
       collection: updatedCollection,
     });
     store.dispatch({
-      type: 'GET_PUBLIC_COLLECTIBLESFAVORITES',
+      type: 'GET_MY_PUBLIC_COLLECTIBLESFAVORITES',
       collectiblesFavorites: updatedCollectiblesFavorites,
       collectiblesFavoritesToRender: updatedCollectiblesFavoritesToRender,
     });
@@ -248,13 +248,14 @@ Collectibles.defaultProps = {
 
 function mapState(state) {
   return {
-    box: state.threeBox.box,
-    selectedCollectible: state.threeBox.selectedCollectible,
-    collection: state.threeBox.collection,
-    collectiblesFavorites: state.threeBox.collectiblesFavorites,
-    collectiblesFavoritesToRender: state.threeBox.collectiblesFavoritesToRender,
-    showCollectiblesModal: state.threeBox.showCollectiblesModal,
-    isFavorite: state.threeBox.isFavorite,
+    box: state.myData.box,
+    collection: state.myData.collection,
+    collectiblesFavorites: state.myData.collectiblesFavorites,
+    collectiblesFavoritesToRender: state.myData.collectiblesFavoritesToRender,
+
+    showCollectiblesModal: state.uiState.showCollectiblesModal,
+    selectedCollectible: state.uiState.selectedCollectible,
+    isFavorite: state.uiState.isFavorite,
   };
 }
 

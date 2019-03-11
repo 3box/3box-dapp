@@ -62,27 +62,36 @@ export const imageElFor = (address) => {
   return [contractImg, contractMetaData];
 };
 
-const fireDispatch = (publicProfileAddress, feedByAddress) => {
-  if (publicProfileAddress) {
+const fireDispatch = (otherProfileAddress, feedByAddress) => {
+  if (otherProfileAddress) {
     store.dispatch({
       type: 'GET_PUBLIC_PROFILE_ACTIVITY',
-      publicProfileActivity: feedByAddress,
-      ifFetchingActivity: false,
+      otherProfileActivity: feedByAddress,
+    });
+    store.dispatch({
+      type: 'UPDATE_OTHER_ACTIVITY_UI',
+      isFetchingActivity: false,
     });
   } else {
     store.dispatch({
-      type: 'UPDATE_ACTIVITY',
-      feedByAddress,
-      ifFetchingActivity: false,
+      type: 'UPDATE_ACTIVITY_USERSTATE',
       isLoggedIn: true,
+    });
+    store.dispatch({
+      type: 'UPDATE_ACTIVITY_UISTATE',
+      isFetchingActivity: false,
+    });
+    store.dispatch({
+      type: 'UPDATE_MY_ACTIVITY_FEED',
+      feedByAddress,
     });
   }
 };
 
-export const updateFeed = (publicProfileAddress, feedByAddress, addressData, isContract) => {
+export const updateFeed = (otherProfileAddress, feedByAddress, addressData, isContract) => {
   let contractArray = [];
   let counter = 0;
-  if (feedByAddress.length === 0) fireDispatch(publicProfileAddress, feedByAddress);
+  if (feedByAddress.length === 0) fireDispatch(otherProfileAddress, feedByAddress);
   feedByAddress.map(async (txGroup, i) => {
     const otherAddress = Object.keys(txGroup)[0];
 
@@ -105,14 +114,14 @@ export const updateFeed = (publicProfileAddress, feedByAddress, addressData, isC
       };
 
       counter += 1;
-      if (counter === feedByAddress.length) fireDispatch(publicProfileAddress, feedByAddress);
+      if (counter === feedByAddress.length) fireDispatch(otherProfileAddress, feedByAddress);
     } else { // look for 3box metadata
       feedByAddress[i].metaData = {
         name: addressData && addressData[otherAddress] && addressData[otherAddress].name,
         image: addressData && addressData[otherAddress] && addressData[otherAddress].image,
       };
       counter += 1;
-      if (counter === feedByAddress.length) fireDispatch(publicProfileAddress, feedByAddress);
+      if (counter === feedByAddress.length) fireDispatch(otherProfileAddress, feedByAddress);
     }
   });
 };
@@ -145,7 +154,7 @@ export const copyToClipBoard = (type, message) => async (dispatch) => {
     if (type === 'did') {
       textArea.value = message;
     } else if (type === 'profile') {
-      textArea.value = `https://www.3box.io/${store.getState().threeBox.currentAddress}`;
+      textArea.value = `https://www.3box.io/${store.getState().userState.currentAddress}`;
     }
 
     document.body.appendChild(textArea);

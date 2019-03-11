@@ -14,9 +14,11 @@ const openBox = fromSignIn => async (dispatch) => {
   });
 
   const consentGiven = () => {
-    if (fromSignIn) history.push(`/${store.getState().threeBox.currentAddress || store.getState().threeBox.accountAddress}/${routes.ACTIVITY}`);
+    if (fromSignIn) history.push(`/${store.getState().userState.currentAddress || store.getState().userState.accountAddress}/${routes.ACTIVITY}`);
     dispatch({
       type: 'LOADING_3BOX',
+      provideConsent: false,
+      isFetchingThreeBox: true,
     });
     dispatch({
       type: 'LOADING_ACTIVITY',
@@ -25,7 +27,7 @@ const openBox = fromSignIn => async (dispatch) => {
 
   // onSyncDone only happens on first openBox so only run
   // this when a user hasn't signed out and signed back in again
-  if (!store.getState().threeBox.hasSignedOut) {
+  if (!store.getState().userState.hasSignedOut) {
     // initialize onSyncDone process
     dispatch({
       type: 'APP_SYNC',
@@ -41,21 +43,27 @@ const openBox = fromSignIn => async (dispatch) => {
   try {
     const box = await Box // eslint-disable-line no-undef
       .openBox(
-        store.getState().threeBox.accountAddress || store.getState().threeBox.currentAddress,
+        store.getState().userState.accountAddress || store.getState().userState.currentAddress,
         window.web3.currentProvider, // eslint-disable-line no-undef
         opts,
       );
 
     dispatch({
-      type: 'UPDATE_THREEBOX',
-      ifFetchingThreeBox: false,
+      type: 'IS_LOGGED_IN',
       isLoggedIn: true,
+    });
+    dispatch({
+      type: 'UPDATE_BOX',
       box,
+    });
+    dispatch({
+      type: 'IS_FETCHING_THREEBOX',
+      isFetchingThreeBox: false,
     });
 
     // onSyncDone only happens on first openBox so only run
     // this when a user hasn't signed out and signed back in again
-    if (!store.getState().threeBox.hasSignedOut) {
+    if (!store.getState().userState.hasSignedOut) {
       // start onSyncDone loading animation
       dispatch({
         type: 'APP_SYNC',
@@ -64,11 +72,11 @@ const openBox = fromSignIn => async (dispatch) => {
       });
     }
 
-    const memberSince = await store.getState().threeBox.box.public.get('memberSince');
+    const memberSince = await store.getState().myData.box.public.get('memberSince');
 
     box.onSyncDone(() => {
-      const publicActivity = store.getState().threeBox.box.public.log;
-      const privateActivity = store.getState().threeBox.box.private.log;
+      const publicActivity = store.getState().myData.box.public.log;
+      const privateActivity = store.getState().myData.box.private.log;
 
       if (!privateActivity.length && !publicActivity.length) {
         dispatch({
@@ -78,21 +86,27 @@ const openBox = fromSignIn => async (dispatch) => {
         const date = Date.now();
         const dateJoined = new Date(date);
         const memberSinceDate = `${(dateJoined.getMonth() + 1)}/${dateJoined.getDate()}/${dateJoined.getFullYear()}`;
-        store.getState().threeBox.box.public.set('memberSince', dateJoined);
+        store.getState().myData.box.public.set('memberSince', dateJoined);
         dispatch({
           type: 'GET_PUBLIC_MEMBERSINCE',
           memberSince: memberSinceDate,
         });
-        history.push(`/${store.getState().threeBox.currentAddress}/${routes.EDIT}`);
+        history.push(`/${store.getState().userState.currentAddress}/${routes.EDIT}`);
       } else if (!memberSince && (privateActivity.length || publicActivity.length)) {
-        store.getState().threeBox.box.public.set('memberSince', 'Alpha');
+        store.getState().myData.box.public.set('memberSince', 'Alpha');
       }
 
       dispatch({
-        type: 'UPDATE_THREEBOX',
-        ifFetchingThreeBox: false,
+        type: 'IS_LOGGED_IN',
         isLoggedIn: true,
+      });
+      dispatch({
+        type: 'UPDATE_BOX',
         box,
+      });
+      dispatch({
+        type: 'IS_FETCHING_THREEBOX',
+        isFetchingThreeBox: false,
       });
 
       // call data with new box object from onSyncDone

@@ -173,8 +173,8 @@ Profiles.defaultProps = {
 };
 
 const mapState = state => ({
-  isLoggedIn: state.threeBox.isLoggedIn,
-  currentRoute: state.threeBox.currentRoute,
+  isLoggedIn: state.userState.isLoggedIn,
+  currentRoute: state.uiState.currentRoute,
 });
 
 export default withRouter(connect(mapState)(Profiles));

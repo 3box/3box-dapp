@@ -14,8 +14,8 @@ import '../../styles/NetworkArray.css';
 
 const PublicActivity = ({
   feedAddress,
-  publicProfileAddress,
-  publicName,
+  otherProfileAddress,
+  otherName,
 }) => (
     <React.Fragment>
       {
@@ -24,15 +24,15 @@ const PublicActivity = ({
             if (item.dataType === 'Internal') {
               return (
                 <FeedTileInternal
-                  currentAddress={publicProfileAddress}
+                  currentAddress={otherProfileAddress}
                   metaDataName={feedAddress.metaData
                     && (feedAddress.metaData.name
                       || (feedAddress.metaData.contractDetails
                         && (feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()))}
-                  onPublicProfilePage
+                  onOtherProfilePage
                   contractImg={feedAddress.metaData && feedAddress.metaData.contractImg && feedAddress.metaData.contractImg.src}
-                  isFromProfile={item.from.toLowerCase() === publicProfileAddress.toLowerCase()}
-                  name={publicName}
+                  isFromProfile={item.from.toLowerCase() === otherProfileAddress.toLowerCase()}
+                  name={otherName}
                   item={item}
                   key={index}
                 />);
@@ -40,15 +40,15 @@ const PublicActivity = ({
             if (item.dataType === 'Token') {
               return (
                 <FeedTileToken
-                  currentAddress={publicProfileAddress}
+                  currentAddress={otherProfileAddress}
                   metaDataName={feedAddress.metaData
                     && (feedAddress.metaData.name
                       || (feedAddress.metaData.contractDetails
                         && (feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()))}
-                  onPublicProfilePage
+                  onOtherProfilePage
                   contractImg={feedAddress.metaData && feedAddress.metaData.contractImg && feedAddress.metaData.contractImg.src}
-                  isFromProfile={item.from.toLowerCase() === publicProfileAddress.toLowerCase()}
-                  name={publicName}
+                  isFromProfile={item.from.toLowerCase() === otherProfileAddress.toLowerCase()}
+                  name={otherName}
                   item={item}
                   key={index}
                 />);
@@ -56,15 +56,15 @@ const PublicActivity = ({
             if (item.dataType === 'Txs') {
               return (
                 <FeedTileTXS
-                  currentAddress={publicProfileAddress}
+                  currentAddress={otherProfileAddress}
                   metaDataName={feedAddress.metaData
                     && (feedAddress.metaData.name
                       || (feedAddress.metaData.contractDetails
                         && (feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()))}
-                  onPublicProfilePage
+                  onOtherProfilePage
                   contractImg={feedAddress.metaData && feedAddress.metaData.contractImg && feedAddress.metaData.contractImg.src}
-                  isFromProfile={item.from.toLowerCase() === publicProfileAddress.toLowerCase()}
-                  name={publicName}
+                  isFromProfile={item.from.toLowerCase() === otherProfileAddress.toLowerCase()}
+                  name={otherName}
                   item={item}
                   key={index}
                 />);
@@ -77,19 +77,19 @@ const PublicActivity = ({
 
 PublicActivity.propTypes = {
   feedAddress: PropTypes.object,
-  publicProfileAddress: PropTypes.string,
-  publicName: PropTypes.string,
+  otherProfileAddress: PropTypes.string,
+  otherName: PropTypes.string,
 };
 
 PublicActivity.defaultProps = {
   feedAddress: {},
-  publicProfileAddress: '',
-  publicName: '',
+  otherProfileAddress: '',
+  otherName: '',
 };
 
 const mapState = state => ({
-  publicProfileAddress: state.threeBox.publicProfileAddress,
-  publicName: state.threeBox.publicName,
+  otherProfileAddress: state.otherProfile.otherProfileAddress,
+  otherName: state.otherProfile.otherName,
 });
 
 export default connect(mapState)(PublicActivity);

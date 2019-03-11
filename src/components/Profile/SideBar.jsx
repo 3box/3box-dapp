@@ -22,86 +22,86 @@ const SideBar = ({
   description,
   emoji,
   location,
-  onPublicProfilePage,
+  onOtherProfilePage,
   copyToClipBoard,
   copySuccessful,
-  publicCoverPhoto,
-  publicImage,
-  publicName,
-  publicEmoji,
-  publicDescription,
+  otherCoverPhoto,
+  otherImage,
+  otherName,
+  otherEmoji,
+  otherDescription,
   showSignInBanner,
   currentAddress,
 }) => (
     <div>
-      {!onPublicProfilePage && (
+      {!onOtherProfilePage && (
         coverPhoto.length > 0 && coverPhoto[0].contentUrl
           ? <img src={`https://ipfs.infura.io/ipfs/${coverPhoto[0].contentUrl['/']}`} className="profile__coverPhoto clearProfPic" alt="profile" />
           : <div className="profile__coverPhoto" />)
       }
-      {onPublicProfilePage && (
-        publicCoverPhoto.length > 0 && publicCoverPhoto[0].contentUrl
-          ? <img src={`https://ipfs.infura.io/ipfs/${publicCoverPhoto[0].contentUrl['/']}`} className={`${showSignInBanner ? 'showSignInBanner' : ''} ${showSignInBanner ? 'bannerMargin' : ''} profile__coverPhoto clearProfPic`} alt="profile" />
+      {onOtherProfilePage && (
+        otherCoverPhoto.length > 0 && otherCoverPhoto[0].contentUrl
+          ? <img src={`https://ipfs.infura.io/ipfs/${otherCoverPhoto[0].contentUrl['/']}`} className={`${showSignInBanner ? 'showSignInBanner' : ''} ${showSignInBanner ? 'bannerMargin' : ''} profile__coverPhoto clearProfPic`} alt="profile" />
           : <div className={`${showSignInBanner ? 'showSignInBanner' : ''} ${showSignInBanner ? 'bannerMargin' : ''} profile__coverPhoto`} />)
       }
 
-      <div id="profile" className={!onPublicProfilePage && 'onMyProfile'}>
+      <div id="profile" className={!onOtherProfilePage && 'onMyProfile'}>
         <div id="profile__fixed">
 
           <div className={`
             ${showSignInBanner ? 'showSignInBanner' : ''} 
-            ${onPublicProfilePage ? 'addBorderBottom' : ''} 
-            ${(onPublicProfilePage && showSignInBanner) ? 'bannerMargin' : ''} 
+            ${onOtherProfilePage ? 'addBorderBottom' : ''} 
+            ${(onOtherProfilePage && showSignInBanner) ? 'bannerMargin' : ''} 
             profile__user__info
           `}
           >
 
-            {!onPublicProfilePage && (
+            {!onOtherProfilePage && (
               image.length > 0 && image[0].contentUrl
                 ? <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} className="profile__user__picture clearProfPic" alt="profile" />
                 : <div className="profile__user__picture" />)
             }
 
-            {onPublicProfilePage && (
-              publicImage.length > 0 && publicImage[0].contentUrl
-                ? <img src={`https://ipfs.infura.io/ipfs/${publicImage[0].contentUrl['/']}`} className="profile__user__picture clearProfPic" alt="profile" />
+            {onOtherProfilePage && (
+              otherImage.length > 0 && otherImage[0].contentUrl
+                ? <img src={`https://ipfs.infura.io/ipfs/${otherImage[0].contentUrl['/']}`} className="profile__user__picture clearProfPic" alt="profile" />
                 : <div className="profile__user__picture" />)
             }
 
             <div className="profile__basic">
               <div className="profile__basic__wrapper">
-                {!onPublicProfilePage && (name
+                {!onOtherProfilePage && (name
                   ? <h2 id="profile__user__name">{name}</h2>
                   : <Link to={`/${currentAddress}/${routes.EDIT}`}><h2 id="profile__user__name__add">Add name</h2></Link>)
                 }
 
-                {onPublicProfilePage && (publicName
-                  ? <h2 id="profile__user__name">{publicName}</h2>
+                {onOtherProfilePage && (otherName
+                  ? <h2 id="profile__user__name">{otherName}</h2>
                   : '')
                 }
 
 
                 <span className="profile__basic__emoji">
-                  {!onPublicProfilePage && (emoji.code ? emoji.code : emoji)}
-                  {(onPublicProfilePage && publicEmoji) && (publicEmoji.code ? publicEmoji.code : publicEmoji)}
+                  {!onOtherProfilePage && (emoji.code ? emoji.code : emoji)}
+                  {(onOtherProfilePage && otherEmoji) && (otherEmoji.code ? otherEmoji.code : otherEmoji)}
                 </span>
               </div>
 
               <div id="profile__network" title="Network">
                 <img id="profile__network__networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
                 <p id="profile__details__address" title={currentAddress}>
-                  {!onPublicProfilePage && currentAddress && currentAddress.substring(0, 8)}
-                  {onPublicProfilePage && location.pathname.split('/')[1].substring(0, 8)}
+                  {!onOtherProfilePage && currentAddress && currentAddress.substring(0, 8)}
+                  {onOtherProfilePage && location.pathname.split('/')[1].substring(0, 8)}
                   ...
                 </p>
               </div>
 
               <p className="profile__basic__description">
-                {!onPublicProfilePage && description}
-                {onPublicProfilePage && publicDescription}
+                {!onOtherProfilePage && description}
+                {onOtherProfilePage && otherDescription}
               </p>
 
-              {onPublicProfilePage && (
+              {onOtherProfilePage && (
                 <div className="publicProfile__basic--mobile">
                   <PubSideBar />
                 </div>)}
@@ -110,7 +110,7 @@ const SideBar = ({
 
             <div className="profile__category">
               <div className="profile__category__sectionWrapper">
-                {!onPublicProfilePage ? (
+                {!onOtherProfilePage ? (
                   <React.Fragment>
                     <NavLink exact to={`/${currentAddress}/${routes.ACTIVITY}`} className="profile__category__section">
                       <div className="profile__category__tabIcon__wrappper">
@@ -137,7 +137,7 @@ const SideBar = ({
             </div>
 
             {/* this is showing when its not supposed to, how does it know that its my currentAddress??? */}
-            {(!onPublicProfilePage)
+            {(!onOtherProfilePage)
               && (
                 <button type="button" onClick={() => copyToClipBoard('profile', null)} className="profile__links__copy">
                   <img className="profile__links__copy__icon" src={CopyGrey} alt="Copy icon" />
@@ -174,16 +174,16 @@ SideBar.propTypes = {
   name: PropTypes.string,
   description: PropTypes.string,
   emoji: PropTypes.string,
-  publicEmoji: PropTypes.string,
+  otherEmoji: PropTypes.string,
   currentAddress: PropTypes.string,
-  publicName: PropTypes.string,
-  publicDescription: PropTypes.string,
+  otherName: PropTypes.string,
+  otherDescription: PropTypes.string,
   image: PropTypes.array,
   coverPhoto: PropTypes.array,
-  publicCoverPhoto: PropTypes.array,
-  publicImage: PropTypes.array,
+  otherCoverPhoto: PropTypes.array,
+  otherImage: PropTypes.array,
   location: PropTypes.object.isRequired,
-  onPublicProfilePage: PropTypes.bool,
+  onOtherProfilePage: PropTypes.bool,
   copySuccessful: PropTypes.bool,
   showSignInBanner: PropTypes.bool,
   copyToClipBoard: PropTypes.func.isRequired,
@@ -191,37 +191,40 @@ SideBar.propTypes = {
 
 SideBar.defaultProps = {
   name: '',
-  publicName: '',
+  otherName: '',
   description: '',
-  publicEmoji: '',
-  publicDescription: '',
+  otherEmoji: '',
+  otherDescription: '',
   currentAddress: '',
   image: [],
   coverPhoto: [],
-  publicImage: [],
-  publicCoverPhoto: [],
+  otherImage: [],
+  otherCoverPhoto: [],
   emoji: '',
   copySuccessful: false,
-  onPublicProfilePage: false,
+  onOtherProfilePage: false,
   showSignInBanner: false,
 };
 
 function mapState(state) {
   return {
-    name: state.threeBox.name,
-    image: state.threeBox.image,
-    coverPhoto: state.threeBox.coverPhoto,
-    emoji: state.threeBox.emoji,
-    description: state.threeBox.description,
-    copySuccessful: state.threeBox.copySuccessful,
-    showSignInBanner: state.threeBox.showSignInBanner,
-    onPublicProfilePage: state.threeBox.onPublicProfilePage,
-    publicCoverPhoto: state.threeBox.publicCoverPhoto,
-    publicImage: state.threeBox.publicImage,
-    publicName: state.threeBox.publicName,
-    publicEmoji: state.threeBox.publicEmoji,
-    publicDescription: state.threeBox.publicDescription,
-    currentAddress: state.threeBox.currentAddress,
+    name: state.myData.name,
+    image: state.myData.image,
+    coverPhoto: state.myData.coverPhoto,
+    emoji: state.myData.emoji,
+    description: state.myData.description,
+
+    currentAddress: state.userState.currentAddress,
+
+    copySuccessful: state.uiState.copySuccessful,
+    showSignInBanner: state.uiState.showSignInBanner,
+    onOtherProfilePage: state.uiState.onOtherProfilePage,
+
+    otherCoverPhoto: state.otherProfile.otherCoverPhoto,
+    otherImage: state.otherProfile.otherImage,
+    otherName: state.otherProfile.otherName,
+    otherEmoji: state.otherProfile.otherEmoji,
+    otherDescription: state.otherProfile.otherDescription,
   };
 }
 

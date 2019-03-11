@@ -35,13 +35,16 @@ class ProfilePublic extends Component {
   async componentDidMount() {
     window.scrollTo(0, 0);
     const { location: { pathname }, currentAddress } = this.props;
-    const publicProfileAddress = pathname.split('/')[1];
+    const otherProfileAddress = pathname.split('/')[1];
     let activeAddress;
 
     store.dispatch({
-      type: 'UPDATE_PUBLIC_PROFILE',
-      onPublicProfilePage: true,
-      publicProfileAddress,
+      type: 'UPDATE_OTHER_PROFILE',
+      otherProfileAddress,
+    });
+    store.dispatch({
+      type: 'ON_OTHER_PROFILE',
+      onOtherProfilePage: true,
     });
 
     if (typeof window.web3 !== 'undefined') {
@@ -51,25 +54,28 @@ class ProfilePublic extends Component {
       } else {
         activeAddress = currentAddress;
       }
-      if (publicProfileAddress === activeAddress) this.props.handleSignInBanner();
+      if (otherProfileAddress === activeAddress) this.props.handleSignInBanner();
       await this.props.checkNetwork();
     }
 
-    await this.props.getOtherProfile(publicProfileAddress);
-    this.props.getCollectibles(publicProfileAddress, true);
-    this.props.getActivity(publicProfileAddress);
+    await this.props.getOtherProfile(otherProfileAddress);
+    this.props.getCollectibles(otherProfileAddress, true);
+    this.props.getActivity(otherProfileAddress);
   }
 
   componentWillUnmount() {
     store.dispatch({
-      type: 'UPDATE_PUBLIC_PROFILE',
-      onPublicProfilePage: false,
-      publicProfileAddress: '',
+      type: 'UPDATE_OTHER_PROFILE',
+      otherProfileAddress: '',
+    });
+    store.dispatch({
+      type: 'ON_OTHER_PROFILE',
+      onOtherProfilePage: false,
     });
   }
 
   render() {
-    const { isLoadingPublicProfile, showSignInBanner } = this.props;
+    const { isLoadingOtherProfile, showSignInBanner } = this.props;
     return (
       <div>
         <SignInThroughPublicProfileBanner show={showSignInBanner} handleSignInBanner={this.props.handleSignInBanner} />
@@ -80,7 +86,7 @@ class ProfilePublic extends Component {
             <SideBar isPublicProfilePage />
             <PubContent />
           </div>
-          <PublicProfileLoading show={isLoadingPublicProfile} />
+          <PublicProfileLoading show={isLoadingOtherProfile} />
         </div>
       </div>
     );
@@ -95,7 +101,7 @@ ProfilePublic.propTypes = {
   getCollectibles: PropTypes.func.isRequired,
   pathname: PropTypes.object,
   location: PropTypes.object,
-  isLoadingPublicProfile: PropTypes.bool,
+  isLoadingOtherProfile: PropTypes.bool,
   showSignInBanner: PropTypes.bool,
   currentAddress: PropTypes.string,
 };
@@ -103,15 +109,15 @@ ProfilePublic.propTypes = {
 ProfilePublic.defaultProps = {
   pathname: {},
   location: {},
-  isLoadingPublicProfile: true,
+  isLoadingOtherProfile: true,
   showSignInBanner: false,
   currentAddress: '',
 };
 
 const mapState = state => ({
-  isLoadingPublicProfile: state.threeBox.isLoadingPublicProfile,
-  showSignInBanner: state.threeBox.showSignInBanner,
-  currentAddress: state.threeBox.currentAddress,
+  isLoadingOtherProfile: state.otherProfile.isLoadingOtherProfile,
+  showSignInBanner: state.uiState.showSignInBanner,
+  currentAddress: state.userState.currentAddress,
 });
 
 export default withRouter(connect(mapState,

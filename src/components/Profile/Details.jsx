@@ -37,7 +37,7 @@ const Details = ({
   memberSince,
   verifiedTwitter,
   verifiedEmail,
-  onPublicProfilePage,
+  onOtherProfilePage,
   currentAddress,
 }) => (
     <div className="profile__details" id="myFeed">
@@ -132,12 +132,12 @@ const Details = ({
 
         <div className="profile__category__field" title="Employer">
           <img src={Employer} className="profile__category__field__icon" alt="Employer Icon" />
-          {!onPublicProfilePage && <p>{employer}</p>}
+          {!onOtherProfilePage && <p>{employer}</p>}
         </div>
 
         <div className="profile__category__field" title="Job Title">
           <img src={Job} className="profile__category__field__icon" alt="Job Icon" />
-          {!onPublicProfilePage && <p>{job}</p>}
+          {!onOtherProfilePage && <p>{job}</p>}
         </div>
       </div>
 
@@ -150,22 +150,22 @@ const Details = ({
 
         <div className="profile__category__field" title="School">
           <img src={School} className="profile__category__field__icon" alt="School Icon" />
-          {!onPublicProfilePage && <p>{school}</p>}
+          {!onOtherProfilePage && <p>{school}</p>}
         </div>
 
         <div className="profile__category__field" title="Degree">
           <img src={Degree} className="profile__category__field__icon" alt="Degree Icon" />
-          {!onPublicProfilePage && <p>{degree}</p>}
+          {!onOtherProfilePage && <p>{degree}</p>}
         </div>
 
         <div className="profile__category__field" title="Major">
           <img src={Major} className="profile__category__field__icon" alt="Major Icon" />
-          {!onPublicProfilePage && <p>{major}</p>}
+          {!onOtherProfilePage && <p>{major}</p>}
         </div>
 
         <div className="profile__category__field" title="Graduation Year">
           <img src={Year} className="profile__category__field__icon" alt="Year Icon" />
-          {!onPublicProfilePage && <p>{year}</p>}
+          {!onOtherProfilePage && <p>{year}</p>}
         </div>
       </div>
     </div>
@@ -186,7 +186,7 @@ Details.propTypes = {
   location: PropTypes.string,
   birthday: PropTypes.string,
   currentAddress: PropTypes.string,
-  onPublicProfilePage: PropTypes.bool,
+  onOtherProfilePage: PropTypes.bool,
 };
 
 Details.defaultProps = {
@@ -204,26 +204,28 @@ Details.defaultProps = {
   year: '',
   employer: '',
   currentAddress: '',
-  onPublicProfilePage: false,
+  onOtherProfilePage: false,
 };
 
 function mapState(state) {
   return {
-    verifiedGithub: state.threeBox.verifiedGithub,
-    verifiedTwitter: state.threeBox.verifiedTwitter,
-    verifiedEmail: state.threeBox.verifiedEmail,
-    website: state.threeBox.website,
-    birthday: state.threeBox.birthday,
-    memberSince: state.threeBox.memberSince,
-    location: state.threeBox.location,
-    job: state.threeBox.job,
-    school: state.threeBox.school,
-    degree: state.threeBox.degree,
-    major: state.threeBox.major,
-    year: state.threeBox.year,
-    employer: state.threeBox.employer,
-    onPublicProfilePage: state.threeBox.onPublicProfilePage,
-    currentAddress: state.threeBox.currentAddress,
+    verifiedGithub: state.myData.verifiedGithub,
+    verifiedTwitter: state.myData.verifiedTwitter,
+    verifiedEmail: state.myData.verifiedEmail,
+    website: state.myData.website,
+    birthday: state.myData.birthday,
+    memberSince: state.myData.memberSince,
+    location: state.myData.location,
+    job: state.myData.job,
+    school: state.myData.school,
+    degree: state.myData.degree,
+    major: state.myData.major,
+    year: state.myData.year,
+    employer: state.myData.employer,
+
+    onOtherProfilePage: state.uiState.onOtherProfilePage,
+
+    currentAddress: state.userState.currentAddress,
   };
 }
 

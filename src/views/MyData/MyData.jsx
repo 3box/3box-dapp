@@ -7,6 +7,12 @@ import Nav from '../../components/Nav';
 import './styles/MyData.css';
 
 class MyData extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      dataItems: [],
+    }
+  }
   componentDidMount() {
     window.scrollTo(0, 0);
   }

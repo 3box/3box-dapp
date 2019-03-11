@@ -3,8 +3,8 @@ import Box from '3box';
 const getOtherProfile = profileAddress => async (dispatch) => {
   try {
     dispatch({
-      type: 'LOADING_PUBLIC_PROFILE',
-      isLoadingPublicProfile: true,
+      type: 'LOADING_OTHER_PROFILE',
+      isLoadingOtherProfile: true,
     });
 
     const publicProfile = await Box.getProfile(profileAddress); // eslint-disable-line no-undef
@@ -15,30 +15,30 @@ const getOtherProfile = profileAddress => async (dispatch) => {
       };
 
     dispatch({
-      type: 'GET_PUBLIC_PROFILE',
-      publicGithub: publicVerifiedAccounts.github && publicVerifiedAccounts.github.username,
-      publicTwitter: publicVerifiedAccounts.twitter && publicVerifiedAccounts.twitter.username,
-      publicDescription: publicProfile.description,
-      publicLocation: publicProfile.location,
-      publicWebsite: publicProfile.website,
-      publicMemberSince: publicProfile.memberSince,
-      publicJob: publicProfile.job,
-      publicSchool: publicProfile.school,
-      publicDegree: publicProfile.degree,
-      publicMajor: publicProfile.major,
-      publicYear: publicProfile.year,
-      publicEmployer: publicProfile.employer,
-      publicCoverPhoto: publicProfile.coverPhoto,
-      publicImage: publicProfile.image,
-      publicName: publicProfile.name,
-      publicEmoji: publicProfile.emoji,
-      publicStatus: publicProfile.status,
-      publicCollectiblesGallery: publicProfile.collectiblesFavorites,
+      type: 'GET_OTHER_PROFILE',
+      otherGithub: publicVerifiedAccounts.github && publicVerifiedAccounts.github.username,
+      otherTwitter: publicVerifiedAccounts.twitter && publicVerifiedAccounts.twitter.username,
+      otherDescription: publicProfile.description,
+      otherLocation: publicProfile.location,
+      otherWebsite: publicProfile.website,
+      otherMemberSince: publicProfile.memberSince,
+      otherJob: publicProfile.job,
+      otherSchool: publicProfile.school,
+      otherDegree: publicProfile.degree,
+      otherMajor: publicProfile.major,
+      otherYear: publicProfile.year,
+      otherEmployer: publicProfile.employer,
+      otherCoverPhoto: publicProfile.coverPhoto,
+      otherImage: publicProfile.image,
+      otherName: publicProfile.name,
+      otherEmoji: publicProfile.emoji,
+      otherStatus: publicProfile.status,
+      otherCollectiblesGallery: publicProfile.collectiblesFavorites,
     });
 
     dispatch({
-      type: 'LOADING_PUBLIC_PROFILE',
-      isLoadingPublicProfile: false,
+      type: 'LOADING_OTHER_PROFILE',
+      isLoadingOtherProfile: false,
     });
   } catch (error) {
     console.error(error);

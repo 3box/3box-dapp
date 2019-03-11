@@ -11,15 +11,15 @@ import '../../../views/styles/Profile.css';
 import '../../styles/NetworkArray.css';
 
 const Activity = ({
-  ifFetchingActivity,
+  isFetchingActivity,
   feedByAddress,
-  publicProfileActivity,
+  otherProfileActivity,
 }) => (
     <div id="myFeed">
       <div>
         <p className="header publicHeader" id="feed__header">
           Activity
-          {(ifFetchingActivity)
+          {(isFetchingActivity)
             && (
               <img src={Loading} alt="loading" id="activityLoad" />
             )}
@@ -33,7 +33,7 @@ const Activity = ({
                 <ActivityTiles feedAddress={feedAddress} />
               </div>
             ))
-            : (!ifFetchingActivity && !publicProfileActivity.length)
+            : (!isFetchingActivity && !otherProfileActivity.length)
             && (
               <div className="feed__activity__load">
                 <p>No activity at this address yet</p>
@@ -52,34 +52,35 @@ const Activity = ({
 
 Activity.propTypes = {
   feedByAddress: PropTypes.array,
-  ifFetchingActivity: PropTypes.bool,
+  isFetchingActivity: PropTypes.bool,
   currentAddress: PropTypes.string,
   name: PropTypes.string,
-  publicProfileAddress: PropTypes.string,
-  publicProfileActivity: PropTypes.array,
+  otherProfileAddress: PropTypes.string,
+  otherProfileActivity: PropTypes.array,
   location: PropTypes.object,
-  publicName: PropTypes.string,
+  otherName: PropTypes.string,
 };
 
 Activity.defaultProps = {
   feedByAddress: [],
   name: '',
-  ifFetchingActivity: false,
-  publicProfileAddress: '',
+  isFetchingActivity: false,
+  otherProfileAddress: '',
   currentAddress: '',
-  publicName: '',
-  publicProfileActivity: [],
+  otherName: '',
+  otherProfileActivity: [],
   location: {},
 };
 
 const mapState = state => ({
-  feedByAddress: state.threeBox.feedByAddress,
-  ifFetchingActivity: state.threeBox.ifFetchingActivity,
-  publicProfileActivity: state.threeBox.publicProfileActivity,
-  currentAddress: state.threeBox.currentAddress,
-  publicProfileAddress: state.threeBox.publicProfileAddress,
-  name: state.threeBox.name,
-  publicName: state.threeBox.publicName,
+  feedByAddress: state.myData.feedByAddress,
+  isFetchingActivity: state.uiState.isFetchingActivity,
+  otherProfileActivity: state.otherProfile.otherProfileActivity,
+  currentAddress: state.userState.currentAddress,
+
+  otherProfileAddress: state.otherProfile.otherProfileAddress,
+  name: state.myData.name,
+  otherName: state.otherProfile.otherName,
 });
 
 export default connect(mapState)(Activity);

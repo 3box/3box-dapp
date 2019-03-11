@@ -38,8 +38,8 @@ Landing.defaultProps = {
 };
 
 const mapState = state => ({
-  isLoggedIn: state.threeBox.isLoggedIn,
-  showInfoBanner: state.threeBox.showInfoBanner,
+  isLoggedIn: state.currentState.isLoggedIn,
+  showInfoBanner: state.uiState.showInfoBanner,
 });
 
 export default withRouter(connect(mapState)(Landing));

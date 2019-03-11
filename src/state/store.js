@@ -4,7 +4,7 @@ import {
   compose,
 } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import reducer from './reducers';
+import reducer from './reducers/index';
 
 function configureStore( /* deps = {} */ ) {
   /* eslint-disable-next-line no-underscore-dangle */

@@ -24,8 +24,11 @@ const checkWeb3 = () => async (dispatch) => {
     type: 'CHECK_WEB3',
     hasWeb3: typeof window.web3 !== 'undefined', // eslint-disable-line no-undef
     showDownloadBanner: typeof window.web3 === 'undefined', // eslint-disable-line no-undef
-    mobileWalletRequiredModal: typeof window.web3 === 'undefined', // eslint-disable-line no-undef
     currentWallet,
+  });
+  dispatch({
+    type: 'HANDLE_MOBILE_WALLET_REQUIRED_MODAL',
+    mobileWalletRequiredModal: typeof window.web3 === 'undefined', // eslint-disable-line no-undef
   });
 };
 

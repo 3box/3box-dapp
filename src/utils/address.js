@@ -35,7 +35,7 @@ export const pollNetworkAndAddress = () => {
     // Logged out of MM while logged in to 3Box
     if (currentAddress !== address &&
       currentAddress === undefined &&
-      store.getState().threeBox.isLoggedIn) {
+      store.getState().userState.isLoggedIn) {
       prevAddress = address;
       store.dispatch({
         type: 'HANDLE_LOGGEDOUT_MODAL',
@@ -51,7 +51,7 @@ export const pollNetworkAndAddress = () => {
     // Logs out of 3Box
     if (currentAddress !== address &&
       currentAddress === undefined &&
-      store.getState().threeBox.isLoggedIn) {
+      store.getState().userState.isLoggedIn) {
       store.dispatch({
         type: 'HANDLE_LOGGEDOUT_MODAL',
         loggedOutModal: true,
@@ -68,7 +68,7 @@ export const pollNetworkAndAddress = () => {
       typeof currentAddress === 'string' &&
       currentAddress !== prevAddress &&
       address !== undefined &&
-      store.getState().threeBox.isLoggedIn) {
+      store.getState().userState.isLoggedIn) {
       prevAddress = address;
       store.dispatch({
         type: 'HANDLE_SWITCHED_ADDRESS_MODAL',
@@ -86,7 +86,7 @@ export const pollNetworkAndAddress = () => {
     if (currentAddress !== address &&
       typeof currentAddress === 'string' &&
       typeof address === 'string' &&
-      store.getState().threeBox.isLoggedIn &&
+      store.getState().userState.isLoggedIn &&
       currentAddress === prevAddress
     ) {
       store.dispatch({
@@ -107,9 +107,12 @@ export const pollNetworkAndAddress = () => {
       address === undefined &&
       !window.ethereum) {
       store.dispatch({
-        type: 'HANDLE_WALLET_LOGIN_DETECTED_MODAL',
-        isSignedIntoWallet: true,
+        type: 'UPDATE_WEB3_STATUS',
         hasWeb3: true,
+      });
+      store.dispatch({
+        type: 'IS_SIGNED_INTO_WALLET',
+        isSignedIntoWallet: true,
       });
       store.dispatch({
         type: 'UPDATE_ADDRESS',
@@ -122,9 +125,12 @@ export const pollNetworkAndAddress = () => {
     if (currentAddress !== address &&
       currentAddress === undefined) {
       store.dispatch({
-        type: 'HANDLE_WALLET_LOGIN_DETECTED_MODAL',
-        isSignedIntoWallet: false,
+        type: 'UPDATE_WEB3_STATUS',
         hasWeb3: false,
+      });
+      store.dispatch({
+        type: 'IS_SIGNED_INTO_WALLET',
+        isSignedIntoWallet: false,
       });
       store.dispatch({
         type: 'UPDATE_ADDRESS',

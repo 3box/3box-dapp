@@ -4,7 +4,7 @@ import {
 
 const getMyDID = () => async (dispatch) => {
   try {
-    const did = await store.getState().threeBox.box.verified.DID();
+    const did = await store.getState().myData.box.verified.DID();
 
     dispatch({
       type: 'GET_PUBLIC_DID',

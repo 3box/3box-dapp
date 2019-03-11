@@ -18,17 +18,17 @@ import Employer from '../../../assets/Employer.svg';
 import '../../../views/styles/Profile.css';
 
 const PubSideBar = ({
-  publicGithub,
-  publicWebsite,
-  publicLocation,
-  publicJob,
-  publicSchool,
-  publicDegree,
-  publicMajor,
-  publicYear,
-  publicEmployer,
-  publicMemberSince,
-  publicTwitter,
+  otherGithub,
+  otherWebsite,
+  otherLocation,
+  otherJob,
+  otherSchool,
+  otherDegree,
+  otherMajor,
+  otherYear,
+  otherEmployer,
+  otherMemberSince,
+  otherTwitter,
 }) => (
     <React.Fragment>
       <div className="public__about">
@@ -36,33 +36,33 @@ const PubSideBar = ({
 
         <div className="public__about__field" title="Location">
           <img src={Location} className="profile__category__field__icon" alt="Location Icon" />
-          <p>{publicLocation}</p>
+          <p>{otherLocation}</p>
         </div>
 
         <div className="public__about__field" title="Website">
           <img src={Website} className="profile__category__field__icon" alt="Website Icon" />
-          {publicWebsite && (
+          {otherWebsite && (
             <a
-              href={`${addhttp(publicWebsite)}`}
+              href={`${addhttp(otherWebsite)}`}
               className="profile__category__field__verified"
               target="_blank"
               rel="noopener noreferrer"
             >
-              {publicWebsite}
+              {otherWebsite}
             </a>)}
         </div>
 
         <div className="public__about__field" title="Github">
           <img src={GithubIcon} className="profile__category__field__icon" alt="Github Icon" />
-          {publicGithub && (
+          {otherGithub && (
             <React.Fragment>
               <a
-                href={`https://www.github.com/${publicGithub}`}
+                href={`https://www.github.com/${otherGithub}`}
                 className="profile__category__field__verified"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {publicGithub}
+                {otherGithub}
               </a>
               <img src={Verified} alt="Verified" className="profile__category__verified__icon" />
             </React.Fragment>
@@ -71,15 +71,15 @@ const PubSideBar = ({
 
         <div className="public__about__field" title="Twitter">
           <img src={TwitterIcon} className="profile__category__field__icon" alt="Github Icon" />
-          {publicTwitter && (
+          {otherTwitter && (
             <React.Fragment>
               <a
-                href={`https://www.twitter.com/${publicTwitter}`}
+                href={`https://www.twitter.com/${otherTwitter}`}
                 className="profile__category__field__verified"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {publicTwitter}
+                {otherTwitter}
               </a>
               <img src={Verified} alt="Verified" className="profile__category__verified__icon" />
             </React.Fragment>
@@ -88,7 +88,7 @@ const PubSideBar = ({
 
         <div className="public__about__field" title="3Box logo">
           <img src={ThreeBox3} className="profile__category__field__icon" alt="Birthday Icon" />
-          <p>{publicMemberSince.substring(0, 10)}</p>
+          <p>{otherMemberSince.substring(0, 10)}</p>
         </div>
 
       </div>
@@ -99,12 +99,12 @@ const PubSideBar = ({
 
         <div className="public__about__field" title="Employer">
           <img src={Employer} className="profile__category__field__icon" alt="Employer Icon" />
-          <p>{publicEmployer}</p>
+          <p>{otherEmployer}</p>
         </div>
 
         <div className="public__about__field" title="Job Title">
           <img src={Job} className="profile__category__field__icon" alt="Job Icon" />
-          <p>{publicJob}</p>
+          <p>{otherJob}</p>
         </div>
       </div>
 
@@ -113,68 +113,68 @@ const PubSideBar = ({
 
         <div className="public__about__field" title="School">
           <img src={School} className="profile__category__field__icon" alt="School Icon" />
-          <p>{publicSchool}</p>
+          <p>{otherSchool}</p>
         </div>
 
         <div className="public__about__field" title="Degree">
           <img src={Degree} className="profile__category__field__icon" alt="Degree Icon" />
-          <p>{publicDegree}</p>
+          <p>{otherDegree}</p>
         </div>
 
         <div className="public__about__field" title="Major">
           <img src={Major} className="profile__category__field__icon" alt="Major Icon" />
-          <p>{publicMajor}</p>
+          <p>{otherMajor}</p>
         </div>
 
         <div className="public__about__field" title="Graduation Year">
           <img src={Year} className="profile__category__field__icon" alt="Year Icon" />
-          <p>{publicYear}</p>
+          <p>{otherYear}</p>
         </div>
       </div>
     </React.Fragment>
   );
 
-  PubSideBar.propTypes = {
-  publicGithub: PropTypes.string,
-  publicTwitter: PropTypes.string,
-  publicLocation: PropTypes.string,
-  publicWebsite: PropTypes.string,
-  publicJob: PropTypes.string,
-  publicSchool: PropTypes.string,
-  publicDegree: PropTypes.string,
-  publicMemberSince: PropTypes.string,
-  publicMajor: PropTypes.string,
-  publicYear: PropTypes.string,
-  publicEmployer: PropTypes.string,
+PubSideBar.propTypes = {
+  otherGithub: PropTypes.string,
+  otherTwitter: PropTypes.string,
+  otherLocation: PropTypes.string,
+  otherWebsite: PropTypes.string,
+  otherJob: PropTypes.string,
+  otherSchool: PropTypes.string,
+  otherDegree: PropTypes.string,
+  otherMemberSince: PropTypes.string,
+  otherMajor: PropTypes.string,
+  otherYear: PropTypes.string,
+  otherEmployer: PropTypes.string,
 };
 
 PubSideBar.defaultProps = {
-  publicGithub: '',
-  publicTwitter: '',
-  publicLocation: '',
-  publicMemberSince: '',
-  publicWebsite: '',
-  publicJob: '',
-  publicSchool: '',
-  publicDegree: '',
-  publicMajor: '',
-  publicYear: '',
-  publicEmployer: '',
+  otherGithub: '',
+  otherTwitter: '',
+  otherLocation: '',
+  otherMemberSince: '',
+  otherWebsite: '',
+  otherJob: '',
+  otherSchool: '',
+  otherDegree: '',
+  otherMajor: '',
+  otherYear: '',
+  otherEmployer: '',
 };
 
 function mapState(state) {
   return {
-    publicGithub: state.threeBox.publicGithub,
-    publicTwitter: state.threeBox.publicTwitter,
-    publicLocation: state.threeBox.publicLocation,
-    publicWebsite: state.threeBox.publicWebsite,
-    publicMemberSince: state.threeBox.publicMemberSince,
-    publicJob: state.threeBox.publicJob,
-    publicSchool: state.threeBox.publicSchool,
-    publicDegree: state.threeBox.publicDegree,
-    publicMajor: state.threeBox.publicMajor,
-    publicYear: state.threeBox.publicYear,
-    publicEmployer: state.threeBox.publicEmployer,
+    otherGithub: state.otherProfile.otherGithub,
+    otherTwitter: state.otherProfile.otherTwitter,
+    otherLocation: state.otherProfile.otherLocation,
+    otherWebsite: state.otherProfile.otherWebsite,
+    otherMemberSince: state.otherProfile.otherMemberSince,
+    otherJob: state.otherProfile.otherJob,
+    otherSchool: state.otherProfile.otherSchool,
+    otherDegree: state.otherProfile.otherDegree,
+    otherMajor: state.otherProfile.otherMajor,
+    otherYear: state.otherProfile.otherYear,
+    otherEmployer: state.otherProfile.otherEmployer,
   };
 }
 
