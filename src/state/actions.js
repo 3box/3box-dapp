@@ -282,6 +282,10 @@ export const getBox = fromSignIn => async (dispatch) => {
       errorMessage: err,
       showErrorModal: true,
       provideConsent: false,
+      onSyncFinished: true,
+      isSyncing: false,
+      ifFetchingThreeBox: false,
+      isLoggedIn: false,
     });
   }
 };
@@ -540,6 +544,11 @@ export const getProfile = profileAddress => async (dispatch) => {
       isLoadingPublicProfile: false,
     });
   } catch (error) {
+    dispatch({
+      type: 'LOADING_PUBLIC_PROFILE_FAILED',
+      isLoadingPublicProfile: false,
+      loadingPublicProfileErrorMsg: error,
+    });
     console.error(error);
   }
 };

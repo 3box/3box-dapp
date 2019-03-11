@@ -70,6 +70,13 @@ export const threeBoxReducer = (state = {}, action) => {
         isLoadingPublicProfile: action.isLoadingPublicProfile,
       };
 
+    case 'LOADING_PUBLIC_PROFILE_FAILED':
+      return {
+        ...state,
+        isLoadingPublicProfile: action.isLoadingPublicProfile,
+        loadingPublicProfileErrorMsg: action.loadingPublicProfileErrorMsg,
+      };
+
     case 'HANDLE_SIGNIN_BANNER':
       return {
         ...state,
