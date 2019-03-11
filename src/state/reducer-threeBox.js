@@ -329,10 +329,13 @@ export const threeBoxReducer = (state = {}, action) => {
     case 'FAILED_LOADING_3BOX':
       return {
         ...state,
-        ifFetchingThreeBox: false,
-        showErrorModal: true,
-        provideConsent: false,
         errorMessage: action.errorMessage,
+        showErrorModal: action.showErrorModal,
+        provideConsent: action.provideConsent,
+        onSyncFinished: action.onSyncFinished,
+        isSyncing: action.isSyncing,
+        ifFetchingThreeBox: action.ifFetchingThreeBox,
+        isLoggedIn: action.isLoggedIn,
       };
 
     case 'REQUIRE_METAMASK':
