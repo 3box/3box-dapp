@@ -1,3 +1,5 @@
+import Box from '3box';
+
 const getOtherProfile = profileAddress => async (dispatch) => {
   try {
     dispatch({

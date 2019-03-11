@@ -11,6 +11,7 @@ import { normalizeURL } from '../utils/funcs';
 import Profile from '../assets/Profile.svg';
 import Edit from '../assets/Edit.svg';
 import SignOut from '../assets/SignOut.svg';
+import Folder from '../assets/Folder.svg';
 import './styles/Nav.css';
 
 const { handleSignOut } = actions.signin;
@@ -68,6 +69,11 @@ class Nav extends Component {
             <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} className="nav__userPicture clearProfPic" alt="profile" onClick={this.handleDropdown} role="button" />
             : <div className="nav__userPicture" onClick={this.handleDropdown} />
         }
+
+        <Link to={`/${currentAddress}/${routes.DATA}`} className="nav__data">
+          <img src={Folder} alt="Folder" className="nav__folder" />
+          Data
+        </Link>
 
         {/* desktop nav dropdown */}
         <div className={`${showProfileModal ? 'nav__dropdown--visible' : undefined} nav__dropdown nav__dropdown--desktop`}

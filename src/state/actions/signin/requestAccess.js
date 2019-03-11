@@ -1,3 +1,5 @@
+import Box from '3box';
+
 import {
   store,
 } from '../../store';

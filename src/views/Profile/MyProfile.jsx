@@ -1,7 +1,7 @@
 import { withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
 
-import Content from '../../components/Profile/MyProfile/Content';
+import MyContent from '../../components/Profile/MyProfile/MyContent';
 import SideBar from '../../components/Profile/SideBar';
 import Nav from '../../components/Nav';
 import '../styles/Profile.css';
@@ -18,7 +18,7 @@ class Profile extends Component {
         <div id="profile__page">
           <div id="profile__contents">
             <SideBar />
-            <Content />
+            <MyContent />
           </div>
         </div>
       </div>

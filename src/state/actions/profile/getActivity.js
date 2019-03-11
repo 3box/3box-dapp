@@ -1,14 +1,16 @@
+import ThreeBoxActivity from '3box-activity';
+
 import {
   store,
 } from '../../store';
 import {
   getContract,
   imageElFor,
-  getPublicProfile,
   updateFeed,
   addDataType,
   addPublicOrPrivateDataType,
 } from '../../../utils/funcs';
+import getPublicProfile from './getPublicProfile';
 
 const getActivity = publicProfileAddress => async (dispatch) => {
   try {

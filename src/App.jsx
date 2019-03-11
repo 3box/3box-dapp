@@ -10,6 +10,7 @@ import { pollNetworkAndAddress, initialAddress } from './utils/address';
 import { normalizeURL, matchProtectedRoutes } from './utils/funcs';
 import { store } from './state/store';
 import Landing from './views/Landing/Landing';
+import MyData from './views/MyData/MyData';
 import MyProfile from './views/Profile/MyProfile';
 import PubProfile from './views/Profile/PubProfile';
 import NoMatch from './views/Landing/NoMatch';
@@ -356,6 +357,12 @@ class App extends Component {
             exact
             path="(^[/][0][xX]\w{40}\b)/collectibles"
             component={MyProfile}
+          />
+
+          <Route
+            exact
+            path="(^[/][0][xX]\w{40}\b)/data"
+            component={MyData}
           />
 
           <Route

@@ -75,6 +75,29 @@ nav {
 #nav__logo--mobile {
   display: none; }
 
+.nav__data {
+  position: absolute;
+  right: 120px;
+  height: 100%;
+  width: fit-content;
+  padding: 0 20px;
+  border-left: 1px solid #ececec;
+  border-right: 1px solid #ececec;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #747677; }
+  .nav__data:hover {
+    background-color: #f5f6f8;
+    color: #1168df; }
+  .nav__data:hover .nav__folder {
+    filter: grayscale(0); }
+
+.nav__folder {
+  filter: grayscale(100%);
+  width: 30px;
+  margin-right: 16px; }
+
 .nav__dropdown__mobileLogo {
   display: none; }
 

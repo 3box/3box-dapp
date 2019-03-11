@@ -19,10 +19,10 @@ export const normalizeURL = (pathname) => {
 };
 
 export const matchProtectedRoutes = (normalizedPath) => {
-  console.log(normalizedPath);
   if (normalizedPath === routes.ACTIVITY ||
     normalizedPath === routes.DETAILS ||
     normalizedPath === routes.COLLECTIBLES ||
+    normalizedPath === routes.DATA ||
     normalizedPath === routes.EDIT) {
     return true;
   }
@@ -61,16 +61,6 @@ export const imageElFor = (address) => {
   contractImg.style.width = '100%';
   return [contractImg, contractMetaData];
 };
-
-export async function getPublicProfile(graphqlQueryObject) {
-  let profile;
-  try {
-    profile = await Box.profileGraphQL(graphqlQueryObject); // eslint-disable-line no-undef
-  } catch (err) {
-    return err;
-  }
-  return profile;
-}
 
 const fireDispatch = (publicProfileAddress, feedByAddress) => {
   if (publicProfileAddress) {

@@ -101,6 +101,35 @@ nav {
   display: none;
 }
 
+.nav__data {
+  position: absolute;
+  right: 120px;
+  height: 100%;
+  width: fit-content;
+  padding: 0 20px;
+  border-left: 1px solid $borderColor;
+  border-right: 1px solid $borderColor;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $lighterFont;
+  
+  &:hover {
+    background-color: $backgroundHue;
+    color: $threeBoxBlue;
+  }
+
+  &:hover .nav__folder {
+    filter: grayscale(0);
+  }
+}
+
+.nav__folder {
+  filter: grayscale(100%);
+  width: 30px;
+  margin-right: 16px; 
+}
+
 .nav__dropdown__mobileLogo {
   display: none;
 }

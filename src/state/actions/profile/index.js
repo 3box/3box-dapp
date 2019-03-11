@@ -7,6 +7,7 @@ import getVerifiedPrivateEmail from './getVerifiedPrivateEmail';
 import getVerifiedPublicGithub from './getVerifiedPublicGithub';
 import getVerifiedPublicTwitter from './getVerifiedPublicTwitter';
 import getActivity from './getActivity';
+import getPublicProfile from './getPublicProfile';
 
 export default {
   getCollectibles,
@@ -18,4 +19,5 @@ export default {
   getVerifiedPrivateEmail,
   getVerifiedPublicGithub,
   getVerifiedPublicTwitter,
+  getPublicProfile,
 };
