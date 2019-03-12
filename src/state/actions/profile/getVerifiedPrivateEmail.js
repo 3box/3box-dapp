@@ -7,7 +7,7 @@ const getVerifiedPrivateEmail = () => async (dispatch) => {
     const verifiedEmail = await store.getState().myData.box.verified.email();
 
     dispatch({
-      type: 'GET_VERIFIED_PRIVATE_EMAIL',
+      type: 'MY_VERIFIED_EMAIL_UPDATE',
       verifiedEmail: verifiedEmail.email_address,
     });
   } catch (error) {

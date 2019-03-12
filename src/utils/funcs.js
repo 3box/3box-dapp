@@ -65,24 +65,24 @@ export const imageElFor = (address) => {
 const fireDispatch = (otherProfileAddress, feedByAddress) => {
   if (otherProfileAddress) {
     store.dispatch({
-      type: 'GET_PUBLIC_PROFILE_ACTIVITY',
+      type: 'OTHER_ACTIVITY_UPDATE',
       otherProfileActivity: feedByAddress,
     });
     store.dispatch({
-      type: 'UPDATE_OTHER_ACTIVITY_UI',
+      type: 'UI_FEED_LOADING',
       isFetchingActivity: false,
     });
   } else {
     store.dispatch({
-      type: 'LOGIN_UPDATE',
+      type: 'USER_LOGIN_UPDATE',
       isLoggedIn: true,
     });
     store.dispatch({
-      type: 'UPDATE_ACTIVITY_UISTATE',
+      type: 'UI_FEED_LOADING',
       isFetchingActivity: false,
     });
     store.dispatch({
-      type: 'UPDATE_MY_ACTIVITY_FEED',
+      type: 'MY_FEED_UPDATE',
       feedByAddress,
     });
   }
@@ -166,13 +166,13 @@ export const copyToClipBoard = (type, message) => async (dispatch) => {
 
     setTimeout(() => {
       dispatch({
-        type: 'COPY_SUCCESSFUL',
+        type: 'UI_COPY_SUCCESSFUL',
         copySuccessful: true,
       });
     }, 1);
     setTimeout(() => {
       dispatch({
-        type: 'COPY_SUCCESSFUL',
+        type: 'UI_COPY_SUCCESSFUL',
         copySuccessful: false,
       });
     }, 2000);

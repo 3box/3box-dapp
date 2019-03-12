@@ -51,13 +51,13 @@ const checkNetwork = () => async (dispatch) => {
   if (prevNetwork && (prevNetwork !== currentNetwork) && store.getState().userState.isLoggedIn && shouldShowSwitchNetwork === 'true') {
     window.localStorage.setItem('shouldShowSwitchNetwork', false); // eslint-disable-line no-undef
     dispatch({
-      type: 'NETWORK_UPDATE',
+      type: 'USER_NETWORK_UPDATE',
       currentNetwork,
       prevNetwork,
       prevPrevNetwork,
     });
     dispatch({
-      type: 'HANDLE_DIFFERENT_NETWORK_MODAL',
+      type: 'UI_HANDLE_DIFFERENT_NETWORK_MODAL',
       showDifferentNetworkModal: true,
       onBoardingModal: false,
       onBoardingModal2: false,
@@ -66,7 +66,7 @@ const checkNetwork = () => async (dispatch) => {
   } else {
     window.localStorage.setItem('shouldShowSwitchNetwork', true); // eslint-disable-line no-undef
     dispatch({
-      type: 'NETWORK_UPDATE',
+      type: 'USER_NETWORK_UPDATE',
       currentNetwork,
       prevNetwork,
       prevPrevNetwork,

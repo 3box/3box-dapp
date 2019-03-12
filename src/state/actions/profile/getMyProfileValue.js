@@ -6,10 +6,11 @@ const getMyProfileValue = (type, key) => async (dispatch) => {
   try {
     const keyUppercase = key.toUpperCase();
     const keyToAdd = await store.getState().myData.box[type].get(key);
-    const typeUppercase = type.toUpperCase();
+
+    if (!keyToAdd) return;
 
     dispatch({
-      type: `GET_MY_${typeUppercase}_${keyUppercase}`,
+      type: `MY_${keyUppercase}_UPDATE`,
       [key]: keyToAdd,
     });
   } catch (error) {

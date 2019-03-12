@@ -3,7 +3,7 @@ import Box from '3box';
 const getOtherProfile = profileAddress => async (dispatch) => {
   try {
     dispatch({
-      type: 'LOADING_OTHER_PROFILE',
+      type: 'OTHER_PROFILE_LOADING',
       isLoadingOtherProfile: true,
     });
 
@@ -15,7 +15,7 @@ const getOtherProfile = profileAddress => async (dispatch) => {
       };
 
     dispatch({
-      type: 'GET_OTHER_PROFILE',
+      type: 'OTHER_PROFILE_UPDATE',
       otherGithub: publicVerifiedAccounts.github && publicVerifiedAccounts.github.username,
       otherTwitter: publicVerifiedAccounts.twitter && publicVerifiedAccounts.twitter.username,
       otherDescription: publicProfile.description,
@@ -37,7 +37,7 @@ const getOtherProfile = profileAddress => async (dispatch) => {
     });
 
     dispatch({
-      type: 'LOADING_OTHER_PROFILE',
+      type: 'OTHER_PROFILE_LOADING',
       isLoadingOtherProfile: false,
     });
   } catch (error) {

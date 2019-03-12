@@ -22,7 +22,7 @@ export const initialAddress = async () => {
     address = null;
   }
   store.dispatch({
-    type: 'UPDATE_ADDRESS',
+    type: 'USER_UPDATE_ADDRESS',
     currentAddress: address,
   });
 };
@@ -38,11 +38,11 @@ export const pollNetworkAndAddress = () => {
       store.getState().userState.isLoggedIn) {
       prevAddress = address;
       store.dispatch({
-        type: 'HANDLE_LOGGEDOUT_MODAL',
+        type: 'UI_HANDLE_LOGGEDOUT_MODAL',
         loggedOutModal: true,
       });
       store.dispatch({
-        type: 'UPDATE_ADDRESS',
+        type: 'USER_UPDATE_ADDRESS',
         currentAddress,
       });
       window.localStorage.setItem('userEthAddress', currentAddress);
@@ -53,11 +53,11 @@ export const pollNetworkAndAddress = () => {
       currentAddress === undefined &&
       store.getState().userState.isLoggedIn) {
       store.dispatch({
-        type: 'HANDLE_LOGGEDOUT_MODAL',
+        type: 'UI_HANDLE_LOGGEDOUT_MODAL',
         loggedOutModal: true,
       });
       store.dispatch({
-        type: 'UPDATE_ADDRESS',
+        type: 'USER_UPDATE_ADDRESS',
         currentAddress,
       });
       window.localStorage.setItem('userEthAddress', currentAddress);
@@ -71,12 +71,12 @@ export const pollNetworkAndAddress = () => {
       store.getState().userState.isLoggedIn) {
       prevAddress = address;
       store.dispatch({
-        type: 'HANDLE_SWITCHED_ADDRESS_MODAL',
+        type: 'UI_HANDLE_SWITCHED_ADDRESS_MODAL',
         switchedAddressModal: true,
         prevAddress,
       });
       store.dispatch({
-        type: 'UPDATE_ADDRESS',
+        type: 'USER_UPDATE_ADDRESS',
         currentAddress,
       });
       window.localStorage.setItem('userEthAddress', currentAddress);
@@ -90,12 +90,12 @@ export const pollNetworkAndAddress = () => {
       currentAddress === prevAddress
     ) {
       store.dispatch({
-        type: 'HANDLE_SWITCHED_ADDRESS_MODAL',
+        type: 'UI_HANDLE_SWITCHED_ADDRESS_MODAL',
         switchedAddressModal: false,
         prevAddress: '',
       });
       store.dispatch({
-        type: 'UPDATE_ADDRESS',
+        type: 'USER_UPDATE_ADDRESS',
         currentAddress,
       });
       window.localStorage.setItem('userEthAddress', currentAddress);
@@ -107,15 +107,15 @@ export const pollNetworkAndAddress = () => {
       address === undefined &&
       !window.ethereum) {
       store.dispatch({
-        type: 'WEB3_STATUS_UPDATE',
+        type: 'USER_WEB3_STATUS_UPDATE',
         hasWeb3: true,
       });
       store.dispatch({
-        type: 'WALLET_LOGIN_UPDATE',
+        type: 'USER_WALLET_LOGIN_UPDATE',
         isSignedIntoWallet: true,
       });
       store.dispatch({
-        type: 'UPDATE_ADDRESS',
+        type: 'USER_UPDATE_ADDRESS',
         currentAddress,
       });
       window.localStorage.setItem('userEthAddress', currentAddress);
@@ -125,15 +125,15 @@ export const pollNetworkAndAddress = () => {
     if (currentAddress !== address &&
       currentAddress === undefined) {
       store.dispatch({
-        type: 'WEB3_STATUS_UPDATE',
+        type: 'USER_WEB3_STATUS_UPDATE',
         hasWeb3: false,
       });
       store.dispatch({
-        type: 'WALLET_LOGIN_UPDATE',
+        type: 'USER_WALLET_LOGIN_UPDATE',
         isSignedIntoWallet: false,
       });
       store.dispatch({
-        type: 'UPDATE_ADDRESS',
+        type: 'USER_UPDATE_ADDRESS',
         currentAddress,
       });
       window.localStorage.setItem('userEthAddress', currentAddress);

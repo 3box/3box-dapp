@@ -15,7 +15,7 @@ const requestAccess = directLogin => async (dispatch) => {
     try {
       window.web3 = new Web3(ethereum); // eslint-disable-line no-undef
       dispatch({
-        type: 'HANDLE_ACCESS_MODAL',
+        type: 'UI_HANDLE_ACCESS_MODAL',
         allowAccessModal: true,
         directLogin,
       });
@@ -25,14 +25,14 @@ const requestAccess = directLogin => async (dispatch) => {
       window.localStorage.setItem('userEthAddress', accounts[0]);
 
       dispatch({
-        type: 'ADDRESSES_UPDATE',
+        type: 'USER_ADDRESSES_UPDATE',
         isSignedIntoWallet: accounts && (accounts.length > 0 || store.getState().userState.currentWallet === 'isToshi'),
         isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
         accountAddress: accounts[0],
         currentAddress: accounts[0],
       });
       dispatch({
-        type: 'HANDLE_ACCESS_MODAL',
+        type: 'UI_HANDLE_ACCESS_MODAL',
         allowAccessModal: false,
         directLogin,
       });
@@ -40,7 +40,7 @@ const requestAccess = directLogin => async (dispatch) => {
       console.error(error);
       history.push(routes.LANDING);
       dispatch({
-        type: 'HANDLE_DENIED_ACCESS_MODAL',
+        type: 'UI_HANDLE_DENIED_ACCESS_MODAL',
         accessDeniedModal: true,
         allowAccessModal: false,
         isSignedIntoWallet: accounts && (accounts.length > 0 || store.getState().userState.currentWallet === 'isToshi'),
@@ -53,7 +53,7 @@ const requestAccess = directLogin => async (dispatch) => {
     window.localStorage.setItem('userEthAddress', accounts[0]);
 
     dispatch({
-      type: 'ADDRESSES_UPDATE',
+      type: 'USER_ADDRESSES_UPDATE',
       isSignedIntoWallet: accounts && (accounts.length > 0 || store.getState().userState.currentWallet === 'isToshi'),
       isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
       currentAddress: accounts[0],

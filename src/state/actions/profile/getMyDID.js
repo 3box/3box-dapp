@@ -7,7 +7,7 @@ const getMyDID = () => async (dispatch) => {
     const did = await store.getState().myData.box.verified.DID();
 
     dispatch({
-      type: 'GET_PUBLIC_DID',
+      type: 'MY_DID_UPDATE',
       did,
     });
   } catch (error) {

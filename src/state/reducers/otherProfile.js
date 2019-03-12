@@ -1,12 +1,12 @@
 const otherProfileReducer = (state = {}, action) => {
   switch (action.type) {
-    case 'LOADING_OTHER_PROFILE':
+    case 'OTHER_PROFILE_LOADING':
       return {
         ...state,
         isLoadingOtherProfile: action.isLoadingOtherProfile,
       };
 
-    case 'GET_OTHER_PROFILE':
+    case 'OTHER_PROFILE_UPDATE':
       return {
         ...state,
         otherGithub: action.otherGithub,
@@ -29,19 +29,19 @@ const otherProfileReducer = (state = {}, action) => {
         otherCollectiblesGallery: action.otherCollectiblesGallery,
       };
 
-    case 'GET_PUBLIC_PROFILE_ACTIVITY':
+    case 'OTHER_ACTIVITY_UPDATE':
       return {
         ...state,
         otherProfileActivity: action.otherProfileActivity,
       };
 
-    case 'UPDATE_PUBLIC_PROFILE_FAVORITE_COLLECTIBLES':
+    case 'OTHER_FAVORITE_COLLECTIBLES_UPDATE':
       return {
         ...state,
         otherCollectiblesFavorites: action.otherCollectiblesFavorites,
       };
 
-    case 'UPDATE_OTHER_PROFILE':
+    case 'OTHER_ADDRESS_UPDATE':
       return {
         ...state,
         otherProfileAddress: action.otherProfileAddress,

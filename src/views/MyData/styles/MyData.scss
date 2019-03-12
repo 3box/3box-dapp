@@ -75,6 +75,11 @@
 
 .data__items {
   width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
 }
 
 .data__categories__title {
@@ -86,13 +91,31 @@
 }
 
 .data__items__row {
-  height: 50px;
   border-bottom: 1px solid $borderColor;
   border-top: 1px solid $borderColor;
   margin-bottom: -1px;
   cursor: pointer;
-  
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 12px 0;
+  height: fit-content;
+  max-height: 300px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  width: 100%;
+
   &:hover {
     background-color: rgb(218, 225, 238);
   }
 }
+
+.data__items__row__entry {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 16.666666666666666666666666666666%;
+  max-width: 16.666666666666666666666666666666%;
+  height: fit-content;
+}
+

@@ -1,169 +1,158 @@
 const myDataReducer = (state = {}, action) => {
   switch (action.type) {
-    case 'UPDATE_BOX':
+    case 'MY_BOX_UPDATE':
       return {
         ...state,
         box: action.box,
       };
 
-    case 'UPDATE_MY_ACTIVITY_FEED':
+    case 'MY_FEED_UPDATE':
       return {
         ...state,
         feedByAddress: action.feedByAddress,
       };
 
-    case 'GET_MY_PUBLIC_NAME':
+    case 'MY_NAME_UPDATE':
       return {
         ...state,
         name: action.name,
       };
 
-    case 'GET_MY_PUBLIC_GITHUB':
-      return {
-        ...state,
-        github: action.github,
-      };
-
-    case 'GET_MY_PUBLIC_COLLECTIBLES':
-      return {
-        ...state,
-        publicCollectibles: action.publicCollectibles,
-      };
-
-    case 'GET_MY_VERIFIED_PUBLIC_GITHUB':
+    case 'MY_VERIFIED_GITHUB_UPDATE':
       return {
         ...state,
         verifiedGithub: action.verifiedGithub,
       };
 
-    case 'GET_MY_VERIFIED_PUBLIC_TWITTER':
+    case 'MY_VERIFIED_TWITTER_UPDATE':
       return {
         ...state,
         verifiedTwitter: action.verifiedTwitter,
       };
 
-    case 'GET_MY_VERIFIED_PRIVATE_EMAIL':
+    case 'MY_VERIFIED_EMAIL_UPDATE':
       return {
         ...state,
         verifiedEmail: action.verifiedEmail,
       };
 
-    case 'GET_MY_PUBLIC_DESCRIPTION':
+    case 'MY_DESCRIPTION_UPDATE':
       return {
         ...state,
         description: action.description,
       };
 
-    case 'GET_MY_PUBLIC_LOCATION':
+    case 'MY_LOCATION_UPDATE':
       return {
         ...state,
         location: action.location,
       };
 
-    case 'GET_MY_PUBLIC_WEBSITE':
+    case 'MY_WEBSITE_UPDATE':
       return {
         ...state,
         website: action.website,
       };
 
-    case 'GET_MY_PUBLIC_EMPLOYER':
+    case 'MY_EMPLOYER_UPDATE':
       return {
         ...state,
         employer: action.employer,
       };
 
-    case 'GET_MY_PUBLIC_JOB':
+    case 'MY_JOB_UPDATE':
       return {
         ...state,
         job: action.job,
       };
 
-    case 'GET_MY_PUBLIC_SCHOOL':
+    case 'MY_SCHOOL_UPDATE':
       return {
         ...state,
         school: action.school,
       };
 
-    case 'GET_MY_PUBLIC_DEGREE':
+    case 'MY_DEGREE_UPDATE':
       return {
         ...state,
         degree: action.degree,
       };
 
-    case 'GET_MY_PUBLIC_MAJOR':
+    case 'MY_MAJOR_UPDATE':
       return {
         ...state,
         major: action.major,
       };
 
-    case 'GET_MY_PUBLIC_YEAR':
+    case 'MY_YEAR_UPDATE':
       return {
         ...state,
         year: action.year,
       };
 
-    case 'GET_MY_PUBLIC_IMAGE':
+    case 'MY_IMAGE_UPDATE':
       return {
         ...state,
         image: action.image,
       };
 
-    case 'GET_MY_PUBLIC_COVERPHOTO':
+    case 'MY_COVERPHOTO_UPDATE':
       return {
         ...state,
         coverPhoto: action.coverPhoto,
       };
 
-    case 'GET_MY_PUBLIC_EMOJI':
+    case 'MY_EMOJI_UPDATE':
       return {
         ...state,
         emoji: action.emoji,
       };
 
-    case 'GET_MY_PUBLIC_COLLECTIBLESFAVORITES':
+    case 'MY_COLLECTIBLESFAVORITES_UPDATE':
       return {
         ...state,
         collectiblesFavorites: action.collectiblesFavorites,
         collectiblesFavoritesToRender: action.collectiblesFavoritesToRender,
       };
 
-    case 'GET_MY_PUBLIC_STATUS':
+    case 'MY_STATUS_UPDATE':
       return {
         ...state,
         status: action.status,
       };
 
-    case 'GET_MY_PRIVATE_EMAIL':
-      return {
-        ...state,
-        email: action.email,
-      };
-
-    case 'GET_MY_PRIVATE_BIRTHDAY':
+    case 'MY_BIRTHDAY_UPDATE':
       return {
         ...state,
         birthday: action.birthday,
       };
 
-    case 'GET_MY_PUBLIC_MEMBERSINCE':
+    case 'MY_MEMBERSINCE_UPDATE':
       return {
         ...state,
         memberSince: action.memberSince,
       };
 
-    case 'GET_MY_PUBLIC_DID':
+    case 'MY_DID_UPDATE':
       return {
         ...state,
         did: action.did,
       };
 
-    case 'GET_MY_COLLECTIBLES':
+    case 'MY_COLLECTIBLES_UPDATE':
       return {
         ...state,
         collection: action.collection,
       };
 
-    case 'SIGNOUT_MYDATA':
+    case 'MY_SPACES_DATA_UPDATE':
+      return {
+        ...state,
+        spaces: action.spaces,
+        spaceData: action.spaceData,
+      };
+
+    case 'MY_DATA_SIGNOUT':
       return {
         ...state,
         birthday: '',

@@ -8,16 +8,16 @@ export const handleSignOut = () => async (dispatch) => {
   if (store.getState().userState.isLoggedIn) {
     if (store.getState().myData.box) store.getState().myData.box.logout();
     dispatch({
-      type: 'SIGNOUT_USERSTATE',
+      type: 'USER_SIGN_OUT',
       isLoggedIn: false,
       hasSignedOut: true,
     });
     dispatch({
-      type: 'SIGNOUT_UISTATE',
+      type: 'UI_SIGN_OUT',
       onSyncFinished: false,
     });
     dispatch({
-      type: 'SIGNOUT_MYDATA',
+      type: 'MY_DATA_SIGNOUT',
       birthday: '',
       name: '',
       github: '',

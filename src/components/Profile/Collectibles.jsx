@@ -62,17 +62,17 @@ class Collectibles extends Component {
     updatedCollectiblesFavorites.slice(0, 3); // Guarantee only three get saved
     box.public.set('collectiblesFavorites', updatedCollectiblesFavorites);
     store.dispatch({
-      type: 'GET_MY_COLLECTIBLES',
+      type: 'MY_COLLECTIBLES_UPDATE',
       collection: updatedCollection,
     });
     store.dispatch({
-      type: 'GET_MY_PUBLIC_COLLECTIBLESFAVORITES',
+      type: 'MY_COLLECTIBLESFAVORITES_UPDATE',
       collectiblesFavorites: updatedCollectiblesFavorites,
       collectiblesFavoritesToRender: updatedCollectiblesFavoritesToRender,
     });
     if (fromModal) {
       store.dispatch({
-        type: 'HANDLE_COLLECTIBLES_MODAL',
+        type: 'UI_HANDLE_COLLECTIBLES_MODAL',
         isFavorite: !isFavorite,
         showCollectiblesModal,
         selectedCollectible: this.props.selectedCollectible,

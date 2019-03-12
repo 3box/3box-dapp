@@ -1,6 +1,6 @@
 const userStateReducer = (state = {}, action) => {
   switch (action.type) {
-    case 'WEB3_CHECK':
+    case 'USER_CHECK_WEB3':
       return {
         ...state,
         hasWeb3: action.hasWeb3,
@@ -8,7 +8,7 @@ const userStateReducer = (state = {}, action) => {
         currentWallet: action.currentWallet,
       };
 
-    case 'ADDRESSES_UPDATE':
+    case 'USER_ADDRESSES_UPDATE':
       return {
         ...state,
         isSignedIntoWallet: action.isSignedIntoWallet,
@@ -17,19 +17,19 @@ const userStateReducer = (state = {}, action) => {
         currentAddress: action.currentAddress,
       };
 
-    case 'WEB3_STATUS_UPDATE':
+    case 'USER_WEB3_STATUS_UPDATE':
       return {
         ...state,
         hasWeb3: action.hasWeb3,
       };
 
-    case 'WALLET_LOGIN_UPDATE':
+    case 'USER_WALLET_LOGIN_UPDATE':
       return {
         ...state,
         isSignedIntoWallet: action.isSignedIntoWallet,
       };
 
-    case 'NETWORK_UPDATE':
+    case 'USER_NETWORK_UPDATE':
       return {
         ...state,
         currentNetwork: action.currentNetwork,
@@ -37,20 +37,20 @@ const userStateReducer = (state = {}, action) => {
         prevPrevNetwork: action.prevPrevNetwork,
       };
 
-    case 'LOGIN_UPDATE':
+    case 'USER_LOGIN_UPDATE':
       return {
         ...state,
         isLoggedIn: action.isLoggedIn,
       };
 
-    case 'SIGNOUT_USERSTATE':
+    case 'USER_SIGN_OUT':
       return {
         ...state,
         isLoggedIn: action.isLoggedIn,
         hasSignedOut: action.hasSignedOut,
       };
 
-    case 'UPDATE_ADDRESS':
+    case 'USER_UPDATE_ADDRESS':
       return {
         ...state,
         currentAddress: action.currentAddress,

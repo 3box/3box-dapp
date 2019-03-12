@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, NavLink, withRouter } from 'react-router-dom';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import PubSideBar from './PublicProfile/PubSideBar';
 import { copyToClipBoard } from '../../utils/funcs';
@@ -158,15 +159,21 @@ const SideBar = ({
         </div>
       </div>
 
-      {(copySuccessful && document.queryCommandSupported('copy')) && (
-        <div className="modal__container--copied modal--effect">
-          <div className="modal--sync">
-            <div className="modal--sync__copy__wrapper">
-              <img src={Copy} className="modal__copy__ico" alt="Copied" />
-              <p>COPIED PROFILE URL</p>
+      <ReactCSSTransitionGroup
+        transitionName="app__modals"
+        transitionEnterTimeout={300}
+        transitionLeaveTimeout={300}
+      >
+        {(copySuccessful && document.queryCommandSupported('copy')) && (
+          <div className="modal__container--copied modal--effect">
+            <div className="modal--sync">
+              <div className="modal--sync__copy__wrapper">
+                <img src={Copy} className="modal__copy__ico" alt="Copied" />
+                <p>COPIED PROFILE URL</p>
+              </div>
             </div>
-          </div>
-        </div>)}
+          </div>)}
+      </ReactCSSTransitionGroup>
     </div>
   );
 

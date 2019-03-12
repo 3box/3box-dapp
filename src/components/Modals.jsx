@@ -930,7 +930,7 @@ SyncingModal.propTypes = {
   show: PropTypes.bool.isRequired,
 };
 
-export const PublicProfileLoading = ({ show }) => (
+export const PublicProfileLoading = () => (
   <div>
     <div className="modal__container--sync modal--effect">
       <div className="modal--sync ">
@@ -949,10 +949,6 @@ export const PublicProfileLoading = ({ show }) => (
     </div>
   </div>
 );
-
-PublicProfileLoading.propTypes = {
-  show: PropTypes.bool.isRequired,
-};
 
 export const SignInThroughPublicProfileBanner = ({ show, handleSignInBanner }) => (
   <React.Fragment>

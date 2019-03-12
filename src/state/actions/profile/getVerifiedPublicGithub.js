@@ -7,7 +7,7 @@ const getVerifiedPublicGithub = () => async (dispatch) => {
     const verifiedGithub = await store.getState().myData.box.verified.github();
 
     dispatch({
-      type: 'GET_VERIFIED_PUBLIC_GITHUB',
+      type: 'MY_VERIFIED_GITHUB_UPDATE',
       verifiedGithub: verifiedGithub.username,
     });
   } catch (error) {

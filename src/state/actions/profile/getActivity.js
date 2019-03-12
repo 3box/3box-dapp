@@ -15,7 +15,8 @@ import getPublicProfile from './getPublicProfile';
 const getActivity = otherProfileAddress => async (dispatch) => {
   try {
     dispatch({
-      type: 'LOADING_ACTIVITY',
+      type: 'UI_FEED_LOADING',
+      isFetchingActivity: true,
     });
 
     let activity;
@@ -214,13 +215,13 @@ const getActivity = otherProfileAddress => async (dispatch) => {
     });
   } catch (err) {
     dispatch({
-      type: 'FAILED_LOADING_ACTIVITY',
+      type: 'UI_FEED_FAILED',
       isFetchingActivity: false,
       errorMessage: err,
       provideConsent: false,
     });
     dispatch({
-      type: 'UPDATE_MY_ACTIVITY_FEED',
+      type: 'MY_FEED_UPDATE',
       feedByAddress: [],
     });
   }

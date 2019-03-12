@@ -8,7 +8,7 @@ import history from '../../../utils/history';
 
 const openBox = fromSignIn => async (dispatch) => {
   dispatch({
-    type: 'HANDLE_CONSENT_MODAL',
+    type: 'UI_HANDLE_CONSENT_MODAL',
     provideConsent: true,
     showSignInBanner: false,
   });
@@ -16,12 +16,13 @@ const openBox = fromSignIn => async (dispatch) => {
   const consentGiven = () => {
     if (fromSignIn) history.push(`/${store.getState().userState.currentAddress || store.getState().userState.accountAddress}/${routes.ACTIVITY}`);
     dispatch({
-      type: 'LOADING_3BOX',
+      type: 'UI_3BOX_LOADING',
       provideConsent: false,
       isFetchingThreeBox: true,
     });
     dispatch({
-      type: 'LOADING_ACTIVITY',
+      type: 'UI_FEED_LOADING',
+      isFetchingActivity: true,
     });
   };
 
@@ -30,7 +31,7 @@ const openBox = fromSignIn => async (dispatch) => {
   if (!store.getState().userState.hasSignedOut) {
     // initialize onSyncDone process
     dispatch({
-      type: 'APP_SYNC',
+      type: 'UI_APP_SYNC',
       onSyncFinished: false,
       isSyncing: false,
     });
@@ -49,15 +50,15 @@ const openBox = fromSignIn => async (dispatch) => {
       );
 
     dispatch({
-      type: 'LOGIN_UPDATE',
+      type: 'USER_LOGIN_UPDATE',
       isLoggedIn: true,
     });
     dispatch({
-      type: 'UPDATE_BOX',
+      type: 'MY_BOX_UPDATE',
       box,
     });
     dispatch({
-      type: 'IS_FETCHING_THREEBOX',
+      type: 'UI_3BOX_FETCHING',
       isFetchingThreeBox: false,
     });
 
@@ -66,7 +67,7 @@ const openBox = fromSignIn => async (dispatch) => {
     if (!store.getState().userState.hasSignedOut) {
       // start onSyncDone loading animation
       dispatch({
-        type: 'APP_SYNC',
+        type: 'UI_APP_SYNC',
         onSyncFinished: false,
         isSyncing: true,
       });
@@ -80,7 +81,7 @@ const openBox = fromSignIn => async (dispatch) => {
 
       if (!privateActivity.length && !publicActivity.length) {
         dispatch({
-          type: 'HANDLE_ONBOARDING_MODAL',
+          type: 'UI_HANDLE_ONBOARDING_MODAL',
           onBoardingModal: true,
         });
         const date = Date.now();
@@ -88,7 +89,7 @@ const openBox = fromSignIn => async (dispatch) => {
         const memberSinceDate = `${(dateJoined.getMonth() + 1)}/${dateJoined.getDate()}/${dateJoined.getFullYear()}`;
         store.getState().myData.box.public.set('memberSince', dateJoined);
         dispatch({
-          type: 'GET_PUBLIC_MEMBERSINCE',
+          type: 'MY_MEMBERSINCE_UPDATE',
           memberSince: memberSinceDate,
         });
         history.push(`/${store.getState().userState.currentAddress}/${routes.EDIT}`);
@@ -97,21 +98,21 @@ const openBox = fromSignIn => async (dispatch) => {
       }
 
       dispatch({
-        type: 'LOGIN_UPDATE',
+        type: 'USER_LOGIN_UPDATE',
         isLoggedIn: true,
       });
       dispatch({
-        type: 'UPDATE_BOX',
+        type: 'MY_BOX_UPDATE',
         box,
       });
       dispatch({
-        type: 'IS_FETCHING_THREEBOX',
+        type: 'UI_3BOX_FETCHING',
         isFetchingThreeBox: false,
       });
 
       // call data with new box object from onSyncDone
       dispatch({
-        type: 'APP_SYNC',
+        type: 'UI_APP_SYNC',
         onSyncFinished: true,
         isSyncing: true,
       });
@@ -119,7 +120,7 @@ const openBox = fromSignIn => async (dispatch) => {
   } catch (err) {
     history.push(routes.LANDING);
     dispatch({
-      type: 'FAILED_LOADING_3BOX',
+      type: 'UI_3BOX_FAILED',
       errorMessage: err,
       showErrorModal: true,
       provideConsent: false,

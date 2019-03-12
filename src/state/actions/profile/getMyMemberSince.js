@@ -16,7 +16,7 @@ const getMyMemberSince = () => async (dispatch) => {
   }
 
   dispatch({
-    type: 'GET_PUBLIC_MEMBERSINCE',
+    type: 'MY_MEMBERSINCE_UPDATE',
     memberSince: memberSinceDate,
   });
 };

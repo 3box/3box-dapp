@@ -7,7 +7,7 @@ const getVerifiedPublicTwitter = () => async (dispatch) => {
     const verifiedTwitter = await store.getState().myData.box.verified.twitter();
 
     dispatch({
-      type: 'GET_VERIFIED_PUBLIC_TWITTER',
+      type: 'MY_VERIFIED_TWITTER_UPDATE',
       verifiedTwitter: verifiedTwitter.username,
     });
   } catch (error) {

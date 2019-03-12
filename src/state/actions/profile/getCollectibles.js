@@ -42,16 +42,16 @@ const getCollectibles = (address, onPublicProfile) => async (dispatch) => {
 
     if (onPublicProfile) {
       dispatch({
-        type: 'UPDATE_PUBLIC_PROFILE_FAVORITE_COLLECTIBLES',
+        type: 'OTHER_FAVORITE_COLLECTIBLES_UPDATE',
         otherCollectiblesFavorites: collectiblesFavoritesToRender,
       });
     } else {
       dispatch({
-        type: 'GET_MY_COLLECTIBLES',
+        type: 'MY_COLLECTIBLES_UPDATE',
         collection,
       });
       dispatch({
-        type: 'GET_MY_PUBLIC_COLLECTIBLESFAVORITES',
+        type: 'MY_COLLECTIBLESFAVORITES_UPDATE',
         collectiblesFavorites: updatedCollectiblesFavorites,
         collectiblesFavoritesToRender,
       });

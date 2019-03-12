@@ -4,21 +4,21 @@ import {
 
 export const requireMetaMaskModal = () => (dispatch) => {
   dispatch({
-    type: 'REQUIRE_METAMASK',
+    type: 'UI_REQUIRE_METAMASK_MODAL',
     alertRequireMetaMask: true,
   });
 };
 
 export const closeRequireMetaMaskModal = () => (dispatch) => {
   dispatch({
-    type: 'REQUIRE_METAMASK',
+    type: 'UI_REQUIRE_METAMASK_MODAL',
     alertRequireMetaMask: false,
   });
 };
 
 export const closeErrorModal = () => async (dispatch) => {
   dispatch({
-    type: 'CLOSE_ERROR_MODAL',
+    type: 'UI_CLOSE_ERROR_MODAL',
     errorMessage: '',
     showErrorModal: false,
   });
@@ -42,19 +42,19 @@ export const handleCollectiblesModal = (selectedCollectible, isFavorite) => asyn
 
     orderedCollectible.orderedTraits = stringTraits.concat(intTraits);
     dispatch({
-      type: 'HANDLE_COLLECTIBLES_MODAL',
+      type: 'UI_HANDLE_COLLECTIBLES_MODAL',
       showCollectiblesModal: !store.getState().uiState.showCollectiblesModal,
       selectedCollectible: orderedCollectible,
       isFavorite,
     });
   } else {
     dispatch({
-      type: 'CLOSE_COLLECTIBLES_MODAL',
+      type: 'UI_CLOSE_COLLECTIBLES_MODAL',
       showCollectiblesModal: false,
     });
     setTimeout(() => {
       dispatch({
-        type: 'RESET_SELECTED_COLLECTIBLE',
+        type: 'UI_RESET_SELECTED_COLLECTIBLE',
         selectedCollectible: undefined,
         isFavorite: undefined,
       });
@@ -64,7 +64,7 @@ export const handleCollectiblesModal = (selectedCollectible, isFavorite) => asyn
 
 export const handleSignInModal = () => async (dispatch) => {
   dispatch({
-    type: 'HANDLE_SIGNIN_MODAL',
+    type: 'UI_HANDLE_SIGNIN_MODAL',
     errorMessage: store.getState().uiState.errorMessage,
     signInModal: !store.getState().uiState.signInModal,
   });
@@ -72,49 +72,49 @@ export const handleSignInModal = () => async (dispatch) => {
 
 export const handleConsentModal = () => async (dispatch) => {
   dispatch({
-    type: 'HANDLE_CONSENT_MODAL',
+    type: 'UI_HANDLE_CONSENT_MODAL',
     provideConsent: false,
   });
 };
 
 export const handleLoggedOutModal = () => async (dispatch) => {
   dispatch({
-    type: 'HANDLE_LOGGEDOUT_MODAL',
+    type: 'UI_HANDLE_LOGGEDOUT_MODAL',
     loggedOutModal: !store.getState().uiState.loggedOutModal,
   });
 };
 
 export const handleSwitchedAddressModal = () => async (dispatch) => {
   dispatch({
-    type: 'HANDLE_SWITCHED_ADDRESS_MODAL',
+    type: 'UI_HANDLE_SWITCHED_ADDRESS_MODAL',
     switchedAddressModal: !store.getState().uiState.switchedAddressModal,
   });
 };
 
 export const handleSwitchedNetworkModal = () => async (dispatch) => {
   dispatch({
-    type: 'HANDLE_SWITCHED_NETWORK_MODAL',
+    type: 'UI_HANDLE_SWITCHED_NETWORK_MODAL',
     showDifferentNetworkModal: false,
   });
 };
 
 export const handleGithubVerificationModal = () => async (dispatch) => {
   dispatch({
-    type: 'HANDLE_GITHUB_MODAL',
+    type: 'UI_HANDLE_GITHUB_MODAL',
     showGithubVerificationModal: !store.getState().uiState.showGithubVerificationModal,
   });
 };
 
 export const handleTwitterVerificationModal = () => async (dispatch) => {
   dispatch({
-    type: 'HANDLE_TWITTER_MODAL',
+    type: 'UI_HANDLE_TWITTER_MODAL',
     showTwitterVerificationModal: !store.getState().uiState.showTwitterVerificationModal,
   });
 };
 
 export const handleEmailVerificationModal = () => async (dispatch) => {
   dispatch({
-    type: 'HANDLE_EMAIL_MODAL',
+    type: 'UI_HANDLE_EMAIL_MODAL',
     showEmailVerificationModal: !store.getState().uiState.showEmailVerificationModal,
   });
 };
@@ -122,12 +122,12 @@ export const handleEmailVerificationModal = () => async (dispatch) => {
 export const handleOnboardingModal = mobile => async (dispatch) => {
   if (mobile) {
     dispatch({
-      type: 'HANDLE_ONBOARDING_MODAL2',
+      type: 'UI_HANDLE_ONBOARDING_MODAL2',
       onBoardingModal: false,
     });
   } else {
     dispatch({
-      type: 'HANDLE_ONBOARDING_MODAL2',
+      type: 'UI_HANDLE_ONBOARDING_MODAL2',
       onBoardingModalTwo: !store.getState().uiState.onBoardingModalTwo,
       onBoardingModal: false,
     });
@@ -136,28 +136,28 @@ export const handleOnboardingModal = mobile => async (dispatch) => {
 
 export const handleRequireWalletLoginModal = () => async (dispatch) => {
   dispatch({
-    type: 'HANDLE_REQUIRE_LOGIN_MODAL',
+    type: 'UI_HANDLE_REQUIRE_LOGIN_MODAL',
     signInToWalletModal: !store.getState().uiState.signInToWalletModal,
   });
 };
 
 export const handleMobileWalletModal = () => async (dispatch) => {
   dispatch({
-    type: 'HANDLE_MOBILE_WALLET_REQUIRED_MODAL',
+    type: 'UI_HANDLE_MOBILE_WALLET_REQUIRED_MODAL',
     mobileWalletRequiredModal: !store.getState().uiState.mobileWalletRequiredModal,
   });
 };
 
 export const handleAccessModal = () => async (dispatch) => {
   dispatch({
-    type: 'HANDLE_ACCESS_MODAL',
+    type: 'UI_HANDLE_ACCESS_MODAL',
     allowAccessModal: !store.getState().uiState.allowAccessModal,
   });
 };
 
 export const handleDeniedAccessModal = () => async (dispatch) => {
   dispatch({
-    type: 'HANDLE_DENIED_ACCESS_MODAL',
+    type: 'UI_HANDLE_DENIED_ACCESS_MODAL',
     accessDeniedModal: !store.getState().uiState.accessDeniedModal,
   });
 };
@@ -171,7 +171,7 @@ export const handleDownloadMetaMaskBanner = () => async (dispatch) => {
 
 export const handleSignInBanner = () => async (dispatch) => {
   dispatch({
-    type: 'HANDLE_SIGNIN_BANNER',
+    type: 'UI_HANDLE_SIGNIN_BANNER',
     showSignInBanner: !store.getState().uiState.showSignInBanner,
   });
 };

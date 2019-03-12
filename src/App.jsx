@@ -46,6 +46,7 @@ const {
 const {
   getMyProfileValue,
   getCollectibles,
+  getMySpacesData,
   getMyMemberSince,
   getVerifiedPublicGithub,
   getVerifiedPublicTwitter,
@@ -113,7 +114,7 @@ class App extends Component {
     // does not work with back button
     if (nextProps.location.pathname !== normalizedPath) {
       store.dispatch({
-        type: 'UPDATE_ROUTE',
+        type: 'UI_ROUTE_UPDATE',
         currentRoute: normalizedPath,
       });
     }
@@ -121,7 +122,7 @@ class App extends Component {
     // get profile data again only when onSyncDone
     if (nextProps.onSyncFinished && nextProps.isSyncing) {
       store.dispatch({ // end onSyncDone animation
-        type: 'APP_SYNC',
+        type: 'UI_APP_SYNC',
         onSyncFinished: true,
         isSyncing: false,
       });
@@ -159,9 +160,9 @@ class App extends Component {
     this.props.getMyProfileValue('public', 'year');
     this.props.getMyProfileValue('public', 'emoji');
     this.props.getMyProfileValue('public', 'collectiblesFavorites');
-    this.props.getMyProfileValue('private', 'email');
     this.props.getMyProfileValue('private', 'birthday');
     this.props.getCollectibles(currentAddress);
+    this.props.getMySpacesData(currentAddress);
   }
 
   async directSignIn() {
@@ -453,6 +454,7 @@ App.propTypes = {
   requestAccess: PropTypes.func.isRequired,
   getMyProfileValue: PropTypes.func.isRequired,
   getCollectibles: PropTypes.func.isRequired,
+  getMySpacesData: PropTypes.func.isRequired,
   getMyMemberSince: PropTypes.func.isRequired,
   getVerifiedPublicGithub: PropTypes.func.isRequired,
   getVerifiedPublicTwitter: PropTypes.func.isRequired,
@@ -578,6 +580,7 @@ export default withRouter(connect(mapState,
     requestAccess,
     getMyProfileValue,
     getCollectibles,
+    getMySpacesData,
     getMyMemberSince,
     getVerifiedPublicGithub,
     getVerifiedPublicTwitter,

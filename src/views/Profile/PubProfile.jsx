@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import actions from '../../state/actions';
 import {
@@ -39,11 +40,11 @@ class ProfilePublic extends Component {
     let activeAddress;
 
     store.dispatch({
-      type: 'UPDATE_OTHER_PROFILE',
+      type: 'OTHER_ADDRESS_UPDATE',
       otherProfileAddress,
     });
     store.dispatch({
-      type: 'ON_OTHER_PROFILE',
+      type: 'UI_ON_OTHER_PROFILE',
       onOtherProfilePage: true,
     });
 
@@ -65,11 +66,11 @@ class ProfilePublic extends Component {
 
   componentWillUnmount() {
     store.dispatch({
-      type: 'UPDATE_OTHER_PROFILE',
+      type: 'OTHER_ADDRESS_UPDATE',
       otherProfileAddress: '',
     });
     store.dispatch({
-      type: 'ON_OTHER_PROFILE',
+      type: 'UI_ON_OTHER_PROFILE',
       onOtherProfilePage: false,
     });
   }
@@ -86,7 +87,14 @@ class ProfilePublic extends Component {
             <SideBar isPublicProfilePage />
             <PubContent />
           </div>
-          <PublicProfileLoading show={isLoadingOtherProfile} />
+
+          <ReactCSSTransitionGroup
+            transitionName="app__modals"
+            transitionEnterTimeout={300}
+            transitionLeaveTimeout={300}
+          >
+            {isLoadingOtherProfile && <PublicProfileLoading />}
+          </ReactCSSTransitionGroup>
         </div>
       </div>
     );

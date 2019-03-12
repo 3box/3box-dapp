@@ -300,7 +300,7 @@ class EditProfile extends Component {
                   savedGithub: true,
                 });
                 store.dispatch({
-                  type: 'GET_VERIFIED_PUBLIC_GITHUB',
+                  type: 'MY_VERIFIED_GITHUB_UPDATE',
                   verifiedGithub,
                 });
               }
@@ -423,7 +423,7 @@ class EditProfile extends Component {
             savedTwitter: true,
           });
           store.dispatch({
-            type: 'GET_VERIFIED_PUBLIC_TWITTER',
+            type: 'MY_VERIFIED_TWITTER_UPDATE',
             verifiedTwitter,
           });
         } else {
@@ -502,7 +502,7 @@ class EditProfile extends Component {
               emailVerificationErrMsg: '',
             });
             store.dispatch({
-              type: 'GET_VERIFIED_PRIVATE_EMAIL',
+              type: 'MY_VERIFIED_EMAIL_UPDATE',
               verifiedEmail: verifiedEmail.email_address,
             });
           } else {
@@ -537,7 +537,7 @@ class EditProfile extends Component {
         verifiedGithub: '',
       });
       store.dispatch({
-        type: 'GET_VERIFIED_PUBLIC_GITHUB',
+        type: 'MY_VERIFIED_GITHUB_UPDATE',
         verifiedGithub: '',
       });
     } else if (platform === 'Twitter') {
@@ -551,7 +551,7 @@ class EditProfile extends Component {
         verifiedTwitter: '',
       });
       store.dispatch({
-        type: 'GET_VERIFIED_PUBLIC_TWITTER',
+        type: 'MY_VERIFIED_TWITTER_UPDATE',
         verifiedTwitter: '',
       });
     } else if (platform === 'Email') {
@@ -569,7 +569,7 @@ class EditProfile extends Component {
         emailCode: '',
       });
       store.dispatch({
-        type: 'GET_VERIFIED_PRIVATE_EMAIL',
+        type: 'MY_VERIFIED_EMAIL_UPDATE',
         verifiedEmail: '',
       });
     }
@@ -676,19 +676,19 @@ class EditProfile extends Component {
       // only get values that have changed
       if (verifiedGithubChanged) {
         store.dispatch({
-          type: 'GET_VERIFIED_PUBLIC_GITHUB',
+          type: 'MY_VERIFIED_GITHUB_UPDATE',
           verifiedGithub: null,
         });
       }
       if (verifiedTwitterChanged) {
         store.dispatch({
-          type: 'GET_VERIFIED_PUBLIC_TWITTER',
+          type: 'MY_VERIFIED_TWITTER_UPDATE',
           verifiedTwitter: null,
         });
       }
       if (verifiedEmailChanged) {
         store.dispatch({
-          type: 'GET_VERIFIED_PRIVATE_EMAIL',
+          type: 'MY_VERIFIED_EMAIL_UPDATE',
           verifiedEmail: null,
         });
       }
@@ -705,7 +705,6 @@ class EditProfile extends Component {
       if (emojiChanged) await this.props.getMyProfileValue('public', 'emoji');
       if (removeUserPic || editPic) await this.props.getMyProfileValue('public', 'image');
       if (removeCoverPic || editCoverPic) await this.props.getMyProfileValue('public', 'coverPhoto');
-      if (emailChanged) await this.props.getMyProfileValue('private', 'email');
       if (birthdayChanged) await this.props.getMyProfileValue('private', 'birthday');
 
       this.props.getActivity();
@@ -1042,22 +1041,6 @@ class EditProfile extends Component {
                 </div>
                 <div id="edit__profile__fields">
                   <div id="edit__info">
-
-                    {/* <div className="edit__profile__fields__entry noMargin">
-                      <div className="edit__profile__keyContainer">
-                        <h5>Email Address</h5>
-                      </div>
-                      <div className="edit__profile__value--privateContainer">
-                        <img id="edit__profile__input__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
-                        <input
-                          name="email"
-                          type="email"
-                          className="edit__profile__value privateInput"
-                          value={email}
-                          onChange={e => this.handleFormChange(e, 'email')}
-                        />
-                      </div>
-                    </div> */}
 
                     <div className="edit__profile__fields__entry noMargin">
                       <div className="edit__profile__keyContainer">
@@ -1480,14 +1463,14 @@ class EditProfile extends Component {
                     if (this.state.savedGithub && verifiedGithub !== '') {
                       this.props.box.public.remove('proof_github');
                       store.dispatch({
-                        type: 'GET_VERIFIED_PUBLIC_GITHUB',
+                        type: 'MY_VERIFIED_GITHUB_UPDATE',
                         verifiedGithub: null,
                       });
                     }
                     if (this.state.savedTwitter && verifiedTwitter !== '') {
                       this.props.box.public.remove('proof_twitter');
                       store.dispatch({
-                        type: 'GET_VERIFIED_PUBLIC_TWITTER',
+                        type: 'MY_VERIFIED_TWITTER_UPDATE',
                         verifiedTwitter: null,
                       });
                     }
