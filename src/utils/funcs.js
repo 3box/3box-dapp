@@ -74,7 +74,7 @@ const fireDispatch = (otherProfileAddress, feedByAddress) => {
     });
   } else {
     store.dispatch({
-      type: 'UPDATE_ACTIVITY_USERSTATE',
+      type: 'LOGIN_UPDATE',
       isLoggedIn: true,
     });
     store.dispatch({

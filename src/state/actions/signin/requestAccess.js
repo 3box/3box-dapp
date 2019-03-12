@@ -25,7 +25,7 @@ const requestAccess = directLogin => async (dispatch) => {
       window.localStorage.setItem('userEthAddress', accounts[0]);
 
       dispatch({
-        type: 'UPDATE_ADDRESSES',
+        type: 'ADDRESSES_UPDATE',
         isSignedIntoWallet: accounts && (accounts.length > 0 || store.getState().userState.currentWallet === 'isToshi'),
         isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
         accountAddress: accounts[0],
@@ -53,7 +53,7 @@ const requestAccess = directLogin => async (dispatch) => {
     window.localStorage.setItem('userEthAddress', accounts[0]);
 
     dispatch({
-      type: 'UPDATE_ADDRESSES',
+      type: 'ADDRESSES_UPDATE',
       isSignedIntoWallet: accounts && (accounts.length > 0 || store.getState().userState.currentWallet === 'isToshi'),
       isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
       currentAddress: accounts[0],

@@ -21,7 +21,7 @@ const checkWeb3 = () => async (dispatch) => {
   }
 
   dispatch({
-    type: 'CHECK_WEB3',
+    type: 'WEB3_CHECK',
     hasWeb3: typeof window.web3 !== 'undefined', // eslint-disable-line no-undef
     showDownloadBanner: typeof window.web3 === 'undefined', // eslint-disable-line no-undef
     currentWallet,

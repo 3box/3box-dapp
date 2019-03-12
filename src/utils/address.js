@@ -107,11 +107,11 @@ export const pollNetworkAndAddress = () => {
       address === undefined &&
       !window.ethereum) {
       store.dispatch({
-        type: 'UPDATE_WEB3_STATUS',
+        type: 'WEB3_STATUS_UPDATE',
         hasWeb3: true,
       });
       store.dispatch({
-        type: 'IS_SIGNED_INTO_WALLET',
+        type: 'WALLET_LOGIN_UPDATE',
         isSignedIntoWallet: true,
       });
       store.dispatch({
@@ -125,11 +125,11 @@ export const pollNetworkAndAddress = () => {
     if (currentAddress !== address &&
       currentAddress === undefined) {
       store.dispatch({
-        type: 'UPDATE_WEB3_STATUS',
+        type: 'WEB3_STATUS_UPDATE',
         hasWeb3: false,
       });
       store.dispatch({
-        type: 'IS_SIGNED_INTO_WALLET',
+        type: 'WALLET_LOGIN_UPDATE',
         isSignedIntoWallet: false,
       });
       store.dispatch({

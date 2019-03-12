@@ -51,7 +51,7 @@ const checkNetwork = () => async (dispatch) => {
   if (prevNetwork && (prevNetwork !== currentNetwork) && store.getState().userState.isLoggedIn && shouldShowSwitchNetwork === 'true') {
     window.localStorage.setItem('shouldShowSwitchNetwork', false); // eslint-disable-line no-undef
     dispatch({
-      type: 'DIFFERENT_NETWORK',
+      type: 'NETWORK_UPDATE',
       currentNetwork,
       prevNetwork,
       prevPrevNetwork,
@@ -66,7 +66,7 @@ const checkNetwork = () => async (dispatch) => {
   } else {
     window.localStorage.setItem('shouldShowSwitchNetwork', true); // eslint-disable-line no-undef
     dispatch({
-      type: 'UPDATE_NETWORK',
+      type: 'NETWORK_UPDATE',
       currentNetwork,
       prevNetwork,
       prevPrevNetwork,

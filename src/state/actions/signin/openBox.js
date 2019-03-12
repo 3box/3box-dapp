@@ -49,7 +49,7 @@ const openBox = fromSignIn => async (dispatch) => {
       );
 
     dispatch({
-      type: 'IS_LOGGED_IN',
+      type: 'LOGIN_UPDATE',
       isLoggedIn: true,
     });
     dispatch({
@@ -97,7 +97,7 @@ const openBox = fromSignIn => async (dispatch) => {
       }
 
       dispatch({
-        type: 'IS_LOGGED_IN',
+        type: 'LOGIN_UPDATE',
         isLoggedIn: true,
       });
       dispatch({

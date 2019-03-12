@@ -38,7 +38,7 @@ Landing.defaultProps = {
 };
 
 const mapState = state => ({
-  isLoggedIn: state.currentState.isLoggedIn,
+  isLoggedIn: state.userState.isLoggedIn,
   showInfoBanner: state.uiState.showInfoBanner,
 });
 
