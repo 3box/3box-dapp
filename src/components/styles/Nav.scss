@@ -101,9 +101,16 @@ nav {
   display: none;
 }
 
-.nav__data {
+.nav__tabs {
   position: absolute;
-  right: 120px;
+  right: 82px;
+  height: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav__data {
   height: 100%;
   width: fit-content;
   padding: 0 20px;
@@ -113,9 +120,29 @@ nav {
   justify-content: center;
   align-items: center;
   color: $lighterFont;
-  
+
   &:hover {
-    background-color: $backgroundHue;
+    // background-color: $backgroundHue;
+    color: $threeBoxBlue;
+  }
+
+  &:hover .nav__folder {
+    filter: grayscale(0);
+  }
+}
+
+.nav__profile {
+  height: 100%;
+  width: fit-content;
+  padding: 0 20px;
+  border-left: 1px solid $borderColor;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $lighterFont;
+
+  &:hover {
+    // background-color: $backgroundHue;
     color: $threeBoxBlue;
   }
 
@@ -127,7 +154,7 @@ nav {
 .nav__folder {
   filter: grayscale(100%);
   width: 30px;
-  margin-right: 16px; 
+  margin-right: 16px;
 }
 
 .nav__dropdown__mobileLogo {
@@ -147,13 +174,22 @@ nav {
 
 .nav__userPicture {
   border-radius: 100%;
-  width: 40px;
-  height: 40px;
-  margin: 14px 3vw 14px 14px;
+  width: 35px;
+  height: 35px;
+  margin: 14px 16px 14px 14px;
   margin-left: auto;
   cursor: pointer;
   object-fit: cover;
   background-color: $defaultProfPic;
+}
+
+.nav__arrow {
+  position: absolute;
+  right: 36px;
+  top: 28px;
+  cursor: pointer;
+  font-size: 12px;
+  color: $lightFont;
 }
 
 .nav__dropdown {

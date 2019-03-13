@@ -145,13 +145,6 @@ const myDataReducer = (state = {}, action) => {
         collection: action.collection,
       };
 
-    case 'MY_SPACES_DATA_UPDATE':
-      return {
-        ...state,
-        spaces: action.spaces,
-        spaceData: action.spaceData,
-      };
-
     case 'MY_DATA_SIGNOUT':
       return {
         ...state,

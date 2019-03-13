@@ -25,7 +25,7 @@ class MyData extends Component {
   }
 
   render() {
-    const { spaces, spaceData } = this.props;
+    const { list, allData } = this.props;
     const { spaceToRender } = this.state;
 
     return (
@@ -55,7 +55,7 @@ class MyData extends Component {
               <span className="space__arrow">&#x3e;</span>
             </div>
 
-            {spaces && spaces.map(space => (
+            {list && list.map(space => (
               <div
                 className="space"
                 onClick={() => this.pickSpace(space)}
@@ -85,34 +85,59 @@ class MyData extends Component {
             </section>
 
             <section className="data__items">
-              {spaceData[spaceToRender] && Object.entries(spaceData[spaceToRender]).map(row => (
-                <div className="data__items__row">
-                  <span className="data__items__row__entry">{row[0]}</span>
-                  <span className="data__items__row__entry">{row[1]}</span>
-                </div>
-              ))}
+              {spaceToRender === 'All Data'
+                ? (
+                  <React.Fragment>
+                    {
+                      Object.entries(allData).map(spaceData => (
+                        Object.entries(spaceData[1]).map(value => (
+                          <div className="data__items__row" key={value[0]}>
+                            <span className="data__items__row__entry">{value[0]}</span>
+                            <span className="data__items__row__entry">
+                              {typeof value[1] === 'string' && value[1]}
+                              {typeof value[1] === 'object' && 'object'}
+                            </span>
+                          </div>
+                        ))))
+                    }
+                  </React.Fragment>
+                )
+                : (
+                  <React.Fragment>
+                    {allData[spaceToRender] && Object.entries(allData[spaceToRender]).map(row => (
+                      <div className="data__items__row" key={row[0]}>
+                        <span className="data__items__row__entry">{row[0]}</span>
+                        <span className="data__items__row__entry">
+                          {typeof row[1] === 'string' && row[1]}
+                          {typeof row[1] === 'object' && 'object'}
+                        </span>
+                      </div>
+                    ))}
+                  </React.Fragment>
+                )
+              }
             </section>
           </main>
         </div>
-      </div>
+      </div >
     );
   }
 }
 
 MyData.propTypes = {
-  spaces: PropTypes.array,
-  spaceData: PropTypes.object,
+  list: PropTypes.array,
+  allData: PropTypes.object,
 };
 
 MyData.defaultProps = {
-  spaces: [],
-  spaceData: {},
+  list: [],
+  allData: {},
 };
 
 function mapState(state) {
   return {
-    spaces: state.myData.spaces,
-    spaceData: state.myData.spaceData,
+    list: state.spaces.list,
+    allData: state.spaces.allData,
   };
 }
 
