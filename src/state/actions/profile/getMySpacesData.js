@@ -12,7 +12,7 @@ const getMySpacesData = address => async (dispatch) => {
 
     // get list of spaces
     const list = await Box.listSpaces(address);
-
+    console.log('myList', list);
     // function to get space and pair to key
     const getSpace = async (spaceName) => {
       const space = await Box.getSpace(address, spaceName);
