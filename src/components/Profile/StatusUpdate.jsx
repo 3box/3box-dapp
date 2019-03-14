@@ -77,7 +77,7 @@ class StatusUpdate extends Component {
             }
           >
             <div className="statusUpdate__displayPublic">
-              {publicStatus}
+              {publicStatus || ''}
             </div>
           </div>)}
 

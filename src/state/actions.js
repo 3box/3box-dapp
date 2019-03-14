@@ -517,27 +517,29 @@ export const getProfile = profileAddress => async (dispatch) => {
         twitter: null,
       };
 
-    dispatch({
-      type: 'GET_PUBLIC_PROFILE',
-      publicGithub: publicVerifiedAccounts.github && publicVerifiedAccounts.github.username,
-      publicTwitter: publicVerifiedAccounts.twitter && publicVerifiedAccounts.twitter.username,
-      publicDescription: publicProfile.description,
-      publicLocation: publicProfile.location,
-      publicWebsite: publicProfile.website,
-      publicMemberSince: publicProfile.memberSince,
-      publicJob: publicProfile.job,
-      publicSchool: publicProfile.school,
-      publicDegree: publicProfile.degree,
-      publicMajor: publicProfile.major,
-      publicYear: publicProfile.year,
-      publicEmployer: publicProfile.employer,
-      publicCoverPhoto: publicProfile.coverPhoto,
-      publicImage: publicProfile.image,
-      publicName: publicProfile.name,
-      publicEmoji: publicProfile.emoji,
-      publicStatus: publicProfile.status,
-      publicCollectiblesGallery: publicProfile.collectiblesFavorites,
-    });
+    if (publicProfile.proof_did || publicVerifiedAccounts) {
+      dispatch({
+        type: 'GET_PUBLIC_PROFILE',
+        publicGithub: publicVerifiedAccounts.github && publicVerifiedAccounts.github.username,
+        publicTwitter: publicVerifiedAccounts.twitter && publicVerifiedAccounts.twitter.username,
+        publicDescription: publicProfile.description,
+        publicLocation: publicProfile.location,
+        publicWebsite: publicProfile.website,
+        publicMemberSince: publicProfile.memberSince,
+        publicJob: publicProfile.job,
+        publicSchool: publicProfile.school,
+        publicDegree: publicProfile.degree,
+        publicMajor: publicProfile.major,
+        publicYear: publicProfile.year,
+        publicEmployer: publicProfile.employer,
+        publicCoverPhoto: publicProfile.coverPhoto,
+        publicImage: publicProfile.image,
+        publicName: publicProfile.name,
+        publicEmoji: publicProfile.emoji,
+        publicStatus: publicProfile.status,
+        publicCollectiblesGallery: publicProfile.collectiblesFavorites,
+      });
+    }
 
     dispatch({
       type: 'LOADING_PUBLIC_PROFILE',
