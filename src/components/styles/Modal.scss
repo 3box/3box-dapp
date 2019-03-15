@@ -11,14 +11,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
 
-  // opacity: 0;
-  // visibility: hidden;
-  // -webkit-backface-visibility: hidden;
-  // -moz-backface-visibility: hidden;
-  // backface-visibility: hidden;
-  // -webkit-transition: all .4s ease-in-out;
-  // transition: all .4s ease-in-out;
+.modal__space__icon {
+  width: 28px;
 }
 
 .modal__container {
@@ -382,6 +378,52 @@
   }
 }
 
+.modal--space {
+  background: $threeBoxBlue;
+  border-radius: 6px;
+  padding: 0 40px;
+  width: fit-content;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
+  text-align: center;
+  overflow: hidden;
+  z-index: 7;
+  bottom: 50px;
+  position: absolute;
+
+  p {
+    line-height: 24px;
+    font-size: 14px;
+    color: white;
+    opacity: .9;
+  }
+
+  form {
+    text-align: center;
+    margin-top: 2em;
+  }
+
+  #logo img {
+    width: 90px !important;
+  }
+
+  h3 {
+    margin-bottom: 14px;
+  }
+
+  #modal__loadingGraphic {
+    margin-top: 0;
+    width: 34px;
+  }
+
+  .modal__loading3Box {
+    margin-bottom: 0;
+  }
+}
+
 // .modal--effect .modal {
 //   opacity: 0;
 //   -webkit-transition: all 0.4s ease-in-out;
@@ -410,16 +452,6 @@
   transition: opacity 400ms ease-in;
 }
 
-// .modal--effect .modal--sync {
-//   opacity: 0;
-//   -webkit-transition: all 0.4s ease-in-out;
-//   transition: all 0.4s ease-in-out;
-// }
-
-// .showModal.modal--effect .modal--sync {
-//   opacity: 1;
-// }
-
 .modal__copy__ico {
   width: 20px;
 }
@@ -429,6 +461,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.modal--space__copy__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  p {
+    margin-left: 20px;
+  }
 }
 
 .modal--sync__wrapper {
@@ -944,7 +986,7 @@
     }
   }
 
-  .onClickOutsideCollectibles{
+  .onClickOutsideCollectibles {
     display: none;
   }
 
@@ -1031,6 +1073,36 @@
   }
 
   .modal--sync {
+    width: 78vw;
+    padding: 0 24px;
+    bottom: 24px;
+
+    p {
+      line-height: 24px;
+      font-size: 12px;
+      color: white;
+      opacity: .8;
+    }
+
+    #logo img {
+      width: 80px !important;
+    }
+
+    h3 {
+      margin-bottom: 14px;
+    }
+
+    #modal__loadingGraphic {
+      margin-top: 0;
+      width: 34px;
+    }
+
+    .modal__loading3Box {
+      margin-bottom: 0;
+    }
+  }
+
+  .modal--space {
     width: 78vw;
     padding: 0 24px;
     bottom: 24px;

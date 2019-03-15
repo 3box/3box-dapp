@@ -5,12 +5,13 @@ import VaultRow from './VaultRow';
 import PublicRow from './PublicRow';
 import '../styles/Spaces.css';
 
-const SpaceView = ({ openSpace, spaceData, spaceName }) => (
+const SpaceView = ({ openSpace, spaceData, spaceName, spacesOpened }) => (
   <React.Fragment>
     {spaceName !== '3Box' && (
       <VaultRow
         openSpace={openSpace}
         spaceName={spaceName}
+        hasVaultOpened={spacesOpened[spaceName]}
       />)
     }
     {spaceData && Object.entries(spaceData).map(privacyLevel => (
@@ -31,6 +32,7 @@ SpaceView.propTypes = {
   spaceData: PropTypes.object.isRequired,
   openSpace: PropTypes.func.isRequired,
   spaceName: PropTypes.string.isRequired,
+  spacesOpened: PropTypes.bool.isRequired,
 };
 
 

@@ -3,8 +3,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import cloneDeep from 'lodash.clonedeep';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import { store } from '../../state/store';
+import { SpaceOpenedModal } from '../../components/Modals';
 import AllView from './components/AllView';
 import SpaceView from './components/SpaceView';
 import Header from './components/Header';
@@ -17,6 +19,7 @@ class Spaces extends Component {
     super(props);
     this.state = {
       spaceToRender: 'All Data',
+      spaceNameOpened: '',
     };
     this.openSpace = this.openSpace.bind(this);
   }
@@ -30,8 +33,9 @@ class Spaces extends Component {
   }
 
   async openSpace(spaceName) {
-    const { box, allData, list } = this.props;
+    const { box, allData, list, spacesOpened } = this.props;
     const updatedAllData = cloneDeep(allData);
+    const updatedspacesOpened = cloneDeep(spacesOpened);
 
     const updateSpaceData = async () => {
       const publicSpace = await box.spaces[spaceName].public.all();
@@ -42,12 +46,25 @@ class Spaces extends Component {
 
       updatedAllData[spaceName].public = publicSpace;
       updatedAllData[spaceName].private = privateSpace;
+      updatedspacesOpened[spaceName] = true;
 
+      this.setState({ spaceNameOpened: spaceName })
       store.dispatch({
         type: 'MY_SPACES_DATA_UPDATE',
         list,
         allData: updatedAllData,
       });
+      store.dispatch({
+        type: 'UI_SPACE_OPENED',
+        spacesOpened: updatedspacesOpened,
+        showSpaceOpenedModal: true,
+      });
+      setTimeout(() => {
+        store.dispatch({
+          type: 'UI_HANDLE_SPACE_OPENED_MODAL',
+          showSpaceOpenedModal: false,
+        });
+      }, 3000);
     };
 
     const opts = {
@@ -60,13 +77,21 @@ class Spaces extends Component {
   }
 
   render() {
-    const { list, allData, isSpacesLoading } = this.props;
-    const { spaceToRender } = this.state;
+    const { list, allData, isSpacesLoading, spacesOpened, showSpaceOpenedModal } = this.props;
+    const { spaceToRender, spaceNameOpened } = this.state;
 
     return (
       <div>
         <Nav />
         <div className="data__page">
+          <ReactCSSTransitionGroup
+            transitionName="app__modals"
+            transitionEnterTimeout={300}
+            transitionLeaveTimeout={300}
+          >
+            {showSpaceOpenedModal && <SpaceOpenedModal spaceName={spaceNameOpened} />}
+          </ReactCSSTransitionGroup>
+
           <SpacesList
             pickSpace={this.pickSpace}
             list={list}
@@ -83,12 +108,14 @@ class Spaces extends Component {
                 ? (
                   <AllView
                     allData={allData}
+                    spacesOpened={spacesOpened}
                     openSpace={this.openSpace}
                   />
                 )
                 : (
                   <SpaceView
                     openSpace={this.openSpace}
+                    spacesOpened={spacesOpened}
                     spaceName={spaceToRender}
                     spaceData={allData[spaceToRender]}
                   />
@@ -106,14 +133,18 @@ Spaces.propTypes = {
   list: PropTypes.array,
   allData: PropTypes.object,
   box: PropTypes.object,
+  spacesOpened: PropTypes.object,
   isSpacesLoading: PropTypes.bool,
+  showSpaceOpenedModal: PropTypes.bool,
 };
 
 Spaces.defaultProps = {
   list: [],
   allData: {},
   box: {},
+  spacesOpened: {},
   isSpacesLoading: false,
+  showSpaceOpenedModal: false,
 };
 
 function mapState(state) {
@@ -122,6 +153,8 @@ function mapState(state) {
     allData: state.spaces.allData,
     box: state.myData.box,
     isSpacesLoading: state.uiState.isSpacesLoading,
+    spacesOpened: state.uiState.spacesOpened,
+    showSpaceOpenedModal: state.uiState.showSpaceOpenedModal,
   };
 }
 

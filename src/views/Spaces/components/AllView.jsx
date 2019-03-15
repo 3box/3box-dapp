@@ -5,7 +5,7 @@ import VaultRow from './VaultRow';
 import PublicRow from './PublicRow';
 import '../styles/Spaces.css';
 
-const AllView = ({ allData, openSpace }) => (
+const AllView = ({ allData, openSpace, spacesOpened }) => (
   <React.Fragment>
     {
       Object.entries(allData).map(spaceData => (
@@ -14,6 +14,7 @@ const AllView = ({ allData, openSpace }) => (
             <VaultRow
               openSpace={openSpace}
               spaceName={spaceData[0]}
+              hasVaultOpened={spacesOpened[spaceData[0]]}
             />)}
           {Object.entries(spaceData[1]).map(privacyLevel => (
             Object.entries(privacyLevel[1]).map(value => (

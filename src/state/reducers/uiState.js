@@ -123,6 +123,19 @@ const uiStateReducer = (state = {}, action) => {
         isSpacesLoading: action.isSpacesLoading,
       };
 
+    case 'UI_SPACE_OPENED':
+      return {
+        ...state,
+        spacesOpened: action.spacesOpened,
+        showSpaceOpenedModal: action.showSpaceOpenedModal,
+      };
+
+    case 'UI_HANDLE_SPACE_OPENED_MODAL':
+      return {
+        ...state,
+        showSpaceOpenedModal: action.showSpaceOpenedModal,
+      };
+
     case 'UI_HANDLE_ONBOARDING_MODAL2':
       return {
         ...state,

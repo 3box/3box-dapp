@@ -9,6 +9,7 @@ import ThreeBoxLogoWhite from '../assets/ThreeBoxLogoWhite.svg';
 import ThreeBoxLogoBlue from '../assets/ThreeBoxLogoBlue.svg';
 import HeartBlue from '../assets/HeartBlue.svg';
 import GithubIcon from '../assets/GithubIcon.svg';
+import Space from '../assets/Space.svg';
 import TwitterIcon from '../assets/twitterGrey.svg';
 import Email from '../assets/Email.svg';
 import TrustWallet from '../assets/TrustWallet.png';
@@ -95,6 +96,25 @@ SwitchedNetworksModal.propTypes = {
 
 SwitchedNetworksModal.defaultProps = {
   prevNetwork: '',
+};
+
+export const SpaceOpenedModal = ({ spaceName }) => (
+  <div className="modal__container--copied modal--effect">
+    <div className="modal--sync">
+      <div className="modal--space__copy__wrapper">
+        <img src={Space} className="modal__space__icon" alt="Copied" />
+        <p>{`${spaceName.toUpperCase()} SPACE OPENED`}</p>
+      </div>
+    </div>
+  </div>
+);
+
+SpaceOpenedModal.propTypes = {
+  spaceName: PropTypes.string,
+};
+
+SpaceOpenedModal.defaultProps = {
+  spaceName: '',
 };
 
 export const LoggedOutModal = ({
