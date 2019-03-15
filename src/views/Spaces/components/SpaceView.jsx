@@ -13,25 +13,25 @@ const SpaceView = ({ openSpace, spaceData, spaceName }) => (
         spaceName={spaceName}
       />)
     }
-    {spaceData && Object.entries(spaceData).map(row => (
-      <PublicRow
-        dataKey={row[0]}
-        dataValue={row[1]}
-        spaceName={spaceName}
-      />
+    {spaceData && Object.entries(spaceData).map(privacyLevel => (
+      Object.entries(privacyLevel[1]).map(row => (
+        <PublicRow
+          dataKey={row[0]}
+          dataValue={row[1]}
+          spaceName={spaceName}
+          key={row[0]}
+          privacy={privacyLevel[0]}
+        />
+      ))
     ))}
   </React.Fragment>
 );
 
 SpaceView.propTypes = {
-  allData: PropTypes.object.isRequired,
-  openSpace: PropTypes.func.isRequired,
   spaceData: PropTypes.object.isRequired,
+  openSpace: PropTypes.func.isRequired,
   spaceName: PropTypes.string.isRequired,
 };
 
-// VaultRow.defaultProps = {
-//   box: {},
-// };
 
 export default SpaceView;

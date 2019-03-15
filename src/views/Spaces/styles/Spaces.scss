@@ -136,6 +136,11 @@
   }
 }
 
+.data__text{
+  max-width: 100%;
+  overflow: hidden;
+}
+
 .data__items__row__unlockButton {
   padding: 10px 15px;
   background-color: #575757;
@@ -200,6 +205,7 @@
 .spaceRow__tag__text {
   opacity: .6;
   color: black;
+  font-size: 13px;
 }
 
 .row__type__vault {
@@ -207,6 +213,7 @@
 
   p {
     color: white;
+    font-size: 13px;
   }
 }
 

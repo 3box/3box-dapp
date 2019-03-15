@@ -2,7 +2,9 @@ import { withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import cloneDeep from 'lodash.clonedeep';
 
+import { store } from '../../state/store';
 import AllView from './components/AllView';
 import SpaceView from './components/SpaceView';
 import Header from './components/Header';
@@ -16,6 +18,7 @@ class Spaces extends Component {
     this.state = {
       spaceToRender: 'All Data',
     };
+    this.openSpace = this.openSpace.bind(this);
   }
 
   componentDidMount() {
@@ -26,15 +29,24 @@ class Spaces extends Component {
     this.setState({ spaceToRender: spaceName });
   }
 
+  async openSpace(spaceName) {
+    const { box, allData, list } = this.props;
+    const updatedAllData = cloneDeep(allData);
 
-  openSpace = (spaceName) => {
-    const { box } = this.props;
-    const updateSpaceData = () => {
-      box.spaces[spaceName].public.all().then((entries) => {
-        console.log(entries);
-      });
-      box.spaces[spaceName].private.all().then((entries) => {
-        console.log(entries);
+    const updateSpaceData = async () => {
+      const publicSpace = await box.spaces[spaceName].public.all();
+      const privateSpace = await box.spaces[spaceName].private.all();
+
+      console.log('publicSpace', publicSpace);
+      console.log('privateSpace', privateSpace);
+
+      updatedAllData[spaceName].public = publicSpace;
+      updatedAllData[spaceName].private = privateSpace;
+
+      store.dispatch({
+        type: 'MY_SPACES_DATA_UPDATE',
+        list,
+        allData: updatedAllData,
       });
     };
 

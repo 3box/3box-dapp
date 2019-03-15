@@ -12,11 +12,11 @@ const getMySpacesData = address => async (dispatch) => {
 
     // get list of spaces
     const list = await Box.listSpaces(address);
-    console.log('list', list);
     // function to get space and pair to key
     const getSpace = async (spaceName) => {
       const space = await Box.getSpace(address, spaceName);
-      allData[spaceName] = space;
+      allData[spaceName] = {};
+      allData[spaceName].public = space;
     };
 
     // for each space
@@ -29,11 +29,17 @@ const getMySpacesData = address => async (dispatch) => {
     const {
       myData,
     } = store.getState();
+    allData['3Box'].private = {};
+    allData['3Box'].public = {};
 
     Object.entries(myData).forEach((row) => {
       if ((row[0] !== 'box') &&
         (row[0] !== 'collectiblesFavorites')) {
-        allData['3Box'][row[0]] = cloneDeep(row[1]);
+        if (row[0] === 'verifiedEmail' || row[0] === 'birthday') {
+          allData['3Box'].private[row[0]] = cloneDeep(row[1]);
+        } else {
+          allData['3Box'].public[row[0]] = cloneDeep(row[1]);
+        }
       }
     });
 

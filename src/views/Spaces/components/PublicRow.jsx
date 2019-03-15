@@ -1,13 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Private from '../../../assets/PrivateActivity.svg';
 import Globe from '../../../assets/Globe.svg';
 import '../styles/Spaces.css';
 
-const PublicRow = ({ dataKey, dataValue, spaceName, rowType }) => (
+const PublicRow = ({ dataKey, dataValue, spaceName, rowType, privacy }) => (
   <div className="data__items__row" key={dataKey}>
-    <span className="data__items__row__entry  spaceRow__key">
-      {dataKey}
+    <span className="data__items__row__entry spaceRow__key">
+      <p className="data__text">
+        {dataKey}
+      </p>
     </span>
     <span className="data__items__row__entry spaceRow__content">
       {typeof dataValue === 'string' && dataValue}
@@ -24,11 +27,10 @@ const PublicRow = ({ dataKey, dataValue, spaceName, rowType }) => (
       </span>
     </span>
     <span className="data__items__row__entry spaceRow__privacy">
-      <img src={Globe} alt="Transaction Icon" className="spaceRow__privacy__icon" />
-      {/* {item.dataType === 'Private'
-        ? <img src={PrivateActivity} alt="Transaction Icon" className="feed__activity__address__dataType" />
+      {privacy === 'private'
+        ? <img src={Private} alt="Transaction Icon" className="feed__activity__address__dataType" />
         : <img src={Globe} alt="Transaction Icon" className="feed__activity__address__dataType" />
-      } */}
+      }
     </span>
     <span className="data__items__row__entry spaceRow__updated">
       Feb 19, 2019
@@ -41,6 +43,7 @@ PublicRow.propTypes = {
   dataKey: PropTypes.string.isRequired,
   spaceName: PropTypes.string.isRequired,
   rowType: PropTypes.string.isRequired,
+  privacy: PropTypes.string.isRequired,
 };
 
 // VaultRow.defaultProps = {
