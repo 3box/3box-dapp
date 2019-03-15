@@ -10,7 +10,7 @@ const AllView = ({ allData, openSpace, spacesOpened }) => (
     {
       Object.entries(allData).map(spaceData => (
         <React.Fragment>
-          {(spaceData[0] !== '3box') && (
+          {(spaceData[0] !== '3Box') && (
             <VaultRow
               openSpace={openSpace}
               spaceName={spaceData[0]}

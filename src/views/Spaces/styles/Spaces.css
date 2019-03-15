@@ -98,7 +98,8 @@
   font-size: 13px;
   display: flex;
   justify-content: flex-start;
-  align-items: center; }
+  align-items: center;
+  cursor: pointer; }
 
 .data__items__row {
   border-bottom: 1px solid #ececec;

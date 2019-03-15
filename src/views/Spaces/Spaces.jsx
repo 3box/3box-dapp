@@ -20,6 +20,9 @@ class Spaces extends Component {
     this.state = {
       spaceToRender: 'All Data',
       spaceNameOpened: '',
+      sortBy: 'Name',
+      sortDirection: true,
+      sortedSpace: [],
     };
     this.openSpace = this.openSpace.bind(this);
   }
@@ -32,6 +35,21 @@ class Spaces extends Component {
     this.setState({ spaceToRender: spaceName });
   }
 
+  pickSortBy = (category) => {
+    const { sortBy, sortDirection } = this.state;
+    console.log(category, sortDirection);
+    if (category === sortBy) {
+      this.setState({ sortDirection: !sortDirection });
+    } else {
+      this.setState({ sortBy: category, sortDirection: true });
+    }
+    this.sortSpace();
+  }
+
+  sortSpace = () => {
+    this.setState({ sortedSpace: [] });
+  }
+
   async openSpace(spaceName) {
     const { box, allData, list, spacesOpened } = this.props;
     const updatedAllData = cloneDeep(allData);
@@ -40,9 +58,6 @@ class Spaces extends Component {
     const updateSpaceData = async () => {
       const publicSpace = await box.spaces[spaceName].public.all();
       const privateSpace = await box.spaces[spaceName].private.all();
-
-      console.log('publicSpace', publicSpace);
-      console.log('privateSpace', privateSpace);
 
       updatedAllData[spaceName].public = publicSpace;
       updatedAllData[spaceName].private = privateSpace;
@@ -69,7 +84,6 @@ class Spaces extends Component {
 
     const opts = {
       onSyncDone: () => {
-        console.log('sync done in space', spaceName);
         updateSpaceData();
       },
     };
@@ -78,7 +92,7 @@ class Spaces extends Component {
 
   render() {
     const { list, allData, isSpacesLoading, spacesOpened, showSpaceOpenedModal } = this.props;
-    const { spaceToRender, spaceNameOpened } = this.state;
+    const { spaceToRender, spaceNameOpened, sortBy, sortDirection } = this.state;
 
     return (
       <div>
@@ -101,6 +115,9 @@ class Spaces extends Component {
             <Header
               spaceToRender={spaceToRender}
               isSpacesLoading={isSpacesLoading}
+              sortBy={sortBy}
+              sortDirection={sortDirection}
+              pickSortBy={this.pickSortBy}
             />
 
             <section className="data__items">
