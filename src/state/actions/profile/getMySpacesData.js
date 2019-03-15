@@ -12,7 +12,7 @@ const getMySpacesData = address => async (dispatch) => {
 
     // get list of spaces
     const list = await Box.listSpaces(address);
-    console.log('myList', list);
+    console.log('list', list);
     // function to get space and pair to key
     const getSpace = async (spaceName) => {
       const space = await Box.getSpace(address, spaceName);
@@ -42,7 +42,15 @@ const getMySpacesData = address => async (dispatch) => {
       list,
       allData,
     });
+    dispatch({
+      type: 'UI_SPACES_LOADING',
+      isSpacesLoading: false,
+    });
   } catch (error) {
+    dispatch({
+      type: 'UI_SPACES_LOADING',
+      isSpacesLoading: false,
+    });
     console.error(error);
   }
 };

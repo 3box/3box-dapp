@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 
 import PublicActivity from './PublicActivity';
 import PublicCollectiblesGallery from './PublicCollectiblesGallery';
-import '../../styles/Feed.css';
-import '../../../views/styles/Profile.css';
-import '../../styles/NetworkArray.css';
+import '../styles/Feed.css';
+import '../styles/Profile.css';
+import '../../../components/styles/NetworkArray.css';
 
 const PubContent = ({ showSignInBanner, onOtherProfilePage, showDownloadBanner }) => (
   <div className={` 

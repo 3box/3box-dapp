@@ -13,8 +13,8 @@ import CollectiblesIcon from '../../assets/Collectibles.svg';
 import EthereumLogo from '../../assets/EthereumIcon.svg';
 import Copy from '../../assets/Copy.svg';
 import CopyGrey from '../../assets/CopyGrey.svg';
-import '../../views/styles/Profile.css';
-import '../styles/Modal.css';
+import './styles/Profile.css';
+import '../../components/styles/Modal.css';
 
 const SideBar = ({
   name,

@@ -12,9 +12,9 @@ import Collectibles from '../Collectibles';
 import ActivityIcon from '../../../assets/Activity.svg';
 import DetailsIcon from '../../../assets/Details.svg';
 import CollectiblesIcon from '../../../assets/Collectibles.svg';
-import '../../styles/Feed.css';
-import '../../../views/styles/Profile.css';
-import '../../styles/NetworkArray.css';
+import '../styles/Feed.css';
+import '../styles/Profile.css';
+import '../../../components/styles/NetworkArray.css';
 
 const Content = ({ currentAddress }) => (
   <div>

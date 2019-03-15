@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import networkArray from '../../../utils/networkArray';
-import '../../styles/Feed.css';
-import '../../../views/styles/Profile.css';
-import '../../styles/NetworkArray.css';
+import '../styles/Feed.css';
+import '../styles/Profile.css';
+import '../../../components/styles/NetworkArray.css';
 
 const Activity = ({ name, image, feedAddress }) => (
   <div className="feed__activity__context">

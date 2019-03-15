@@ -49,22 +49,43 @@
   padding-right: 40px;
 }
 
+.data__header {
+  width: 78vw;
+  position: fixed;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #f5f6f8;
+  z-index: 2;
+}
+
 .data__space {
-  width: 100%;
+  width: 98%;
   min-height: 50px;
+  padding-left: 2%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.data__space__title {
-  padding-left: 30px;
+.data__space__context {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .data__space__info {
   width: 15px;
   filter: grayscale(100%);
   padding-right: 30px;
+}
+
+.data__space__loading {
+  width: 26px;
+  height: 26px;
+  margin-left: 14px;
 }
 
 .data__categories {
@@ -83,13 +104,14 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
+  margin-top: 101px;
 }
 
 .data__categories__title {
-  width: 16.66666666666666666666666666666%;
+  padding: 0 2%;
   font-size: 13px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -114,18 +136,92 @@
   }
 }
 
-.data__items__row__unlockButton{
+.data__items__row__unlockButton {
   padding: 10px 15px;
   background-color: #575757;
   border-color: #575757;
+  font-weight: 400;
+  font-size: 13px;
 }
 
 .data__items__row__entry {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: 16.666666666666666666666666666666%;
-  max-width: 16.666666666666666666666666666666%;
+  padding: 0 2%;
   height: fit-content;
   font-size: 13px;
+  height: 100%;
+}
+
+.spaceRow__key {
+  width: 18%;
+  max-width: 18%;
+}
+
+.spaceRow__content {
+  width: 24%;
+  max-width: 24%;
+}
+
+.spaceRow__space {
+  width: 12%;
+  max-width: 12%;
+}
+
+.spaceRow__type {
+  width: 14%;
+  max-width: 14%;
+}
+
+.spaceRow__privacy {
+  width: 16%;
+  max-width: 16%;
+}
+
+.spaceRow__updated {
+  width: 16%;
+  max-width: 16%;
+}
+
+.type__tag {
+  padding: 6px 9px;
+  border-radius: 5px;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spaceRow__privacy__icon {
+  width: 15px;
+}
+
+.spaceRow__tag__text {
+  opacity: .6;
+  color: black;
+}
+
+.row__type__vault {
+  background-color: #575757;
+
+  p {
+    color: white;
+  }
+}
+
+.List {
+  background-color: #a1c7a1;
+}
+
+.Text {
+  background-color: #8da3c3;
+}
+
+.Image {
+  background-color: #ce94bf;
+}
+
+.Claim {
+  background-color: #476997;
 }

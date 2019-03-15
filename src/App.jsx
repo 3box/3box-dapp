@@ -140,6 +140,10 @@ class App extends Component {
 
   getMyData = () => {
     const { currentAddress } = this.props;
+    store.dispatch({
+      type: 'UI_SPACES_LOADING',
+      isSpacesLoading: true,
+    });
     this.props.getActivity();
     this.props.getVerifiedPublicGithub();
     this.props.getVerifiedPublicTwitter();

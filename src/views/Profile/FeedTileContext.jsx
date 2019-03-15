@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { timeSince } from '../../utils/time';
 import PrivateActivity from '../../assets/PrivateActivity.svg';
 import Globe from '../../assets/Globe.svg';
-import '../styles/Feed.css';
+import './styles/Feed.css';
 
 export const FeedTileContext = ({ item }) => (
   <div className="feed__activity__metaData">

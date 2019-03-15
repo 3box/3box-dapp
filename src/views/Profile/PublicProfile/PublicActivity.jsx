@@ -6,9 +6,9 @@ import StatusUpdate from '../StatusUpdate';
 import PublicActivityHeader from './PublicActivityHeader';
 import PublicActivityTiles from './PublicActivityTiles';
 import Loading from '../../../assets/Loading.svg';
-import '../../styles/Feed.css';
-import '../../../views/styles/Profile.css';
-import '../../styles/NetworkArray.css';
+import '../styles/Feed.css';
+import '../styles/Profile.css';
+import '../../../components/styles/NetworkArray.css';
 
 const PublicActivity = ({
   isFetchingActivity,

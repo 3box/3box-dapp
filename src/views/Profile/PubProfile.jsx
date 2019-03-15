@@ -8,11 +8,11 @@ import actions from '../../state/actions';
 import {
   PublicProfileLoading,
   SignInThroughPublicProfileBanner,
-} from '../../components/Modals.jsx';
+} from '../../components/Modals';
 import { store } from '../../state/store';
-import PubContent from '../../components/Profile/PublicProfile/PubContent';
-import SideBar from '../../components/Profile/SideBar';
-import '../styles/Profile.css';
+import PubContent from './PublicProfile/PubContent';
+import SideBar from './SideBar';
+import './styles/Profile.css';
 
 const {
   handleSignInBanner,

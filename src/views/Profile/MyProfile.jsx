@@ -1,10 +1,10 @@
 import { withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
 
-import MyContent from '../../components/Profile/MyProfile/MyContent';
-import SideBar from '../../components/Profile/SideBar';
+import MyContent from './MyProfile/MyContent';
+import SideBar from './SideBar';
 import Nav from '../../components/Nav';
-import '../styles/Profile.css';
+import './styles/Profile.css';
 
 class Profile extends Component {
   componentDidMount() {

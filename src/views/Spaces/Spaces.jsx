@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import AllView from './components/AllView';
 import SpaceView from './components/SpaceView';
-import Columns from './components/Columns';
+import Header from './components/Header';
 import SpacesList from './components/SpacesList';
 import Nav from '../../components/Nav';
 import './styles/Spaces.css';
@@ -48,7 +48,7 @@ class Spaces extends Component {
   }
 
   render() {
-    const { list, allData } = this.props;
+    const { list, allData, isSpacesLoading } = this.props;
     const { spaceToRender } = this.state;
 
     return (
@@ -61,8 +61,9 @@ class Spaces extends Component {
           />
 
           <main className="dataExplorer">
-            <Columns
+            <Header
               spaceToRender={spaceToRender}
+              isSpacesLoading={isSpacesLoading}
             />
 
             <section className="data__items">
@@ -93,12 +94,14 @@ Spaces.propTypes = {
   list: PropTypes.array,
   allData: PropTypes.object,
   box: PropTypes.object,
+  isSpacesLoading: PropTypes.bool,
 };
 
 Spaces.defaultProps = {
   list: [],
   allData: {},
   box: {},
+  isSpacesLoading: false,
 };
 
 function mapState(state) {
@@ -106,6 +109,7 @@ function mapState(state) {
     list: state.spaces.list,
     allData: state.spaces.allData,
     box: state.myData.box,
+    isSpacesLoading: state.uiState.isSpacesLoading,
   };
 }
 

@@ -8,9 +8,9 @@ import FeedTileContext from './FeedTileContext';
 import Internal from '../../assets/Internal.svg';
 import EthereumLine from '../../assets/EthereumLine.svg';
 import Tokens from '../../assets/Tokens.svg';
-import '../styles/Feed.css';
+import './styles/Feed.css';
 import networkArray from '../../utils/networkArray';
-import '../styles/NetworkArray.css';
+import '../../components/styles/NetworkArray.css';
 
 export const FeedTileActivity = ({ item, verifiedGithub, verifiedTwitter, verifiedEmail }) => (
   <div className="feed__activity">

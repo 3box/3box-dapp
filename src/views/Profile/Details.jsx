@@ -20,8 +20,8 @@ import Degree from '../../assets/Degree.svg';
 import Major from '../../assets/Major.svg';
 import Year from '../../assets/Year.png';
 import Employer from '../../assets/Employer.svg';
-import '../../views/styles/Profile.css';
-import '../styles/Feed.css';
+import './styles/Profile.css';
+import './styles/Feed.css';
 
 const Details = ({
   verifiedGithub,

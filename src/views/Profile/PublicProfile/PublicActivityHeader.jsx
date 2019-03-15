@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import networkArray from '../../../utils/networkArray';
-import '../../styles/Feed.css';
-import '../../../views/styles/Profile.css';
-import '../../styles/NetworkArray.css';
+import '../styles/Feed.css';
+import '../styles/Profile.css';
+import '../../../components/styles/NetworkArray.css';
 
 const PublicActivityContext = ({ feedAddress, i }) => (
   <div className="feed__activity__context">

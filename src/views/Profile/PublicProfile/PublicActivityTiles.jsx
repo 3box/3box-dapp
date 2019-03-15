@@ -6,19 +6,16 @@ import {
   FeedTileTXS,
   FeedTileToken,
   FeedTileInternal,
-  FeedTileActivity,
 } from '../FeedTile';
-import '../../styles/Feed.css';
-import '../../../views/styles/Profile.css';
-import '../../styles/NetworkArray.css';
 
-const ActivityTiles = ({
-  verifiedGithub,
-  verifiedTwitter,
-  verifiedEmail,
-  currentAddress,
-  name,
+import '../styles/Feed.css';
+import '../styles/Profile.css';
+import '../../../components/styles/NetworkArray.css';
+
+const PublicActivity = ({
   feedAddress,
+  otherProfileAddress,
+  otherName,
 }) => (
     <React.Fragment>
       {
@@ -27,65 +24,47 @@ const ActivityTiles = ({
             if (item.dataType === 'Internal') {
               return (
                 <FeedTileInternal
-                  currentAddress={currentAddress}
+                  currentAddress={otherProfileAddress}
                   metaDataName={feedAddress.metaData
                     && (feedAddress.metaData.name
                       || (feedAddress.metaData.contractDetails
                         && (feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()))}
+                  onOtherProfilePage
                   contractImg={feedAddress.metaData && feedAddress.metaData.contractImg && feedAddress.metaData.contractImg.src}
-                  isFromProfile={item.from.toLowerCase() === currentAddress.toLowerCase()}
-                  name={name}
+                  isFromProfile={item.from.toLowerCase() === otherProfileAddress.toLowerCase()}
+                  name={otherName}
                   item={item}
                   key={index}
                 />);
             }
-
             if (item.dataType === 'Token') {
               return (
                 <FeedTileToken
-                  currentAddress={currentAddress}
+                  currentAddress={otherProfileAddress}
                   metaDataName={feedAddress.metaData
                     && (feedAddress.metaData.name
                       || (feedAddress.metaData.contractDetails
                         && (feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()))}
+                  onOtherProfilePage
+                  contractImg={feedAddress.metaData && feedAddress.metaData.contractImg && feedAddress.metaData.contractImg.src}
+                  isFromProfile={item.from.toLowerCase() === otherProfileAddress.toLowerCase()}
+                  name={otherName}
                   item={item}
                   key={index}
-                  isFromProfile={item.from.toLowerCase() === currentAddress.toLowerCase()}
-                  contractImg={feedAddress.metaData && feedAddress.metaData.contractImg && feedAddress.metaData.contractImg.src}
-                  name={name}
                 />);
             }
-
             if (item.dataType === 'Txs') {
               return (
                 <FeedTileTXS
-                  currentAddress={currentAddress}
-                  item={item}
-                  key={index}
+                  currentAddress={otherProfileAddress}
                   metaDataName={feedAddress.metaData
                     && (feedAddress.metaData.name
                       || (feedAddress.metaData.contractDetails
                         && (feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()))}
-                  isFromProfile={item.from.toLowerCase() === currentAddress.toLowerCase()}
+                  onOtherProfilePage
                   contractImg={feedAddress.metaData && feedAddress.metaData.contractImg && feedAddress.metaData.contractImg.src}
-                  name={name}
-                />);
-            }
-
-            if (item.dataType === 'Public') {
-              return (
-                <FeedTileActivity
-                  item={item}
-                  key={index}
-                  verifiedGithub={verifiedGithub}
-                  verifiedTwitter={verifiedTwitter}
-                />);
-            }
-
-            if (item.dataType === 'Private') {
-              return (
-                <FeedTileActivity
-                  verifiedEmail={verifiedEmail}
+                  isFromProfile={item.from.toLowerCase() === otherProfileAddress.toLowerCase()}
+                  name={otherName}
                   item={item}
                   key={index}
                 />);
@@ -93,33 +72,24 @@ const ActivityTiles = ({
           })()
         ))
       }
-
     </React.Fragment>
   );
 
-ActivityTiles.propTypes = {
+PublicActivity.propTypes = {
   feedAddress: PropTypes.object,
-  verifiedGithub: PropTypes.string,
-  verifiedEmail: PropTypes.string,
-  verifiedTwitter: PropTypes.string,
-  currentAddress: PropTypes.string,
-  name: PropTypes.string,
+  otherProfileAddress: PropTypes.string,
+  otherName: PropTypes.string,
 };
 
-ActivityTiles.defaultProps = {
+PublicActivity.defaultProps = {
   feedAddress: {},
-  name: '',
-  verifiedGithub: '',
-  verifiedTwitter: '',
-  currentAddress: '',
+  otherProfileAddress: '',
+  otherName: '',
 };
 
 const mapState = state => ({
-  verifiedGithub: state.myData.verifiedGithub,
-  verifiedTwitter: state.myData.verifiedTwitter,
-  verifiedEmail: state.myData.verifiedEmail,
-  currentAddress: state.userState.currentAddress,
-  name: state.myData.name,
+  otherProfileAddress: state.otherProfile.otherProfileAddress,
+  otherName: state.otherProfile.otherName,
 });
 
-export default connect(mapState)(ActivityTiles);
+export default connect(mapState)(PublicActivity);

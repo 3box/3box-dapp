@@ -117,6 +117,12 @@ const uiStateReducer = (state = {}, action) => {
         onBoardingModal: action.onBoardingModal,
       };
 
+    case 'UI_SPACES_LOADING':
+      return {
+        ...state,
+        isSpacesLoading: action.isSpacesLoading,
+      };
+
     case 'UI_HANDLE_ONBOARDING_MODAL2':
       return {
         ...state,

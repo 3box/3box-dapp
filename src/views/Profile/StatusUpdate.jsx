@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Loading from '../../assets/Loading.svg';
-import '../styles/Feed.css';
+import './styles/Feed.css';
 
 import actions from '../../state/actions';
 
@@ -66,7 +66,7 @@ class StatusUpdate extends Component {
 
   render() {
     const { status, disableSave, saveLoading } = this.state;
-    const { onOtherProfilePage, otherStatus, showSignInBanner } = this.props;
+    const { onOtherProfilePage, otherStatus } = this.props;
 
     return (
       <React.Fragment>
@@ -140,7 +140,6 @@ class StatusUpdate extends Component {
 StatusUpdate.propTypes = {
   status: PropTypes.string,
   otherStatus: PropTypes.string,
-  showSignInBanner: PropTypes.bool,
   getActivity: PropTypes.func.isRequired,
   getMyProfileValue: PropTypes.func.isRequired,
   box: PropTypes.object,
@@ -152,7 +151,6 @@ StatusUpdate.defaultProps = {
   box: {},
   status: '',
   otherStatus: '',
-  showSignInBanner: false,
   onOtherProfilePage: false,
 };
 
@@ -161,7 +159,6 @@ function mapState(state) {
     box: state.myData.box,
     status: state.myData.status,
     otherStatus: state.otherProfile.otherStatus,
-    showSignInBanner: state.uiState.showSignInBanner,
     onOtherProfilePage: state.uiState.onOtherProfilePage,
   };
 }

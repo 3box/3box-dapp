@@ -7,7 +7,12 @@ import '../styles/Spaces.css';
 
 const SpaceView = ({ openSpace, spaceData, spaceName }) => (
   <React.Fragment>
-    <VaultRow openSpace={openSpace} spaceName={spaceName} />
+    {spaceName !== '3Box' && (
+      <VaultRow
+        openSpace={openSpace}
+        spaceName={spaceName}
+      />)
+    }
     {spaceData && Object.entries(spaceData).map(row => (
       <PublicRow
         dataKey={row[0]}

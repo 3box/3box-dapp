@@ -6,9 +6,9 @@ import ActivityHeader from './ActivityHeader';
 import ActivityTiles from './ActivityTiles';
 import StatusUpdate from '../StatusUpdate';
 import Loading from '../../../assets/Loading.svg';
-import '../../styles/Feed.css';
-import '../../../views/styles/Profile.css';
-import '../../styles/NetworkArray.css';
+import '../styles/Feed.css';
+import '../styles/Profile.css';
+import '../../../components/styles/NetworkArray.css';
 
 const Activity = ({
   isFetchingActivity,

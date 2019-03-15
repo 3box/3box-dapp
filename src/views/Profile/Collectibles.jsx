@@ -5,15 +5,15 @@ import { withRouter } from 'react-router-dom';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import CollectiblesTile from './CollectiblesTile';
-import { CollectiblesModal, ModalBackground } from '../Modals';
+import { CollectiblesModal, ModalBackground } from '../../components/Modals';
 import { EmptyGalleryCollectiblesTile } from './EmptyCollectiblesTile';
 import actions from '../../state/actions';
 import OpenSea from '../../assets/OpenSea.png';
 import Globe from '../../assets/Globe.svg';
 import Private from '../../assets/Private.svg';
 import { store } from '../../state/store';
-import '../../views/styles/Profile.css';
-import '../styles/Feed.css';
+import './styles/Profile.css';
+import './styles/Feed.css';
 
 const { handleCollectiblesModal } = actions.modal;
 

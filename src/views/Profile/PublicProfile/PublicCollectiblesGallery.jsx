@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import CollectiblesTile from '../CollectiblesTile';
-import { CollectiblesModal, ModalBackground } from '../../Modals';
+import { CollectiblesModal, ModalBackground } from '../../../components/Modals';
 import { EmptyGalleryCollectiblesTile } from '../EmptyCollectiblesTile';
 import actions from '../../../state/actions';
-import '../../styles/Feed.css';
-import '../../../views/styles/Profile.css';
-import '../../styles/NetworkArray.css';
-import '../../styles/Modal.css';
+import '../styles/Feed.css';
+import '../styles/Profile.css';
+import '../../../components/styles/NetworkArray.css';
+import '../../../components/styles/Modal.css';
 
 const { handleCollectiblesModal } = actions.modal;
 
