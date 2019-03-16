@@ -14,7 +14,7 @@
     "eth-contract-metadata": "^1.9.0",
     "ethereumjs-util": "^6.0.0",
     "event-stream": "^4.0.1",
-    "history": "^4.7.2",
+    "history": "^4.9.0",
     "prop-types": "^15.6.1",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
