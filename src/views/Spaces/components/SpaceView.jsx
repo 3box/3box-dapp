@@ -1,39 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { connect } from 'react-redux';
 import VaultRow from './VaultRow';
 import PublicRow from './PublicRow';
 import '../styles/Spaces.css';
 
-const SpaceView = ({ openSpace, spaceData, spaceName, spacesOpened }) => (
+const SpaceView = ({ openSpace, spaceDataToRender, spacesOpened }) => (
   <React.Fragment>
-    {spaceName !== '3Box' && (
-      <VaultRow
-        openSpace={openSpace}
-        spaceName={spaceName}
-        hasVaultOpened={spacesOpened[spaceName]}
-      />)
-    }
-    {spaceData && Object.entries(spaceData).map(privacyLevel => (
-      Object.entries(privacyLevel[1]).map(row => (
-        <PublicRow
-          dataKey={row[0]}
-          dataValue={row[1]}
-          spaceName={spaceName}
-          key={row[0]}
-          privacy={privacyLevel[0]}
+    {spaceDataToRender.length > 0 && spaceDataToRender.map(row => (
+      row.name === 'private_space_data' ? (
+        <VaultRow
+          openSpace={openSpace}
+          spaceName={row.space}
+          hasVaultOpened={spacesOpened[row.space]}
         />
-      ))
-    ))}
+      ) : (<PublicRow
+        dataKey={row.name}
+        dataValue={row.content}
+        spaceName={row.space}
+        privacy={row.privacy}
+        rowType={row.type}
+      />
+        )))}
   </React.Fragment>
 );
 
 SpaceView.propTypes = {
-  spaceData: PropTypes.object.isRequired,
+  spaceDataToRender: PropTypes.array.isRequired,
   openSpace: PropTypes.func.isRequired,
-  spaceName: PropTypes.string.isRequired,
   spacesOpened: PropTypes.bool.isRequired,
 };
 
+SpaceView.defaultProps = {
+  spaceDataToRender: [],
+};
 
-export default SpaceView;
+function mapState(state) {
+  return {
+    spaceDataToRender: state.spaces.spaceDataToRender,
+  };
+}
+
+export default connect(mapState)(SpaceView);

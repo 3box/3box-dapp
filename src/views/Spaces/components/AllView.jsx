@@ -1,51 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import VaultRow from './VaultRow';
 import PublicRow from './PublicRow';
 import '../styles/Spaces.css';
 
-const AllView = ({ allData, openSpace, spacesOpened }) => (
+const AllView = ({ openSpace, spacesOpened, sortedSpace }) => (
   <React.Fragment>
-    {
-      Object.entries(allData).map(spaceData => (
-        <React.Fragment>
-          {(spaceData[0] !== '3Box') && (
-            <VaultRow
-              openSpace={openSpace}
-              spaceName={spaceData[0]}
-              hasVaultOpened={spacesOpened[spaceData[0]]}
-            />)}
-          {Object.entries(spaceData[1]).map(privacyLevel => (
-            Object.entries(privacyLevel[1]).map(value => (
-              <PublicRow
-                dataKey={value[0]}
-                dataValue={value[1]}
-                spaceName={spaceData[0]}
-                privacy={privacyLevel[0]}
-                rowType={typeof value[1] === 'string' ? 'Text' :
-                  (Array.isArray(value[1])
-                    && value[1][0]
-                    && value[1][0]['@type'] === 'ImageObject')
-                    ? 'Image' :
-                    (Array.isArray(value[1])
-                      && (!value[1][0] || (value[1][0]
-                        && value[1][0]['@type']
-                        !== 'ImageObject')))
-                    && 'List'
-                }
-              />
-            ))
-          ))}
-        </React.Fragment>
-      ))
-    }
+    {sortedSpace.length > 0 && sortedSpace.map(row => (
+      row.name === 'private_space_data' ? (
+        <VaultRow
+          openSpace={openSpace}
+          spaceName={row.space}
+          hasVaultOpened={spacesOpened[row.space]}
+        />
+      ) : (<PublicRow
+        dataKey={row.name}
+        dataValue={row.content}
+        spaceName={row.space}
+        privacy={row.privacy}
+        rowType={row.type}
+      />
+        )))}
   </React.Fragment>
 );
 
 AllView.propTypes = {
-  allData: PropTypes.object.isRequired,
+  spacesOpened: PropTypes.object.isRequired,
   openSpace: PropTypes.func.isRequired,
+  sortedSpace: PropTypes.array,
 };
 
-export default AllView;
+AllView.defaultProps = {
+  sortedSpace: [],
+};
+
+function mapState(state) {
+  return {
+    sortedSpace: state.spaces.sortedSpace,
+  };
+}
+
+export default connect(mapState)(AllView);

@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 
 import '../styles/Spaces.css';
 
-const SpacesList = ({ pickSpace, list }) => (
+const SpacesList = ({ sortAllData, list, sortBy }) => (
   <section className="spaces">
     <div
       className="space"
-      onClick={() => pickSpace('All Data')}
+      onClick={() => sortAllData(sortBy, false, 'All Data', true)}
       role="button"
-      onKeyDown={() => pickSpace('All Data')}
+      onKeyDown={() => sortAllData(sortBy, false, 'All Data', true)}
       tabIndex={0}
     >
       <p className="space__name">All data</p>
@@ -18,9 +18,9 @@ const SpacesList = ({ pickSpace, list }) => (
 
     <div
       className="space"
-      onClick={() => pickSpace('3Box')}
+      onClick={() => sortAllData(sortBy, false, '3Box', true)}
       role="button"
-      onKeyDown={() => pickSpace('3Box')}
+      onKeyDown={() => sortAllData(sortBy, false, '3Box', true)}
       tabIndex={0}
     >
       <p className="space__name">3Box</p>
@@ -30,9 +30,9 @@ const SpacesList = ({ pickSpace, list }) => (
     {list && list.map(space => (
       <div
         className="space"
-        onClick={() => pickSpace(space)}
+        onClick={() => sortAllData(sortBy, false, space, true)}
         role="button"
-        onKeyDown={() => pickSpace(space)}
+        onKeyDown={() => sortAllData(sortBy, false, space, true)}
         tabIndex={0}
       >
         <p className="space__name">{space}</p>
@@ -42,9 +42,10 @@ const SpacesList = ({ pickSpace, list }) => (
   </section>);
 
 SpacesList.propTypes = {
-  pickSpace: PropTypes.func.isRequired,
+  sortAllData: PropTypes.func.isRequired,
   list: PropTypes.array.isRequired,
   spaceName: PropTypes.string.isRequired,
+  sortBy: PropTypes.string.isRequired,
 };
 
 // VaultRow.defaultProps = {

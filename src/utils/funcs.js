@@ -182,3 +182,40 @@ export const copyToClipBoard = (type, message) => async (dispatch) => {
     console.error('Unable to copy', err);
   }
 };
+
+export const checkRowType = (content) => {
+  if (typeof content === 'string') return 'Text';
+  if (Array.isArray(content) &&
+    content[0] &&
+    content[0]['@type'] === 'ImageObject') return 'Image';
+  if (Array.isArray(content) &&
+    (!content[0] || (content[0] &&
+      content[0]['@type'] !==
+      'ImageObject'))) return 'List';
+};
+
+export const sortSpace = (updatedSortedSpace, category) => {
+  updatedSortedSpace.sort((a, b) => {
+    if (typeof a[category] !== 'string' && typeof b[category] !== 'string') return 1;
+    if (typeof a[category] !== 'string' && b[category].toLowerCase()) return 1;
+    if (a[category].toLowerCase() && typeof b[category] !== 'string') return -1;
+    if (a[category].toLowerCase() < b[category].toLowerCase()) return -1;
+    if (a[category].toLowerCase() > b[category].toLowerCase()) return 1;
+    return 0;
+  });
+};
+
+export const extractRow = (spaceData, spaceNameGiven, updatedSortedSpace) => {
+  Object.entries(spaceData).forEach((privacy) => {
+    Object.entries(privacy[1]).forEach((row) => {
+      updatedSortedSpace.push({
+        space: spaceNameGiven,
+        name: row[0],
+        content: row[1],
+        type: checkRowType(row[1]),
+        privacy: privacy[0],
+        lastUpdated: '',
+      });
+    });
+  });
+};

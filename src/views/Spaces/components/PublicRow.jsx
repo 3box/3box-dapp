@@ -9,7 +9,7 @@ const PublicRow = ({ dataKey, dataValue, spaceName, rowType, privacy }) => (
   <div className="data__items__row" key={dataKey}>
     <span className="data__items__row__entry spaceRow__key">
       <p className="data__text">
-        {dataKey.replace(/([A-Z])/g, ' $1')
+        {dataKey && dataKey.replace(/([A-Z])/g, ' $1')
           .replace(/^./, str => str.toUpperCase())}
       </p>
     </span>
@@ -46,9 +46,5 @@ PublicRow.propTypes = {
   rowType: PropTypes.string.isRequired,
   privacy: PropTypes.string.isRequired,
 };
-
-// VaultRow.defaultProps = {
-//   box: {},
-// };
 
 export default PublicRow;

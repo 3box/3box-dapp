@@ -10,23 +10,22 @@ const getMySpacesData = address => async (dispatch) => {
     const allData = {};
     allData['3Box'] = {};
 
-    // get list of spaces
-    const list = await Box.listSpaces(address);
-    // function to get space and pair to key
-    const getSpace = async (spaceName) => {
+    const list = await Box.listSpaces(address); // get list of spaces
+    const getSpace = async (spaceName) => { // function to get space and pair to key
       const space = await Box.getSpace(address, spaceName);
       allData[spaceName] = {};
+      allData[spaceName].private = {
+        private_space_data: true,
+      };
       allData[spaceName].public = space;
     };
 
-    // for each space
-    const spaceDataPromise = async () => Promise
+    const spaceDataPromise = async () => Promise // for each space
       .all(list.map(spaceName => getSpace(spaceName)));
 
     await spaceDataPromise();
 
-    // merge myData into space data object
-    const {
+    const { // merge myData into space data object
       myData,
     } = store.getState();
     allData['3Box'].private = {};
@@ -44,7 +43,7 @@ const getMySpacesData = address => async (dispatch) => {
     });
 
     dispatch({
-      type: 'MY_SPACES_DATA_UPDATE',
+      type: 'SPACES_DATA_UPDATE',
       list,
       allData,
     });

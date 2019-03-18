@@ -5,11 +5,11 @@ import Info from '../../../assets/Details.svg';
 import Loading from '../../../assets/Loading.svg';
 import '../styles/Spaces.css';
 
-const Header = ({ spaceToRender, isSpacesLoading, sortBy, pickSortBy, sortDirection }) => (
+const Header = ({ spaceToDisplay, isSpacesLoading, sortBy, sortAllData, sortDirection }) => (
   <header className="data__header">
     <section className="data__space">
       <span className="data__space__context">
-        <h2>{spaceToRender}</h2>
+        <h2>{spaceToDisplay}</h2>
         {isSpacesLoading && <img className="data__space__loading" src={Loading} alt="info" />}
       </span>
       <img className="data__space__info" src={Info} alt="info" />
@@ -18,13 +18,13 @@ const Header = ({ spaceToRender, isSpacesLoading, sortBy, pickSortBy, sortDirect
     <section className="data__categories">
       <span
         className="data__categories__title spaceRow__key"
-        onClick={() => pickSortBy('Name')}
-        onKeyPress={() => pickSortBy('Name')}
+        onClick={() => sortAllData('name', false, spaceToDisplay, false)}
+        onKeyPress={() => sortAllData('name', false, spaceToDisplay, false)}
         role="button"
         tabIndex={0}
       >
         Name
-        {sortBy === 'Name' && (
+        {sortBy === 'name' && (
           sortDirection ? (
             <p className="data__categories__title__arrow">
               &#9660;
@@ -38,13 +38,13 @@ const Header = ({ spaceToRender, isSpacesLoading, sortBy, pickSortBy, sortDirect
       </span>
       <span
         className="data__categories__title spaceRow__content"
-        onClick={() => pickSortBy('Content')}
-        onKeyPress={() => pickSortBy('Content')}
+        onClick={() => sortAllData('content', false, spaceToDisplay, false)}
+        onKeyPress={() => sortAllData('content', false, spaceToDisplay, false)}
         role="button"
         tabIndex={0}
       >
         Content
-        {sortBy === 'Content' && (
+        {sortBy === 'content' && (
           sortDirection ? (
             <p className="data__categories__title__arrow">
               &#9660;
@@ -58,13 +58,13 @@ const Header = ({ spaceToRender, isSpacesLoading, sortBy, pickSortBy, sortDirect
       </span>
       <span
         className="data__categories__title spaceRow__space"
-        onClick={() => pickSortBy('Space')}
-        onKeyPress={() => pickSortBy('Space')}
+        onClick={() => sortAllData('space', false, spaceToDisplay, false)}
+        onKeyPress={() => sortAllData('space', false, spaceToDisplay, false)}
         role="button"
         tabIndex={0}
       >
         Space
-        {sortBy === 'Space' && (
+        {sortBy === 'space' && (
           sortDirection ? (
             <p className="data__categories__title__arrow">
               &#9660;
@@ -77,13 +77,13 @@ const Header = ({ spaceToRender, isSpacesLoading, sortBy, pickSortBy, sortDirect
       </span>
       <span
         className="data__categories__title spaceRow__type"
-        onClick={() => pickSortBy('Type')}
-        onKeyPress={() => pickSortBy('Type')}
+        onClick={() => sortAllData('type', false, spaceToDisplay, false)}
+        onKeyPress={() => sortAllData('type', false, spaceToDisplay, false)}
         role="button"
         tabIndex={0}
       >
         Type
-        {sortBy === 'Type' && (
+        {sortBy === 'type' && (
           sortDirection ? (
             <p className="data__categories__title__arrow">
               &#9660;
@@ -96,13 +96,13 @@ const Header = ({ spaceToRender, isSpacesLoading, sortBy, pickSortBy, sortDirect
       </span>
       <span
         className="data__categories__title spaceRow__privacy"
-        onClick={() => pickSortBy('Privacy')}
-        onKeyPress={() => pickSortBy('Privacy')}
+        onClick={() => sortAllData('privacy', false, spaceToDisplay, false)}
+        onKeyPress={() => sortAllData('privacy', false, spaceToDisplay, false)}
         role="button"
         tabIndex={0}
       >
         Privacy
-        {sortBy === 'Privacy' && (
+        {sortBy === 'privacy' && (
           sortDirection ? (
             <p className="data__categories__title__arrow">
               &#9660;
@@ -115,13 +115,13 @@ const Header = ({ spaceToRender, isSpacesLoading, sortBy, pickSortBy, sortDirect
       </span>
       <span
         className="data__categories__title spaceRow__updated"
-        onClick={() => pickSortBy('Updated')}
-        onKeyPress={() => pickSortBy('Updated')}
+        onClick={() => sortAllData('lastUpdated', false, spaceToDisplay, false)}
+        onKeyPress={() => sortAllData('lastUpdated', false, spaceToDisplay, false)}
         role="button"
         tabIndex={0}
       >
         Last Updated
-        {sortBy === 'Updated' && (
+        {sortBy === 'lastUpdated' && (
           sortDirection ? (
             <p className="data__categories__title__arrow">
               &#9660;
@@ -137,11 +137,11 @@ const Header = ({ spaceToRender, isSpacesLoading, sortBy, pickSortBy, sortDirect
 );
 
 Header.propTypes = {
-  spaceToRender: PropTypes.string.isRequired,
+  spaceToDisplay: PropTypes.string.isRequired,
   sortBy: PropTypes.string.isRequired,
   isSpacesLoading: PropTypes.bool.isRequired,
   sortDirection: PropTypes.bool.isRequired,
-  pickSortBy: PropTypes.func.isRequired,
+  sortAllData: PropTypes.func.isRequired,
 };
 
 export default Header;

@@ -23,6 +23,8 @@ class Spaces extends Component {
       spaceNameOpened: '',
       sortBy: '',
       sortDirection: true,
+      sortedSpace: [],
+      spaceDataToRender: [],
     };
     this.openSpace = this.openSpace.bind(this);
   }
@@ -32,58 +34,62 @@ class Spaces extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { hasUpdated } = this.props;
     const { allData } = nextProps;
-    if (allData !== this.props.allData && !hasUpdated) {
-      this.sortAllData('name', allData, 'All Data', false);
-      store.dispatch({
-        type: 'SPACES_HAS_UPDATED',
-        hasUpdated: true,
-      });
-    }
+    if (allData !== this.props.allData) this.sortAllData('name', allData);
   }
 
-  sortAllData = (category, updatedData, spaceName, fromSpace) => {
-    const { allData, sortedSpace, spaceDataToRender } = this.props;
+  pickSpace = (spaceName) => {
+    const { sortBy } = this.state;
+    this.setState({ spaceToDisplay: spaceName }, this.sortAllData(sortBy, false, spaceName, true));
+  }
+
+  pickSortBy = (sortBy) => {
+    const { spaceToDisplay } = this.state;
+    this.setState({ sortBy }, this.sortAllData(sortBy, false, spaceToDisplay));
+  }
+
+  sortAllData = (category, nextPropsAllData, spaceName, fromSpace) => {
+    const { allData } = this.props;
     const {
+      sortedSpace,
       sortBy,
       sortDirection,
+      spaceToDisplay,
+      spaceDataToRender,
     } = this.state;
 
     let updatedSortedSpace = [];
 
+    console.log('fromSpace', fromSpace);
+    console.log('spaceName', spaceName);
+
     if (fromSpace || sortBy !== category) {
-      if (spaceName === 'All Data') {
-        Object.entries(updatedData || allData).forEach((space) => {
+      if (spaceName === 'All Data' || spaceToDisplay === 'All Data') {
+        Object.entries(nextPropsAllData || allData).forEach((space) => {
           extractRow(space[1], space[0], updatedSortedSpace);
         });
       } else {
-        extractRow(updatedData[spaceName] || allData[spaceName], spaceName, updatedSortedSpace);
+        extractRow(allData[spaceName || spaceToDisplay], spaceName || spaceToDisplay, updatedSortedSpace);
       }
 
+      console.log('updatedSortedSpace 1', updatedSortedSpace);
+
       if (updatedSortedSpace.length > 0) sortSpace(updatedSortedSpace, category);
-      this.setState({ sortBy: category, spaceToDisplay: spaceName });
-      if (!sortDirection) updatedSortedSpace.reverse();
-    } else if (spaceName === 'All Data') {
-      updatedSortedSpace = sortedSpace.slice();
-      updatedSortedSpace.reverse();
+      this.setState({ sortBy: category, sortDirection: true });
+    } else if (spaceName === 'All Data' || spaceToDisplay === 'All Data') {
+      updatedSortedSpace = sortedSpace.reverse();
       this.setState({ sortDirection: !sortDirection });
     } else {
-      updatedSortedSpace = spaceDataToRender.slice();
-      updatedSortedSpace.reverse();
+      updatedSortedSpace = spaceDataToRender.reverse();
       this.setState({ sortDirection: !sortDirection });
     }
 
-    if (spaceName === 'All Data') {
-      store.dispatch({
-        type: 'SPACES_DATA_TO_RENDER_UPDATE',
-        sortedSpace: updatedSortedSpace,
-      });
+    console.log('updatedSortedSpace 2', updatedSortedSpace);
+
+    if (spaceName === 'All Data' || spaceToDisplay === 'All Data') {
+      this.setState({ sortedSpace: updatedSortedSpace });
     } else {
-      store.dispatch({
-        type: 'SPACES_DATA_TO_RENDER_UPDATE',
-        spaceDataToRender: updatedSortedSpace,
-      });
+      this.setState({ spaceDataToRender: updatedSortedSpace });
     }
   }
 
@@ -94,10 +100,6 @@ class Spaces extends Component {
       list,
       spacesOpened,
     } = this.props;
-    const {
-      sortBy,
-      spaceToDisplay,
-    } = this.state;
 
     const updatedAllData = cloneDeep(allData);
     const updatedspacesOpened = cloneDeep(spacesOpened);
@@ -115,8 +117,7 @@ class Spaces extends Component {
         type: 'SPACES_DATA_UPDATE',
         list,
         allData: updatedAllData,
-      });
-      this.sortAllData(sortBy, updatedAllData, spaceToDisplay, true);
+      }, this.sortAllData());
       store.dispatch({
         type: 'UI_SPACE_OPENED',
         spacesOpened: updatedspacesOpened,
@@ -151,6 +152,8 @@ class Spaces extends Component {
       spaceNameOpened,
       sortBy,
       sortDirection,
+      sortedSpace,
+      spaceDataToRender,
     } = this.state;
 
     return (
@@ -166,8 +169,7 @@ class Spaces extends Component {
           </ReactCSSTransitionGroup>
 
           <SpacesList
-            sortAllData={this.sortAllData}
-            sortBy={sortBy}
+            pickSpace={this.pickSpace}
             list={list}
           />
 
@@ -177,7 +179,7 @@ class Spaces extends Component {
               isSpacesLoading={isSpacesLoading}
               sortBy={sortBy}
               sortDirection={sortDirection}
-              sortAllData={this.sortAllData}
+              pickSortBy={this.pickSortBy}
             />
 
             <section className="data__items">
@@ -185,6 +187,7 @@ class Spaces extends Component {
                 ? (
                   <AllView
                     spacesOpened={spacesOpened}
+                    sortedSpace={sortedSpace}
                     openSpace={this.openSpace}
                   />
                 )
@@ -193,6 +196,7 @@ class Spaces extends Component {
                     openSpace={this.openSpace}
                     spacesOpened={spacesOpened}
                     spaceName={spaceToDisplay}
+                    sortedSpace={spaceDataToRender}
                   />
                 )
               }
@@ -206,26 +210,20 @@ class Spaces extends Component {
 
 Spaces.propTypes = {
   list: PropTypes.array,
-  spaceDataToRender: PropTypes.array,
-  sortedSpace: PropTypes.array,
   allData: PropTypes.object,
   box: PropTypes.object,
   spacesOpened: PropTypes.object,
   isSpacesLoading: PropTypes.bool,
   showSpaceOpenedModal: PropTypes.bool,
-  hasUpdated: PropTypes.bool,
 };
 
 Spaces.defaultProps = {
   list: [],
-  sortedSpace: [],
-  spaceDataToRender: [],
   allData: {},
   box: {},
   spacesOpened: {},
   isSpacesLoading: false,
   showSpaceOpenedModal: false,
-  hasUpdated: false,
 };
 
 function mapState(state) {
@@ -237,9 +235,6 @@ function mapState(state) {
     spacesOpened: state.uiState.spacesOpened,
     showSpaceOpenedModal: state.uiState.showSpaceOpenedModal,
     currentAddress: state.userState.currentAddress,
-    sortedSpace: state.spaces.sortedSpace,
-    spaceDataToRender: state.spaces.spaceDataToRender,
-    hasUpdated: state.spaces.hasUpdated,
   };
 }
 

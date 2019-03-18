@@ -7,7 +7,7 @@ import '../styles/Spaces.css';
 const VaultRow = ({ openSpace, spaceName, hasVaultOpened }) => (
   <div className={`data__items__row ${hasVaultOpened ? 'hideVault' : ''}`} key={`${spaceName}vault`}>
     <span className="data__items__row__entry spaceRow__key">
-      Private Data
+      {`Private ${spaceName} Data`}
     </span>
     <span className="data__items__row__entry spaceRow__content">
       <button
