@@ -1,3 +1,6 @@
+import Box from '3box';
+import ThreeBoxActivity from '3box-activity';
+
 import {
   store,
 } from './store';
@@ -80,7 +83,7 @@ export const requestAccess = directLogin => async (dispatch) => {
       dispatch({
         type: 'UPDATE_ADDRESSES',
         isSignedIntoWallet: accounts && (accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi'),
-        isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
+        isLoggedIn: accounts && Box.isLoggedIn(accounts[0]),
         accountAddress: accounts[0],
         allowAccessModal: false,
         currentAddress: accounts[0],
@@ -104,7 +107,7 @@ export const requestAccess = directLogin => async (dispatch) => {
     dispatch({
       type: 'UPDATE_ADDRESSES',
       isSignedIntoWallet: accounts && (accounts.length > 0 || store.getState().threeBox.currentWallet === 'isToshi'),
-      isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
+      isLoggedIn: accounts && Box.isLoggedIn(accounts[0]),
       currentAddress: accounts[0],
     });
   } else {
@@ -212,7 +215,7 @@ export const getBox = fromSignIn => async (dispatch) => {
   };
 
   try {
-    const box = await Box // eslint-disable-line no-undef
+    const box = await Box
       .openBox(
         store.getState().threeBox.accountAddress || store.getState().threeBox.currentAddress,
         window.web3.currentProvider, // eslint-disable-line no-undef
@@ -299,12 +302,12 @@ export const getActivity = publicProfileAddress => async (dispatch) => {
     // get activity from the profile page's address
     let activity;
     if (store.getState().threeBox.currentNetwork) {
-      activity = await ThreeBoxActivity.get( // eslint-disable-line no-undef
+      activity = await ThreeBoxActivity.get(
         publicProfileAddress || store.getState().threeBox.currentAddress,
         store.getState().threeBox.currentNetwork.toLowerCase(),
       );
     } else {
-      activity = await ThreeBoxActivity.get( // eslint-disable-line no-undef
+      activity = await ThreeBoxActivity.get(
         publicProfileAddress || store.getState().threeBox.currentAddress,
       );
     }
@@ -510,9 +513,9 @@ export const getProfile = profileAddress => async (dispatch) => {
       isLoadingPublicProfile: true,
     });
 
-    const publicProfile = await Box.getProfile(profileAddress); // eslint-disable-line no-undef
+    const publicProfile = await Box.getProfile(profileAddress);
     const publicVerifiedAccounts = Object.entries(publicProfile).length > 0 ?
-      await Box.getVerifiedAccounts(publicProfile) : { // eslint-disable-line no-undef
+      await Box.getVerifiedAccounts(publicProfile) : {
         github: null,
         twitter: null,
       };

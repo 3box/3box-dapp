@@ -1,3 +1,5 @@
+import Box from '3box';
+
 import contractMap from 'eth-contract-metadata';
 import abiDecoder from 'abi-decoder';
 import {
@@ -64,7 +66,7 @@ export const imageElFor = (address) => {
 export async function getPublicProfile(graphqlQueryObject) {
   let profile;
   try {
-    profile = await Box.profileGraphQL(graphqlQueryObject); // eslint-disable-line no-undef
+    profile = await Box.profileGraphQL(graphqlQueryObject);
   } catch (err) {
     return err;
   }
