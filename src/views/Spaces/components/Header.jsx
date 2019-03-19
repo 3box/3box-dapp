@@ -5,7 +5,7 @@ import Info from '../../../assets/Details.svg';
 import Loading from '../../../assets/Loading.svg';
 import '../styles/Spaces.css';
 
-const Header = ({ spaceToDisplay, isSpacesLoading, sortBy, sortAllData, sortDirection }) => (
+const Header = ({ spaceToDisplay, isSpacesLoading, sortBy, sortData, sortDirection }) => (
   <header className="data__header">
     <section className="data__space">
       <span className="data__space__context">
@@ -17,9 +17,9 @@ const Header = ({ spaceToDisplay, isSpacesLoading, sortBy, sortAllData, sortDire
 
     <section className="data__categories">
       <span
-        className="data__categories__title spaceRow__key"
-        onClick={() => sortAllData('name', false, spaceToDisplay, false)}
-        onKeyPress={() => sortAllData('name', false, spaceToDisplay, false)}
+        className={`data__categories__title spaceRow__key ${sortBy === 'name' ? 'activeSort' : ''}`}
+        onClick={() => sortData('name', false, spaceToDisplay, false)}
+        onKeyPress={() => sortData('name', false, spaceToDisplay, false)}
         role="button"
         tabIndex={0}
       >
@@ -37,9 +37,9 @@ const Header = ({ spaceToDisplay, isSpacesLoading, sortBy, sortAllData, sortDire
         )}
       </span>
       <span
-        className="data__categories__title spaceRow__content"
-        onClick={() => sortAllData('content', false, spaceToDisplay, false)}
-        onKeyPress={() => sortAllData('content', false, spaceToDisplay, false)}
+        className={`data__categories__title spaceRow__content ${sortBy === 'content' ? 'activeSort' : ''}`}
+        onClick={() => sortData('content', false, spaceToDisplay, false)}
+        onKeyPress={() => sortData('content', false, spaceToDisplay, false)}
         role="button"
         tabIndex={0}
       >
@@ -57,9 +57,9 @@ const Header = ({ spaceToDisplay, isSpacesLoading, sortBy, sortAllData, sortDire
         )}
       </span>
       <span
-        className="data__categories__title spaceRow__space"
-        onClick={() => sortAllData('space', false, spaceToDisplay, false)}
-        onKeyPress={() => sortAllData('space', false, spaceToDisplay, false)}
+        className={`data__categories__title spaceRow__space ${sortBy === 'space' ? 'activeSort' : ''}`}
+        onClick={() => sortData('space', false, spaceToDisplay, false)}
+        onKeyPress={() => sortData('space', false, spaceToDisplay, false)}
         role="button"
         tabIndex={0}
       >
@@ -76,9 +76,9 @@ const Header = ({ spaceToDisplay, isSpacesLoading, sortBy, sortAllData, sortDire
             ))}
       </span>
       <span
-        className="data__categories__title spaceRow__type"
-        onClick={() => sortAllData('type', false, spaceToDisplay, false)}
-        onKeyPress={() => sortAllData('type', false, spaceToDisplay, false)}
+        className={`data__categories__title spaceRow__type ${sortBy === 'type' ? 'activeSort' : ''}`}
+        onClick={() => sortData('type', false, spaceToDisplay, false)}
+        onKeyPress={() => sortData('type', false, spaceToDisplay, false)}
         role="button"
         tabIndex={0}
       >
@@ -95,9 +95,9 @@ const Header = ({ spaceToDisplay, isSpacesLoading, sortBy, sortAllData, sortDire
             ))}
       </span>
       <span
-        className="data__categories__title spaceRow__privacy"
-        onClick={() => sortAllData('privacy', false, spaceToDisplay, false)}
-        onKeyPress={() => sortAllData('privacy', false, spaceToDisplay, false)}
+        className={`data__categories__title spaceRow__privacy ${sortBy === 'privacy' ? 'activeSort' : ''}`}
+        onClick={() => sortData('privacy', false, spaceToDisplay, false)}
+        onKeyPress={() => sortData('privacy', false, spaceToDisplay, false)}
         role="button"
         tabIndex={0}
       >
@@ -114,9 +114,9 @@ const Header = ({ spaceToDisplay, isSpacesLoading, sortBy, sortAllData, sortDire
             ))}
       </span>
       <span
-        className="data__categories__title spaceRow__updated"
-        onClick={() => sortAllData('lastUpdated', false, spaceToDisplay, false)}
-        onKeyPress={() => sortAllData('lastUpdated', false, spaceToDisplay, false)}
+        className={`data__categories__title spaceRow__updated ${sortBy === 'lastUpdated' ? 'activeSort' : ''}`}
+        onClick={() => sortData('lastUpdated', false, spaceToDisplay, false)}
+        onKeyPress={() => sortData('lastUpdated', false, spaceToDisplay, false)}
         role="button"
         tabIndex={0}
       >
@@ -141,7 +141,7 @@ Header.propTypes = {
   sortBy: PropTypes.string.isRequired,
   isSpacesLoading: PropTypes.bool.isRequired,
   sortDirection: PropTypes.bool.isRequired,
-  sortAllData: PropTypes.func.isRequired,
+  sortData: PropTypes.func.isRequired,
 };
 
 export default Header;

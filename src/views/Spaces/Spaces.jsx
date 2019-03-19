@@ -35,7 +35,7 @@ class Spaces extends Component {
     const { hasUpdated } = this.props;
     const { allData } = nextProps;
     if (allData !== this.props.allData && !hasUpdated) {
-      this.sortAllData('name', allData, 'All Data', false);
+      this.sortData('name', allData, 'All Data', false);
       store.dispatch({
         type: 'SPACES_HAS_UPDATED',
         hasUpdated: true,
@@ -43,16 +43,14 @@ class Spaces extends Component {
     }
   }
 
-  sortAllData = (category, updatedData, spaceName, fromSpace) => {
+  sortData = (category, updatedData, spaceName, fromSpace) => {
     const { allData, sortedSpace, spaceDataToRender } = this.props;
-    const {
-      sortBy,
-      sortDirection,
-    } = this.state;
+    const { sortBy, sortDirection } = this.state;
 
     let updatedSortedSpace = [];
 
     if (fromSpace || sortBy !== category) {
+      // new order of list
       if (spaceName === 'All Data') {
         Object.entries(updatedData || allData).forEach((space) => {
           extractRow(space[1], space[0], updatedSortedSpace);
@@ -64,27 +62,19 @@ class Spaces extends Component {
       if (updatedSortedSpace.length > 0) sortSpace(updatedSortedSpace, category);
       this.setState({ sortBy: category, spaceToDisplay: spaceName });
       if (!sortDirection) updatedSortedSpace.reverse();
-    } else if (spaceName === 'All Data') {
-      updatedSortedSpace = sortedSpace.slice();
-      updatedSortedSpace.reverse();
-      this.setState({ sortDirection: !sortDirection });
     } else {
-      updatedSortedSpace = spaceDataToRender.slice();
+      // reverse order of list
+      updatedSortedSpace = spaceName === 'All Data' ? sortedSpace.slice() : spaceDataToRender.slice();
       updatedSortedSpace.reverse();
       this.setState({ sortDirection: !sortDirection });
     }
 
-    if (spaceName === 'All Data') {
-      store.dispatch({
-        type: 'SPACES_DATA_TO_RENDER_UPDATE',
-        sortedSpace: updatedSortedSpace,
-      });
-    } else {
-      store.dispatch({
-        type: 'SPACES_DATA_TO_RENDER_UPDATE',
-        spaceDataToRender: updatedSortedSpace,
-      });
-    }
+    const key = spaceName === 'All Data' ? 'sortedSpace' : 'spaceDataToRender';
+    const dispatchObject = {
+      type: 'SPACES_DATA_TO_RENDER_UPDATE',
+      [key]: updatedSortedSpace,
+    };
+    store.dispatch(dispatchObject);
   }
 
   async openSpace(spaceName) {
@@ -111,12 +101,13 @@ class Spaces extends Component {
       updatedspacesOpened[spaceName] = true;
 
       this.setState({ spaceNameOpened: spaceName });
+      this.sortData(sortBy, updatedAllData, spaceToDisplay, true);
+
       store.dispatch({
         type: 'SPACES_DATA_UPDATE',
         list,
         allData: updatedAllData,
       });
-      this.sortAllData(sortBy, updatedAllData, spaceToDisplay, true);
       store.dispatch({
         type: 'UI_SPACE_OPENED',
         spacesOpened: updatedspacesOpened,
@@ -166,7 +157,7 @@ class Spaces extends Component {
           </ReactCSSTransitionGroup>
 
           <SpacesList
-            sortAllData={this.sortAllData}
+            sortData={this.sortData}
             sortBy={sortBy}
             list={list}
           />
@@ -177,7 +168,7 @@ class Spaces extends Component {
               isSpacesLoading={isSpacesLoading}
               sortBy={sortBy}
               sortDirection={sortDirection}
-              sortAllData={this.sortAllData}
+              sortData={this.sortData}
             />
 
             <section className="data__items">
@@ -244,3 +235,15 @@ function mapState(state) {
 }
 
 export default withRouter(connect(mapState)(Spaces));
+
+// if (spaceName === 'All Data') {
+//   store.dispatch({
+//     type: 'SPACES_DATA_TO_RENDER_UPDATE',
+//     sortedSpace: updatedSortedSpace,
+//   });
+// } else {
+//   store.dispatch({
+//     type: 'SPACES_DATA_TO_RENDER_UPDATE',
+//     spaceDataToRender: updatedSortedSpace,
+//   });
+// }

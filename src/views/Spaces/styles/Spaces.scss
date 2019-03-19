@@ -26,7 +26,7 @@
   overflow-y: scroll;
 }
 
-.hideVault{
+.hideVault {
   display: none !important;
 }
 
@@ -118,6 +118,7 @@
   justify-content: flex-start;
   align-items: center;
   cursor: pointer;
+  opacity: .6;
 }
 
 .data__items__row {
@@ -139,9 +140,13 @@
   &:hover {
     background-color: rgb(218, 225, 238);
   }
+
+  p, span {
+    color:#4e4e4e;
+  }
 }
 
-.data__text{
+.data__text {
   max-width: 100%;
   overflow: hidden;
 }
@@ -236,4 +241,16 @@
 
 .Claim {
   background-color: #476997;
+}
+
+.activeSort {
+  color: $threeBoxBlue;
+  font-weight: 600;
+  opacity: 1;
+
+  p {
+    color: $threeBoxBlue;
+    margin-left: 6px;
+    font-size: 10px;
+  }
 }

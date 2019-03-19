@@ -201,6 +201,31 @@ export const sortSpace = (updatedSortedSpace, category) => {
     if (a[category].toLowerCase() && typeof b[category] !== 'string') return -1;
     if (a[category].toLowerCase() < b[category].toLowerCase()) return -1;
     if (a[category].toLowerCase() > b[category].toLowerCase()) return 1;
+
+    if (typeof a.name !== 'string' && typeof b.name !== 'string') return 1;
+    if (typeof a.name !== 'string' && b.name.toLowerCase()) return 1;
+    if (a.name.toLowerCase() && typeof b.name !== 'string') return -1;
+    if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+    if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+
+    if (typeof a.space !== 'string' && typeof b.space !== 'string') return 1;
+    if (typeof a.space !== 'string' && b.space.toLowerCase()) return 1;
+    if (a.space.toLowerCase() && typeof b.space !== 'string') return -1;
+    if (a.space.toLowerCase() < b.space.toLowerCase()) return -1;
+    if (a.space.toLowerCase() > b.space.toLowerCase()) return 1;
+
+    if (typeof a.type !== 'string' && typeof b.type !== 'string') return 1;
+    if (typeof a.type !== 'string' && b.type.toLowerCase()) return 1;
+    if (a.type.toLowerCase() && typeof b.type !== 'string') return -1;
+    if (a.type.toLowerCase() < b.type.toLowerCase()) return -1;
+    if (a.type.toLowerCase() > b.type.toLowerCase()) return 1;
+
+    if (typeof a.content !== 'string' && typeof b.content !== 'string') return 1;
+    if (typeof a.content !== 'string' && b.content.toLowerCase()) return 1;
+    if (a.content.toLowerCase() && typeof b.content !== 'string') return -1;
+    if (a.content.toLowerCase() < b.content.toLowerCase()) return -1;
+    if (a.content.toLowerCase() > b.content.toLowerCase()) return 1;
+
     return 0;
   });
 };

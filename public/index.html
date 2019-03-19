@@ -41,7 +41,7 @@
 
   <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
   <title>3Box | Ethereum Profiles</title>
-  
+
 </head>
 
 <body>
@@ -51,6 +51,16 @@
   <div id="root"></div>
   <script type="text/javascript" src="/3box.min.js"></script>
   <script type="text/javascript" src="/3box-activity.min.js"></script>
+  <script>
+    function handleFirstTab(e) {
+      if (e.keyCode === 9) { // the "I am a keyboard user" key
+        document.body.classList.add('user-is-tabbing');
+        window.removeEventListener('keydown', handleFirstTab);
+      }
+    }
+
+    window.addEventListener('keydown', handleFirstTab);
+  </script>
 </body>
 
 </html>

@@ -99,7 +99,8 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  cursor: pointer; }
+  cursor: pointer;
+  opacity: .6; }
 
 .data__items__row {
   border-bottom: 1px solid #ececec;
@@ -117,6 +118,8 @@
   width: 100%; }
   .data__items__row:hover {
     background-color: #dae1ee; }
+  .data__items__row p, .data__items__row span {
+    color: #4e4e4e; }
 
 .data__text {
   max-width: 100%;
@@ -195,3 +198,12 @@
 
 .Claim {
   background-color: #476997; }
+
+.activeSort {
+  color: #1168df;
+  font-weight: 600;
+  opacity: 1; }
+  .activeSort p {
+    color: #1168df;
+    margin-left: 6px;
+    font-size: 10px; }
