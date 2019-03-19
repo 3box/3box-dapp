@@ -1,12 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import Private from '../../../assets/PrivateActivity.svg';
 import Globe from '../../../assets/Globe.svg';
 import '../styles/Spaces.css';
 
-const PublicRow = ({ dataKey, dataValue, spaceName, rowType, privacy }) => (
-  <div className="data__items__row" key={dataKey}>
+import actions from '../../../state/actions';
+
+const { viewSpaceItem } = actions.spaces;
+
+const PublicRow = ({ dataKey, dataValue, spaceName, rowType, privacy, viewSpaceItem }) => (
+  <div
+    className="data__items__row"
+    key={dataKey}
+    onClick={() => viewSpaceItem(dataKey, dataValue, spaceName, rowType, privacy)}
+    role="button"
+    onKeyPress={() => viewSpaceItem(dataKey, dataValue, spaceName, rowType, privacy)}
+    tabIndex={0}
+  >
     <span className="data__items__row__entry spaceRow__key">
       <p className="data__text">
         {dataKey && dataKey.replace(/([A-Z])/g, ' $1')
@@ -41,10 +53,11 @@ const PublicRow = ({ dataKey, dataValue, spaceName, rowType, privacy }) => (
 
 PublicRow.propTypes = {
   dataValue: PropTypes.object.isRequired,
+  viewSpaceItem: PropTypes.func.isRequired,
   dataKey: PropTypes.string.isRequired,
   spaceName: PropTypes.string.isRequired,
   rowType: PropTypes.string.isRequired,
   privacy: PropTypes.string.isRequired,
 };
 
-export default PublicRow;
+export default connect('', { viewSpaceItem })(PublicRow);

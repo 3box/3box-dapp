@@ -230,6 +230,13 @@ const uiStateReducer = (state = {}, action) => {
         copySuccessful: action.copySuccessful,
       };
 
+    case 'UI_HANDLE_SPACES_VIEW_MODAL':
+      return {
+        ...state,
+        showSpaceDataItemModal: action.showSpaceDataItemModal,
+        spaceItem: action.spaceItem,
+      };
+
     case 'UI_SIGN_OUT':
       return {
         ...state,

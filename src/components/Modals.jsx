@@ -842,6 +842,33 @@ LoadingThreeBoxProfileModal.propTypes = {
   show: PropTypes.bool.isRequired,
 };
 
+export const ViewSpaceDataItemModal = ({ viewSpaceItem, spaceItem }) => (
+  <div className="modal__container modal--effect">
+    <div className="modal">
+      <div>
+        {spaceItem.dataKey}
+        {typeof spaceItem.dataValue === 'string' && spaceItem.dataValue}
+        {typeof spaceItem.dataValue === 'object' && 'object'}
+        {spaceItem.spaceName}
+        {spaceItem.rowType}
+        {spaceItem.privacy}
+      </div>
+      <button onClick={viewSpaceItem} type="button">
+        close
+      </button>
+    </div>
+    <div
+      className="onClickOutsideCollectibles"
+      onClick={() => viewSpaceItem()}
+    />
+  </div>
+);
+
+ViewSpaceDataItemModal.propTypes = {
+  viewSpaceItem: PropTypes.func.isRequired,
+  spaceItem: PropTypes.object.isRequired,
+};
+
 export const FileSizeModal = ({ show, closeFileSizeModal }) => (
   <div>
     <div className="modal__container modal--effect">

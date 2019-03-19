@@ -6,14 +6,12 @@ import getMyMemberSince from './getMyMemberSince';
 import getVerifiedPrivateEmail from './getVerifiedPrivateEmail';
 import getVerifiedPublicGithub from './getVerifiedPublicGithub';
 import getVerifiedPublicTwitter from './getVerifiedPublicTwitter';
-import getMySpacesData from './getMySpacesData';
 import getActivity from './getActivity';
 import getPublicProfile from './getPublicProfile';
 
 export default {
   getCollectibles,
   getOtherProfile,
-  getMySpacesData,
   getActivity,
   getMyProfileValue,
   getMyDID,

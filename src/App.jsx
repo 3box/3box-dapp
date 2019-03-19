@@ -46,13 +46,14 @@ const {
 const {
   getMyProfileValue,
   getCollectibles,
-  getMySpacesData,
   getMyMemberSince,
   getVerifiedPublicGithub,
   getVerifiedPublicTwitter,
   getVerifiedPrivateEmail,
   getActivity,
 } = actions.profile;
+
+const { getMySpacesData } = actions.spaces;
 
 const {
   openBox,

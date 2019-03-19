@@ -6,7 +6,7 @@ import cloneDeep from 'lodash.clonedeep';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import { store } from '../../state/store';
-import { SpaceOpenedModal } from '../../components/Modals';
+import { SpaceOpenedModal, ViewSpaceDataItemModal, ModalBackground } from '../../components/Modals';
 import AllView from './components/AllView';
 import SpaceView from './components/SpaceView';
 import Header from './components/Header';
@@ -14,6 +14,9 @@ import SpacesList from './components/SpacesList';
 import Nav from '../../components/Nav';
 import './styles/Spaces.css';
 import { sortSpace, extractRow } from '../../utils/funcs';
+import actions from '../../state/actions';
+
+const { viewSpaceItem } = actions.spaces;
 
 class Spaces extends Component {
   constructor(props) {
@@ -135,6 +138,8 @@ class Spaces extends Component {
       isSpacesLoading,
       spacesOpened,
       showSpaceOpenedModal,
+      showSpaceDataItemModal,
+      spaceItem,
     } = this.props;
 
     const {
@@ -154,6 +159,13 @@ class Spaces extends Component {
             transitionLeaveTimeout={300}
           >
             {showSpaceOpenedModal && <SpaceOpenedModal spaceName={spaceNameOpened} />}
+
+            {showSpaceDataItemModal && (
+              <ViewSpaceDataItemModal
+                spaceItem={spaceItem}
+                viewSpaceItem={this.props.viewSpaceItem}
+              />)}
+            {showSpaceDataItemModal && <ModalBackground viewSpaceItem={this.props.viewSpaceItem} />}
           </ReactCSSTransitionGroup>
 
           <SpacesList
@@ -197,13 +209,16 @@ class Spaces extends Component {
 
 Spaces.propTypes = {
   list: PropTypes.array,
+  viewSpaceItem: PropTypes.func.isRequired,
   spaceDataToRender: PropTypes.array,
   sortedSpace: PropTypes.array,
   allData: PropTypes.object,
+  spaceItem: PropTypes.object,
   box: PropTypes.object,
   spacesOpened: PropTypes.object,
   isSpacesLoading: PropTypes.bool,
   showSpaceOpenedModal: PropTypes.bool,
+  showSpaceDataItemModal: PropTypes.bool,
   hasUpdated: PropTypes.bool,
 };
 
@@ -212,10 +227,12 @@ Spaces.defaultProps = {
   sortedSpace: [],
   spaceDataToRender: [],
   allData: {},
+  spaceItem: {},
   box: {},
   spacesOpened: {},
   isSpacesLoading: false,
   showSpaceOpenedModal: false,
+  showSpaceDataItemModal: false,
   hasUpdated: false,
 };
 
@@ -231,19 +248,9 @@ function mapState(state) {
     sortedSpace: state.spaces.sortedSpace,
     spaceDataToRender: state.spaces.spaceDataToRender,
     hasUpdated: state.spaces.hasUpdated,
+    spaceItem: state.uiState.spaceItem,
+    showSpaceDataItemModal: state.uiState.showSpaceDataItemModal,
   };
 }
 
-export default withRouter(connect(mapState)(Spaces));
-
-// if (spaceName === 'All Data') {
-//   store.dispatch({
-//     type: 'SPACES_DATA_TO_RENDER_UPDATE',
-//     sortedSpace: updatedSortedSpace,
-//   });
-// } else {
-//   store.dispatch({
-//     type: 'SPACES_DATA_TO_RENDER_UPDATE',
-//     spaceDataToRender: updatedSortedSpace,
-//   });
-// }
+export default withRouter(connect(mapState, { viewSpaceItem })(Spaces));
