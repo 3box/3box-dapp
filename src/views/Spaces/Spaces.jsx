@@ -6,7 +6,8 @@ import cloneDeep from 'lodash.clonedeep';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import { store } from '../../state/store';
-import { SpaceOpenedModal, ViewSpaceDataItemModal, ModalBackground } from '../../components/Modals';
+import { SpaceOpenedModal, ViewSpaceDataItemModal } from './components/SpacesModals';
+import { ModalBackground } from '../../components/Modals';
 import AllView from './components/AllView';
 import SpaceView from './components/SpaceView';
 import Header from './components/Header';
@@ -72,11 +73,20 @@ class Spaces extends Component {
       this.setState({ sortDirection: !sortDirection });
     }
 
-    const key = spaceName === 'All Data' ? 'sortedSpace' : 'spaceDataToRender';
-    const dispatchObject = {
-      type: 'SPACES_DATA_TO_RENDER_UPDATE',
-      [key]: updatedSortedSpace,
-    };
+    let dispatchObject = {};
+
+    if (spaceName === 'All Data') {
+      dispatchObject = {
+        type: 'SPACES_DATA_TO_RENDER_UPDATE',
+        sortedSpace: updatedSortedSpace,
+      };
+    } else {
+      dispatchObject = {
+        type: 'SPACES_DATA_TO_RENDER_UPDATE',
+        spaceDataToRender: updatedSortedSpace,
+        sortedSpace: sortedSpace.slice(),
+      };
+    }
     store.dispatch(dispatchObject);
   }
 

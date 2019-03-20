@@ -98,25 +98,6 @@ SwitchedNetworksModal.defaultProps = {
   prevNetwork: '',
 };
 
-export const SpaceOpenedModal = ({ spaceName }) => (
-  <div className="modal__container--copied modal--effect">
-    <div className="modal--sync">
-      <div className="modal--space__copy__wrapper">
-        <img src={Space} className="modal__space__icon" alt="Copied" />
-        <p>{`${spaceName.toUpperCase()} SPACE OPENED`}</p>
-      </div>
-    </div>
-  </div>
-);
-
-SpaceOpenedModal.propTypes = {
-  spaceName: PropTypes.string,
-};
-
-SpaceOpenedModal.defaultProps = {
-  spaceName: '',
-};
-
 export const LoggedOutModal = ({
   handleLoggedOutModal,
   handleSignOut,
@@ -840,33 +821,6 @@ export const LoadingThreeBoxProfileModal = ({ show }) => (
 
 LoadingThreeBoxProfileModal.propTypes = {
   show: PropTypes.bool.isRequired,
-};
-
-export const ViewSpaceDataItemModal = ({ viewSpaceItem, spaceItem }) => (
-  <div className="modal__container modal--effect">
-    <div className="modal">
-      <div>
-        {spaceItem.dataKey}
-        {typeof spaceItem.dataValue === 'string' && spaceItem.dataValue}
-        {typeof spaceItem.dataValue === 'object' && 'object'}
-        {spaceItem.spaceName}
-        {spaceItem.rowType}
-        {spaceItem.privacy}
-      </div>
-      <button onClick={viewSpaceItem} type="button">
-        close
-      </button>
-    </div>
-    <div
-      className="onClickOutsideCollectibles"
-      onClick={() => viewSpaceItem()}
-    />
-  </div>
-);
-
-ViewSpaceDataItemModal.propTypes = {
-  viewSpaceItem: PropTypes.func.isRequired,
-  spaceItem: PropTypes.object.isRequired,
 };
 
 export const FileSizeModal = ({ show, closeFileSizeModal }) => (

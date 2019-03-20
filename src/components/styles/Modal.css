@@ -66,6 +66,100 @@
   .modal h3 {
     margin-bottom: 14px; }
 
+.spaceModal {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 0;
+  position: relative;
+  width: 40vw;
+  min-width: 500px;
+  min-height: 200px;
+  overflow: visible; }
+
+.spaceModal__name {
+  box-sizing: border-box;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 100%;
+  border-bottom: 1px solid #ececec; }
+
+.spaceModal__name__wrapper {
+  display: flex;
+  align-content: flex-end;
+  justify-content: flex-start; }
+
+.spaceModal__name__key {
+  color: #b8b8b8 !important;
+  font-size: 11px !important;
+  margin-right: 10px; }
+
+.spaceModal__name__value {
+  font-size: 14px !important;
+  color: #6b6b6b; }
+
+.spaceModal__close {
+  position: absolute;
+  top: -30px;
+  right: 0px;
+  padding: 0;
+  border: none;
+  z-index: 20;
+  transition: all .3s;
+  align-self: flex-end; }
+  .spaceModal__close:hover {
+    background-color: transparent;
+    border: none; }
+
+.spaceModal__content {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60px;
+  height: 100%;
+  background-color: #f8f8f8; }
+
+.spaceModal__content__image {
+  width: 100% !important;
+  min-height: 60px;
+  height: 100%;
+  object-fit: cover; }
+
+.spaceModal__context {
+  box-sizing: border-box;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 86px;
+  border-top: 1px solid #ececec; }
+
+.spaceModal__context__div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; }
+
+.spaceModal__context__privacy {
+  width: 20px !important;
+  height: 20px;
+  margin-left: 20px; }
+
+.spaceModal__context__delete {
+  color: #E78888;
+  font-size: 13px !important;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; }
+  .spaceModal__context__delete img {
+    margin-right: 6px; }
+
 .collectiblesModal {
   left: 0;
   display: flex;
