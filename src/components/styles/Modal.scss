@@ -154,7 +154,7 @@
   background-color: $backgroundGrey;
 }
 
-.spaceModal__content__image{
+.spaceModal__content__image {
   width: 100% !important;
   min-height: 60px;
   height: 100%;
@@ -190,13 +190,100 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  cursor: pointer;
+
   // margin-right: 15px;
   img {
     margin-right: 6px;
   }
 }
 
-.spaceModal__context__view {}
+.spaceModal__context__view {
+  color: $threeBoxBlue;
+  font-size: 13px !important;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+
+  // margin-right: 15px;
+  img {
+    margin-right: 6px;
+  }
+}
+
+.spaceDeleteModal {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 0;
+  position: relative;
+  width: 40vw;
+  min-width: 500px;
+  min-height: 200px;
+  overflow: visible;
+}
+
+.spaceDeleteModal__header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $threeBoxRed;
+  width: 100%;
+
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.spaceDeleteModal__body {
+  display: flex;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  padding: 40px 0;
+  background-color: $backgroundGrey;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.spaceDeleteModal__body__explanantion {
+  margin-bottom: 20px;
+  width: 80%;
+}
+
+.spaceDeleteModal__body__warning {
+  color: $threeBoxRed;
+  margin-bottom: 40px;
+}
+
+.spaceDeleteModal__body__buttons {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.spaceDeleteModal__body__buttons__cancel {
+  background-color: $lightFont;
+  border: 1px solid $lightFont;
+
+  &:hover {
+    background-color: $lightFontHover;
+    border: 1px solid $lightFontHover;
+  }
+}
+
+.spaceDeleteModal__body__buttons__delete {
+  background-color: $threeBoxRed;
+  border: 1px solid $threeBoxRed;
+
+  &:hover {
+    background-color: $threeBoxRedHover;
+    border: 1px solid $threeBoxRedHover;
+  }
+}
 
 .collectiblesModal {
   left: 0;

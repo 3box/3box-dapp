@@ -1,17 +1,9 @@
-import {
-  store,
-} from '../../store';
-
-const viewSpaceItem = (dataKey, dataValue, spaceName, rowType, privacy) => async (dispatch) => {
+const viewSpaceItem = (showSpaceDataItemModal, showDeleteItemModal, dataKey, dataValue, spaceName, rowType, privacy) => async (dispatch) => {
   try {
-    console.log(dataKey,
-      dataValue,
-      spaceName,
-      rowType,
-      privacy);
     dispatch({
       type: 'UI_HANDLE_SPACES_VIEW_MODAL',
-      showSpaceDataItemModal: !store.getState().uiState.showSpaceDataItemModal,
+      showSpaceDataItemModal,
+      showDeleteItemModal,
       spaceItem: {
         dataKey,
         dataValue,

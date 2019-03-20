@@ -6,7 +6,7 @@ import cloneDeep from 'lodash.clonedeep';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import { store } from '../../state/store';
-import { SpaceOpenedModal, ViewSpaceDataItemModal } from './components/SpacesModals';
+import { SpaceOpenedModal, ViewSpaceDataItemModal, DeleteSpaceItemModal } from './components/SpacesModals';
 import { ModalBackground } from '../../components/Modals';
 import AllView from './components/AllView';
 import SpaceView from './components/SpaceView';
@@ -150,6 +150,7 @@ class Spaces extends Component {
       showSpaceOpenedModal,
       showSpaceDataItemModal,
       spaceItem,
+      showDeleteItemModal,
     } = this.props;
 
     const {
@@ -175,7 +176,12 @@ class Spaces extends Component {
                 spaceItem={spaceItem}
                 viewSpaceItem={this.props.viewSpaceItem}
               />)}
-            {showSpaceDataItemModal && <ModalBackground viewSpaceItem={this.props.viewSpaceItem} />}
+            {showDeleteItemModal && (
+              <DeleteSpaceItemModal
+                spaceItem={spaceItem}
+                viewSpaceItem={this.props.viewSpaceItem}
+              />)}
+            {(showSpaceDataItemModal || showDeleteItemModal) && <ModalBackground viewSpaceItem={this.props.viewSpaceItem} />}
           </ReactCSSTransitionGroup>
 
           <SpacesList
@@ -230,6 +236,7 @@ Spaces.propTypes = {
   showSpaceOpenedModal: PropTypes.bool,
   showSpaceDataItemModal: PropTypes.bool,
   hasUpdated: PropTypes.bool,
+  showDeleteItemModal: PropTypes.bool,
 };
 
 Spaces.defaultProps = {
@@ -243,6 +250,7 @@ Spaces.defaultProps = {
   isSpacesLoading: false,
   showSpaceOpenedModal: false,
   showSpaceDataItemModal: false,
+  showDeleteItemModal: false,
   hasUpdated: false,
 };
 
@@ -260,6 +268,7 @@ function mapState(state) {
     hasUpdated: state.spaces.hasUpdated,
     spaceItem: state.uiState.spaceItem,
     showSpaceDataItemModal: state.uiState.showSpaceDataItemModal,
+    showDeleteItemModal: state.uiState.showDeleteItemModal,
   };
 }
 

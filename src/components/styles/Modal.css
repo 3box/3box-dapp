@@ -152,13 +152,84 @@
   margin-left: 20px; }
 
 .spaceModal__context__delete {
-  color: #E78888;
+  color: #ca3232;
   font-size: 13px !important;
   display: flex;
   justify-content: flex-start;
-  align-items: center; }
+  align-items: center;
+  cursor: pointer; }
   .spaceModal__context__delete img {
     margin-right: 6px; }
+
+.spaceModal__context__view {
+  color: #1168df;
+  font-size: 13px !important;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer; }
+  .spaceModal__context__view img {
+    margin-right: 6px; }
+
+.spaceDeleteModal {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 0;
+  position: relative;
+  width: 40vw;
+  min-width: 500px;
+  min-height: 200px;
+  overflow: visible; }
+
+.spaceDeleteModal__header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ca3232;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px; }
+
+.spaceDeleteModal__body {
+  display: flex;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  padding: 40px 0;
+  background-color: #f8f8f8;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px; }
+
+.spaceDeleteModal__body__explanantion {
+  margin-bottom: 20px;
+  width: 80%; }
+
+.spaceDeleteModal__body__warning {
+  color: #ca3232;
+  margin-bottom: 40px; }
+
+.spaceDeleteModal__body__buttons {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+
+.spaceDeleteModal__body__buttons__cancel {
+  background-color: #6b6b6b;
+  border: 1px solid #6b6b6b; }
+  .spaceDeleteModal__body__buttons__cancel:hover {
+    background-color: #525252;
+    border: 1px solid #525252; }
+
+.spaceDeleteModal__body__buttons__delete {
+  background-color: #ca3232;
+  border: 1px solid #ca3232; }
+  .spaceDeleteModal__body__buttons__delete:hover {
+    background-color: #9b2424;
+    border: 1px solid #9b2424; }
 
 .collectiblesModal {
   left: 0;
@@ -665,7 +736,7 @@
   min-width: 130px; }
 
 .modal__email__error {
-  color: #E78888 !important;
+  color: #ca3232 !important;
   line-height: 20px !important;
   margin-top: 4px;
   margin-bottom: -4px; }

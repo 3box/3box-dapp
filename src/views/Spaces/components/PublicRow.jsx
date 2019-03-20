@@ -14,9 +14,9 @@ const PublicRow = ({ dataKey, dataValue, spaceName, rowType, privacy, viewSpaceI
   <div
     className="data__items__row"
     key={dataKey}
-    onClick={() => viewSpaceItem(dataKey, dataValue, spaceName, rowType, privacy)}
+    onClick={() => viewSpaceItem(true, false, dataKey, dataValue, spaceName, rowType, privacy)}
     role="button"
-    onKeyPress={() => viewSpaceItem(dataKey, dataValue, spaceName, rowType, privacy)}
+    onKeyPress={() => viewSpaceItem(true, false, dataKey, dataValue, spaceName, rowType, privacy)}
     tabIndex={0}
   >
     <span className="data__items__row__entry spaceRow__key">

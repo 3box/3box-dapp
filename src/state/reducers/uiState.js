@@ -234,6 +234,7 @@ const uiStateReducer = (state = {}, action) => {
       return {
         ...state,
         showSpaceDataItemModal: action.showSpaceDataItemModal,
+        showDeleteItemModal: action.showDeleteItemModal,
         spaceItem: action.spaceItem,
       };
 
