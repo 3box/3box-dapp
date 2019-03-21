@@ -30,7 +30,7 @@ SpaceOpenedModal.defaultProps = {
 export const ViewSpaceDataItemModal = ({ viewSpaceItem, spaceItem }) => (
   <div className="modal__container modal--effect">
     <div className="modal spaceModal">
-      <button onClick={() => viewSpaceItem(false, false)} type="button" className="tertiaryButton spaceModal__close">
+      <button onClick={() => viewSpaceItem(false, false, false)} type="button" className="tertiaryButton spaceModal__close">
         Close
       </button>
       <section className="spaceModal__name">
@@ -69,9 +69,31 @@ export const ViewSpaceDataItemModal = ({ viewSpaceItem, spaceItem }) => (
         <div className="spaceModal__context__div">
           <span
             className="spaceModal__context__delete"
-            onClick={() => viewSpaceItem(false, true, spaceItem.dataKey, spaceItem.dataValue, spaceItem.spaceName, spaceItem.rowType, spaceItem.privacy)}
+            onClick={() => {
+              viewSpaceItem(
+                false,
+                true,
+                false,
+                spaceItem.dataKey,
+                spaceItem.dataValue,
+                spaceItem.spaceName,
+                spaceItem.rowType,
+                spaceItem.privacy,
+              );
+            }}
             tabIndex={0}
-            onKeyPress={() => viewSpaceItem(false, true, spaceItem.dataKey, spaceItem.dataValue, spaceItem.spaceName, spaceItem.rowType, spaceItem.privacy)}
+            onKeyPress={() => {
+              viewSpaceItem(
+                false,
+                true,
+                false,
+                spaceItem.dataKey,
+                spaceItem.dataValue,
+                spaceItem.spaceName,
+                spaceItem.rowType,
+                spaceItem.privacy,
+              );
+            }}
             role="button"
           >
             <img src={Trash} alt="Transaction Icon" className="spaceModal__context__privacy" />
@@ -93,9 +115,9 @@ export const ViewSpaceDataItemModal = ({ viewSpaceItem, spaceItem }) => (
     </div>
     <div
       className="onClickOutsideCollectibles"
-      onClick={() => viewSpaceItem(false, false)}
+      onClick={() => viewSpaceItem(false, false, false)}
       tabIndex={0}
-      onKeyPress={() => viewSpaceItem(false, false)}
+      onKeyPress={() => viewSpaceItem(false, false, false)}
       role="button"
     />
   </div>
@@ -106,55 +128,170 @@ ViewSpaceDataItemModal.propTypes = {
   spaceItem: PropTypes.object.isRequired,
 };
 
-export const DeleteSpaceItemModal = ({ viewSpaceItem, spaceItem }) => (
+export const DeleteSpaceItemModal = ({
+  viewSpaceItem,
+  spaceItem,
+  spacesOpened,
+  openSpace,
+  deleteItem,
+}) => (
+    <div className="modal__container modal--effect">
+      <div className="modal spaceDeleteModal">
+        <button onClick={() => viewSpaceItem(false, false, false)} type="button" className="tertiaryButton spaceModal__close">
+          Close
+      </button>
+        <section className="spaceDeleteModal__header">
+          {`Delete ${spaceItem.dataKey} ?`}
+        </section>
+        <section className="spaceDeleteModal__body">
+          <p className="spaceDeleteModal__body__explanantion">
+            {`You are about to permanently delete the item ${spaceItem.dataKey}.
+          You will no longer have access to this data in 3Box or any other dapp.
+          This action cannot be undone.`}
+          </p>
+          <p className="spaceDeleteModal__body__warning">Are you sure you want to proceed?</p>
+          <div className="spaceDeleteModal__body__buttons">
+            <button
+              onClick={() => viewSpaceItem(true, false, false, spaceItem.dataKey, spaceItem.dataValue, spaceItem.spaceName, spaceItem.rowType, spaceItem.privacy)}
+              tabIndex={0}
+              onKeyPress={() => viewSpaceItem(true, false, false, spaceItem.dataKey, spaceItem.dataValue, spaceItem.spaceName, spaceItem.rowType, spaceItem.privacy)}
+              type="button"
+              className="spaceDeleteModal__body__buttons__cancel"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => {
+                if ((spaceItem.spaceName === '3Box')
+                  || (spacesOpened && spacesOpened[spaceItem.spaceName])) {
+                  deleteItem(
+                    spaceItem.spaceName,
+                    spaceItem.dataKey,
+                    spaceItem.privacy,
+                  );
+
+                  viewSpaceItem(
+                    false,
+                    false,
+                    false,
+                    spaceItem.dataKey,
+                    spaceItem.dataValue,
+                    spaceItem.spaceName,
+                    spaceItem.rowType,
+                    spaceItem.privacy,
+                  );
+                } else {
+                  openSpace(spaceItem.spaceName, spaceItem.dataKey, spaceItem.privacy);
+                  viewSpaceItem(
+                    false,
+                    false,
+                    true,
+                    spaceItem.dataKey,
+                    spaceItem.dataValue,
+                    spaceItem.spaceName,
+                    spaceItem.rowType,
+                    spaceItem.privacy,
+                  );
+                }
+              }}
+              tabIndex={0}
+              onKeyPress={() => {
+                if ((spaceItem.spaceName === '3Box')
+                  || (spacesOpened && spacesOpened[spaceItem.spaceName])) {
+                  deleteItem(
+                    spaceItem.spaceName,
+                    spaceItem.dataKey,
+                    spaceItem.privacy,
+                  );
+
+                  viewSpaceItem(
+                    false,
+                    false,
+                    false,
+                    spaceItem.dataKey,
+                    spaceItem.dataValue,
+                    spaceItem.spaceName,
+                    spaceItem.rowType,
+                    spaceItem.privacy,
+                  );
+                } else {
+                  openSpace(spaceItem.spaceName, spaceItem.dataKey, spaceItem.privacy);
+                  viewSpaceItem(
+                    false,
+                    false,
+                    true,
+                    spaceItem.dataKey,
+                    spaceItem.dataValue,
+                    spaceItem.spaceName,
+                    spaceItem.rowType,
+                    spaceItem.privacy,
+                  );
+                }
+              }}
+              type="button"
+              className="spaceDeleteModal__body__buttons__delete"
+            >
+              Yes, delete
+          </button>
+          </div>
+        </section>
+      </div>
+      <div
+        className="onClickOutsideCollectibles"
+        onClick={() => viewSpaceItem(false, false, false)}
+        tabIndex={0}
+        onKeyPress={() => viewSpaceItem(false, false, false)}
+        role="button"
+      />
+    </div>
+  );
+
+DeleteSpaceItemModal.propTypes = {
+  viewSpaceItem: PropTypes.func.isRequired,
+  deleteItem: PropTypes.func.isRequired,
+  openSpace: PropTypes.func.isRequired,
+  spaceItem: PropTypes.object.isRequired,
+  spacesOpened: PropTypes.object.isRequired,
+};
+
+export const OpenSpaceModal = ({ viewSpaceItem, spaceItem }) => (
   <div className="modal__container modal--effect">
     <div className="modal spaceDeleteModal">
-      <button onClick={() => viewSpaceItem(false, false)} type="button" className="tertiaryButton spaceModal__close">
+      <button onClick={() => viewSpaceItem(false, false, false)} type="button" className="tertiaryButton spaceModal__close">
         Close
       </button>
       <section className="spaceDeleteModal__header">
-        {`Delete 3Box ${spaceItem.dataKey} ?`}
+        {`You must open the space ${spaceItem.spaceName} before you can edit it`}
       </section>
       <section className="spaceDeleteModal__body">
         <p className="spaceDeleteModal__body__explanantion">
-          {`You are about to permanently delete the item ${spaceItem.dataKey}.
-          You will no longer have access to this data in 3Box or any other dapp.
-          This action cannot be undone.`}
+          Approve the message in your web3 wallet to delete this item.
         </p>
         <p className="spaceDeleteModal__body__warning">Are you sure you want to proceed?</p>
         <div className="spaceDeleteModal__body__buttons">
           <button
-            onClick={() => viewSpaceItem(true, false, spaceItem.dataKey, spaceItem.dataValue, spaceItem.spaceName, spaceItem.rowType, spaceItem.privacy)}
+            onClick={() => viewSpaceItem(true, false, false, spaceItem.dataKey, spaceItem.dataValue, spaceItem.spaceName, spaceItem.rowType, spaceItem.privacy)}
             tabIndex={0}
-            onKeyPress={() => viewSpaceItem(true, false, spaceItem.dataKey, spaceItem.dataValue, spaceItem.spaceName, spaceItem.rowType, spaceItem.privacy)}
+            onKeyPress={() => viewSpaceItem(true, false, false, spaceItem.dataKey, spaceItem.dataValue, spaceItem.spaceName, spaceItem.rowType, spaceItem.privacy)}
             type="button"
             className="spaceDeleteModal__body__buttons__cancel"
           >
             Cancel
-          </button>
-          <button
-            onClick={() => console.log('delete item')}
-            tabIndex={0}
-            onKeyPress={() => console.log('delete item')}
-            type="button"
-            className="spaceDeleteModal__body__buttons__delete"
-          >
-            Yes, delete
           </button>
         </div>
       </section>
     </div>
     <div
       className="onClickOutsideCollectibles"
-      onClick={() => viewSpaceItem(false, false)}
+      onClick={() => viewSpaceItem(false, false, false)}
       tabIndex={0}
-      onKeyPress={() => viewSpaceItem(false, false)}
+      onKeyPress={() => viewSpaceItem(false, false, false)}
       role="button"
     />
   </div>
 );
 
-DeleteSpaceItemModal.propTypes = {
+OpenSpaceModal.propTypes = {
   viewSpaceItem: PropTypes.func.isRequired,
   spaceItem: PropTypes.object.isRequired,
 };

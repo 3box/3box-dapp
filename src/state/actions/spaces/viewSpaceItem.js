@@ -1,9 +1,19 @@
-const viewSpaceItem = (showSpaceDataItemModal, showDeleteItemModal, dataKey, dataValue, spaceName, rowType, privacy) => async (dispatch) => {
+const viewSpaceItem = (
+  showSpaceDataItemModal,
+  showDeleteItemModal,
+  showOpenSpaceModal,
+  dataKey,
+  dataValue,
+  spaceName,
+  rowType,
+  privacy,
+) => async (dispatch) => {
   try {
     dispatch({
       type: 'UI_HANDLE_SPACES_VIEW_MODAL',
       showSpaceDataItemModal,
       showDeleteItemModal,
+      showOpenSpaceModal,
       spaceItem: {
         dataKey,
         dataValue,

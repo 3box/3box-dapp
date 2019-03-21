@@ -6,7 +6,12 @@ import cloneDeep from 'lodash.clonedeep';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import { store } from '../../state/store';
-import { SpaceOpenedModal, ViewSpaceDataItemModal, DeleteSpaceItemModal } from './components/SpacesModals';
+import {
+  SpaceOpenedModal,
+  ViewSpaceDataItemModal,
+  DeleteSpaceItemModal,
+  OpenSpaceModal,
+} from './components/SpacesModals';
 import { ModalBackground } from '../../components/Modals';
 import AllView from './components/AllView';
 import SpaceView from './components/SpaceView';
@@ -29,17 +34,21 @@ class Spaces extends Component {
       sortDirection: true,
     };
     this.openSpace = this.openSpace.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
   }
 
   async componentDidMount() {
     window.scrollTo(0, 0);
+    const { allData } = this.props;
+
+    this.sortData('name', allData, 'All Data', false);
   }
 
   componentWillReceiveProps(nextProps) {
     const { hasUpdated } = this.props;
     const { allData } = nextProps;
     if (allData !== this.props.allData && !hasUpdated) {
-      this.sortData('name', allData, 'All Data', false);
+      this.sortData('name', allData, 'All Data', true);
       store.dispatch({
         type: 'SPACES_HAS_UPDATED',
         hasUpdated: true,
@@ -47,13 +56,13 @@ class Spaces extends Component {
     }
   }
 
-  sortData = (category, updatedData, spaceName, fromSpace) => {
+  sortData = (category, updatedData, spaceName, newSort) => {
     const { allData, sortedSpace, spaceDataToRender } = this.props;
     const { sortBy, sortDirection } = this.state;
 
     let updatedSortedSpace = [];
 
-    if (fromSpace || sortBy !== category) {
+    if (newSort || sortBy !== category) {
       // new order of list
       if (spaceName === 'All Data') {
         Object.entries(updatedData || allData).forEach((space) => {
@@ -90,12 +99,35 @@ class Spaces extends Component {
     store.dispatch(dispatchObject);
   }
 
-  async openSpace(spaceName) {
+  async deleteItem(spaceName, key, privacy) {
+    const { box, allData, list } = this.props;
+    const { sortBy, spaceToDisplay } = this.state;
+    const updatedAllData = allData;
+
+    if (spaceName === '3Box') {
+      box[privacy].remove(key);
+    } else {
+      box.spaces[spaceName][privacy].remove(key);
+    }
+
+    delete updatedAllData[spaceName][privacy][key];
+
+    store.dispatch({
+      type: 'SPACES_DATA_UPDATE',
+      list,
+      allData: updatedAllData,
+    });
+
+    this.sortData(sortBy, updatedAllData, spaceToDisplay, true);
+  }
+
+  async openSpace(spaceName, key, privacy) {
     const {
       box,
       allData,
       list,
       spacesOpened,
+      showDeleteItemModal,
     } = this.props;
     const {
       sortBy,
@@ -126,6 +158,16 @@ class Spaces extends Component {
         spacesOpened: updatedspacesOpened,
         showSpaceOpenedModal: true,
       });
+
+      if (showDeleteItemModal) {
+        this.deleteItem(
+          spaceName,
+          key,
+          privacy,
+        );
+        this.props.viewSpaceItem(false, false, false);
+      }
+
       setTimeout(() => {
         store.dispatch({
           type: 'UI_HANDLE_SPACE_OPENED_MODAL',
@@ -139,6 +181,7 @@ class Spaces extends Component {
         updateSpaceData();
       },
     };
+
     box.openSpace(spaceName, opts);
   }
 
@@ -151,6 +194,7 @@ class Spaces extends Component {
       showSpaceDataItemModal,
       spaceItem,
       showDeleteItemModal,
+      showOpenSpaceModal,
     } = this.props;
 
     const {
@@ -176,12 +220,23 @@ class Spaces extends Component {
                 spaceItem={spaceItem}
                 viewSpaceItem={this.props.viewSpaceItem}
               />)}
+
             {showDeleteItemModal && (
               <DeleteSpaceItemModal
                 spaceItem={spaceItem}
                 viewSpaceItem={this.props.viewSpaceItem}
+                spacesOpened={spacesOpened}
+                openSpace={this.openSpace}
+                deleteItem={this.deleteItem}
               />)}
-            {(showSpaceDataItemModal || showDeleteItemModal) && <ModalBackground viewSpaceItem={this.props.viewSpaceItem} />}
+
+            {showOpenSpaceModal && (
+              <OpenSpaceModal
+                spaceItem={spaceItem}
+                viewSpaceItem={this.props.viewSpaceItem}
+              />)}
+
+            {(showSpaceDataItemModal || showDeleteItemModal || showOpenSpaceModal) && <ModalBackground viewSpaceItem={this.props.viewSpaceItem} />}
           </ReactCSSTransitionGroup>
 
           <SpacesList
@@ -235,8 +290,9 @@ Spaces.propTypes = {
   isSpacesLoading: PropTypes.bool,
   showSpaceOpenedModal: PropTypes.bool,
   showSpaceDataItemModal: PropTypes.bool,
-  hasUpdated: PropTypes.bool,
   showDeleteItemModal: PropTypes.bool,
+  hasUpdated: PropTypes.bool,
+  showOpenSpaceModal: PropTypes.bool,
 };
 
 Spaces.defaultProps = {
@@ -250,6 +306,7 @@ Spaces.defaultProps = {
   isSpacesLoading: false,
   showSpaceOpenedModal: false,
   showSpaceDataItemModal: false,
+  showOpenSpaceModal: false,
   showDeleteItemModal: false,
   hasUpdated: false,
 };
@@ -269,6 +326,7 @@ function mapState(state) {
     spaceItem: state.uiState.spaceItem,
     showSpaceDataItemModal: state.uiState.showSpaceDataItemModal,
     showDeleteItemModal: state.uiState.showDeleteItemModal,
+    showOpenSpaceModal: state.uiState.showOpenSpaceModal,
   };
 }
 
