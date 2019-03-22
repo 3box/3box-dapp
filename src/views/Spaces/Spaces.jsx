@@ -30,8 +30,10 @@ class Spaces extends Component {
     this.state = {
       spaceToDisplay: 'All Data',
       spaceNameOpened: '',
+      vaultToOpen: '',
       sortBy: '',
       sortDirection: true,
+      isLoadingVault: false,
     };
     this.openSpace = this.openSpace.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
@@ -105,7 +107,15 @@ class Spaces extends Component {
     const updatedAllData = allData;
 
     if (spaceName === '3Box') {
-      box[privacy].remove(key);
+      let proof;
+      if (key === 'verifiedGithub') {
+        proof = 'proof_github';
+      } else if (key === 'verifiedTwitter') {
+        proof = 'proof_twitter';
+      } else if (key === 'verifiedEmail') {
+        proof = 'proof_email';
+      }
+      box[privacy].remove(proof || key);
     } else {
       box.spaces[spaceName][privacy].remove(key);
     }
@@ -133,6 +143,8 @@ class Spaces extends Component {
       sortBy,
       spaceToDisplay,
     } = this.state;
+
+    this.setState({ isLoadingVault: true, vaultToOpen: spaceName });
 
     const updatedAllData = cloneDeep(allData);
     const updatedspacesOpened = cloneDeep(spacesOpened);
@@ -182,7 +194,9 @@ class Spaces extends Component {
       },
     };
 
-    box.openSpace(spaceName, opts);
+    await box.openSpace(spaceName, opts);
+
+    this.setState({ isLoadingVault: false, vaultToOpen: '' });
   }
 
   render() {
@@ -202,6 +216,8 @@ class Spaces extends Component {
       spaceNameOpened,
       sortBy,
       sortDirection,
+      isLoadingVault,
+      vaultToOpen,
     } = this.state;
 
     return (
@@ -240,6 +256,7 @@ class Spaces extends Component {
           </ReactCSSTransitionGroup>
 
           <SpacesList
+            spaceToDisplay={spaceToDisplay}
             sortData={this.sortData}
             sortBy={sortBy}
             list={list}
@@ -259,12 +276,16 @@ class Spaces extends Component {
                 ? (
                   <AllView
                     spacesOpened={spacesOpened}
+                    isLoadingVault={isLoadingVault}
+                    vaultToOpen={vaultToOpen}
                     openSpace={this.openSpace}
                   />
                 )
                 : (
                   <SpaceView
                     openSpace={this.openSpace}
+                    isLoadingVault={isLoadingVault}
+                    vaultToOpen={vaultToOpen}
                     spacesOpened={spacesOpened}
                     spaceName={spaceToDisplay}
                   />

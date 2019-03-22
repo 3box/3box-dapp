@@ -38,18 +38,31 @@
   width: 100%;
   cursor: pointer;
 
-  &:hover {
-    background-color: rgb(218, 225, 238);
+  &:hover .space__name {
+    color: $threeBoxBlue;
+  }
+
+  &:hover .space__arrow {
+    color: $threeBoxBlue;
+  }
+}
+
+.activeSpace {
+  background-color: rgb(218, 225, 238);
+
+  p {
+    color: $threeBoxBlue !important;
+    font-weight: 600 !important;
   }
 }
 
 .space__name {
-  color: #476997;
+  color: #718cb1;
   padding-left: 40px;
 }
 
 .space__arrow {
-  color: #476997;
+  color: #718cb1;
   padding-right: 40px;
 }
 
@@ -118,7 +131,11 @@
   justify-content: flex-start;
   align-items: center;
   cursor: pointer;
-  opacity: .6;
+  color: #718cb1;
+
+  &:hover {
+    color: $threeBoxBlue;
+  }
 }
 
 .data__items__row {
@@ -132,23 +149,39 @@
   padding: 12px 0;
   height: fit-content;
   max-height: 100px;
-  min-height: 30px;
-  // overflow-x: hidden;
+  min-height: 38px;
   overflow-y: hidden;
   width: 100%;
 
   &:hover {
-    background-color: rgb(218, 225, 238);
+    background-color: #f2f3f7;
   }
 
-  p, span {
-    color:#4e4e4e;
+  p,
+  span {
+    color: #828282;
   }
+}
+
+.data__items__row__vault__icon {
+  width: 20px;
+  filter: grayscale(100%);
+  margin-right: 12px;
 }
 
 .data__text {
   max-width: 100%;
   overflow: hidden;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vault__loading {
+  width: 18px;
+  height: 18px;
+  margin-left: 6px;
 }
 
 .data__items__row__unlockButton {
@@ -157,12 +190,18 @@
   border-color: #575757;
   font-weight: 400;
   font-size: 13px;
+  display: flex;
+
+  &:hover {
+    background-color: #303030;
+    border-color: #303030;
+  }
 }
 
 .data__items__row__entry {
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   padding: 0 2%;
   height: fit-content;
   font-size: 13px;
@@ -175,8 +214,8 @@
 }
 
 .spaceRow__content {
-  width: 24%;
-  max-width: 24%;
+  width: 27%;
+  max-width: 27%;
 }
 
 .spaceRow__space {
@@ -185,8 +224,8 @@
 }
 
 .spaceRow__type {
-  width: 12%;
-  max-width: 12%;
+  width: 9%;
+  max-width: 9%;
 }
 
 .spaceRow__privacy {
@@ -213,18 +252,20 @@
 }
 
 .spaceRow__tag__text {
-  opacity: .6;
-  color: black;
+  color: #525252 !important;
   font-size: 13px !important;
+}
+
+.spaceRow__content__image {
+  width: 86%;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 4px;
 }
 
 .row__type__vault {
   background-color: #575757;
-
-  p {
-    color: white;
-    font-size: 13px;
-  }
+  color: white !important;
 }
 
 .List {

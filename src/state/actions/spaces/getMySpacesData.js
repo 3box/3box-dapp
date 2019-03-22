@@ -33,7 +33,10 @@ const getMySpacesData = address => async (dispatch) => {
 
     Object.entries(myData).forEach((row) => {
       if ((row[0] !== 'box') &&
-        (row[0] !== 'collectiblesFavorites')) {
+        (row[0] !== 'feedByAddress') &&
+        (row[0] !== 'collection') &&
+        (row[0] !== 'memberSince') &&
+        (row[0] !== 'collectiblesFavoritesToRender')) {
         if (row[0] === 'verifiedEmail' || row[0] === 'birthday') {
           allData['3Box'].private[row[0]] = cloneDeep(row[1]);
         } else {

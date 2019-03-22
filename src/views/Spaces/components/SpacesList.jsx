@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import '../styles/Spaces.css';
 
-const SpacesList = ({ sortData, list, sortBy }) => (
+const SpacesList = ({ sortData, list, sortBy, spaceToDisplay }) => (
   <section className="spaces">
     <div
-      className="space"
+      className={`space ${spaceToDisplay === 'All Data' ? 'activeSpace' : ''}`}
       onClick={() => sortData(sortBy, false, 'All Data', true)}
       role="button"
       onKeyDown={() => sortData(sortBy, false, 'All Data', true)}
@@ -17,7 +17,7 @@ const SpacesList = ({ sortData, list, sortBy }) => (
     </div>
 
     <div
-      className="space"
+      className={`space ${spaceToDisplay === '3Box' ? 'activeSpace' : ''}`}
       onClick={() => sortData(sortBy, false, '3Box', true)}
       role="button"
       onKeyDown={() => sortData(sortBy, false, '3Box', true)}
@@ -29,7 +29,7 @@ const SpacesList = ({ sortData, list, sortBy }) => (
 
     {list && list.map(space => space !== '3Box' && (
       <div
-        className="space"
+        className={`space ${spaceToDisplay === space ? 'activeSpace' : ''}`}
         onClick={() => sortData(sortBy, false, space, true)}
         role="button"
         onKeyDown={() => sortData(sortBy, false, space, true)}
@@ -46,6 +46,7 @@ SpacesList.propTypes = {
   list: PropTypes.array.isRequired,
   spaceName: PropTypes.string.isRequired,
   sortBy: PropTypes.string.isRequired,
+  spaceToDisplay: PropTypes.string.isRequired,
 };
 
 export default SpacesList;

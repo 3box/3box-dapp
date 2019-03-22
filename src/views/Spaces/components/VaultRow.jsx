@@ -2,12 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Private from '../../../assets/PrivateActivity.svg';
+import Folder from '../../../assets/Folder.svg';
+import Loading from '../../../assets/LoadingWhite.svg';
 import '../styles/Spaces.css';
 
-const VaultRow = ({ openSpace, spaceName, hasVaultOpened }) => (
+const VaultRow = ({ openSpace, spaceName, hasVaultOpened, isLoadingVault, vaultToOpen }) => (
   <div className={`data__items__row ${hasVaultOpened ? 'hideVault' : ''}`} key={`${spaceName}vault`}>
     <span className="data__items__row__entry spaceRow__key">
-      {`Private ${spaceName} Data`}
+      <div className="data__text">
+        <img src={Folder} alt="" className="data__items__row__vault__icon" />
+      </div>
+      <p className="data__text">
+        {`Private ${spaceName} Data`}
+      </p>
     </span>
     <span className="data__items__row__entry spaceRow__content">
       <button
@@ -15,24 +22,31 @@ const VaultRow = ({ openSpace, spaceName, hasVaultOpened }) => (
         type="button"
         onClick={() => openSpace(spaceName)}
       >
-        Unlock to open
+        {(isLoadingVault && vaultToOpen === spaceName) ? 'Approve in your wallet' : 'Unlock to open'}
+        {(isLoadingVault && vaultToOpen === spaceName) && <img src={Loading} alt="" className="vault__loading" />}
       </button>
     </span>
     <span className="data__items__row__entry spaceRow__space">
-      {spaceName}
+      <p className="data__text">
+        {spaceName}
+      </p>
     </span>
     <span className="data__items__row__entry spaceRow__type">
-      <span className="type__tag row__type__vault">
-        <p>
+      <div className="data__text">
+        <span className="type__tag row__type__vault">
           Vault
-        </p>
-      </span>
+        </span>
+      </div>
     </span>
     <span className="data__items__row__entry spaceRow__privacy">
-      <img src={Private} alt="Transaction Icon" className="spaceRow__privacy__icon" />
+      <div className="data__text">
+        <img src={Private} alt="Transaction Icon" className="spaceRow__privacy__icon" />
+      </div>
     </span>
     <span className="data__items__row__entry spaceRow__updated">
-      Feb 19, 2019
+      <p className="data__text">
+        Feb 19, 2019
+      </p>
     </span>
   </div>
 );
@@ -40,7 +54,9 @@ const VaultRow = ({ openSpace, spaceName, hasVaultOpened }) => (
 VaultRow.propTypes = {
   openSpace: PropTypes.func.isRequired,
   spaceName: PropTypes.string.isRequired,
+  vaultToOpen: PropTypes.string.isRequired,
   hasVaultOpened: PropTypes.bool.isRequired,
+  isLoadingVault: PropTypes.bool.isRequired,
 };
 
 // VaultRow.defaultProps = {

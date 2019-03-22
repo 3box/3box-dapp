@@ -5,13 +5,15 @@ import VaultRow from './VaultRow';
 import PublicRow from './PublicRow';
 import '../styles/Spaces.css';
 
-const SpaceView = ({ openSpace, spaceDataToRender, spacesOpened }) => (
+const SpaceView = ({ openSpace, spaceDataToRender, spacesOpened, vaultToOpen, isLoadingVault }) => (
   <React.Fragment>
     {spaceDataToRender.length > 0 && spaceDataToRender.map(row => (
       row.name === 'private_space_data' ? (
         <VaultRow
           openSpace={openSpace}
           spaceName={row.space}
+          isLoadingVault={isLoadingVault}
+          vaultToOpen={vaultToOpen}
           hasVaultOpened={spacesOpened[row.space]}
         />
       ) : (<PublicRow
@@ -29,6 +31,8 @@ SpaceView.propTypes = {
   spaceDataToRender: PropTypes.array.isRequired,
   openSpace: PropTypes.func.isRequired,
   spacesOpened: PropTypes.bool.isRequired,
+  isLoadingVault: PropTypes.bool.isRequired,
+  vaultToOpen: PropTypes.string.isRequired,
 };
 
 SpaceView.defaultProps = {

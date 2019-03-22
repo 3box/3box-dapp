@@ -231,6 +231,8 @@ export const sortSpace = (updatedSortedSpace, category) => {
 };
 
 export const extractRow = (spaceData, spaceNameGiven, updatedSortedSpace) => {
+  if (!spaceData) return;
+
   Object.entries(spaceData).forEach((privacy) => {
     Object.entries(privacy[1]).forEach((row) => {
       updatedSortedSpace.push({

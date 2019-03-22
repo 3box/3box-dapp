@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import Private from '../../../assets/PrivateActivity.svg';
 import Globe from '../../../assets/Globe.svg';
+import Verified from '../../../assets/Verified.svg';
 import '../styles/Spaces.css';
 
 import actions from '../../../state/actions';
@@ -26,27 +27,70 @@ const PublicRow = ({ dataKey, dataValue, spaceName, rowType, privacy, viewSpaceI
       </p>
     </span>
     <span className="data__items__row__entry spaceRow__content">
-      {typeof dataValue === 'string' && dataValue}
-      {typeof dataValue === 'object' && 'object'}
+      {typeof dataValue === 'string' && (
+        <p className="data__text">
+          {dataValue}
+        </p>
+      )}
+      {(typeof dataValue === 'object' && rowType !== 'Image' && !Array.isArray(dataValue)) && (
+        <p className="data__text">
+          object
+        </p>
+      )}
+      {(typeof dataValue === 'object' && rowType !== 'Image') && (
+        <p className="data__text">
+          object
+        </p>
+      )}
+      {(Array.isArray(dataValue) && rowType !== 'Image') && (
+        <p className="data__text">
+          {dataValue.map((item) => {
+            if (Array.isArray(item)) return item[0];
+            if (typeof item === 'object') return Object.keys(item)[0];
+            return item;
+          })}
+        </p>
+      )}
+      {rowType === 'Image' && (
+        <img
+          src={`https://ipfs.infura.io/ipfs/${dataValue[0].contentUrl['/']}`}
+          alt=""
+          className="spaceRow__content__image"
+        />
+      )}
+      {rowType === 'Claim' && (
+        <React.Fragment>
+          dataValue
+          <img src={Verified} alt="Verified" className="profile__category__verified__icon" />
+        </React.Fragment>
+      )}
     </span>
     <span className="data__items__row__entry spaceRow__space">
-      {spaceName}
+      <p className="data__text">
+        {spaceName}
+      </p>
     </span>
     <span className="data__items__row__entry spaceRow__type">
-      <span className={`type__tag ${rowType}`}>
-        <p className="spaceRow__tag__text">
-          {rowType}
-        </p>
-      </span>
+      <div className="data__text">
+        <span className={`type__tag ${rowType}`}>
+          <p className="spaceRow__tag__text">
+            {rowType}
+          </p>
+        </span>
+      </div>
     </span>
     <span className="data__items__row__entry spaceRow__privacy">
-      {privacy === 'private'
-        ? <img src={Private} alt="Transaction Icon" className="feed__activity__address__dataType" />
-        : <img src={Globe} alt="Transaction Icon" className="feed__activity__address__dataType" />
-      }
+      <div className="data__text">
+        {privacy === 'private'
+          ? <img src={Private} alt="Transaction Icon" className="feed__activity__address__dataType" />
+          : <img src={Globe} alt="Transaction Icon" className="feed__activity__address__dataType" />
+        }
+      </div>
     </span>
     <span className="data__items__row__entry spaceRow__updated">
-      Feb 19, 2019
+      <p className="data__text">
+        Feb 19, 2019
+      </p>
     </span>
   </div>
 );
