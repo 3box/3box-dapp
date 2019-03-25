@@ -29,6 +29,7 @@ SpaceOpenedModal.defaultProps = {
 
 export const ViewSpaceDataItemModal = ({ viewSpaceItem, spaceItem }) => (
   <div className="modal__container modal--effect">
+    {console.log(spaceItem)}
     <div className="modal spaceModal">
       <button onClick={() => viewSpaceItem(false, false, false)} type="button" className="tertiaryButton spaceModal__close">
         Close
@@ -40,14 +41,25 @@ export const ViewSpaceDataItemModal = ({ viewSpaceItem, spaceItem }) => (
         </div>
         <div className="spaceModal__name__wrapper">
           <p className="spaceModal__name__key">NAME</p>
-          <p className="spaceModal__name__value">{spaceItem.dataKey}</p>
+          <p className="spaceModal__name__value">{spaceItem.dataKey !== 'collectiblesFavoritesToRender' ? spaceItem.dataKey : 'Favorite Collectibles'}</p>
         </div>
       </section>
 
       <section className="spaceModal__content">
         {spaceItem.rowType === 'Image' && <img src={`https://ipfs.infura.io/ipfs/${spaceItem.dataValue[0].contentUrl['/']}`} className="spaceModal__content__image" alt="profile" />}
         {typeof spaceItem.dataValue === 'string' && spaceItem.dataValue}
-        {(typeof spaceItem.dataValue === 'object' && spaceItem.rowType !== 'Image') && 'object'}
+        {(typeof spaceItem.dataValue === 'object' && spaceItem.rowType !== 'Image' && spaceItem.dataKey !== 'collectiblesFavoritesToRender') && 'object'}
+        {spaceItem.dataKey === 'collectiblesFavoritesToRender' && (
+          <div className="spaceModal__content__collectiblesWrapper">
+            {spaceItem.dataValue.map(item => (
+              <img
+                src={item.image_preview_url}
+                alt="favorite collectibles"
+                className="spaceModal__content__collectibles"
+              />
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="spaceModal__context">

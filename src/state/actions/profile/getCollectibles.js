@@ -46,15 +46,19 @@ const getCollectibles = (address, onPublicProfile) => async (dispatch) => {
         otherCollectiblesFavorites: collectiblesFavoritesToRender,
       });
     } else {
-      dispatch({
-        type: 'MY_COLLECTIBLES_UPDATE',
-        collection,
-      });
-      dispatch({
-        type: 'MY_COLLECTIBLESFAVORITES_UPDATE',
-        collectiblesFavorites: updatedCollectiblesFavorites,
-        collectiblesFavoritesToRender,
-      });
+      if (collection && collection.length > 0) {
+        dispatch({
+          type: 'MY_COLLECTIBLES_UPDATE',
+          collection,
+        });
+      }
+      if (collectiblesFavorites.length > 0) {
+        dispatch({
+          type: 'MY_COLLECTIBLESFAVORITES_UPDATE',
+          collectiblesFavorites: updatedCollectiblesFavorites,
+          collectiblesFavoritesToRender,
+        });
+      }
     }
   } catch (error) {
     console.error(error);

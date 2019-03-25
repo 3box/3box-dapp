@@ -22,8 +22,9 @@ const PublicRow = ({ dataKey, dataValue, spaceName, rowType, privacy, viewSpaceI
   >
     <span className="data__items__row__entry spaceRow__key">
       <p className="data__text">
-        {dataKey && dataKey.replace(/([A-Z])/g, ' $1')
+        {(dataKey && dataKey !== 'collectiblesFavoritesToRender') && dataKey.replace(/([A-Z])/g, ' $1')
           .replace(/^./, str => str.toUpperCase())}
+        {(dataKey && dataKey === 'collectiblesFavoritesToRender') && 'Favorite Collectibles'}
       </p>
     </span>
     <span className="data__items__row__entry spaceRow__content">
@@ -34,10 +35,10 @@ const PublicRow = ({ dataKey, dataValue, spaceName, rowType, privacy, viewSpaceI
       )}
       {(typeof dataValue === 'object' && rowType !== 'Image' && !Array.isArray(dataValue)) && (
         <p className="data__text">
-          object
+          object2
         </p>
       )}
-      {(typeof dataValue === 'object' && rowType !== 'Image') && (
+      {(typeof dataValue === 'object' && rowType !== 'Image' && Array.isArray(dataValue)) && (
         <p className="data__text">
           object
         </p>
@@ -50,6 +51,15 @@ const PublicRow = ({ dataKey, dataValue, spaceName, rowType, privacy, viewSpaceI
             return item;
           })}
         </p>
+      )}
+      {(Array.isArray(dataValue) && dataKey === 'collectiblesFavoritesToRender') && (
+        <React.Fragment>
+          {
+            dataValue.map(item => (
+              <img src={item.image_preview_url} alt="" className="data__collectibles__tile" />
+            ))
+          }
+        </React.Fragment>
       )}
       {rowType === 'Image' && (
         <img

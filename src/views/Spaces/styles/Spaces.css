@@ -215,6 +215,13 @@
   object-fit: cover;
   border-radius: 4px; }
 
+.data__collectibles__tile {
+  width: 25%;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 8%; }
+
 .row__type__vault {
   background-color: #575757;
   color: white !important; }

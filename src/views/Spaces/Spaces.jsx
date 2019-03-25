@@ -108,6 +108,8 @@ class Spaces extends Component {
 
     if (spaceName === '3Box') {
       let proof;
+      const keyUppercase = key.toUpperCase();
+
       if (key === 'verifiedGithub') {
         proof = 'proof_github';
       } else if (key === 'verifiedTwitter') {
@@ -115,7 +117,22 @@ class Spaces extends Component {
       } else if (key === 'verifiedEmail') {
         proof = 'proof_email';
       }
-      box[privacy].remove(proof || key);
+
+      // remove from local redux my data store
+      if (key === 'collectiblesFavoritesToRender') {
+        box[privacy].remove('collectiblesFavorites');
+        store.dispatch({
+          type: 'MY_COLLECTIBLESFAVORITES_UPDATE',
+          collectiblesFavorites: [],
+          collectiblesFavoritesToRender: [],
+        });
+      } else {
+        box[privacy].remove(proof || key);
+        store.dispatch({
+          type: `MY_${keyUppercase}_UPDATE`,
+          [key]: null,
+        });
+      }
     } else {
       box.spaces[spaceName][privacy].remove(key);
     }

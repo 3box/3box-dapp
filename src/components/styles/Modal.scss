@@ -92,7 +92,8 @@
   flex-direction: column;
   padding: 0;
   position: relative;
-  width: 40vw;
+  width: fit-content;
+  // width: 40vw;
   // height: 40vh;
   min-width: 500px;
   min-height: 200px;
@@ -210,6 +211,35 @@
   img {
     margin-right: 6px;
   }
+}
+
+.spaceModal__content__collectiblesWrapper {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  box-sizing: border-box;
+  // padding: 30px;
+  // display: flex;
+  // justify-content: space-around;
+  // align-items: center;
+
+  display: inline-grid;
+  grid-template-columns: repeat(3, 33.333333333% [col-start]);
+  max-width: 800px;
+  // column-gap: 15px;
+  // row-gap: 20px;
+
+  padding: 30px;
+}
+
+.spaceModal__content__collectibles {
+  width: 100% !important;
+  min-width: 220px;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 10px;
 }
 
 .spaceDeleteModal {

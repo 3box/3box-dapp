@@ -26,8 +26,17 @@ class Collectibles extends Component {
   updateGallery = (e, selectedCollectible, removeFavorite, fromModal) => {
     e.stopPropagation();
     const {
-      box, collection, collectiblesFavorites, isFavorite, showCollectiblesModal, collectiblesFavoritesToRender,
+      box,
+      collection,
+      collectiblesFavorites,
+      isFavorite,
+      showCollectiblesModal,
+      collectiblesFavoritesToRender,
+      list,
+      allData,
     } = this.props;
+
+    const updatedAllData = allData;
     const contractAddress = selectedCollectible.asset_contract.address;
     const tokenId = selectedCollectible.token_id;
     const updatedCollectiblesFavoritesToRender = collectiblesFavoritesToRender.slice() || [];
@@ -69,6 +78,12 @@ class Collectibles extends Component {
       type: 'MY_COLLECTIBLESFAVORITES_UPDATE',
       collectiblesFavorites: updatedCollectiblesFavorites,
       collectiblesFavoritesToRender: updatedCollectiblesFavoritesToRender,
+    });
+    updatedAllData['3Box'].public.collectiblesFavoritesToRender = updatedCollectiblesFavoritesToRender;
+    store.dispatch({
+      type: 'SPACES_DATA_UPDATE',
+      list,
+      allData: updatedAllData,
     });
     if (fromModal) {
       store.dispatch({
@@ -252,6 +267,9 @@ function mapState(state) {
     collection: state.myData.collection,
     collectiblesFavorites: state.myData.collectiblesFavorites,
     collectiblesFavoritesToRender: state.myData.collectiblesFavoritesToRender,
+
+    allData: state.spaces.allData,
+    list: state.spaces.list,
 
     showCollectiblesModal: state.uiState.showCollectiblesModal,
     selectedCollectible: state.uiState.selectedCollectible,

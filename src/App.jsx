@@ -76,6 +76,7 @@ class App extends Component {
     };
     this.handleSignInUp = this.handleSignInUp.bind(this);
     this.directSignIn = this.directSignIn.bind(this);
+    this.getMyData = this.getMyData.bind(this);
   }
 
   async componentDidMount() {
@@ -139,7 +140,7 @@ class App extends Component {
     });
   }
 
-  getMyData = () => {
+  async getMyData() {
     const { currentAddress } = this.props;
     store.dispatch({
       type: 'UI_SPACES_LOADING',
@@ -164,9 +165,9 @@ class App extends Component {
     this.props.getMyProfileValue('public', 'major');
     this.props.getMyProfileValue('public', 'year');
     this.props.getMyProfileValue('public', 'emoji');
-    this.props.getMyProfileValue('public', 'collectiblesFavorites');
+    // this.props.getMyProfileValue('public', 'collectiblesFavorites');
     this.props.getMyProfileValue('private', 'birthday');
-    this.props.getCollectibles(currentAddress);
+    await this.props.getCollectibles(currentAddress);
     this.props.getMySpacesData(currentAddress);
   }
 

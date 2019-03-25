@@ -278,7 +278,8 @@ class EditProfile extends Component {
 
   verifyGithub = () => {
     const { verifiedGithub, editedArray } = this.state;
-    const { box } = this.props;
+    const { box, list, allData } = this.props;
+    const updatedAllData = allData;
     const updatedEditedArray = editedArray;
     this.setState({ verificationLoading: true });
 
@@ -302,6 +303,12 @@ class EditProfile extends Component {
                 store.dispatch({
                   type: 'MY_VERIFIED_GITHUB_UPDATE',
                   verifiedGithub,
+                });
+                updatedAllData['3Box'].public.verifiedGithub = verifiedGithub;
+                store.dispatch({
+                  type: 'SPACES_DATA_UPDATE',
+                  list,
+                  allData: updatedAllData,
                 });
               }
             }).catch((err) => {
@@ -391,7 +398,8 @@ class EditProfile extends Component {
 
   verifyTwitter = () => {
     const { verifiedTwitter, editedArray } = this.state;
-    const { box, did } = this.props;
+    const { box, did, list, allData } = this.props;
+    const updatedAllData = allData;
     const updatedEditedArray = editedArray;
     this.setState({ verificationLoading: true });
 
@@ -425,6 +433,12 @@ class EditProfile extends Component {
           store.dispatch({
             type: 'MY_VERIFIED_TWITTER_UPDATE',
             verifiedTwitter,
+          });
+          updatedAllData['3Box'].public.verifiedTwitter = verifiedTwitter;
+          store.dispatch({
+            type: 'SPACES_DATA_UPDATE',
+            list,
+            allData: updatedAllData,
           });
         } else {
           throw new Error('Verification failed');
@@ -462,8 +476,9 @@ class EditProfile extends Component {
 
   verifyEmail = () => {
     const { editedArray, emailCode } = this.state;
-    const { box, did } = this.props;
+    const { box, did, list, allData } = this.props;
     const updatedEditedArray = editedArray;
+    const updatedAllData = allData;
     const codeAsNumber = parseInt(emailCode, 10);
     this.setState({ verificationLoading: true, emailVerifiedFailed: false });
 
@@ -504,6 +519,12 @@ class EditProfile extends Component {
             store.dispatch({
               type: 'MY_VERIFIED_EMAIL_UPDATE',
               verifiedEmail: verifiedEmail.email_address,
+            });
+            updatedAllData['3Box'].public.verifiedEmail = verifiedEmail.email_address;
+            store.dispatch({
+              type: 'SPACES_DATA_UPDATE',
+              list,
+              allData: updatedAllData,
             });
           } else {
             throw new Error('Verification failed');
@@ -607,10 +628,11 @@ class EditProfile extends Component {
       emoji,
     } = this.state;
 
-    const { box, currentAddress } = this.props;
+    const { box, currentAddress, allData, list } = this.props;
 
     if (box.public) {
       e.preventDefault();
+      const updatedAllData = allData;
       this.setState({ saveLoading: true });
 
       const nameChanged = name !== this.props.name;
@@ -679,11 +701,23 @@ class EditProfile extends Component {
           type: 'MY_VERIFIED_GITHUB_UPDATE',
           verifiedGithub: null,
         });
+        delete updatedAllData['3Box'].public.verifiedGithub;
+        store.dispatch({
+          type: 'SPACES_DATA_UPDATE',
+          list,
+          allData: updatedAllData,
+        });
       }
       if (verifiedTwitterChanged) {
         store.dispatch({
           type: 'MY_VERIFIED_TWITTER_UPDATE',
           verifiedTwitter: null,
+        });
+        delete updatedAllData['3Box'].public.verifiedTwitter;
+        store.dispatch({
+          type: 'SPACES_DATA_UPDATE',
+          list,
+          allData: updatedAllData,
         });
       }
       if (verifiedEmailChanged) {
@@ -691,21 +725,139 @@ class EditProfile extends Component {
           type: 'MY_VERIFIED_EMAIL_UPDATE',
           verifiedEmail: null,
         });
+        delete updatedAllData['3Box'].private.verifiedEmail;
+        store.dispatch({
+          type: 'SPACES_DATA_UPDATE',
+          list,
+          allData: updatedAllData,
+        });
       }
-      if (nameChanged) await this.props.getMyProfileValue('public', 'name'); // change these to just update the redux store
-      if (descriptionChanged) await this.props.getMyProfileValue('public', 'description');
-      if (locationChanged) await this.props.getMyProfileValue('public', 'location');
-      if (websiteChanged) await this.props.getMyProfileValue('public', 'website');
-      if (employerChanged) await this.props.getMyProfileValue('public', 'employer');
-      if (jobChanged) await this.props.getMyProfileValue('public', 'job');
-      if (schoolChanged) await this.props.getMyProfileValue('public', 'school');
-      if (degreeChanged) await this.props.getMyProfileValue('public', 'degree');
-      if (majorChanged) await this.props.getMyProfileValue('public', 'major');
-      if (yearChanged) await this.props.getMyProfileValue('public', 'year');
-      if (emojiChanged) await this.props.getMyProfileValue('public', 'emoji');
-      if (removeUserPic || editPic) await this.props.getMyProfileValue('public', 'image');
-      if (removeCoverPic || editCoverPic) await this.props.getMyProfileValue('public', 'coverPhoto');
-      if (birthdayChanged) await this.props.getMyProfileValue('private', 'birthday');
+      if (nameChanged) {
+        await this.props.getMyProfileValue('public', 'name'); // change these to just update the redux store
+        updatedAllData['3Box'].public.name = name;
+        store.dispatch({
+          type: 'SPACES_DATA_UPDATE',
+          list,
+          allData: updatedAllData,
+        });
+      }
+      if (descriptionChanged) {
+        await this.props.getMyProfileValue('public', 'description');
+        updatedAllData['3Box'].public.description = description;
+        store.dispatch({
+          type: 'SPACES_DATA_UPDATE',
+          list,
+          allData: updatedAllData,
+        });
+      }
+      if (locationChanged) {
+        await this.props.getMyProfileValue('public', 'location');
+        updatedAllData['3Box'].public.location = location;
+        store.dispatch({
+          type: 'SPACES_DATA_UPDATE',
+          list,
+          allData: updatedAllData,
+        });
+      }
+      if (websiteChanged) {
+        await this.props.getMyProfileValue('public', 'website');
+        updatedAllData['3Box'].public.website = website;
+        store.dispatch({
+          type: 'SPACES_DATA_UPDATE',
+          list,
+          allData: updatedAllData,
+        });
+      }
+      if (employerChanged) {
+        await this.props.getMyProfileValue('public', 'employer');
+        updatedAllData['3Box'].public.employer = employer;
+        store.dispatch({
+          type: 'SPACES_DATA_UPDATE',
+          list,
+          allData: updatedAllData,
+        });
+      }
+      if (jobChanged) {
+        await this.props.getMyProfileValue('public', 'job');
+        updatedAllData['3Box'].public.job = job;
+        store.dispatch({
+          type: 'SPACES_DATA_UPDATE',
+          list,
+          allData: updatedAllData,
+        });
+      }
+      if (schoolChanged) {
+        await this.props.getMyProfileValue('public', 'school');
+        updatedAllData['3Box'].public.school = school;
+        store.dispatch({
+          type: 'SPACES_DATA_UPDATE',
+          list,
+          allData: updatedAllData,
+        });
+      }
+      if (degreeChanged) {
+        await this.props.getMyProfileValue('public', 'degree');
+        updatedAllData['3Box'].public.degree = degree;
+        store.dispatch({
+          type: 'SPACES_DATA_UPDATE',
+          list,
+          allData: updatedAllData,
+        });
+      }
+      if (majorChanged) {
+        await this.props.getMyProfileValue('public', 'major');
+        updatedAllData['3Box'].public.major = major;
+        store.dispatch({
+          type: 'SPACES_DATA_UPDATE',
+          list,
+          allData: updatedAllData,
+        });
+      }
+      if (yearChanged) {
+        await this.props.getMyProfileValue('public', 'year');
+        updatedAllData['3Box'].public.year = year;
+        store.dispatch({
+          type: 'SPACES_DATA_UPDATE',
+          list,
+          allData: updatedAllData,
+        });
+      }
+      if (emojiChanged) {
+        await this.props.getMyProfileValue('public', 'emoji');
+        updatedAllData['3Box'].public.emoji = emoji;
+        store.dispatch({
+          type: 'SPACES_DATA_UPDATE',
+          list,
+          allData: updatedAllData,
+        });
+      }
+      if (removeUserPic || editPic) {
+        await this.props.getMyProfileValue('public', 'image');
+        updatedAllData['3Box'].public.image = removeUserPic ? null : [{ '@type': 'ImageObject', contentUrl: { '/': returnedData.Hash } }];
+        store.dispatch({
+          type: 'SPACES_DATA_UPDATE',
+          list,
+          allData: updatedAllData,
+        });
+      }
+      if (removeCoverPic || editCoverPic) {
+        await this.props.getMyProfileValue('public', 'coverPhoto');
+        updatedAllData['3Box'].public.coverPhoto = removeCoverPic ? null : [{ '@type': 'ImageObject', contentUrl: { '/': returnedCoverData.Hash } }];
+        store.dispatch({
+          type: 'SPACES_DATA_UPDATE',
+          list,
+          allData: updatedAllData,
+        });
+      }
+      if (birthdayChanged) {
+        await this.props.getMyProfileValue('private', 'birthday');
+        updatedAllData['3Box'].public.birthday = birthday;
+        store.dispatch({
+          type: 'SPACES_DATA_UPDATE',
+          list,
+          allData: updatedAllData,
+        });
+      }
 
       this.props.getActivity();
 
@@ -1489,6 +1641,8 @@ class EditProfile extends Component {
 
 EditProfile.propTypes = {
   box: PropTypes.object,
+  allData: PropTypes.object,
+  list: PropTypes.array,
   name: PropTypes.string,
   verifiedGithub: PropTypes.string,
   verifiedTwitter: PropTypes.string,
@@ -1526,6 +1680,7 @@ EditProfile.propTypes = {
 
 EditProfile.defaultProps = {
   box: {},
+  allData: {},
   verifiedEmail: '',
   name: '',
   verifiedGithub: '',
@@ -1547,6 +1702,7 @@ EditProfile.defaultProps = {
   currentAddress: '',
   image: [],
   coverPhoto: [],
+  list: [],
   isFetchingThreeBox: false,
   showGithubVerificationModal: false,
   showTwitterVerificationModal: false,
@@ -1560,6 +1716,8 @@ function mapState(state) {
     showGithubVerificationModal: state.uiState.showGithubVerificationModal,
     showTwitterVerificationModal: state.uiState.showTwitterVerificationModal,
     showEmailVerificationModal: state.uiState.showEmailVerificationModal,
+    isFetchingThreeBox: state.uiState.isFetchingThreeBox,
+    copySuccessful: state.uiState.copySuccessful,
 
     name: state.myData.name,
     verifiedGithub: state.myData.verifiedGithub,
@@ -1582,9 +1740,9 @@ function mapState(state) {
     image: state.myData.image,
     coverPhoto: state.myData.coverPhoto,
 
-    isFetchingThreeBox: state.uiState.isFetchingThreeBox,
-    copySuccessful: state.uiState.copySuccessful,
     currentAddress: state.userState.currentAddress,
+    allData: state.spaces.allData,
+    list: state.spaces.list,
   };
 }
 
