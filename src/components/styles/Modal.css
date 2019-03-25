@@ -126,9 +126,11 @@
   background-color: #f8f8f8; }
 
 .spaceModal__content__image {
-  width: 100% !important;
+  width: auto !important;
+  min-width: 100%;
   min-height: 60px;
-  height: 100%;
+  height: auto;
+  max-height: 600px;
   object-fit: cover; }
 
 .spaceModal__context {
@@ -238,14 +240,18 @@
 
 .spaceDeleteModal__body__buttons__cancel {
   background-color: #6b6b6b;
-  border: 1px solid #6b6b6b; }
+  border: 1px solid #6b6b6b;
+  border-radius: 2px !important;
+  padding: 10px 15px; }
   .spaceDeleteModal__body__buttons__cancel:hover {
     background-color: #525252;
     border: 1px solid #525252; }
 
 .spaceDeleteModal__body__buttons__delete {
   background-color: #ca3232;
-  border: 1px solid #ca3232; }
+  border: 1px solid #ca3232;
+  border-radius: 2px !important;
+  padding: 12px 16px; }
   .spaceDeleteModal__body__buttons__delete:hover {
     background-color: #9b2424;
     border: 1px solid #9b2424; }

@@ -156,9 +156,11 @@
 }
 
 .spaceModal__content__image {
-  width: 100% !important;
+    width: auto!important;
+  min-width: 100%;
   min-height: 60px;
-  height: 100%;
+  height: auto;
+  max-height: 600px;
   object-fit: cover;
 }
 
@@ -298,6 +300,8 @@
 .spaceDeleteModal__body__buttons__cancel {
   background-color: $lightFont;
   border: 1px solid $lightFont;
+  border-radius: 2px !important;
+  padding: 10px 15px;
 
   &:hover {
     background-color: $lightFontHover;
@@ -308,6 +312,8 @@
 .spaceDeleteModal__body__buttons__delete {
   background-color: $threeBoxRed;
   border: 1px solid $threeBoxRed;
+  border-radius: 2px !important;
+  padding: 12px 16px;
 
   &:hover {
     background-color: $threeBoxRedHover;
