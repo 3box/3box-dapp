@@ -3,13 +3,28 @@ import PropTypes from 'prop-types';
 
 import Info from '../../../assets/Details.svg';
 import Loading from '../../../assets/Loading.svg';
+import List from '../../../assets/List.svg';
 import '../styles/Spaces.css';
 
-const Header = ({ spaceToDisplay, isSpacesLoading, sortBy, sortData, sortDirection }) => (
-  <header className="data__header">
+const Header = ({ spaceToDisplay, isSpacesLoading, sortBy, sortData, sortDirection, handleSpaceListView, show }) => (
+  <header className={`data__header ${show ? '' : 'data__header--wide'}`}>
     <section className="data__space">
       <span className="data__space__context">
-        <h2>{spaceToDisplay}</h2>
+        <div className="data__space__context__name">
+          <button
+            className="data__space__context__icon"
+            onClick={handleSpaceListView}
+            onKeyPress={handleSpaceListView}
+            tabIndex={0}
+            type="button"
+          >
+            <img
+              src={List}
+              alt="list"
+            />
+          </button>
+          <h2>{spaceToDisplay}</h2>
+        </div>
         {isSpacesLoading && <img className="data__space__loading" src={Loading} alt="info" />}
       </span>
       <img className="data__space__info" src={Info} alt="info" />
@@ -142,6 +157,7 @@ Header.propTypes = {
   isSpacesLoading: PropTypes.bool.isRequired,
   sortDirection: PropTypes.bool.isRequired,
   sortData: PropTypes.func.isRequired,
+  handleSpaceListView: PropTypes.func.isRequired,
 };
 
 export default Header;

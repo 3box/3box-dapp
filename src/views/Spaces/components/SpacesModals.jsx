@@ -27,117 +27,129 @@ SpaceOpenedModal.defaultProps = {
   spaceName: '',
 };
 
-export const ViewSpaceDataItemModal = ({ viewSpaceItem, spaceItem }) => (
-  <div className="modal__container modal--effect">
-    {console.log(spaceItem)}
-    <div className="modal spaceModal">
-      <button onClick={() => viewSpaceItem(false, false, false)} type="button" className="tertiaryButton spaceModal__close">
-        Close
+export const ViewSpaceDataItemModal = ({
+  viewSpaceItem,
+  spaceName,
+  dataKey,
+  rowType,
+  dataValue,
+  privacy,
+  lastUpdated,
+}) => (
+    <div className="modal__container modal--effect">
+      <div className="modal spaceModal">
+        <button onClick={() => viewSpaceItem(false, false, false)} type="button" className="tertiaryButton spaceModal__close">
+          Close
       </button>
-      <section className="spaceModal__name">
-        <div className="spaceModal__name__wrapper">
-          <p className="spaceModal__name__key">SPACE</p>
-          <p className="spaceModal__name__value">{spaceItem.spaceName}</p>
-        </div>
-        <div className="spaceModal__name__wrapper">
-          <p className="spaceModal__name__key">NAME</p>
-          <p className="spaceModal__name__value">{spaceItem.dataKey !== 'collectiblesFavoritesToRender' ? spaceItem.dataKey : 'Favorite Collectibles'}</p>
-        </div>
-      </section>
-
-      <section className="spaceModal__content">
-        {spaceItem.rowType === 'Image' && <img src={`https://ipfs.infura.io/ipfs/${spaceItem.dataValue[0].contentUrl['/']}`} className="spaceModal__content__image" alt="profile" />}
-        {typeof spaceItem.dataValue === 'string' && spaceItem.dataValue}
-        {(typeof spaceItem.dataValue === 'object' && spaceItem.rowType !== 'Image' && spaceItem.dataKey !== 'collectiblesFavoritesToRender') && 'object'}
-        {spaceItem.dataKey === 'collectiblesFavoritesToRender' && (
-          <div className="spaceModal__content__collectiblesWrapper">
-            {spaceItem.dataValue.map(item => (
-              <img
-                src={item.image_preview_url}
-                alt="favorite collectibles"
-                className="spaceModal__content__collectibles"
-              />
-            ))}
+        <section className="spaceModal__name">
+          <div className="spaceModal__name__wrapper">
+            <p className="spaceModal__name__key">SPACE</p>
+            <p className="spaceModal__name__value">{spaceName}</p>
           </div>
-        )}
-      </section>
+          <div className="spaceModal__name__wrapper">
+            <p className="spaceModal__name__key">NAME</p>
+            <p className="spaceModal__name__value">{dataKey !== 'collectiblesFavoritesToRender' ? dataKey : 'Favorite Collectibles'}</p>
+          </div>
+        </section>
 
-      <section className="spaceModal__context">
-        <div className="spaceModal__context__div">
-          <span className={`type__tag ${spaceItem.rowType}`}>
-            <p className="spaceRow__tag__text">
-              {spaceItem.rowType}
+        <section className="spaceModal__content">
+          {rowType === 'Image' && <img src={`https://ipfs.infura.io/ipfs/${dataValue[0].contentUrl['/']}`} className="spaceModal__content__image" alt="profile" />}
+          {typeof dataValue === 'string' && dataValue}
+          {(typeof dataValue === 'object' && rowType !== 'Image' && dataKey !== 'collectiblesFavoritesToRender') && 'object'}
+          {dataKey === 'collectiblesFavoritesToRender' && (
+            <div className="spaceModal__content__collectiblesWrapper">
+              {dataValue.map(item => (
+                <img
+                  src={item.image_preview_url}
+                  alt="favorite collectibles"
+                  className="spaceModal__content__collectibles"
+                />
+              ))}
+            </div>
+          )}
+        </section>
+
+        <section className="spaceModal__context">
+          <div className="spaceModal__context__div">
+            <span className={`type__tag ${rowType}`}>
+              <p className="spaceRow__tag__text">
+                {rowType}
+              </p>
+            </span>
+            {privacy === 'private'
+              ? <img src={Private} alt="Transaction Icon" className="spaceModal__context__privacy" />
+              : <img src={Globe} alt="Transaction Icon" className="spaceModal__context__privacy" />
+            }
+            <p>
+              {lastUpdated}
             </p>
-          </span>
-          {spaceItem.privacy === 'private'
-            ? <img src={Private} alt="Transaction Icon" className="spaceModal__context__privacy" />
-            : <img src={Globe} alt="Transaction Icon" className="spaceModal__context__privacy" />
-          }
-          <p>
-            {spaceItem.lastUpdated}
-          </p>
-        </div>
+          </div>
 
-        <div className="spaceModal__context__div">
-          <span
-            className="spaceModal__context__delete"
-            onClick={() => {
-              viewSpaceItem(
-                false,
-                true,
-                false,
-                spaceItem.dataKey,
-                spaceItem.dataValue,
-                spaceItem.spaceName,
-                spaceItem.rowType,
-                spaceItem.privacy,
-              );
-            }}
-            tabIndex={0}
-            onKeyPress={() => {
-              viewSpaceItem(
-                false,
-                true,
-                false,
-                spaceItem.dataKey,
-                spaceItem.dataValue,
-                spaceItem.spaceName,
-                spaceItem.rowType,
-                spaceItem.privacy,
-              );
-            }}
-            role="button"
-          >
-            <img src={Trash} alt="Transaction Icon" className="spaceModal__context__privacy" />
-            Delete
-          </span>
-
-          {spaceItem.rowType === 'Image' && (
-            <a
-              className="spaceModal__context__view"
-              href={`https://ipfs.infura.io/ipfs/${spaceItem.dataValue[0].contentUrl['/']}`}
-              target="_blank"
-              rel="noopener noreferrer"
+          <div className="spaceModal__context__div">
+            <span
+              className="spaceModal__context__delete"
+              onClick={() => {
+                viewSpaceItem(
+                  false,
+                  true,
+                  false,
+                  dataKey,
+                  dataValue,
+                  spaceName,
+                  rowType,
+                  privacy,
+                );
+              }}
+              tabIndex={0}
+              onKeyPress={() => {
+                viewSpaceItem(
+                  false,
+                  true,
+                  false,
+                  dataKey,
+                  dataValue,
+                  spaceName,
+                  rowType,
+                  privacy,
+                );
+              }}
+              role="button"
             >
-              <img src={Link} alt="Transaction Icon" className="spaceModal__context__privacy" />
-              View Source
+              <img src={Trash} alt="Transaction Icon" className="spaceModal__context__privacy" />
+              Delete
+          </span>
+
+            {rowType === 'Image' && (
+              <a
+                className="spaceModal__context__view"
+                href={`https://ipfs.infura.io/ipfs/${dataValue[0].contentUrl['/']}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img src={Link} alt="Transaction Icon" className="spaceModal__context__privacy" />
+                View Source
             </a>)}
-        </div>
-      </section>
+          </div>
+        </section>
+      </div>
+      <div
+        className="onClickOutsideCollectibles"
+        onClick={() => viewSpaceItem(false, false, false)}
+        tabIndex={0}
+        onKeyPress={() => viewSpaceItem(false, false, false)}
+        role="button"
+      />
     </div>
-    <div
-      className="onClickOutsideCollectibles"
-      onClick={() => viewSpaceItem(false, false, false)}
-      tabIndex={0}
-      onKeyPress={() => viewSpaceItem(false, false, false)}
-      role="button"
-    />
-  </div>
-);
+  );
 
 ViewSpaceDataItemModal.propTypes = {
   viewSpaceItem: PropTypes.func.isRequired,
-  spaceItem: PropTypes.object.isRequired,
+  spaceName: PropTypes.string.isRequired,
+  dataKey: PropTypes.string.isRequired,
+  rowType: PropTypes.string.isRequired,
+  dataValue: PropTypes.object.isRequired,
+  privacy: PropTypes.string.isRequired,
+  lastUpdated: PropTypes.string.isRequired,
 };
 
 export const DeleteSpaceItemModal = ({

@@ -33,6 +33,7 @@ class Spaces extends Component {
       vaultToOpen: '',
       sortBy: '',
       sortDirection: true,
+      showSpaceList: true,
       isLoadingVault: false,
     };
     this.openSpace = this.openSpace.bind(this);
@@ -56,6 +57,11 @@ class Spaces extends Component {
         hasUpdated: true,
       });
     }
+  }
+
+  handleSpaceListView = () => {
+    const { showSpaceList } = this.state;
+    this.setState({ showSpaceList: !showSpaceList });
   }
 
   sortData = (category, updatedData, spaceName, newSort) => {
@@ -235,6 +241,7 @@ class Spaces extends Component {
       sortDirection,
       isLoadingVault,
       vaultToOpen,
+      showSpaceList,
     } = this.state;
 
     return (
@@ -249,10 +256,31 @@ class Spaces extends Component {
             {showSpaceOpenedModal && <SpaceOpenedModal spaceName={spaceNameOpened} />}
 
             {showSpaceDataItemModal && (
-              <ViewSpaceDataItemModal
-                spaceItem={spaceItem}
-                viewSpaceItem={this.props.viewSpaceItem}
-              />)}
+              (Array.isArray(spaceItem.dataValue) && spaceItem.rowType !== 'Image')
+                ? (
+                  spaceItem.dataValue.map((item) => {
+                    console.log(item);
+                    return (
+                      <ViewSpaceDataItemModal
+                        viewSpaceItem={this.props.viewSpaceItem}
+                        spaceName={spaceItem.spaceName}
+                        dataKey={spaceItem.dataKey}
+                        rowType={spaceItem.rowType}
+                        dataValue={spaceItem.dataValue}
+                        privacy={spaceItem.privacy}
+                        lastUpdated={spaceItem.lastUpdated}
+                      />);
+                  })
+                ) : (
+                  <ViewSpaceDataItemModal
+                    viewSpaceItem={this.props.viewSpaceItem}
+                    spaceName={spaceItem.spaceName}
+                    dataKey={spaceItem.dataKey}
+                    rowType={spaceItem.rowType}
+                    dataValue={spaceItem.dataValue}
+                    privacy={spaceItem.privacy}
+                    lastUpdated={spaceItem.lastUpdated}
+                  />))}
 
             {showDeleteItemModal && (
               <DeleteSpaceItemModal
@@ -277,15 +305,18 @@ class Spaces extends Component {
             sortData={this.sortData}
             sortBy={sortBy}
             list={list}
+            show={showSpaceList}
           />
 
-          <main className="dataExplorer">
+          <main className={`dataExplorer ${showSpaceList ? '' : 'wideDataExplorer'}`}>
             <Header
               spaceToDisplay={spaceToDisplay}
               isSpacesLoading={isSpacesLoading}
               sortBy={sortBy}
+              handleSpaceListView={this.handleSpaceListView}
               sortDirection={sortDirection}
               sortData={this.sortData}
+              show={showSpaceList}
             />
 
             <section className="data__items">

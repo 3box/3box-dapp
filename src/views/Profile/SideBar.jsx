@@ -83,7 +83,7 @@ const SideBar = ({
 
 
                 <span className="profile__basic__emoji">
-                  {!onOtherProfilePage && (emoji.code ? emoji.code : emoji)}
+                  {(!onOtherProfilePage && emoji) && (emoji.code ? emoji.code : emoji)}
                   {(onOtherProfilePage && otherEmoji) && (otherEmoji.code ? otherEmoji.code : otherEmoji)}
                 </span>
               </div>
