@@ -16,7 +16,8 @@ const AllView = ({
 }) => (
     <React.Fragment>
       {sortedSpace.length > 0 && sortedSpace.map((row) => {
-        if (row.name !== 'collectiblesFavoritesToRender' && row.name !== 'private_space_data') {
+        if (row.name !== 'collectiblesFavoritesToRender'
+          && row.name !== 'private_space_data') {
           return (
             <PublicRow
               dataKey={row.name}

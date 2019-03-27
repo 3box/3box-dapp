@@ -9,7 +9,8 @@ import '../styles/Spaces.css';
 const SpaceView = ({ openSpace, spaceDataToRender, spacesOpened, vaultToOpen, isLoadingVault }) => (
   <React.Fragment>
     {spaceDataToRender.length > 0 && spaceDataToRender.map((row) => {
-      if (row.name !== 'collectiblesFavoritesToRender' && row.name !== 'private_space_data') {
+      if (row.name !== 'collectiblesFavoritesToRender'
+        && row.name !== 'private_space_data') {
         return (
           <PublicRow
             dataKey={row.name}

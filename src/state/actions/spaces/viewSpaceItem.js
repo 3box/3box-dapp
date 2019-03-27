@@ -7,6 +7,7 @@ const viewSpaceItem = (
   spaceName,
   rowType,
   privacy,
+  listIndex,
 ) => async (dispatch) => {
   try {
     dispatch({
@@ -20,6 +21,7 @@ const viewSpaceItem = (
         spaceName,
         rowType,
         privacy,
+        listIndex,
       },
     });
   } catch (error) {

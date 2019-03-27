@@ -36,7 +36,7 @@ const SideBar = ({
 }) => (
     <div>
       {!onOtherProfilePage && (
-        coverPhoto.length > 0 && coverPhoto[0].contentUrl
+        coverPhoto && coverPhoto.length > 0 && coverPhoto[0].contentUrl
           ? <img src={`https://ipfs.infura.io/ipfs/${coverPhoto[0].contentUrl['/']}`} className="profile__coverPhoto clearProfPic" alt="profile" />
           : <div className="profile__coverPhoto" />)
       }
@@ -58,7 +58,7 @@ const SideBar = ({
           >
 
             {!onOtherProfilePage && (
-              image.length > 0 && image[0].contentUrl
+              image && image.length > 0 && image[0].contentUrl
                 ? <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} className="profile__user__picture clearProfPic" alt="profile" />
                 : <div className="profile__user__picture" />)
             }

@@ -287,6 +287,9 @@
 .Claim {
   background-color: #476997; }
 
+.Object {
+  background-color: #cab039; }
+
 .activeSort {
   color: #1168df;
   font-weight: 600;

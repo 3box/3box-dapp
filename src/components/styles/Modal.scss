@@ -26,7 +26,23 @@
   align-items: center;
   justify-content: center;
   position: fixed;
-  // visibility: hidden;
+}
+
+.list__container {
+  flex-direction: column;
+}
+
+.list__scrollable-wrapper {
+  position: relative;
+  overflow-y: scroll;
+  width: 100%;
+  height: fit-content;
+  padding-top: 100px;
+  margin: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .modal__container--sync {
@@ -93,22 +109,44 @@
   padding: 0;
   position: relative;
   width: fit-content;
-  // width: 40vw;
-  // height: 40vh;
   min-width: 500px;
   min-height: 200px;
   overflow: visible;
+}
+
+.listSpaceModal {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 0;
+  position: relative;
+  width: fit-content;
+  min-width: 500px;
+  min-height: fit-content;
+  overflow: visible;
+  margin-bottom: 40px;
 }
 
 .spaceModal__name {
   box-sizing: border-box;
   padding: 15px;
   display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  border-bottom: 1px solid $borderColor;
+
+  h4 {
+    color: #6b6b6b;
+  }
+}
+
+.spaceModal__names {
+  display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-  width: 100%;
-  border-bottom: 1px solid $borderColor;
 }
 
 .spaceModal__name__wrapper {
@@ -150,13 +188,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 60px;
+  min-height: fit-content;
   height: 100%;
   background-color: $backgroundGrey;
 }
 
 .spaceModal__content__image {
-    width: auto!important;
+  width: auto !important;
   min-width: 100%;
   min-height: 60px;
   height: auto;
@@ -215,33 +253,32 @@
   }
 }
 
-.spaceModal__content__collectiblesWrapper {
-  width: 100%;
-  height: 100%;
-  min-height: 300px;
+.spaceModal__content__collectibles {
+  width: auto !important;
+  height: auto;
+  max-width: 140px;
+  max-height: 140px;
   box-sizing: border-box;
-  // padding: 30px;
-  // display: flex;
-  // justify-content: space-around;
-  // align-items: center;
-
-  display: inline-grid;
-  grid-template-columns: repeat(3, 33.333333333% [col-start]);
-  max-width: 800px;
-  // column-gap: 15px;
-  // row-gap: 20px;
-
-  padding: 30px;
 }
 
-.spaceModal__content__collectibles {
-  width: 100% !important;
-  min-width: 220px;
-  max-width: 100%;
-  object-fit: cover;
-  border-radius: 4px;
-  box-sizing: border-box;
-  padding: 10px;
+.spaceModal__content__collectibles__info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  max-width: 300px;
+
+  p {
+    font-size: 13px;
+    color: #6b6b6b;
+  }
+}
+
+.spaceModal__listWrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
 }
 
 .spaceDeleteModal {

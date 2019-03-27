@@ -32,7 +32,6 @@ const getMySpacesData = address => async (dispatch) => {
     allData['3Box'].public = {};
 
     Object.entries(myData).forEach((row) => {
-      console.log(row[0]);
       if ((row[0] !== 'box') &&
         (row[0] !== 'feedByAddress') &&
         (row[0] !== 'collection') &&
