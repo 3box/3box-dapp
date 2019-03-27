@@ -12,7 +12,7 @@
   flex-direction: column;
   height: 100%;
   background-color: #E8EAEE;
-  width: 22vw;
+  width: 18vw;
   overflow-y: scroll;
 
   -webkit-transition: all .5s ease;
@@ -22,7 +22,7 @@
 }
 
 .closeSpaces {
-  margin-left: -22vw;
+  margin-left: -18vw;
 }
 
 .dataExplorer {
@@ -30,7 +30,7 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  width: 78vw;
+  width: 82vw;
   height: 100%;
   overflow-y: scroll;
 
@@ -85,8 +85,8 @@
 }
 
 .data__header {
-  width: 78vw;
-  left: 22vw;
+  width: 82vw;
+  left: 18vw;
   position: fixed;
   height: fit-content;
   display: flex;
@@ -214,6 +214,9 @@
   padding: 0;
   margin-right: 12px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   img {
     width: 20px;
@@ -310,8 +313,9 @@
 }
 
 .spaceRow__tag__text {
-  color: #525252 !important;
+  color: black !important;
   font-size: 13px !important;
+  opacity: .6;
 }
 
 .spaceRow__content__image {
