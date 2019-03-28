@@ -126,10 +126,10 @@ class Spaces extends Component {
       collection,
     } = this.props;
     const { sortBy, spaceToDisplay } = this.state;
-    const updatedAllData = allData;
+    const updatedAllData = cloneDeep(allData);
     const updatedCollection = collection.slice();
-    const updatedCollectiblesFavorites = collectiblesFavorites;
-    const updatedCollectiblesFavoritesToRender = collectiblesFavoritesToRender;
+    const updatedCollectiblesFavorites = collectiblesFavorites.slice();
+    const updatedCollectiblesFavoritesToRender = collectiblesFavoritesToRender.slice();
 
     if (spaceName === '3Box') {
       let proof;

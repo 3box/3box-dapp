@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import Private from '../../../assets/PrivateActivity.svg';
 import Globe from '../../../assets/Globe.svg';
-import Verified from '../../../assets/Verified.svg';
 import '../styles/Spaces.css';
 
 import actions from '../../../state/actions';
