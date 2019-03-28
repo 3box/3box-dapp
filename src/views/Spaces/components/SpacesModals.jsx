@@ -41,19 +41,28 @@ export const ViewSpaceDataItemModal = ({
         <button onClick={() => viewSpaceItem(false, false, false)} type="button" className="tertiaryButton spaceModal__close">
           Close
       </button>
-        <section className="spaceModal__name">
+        <section className="spaceModal__data">
           <div className="spaceModal__name__wrapper">
-            <p className="spaceModal__name__value">{spaceName}</p>
+            <p className="spaceModal__space__value">{spaceName}</p>
           </div>
           <div className="spaceModal__name__wrapper">
-            <p className="spaceModal__name__value">{dataKey !== 'collectiblesFavoritesToRender' ? dataKey : 'Favorite Collectibles'}</p>
+            <p className="spaceModal__name__value">{dataKey !== 'collectiblesFavoritesToRender' ?
+              dataKey.replace(/([A-Z])/g, ' $1')
+                .replace(/^./, str => str.toUpperCase()) : 'Favorite Collectibles'}</p>
           </div>
         </section>
 
         <section className="spaceModal__content">
           {rowType === 'Image' && <img src={`https://ipfs.infura.io/ipfs/${dataValue[0].contentUrl['/']}`} className="spaceModal__content__image" alt="profile" />}
           {typeof dataValue === 'string' && dataValue}
-          {(typeof dataValue === 'object' && rowType !== 'Image' && dataKey !== 'collectiblesFavoritesToRender') && 'object'}
+          {(typeof dataValue === 'object' && rowType !== 'Image' && dataKey !== 'collectiblesFavoritesToRender') && (
+            <React.Fragment>
+              {
+                Object.keys(dataValue).map(content => (
+                  <p className="spaceModal__content__object-keys">{content}</p>
+                ))
+              }
+            </React.Fragment>)}
         </section>
 
         <section className="spaceModal__context">
@@ -160,7 +169,7 @@ export const ListSpaceItemModal = ({
         <section className="spaceModal__name">
           <div className="spaceModal__names">
             <div className="spaceModal__name__wrapper">
-              <p className="spaceModal__name__value">
+              <p className="spaceModal__space__value">
                 {spaceName === '3Box' ? '3Box' : spaceName.replace(/([A-Z])/g, ' $1')
                   .replace(/^./, str => str.toUpperCase())}
               </p>
@@ -180,7 +189,15 @@ export const ListSpaceItemModal = ({
         <section className="spaceModal__content">
           {rowType === 'Image' && <img src={`https://ipfs.infura.io/ipfs/${dataValue[0].contentUrl['/']}`} className="spaceModal__content__image" alt="profile" />}
           {typeof dataValue === 'string' && dataValue}
-          {(typeof dataValue === 'object' && rowType !== 'Image' && dataKey !== 'collectiblesFavoritesToRender') && 'object'}
+          {(typeof dataValue === 'object' && rowType !== 'Image' && dataKey !== 'collectiblesFavoritesToRender') && (
+            <React.Fragment>
+              {
+                Object.keys(dataValue).map(content => (
+                  <p>{content}</p>
+                ))
+              }
+            </React.Fragment>
+          )}
           {dataKey === 'collectiblesFavoritesToRender' && (
             <div className="spaceModal__listWrapper">
               <img
@@ -418,6 +435,7 @@ DeleteSpaceItemModal.propTypes = {
 
 export const OpenSpaceModal = ({ viewSpaceItem, spaceItem }) => (
   <div className="modal__container modal--effect">
+    {console.log(spaceItem)}
     <div className="modal spaceDeleteModal">
       <button onClick={() => viewSpaceItem(false, false, false)} type="button" className="tertiaryButton spaceModal__close">
         Close
@@ -429,18 +447,15 @@ export const OpenSpaceModal = ({ viewSpaceItem, spaceItem }) => (
         <p className="spaceDeleteModal__body__explanantion">
           Approve the message in your web3 wallet to delete this item.
         </p>
-        <p className="spaceDeleteModal__body__warning">Are you sure you want to proceed?</p>
-        <div className="spaceDeleteModal__body__buttons">
-          <button
-            onClick={() => viewSpaceItem(true, false, false, spaceItem.dataKey, spaceItem.dataValue, spaceItem.spaceName, spaceItem.rowType, spaceItem.privacy)}
-            tabIndex={0}
-            onKeyPress={() => viewSpaceItem(true, false, false, spaceItem.dataKey, spaceItem.dataValue, spaceItem.spaceName, spaceItem.rowType, spaceItem.privacy)}
-            type="button"
-            className="spaceDeleteModal__body__buttons__cancel"
-          >
-            Cancel
-          </button>
-        </div>
+        <button
+          onClick={() => viewSpaceItem(true, false, false, spaceItem.dataKey, spaceItem.dataValue, spaceItem.spaceName, spaceItem.rowType, spaceItem.privacy)}
+          tabIndex={0}
+          onKeyPress={() => viewSpaceItem(true, false, false, spaceItem.dataKey, spaceItem.dataValue, spaceItem.spaceName, spaceItem.rowType, spaceItem.privacy)}
+          type="button"
+          className="spaceDeleteModal__body__buttons__cancel"
+        >
+          Cancel
+        </button>
       </section>
     </div>
     <div

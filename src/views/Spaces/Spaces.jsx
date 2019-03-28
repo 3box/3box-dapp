@@ -127,23 +127,28 @@ class Spaces extends Component {
     } = this.props;
     const { sortBy, spaceToDisplay } = this.state;
     const updatedAllData = cloneDeep(allData);
-    const updatedCollection = collection.slice();
-    const updatedCollectiblesFavorites = collectiblesFavorites.slice();
-    const updatedCollectiblesFavoritesToRender = collectiblesFavoritesToRender.slice();
+    const updatedCollection = collection && collection.slice();
+    const updatedCollectiblesFavorites = collectiblesFavorites && collectiblesFavorites.slice();
+    const updatedCollectiblesFavoritesToRender = collectiblesFavoritesToRender && collectiblesFavoritesToRender.slice();
 
     if (spaceName === '3Box') {
       let proof;
-      const keyUppercase = key.toUpperCase();
+      let keyUppercase;
 
       if (key === 'verifiedGithub') {
         proof = 'proof_github';
+        keyUppercase = 'VERIFIED_GITHUB';
       } else if (key === 'verifiedTwitter') {
         proof = 'proof_twitter';
+        keyUppercase = 'VERIFIED_TWITTER';
       } else if (key === 'verifiedEmail') {
         proof = 'proof_email';
+        keyUppercase = 'VERIFIED_EMAIL';
+      } else {
+        keyUppercase = key.toUpperCase();
       }
 
-      if (key === 'collectiblesFavoritesToRender' && typeof listIndex !== 'number') {
+      if (key === 'collectiblesFavoritesToRender' && updatedCollectiblesFavorites.length === 1) {
         box[privacy].remove('collectiblesFavorites');
         store.dispatch({
           type: 'MY_COLLECTIBLESFAVORITES_UPDATE',
@@ -174,8 +179,13 @@ class Spaces extends Component {
         this.updateAndSort(sortBy, updatedAllData, spaceToDisplay, list);
       }
     } else if (typeof listIndex === 'number') {
-      updatedAllData[spaceName][privacy][key].splice(listIndex, 1);
-      box.spaces[spaceName][privacy].set(key, updatedAllData[spaceName][privacy][key]);
+      if (updatedAllData[spaceName][privacy][key].length === 1) {
+        box.spaces[spaceName][privacy].remove(key);
+        delete updatedAllData[spaceName][privacy][key];
+      } else {
+        updatedAllData[spaceName][privacy][key].splice(listIndex, 1);
+        box.spaces[spaceName][privacy].set(key, updatedAllData[spaceName][privacy][key]);
+      }
       this.updateAndSort(sortBy, updatedAllData, spaceToDisplay, list);
     } else {
       box.spaces[spaceName][privacy].remove(key);
@@ -286,7 +296,7 @@ class Spaces extends Component {
             {showSpaceOpenedModal && <SpaceOpenedModal spaceName={spaceNameOpened} />}
 
             {showSpaceDataItemModal && (
-              (Array.isArray(spaceItem.dataValue) && spaceItem.rowType !== 'Image')
+              (Array.isArray(spaceItem.dataValue) && spaceItem.dataValue.length > 0 && spaceItem.rowType !== 'Image')
                 ? (
                   <div className="modal__container modal--effect list__container">
                     <div className="list__scrollable-wrapper">

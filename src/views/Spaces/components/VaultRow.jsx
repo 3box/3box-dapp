@@ -18,7 +18,12 @@ const VaultRow = ({ openSpace, spaceName, hasVaultOpened, isLoadingVault, vaultT
     </span>
     <span className="data__items__row__entry spaceRow__content">
       <button
-        className="data__items__row__unlockButton"
+        className={`
+        data__items__row__unlockButton 
+        ${(isLoadingVault && vaultToOpen === spaceName)
+            ? 'data__items__row__unlockButton--loading'
+            : ''
+          }`}
         type="button"
         onClick={() => openSpace(spaceName)}
       >

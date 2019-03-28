@@ -35,12 +35,14 @@ const PublicRow = ({ dataKey, dataValue, spaceName, rowType, privacy, viewSpaceI
       )}
       {(typeof dataValue === 'object' && rowType !== 'Image' && !Array.isArray(dataValue)) && (
         <p className="data__text">
-          object2
+          {Object.keys(dataValue).map(item => (
+            <p>{item}</p>
+          ))}
         </p>
       )}
-      {(typeof dataValue === 'object' && rowType !== 'Image' && Array.isArray(dataValue)) && (
+      {(rowType !== 'Image' && Array.isArray(dataValue)) && (
         <p className="data__text">
-          object
+          Array
         </p>
       )}
       {(Array.isArray(dataValue) && rowType !== 'Image') && (

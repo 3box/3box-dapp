@@ -209,6 +209,9 @@
     background-color: #303030;
     border-color: #303030; }
 
+.data__items__row__unlockButton--loading {
+  min-width: 184px; }
+
 .data__items__row__entry {
   display: flex;
   justify-content: flex-start;

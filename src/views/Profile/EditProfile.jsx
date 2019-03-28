@@ -1086,7 +1086,7 @@ class EditProfile extends Component {
                       &#10005;
                     </button>
 
-                    {(((image.length > 0 && image[0].contentUrl) || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])) && !removeUserPic)
+                    {(((image && image.length > 0 && image[0].contentUrl) || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])) && !removeUserPic)
                       ? (
                         <div className="profPic_div">
                           <div className="profPic_div_overlay">

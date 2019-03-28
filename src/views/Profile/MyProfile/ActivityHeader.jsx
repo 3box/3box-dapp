@@ -10,7 +10,7 @@ import '../../../components/styles/NetworkArray.css';
 const Activity = ({ name, image, feedAddress }) => (
   <div className="feed__activity__context">
     {(Object.keys(feedAddress)[0] === 'threeBox')
-      && (image.length > 0 && image[0].contentUrl
+      && (image && image.length > 0 && image[0].contentUrl
         ? (
           <div className="feed__activity__userWrapper">
             <img

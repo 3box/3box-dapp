@@ -64,11 +64,6 @@ class Nav extends Component {
           <p>{networkColor}</p>
         </div>
 
-        {/* {
-          image.length > 0 && image[0].contentUrl ?
-            <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} className="nav__userPicture clearProfPic" alt="profile" onClick={this.handleDropdown} role="button" />
-            : <div className="nav__userPicture" onClick={this.handleDropdown} />
-        } */}
         {
           <div className="nav__arrow" onClick={this.handleDropdown}>
             &#9660;
@@ -78,7 +73,7 @@ class Nav extends Component {
         <span className="nav__tabs">
           <Link to={`/${currentAddress}/${routes.ACTIVITY}`} className="nav__profile">
             {
-              image.length > 0 && image[0].contentUrl ?
+              image && image.length > 0 && image[0].contentUrl ?
                 <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} className="nav__userPicture clearProfPic" alt="profile" onClick={this.handleDropdown} role="button" />
                 : <div className="nav__userPicture" onClick={this.handleDropdown} />
             }
@@ -94,12 +89,6 @@ class Nav extends Component {
         <div className={`${showProfileModal ? 'nav__dropdown--visible' : undefined} nav__dropdown nav__dropdown--desktop`}
           onClick={this.handleDropdown}>
           <ul>
-            {/* <Link to={`/${currentAddress}/${routes.ACTIVITY}`}>
-              <li className="nav__dropdown__wrapper">
-                <img src={Profile} className="nav__dropdown__icon" alt="profile" role="button" />
-                Profile
-              </li>
-            </Link> */}
             <Link to={`/${currentAddress}/${routes.EDIT}`}>
               <li className="nav__dropdown__wrapper">
                 <img src={Edit} className="nav__dropdown__icon" alt="profile" role="button" />
