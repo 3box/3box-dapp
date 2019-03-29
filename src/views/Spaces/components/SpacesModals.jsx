@@ -435,7 +435,6 @@ DeleteSpaceItemModal.propTypes = {
 
 export const OpenSpaceModal = ({ viewSpaceItem, spaceItem }) => (
   <div className="modal__container modal--effect">
-    {console.log(spaceItem)}
     <div className="modal spaceDeleteModal">
       <button onClick={() => viewSpaceItem(false, false, false)} type="button" className="tertiaryButton spaceModal__close">
         Close

@@ -328,6 +328,9 @@ nav {
   background: white;
   transition: 0.6s; }
 
+.nav__profile--mobile {
+  display: none; }
+
 .landing.createProfileLink:hover:after {
   background: white !important; }
 
@@ -455,6 +458,8 @@ nav {
     color: #1168df !important; }
   .hide #actionButtons button {
     color: white; }
+  .nav__data {
+    display: none; }
   .landing__nav__developers {
     display: none !important; }
   .landing__nav__developers__icon {
@@ -473,6 +478,12 @@ nav {
     margin-left: 15px;
     font-size: 14px;
     display: none; }
+  .nav__tabs {
+    display: none; }
+  .nav__arrow {
+    display: none; }
+  .nav__profile--mobile {
+    display: flex; }
   #nav__logo--marginLeft {
     margin-left: 6vw;
     display: none; }

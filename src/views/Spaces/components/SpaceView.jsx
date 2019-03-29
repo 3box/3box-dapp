@@ -8,7 +8,6 @@ import '../styles/Spaces.css';
 
 const SpaceView = ({ openSpace, spaceDataToRender, spacesOpened, vaultToOpen, isLoadingVault }) => (
   <React.Fragment>
-    {console.log(spaceDataToRender)}
     {spaceDataToRender.length > 0 && spaceDataToRender.map((row) => {
       if (row.name !== 'collectiblesFavoritesToRender'
         && row.name !== 'private_space_data') {

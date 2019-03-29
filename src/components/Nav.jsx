@@ -59,6 +59,14 @@ class Nav extends Component {
           </Link>
         </div>
 
+        <div id="nav__profile--mobile">
+          {
+            image && image.length > 0 && image[0].contentUrl ?
+              <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} className="nav__userPicture clearProfPic" alt="profile" onClick={this.handleDropdown} role="button" />
+              : <div className="nav__userPicture" onClick={this.handleDropdown} />
+          }
+        </div>
+
         <div id="nav__networkStatus">
           <div id="nav__networkStatus__networkColor" className={`${networkColor}`} />
           <p>{networkColor}</p>
@@ -74,8 +82,8 @@ class Nav extends Component {
           <Link to={`/${currentAddress}/${routes.ACTIVITY}`} className="nav__profile">
             {
               image && image.length > 0 && image[0].contentUrl ?
-                <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} className="nav__userPicture clearProfPic" alt="profile" onClick={this.handleDropdown} role="button" />
-                : <div className="nav__userPicture" onClick={this.handleDropdown} />
+                <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} className="nav__userPicture clearProfPic" alt="profile" role="button" />
+                : <div className="nav__userPicture" />
             }
             Profile
           </Link>
@@ -86,8 +94,10 @@ class Nav extends Component {
         </span>
 
         {/* desktop nav dropdown */}
-        <div className={`${showProfileModal ? 'nav__dropdown--visible' : undefined} nav__dropdown nav__dropdown--desktop`}
-          onClick={this.handleDropdown}>
+        <div
+          className={`${showProfileModal ? 'nav__dropdown--visible' : undefined} nav__dropdown nav__dropdown--desktop`}
+          onClick={this.handleDropdown}
+        >
           <ul>
             <Link to={`/${currentAddress}/${routes.EDIT}`}>
               <li className="nav__dropdown__wrapper">
@@ -104,10 +114,17 @@ class Nav extends Component {
         </div>
 
         {showProfileModal &&
-          <div className='onClickOutside' onClick={this.handleDropdown} />}
+          <div
+            className='onClickOutside'
+            onClick={this.handleDropdown}
+          />}
 
         {/* mobile nav dropdown */}
-        <div className={`${showProfileModal ? 'sideDrawer' : undefined} nav__dropdown mobileDropDown`} onMouseLeave={this.handleDropdown} onClick={this.handleDropdown}>
+        <div
+          className={`${showProfileModal ? 'sideDrawer' : undefined} nav__dropdown mobileDropDown`}
+          onMouseLeave={this.handleDropdown}
+          onClick={this.handleDropdown}
+        >
           <ul>
             <div className="nav__dropdown__mobileLogo">
               <img src={ThreeBoxLogo} alt="3Box Logo" className="landing__nav__logo" />
@@ -117,13 +134,36 @@ class Nav extends Component {
               <p>{networkColor}</p>
             </div>
 
-            <Link to={`/${currentAddress}/${routes.ACTIVITY}`}><li className={normalizedPath === `/${currentAddress}/${routes.ACTIVITY}` ? 'nav__activePage' : ''}>Profile</li></Link>
-            <Link to={`/${currentAddress}/${routes.EDIT}`}><li className={normalizedPath === `/${currentAddress}/${routes.EDIT}` ? 'nav__activePage' : ''}>Edit profile</li></Link>
-            <li id="mobileNav__signout" onClick={() => this.handleSignOut()}>Sign Out</li>
+            <Link to={`/${currentAddress}/${routes.ACTIVITY}`}>
+              <li className={normalizedPath === `/${currentAddress}/${routes.ACTIVITY}` ? 'nav__activePage' : ''}>
+                Profile
+              </li>
+            </Link>
+            <Link to={`/${currentAddress}/${routes.EDIT}`}>
+              <li className={normalizedPath === `/${currentAddress}/${routes.EDIT}` ? 'nav__activePage' : ''}>
+                Edit profile
+              </li>
+            </Link>
+            <Link to={`/${currentAddress}/${routes.DATA}`}>
+              <li className={normalizedPath === `/${currentAddress}/${routes.DATA}` ? 'nav__activePage' : ''}>
+                Data
+              </li>
+            </Link>
+            <li
+              id="mobileNav__signout"
+              onClick={() => this.handleSignOut()}
+              tabIndex={0}
+              onKeyPress={() => this.handleSignOut()}
+            >
+              Sign Out
+            </li>
           </ul>
         </div>
 
-        <div id={showProfileModal ? 'dropdownContainer' : undefined} onClick={this.handleDropdown} />
+        <div
+          id={showProfileModal ? 'dropdownContainer' : undefined}
+          onClick={this.handleDropdown}
+        />
 
       </nav>
     );

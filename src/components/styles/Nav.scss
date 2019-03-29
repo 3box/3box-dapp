@@ -419,6 +419,10 @@ nav {
   transition: 0.6s;
 }
 
+.nav__profile--mobile {
+  display: none;
+}
+
 .landing.createProfileLink:hover:after {
   background: white !important;
 }
@@ -591,6 +595,9 @@ nav {
     }
   }
 
+  .nav__data {
+    display: none;
+  }
 
   .landing__nav__developers {
     display: none !important;
@@ -624,6 +631,18 @@ nav {
     margin-left: 15px;
     font-size: 14px;
     display: none;
+  }
+
+  .nav__tabs {
+    display: none;
+  }
+
+  .nav__arrow {
+    display: none;
+  }
+
+  .nav__profile--mobile {
+    display: flex;
   }
 
   #nav__logo--marginLeft {
