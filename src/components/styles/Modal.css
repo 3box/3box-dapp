@@ -170,6 +170,7 @@
   height: 120px;
   max-width: 70vw;
   padding: 15px;
+  min-width: 100%;
   background-color: #f8f8f8; }
 
 .spaceModal__content__object-keys {
@@ -1128,6 +1129,17 @@
     border: none !important; }
   .modal__collectibles__info__wrapper {
     padding: 15px 20px 25px 20px; }
+  .spaceModal {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 0;
+    position: relative;
+    width: fit-content;
+    min-width: 90vw;
+    min-height: 200px;
+    overflow: visible; }
   .githubModal {
     padding: 0;
     width: 92vw;

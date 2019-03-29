@@ -259,7 +259,7 @@
   }
 }
 
-.data__items__row__unlockButton--loading{
+.data__items__row__unlockButton--loading {
   min-width: 184px;
 }
 
@@ -371,5 +371,53 @@
     color: $threeBoxBlue;
     margin-left: 6px;
     font-size: 10px;
+  }
+}
+
+
+
+@media only screen and (max-width: 600px) {
+  .data__page {
+    position: relative;
+    width: 100vw;
+    overflow: hidden;
+  }
+
+  .spaces {
+    background-color: white;
+    width: 100vw;
+    height: calc(100vh - 69px);
+  }
+
+  .dataExplorer {
+    position: absolute;
+    width: 100vw;
+    left: 100vw;
+  }
+
+  .data__header {
+    width: 100vw;
+    left: 100vw;
+  }
+
+  .space {
+    border-bottom: 1px solid $borderColor;
+    width: 90%;
+  }
+
+  .hideList {}
+
+  .closeSpaces {
+    margin-left: -100vw;
+  }
+
+  .data__header--wide {
+    width: 100vw;
+    left: 0vw;
+  }
+
+  .wideDataExplorer {
+    width: 100vw;
+    left: 0;
   }
 }

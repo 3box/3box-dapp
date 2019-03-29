@@ -329,7 +329,7 @@ nav {
   transition: 0.6s; }
 
 .nav__profile--mobile {
-  display: none; }
+  display: none !important; }
 
 .landing.createProfileLink:hover:after {
   background: white !important; }

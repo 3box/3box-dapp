@@ -420,7 +420,7 @@ nav {
 }
 
 .nav__profile--mobile {
-  display: none;
+  display: none !important;
 }
 
 .landing.createProfileLink:hover:after {

@@ -8,7 +8,6 @@ import ThreeBoxB from '../assets/3Box3Blue.svg';
 import actions from '../state/actions';
 import * as routes from '../utils/routes';
 import { normalizeURL } from '../utils/funcs';
-import Profile from '../assets/Profile.svg';
 import Edit from '../assets/Edit.svg';
 import SignOut from '../assets/SignOut.svg';
 import Folder from '../assets/Folder.svg';
@@ -59,7 +58,7 @@ class Nav extends Component {
           </Link>
         </div>
 
-        <div id="nav__profile--mobile">
+        <div className="nav__profile--mobile">
           {
             image && image.length > 0 && image[0].contentUrl ?
               <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} className="nav__userPicture clearProfPic" alt="profile" onClick={this.handleDropdown} role="button" />

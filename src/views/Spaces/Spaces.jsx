@@ -36,6 +36,7 @@ class Spaces extends Component {
       sortDirection: true,
       showSpaceList: true,
       isLoadingVault: false,
+      showSpacesMobile: false,
     };
     this.openSpace = this.openSpace.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
@@ -285,7 +286,10 @@ class Spaces extends Component {
       isLoadingVault,
       vaultToOpen,
       showSpaceList,
+      showSpacesMobile,
     } = this.state;
+
+    console.log('showSpacesMobile', showSpacesMobile);
 
     return (
       <div>
@@ -352,12 +356,14 @@ class Spaces extends Component {
           <SpacesList
             spaceToDisplay={spaceToDisplay}
             sortData={this.sortData}
+            handleSpaceListView={this.handleSpaceListView}
             sortBy={sortBy}
             list={list}
             show={showSpaceList}
+          // showSpacesMobile={showSpacesMobile}
           />
 
-          <main className={`dataExplorer ${showSpaceList ? '' : 'wideDataExplorer'}`}>
+          <main className={`dataExplorer ${showSpaceList ? '' : 'wideDataExplorer'} `}>
             <Header
               spaceToDisplay={spaceToDisplay}
               isSpacesLoading={isSpacesLoading}
@@ -366,6 +372,7 @@ class Spaces extends Component {
               sortDirection={sortDirection}
               sortData={this.sortData}
               show={showSpaceList}
+            // showSpacesMobile={showSpacesMobile}
             />
 
             <section className="data__items">
