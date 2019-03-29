@@ -216,6 +216,9 @@ class Spaces extends Component {
       const publicSpace = await box.spaces[spaceName].public.all();
       const privateSpace = await box.spaces[spaceName].private.all();
 
+      console.log('publicSpace', publicSpace);
+      console.log('privateSpace', privateSpace);
+
       updatedAllData[spaceName].public = publicSpace;
       updatedAllData[spaceName].private = privateSpace;
       updatedspacesOpened[spaceName] = true;
