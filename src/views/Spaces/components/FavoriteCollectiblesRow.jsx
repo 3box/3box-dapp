@@ -39,14 +39,14 @@ const FavoriteCollectiblesRow = ({
       </span>
       <span className="data__items__row__entry spaceRow__space">
         <p className="data__text">
-          {spaceName}
+          3Box
         </p>
       </span>
       <span className="data__items__row__entry spaceRow__type">
         <div className="data__text">
-          <span className={`type__tag ${rowType}`}>
+          <span className="type__tag List">
             <p className="spaceRow__tag__text">
-              {rowType}
+              List
             </p>
           </span>
         </div>

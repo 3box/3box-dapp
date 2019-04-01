@@ -121,7 +121,7 @@ const PublicRow = ({
       <span className="data__items__row__entry spaceRow__updated">
         <p className="data__text">
           Feb 19, 2019
-      </p>
+          </p>
       </span>
     </div>
   );

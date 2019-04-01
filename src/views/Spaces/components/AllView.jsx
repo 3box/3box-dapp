@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import VaultRow from './VaultRow';
+import VaultRowMobile from './VaultRowMobile';
 import PublicRow from './PublicRow';
+import PublicRowMobile from './PublicRowMobile';
 import FavoriteCollectiblesRow from './FavoriteCollectiblesRow';
+import FavoriteCollectiblesRowMobile from './FavoriteCollectiblesRowMobile';
 import '../styles/Spaces.css';
 
 const AllView = ({
@@ -17,7 +20,7 @@ const AllView = ({
     <React.Fragment>
       {sortedSpace.length > 0 && sortedSpace.map((row) => {
         if (row.name !== 'collectiblesFavoritesToRender'
-          && row.name !== 'private_space_data') {
+          && row.name !== 'private_space_data' && window.innerWidth >= 812) {
           return (
             <PublicRow
               dataKey={row.name}
@@ -28,7 +31,19 @@ const AllView = ({
             />);
         }
 
-        if (row.name === 'private_space_data') {
+        if (row.name !== 'collectiblesFavoritesToRender'
+          && row.name !== 'private_space_data' && window.innerWidth <= 812) {
+          return (
+            <PublicRowMobile
+              dataKey={row.name}
+              dataValue={row.content}
+              spaceName={row.space}
+              privacy={row.privacy}
+              rowType={row.type}
+            />);
+        }
+
+        if (row.name === 'private_space_data' && window.innerWidth >= 812) {
           return (
             <VaultRow
               openSpace={openSpace}
@@ -39,9 +54,31 @@ const AllView = ({
             />);
         }
 
-        if (row.name === 'collectiblesFavoritesToRender') {
+        if (row.name === 'private_space_data' && window.innerWidth <= 812) {
+          return (
+            <VaultRowMobile
+              openSpace={openSpace}
+              spaceName={row.space}
+              isLoadingVault={isLoadingVault}
+              vaultToOpen={vaultToOpen}
+              hasVaultOpened={spacesOpened[row.space]}
+            />);
+        }
+
+        if (row.name === 'collectiblesFavoritesToRender' && window.innerWidth >= 812) {
           return (
             <FavoriteCollectiblesRow
+              dataKey={row.name}
+              dataValue={row.content}
+              spaceName={row.space}
+              privacy={row.privacy}
+              rowType={row.type}
+            />);
+        }
+
+        if (row.name === 'collectiblesFavoritesToRender' && window.innerWidth <= 812) {
+          return (
+            <FavoriteCollectiblesRowMobile
               dataKey={row.name}
               dataValue={row.content}
               spaceName={row.space}
