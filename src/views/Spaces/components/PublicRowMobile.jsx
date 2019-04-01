@@ -30,7 +30,7 @@ const PublicRowMobile = ({
       <div className="data__items--namewrapper">
         <div className="data__name">
           <p className="data__items__spacename">
-            {spaceName.toUpperCase()}
+            {spaceName}
           </p>
           <p>
             {(dataKey && dataKey !== 'collectiblesFavoritesToRender')
@@ -98,7 +98,7 @@ const PublicRowMobile = ({
           ? <img src={Private} alt="Transaction Icon" className="data__items__privacyicon" />
           : <img src={Globe} alt="Transaction Icon" className="data__items__privacyicon" />
         }
-        
+
         <span className={`type__tag ${rowType}`}>
           <p className="spaceRow__tag__text">
             {rowType}
