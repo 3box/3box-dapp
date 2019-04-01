@@ -110,7 +110,8 @@
   position: relative;
   width: fit-content;
   min-width: 500px;
-  min-height: 200px;
+  min-height: fit-content;
+  // min-height: 200px;
   overflow: visible;
 }
 
@@ -360,7 +361,7 @@
   background-color: $lightFont;
   border: 1px solid $lightFont;
   border-radius: 2px !important;
-  padding: 10px 15px;
+  padding: 12px 15px;
 
   &:hover {
     background-color: $lightFontHover;
@@ -1358,6 +1359,10 @@
     }
   }
 
+  .spaceModal__container{
+    overflow: scroll;
+  }
+
   .modal__github__description__copy__button--mobile {
     display: flex;
     color: $lightFont;
@@ -1395,6 +1400,10 @@
     .modal__loading3Box {
       margin-bottom: 0;
     }
+  }
+
+  .spaceDeleteModal__body__buttons{
+    width: 58%;
   }
 
   .modal--space {
@@ -1483,9 +1492,17 @@
     padding: 0;
     position: relative;
     width: fit-content;
+    min-height: fit-content;
     min-width: 90vw;
-    min-height: 200px;
+    margin: 120px 0 60px 0;
+    // min-height: 200px;
     overflow: visible;
+  }
+
+  .spaceDeleteModal {
+    padding: 0;
+    width: 40vw;
+    min-width: 90vw;
   }
 
   .githubModal {

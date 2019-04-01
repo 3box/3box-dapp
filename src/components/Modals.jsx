@@ -9,7 +9,6 @@ import ThreeBoxLogoWhite from '../assets/ThreeBoxLogoWhite.svg';
 import ThreeBoxLogoBlue from '../assets/ThreeBoxLogoBlue.svg';
 import HeartBlue from '../assets/HeartBlue.svg';
 import GithubIcon from '../assets/GithubIcon.svg';
-import Space from '../assets/Space.svg';
 import TwitterIcon from '../assets/twitterGrey.svg';
 import Email from '../assets/Email.svg';
 import TrustWallet from '../assets/TrustWallet.png';

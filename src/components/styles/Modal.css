@@ -89,7 +89,7 @@
   position: relative;
   width: fit-content;
   min-width: 500px;
-  min-height: 200px;
+  min-height: fit-content;
   overflow: visible; }
 
 .listSpaceModal {
@@ -298,7 +298,7 @@
   background-color: #6b6b6b;
   border: 1px solid #6b6b6b;
   border-radius: 2px !important;
-  padding: 10px 15px; }
+  padding: 12px 15px; }
   .spaceDeleteModal__body__buttons__cancel:hover {
     background-color: #525252;
     border: 1px solid #525252; }
@@ -1050,6 +1050,8 @@
     max-height: 450px; }
     .modal img {
       width: 100px; }
+  .spaceModal__container {
+    overflow: scroll; }
   .modal__github__description__copy__button--mobile {
     display: flex;
     color: #6b6b6b;
@@ -1075,6 +1077,8 @@
       width: 34px; }
     .modal--sync .modal__loading3Box {
       margin-bottom: 0; }
+  .spaceDeleteModal__body__buttons {
+    width: 58%; }
   .modal--space {
     width: 78vw;
     padding: 0 24px;
@@ -1137,9 +1141,14 @@
     padding: 0;
     position: relative;
     width: fit-content;
+    min-height: fit-content;
     min-width: 90vw;
-    min-height: 200px;
+    margin: 120px 0 60px 0;
     overflow: visible; }
+  .spaceDeleteModal {
+    padding: 0;
+    width: 40vw;
+    min-width: 90vw; }
   .githubModal {
     padding: 0;
     width: 92vw;

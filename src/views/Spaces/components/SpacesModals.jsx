@@ -36,7 +36,7 @@ export const ViewSpaceDataItemModal = ({
   privacy,
   lastUpdated,
 }) => (
-    <div className="modal__container modal--effect">
+    <div className="modal__container modal--effect spaceModal__container">
       <div className="modal spaceModal">
         <button onClick={() => viewSpaceItem(false, false, false)} type="button" className="tertiaryButton spaceModal__close">
           Close
