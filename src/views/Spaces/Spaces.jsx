@@ -37,6 +37,7 @@ class Spaces extends Component {
       showSpaceList: true,
       isLoadingVault: false,
       showSpacesMobile: false,
+      showMobileInput: false,
     };
     this.openSpace = this.openSpace.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
@@ -64,6 +65,11 @@ class Spaces extends Component {
   handleSpaceListView = () => {
     const { showSpaceList } = this.state;
     this.setState({ showSpaceList: !showSpaceList });
+  }
+
+  handleMobileInput = () => {
+    const { showMobileInput } = this.state;
+    this.setState({ showMobileInput: !showMobileInput });
   }
 
   sortData = (category, updatedData, spaceName, newSort) => {
@@ -287,6 +293,7 @@ class Spaces extends Component {
       vaultToOpen,
       showSpaceList,
       showSpacesMobile,
+      showMobileInput,
     } = this.state;
 
     console.log('showSpacesMobile', showSpacesMobile);
@@ -369,9 +376,11 @@ class Spaces extends Component {
               isSpacesLoading={isSpacesLoading}
               sortBy={sortBy}
               handleSpaceListView={this.handleSpaceListView}
+              handleMobileInput={this.handleMobileInput}
               sortDirection={sortDirection}
               sortData={this.sortData}
               show={showSpaceList}
+              showMobileInput={showMobileInput}
             // showSpacesMobile={showSpacesMobile}
             />
 

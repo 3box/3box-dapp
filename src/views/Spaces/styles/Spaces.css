@@ -302,6 +302,9 @@
     margin-left: 6px;
     font-size: 10px; }
 
+.data__categories--mobile {
+  display: none; }
+
 @media only screen and (max-width: 600px) {
   .data__page {
     position: relative;
@@ -317,7 +320,8 @@
     left: 100vw; }
   .data__header {
     width: 100vw;
-    left: 100vw; }
+    left: 100vw;
+    align-items: flex-start; }
   .space {
     border-bottom: 1px solid #ececec;
     width: 90%; }
@@ -328,4 +332,76 @@
     left: 0vw; }
   .wideDataExplorer {
     width: 100vw;
-    left: 0; } }
+    left: 0; }
+  .data__categories {
+    display: none; }
+  .data__items__row p,
+  .data__items__row span {
+    color: #828282;
+    font-size: 13px; }
+  .data__categories--mobile {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 2vw;
+    position: relative;
+    height: 50px;
+    border-bottom: 1px solid #ececec;
+    width: 100%; }
+    .data__categories--mobile p {
+      color: #828282 !important;
+      margin-right: 16px; }
+  .data__categories__input {
+    border: solid 1px #ececec;
+    padding: 10px !important;
+    background-color: white;
+    border-radius: 6px;
+    height: 50px;
+    box-sizing: border-box;
+    font-size: 13px; }
+    .data__categories__input:focus {
+      font-size: 13px; }
+  .data__selected-sort {
+    border: solid 1px #ececec;
+    padding: 6px 10px !important;
+    background-color: white;
+    border-radius: 6px;
+    width: 100px;
+    height: 36px;
+    box-sizing: border-box;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative; }
+  .data__categories__title__arrow {
+    margin-left: 12px; }
+  .data__categories__picker--mobile {
+    position: absolute;
+    top: 46px;
+    left: 0;
+    border: solid 1px #ececec;
+    padding: 16px 0 !important;
+    background-color: white;
+    border-radius: 6px;
+    width: 160px;
+    height: fit-content;
+    box-sizing: border-box;
+    font-size: 13px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column; }
+    .data__categories__picker--mobile ul {
+      padding: 0; }
+    .data__categories__picker--mobile li {
+      height: 44px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      color: #828282;
+      padding: 0 16px;
+      width: 158px;
+      box-sizing: border-box; }
+  .activeSort {
+    background-color: #e9e9e9; } }
