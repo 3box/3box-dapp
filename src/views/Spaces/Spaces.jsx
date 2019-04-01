@@ -364,6 +364,7 @@ class Spaces extends Component {
             spaceToDisplay={spaceToDisplay}
             sortData={this.sortData}
             handleSpaceListView={this.handleSpaceListView}
+            isSpacesLoading={isSpacesLoading}
             sortBy={sortBy}
             list={list}
             show={showSpaceList}

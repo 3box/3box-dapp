@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Loading from '../../../assets/Loading.svg';
 
 import '../styles/Spaces.css';
 
@@ -11,6 +12,7 @@ const SpacesList = ({
   show,
   showSpacesMobile,
   handleSpaceListView,
+  isSpacesLoading,
 }) => (
     <section className={`spaces ${show ? '' : 'closeSpaces'} ${showSpacesMobile ? 'closeSpaces' : ''}`}>
       <div
@@ -27,6 +29,7 @@ const SpacesList = ({
         tabIndex={0}
       >
         <p className="space__name">All data</p>
+        {isSpacesLoading && <img className="data__space__loading" src={Loading} alt="info" />}
         <span className="space__arrow">&#x3e;</span>
       </div>
 
@@ -75,6 +78,7 @@ SpacesList.propTypes = {
   sortBy: PropTypes.string.isRequired,
   spaceToDisplay: PropTypes.string.isRequired,
   showSpacesMobile: PropTypes.bool.isRequired,
+  isSpacesLoading: PropTypes.bool.isRequired,
 };
 
 export default SpacesList;

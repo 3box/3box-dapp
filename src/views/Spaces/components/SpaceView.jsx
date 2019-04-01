@@ -1,16 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import VaultRow from './VaultRow';
 import PublicRow from './PublicRow';
 import FavoriteCollectiblesRow from './FavoriteCollectiblesRow';
+import VaultRowMobile from './VaultRowMobile';
+import PublicRowMobile from './PublicRowMobile';
+import FavoriteCollectiblesRowMobile from './FavoriteCollectiblesRowMobile';
 import '../styles/Spaces.css';
 
 const SpaceView = ({ openSpace, spaceDataToRender, spacesOpened, vaultToOpen, isLoadingVault }) => (
   <React.Fragment>
     {spaceDataToRender.length > 0 && spaceDataToRender.map((row) => {
       if (row.name !== 'collectiblesFavoritesToRender'
-        && row.name !== 'private_space_data') {
+        && row.name !== 'private_space_data' && window.innerWidth >= 812) {
         return (
           <PublicRow
             dataKey={row.name}
@@ -21,7 +25,19 @@ const SpaceView = ({ openSpace, spaceDataToRender, spacesOpened, vaultToOpen, is
           />);
       }
 
-      if (row.name === 'private_space_data') {
+      if (row.name !== 'collectiblesFavoritesToRender'
+        && row.name !== 'private_space_data' && window.innerWidth <= 812) {
+        return (
+          <PublicRowMobile
+            dataKey={row.name}
+            dataValue={row.content}
+            spaceName={row.space}
+            privacy={row.privacy}
+            rowType={row.type}
+          />);
+      }
+
+      if (row.name === 'private_space_data' && window.innerWidth >= 812) {
         return (
           <VaultRow
             openSpace={openSpace}
@@ -32,9 +48,31 @@ const SpaceView = ({ openSpace, spaceDataToRender, spacesOpened, vaultToOpen, is
           />);
       }
 
-      if (row.name === 'collectiblesFavoritesToRender') {
+      if (row.name === 'private_space_data' && window.innerWidth <= 812) {
+        return (
+          <VaultRowMobile
+            openSpace={openSpace}
+            spaceName={row.space}
+            isLoadingVault={isLoadingVault}
+            vaultToOpen={vaultToOpen}
+            hasVaultOpened={spacesOpened[row.space]}
+          />);
+      }
+
+      if (row.name === 'collectiblesFavoritesToRender' && window.innerWidth >= 812) {
         return (
           <FavoriteCollectiblesRow
+            dataKey={row.name}
+            dataValue={row.content}
+            spaceName={row.space}
+            privacy={row.privacy}
+            rowType={row.type}
+          />);
+      }
+
+      if (row.name === 'collectiblesFavoritesToRender' && window.innerWidth <= 812) {
+        return (
+          <FavoriteCollectiblesRowMobile
             dataKey={row.name}
             dataValue={row.content}
             spaceName={row.space}
