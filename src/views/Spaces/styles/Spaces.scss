@@ -12,9 +12,10 @@
   flex-direction: column;
   height: 100%;
   background-color: #E8EAEE;
-  width: 18vw;
+  width: calc(18vw - 40px);
   overflow-y: scroll;
   min-width: 216px;
+  box-sizing: border-box;
 
   -webkit-transition: all .5s ease;
   -moz-transition: all .5s ease;
@@ -23,7 +24,7 @@
 }
 
 .closeSpaces {
-  margin-left: -18vw;
+  margin-left: calc(-18vw - 40px);
 }
 
 .dataExplorer {
@@ -56,6 +57,7 @@
   padding: 20px 0;
   width: 100%;
   cursor: pointer;
+  box-sizing: border-box;
 
   &:hover .space__name {
     color: $threeBoxBlue;
@@ -104,7 +106,7 @@
 
 .data__header--wide {
   width: 100vw;
-  left: 0vw;
+  left: 0vw !important;
 }
 
 .data__space {
@@ -381,7 +383,7 @@
 
 @media only screen and (max-width: 1198px) {
   .data__header {
-    left: 216px ;
+    left: 216px;
   }
 }
 
@@ -414,7 +416,7 @@
 
   .data__header {
     width: 100vw;
-    left: 100vw;
+    left: 100vw !important;
     align-items: flex-start;
   }
 
@@ -430,8 +432,13 @@
   }
 
   .data__header--wide--mobile {
-    width: 100vw;
-    left: 0vw;
+    width: 100vw !important;
+    left: 0vw !important;
+  }
+
+  .data__header--wide {
+    // width: 100vw;
+    // left: 0vw;
   }
 
   .data__space {
