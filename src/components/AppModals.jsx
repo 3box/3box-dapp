@@ -248,7 +248,7 @@ class AppModals extends Component {
             || onBoardingModalMobileThree)
             && isMobile)
         ) && <ModalBackground />}
-        
+
       </ReactCSSTransitionGroup>
     );
   }

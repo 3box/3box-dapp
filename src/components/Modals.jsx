@@ -12,6 +12,7 @@ import GithubIcon from '../assets/GithubIcon.svg';
 import TwitterIcon from '../assets/twitterGrey.svg';
 import Email from '../assets/Email.svg';
 import TrustWallet from '../assets/TrustWallet.png';
+import Mollie from '../assets/Mollie.png';
 import Consent from '../assets/Consent.png';
 import Access from '../assets/Access.png';
 import Switched from '../assets/Switched.svg';
@@ -802,16 +803,12 @@ AccessDeniedModal.propTypes = {
 export const LoadingThreeBoxProfileModal = ({ show }) => (
   <div>
     <div className="modal__container modal--effect">
-      <div className="modal">
-        <img src={Loading} alt="Loading" id="modal__loadingGraphic" />
-
-        <div>
-          <div id="logo" className="modal__loading3Box">
-            <img src={ThreeBoxLogoBlue} alt="3Box Logo" />
-          </div>
-          <p>LOADING</p>
+      <div className="modal loadingModal">
+        <img src={Mollie} alt="Mollie the Narwhal" className="modal__loading__mollie" />
+        <div id="logo" className="modal__loading3Box">
+          <img src={ThreeBoxLogoBlue} alt="3Box Logo" />
         </div>
-
+        <img src={Loading} alt="Loading" id="modal__loadingGraphic" />
       </div>
     </div>
 

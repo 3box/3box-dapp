@@ -101,6 +101,12 @@
   }
 }
 
+.loadingModal {
+  width: 270px;
+  height: 300px;
+  min-height: 300px;
+}
+
 .spaceModal {
   display: flex;
   justify-content: space-between;
@@ -931,8 +937,13 @@
 }
 
 #modal__loadingGraphic {
-  width: 60px;
+  width: 46px;
   margin-top: 60px;
+}
+
+.modal__loading__mollie {
+  width: 120px !important;
+  margin-top: 22px;
 }
 
 #modal__loadingGraphic--noMargin {
@@ -948,7 +959,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-top: 26px;
 }
 
 #modal__switchBack {
@@ -1359,7 +1370,7 @@
     }
   }
 
-  .spaceModal__container{
+  .spaceModal__container {
     overflow: scroll;
   }
 
@@ -1402,7 +1413,7 @@
     }
   }
 
-  .spaceDeleteModal__body__buttons{
+  .spaceDeleteModal__body__buttons {
     width: 58%;
   }
 
