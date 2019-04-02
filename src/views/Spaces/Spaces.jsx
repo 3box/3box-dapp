@@ -33,6 +33,7 @@ class Spaces extends Component {
       spaceNameOpened: '',
       vaultToOpen: '',
       sortBy: '',
+      width: null,
       sortDirection: true,
       showSpaceList: true,
       isLoadingVault: false,
@@ -43,8 +44,13 @@ class Spaces extends Component {
     this.deleteItem = this.deleteItem.bind(this);
   }
 
+  componentWillMount() {
+    window.addEventListener('resize', this.handleWindowSizeChange);
+  }
+
   async componentDidMount() {
     window.scrollTo(0, 0);
+    this.setState({ width: window.innerWidth });
     const { allData } = this.props;
 
     this.sortData('name', allData, 'All Data', false);
@@ -62,9 +68,22 @@ class Spaces extends Component {
     }
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleWindowSizeChange);
+  }
+
+  handleWindowSizeChange = () => {
+    this.setState({ width: window.innerWidth });
+  }
+
   handleSpaceListView = () => {
     const { showSpaceList } = this.state;
     this.setState({ showSpaceList: !showSpaceList });
+  }
+
+  handleMobileSpaceListView = () => {
+    const { showSpacesMobile } = this.state;
+    this.setState({ showSpacesMobile: !showSpacesMobile });
   }
 
   handleMobileInput = () => {
@@ -294,9 +313,8 @@ class Spaces extends Component {
       showSpaceList,
       showSpacesMobile,
       showMobileInput,
+      width,
     } = this.state;
-
-    console.log('showSpacesMobile', showSpacesMobile);
 
     return (
       <div>
@@ -363,26 +381,27 @@ class Spaces extends Component {
           <SpacesList
             spaceToDisplay={spaceToDisplay}
             sortData={this.sortData}
-            handleSpaceListView={this.handleSpaceListView}
+            handleMobileSpaceListView={this.handleMobileSpaceListView}
             isSpacesLoading={isSpacesLoading}
             sortBy={sortBy}
             list={list}
             show={showSpaceList}
-          // showSpacesMobile={showSpacesMobile}
+            showSpacesMobile={showSpacesMobile}
           />
 
-          <main className={`dataExplorer ${showSpaceList ? '' : 'wideDataExplorer'} `}>
+          <main className={`dataExplorer ${showSpaceList ? '' : 'wideDataExplorer'} ${!showSpacesMobile ? '' : 'wideDataExplorer--mobile'}`}>
             <Header
               spaceToDisplay={spaceToDisplay}
               isSpacesLoading={isSpacesLoading}
               sortBy={sortBy}
               handleSpaceListView={this.handleSpaceListView}
+              handleMobileSpaceListView={this.handleMobileSpaceListView}
               handleMobileInput={this.handleMobileInput}
               sortDirection={sortDirection}
               sortData={this.sortData}
               show={showSpaceList}
               showMobileInput={showMobileInput}
-            // showSpacesMobile={showSpacesMobile}
+              showSpacesMobile={showSpacesMobile}
             />
 
             <section className="data__items">
@@ -392,6 +411,7 @@ class Spaces extends Component {
                     spacesOpened={spacesOpened}
                     isLoadingVault={isLoadingVault}
                     vaultToOpen={vaultToOpen}
+                    width={width}
                     openSpace={this.openSpace}
                   />
                 )
@@ -400,6 +420,7 @@ class Spaces extends Component {
                     openSpace={this.openSpace}
                     isLoadingVault={isLoadingVault}
                     vaultToOpen={vaultToOpen}
+                    width={width}
                     spacesOpened={spacesOpened}
                     spaceName={spaceToDisplay}
                   />

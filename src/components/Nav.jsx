@@ -32,9 +32,7 @@ class Nav extends Component {
 
   handleSignOut = () => {
     const { box } = this.props;
-    if (box.logout) {
-      this.props.handleSignOut();
-    }
+    if (box.logout) this.props.handleSignOut();
   }
 
   render() {
@@ -60,9 +58,23 @@ class Nav extends Component {
 
         <div className="nav__profile--mobile">
           {
-            image && image.length > 0 && image[0].contentUrl ?
-              <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} className="nav__userPicture clearProfPic" alt="profile" onClick={this.handleDropdown} role="button" />
-              : <div className="nav__userPicture" onClick={this.handleDropdown} />
+            image && image.length > 0 && image[0].contentUrl ? (
+              <img
+                src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`}
+                className="nav__userPicture clearProfPic"
+                alt="profile"
+                onClick={this.handleDropdown}
+                onKeyPress={this.handleDropdown}
+                role="button"
+              />)
+              : (
+                <div
+                  className="nav__userPicture"
+                  onClick={this.handleDropdown}
+                  onKeyPress={this.handleDropdown}
+                  role="button"
+                  tabIndex={0}
+                />)
           }
         </div>
 
@@ -72,7 +84,13 @@ class Nav extends Component {
         </div>
 
         {
-          <div className="nav__arrow" onClick={this.handleDropdown}>
+          <div
+            className="nav__arrow"
+            onClick={this.handleDropdown}
+            onKeyPress={this.handleDropdown}
+            role="button"
+            tabIndex={0}
+          >
             &#9660;
           </div>
         }
@@ -81,11 +99,18 @@ class Nav extends Component {
           <Link to={`/${currentAddress}/${routes.ACTIVITY}`} className="nav__profile">
             {
               image && image.length > 0 && image[0].contentUrl ?
-                <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} className="nav__userPicture clearProfPic" alt="profile" role="button" />
-                : <div className="nav__userPicture" />
+                (
+                  <img
+                    src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`}
+                    className="nav__userPicture clearProfPic"
+                    alt="profile"
+                    role="button"
+                  />
+                ) : <div className="nav__userPicture" />
             }
             Profile
           </Link>
+
           <Link to={`/${currentAddress}/${routes.DATA}`} className="nav__data">
             <img src={Folder} alt="Folder" className="nav__folder" />
             Data
@@ -96,33 +121,58 @@ class Nav extends Component {
         <div
           className={`${showProfileModal ? 'nav__dropdown--visible' : undefined} nav__dropdown nav__dropdown--desktop`}
           onClick={this.handleDropdown}
+          onKeyPress={this.handleDropdown}
+          tabIndex={0}
+          role="button"
         >
           <ul>
             <Link to={`/${currentAddress}/${routes.EDIT}`}>
               <li className="nav__dropdown__wrapper">
-                <img src={Edit} className="nav__dropdown__icon" alt="profile" role="button" />
+                <img
+                  src={Edit}
+                  className="nav__dropdown__icon"
+                  alt="profile"
+                  role="button"
+                />
                 Edit profile
               </li>
             </Link>
             <div className="nav__divide" />
-            <li onClick={() => this.handleSignOut()} className="nav__dropdown__wrapper">
-              <img src={SignOut} className="nav__dropdown__icon" alt="profile" role="button" />
+            <li
+              onClick={() => this.handleSignOut()}
+              onKeyPress={() => this.handleSignOut()}
+              className="nav__dropdown__wrapper"
+              role="button"
+            >
+              <img
+                src={SignOut}
+                className="nav__dropdown__icon"
+                alt="profile"
+                role="button"
+              />
               Sign Out
             </li>
           </ul>
         </div>
 
         {showProfileModal &&
-          <div
-            className='onClickOutside'
-            onClick={this.handleDropdown}
-          />}
+          (
+            <div
+              className="onClickOutside"
+              onClick={this.handleDropdown}
+              onKeyPress={this.handleDropdown}
+              tabIndex={0}
+              role="button"
+            />)}
 
         {/* mobile nav dropdown */}
         <div
           className={`${showProfileModal ? 'sideDrawer' : undefined} nav__dropdown mobileDropDown`}
           onMouseLeave={this.handleDropdown}
           onClick={this.handleDropdown}
+          onKeyPress={this.handleDropdown}
+          role="button"
+          tabIndex={0}
         >
           <ul>
             <div className="nav__dropdown__mobileLogo">
@@ -138,21 +188,25 @@ class Nav extends Component {
                 Profile
               </li>
             </Link>
+
             <Link to={`/${currentAddress}/${routes.EDIT}`}>
               <li className={normalizedPath === `/${currentAddress}/${routes.EDIT}` ? 'nav__activePage' : ''}>
                 Edit profile
               </li>
             </Link>
+
             <Link to={`/${currentAddress}/${routes.DATA}`}>
               <li className={normalizedPath === `/${currentAddress}/${routes.DATA}` ? 'nav__activePage' : ''}>
                 Data
               </li>
             </Link>
+
             <li
               id="mobileNav__signout"
               onClick={() => this.handleSignOut()}
               tabIndex={0}
               onKeyPress={() => this.handleSignOut()}
+              role="button"
             >
               Sign Out
             </li>
@@ -162,6 +216,9 @@ class Nav extends Component {
         <div
           id={showProfileModal ? 'dropdownContainer' : undefined}
           onClick={this.handleDropdown}
+          onKeyPress={this.handleDropdown}
+          role="button"
+          tabIndex={0}
         />
 
       </nav>

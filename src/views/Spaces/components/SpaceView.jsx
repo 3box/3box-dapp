@@ -10,11 +10,11 @@ import PublicRowMobile from './PublicRowMobile';
 import FavoriteCollectiblesRowMobile from './FavoriteCollectiblesRowMobile';
 import '../styles/Spaces.css';
 
-const SpaceView = ({ openSpace, spaceDataToRender, spacesOpened, vaultToOpen, isLoadingVault }) => (
+const SpaceView = ({ openSpace, spaceDataToRender, spacesOpened, vaultToOpen, isLoadingVault, width }) => (
   <React.Fragment>
     {spaceDataToRender.length > 0 && spaceDataToRender.map((row) => {
       if (row.name !== 'collectiblesFavoritesToRender'
-        && row.name !== 'private_space_data' && window.innerWidth >= 812) {
+        && row.name !== 'private_space_data' && width >= 600) {
         return (
           <PublicRow
             dataKey={row.name}
@@ -26,7 +26,7 @@ const SpaceView = ({ openSpace, spaceDataToRender, spacesOpened, vaultToOpen, is
       }
 
       if (row.name !== 'collectiblesFavoritesToRender'
-        && row.name !== 'private_space_data' && window.innerWidth <= 812) {
+        && row.name !== 'private_space_data' && width <= 600) {
         return (
           <PublicRowMobile
             dataKey={row.name}
@@ -37,7 +37,7 @@ const SpaceView = ({ openSpace, spaceDataToRender, spacesOpened, vaultToOpen, is
           />);
       }
 
-      if (row.name === 'private_space_data' && window.innerWidth >= 812) {
+      if (row.name === 'private_space_data' && width >= 600) {
         return (
           <VaultRow
             openSpace={openSpace}
@@ -48,7 +48,7 @@ const SpaceView = ({ openSpace, spaceDataToRender, spacesOpened, vaultToOpen, is
           />);
       }
 
-      if (row.name === 'private_space_data' && window.innerWidth <= 812) {
+      if (row.name === 'private_space_data' && width <= 600) {
         return (
           <VaultRowMobile
             openSpace={openSpace}
@@ -59,7 +59,7 @@ const SpaceView = ({ openSpace, spaceDataToRender, spacesOpened, vaultToOpen, is
           />);
       }
 
-      if (row.name === 'collectiblesFavoritesToRender' && window.innerWidth >= 812) {
+      if (row.name === 'collectiblesFavoritesToRender' && width >= 600) {
         return (
           <FavoriteCollectiblesRow
             dataKey={row.name}
@@ -70,7 +70,7 @@ const SpaceView = ({ openSpace, spaceDataToRender, spacesOpened, vaultToOpen, is
           />);
       }
 
-      if (row.name === 'collectiblesFavoritesToRender' && window.innerWidth <= 812) {
+      if (row.name === 'collectiblesFavoritesToRender' && width <= 600) {
         return (
           <FavoriteCollectiblesRowMobile
             dataKey={row.name}
@@ -90,6 +90,7 @@ SpaceView.propTypes = {
   spacesOpened: PropTypes.bool.isRequired,
   isLoadingVault: PropTypes.bool.isRequired,
   vaultToOpen: PropTypes.string.isRequired,
+  width: PropTypes.string.isRequired,
 };
 
 SpaceView.defaultProps = {

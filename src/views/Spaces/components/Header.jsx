@@ -15,19 +15,29 @@ const Header = ({
   handleSpaceListView,
   show,
   showSpacesMobile,
+  handleMobileSpaceListView,
   handleMobileInput,
   showMobileInput,
 }) => (
     <header
-      className={`data__header ${show ? '' : 'data__header--wide'}`}
+      className={`data__header 
+      ${show ? '' : 'data__header--wide'}
+      ${showSpacesMobile ? 'data__header--wide--mobile' : ''}
+    `}
     >
       <section className="data__space">
         <span className="data__space__context">
           <div className="data__space__context__name">
             <button
               className="data__space__context__icon"
-              onClick={handleSpaceListView}
-              onKeyPress={handleSpaceListView}
+              onClick={() => {
+                handleSpaceListView();
+                handleMobileSpaceListView();
+              }}
+              onKeyPress={() => {
+                handleSpaceListView();
+                handleMobileSpaceListView();
+              }}
               tabIndex={0}
               type="button"
             >
@@ -256,6 +266,7 @@ Header.propTypes = {
   showMobileInput: PropTypes.bool.isRequired,
   sortData: PropTypes.func.isRequired,
   handleSpaceListView: PropTypes.func.isRequired,
+  handleMobileSpaceListView: PropTypes.func.isRequired,
   handleMobileInput: PropTypes.func.isRequired,
 };
 

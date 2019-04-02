@@ -16,11 +16,12 @@ const AllView = ({
   sortedSpace,
   isLoadingVault,
   vaultToOpen,
+  width,
 }) => (
     <React.Fragment>
       {sortedSpace.length > 0 && sortedSpace.map((row) => {
         if (row.name !== 'collectiblesFavoritesToRender'
-          && row.name !== 'private_space_data' && window.innerWidth >= 812) {
+          && row.name !== 'private_space_data' && width >= 600) {
           return (
             <PublicRow
               dataKey={row.name}
@@ -32,7 +33,7 @@ const AllView = ({
         }
 
         if (row.name !== 'collectiblesFavoritesToRender'
-          && row.name !== 'private_space_data' && window.innerWidth <= 812) {
+          && row.name !== 'private_space_data' && width <= 600) {
           return (
             <PublicRowMobile
               dataKey={row.name}
@@ -43,7 +44,7 @@ const AllView = ({
             />);
         }
 
-        if (row.name === 'private_space_data' && window.innerWidth >= 812) {
+        if (row.name === 'private_space_data' && width >= 600) {
           return (
             <VaultRow
               openSpace={openSpace}
@@ -54,7 +55,7 @@ const AllView = ({
             />);
         }
 
-        if (row.name === 'private_space_data' && window.innerWidth <= 812) {
+        if (row.name === 'private_space_data' && width <= 600) {
           return (
             <VaultRowMobile
               openSpace={openSpace}
@@ -65,7 +66,7 @@ const AllView = ({
             />);
         }
 
-        if (row.name === 'collectiblesFavoritesToRender' && window.innerWidth >= 812) {
+        if (row.name === 'collectiblesFavoritesToRender' && width >= 600) {
           return (
             <FavoriteCollectiblesRow
               dataKey={row.name}
@@ -76,7 +77,7 @@ const AllView = ({
             />);
         }
 
-        if (row.name === 'collectiblesFavoritesToRender' && window.innerWidth <= 812) {
+        if (row.name === 'collectiblesFavoritesToRender' && width <= 600) {
           return (
             <FavoriteCollectiblesRowMobile
               dataKey={row.name}
@@ -95,6 +96,7 @@ AllView.propTypes = {
   isLoadingVault: PropTypes.bool.isRequired,
   openSpace: PropTypes.func.isRequired,
   vaultToOpen: PropTypes.string.isRequired,
+  width: PropTypes.string.isRequired,
   sortedSpace: PropTypes.array,
 };
 
