@@ -27,14 +27,20 @@ const PublicRow = ({
       onKeyPress={() => viewSpaceItem(true, false, false, dataKey, dataValue, spaceName, rowType, privacy)}
       tabIndex={0}
     >
-      <span className="data__items__row__entry spaceRow__key">
-        <p className="data__text">
-          {(dataKey && dataKey !== 'collectiblesFavoritesToRender')
-            && dataKey.replace(/([A-Z])/g, ' $1')
-              .replace(/^./, str => str.toUpperCase())}
+      <span
+        className="data__items__row__entry spaceRow__key"
+        title={`${(dataKey && dataKey.substring(0, 14) !== 'follow-thread-') ? dataKey.replace(/([A-Z])/g, ' $1')
+          .replace(/^./, str => str.toUpperCase()) : ''}
+          ${(dataKey && dataKey.substring(0, 14) === 'follow-thread-')
+            ? 'Thread' : ''}
+          `}
+      >
+        <p className="data__text row__name">
+          {(dataKey && dataKey.substring(0, 14) !== 'follow-thread-') && dataKey.replace(/([A-Z])/g, ' $1')
+            .replace(/^./, str => str.toUpperCase())}
 
-          {(dataKey && dataKey === 'collectiblesFavoritesToRender')
-            && 'Favorite Collectibles'}
+          {(dataKey && dataKey.substring(0, 14) === 'follow-thread-')
+            && 'Thread'}
         </p>
       </span>
       <span className="data__items__row__entry spaceRow__content">
@@ -44,13 +50,19 @@ const PublicRow = ({
           </p>
         )}
 
-        {(typeof dataValue === 'object' && rowType !== 'Image' && !Array.isArray(dataValue)) && (
+        {(typeof dataValue === 'object' && rowType !== 'Image' && !Array.isArray(dataValue) && dataKey.substring(0, 14) !== 'follow-thread-') && (
           <p className="data__text">
-            {Object.keys(dataValue).map(item => (
-              <p>{item}</p>
-            ))}
+            {Object.keys(dataValue).map(item => (item))}
           </p>
         )}
+
+        {(dataKey && dataKey.substring(0, 14) === 'follow-thread-')
+          && (
+            <p className="data__text">
+              {dataValue.name.replace(/([A-Z])/g, ' $1')
+                .replace(/^./, str => str.toUpperCase())}
+            </p>)
+        }
 
         {(rowType !== 'Image' && Array.isArray(dataValue)) && (
           <p className="data__text">

@@ -43,7 +43,12 @@ export const ThreeBoxInfoBanner = ({
           Learn more
         </button>
       </a>
-      <p onClick={handleInfoBanner} className="webThreeBanner__close">
+      <p
+        onClick={handleInfoBanner}
+        onKeyPress={handleInfoBanner}
+        className="webThreeBanner__close"
+        role="button"
+      >
         &#10005;
       </p>
     </div>
@@ -216,11 +221,17 @@ export const CollectiblesModal = ({
           <div
             className="onClickOutsideCollectibles--mobile"
             onClick={() => handleCollectiblesModal()}
+            onKeyPress={() => handleCollectiblesModal()}
+            role="button"
+            tabIndex={0}
           />
         </div>
         <div
           className="onClickOutsideCollectibles"
           onClick={() => handleCollectiblesModal()}
+          onKeyPress={() => handleCollectiblesModal()}
+          role="button"
+          tabIndex={0}
         />
       </div>
     </div>
@@ -234,6 +245,7 @@ CollectiblesModal.propTypes = {
   selectedCollectible: PropTypes.object,
   padded: PropTypes.bool,
   contain: PropTypes.bool,
+  onPublicProfile: PropTypes.bool.isRequired,
   cover: PropTypes.bool,
 };
 
@@ -246,7 +258,7 @@ CollectiblesModal.defaultProps = {
 };
 
 export const SwitchedAddressModal = ({
-  handleSwitchedAddressModal, show, handleSignOut, isMobile, prevAddress,
+  handleSwitchedAddressModal, handleSignOut, isMobile, prevAddress,
 }) => (
     <div>
       <div className="modal__container modal--effect">
@@ -284,12 +296,16 @@ SwitchedAddressModal.propTypes = {
   isMobile: PropTypes.bool.isRequired,
   handleSwitchedAddressModal: PropTypes.func.isRequired,
   handleSignOut: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
+  prevAddress: PropTypes.string,
+};
+
+SwitchedAddressModal.defaultProps = {
+  prevAddress: '',
 };
 
 // Landing Page Modals
 export const ProvideConsentModal = ({
-  handleConsentModal, show, isMobile,
+  handleConsentModal, isMobile,
 }) => (
     <div>
       <div className="modal__container modal--effect">
@@ -314,11 +330,10 @@ export const ProvideConsentModal = ({
 ProvideConsentModal.propTypes = {
   isMobile: PropTypes.bool.isRequired,
   handleConsentModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
 };
 
 export const ProvideAccessModal = ({
-  handleAccessModal, show, isMobile, directLogin,
+  handleAccessModal, isMobile, directLogin,
 }) => (
     <div>
       <div className="modal__container modal--effect">
@@ -338,14 +353,12 @@ export const ProvideAccessModal = ({
             && <button onClick={handleAccessModal} type="button" className="tertiaryButton">Close</button>}
         </div>
       </div>
-
     </div>
   );
 
 ProvideAccessModal.propTypes = {
   isMobile: PropTypes.bool.isRequired,
   handleAccessModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
   directLogin: PropTypes.string,
 };
 
@@ -354,7 +367,6 @@ ProvideAccessModal.defaultProps = {
 };
 
 export const GithubVerificationModal = ({
-  show,
   copyToClipBoard,
   handleGithubVerificationModal,
   did,
@@ -390,7 +402,7 @@ export const GithubVerificationModal = ({
               }}
             >
               Cancel
-          </button>
+            </button>
           </div>
 
           <div className="modal__github__steps">
@@ -443,7 +455,7 @@ export const GithubVerificationModal = ({
                 onClick={verifyGithub}
               >
                 Verify
-            </button>
+              </button>
             </div>
           </div>
 
@@ -456,7 +468,7 @@ export const GithubVerificationModal = ({
               }}
             >
               Done
-          </button>
+            </button>
             <button
               className="modal__github__description__copy__button--mobile"
               type="button"
@@ -466,18 +478,17 @@ export const GithubVerificationModal = ({
               }}
             >
               Cancel
-          </button>
+            </button>
           </div>
         </div>
       </div>
 
-    </div >
+    </div>
   );
 
 GithubVerificationModal.propTypes = {
   did: PropTypes.string,
   copySuccessful: PropTypes.bool.isRequired,
-  show: PropTypes.bool.isRequired,
   copyToClipBoard: PropTypes.func.isRequired,
   handleGithubVerificationModal: PropTypes.func.isRequired,
   message: PropTypes.string.isRequired,
@@ -493,7 +504,6 @@ GithubVerificationModal.defaultProps = {
 };
 
 export const TwitterVerificationModal = ({
-  show,
   handleTwitterVerificationModal,
   did,
   message,
@@ -527,7 +537,7 @@ export const TwitterVerificationModal = ({
               }}
             >
               Cancel
-          </button>
+            </button>
           </div>
 
           <div className="modal__github__steps">
@@ -543,7 +553,7 @@ export const TwitterVerificationModal = ({
               </div>
               <a href={`https://twitter.com/intent/tweet?text=${message}`} target="_blank" rel="noopener noreferrer" className="modal__github__description__copy__tweet">
                 Tweet this
-                </a>
+              </a>
             </div>
 
             <div className="modal__twitter__steps__step">
@@ -571,7 +581,7 @@ export const TwitterVerificationModal = ({
                 onClick={verifyTwitter}
               >
                 Verify
-            </button>
+              </button>
             </div>
           </div>
 
@@ -584,7 +594,7 @@ export const TwitterVerificationModal = ({
               }}
             >
               Done
-          </button>
+            </button>
             <button
               className="modal__github__description__copy__button--mobile"
               type="button"
@@ -594,17 +604,15 @@ export const TwitterVerificationModal = ({
               }}
             >
               Cancel
-          </button>
+            </button>
           </div>
         </div>
       </div>
-
-    </div >
+    </div>
   );
 
 TwitterVerificationModal.propTypes = {
   did: PropTypes.string,
-  show: PropTypes.bool.isRequired,
   handleTwitterVerificationModal: PropTypes.func.isRequired,
   message: PropTypes.string.isRequired,
   verifyTwitter: PropTypes.func.isRequired,
@@ -619,7 +627,6 @@ TwitterVerificationModal.defaultProps = {
 };
 
 export const EmailVerificationModal = ({
-  show,
   handleEmailVerificationModal,
   did,
   verifyEmail,
@@ -749,14 +756,12 @@ export const EmailVerificationModal = ({
           </div>
         </div>
       </div>
-
     </div>
   );
 
 EmailVerificationModal.propTypes = {
   did: PropTypes.string.isRequired,
   emailVerificationMessage: PropTypes.string.isRequired,
-  show: PropTypes.bool.isRequired,
   isEmailSending: PropTypes.bool.isRequired,
   handleEmailVerificationModal: PropTypes.func.isRequired,
   verifyEmail: PropTypes.func.isRequired,
@@ -772,7 +777,7 @@ EmailVerificationModal.propTypes = {
 };
 
 export const AccessDeniedModal = ({
-  handleDeniedAccessModal, show, isMobile,
+  handleDeniedAccessModal, isMobile,
 }) => (
     <div>
       <div className="modal__container modal--effect">
@@ -790,36 +795,29 @@ export const AccessDeniedModal = ({
           <button onClick={handleDeniedAccessModal} type="button" className="tertiaryButton">Close</button>
         </div>
       </div>
-
     </div>
   );
 
 AccessDeniedModal.propTypes = {
   isMobile: PropTypes.bool.isRequired,
   handleDeniedAccessModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
 };
 
-export const LoadingThreeBoxProfileModal = ({ show }) => (
+export const LoadingThreeBoxProfileModal = () => (
   <div>
     <div className="modal__container modal--effect">
       <div className="modal loadingModal">
-        <img src={Mollie} alt="Mollie the Narwhal" className="modal__loading__mollie" />
-        <div id="logo" className="modal__loading3Box">
-          <img src={ThreeBoxLogoBlue} alt="3Box Logo" />
+        <div className="modal__threebox__mollie">
+          <img src={Mollie} alt="Mollie the Narwhal" className="modal__loading__mollie" />
+          <img src={ThreeBoxLogoBlue} alt="3Box Logo" className="modal__loading__3" />
         </div>
         <img src={Loading} alt="Loading" id="modal__loadingGraphic" />
       </div>
     </div>
-
   </div>
 );
 
-LoadingThreeBoxProfileModal.propTypes = {
-  show: PropTypes.bool.isRequired,
-};
-
-export const FileSizeModal = ({ show, closeFileSizeModal }) => (
+export const FileSizeModal = ({ closeFileSizeModal }) => (
   <div>
     <div className="modal__container modal--effect">
       <div className="modal">
@@ -831,16 +829,14 @@ export const FileSizeModal = ({ show, closeFileSizeModal }) => (
         <button onClick={closeFileSizeModal} type="button" className="tertiaryButton">Close</button>
       </div>
     </div>
-
   </div>
 );
 
 FileSizeModal.propTypes = {
   closeFileSizeModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
 };
 
-export const RequireMetaMaskModal = ({ closeRequireMetaMaskModal, show, isMobile }) => (
+export const RequireMetaMaskModal = ({ closeRequireMetaMaskModal, isMobile }) => (
   <div className="mobileInvisible">
     <div className="modal__container modal--effect">
       <div className="modal">
@@ -864,17 +860,15 @@ export const RequireMetaMaskModal = ({ closeRequireMetaMaskModal, show, isMobile
         <button onClick={closeRequireMetaMaskModal} type="button" className="tertiaryButton">Close</button>
       </div>
     </div>
-
   </div>
 );
 
 RequireMetaMaskModal.propTypes = {
   isMobile: PropTypes.bool.isRequired,
   closeRequireMetaMaskModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
 };
 
-export const SignInToWalletModal = ({ handleRequireWalletLoginModal, show, isMobile }) => (
+export const SignInToWalletModal = ({ handleRequireWalletLoginModal, isMobile }) => (
   <div>
     <div className="modal__container modal--effect">
       <div className="modal">
@@ -892,18 +886,16 @@ export const SignInToWalletModal = ({ handleRequireWalletLoginModal, show, isMob
         <button onClick={handleRequireWalletLoginModal} type="button" className="tertiaryButton">Close</button>
       </div>
     </div>
-
   </div>
 );
 
 SignInToWalletModal.propTypes = {
   isMobile: PropTypes.bool.isRequired,
   handleRequireWalletLoginModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
 };
 
 
-export const SyncingModal = ({ show }) => (
+export const SyncingModal = () => (
   <div>
     <div className="modal__container--sync modal--effect">
       <div className="modal--sync ">
@@ -922,10 +914,6 @@ export const SyncingModal = ({ show }) => (
     </div>
   </div>
 );
-
-SyncingModal.propTypes = {
-  show: PropTypes.bool.isRequired,
-};
 
 export const PublicProfileLoading = () => (
   <div>
@@ -954,9 +942,14 @@ export const SignInThroughPublicProfileBanner = ({ show, handleSignInBanner }) =
         <p>
           This is the public version of your profile.  Sign in to access your full profile.
         </p>
-        <p onClick={handleSignInBanner} className="webThreeBanner__close">
+        <p
+          onClick={handleSignInBanner}
+          onKeyPress={handleSignInBanner}
+          role="button"
+          className="webThreeBanner__close"
+        >
           &#10005;
-      </p>
+        </p>
       </div>
     </div>
   </React.Fragment>
@@ -967,7 +960,7 @@ SignInThroughPublicProfileBanner.propTypes = {
   handleSignInBanner: PropTypes.func.isRequired,
 };
 
-export const ErrorModal = ({ closeErrorModal, errorMessage, show }) => (
+export const ErrorModal = ({ closeErrorModal, errorMessage }) => (
   <div>
     <div className="modal__container modal--effect">
       <div className="modal">
@@ -1007,21 +1000,19 @@ export const ErrorModal = ({ closeErrorModal, errorMessage, show }) => (
         <button onClick={closeErrorModal} type="button" className="tertiaryButton">Close</button>
       </div>
     </div>
-
   </div>
 );
 
 ErrorModal.propTypes = {
   errorMessage: PropTypes.string,
   closeErrorModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
 };
 
 ErrorModal.defaultProps = {
   errorMessage: '',
 };
 
-export const MustConsentModal = ({ closeErrorModal, show, isMobile }) => (
+export const MustConsentModal = ({ closeErrorModal, isMobile }) => (
   <div>
     <div className="modal__container modal--effect">
       <div className="modal">
@@ -1036,14 +1027,12 @@ export const MustConsentModal = ({ closeErrorModal, show, isMobile }) => (
         <button onClick={closeErrorModal} type="button" className="tertiaryButton">Close</button>
       </div>
     </div>
-
   </div>
 );
 
 MustConsentModal.propTypes = {
   isMobile: PropTypes.bool.isRequired,
   closeErrorModal: PropTypes.func.isRequired,
-  show: PropTypes.string.isRequired,
 };
 
 export const SignInToThreeBox = ({ handleSignInModal }) => (
@@ -1064,13 +1053,11 @@ export const SignInToThreeBox = ({ handleSignInModal }) => (
         <button onClick={handleSignInModal} type="button" className="tertiaryButton">Close</button>
       </div>
     </div>
-
   </div>
 );
 
 SignInToThreeBox.propTypes = {
   handleSignInModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
 };
 
 export const MobileWalletRequiredModal = ({ isIOS, handleMobileWalletModal, show }) => (
@@ -1112,7 +1099,7 @@ MobileWalletRequiredModal.propTypes = {
   show: PropTypes.bool.isRequired,
 };
 
-export const OnBoardingModalDesktop = ({ handleOnboardingModal, showOne, showTwo, isMobile }) => (
+export const OnBoardingModalDesktop = ({ handleOnboardingModal, showOne, showTwo }) => (
   <div>
     <div className="modal__onBoardingModal__container modal--effect">
       <div className={`${showOne ? 'showModalImage' : ''} modal__onBoardingModal`}>
@@ -1133,7 +1120,6 @@ export const OnBoardingModalDesktop = ({ handleOnboardingModal, showOne, showTwo
         </div>
       </div>
     </div>
-
   </div>
 );
 
@@ -1141,7 +1127,6 @@ OnBoardingModalDesktop.propTypes = {
   handleOnboardingModal: PropTypes.func.isRequired,
   showOne: PropTypes.bool.isRequired,
   showTwo: PropTypes.bool.isRequired,
-  isMobile: PropTypes.bool.isRequired,
 };
 
 export const OnBoardingModalMobile = ({
@@ -1201,7 +1186,6 @@ export const OnBoardingModalMobile = ({
         </div>
 
       </div>
-
     </div>
   );
 

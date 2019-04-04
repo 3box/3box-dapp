@@ -96,7 +96,7 @@ AllView.propTypes = {
   isLoadingVault: PropTypes.bool.isRequired,
   openSpace: PropTypes.func.isRequired,
   vaultToOpen: PropTypes.string.isRequired,
-  width: PropTypes.string.isRequired,
+  width: PropTypes.number.isRequired,
   sortedSpace: PropTypes.array,
 };
 

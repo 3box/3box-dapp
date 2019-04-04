@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Info from '../../../assets/Details.svg';
 import Loading from '../../../assets/Loading.svg';
 import List from '../../../assets/List.svg';
+import Arrow from '../../../assets/Arrow.svg';
 import '../styles/Spaces.css';
 
 const Header = ({
@@ -43,6 +44,12 @@ const Header = ({
             >
               <img
                 src={List}
+                className="data__space__context__listButton"
+                alt="list"
+              />
+              <img
+                src={Arrow}
+                className="data__space__context__arrowButton"
                 alt="list"
               />
             </button>
@@ -52,88 +59,6 @@ const Header = ({
         </span>
         <img className="data__space__info" src={Info} alt="info" />
       </section>
-
-      <div className="data__categories--mobile">
-        <p>
-          Sort by
-        </p>
-        <div
-          className="data__selected-sort"
-          onClick={handleMobileInput}
-        >
-          <p>
-            {sortBy.charAt(0).toUpperCase() + sortBy.slice(1)}
-          </p>
-          {showMobileInput && (
-            <div className="data__categories__picker--mobile">
-              <ul>
-                <li
-                  onClick={() => sortData('name', false, spaceToDisplay, false)}
-                  className={sortBy === 'name' ? 'activeSort' : ''}
-                >
-                  Name
-                </li>
-                <li
-                  onClick={() => sortData('content', false, spaceToDisplay, false)}
-                  className={sortBy === 'content' ? 'activeSort' : ''}
-                >
-                  Content
-                </li>
-                <li
-                  onClick={() => sortData('space', false, spaceToDisplay, false)}
-                  className={sortBy === 'space' ? 'activeSort' : ''}
-                >
-                  Space
-                </li>
-                <li
-                  onClick={() => sortData('type', false, spaceToDisplay, false)}
-                  className={sortBy === 'type' ? 'activeSort' : ''}
-                >
-                  Type
-                </li>
-                <li
-                  onClick={() => sortData('privacy', false, spaceToDisplay, false)}
-                  className={sortBy === 'privacy' ? 'activeSort' : ''}
-                >
-                  Privacy
-                </li>
-                <li
-                  onClick={() => sortData('last', false, spaceToDisplay, false)}
-                  className={sortBy === 'lastUpdated' ? 'activeSort' : ''}
-                >
-                  Last
-                 updated
-                 </li>
-              </ul>
-            </div>)}
-        </div>
-        {sortDirection ? (
-          <p
-            className="data__categories__title__arrow"
-            onClick={() => sortData(sortBy, false, spaceToDisplay, false)}
-          >
-            &#9660;
-          </p>
-        ) : (
-            <p
-              className="data__categories__title__arrow"
-              onClick={() => sortData(sortBy, false, spaceToDisplay, false)}
-            >
-              &#9650;
-            </p>
-          )}
-        {/* <select
-          className="data__categories__input"
-          onChange={e => sortData(e.target.value, false, spaceToDisplay, false)}
-        >
-          <option value="name">Name</option>
-          <option value="content">Content</option>
-          <option value="space">Space</option>
-          <option value="type">Type</option>
-          <option value="privacy">Privacy</option>
-          <option value="lastUpdated">Last Updated</option>
-        </select> */}
-      </div>
 
       <section className="data__categories">
         <span

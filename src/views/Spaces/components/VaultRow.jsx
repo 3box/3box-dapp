@@ -11,14 +11,14 @@ const VaultRow = ({
   spaceName,
   hasVaultOpened,
   isLoadingVault,
-  vaultToOpen
+  vaultToOpen,
 }) => (
     <div className={`data__items__row ${hasVaultOpened ? 'hideVault' : ''}`} key={`${spaceName}vault`}>
-      <span className="data__items__row__entry spaceRow__key">
-        <div className="data__text">
+      <span className="data__items__row__entry spaceRow__key" title={`Private ${spaceName} Data`}>
+        <div className="data__text row__vault">
           <img src={Folder} alt="" className="data__items__row__vault__icon" />
         </div>
-        <p className="data__text">
+        <p className="data__text row__name row__vault__name">
           {`Private ${spaceName} Data`}
         </p>
       </span>

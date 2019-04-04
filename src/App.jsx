@@ -468,7 +468,7 @@ App.propTypes = {
   getActivity: PropTypes.func.isRequired,
   checkWeb3: PropTypes.func.isRequired,
   requireMetaMaskModal: PropTypes.func.isRequired,
-  handleInfoBanner: PropTypes.func.isRequired,
+  handleInfoBanner: PropTypes.func,
   handleMobileWalletModal: PropTypes.func.isRequired,
   handleSwitchedNetworkModal: PropTypes.func.isRequired,
   handleAccessModal: PropTypes.func.isRequired,
@@ -477,7 +477,7 @@ App.propTypes = {
   handleDeniedAccessModal: PropTypes.func.isRequired,
   handleRequireWalletLoginModal: PropTypes.func.isRequired,
   handleSignInModal: PropTypes.func.isRequired,
-  handleSignOut: PropTypes.func.isRequired,
+  handleSignOut: PropTypes.func,
   checkNetwork: PropTypes.func.isRequired,
   closeErrorModal: PropTypes.func.isRequired,
   handleLoggedOutModal: PropTypes.func.isRequired,
@@ -519,6 +519,8 @@ App.propTypes = {
 
 App.defaultProps = {
   showDifferentNetworkModal: false,
+  handleInfoBanner,
+  handleSignOut,
   hasWeb3: false,
   accessDeniedModal: false,
   onSyncFinished: false,

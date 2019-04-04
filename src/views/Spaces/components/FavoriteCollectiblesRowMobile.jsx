@@ -34,6 +34,17 @@ const FavoriteCollectiblesRowMobile = ({
             Favorite Collectibles
           </p>
         </div>
+        <div className="data__items__context">
+          <span className="type__tag List">
+            <p className="spaceRow__tag__text">
+              List
+           </p>
+          </span>
+          <img src={Globe} alt="Transaction Icon" className="data__items__privacyicon" />
+          {/* Feb 19, 2019 */}
+        </div>
+      </div>
+      <div className="data__items--detailswrapper">
         <div className="data__content">
           {
             dataValue.map(item => (
@@ -41,15 +52,6 @@ const FavoriteCollectiblesRowMobile = ({
             ))
           }
         </div>
-      </div>
-      <div className="data__items--detailswrapper">
-        <img src={Globe} alt="Transaction Icon" className="data__items__privacyicon" />
-        <span className="type__tag List">
-          <p className="spaceRow__tag__text">
-            List
-          </p>
-        </span>
-        {/* Feb 19, 2019 */}
       </div>
     </div>
   );

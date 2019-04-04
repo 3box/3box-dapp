@@ -184,6 +184,7 @@ export const copyToClipBoard = (type, message) => async (dispatch) => {
 };
 
 export const checkRowType = (content) => {
+  if (content.name) return 'Thread';
   if (typeof content === 'string') return 'Text';
   if (typeof content === 'object' && !Array.isArray(content)) return 'Object';
   if (Array.isArray(content) &&

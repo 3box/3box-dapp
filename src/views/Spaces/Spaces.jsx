@@ -16,6 +16,7 @@ import {
 import { ModalBackground } from '../../components/Modals';
 import AllView from './components/AllView';
 import SpaceView from './components/SpaceView';
+import SortByMobile from './components/SortByMobile';
 import Header from './components/Header';
 import SpacesList from './components/SpacesList';
 import Nav from '../../components/Nav';
@@ -132,6 +133,10 @@ class Spaces extends Component {
     store.dispatch(dispatchObject);
   }
 
+  reverseSort = () => {
+
+  }
+
   updateAndSort = (sortBy, updatedAllData, spaceToDisplay, list) => {
     store.dispatch({
       type: 'SPACES_DATA_UPDATE',
@@ -139,7 +144,9 @@ class Spaces extends Component {
       allData: updatedAllData,
     });
 
-    this.sortData(sortBy, updatedAllData, spaceToDisplay, true);
+    setTimeout(() => {
+      this.sortData(sortBy, updatedAllData, spaceToDisplay, true);
+    }, 3000);
   }
 
   async deleteItem(spaceName, key, privacy, listIndex) {
@@ -241,9 +248,6 @@ class Spaces extends Component {
     const updateSpaceData = async () => {
       const publicSpace = await box.spaces[spaceName].public.all();
       const privateSpace = await box.spaces[spaceName].private.all();
-
-      console.log('publicSpace', publicSpace);
-      console.log('privateSpace', privateSpace);
 
       updatedAllData[spaceName].public = publicSpace;
       updatedAllData[spaceName].private = privateSpace;
@@ -404,6 +408,15 @@ class Spaces extends Component {
               showSpacesMobile={showSpacesMobile}
             />
 
+            <SortByMobile
+              spaceToDisplay={spaceToDisplay}
+              showMobileInput={showMobileInput}
+              handleMobileInput={this.handleMobileInput}
+              sortData={this.sortData}
+              sortDirection={sortDirection}
+              sortBy={sortBy}
+            />
+
             <section className="data__items">
               {spaceToDisplay === 'All Data'
                 ? (
@@ -426,6 +439,7 @@ class Spaces extends Component {
                   />
                 )
               }
+              <div className="spaceView__gap" />
             </section>
           </main>
         </div>

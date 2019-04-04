@@ -40,29 +40,49 @@ export const ViewSpaceDataItemModal = ({
       <div className="modal spaceModal">
         <button onClick={() => viewSpaceItem(false, false, false)} type="button" className="tertiaryButton spaceModal__close">
           Close
-      </button>
+        </button>
         <section className="spaceModal__data">
           <div className="spaceModal__name__wrapper">
             <p className="spaceModal__space__value">{spaceName}</p>
           </div>
           <div className="spaceModal__name__wrapper">
-            <p className="spaceModal__name__value">{dataKey !== 'collectiblesFavoritesToRender' ?
-              dataKey.replace(/([A-Z])/g, ' $1')
-                .replace(/^./, str => str.toUpperCase()) : 'Favorite Collectibles'}</p>
+            <p className="spaceModal__name__value">
+              {(dataKey !== 'collectiblesFavoritesToRender' && dataKey.substring(0, 14) !== 'follow-thread-')
+                && dataKey.replace(/([A-Z])/g, ' $1')
+                  .replace(/^./, str => str.toUpperCase())}
+
+              {(dataKey === 'collectiblesFavoritesToRender' && dataKey.substring(0, 14) !== 'follow-thread-')
+                && 'Favorite Collectibles'}
+
+              {dataKey.substring(0, 14) === 'follow-thread-' && 'Thread'}
+            </p>
           </div>
         </section>
 
         <section className="spaceModal__content">
-          {rowType === 'Image' && <img src={`https://ipfs.infura.io/ipfs/${dataValue[0].contentUrl['/']}`} className="spaceModal__content__image" alt="profile" />}
+          {dataKey.substring(0, 14) === 'follow-thread-' && dataValue.name.replace(/([A-Z])/g, ' $1')
+            .replace(/^./, str => str.toUpperCase())}
+
+          {rowType === 'Image' && (
+            <img
+              src={`https://ipfs.infura.io/ipfs/${dataValue[0].contentUrl['/']}`}
+              className="spaceModal__content__image"
+              alt="profile"
+            />)}
+
           {typeof dataValue === 'string' && dataValue}
-          {(typeof dataValue === 'object' && rowType !== 'Image' && dataKey !== 'collectiblesFavoritesToRender') && (
-            <React.Fragment>
-              {
-                Object.keys(dataValue).map(content => (
-                  <p className="spaceModal__content__object-keys">{content}</p>
-                ))
-              }
-            </React.Fragment>)}
+
+          {(typeof dataValue === 'object'
+            && rowType !== 'Image'
+            && dataKey !== 'collectiblesFavoritesToRender'
+            && dataKey.substring(0, 14) !== 'follow-thread-') && (
+              <React.Fragment>
+                {
+                  Object.keys(dataValue).map(content => (
+                    <p className="spaceModal__content__object-keys">{content}</p>
+                  ))
+                }
+              </React.Fragment>)}
         </section>
 
         <section className="spaceModal__context">
@@ -113,7 +133,7 @@ export const ViewSpaceDataItemModal = ({
             >
               <img src={Trash} alt="Transaction Icon" className="spaceModal__context__privacy" />
               Delete
-          </span>
+            </span>
 
             {rowType === 'Image' && (
               <a
@@ -122,9 +142,9 @@ export const ViewSpaceDataItemModal = ({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img src={Link} alt="Transaction Icon" className="spaceModal__context__privacy" />
+                <img src={Link} alt="Transaction Icon" className="spaceModal__context__viewIcon" />
                 View Source
-            </a>)}
+              </a>)}
           </div>
         </section>
       </div>
@@ -163,7 +183,11 @@ export const ListSpaceItemModal = ({
     <React.Fragment>
       <div className="modal listSpaceModal">
         {index === 0 && (
-          <button onClick={() => viewSpaceItem(false, false, false)} type="button" className="tertiaryButton spaceModal__close">
+          <button
+            onClick={() => viewSpaceItem(false, false, false)}
+            type="button"
+            className="tertiaryButton spaceModal__close"
+          >
             Close
           </button>)}
         <section className="spaceModal__name">
@@ -174,6 +198,7 @@ export const ListSpaceItemModal = ({
                   .replace(/^./, str => str.toUpperCase())}
               </p>
             </div>
+
             <div className="spaceModal__name__wrapper">
               <p className="spaceModal__name__value">
                 {dataKey !== 'collectiblesFavoritesToRender'
@@ -187,8 +212,15 @@ export const ListSpaceItemModal = ({
         </section>
 
         <section className="spaceModal__content">
-          {rowType === 'Image' && <img src={`https://ipfs.infura.io/ipfs/${dataValue[0].contentUrl['/']}`} className="spaceModal__content__image" alt="profile" />}
+          {rowType === 'Image' && (
+            <img
+              src={`https://ipfs.infura.io/ipfs/${dataValue[0].contentUrl['/']}`}
+              className="spaceModal__content__image"
+              alt="profile"
+            />)}
+
           {typeof dataValue === 'string' && dataValue}
+
           {(typeof dataValue === 'object' && rowType !== 'Image' && dataKey !== 'collectiblesFavoritesToRender') && (
             <React.Fragment>
               {
@@ -198,6 +230,7 @@ export const ListSpaceItemModal = ({
               }
             </React.Fragment>
           )}
+
           {dataKey === 'collectiblesFavoritesToRender' && (
             <div className="spaceModal__listWrapper">
               <img
@@ -265,7 +298,7 @@ export const ListSpaceItemModal = ({
             >
               <img src={Trash} alt="Transaction Icon" className="spaceModal__context__privacy" />
               Delete
-              </span>
+            </span>
 
             {rowType === 'Favorite Collectibles To Render' && (
               <a
@@ -276,7 +309,7 @@ export const ListSpaceItemModal = ({
               >
                 <img src={Link} alt="Transaction Icon" className="spaceModal__context__privacy" />
                 View Source
-            </a>)}
+              </a>)}
           </div>
         </section>
       </div>
@@ -311,12 +344,18 @@ export const DeleteSpaceItemModal = ({
 }) => (
     <div className="modal__container modal--effect">
       <div className="modal spaceDeleteModal">
-        <button onClick={() => viewSpaceItem(false, false, false)} type="button" className="tertiaryButton spaceModal__close">
+        <button
+          onClick={() => viewSpaceItem(false, false, false)}
+          type="button"
+          className="tertiaryButton spaceModal__close"
+        >
           Close
-      </button>
+        </button>
+
         <section className="spaceDeleteModal__header">
           {`Delete ${spaceItem.dataKey} ?`}
         </section>
+
         <section className="spaceDeleteModal__body">
           <p className="spaceDeleteModal__body__explanantion">
             {`You are about to permanently delete the item ${spaceItem.dataKey}.
@@ -411,7 +450,7 @@ export const DeleteSpaceItemModal = ({
               className="spaceDeleteModal__body__buttons__delete"
             >
               Yes, delete
-          </button>
+            </button>
           </div>
         </section>
       </div>

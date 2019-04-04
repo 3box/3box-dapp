@@ -33,23 +33,44 @@ const PublicRowMobile = ({
             {spaceName}
           </p>
           <p>
-            {(dataKey && dataKey !== 'collectiblesFavoritesToRender')
-              && dataKey.replace(/([A-Z])/g, ' $1')
-                .replace(/^./, str => str.toUpperCase())}
+            {(dataKey && dataKey.substring(0, 14) !== 'follow-thread-') && dataKey.replace(/([A-Z])/g, ' $1')
+              .replace(/^./, str => str.toUpperCase())}
 
-            {(dataKey && dataKey === 'collectiblesFavoritesToRender')
-              && 'Favorite Collectibles'}
+            {(dataKey && dataKey.substring(0, 14) === 'follow-thread-')
+              && 'Thread'}
           </p>
         </div>
+
+        <div className="data__items__context">
+          <span className={`type__tag ${rowType}`}>
+            <p className="spaceRow__tag__text">
+              {rowType}
+            </p>
+          </span>
+
+          {privacy === 'private'
+            ? <img src={Private} alt="Transaction Icon" className="data__items__privacyicon" />
+            : <img src={Globe} alt="Transaction Icon" className="data__items__privacyicon" />
+          }
+          {/* Feb 19, 2019 */}
+        </div>
+      </div>
+      <div className="data__items--detailswrapper">
         <div className="data__content">
+          {(dataKey && dataKey.substring(0, 14) === 'follow-thread-')
+            && (
+              <p className="data__text">
+                {dataValue.name.replace(/([A-Z])/g, ' $1')
+                  .replace(/^./, str => str.toUpperCase())}
+              </p>)
+          }
+
           {typeof dataValue === 'string' && (
             dataValue
           )}
 
-          {(typeof dataValue === 'object' && rowType !== 'Image' && !Array.isArray(dataValue)) && (
-            Object.keys(dataValue).map(item => (
-              <p>{item}</p>
-            ))
+          {(typeof dataValue === 'object' && rowType !== 'Image' && !Array.isArray(dataValue) && dataKey.substring(0, 14) !== 'follow-thread-') && (
+            Object.keys(dataValue).map(item => (item))
           )}
 
           {(rowType !== 'Image' && Array.isArray(dataValue)) && (
@@ -92,19 +113,6 @@ const PublicRowMobile = ({
             </React.Fragment>
           )}
         </div>
-      </div>
-      <div className="data__items--detailswrapper">
-        {privacy === 'private'
-          ? <img src={Private} alt="Transaction Icon" className="data__items__privacyicon" />
-          : <img src={Globe} alt="Transaction Icon" className="data__items__privacyicon" />
-        }
-
-        <span className={`type__tag ${rowType}`}>
-          <p className="spaceRow__tag__text">
-            {rowType}
-          </p>
-        </span>
-        {/* Feb 19, 2019 */}
       </div>
     </div>
   );

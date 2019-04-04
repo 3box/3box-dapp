@@ -5,6 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 
 import ThreeBoxLogo from '../assets/ThreeBoxLogoBlue.svg';
 import ThreeBoxB from '../assets/3Box3Blue.svg';
+import DropDown from '../assets/DropDown.svg';
 import actions from '../state/actions';
 import * as routes from '../utils/routes';
 import { normalizeURL } from '../utils/funcs';
@@ -86,12 +87,16 @@ class Nav extends Component {
         {
           <div
             className="nav__arrow"
-            onClick={this.handleDropdown}
-            onKeyPress={this.handleDropdown}
+            onMouseOver={this.handleDropdown}
+            onFocus={this.handleDropdown}
+
+            // onMouseOut={this.handleDropdown}
+            // onBlur={this.handleDropdown}
             role="button"
             tabIndex={0}
           >
-            &#9660;
+            {/* &#9660; */}
+            <img src={DropDown} alt="dropdown" className="nav__arrow__icon" />
           </div>
         }
 
@@ -122,6 +127,9 @@ class Nav extends Component {
           className={`${showProfileModal ? 'nav__dropdown--visible' : undefined} nav__dropdown nav__dropdown--desktop`}
           onClick={this.handleDropdown}
           onKeyPress={this.handleDropdown}
+
+          onMouseLeave={this.handleDropdown}
+          onBlur={this.handleDropdown}
           tabIndex={0}
           role="button"
         >
@@ -153,7 +161,7 @@ class Nav extends Component {
               Sign Out
             </li>
           </ul>
-        </div>
+        </div >
 
         {showProfileModal &&
           (
@@ -163,7 +171,8 @@ class Nav extends Component {
               onKeyPress={this.handleDropdown}
               tabIndex={0}
               role="button"
-            />)}
+            />)
+        }
 
         {/* mobile nav dropdown */}
         <div
@@ -221,7 +230,7 @@ class Nav extends Component {
           tabIndex={0}
         />
 
-      </nav>
+      </nav >
     );
   }
 }

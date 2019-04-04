@@ -20,7 +20,18 @@ const FavoriteCollectiblesRow = ({
     <div
       className="data__items__row"
       key={dataKey}
-      onClick={() => viewSpaceItem(true, false, false, dataKey, dataValue, spaceName, rowType, privacy)}
+      onClick={() => {
+        viewSpaceItem(
+          true,
+          false,
+          false,
+          dataKey,
+          dataValue,
+          spaceName,
+          rowType,
+          privacy
+        )
+      }}
       role="button"
       onKeyPress={() => viewSpaceItem(true, false, false, dataKey, dataValue, spaceName, rowType, privacy)}
       tabIndex={0}

@@ -29,6 +29,17 @@ const VaultRowMobile = ({
             {`Private ${spaceName} Data`}
           </p>
         </div>
+        <div className="data__items__context">
+          <span className="type__tag row__type__vault">
+            <p className="spaceRow__tag__text">
+              Vault
+            </p>
+          </span>
+          <img src={Private} alt="Transaction Icon" className="data__items__privacyicon" />
+          {/* Feb 19, 2019 */}
+        </div>
+      </div>
+      <div className="data__items--detailswrapper">
         <div className="data__content">
           <button
             className={`
@@ -44,15 +55,6 @@ const VaultRowMobile = ({
             {(isLoadingVault && vaultToOpen === spaceName) && <img src={Loading} alt="" className="vault__loading" />}
           </button>
         </div>
-      </div>
-      <div className="data__items--detailswrapper">
-        <img src={Private} alt="Transaction Icon" className="data__items__privacyicon" />
-        <span className="type__tag row__type__vault">
-          <p className="spaceRow__tag__text">
-            Vault
-          </p>
-        </span>
-        {/* Feb 19, 2019 */}
       </div>
     </div>
   );

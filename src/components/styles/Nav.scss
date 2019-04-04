@@ -104,7 +104,7 @@ nav {
 .nav__tabs {
   position: absolute;
   right: 82px;
-  height: 70%;
+  height: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -153,7 +153,7 @@ nav {
 
 .nav__folder {
   filter: grayscale(100%);
-  width: 30px;
+  width: 27px;
   margin-right: 16px;
 }
 
@@ -174,8 +174,8 @@ nav {
 
 .nav__userPicture {
   border-radius: 100%;
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
   margin: 14px 16px 14px 14px;
   margin-left: auto;
   cursor: pointer;
@@ -185,11 +185,21 @@ nav {
 
 .nav__arrow {
   position: absolute;
-  right: 36px;
-  top: 28px;
+  right: 16px;
+  top: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 55px;
+  width: 55px;
+  box-sizing: border-box;
   cursor: pointer;
   font-size: 12px;
   color: $lightFont;
+}
+
+.nav__arrow__icon {
+  width: 10px;
 }
 
 .nav__dropdown {

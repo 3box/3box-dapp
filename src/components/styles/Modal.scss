@@ -180,6 +180,7 @@
 .spaceModal__space__value {
   font-size: 12px !important;
   color: $lightFont;
+  font-weight: 800;
 }
 
 .spaceModal__name__value {
@@ -249,7 +250,13 @@
 
 .spaceModal__context__privacy {
   width: 20px !important;
-  height: 20px;
+  height: 15px;
+  margin-left: 20px;
+}
+
+.spaceModal__context__viewIcon {
+  width: 18px !important;
+  height: 13px;
   margin-left: 20px;
 }
 
@@ -844,18 +851,6 @@
   position: absolute;
 }
 
-// .showModal.modal--effect .showModalImage.modal__onBoardingModal {
-//   opacity: 1;
-//   visibility: visible;
-//   -webkit-transition: all 0.4s ease-in-out;
-//   transition: all 0.4s ease-in-out;
-// }
-
-// .showModal.modal--effect .showModalImage.modal__onBoardingModal .fadeImage.modal__onBoardingModal__image {
-//   opacity: 1;
-//   visibility: visible;
-// }
-
 #modal__onBoardingModal__image {
   object-fit: cover;
   border-radius: 6px;
@@ -941,9 +936,20 @@
   margin-top: 60px;
 }
 
+.modal__threebox__mollie {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .modal__loading__mollie {
-  width: 120px !important;
-  margin-top: 22px;
+  width: 100px !important;
+}
+
+.modal__loading__3 {
+  margin-top: 30px;
+  width: 110px !important;
 }
 
 #modal__loadingGraphic--noMargin {
@@ -1295,6 +1301,17 @@
 
   .onClickOutsideCollectibles {
     display: none;
+  }
+
+  .modal__loading__mollie {
+    width: 100px !important;
+    margin-top: 0;
+  }
+
+  .loadingModal {
+    #modal__loadingGraphic {
+      margin-top: 0px;
+    }
   }
 
   .onClickOutsideCollectibles--mobile {

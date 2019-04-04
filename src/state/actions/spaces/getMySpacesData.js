@@ -11,6 +11,9 @@ const getMySpacesData = address => async (dispatch) => {
     allData['3Box'] = {};
 
     const list = await Box.listSpaces(address); // get list of spaces
+
+    console.log('spacesList', list);
+
     const getSpace = async (spaceName) => { // function to get space and pair to key
       const space = await Box.getSpace(address, spaceName);
       allData[spaceName] = {};
@@ -18,6 +21,14 @@ const getMySpacesData = address => async (dispatch) => {
         private_space_data: true,
       };
       allData[spaceName].public = space;
+
+      console.log('gotSpace', space);
+
+      // if (Object.keys(space)[0] && Object.keys(space)[0].substring(0, 14) === 'follow-thread-') {
+      //   const thread = await Box.getThread(spaceName, Object.values(space)[0].name);
+      //   console.log('thread', thread);
+      //   allData[spaceName].public.thread = thread;
+      // }
     };
 
     const spaceDataPromise = async () => Promise // for each space
