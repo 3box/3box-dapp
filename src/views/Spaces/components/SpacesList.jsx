@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import Nav from '../../../components/Nav';
 import Loading from '../../../assets/Loading.svg';
 import Arrow from '../../../assets/Arrow.svg';
 
@@ -19,6 +21,9 @@ const SpacesList = ({
       ${show ? '' : 'closeSpaces'} 
       ${showSpacesMobile ? 'closeSpaces--mobile' : ''}
     `}>
+      <div className="space__nav--mobile">
+        <Nav />
+      </div>
       <div
         className={`space ${spaceToDisplay === 'All Data' ? 'activeSpace' : ''}`}
         onClick={() => {
@@ -82,7 +87,8 @@ const SpacesList = ({
           <div className="space__divider--mobile" />
         </React.Fragment>
       ))}
-    </section>);
+    </section>
+  );
 
 SpacesList.propTypes = {
   sortData: PropTypes.func.isRequired,

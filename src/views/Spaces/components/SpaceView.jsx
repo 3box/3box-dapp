@@ -8,11 +8,12 @@ import FavoriteCollectiblesRow from './FavoriteCollectiblesRow';
 import VaultRowMobile from './VaultRowMobile';
 import PublicRowMobile from './PublicRowMobile';
 import FavoriteCollectiblesRowMobile from './FavoriteCollectiblesRowMobile';
+import Mollie from '../../../assets/Mollie.png';
 import '../styles/Spaces.css';
 
 const SpaceView = ({ openSpace, spaceDataToRender, spacesOpened, vaultToOpen, isLoadingVault, width }) => (
   <React.Fragment>
-    {spaceDataToRender.length > 0 && spaceDataToRender.map((row) => {
+    {spaceDataToRender.length > 0 ? spaceDataToRender.map((row) => {
       if (row.name !== 'collectiblesFavoritesToRender'
         && row.name !== 'private_space_data' && width >= 600) {
         return (
@@ -80,7 +81,12 @@ const SpaceView = ({ openSpace, spaceDataToRender, spacesOpened, vaultToOpen, is
             rowType={row.type}
           />);
       }
-    })}
+    }) : (
+        <div className="emptySpace">
+          <img src={Mollie} alt="Mollie" className="emptySpace_mollie" />
+          <p>There's no data in this space</p>
+        </div>
+      )}
   </React.Fragment>
 );
 

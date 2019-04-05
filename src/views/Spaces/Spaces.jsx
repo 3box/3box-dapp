@@ -138,15 +138,17 @@ class Spaces extends Component {
   }
 
   updateAndSort = (sortBy, updatedAllData, spaceToDisplay, list) => {
+    // start fade out
     store.dispatch({
       type: 'SPACES_DATA_UPDATE',
       list,
       allData: updatedAllData,
     });
 
+    // delete
     setTimeout(() => {
       this.sortData(sortBy, updatedAllData, spaceToDisplay, true);
-    }, 3000);
+    }, 1500);
   }
 
   async deleteItem(spaceName, key, privacy, listIndex) {
@@ -322,7 +324,9 @@ class Spaces extends Component {
 
     return (
       <div>
-        <Nav />
+        <div className="data__nav--desktop">
+          <Nav />
+        </div>
         <div className="data__page">
           <ReactCSSTransitionGroup
             transitionName="app__modals"
@@ -394,6 +398,9 @@ class Spaces extends Component {
           />
 
           <main className={`dataExplorer ${showSpaceList ? '' : 'wideDataExplorer'} ${!showSpacesMobile ? '' : 'wideDataExplorer--mobile'}`}>
+            <div className="space__nav--mobile">
+              <Nav />
+            </div>
             <Header
               spaceToDisplay={spaceToDisplay}
               isSpacesLoading={isSpacesLoading}

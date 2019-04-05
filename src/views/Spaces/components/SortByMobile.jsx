@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const sortByMobile = ({ handleMobileInput, showMobileInput, sortBy, sortData, spaceToDisplay, sortDirection }) => (
   <div className="data__categories--mobile">
     <p>
-      Sort by
+      SORT BY
     </p>
     <div
       className="data__selected-sort"

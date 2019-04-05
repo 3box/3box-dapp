@@ -104,7 +104,7 @@ nav {
 .nav__tabs {
   position: absolute;
   right: 82px;
-  height: 50%;
+  height: 38%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -153,8 +153,9 @@ nav {
 
 .nav__folder {
   filter: grayscale(100%);
-  width: 27px;
+  width: 26px;
   margin-right: 16px;
+  opacity: .6;
 }
 
 .nav__dropdown__mobileLogo {

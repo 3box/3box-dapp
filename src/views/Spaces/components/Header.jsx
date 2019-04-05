@@ -52,8 +52,8 @@ const Header = ({
                 className="data__space__context__arrowButton"
                 alt="list"
               />
+              <h2>{spaceToDisplay}</h2>
             </button>
-            <h2>{spaceToDisplay}</h2>
           </div>
           {isSpacesLoading && <img className="data__space__loading" src={Loading} alt="info" />}
         </span>

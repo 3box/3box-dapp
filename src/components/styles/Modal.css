@@ -1052,6 +1052,28 @@
     z-index: 6;
     top: 0;
     position: relative; }
+  .spaceModalWrapper {
+    height: 100vh;
+    width: 100vw;
+    overflow-y: scroll;
+    justify-content: center;
+    align-items: flex-start;
+    -webkit-overflow-scrolling: touch;
+    padding-top: 200px;
+    z-index: 6;
+    top: 0;
+    display: flex;
+    position: relative; }
+  .listSpaceModal {
+    min-width: 90vw;
+    box-sizing: border-box;
+    padding: 0 !important;
+    position: relative !important; }
+  .spaceModal__content__collectibles {
+    width: 30% !important; }
+  .spaceModal__content__collectibles__info {
+    max-width: 64%;
+    overflow: hidden; }
   .collectiblesTileModal {
     position: relative !important;
     overflow: hidden;
@@ -1088,6 +1110,8 @@
     background-color: transparent !important;
     border: none;
     font-size: 16px; }
+  .list__scrollable-wrapper {
+    height: 100vh; }
   .modal--sync {
     width: 78vw;
     padding: 0 24px;
@@ -1108,6 +1132,9 @@
       margin-bottom: 0; }
   .spaceDeleteModal__body__buttons {
     width: 58%; }
+  .spaceOpenedModal--mobile {
+    display: flex;
+    justify-content: center; }
   .modal--space {
     width: 78vw;
     padding: 0 24px;
@@ -1172,7 +1199,6 @@
     width: fit-content;
     min-height: fit-content;
     min-width: 90vw;
-    margin: 120px 0 60px 0;
     overflow: visible; }
   .spaceDeleteModal {
     padding: 0;
