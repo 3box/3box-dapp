@@ -18,7 +18,7 @@ const FavoriteCollectiblesRowMobile = ({
   viewSpaceItem,
 }) => (
     <div
-      className="data__items__row"
+      className="data__items__row favoriteCollectibles_row"
       key={dataKey}
       onClick={() => viewSpaceItem(true, false, false, dataKey, dataValue, spaceName, rowType, privacy)}
       role="button"

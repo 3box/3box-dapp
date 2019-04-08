@@ -469,14 +469,14 @@ export const DeleteSpaceItemModal = ({
             </button>
           </div>
         </section>
-        <div
-          className="onClickOutsideCollectibles--mobile"
-          onClick={() => viewSpaceItem(false, false, false)}
-          tabIndex={0}
-          onKeyPress={() => viewSpaceItem(false, false, false)}
-          role="button"
-        />
       </div>
+      <div
+        className="onClickOutsideCollectibles--mobile"
+        onClick={() => viewSpaceItem(false, false, false)}
+        tabIndex={0}
+        onKeyPress={() => viewSpaceItem(false, false, false)}
+        role="button"
+      />
       <div
         className="onClickOutsideCollectibles"
         onClick={() => viewSpaceItem(false, false, false)}

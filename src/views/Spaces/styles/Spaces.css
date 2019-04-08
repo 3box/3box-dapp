@@ -19,8 +19,12 @@
   -o-transition: all .5s ease;
   transition: all .5s ease; }
 
+.sortArrow {
+  font-size: 15px !important;
+  font-weight: 800; }
+
 .closeSpaces {
-  margin-left: calc(-18vw - 50px); }
+  margin-left: -260px; }
 
 .dataExplorer {
   display: flex;
@@ -211,6 +215,9 @@
   .data__items__row span {
     color: #828282; }
 
+.favoriteCollectibles_row .data__content {
+  align-items: center; }
+
 .data__items__row__vault__icon {
   width: 20px;
   filter: grayscale(100%); }
@@ -233,7 +240,8 @@
     padding: 0; }
 
 .data__space__context__listButton {
-  display: flex; }
+  display: flex;
+  margin-right: 12px; }
 
 .data__space__context__arrowButton {
   display: none; }
@@ -389,6 +397,9 @@
     height: 100vh; }
   .closeSpaces {
     margin-left: 0; }
+  .Text_row .data__content {
+    min-height: 26px !important;
+    max-height: 36px !important; }
   .dataExplorer {
     position: absolute;
     width: 100vw !important;
@@ -463,8 +474,6 @@
     justify-content: flex-end;
     align-items: center;
     padding-right: 4vw; }
-  .data__collectibles__tile {
-    margin-top: 16px; }
   .data__content {
     min-height: 38px;
     max-height: 70px;

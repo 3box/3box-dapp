@@ -16,6 +16,8 @@ const sortByMobile = ({ handleMobileInput, showMobileInput, sortBy, sortData, sp
       <p>
         {sortBy.charAt(0).toUpperCase() + sortBy.slice(1)}
       </p>
+      {sortDirection && <p className="sortArrow">&uarr;</p>}
+      {!sortDirection && <p className="sortArrow">&darr;</p>}
       {showMobileInput && (
         <div className="data__categories__picker--mobile">
           <ul>
@@ -27,7 +29,9 @@ const sortByMobile = ({ handleMobileInput, showMobileInput, sortBy, sortData, sp
               className={sortBy === 'name' ? 'activeSort' : ''}
             >
               Name
-                </li>
+              {(sortBy === 'name' && sortDirection) && <p className="sortArrow">&uarr;</p>}
+              {(sortBy === 'name' && !sortDirection) && <p className="sortArrow">&darr;</p>}
+            </li>
             <li
               onClick={() => sortData('content', false, spaceToDisplay, false)}
               onKeyPress={() => sortData('content', false, spaceToDisplay, false)}
@@ -36,7 +40,9 @@ const sortByMobile = ({ handleMobileInput, showMobileInput, sortBy, sortData, sp
               className={sortBy === 'content' ? 'activeSort' : ''}
             >
               Content
-                </li>
+              {(sortBy === 'content' && sortDirection) && <p className="sortArrow">&uarr;</p>}
+              {(sortBy === 'content' && !sortDirection) && <p className="sortArrow">&darr;</p>}
+            </li>
             <li
               onClick={() => sortData('space', false, spaceToDisplay, false)}
               onKeyPress={() => sortData('space', false, spaceToDisplay, false)}
@@ -45,7 +51,9 @@ const sortByMobile = ({ handleMobileInput, showMobileInput, sortBy, sortData, sp
               tabIndex={0}
             >
               Space
-                </li>
+              {(sortBy === 'space' && sortDirection) && <p className="sortArrow">&uarr;</p>}
+              {(sortBy === 'space' && !sortDirection) && <p className="sortArrow">&darr;</p>}
+            </li>
             <li
               onClick={() => sortData('type', false, spaceToDisplay, false)}
               onKeyPress={() => sortData('type', false, spaceToDisplay, false)}
@@ -54,7 +62,9 @@ const sortByMobile = ({ handleMobileInput, showMobileInput, sortBy, sortData, sp
               tabIndex={0}
             >
               Type
-                </li>
+              {(sortBy === 'type' && sortDirection) && <p className="sortArrow">&uarr;</p>}
+              {(sortBy === 'type' && !sortDirection) && <p className="sortArrow">&darr;</p>}
+            </li>
             <li
               onClick={() => sortData('privacy', false, spaceToDisplay, false)}
               onKeyPress={() => sortData('privacy', false, spaceToDisplay, false)}
@@ -63,41 +73,24 @@ const sortByMobile = ({ handleMobileInput, showMobileInput, sortBy, sortData, sp
               tabIndex={0}
             >
               Privacy
-                </li>
+              {(sortBy === 'privacy' && sortDirection) && <p className="sortArrow">&uarr;</p>}
+              {(sortBy === 'privacy' && !sortDirection) && <p className="sortArrow">&darr;</p>}
+            </li>
             <li
-              onClick={() => sortData('last', false, spaceToDisplay, false)}
-              onKeyPress={() => sortData('last', false, spaceToDisplay, false)}
+              onClick={() => sortData('lastUpdated', false, spaceToDisplay, false)}
+              onKeyPress={() => sortData('lastUpdated', false, spaceToDisplay, false)}
               className={sortBy === 'lastUpdated' ? 'activeSort' : ''}
               role="button"
               tabIndex={0}
             >
               Last
-             updated
-                 </li>
+              updated
+            {(sortBy === 'lastUpdated' && sortDirection) && <p className="sortArrow">&uarr;</p>}
+              {(sortBy === 'lastUpdated' && !sortDirection) && <p className="sortArrow">&darr;</p>}
+            </li>
           </ul>
         </div>)}
     </div>
-    {sortDirection ? (
-      <p
-        className="data__categories__title__arrow"
-        onClick={() => sortData(sortBy, false, spaceToDisplay, false)}
-        onKeyPress={() => sortData(sortBy, false, spaceToDisplay, false)}
-        role="button"
-        tabIndex={0}
-      >
-        &#9660;
-          </p>
-    ) : (
-        <p
-          className="data__categories__title__arrow"
-          onClick={() => sortData(sortBy, false, spaceToDisplay, false)}
-          onKeyPress={() => sortData(sortBy, false, spaceToDisplay, false)}
-          role="button"
-          tabIndex={0}
-        >
-          &#9650;
-        </p>
-      )}
   </div>
 );
 

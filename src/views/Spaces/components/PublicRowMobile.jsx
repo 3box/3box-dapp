@@ -20,7 +20,7 @@ const PublicRowMobile = ({
   viewSpaceItem,
 }) => (
     <div
-      className="data__items__row"
+      className={`data__items__row ${rowType}_row`}
       key={dataKey}
       onClick={() => viewSpaceItem(true, false, false, dataKey, dataValue, spaceName, rowType, privacy)}
       role="button"
