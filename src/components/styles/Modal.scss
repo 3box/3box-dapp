@@ -218,6 +218,28 @@
   background-color: $backgroundGrey;
 }
 
+.spaceModal__listContent {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.spaceModal__listContent__kv {
+  display: flex;
+}
+
+.spaceModal__listContent__kv__key {
+  font-size: 12px !important;
+  color: $lightFont;
+  margin-right: 12px;
+}
+
+.spaceModal__listContent__kv__value {
+  font-size: 12px !important;
+  color: $lightFont;
+}
+
 .spaceModal__content__object-keys {
   margin-right: 10px;
 }
@@ -1371,7 +1393,7 @@
     width: 30% !important;
   }
 
-  .spaceModal__content__collectibles__info{
+  .spaceModal__content__collectibles__info {
     max-width: 64%;
     overflow: hidden;
   }

@@ -33,6 +33,8 @@ class Spaces extends Component {
       spaceToDisplay: 'All Data',
       spaceNameOpened: '',
       vaultToOpen: '',
+      itemToDelete: '',
+      spaceNameToDelete: '',
       sortBy: '',
       width: null,
       sortDirection: true,
@@ -40,6 +42,8 @@ class Spaces extends Component {
       isLoadingVault: false,
       showSpacesMobile: false,
       showMobileInput: false,
+      fadeIn: false,
+      fadeOut: false,
     };
     this.openSpace = this.openSpace.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
@@ -148,6 +152,7 @@ class Spaces extends Component {
     // delete
     setTimeout(() => {
       this.sortData(sortBy, updatedAllData, spaceToDisplay, true);
+      this.setState({ itemToDelete: '', spaceNameToDelete: '' });
     }, 1500);
   }
 
@@ -165,6 +170,8 @@ class Spaces extends Component {
     const updatedCollection = collection && collection.slice();
     const updatedCollectiblesFavorites = collectiblesFavorites && collectiblesFavorites.slice();
     const updatedCollectiblesFavoritesToRender = collectiblesFavoritesToRender && collectiblesFavoritesToRender.slice();
+
+    this.setState({ itemToDelete: key, spaceNameToDelete: spaceName });
 
     if (spaceName === '3Box') {
       let proof;
@@ -242,7 +249,7 @@ class Spaces extends Component {
       spaceToDisplay,
     } = this.state;
 
-    this.setState({ isLoadingVault: true, vaultToOpen: spaceName });
+    this.setState({ isLoadingVault: true, vaultToOpen: spaceName, fadeOut: true });
 
     const updatedAllData = cloneDeep(allData);
     const updatedspacesOpened = cloneDeep(spacesOpened);
@@ -255,7 +262,12 @@ class Spaces extends Component {
       updatedAllData[spaceName].private = privateSpace;
       updatedspacesOpened[spaceName] = true;
 
-      this.setState({ spaceNameOpened: spaceName });
+      this.setState({
+        spaceNameOpened: spaceName,
+        fadeIn: true,
+        fadeOut: false,
+        isLoadingVault: false,
+      });
       this.sortData(sortBy, updatedAllData, spaceToDisplay, true);
 
       store.dispatch({
@@ -283,18 +295,19 @@ class Spaces extends Component {
           type: 'UI_HANDLE_SPACE_OPENED_MODAL',
           showSpaceOpenedModal: false,
         });
-      }, 3000);
+        this.setState({ fadeIn: false });
+      }, 2000);
     };
 
     const opts = {
       onSyncDone: () => {
-        updateSpaceData();
+        setTimeout(() => {
+          updateSpaceData();
+        }, 1000);
       },
     };
 
     await box.openSpace(spaceName, opts);
-
-    this.setState({ isLoadingVault: false, vaultToOpen: '' });
   }
 
   render() {
@@ -320,6 +333,10 @@ class Spaces extends Component {
       showSpacesMobile,
       showMobileInput,
       width,
+      fadeIn,
+      fadeOut,
+      itemToDelete,
+      spaceNameToDelete,
     } = this.state;
 
     return (
@@ -334,7 +351,7 @@ class Spaces extends Component {
             transitionLeaveTimeout={300}
           >
             {showSpaceOpenedModal && <SpaceOpenedModal spaceName={spaceNameOpened} />}
-
+            {console.log(spaceItem.dataValue)}
             {showSpaceDataItemModal && (
               (Array.isArray(spaceItem.dataValue) && spaceItem.dataValue.length > 0 && spaceItem.rowType !== 'Image')
                 ? (
@@ -432,6 +449,11 @@ class Spaces extends Component {
                     isLoadingVault={isLoadingVault}
                     vaultToOpen={vaultToOpen}
                     width={width}
+                    fadeIn={fadeIn}
+                    fadeOut={fadeOut}
+                    spaceNameOpened={spaceNameOpened}
+                    itemToDelete={itemToDelete}
+                    spaceNameToDelete={spaceNameToDelete}
                     openSpace={this.openSpace}
                   />
                 )
@@ -440,7 +462,12 @@ class Spaces extends Component {
                     openSpace={this.openSpace}
                     isLoadingVault={isLoadingVault}
                     vaultToOpen={vaultToOpen}
+                    fadeIn={fadeIn}
+                    fadeOut={fadeOut}
                     width={width}
+                    spaceNameOpened={spaceNameOpened}
+                    itemToDelete={itemToDelete}
+                    spaceNameToDelete={spaceNameToDelete}
                     spacesOpened={spacesOpened}
                     spaceName={spaceToDisplay}
                   />

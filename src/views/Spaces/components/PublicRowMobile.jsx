@@ -18,9 +18,19 @@ const PublicRowMobile = ({
   rowType,
   privacy,
   viewSpaceItem,
+  spaceNameOpened,
+  fadeIn,
+  itemToDelete,
+  spaceNameToDelete,
 }) => (
     <div
-      className={`data__items__row ${rowType}_row`}
+      className={`
+      data__items__row 
+      ${(itemToDelete === dataKey && spaceNameToDelete === spaceName) ? 'fadeOutRow' : ''}
+      ${(fadeIn && spaceName === spaceNameOpened && privacy === 'private') ? 'fadeInRow'
+          : ''}
+      ${rowType}_row
+      `}
       key={dataKey}
       onClick={() => viewSpaceItem(true, false, false, dataKey, dataValue, spaceName, rowType, privacy)}
       role="button"
@@ -124,6 +134,10 @@ PublicRowMobile.propTypes = {
   spaceName: PropTypes.string.isRequired,
   rowType: PropTypes.string.isRequired,
   privacy: PropTypes.string.isRequired,
+  spaceNameOpened: PropTypes.string.isRequired,
+  fadeIn: PropTypes.bool.isRequired,
+  itemToDelete: PropTypes.string.isRequired,
+  spaceNameToDelete: PropTypes.string.isRequired,
 };
 
 export default connect('', { viewSpaceItem })(PublicRowMobile);

@@ -9,11 +9,14 @@ import '../styles/Spaces.css';
 const VaultRow = ({
   openSpace,
   spaceName,
-  hasVaultOpened,
   isLoadingVault,
   vaultToOpen,
+  fadeOut,
 }) => (
-    <div className={`data__items__row ${hasVaultOpened ? 'hideVault' : ''}`} key={`${spaceName}vault`}>
+    <div
+      className={`data__items__row ${(fadeOut && spaceName === vaultToOpen) ? 'fadeOutRow' : ''}`}
+      key={`${spaceName}vault`}
+    >
       <span className="data__items__row__entry spaceRow__key" title={`Private ${spaceName} Data`}>
         <div className="data__text row__vault">
           <img src={Folder} alt="" className="data__items__row__vault__icon" />
@@ -66,12 +69,8 @@ VaultRow.propTypes = {
   openSpace: PropTypes.func.isRequired,
   spaceName: PropTypes.string.isRequired,
   vaultToOpen: PropTypes.string.isRequired,
-  hasVaultOpened: PropTypes.bool.isRequired,
   isLoadingVault: PropTypes.bool.isRequired,
+  fadeOut: PropTypes.bool.isRequired,
 };
-
-// VaultRow.defaultProps = {
-//   box: {},
-// };
 
 export default VaultRow;

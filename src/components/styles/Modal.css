@@ -179,6 +179,24 @@
   min-width: 100%;
   background-color: #f8f8f8; }
 
+.spaceModal__listContent {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column; }
+
+.spaceModal__listContent__kv {
+  display: flex; }
+
+.spaceModal__listContent__kv__key {
+  font-size: 12px !important;
+  color: #6b6b6b;
+  margin-right: 12px; }
+
+.spaceModal__listContent__kv__value {
+  font-size: 12px !important;
+  color: #6b6b6b; }
+
 .spaceModal__content__object-keys {
   margin-right: 10px; }
 

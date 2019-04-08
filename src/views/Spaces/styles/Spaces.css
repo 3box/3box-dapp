@@ -43,9 +43,6 @@
 .wideDataExplorer {
   width: 100vw; }
 
-.hideVault {
-  display: none !important; }
-
 .space {
   display: flex;
   align-items: center;
@@ -208,12 +205,19 @@
   min-height: fit-content;
   overflow-y: hidden;
   width: 100%;
-  background-color: white; }
+  background-color: white;
+  transition: ease-in-out .6s all; }
   .data__items__row:hover {
     background-color: #fbfbfd; }
   .data__items__row p,
   .data__items__row span {
     color: #828282; }
+
+.fadeInRow {
+  background-color: #cdddf3 !important; }
+
+.fadeOutRow {
+  opacity: .2 !important; }
 
 .favoriteCollectibles_row .data__content {
   align-items: center; }
@@ -588,8 +592,7 @@
     padding-left: 4vw; }
   .data__items__privacyicon {
     width: 13px;
-    height: 13px;
-    margin-bottom: 6px; }
+    height: 13px; }
   .data__items__spacename {
     font-size: 13px;
     margin-right: 8px;

@@ -221,23 +221,15 @@ export const ListSpaceItemModal = ({
         </section>
 
         <section className="spaceModal__content">
-          {rowType === 'Image' && (
-            <img
-              src={`https://ipfs.infura.io/ipfs/${dataValue[0].contentUrl['/']}`}
-              className="spaceModal__content__image"
-              alt="profile"
-            />)}
-
-          {typeof dataValue === 'string' && dataValue}
-
-          {(typeof dataValue === 'object' && rowType !== 'Image' && dataKey !== 'collectiblesFavoritesToRender') && (
-            <React.Fragment>
-              {
-                Object.keys(dataValue).map(content => (
-                  <p>{content}</p>
-                ))
-              }
-            </React.Fragment>
+          {(typeof item === 'object' && dataKey !== 'collectiblesFavoritesToRender') && (
+            <div className="spaceModal__listContent">
+              {Object.entries(item).map(kv => (
+                <div className="spaceModal__listContent__kv">
+                  <p className="spaceModal__listContent__kv__key">{`${kv[0]}:`}</p>
+                  <p className="spaceModal__listContent__kv__value">{kv[1]}</p>
+                </div>
+              ))}
+            </div>
           )}
 
           {dataKey === 'collectiblesFavoritesToRender' && (

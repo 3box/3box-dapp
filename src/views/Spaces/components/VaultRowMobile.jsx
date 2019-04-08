@@ -17,9 +17,12 @@ const VaultRowMobile = ({
   hasVaultOpened,
   isLoadingVault,
   vaultToOpen,
+  fadeOut,
 }) => (
     <div
-      className={`data__items__row ${hasVaultOpened ? 'hideVault' : ''}`}
+      className={`data__items__row 
+      ${(fadeOut && spaceName === vaultToOpen) ? 'fadeOutRow' : ''}
+      `}
       key={spaceName}
     >
       <div className="data__items--namewrapper">
@@ -65,6 +68,7 @@ VaultRowMobile.propTypes = {
   vaultToOpen: PropTypes.string.isRequired,
   hasVaultOpened: PropTypes.bool.isRequired,
   isLoadingVault: PropTypes.bool.isRequired,
+  fadeOut: PropTypes.bool.isRequired,
 };
 
 export default connect('', { viewSpaceItem })(VaultRowMobile);

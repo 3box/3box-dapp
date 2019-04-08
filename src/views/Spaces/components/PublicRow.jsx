@@ -18,9 +18,19 @@ const PublicRow = ({
   rowType,
   privacy,
   viewSpaceItem,
+  fadeIn,
+  spaceNameOpened,
+  itemToDelete,
+  spaceNameToDelete,
 }) => (
     <div
-      className={`data__items__row ${rowType}_row`}
+      className={`
+      data__items__row 
+      ${rowType}_row 
+      ${(fadeIn && spaceName === spaceNameOpened && privacy === 'private') ? 'fadeInRow'
+          : ''}
+      ${(itemToDelete === dataKey && spaceNameToDelete === spaceName) ? 'fadeOutRow' : ''}
+`}
       key={dataKey}
       onClick={() => viewSpaceItem(true, false, false, dataKey, dataValue, spaceName, rowType, privacy)}
       role="button"
@@ -29,11 +39,15 @@ const PublicRow = ({
     >
       <span
         className="data__items__row__entry spaceRow__key"
-        title={`${(dataKey && dataKey.substring(0, 14) !== 'follow-thread-') ? dataKey.replace(/([A-Z])/g, ' $1')
-          .replace(/^./, str => str.toUpperCase()) : ''}
-          ${(dataKey && dataKey.substring(0, 14) === 'follow-thread-')
-            ? 'Thread' : ''}
-          `}
+        title={`${
+          (dataKey && dataKey.substring(0, 14) !== 'follow-thread-') ? dataKey.replace(/([A-Z])/g, ' $1')
+            .replace(/^./, str => str.toUpperCase()) : ''
+          }
+${
+          (dataKey && dataKey.substring(0, 14) === 'follow-thread-')
+            ? 'Thread' : ''
+          }
+`}
       >
         <p className="data__text row__name">
           {(dataKey && dataKey.substring(0, 14) !== 'follow-thread-') && dataKey.replace(/([A-Z])/g, ' $1')
@@ -50,19 +64,11 @@ const PublicRow = ({
           </p>
         )}
 
-        {(typeof dataValue === 'object' && rowType !== 'Image' && !Array.isArray(dataValue) && dataKey.substring(0, 14) !== 'follow-thread-') && (
+        {(typeof dataValue === 'object' && rowType !== 'Image' && !Array.isArray(dataValue)) && (
           <p className="data__text">
             {Object.keys(dataValue).map(item => (item))}
           </p>
         )}
-
-        {(dataKey && dataKey.substring(0, 14) === 'follow-thread-')
-          && (
-            <p className="data__text">
-              {dataValue.name.replace(/([A-Z])/g, ' $1')
-                .replace(/^./, str => str.toUpperCase())}
-            </p>)
-        }
 
         {(rowType !== 'Image' && Array.isArray(dataValue)) && (
           <p className="data__text">
@@ -98,16 +104,18 @@ const PublicRow = ({
           />
         )}
 
-        {rowType === 'Claim' && (
-          <React.Fragment>
-            <img
-              src={Verified}
-              alt="Verified"
-              className="profile__category__verified__icon"
-            />
-          </React.Fragment>
-        )}
-      </span>
+        {
+          rowType === 'Claim' && (
+            <React.Fragment>
+              <img
+                src={Verified}
+                alt="Verified"
+                className="profile__category__verified__icon"
+              />
+            </React.Fragment>
+          )
+        }
+      </span >
       <span className="data__items__row__entry spaceRow__space">
         <p className="data__text">
           {spaceName}
@@ -135,7 +143,7 @@ const PublicRow = ({
           Feb 19, 2019
           </p>
       </span>
-    </div>
+    </div >
   );
 
 PublicRow.propTypes = {
@@ -145,6 +153,10 @@ PublicRow.propTypes = {
   spaceName: PropTypes.string.isRequired,
   rowType: PropTypes.string.isRequired,
   privacy: PropTypes.string.isRequired,
+  fadeIn: PropTypes.string.isRequired,
+  spaceNameOpened: PropTypes.string.isRequired,
+  itemToDelete: PropTypes.string.isRequired,
+  spaceNameToDelete: PropTypes.string.isRequired,
 };
 
 export default connect('', { viewSpaceItem })(PublicRow);

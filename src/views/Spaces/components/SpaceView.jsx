@@ -11,84 +11,109 @@ import FavoriteCollectiblesRowMobile from './FavoriteCollectiblesRowMobile';
 import Mollie from '../../../assets/Mollie.png';
 import '../styles/Spaces.css';
 
-const SpaceView = ({ openSpace, spaceDataToRender, spacesOpened, vaultToOpen, isLoadingVault, width }) => (
-  <React.Fragment>
-    {spaceDataToRender.length > 0 ? spaceDataToRender.map((row) => {
-      if (row.name !== 'collectiblesFavoritesToRender'
-        && row.name !== 'private_space_data' && width >= 600) {
-        return (
-          <PublicRow
-            dataKey={row.name}
-            dataValue={row.content}
-            spaceName={row.space}
-            privacy={row.privacy}
-            rowType={row.type}
-          />);
-      }
+const SpaceView = ({
+  openSpace,
+  spaceDataToRender,
+  spacesOpened,
+  vaultToOpen,
+  isLoadingVault,
+  width,
+  fadeIn,
+  fadeOut,
+  spaceNameOpened,
+  itemToDelete,
+  spaceNameToDelete,
+}) => (
+    <React.Fragment>
+      {spaceDataToRender.length > 0 ? spaceDataToRender.map((row) => {
+        if (row.name !== 'collectiblesFavoritesToRender'
+          && row.name !== 'private_space_data' && width >= 600) {
+          return (
+            <PublicRow
+              dataKey={row.name}
+              dataValue={row.content}
+              spaceName={row.space}
+              privacy={row.privacy}
+              rowType={row.type}
+              fadeIn={fadeIn}
+              spaceNameOpened={spaceNameOpened}
+              itemToDelete={itemToDelete}
+              spaceNameToDelete={spaceNameToDelete}
+            />);
+        }
 
-      if (row.name !== 'collectiblesFavoritesToRender'
-        && row.name !== 'private_space_data' && width <= 600) {
-        return (
-          <PublicRowMobile
-            dataKey={row.name}
-            dataValue={row.content}
-            spaceName={row.space}
-            privacy={row.privacy}
-            rowType={row.type}
-          />);
-      }
+        if (row.name !== 'collectiblesFavoritesToRender'
+          && row.name !== 'private_space_data' && width <= 600) {
+          return (
+            <PublicRowMobile
+              dataKey={row.name}
+              dataValue={row.content}
+              spaceName={row.space}
+              privacy={row.privacy}
+              rowType={row.type}
+              fadeIn={fadeIn}
+              spaceNameOpened={spaceNameOpened}
+              itemToDelete={itemToDelete}
+              spaceNameToDelete={spaceNameToDelete}
+            />);
+        }
 
-      if (row.name === 'private_space_data' && width >= 600) {
-        return (
-          <VaultRow
-            openSpace={openSpace}
-            spaceName={row.space}
-            isLoadingVault={isLoadingVault}
-            vaultToOpen={vaultToOpen}
-            hasVaultOpened={spacesOpened[row.space]}
-          />);
-      }
+        if (row.name === 'private_space_data' && width >= 600) {
+          return (
+            <VaultRow
+              openSpace={openSpace}
+              spaceName={row.space}
+              isLoadingVault={isLoadingVault}
+              vaultToOpen={vaultToOpen}
+              fadeOut={fadeOut}
+            />);
+        }
 
-      if (row.name === 'private_space_data' && width <= 600) {
-        return (
-          <VaultRowMobile
-            openSpace={openSpace}
-            spaceName={row.space}
-            isLoadingVault={isLoadingVault}
-            vaultToOpen={vaultToOpen}
-            hasVaultOpened={spacesOpened[row.space]}
-          />);
-      }
+        if (row.name === 'private_space_data' && width <= 600) {
+          return (
+            <VaultRowMobile
+              openSpace={openSpace}
+              spaceName={row.space}
+              isLoadingVault={isLoadingVault}
+              vaultToOpen={vaultToOpen}
+              fadeOut={fadeOut}
+            />);
+        }
 
-      if (row.name === 'collectiblesFavoritesToRender' && width >= 600) {
-        return (
-          <FavoriteCollectiblesRow
-            dataKey={row.name}
-            dataValue={row.content}
-            spaceName={row.space}
-            privacy={row.privacy}
-            rowType={row.type}
-          />);
-      }
+        if (row.name === 'collectiblesFavoritesToRender' && width >= 600) {
+          return (
+            <FavoriteCollectiblesRow
+              dataKey={row.name}
+              dataValue={row.content}
+              spaceName={row.space}
+              privacy={row.privacy}
+              rowType={row.type}
+              spaceNameOpened={spaceNameOpened}
+              itemToDelete={itemToDelete}
+              spaceNameToDelete={spaceNameToDelete}
+            />);
+        }
 
-      if (row.name === 'collectiblesFavoritesToRender' && width <= 600) {
-        return (
-          <FavoriteCollectiblesRowMobile
-            dataKey={row.name}
-            dataValue={row.content}
-            spaceName={row.space}
-            privacy={row.privacy}
-            rowType={row.type}
-          />);
-      }
-    }) : (
-        <div className="emptySpace">
-          <img src={Mollie} alt="Mollie" className="emptySpace_mollie" />
-          <p>There's no data in this space</p>
-        </div>
-      )}
-  </React.Fragment>
-);
+        if (row.name === 'collectiblesFavoritesToRender' && width <= 600) {
+          return (
+            <FavoriteCollectiblesRowMobile
+              dataKey={row.name}
+              dataValue={row.content}
+              spaceName={row.space}
+              privacy={row.privacy}
+              rowType={row.type}
+              itemToDelete={itemToDelete}
+              spaceNameToDelete={spaceNameToDelete}
+            />);
+        }
+      }) : (
+          <div className="emptySpace">
+            <img src={Mollie} alt="Mollie" className="emptySpace_mollie" />
+            <p>There's no data in this space</p>
+          </div>
+        )}
+    </React.Fragment>
+  );
 
 SpaceView.propTypes = {
   spaceDataToRender: PropTypes.array.isRequired,
@@ -97,6 +122,11 @@ SpaceView.propTypes = {
   isLoadingVault: PropTypes.bool.isRequired,
   vaultToOpen: PropTypes.string.isRequired,
   width: PropTypes.string.isRequired,
+  fadeIn: PropTypes.bool.isRequired,
+  fadeOut: PropTypes.bool.isRequired,
+  spaceNameOpened: PropTypes.string.isRequired,
+  itemToDelete: PropTypes.string.isRequired,
+  spaceNameToDelete: PropTypes.string.isRequired,
 };
 
 SpaceView.defaultProps = {
