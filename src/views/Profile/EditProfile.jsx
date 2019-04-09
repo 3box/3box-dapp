@@ -1153,6 +1153,7 @@ class EditProfile extends Component {
                               className="edit__profile__value--github verifiedForm"
                               value={verifiedGithub}
                               onChange={e => this.handleFormChange(e, 'verifiedGithub')}
+                              placeholder="Enter your Github handle"
                             />
                             <button
                               type="button"
@@ -1218,6 +1219,7 @@ class EditProfile extends Component {
                               className="edit__profile__value--github verifiedForm"
                               value={verifiedTwitter}
                               onChange={e => this.handleFormChange(e, 'verifiedTwitter')}
+                              placeholder="Enter your Twitter handle"
                             />
                             <button
                               type="button"
@@ -1237,73 +1239,6 @@ class EditProfile extends Component {
                         )}
 
                     </div>
-
-                    {/* <div className="edit__profile__fields__entry">
-                      <div className="edit__profile__keyContainer">
-                        <h5>Email</h5>
-                      </div>
-                      {this.props.verifiedEmail
-                        && (
-                          <div className="edit__profile__verifiedWrapper">
-                            <div className="edit__profile__verifiedName">
-                              <p>{verifiedEmail}</p>
-                              {!emailRemoved
-                                && <img src={Verified} alt="Verified" />
-                              }
-                            </div>
-
-                            {!emailRemoved
-                              ? (
-                                <button
-                                  type="button"
-                                  className={`unstyledButton ${!emailEdited && 'uneditedGithub'} removeGithub`}
-                                  onClick={() => this.handleEmailAddress('remove')}
-                                >
-                                  Remove
-                                </button>
-                              )
-                              : (
-                                <button
-                                  type="button"
-                                  className={`unstyledButton ${!emailEdited && 'uneditedGithub'}`}
-                                  onClick={() => this.handleEmailAddress()}
-                                >
-                                  Cancel
-                                </button>
-                              )}
-                          </div>
-                        )}
-
-                      {!this.props.verifiedEmail
-                        && (
-                          <div className="edit__profile__verifiedWrapper">
-                            <img id="edit__profile__input__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
-                            <input
-                              name="verifiedEmail"
-                              type="text"
-                              className="edit__profile__value--github verifiedForm verifiedForm--email"
-                              value={verifiedEmail}
-                              onChange={e => this.handleFormChange(e, 'verifiedEmail')}
-                            />
-                            <button
-                              type="button"
-                              className={`unstyledButton ${!emailEdited && 'uneditedGithub'} verificationButton verifiedForm`}
-                              disabled={!emailEdited}
-                              onClick={() => {
-                                this.props.getPublicDID();
-                                this.props.handleEmailVerificationModal();
-                              }}
-                            >
-                              Verify
-                            </button>
-                            <p className="edit__profile__verified--NoMobile">
-                              Add verifications using a desktop browser.
-                            </p>
-                          </div>
-                        )}
-
-                    </div> */}
-
 
                   </div>
                   {(githubRemoved || twitterRemoved)
