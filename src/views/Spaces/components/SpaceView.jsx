@@ -20,6 +20,7 @@ const SpaceView = ({
   width,
   fadeIn,
   fadeOut,
+  did,
   spaceNameOpened,
   itemToDelete,
   spaceNameToDelete,
@@ -36,6 +37,7 @@ const SpaceView = ({
               privacy={row.privacy}
               rowType={row.type}
               fadeIn={fadeIn}
+              did={did}
               spaceNameOpened={spaceNameOpened}
               itemToDelete={itemToDelete}
               spaceNameToDelete={spaceNameToDelete}
@@ -52,6 +54,7 @@ const SpaceView = ({
               privacy={row.privacy}
               rowType={row.type}
               fadeIn={fadeIn}
+              did={did}
               spaceNameOpened={spaceNameOpened}
               itemToDelete={itemToDelete}
               spaceNameToDelete={spaceNameToDelete}
@@ -124,6 +127,7 @@ SpaceView.propTypes = {
   width: PropTypes.string.isRequired,
   fadeIn: PropTypes.bool.isRequired,
   fadeOut: PropTypes.bool.isRequired,
+  did: PropTypes.string.isRequired,
   spaceNameOpened: PropTypes.string.isRequired,
   itemToDelete: PropTypes.string.isRequired,
   spaceNameToDelete: PropTypes.string.isRequired,

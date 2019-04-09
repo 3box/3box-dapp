@@ -20,15 +20,24 @@ const getMySpacesData = address => async (dispatch) => {
       };
       allData[spaceName].public = space;
 
-      console.log(space);
+      const threadNames = [];
 
-      Object.entries(space).forEach((kv) => {
+      const threadCalls = Object.entries(space).map((kv) => {
         if (kv[0].substring(0, 14) === 'follow-thread-') {
-          Box.getThread(spaceName, kv[1].name).then((thread) => {
-            delete allData[spaceName].public[kv[0]];
-            allData[spaceName].public[kv[1].name] = thread;
-          });
+          threadNames.push(kv[1].name);
+          return Box.getThread(spaceName, kv[1].name);
         }
+      });
+
+      if (threadCalls.length === 0) return;
+
+      const threadPromise = Promise.all(threadCalls);
+
+      const threadData = await threadPromise;
+
+      threadData.forEach((thread, i) => {
+        delete allData[spaceName].public[`follow-thread-${threadNames[i]}`];
+        allData[spaceName].public[`thread-${threadNames[i]}`] = thread;
       });
     };
 
@@ -47,6 +56,7 @@ const getMySpacesData = address => async (dispatch) => {
       if ((row[0] !== 'box') &&
         (row[0] !== 'feedByAddress') &&
         (row[0] !== 'collection') &&
+        (row[0] !== 'did') &&
         (row[0] !== 'memberSince') &&
         (row[0] !== 'collectiblesFavorites')) {
         if (row[0] === 'verifiedEmail' || row[0] === 'birthday') {

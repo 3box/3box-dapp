@@ -48,20 +48,14 @@ export const ViewSpaceDataItemModal = ({
             </div>
             <div className="spaceModal__name__wrapper">
               <p className="spaceModal__name__value">
-                {(dataKey !== 'collectiblesFavoritesToRender' && dataKey.substring(0, 14) !== 'follow-thread-')
-                  && dataKey.replace(/([A-Z])/g, ' $1')
-                    .replace(/^./, str => str.toUpperCase())}
-
-                {(dataKey === 'collectiblesFavoritesToRender' && dataKey.substring(0, 14) !== 'follow-thread-')
-                  && 'Favorite Collectibles'}
-
-                {dataKey.substring(0, 14) === 'follow-thread-' && 'Thread'}
+                {dataKey.replace(/([A-Z])/g, ' $1')
+                  .replace(/^./, str => str.toUpperCase())}
               </p>
             </div>
           </section>
 
           <section className="spaceModal__content">
-            {dataKey.substring(0, 14) === 'follow-thread-' && dataValue.name.replace(/([A-Z])/g, ' $1')
+            {dataKey.substring(0, 7) === 'thread-' && dataValue.name.replace(/([A-Z])/g, ' $1')
               .replace(/^./, str => str.toUpperCase())}
 
             {rowType === 'Image' && (
@@ -76,7 +70,7 @@ export const ViewSpaceDataItemModal = ({
             {(typeof dataValue === 'object'
               && rowType !== 'Image'
               && dataKey !== 'collectiblesFavoritesToRender'
-              && dataKey.substring(0, 14) !== 'follow-thread-') && (
+              && dataKey.substring(0, 7) !== 'thread-') && (
                 <React.Fragment>
                   {
                     Object.keys(dataValue).map(content => (
@@ -134,7 +128,7 @@ export const ViewSpaceDataItemModal = ({
               >
                 <img src={Trash} alt="Transaction Icon" className="spaceModal__context__privacy" />
                 Delete
-            </span>
+              </span>
 
               {rowType === 'Image' && (
                 <a
@@ -210,10 +204,11 @@ export const ListSpaceItemModal = ({
 
             <div className="spaceModal__name__wrapper">
               <p className="spaceModal__name__value">
-                {dataKey !== 'collectiblesFavoritesToRender'
-                  ? dataKey.replace(/([A-Z])/g, ' $1')
-                    .replace(/^./, str => str.toUpperCase())
-                  : 'Favorite Collectibles'}
+                {dataKey === 'collectiblesFavoritesToRender' && 'Favorite Collectibles'}
+                {dataKey.substring(0, 7) !== 'thread-' && dataKey.replace(/([A-Z])/g, ' $1')
+                  .replace(/^./, str => str.toUpperCase())}
+                {dataKey.substring(0, 7) === 'thread-' && dataKey.substring(7).replace(/([A-Z])/g, ' $1')
+                  .replace(/^./, str => str.toUpperCase())}
               </p>
             </div>
           </div>
@@ -266,40 +261,41 @@ export const ListSpaceItemModal = ({
           </div>
 
           <div className="spaceModal__context__div">
-            <span
-              className="spaceModal__context__delete"
-              onClick={() => {
-                viewSpaceItem(
-                  false,
-                  true,
-                  false,
-                  dataKey,
-                  dataValue,
-                  spaceName,
-                  rowType,
-                  privacy,
-                  index,
-                );
-              }}
-              tabIndex={0}
-              onKeyPress={() => {
-                viewSpaceItem(
-                  false,
-                  true,
-                  false,
-                  dataKey,
-                  dataValue,
-                  spaceName,
-                  rowType,
-                  privacy,
-                  index,
-                );
-              }}
-              role="button"
-            >
-              <img src={Trash} alt="Transaction Icon" className="spaceModal__context__privacy" />
-              Delete
-            </span>
+            {dataKey.substring(0, 7) !== 'thread-' && (
+              <span
+                className="spaceModal__context__delete"
+                onClick={() => {
+                  viewSpaceItem(
+                    false,
+                    true,
+                    false,
+                    dataKey,
+                    dataValue,
+                    spaceName,
+                    rowType,
+                    privacy,
+                    index,
+                  );
+                }}
+                tabIndex={0}
+                onKeyPress={() => {
+                  viewSpaceItem(
+                    false,
+                    true,
+                    false,
+                    dataKey,
+                    dataValue,
+                    spaceName,
+                    rowType,
+                    privacy,
+                    index,
+                  );
+                }}
+                role="button"
+              >
+                <img src={Trash} alt="Transaction Icon" className="spaceModal__context__privacy" />
+                Delete
+              </span>)}
 
             {rowType === 'Favorite Collectibles To Render' && (
               <a
@@ -313,14 +309,14 @@ export const ListSpaceItemModal = ({
               </a>)}
           </div>
         </section>
-        <div
-          className="onClickOutsideCollectibles--mobile"
-          onClick={() => viewSpaceItem(false, false, false)}
-          tabIndex={0}
-          onKeyPress={() => viewSpaceItem(false, false, false)}
-          role="button"
-        />
       </div>
+      <div
+        className="onClickOutsideCollectibles--mobile"
+        onClick={() => viewSpaceItem(false, false, false)}
+        tabIndex={0}
+        onKeyPress={() => viewSpaceItem(false, false, false)}
+        role="button"
+      />
       <div
         className="onClickOutsideCollectibles"
         onClick={() => viewSpaceItem(false, false, false)}

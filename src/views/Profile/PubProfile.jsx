@@ -93,6 +93,7 @@ class ProfilePublic extends Component {
             transitionEnterTimeout={300}
             transitionLeaveTimeout={300}
           >
+
             {isLoadingOtherProfile && <PublicProfileLoading />}
           </ReactCSSTransitionGroup>
         </div>

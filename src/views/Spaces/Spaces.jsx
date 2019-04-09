@@ -21,7 +21,7 @@ import Header from './components/Header';
 import SpacesList from './components/SpacesList';
 import Nav from '../../components/Nav';
 import './styles/Spaces.css';
-import { sortSpace, extractRow, checkRowType } from '../../utils/funcs';
+import { sortSpace, extractRow } from '../../utils/funcs';
 import actions from '../../state/actions';
 
 const { viewSpaceItem } = actions.spaces;
@@ -120,6 +120,37 @@ class Spaces extends Component {
       this.setState({ sortDirection: !sortDirection });
     }
 
+    this.spacesDataToRenderUpdate(spaceName, updatedSortedSpace, sortedSpace);
+
+    // let dispatchObject = {};
+
+    // if (spaceName === 'All Data') {
+    //   dispatchObject = {
+    //     type: 'SPACES_DATA_TO_RENDER_UPDATE',
+    //     sortedSpace: updatedSortedSpace,
+    //   };
+    // } else {
+    //   dispatchObject = {
+    //     type: 'SPACES_DATA_TO_RENDER_UPDATE',
+    //     spaceDataToRender: updatedSortedSpace,
+    //     sortedSpace: sortedSpace.slice(),
+    //   };
+    // }
+    // store.dispatch(dispatchObject);
+  }
+
+  reverseSort = (spaceName) => {
+    const { sortedSpace, spaceDataToRender } = this.props;
+    const { sortDirection } = this.state;
+    let updatedSortedSpace = [];
+    updatedSortedSpace = spaceName === 'All Data' ? sortedSpace.slice() : spaceDataToRender.slice();
+    updatedSortedSpace.reverse();
+    this.setState({ sortDirection: !sortDirection });
+
+    this.spacesDataToRenderUpdate(spaceName, updatedSortedSpace, sortedSpace);
+  }
+
+  spacesDataToRenderUpdate = (spaceName, updatedSortedSpace, sortedSpace) => {
     let dispatchObject = {};
 
     if (spaceName === 'All Data') {
@@ -137,10 +168,6 @@ class Spaces extends Component {
     store.dispatch(dispatchObject);
   }
 
-  reverseSort = () => {
-
-  }
-
   updateAndSort = (sortBy, updatedAllData, spaceToDisplay, list) => {
     // start fade out
     store.dispatch({
@@ -154,6 +181,10 @@ class Spaces extends Component {
       this.sortData(sortBy, updatedAllData, spaceToDisplay, true);
       this.setState({ itemToDelete: '', spaceNameToDelete: '' });
     }, 1500);
+  }
+
+  deleteThreeBoxItem = () => {
+
   }
 
   async deleteItem(spaceName, key, privacy, listIndex) {
@@ -191,7 +222,13 @@ class Spaces extends Component {
       }
 
       if (key === 'collectiblesFavoritesToRender' && updatedCollectiblesFavorites.length === 1) {
+        const replaced = updatedCollectiblesFavoritesToRender.splice(0, 1);
+        updatedCollection.push(replaced[0]);
         box[privacy].remove('collectiblesFavorites');
+        store.dispatch({
+          type: 'MY_COLLECTIBLES_UPDATE',
+          collection: updatedCollection,
+        });
         store.dispatch({
           type: 'MY_COLLECTIBLESFAVORITES_UPDATE',
           collectiblesFavorites: [],
@@ -202,13 +239,17 @@ class Spaces extends Component {
       } else if (key === 'collectiblesFavoritesToRender' && typeof listIndex === 'number') {
         updatedCollectiblesFavorites.splice(listIndex, 1);
         const replaced = updatedCollectiblesFavoritesToRender.splice(listIndex, 1);
-        updatedCollection.push(replaced);
+        updatedCollection.push(replaced[0]);
         updatedAllData['3Box'].public.collectiblesFavoritesToRender.splice(listIndex, 1);
         box.public.set('collectiblesFavorites', updatedCollectiblesFavorites);
         store.dispatch({
           type: 'MY_COLLECTIBLESFAVORITES_UPDATE',
           collectiblesFavorites: updatedCollectiblesFavorites,
           collectiblesFavoritesToRender: updatedCollectiblesFavoritesToRender,
+        });
+        store.dispatch({
+          type: 'MY_COLLECTIBLES_UPDATE',
+          collection: updatedCollection,
         });
         this.updateAndSort(sortBy, updatedAllData, spaceToDisplay, list);
       } else {
@@ -320,6 +361,7 @@ class Spaces extends Component {
       spaceItem,
       showDeleteItemModal,
       showOpenSpaceModal,
+      did,
     } = this.props;
 
     const {
@@ -351,39 +393,82 @@ class Spaces extends Component {
             transitionLeaveTimeout={300}
           >
             {showSpaceOpenedModal && <SpaceOpenedModal spaceName={spaceNameOpened} />}
-            {console.log(spaceItem.dataValue)}
-            {showSpaceDataItemModal && (
-              (Array.isArray(spaceItem.dataValue) && spaceItem.dataValue.length > 0 && spaceItem.rowType !== 'Image')
-                ? (
-                  <div className="modal__container modal--effect list__container">
-                    <div className="list__scrollable-wrapper">
-                      {spaceItem.dataValue.map((item, i) => {
-                        return (
-                          <ListSpaceItemModal
-                            viewSpaceItem={this.props.viewSpaceItem}
-                            spaceName={spaceItem.spaceName}
-                            dataKey={spaceItem.dataKey}
-                            rowType={checkRowType(item)}
-                            dataValue={spaceItem.dataValue}
-                            privacy={spaceItem.privacy}
-                            lastUpdated={spaceItem.lastUpdated}
-                            index={i}
-                            length={spaceItem.dataValue.length}
-                            item={item}
-                          />);
-                      })}
-                    </div>
+
+            {/* threads */}
+            {(showSpaceDataItemModal
+              && Array.isArray(spaceItem.dataValue)
+              && spaceItem.dataValue.length > 0
+              && spaceItem.dataKey.substring(0, 7) === 'thread-'
+              && spaceItem.rowType !== 'Image')
+              && (
+                <div className="modal__container modal--effect list__container">
+                  <div className="list__scrollable-wrapper">
+                    {(() => {
+                      let count = 0;
+                      const items = spaceItem.dataValue.map((item, i) => {
+                        if (item.author === did) {
+                          count += 1;
+                          return (
+                            <ListSpaceItemModal
+                              viewSpaceItem={this.props.viewSpaceItem}
+                              spaceName={spaceItem.spaceName}
+                              dataKey={spaceItem.dataKey}
+                              rowType="Thread"
+                              dataValue={spaceItem.dataValue}
+                              privacy={spaceItem.privacy}
+                              lastUpdated={spaceItem.lastUpdated}
+                              index={i}
+                              length={count}
+                              item={item}
+                            />);
+                        }
+                      });
+                      return items;
+                    })()}
                   </div>
-                ) : (
-                  <ViewSpaceDataItemModal
-                    viewSpaceItem={this.props.viewSpaceItem}
-                    spaceName={spaceItem.spaceName}
-                    dataKey={spaceItem.dataKey}
-                    rowType={spaceItem.rowType}
-                    dataValue={spaceItem.dataValue}
-                    privacy={spaceItem.privacy}
-                    lastUpdated={spaceItem.lastUpdated}
-                  />))}
+                </div>
+              )}
+
+            {/* general array */}
+            {(showSpaceDataItemModal
+              && Array.isArray(spaceItem.dataValue)
+              && spaceItem.dataValue.length > 0
+              && spaceItem.dataKey.substring(0, 7) !== 'thread-'
+              && spaceItem.rowType !== 'Image')
+              && (
+                <div className="modal__container modal--effect list__container">
+                  <div className="list__scrollable-wrapper">
+                    {spaceItem.dataValue.map((item, i) => (
+                      <ListSpaceItemModal
+                        viewSpaceItem={this.props.viewSpaceItem}
+                        spaceName={spaceItem.spaceName}
+                        dataKey={spaceItem.dataKey}
+                        rowType="List"
+                        dataValue={spaceItem.dataValue}
+                        privacy={spaceItem.privacy}
+                        lastUpdated={spaceItem.lastUpdated}
+                        index={i}
+                        length={spaceItem.dataValue.length}
+                        item={item}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+            {(showSpaceDataItemModal
+              && !Array.isArray(spaceItem.dataValue)
+              && spaceItem.rowType !== 'Image')
+              && (
+                <ViewSpaceDataItemModal
+                  viewSpaceItem={this.props.viewSpaceItem}
+                  spaceName={spaceItem.spaceName}
+                  dataKey={spaceItem.dataKey}
+                  rowType={spaceItem.rowType}
+                  dataValue={spaceItem.dataValue}
+                  privacy={spaceItem.privacy}
+                  lastUpdated={spaceItem.lastUpdated}
+                />)}
 
             {showDeleteItemModal && (
               <DeleteSpaceItemModal
@@ -451,6 +536,7 @@ class Spaces extends Component {
                     width={width}
                     fadeIn={fadeIn}
                     fadeOut={fadeOut}
+                    did={did}
                     spaceNameOpened={spaceNameOpened}
                     itemToDelete={itemToDelete}
                     spaceNameToDelete={spaceNameToDelete}
@@ -464,6 +550,7 @@ class Spaces extends Component {
                     vaultToOpen={vaultToOpen}
                     fadeIn={fadeIn}
                     fadeOut={fadeOut}
+                    did={did}
                     width={width}
                     spaceNameOpened={spaceNameOpened}
                     itemToDelete={itemToDelete}
@@ -497,6 +584,7 @@ Spaces.propTypes = {
   showDeleteItemModal: PropTypes.bool,
   hasUpdated: PropTypes.bool,
   showOpenSpaceModal: PropTypes.bool,
+  did: PropTypes.string,
 };
 
 Spaces.defaultProps = {
@@ -507,6 +595,7 @@ Spaces.defaultProps = {
   spaceItem: {},
   box: {},
   spacesOpened: {},
+  did: '',
   isSpacesLoading: false,
   showSpaceOpenedModal: false,
   showSpaceDataItemModal: false,
@@ -520,6 +609,7 @@ function mapState(state) {
     list: state.spaces.list,
     allData: state.spaces.allData,
     box: state.myData.box,
+    did: state.myData.did,
     collectiblesFavorites: state.myData.collectiblesFavorites,
     collection: state.myData.collection,
     collectiblesFavoritesToRender: state.myData.collectiblesFavoritesToRender,

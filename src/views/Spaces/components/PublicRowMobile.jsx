@@ -18,6 +18,7 @@ const PublicRowMobile = ({
   rowType,
   privacy,
   viewSpaceItem,
+  did,
   spaceNameOpened,
   fadeIn,
   itemToDelete,
@@ -43,11 +44,12 @@ const PublicRowMobile = ({
             {spaceName}
           </p>
           <p>
-            {(dataKey && dataKey.substring(0, 14) !== 'follow-thread-') && dataKey.replace(/([A-Z])/g, ' $1')
+            {(dataKey && dataKey.substring(0, 7) !== 'thread-') && dataKey.replace(/([A-Z])/g, ' $1')
               .replace(/^./, str => str.toUpperCase())}
 
-            {(dataKey && dataKey.substring(0, 14) === 'follow-thread-')
-              && 'Thread'}
+            {(dataKey && dataKey.substring(0, 7) === 'thread-')
+              && dataKey.substring(7).replace(/([A-Z])/g, ' $1')
+                .replace(/^./, str => str.toUpperCase())}
           </p>
         </div>
 
@@ -67,11 +69,18 @@ const PublicRowMobile = ({
       </div>
       <div className="data__items--detailswrapper">
         <div className="data__content">
-          {(dataKey && dataKey.substring(0, 14) === 'follow-thread-')
+          {(dataKey && dataKey.substring(0, 7) === 'thread-')
             && (
               <p className="data__text">
-                {dataValue.name.replace(/([A-Z])/g, ' $1')
-                  .replace(/^./, str => str.toUpperCase())}
+                {(() => {
+                  let count = 0;
+                  dataValue.forEach((item) => {
+                    if (item.author === did) {
+                      count += 1;
+                    }
+                  });
+                  return `${count} messages`;
+                })()}
               </p>)
           }
 
@@ -79,15 +88,11 @@ const PublicRowMobile = ({
             dataValue
           )}
 
-          {(typeof dataValue === 'object' && rowType !== 'Image' && !Array.isArray(dataValue) && dataKey.substring(0, 14) !== 'follow-thread-') && (
+          {(typeof dataValue === 'object' && rowType !== 'Image' && !Array.isArray(dataValue) && dataKey.substring(0, 7) !== 'thread-') && (
             Object.keys(dataValue).map(item => (item))
           )}
 
-          {(rowType !== 'Image' && Array.isArray(dataValue)) && (
-            'Array'
-          )}
-
-          {(Array.isArray(dataValue) && rowType !== 'Image') && (
+          {(Array.isArray(dataValue) && rowType !== 'Image' && (dataKey && dataKey.substring(0, 7) !== 'thread-')) && (
             dataValue.map((item) => {
               if (Array.isArray(item)) return item[0];
               if (typeof item === 'object') return Object.keys(item)[0];

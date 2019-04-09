@@ -183,10 +183,14 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  flex-direction: column; }
+  flex-direction: column;
+  max-width: 100%; }
 
 .spaceModal__listContent__kv {
-  display: flex; }
+  display: flex;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis; }
 
 .spaceModal__listContent__kv__key {
   font-size: 12px !important;
@@ -779,8 +783,7 @@
 .modal__loading3Box {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-top: 26px; }
+  justify-content: center; }
 
 #modal__switchBack {
   margin-top: 40px; }

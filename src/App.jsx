@@ -45,6 +45,7 @@ const {
 
 const {
   getMyProfileValue,
+  getMyDID,
   getCollectibles,
   getMyMemberSince,
   getVerifiedPublicGithub,
@@ -151,6 +152,7 @@ class App extends Component {
     this.props.getVerifiedPublicTwitter();
     this.props.getVerifiedPrivateEmail();
     this.props.getMyMemberSince();
+    this.props.getMyDID();
     this.props.getMyProfileValue('public', 'status');
     this.props.getMyProfileValue('public', 'name');
     this.props.getMyProfileValue('public', 'description');
@@ -165,7 +167,6 @@ class App extends Component {
     this.props.getMyProfileValue('public', 'major');
     this.props.getMyProfileValue('public', 'year');
     this.props.getMyProfileValue('public', 'emoji');
-    // this.props.getMyProfileValue('public', 'collectiblesFavorites');
     this.props.getMyProfileValue('private', 'birthday');
     await this.props.getCollectibles(currentAddress);
     this.props.getMySpacesData(currentAddress);
@@ -459,6 +460,7 @@ App.propTypes = {
   openBox: PropTypes.func.isRequired,
   requestAccess: PropTypes.func.isRequired,
   getMyProfileValue: PropTypes.func.isRequired,
+  getMyDID: PropTypes.func.isRequired,
   getCollectibles: PropTypes.func.isRequired,
   getMySpacesData: PropTypes.func.isRequired,
   getMyMemberSince: PropTypes.func.isRequired,
@@ -587,6 +589,7 @@ export default withRouter(connect(mapState,
     openBox,
     requestAccess,
     getMyProfileValue,
+    getMyDID,
     getCollectibles,
     getMySpacesData,
     getMyMemberSince,

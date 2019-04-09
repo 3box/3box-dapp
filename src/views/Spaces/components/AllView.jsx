@@ -19,6 +19,7 @@ const AllView = ({
   width,
   fadeIn,
   fadeOut,
+  did,
   spaceNameOpened,
   itemToDelete,
   spaceNameToDelete,
@@ -35,6 +36,7 @@ const AllView = ({
               privacy={row.privacy}
               rowType={row.type}
               fadeIn={fadeIn}
+              did={did}
               spaceNameOpened={spaceNameOpened}
               itemToDelete={itemToDelete}
               spaceNameToDelete={spaceNameToDelete}
@@ -50,6 +52,7 @@ const AllView = ({
               spaceName={row.space}
               privacy={row.privacy}
               rowType={row.type}
+              did={did}
               fadeIn={fadeIn}
               spaceNameOpened={spaceNameOpened}
               itemToDelete={itemToDelete}
@@ -119,6 +122,7 @@ AllView.propTypes = {
   fadeIn: PropTypes.bool.isRequired,
   fadeOut: PropTypes.bool.isRequired,
   spaceNameOpened: PropTypes.string.isRequired,
+  did: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired,
   sortedSpace: PropTypes.array,
 };

@@ -184,15 +184,15 @@ export const copyToClipBoard = (type, message) => async (dispatch) => {
 };
 
 export const checkRowType = (content) => {
-  if (content.name) return 'Thread';
-  if (typeof content === 'string') return 'Text';
-  if (typeof content === 'object' && !Array.isArray(content)) return 'Object';
-  if (Array.isArray(content) &&
-    content[0] &&
-    content[0]['@type'] === 'ImageObject') return 'Image';
-  if (Array.isArray(content) &&
-    (!content[0] || (content[0] &&
-      content[0]['@type'] !==
+  if (Array.isArray(content[1]) && content[0].substring(0, 7) === 'thread-') return 'Thread';
+  if (typeof content[1] === 'string') return 'Text';
+  if (typeof content[1] === 'object' && !Array.isArray(content[1])) return 'Object';
+  if (Array.isArray(content[1]) &&
+    content[1][0] &&
+    content[1][0]['@type'] === 'ImageObject') return 'Image';
+  if (Array.isArray(content[1]) &&
+    (!content[1][0] || (content[1][0] &&
+      content[1][0]['@type'] !==
       'ImageObject'))) return 'List';
 };
 
@@ -241,7 +241,7 @@ export const extractRow = (spaceData, spaceNameGiven, updatedSortedSpace) => {
         space: spaceNameGiven,
         name: row[0],
         content: row[1],
-        type: checkRowType(row[1]),
+        type: checkRowType([row[0], row[1]]),
         privacy: privacy[0],
         lastUpdated: '',
       });

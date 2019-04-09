@@ -18,6 +18,7 @@ const PublicRow = ({
   rowType,
   privacy,
   viewSpaceItem,
+  did,
   fadeIn,
   spaceNameOpened,
   itemToDelete,
@@ -40,21 +41,22 @@ const PublicRow = ({
       <span
         className="data__items__row__entry spaceRow__key"
         title={`${
-          (dataKey && dataKey.substring(0, 14) !== 'follow-thread-') ? dataKey.replace(/([A-Z])/g, ' $1')
+          (dataKey && dataKey.substring(0, 7) !== 'thread-') ? dataKey.replace(/([A-Z])/g, ' $1')
             .replace(/^./, str => str.toUpperCase()) : ''
           }
-${
-          (dataKey && dataKey.substring(0, 14) === 'follow-thread-')
-            ? 'Thread' : ''
+${(dataKey && dataKey.substring(0, 7) === 'thread-')
+            ? dataKey.substring(7).replace(/([A-Z])/g, ' $1')
+              .replace(/^./, str => str.toUpperCase()) : ''
           }
 `}
       >
         <p className="data__text row__name">
-          {(dataKey && dataKey.substring(0, 14) !== 'follow-thread-') && dataKey.replace(/([A-Z])/g, ' $1')
+          {(dataKey && dataKey.substring(0, 7) !== 'thread-') && dataKey.replace(/([A-Z])/g, ' $1')
             .replace(/^./, str => str.toUpperCase())}
 
-          {(dataKey && dataKey.substring(0, 14) === 'follow-thread-')
-            && 'Thread'}
+          {(dataKey && dataKey.substring(0, 7) === 'thread-')
+            && dataKey.substring(7).replace(/([A-Z])/g, ' $1')
+              .replace(/^./, str => str.toUpperCase())}
         </p>
       </span>
       <span className="data__items__row__entry spaceRow__content">
@@ -70,13 +72,7 @@ ${
           </p>
         )}
 
-        {(rowType !== 'Image' && Array.isArray(dataValue)) && (
-          <p className="data__text">
-            Array
-          </p>
-        )}
-
-        {(Array.isArray(dataValue) && rowType !== 'Image') && (
+        {(Array.isArray(dataValue) && rowType !== 'Image' && (dataKey && dataKey.substring(0, 7) !== 'thread-')) && (
           <p className="data__text">
             {dataValue.map((item) => {
               if (Array.isArray(item)) return item[0];
@@ -86,15 +82,20 @@ ${
           </p>
         )}
 
-        {/* {(Array.isArray(dataValue) && dataKey === 'collectiblesFavoritesToRender') && (
-          <React.Fragment>
-            {
-              dataValue.map(item => (
-                <img src={item.image_preview_url} alt="" className="data__collectibles__tile" />
-              ))
-            }
-          </React.Fragment>
-        )} */}
+        {(dataKey && dataKey.substring(0, 7) === 'thread-')
+          && (
+            <p className="data__text">
+              {(() => {
+                let count = 0;
+                dataValue.forEach((item) => {
+                  if (item.author === did) {
+                    count += 1;
+                  }
+                });
+                return `${count} messages`;
+              })()}
+            </p>)
+        }
 
         {rowType === 'Image' && (
           <img
@@ -156,6 +157,7 @@ PublicRow.propTypes = {
   fadeIn: PropTypes.string.isRequired,
   spaceNameOpened: PropTypes.string.isRequired,
   itemToDelete: PropTypes.string.isRequired,
+  did: PropTypes.string.isRequired,
   spaceNameToDelete: PropTypes.string.isRequired,
 };
 
