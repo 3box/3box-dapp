@@ -40,7 +40,7 @@ export const checkWeb3Wallet = () => async (dispatch) => {
   dispatch({
     type: 'CHECK_WALLET',
     hasWallet: typeof window.web3 !== 'undefined', // eslint-disable-line no-undef
-    mobileWalletRequiredModal: typeof window.web3 === 'undefined', // eslint-disable-line no-undef
+    mobileWalletRequiredModal: (typeof window.web3 === 'undefined' && typeof window.ethereum === 'undefined'), // eslint-disable-line no-undef
     currentWallet,
   });
 };

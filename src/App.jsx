@@ -76,7 +76,7 @@ class App extends Component {
     const splitRoute = normalizedPath.split('/');
     const isProtectedPath = matchProtectedRoutes(splitRoute[2]);
     const currentEthAddress = window.localStorage.getItem('userEthAddress');
-
+    
     initialAddress(); // Initial get address
     pollNetworkAndAddress(); // Start polling for address change
 
@@ -186,7 +186,7 @@ class App extends Component {
   }
 
   async handleSignInUp() {
-    if (typeof window.web3 !== 'undefined') {
+    if (window.ethereum || typeof window.web3 !== 'undefined') {
       await this.props.checkWeb3Wallet();
       await this.props.requestAccess();
       await this.props.checkNetwork();

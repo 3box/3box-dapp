@@ -1114,7 +1114,7 @@ export const MobileWalletRequiredModal = ({ isIOS, handleMobileWalletModal, show
     </div>
 
     <div id="mobile__landing__prompt__text">
-      <p>3box requires a mobile dApp browser in order to work</p>
+      <p>3Box requires a mobile dApp browser in order to work</p>
       <br />
       <p>Download Coinbase Wallet or Status.im then revisit this site in the mobile dApp browser to continue</p>
     </div>
