@@ -296,48 +296,53 @@ class Spaces extends Component {
     const updatedspacesOpened = cloneDeep(spacesOpened);
 
     const updateSpaceData = async () => {
-      const publicSpace = await box.spaces[spaceName].public.all();
-      const privateSpace = await box.spaces[spaceName].private.all();
+      try {
+        const publicSpace = await box.spaces[spaceName].public.all();
+        const privateSpace = await box.spaces[spaceName].private.all();
 
-      updatedAllData[spaceName].public = publicSpace;
-      updatedAllData[spaceName].private = privateSpace;
-      updatedspacesOpened[spaceName] = true;
+        updatedAllData[spaceName].public = publicSpace;
+        updatedAllData[spaceName].private = privateSpace;
+        updatedspacesOpened[spaceName] = true;
 
-      this.setState({
-        spaceNameOpened: spaceName,
-        fadeIn: true,
-        fadeOut: false,
-        isLoadingVault: false,
-      });
-      this.sortData(sortBy, updatedAllData, spaceToDisplay, true);
-
-      store.dispatch({
-        type: 'SPACES_DATA_UPDATE',
-        list,
-        allData: updatedAllData,
-      });
-      store.dispatch({
-        type: 'UI_SPACE_OPENED',
-        spacesOpened: updatedspacesOpened,
-        showSpaceOpenedModal: true,
-      });
-
-      if (showDeleteItemModal) {
-        this.deleteItem(
-          spaceName,
-          key,
-          privacy,
-        );
-        this.props.viewSpaceItem(false, false, false);
-      }
-
-      setTimeout(() => {
-        store.dispatch({
-          type: 'UI_HANDLE_SPACE_OPENED_MODAL',
-          showSpaceOpenedModal: false,
+        this.setState({
+          spaceNameOpened: spaceName,
+          fadeIn: true,
+          fadeOut: false,
+          isLoadingVault: false,
         });
-        this.setState({ fadeIn: false });
-      }, 2000);
+        this.sortData(sortBy, updatedAllData, spaceToDisplay, true);
+
+        store.dispatch({
+          type: 'SPACES_DATA_UPDATE',
+          list,
+          allData: updatedAllData,
+        });
+        store.dispatch({
+          type: 'UI_SPACE_OPENED',
+          spacesOpened: updatedspacesOpened,
+          showSpaceOpenedModal: true,
+        });
+
+        if (showDeleteItemModal) {
+          this.deleteItem(
+            spaceName,
+            key,
+            privacy,
+          );
+          this.props.viewSpaceItem(false, false, false);
+        }
+
+        setTimeout(() => {
+          store.dispatch({
+            type: 'UI_HANDLE_SPACE_OPENED_MODAL',
+            showSpaceOpenedModal: false,
+          });
+          this.setState({ fadeIn: false });
+        }, 2000);
+      } catch (err) {
+        this.setState({ fadeIn: false, fadeOut: false, isLoadingVault: false });
+        console.log(err);
+      }
     };
 
     const opts = {

@@ -22,10 +22,12 @@ const getMySpacesData = address => async (dispatch) => {
 
       const threadNames = [];
 
-      const threadCalls = Object.entries(space).map((kv) => {
+      const threadCalls = [];
+      Object.entries(space).forEach((kv) => {
         if (kv[0].substring(0, 14) === 'follow-thread-') {
           threadNames.push(kv[1].name);
-          return Box.getThread(spaceName, kv[1].name);
+          const promise = Box.getThread(spaceName, kv[1].name);
+          threadCalls.push(promise);
         }
       });
 

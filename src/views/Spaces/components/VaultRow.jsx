@@ -36,7 +36,7 @@ const VaultRow = ({
           type="button"
           onClick={() => openSpace(spaceName)}
         >
-          {(isLoadingVault && vaultToOpen === spaceName) ? 'Approve in your wallet' : 'Unlock to open'}
+          {(isLoadingVault && vaultToOpen === spaceName) ? 'Approve request' : 'Unlock to open'}
           {(isLoadingVault && vaultToOpen === spaceName) && <img src={Loading} alt="" className="vault__loading" />}
         </button>
       </span>
