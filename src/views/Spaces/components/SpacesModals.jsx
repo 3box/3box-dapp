@@ -333,6 +333,7 @@ ListSpaceItemModal.propTypes = {
   dataKey: PropTypes.string.isRequired,
   rowType: PropTypes.string.isRequired,
   dataValue: PropTypes.object.isRequired,
+  item: PropTypes.object.isRequired,
   privacy: PropTypes.string.isRequired,
   lastUpdated: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,

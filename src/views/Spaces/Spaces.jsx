@@ -405,24 +405,34 @@ class Spaces extends Component {
                   <div className="list__scrollable-wrapper">
                     {(() => {
                       let count = 0;
-                      const items = spaceItem.dataValue.map((item, i) => {
+                      const threadArray = [];
+
+                      spaceItem.dataValue.forEach((item, i) => {
                         if (item.author === did) {
                           count += 1;
-                          return (
-                            <ListSpaceItemModal
-                              viewSpaceItem={this.props.viewSpaceItem}
-                              spaceName={spaceItem.spaceName}
-                              dataKey={spaceItem.dataKey}
-                              rowType="Thread"
-                              dataValue={spaceItem.dataValue}
-                              privacy={spaceItem.privacy}
-                              lastUpdated={spaceItem.lastUpdated}
-                              index={i}
-                              length={count}
-                              item={item}
-                            />);
+                          threadArray.push([i, item]);
                         }
                       });
+
+                      const injectData = (i, item, total) => (
+                        <ListSpaceItemModal
+                          viewSpaceItem={this.props.viewSpaceItem}
+                          spaceName={spaceItem.spaceName}
+                          dataKey={spaceItem.dataKey}
+                          rowType="Thread"
+                          dataValue={spaceItem.dataValue}
+                          privacy={spaceItem.privacy}
+                          lastUpdated={spaceItem.lastUpdated}
+                          index={i}
+                          length={total}
+                          item={item}
+                        />
+                      );
+
+                      const items = threadArray.map((item) => {
+                        return injectData(item[0], item[1], count);
+                      });
+
                       return items;
                     })()}
                   </div>

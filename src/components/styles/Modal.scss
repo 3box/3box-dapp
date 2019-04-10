@@ -130,6 +130,7 @@
   position: relative;
   width: fit-content;
   min-width: 500px;
+  max-width: 500px;
   min-height: fit-content;
   overflow: visible;
   margin-bottom: 40px;
@@ -212,7 +213,8 @@
   align-items: center;
   min-height: fit-content;
   height: 120px;
-  max-width: 70vw;
+  // max-width: 70vw;
+  max-width: 100%;
   padding: 15px;
   min-width: 100%;
   background-color: $backgroundGrey;
