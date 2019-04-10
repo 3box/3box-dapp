@@ -783,7 +783,7 @@ class EditProfile extends Component {
     return (
       <div id="edit__page">
         <Nav />
-        
+
         <Prompt
           when={!disableSave}
           message="Continue without saving changes to your profile?"
@@ -1029,23 +1029,6 @@ class EditProfile extends Component {
                 </div>
                 <div id="edit__profile__fields">
                   <div id="edit__info">
-
-                    {/* <div className="edit__profile__fields__entry noMargin">
-                      <div className="edit__profile__keyContainer">
-                        <h5>Email Address</h5>
-                      </div>
-                      <div className="edit__profile__value--privateContainer">
-                        <img id="edit__profile__input__privateIcon" src={Private} alt="Private" title="Information with this icon are accessible only by those you've given permission to." />
-                        <input
-                          name="email"
-                          type="email"
-                          className="edit__profile__value privateInput"
-                          value={email}
-                          onChange={e => this.handleFormChange(e, 'email')}
-                        />
-                      </div>
-                    </div> */}
-
                     <div className="edit__profile__fields__entry noMargin">
                       <div className="edit__profile__keyContainer">
                         <h5>Location</h5>
@@ -1109,6 +1092,12 @@ class EditProfile extends Component {
                   <div id="edit__info">
 
                     <div className="edit__profile__fields__entry noMargin">
+                      <div className="edit__profile__keyContainer" />
+                      <div className="edit__profile__verifiedWrapper">
+                        <p className="verified__instructions">Enter your handles and without the @ mark.</p>
+                      </div>
+                    </div>
+                    <div className="edit__profile__fields__entry noMargin">
                       <div className="edit__profile__keyContainer">
                         <h5>Github</h5>
                       </div>
@@ -1153,7 +1142,6 @@ class EditProfile extends Component {
                               className="edit__profile__value--github verifiedForm"
                               value={verifiedGithub}
                               onChange={e => this.handleFormChange(e, 'verifiedGithub')}
-                              placeholder="Enter your Github handle"
                             />
                             <button
                               type="button"
@@ -1219,7 +1207,6 @@ class EditProfile extends Component {
                               className="edit__profile__value--github verifiedForm"
                               value={verifiedTwitter}
                               onChange={e => this.handleFormChange(e, 'verifiedTwitter')}
-                              placeholder="Enter your Twitter handle"
                             />
                             <button
                               type="button"

@@ -283,6 +283,12 @@
   border: none !important;
 }
 
+.verified__instructions {
+  margin-bottom: 12px;
+  color: $lightestFont;
+  font-size: 12px;
+}
+
 .edit__profile__value--github {
   width: 100%;
   border-radius: 5px;
@@ -294,6 +300,10 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+
+  &::placeholder {
+    font-size: 12px;
+  }
 }
 
 .edit__profile__verifiedWrapper {
