@@ -403,7 +403,7 @@ class EditProfile extends Component {
     const updatedEditedArray = editedArray;
     this.setState({ verificationLoading: true });
 
-    fetch('https://verifications.3box.io/twitter', {
+    fetch('https://verifications-dev.3box.io/twitter', {
       method: 'POST',
       body: JSON.stringify({
         did,
