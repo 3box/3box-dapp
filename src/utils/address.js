@@ -25,7 +25,6 @@ export const initialAddress = async () => {
 };
 
 export const pollNetworkAndAddress = () => {
-  console.log('polling');
   setTimeout(() => {
     try {
       let prevAddress;
