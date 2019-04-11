@@ -111,7 +111,7 @@ ${(dataKey && dataKey.substring(0, 7) === 'thread-')
               <img
                 src={Verified}
                 alt="Verified"
-                className="profile__category__verified__icon"
+                className="data__items__row__entry__verified__icon"
               />
             </React.Fragment>
           )
@@ -142,7 +142,7 @@ ${(dataKey && dataKey.substring(0, 7) === 'thread-')
       <span className="data__items__row__entry spaceRow__updated">
         <p className="data__text">
           Feb 19, 2019
-          </p>
+        </p>
       </span>
     </div >
   );

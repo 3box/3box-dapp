@@ -96,18 +96,23 @@ class Spaces extends Component {
     this.setState({ showMobileInput: !showMobileInput });
   }
 
-  sortData = (category, updatedData, spaceName, newSort) => {
+  sortData = async (category, updatedData, spaceName, newSort) => {
     const { allData, sortedSpace, spaceDataToRender } = this.props;
     const { sortBy, sortDirection } = this.state;
     let updatedSortedSpace = [];
 
     if (newSort || sortBy !== category) {
       if (spaceName === 'All Data') {
+        const extractCalls = [];
         Object.entries(updatedData || allData).forEach((space) => {
-          extractRow(space[1], space[0], updatedSortedSpace);
+          const promise = extractRow(space[1], space[0], updatedSortedSpace);
+          extractCalls.push(promise);
         });
+
+        const extractPromise = Promise.all(extractCalls);
+        await extractPromise;
       } else {
-        extractRow(updatedData[spaceName] || allData[spaceName], spaceName, updatedSortedSpace);
+        await extractRow(updatedData[spaceName] || allData[spaceName], spaceName, updatedSortedSpace);
       }
 
       if (updatedSortedSpace.length > 0) sortSpace(updatedSortedSpace, category);
@@ -121,22 +126,6 @@ class Spaces extends Component {
     }
 
     this.spacesDataToRenderUpdate(spaceName, updatedSortedSpace, sortedSpace);
-
-    // let dispatchObject = {};
-
-    // if (spaceName === 'All Data') {
-    //   dispatchObject = {
-    //     type: 'SPACES_DATA_TO_RENDER_UPDATE',
-    //     sortedSpace: updatedSortedSpace,
-    //   };
-    // } else {
-    //   dispatchObject = {
-    //     type: 'SPACES_DATA_TO_RENDER_UPDATE',
-    //     spaceDataToRender: updatedSortedSpace,
-    //     sortedSpace: sortedSpace.slice(),
-    //   };
-    // }
-    // store.dispatch(dispatchObject);
   }
 
   reverseSort = (spaceName) => {

@@ -4,7 +4,7 @@
   "description": "3box dapp",
   "private": true,
   "dependencies": {
-    "3box": "^1.6.1",
+    "3box": "^1.7.0-beta.1",
     "3box-activity": "0.0.9",
     "@babel/polyfill": "^7.0.0",
     "abi-decoder": "^1.2.0",
@@ -16,6 +16,7 @@
     "event-stream": "^4.0.1",
     "history": "^4.7.2",
     "lodash.clonedeep": "^4.5.0",
+    "nacl-did": "^0.4.0",
     "prop-types": "^15.6.1",
     "react": "^16.8.6",
     "react-addons-css-transition-group": "^15.6.2",

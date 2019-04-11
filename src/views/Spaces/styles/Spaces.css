@@ -351,6 +351,10 @@
   background-color: #575757;
   color: white !important; }
 
+.data__items__row__entry__verified__icon {
+  align-self: center;
+  margin-left: 6px; }
+
 .List {
   background-color: #a1c7a1; }
 
@@ -364,7 +368,7 @@
   background-color: #ce94bf; }
 
 .Claim {
-  background-color: #476997; }
+  background-color: #bb6977; }
 
 .Object {
   background-color: #cab039; }

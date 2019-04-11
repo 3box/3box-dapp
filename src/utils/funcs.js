@@ -1,3 +1,4 @@
+import Box from '3box';
 import contractMap from 'eth-contract-metadata';
 import abiDecoder from 'abi-decoder';
 import {
@@ -183,9 +184,19 @@ export const copyToClipBoard = (type, message) => async (dispatch) => {
   }
 };
 
-export const checkRowType = (content) => {
+export const checkRowType = async (content) => {
+  if (typeof content[1] === 'string') {
+    console.log(content[0]);
+    if (content[0].substring(0, 8) === 'verified') return 'Claim';
+    const isClaim = await Box.idUtils.isClaim(content[1]);
+    if (isClaim) {
+      const isVerified = await Box.idUtils.verifyClaim(content[1]);
+      return 'Claim';
+    }
+    return 'Text';
+  }
   if (Array.isArray(content[1]) && content[0].substring(0, 7) === 'thread-') return 'Thread';
-  if (typeof content[1] === 'string') return 'Text';
+  // if (typeof content[1] === 'string') return 'Text';
   if (typeof content[1] === 'object' && !Array.isArray(content[1])) return 'Object';
   if (Array.isArray(content[1]) &&
     content[1][0] &&
@@ -194,6 +205,7 @@ export const checkRowType = (content) => {
     (!content[1][0] || (content[1][0] &&
       content[1][0]['@type'] !==
       'ImageObject'))) return 'List';
+  // return 'Vault';
 };
 
 export const sortSpace = (updatedSortedSpace, category) => {
@@ -232,19 +244,31 @@ export const sortSpace = (updatedSortedSpace, category) => {
   });
 };
 
-export const extractRow = (spaceData, spaceNameGiven, updatedSortedSpace) => {
+export const extractRow = async (spaceData, spaceNameGiven, updatedSortedSpace) => {
   if (!spaceData) return;
+
+  const rowItems = [];
+  const rowCalls = [];
 
   Object.entries(spaceData).forEach((privacy) => {
     Object.entries(privacy[1]).forEach((row) => {
-      updatedSortedSpace.push({
-        space: spaceNameGiven,
-        name: row[0],
-        content: row[1],
-        type: checkRowType([row[0], row[1]]),
-        privacy: privacy[0],
-        lastUpdated: '',
-      });
+      rowItems.push([spaceNameGiven, row[0], row[1], privacy[0]]);
+      const promise = checkRowType([row[0], row[1]]);
+      rowCalls.push(promise);
+    });
+  });
+
+  const rowPromises = Promise.all(rowCalls);
+  const rowType = await rowPromises;
+
+  rowType.forEach((type, i) => {
+    updatedSortedSpace.push({
+      space: rowItems[i][0],
+      name: rowItems[i][1],
+      content: rowItems[i][2],
+      type,
+      privacy: rowItems[i][3],
+      lastUpdated: '',
     });
   });
 };
