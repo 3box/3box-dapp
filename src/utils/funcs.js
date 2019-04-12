@@ -186,7 +186,6 @@ export const copyToClipBoard = (type, message) => async (dispatch) => {
 
 export const checkRowType = async (content) => {
   if (typeof content[1] === 'string') {
-    console.log(content[0]);
     if (content[0].substring(0, 8) === 'verified') return 'Claim';
     const isClaim = await Box.idUtils.isClaim(content[1]);
     if (isClaim) {
@@ -196,7 +195,6 @@ export const checkRowType = async (content) => {
     return 'Text';
   }
   if (Array.isArray(content[1]) && content[0].substring(0, 7) === 'thread-') return 'Thread';
-  // if (typeof content[1] === 'string') return 'Text';
   if (typeof content[1] === 'object' && !Array.isArray(content[1])) return 'Object';
   if (Array.isArray(content[1]) &&
     content[1][0] &&
@@ -205,16 +203,37 @@ export const checkRowType = async (content) => {
     (!content[1][0] || (content[1][0] &&
       content[1][0]['@type'] !==
       'ImageObject'))) return 'List';
-  // return 'Vault';
 };
 
 export const sortSpace = (updatedSortedSpace, category) => {
   updatedSortedSpace.sort((a, b) => {
-    if (typeof a[category] !== 'string' && typeof b[category] !== 'string') return 1;
-    if (typeof a[category] !== 'string' && b[category].toLowerCase()) return 1;
-    if (a[category].toLowerCase() && typeof b[category] !== 'string') return -1;
-    if (a[category].toLowerCase() < b[category].toLowerCase()) return -1;
-    if (a[category].toLowerCase() > b[category].toLowerCase()) return 1;
+    if (category === 'lastUpdated') {
+      if (typeof a.lastUpdated === 'undefined' && typeof b.lastUpdated === 'undefined') return -1;
+      if (typeof a.lastUpdated === 'undefined' && typeof b.lastUpdated !== 'undefined') return -1;
+      if (typeof a.lastUpdated !== 'undefined' && typeof b.lastUpdated === 'undefined') return 1;
+
+      if (typeof a.lastUpdated === 'number' && typeof b.lastUpdated === 'string') return -1;
+      if (typeof a.lastUpdated === 'string' && typeof b.lastUpdated === 'number') return 1;
+      if (typeof a.lastUpdated === 'string' && typeof b.lastUpdated === 'string') return -1;
+
+      if (a.lastUpdated < b.lastUpdated) return 1;
+      if (a.lastUpdated > b.lastUpdated) return -1;
+    } else {
+      if (typeof a[category] !== 'string' && typeof b[category] !== 'string') return 1;
+      if (typeof a[category] !== 'string' && b[category].toLowerCase()) return 1;
+      if (a[category].toLowerCase() && typeof b[category] !== 'string') return -1;
+      if (a[category].toLowerCase() < b[category].toLowerCase()) return -1;
+      if (a[category].toLowerCase() > b[category].toLowerCase()) return 1;
+
+      if (typeof a.lastUpdated === 'undefined' && typeof b.lastUpdated === 'undefined') return -1;
+      if (typeof a.lastUpdated === 'undefined' && typeof b.lastUpdated !== 'undefined') return -1;
+      if (typeof a.lastUpdated !== 'undefined' && typeof b.lastUpdated === 'undefined') return 1;
+      if (typeof a.lastUpdated === 'number' && typeof b.lastUpdated === 'string') return -1;
+      if (typeof a.lastUpdated === 'string' && typeof b.lastUpdated === 'number') return 1;
+      if (typeof a.lastUpdated === 'string' && typeof b.lastUpdated === 'string') return -1;
+      if (a.lastUpdated < b.lastUpdated) return 1;
+      if (a.lastUpdated > b.lastUpdated) return -1;
+    }
 
     if (typeof a.name !== 'string' && typeof b.name !== 'string') return 1;
     if (typeof a.name !== 'string' && b.name.toLowerCase()) return 1;
@@ -265,10 +284,30 @@ export const extractRow = async (spaceData, spaceNameGiven, updatedSortedSpace) 
     updatedSortedSpace.push({
       space: rowItems[i][0],
       name: rowItems[i][1],
-      content: rowItems[i][2],
+      content: rowItems[i][2].value || rowItems[i][2],
       type,
       privacy: rowItems[i][3],
-      lastUpdated: '',
+      lastUpdated: rowItems[i][2].timestamp,
     });
   });
+};
+
+export const dateFormatter = (timestamp) => {
+  if (!timestamp) return '';
+  const d = new Date(timestamp);
+  const hh = d.getHours();
+  let h = hh;
+  let m = d.getMinutes();
+  let dd = 'AM';
+  m = m < 10 ? `0${m}` : m;
+
+  if (h >= 12) {
+    h = hh - 12;
+    dd = 'PM';
+  }
+  if (h == 0) {
+    h = 12;
+  }
+  const dateFormat = d && `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()} ${h}:${m}${dd}`;
+  return dateFormat;
 };

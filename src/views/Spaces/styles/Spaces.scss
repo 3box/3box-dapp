@@ -12,9 +12,10 @@
   align-items: center;
   flex-direction: column;
   height: 100%;
-  background-color: #E8EAEE;
+  background-color: #efeff1;
   width: calc(18vw - 40px);
   overflow-y: scroll;
+
   min-width: 260px;
   box-sizing: border-box;
 
@@ -57,7 +58,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 0;
+  padding: 13px 0;
   width: 100%;
   cursor: pointer;
   box-sizing: border-box;
@@ -76,12 +77,12 @@
 
   p {
     color: $threeBoxBlue !important;
-    font-weight: 600 !important;
   }
 }
 
 .space__name {
-  color: #718cb1;
+  color: #838486;
+  // color: #718cb1;
   padding-left: 40px;
   text-overflow: ellipsis;
   max-width: 164px;
@@ -106,7 +107,8 @@
 }
 
 .space__arrow {
-  color: #718cb1;
+  color: #606265;
+  // color: #718cb1;
   padding-right: 40px;
 
   img {
@@ -115,17 +117,10 @@
 }
 
 .data__header {
-  // width: calc(82vw + 40px);
-  // left: calc(18vw - 40px);
-  // left: 18vw;
-  // width: 82vw;
-  // width: calc(82vw + 33px);
-  // left: calc(18vw - 33px);
   left: 260px;
   width: calc(100vw - 260px);
   position: fixed;
   min-width: 660px;
-  // width: 100%;
   height: fit-content;
   display: flex;
   justify-content: center;
@@ -160,7 +155,7 @@
   align-items: center;
 
   h2 {
-    color: #718cb1;
+    color: #606265;
     font-size: 20px;
   }
 }
@@ -175,6 +170,7 @@
   width: 15px;
   filter: grayscale(100%);
   padding-right: 30px;
+  display: none;
 }
 
 .data__space__loading {
@@ -215,7 +211,8 @@
   justify-content: flex-start;
   align-items: center;
   cursor: pointer;
-  color: #718cb1;
+  color: #838486;
+  // color: #718cb1;
 
   &:hover {
     color: $threeBoxBlue;
@@ -250,6 +247,7 @@
   border-top: 1px solid $borderColor;
   margin-bottom: -1px;
   cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(87, 87, 87, 0.05);
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
@@ -354,10 +352,6 @@
   }
 }
 
-.data__items__row__unlockButton--loading {
-  min-width: 184px;
-}
-
 .data__items__row__entry {
   display: flex;
   justify-content: flex-start;
@@ -397,6 +391,10 @@
 .spaceRow__updated {
   width: 16%;
   max-width: 16%;
+
+  p {
+    font-size: 12px !important;
+  }
 }
 
 .type__tag {
@@ -444,7 +442,7 @@
   color: white !important;
 }
 
-.data__items__row__entry__verified__icon{
+.data__items__row__entry__verified__icon {
   align-self: center;
   margin-left: 6px;
 }
@@ -555,6 +553,7 @@
 
   .space {
     width: 100%;
+    padding: 20px 0;
   }
 
   .closeSpaces--mobile {

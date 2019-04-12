@@ -58,14 +58,14 @@ class Spaces extends Component {
     this.setState({ width: window.innerWidth });
     const { allData } = this.props;
 
-    this.sortData('name', allData, 'All Data', false);
+    this.sortData('lastUpdated', allData, 'All Data', false);
   }
 
   componentWillReceiveProps(nextProps) {
     const { hasUpdated } = this.props;
     const { allData } = nextProps;
     if (allData !== this.props.allData && !hasUpdated) {
-      this.sortData('name', allData, 'All Data', true);
+      this.sortData('lastUpdated', allData, 'All Data', true);
       store.dispatch({
         type: 'SPACES_HAS_UPDATED',
         hasUpdated: true,
@@ -450,7 +450,7 @@ class Spaces extends Component {
                         rowType="List"
                         dataValue={spaceItem.dataValue}
                         privacy={spaceItem.privacy}
-                        lastUpdated={spaceItem.lastUpdated}
+                        lastUpdated={spaceItem.timestamp}
                         index={i}
                         length={spaceItem.dataValue.length}
                         item={item}
@@ -462,7 +462,7 @@ class Spaces extends Component {
 
             {(showSpaceDataItemModal
               && !Array.isArray(spaceItem.dataValue)
-              && spaceItem.rowType !== 'Image')
+            )
               && (
                 <ViewSpaceDataItemModal
                   viewSpaceItem={this.props.viewSpaceItem}
@@ -471,7 +471,22 @@ class Spaces extends Component {
                   rowType={spaceItem.rowType}
                   dataValue={spaceItem.dataValue}
                   privacy={spaceItem.privacy}
-                  lastUpdated={spaceItem.lastUpdated}
+                  lastUpdated={spaceItem.timestamp}
+                />)}
+
+            {(showSpaceDataItemModal
+              && Array.isArray(spaceItem.dataValue)
+              && spaceItem.rowType === 'Image'
+            )
+              && (
+                <ViewSpaceDataItemModal
+                  viewSpaceItem={this.props.viewSpaceItem}
+                  spaceName={spaceItem.spaceName}
+                  dataKey={spaceItem.dataKey}
+                  rowType={spaceItem.rowType}
+                  dataValue={spaceItem.dataValue}
+                  privacy={spaceItem.privacy}
+                  lastUpdated={spaceItem.timestamp}
                 />)}
 
             {showDeleteItemModal && (

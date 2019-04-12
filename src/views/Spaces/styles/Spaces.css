@@ -9,7 +9,7 @@
   align-items: center;
   flex-direction: column;
   height: 100%;
-  background-color: #E8EAEE;
+  background-color: #efeff1;
   width: calc(18vw - 40px);
   overflow-y: scroll;
   min-width: 260px;
@@ -47,7 +47,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 0;
+  padding: 13px 0;
   width: 100%;
   cursor: pointer;
   box-sizing: border-box; }
@@ -59,11 +59,10 @@
 .activeSpace {
   background-color: #dae1ee; }
   .activeSpace p {
-    color: #1168df !important;
-    font-weight: 600 !important; }
+    color: #1168df !important; }
 
 .space__name {
-  color: #718cb1;
+  color: #838486;
   padding-left: 40px;
   text-overflow: ellipsis;
   max-width: 164px;
@@ -84,7 +83,7 @@
   margin-right: 12px; }
 
 .space__arrow {
-  color: #718cb1;
+  color: #606265;
   padding-right: 40px; }
   .space__arrow img {
     height: 10px; }
@@ -124,7 +123,7 @@
   justify-content: flex-start;
   align-items: center; }
   .data__space__context h2 {
-    color: #718cb1;
+    color: #606265;
     font-size: 20px; }
 
 .data__space__context__name {
@@ -135,7 +134,8 @@
 .data__space__info {
   width: 15px;
   filter: grayscale(100%);
-  padding-right: 30px; }
+  padding-right: 30px;
+  display: none; }
 
 .data__space__loading {
   width: 26px;
@@ -171,7 +171,7 @@
   justify-content: flex-start;
   align-items: center;
   cursor: pointer;
-  color: #718cb1; }
+  color: #838486; }
   .data__categories__title:hover {
     color: #1168df; }
 
@@ -197,6 +197,7 @@
   border-top: 1px solid #ececec;
   margin-bottom: -1px;
   cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(87, 87, 87, 0.05);
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
@@ -276,9 +277,6 @@
     background-color: #303030;
     border-color: #303030; }
 
-.data__items__row__unlockButton--loading {
-  min-width: 184px; }
-
 .data__items__row__entry {
   display: flex;
   justify-content: flex-start;
@@ -312,6 +310,8 @@
 .spaceRow__updated {
   width: 16%;
   max-width: 16%; }
+  .spaceRow__updated p {
+    font-size: 12px !important; }
 
 .type__tag {
   padding: 6px 9px;
@@ -427,7 +427,8 @@
     border-bottom: 1px solid #ececec;
     width: 90%; }
   .space {
-    width: 100%; }
+    width: 100%;
+    padding: 20px 0; }
   .closeSpaces--mobile {
     margin-left: -100vw; }
   .data__header--wide--mobile {

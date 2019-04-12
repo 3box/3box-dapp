@@ -39,7 +39,6 @@ const VaultRowMobile = ({
             </p>
           </span>
           <img src={Private} alt="Transaction Icon" className="data__items__privacyicon" />
-          {/* Feb 19, 2019 */}
         </div>
       </div>
       <div className="data__items--detailswrapper">

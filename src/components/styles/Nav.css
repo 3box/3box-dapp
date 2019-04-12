@@ -96,7 +96,8 @@ nav {
   .nav__data:hover {
     color: #1168df; }
   .nav__data:hover .nav__folder {
-    filter: grayscale(0); }
+    filter: grayscale(0);
+    opacity: 1; }
 
 .nav__profile {
   height: 100%;
@@ -110,7 +111,8 @@ nav {
   .nav__profile:hover {
     color: #1168df; }
   .nav__profile:hover .nav__folder {
-    filter: grayscale(0); }
+    filter: grayscale(0);
+    opacity: 1; }
 
 .nav__folder {
   filter: grayscale(100%);

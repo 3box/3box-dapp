@@ -8,6 +8,7 @@ const viewSpaceItem = (
   rowType,
   privacy,
   listIndex,
+  timestamp,
 ) => async (dispatch) => {
   try {
     dispatch({
@@ -22,6 +23,7 @@ const viewSpaceItem = (
         rowType,
         privacy,
         listIndex,
+        timestamp,
       },
     });
   } catch (error) {

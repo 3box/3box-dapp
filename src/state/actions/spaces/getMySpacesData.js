@@ -5,6 +5,8 @@ import {
   store,
 } from '../../store';
 
+console.log(Box);
+
 const getMySpacesData = address => async (dispatch) => {
   try {
     const allData = {};
@@ -13,20 +15,25 @@ const getMySpacesData = address => async (dispatch) => {
     const list = await Box.listSpaces(address); // get list of spaces
 
     const getSpace = async (spaceName) => { // function to get space and pair to key
-      const space = await Box.getSpace(address, spaceName);
+      const opts = {
+        metadata: true,
+      };
+      const space = await Box.getSpace(address, spaceName, opts);
       allData[spaceName] = {};
       allData[spaceName].private = {
         private_space_data: true,
       };
       allData[spaceName].public = space;
 
-      const threadNames = [];
+      console.log('space', space);
 
+      const threadNames = [];
       const threadCalls = [];
+
       Object.entries(space).forEach((kv) => {
         if (kv[0].substring(0, 14) === 'follow-thread-') {
-          threadNames.push(kv[1].name);
-          const promise = Box.getThread(spaceName, kv[1].name);
+          threadNames.push(kv[1].value.name);
+          const promise = Box.getThread(spaceName, kv[1].value.name);
           threadCalls.push(promise);
         }
       });
@@ -54,6 +61,9 @@ const getMySpacesData = address => async (dispatch) => {
     allData['3Box'].private = {};
     allData['3Box'].public = {};
 
+    const rowData = [];
+    const rowCalls = [];
+
     Object.entries(myData).forEach((row) => {
       if ((row[0] !== 'box') &&
         (row[0] !== 'feedByAddress') &&
@@ -62,11 +72,25 @@ const getMySpacesData = address => async (dispatch) => {
         (row[0] !== 'memberSince') &&
         (row[0] !== 'collectiblesFavorites')) {
         if (row[0] === 'verifiedEmail' || row[0] === 'birthday') {
-          allData['3Box'].private[row[0]] = cloneDeep(row[1]);
+          rowData.push([row[0], cloneDeep(row[1])]);
+          const metaData = store.getState().myData.box.private.getMetadata(row[0]);
+          rowCalls.push(metaData);
         } else {
-          allData['3Box'].public[row[0]] = cloneDeep(row[1]);
+          rowData.push([row[0], cloneDeep(row[1])]);
+          const metaData = store.getState().myData.box.public.getMetadata(row[0]);
+          rowCalls.push(metaData);
         }
       }
+    });
+
+    const rowPromises = Promise.all(rowCalls);
+    const rowMetaData = await rowPromises;
+
+    rowMetaData.forEach((metaData, i) => {
+      allData['3Box'].public[rowData[i][0]] = {
+        timestamp: metaData ? metaData.timestamp : '',
+        value: rowData[i][1],
+      };
     });
 
     dispatch({

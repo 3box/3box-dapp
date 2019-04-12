@@ -57,11 +57,7 @@ const VaultRow = ({
           <img src={Private} alt="Transaction Icon" className="spaceRow__privacy__icon" />
         </div>
       </span>
-      <span className="data__items__row__entry spaceRow__updated">
-        <p className="data__text">
-          Feb 19, 2019
-      </p>
-      </span>
+      <span className="data__items__row__entry spaceRow__updated" />
     </div>
   );
 

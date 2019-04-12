@@ -23,6 +23,7 @@ const PublicRowMobile = ({
   fadeIn,
   itemToDelete,
   spaceNameToDelete,
+  lastUpdated,
 }) => (
     <div
       className={`
@@ -33,9 +34,9 @@ const PublicRowMobile = ({
       ${rowType}_row
       `}
       key={dataKey}
-      onClick={() => viewSpaceItem(true, false, false, dataKey, dataValue, spaceName, rowType, privacy)}
+      onClick={() => viewSpaceItem(true, false, false, dataKey, dataValue, spaceName, rowType, privacy, null, lastUpdated)}
       role="button"
-      onKeyPress={() => viewSpaceItem(true, false, false, dataKey, dataValue, spaceName, rowType, privacy)}
+      onKeyPress={() => viewSpaceItem(true, false, false, dataKey, dataValue, spaceName, rowType, privacy, null, lastUpdated)}
       tabIndex={0}
     >
       <div className="data__items--namewrapper">
@@ -64,7 +65,7 @@ const PublicRowMobile = ({
             ? <img src={Private} alt="Transaction Icon" className="data__items__privacyicon" />
             : <img src={Globe} alt="Transaction Icon" className="data__items__privacyicon" />
           }
-          {/* Feb 19, 2019 */}
+          {lastUpdated}
         </div>
       </div>
       <div className="data__items--detailswrapper">
@@ -143,6 +144,7 @@ PublicRowMobile.propTypes = {
   fadeIn: PropTypes.bool.isRequired,
   itemToDelete: PropTypes.string.isRequired,
   spaceNameToDelete: PropTypes.string.isRequired,
+  lastUpdated: PropTypes.number.isRequired,
 };
 
 export default connect('', { viewSpaceItem })(PublicRowMobile);

@@ -14,7 +14,6 @@ import '../styles/Spaces.css';
 const SpaceView = ({
   openSpace,
   spaceDataToRender,
-  spacesOpened,
   vaultToOpen,
   isLoadingVault,
   width,
@@ -121,7 +120,6 @@ const SpaceView = ({
 SpaceView.propTypes = {
   spaceDataToRender: PropTypes.array.isRequired,
   openSpace: PropTypes.func.isRequired,
-  spacesOpened: PropTypes.bool.isRequired,
   isLoadingVault: PropTypes.bool.isRequired,
   vaultToOpen: PropTypes.string.isRequired,
   width: PropTypes.string.isRequired,

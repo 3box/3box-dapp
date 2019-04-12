@@ -23,6 +23,7 @@ const PublicRow = ({
   spaceNameOpened,
   itemToDelete,
   spaceNameToDelete,
+  lastUpdated,
 }) => (
     <div
       className={`
@@ -33,9 +34,9 @@ const PublicRow = ({
       ${(itemToDelete === dataKey && spaceNameToDelete === spaceName) ? 'fadeOutRow' : ''}
 `}
       key={dataKey}
-      onClick={() => viewSpaceItem(true, false, false, dataKey, dataValue, spaceName, rowType, privacy)}
+      onClick={() => viewSpaceItem(true, false, false, dataKey, dataValue, spaceName, rowType, privacy, null, lastUpdated)}
       role="button"
-      onKeyPress={() => viewSpaceItem(true, false, false, dataKey, dataValue, spaceName, rowType, privacy)}
+      onKeyPress={() => viewSpaceItem(true, false, false, dataKey, dataValue, spaceName, rowType, privacy, null, lastUpdated)}
       tabIndex={0}
     >
       <span
@@ -92,7 +93,7 @@ ${(dataKey && dataKey.substring(0, 7) === 'thread-')
                     count += 1;
                   }
                 });
-                return `${count} messages`;
+                return `${count} ${count === 1 ? 'message' : 'messages'}`;
               })()}
             </p>)
         }
@@ -141,7 +142,7 @@ ${(dataKey && dataKey.substring(0, 7) === 'thread-')
       </span>
       <span className="data__items__row__entry spaceRow__updated">
         <p className="data__text">
-          Feb 19, 2019
+          {lastUpdated}
         </p>
       </span>
     </div >
@@ -159,6 +160,7 @@ PublicRow.propTypes = {
   itemToDelete: PropTypes.string.isRequired,
   did: PropTypes.string.isRequired,
   spaceNameToDelete: PropTypes.string.isRequired,
+  lastUpdated: PropTypes.number.isRequired,
 };
 
 export default connect('', { viewSpaceItem })(PublicRow);

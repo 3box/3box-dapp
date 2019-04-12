@@ -95,7 +95,8 @@
   width: fit-content;
   min-width: 500px;
   min-height: fit-content;
-  overflow: visible; }
+  overflow: visible;
+  max-width: 84vw; }
 
 .listSpaceModal {
   display: flex;
@@ -227,6 +228,11 @@
   display: flex;
   justify-content: flex-start;
   align-items: center; }
+
+.spaceModal__context__date {
+  font-size: 12px !important;
+  color: #b1b1b1;
+  margin-left: 12px; }
 
 .spaceModal__context__privacy {
   width: 20px !important;
@@ -1221,6 +1227,7 @@
     width: fit-content;
     min-height: fit-content;
     min-width: 90vw;
+    max-width: 90vw;
     overflow: visible; }
   .spaceDeleteModal {
     padding: 0;

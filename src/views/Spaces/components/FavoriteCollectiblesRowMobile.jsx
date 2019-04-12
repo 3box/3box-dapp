@@ -16,13 +16,14 @@ const FavoriteCollectiblesRowMobile = ({
   rowType,
   privacy,
   viewSpaceItem,
+  lastUpdated,
 }) => (
     <div
       className="data__items__row favoriteCollectibles_row"
       key={dataKey}
-      onClick={() => viewSpaceItem(true, false, false, dataKey, dataValue, spaceName, rowType, privacy)}
+      onClick={() => viewSpaceItem(true, false, false, dataKey, dataValue, spaceName, rowType, privacy, null, lastUpdated)}
       role="button"
-      onKeyPress={() => viewSpaceItem(true, false, false, dataKey, dataValue, spaceName, rowType, privacy)}
+      onKeyPress={() => viewSpaceItem(true, false, false, dataKey, dataValue, spaceName, rowType, privacy, null, lastUpdated)}
       tabIndex={0}
     >
       <div className="data__items--namewrapper">

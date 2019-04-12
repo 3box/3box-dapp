@@ -16,6 +16,7 @@ const FavoriteCollectiblesRow = ({
   rowType,
   privacy,
   viewSpaceItem,
+  lastUpdated,
 }) => (
     <div
       className="data__items__row"
@@ -29,11 +30,13 @@ const FavoriteCollectiblesRow = ({
           dataValue,
           spaceName,
           rowType,
-          privacy
+          privacy,
+          null,
+          lastUpdated,
         )
       }}
       role="button"
-      onKeyPress={() => viewSpaceItem(true, false, false, dataKey, dataValue, spaceName, rowType, privacy)}
+      onKeyPress={() => viewSpaceItem(true, false, false, dataKey, dataValue, spaceName, rowType, privacy, null, lastUpdated)}
       tabIndex={0}
     >
       <span className="data__items__row__entry spaceRow__key">
@@ -69,8 +72,7 @@ const FavoriteCollectiblesRow = ({
       </span>
       <span className="data__items__row__entry spaceRow__updated">
         <p className="data__text">
-          Feb 19, 2019
-      </p>
+        </p>
       </span>
     </div>
   );

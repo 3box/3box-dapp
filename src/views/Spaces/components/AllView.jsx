@@ -9,6 +9,7 @@ import PublicRowMobile from './PublicRowMobile';
 import FavoriteCollectiblesRow from './FavoriteCollectiblesRow';
 import FavoriteCollectiblesRowMobile from './FavoriteCollectiblesRowMobile';
 import '../styles/Spaces.css';
+import { dateFormatter } from '../../../utils/funcs';
 
 const AllView = ({
   openSpace,
@@ -26,6 +27,7 @@ const AllView = ({
 }) => (
     <React.Fragment>
       {sortedSpace.length > 0 && sortedSpace.map((row) => {
+        const date = dateFormatter(row.lastUpdated);
         if (row.name !== 'collectiblesFavoritesToRender'
           && row.name !== 'private_space_data' && width >= 600) {
           return (
@@ -35,6 +37,7 @@ const AllView = ({
               spaceName={row.space}
               privacy={row.privacy}
               rowType={row.type}
+              lastUpdated={date}
               fadeIn={fadeIn}
               did={did}
               spaceNameOpened={spaceNameOpened}
@@ -51,6 +54,7 @@ const AllView = ({
               dataValue={row.content}
               spaceName={row.space}
               privacy={row.privacy}
+              lastUpdated={date || ''}
               rowType={row.type}
               did={did}
               fadeIn={fadeIn}

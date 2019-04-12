@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { dateFormatter } from '../../../utils/funcs';
 import Space from '../../../assets/Space.svg';
 import Private from '../../../assets/Private.svg';
 import Globe from '../../../assets/Globe.svg';
@@ -91,7 +92,7 @@ export const ViewSpaceDataItemModal = ({
                 ? <img src={Private} alt="Transaction Icon" className="spaceModal__context__privacy" />
                 : <img src={Globe} alt="Transaction Icon" className="spaceModal__context__privacy" />
               }
-              <p>
+              <p className="spaceModal__context__date">
                 {lastUpdated}
               </p>
             </div>
@@ -109,6 +110,8 @@ export const ViewSpaceDataItemModal = ({
                     spaceName,
                     rowType,
                     privacy,
+                    null,
+                    lastUpdated,
                   );
                 }}
                 tabIndex={0}
@@ -122,6 +125,8 @@ export const ViewSpaceDataItemModal = ({
                     spaceName,
                     rowType,
                     privacy,
+                    null,
+                    lastUpdated,
                   );
                 }}
                 role="button"
@@ -205,7 +210,7 @@ export const ListSpaceItemModal = ({
             <div className="spaceModal__name__wrapper">
               <p className="spaceModal__name__value">
                 {dataKey === 'collectiblesFavoritesToRender' && 'Favorite Collectibles'}
-                {dataKey.substring(0, 7) !== 'thread-' && dataKey.replace(/([A-Z])/g, ' $1')
+                {(dataKey.substring(0, 7) !== 'thread-' && dataKey !== 'collectiblesFavoritesToRender') && dataKey.replace(/([A-Z])/g, ' $1')
                   .replace(/^./, str => str.toUpperCase())}
                 {dataKey.substring(0, 7) === 'thread-' && dataKey.substring(7).replace(/([A-Z])/g, ' $1')
                   .replace(/^./, str => str.toUpperCase())}
@@ -216,7 +221,7 @@ export const ListSpaceItemModal = ({
         </section>
 
         <section className="spaceModal__content">
-          {(typeof item === 'object' && dataKey !== 'collectiblesFavoritesToRender') && (
+          {(typeof item === 'object' && dataKey !== 'collectiblesFavoritesToRender' && dataKey.substring(0, 7) !== 'thread-') && (
             <div className="spaceModal__listContent">
               {Object.entries(item).map(kv => (
                 <div className="spaceModal__listContent__kv">
@@ -224,6 +229,21 @@ export const ListSpaceItemModal = ({
                   <p className="spaceModal__listContent__kv__value">{kv[1]}</p>
                 </div>
               ))}
+            </div>
+          )}
+
+          {(typeof item === 'object' && dataKey !== 'collectiblesFavoritesToRender' && dataKey.substring(0, 7) === 'thread-') && (
+            <div className="spaceModal__listContent">
+              {Object.entries(item).map((kv) => {
+                if (kv[0] !== 'author' && kv[0] !== 'timeStamp') {
+                  return (
+                    <div className="spaceModal__listContent__kv">
+                      <p className="spaceModal__listContent__kv__key">{`${kv[0]}:`}</p>
+                      <p className="spaceModal__listContent__kv__value">{kv[1]}</p>
+                    </div>
+                  )
+                }
+              })}
             </div>
           )}
 
@@ -255,8 +275,15 @@ export const ListSpaceItemModal = ({
               ? <img src={Private} alt="Transaction Icon" className="spaceModal__context__privacy" />
               : <img src={Globe} alt="Transaction Icon" className="spaceModal__context__privacy" />
             }
-            <p>
-              {lastUpdated}
+
+            <p className="spaceModal__context__date">
+              {dataKey.substring(0, 7) !== 'thread-' && lastUpdated}
+
+              {(() => {
+                if (dataKey.substring(0, 7) === 'thread-') {
+                  return dateFormatter(dataValue[dataValue.length - 1].timeStamp);
+                }
+              })()}
             </p>
           </div>
 
@@ -275,6 +302,7 @@ export const ListSpaceItemModal = ({
                     rowType,
                     privacy,
                     index,
+                    lastUpdated,
                   );
                 }}
                 tabIndex={0}
@@ -289,6 +317,7 @@ export const ListSpaceItemModal = ({
                     rowType,
                     privacy,
                     index,
+                    lastUpdated,
                   );
                 }}
                 role="button"
@@ -398,6 +427,8 @@ export const DeleteSpaceItemModal = ({
                     spaceItem.spaceName,
                     spaceItem.rowType,
                     spaceItem.privacy,
+                    null,
+                    spaceItem.lastUpdated,
                   );
                 } else {
                   openSpace(
@@ -414,6 +445,8 @@ export const DeleteSpaceItemModal = ({
                     spaceItem.spaceName,
                     spaceItem.rowType,
                     spaceItem.privacy,
+                    null,
+                    spaceItem.lastUpdated,
                   );
                 }
               }}
@@ -436,6 +469,8 @@ export const DeleteSpaceItemModal = ({
                     spaceItem.spaceName,
                     spaceItem.rowType,
                     spaceItem.privacy,
+                    null,
+                    spaceItem.lastUpdated,
                   );
                 } else {
                   openSpace(spaceItem.spaceName, spaceItem.dataKey, spaceItem.privacy);
@@ -448,6 +483,8 @@ export const DeleteSpaceItemModal = ({
                     spaceItem.spaceName,
                     spaceItem.rowType,
                     spaceItem.privacy,
+                    null,
+                    spaceItem.lastUpdated,
                   );
                 }
               }}
@@ -498,9 +535,29 @@ export const OpenSpaceModal = ({ viewSpaceItem, spaceItem }) => (
           Approve the message in your web3 wallet to delete this item.
         </p>
         <button
-          onClick={() => viewSpaceItem(true, false, false, spaceItem.dataKey, spaceItem.dataValue, spaceItem.spaceName, spaceItem.rowType, spaceItem.privacy)}
+          onClick={() => viewSpaceItem(true,
+            false,
+            false,
+            spaceItem.dataKey,
+            spaceItem.dataValue,
+            spaceItem.spaceName,
+            spaceItem.rowType,
+            spaceItem.privacy,
+            null,
+            spaceItem.lastUpdated,
+          )}
           tabIndex={0}
-          onKeyPress={() => viewSpaceItem(true, false, false, spaceItem.dataKey, spaceItem.dataValue, spaceItem.spaceName, spaceItem.rowType, spaceItem.privacy)}
+          onKeyPress={() => viewSpaceItem(true,
+            false,
+            false,
+            spaceItem.dataKey,
+            spaceItem.dataValue,
+            spaceItem.spaceName,
+            spaceItem.rowType,
+            spaceItem.privacy,
+            null,
+            spaceItem.lastUpdated,
+          )}
           type="button"
           className="spaceDeleteModal__body__buttons__cancel"
         >
