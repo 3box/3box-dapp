@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Private from '../../../assets/PrivateActivity.svg';
 import Globe from '../../../assets/Globe.svg';
 import Verified from '../../../assets/Verified.svg';
+import { timeSince } from '../../../utils/time';
 import '../styles/Spaces.css';
 
 import actions from '../../../state/actions';
@@ -142,7 +143,9 @@ ${(dataKey && dataKey.substring(0, 7) === 'thread-')
       </span>
       <span className="data__items__row__entry spaceRow__updated">
         <p className="data__text">
-          {lastUpdated}
+          {dataKey && dataKey.substring(0, 7) !== 'thread-' && lastUpdated}
+          {(dataKey && dataKey.substring(0, 7) === 'thread-')
+            && (timeSince(dataValue[dataValue.length - 1].timeStamp))}
         </p>
       </span>
     </div >

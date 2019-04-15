@@ -72,6 +72,7 @@ const FavoriteCollectiblesRow = ({
       </span>
       <span className="data__items__row__entry spaceRow__updated">
         <p className="data__text">
+          {lastUpdated}
         </p>
       </span>
     </div>

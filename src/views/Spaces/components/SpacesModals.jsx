@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { dateFormatter } from '../../../utils/funcs';
+import { timeSince } from '../../../utils/time';
 import Space from '../../../assets/Space.svg';
 import Private from '../../../assets/Private.svg';
 import Globe from '../../../assets/Globe.svg';
@@ -281,7 +281,7 @@ export const ListSpaceItemModal = ({
 
               {(() => {
                 if (dataKey.substring(0, 7) === 'thread-') {
-                  return dateFormatter(dataValue[dataValue.length - 1].timeStamp);
+                  return timeSince(dataValue[dataValue.length - 1].timeStamp);
                 }
               })()}
             </p>

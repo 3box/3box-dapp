@@ -9,6 +9,7 @@ import VaultRowMobile from './VaultRowMobile';
 import PublicRowMobile from './PublicRowMobile';
 import FavoriteCollectiblesRowMobile from './FavoriteCollectiblesRowMobile';
 import Mollie from '../../../assets/Mollie.png';
+import { timeSince } from '../../../utils/time';
 import '../styles/Spaces.css';
 
 const SpaceView = ({
@@ -26,6 +27,7 @@ const SpaceView = ({
 }) => (
     <React.Fragment>
       {spaceDataToRender.length > 0 ? spaceDataToRender.map((row) => {
+        const date = timeSince(row.lastUpdated);
         if (row.name !== 'collectiblesFavoritesToRender'
           && row.name !== 'private_space_data' && width >= 600) {
           return (
@@ -37,6 +39,7 @@ const SpaceView = ({
               rowType={row.type}
               fadeIn={fadeIn}
               did={did}
+              lastUpdated={date}
               spaceNameOpened={spaceNameOpened}
               itemToDelete={itemToDelete}
               spaceNameToDelete={spaceNameToDelete}
@@ -53,6 +56,7 @@ const SpaceView = ({
               privacy={row.privacy}
               rowType={row.type}
               fadeIn={fadeIn}
+              lastUpdated={date}
               did={did}
               spaceNameOpened={spaceNameOpened}
               itemToDelete={itemToDelete}
@@ -93,6 +97,7 @@ const SpaceView = ({
               spaceNameOpened={spaceNameOpened}
               itemToDelete={itemToDelete}
               spaceNameToDelete={spaceNameToDelete}
+              lastUpdated={date}
             />);
         }
 
@@ -106,6 +111,7 @@ const SpaceView = ({
               rowType={row.type}
               itemToDelete={itemToDelete}
               spaceNameToDelete={spaceNameToDelete}
+              lastUpdated={date}
             />);
         }
       }) : (

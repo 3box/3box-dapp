@@ -42,7 +42,7 @@ const FavoriteCollectiblesRowMobile = ({
            </p>
           </span>
           <img src={Globe} alt="Transaction Icon" className="data__items__privacyicon" />
-          {/* Feb 19, 2019 */}
+          {lastUpdated}
         </div>
       </div>
       <div className="data__items--detailswrapper">

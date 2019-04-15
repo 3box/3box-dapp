@@ -237,8 +237,8 @@
   justify-content: center;
   align-items: center; }
   .data__space__context__icon img {
-    width: 20px;
-    height: 20px; }
+    width: 18px;
+    height: 18px; }
   .data__space__context__icon:hover {
     background-color: transparent;
     border: none;
@@ -272,7 +272,8 @@
   font-weight: 400;
   font-size: 13px;
   display: flex;
-  margin-top: 3px; }
+  margin-top: 3px;
+  white-space: nowrap; }
   .data__items__row__unlockButton:hover {
     background-color: #303030;
     border-color: #303030; }
@@ -309,7 +310,8 @@
 
 .spaceRow__updated {
   width: 16%;
-  max-width: 16%; }
+  max-width: 16%;
+  opacity: .7; }
   .spaceRow__updated p {
     font-size: 12px !important; }
 
@@ -356,22 +358,22 @@
   margin-left: 6px; }
 
 .List {
-  background-color: #a1c7a1; }
+  background-color: rgba(69, 248, 197, 0.603); }
 
 .Thread {
-  background-color: #ffb386; }
+  background-color: #ff7e3494; }
 
 .Text {
-  background-color: #8da3c3; }
+  background-color: rgba(224, 224, 26, 0.603); }
 
 .Image {
-  background-color: #ce94bf; }
+  background-color: rgba(149, 83, 255, 0.603); }
 
 .Claim {
-  background-color: #bb6977; }
+  background-color: #1167df93; }
 
 .Object {
-  background-color: #cab039; }
+  background-color: rgba(249, 69, 255, 0.548); }
 
 .activeSort {
   color: #1168df;

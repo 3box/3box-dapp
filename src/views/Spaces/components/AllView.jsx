@@ -8,8 +8,8 @@ import PublicRow from './PublicRow';
 import PublicRowMobile from './PublicRowMobile';
 import FavoriteCollectiblesRow from './FavoriteCollectiblesRow';
 import FavoriteCollectiblesRowMobile from './FavoriteCollectiblesRowMobile';
+import { timeSince } from '../../../utils/time';
 import '../styles/Spaces.css';
-import { dateFormatter } from '../../../utils/funcs';
 
 const AllView = ({
   openSpace,
@@ -27,7 +27,7 @@ const AllView = ({
 }) => (
     <React.Fragment>
       {sortedSpace.length > 0 && sortedSpace.map((row) => {
-        const date = dateFormatter(row.lastUpdated);
+        const date = timeSince(row.lastUpdated);
         if (row.name !== 'collectiblesFavoritesToRender'
           && row.name !== 'private_space_data' && width >= 600) {
           return (
@@ -54,7 +54,7 @@ const AllView = ({
               dataValue={row.content}
               spaceName={row.space}
               privacy={row.privacy}
-              lastUpdated={date || ''}
+              lastUpdated={date}
               rowType={row.type}
               did={did}
               fadeIn={fadeIn}
@@ -94,6 +94,7 @@ const AllView = ({
               spaceName={row.space}
               privacy={row.privacy}
               rowType={row.type}
+              lastUpdated={date}
               spaceNameOpened={spaceNameOpened}
               itemToDelete={itemToDelete}
               spaceNameToDelete={spaceNameToDelete}
@@ -108,6 +109,7 @@ const AllView = ({
               spaceName={row.space}
               privacy={row.privacy}
               rowType={row.type}
+              lastUpdated={date}
               itemToDelete={itemToDelete}
               spaceNameToDelete={spaceNameToDelete}
             />);

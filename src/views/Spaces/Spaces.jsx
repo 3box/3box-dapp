@@ -24,7 +24,7 @@ import './styles/Spaces.css';
 import { sortSpace, extractRow } from '../../utils/funcs';
 import actions from '../../state/actions';
 
-const { viewSpaceItem } = actions.spaces;
+const { viewSpaceItem, checkAndGetThread } = actions.spaces;
 
 class Spaces extends Component {
   constructor(props) {
@@ -97,7 +97,6 @@ class Spaces extends Component {
   }
 
   sortData = async (category, updatedData, spaceName, newSort) => {
-    console.log('sorted');
     const { allData, sortedSpace, spaceDataToRender } = this.props;
     const { sortBy, sortDirection } = this.state;
     let updatedSortedSpace = [];
@@ -290,9 +289,60 @@ class Spaces extends Component {
         const publicSpace = await box.spaces[spaceName].public.all();
         const privateSpace = await box.spaces[spaceName].private.all();
 
+        const publicMetadataCalls = [];
+        const publicValues = [];
+
+        Object.entries(publicSpace).forEach((publicKey) => {
+          if (publicKey[0].substring(0, 7) !== 'thread-') {
+            const metaData = store.getState().myData.box.spaces[spaceName].public.getMetadata(publicKey[0]);
+            publicMetadataCalls.push(metaData);
+            publicValues.push([publicKey[0], publicKey[1]]);
+          }
+        });
+
+        if (publicMetadataCalls.length > 0) {
+          const publicMetaDataPromises = Promise.all(publicMetadataCalls);
+          const publicMetaData = await publicMetaDataPromises;
+
+          publicValues.forEach((value, i) => {
+            publicSpace[value[0]] = {
+              timestamp: publicMetaData[i].timestamp,
+              value: value[1],
+            };
+          });
+        }
+
+        const privateMetadataCalls = [];
+        const privateValues = [];
+
+        Object.entries(privateSpace).forEach((value) => {
+          const metaData = store.getState().myData.box.spaces[spaceName].private.getMetadata(value[0]);
+          privateMetadataCalls.push(metaData);
+          privateValues.push([value[0], value[1]]);
+        });
+
+        if (privateMetadataCalls.length > 0) {
+          const privateMetaDataPromises = Promise.all(privateMetadataCalls);
+          const privateMetaData = await privateMetaDataPromises;
+
+          privateValues.forEach((value, i) => {
+            privateSpace[value[0]] = {
+              timestamp: privateMetaData[i].timestamp,
+              value: value[1],
+            };
+          });
+        }
+
         updatedAllData[spaceName].public = publicSpace;
         updatedAllData[spaceName].private = privateSpace;
         updatedspacesOpened[spaceName] = true;
+
+        const threadParams = await checkAndGetThread(publicSpace, spaceName);
+        const { threadData, threadNames } = threadParams;
+
+        threadData.forEach((thread, i) => {
+          updatedAllData[spaceName].public[`thread-${threadNames[i]}`] = thread;
+        });
 
         this.setState({
           spaceNameOpened: spaceName,

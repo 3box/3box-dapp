@@ -5,6 +5,9 @@ import {
   toChecksumAddress,
 } from 'ethereumjs-util';
 
+import {
+  timeSince,
+} from './time';
 import * as routes from './routes';
 import {
   store
@@ -207,39 +210,53 @@ export const checkRowType = async (content) => {
 
 export const sortSpace = (updatedSortedSpace, category) => {
   updatedSortedSpace.sort((a, b) => {
+    const aName = a.name === 'collectiblesFavoritesToRender' ?
+      'favoriteCollectibles' : a.name;
+    const bName = b.name === 'collectiblesFavoritesToRender' ?
+      'favoriteCollectibles' : b.name;
+
+    const currentA = category !== 'name' ? a[category] : aName;
+    const currentB = category !== 'name' ? b[category] : bName;
+
+    const updatedA = a.type === 'Thread' ?
+      a.content[a.content.length - 1].timeStamp : a.lastUpdated;
+
+    const updatedB = b.type === 'Thread' ?
+      b.content[b.content.length - 1].timeStamp : b.lastUpdated;
+
     if (category === 'lastUpdated') {
-      if (typeof a.lastUpdated === 'undefined' && typeof b.lastUpdated === 'undefined') return -1;
-      if (typeof a.lastUpdated === 'undefined' && typeof b.lastUpdated !== 'undefined') return -1;
-      if (typeof a.lastUpdated !== 'undefined' && typeof b.lastUpdated === 'undefined') return 1;
+      if (typeof updatedA === 'undefined' && typeof updatedB === 'undefined') return -1;
+      if (typeof updatedA === 'undefined' && typeof updatedB !== 'undefined') return -1;
+      if (typeof updatedA !== 'undefined' && typeof updatedB === 'undefined') return 1;
 
-      if (typeof a.lastUpdated === 'number' && typeof b.lastUpdated === 'string') return -1;
-      if (typeof a.lastUpdated === 'string' && typeof b.lastUpdated === 'number') return 1;
-      if (typeof a.lastUpdated === 'string' && typeof b.lastUpdated === 'string') return -1;
+      if (typeof updatedA === 'number' && typeof updatedB === 'string') return -1;
+      if (typeof updatedA === 'string' && typeof updatedB === 'number') return 1;
+      if (typeof updatedA === 'string' && typeof updatedB === 'string') return -1;
 
-      if (a.lastUpdated < b.lastUpdated) return 1;
-      if (a.lastUpdated > b.lastUpdated) return -1;
+      if (updatedA < updatedB) return 1;
+      if (updatedA > updatedB) return -1;
     } else {
-      if (typeof a[category] !== 'string' && typeof b[category] !== 'string') return 1;
-      if (typeof a[category] !== 'string' && b[category].toLowerCase()) return 1;
-      if (a[category].toLowerCase() && typeof b[category] !== 'string') return -1;
-      if (a[category].toLowerCase() < b[category].toLowerCase()) return -1;
-      if (a[category].toLowerCase() > b[category].toLowerCase()) return 1;
+      if (typeof currentA !== 'string' && typeof currentB !== 'string') return 1;
+      if (typeof currentA !== 'string' && currentB.toLowerCase()) return 1;
+      if (currentA.toLowerCase() && typeof currentB !== 'string') return -1;
+      if (currentA.toLowerCase() < currentB.toLowerCase()) return -1;
+      if (currentA.toLowerCase() > currentB.toLowerCase()) return 1;
 
-      if (typeof a.lastUpdated === 'undefined' && typeof b.lastUpdated === 'undefined') return -1;
-      if (typeof a.lastUpdated === 'undefined' && typeof b.lastUpdated !== 'undefined') return -1;
-      if (typeof a.lastUpdated !== 'undefined' && typeof b.lastUpdated === 'undefined') return 1;
-      if (typeof a.lastUpdated === 'number' && typeof b.lastUpdated === 'string') return -1;
-      if (typeof a.lastUpdated === 'string' && typeof b.lastUpdated === 'number') return 1;
-      if (typeof a.lastUpdated === 'string' && typeof b.lastUpdated === 'string') return -1;
-      if (a.lastUpdated < b.lastUpdated) return 1;
-      if (a.lastUpdated > b.lastUpdated) return -1;
+      if (typeof updatedA === 'undefined' && typeof updatedB === 'undefined') return -1;
+      if (typeof updatedA === 'undefined' && typeof updatedB !== 'undefined') return -1;
+      if (typeof updatedA !== 'undefined' && typeof updatedB === 'undefined') return 1;
+      if (typeof updatedA === 'number' && typeof updatedB === 'string') return -1;
+      if (typeof updatedA === 'string' && typeof updatedB === 'number') return 1;
+      if (typeof updatedA === 'string' && typeof updatedB === 'string') return -1;
+      if (updatedA < updatedB) return 1;
+      if (updatedA > updatedB) return -1;
     }
 
-    if (typeof a.name !== 'string' && typeof b.name !== 'string') return 1;
-    if (typeof a.name !== 'string' && b.name.toLowerCase()) return 1;
-    if (a.name.toLowerCase() && typeof b.name !== 'string') return -1;
-    if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
-    if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+    if (typeof aName !== 'string' && typeof bName !== 'string') return 1;
+    if (typeof aName !== 'string' && bName.toLowerCase()) return 1;
+    if (aName.toLowerCase() && typeof bName !== 'string') return -1;
+    if (aName.toLowerCase() < bName.toLowerCase()) return -1;
+    if (aName.toLowerCase() > bName.toLowerCase()) return 1;
 
     if (typeof a.space !== 'string' && typeof b.space !== 'string') return 1;
     if (typeof a.space !== 'string' && b.space.toLowerCase()) return 1;
@@ -291,24 +308,4 @@ export const extractRow = async (spaceData, spaceNameGiven, updatedSortedSpace) 
       lastUpdated: rowItems[i][2].timestamp,
     });
   });
-};
-
-export const dateFormatter = (timestamp) => {
-  if (!timestamp) return '';
-  const d = new Date(timestamp);
-  const hh = d.getHours();
-  let h = hh;
-  let m = d.getMinutes();
-  let dd = 'AM';
-  m = m < 10 ? `0${m}` : m;
-
-  if (h >= 12) {
-    h = hh - 12;
-    dd = 'PM';
-  }
-  if (h == 0) {
-    h = 12;
-  }
-  const dateFormat = d && `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()} ${h}:${m}${dd}`;
-  return dateFormat;
 };

@@ -11,6 +11,7 @@ const getMySpacesData = address => async (dispatch) => {
     allData['3Box'] = {};
 
     const list = await Box.listSpaces(address); // get list of spaces
+    console.log('list', list);
 
     const getSpace = async (spaceName) => { // function to get space and pair to key
       const opts = {
@@ -23,11 +24,13 @@ const getMySpacesData = address => async (dispatch) => {
       };
       allData[spaceName].public = space;
 
+      console.log('space', space);
+
       const threadNames = [];
       const threadCalls = [];
 
       Object.entries(space).forEach((kv) => {
-        if (kv[0].substring(0, 14) === 'follow-thread-') {
+        if (kv[0].substring(0, 7) === 'thread-') {
           threadNames.push(kv[1].value.name);
           const promise = Box.getThread(spaceName, kv[1].value.name);
           threadCalls.push(promise);
@@ -41,7 +44,6 @@ const getMySpacesData = address => async (dispatch) => {
       const threadData = await threadPromise;
 
       threadData.forEach((thread, i) => {
-        delete allData[spaceName].public[`follow-thread-${threadNames[i]}`];
         allData[spaceName].public[`thread-${threadNames[i]}`] = thread;
       });
     };
@@ -73,7 +75,12 @@ const getMySpacesData = address => async (dispatch) => {
           rowCalls.push(metaData);
         } else {
           rowData.push([row[0], cloneDeep(row[1])]);
-          const metaData = store.getState().myData.box.public.getMetadata(row[0]);
+
+          const key = row[0] === 'collectiblesFavoritesToRender' ?
+            'collectiblesFavorites' :
+            row[0];
+
+          const metaData = store.getState().myData.box.public.getMetadata(key);
           rowCalls.push(metaData);
         }
       }
