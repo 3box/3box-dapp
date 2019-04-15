@@ -5,8 +5,6 @@ import {
   store,
 } from '../../store';
 
-console.log(Box);
-
 const getMySpacesData = address => async (dispatch) => {
   try {
     const allData = {};
@@ -24,8 +22,6 @@ const getMySpacesData = address => async (dispatch) => {
         private_space_data: true,
       };
       allData[spaceName].public = space;
-
-      console.log('space', space);
 
       const threadNames = [];
       const threadCalls = [];

@@ -271,8 +271,9 @@ export const extractRow = async (spaceData, spaceNameGiven, updatedSortedSpace) 
 
   Object.entries(spaceData).forEach((privacy) => {
     Object.entries(privacy[1]).forEach((row) => {
+      const content = Array.isArray(row[1]) ? row[1] : row[1].value;
       rowItems.push([spaceNameGiven, row[0], row[1], privacy[0]]);
-      const promise = checkRowType([row[0], row[1]]);
+      const promise = checkRowType([row[0], content]);
       rowCalls.push(promise);
     });
   });

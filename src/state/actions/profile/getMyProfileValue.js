@@ -5,14 +5,22 @@ import {
 const getMyProfileValue = (type, key) => async (dispatch) => {
   try {
     const keyUppercase = key.toUpperCase();
-    const keyToAdd = await store.getState().myData.box[type].get(key);
+    const value = await store.getState().myData.box[type].get(key);
+    const metadata = await store.getState().myData.box[type].getMetadata(key);
 
-    if (!keyToAdd) return;
+    const valueObject = {
+      value,
+      timestamp: metadata.timestamp,
+    };
+
+    if (!value) return null;
 
     dispatch({
       type: `MY_${keyUppercase}_UPDATE`,
-      [key]: keyToAdd,
+      [key]: value,
     });
+
+    return valueObject;
   } catch (error) {
     console.error(error);
   }

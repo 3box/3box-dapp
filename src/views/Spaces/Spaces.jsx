@@ -97,6 +97,7 @@ class Spaces extends Component {
   }
 
   sortData = async (category, updatedData, spaceName, newSort) => {
+    console.log('sorted');
     const { allData, sortedSpace, spaceDataToRender } = this.props;
     const { sortBy, sortDirection } = this.state;
     let updatedSortedSpace = [];

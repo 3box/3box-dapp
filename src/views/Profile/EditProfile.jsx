@@ -733,8 +733,9 @@ class EditProfile extends Component {
         });
       }
       if (nameChanged) {
-        await this.props.getMyProfileValue('public', 'name'); // change these to just update the redux store
-        updatedAllData['3Box'].public.name = name;
+        const savedObject = await this.props.getMyProfileValue('public', 'name'); // change these to just update the redux store
+        updatedAllData['3Box'].public.name = savedObject;
+        
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -742,8 +743,8 @@ class EditProfile extends Component {
         });
       }
       if (descriptionChanged) {
-        await this.props.getMyProfileValue('public', 'description');
-        updatedAllData['3Box'].public.description = description;
+        const savedObject = await this.props.getMyProfileValue('public', 'description');
+        updatedAllData['3Box'].public.description = savedObject;
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -751,8 +752,8 @@ class EditProfile extends Component {
         });
       }
       if (locationChanged) {
-        await this.props.getMyProfileValue('public', 'location');
-        updatedAllData['3Box'].public.location = location;
+        const savedObject = await this.props.getMyProfileValue('public', 'location');
+        updatedAllData['3Box'].public.location = savedObject;
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -760,8 +761,8 @@ class EditProfile extends Component {
         });
       }
       if (websiteChanged) {
-        await this.props.getMyProfileValue('public', 'website');
-        updatedAllData['3Box'].public.website = website;
+        const savedObject = await this.props.getMyProfileValue('public', 'website');
+        updatedAllData['3Box'].public.website = savedObject;
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -769,8 +770,8 @@ class EditProfile extends Component {
         });
       }
       if (employerChanged) {
-        await this.props.getMyProfileValue('public', 'employer');
-        updatedAllData['3Box'].public.employer = employer;
+        const savedObject = await this.props.getMyProfileValue('public', 'employer');
+        updatedAllData['3Box'].public.employer = savedObject;
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -778,8 +779,8 @@ class EditProfile extends Component {
         });
       }
       if (jobChanged) {
-        await this.props.getMyProfileValue('public', 'job');
-        updatedAllData['3Box'].public.job = job;
+        const savedObject = await this.props.getMyProfileValue('public', 'job');
+        updatedAllData['3Box'].public.job = savedObject;
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -787,8 +788,8 @@ class EditProfile extends Component {
         });
       }
       if (schoolChanged) {
-        await this.props.getMyProfileValue('public', 'school');
-        updatedAllData['3Box'].public.school = school;
+        const savedObject = await this.props.getMyProfileValue('public', 'school');
+        updatedAllData['3Box'].public.school = savedObject;
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -796,8 +797,8 @@ class EditProfile extends Component {
         });
       }
       if (degreeChanged) {
-        await this.props.getMyProfileValue('public', 'degree');
-        updatedAllData['3Box'].public.degree = degree;
+        const savedObject = await this.props.getMyProfileValue('public', 'degree');
+        updatedAllData['3Box'].public.degree = savedObject;
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -805,8 +806,8 @@ class EditProfile extends Component {
         });
       }
       if (majorChanged) {
-        await this.props.getMyProfileValue('public', 'major');
-        updatedAllData['3Box'].public.major = major;
+        const savedObject = await this.props.getMyProfileValue('public', 'major');
+        updatedAllData['3Box'].public.major = savedObject;
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -814,8 +815,8 @@ class EditProfile extends Component {
         });
       }
       if (yearChanged) {
-        await this.props.getMyProfileValue('public', 'year');
-        updatedAllData['3Box'].public.year = year;
+        const savedObject = await this.props.getMyProfileValue('public', 'year');
+        updatedAllData['3Box'].public.year = savedObject;
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -823,8 +824,8 @@ class EditProfile extends Component {
         });
       }
       if (emojiChanged) {
-        await this.props.getMyProfileValue('public', 'emoji');
-        updatedAllData['3Box'].public.emoji = emoji;
+        const savedObject = await this.props.getMyProfileValue('public', 'emoji');
+        updatedAllData['3Box'].public.emoji = savedObject;
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -832,8 +833,9 @@ class EditProfile extends Component {
         });
       }
       if (removeUserPic || editPic) {
-        await this.props.getMyProfileValue('public', 'image');
-        updatedAllData['3Box'].public.image = removeUserPic ? null : [{ '@type': 'ImageObject', contentUrl: { '/': returnedData.Hash } }];
+        const savedObject = await this.props.getMyProfileValue('public', 'image');
+        updatedAllData['3Box'].public.image = removeUserPic ? null : savedObject;
+        // updatedAllData['3Box'].public.image = removeUserPic ? null : [{ '@type': 'ImageObject', contentUrl: { '/': returnedData.Hash } }];
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -841,8 +843,9 @@ class EditProfile extends Component {
         });
       }
       if (removeCoverPic || editCoverPic) {
-        await this.props.getMyProfileValue('public', 'coverPhoto');
-        updatedAllData['3Box'].public.coverPhoto = removeCoverPic ? null : [{ '@type': 'ImageObject', contentUrl: { '/': returnedCoverData.Hash } }];
+        const savedObject = await this.props.getMyProfileValue('public', 'coverPhoto');
+        updatedAllData['3Box'].public.coverPhoto = removeCoverPic ? null : savedObject;
+        // updatedAllData['3Box'].public.coverPhoto = removeCoverPic ? null : [{ '@type': 'ImageObject', contentUrl: { '/': returnedCoverData.Hash } }];
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -850,8 +853,8 @@ class EditProfile extends Component {
         });
       }
       if (birthdayChanged) {
-        await this.props.getMyProfileValue('private', 'birthday');
-        updatedAllData['3Box'].public.birthday = birthday;
+        const savedObject = await this.props.getMyProfileValue('private', 'birthday');
+        updatedAllData['3Box'].public.birthday = savedObject;
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
