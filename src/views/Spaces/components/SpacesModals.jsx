@@ -202,7 +202,7 @@ export const ListSpaceItemModal = ({
           <div className="spaceModal__names">
             <div className="spaceModal__name__wrapper">
               <p className="spaceModal__space__value">
-                {spaceName === '3Box' ? '3Box' : spaceName.replace(/([A-Z])/g, ' $1')
+                {spaceName === '3Box_app' ? '3Box' : spaceName.replace(/([A-Z])/g, ' $1')
                   .replace(/^./, str => str.toUpperCase())}
               </p>
             </div>
@@ -361,7 +361,10 @@ ListSpaceItemModal.propTypes = {
   spaceName: PropTypes.string.isRequired,
   dataKey: PropTypes.string.isRequired,
   rowType: PropTypes.string.isRequired,
-  dataValue: PropTypes.object.isRequired,
+  dataValue: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+  ]).isRequired,
   item: PropTypes.object.isRequired,
   privacy: PropTypes.string.isRequired,
   lastUpdated: PropTypes.string.isRequired,
@@ -409,7 +412,7 @@ export const DeleteSpaceItemModal = ({
             </button>
             <button
               onClick={() => {
-                if ((spaceItem.spaceName === '3Box')
+                if ((spaceItem.spaceName === '3Box_app')
                   || (spacesOpened && spacesOpened[spaceItem.spaceName])) {
                   deleteItem(
                     spaceItem.spaceName,
@@ -452,7 +455,7 @@ export const DeleteSpaceItemModal = ({
               }}
               tabIndex={0}
               onKeyPress={() => {
-                if ((spaceItem.spaceName === '3Box')
+                if ((spaceItem.spaceName === '3Box_app')
                   || (spacesOpened && spacesOpened[spaceItem.spaceName])) {
                   deleteItem(
                     spaceItem.spaceName,

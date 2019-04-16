@@ -79,7 +79,7 @@ class Collectibles extends Component {
       collectiblesFavorites: updatedCollectiblesFavorites,
       collectiblesFavoritesToRender: updatedCollectiblesFavoritesToRender,
     });
-    updatedAllData['3Box'].public.collectiblesFavoritesToRender = updatedCollectiblesFavoritesToRender;
+    updatedAllData['3Box_app'].public.collectiblesFavoritesToRender = updatedCollectiblesFavoritesToRender;
     store.dispatch({
       type: 'SPACES_DATA_UPDATE',
       list,

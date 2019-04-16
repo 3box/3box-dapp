@@ -121,7 +121,7 @@ ${(dataKey && dataKey.substring(0, 7) === 'thread-')
       </span >
       <span className="data__items__row__entry spaceRow__space">
         <p className="data__text">
-          {spaceName}
+          {spaceName === '3Box_app' ? '3Box' : spaceName}
         </p>
       </span>
       <span className="data__items__row__entry spaceRow__type">

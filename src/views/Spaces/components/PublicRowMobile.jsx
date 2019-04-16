@@ -42,7 +42,7 @@ const PublicRowMobile = ({
       <div className="data__items--namewrapper">
         <div className="data__name">
           <p className="data__items__spacename">
-            {spaceName}
+            {spaceName === '3Box_app' ? '3Box' : spaceName}
           </p>
           <p>
             {(dataKey && dataKey.substring(0, 7) !== 'thread-') && dataKey.replace(/([A-Z])/g, ' $1')

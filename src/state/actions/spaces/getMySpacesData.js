@@ -7,8 +7,16 @@ import {
 
 const getMySpacesData = address => async (dispatch) => {
   try {
-    const allData = {};
-    allData['3Box'] = {};
+    const {
+      allData,
+    } = store.getState().spaces;
+    console.log('allData', allData);
+    const updatedAllData = cloneDeep(allData);
+    // console.log('originalAllData', originalAllData);
+    // const updatedAllData = cloneDeep(originalAllData);
+    console.log('updatedAllData', updatedAllData);
+    // const updatedAllData = {};
+    // updatedAllData['3Box'] = {};
 
     const list = await Box.listSpaces(address); // get list of spaces
     console.log('list', list);
@@ -18,11 +26,11 @@ const getMySpacesData = address => async (dispatch) => {
         metadata: true,
       };
       const space = await Box.getSpace(address, spaceName, opts);
-      allData[spaceName] = {};
-      allData[spaceName].private = {
+      updatedAllData[spaceName] = {};
+      updatedAllData[spaceName].private = {
         private_space_data: true,
       };
-      allData[spaceName].public = space;
+      updatedAllData[spaceName].public = space;
 
       console.log('space', space);
 
@@ -44,7 +52,7 @@ const getMySpacesData = address => async (dispatch) => {
       const threadData = await threadPromise;
 
       threadData.forEach((thread, i) => {
-        allData[spaceName].public[`thread-${threadNames[i]}`] = thread;
+        updatedAllData[spaceName].public[`thread-${threadNames[i]}`] = thread;
       });
     };
 
@@ -53,53 +61,53 @@ const getMySpacesData = address => async (dispatch) => {
 
     await spaceDataPromise();
 
-    const { // merge myData into space data object
-      myData,
-    } = store.getState();
-    allData['3Box'].private = {};
-    allData['3Box'].public = {};
+    // const { // merge myData into space data object
+    //   myData,
+    // } = store.getState();
+    // updatedAllData['3Box'].private = {};
+    // updatedAllData['3Box'].public = {};
 
-    const rowData = [];
-    const rowCalls = [];
+    // const rowData = [];
+    // const rowCalls = [];
 
-    Object.entries(myData).forEach((row) => {
-      if ((row[0] !== 'box') &&
-        (row[0] !== 'feedByAddress') &&
-        (row[0] !== 'collection') &&
-        (row[0] !== 'did') &&
-        (row[0] !== 'memberSince') &&
-        (row[0] !== 'collectiblesFavorites')) {
-        if (row[0] === 'verifiedEmail' || row[0] === 'birthday') {
-          rowData.push([row[0], cloneDeep(row[1])]);
-          const metaData = store.getState().myData.box.private.getMetadata(row[0]);
-          rowCalls.push(metaData);
-        } else {
-          rowData.push([row[0], cloneDeep(row[1])]);
+    // Object.entries(myData).forEach((row) => {
+    //   if ((row[0] !== 'box') &&
+    //     (row[0] !== 'feedByAddress') &&
+    //     (row[0] !== 'collection') &&
+    //     (row[0] !== 'did') &&
+    //     (row[0] !== 'memberSince') &&
+    //     (row[0] !== 'collectiblesFavorites')) {
+    //     if (row[0] === 'verifiedEmail' || row[0] === 'birthday') {
+    //       rowData.push([row[0], cloneDeep(row[1])]);
+    //       const metaData = store.getState().myData.box.private.getMetadata(row[0]);
+    //       rowCalls.push(metaData);
+    //     } else {
+    //       rowData.push([row[0], cloneDeep(row[1])]);
 
-          const key = row[0] === 'collectiblesFavoritesToRender' ?
-            'collectiblesFavorites' :
-            row[0];
+    //       const key = row[0] === 'collectiblesFavoritesToRender' ?
+    //         'collectiblesFavorites' :
+    //         row[0];
 
-          const metaData = store.getState().myData.box.public.getMetadata(key);
-          rowCalls.push(metaData);
-        }
-      }
-    });
+    //       const metaData = store.getState().myData.box.public.getMetadata(key);
+    //       rowCalls.push(metaData);
+    //     }
+    //   }
+    // });
 
-    const rowPromises = Promise.all(rowCalls);
-    const rowMetaData = await rowPromises;
+    // const rowPromises = Promise.all(rowCalls);
+    // const rowMetaData = await rowPromises;
 
-    rowMetaData.forEach((metaData, i) => {
-      allData['3Box'].public[rowData[i][0]] = {
-        timestamp: metaData ? metaData.timestamp : '',
-        value: rowData[i][1],
-      };
-    });
+    // rowMetaData.forEach((metaData, i) => {
+    //   updatedAllData['3Box'].public[rowData[i][0]] = {
+    //     timestamp: metaData ? metaData.timestamp : '',
+    //     value: rowData[i][1],
+    //   };
+    // });
 
     dispatch({
       type: 'SPACES_DATA_UPDATE',
       list,
-      allData,
+      allData: updatedAllData,
     });
     dispatch({
       type: 'UI_SPACES_LOADING',

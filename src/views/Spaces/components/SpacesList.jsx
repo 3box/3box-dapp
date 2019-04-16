@@ -45,14 +45,14 @@ const SpacesList = ({
       </div>
       <div className="space__divider--mobile" />
       <div
-        className={`space ${spaceToDisplay === '3Box' ? 'activeSpace' : ''}`}
+        className={`space ${spaceToDisplay === '3Box_app' ? 'activeSpace' : ''}`}
         onClick={() => {
-          sortData(sortBy, false, '3Box', true);
+          sortData(sortBy, false, '3Box_app', true);
           handleMobileSpaceListView();
         }}
         role="button"
         onKeyDown={() => {
-          sortData(sortBy, false, '3Box', true);
+          sortData(sortBy, false, '3Box_app', true);
           handleMobileSpaceListView();
         }}
         tabIndex={0}
@@ -63,7 +63,7 @@ const SpacesList = ({
         </span>
       </div>
       <div className="space__divider--mobile" />
-      {list && list.map(space => space !== '3Box' && (
+      {list && list.map(space => space !== '3Box_app' && (
         <React.Fragment>
           <div
             className={`space ${spaceToDisplay === space ? 'activeSpace' : ''}`}

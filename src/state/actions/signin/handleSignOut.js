@@ -4,7 +4,7 @@ import {
 import * as routes from '../../../utils/routes';
 import history from '../../../utils/history';
 
-export const handleSignOut = () => async (dispatch) => {
+const handleSignOut = () => async (dispatch) => {
   if (store.getState().userState.isLoggedIn) {
     if (store.getState().myData.box) store.getState().myData.box.logout();
     dispatch({

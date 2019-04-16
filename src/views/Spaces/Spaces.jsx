@@ -62,14 +62,22 @@ class Spaces extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    const { sortBy, spaceToDisplay } = this.state;
     const { hasUpdated } = this.props;
     const { allData } = nextProps;
+
     if (allData !== this.props.allData && !hasUpdated) {
-      this.sortData('lastUpdated', allData, 'All Data', true);
+      this.sortData('lastUpdated', allData, spaceToDisplay, true);
       store.dispatch({
         type: 'SPACES_HAS_UPDATED',
         hasUpdated: true,
       });
+    }
+
+    if (allData !== this.props.allData) {
+      console.log('in cwrp');
+      console.log('this.props.allData', nextProps.allData);
+      this.sortData(sortBy, nextProps.allData, 'All Data', true);
     }
   }
 
@@ -100,6 +108,7 @@ class Spaces extends Component {
     const { allData, sortedSpace, spaceDataToRender } = this.props;
     const { sortBy, sortDirection } = this.state;
     let updatedSortedSpace = [];
+    console.log('updatedData', updatedData);
 
     if (newSort || sortBy !== category) {
       if (spaceName === 'All Data') {
@@ -193,7 +202,7 @@ class Spaces extends Component {
 
     this.setState({ itemToDelete: key, spaceNameToDelete: spaceName });
 
-    if (spaceName === '3Box') {
+    if (spaceName === '3Box_app') {
       let proof;
       let keyUppercase;
 
@@ -229,7 +238,7 @@ class Spaces extends Component {
         updatedCollectiblesFavorites.splice(listIndex, 1);
         const replaced = updatedCollectiblesFavoritesToRender.splice(listIndex, 1);
         updatedCollection.push(replaced[0]);
-        updatedAllData['3Box'].public.collectiblesFavoritesToRender.splice(listIndex, 1);
+        updatedAllData['3Box_app'].public.collectiblesFavoritesToRender.splice(listIndex, 1);
         box.public.set('collectiblesFavorites', updatedCollectiblesFavorites);
         store.dispatch({
           type: 'MY_COLLECTIBLESFAVORITES_UPDATE',
@@ -471,6 +480,7 @@ class Spaces extends Component {
                           index={i}
                           length={total}
                           item={item}
+                          key={`${spaceItem.spaceName}-${spaceItem.dataKey}`}
                         />
                       );
 
@@ -505,6 +515,7 @@ class Spaces extends Component {
                         index={i}
                         length={spaceItem.dataValue.length}
                         item={item}
+                        key={`${spaceItem.spaceName}-${spaceItem.dataKey}`}
                       />
                     ))}
                   </div>

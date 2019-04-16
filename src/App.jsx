@@ -54,7 +54,7 @@ const {
   getActivity,
 } = actions.profile;
 
-const { getMySpacesData } = actions.spaces;
+const { getMySpacesData, convert3BoxToSpaces } = actions.spaces;
 
 const {
   openBox,
@@ -143,10 +143,12 @@ class App extends Component {
 
   async getMyData() {
     const { currentAddress } = this.props;
+
     store.dispatch({
       type: 'UI_SPACES_LOADING',
       isSpacesLoading: true,
     });
+
     this.props.getActivity();
     this.props.getVerifiedPublicGithub();
     this.props.getVerifiedPublicTwitter();
@@ -169,6 +171,7 @@ class App extends Component {
     this.props.getMyProfileValue('public', 'emoji');
     this.props.getMyProfileValue('private', 'birthday');
     await this.props.getCollectibles(currentAddress);
+    await this.props.convert3BoxToSpaces();
     this.props.getMySpacesData(currentAddress);
   }
 
@@ -463,6 +466,7 @@ App.propTypes = {
   getMyDID: PropTypes.func.isRequired,
   getCollectibles: PropTypes.func.isRequired,
   getMySpacesData: PropTypes.func.isRequired,
+  convert3BoxToSpaces: PropTypes.func.isRequired,
   getMyMemberSince: PropTypes.func.isRequired,
   getVerifiedPublicGithub: PropTypes.func.isRequired,
   getVerifiedPublicTwitter: PropTypes.func.isRequired,
@@ -592,6 +596,7 @@ export default withRouter(connect(mapState,
     getMyDID,
     getCollectibles,
     getMySpacesData,
+    convert3BoxToSpaces,
     getMyMemberSince,
     getVerifiedPublicGithub,
     getVerifiedPublicTwitter,
