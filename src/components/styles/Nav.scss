@@ -331,9 +331,33 @@ nav {
   }
 }
 
+.landing__nav__developers--white {
+  color: white;
+  border: solid 1px white;
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin-left: 36px;
+  transition: all .3s;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.096);
+    color: white;
+  }
+
+  &:hover .landing__nav__developers__icon {
+    filter: brightness(0) invert(1);
+  }
+}
+
 .landing__nav__developers__icon {
   width: 18px;
   margin-right: 9px;
+}
+
+.landing__nav__developers__icon--white {
+  width: 18px;
+  margin-right: 9px;
+  filter: brightness(0) invert(1);
 }
 
 .hide .underline.landing__nav__link {
@@ -613,6 +637,10 @@ nav {
   }
 
   .landing__nav__developers {
+    display: none !important;
+  }
+
+  .landing__nav__developers--white {
     display: none !important;
   }
 

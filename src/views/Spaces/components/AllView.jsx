@@ -43,6 +43,7 @@ const AllView = ({
               spaceNameOpened={spaceNameOpened}
               itemToDelete={itemToDelete}
               spaceNameToDelete={spaceNameToDelete}
+              key={`${row.space}-${row.name}`}
             />);
         }
 
@@ -61,6 +62,7 @@ const AllView = ({
               spaceNameOpened={spaceNameOpened}
               itemToDelete={itemToDelete}
               spaceNameToDelete={spaceNameToDelete}
+              key={`${row.space}-${row.name}`}
             />);
         }
 
@@ -72,6 +74,7 @@ const AllView = ({
               fadeOut={fadeOut}
               isLoadingVault={isLoadingVault}
               vaultToOpen={vaultToOpen}
+              key={`vault-${row.space}`}
             />);
         }
 
@@ -83,6 +86,7 @@ const AllView = ({
               fadeOut={fadeOut}
               isLoadingVault={isLoadingVault}
               vaultToOpen={vaultToOpen}
+              key={`vault-${row.space}`}
             />);
         }
 
@@ -98,6 +102,7 @@ const AllView = ({
               spaceNameOpened={spaceNameOpened}
               itemToDelete={itemToDelete}
               spaceNameToDelete={spaceNameToDelete}
+              key={`${row.space}-${row.name}`}
             />);
         }
 
@@ -112,6 +117,7 @@ const AllView = ({
               lastUpdated={date}
               itemToDelete={itemToDelete}
               spaceNameToDelete={spaceNameToDelete}
+              key={`${row.space}-${row.name}`}
             />);
         }
       })}

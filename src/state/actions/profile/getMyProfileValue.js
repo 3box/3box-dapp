@@ -10,7 +10,7 @@ const getMyProfileValue = (type, key) => async (dispatch) => {
 
     const valueObject = {
       value,
-      timestamp: metadata.timestamp,
+      timestamp: metadata ? metadata.timestamp : null,
     };
 
     if (!value) return null;

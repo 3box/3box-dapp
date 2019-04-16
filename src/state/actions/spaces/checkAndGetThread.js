@@ -1,10 +1,11 @@
 import Box from '3box';
 
-const checkAndGetThread = async (space, spaceName) => {
+const checkAndGetThread = async (spaceData, spaceName) => {
   const threadNames = [];
   const threadCalls = [];
 
-  Object.entries(space).forEach((kv) => {
+  Object.entries(spaceData).forEach((kv) => {
+    console.log('kv', kv);
     if (kv[0].substring(0, 7) === 'thread-') {
       threadNames.push(kv[1].name);
       const promise = Box.getThread(spaceName, kv[1].name);

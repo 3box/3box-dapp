@@ -38,71 +38,36 @@ const getMySpacesData = address => async (dispatch) => {
       const threadCalls = [];
 
       Object.entries(space).forEach((kv) => {
+        console.log(kv);
         if (kv[0].substring(0, 7) === 'thread-') {
           threadNames.push(kv[1].value.name);
+          console.log(kv[1].value.name);
           const promise = Box.getThread(spaceName, kv[1].value.name);
           threadCalls.push(promise);
         }
+
+        if (kv[0].substring(0, 14) === 'follow-thread-') {
+          delete updatedAllData[spaceName].public[kv[0]];
+        }
       });
 
-      if (threadCalls.length === 0) return;
+      console.log(updatedAllData[spaceName].public);
 
-      const threadPromise = Promise.all(threadCalls);
+      if (threadCalls.length > 0) {
+        const threadPromise = Promise.all(threadCalls);
 
-      const threadData = await threadPromise;
+        const threadData = await threadPromise;
 
-      threadData.forEach((thread, i) => {
-        updatedAllData[spaceName].public[`thread-${threadNames[i]}`] = thread;
-      });
+        threadData.forEach((thread, i) => {
+          updatedAllData[spaceName].public[`thread-${threadNames[i]}`] = thread;
+        });
+      }
     };
 
     const spaceDataPromise = async () => Promise // for each space
       .all(list.map(spaceName => getSpace(spaceName)));
 
     await spaceDataPromise();
-
-    // const { // merge myData into space data object
-    //   myData,
-    // } = store.getState();
-    // updatedAllData['3Box'].private = {};
-    // updatedAllData['3Box'].public = {};
-
-    // const rowData = [];
-    // const rowCalls = [];
-
-    // Object.entries(myData).forEach((row) => {
-    //   if ((row[0] !== 'box') &&
-    //     (row[0] !== 'feedByAddress') &&
-    //     (row[0] !== 'collection') &&
-    //     (row[0] !== 'did') &&
-    //     (row[0] !== 'memberSince') &&
-    //     (row[0] !== 'collectiblesFavorites')) {
-    //     if (row[0] === 'verifiedEmail' || row[0] === 'birthday') {
-    //       rowData.push([row[0], cloneDeep(row[1])]);
-    //       const metaData = store.getState().myData.box.private.getMetadata(row[0]);
-    //       rowCalls.push(metaData);
-    //     } else {
-    //       rowData.push([row[0], cloneDeep(row[1])]);
-
-    //       const key = row[0] === 'collectiblesFavoritesToRender' ?
-    //         'collectiblesFavorites' :
-    //         row[0];
-
-    //       const metaData = store.getState().myData.box.public.getMetadata(key);
-    //       rowCalls.push(metaData);
-    //     }
-    //   }
-    // });
-
-    // const rowPromises = Promise.all(rowCalls);
-    // const rowMetaData = await rowPromises;
-
-    // rowMetaData.forEach((metaData, i) => {
-    //   updatedAllData['3Box'].public[rowData[i][0]] = {
-    //     timestamp: metaData ? metaData.timestamp : '',
-    //     value: rowData[i][1],
-    //   };
-    // });
 
     dispatch({
       type: 'SPACES_DATA_UPDATE',

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Private from '../../../assets/PrivateActivity.svg';
 import Globe from '../../../assets/Globe.svg';
 import Verified from '../../../assets/Verified.svg';
+import { timeSince } from '../../../utils/time';
 import '../styles/Spaces.css';
 
 import actions from '../../../state/actions';
@@ -65,7 +66,9 @@ const PublicRowMobile = ({
             ? <img src={Private} alt="Transaction Icon" className="data__items__privacyicon" />
             : <img src={Globe} alt="Transaction Icon" className="data__items__privacyicon" />
           }
-          {lastUpdated}
+          {dataKey && dataKey.substring(0, 7) !== 'thread-' && lastUpdated}
+          {(dataKey && dataKey.substring(0, 7) === 'thread-')
+            && (dataValue.length > 0 ? timeSince(dataValue[dataValue.length - 1].timeStamp) : '')}
         </div>
       </div>
       <div className="data__items--detailswrapper">
@@ -75,11 +78,13 @@ const PublicRowMobile = ({
               <p className="data__text">
                 {(() => {
                   let count = 0;
-                  dataValue.forEach((item) => {
-                    if (item.author === did) {
-                      count += 1;
-                    }
-                  });
+                  if (dataValue.length > 0) {
+                    dataValue.forEach((item) => {
+                      if (item.author === did) {
+                        count += 1;
+                      }
+                    });
+                  }
                   return `${count} messages`;
                 })()}
               </p>)
@@ -134,7 +139,11 @@ const PublicRowMobile = ({
   );
 
 PublicRowMobile.propTypes = {
-  dataValue: PropTypes.object.isRequired,
+  dataValue: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+    PropTypes.string,
+  ]).isRequired,
   viewSpaceItem: PropTypes.func.isRequired,
   dataKey: PropTypes.string.isRequired,
   spaceName: PropTypes.string.isRequired,
@@ -144,7 +153,7 @@ PublicRowMobile.propTypes = {
   fadeIn: PropTypes.bool.isRequired,
   itemToDelete: PropTypes.string.isRequired,
   spaceNameToDelete: PropTypes.string.isRequired,
-  lastUpdated: PropTypes.number.isRequired,
+  lastUpdated: PropTypes.string.isRequired,
 };
 
 export default connect('', { viewSpaceItem })(PublicRowMobile);

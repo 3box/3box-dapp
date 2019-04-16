@@ -1196,7 +1196,6 @@ class EditProfile extends Component {
                 </div>
                 <div id="edit__profile__fields">
                   <div id="edit__info">
-
                     <div className="edit__profile__fields__entry noMargin">
                       <div className="edit__profile__keyContainer">
                         <h5>Location</h5>
@@ -1259,6 +1258,12 @@ class EditProfile extends Component {
                 <div id="edit__profile__fields">
                   <div id="edit__info">
 
+                    <div className="edit__profile__fields__entry noMargin">
+                      <div className="edit__profile__keyContainer" />
+                      <div className="edit__profile__verifiedWrapper">
+                        <p className="verified__instructions">Enter your handles and without the @ mark.</p>
+                      </div>
+                    </div>
                     <div className="edit__profile__fields__entry noMargin">
                       <div className="edit__profile__keyContainer">
                         <h5>Github</h5>

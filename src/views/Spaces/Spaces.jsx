@@ -36,7 +36,7 @@ class Spaces extends Component {
       itemToDelete: '',
       spaceNameToDelete: '',
       sortBy: '',
-      width: null,
+      width: 700,
       sortDirection: true,
       showSpaceList: true,
       isLoadingVault: false,
@@ -295,31 +295,9 @@ class Spaces extends Component {
 
     const updateSpaceData = async () => {
       try {
-        const publicSpace = await box.spaces[spaceName].public.all();
         const privateSpace = await box.spaces[spaceName].private.all();
 
-        const publicMetadataCalls = [];
-        const publicValues = [];
-
-        Object.entries(publicSpace).forEach((publicKey) => {
-          if (publicKey[0].substring(0, 7) !== 'thread-') {
-            const metaData = store.getState().myData.box.spaces[spaceName].public.getMetadata(publicKey[0]);
-            publicMetadataCalls.push(metaData);
-            publicValues.push([publicKey[0], publicKey[1]]);
-          }
-        });
-
-        if (publicMetadataCalls.length > 0) {
-          const publicMetaDataPromises = Promise.all(publicMetadataCalls);
-          const publicMetaData = await publicMetaDataPromises;
-
-          publicValues.forEach((value, i) => {
-            publicSpace[value[0]] = {
-              timestamp: publicMetaData[i].timestamp,
-              value: value[1],
-            };
-          });
-        }
+        console.log('privateSpace', privateSpace);
 
         const privateMetadataCalls = [];
         const privateValues = [];
@@ -342,16 +320,8 @@ class Spaces extends Component {
           });
         }
 
-        updatedAllData[spaceName].public = publicSpace;
         updatedAllData[spaceName].private = privateSpace;
         updatedspacesOpened[spaceName] = true;
-
-        const threadParams = await checkAndGetThread(publicSpace, spaceName);
-        const { threadData, threadNames } = threadParams;
-
-        threadData.forEach((thread, i) => {
-          updatedAllData[spaceName].public[`thread-${threadNames[i]}`] = thread;
-        });
 
         this.setState({
           spaceNameOpened: spaceName,

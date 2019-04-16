@@ -64,7 +64,7 @@ const SpacesList = ({
       </div>
       <div className="space__divider--mobile" />
       {list && list.map(space => space !== '3Box_app' && (
-        <React.Fragment>
+        <React.Fragment key={space}>
           <div
             className={`space ${spaceToDisplay === space ? 'activeSpace' : ''}`}
             onClick={() => {
@@ -94,7 +94,6 @@ SpacesList.propTypes = {
   sortData: PropTypes.func.isRequired,
   handleMobileSpaceListView: PropTypes.func.isRequired,
   list: PropTypes.array.isRequired,
-  spaceName: PropTypes.string.isRequired,
   sortBy: PropTypes.string.isRequired,
   spaceToDisplay: PropTypes.string.isRequired,
   showSpacesMobile: PropTypes.bool.isRequired,

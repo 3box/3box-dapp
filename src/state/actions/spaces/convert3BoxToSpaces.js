@@ -56,15 +56,7 @@ const convert3BoxToSpaces = () => async (dispatch) => {
       type: 'SPACES_DATA_UPDATE',
       allData,
     });
-    dispatch({
-      type: 'UI_SPACES_LOADING',
-      isSpacesLoading: false,
-    });
   } catch (error) {
-    dispatch({
-      type: 'UI_SPACES_LOADING',
-      isSpacesLoading: false,
-    });
     console.error(error);
   }
 };

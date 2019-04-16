@@ -47,7 +47,12 @@ const FavoriteCollectiblesRow = ({
       <span className="data__items__row__entry spaceRow__content">
         {
           dataValue.map(item => (
-            <img src={item.image_preview_url} alt="" className="data__collectibles__tile" />
+            <img
+              src={item.image_preview_url}
+              alt="favorite collectible"
+              className="data__collectibles__tile"
+              key={item.image_preview_url}
+            />
           ))
         }
       </span>
@@ -79,7 +84,7 @@ const FavoriteCollectiblesRow = ({
   );
 
 FavoriteCollectiblesRow.propTypes = {
-  dataValue: PropTypes.object.isRequired,
+  dataValue: PropTypes.array.isRequired,
   viewSpaceItem: PropTypes.func.isRequired,
   dataKey: PropTypes.string.isRequired,
   spaceName: PropTypes.string.isRequired,

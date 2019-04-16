@@ -89,7 +89,7 @@ class AppModals extends Component {
       alertRequireMetaMask,
       provideConsent,
       handleAccessModal,
-      isProtectedPath,
+      isMyProfilePath,
     } = this.props;
 
     const isMobile = width <= 812; // 600
@@ -100,7 +100,7 @@ class AppModals extends Component {
         transitionEnterTimeout={300}
         transitionLeaveTimeout={300}
       >
-        {!isProtectedPath && (
+        {!isMyProfilePath && (
           <ThreeBoxInfoBanner
             showInfoBanner={showInfoBanner}
             handleInfoBanner={handleInfoBanner}
@@ -294,7 +294,7 @@ AppModals.propTypes = {
   handleRequireWalletLoginModal: PropTypes.func.isRequired,
   handleSignInModal: PropTypes.func.isRequired,
   handleMobileWalletModal: PropTypes.func.isRequired,
-  isProtectedPath: PropTypes.func.isRequired,
+  isMyProfilePath: PropTypes.bool.isRequired,
   isIOS: PropTypes.bool,
   mobileWalletRequiredModal: PropTypes.bool,
   signInToWalletModal: PropTypes.bool,
@@ -333,7 +333,6 @@ AppModals.defaultProps = {
   signInModal: false,
   alertRequireMetaMask: false,
   provideConsent: false,
-  isProtectedPath: false,
 };
 
 export default AppModals;

@@ -189,6 +189,7 @@ class App extends Component {
       return;
     }
 
+    await this.props.checkWeb3();
     await this.props.requestAccess('directLogin');
     await this.props.checkNetwork();
 
@@ -214,7 +215,8 @@ class App extends Component {
       accessDeniedModal,
     } = this.props;
 
-    if (this.props.hasWeb3) {
+    if (window.ethereum || typeof window.web3 !== 'undefined') {
+      await this.props.checkWeb3();
       await this.props.requestAccess();
       await this.props.checkNetwork();
 
@@ -463,6 +465,7 @@ App.propTypes = {
   openBox: PropTypes.func.isRequired,
   requestAccess: PropTypes.func.isRequired,
   getMyProfileValue: PropTypes.func.isRequired,
+  checkWeb3: PropTypes.func.isRequired,
   getMyDID: PropTypes.func.isRequired,
   getCollectibles: PropTypes.func.isRequired,
   getMySpacesData: PropTypes.func.isRequired,

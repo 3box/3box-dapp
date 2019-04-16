@@ -219,10 +219,10 @@ export const sortSpace = (updatedSortedSpace, category) => {
     const currentB = category !== 'name' ? b[category] : bName;
 
     const updatedA = a.type === 'Thread' ?
-      a.content[a.content.length - 1].timeStamp : a.lastUpdated;
+      (a.content.length > 0 ? [a.content.length - 1].timeStamp : '') : a.lastUpdated;
 
     const updatedB = b.type === 'Thread' ?
-      b.content[b.content.length - 1].timeStamp : b.lastUpdated;
+      (a.content.length > 0 ? [a.content.length - 1].timeStamp : '') : b.lastUpdated;
 
     if (category === 'lastUpdated') {
       if (typeof updatedA === 'undefined' && typeof updatedB === 'undefined') return -1;
