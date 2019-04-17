@@ -14,7 +14,8 @@ const sortByMobile = ({ handleMobileInput, showMobileInput, sortBy, sortData, sp
       tabIndex={0}
     >
       <p>
-        {sortBy.charAt(0).toUpperCase() + sortBy.slice(1)}
+        {sortBy.replace(/([A-Z])/g, ' $1')
+          .replace(/^./, str => str.toUpperCase())}
       </p>
       {sortDirection && <p className="sortArrow">&uarr;</p>}
       {!sortDirection && <p className="sortArrow">&darr;</p>}
@@ -83,12 +84,18 @@ const sortByMobile = ({ handleMobileInput, showMobileInput, sortBy, sortData, sp
               role="button"
               tabIndex={0}
             >
-              Last
-              updated
+              Last Updated
             {(sortBy === 'lastUpdated' && sortDirection) && <p className="sortArrow">&uarr;</p>}
               {(sortBy === 'lastUpdated' && !sortDirection) && <p className="sortArrow">&darr;</p>}
             </li>
           </ul>
+          <div
+            className="onClickOutsideCollectibles--mobile"
+            onClick={handleMobileInput}
+            tabIndex={0}
+            onKeyPress={handleMobileInput}
+            role="button"
+          />
         </div>)}
     </div>
   </div>

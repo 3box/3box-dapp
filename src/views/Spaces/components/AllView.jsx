@@ -8,6 +8,7 @@ import PublicRow from './PublicRow';
 import PublicRowMobile from './PublicRowMobile';
 import FavoriteCollectiblesRow from './FavoriteCollectiblesRow';
 import FavoriteCollectiblesRowMobile from './FavoriteCollectiblesRowMobile';
+import Mollie from '../../../assets/Mollie.png';
 import { timeSince } from '../../../utils/time';
 import '../styles/Spaces.css';
 
@@ -121,6 +122,13 @@ const AllView = ({
             />);
         }
       })}
+
+      {sortedSpace.length === 0 && (
+        <div className="emptySpace">
+          <img src={Mollie} alt="Mollie" className="emptySpace_mollie" />
+          <p>There's no data in this space</p>
+        </div>
+      )}
     </React.Fragment>
   );
 
