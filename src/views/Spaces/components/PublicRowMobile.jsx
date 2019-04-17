@@ -56,19 +56,20 @@ const PublicRowMobile = ({
         </div>
 
         <div className="data__items__context">
+          <p className="data__items__lastUpdated__mobile">
+            {dataKey && dataKey.substring(0, 7) !== 'thread-' && lastUpdated}
+            {(dataKey && dataKey.substring(0, 7) === 'thread-')
+              && (dataValue.length > 0 ? timeSince(dataValue[dataValue.length - 1].timeStamp) : '')}
+          </p>
+          {privacy === 'private'
+            ? <img src={Private} alt="Transaction Icon" className="data__items__privacyicon" />
+            : <img src={Globe} alt="Transaction Icon" className="data__items__privacyicon" />
+          }
           <span className={`type__tag ${rowType}`}>
             <p className="spaceRow__tag__text">
               {rowType}
             </p>
           </span>
-
-          {privacy === 'private'
-            ? <img src={Private} alt="Transaction Icon" className="data__items__privacyicon" />
-            : <img src={Globe} alt="Transaction Icon" className="data__items__privacyicon" />
-          }
-          {dataKey && dataKey.substring(0, 7) !== 'thread-' && lastUpdated}
-          {(dataKey && dataKey.substring(0, 7) === 'thread-')
-            && (dataValue.length > 0 ? timeSince(dataValue[dataValue.length - 1].timeStamp) : '')}
         </div>
       </div>
       <div className="data__items--detailswrapper">

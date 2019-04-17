@@ -36,13 +36,15 @@ const FavoriteCollectiblesRowMobile = ({
           </p>
         </div>
         <div className="data__items__context">
+          <p className="data__items__lastUpdated__mobile">
+            {lastUpdated}
+          </p>
+          <img src={Globe} alt="Transaction Icon" className="data__items__privacyicon" />
           <span className="type__tag List">
             <p className="spaceRow__tag__text">
               List
-           </p>
+            </p>
           </span>
-          <img src={Globe} alt="Transaction Icon" className="data__items__privacyicon" />
-          {lastUpdated}
         </div>
       </div>
       <div className="data__items--detailswrapper">

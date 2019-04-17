@@ -218,11 +218,31 @@ export const sortSpace = (updatedSortedSpace, category) => {
     const currentA = category !== 'name' ? a[category] : aName;
     const currentB = category !== 'name' ? b[category] : bName;
 
-    const updatedA = a.type === 'Thread' ?
-      (a.content.length > 0 ? [a.content.length - 1].timeStamp : '') : a.lastUpdated;
+    let updatedA;
+    let updatedB;
 
-    const updatedB = b.type === 'Thread' ?
-      (a.content.length > 0 ? [a.content.length - 1].timeStamp : '') : b.lastUpdated;
+    if (a.type === 'Thread') {
+      if (a.content.length > 0) {
+        updatedA = a.content[a.content.length - 1].timeStamp;
+      } else {
+        updatedA = '';
+      }
+    } else {
+      updatedA = a.lastUpdated;
+    }
+
+    if (b.type === 'Thread') {
+      if (b.content.length > 0) {
+        updatedB = b.content[b.content.length - 1].timeStamp;
+      } else {
+        updatedB = '';
+      }
+    } else {
+      updatedB = b.lastUpdated;
+    }
+
+    // updatedB = b.type === 'Thread' ?
+    //   (a.content.length > 0 ? [a.content.length - 1].timeStamp : '') : b.lastUpdated;
 
     if (category === 'lastUpdated') {
       if (typeof updatedA === 'undefined' && typeof updatedB === 'undefined') return -1;

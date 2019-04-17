@@ -14,7 +14,7 @@ export const SpaceOpenedModal = ({ spaceName }) => (
     <div className="modal--sync spaceOpenedModal--mobile">
       <div className="modal--space__copy__wrapper">
         <img src={Space} className="modal__space__icon" alt="Copied" />
-        <p>{`${spaceName.toUpperCase()} SPACE OPENED`}</p>
+        <p>{`${spaceName === '3Box_app' ? '3BOX' : spaceName.toUpperCase()} SPACE OPENED`}</p>
       </div>
     </div>
   </div>
@@ -42,10 +42,12 @@ export const ViewSpaceDataItemModal = ({
         <div className="modal spaceModal">
           <button onClick={() => viewSpaceItem(false, false, false)} type="button" className="tertiaryButton spaceModal__close">
             Close
-        </button>
+          </button>
           <section className="spaceModal__data">
             <div className="spaceModal__name__wrapper">
-              <p className="spaceModal__space__value">{spaceName}</p>
+              <p className="spaceModal__space__value">
+                {spaceName === '3Box_app' ? '3Box' : spaceName}
+              </p>
             </div>
             <div className="spaceModal__name__wrapper">
               <p className="spaceModal__name__value">

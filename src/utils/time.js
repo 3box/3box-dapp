@@ -29,7 +29,7 @@ export const timeSince = (date) => {
 
   let interval = Math.floor(seconds / 86400);
 
-  if (interval > 7) {
+  if (interval > 1) {
     return dateFormat;
   }
 
@@ -47,18 +47,28 @@ export const timeSince = (date) => {
     h = 12;
   }
 
-  if (interval > 1) return `${interval} days ago at ${h}:${m}${dd}`;
-  if (interval === 1) return `${interval} day ago at ${h}:${m}${dd}`;
-
   interval = Math.floor(seconds / 3600);
-  if (interval > 1) return `${interval} hours ago at ${h}:${m}${dd}`;
-  if (interval === 1) return `${interval} hour ago at ${h}:${m}${dd}`;
+  if (interval > 1) return `${h}:${m}${dd}`;
+  if (interval === 1) return `${h}:${m}${dd}`;
 
   interval = Math.floor(seconds / 60);
-  if (interval > 1) return `${interval} minutes ago at ${h}:${m}${dd}`;
-  if (interval === 1) return `${interval} minute ago at ${h}:${m}${dd}`;
+  if (interval > 1) return `${h}:${m}${dd}`;
+  if (interval === 1) return `${h}:${m}${dd}`;
 
-  return `${Math.floor(seconds)} seconds ago at ${h}:${m}${dd}`;
+  return `${h}:${m}${dd}`;
+
+  // if (interval > 1) return `${interval} days ago at ${h}:${m}${dd}`;
+  // if (interval === 1) return `${interval} day ago at ${h}:${m}${dd}`;
+
+  // interval = Math.floor(seconds / 3600);
+  // if (interval > 1) return `${interval} hours ago at ${h}:${m}${dd}`;
+  // if (interval === 1) return `${interval} hour ago at ${h}:${m}${dd}`;
+
+  // interval = Math.floor(seconds / 60);
+  // if (interval > 1) return `${interval} minutes ago at ${h}:${m}${dd}`;
+  // if (interval === 1) return `${interval} minute ago at ${h}:${m}${dd}`;
+
+  // return `${Math.floor(seconds)} seconds ago at ${h}:${m}${dd}`;
 };
 
 // let interval = Math.floor(seconds / 31536000);

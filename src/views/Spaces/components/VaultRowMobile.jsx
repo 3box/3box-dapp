@@ -33,12 +33,12 @@ const VaultRowMobile = ({
           </p>
         </div>
         <div className="data__items__context">
+          <img src={Private} alt="Transaction Icon" className="data__items__privacyicon" />
           <span className="type__tag row__type__vault">
             <p className="spaceRow__tag__text">
               Vault
             </p>
           </span>
-          <img src={Private} alt="Transaction Icon" className="data__items__privacyicon" />
         </div>
       </div>
       <div className="data__items--detailswrapper">

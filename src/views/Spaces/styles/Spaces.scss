@@ -668,6 +668,10 @@
     p {
       size: 18px !important;
     }
+
+    .profile__category__verified__icon {
+      margin-left: 12px;
+    }
   }
 
   .data__space__info {
@@ -710,12 +714,17 @@
     }
   }
 
+  .data__items__lastUpdated__mobile {
+    margin-right: 8px;
+    font-size: 11px !important;
+  }
+
   .data__selected-sort {
     border: solid 1px $borderColor;
     padding: 6px 10px !important;
     background-color: white;
     border-radius: 6px;
-    width: 100px;
+    width: fit-content;
     height: 36px;
     box-sizing: border-box;
     font-size: 13px;
@@ -828,7 +837,7 @@
   .type__tag {
     padding: 3px 6px;
     border-radius: 2px;
-    margin-right: 10px;
+    margin-left: 10px;
 
     p {
       font-size: 12px !important;
