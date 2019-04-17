@@ -67,7 +67,6 @@ class Spaces extends Component {
     const { hasUpdated } = this.props;
     const { allData } = nextProps;
 
-    // for loading 3Box & Rest of users space data
     if (allData !== this.props.allData && !hasUpdated) {
       this.sortData(sortBy, allData, spaceToDisplay, true);
       // store.dispatch({
@@ -107,34 +106,38 @@ class Spaces extends Component {
   }
 
   sortData = async (category, updatedData, spaceName, newSort) => {
-    const { allData, sortedSpace, spaceDataToRender } = this.props;
-    const { sortBy, sortDirection } = this.state;
-    let updatedSortedSpace = [];
+    try {
+      const { allData, sortedSpace, spaceDataToRender } = this.props;
+      const { sortBy, sortDirection } = this.state;
+      let updatedSortedSpace = [];
 
-    if (newSort || sortBy !== category) {
-      if (spaceName === 'All Data') {
-        const extractCalls = [];
-        Object.entries(updatedData || allData).forEach((space) => {
-          const promise = extractRow(space[1], space[0], updatedSortedSpace);
-          extractCalls.push(promise);
-        });
+      if (newSort || sortBy !== category) {
+        if (spaceName === 'All Data') {
+          const extractCalls = [];
+          Object.entries(updatedData || allData).forEach((space) => {
+            const promise = extractRow(space[1], space[0], updatedSortedSpace);
+            extractCalls.push(promise);
+          });
 
-        const extractPromise = Promise.all(extractCalls);
-        await extractPromise;
+          const extractPromise = Promise.all(extractCalls);
+          await extractPromise;
+        } else {
+          await extractRow(updatedData[spaceName] || allData[spaceName], spaceName, updatedSortedSpace);
+        }
+
+        if (updatedSortedSpace.length > 0) sortSpace(updatedSortedSpace, category);
+        this.setState({ sortBy: category, spaceToDisplay: spaceName });
+        if (!sortDirection) updatedSortedSpace.reverse();
       } else {
-        await extractRow(updatedData[spaceName] || allData[spaceName], spaceName, updatedSortedSpace);
+        // reverse order of list
+        updatedSortedSpace = spaceName === 'All Data' ? sortedSpace.slice() : spaceDataToRender.slice();
+        updatedSortedSpace.reverse();
+        this.setState({ sortDirection: !sortDirection });
       }
-
-      if (updatedSortedSpace.length > 0) sortSpace(updatedSortedSpace, category);
-      this.setState({ sortBy: category, spaceToDisplay: spaceName });
-      if (!sortDirection) updatedSortedSpace.reverse();
-    } else {
-      // reverse order of list
-      updatedSortedSpace = spaceName === 'All Data' ? sortedSpace.slice() : spaceDataToRender.slice();
-      updatedSortedSpace.reverse();
-      this.setState({ sortDirection: !sortDirection });
+      this.spacesDataToRenderUpdate(spaceName, updatedSortedSpace, sortedSpace);
+    } catch (err) {
+      console.error(err);
     }
-    this.spacesDataToRenderUpdate(spaceName, updatedSortedSpace, sortedSpace);
   }
 
   reverseSort = (spaceName) => {
@@ -370,7 +373,11 @@ class Spaces extends Component {
       },
     };
 
-    await box.openSpace(spaceName, opts);
+    try {
+      await box.openSpace(spaceName, opts);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   render() {

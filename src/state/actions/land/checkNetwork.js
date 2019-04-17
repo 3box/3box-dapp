@@ -30,15 +30,19 @@ const checkNetwork = () => async (dispatch) => {
 
   // // check network, compatible with old & new v of MetaMask
   let currentNetwork;
-  if (window.web3.eth.net) { // eslint-disable-line no-undef
-    await window.web3.eth.net.getNetworkType() // eslint-disable-line no-undef
-      .then((network) => {
+  try {
+    if (window.web3.eth.net) { // eslint-disable-line no-undef
+      await window.web3.eth.net.getNetworkType() // eslint-disable-line no-undef
+        .then((network) => {
+          currentNetwork = network;
+        });
+    } else {
+      await checkNetworkFunc.then((network) => {
         currentNetwork = network;
       });
-  } else {
-    await checkNetworkFunc.then((network) => {
-      currentNetwork = network;
-    });
+    }
+  } catch (err) {
+    console.error(err);
   }
 
   const prevPrevNetwork = window.localStorage.getItem('prevNetwork'); // eslint-disable-line no-undef

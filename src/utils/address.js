@@ -11,20 +11,24 @@ const {
 let address;
 
 export const initialAddress = async () => {
-  if (typeof window.web3 !== 'undefined') {
-    if (window.web3.eth.accounts[0]) {
-      [address] = window.web3.eth.accounts;
+  try {
+    if (typeof window.web3 !== 'undefined') {
+      if (window.web3.eth.accounts[0]) {
+        [address] = window.web3.eth.accounts;
+      } else {
+        const returnedAddress = await accountsPromise;
+        [address] = returnedAddress;
+      }
     } else {
-      const returnedAddress = await accountsPromise;
-      [address] = returnedAddress;
+      address = null;
     }
-  } else {
-    address = null;
+    store.dispatch({
+      type: 'USER_UPDATE_ADDRESS',
+      currentAddress: address,
+    });
+  } catch (err) {
+    console.error(err)
   }
-  store.dispatch({
-    type: 'USER_UPDATE_ADDRESS',
-    currentAddress: address,
-  });
 };
 
 export const pollNetworkAndAddress = () => {

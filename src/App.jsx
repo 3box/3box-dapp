@@ -88,24 +88,28 @@ class App extends Component {
     const isMyProfilePath = matchProtectedRoutes(splitRoute[2]);
     const currentEthAddress = window.localStorage.getItem('userEthAddress');
 
-    this.props.handleInfoBanner();
-    initialAddress(); // Initial get address
-    pollNetworkAndAddress(); // Start polling for address change
-    await this.props.checkWeb3();
+    try {
+      this.props.handleInfoBanner();
+      initialAddress(); // Initial get address
+      pollNetworkAndAddress(); // Start polling for address change
+      await this.props.checkWeb3();
 
-    const allowDirectSignIn = (this.props.hasWeb3
-      && splitRoute.length > 1 // Route has more than one
-      && splitRoute[1].substring(0, 2) === '0x' // Lands on profile page
-      && isMyProfilePath // Lands on protected page
-      && splitRoute[1] === currentEthAddress // Eth address is own)
-    );
-    const onProfilePage = (splitRoute.length > 1 // Route has more than one
-      && splitRoute[1].substring(0, 2) === '0x');
+      const allowDirectSignIn = (this.props.hasWeb3
+        && splitRoute.length > 1 // Route has more than one
+        && splitRoute[1].substring(0, 2) === '0x' // Lands on profile page
+        && isMyProfilePath // Lands on protected page
+        && splitRoute[1] === currentEthAddress // Eth address is own)
+      );
+      const onProfilePage = (splitRoute.length > 1 // Route has more than one
+        && splitRoute[1].substring(0, 2) === '0x');
 
-    if (allowDirectSignIn) { // Begin signin
-      this.directSignIn();
-    } else if (onProfilePage) { // Lands on profile page
-      if (isMyProfilePath) history.push(`/${splitRoute[1]}`);
+      if (allowDirectSignIn) { // Begin signin
+        this.directSignIn();
+      } else if (onProfilePage) { // Lands on profile page
+        if (isMyProfilePath) history.push(`/${splitRoute[1]}`);
+      }
+    } catch (err) {
+      console.error(err);
     }
   }
 
@@ -150,30 +154,34 @@ class App extends Component {
       isSpacesLoading: true,
     });
 
-    this.props.getActivity();
-    this.props.getVerifiedPublicGithub();
-    this.props.getVerifiedPublicTwitter();
-    this.props.getVerifiedPrivateEmail();
-    this.props.getMyMemberSince();
-    this.props.getMyDID();
-    this.props.getMyProfileValue('public', 'status');
-    this.props.getMyProfileValue('public', 'name');
-    this.props.getMyProfileValue('public', 'description');
-    this.props.getMyProfileValue('public', 'image');
-    this.props.getMyProfileValue('public', 'coverPhoto');
-    this.props.getMyProfileValue('public', 'location');
-    this.props.getMyProfileValue('public', 'website');
-    this.props.getMyProfileValue('public', 'employer');
-    this.props.getMyProfileValue('public', 'job');
-    this.props.getMyProfileValue('public', 'school');
-    this.props.getMyProfileValue('public', 'degree');
-    this.props.getMyProfileValue('public', 'major');
-    this.props.getMyProfileValue('public', 'year');
-    this.props.getMyProfileValue('public', 'emoji');
-    this.props.getMyProfileValue('private', 'birthday');
-    await this.props.getCollectibles(currentAddress);
-    await this.props.convert3BoxToSpaces();
-    this.props.getMySpacesData(currentAddress);
+    try {
+      this.props.getActivity();
+      this.props.getVerifiedPublicGithub();
+      this.props.getVerifiedPublicTwitter();
+      this.props.getVerifiedPrivateEmail();
+      this.props.getMyMemberSince();
+      this.props.getMyDID();
+      this.props.getMyProfileValue('public', 'status');
+      this.props.getMyProfileValue('public', 'name');
+      this.props.getMyProfileValue('public', 'description');
+      this.props.getMyProfileValue('public', 'image');
+      this.props.getMyProfileValue('public', 'coverPhoto');
+      this.props.getMyProfileValue('public', 'location');
+      this.props.getMyProfileValue('public', 'website');
+      this.props.getMyProfileValue('public', 'employer');
+      this.props.getMyProfileValue('public', 'job');
+      this.props.getMyProfileValue('public', 'school');
+      this.props.getMyProfileValue('public', 'degree');
+      this.props.getMyProfileValue('public', 'major');
+      this.props.getMyProfileValue('public', 'year');
+      this.props.getMyProfileValue('public', 'emoji');
+      this.props.getMyProfileValue('private', 'birthday');
+      await this.props.getCollectibles(currentAddress);
+      await this.props.convert3BoxToSpaces();
+      this.props.getMySpacesData(currentAddress);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   async directSignIn() {
@@ -190,24 +198,28 @@ class App extends Component {
       return;
     }
 
-    await this.props.checkWeb3();
-    await this.props.requestAccess('directLogin');
-    await this.props.checkNetwork();
+    try {
+      await this.props.checkWeb3();
+      await this.props.requestAccess('directLogin');
+      await this.props.checkNetwork();
 
-    const allowSignIn = (this.props.isSignedIntoWallet && this.props.isLoggedIn);
-    const notSignedIn = (this.props.isSignedIntoWallet
-      && !this.props.isLoggedIn
-      && matchProtectedRoutes(normalizedPath.split('/')[2]));
+      const allowSignIn = (this.props.isSignedIntoWallet && this.props.isLoggedIn);
+      const notSignedIn = (this.props.isSignedIntoWallet
+        && !this.props.isLoggedIn
+        && matchProtectedRoutes(normalizedPath.split('/')[2]));
 
-    if (allowSignIn) {
-      await this.props.openBox();
-      if (!this.props.showErrorModal) this.getMyData();
-    } else if (!this.props.isSignedIntoWallet) {
-      history.push(routes.LANDING);
-      this.props.handleRequireWalletLoginModal();
-    } else if (notSignedIn) {
-      history.push(routes.LANDING);
-      this.props.handleSignInModal();
+      if (allowSignIn) {
+        await this.props.openBox();
+        if (!this.props.showErrorModal) this.getMyData();
+      } else if (!this.props.isSignedIntoWallet) {
+        history.push(routes.LANDING);
+        this.props.handleRequireWalletLoginModal();
+      } else if (notSignedIn) {
+        history.push(routes.LANDING);
+        this.props.handleSignInModal();
+      }
+    } catch (err) {
+      console.error(err);
     }
   }
 
@@ -216,20 +228,24 @@ class App extends Component {
       accessDeniedModal,
     } = this.props;
 
-    if (window.ethereum || typeof window.web3 !== 'undefined') {
-      await this.props.checkWeb3();
-      await this.props.requestAccess();
-      await this.props.checkNetwork();
+    try {
+      if (window.ethereum || typeof window.web3 !== 'undefined') {
+        await this.props.checkWeb3();
+        await this.props.requestAccess();
+        await this.props.checkNetwork();
 
-      if (this.props.isSignedIntoWallet) {
-        await this.props.openBox('fromSignIn');
-        if (!this.props.showErrorModal) this.getMyData();
-      } else if (!this.props.isSignedIntoWallet && !accessDeniedModal) {
-        this.props.handleRequireWalletLoginModal();
+        if (this.props.isSignedIntoWallet) {
+          await this.props.openBox('fromSignIn');
+          if (!this.props.showErrorModal) this.getMyData();
+        } else if (!this.props.isSignedIntoWallet && !accessDeniedModal) {
+          this.props.handleRequireWalletLoginModal();
+        }
+      } else if (!this.props.hasWeb3) {
+        this.props.requireMetaMaskModal();
+        this.props.handleMobileWalletModal();
       }
-    } else if (!this.props.hasWeb3) {
-      this.props.requireMetaMaskModal();
-      this.props.handleMobileWalletModal();
+    } catch (err){
+      console.error(err)
     }
   }
 

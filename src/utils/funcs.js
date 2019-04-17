@@ -44,12 +44,16 @@ export const addhttp = (url) => {
 };
 
 export async function getContract(otherAddress) {
-  const response = await fetch(`https://api.etherscan.io/api?module=contract&action=getabi&address=${otherAddress}&apikey=${process.env.ETHERSCAN_TOKEN}`);
-  if (response.status !== 200) {
-    return console.log(`Looks like there was a problem. Status Code: ${response.status}`);
+  try {
+    const response = await fetch(`https://api.etherscan.io/api?module=contract&action=getabi&address=${otherAddress}&apikey=${process.env.ETHERSCAN_TOKEN}`);
+    if (response.status !== 200) {
+      return console.log(`Looks like there was a problem. Status Code: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error(err);
   }
-  const data = await response.json();
-  return data;
 };
 
 export const imageElFor = (address) => {
@@ -188,24 +192,28 @@ export const copyToClipBoard = (type, message) => async (dispatch) => {
 };
 
 export const checkRowType = async (content) => {
-  if (typeof content[1] === 'string') {
-    if (content[0].substring(0, 8) === 'verified') return 'Claim';
-    const isClaim = await Box.idUtils.isClaim(content[1]);
-    if (isClaim) {
-      const isVerified = await Box.idUtils.verifyClaim(content[1]);
-      return 'Claim';
+  try {
+    if (typeof content[1] === 'string') {
+      if (content[0].substring(0, 8) === 'verified') return 'Claim';
+      const isClaim = await Box.idUtils.isClaim(content[1]);
+      if (isClaim) {
+        const isVerified = await Box.idUtils.verifyClaim(content[1]);
+        return 'Claim';
+      }
+      return 'Text';
     }
-    return 'Text';
+    if (Array.isArray(content[1]) && content[0].substring(0, 7) === 'thread-') return 'Thread';
+    if (typeof content[1] === 'object' && !Array.isArray(content[1])) return 'Object';
+    if (Array.isArray(content[1]) &&
+      content[1][0] &&
+      content[1][0]['@type'] === 'ImageObject') return 'Image';
+    if (Array.isArray(content[1]) &&
+      (!content[1][0] || (content[1][0] &&
+        content[1][0]['@type'] !==
+        'ImageObject'))) return 'List';
+  } catch (err) {
+    console.error(err);
   }
-  if (Array.isArray(content[1]) && content[0].substring(0, 7) === 'thread-') return 'Thread';
-  if (typeof content[1] === 'object' && !Array.isArray(content[1])) return 'Object';
-  if (Array.isArray(content[1]) &&
-    content[1][0] &&
-    content[1][0]['@type'] === 'ImageObject') return 'Image';
-  if (Array.isArray(content[1]) &&
-    (!content[1][0] || (content[1][0] &&
-      content[1][0]['@type'] !==
-      'ImageObject'))) return 'List';
 };
 
 export const sortSpace = (updatedSortedSpace, category) => {
@@ -301,31 +309,35 @@ export const sortSpace = (updatedSortedSpace, category) => {
 };
 
 export const extractRow = async (spaceData, spaceNameGiven, updatedSortedSpace) => {
-  if (!spaceData) return;
+  try {
+    if (!spaceData) return;
 
-  const rowItems = [];
-  const rowCalls = [];
+    const rowItems = [];
+    const rowCalls = [];
 
-  Object.entries(spaceData).forEach((privacy) => {
-    Object.entries(privacy[1]).forEach((row) => {
-      const content = Array.isArray(row[1]) ? row[1] : row[1].value;
-      rowItems.push([spaceNameGiven, row[0], row[1], privacy[0]]);
-      const promise = checkRowType([row[0], content]);
-      rowCalls.push(promise);
+    Object.entries(spaceData).forEach((privacy) => {
+      Object.entries(privacy[1]).forEach((row) => {
+        const content = Array.isArray(row[1]) ? row[1] : row[1].value;
+        rowItems.push([spaceNameGiven, row[0], row[1], privacy[0]]);
+        const promise = checkRowType([row[0], content]);
+        rowCalls.push(promise);
+      });
     });
-  });
 
-  const rowPromises = Promise.all(rowCalls);
-  const rowType = await rowPromises;
+    const rowPromises = Promise.all(rowCalls);
+    const rowType = await rowPromises;
 
-  rowType.forEach((type, i) => {
-    updatedSortedSpace.push({
-      space: rowItems[i][0],
-      name: rowItems[i][1],
-      content: rowItems[i][2].value || rowItems[i][2],
-      type,
-      privacy: rowItems[i][3],
-      lastUpdated: rowItems[i][2].timestamp,
+    rowType.forEach((type, i) => {
+      updatedSortedSpace.push({
+        space: rowItems[i][0],
+        name: rowItems[i][1],
+        content: rowItems[i][2].value || rowItems[i][2],
+        type,
+        privacy: rowItems[i][3],
+        lastUpdated: rowItems[i][2].timestamp,
+      });
     });
-  });
+  } catch (err) {
+    console.error(err);
+  }
 };

@@ -34,34 +34,38 @@ const {
 
 class ProfilePublic extends Component {
   async componentDidMount() {
-    window.scrollTo(0, 0);
-    const { location: { pathname }, currentAddress } = this.props;
-    const otherProfileAddress = pathname.split('/')[1];
-    let activeAddress;
+    try {
+      window.scrollTo(0, 0);
+      const { location: { pathname }, currentAddress } = this.props;
+      const otherProfileAddress = pathname.split('/')[1];
+      let activeAddress;
 
-    store.dispatch({
-      type: 'OTHER_ADDRESS_UPDATE',
-      otherProfileAddress,
-    });
-    store.dispatch({
-      type: 'UI_ON_OTHER_PROFILE',
-      onOtherProfilePage: true,
-    });
+      store.dispatch({
+        type: 'OTHER_ADDRESS_UPDATE',
+        otherProfileAddress,
+      });
+      store.dispatch({
+        type: 'UI_ON_OTHER_PROFILE',
+        onOtherProfilePage: true,
+      });
 
-    if (typeof window.web3 !== 'undefined') {
-      if (!currentAddress) {
-        const returnedAddress = await accountsPromise;
-        [activeAddress] = returnedAddress;
-      } else {
-        activeAddress = currentAddress;
+      if (typeof window.web3 !== 'undefined') {
+        if (!currentAddress) {
+          const returnedAddress = await accountsPromise;
+          [activeAddress] = returnedAddress;
+        } else {
+          activeAddress = currentAddress;
+        }
+        if (otherProfileAddress === activeAddress) this.props.handleSignInBanner();
+        await this.props.checkNetwork();
       }
-      if (otherProfileAddress === activeAddress) this.props.handleSignInBanner();
-      await this.props.checkNetwork();
-    }
 
-    await this.props.getOtherProfile(otherProfileAddress);
-    this.props.getCollectibles(otherProfileAddress, true);
-    this.props.getActivity(otherProfileAddress);
+      await this.props.getOtherProfile(otherProfileAddress);
+      this.props.getCollectibles(otherProfileAddress, true);
+      this.props.getActivity(otherProfileAddress);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   componentWillUnmount() {

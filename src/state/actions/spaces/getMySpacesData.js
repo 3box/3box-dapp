@@ -13,7 +13,6 @@ const getMySpacesData = address => async (dispatch) => {
     const updatedAllData = cloneDeep(allData);
 
     const list = await Box.listSpaces(address); // get list of spaces
-    console.log('list', list);
 
     const getSpace = async (spaceName) => { // function to get space and pair to key
       const opts = {
@@ -25,8 +24,6 @@ const getMySpacesData = address => async (dispatch) => {
         private_space_data: true,
       };
       updatedAllData[spaceName].public = space;
-
-      console.log('space', space);
 
       const threadNames = [];
       const threadCalls = [];

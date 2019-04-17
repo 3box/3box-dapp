@@ -44,24 +44,28 @@ class StatusUpdate extends Component {
   }
 
   async handleSubmit(e, remove) {
-    const {
-      status,
-    } = this.state;
+    try {
+      const {
+        status,
+      } = this.state;
 
-    e.preventDefault();
-    this.setState({ saveLoading: true });
+      e.preventDefault();
+      this.setState({ saveLoading: true });
 
-    const statusChanged = status !== this.props.status;
-    const { box } = this.props;
+      const statusChanged = status !== this.props.status;
+      const { box } = this.props;
 
-    // if value changed and is not empty, save new value, else remove value
-    if (statusChanged && status !== '') await box.public.set('status', status);
-    if ((statusChanged && status === '') || remove) await box.public.remove('status');
+      // if value changed and is not empty, save new value, else remove value
+      if (statusChanged && status !== '') await box.public.set('status', status);
+      if ((statusChanged && status === '') || remove) await box.public.remove('status');
 
-    if (statusChanged) await this.props.getMyProfileValue('public', 'status');
-    this.props.getActivity();
-    this.setState({ saveLoading: false, disableSave: true });
-    if (remove) this.setState({ status: '' });
+      if (statusChanged) await this.props.getMyProfileValue('public', 'status');
+      this.props.getActivity();
+      this.setState({ saveLoading: false, disableSave: true });
+      if (remove) this.setState({ status: '' });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   render() {
