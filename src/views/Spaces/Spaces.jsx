@@ -35,7 +35,7 @@ class Spaces extends Component {
       vaultToOpen: '',
       itemToDelete: '',
       spaceNameToDelete: '',
-      sortBy: '',
+      sortBy: 'lastUpdated',
       width: 700,
       sortDirection: true,
       showSpaceList: true,
@@ -66,19 +66,20 @@ class Spaces extends Component {
     const { hasUpdated } = this.props;
     const { allData } = nextProps;
 
+    // for loading 3Box & Rest of users space data
     if (allData !== this.props.allData && !hasUpdated) {
-      this.sortData('lastUpdated', allData, spaceToDisplay, true);
-      store.dispatch({
-        type: 'SPACES_HAS_UPDATED',
-        hasUpdated: true,
-      });
+      this.sortData(sortBy, allData, spaceToDisplay, true);
+      // store.dispatch({
+      //   type: 'SPACES_HAS_UPDATED',
+      //   hasUpdated: true,
+      // });
     }
 
-    if (allData !== this.props.allData) {
-      console.log('in cwrp');
-      console.log('this.props.allData', nextProps.allData);
-      this.sortData(sortBy, nextProps.allData, 'All Data', true);
-    }
+    // if (allData !== this.props.allData && hasUpdated) {
+    //   console.log('in cwrp');
+    //   console.log('this.props.allData', nextProps.allData);
+    //   this.sortData(sortBy, nextProps.allData, spaceToDisplay, true);
+    // }
   }
 
   componentWillUnmount() {
@@ -108,7 +109,6 @@ class Spaces extends Component {
     const { allData, sortedSpace, spaceDataToRender } = this.props;
     const { sortBy, sortDirection } = this.state;
     let updatedSortedSpace = [];
-    console.log('updatedData', updatedData);
 
     if (newSort || sortBy !== category) {
       if (spaceName === 'All Data') {
@@ -133,7 +133,6 @@ class Spaces extends Component {
       updatedSortedSpace.reverse();
       this.setState({ sortDirection: !sortDirection });
     }
-
     this.spacesDataToRenderUpdate(spaceName, updatedSortedSpace, sortedSpace);
   }
 
@@ -296,8 +295,6 @@ class Spaces extends Component {
     const updateSpaceData = async () => {
       try {
         const privateSpace = await box.spaces[spaceName].private.all();
-
-        console.log('privateSpace', privateSpace);
 
         const privateMetadataCalls = [];
         const privateValues = [];

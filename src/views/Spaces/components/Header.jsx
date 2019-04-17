@@ -52,7 +52,7 @@ const Header = ({
                 className="data__space__context__arrowButton"
                 alt="list"
               />
-              <h2>{spaceToDisplay}</h2>
+              <h2>{spaceToDisplay === '3Box_app' ? '3Box' : spaceToDisplay}</h2>
             </button>
           </div>
           {isSpacesLoading && <img className="data__space__loading" src={Loading} alt="info" />}

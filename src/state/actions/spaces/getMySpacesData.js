@@ -10,13 +10,7 @@ const getMySpacesData = address => async (dispatch) => {
     const {
       allData,
     } = store.getState().spaces;
-    console.log('allData', allData);
     const updatedAllData = cloneDeep(allData);
-    // console.log('originalAllData', originalAllData);
-    // const updatedAllData = cloneDeep(originalAllData);
-    console.log('updatedAllData', updatedAllData);
-    // const updatedAllData = {};
-    // updatedAllData['3Box'] = {};
 
     const list = await Box.listSpaces(address); // get list of spaces
     console.log('list', list);
@@ -38,10 +32,8 @@ const getMySpacesData = address => async (dispatch) => {
       const threadCalls = [];
 
       Object.entries(space).forEach((kv) => {
-        console.log(kv);
         if (kv[0].substring(0, 7) === 'thread-') {
           threadNames.push(kv[1].value.name);
-          console.log(kv[1].value.name);
           const promise = Box.getThread(spaceName, kv[1].value.name);
           threadCalls.push(promise);
         }
@@ -51,11 +43,9 @@ const getMySpacesData = address => async (dispatch) => {
         }
       });
 
-      console.log(updatedAllData[spaceName].public);
 
       if (threadCalls.length > 0) {
         const threadPromise = Promise.all(threadCalls);
-
         const threadData = await threadPromise;
 
         threadData.forEach((thread, i) => {
@@ -77,6 +67,10 @@ const getMySpacesData = address => async (dispatch) => {
     dispatch({
       type: 'UI_SPACES_LOADING',
       isSpacesLoading: false,
+    });
+    dispatch({
+      type: 'SPACES_HAS_UPDATED',
+      hasUpdated: true,
     });
   } catch (error) {
     dispatch({
