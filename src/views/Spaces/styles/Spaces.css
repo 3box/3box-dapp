@@ -585,7 +585,8 @@
     flex-direction: column;
     z-index: 2; }
     .data__categories__picker--mobile ul {
-      padding: 0; }
+      padding: 0;
+      z-index: 5; }
     .data__categories__picker--mobile li {
       height: 44px;
       display: flex;
