@@ -88,6 +88,7 @@ class App extends Component {
     const isMyProfilePath = matchProtectedRoutes(splitRoute[2]);
     const currentEthAddress = window.localStorage.getItem('userEthAddress');
 
+    this.props.handleInfoBanner();
     initialAddress(); // Initial get address
     pollNetworkAndAddress(); // Start polling for address change
     await this.props.checkWeb3();

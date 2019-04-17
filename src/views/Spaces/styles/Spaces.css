@@ -409,7 +409,7 @@
   .spaces {
     background-color: white;
     width: 100vw;
-    min-height: 100vh;
+    min-height: fit-content;
     height: fit-content; }
   .closeSpaces {
     margin-left: 0; }
@@ -422,7 +422,8 @@
     min-width: 100vw !important;
     left: 100vw !important;
     min-height: fit-content;
-    -webkit-overflow-scrolling: touch; }
+    -webkit-overflow-scrolling: touch;
+    height: fit-content; }
   .wideDataExplorer--mobile {
     left: 0 !important; }
   .data__header {
@@ -600,7 +601,8 @@
     margin-top: -1px;
     width: 100vw;
     position: relative;
-    min-height: fit-content; }
+    min-height: fit-content;
+    height: fit-content; }
   .data__items--namewrapper {
     display: flex;
     justify-content: space-between;

@@ -110,9 +110,6 @@ class Spaces extends Component {
     const { allData, sortedSpace, spaceDataToRender } = this.props;
     const { sortBy, sortDirection } = this.state;
     let updatedSortedSpace = [];
-    console.log('sortedSpace', sortedSpace);
-    console.log('sortedSpace allData', allData);
-    console.log('sortedSpace updatedData', updatedData);
 
     if (newSort || sortBy !== category) {
       if (spaceName === 'All Data') {

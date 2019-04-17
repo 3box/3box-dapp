@@ -43,14 +43,9 @@ const PublicRow = ({
       <span
         className="data__items__row__entry spaceRow__key"
         title={`${
-          (dataKey && dataKey.substring(0, 7) !== 'thread-') ? dataKey.replace(/([A-Z])/g, ' $1')
-            .replace(/^./, str => str.toUpperCase()) : ''
-          }
-${(dataKey && dataKey.substring(0, 7) === 'thread-')
-            ? dataKey.substring(7).replace(/([A-Z])/g, ' $1')
-              .replace(/^./, str => str.toUpperCase()) : ''
-          }
-`}
+          (dataKey && dataKey.substring(0, 7) !== 'thread-') ?
+            dataKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()) :
+            dataKey.substring(7).replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())} `}
       >
         <p className="data__text row__name">
           {(dataKey && dataKey.substring(0, 7) !== 'thread-') && dataKey.replace(/([A-Z])/g, ' $1')
@@ -150,7 +145,7 @@ ${(dataKey && dataKey.substring(0, 7) === 'thread-')
             && (dataValue.length > 0 ? timeSince(dataValue[dataValue.length - 1].timeStamp) : '')}
         </p>
       </span>
-    </div>
+    </div >
   );
 
 PublicRow.propTypes = {

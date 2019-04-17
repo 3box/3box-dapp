@@ -65,7 +65,7 @@ export const handleCollectiblesModal = (selectedCollectible, isFavorite) => asyn
 export const handleInfoBanner = () => async (dispatch) => {
   dispatch({
     type: 'HANDLE_INFO_BANNER',
-    showInfoBanner: !store.getState().threeBox.showInfoBanner,
+    showInfoBanner: !store.getState().uiState.showInfoBanner,
   });
 };
 

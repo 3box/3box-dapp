@@ -499,9 +499,11 @@ class EditProfile extends Component {
         }),
       })
         .then((response) => {
-          const data = response.json();
-          if (response.ok) return data;
-          throw data;
+          if (response.ok) return response.json();
+          throw new Error('Verification failed');
+          // const data = response.json();
+          // if (response.ok) return data;
+          // throw data;
         })
         .then(claim => box.verified.addEmail(claim.data.verification))
         .then((verifiedEmail) => {
@@ -530,13 +532,11 @@ class EditProfile extends Component {
             throw new Error('Verification failed');
           }
         })
-        .catch((data) => {
-          data.then((error) => {
-            this.setState({
-              verificationLoading: false,
-              emailVerifiedFailed: true,
-              emailVerificationErrMsg: error.message,
-            });
+        .catch(() => {
+          this.setState({
+            verificationLoading: false,
+            emailVerifiedFailed: true,
+            emailVerificationErrMsg: 'Verification failed',
           });
         });
     });
@@ -733,9 +733,14 @@ class EditProfile extends Component {
         });
       }
       if (nameChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'name'); // change these to just update the redux store
-        updatedAllData['3Box_app'].public.name = savedObject;
-        
+        const savedObject = await this.props.getMyProfileValue('public', 'name', true); // change these to just update the redux store
+
+        if (savedObject) {
+          updatedAllData['3Box_app'].public.name = savedObject;
+        } else {
+          delete updatedAllData['3Box_app'].public.name;
+        }
+
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -743,8 +748,14 @@ class EditProfile extends Component {
         });
       }
       if (descriptionChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'description');
-        updatedAllData['3Box_app'].public.description = savedObject;
+        const savedObject = await this.props.getMyProfileValue('public', 'description', true);
+
+        if (savedObject) {
+          updatedAllData['3Box_app'].public.description = savedObject;
+        } else {
+          delete updatedAllData['3Box_app'].public.description;
+        }
+
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -752,8 +763,14 @@ class EditProfile extends Component {
         });
       }
       if (locationChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'location');
-        updatedAllData['3Box_app'].public.location = savedObject;
+        const savedObject = await this.props.getMyProfileValue('public', 'location', true);
+
+        if (savedObject) {
+          updatedAllData['3Box_app'].public.location = savedObject;
+        } else {
+          delete updatedAllData['3Box_app'].public.location;
+        }
+
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -761,8 +778,14 @@ class EditProfile extends Component {
         });
       }
       if (websiteChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'website');
-        updatedAllData['3Box_app'].public.website = savedObject;
+        const savedObject = await this.props.getMyProfileValue('public', 'website', true);
+
+        if (savedObject) {
+          updatedAllData['3Box_app'].public.website = savedObject;
+        } else {
+          delete updatedAllData['3Box_app'].public.website;
+        }
+
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -770,8 +793,14 @@ class EditProfile extends Component {
         });
       }
       if (employerChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'employer');
-        updatedAllData['3Box_app'].public.employer = savedObject;
+        const savedObject = await this.props.getMyProfileValue('public', 'employer', true);
+
+        if (savedObject) {
+          updatedAllData['3Box_app'].public.employer = savedObject;
+        } else {
+          delete updatedAllData['3Box_app'].public.employer;
+        }
+
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -779,8 +808,14 @@ class EditProfile extends Component {
         });
       }
       if (jobChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'job');
-        updatedAllData['3Box_app'].public.job = savedObject;
+        const savedObject = await this.props.getMyProfileValue('public', 'job', true);
+
+        if (savedObject) {
+          updatedAllData['3Box_app'].public.job = savedObject;
+        } else {
+          delete updatedAllData['3Box_app'].public.job;
+        }
+
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -788,8 +823,14 @@ class EditProfile extends Component {
         });
       }
       if (schoolChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'school');
-        updatedAllData['3Box_app'].public.school = savedObject;
+        const savedObject = await this.props.getMyProfileValue('public', 'school', true);
+
+        if (savedObject) {
+          updatedAllData['3Box_app'].public.school = savedObject;
+        } else {
+          delete updatedAllData['3Box_app'].public.school;
+        }
+
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -797,8 +838,14 @@ class EditProfile extends Component {
         });
       }
       if (degreeChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'degree');
-        updatedAllData['3Box_app'].public.degree = savedObject;
+        const savedObject = await this.props.getMyProfileValue('public', 'degree', true);
+
+        if (savedObject) {
+          updatedAllData['3Box_app'].public.degree = savedObject;
+        } else {
+          delete updatedAllData['3Box_app'].public.degree;
+        }
+
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -806,8 +853,14 @@ class EditProfile extends Component {
         });
       }
       if (majorChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'major');
-        updatedAllData['3Box_app'].public.major = savedObject;
+        const savedObject = await this.props.getMyProfileValue('public', 'major', true);
+
+        if (savedObject) {
+          updatedAllData['3Box_app'].public.major = savedObject;
+        } else {
+          delete updatedAllData['3Box_app'].public.major;
+        }
+
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -815,8 +868,13 @@ class EditProfile extends Component {
         });
       }
       if (yearChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'year');
-        updatedAllData['3Box_app'].public.year = savedObject;
+        const savedObject = await this.props.getMyProfileValue('public', 'year', true);
+
+        if (savedObject) {
+          updatedAllData['3Box_app'].public.year = savedObject;
+        } else {
+          delete updatedAllData['3Box_app'].public.year;
+        }
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -824,28 +882,46 @@ class EditProfile extends Component {
         });
       }
       if (emojiChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'emoji');
-        updatedAllData['3Box_app'].public.emoji = savedObject;
+        const savedObject = await this.props.getMyProfileValue('public', 'emoji', true);
+
+        if (savedObject) {
+          updatedAllData['3Box_app'].public.emoji = savedObject;
+        } else {
+          delete updatedAllData['3Box_app'].public.emoji;
+        }
+
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
           allData: updatedAllData,
         });
       }
+
       if (removeUserPic || editPic) {
-        const savedObject = await this.props.getMyProfileValue('public', 'image');
-        updatedAllData['3Box_app'].public.image = removeUserPic ? null : savedObject;
-        // updatedAllData['3Box_app'].public.image = removeUserPic ? null : [{ '@type': 'ImageObject', contentUrl: { '/': returnedData.Hash } }];
+        const savedObject = await this.props.getMyProfileValue('public', 'image', true);
+        if (removeUserPic) {
+          delete updatedAllData['3Box_app'].public.image;
+          store.dispatch({
+            type: 'MY_IMAGE_UPDATE',
+            image: null,
+          });
+        } else {
+          updatedAllData['3Box_app'].public.image = savedObject;
+        }
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
           allData: updatedAllData,
         });
       }
+
       if (removeCoverPic || editCoverPic) {
-        const savedObject = await this.props.getMyProfileValue('public', 'coverPhoto');
-        updatedAllData['3Box_app'].public.coverPhoto = removeCoverPic ? null : savedObject;
-        // updatedAllData['3Box_app'].public.coverPhoto = removeCoverPic ? null : [{ '@type': 'ImageObject', contentUrl: { '/': returnedCoverData.Hash } }];
+        const savedObject = await this.props.getMyProfileValue('public', 'coverPhoto', true);
+        if (removeCoverPic) {
+          delete updatedAllData['3Box_app'].public.coverPhoto;
+        } else {
+          updatedAllData['3Box_app'].public.coverPhoto = savedObject;
+        }
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -853,8 +929,14 @@ class EditProfile extends Component {
         });
       }
       if (birthdayChanged) {
-        const savedObject = await this.props.getMyProfileValue('private', 'birthday');
-        updatedAllData['3Box_app'].public.birthday = savedObject;
+        const savedObject = await this.props.getMyProfileValue('private', 'birthday', true);
+
+        if (savedObject) {
+          updatedAllData['3Box_app'].private.birthday = savedObject;
+        } else {
+          delete updatedAllData['3Box_app'].private.birthday;
+        }
+
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,

@@ -21,6 +21,7 @@ import {
   SignInToThreeBox,
   ThreeBoxInfoBanner,
   ModalBackground,
+  DeskTopModalBackground,
 } from './Modals';
 
 class AppModals extends Component {
@@ -100,9 +101,9 @@ class AppModals extends Component {
         transitionEnterTimeout={300}
         transitionLeaveTimeout={300}
       >
-        {!isMyProfilePath && (
+        {(!isMyProfilePath && showInfoBanner) && (
           <ThreeBoxInfoBanner
-            showInfoBanner={showInfoBanner}
+            // showInfoBanner={showInfoBanner}
             handleInfoBanner={handleInfoBanner}
           />)}
 
@@ -230,12 +231,10 @@ class AppModals extends Component {
 
         {(isFetchingThreeBox
           || allowAccessModal
-          || alertRequireMetaMask
           || provideConsent
           || accessDeniedModal
           || signInToWalletModal
           || signInModal
-          || mobileWalletRequiredModal
           || (showErrorModal && !mustConsentError)
           || mustConsentError
           || showDifferentNetworkModal
@@ -248,6 +247,7 @@ class AppModals extends Component {
             || onBoardingModalMobileThree)
             && isMobile)
         ) && <ModalBackground />}
+        {(alertRequireMetaMask) && <DeskTopModalBackground />}
 
       </ReactCSSTransitionGroup>
     );

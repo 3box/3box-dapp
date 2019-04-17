@@ -30,11 +30,12 @@ import './styles/Modal.css';
 
 export const ModalBackground = () => <div className="modal__overlay" />;
 
+export const DeskTopModalBackground = () => <div className="modal__overlay mobileInvisible" />;
+
 export const ThreeBoxInfoBanner = ({
-  showInfoBanner,
   handleInfoBanner,
 }) => (
-    <div className={`${showInfoBanner ? '' : 'hideBanner'} webThreeBanner`}>
+    <div className="webThreeBanner">
       <p>
         Support user profiles and off-chain data storage in your app.
       </p>
@@ -1060,8 +1061,8 @@ SignInToThreeBox.propTypes = {
   handleSignInModal: PropTypes.func.isRequired,
 };
 
-export const MobileWalletRequiredModal = ({ isIOS, handleMobileWalletModal, show }) => (
-  <div id="mobile__landing__prompt" className={`${show ? 'showMobileModal' : 'hideMobileModal'}`}>
+export const MobileWalletRequiredModal = ({ isIOS, handleMobileWalletModal }) => (
+  <div id="mobile__landing__prompt">
     <div id="mobile__landing__prompt__logo">
       <img src={ThreeBoxLogoWhite} alt="3Box Logo" />
     </div>

@@ -208,12 +208,11 @@
 .spaceModal__content {
   box-sizing: border-box;
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: fit-content;
-  height: 120px;
-  // max-width: 70vw;
+  min-height: 120px;
   max-width: 100%;
   padding: 15px;
   min-width: 100%;
@@ -254,11 +253,13 @@
 }
 
 .spaceModal__content__image {
-  width: auto !important;
-  min-width: 100%;
+  // min-width: 100%;
+  width: 100% !important;
+
   min-height: 60px;
   height: auto;
   max-height: 600px;
+
   object-fit: cover;
 }
 
@@ -277,9 +278,21 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+
+  .type__tag {
+    margin-left: 0;
+  }
+
+  .spaceModal__context__privacy {
+    margin-left: 8px;
+  }
+
+  .spaceModal__context__date {
+    margin-left: 8px;
+  }
 }
 
-.spaceModal__context__date{
+.spaceModal__context__date {
   font-size: 12px !important;
   color: $lightestFont;
   margin-left: 12px;

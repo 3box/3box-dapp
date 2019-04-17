@@ -105,6 +105,12 @@ const uiStateReducer = (state = {}, action) => {
         signInModal: action.signInModal,
       };
 
+    case 'HANDLE_INFO_BANNER':
+      return {
+        ...state,
+        showInfoBanner: action.showInfoBanner,
+      };
+
     case 'UI_HANDLE_SWITCHED_NETWORK_MODAL':
       return {
         ...state,
