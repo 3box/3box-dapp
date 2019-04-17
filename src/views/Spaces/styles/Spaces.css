@@ -405,7 +405,8 @@
   .spaces {
     background-color: white;
     width: 100vw;
-    height: 100vh; }
+    height: 100vh;
+    -webkit-overflow-scrolling: touch; }
   .closeSpaces {
     margin-left: 0; }
   .Text_row .data__content {
@@ -415,7 +416,8 @@
     position: absolute;
     width: 100vw !important;
     min-width: 100vw !important;
-    left: 100vw !important; }
+    left: 100vw !important;
+    -webkit-overflow-scrolling: touch; }
   .wideDataExplorer--mobile {
     left: 0 !important; }
   .data__header {

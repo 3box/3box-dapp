@@ -374,6 +374,112 @@ ListSpaceItemModal.propTypes = {
   length: PropTypes.number.isRequired,
 };
 
+export const EmptyListItemModal = ({
+  viewSpaceItem,
+  spaceName,
+  dataKey,
+  rowType,
+  privacy,
+}) => (
+    <React.Fragment>
+      <div className="modal listSpaceModal">
+        <button
+          onClick={() => viewSpaceItem(false, false, false)}
+          type="button"
+          className="tertiaryButton spaceModal__close"
+        >
+          Close
+        </button>
+        <section className="spaceModal__name">
+          <div className="spaceModal__names">
+            <div className="spaceModal__name__wrapper">
+              <p className="spaceModal__space__value">
+                {spaceName === '3Box_app' ? '3Box' : spaceName.replace(/([A-Z])/g, ' $1')
+                  .replace(/^./, str => str.toUpperCase())}
+              </p>
+            </div>
+
+            <div className="spaceModal__name__wrapper">
+              <p className="spaceModal__name__value">
+                {dataKey === 'collectiblesFavoritesToRender' && 'Favorite Collectibles'}
+                {(dataKey.substring(0, 7) !== 'thread-' && dataKey !== 'collectiblesFavoritesToRender') && dataKey.replace(/([A-Z])/g, ' $1')
+                  .replace(/^./, str => str.toUpperCase())}
+                {dataKey.substring(0, 7) === 'thread-' && dataKey.substring(7).replace(/([A-Z])/g, ' $1')
+                  .replace(/^./, str => str.toUpperCase())}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="spaceModal__content">
+          {/* {(typeof item === 'object' && dataKey !== 'collectiblesFavoritesToRender' && dataKey.substring(0, 7) === 'thread-') && (
+            <div className="spaceModal__listContent">
+              {Object.entries(item).map((kv) => {
+                if (kv[0] !== 'author' && kv[0] !== 'timeStamp') {
+                  return (
+                    <div className="spaceModal__listContent__kv">
+                      <p className="spaceModal__listContent__kv__key">{`${kv[0]}:`}</p>
+                      <p className="spaceModal__listContent__kv__value">{kv[1]}</p>
+                    </div>
+                  )
+                }
+              })}
+            </div>
+          )} */}
+          <div className="spaceModal__listContent__kv">
+            {/* <p className="spaceModal__listContent__kv__key">{`${kv[0]}:`}</p> */}
+            <p className="spaceModal__listContent__kv__value">This is an empty list.</p>
+          </div>
+        </section>
+
+        <section className="spaceModal__context">
+          <div className="spaceModal__context__div">
+            <span className={`type__tag ${rowType}`}>
+              <p className="spaceRow__tag__text">
+                {rowType}
+              </p>
+            </span>
+            {privacy === 'private'
+              ? <img src={Private} alt="Transaction Icon" className="spaceModal__context__privacy" />
+              : <img src={Globe} alt="Transaction Icon" className="spaceModal__context__privacy" />
+            }
+
+            <p className="spaceModal__context__date">
+              {/* {dataKey.substring(0, 7) !== 'thread-' && lastUpdated}
+
+              {(() => {
+                if (dataKey.substring(0, 7) === 'thread-') {
+                  return timeSince(dataValue[dataValue.length - 1].timeStamp);
+                }
+              })()} */}
+            </p>
+          </div>
+
+          <div className="spaceModal__context__div" />
+        </section>
+      </div>
+      <div
+        className="onClickOutsideCollectibles--mobile"
+        onClick={() => viewSpaceItem(false, false, false)}
+        tabIndex={0}
+        onKeyPress={() => viewSpaceItem(false, false, false)}
+        role="button"
+      />
+      <div
+        className="onClickOutsideCollectibles"
+        onClick={() => viewSpaceItem(false, false, false)}
+        tabIndex={0}
+        onKeyPress={() => viewSpaceItem(false, false, false)}
+        role="button"
+      />
+    </React.Fragment>
+  );
+
+EmptyListItemModal.propTypes = {
+  viewSpaceItem: PropTypes.func.isRequired,
+};
+
+
 export const DeleteSpaceItemModal = ({
   viewSpaceItem,
   spaceItem,

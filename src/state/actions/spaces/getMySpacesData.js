@@ -43,7 +43,6 @@ const getMySpacesData = address => async (dispatch) => {
         }
       });
 
-
       if (threadCalls.length > 0) {
         const threadPromise = Promise.all(threadCalls);
         const threadData = await threadPromise;

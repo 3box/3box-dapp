@@ -57,7 +57,7 @@ const SpacesList = ({
         }}
         tabIndex={0}
       >
-        <p className="space__name">3Box</p>
+        <p className="space__name">3Box Profile</p>
         <span className="space__arrow">
           <img src={Arrow} alt="arrow" />
         </span>

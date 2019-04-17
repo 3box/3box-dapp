@@ -12,6 +12,7 @@ import {
   DeleteSpaceItemModal,
   OpenSpaceModal,
   ListSpaceItemModal,
+  EmptyListItemModal,
 } from './components/SpacesModals';
 import { ModalBackground } from '../../components/Modals';
 import AllView from './components/AllView';
@@ -57,8 +58,8 @@ class Spaces extends Component {
     window.scrollTo(0, 0);
     this.setState({ width: window.innerWidth });
     const { allData } = this.props;
-
-    this.sortData('lastUpdated', allData, 'All Data', false);
+    this.sortData('lastUpdated', allData, 'All Data', true);
+    // this.sortData('lastUpdated', allData, 'All Data', false); // why was it like this?
   }
 
   componentWillReceiveProps(nextProps) {
@@ -109,6 +110,9 @@ class Spaces extends Component {
     const { allData, sortedSpace, spaceDataToRender } = this.props;
     const { sortBy, sortDirection } = this.state;
     let updatedSortedSpace = [];
+    console.log('sortedSpace', sortedSpace);
+    console.log('sortedSpace allData', allData);
+    console.log('sortedSpace updatedData', updatedData);
 
     if (newSort || sortBy !== category) {
       if (spaceName === 'All Data') {
@@ -427,35 +431,40 @@ class Spaces extends Component {
                     {(() => {
                       let count = 0;
                       const threadArray = [];
+                      let listItems;
 
-                      spaceItem.dataValue.forEach((item, i) => {
-                        if (item.author === did) {
-                          count += 1;
-                          threadArray.push([i, item]);
-                        }
-                      });
+                      if (spaceItem.dataValue.length > 0) {
+                        spaceItem.dataValue.forEach((item, i) => {
+                          if (item.author === did) {
+                            count += 1;
+                            threadArray.push([i, item]);
+                          }
+                        });
 
-                      const injectData = (i, item, total) => (
-                        <ListSpaceItemModal
-                          viewSpaceItem={this.props.viewSpaceItem}
-                          spaceName={spaceItem.spaceName}
-                          dataKey={spaceItem.dataKey}
-                          rowType="Thread"
-                          dataValue={spaceItem.dataValue}
-                          privacy={spaceItem.privacy}
-                          lastUpdated={spaceItem.lastUpdated}
-                          index={i}
-                          length={total}
-                          item={item}
-                          key={`${spaceItem.spaceName}-${spaceItem.dataKey}`}
-                        />
-                      );
+                        const injectData = (i, item, total) => (
+                          <ListSpaceItemModal
+                            viewSpaceItem={this.props.viewSpaceItem}
+                            spaceName={spaceItem.spaceName}
+                            dataKey={spaceItem.dataKey}
+                            rowType="Thread"
+                            dataValue={spaceItem.dataValue}
+                            privacy={spaceItem.privacy}
+                            lastUpdated={spaceItem.lastUpdated}
+                            index={i}
+                            length={total}
+                            item={item}
+                            key={`${spaceItem.spaceName}-${spaceItem.dataKey}`}
+                          />
+                        );
 
-                      const items = threadArray.map((item) => {
-                        return injectData(item[0], item[1], count);
-                      });
 
-                      return items;
+
+                        return threadArray.map((item) => {
+                          return injectData(item[0], item[1], count);
+                        });
+                      }
+
+                      return <EmptyListItemModal />;
                     })()}
                   </div>
                 </div>
