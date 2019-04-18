@@ -63,8 +63,8 @@ const SpacesList = ({
         </span>
       </div>
       <div className="space__divider--mobile" />
-      {list && list.map(space => space !== '3Box_app' && (
-        <React.Fragment key={space}>
+      {list && list.map((space, i) => space !== '3Box_app' && (
+        <React.Fragment key={`${space}-${i}`}>
           <div
             className={`space ${spaceToDisplay === space ? 'activeSpace' : ''}`}
             onClick={() => {
