@@ -65,14 +65,14 @@ class Nav extends Component {
                 className="nav__userPicture clearProfPic"
                 alt="profile"
                 onClick={this.handleDropdown}
-                onKeyPress={this.handleDropdown}
+                // onKeyPress={this.handleDropdown}
                 role="button"
               />)
               : (
                 <div
                   className="nav__userPicture"
                   onClick={this.handleDropdown}
-                  onKeyPress={this.handleDropdown}
+                  // onKeyPress={this.handleDropdown}
                   role="button"
                   tabIndex={0}
                 />)
@@ -88,9 +88,12 @@ class Nav extends Component {
           <div
             className="nav__arrow"
             onMouseOver={this.handleDropdown}
+            onFocus={this.handleDropdown}
+
             role="button"
             tabIndex={0}
           >
+            {/* &#9660; */}
             <img src={DropDown} alt="dropdown" className="nav__arrow__icon" />
           </div>
         }
@@ -180,7 +183,6 @@ class Nav extends Component {
         {/* mobile nav dropdown */}
         <div
           className={`${showProfileModal ? 'sideDrawer' : undefined} nav__dropdown mobileDropDown`}
-          onMouseLeave={this.handleDropdown}
           onClick={this.handleDropdown}
           onKeyPress={this.handleDropdown}
           role="button"
