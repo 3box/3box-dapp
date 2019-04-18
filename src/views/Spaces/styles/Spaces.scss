@@ -73,7 +73,6 @@
 }
 
 .activeSpace {
-  // background-color: rgb(218, 225, 238);
   background-color: #e3e3e8;
 
   p {
@@ -83,7 +82,6 @@
 
 .space__name {
   color: #838486;
-  // color: #718cb1;
   padding-left: 40px;
   text-overflow: ellipsis;
   max-width: 164px;
@@ -109,7 +107,6 @@
 
 .space__arrow {
   color: #606265;
-  // color: #718cb1;
   padding-right: 40px;
 
   img {
@@ -148,7 +145,6 @@
   justify-content: space-between;
   align-items: flex-end;
   box-sizing: border-box;
-
   position: relative;
 }
 
@@ -215,7 +211,6 @@
   align-items: center;
   cursor: pointer;
   color: #838486;
-  // color: #718cb1;
 
   &:hover {
     color: $threeBoxBlue;
@@ -502,33 +497,18 @@
     width: 100vw;
     min-width: 100vw;
     min-height: fit-content;
-    // overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     height: fit-content;
     max-height: fit-content;
-    // display: inline;
   }
 
   .activeSpace {
-    // background-color: rgb(218, 225, 238);
     background-color: inherit;
 
     p {
       color: #838486 !important;
     }
   }
-
-  // .data__nav--desktop {
-  //   display: none;
-  // }
-
-  // .space__nav--mobile {
-  //   // position: relative;
-  //   display: flex;
-  //   // height: fit-content;
-  //   // display: none;
-  //   height: 68px;
-  // }
 
   .spaces {
     background-color: white;
@@ -563,7 +543,6 @@
 
   .wideDataExplorer--mobile {
     left: 0 !important;
-    // max-height: fit-content;
     position: relative;
   }
 
@@ -572,7 +551,6 @@
     min-width: 100vw;
     left: 100vw !important;
     align-items: flex-start;
-
     position: sticky;
     top: 0;
   }
@@ -671,14 +649,11 @@
     }
 
     padding: 14px 0;
-
     height: fit-content;
     overflow-y: hidden;
     width: 100vw;
     flex-direction: column;
-
     min-height: fit-content;
-    // min-height: 88px;
     box-sizing: border-box;
   }
 
@@ -729,9 +704,6 @@
     border-bottom: 1px solid #ececec;
     width: calc(100% - 4vw);
     font-size: 11px;
-
-    // position: relative;
-    // margin-top: 99px;
 
     p {
       color: #828282 !important;

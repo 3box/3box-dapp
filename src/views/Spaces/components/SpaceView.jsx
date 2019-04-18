@@ -143,10 +143,6 @@ SpaceView.propTypes = {
   spaceNameToDelete: PropTypes.string.isRequired,
 };
 
-SpaceView.defaultProps = {
-  spaceDataToRender: [],
-};
-
 function mapState(state) {
   return {
     spaceDataToRender: state.spaces.spaceDataToRender,

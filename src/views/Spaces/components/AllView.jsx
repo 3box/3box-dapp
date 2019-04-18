@@ -14,7 +14,6 @@ import '../styles/Spaces.css';
 
 const AllView = ({
   openSpace,
-  spacesOpened,
   sortedSpace,
   isLoadingVault,
   vaultToOpen,

@@ -412,22 +412,7 @@ export const EmptyListItemModal = ({
         </section>
 
         <section className="spaceModal__content">
-          {/* {(typeof item === 'object' && dataKey !== 'collectiblesFavoritesToRender' && dataKey.substring(0, 7) === 'thread-') && (
-            <div className="spaceModal__listContent">
-              {Object.entries(item).map((kv) => {
-                if (kv[0] !== 'author' && kv[0] !== 'timeStamp') {
-                  return (
-                    <div className="spaceModal__listContent__kv">
-                      <p className="spaceModal__listContent__kv__key">{`${kv[0]}:`}</p>
-                      <p className="spaceModal__listContent__kv__value">{kv[1]}</p>
-                    </div>
-                  )
-                }
-              })}
-            </div>
-          )} */}
           <div className="spaceModal__listContent__kv">
-            {/* <p className="spaceModal__listContent__kv__key">{`${kv[0]}:`}</p> */}
             <p className="spaceModal__listContent__kv__value">This is an empty list.</p>
           </div>
         </section>
@@ -445,13 +430,6 @@ export const EmptyListItemModal = ({
             }
 
             <p className="spaceModal__context__date">
-              {/* {dataKey.substring(0, 7) !== 'thread-' && lastUpdated}
-
-              {(() => {
-                if (dataKey.substring(0, 7) === 'thread-') {
-                  return timeSince(dataValue[dataValue.length - 1].timeStamp);
-                }
-              })()} */}
             </p>
           </div>
 
@@ -477,6 +455,10 @@ export const EmptyListItemModal = ({
 
 EmptyListItemModal.propTypes = {
   viewSpaceItem: PropTypes.func.isRequired,
+  spaceName: PropTypes.string.isRequired,
+  dataKey: PropTypes.string.isRequired,
+  rowType: PropTypes.string.isRequired,
+  privacy: PropTypes.string.isRequired,
 };
 
 

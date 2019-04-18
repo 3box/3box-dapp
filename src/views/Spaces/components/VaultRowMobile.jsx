@@ -14,7 +14,6 @@ const { viewSpaceItem } = actions.spaces;
 const VaultRowMobile = ({
   openSpace,
   spaceName,
-  hasVaultOpened,
   isLoadingVault,
   vaultToOpen,
   fadeOut,
@@ -65,7 +64,6 @@ VaultRowMobile.propTypes = {
   openSpace: PropTypes.func.isRequired,
   spaceName: PropTypes.string.isRequired,
   vaultToOpen: PropTypes.string.isRequired,
-  hasVaultOpened: PropTypes.bool.isRequired,
   isLoadingVault: PropTypes.bool.isRequired,
   fadeOut: PropTypes.bool.isRequired,
 };

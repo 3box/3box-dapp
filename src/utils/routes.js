@@ -12,9 +12,6 @@ export const DETAILS = 'details';
 export const EDIT = 'edit';
 export const COLLECTIBLES = 'collectibles';
 
-// BASE PROFILE, UNPROTECTED
-// export const PUBLIC_PROFILE = "(^[/][0][xX]\w{40}\b)"
-
 // FORMAT STRUCTURE FOR REACT ROUTER
 export const FORMAT_PROFILE_ACTIVITY = `/:ethAddress/${ACTIVITY}`;
 export const FORMAT_PROFILE_ABOUT = `/:ethAddress/${DETAILS}`;

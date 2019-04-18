@@ -155,6 +155,7 @@ PublicRowMobile.propTypes = {
   itemToDelete: PropTypes.string.isRequired,
   spaceNameToDelete: PropTypes.string.isRequired,
   lastUpdated: PropTypes.string.isRequired,
+  did: PropTypes.string.isRequired,
 };
 
 export default connect('', { viewSpaceItem })(PublicRowMobile);

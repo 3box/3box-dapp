@@ -52,7 +52,7 @@ const getCollectibles = (address, onPublicProfile) => async (dispatch) => {
           collection,
         });
       }
-      if (collectiblesFavorites.length > 0) {
+      if (collectiblesFavorites && collectiblesFavorites.length > 0) {
         dispatch({
           type: 'MY_COLLECTIBLESFAVORITES_UPDATE',
           collectiblesFavorites: updatedCollectiblesFavorites,

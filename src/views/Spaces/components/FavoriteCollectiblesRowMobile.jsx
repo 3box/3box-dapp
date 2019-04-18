@@ -71,6 +71,7 @@ FavoriteCollectiblesRowMobile.propTypes = {
   spaceName: PropTypes.string.isRequired,
   rowType: PropTypes.string.isRequired,
   privacy: PropTypes.string.isRequired,
+  lastUpdated: PropTypes.string.isRequired,
 };
 
 export default connect('', { viewSpaceItem })(FavoriteCollectiblesRowMobile);

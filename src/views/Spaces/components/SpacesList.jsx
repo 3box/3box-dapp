@@ -95,6 +95,7 @@ SpacesList.propTypes = {
   hideSpacesMobile: PropTypes.bool.isRequired,
   show: PropTypes.bool.isRequired,
   isSpacesLoading: PropTypes.bool.isRequired,
+  clearSpacesMobile: PropTypes.bool.isRequired,
 };
 
 export default SpacesList;

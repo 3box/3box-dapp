@@ -25,7 +25,7 @@ import './styles/Spaces.css';
 import { sortSpace, extractRow } from '../../utils/funcs';
 import actions from '../../state/actions';
 
-const { viewSpaceItem, checkAndGetThread } = actions.spaces;
+const { viewSpaceItem } = actions.spaces;
 
 class Spaces extends Component {
   constructor(props) {

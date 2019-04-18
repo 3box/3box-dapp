@@ -17,8 +17,6 @@ const Header = ({
   show,
   hideSpacesMobile,
   handleMobileSpaceListView,
-  handleMobileInput,
-  showMobileInput,
 }) => (
     <header
       className={`data__header 
@@ -177,7 +175,7 @@ const Header = ({
               ))}
         </span>
       </section>
-    </header >
+    </header>
   );
 
 Header.propTypes = {
@@ -187,11 +185,9 @@ Header.propTypes = {
   hideSpacesMobile: PropTypes.bool.isRequired,
   show: PropTypes.bool.isRequired,
   sortDirection: PropTypes.bool.isRequired,
-  showMobileInput: PropTypes.bool.isRequired,
   sortData: PropTypes.func.isRequired,
   handleSpaceListView: PropTypes.func.isRequired,
   handleMobileSpaceListView: PropTypes.func.isRequired,
-  handleMobileInput: PropTypes.func.isRequired,
 };
 
 export default Header;
