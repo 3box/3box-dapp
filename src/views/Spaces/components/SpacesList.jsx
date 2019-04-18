@@ -13,17 +13,16 @@ const SpacesList = ({
   sortBy,
   spaceToDisplay,
   show,
-  showSpacesMobile,
+  hideSpacesMobile,
   handleMobileSpaceListView,
   isSpacesLoading,
+  clearSpacesMobile,
 }) => (
     <section className={`spaces 
       ${show ? '' : 'closeSpaces'} 
-      ${showSpacesMobile ? 'closeSpaces--mobile' : ''}
+      ${hideSpacesMobile ? 'closeSpaces--mobile' : ''}
+      ${clearSpacesMobile ? 'hideSpaces--mobile' : ''}
     `}>
-      <div className="space__nav--mobile">
-        <Nav />
-      </div>
       <div
         className={`space ${spaceToDisplay === 'All Data' ? 'activeSpace' : ''}`}
         onClick={() => {
@@ -35,7 +34,6 @@ const SpacesList = ({
           sortData(sortBy, false, 'All Data', true);
           handleMobileSpaceListView();
         }}
-        tabIndex={0}
       >
         <p className="space__name">All Data</p>
         {isSpacesLoading && <img className="data__space__loading--mobile" src={Loading} alt="info" />}
@@ -55,7 +53,6 @@ const SpacesList = ({
           sortData(sortBy, false, '3Box_app', true);
           handleMobileSpaceListView();
         }}
-        tabIndex={0}
       >
         <p className="space__name">3Box Profile</p>
         <span className="space__arrow">
@@ -76,7 +73,6 @@ const SpacesList = ({
               sortData(sortBy, false, space, true);
               handleMobileSpaceListView();
             }}
-            tabIndex={0}
             title={space}
           >
             <p className="space__name">{space}</p>
@@ -96,7 +92,7 @@ SpacesList.propTypes = {
   list: PropTypes.array.isRequired,
   sortBy: PropTypes.string.isRequired,
   spaceToDisplay: PropTypes.string.isRequired,
-  showSpacesMobile: PropTypes.bool.isRequired,
+  hideSpacesMobile: PropTypes.bool.isRequired,
   show: PropTypes.bool.isRequired,
   isSpacesLoading: PropTypes.bool.isRequired,
 };

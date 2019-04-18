@@ -41,7 +41,7 @@ class Spaces extends Component {
       sortDirection: true,
       showSpaceList: true,
       isLoadingVault: false,
-      showSpacesMobile: false,
+      hideSpacesMobile: false,
       showMobileInput: false,
       fadeIn: false,
       fadeOut: false,
@@ -59,7 +59,6 @@ class Spaces extends Component {
     this.setState({ width: window.innerWidth });
     const { allData } = this.props;
     this.sortData('lastUpdated', allData, 'All Data', true);
-    // this.sortData('lastUpdated', allData, 'All Data', false); // why was it like this?
   }
 
   componentWillReceiveProps(nextProps) {
@@ -69,17 +68,7 @@ class Spaces extends Component {
 
     if (allData !== this.props.allData && !hasUpdated) {
       this.sortData(sortBy, allData, spaceToDisplay, true);
-      // store.dispatch({
-      //   type: 'SPACES_HAS_UPDATED',
-      //   hasUpdated: true,
-      // });
     }
-
-    // if (allData !== this.props.allData && hasUpdated) {
-    //   console.log('in cwrp');
-    //   console.log('this.props.allData', nextProps.allData);
-    //   this.sortData(sortBy, nextProps.allData, spaceToDisplay, true);
-    // }
   }
 
   componentWillUnmount() {
@@ -96,8 +85,23 @@ class Spaces extends Component {
   }
 
   handleMobileSpaceListView = () => {
-    const { showSpacesMobile } = this.state;
-    this.setState({ showSpacesMobile: !showSpacesMobile });
+    const { hideSpacesMobile, clearSpacesMobile, showMainMobile } = this.state;
+
+    if (!hideSpacesMobile) {
+      this.setState({ showMainMobile: !showMainMobile });
+      this.setState({ hideSpacesMobile: !hideSpacesMobile });
+      setTimeout(() => {
+        this.setState({ clearSpacesMobile: !clearSpacesMobile });
+      }, 500);
+    } else {
+      this.setState({ clearSpacesMobile: !clearSpacesMobile });
+      setTimeout(() => {
+        this.setState({ hideSpacesMobile: !hideSpacesMobile });
+      }, 20);
+      setTimeout(() => {
+        this.setState({ showMainMobile: !showMainMobile });
+      }, 500);
+    }
   }
 
   handleMobileInput = () => {
@@ -401,17 +405,19 @@ class Spaces extends Component {
       isLoadingVault,
       vaultToOpen,
       showSpaceList,
-      showSpacesMobile,
+      hideSpacesMobile,
       showMobileInput,
       width,
       fadeIn,
       fadeOut,
       itemToDelete,
       spaceNameToDelete,
+      clearSpacesMobile,
+      showMainMobile,
     } = this.state;
 
     return (
-      <div>
+      <React.Fragment>
         <div className="data__nav--desktop">
           <Nav />
         </div>
@@ -463,8 +469,8 @@ class Spaces extends Component {
 
 
 
-                        return threadArray.map((item) => {
-                          return injectData(item[0], item[1], count);
+                        return threadArray.map((item, i) => {
+                          return injectData(i, item[1], count);
                         });
                       }
 
@@ -557,13 +563,11 @@ class Spaces extends Component {
             sortBy={sortBy}
             list={list}
             show={showSpaceList}
-            showSpacesMobile={showSpacesMobile}
+            hideSpacesMobile={hideSpacesMobile}
+            clearSpacesMobile={clearSpacesMobile}
           />
 
-          <main className={`dataExplorer ${showSpaceList ? '' : 'wideDataExplorer'} ${!showSpacesMobile ? '' : 'wideDataExplorer--mobile'}`}>
-            <div className="space__nav--mobile">
-              <Nav />
-            </div>
+          <main className={`dataExplorer ${showSpaceList ? '' : 'wideDataExplorer'} ${!hideSpacesMobile ? '' : 'wideDataExplorer--mobile'} ${showMainMobile ? '' : 'clearDataExplorer'}`}>
             <Header
               spaceToDisplay={spaceToDisplay}
               isSpacesLoading={isSpacesLoading}
@@ -575,7 +579,7 @@ class Spaces extends Component {
               sortData={this.sortData}
               show={showSpaceList}
               showMobileInput={showMobileInput}
-              showSpacesMobile={showSpacesMobile}
+              hideSpacesMobile={hideSpacesMobile}
             />
 
             <SortByMobile
@@ -625,7 +629,7 @@ class Spaces extends Component {
             </section>
           </main>
         </div>
-      </div>
+      </React.Fragment >
     );
   }
 }

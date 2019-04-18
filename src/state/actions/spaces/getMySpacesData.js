@@ -12,7 +12,11 @@ const getMySpacesData = address => async (dispatch) => {
     } = store.getState().spaces;
     const updatedAllData = cloneDeep(allData);
 
-    const list = await Box.listSpaces(address); // get list of spaces
+    const fetchedLists = await Box.listSpaces(address); // get list of spaces
+
+    // remove duplicate spaces
+    const onlyUnique = (value, index, self) => self.indexOf(value) === index;
+    const list = fetchedLists.filter(onlyUnique);
 
     const getSpace = async (spaceName) => { // function to get space and pair to key
       const opts = {

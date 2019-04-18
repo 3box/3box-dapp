@@ -503,27 +503,38 @@
     width: 100vw;
     min-width: 100vw;
     min-height: fit-content;
-    overflow-x: hidden;
+    // overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
+    height: fit-content;
+    max-height: fit-content;
+    // display: inline;
   }
 
-  .data__nav--desktop {
-    display: none;
+  .activeSpace {
+    // background-color: rgb(218, 225, 238);
+    background-color: inherit;
+
+    p {
+      color: #838486 !important;
+    }
   }
 
-  .space__nav--mobile {
-    // position: relative;
-    display: flex;
-    // height: fit-content;
-    // display: none;
-    height: 68px;
-  }
+  // .data__nav--desktop {
+  //   display: none;
+  // }
+
+  // .space__nav--mobile {
+  //   // position: relative;
+  //   display: flex;
+  //   // height: fit-content;
+  //   // display: none;
+  //   height: 68px;
+  // }
 
   .spaces {
     background-color: white;
     width: 100vw;
     min-height: fit-content;
-    // min-height: 100vh;
     height: fit-content;
   }
 
@@ -543,13 +554,18 @@
     width: 100vw !important;
     min-width: 100vw !important;
     left: 100vw !important;
-    min-height: 100vh;
     -webkit-overflow-scrolling: touch;
     height: fit-content;
   }
 
+  .clearDataExplorer {
+    display: none;
+  }
+
   .wideDataExplorer--mobile {
     left: 0 !important;
+    // max-height: fit-content;
+    position: relative;
   }
 
   .data__header {
@@ -577,6 +593,10 @@
     margin-left: -100vw;
   }
 
+  .hideSpaces--mobile {
+    display: none;
+  }
+
   .data__header--wide--mobile {
     width: 100vw !important;
     left: 0vw !important;
@@ -587,9 +607,6 @@
     min-height: 38px;
     align-items: center;
     background-color: $threeBoxBlue;
-
-    position: relative;
-    // margin-top: 99px;
   }
 
   .data__items__row__vault__icon {

@@ -13,6 +13,12 @@ nav {
   nav p {
     color: #1168df; }
 
+.activeNav {
+  color: #1168df !important; }
+  .activeNav .nav__folder {
+    filter: grayscale(0) !important;
+    opacity: 1 !important; }
+
 .hideNav {
   display: none !important; }
 

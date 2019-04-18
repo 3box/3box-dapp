@@ -15,7 +15,7 @@ const Header = ({
   sortDirection,
   handleSpaceListView,
   show,
-  showSpacesMobile,
+  hideSpacesMobile,
   handleMobileSpaceListView,
   handleMobileInput,
   showMobileInput,
@@ -23,7 +23,7 @@ const Header = ({
     <header
       className={`data__header 
       ${show ? '' : 'data__header--wide'}
-      ${showSpacesMobile ? 'data__header--wide--mobile' : ''}
+      ${hideSpacesMobile ? 'data__header--wide--mobile' : ''}
     `}
     >
       <section className="data__space">
@@ -39,7 +39,6 @@ const Header = ({
                 handleSpaceListView();
                 handleMobileSpaceListView();
               }}
-              tabIndex={0}
               type="button"
             >
               <img
@@ -185,7 +184,7 @@ Header.propTypes = {
   spaceToDisplay: PropTypes.string.isRequired,
   sortBy: PropTypes.string.isRequired,
   isSpacesLoading: PropTypes.bool.isRequired,
-  showSpacesMobile: PropTypes.bool.isRequired,
+  hideSpacesMobile: PropTypes.bool.isRequired,
   show: PropTypes.bool.isRequired,
   sortDirection: PropTypes.bool.isRequired,
   showMobileInput: PropTypes.bool.isRequired,

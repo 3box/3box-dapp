@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, NavLink } from 'react-router-dom';
 
 import ThreeBoxLogo from '../assets/ThreeBoxLogoBlue.svg';
 import ThreeBoxB from '../assets/3Box3Blue.svg';
@@ -101,7 +101,11 @@ class Nav extends Component {
         }
 
         <span className="nav__tabs">
-          <Link to={`/${currentAddress}/${routes.ACTIVITY}`} className="nav__profile">
+          <NavLink
+            to={`/${currentAddress}/${routes.ACTIVITY}`}
+            className="nav__profile"
+            activeClassName="activeNav"
+          >
             {
               image && image.length > 0 && image[0].contentUrl ?
                 (
@@ -114,12 +118,16 @@ class Nav extends Component {
                 ) : <div className="nav__userPicture" />
             }
             Profile
-          </Link>
+          </NavLink>
 
-          <Link to={`/${currentAddress}/${routes.DATA}`} className="nav__data">
+          <NavLink
+            to={`/${currentAddress}/${routes.DATA}`}
+            className="nav__data"
+            activeClassName="activeNav"
+          >
             <img src={Folder} alt="Folder" className="nav__folder" />
             Data
-          </Link>
+          </NavLink>
         </span>
 
         {/* desktop nav dropdown */}

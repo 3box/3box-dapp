@@ -21,6 +21,15 @@ nav {
   }
 }
 
+.activeNav {
+  color: $threeBoxBlue !important;
+
+  .nav__folder {
+    filter: grayscale(0) !important;
+    opacity: 1 !important;
+  }
+}
+
 .hideNav {
   display: none !important;
 }
