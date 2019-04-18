@@ -27,7 +27,7 @@ export const initialAddress = async () => {
       currentAddress: address,
     });
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
 };
 
@@ -43,7 +43,7 @@ export const pollNetworkAndAddress = () => {
       // Logged out of MM while logged in to 3Box
       if (currentAddress !== address &&
         currentAddress === undefined &&
-        store.getState().threeBox.isLoggedIn) {
+        store.getState().userState.isLoggedIn) {
         prevAddress = address;
         store.dispatch({
           type: 'HANDLE_LOGGEDOUT_MODAL',
@@ -59,7 +59,7 @@ export const pollNetworkAndAddress = () => {
       // Logs out of 3Box
       if (currentAddress !== address &&
         currentAddress === undefined &&
-        store.getState().threeBox.isLoggedIn) {
+        store.getState().userState.isLoggedIn) {
         store.dispatch({
           type: 'HANDLE_LOGGEDOUT_MODAL',
           loggedOutModal: true,
@@ -76,7 +76,7 @@ export const pollNetworkAndAddress = () => {
         typeof currentAddress === 'string' &&
         currentAddress !== prevAddress &&
         (address !== undefined && address !== '') &&
-        store.getState().threeBox.isLoggedIn) {
+        store.getState().userState.isLoggedIn) {
         prevAddress = address;
         store.dispatch({
           type: 'HANDLE_SWITCHED_ADDRESS_MODAL',
@@ -94,7 +94,7 @@ export const pollNetworkAndAddress = () => {
       if (currentAddress !== address &&
         typeof currentAddress === 'string' &&
         typeof address === 'string' &&
-        store.getState().threeBox.isLoggedIn &&
+        store.getState().userState.isLoggedIn &&
         currentAddress === prevAddress
       ) {
         store.dispatch({
