@@ -26,7 +26,7 @@ const SpaceView = ({
   spaceNameToDelete,
 }) => (
     <React.Fragment>
-      {spaceDataToRender.length > 0 ? spaceDataToRender.map((row) => {
+      {spaceDataToRender && spaceDataToRender.length > 0 ? spaceDataToRender.map((row) => {
         const date = timeSince(row.lastUpdated);
         if (row.name !== 'collectiblesFavoritesToRender'
           && row.name !== 'private_space_data' && width >= 600) {
