@@ -88,14 +88,9 @@ class Nav extends Component {
           <div
             className="nav__arrow"
             onMouseOver={this.handleDropdown}
-            onFocus={this.handleDropdown}
-
-            // onMouseOut={this.handleDropdown}
-            // onBlur={this.handleDropdown}
             role="button"
             tabIndex={0}
           >
-            {/* &#9660; */}
             <img src={DropDown} alt="dropdown" className="nav__arrow__icon" />
           </div>
         }
