@@ -5,12 +5,9 @@ import {
   toChecksumAddress,
 } from 'ethereumjs-util';
 
-import {
-  timeSince,
-} from './time';
 import * as routes from './routes';
 import {
-  store
+  store,
 } from '../state/store';
 
 export const normalizeURL = (pathname) => {
@@ -194,6 +191,7 @@ export const copyToClipBoard = (type, message) => async (dispatch) => {
 export const checkRowType = async (content) => {
   try {
     if (typeof content[1] === 'string') {
+      console.log('content', content);
       if (content[0].substring(0, 8) === 'verified') return 'Claim';
       const isClaim = await Box.idUtils.isClaim(content[1]);
       if (isClaim) {

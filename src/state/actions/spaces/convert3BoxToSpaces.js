@@ -19,6 +19,8 @@ const convert3BoxToSpaces = () => async (dispatch) => {
     const rowCalls = [];
 
     Object.entries(myData).forEach((row) => {
+      console.log('row', row);
+
       if ((row[0] !== 'box') &&
         (row[0] !== 'feedByAddress') &&
         (row[0] !== 'collection') &&
@@ -46,10 +48,17 @@ const convert3BoxToSpaces = () => async (dispatch) => {
     const rowMetaData = await rowPromises;
 
     rowMetaData.forEach((metaData, i) => {
-      allData['3Box_app'].public[rowData[i][0]] = {
-        timestamp: metaData ? metaData.timestamp : '',
-        value: rowData[i][1],
-      };
+      if (rowData[i][0] === 'verifiedEmail' || rowData[i][0] === 'birthday') {
+        allData['3Box_app'].private[rowData[i][0]] = {
+          timestamp: metaData ? metaData.timestamp : '',
+          value: rowData[i][1],
+        };
+      } else {
+        allData['3Box_app'].public[rowData[i][0]] = {
+          timestamp: metaData ? metaData.timestamp : '',
+          value: rowData[i][1],
+        };
+      }
     });
 
     dispatch({
