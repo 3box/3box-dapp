@@ -82,9 +82,9 @@ class StatusUpdate extends Component {
           `
             }
           >
-            <div className="statusUpdate__displayPublic">
+            <p className="statusUpdate__displayPublic">
               {otherStatus}
-            </div>
+            </p>
           </div>)}
 
         {!onOtherProfilePage && (
