@@ -13,9 +13,8 @@
   flex-direction: column;
   height: 100%;
   background-color: #efeff1;
-  width: calc(18vw - 40px);
+  width: 260px;
   overflow-y: scroll;
-
   min-width: 260px;
   box-sizing: border-box;
 
@@ -39,7 +38,7 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  width: calc(82vw + 40px);
+  width: calc(100vw - 260px);
   min-width: 660px;
   height: 100%;
   overflow-y: scroll;
