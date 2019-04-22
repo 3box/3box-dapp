@@ -162,6 +162,9 @@
   justify-content: center;
   align-items: center; }
 
+.feed__activity__spaceIcon {
+  width: 20px; }
+
 .feed__activity__userWrapper {
   position: relative; }
 
@@ -232,6 +235,18 @@
   word-wrap: break-word;
   font-weight: 800;
   margin-right: 6px; }
+
+.feed__activity__info__key--space {
+  font-weight: 500;
+  max-width: 52%;
+  word-wrap: break-word;
+  font-weight: 800; }
+
+.feed__activity__info__value--space {
+  font-weight: 500;
+  max-width: 52%;
+  word-wrap: break-word;
+  font-weight: 800; }
 
 .feed__activity__data {
   display: flex;

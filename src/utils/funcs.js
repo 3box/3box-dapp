@@ -336,3 +336,8 @@ export const extractRow = async (spaceData, spaceNameGiven, updatedSortedSpace) 
     console.error(err);
   }
 };
+
+export const isEthAddress = (string) => {
+  
+
+}

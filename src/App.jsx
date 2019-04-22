@@ -139,13 +139,6 @@ class App extends Component {
     }
   }
 
-  handleNextMobileModal = (thisModal, nextModal) => {
-    this.setState({
-      [`onBoardingModalMobile${thisModal}`]: false,
-      [`onBoardingModalMobile${nextModal}`]: true,
-    });
-  }
-
   async getMyData() {
     const { currentAddress } = this.props;
 
@@ -155,7 +148,6 @@ class App extends Component {
     });
 
     try {
-      this.props.getActivity();
       this.props.getVerifiedPublicGithub();
       this.props.getVerifiedPublicTwitter();
       this.props.getVerifiedPrivateEmail();
@@ -176,12 +168,22 @@ class App extends Component {
       this.props.getMyProfileValue('public', 'year');
       this.props.getMyProfileValue('public', 'emoji');
       this.props.getMyProfileValue('private', 'birthday');
+
       await this.props.getCollectibles(currentAddress);
       await this.props.convert3BoxToSpaces();
-      this.props.getMySpacesData(currentAddress);
+      await this.props.getMySpacesData(currentAddress);
+
+      this.props.getActivity();
     } catch (err) {
       console.error(err);
     }
+  }
+
+  handleNextMobileModal = (thisModal, nextModal) => {
+    this.setState({
+      [`onBoardingModalMobile${thisModal}`]: false,
+      [`onBoardingModalMobile${nextModal}`]: true,
+    });
   }
 
   async directSignIn() {
@@ -244,7 +246,7 @@ class App extends Component {
         this.props.requireMetaMaskModal();
         this.props.handleMobileWalletModal();
       }
-    } catch (err){
+    } catch (err) {
       console.error(err)
     }
   }

@@ -19,14 +19,15 @@ const getActivity = otherProfileAddress => async (dispatch) => {
       isFetchingActivity: true,
     });
 
+    // get Eth network activity
     let activity;
     if (store.getState().userState.currentNetwork) {
-      activity = await ThreeBoxActivity.get( // eslint-disable-line no-undef
+      activity = await ThreeBoxActivity.get(
         otherProfileAddress || store.getState().userState.currentAddress,
         store.getState().userState.currentNetwork.toLowerCase(),
       );
     } else {
-      activity = await ThreeBoxActivity.get( // eslint-disable-line no-undef
+      activity = await ThreeBoxActivity.get(
         otherProfileAddress || store.getState().userState.currentAddress,
       );
     }
@@ -34,9 +35,9 @@ const getActivity = otherProfileAddress => async (dispatch) => {
     // add datatype to each row
     const categorizedActivity = addDataType(activity);
 
+    // sort and merge feed
     let feed;
     let emailProof;
-    // sort and merge feed
     if (otherProfileAddress) {
       feed = categorizedActivity.internal
         .concat(categorizedActivity.txs)
@@ -58,11 +59,49 @@ const getActivity = otherProfileAddress => async (dispatch) => {
       const categorizedPublicActivity = addPublicOrPrivateDataType(publicActivity, 'Public');
       const categorizedPrivateActivity = addPublicOrPrivateDataType(privateActivity, 'Private');
 
+      const spacesData = store.getState().spaces.allData;
+      const spacesDataActivity = [];
+
+      console.log('spacesData', spacesData);
+
+      Object.entries(spacesData).forEach((space) => {
+        const spaceName = space[0];
+
+        if (spaceName !== '3Box_app') {
+          Object.entries(space[1].private).forEach((keyValue) => {
+            if (keyValue[0] !== 'private_space_data') {
+              const spaceToActivityItem = {
+                dataType: 'Private',
+                key: keyValue[0],
+                timeStamp: keyValue[1].timestamp ? keyValue[1].timestamp.toString().substring(0, 10) : '',
+                value: keyValue[1].value,
+                spaceName,
+              };
+              spacesDataActivity.push(spaceToActivityItem);
+            }
+          });
+
+          Object.entries(space[1].public).forEach((keyValue) => {
+            const spaceToActivityItem = {
+              dataType: 'Public',
+              key: keyValue[0],
+              timeStamp: keyValue[1].timestamp ? keyValue[1].timestamp.toString().substring(0, 10) : '',
+              value: keyValue[1].value,
+              spaceName,
+            };
+            spacesDataActivity.push(spaceToActivityItem);
+          });
+        }
+      });
+
+      console.log('spacesDataActivity', spacesDataActivity);
+
       feed = categorizedActivity.internal
         .concat(categorizedActivity.txs)
         .concat(categorizedActivity.token)
         .concat(categorizedPublicActivity)
-        .concat(categorizedPrivateActivity);
+        .concat(categorizedPrivateActivity)
+        .concat(spacesDataActivity);
     }
 
     // if timestamp is undefined, give it the timestamp of the previous entry
@@ -72,16 +111,14 @@ const getActivity = otherProfileAddress => async (dispatch) => {
         const deletedTime = parseInt(feed[i - 1].timeStamp, 10) + 1;
         feedItem.timeStamp = deletedTime.toString();
       }
-      if (!otherProfileAddress && feedItem.key === emailProof) {
-        feedItem.key = 'proof_email';
-      }
-
+      if (!otherProfileAddress && feedItem.key === emailProof) feedItem.key = 'proof_email';
       return feedItem;
     });
 
+    // order feed chronologically
     feed.sort((a, b) => b.timeStamp - a.timeStamp);
 
-    // order feed chronologically and by currentAddress
+    // order feed by address
     const feedByAddress = [];
     feed.forEach((item) => {
       let othersAddress;
@@ -103,9 +140,15 @@ const getActivity = otherProfileAddress => async (dispatch) => {
       if (feedByAddress.length > 0 &&
         Object.keys(feedByAddress[feedByAddress.length - 1])[0] === othersAddress) {
         feedByAddress[feedByAddress.length - 1][othersAddress].push(item);
-      } else if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === 'threeBox' && (item.dataType === 'Public' || item.dataType === 'Private')) {
+      } else if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === 'threeBox' && !item.spaceName && (item.dataType === 'Public' || item.dataType === 'Private')) {
         feedByAddress[feedByAddress.length - 1].threeBox.push(item);
-      } else if (item.dataType === 'Public' || item.dataType === 'Private') {
+      } else if (feedByAddress.length > 0 && Object.keys(feedByAddress[feedByAddress.length - 1])[0] === item.spaceName) {
+        feedByAddress[feedByAddress.length - 1][item.spaceName].push(item);
+      } else if (item.spaceName) {
+        feedByAddress.push({
+          [item.spaceName]: [item],
+        });
+      } else if ((item.dataType === 'Public' || item.dataType === 'Private') && !item.spaceName) {
         feedByAddress.push({
           threeBox: [item],
         });

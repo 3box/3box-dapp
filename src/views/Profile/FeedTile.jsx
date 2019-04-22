@@ -371,3 +371,43 @@ FeedTileTXS.defaultProps = {
   onOtherProfilePage: false,
   isFromProfile: false,
 };
+
+
+export const FeedTileSpace = ({ item }) => (
+  <div className="feed__activity">
+    <div className="feed__activity__data">
+      <div className="feed__activity__info">
+        <img className="feed__activity__data__icon" src={item.op === 'PUT' ? Save : Delete} alt="Transaction Icon" />
+        <p className="feed__activity__text">
+          You updated
+          <span className="feed__activity__info__key--space">
+            {` ${(item.key).replace(/([A-Z])/g, ' $1').trim().toLowerCase()} `}
+          </span>
+          to
+          <span className="feed__activity__info__value--space">
+            {console.log(item.value)}
+            {` ${!Array.isArray(item.value) && item.value}`}
+          </span>
+        </p>
+      </div>
+      <FeedTileContext item={item} />
+    </div>
+
+    {(Array.isArray(item.value)
+      && item.value
+      && item.value.length > 0
+      && item.value[0].contentUrl)
+      ? (
+        <img src={`https://ipfs.infura.io/ipfs/${item.value[0].contentUrl['/']}`} className="feed__activity__image clearProfPic" alt="profile" />
+      ) : ''
+    }
+  </div>
+);
+
+FeedTileSpace.propTypes = {
+  item: PropTypes.object,
+};
+
+FeedTileSpace.defaultProps = {
+  item: {},
+};

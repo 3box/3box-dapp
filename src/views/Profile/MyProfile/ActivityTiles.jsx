@@ -7,6 +7,7 @@ import {
   FeedTileToken,
   FeedTileInternal,
   FeedTileActivity,
+  FeedTileSpace,
 } from '../FeedTile';
 import '../styles/Feed.css';
 import '../styles/Profile.css';
@@ -72,7 +73,7 @@ const ActivityTiles = ({
                 />);
             }
 
-            if (item.dataType === 'Public') {
+            if (!item.spaceName && item.dataType === 'Public') {
               return (
                 <FeedTileActivity
                   item={item}
@@ -82,10 +83,19 @@ const ActivityTiles = ({
                 />);
             }
 
-            if (item.dataType === 'Private') {
+            if (!item.spaceName && item.dataType === 'Private') {
               return (
                 <FeedTileActivity
                   verifiedEmail={verifiedEmail}
+                  item={item}
+                  key={index}
+                />);
+            }
+
+            console.log('values going in', Object.values(feedAddress));
+            if (item.spaceName) {
+              return (
+                <FeedTileSpace
                   item={item}
                   key={index}
                 />);
