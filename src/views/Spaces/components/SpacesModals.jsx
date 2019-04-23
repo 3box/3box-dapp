@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { timeSince } from '../../../utils/time';
+import { titleCase } from '../../../utils/funcs';
 import Space from '../../../assets/Space.svg';
 import Private from '../../../assets/Private.svg';
 import Globe from '../../../assets/Globe.svg';
@@ -51,15 +52,13 @@ export const ViewSpaceDataItemModal = ({
             </div>
             <div className="spaceModal__name__wrapper">
               <p className="spaceModal__name__value">
-                {dataKey.replace(/([A-Z])/g, ' $1')
-                  .replace(/^./, str => str.toUpperCase())}
+                {titleCase(dataKey)}
               </p>
             </div>
           </section>
 
           <section className="spaceModal__content">
-            {dataKey.substring(0, 7) === 'thread-' && dataValue.name.replace(/([A-Z])/g, ' $1')
-              .replace(/^./, str => str.toUpperCase())}
+            {dataKey.substring(0, 7) === 'thread-' && titleCase(dataValue.name)}
 
             {rowType === 'Image' && (
               <img
@@ -204,18 +203,15 @@ export const ListSpaceItemModal = ({
           <div className="spaceModal__names">
             <div className="spaceModal__name__wrapper">
               <p className="spaceModal__space__value">
-                {spaceName === '3Box_app' ? '3Box' : spaceName.replace(/([A-Z])/g, ' $1')
-                  .replace(/^./, str => str.toUpperCase())}
+                {spaceName === '3Box_app' ? '3Box' : titleCase(spaceName)}
               </p>
             </div>
 
             <div className="spaceModal__name__wrapper">
               <p className="spaceModal__name__value">
                 {dataKey === 'collectiblesFavoritesToRender' && 'Favorite Collectibles'}
-                {(dataKey.substring(0, 7) !== 'thread-' && dataKey !== 'collectiblesFavoritesToRender') && dataKey.replace(/([A-Z])/g, ' $1')
-                  .replace(/^./, str => str.toUpperCase())}
-                {dataKey.substring(0, 7) === 'thread-' && dataKey.substring(7).replace(/([A-Z])/g, ' $1')
-                  .replace(/^./, str => str.toUpperCase())}
+                {(dataKey.substring(0, 7) !== 'thread-' && dataKey !== 'collectiblesFavoritesToRender') && titleCase(dataKey)}
+                {dataKey.substring(0, 7) === 'thread-' && titleCase(dataKey.substring(7))}
               </p>
             </div>
           </div>
@@ -394,18 +390,15 @@ export const EmptyListItemModal = ({
           <div className="spaceModal__names">
             <div className="spaceModal__name__wrapper">
               <p className="spaceModal__space__value">
-                {spaceName === '3Box_app' ? '3Box' : spaceName.replace(/([A-Z])/g, ' $1')
-                  .replace(/^./, str => str.toUpperCase())}
+                {spaceName === '3Box_app' ? '3Box' : titleCase(spaceName)}
               </p>
             </div>
 
             <div className="spaceModal__name__wrapper">
               <p className="spaceModal__name__value">
                 {dataKey === 'collectiblesFavoritesToRender' && 'Favorite Collectibles'}
-                {(dataKey.substring(0, 7) !== 'thread-' && dataKey !== 'collectiblesFavoritesToRender') && dataKey.replace(/([A-Z])/g, ' $1')
-                  .replace(/^./, str => str.toUpperCase())}
-                {dataKey.substring(0, 7) === 'thread-' && dataKey.substring(7).replace(/([A-Z])/g, ' $1')
-                  .replace(/^./, str => str.toUpperCase())}
+                {(dataKey.substring(0, 7) !== 'thread-' && dataKey !== 'collectiblesFavoritesToRender') && titleCase(dataKey)}
+                {dataKey.substring(0, 7) === 'thread-' && titleCase(dataKey.substring(7))}
               </p>
             </div>
           </div>

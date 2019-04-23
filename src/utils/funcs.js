@@ -337,6 +337,19 @@ export const extractRow = async (spaceData, spaceNameGiven, updatedSortedSpace) 
 };
 
 export const isEthAddress = (string) => {
-  
+
 
 }
+
+export const titleCase = (string) => {
+  const updatedString = string.replace(/([a-z])([A-Z])/g, '$1 $2')
+    .replace(/([A-Z])([a-z])/g, ' $1$2')
+    .replace(/\ +/g, ' ')
+    .replace(/^./, str => str.toUpperCase());
+  return updatedString;
+};
+
+export const lowerCase = (string) => {
+  const updatedString = string.replace(/([A-Z])/g, ' $1').trim().toLowerCase()
+  return updatedString;
+};

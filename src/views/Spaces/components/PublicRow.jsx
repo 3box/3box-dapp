@@ -6,6 +6,7 @@ import Private from '../../../assets/PrivateActivity.svg';
 import Globe from '../../../assets/Globe.svg';
 import Verified from '../../../assets/Verified.svg';
 import { timeSince } from '../../../utils/time';
+import { titleCase } from '../../../utils/funcs';
 import '../styles/Spaces.css';
 
 import actions from '../../../state/actions';
@@ -44,16 +45,14 @@ const PublicRow = ({
         className="data__items__row__entry spaceRow__key"
         title={`${
           (dataKey && dataKey.substring(0, 7) !== 'thread-') ?
-            dataKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()) :
-            dataKey.substring(7).replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())} `}
+            titleCase(dataKey) :
+            titleCase(dataKey.substring(7))} `}
       >
         <p className="data__text row__name">
-          {(dataKey && dataKey.substring(0, 7) !== 'thread-') && dataKey.replace(/([A-Z])/g, ' $1')
-            .replace(/^./, str => str.toUpperCase())}
+          {(dataKey && dataKey.substring(0, 7) !== 'thread-') && titleCase(dataKey)}
 
           {(dataKey && dataKey.substring(0, 7) === 'thread-')
-            && dataKey.substring(7).replace(/([A-Z])/g, ' $1')
-              .replace(/^./, str => str.toUpperCase())}
+            && titleCase(dataKey.substring(7))}
         </p>
       </span>
       <span className="data__items__row__entry spaceRow__content">

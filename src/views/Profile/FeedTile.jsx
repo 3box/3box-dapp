@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import tokenToData from '../../utils/tokenToData.json';
 
+import { titleCase, lowerCase } from '../../utils/funcs';
 import Save from '../../assets/Save.svg';
 import Delete from '../../assets/Delete.svg';
 import FeedTileContext from './FeedTileContext';
@@ -26,7 +27,7 @@ export const FeedTileActivity = ({ item, verifiedGithub, verifiedTwitter, verifi
             ${item.key === 'proof_email' ? 'private email address' : ''}
             ${item.key === 'proof_twitter' ? 'Twitter username' : ''}
             ${(item.key !== 'proof_twitter' && item.key !== 'proof_github' && item.key !== 'proof_email' && item.dataType !== 'Private')
-                ? (item.key).replace(/([A-Z])/g, ' $1').trim().toLowerCase()
+                ? lowerCase(item.key)
                 : ''} 
             `}
             {(item.op === 'PUT' && item.key === 'proof_email' && verifiedEmail) ? 'to' : ''}
@@ -381,8 +382,7 @@ export const FeedTileSpace = ({ item }) => (
         <p className="feed__activity__text">
           You updated
           <span className="feed__activity__info__key--space">
-            {` ${item.key.substring(0, 7) === 'thread-' ? item.key.substring(7).replace(/([A-Z])/g, ' $1')
-              .replace(/^./, str => str.toUpperCase()) :
+            {` ${item.key.substring(0, 7) === 'thread-' ? titleCase(item.key.substring(7)) :
               (item.key).replace(/([A-Z])/g, ' $1').trim().toLowerCase()} `}
           </span>
           to
