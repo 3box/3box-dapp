@@ -19,8 +19,6 @@ const convert3BoxToSpaces = () => async (dispatch) => {
     const rowCalls = [];
 
     Object.entries(myData).forEach((row) => {
-      console.log('row', row);
-
       if ((row[0] !== 'box') &&
         (row[0] !== 'feedByAddress') &&
         (row[0] !== 'collection') &&

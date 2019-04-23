@@ -377,15 +377,16 @@ export const FeedTileSpace = ({ item }) => (
   <div className="feed__activity">
     <div className="feed__activity__data">
       <div className="feed__activity__info">
-        <img className="feed__activity__data__icon" src={item.op === 'PUT' ? Save : Delete} alt="Transaction Icon" />
+        <img className="feed__activity__data__icon" src={Save} alt="Transaction Icon" />
         <p className="feed__activity__text">
           You updated
           <span className="feed__activity__info__key--space">
-            {` ${(item.key).replace(/([A-Z])/g, ' $1').trim().toLowerCase()} `}
+            {` ${item.key.substring(0, 7) === 'thread-' ? item.key.substring(7).replace(/([A-Z])/g, ' $1')
+              .replace(/^./, str => str.toUpperCase()) :
+              (item.key).replace(/([A-Z])/g, ' $1').trim().toLowerCase()} `}
           </span>
           to
           <span className="feed__activity__info__value--space">
-            {console.log(item.value)}
             {` ${!Array.isArray(item.value) && item.value}`}
           </span>
         </p>

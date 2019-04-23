@@ -62,8 +62,6 @@ const getActivity = otherProfileAddress => async (dispatch) => {
       const spacesData = store.getState().spaces.allData;
       const spacesDataActivity = [];
 
-      console.log('spacesData', spacesData);
-
       Object.entries(spacesData).forEach((space) => {
         const spaceName = space[0];
 
@@ -82,13 +80,27 @@ const getActivity = otherProfileAddress => async (dispatch) => {
           });
 
           Object.entries(space[1].public).forEach((keyValue) => {
+            const valueObject = keyValue[1];
+            const isArray = Array.isArray(valueObject);
+            let {
+              value,
+            } = valueObject;
+
+            let arrayValue = '';
+            if (isArray && valueObject.length > 0) {
+              arrayValue = valueObject[valueObject.length - 1].message ? valueObject[valueObject.length - 1].message : valueObject[valueObject.length - 1];
+            } else if (value === 'object' && !isArray) {
+              [value] = Object.keys(value);
+            }
+
             const spaceToActivityItem = {
               dataType: 'Public',
               key: keyValue[0],
-              timeStamp: keyValue[1].timestamp ? keyValue[1].timestamp.toString().substring(0, 10) : '',
-              value: keyValue[1].value,
+              timeStamp: valueObject.timestamp ? valueObject.timestamp.toString().substring(0, 10) : '',
+              value: isArray ? arrayValue : value,
               spaceName,
             };
+
             spacesDataActivity.push(spaceToActivityItem);
           });
         }

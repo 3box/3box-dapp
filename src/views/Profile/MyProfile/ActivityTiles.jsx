@@ -92,7 +92,6 @@ const ActivityTiles = ({
                 />);
             }
 
-            console.log('values going in', Object.values(feedAddress));
             if (item.spaceName) {
               return (
                 <FeedTileSpace
