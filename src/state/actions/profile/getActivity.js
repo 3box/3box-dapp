@@ -9,6 +9,7 @@ import {
   updateFeed,
   addDataType,
   addPublicOrPrivateDataType,
+  getAuthorsLatestPost,
 } from '../../../utils/funcs';
 import getPublicProfile from './getPublicProfile';
 
@@ -81,14 +82,29 @@ const getActivity = otherProfileAddress => async (dispatch) => {
 
           Object.entries(space[1].public).forEach((keyValue) => {
             const valueObject = keyValue[1];
-            const isArray = Array.isArray(valueObject);
             let {
               value,
             } = valueObject;
+            const isArray = Array.isArray(valueObject);
+
+            if (isArray && valueObject.length === 0) return;
+
+            const usersDID = store.getState().myData.did;
+            const latestPost = (valueObject[0] && valueObject[0].message) && getAuthorsLatestPost(valueObject, usersDID);
+
+            let timeStamp;
+
+            if (latestPost) {
+              // if object is a thread
+              timeStamp = latestPost.timestamp;
+            } else {
+              timeStamp = valueObject.timestamp || '';
+            }
 
             let arrayValue = '';
+
             if (isArray && valueObject.length > 0) {
-              arrayValue = valueObject[valueObject.length - 1].message ? valueObject[valueObject.length - 1].message : valueObject[valueObject.length - 1];
+              arrayValue = valueObject[0].message ? latestPost.message : valueObject[0];
             } else if (value === 'object' && !isArray) {
               [value] = Object.keys(value);
             }
@@ -96,7 +112,7 @@ const getActivity = otherProfileAddress => async (dispatch) => {
             const spaceToActivityItem = {
               dataType: 'Public',
               key: keyValue[0],
-              timeStamp: valueObject.timestamp ? valueObject.timestamp.toString().substring(0, 10) : '',
+              timeStamp,
               value: isArray ? arrayValue : value,
               spaceName,
             };

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import Space from '../../../assets/Space.svg';
 import networkArray from '../../../utils/networkArray';
+import { isEthAddress } from '../../../utils/funcs';
 import '../styles/Feed.css';
 import '../styles/Profile.css';
 import '../../../components/styles/NetworkArray.css';
@@ -40,8 +41,8 @@ const Activity = ({ name, image, feedAddress }) => (
     {(Object.keys(feedAddress)[0] !== 'threeBox' && feedAddress.metaData && feedAddress.metaData.contractImg)
       && <img src={feedAddress.metaData.contractImg.src} className="feed__activity__user clear" alt="profile" />}
 
-    {(/^(0x)?[0-9a-f]{40}$/i.test(Object.keys(feedAddress)[0]) && (!feedAddress.metaData
-      || (!feedAddress.metaData.image
+    {(isEthAddress(Object.keys(feedAddress)[0]) &&
+      (!feedAddress.metaData || (!feedAddress.metaData.image
         && !feedAddress.metaData.contractImg
         && !feedAddress.metaData.contractData
         && !feedAddress.metaData.name
@@ -51,9 +52,9 @@ const Activity = ({ name, image, feedAddress }) => (
           0x
         </div>)}
 
-    {(!/^(0x)?[0-9a-f]{40}$/i.test(Object.keys(feedAddress)[0]) && Object.keys(feedAddress)[0] !== 'threeBox')
+    {(!isEthAddress(Object.keys(feedAddress)[0]) && Object.keys(feedAddress)[0] !== 'threeBox')
       && (
-        <div className={`feed__activity__user ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
+        <div className={`feed__activity__user`}>
           <img src={Space} className="feed__activity__spaceIcon" alt="space icon" />
         </div>
       )}
@@ -71,7 +72,7 @@ const Activity = ({ name, image, feedAddress }) => (
           </div>
         )}
 
-      {/^(0x)?[0-9a-f]{40}$/i.test(Object.keys(feedAddress)[0]) && (
+      {isEthAddress(Object.keys(feedAddress)[0]) && (
         <React.Fragment>
           {(feedAddress.metaData && feedAddress.metaData.name)
             && (
@@ -110,7 +111,7 @@ const Activity = ({ name, image, feedAddress }) => (
         </React.Fragment>
       )}
 
-      {(!/^(0x)?[0-9a-f]{40}$/i.test(Object.keys(feedAddress)[0]) && Object.keys(feedAddress)[0] !== 'threeBox') && (
+      {(!isEthAddress(Object.keys(feedAddress)[0]) && Object.keys(feedAddress)[0] !== 'threeBox') && (
         <div className="feed__activity__address__wrapper">
           <h4>
             {Object.keys(feedAddress)[0]}

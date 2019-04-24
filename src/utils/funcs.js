@@ -337,6 +337,21 @@ export const extractRow = async (spaceData, spaceNameGiven, updatedSortedSpace) 
 };
 
 export const isEthAddress = (string) => {
-  
+  const isEthereumAddress = /^(0x)?[0-9a-f]{40}$/i.test(string);
+  return isEthereumAddress;
+};
 
-}
+// get the user's latest post in a thread
+export const getAuthorsLatestPost = (threadArray, usersDID) => {
+  const userPostIndex = [];
+
+  threadArray.forEach((item, i) => {
+    if (item.author === usersDID) {
+      userPostIndex.push(i);
+    }
+  });
+
+  const lastPostIndex = userPostIndex[userPostIndex.length - 1];
+
+  return threadArray[lastPostIndex];
+};

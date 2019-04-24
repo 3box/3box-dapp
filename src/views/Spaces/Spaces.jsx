@@ -26,6 +26,7 @@ import { sortSpace, extractRow } from '../../utils/funcs';
 import actions from '../../state/actions';
 
 const { viewSpaceItem } = actions.spaces;
+const { getActivity } = actions.profile;
 
 class Spaces extends Component {
   constructor(props) {
@@ -356,6 +357,8 @@ class Spaces extends Component {
           this.props.viewSpaceItem(false, false, false);
         }
 
+        this.props.getActivity();
+
         setTimeout(() => {
           store.dispatch({
             type: 'UI_HANDLE_SPACE_OPENED_MODAL',
@@ -644,6 +647,7 @@ Spaces.propTypes = {
   box: PropTypes.object,
   spacesOpened: PropTypes.object,
   isSpacesLoading: PropTypes.bool,
+  getActivity: PropTypes.func.isRequired,
   showSpaceOpenedModal: PropTypes.bool,
   showSpaceDataItemModal: PropTypes.bool,
   showDeleteItemModal: PropTypes.bool,
@@ -692,4 +696,4 @@ function mapState(state) {
   };
 }
 
-export default withRouter(connect(mapState, { viewSpaceItem })(Spaces));
+export default withRouter(connect(mapState, { viewSpaceItem, getActivity })(Spaces));

@@ -10,6 +10,7 @@ import { pollNetworkAndAddress, initialAddress } from './utils/address';
 import { normalizeURL, matchProtectedRoutes } from './utils/funcs';
 import { store } from './state/store';
 import Landing from './views/Landing/Landing';
+import LandingNew from './views/Landing/LandingNew';
 import Spaces from './views/Spaces/Spaces.jsx';
 import MyProfile from './views/Profile/MyProfile';
 import PubProfile from './views/Profile/PubProfile';
@@ -373,6 +374,21 @@ class App extends Component {
 
           <Route
             exact
+            path="/landing/new"
+
+            render={() => (
+              <LandingNew
+                handleSignInUp={this.handleSignInUp}
+                isLoggedIn={isLoggedIn}
+                errorMessage={errorMessage}
+                showErrorModal={showErrorModal}
+                isSignedIntoWallet={isSignedIntoWallet}
+              />
+            )}
+          />
+
+          <Route
+            exact
             path="(^[/][0][xX]\w{40}\b)/activity"
             component={MyProfile}
           />
@@ -494,7 +510,6 @@ App.propTypes = {
   getVerifiedPublicTwitter: PropTypes.func.isRequired,
   getVerifiedPrivateEmail: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
-  checkWeb3: PropTypes.func.isRequired,
   requireMetaMaskModal: PropTypes.func.isRequired,
   handleInfoBanner: PropTypes.func,
   handleMobileWalletModal: PropTypes.func.isRequired,
