@@ -21,7 +21,7 @@ import Jobs from './views/Landing/Jobs';
 import Privacy from './views/Landing/Privacy';
 import Terms from './views/Landing/Terms';
 import Create from './views/Landing/Create';
-import NavLanding from './components/NavLanding';
+import NewNavLanding from './components/NewNavLanding';
 import history from './utils/history';
 import './index.css';
 import AppModals from './components/AppModals';
@@ -301,7 +301,7 @@ class App extends Component {
       <div className="App">
         {(!isMyProfilePath) // show landing nav when user is not logged in, 3box is not fetching, and when route is not a protected route
           && (
-            <NavLanding
+            <NewNavLanding
               handleSignInUp={this.handleSignInUp}
               onOtherProfilePage={onOtherProfilePage}
               landing={landing}

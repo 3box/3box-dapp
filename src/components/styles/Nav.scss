@@ -103,6 +103,8 @@ nav {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    font-size: 16px;
+    margin-right: 34px;
   }
 }
 
@@ -280,14 +282,6 @@ nav {
     font-size: 16px;
   }
 
-  button {
-    cursor: pointer;
-    border: 1px solid white;
-    background-color: white;
-    color: $threeBoxBlue;
-    font-size: 16px;
-  }
-
   .landing__nav__createProfile:hover {
     color: $threeBoxBlue;
   }
@@ -296,6 +290,7 @@ nav {
 .landing__nav__logo {
   width: 90px;
   height: 32px;
+  margin-right: 10px;
 }
 
 #landing__nav {
@@ -496,11 +491,6 @@ nav {
   height: 68px !important;
   background-color: white !important;
 
-  button {
-    background-color: $threeBoxBlue !important;
-    color: white !important;
-  }
-
   p {
     color: $threeBoxBlue !important;
   }
@@ -511,10 +501,6 @@ nav {
 
   .landing__nav__createProfile:hover .landing__nav__createProfile {
     background-color: $threeBoxBlueHover;
-  }
-
-  button:hover {
-    background-color: $threeBoxBlueHover !important;
   }
 }
 

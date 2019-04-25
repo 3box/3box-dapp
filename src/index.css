@@ -31,14 +31,18 @@ body {
   width: 100%; }
 
 button {
-  background-color: #1168df;
-  border: none;
-  border-radius: 2em;
-  padding: 1.2em 1.8em;
+  background-color: #010c16;
+  border-radius: 5px;
+  padding: 14px 20px;
   color: white;
   transition: background-color .4s ease;
   font-family: 'Lato', sans-serif;
-  border: solid 1px #1168df; }
+  border: solid 2px #010c16;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  button img {
+    margin-left: 10px; }
   button:disabled {
     background: transparent;
     border: solid 1px #7a7a7a;
@@ -51,8 +55,17 @@ button {
     box-shadow: none;
     cursor: not-allowed; }
   button:hover {
-    background-color: #0950b0;
+    background-color: #2f383a;
+    border-color: #2f383a;
     transition: background-color .4s ease; }
+
+.secondary {
+  background-color: transparent;
+  color: #010c16; }
+
+.blueButton {
+  border-color: #1168df;
+  color: #1168df; }
 
 .secondaryButton {
   background: transparent;

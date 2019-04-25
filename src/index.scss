@@ -39,14 +39,20 @@ body {
 }
 
 button {
-  background-color: $threeBoxBlue;
-  border: none;
-  border-radius: 2em;
-  padding: 1.2em 1.8em;
+  background-color: $threeBoxBlack;
+  border-radius: 5px;
+  padding: 14px 20px;
   color: white;
   transition: background-color .4s ease;
   font-family: 'Lato', sans-serif;
-  border: solid 1px $threeBoxBlue;
+  border: solid 2px $threeBoxBlack;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    margin-left: 10px;
+  }
 
   &:disabled {
     background: transparent;
@@ -64,9 +70,20 @@ button {
   }
 
   &:hover {
-    background-color: $threeBoxBlueHover;
+    background-color: $threeBoxBlackHover;
+    border-color: $threeBoxBlackHover;
     transition: background-color .4s ease;
   }
+}
+
+.secondary {
+  background-color: transparent;
+  color: $threeBoxBlack;
+}
+
+.blueButton {
+  border-color: $threeBoxBlue;
+  color: $threeBoxBlue;
 }
 
 .secondaryButton {

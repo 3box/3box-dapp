@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>Triangle</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD" transform="translate(-674.000000, -590.000000)" fill="#181F21">
+            <g id="Group" transform="translate(474.000000, 567.000000)">
+                <path d="M210.480574,24.3987966 L217.27331,37.79251 C217.772922,38.7776301 217.37934,39.9812433 216.39422,40.4808553 C216.113864,40.6230399 215.803942,40.6971376 215.489592,40.6971376 L201.904121,40.6971376 C200.799552,40.6971376 199.904121,39.8017071 199.904121,38.6971376 C199.904121,38.3827882 199.978219,38.0728652 200.120403,37.79251 L206.913139,24.3987966 C207.412751,23.4136765 208.616364,23.0200945 209.601484,23.5197065 C209.980462,23.7119081 210.288373,24.0198193 210.480574,24.3987966 Z" id="Triangle" transform="translate(208.697071, 32.000066) rotate(90.000000) translate(-208.697071, -32.000066) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

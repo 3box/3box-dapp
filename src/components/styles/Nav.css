@@ -76,7 +76,9 @@ nav {
   #landing__nav__logo--marginLeft a {
     display: flex;
     justify-content: flex-start;
-    align-items: center; }
+    align-items: center;
+    font-size: 16px;
+    margin-right: 34px; }
 
 #nav__logo--mobile {
   display: none; }
@@ -217,18 +219,13 @@ nav {
     font-weight: 400;
     color: white;
     font-size: 16px; }
-  #actionButtons button {
-    cursor: pointer;
-    border: 1px solid white;
-    background-color: white;
-    color: #1168df;
-    font-size: 16px; }
   #actionButtons .landing__nav__createProfile:hover {
     color: #1168df; }
 
 .landing__nav__logo {
   width: 90px;
-  height: 32px; }
+  height: 32px;
+  margin-right: 10px; }
 
 #landing__nav {
   position: fixed;
@@ -389,17 +386,12 @@ nav {
   border-bottom: 1px solid #E4E4E4 !important;
   height: 68px !important;
   background-color: white !important; }
-  .hide button {
-    background-color: #1168df !important;
-    color: white !important; }
   .hide p {
     color: #1168df !important; }
   .hide .secondaryButton:hover {
     color: white !important; }
   .hide .landing__nav__createProfile:hover .landing__nav__createProfile {
     background-color: #0950b0; }
-  .hide button:hover {
-    background-color: #0950b0 !important; }
 
 #nav__divideBug {
   border-top: 1px solid #CBCBCB;
