@@ -10,6 +10,7 @@ import { pollNetworkAndAddress, initialAddress } from './utils/address';
 import { normalizeURL, matchProtectedRoutes } from './utils/funcs';
 import { store } from './state/store';
 import Landing from './views/Landing/Landing';
+import APIs from './views/Landing/API/APIs';
 import LandingNew from './views/Landing/LandingNew';
 import Spaces from './views/Spaces/Spaces.jsx';
 import MyProfile from './views/Profile/MyProfile';
@@ -378,6 +379,21 @@ class App extends Component {
 
             render={() => (
               <LandingNew
+                handleSignInUp={this.handleSignInUp}
+                isLoggedIn={isLoggedIn}
+                errorMessage={errorMessage}
+                showErrorModal={showErrorModal}
+                isSignedIntoWallet={isSignedIntoWallet}
+              />
+            )}
+          />
+
+          <Route
+            exact
+            path="/apis"
+
+            render={() => (
+              <APIs
                 handleSignInUp={this.handleSignInUp}
                 isLoggedIn={isLoggedIn}
                 errorMessage={errorMessage}

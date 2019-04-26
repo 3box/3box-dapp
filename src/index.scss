@@ -72,7 +72,6 @@ button {
   &:hover {
     background-color: $threeBoxBlackHover;
     border-color: $threeBoxBlackHover;
-    transition: background-color .4s ease;
   }
 }
 
@@ -84,6 +83,23 @@ button {
 .blueButton {
   border-color: $threeBoxBlue;
   color: $threeBoxBlue;
+}
+
+.clearButton {
+  background-color: transparent;
+  border-radius: 5px;
+  padding: 14px 20px;
+  transition: background-color .4s ease;
+  font-family: 'Lato', sans-serif;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background-color: transparent;
+    border: none;
+  }
 }
 
 .secondaryButton {
