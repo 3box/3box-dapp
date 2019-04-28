@@ -1,6 +1,6 @@
 [![Twitter Follow](https://img.shields.io/twitter/follow/3boxdb.svg?style=for-the-badge&label=Twitter)](https://twitter.com/3boxdb)
 [![Discord](https://img.shields.io/discord/484729862368526356.svg?style=for-the-badge)](https://discordapp.com/invite/Z3f3Cxy)
-[![CircleCI](https://img.shields.io/circleci/project/github/uport-project/3box-js.svg?style=for-the-badge)](https://circleci.com/gh/uport-project/3box-dapp) 
+[![CircleCI](https://img.shields.io/circleci/project/github/3box/3box-js.svg?style=for-the-badge)](https://circleci.com/gh/3box/3box-dapp) 
 [![Greenkeeper badge](https://badges.greenkeeper.io/3box/3box-dapp.svg)](https://greenkeeper.io/)
 
 # 3Box Profiles Application
