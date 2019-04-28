@@ -22,7 +22,7 @@
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.8.6",
     "react-mailchimp-subscribe": "^2.0.2",
-    "react-redux": "^7.0.1",
+    "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
     "react-router-redux": "^4.0.8",
     "redux": "^4.0.0",
