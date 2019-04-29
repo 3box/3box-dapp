@@ -75,20 +75,22 @@ class NavLanding extends Component {
           <a href="https://github.com/3box/3box" target="_blank" rel="noopener noreferrer">
             Docs
           </a>
-          <Link to="/partners">
+          {/* <Link to="/partners">
             Partners
           </Link>
           <Link to="/partners">
             Chat
-          </Link>
+          </Link> */}
           <a href="https://medium.com/3box" target="_blank" rel="noopener noreferrer">
             Blog
           </a>
         </div>
         <div id="actionButtons">
-          <button onClick={handleSignInUp} type="button">
-            Sign in to Hub
-          </button>
+          <Link to={routes.HUB}>
+            <button type="button">
+              Sign in to Hub
+            </button>
+          </Link>
         </div>
 
         <div className={`${showAPI ? 'showAPI' : ''} ${retractNav ? 'apiLower' : ''} landing_nav_api`}>

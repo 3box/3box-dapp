@@ -78,11 +78,21 @@ button {
 .secondary {
   background-color: transparent;
   color: $threeBoxBlack;
+
+  &:hover {
+    background-color: $backgroundHue;
+  }
 }
 
 .blueButton {
   border-color: $threeBoxBlue;
   color: $threeBoxBlue;
+
+  &:hover {
+    background-color: transparent;
+    border-color: $threeBoxBlue;
+    color: $threeBoxBlue;
+  }
 }
 
 .clearButton {

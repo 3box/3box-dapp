@@ -2,7 +2,9 @@ import React, { Suspense, lazy } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import { scroller } from 'react-scroll';
 
+import * as routes from '../../../utils/routes';
 import APIMain from './components/APIMain';
 import { ProfileSection, MessagingSection, StorageSection } from './components/APISections';
 import { ProfileDetails, MessagingDetails, StorageDetails } from './components/APIDetails';
@@ -16,9 +18,23 @@ const Footer = lazy(() => import('../components/Footer'));
 class APIsPage extends React.Component {
   constructor(props) {
     super(props);
+    const { pathname } = this.props.history.location;
+    const section = pathname.split('/')[2];
     this.state = {
-      openSection: ''
+      openSection: section,
     };
+  }
+
+  componentDidMount() {
+    const { pathname } = this.props.history.location;
+    const section = pathname.split('/')[2];
+    console.log('section', section);
+    scroller.scrollTo(section, {
+      duration: 1500,
+      delay: 100,
+      offset: -120,
+      smooth: 'easeInOutQuint',
+    });
   }
 
   handleOpenSection = (section) => {
@@ -31,6 +47,7 @@ class APIsPage extends React.Component {
       this.setState({
         openSection: section,
       });
+      this.props.history.push(`/products/${section}`);
     }
   }
 
@@ -44,9 +61,9 @@ class APIsPage extends React.Component {
 
         <ProfileSection
           handleOpenSection={this.handleOpenSection}
-          openSection={openSection === 'profile'}
+          openSection={openSection === 'profiles'}
         />
-        <ProfileDetails openSection={openSection === 'profile'} />
+        <ProfileDetails openSection={openSection === 'profiles'} />
 
         <MessagingSection
           handleOpenSection={this.handleOpenSection}

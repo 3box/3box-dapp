@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 
+import * as routes from '../../utils/routes';
 import ThreeBoxLogo from '../../assets/ThreeBoxLogoWhite.svg';
 import ThreeBoxCloud from '../../assets/3BoxCloud.png';
 import TriangleWhite from '../../assets/TriangleWhite.svg';
 import TriangleBlue from '../../assets/TriangleBlue.svg';
 import TriangleBlack from '../../assets/TriangleBlack.svg';
+import NewProfileCard from '../../assets/NewProfileCard.png';
 import Trust from '../../assets/Trust.png';
 import HighFive from '../../assets/HighFive.png';
 import DiscordChat from '../../assets/DiscordChat.png';
@@ -39,14 +41,18 @@ const Landing = ({ showInfoBanner }) => (
             Developers trust the decentralized 3Box cloud to secure their most important user data.  #BuildBetter
           </p>
           <div className="hero_copy_buttons">
-            <button type="button" className="hero_copy_buttons_button">
-              For Developers
-              <img src={TriangleWhite} alt="arrow" />
-            </button>
-            <button type="button" className="secondary">
-              For Users
-              <img src={TriangleBlack} alt="arrow" />
-            </button>
+            <Link to={routes.API}>
+              <button type="button" className="hero_copy_buttons_button">
+                For Developers
+                <img src={TriangleWhite} alt="arrow" />
+              </button>
+            </Link>
+            <Link to={routes.HUB}>
+              <button type="button" className="secondary">
+                For Users
+                <img src={TriangleBlack} alt="arrow" />
+              </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -89,7 +95,7 @@ const Landing = ({ showInfoBanner }) => (
             <p>
               Seamlessly onboard users to your application
             </p>
-            <Link>
+            <Link to={routes.API_PROFILES}>
               Explore More
               <img src={TriangleBlue} alt="Arrow" className="feature_link_arrow" />
             </Link>
@@ -100,7 +106,7 @@ const Landing = ({ showInfoBanner }) => (
             <p>
               Support social identity and basic reputation
             </p>
-            <Link>
+            <Link to={routes.API_PROFILES}>
               Explore More
               <img src={TriangleBlue} alt="Arrow" className="feature_link_arrow" />
             </Link>
@@ -111,7 +117,7 @@ const Landing = ({ showInfoBanner }) => (
             <p>
               Add decentralized chat, messaging, and commenting
             </p>
-            <Link>
+            <Link to={routes.API_MESSAGING}>
               Explore More
               <img src={TriangleBlue} alt="Arrow" className="feature_link_arrow" />
             </Link>
@@ -122,7 +128,7 @@ const Landing = ({ showInfoBanner }) => (
             <p>
               Store user data in a private database just for your app
             </p>
-            <Link>
+            <Link to={routes.API_STORAGE}>
               Explore More
               <img src={TriangleBlue} alt="Arrow" className="feature_link_arrow" />
             </Link>
@@ -137,7 +143,7 @@ const Landing = ({ showInfoBanner }) => (
     <section className="why">
       <div className="section_header">
         <div className="section_line" />
-        <p>SIMPLE APIS</p>
+        <p>WHY 3BOX?</p>
       </div>
       <div className="section_blurb">
         <h3>
@@ -175,9 +181,6 @@ const Landing = ({ showInfoBanner }) => (
         </div>
       </div>
       <div className="why_reason">
-        <div className="why_reason_icon">
-          <img src={HighFive} alt="High Five" />
-        </div>
         <div className="why_reason_info">
           <h4>
             Engage and delight users with interactive, social experiences.
@@ -197,6 +200,9 @@ const Landing = ({ showInfoBanner }) => (
               <p>Availability</p>
             </div>
           </div>
+        </div>
+        <div className="why_reason_icon-right">
+          <img src={HighFive} alt="High Five"/>
         </div>
       </div>
       <div className="why_reason">
@@ -236,21 +242,25 @@ const Landing = ({ showInfoBanner }) => (
     <section className="hub">
       <div className="hub_popout">
         <div className="hub_popout_profile">
-          <div className="profile_card" />
+          <img src={NewProfileCard} alt="Profile card" className="hub_popout_profile_card" />
         </div>
         <div className="hub_popout_info">
-          <h5>
-            3BOX HUB
+          <div className="hub_popout_info_wrapper">
+            <h5>
+              3BOX HUB
           </h5>
-          <h3>
-            Start building your social identity and reputation on web3
+            <h3>
+              Start building your social identity and reputation on web3
           </h3>
-          <p>
-            Create an account to experience the internet like never before.
+            <p>
+              Create an account to experience the internet like never before.
           </p>
-          <button type="button">
-            Sign In
-          </button>
+            <Link to={routes.HUB}>
+              <button type="button">
+                Sign In
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </section>

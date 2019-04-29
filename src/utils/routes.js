@@ -4,6 +4,11 @@ export const TERMS = '/terms';
 export const JOBS = '/jobs';
 export const CREATE = '/create';
 export const PROFILES = '/profiles';
+export const HUB = '/hub';
+export const API = '/products';
+export const API_PROFILES = '/products/profiles';
+export const API_MESSAGING = '/products/messaging';
+export const API_STORAGE = '/products/storage';
 
 // PROFILE ROUTES
 export const ACTIVITY = 'activity';

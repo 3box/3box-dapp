@@ -61,10 +61,16 @@ button {
 .secondary {
   background-color: transparent;
   color: #010c16; }
+  .secondary:hover {
+    background-color: #f5f6f8; }
 
 .blueButton {
   border-color: #1168df;
   color: #1168df; }
+  .blueButton:hover {
+    background-color: transparent;
+    border-color: #1168df;
+    color: #1168df; }
 
 .clearButton {
   background-color: transparent;

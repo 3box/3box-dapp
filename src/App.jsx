@@ -391,8 +391,7 @@ class App extends Component {
           />
 
           <Route
-            exact
-            path="/apis"
+            path={routes.API}
 
             render={() => (
               <APIs
@@ -408,7 +407,7 @@ class App extends Component {
 
           <Route
             exact
-            path="/dapp"
+            path="/hub"
 
             render={() => (
               <Dapp

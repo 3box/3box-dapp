@@ -34,7 +34,7 @@ import '../../../components/styles/Nav.css';
 
 const Footer = lazy(() => import('../components/Footer'));
 
-const Landing = ({ showInfoBanner }) => (
+const Landing = ({ showInfoBanner, handleSignInUp }) => (
   <div className={`landing_page ${(showInfoBanner) ? 'bannerMargin' : ''}`}>
     <main className="dapp_main">
       <div className="main_wrapper">
@@ -67,7 +67,7 @@ const Landing = ({ showInfoBanner }) => (
         </div>
         <div className="main_profileCard">
           <img src={NewProfileCard} alt="Profile card" className="main_profileCard_card" />
-          <button type="button">
+          <button type="button" onClick={handleSignInUp}>
             Sign In to Hub
           </button>
         </div>

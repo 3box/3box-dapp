@@ -47,7 +47,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 40px;
 }
 
 .main_copy {
@@ -67,7 +66,7 @@
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-  margin-top: 30px;
+  margin-top: 60px;
 }
 
 .dapp_usp_feature {
@@ -185,10 +184,11 @@
   border-radius: 50%;
   height: 70px;
   width: 70px;
-  position: absolute;
+  position: fixed;
   bottom: 15vh;
   right: 5vw;
   box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
+  z-index: 5;
 
   img {
     margin-left: 0;
@@ -332,6 +332,7 @@
   h5 {
     font-size: 18px;
     margin-bottom: 18px;
+    text-align: center;
   }
 
   a {
@@ -377,7 +378,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 120px;
+  margin-bottom: 180px;
 }
 
 .why_reason_info {
@@ -391,13 +392,24 @@
 }
 
 .why_reason_icon {
-  width: 40%;
+  width: 30%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 
   img {
-    width: 60%;
+    width: 70%;
+  }
+}
+
+.why_reason_icon-right {
+  width: 30%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  img {
+    width: 70%;
   }
 }
 
@@ -455,23 +467,49 @@
 }
 
 .hub_popout_profile {
-  width: 40%;
+  width: 36%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .hub_popout_info {
-  width: 60%;
+  width: 64%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.profile_card {
-  background-color: white;
-  border-radius: 8px;
-  width: 70%;
-  padding: 60px 30px;
-  box-sizing: border-box;
+.hub_popout_info_wrapper {
+  width: 80%;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
   flex-direction: column;
+
+  h3 {
+    font-size: 30px;
+    line-height: 40px;
+    margin-bottom: 24px;
+  }
+  
+  h5 {
+    font-weight: 400;
+    opacity: .7;
+    margin-bottom: 16px;
+  }
+
+  p {
+    margin-bottom: 32px;
+  }
+  button {
+    width: 180px;
+  }
+}
+
+.hub_popout_profile_card {
+  border-radius: 8px;
+  width: 60%;
   box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
 }
 
@@ -568,7 +606,7 @@ footer {
 
 .api_sections_expanded {
   background-color: $backgroundHue;
-  border-top: 1px solid $borderColor;
+  // border-top: 1px solid $borderColor;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -580,6 +618,7 @@ footer {
 
 .openSection {
   height: 1222px;
+  border-top: 1px solid $borderColor;
 }
 
 .openSectionButton {
