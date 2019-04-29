@@ -36,9 +36,10 @@ class APIsPage extends React.Component {
 
   render() {
     const { openSection } = this.state;
+    const { showInfoBanner } = this.props;
 
     return (
-      <div className="landing_page">
+      <div className={`landing_page ${(showInfoBanner) ? 'bannerMargin' : ''}`}>
         <APIMain />
 
         <ProfileSection

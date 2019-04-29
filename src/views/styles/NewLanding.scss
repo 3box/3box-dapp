@@ -4,6 +4,8 @@
 .landing_page {
   background-color: white;
 
+  transition: all .3s ease-in-out;
+
   p,
   li {
     line-height: 24px;
@@ -38,6 +40,106 @@
     line-height: 28px;
     margin-bottom: 30px;
   }
+}
+
+.main_wrapper {
+  width: 76vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.main_copy {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 54%;
+
+  h1 {
+    margin-bottom: 20px;
+  }
+}
+
+.dapp_usp {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.dapp_usp_feature {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 18px;
+
+  img {
+    margin-right: 14px;
+  }
+
+  h3 {}
+}
+
+.main_profileCard_card {
+  width: 86%;
+  box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  max-height: 400px;
+  width: auto;
+}
+
+.main_profileCard {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 36%;
+
+  button {
+    width: 86%;
+    max-width: 288px;
+    min-width: 288px;
+  }
+}
+
+.dapp_screens {
+  position: relative;
+  width: 100vw;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 40px 0;
+  background: #fefe2f;
+  /* Old browsers */
+  background: -moz-radial-gradient(center, ellipse cover, #fefe2f 0%, #f931ff 100%);
+  /* FF3.6-15 */
+  background: -webkit-radial-gradient(center, ellipse cover, #fefe2f 0%, #f931ff 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: radial-gradient(ellipse at center, #fefe2f 0%, #f931ff 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fefe2f', endColorstr='#f931ff', GradientType=1);
+  /* IE6-9 fallback on horizontal gradient */
+}
+
+.dapp_screens_bg {
+  position: absolute;
+  min-width: 100vw;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dapp_main {
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .hero_copy_cloud {
@@ -84,7 +186,7 @@
   height: 70px;
   width: 70px;
   position: absolute;
-  bottom: 5vh;
+  bottom: 15vh;
   right: 5vw;
   box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
 
@@ -162,6 +264,13 @@
     color: $threeBoxBlue;
     letter-spacing: 1.4px;
   }
+}
+
+.main_section {
+  font-size: 18px;
+  color: $threeBoxBlue !important;
+  letter-spacing: 1.4px;
+  margin-bottom: 6px;
 }
 
 .section_line {

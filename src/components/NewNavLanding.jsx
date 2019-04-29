@@ -5,6 +5,10 @@ import PropTypes from 'prop-types';
 
 import * as routes from '../utils/routes';
 import ThreeBoxLogoBlack from '../assets/ThreeBoxLogoBlack.svg';
+import SSOSmall from '../assets/SSOSmall.png';
+import ProfilesSmall from '../assets/ProfilesSmall.png';
+import MessagingSmall from '../assets/MessagingSmall.png';
+import StorageSmall from '../assets/StorageSmall.png';
 import '../views/styles/Landing.css';
 import './styles/Nav.css';
 
@@ -13,6 +17,7 @@ class NavLanding extends Component {
     super(props);
     this.state = {
       retractNav: false,
+      showAPI: false,
     };
   }
 
@@ -32,8 +37,13 @@ class NavLanding extends Component {
     }
   }
 
+  handleAPI = () => {
+    const { showAPI } = this.state;
+    this.setState({ showAPI: !showAPI });
+  }
+
   render() {
-    const { retractNav } = this.state;
+    const { retractNav, showAPI } = this.state;
     const {
       handleSignInUp,
       showInfoBanner,
@@ -59,9 +69,9 @@ class NavLanding extends Component {
           <Link to={routes.LANDING}>
             <img src={ThreeBoxLogoBlack} alt="3Box Logo" className="landing__nav__logo" />
           </Link>
-          <a href="https://github.com/3box/3box" target="_blank" rel="noopener noreferrer">
+          <div onClick={this.handleAPI} className="landing_nav_apiLink">
             API Products
-          </a>
+          </div>
           <a href="https://github.com/3box/3box" target="_blank" rel="noopener noreferrer">
             Docs
           </a>
@@ -79,6 +89,63 @@ class NavLanding extends Component {
           <button onClick={handleSignInUp} type="button">
             Sign in to Hub
           </button>
+        </div>
+
+        <div className={`${showAPI ? 'showAPI' : ''} ${retractNav ? 'apiLower' : ''} landing_nav_api`}>
+          <div className="landing_nav_api_wrapper">
+            <div className="landing_nav_api_option">
+              <div className="landing_nav_api_option_icon">
+                <img src={SSOSmall} alt="Single sign on icon" />
+              </div>
+              <div className="landing_nav_api_option_text">
+                <h4>
+                  Authentication (SSO)
+                </h4>
+                <p>
+                  Seamlessly onboard users to your application
+                </p>
+              </div>
+            </div>
+            <div className="landing_nav_api_option">
+              <div className="landing_nav_api_option_icon">
+                <img src={ProfilesSmall} alt="Single sign on icon" />
+              </div>
+              <div className="landing_nav_api_option_text">
+                <h4>
+                  Profiles
+                </h4>
+                <p>
+                  Support social profiles and basic reputation
+                </p>
+              </div>
+            </div>
+            <div className="landing_nav_api_option">
+              <div className="landing_nav_api_option_icon">
+                <img src={MessagingSmall} alt="Single sign on icon" />
+              </div>
+              <div className="landing_nav_api_option_text">
+                <h4>
+                  Messaging
+                </h4>
+                <p>
+                  Add decentralized chat, messaging, and commenting
+                </p>
+              </div>
+            </div>
+            <div className="landing_nav_api_option">
+              <div className="landing_nav_api_option_icon">
+                <img src={StorageSmall} alt="Single sign on icon" />
+              </div>
+              <div className="landing_nav_api_option_text">
+                <h4>
+                  Storage
+                </h4>
+                <p>
+                  Store user data in a private database just for your app
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </nav>
     );

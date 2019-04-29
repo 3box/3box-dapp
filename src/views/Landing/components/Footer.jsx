@@ -3,68 +3,82 @@ import React from 'react';
 import ThreeBoxLogo from '../../../assets/ThreeBoxLogoWhite.svg';
 
 const Footer = () => (
-  <footer>
-    <div className="footer_wrapper">
-      <div className="footer_lane">
-        <img src={ThreeBoxLogo} alt="3Box logo" className="footer_logo" />
-      </div>
-      <div className="footer_lane">
-        <h5>
-          PRODUCTS
+  <React.Fragment>
+    <section className="join">
+      <h3>
+        Towards a better web for all
+  </h3>
+      <p>
+        Join our mailing list to never miss an update.
+  </p>
+      <input type="text" placeholder="Subscribe to email" />
+      <button type="button">
+        Join
+  </button>
+    </section>
+    <footer>
+      <div className="footer_wrapper">
+        <div className="footer_lane">
+          <img src={ThreeBoxLogo} alt="3Box logo" className="footer_logo" />
+        </div>
+        <div className="footer_lane">
+          <h5>
+            PRODUCTS
     </h5>
-        <p>
-          Profiles API
+          <p>
+            Profiles API
     </p>
-        <p>
-          Messaging API
+          <p>
+            Messaging API
     </p>
-        <p>
-          Storage API
+          <p>
+            Storage API
     </p>
-        <p>
-          Hub App
+          <p>
+            Hub App
     </p>
-      </div>
-      <div className="footer_lane">
-        <h5>
-          DOCS
+        </div>
+        <div className="footer_lane">
+          <h5>
+            DOCS
     </h5>
-        <p>
-          Overview
+          <p>
+            Overview
     </p>
-      </div>
-      <div className="footer_lane">
-        <h5>
-          MORE
+        </div>
+        <div className="footer_lane">
+          <h5>
+            MORE
     </h5>
-        <p>
-          Partners
+          <p>
+            Partners
     </p>
-        <p>
-          About
+          <p>
+            About
     </p>
-        <p>
-          Team
+          <p>
+            Team
     </p>
-        <p>
-          Careers
+          <p>
+            Careers
     </p>
-        <p>
-          Chat
+          <p>
+            Chat
     </p>
-      </div>
-      <div className="footer_lane">
-        <div>
-          <button type="button">
-            Sign in to Hub
+        </div>
+        <div className="footer_lane">
+          <div>
+            <button type="button">
+              Sign in to Hub
       </button>
-        </div>
-        <div>
+          </div>
+          <div>
 
+          </div>
         </div>
       </div>
-    </div>
-  </footer>
+    </footer>
+  </React.Fragment>
 );
 
 export default Footer;

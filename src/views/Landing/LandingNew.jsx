@@ -28,8 +28,8 @@ import '../../components/styles/Nav.css';
 
 const Footer = lazy(() => import('../../components/Footer'));
 
-const Landing = () => (
-  <div className="landing_page">
+const Landing = ({ showInfoBanner }) => (
+  <div className={`landing_page ${(showInfoBanner) ? 'bannerMargin' : ''}`}>
     <main className="hero">
       <div className="hero_copy">
         <div className="hero_copy_wrapper">
@@ -51,11 +51,11 @@ const Landing = () => (
         </div>
       </div>
       <div className="hero_graphic">
-        <button type="button" className="hero_graphic_discord">
-          <img src={DiscordChat} alt="Discord button" />
-        </button>
         <img src={ColorCubes} alt="Color cubes" className="hero_graphic_colorcubes" />
       </div>
+      <button type="button" className="hero_graphic_discord">
+        <img src={DiscordChat} alt="Discord button" />
+      </button>
     </main>
 
     <section className="partners">

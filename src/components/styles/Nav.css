@@ -471,6 +471,66 @@ nav {
   -webkit-transform: rotate(45deg) translate(-8px, -8px);
   transform: rotate(45deg) translate(-8px, -8px); }
 
+.landing_nav_api {
+  height: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 89px;
+  left: 0;
+  background-color: white;
+  transition: all .3s ease-in-out;
+  overflow: hidden; }
+
+.landing_nav_api.apiLower {
+  top: 69px; }
+
+.showAPI {
+  height: 140px;
+  border-bottom: 1px solid #ececec; }
+
+.landing_nav_api_wrapper {
+  height: 100%;
+  width: 94%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+
+.landing_nav_api_option {
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.landing_nav_api_option_icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%; }
+
+.landing_nav_api_option_text {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 70%; }
+  .landing_nav_api_option_text h4 {
+    margin-bottom: 6px; }
+  .landing_nav_api_option_text p {
+    font-size: 14px;
+    color: #747677 !important; }
+
+.landing_nav_apiLink {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 16px;
+  margin-right: 34px;
+  color: #010c16;
+  cursor: pointer; }
+
 @media only screen and (max-width: 600px) {
   nav {
     justify-content: center;

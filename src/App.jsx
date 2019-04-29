@@ -11,6 +11,7 @@ import { normalizeURL, matchProtectedRoutes } from './utils/funcs';
 import { store } from './state/store';
 import Landing from './views/Landing/Landing';
 import APIs from './views/Landing/API/APIs';
+import Dapp from './views/Landing/Dapp/Dapp';
 import LandingNew from './views/Landing/LandingNew';
 import Spaces from './views/Spaces/Spaces.jsx';
 import MyProfile from './views/Profile/MyProfile';
@@ -358,7 +359,7 @@ class App extends Component {
         />
 
         <Switch>
-          <Route
+          {/* <Route
             exact
             path={routes.LANDING}
 
@@ -371,11 +372,11 @@ class App extends Component {
                 isSignedIntoWallet={isSignedIntoWallet}
               />
             )}
-          />
+          /> */}
 
           <Route
             exact
-            path="/landing/new"
+            path={routes.LANDING}
 
             render={() => (
               <LandingNew
@@ -384,6 +385,7 @@ class App extends Component {
                 errorMessage={errorMessage}
                 showErrorModal={showErrorModal}
                 isSignedIntoWallet={isSignedIntoWallet}
+                showInfoBanner={showInfoBanner}
               />
             )}
           />
@@ -399,6 +401,23 @@ class App extends Component {
                 errorMessage={errorMessage}
                 showErrorModal={showErrorModal}
                 isSignedIntoWallet={isSignedIntoWallet}
+                showInfoBanner={showInfoBanner}
+              />
+            )}
+          />
+
+          <Route
+            exact
+            path="/dapp"
+
+            render={() => (
+              <Dapp
+                handleSignInUp={this.handleSignInUp}
+                isLoggedIn={isLoggedIn}
+                errorMessage={errorMessage}
+                showErrorModal={showErrorModal}
+                isSignedIntoWallet={isSignedIntoWallet}
+                showInfoBanner={showInfoBanner}
               />
             )}
           />
