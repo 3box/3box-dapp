@@ -153,7 +153,7 @@
 
 .partners {
   width: 100vw;
-  background-color: #010c16;
+  background-color: #181F21;
   height: 480px;
   display: flex;
   justify-content: center;
@@ -328,7 +328,7 @@
   margin-top: 26px; }
 
 .why_reason_info_tag {
-  background-color: #010c16;
+  background-color: #181F21;
   border-radius: 5px;
   padding: 6px 10px;
   margin-right: 10px; }
@@ -401,12 +401,12 @@
 
 .join {
   width: 100vw;
-  background-color: #010c16;
+  background-color: #181F21;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 90px 0; }
+  padding: 90px 0 0 0; }
   .join h3 {
     font-size: 32px;
     text-align: center;
@@ -416,11 +416,22 @@
   .join p {
     color: #b1b1b1;
     margin-bottom: 80px; }
-  .join input {
+
+.join_input {
+  display: flex;
+  align-items: center; }
+  .join_input input {
     height: 46px;
     width: 300px;
     border-radius: 5px;
-    border: none; }
+    border: none;
+    padding-left: 15px; }
+  .join_input button {
+    display: flex;
+    align-items: center;
+    margin-left: -73px;
+    height: 42px;
+    padding: 0 20px; }
 
 .footer_section {
   width: 80vw;
@@ -429,7 +440,7 @@
 
 footer {
   width: 100vw;
-  background-color: #010c16;
+  background-color: #181F21;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -451,6 +462,20 @@ footer {
   justify-content: center;
   align-items: flex-start;
   flex-direction: column; }
+  .footer_lane h5 {
+    color: white;
+    margin-bottom: 16px;
+    font-size: 16px;
+    font-weight: 300; }
+  .footer_lane a {
+    margin-bottom: 16px;
+    font-size: 16px;
+    font-weight: 300;
+    color: #6b6b6b; }
+  .footer_lane p {
+    margin-bottom: 16px; }
+  .footer_lane button {
+    border-color: #6b6b6b; }
 
 .api_main {
   height: 60vh;
@@ -568,3 +593,9 @@ pre {
 
 .hljs {
   padding: 2px; }
+
+.footer_line {
+  width: 80vw;
+  border-bottom: 1px solid #ececec;
+  opacity: .4;
+  margin-top: 130px; }

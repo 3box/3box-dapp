@@ -3,31 +3,15 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 
-import ThreeBoxLogo from '../../../assets/ThreeBoxLogoWhite.svg';
 import ThreeBoxCloud from '../../../assets/3BoxCloud.png';
 import DappScreensBG from '../../../assets/DappScreensBG.svg';
-import TriangleWhite from '../../../assets/TriangleWhite.svg';
-import TriangleBlue from '../../../assets/TriangleBlue.svg';
-import TriangleBlack from '../../../assets/TriangleBlack.svg';
-import Trust from '../../../assets/Trust.png';
-import HighFive from '../../../assets/HighFive.png';
 import DiscordChat from '../../../assets/DiscordChat.png';
 import DappScreens from '../../../assets/DappScreens.png';
 import NewProfileCard from '../../../assets/NewProfileCard.png';
-import Authentication from '../../../assets/Authentication.png';
-import Collaboration from '../../../assets/Collaboration.png';
-import Profiles from '../../../assets/Profiles.png';
-import Messaging from '../../../assets/Messaging.png';
-import Storage from '../../../assets/Storage.png';
-import DaoStack from '../../../assets/DaoStack.png';
-import Aragon from '../../../assets/Aragon.png';
-import Consensys from '../../../assets/Consensys.png';
-import MetaMask from '../../../assets/MetaMask.png';
-import Foam from '../../../assets/FOAM.png';
-import ColorCubes from '../../../assets/ColorCubes.svg';
 import ProfilesSmall from '../../../assets/ProfilesSmall.png';
 import SSOSmall from '../../../assets/SSOSmall.png';
 import StorageSmall from '../../../assets/StorageSmall.png';
+import DiscordButton from '../components/DiscordButton';
 import '../../styles/Landing.css';
 import '../../styles/NewLanding.css';
 import '../../../components/styles/Nav.css';
@@ -72,9 +56,7 @@ const Landing = ({ showInfoBanner, handleSignInUp }) => (
           </button>
         </div>
       </div>
-      <button type="button" className="hero_graphic_discord">
-        <img src={DiscordChat} alt="Discord button" />
-      </button>
+      <DiscordButton />
     </main>
 
     <section className="dapp_screens">

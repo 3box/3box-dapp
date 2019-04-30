@@ -12,7 +12,6 @@ import TriangleBlack from '../../assets/TriangleBlack.svg';
 import NewProfileCard from '../../assets/NewProfileCard.png';
 import Trust from '../../assets/Trust.png';
 import HighFive from '../../assets/HighFive.png';
-import DiscordChat from '../../assets/DiscordChat.png';
 import Authentication from '../../assets/Authentication.png';
 import Collaboration from '../../assets/Collaboration.png';
 import Profiles from '../../assets/Profiles.png';
@@ -27,8 +26,9 @@ import ColorCubes from '../../assets/ColorCubes.svg';
 import '../styles/Landing.css';
 import '../styles/NewLanding.css';
 import '../../components/styles/Nav.css';
+import DiscordButton from './components/DiscordButton';
 
-const Footer = lazy(() => import('../../components/Footer'));
+const Footer = lazy(() => import('./components/Footer'));
 
 const Landing = ({ showInfoBanner }) => (
   <div className={`landing_page ${(showInfoBanner) ? 'bannerMargin' : ''}`}>
@@ -59,9 +59,7 @@ const Landing = ({ showInfoBanner }) => (
       <div className="hero_graphic">
         <img src={ColorCubes} alt="Color cubes" className="hero_graphic_colorcubes" />
       </div>
-      <button type="button" className="hero_graphic_discord">
-        <img src={DiscordChat} alt="Discord button" />
-      </button>
+      <DiscordButton />
     </main>
 
     <section className="partners">
@@ -202,7 +200,7 @@ const Landing = ({ showInfoBanner }) => (
           </div>
         </div>
         <div className="why_reason_icon-right">
-          <img src={HighFive} alt="High Five"/>
+          <img src={HighFive} alt="High Five" />
         </div>
       </div>
       <div className="why_reason">
@@ -264,82 +262,9 @@ const Landing = ({ showInfoBanner }) => (
         </div>
       </div>
     </section>
-
-    <section className="join">
-      <h3>
-        Towards a better web for all
-      </h3>
-      <p>
-        Join our mailing list to never miss an update.
-      </p>
-      <input type="text" placeholder="Subscribe to email" />
-      <button type="button">
-        Join
-      </button>
-    </section>
-    <footer>
-      <div className="footer_wrapper">
-        {/* <div className="footer_section" /> */}
-        <div className="footer_lane">
-          <img src={ThreeBoxLogo} alt="3Box logo" className="footer_logo" />
-        </div>
-        <div className="footer_lane">
-          <h5>
-            PRODUCTS
-        </h5>
-          <p>
-            Profiles API
-        </p>
-          <p>
-            Messaging API
-        </p>
-          <p>
-            Storage API
-        </p>
-          <p>
-            Hub App
-        </p>
-        </div>
-        <div className="footer_lane">
-          <h5>
-            DOCS
-        </h5>
-          <p>
-            Overview
-        </p>
-        </div>
-        <div className="footer_lane">
-          <h5>
-            MORE
-        </h5>
-          <p>
-            Partners
-        </p>
-          <p>
-            About
-        </p>
-          <p>
-            Team
-        </p>
-          <p>
-            Careers
-        </p>
-          <p>
-            Chat
-        </p>
-        </div>
-        <div className="footer_lane">
-          <div>
-            <button type="button">
-              Sign in to Hub
-          </button>
-          </div>
-          <div>
-
-          </div>
-        </div>
-      </div>
-    </footer>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Footer />
+    </Suspense>
   </div >
 );
 

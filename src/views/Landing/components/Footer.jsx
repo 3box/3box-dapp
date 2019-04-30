@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
+import * as routes from '../../../utils/routes';
 import ThreeBoxLogo from '../../../assets/ThreeBoxLogoWhite.svg';
 
 const Footer = () => (
@@ -7,14 +9,17 @@ const Footer = () => (
     <section className="join">
       <h3>
         Towards a better web for all
-  </h3>
+      </h3>
       <p>
         Join our mailing list to never miss an update.
-  </p>
-      <input type="text" placeholder="Subscribe to email" />
-      <button type="button">
-        Join
-  </button>
+      </p>
+      <form className="join_input">
+        <input type="text" placeholder="Subscribe to email" />
+        <button type="button">
+          Join
+        </button>
+      </form>
+      <div className="footer_line" />
     </section>
     <footer>
       <div className="footer_wrapper">
@@ -24,53 +29,53 @@ const Footer = () => (
         <div className="footer_lane">
           <h5>
             PRODUCTS
-    </h5>
-          <p>
+          </h5>
+          <Link to={routes.API_PROFILES}>
             Profiles API
-    </p>
-          <p>
+          </Link>
+          <Link to={routes.API_MESSAGING}>
             Messaging API
-    </p>
-          <p>
+          </Link>
+          <Link to={routes.API_STORAGE}>
             Storage API
-    </p>
-          <p>
+          </Link>
+          <Link to={routes.HUB}>
             Hub App
-    </p>
+          </Link>
         </div>
         <div className="footer_lane">
           <h5>
             DOCS
-    </h5>
-          <p>
+          </h5>
+          <a href="https://github.com/3box/3box" target="_blank" rel="noopener noreferrer">
             Overview
-    </p>
+          </a>
         </div>
         <div className="footer_lane">
           <h5>
             MORE
-    </h5>
-          <p>
+          </h5>
+          {/* <p>
             Partners
-    </p>
+          </p> */}
           <p>
             About
-    </p>
-          <p>
+          </p>
+          {/* <p>
             Team
-    </p>
-          <p>
+          </p> */}
+          <Link to={routes.JOBS}>
             Careers
-    </p>
-          <p>
+          </Link>
+          <a href="https://chat.3box.io" target="_blank" rel="noopener noreferrer">
             Chat
-    </p>
+          </a>
         </div>
         <div className="footer_lane">
           <div>
             <button type="button">
               Sign in to Hub
-      </button>
+            </button>
           </div>
           <div>
 
