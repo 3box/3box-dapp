@@ -631,10 +631,13 @@ nav {
 }
 
 .landing_nav_api_option {
-  width: 25%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 23%;
+
+  a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 
 .landing_nav_api_option_icon {
@@ -649,7 +652,7 @@ nav {
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-  width: 70%;
+  width: 65%;
 
   h4 {
     margin-bottom: 6px;

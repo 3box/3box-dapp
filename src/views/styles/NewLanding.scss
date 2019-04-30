@@ -127,6 +127,10 @@
   /* IE6-9 fallback on horizontal gradient */
 }
 
+.dapp_screens_devices {
+  z-index: 1;
+}
+
 .dapp_screens_bg {
   position: absolute;
   min-width: 100vw;
@@ -537,7 +541,7 @@
   }
 }
 
-.join_input {
+.join_input div {
   display: flex;
   align-items: center;
 
@@ -552,7 +556,7 @@
   button {
     display: flex;
     align-items: center;
-    margin-left: -73px;
+    margin-left: -92.5px;
     height: 42px;
     padding: 0 20px;
   }
@@ -768,4 +772,32 @@ pre {
   border-bottom: 1px solid $borderColor;
   opacity: .4;
   margin-top: 130px;
+}
+
+@media only screen and (max-width: 600px) {
+  .hero {
+    flex-direction: column-reverse;
+  }
+
+  .hero_copy {
+    width: 100vw;
+  }
+
+  .hero_graphic {
+    width: 100vw;
+  }
+
+  .hero_graphic_colorcubes {
+    height: 20vh;
+    width: 100vw;
+    object-fit: fill;
+  }
+
+  .partners_list {
+    flex-direction: column;
+  }
+
+  .product_apis_featureList {
+    flex-direction: column;
+  }
 }

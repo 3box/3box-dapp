@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import MailChimp from '../../../components/MailChimp';
 import * as routes from '../../../utils/routes';
 import ThreeBoxLogo from '../../../assets/ThreeBoxLogoWhite.svg';
 
@@ -14,10 +15,11 @@ const Footer = () => (
         Join our mailing list to never miss an update.
       </p>
       <form className="join_input">
-        <input type="text" placeholder="Subscribe to email" />
+        {/* <input type="text" placeholder="Subscribe to email" />
         <button type="button">
           Join
-        </button>
+        </button> */}
+        <MailChimp />
       </form>
       <div className="footer_line" />
     </section>

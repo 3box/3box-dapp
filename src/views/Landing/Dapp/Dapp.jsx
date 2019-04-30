@@ -61,7 +61,7 @@ const Landing = ({ showInfoBanner, handleSignInUp }) => (
 
     <section className="dapp_screens">
       <img src={ThreeBoxCloud} className="hero_copy_cloud" alt="3Box cloud" />
-      <img src={DappScreens} alt="Dapp Screens" />
+      <img src={DappScreens} alt="Dapp Screens" className="dapp_screens_devices"/>
       <img src={DappScreensBG} alt="Dapp Screens BG" className="dapp_screens_bg" />
     </section>
 

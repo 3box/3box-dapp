@@ -96,60 +96,78 @@ class NavLanding extends Component {
         <div className={`${showAPI ? 'showAPI' : ''} ${retractNav ? 'apiLower' : ''} landing_nav_api`}>
           <div className="landing_nav_api_wrapper">
             <div className="landing_nav_api_option">
-              <div className="landing_nav_api_option_icon">
-                <img src={SSOSmall} alt="Single sign on icon" />
-              </div>
-              <div className="landing_nav_api_option_text">
-                <h4>
-                  Authentication (SSO)
-                </h4>
-                <p>
-                  Seamlessly onboard users to your application
-                </p>
-              </div>
+              <Link to={routes.API_PROFILES} className="">
+                <div className="landing_nav_api_option_icon">
+                  <img src={SSOSmall} alt="Single sign on icon" />
+                </div>
+                <div className="landing_nav_api_option_text">
+                  <h4>
+                    Authentication (SSO)
+                  </h4>
+                  <p>
+                    Seamlessly onboard users to your application
+                  </p>
+                </div>
+              </Link>
             </div>
             <div className="landing_nav_api_option">
-              <div className="landing_nav_api_option_icon">
-                <img src={ProfilesSmall} alt="Single sign on icon" />
-              </div>
-              <div className="landing_nav_api_option_text">
-                <h4>
-                  Profiles
-                </h4>
-                <p>
-                  Support social profiles and basic reputation
-                </p>
-              </div>
+              <Link to={routes.API_PROFILES}>
+                <div className="landing_nav_api_option_icon">
+                  <img src={ProfilesSmall} alt="Single sign on icon" />
+                </div>
+                <div className="landing_nav_api_option_text">
+                  <h4>
+                    Profiles
+                  </h4>
+                  <p>
+                    Support social profiles and basic reputation
+                  </p>
+                </div>
+              </Link>
             </div>
             <div className="landing_nav_api_option">
-              <div className="landing_nav_api_option_icon">
-                <img src={MessagingSmall} alt="Single sign on icon" />
-              </div>
-              <div className="landing_nav_api_option_text">
-                <h4>
-                  Messaging
-                </h4>
-                <p>
-                  Add decentralized chat, messaging, and commenting
-                </p>
-              </div>
+              <Link to={routes.API_MESSAGING}>
+                <div className="landing_nav_api_option_icon">
+                  <img src={MessagingSmall} alt="Single sign on icon" />
+                </div>
+                <div className="landing_nav_api_option_text">
+                  <h4>
+                    Messaging
+                  </h4>
+                  <p>
+                    Add decentralized chat, messaging, and commenting
+                  </p>
+                </div>
+              </Link>
             </div>
             <div className="landing_nav_api_option">
-              <div className="landing_nav_api_option_icon">
-                <img src={StorageSmall} alt="Single sign on icon" />
-              </div>
-              <div className="landing_nav_api_option_text">
-                <h4>
-                  Storage
-                </h4>
-                <p>
-                  Store user data in a private database just for your app
-                </p>
-              </div>
+              <Link to={routes.API_STORAGE}>
+                <div className="landing_nav_api_option_icon">
+                  <img src={StorageSmall} alt="Single sign on icon" />
+                </div>
+                <div className="landing_nav_api_option_text">
+                  <h4>
+                    Storage
+                  </h4>
+                  <p>
+                    Store user data in a private database just for your app
+                  </p>
+                </div>
+              </Link>
             </div>
           </div>
         </div>
-      </nav>
+        {showAPI &&
+          (
+            <div
+              className="onClickOutside"
+              onClick={this.handleAPI}
+              onKeyPress={this.handleAPI}
+              tabIndex={0}
+              role="button"
+            />)
+        }
+      </nav >
     );
   }
 }

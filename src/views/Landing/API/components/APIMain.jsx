@@ -13,14 +13,18 @@ const APIMain = () => (
           A suite of APIs to easily build distributed consumer application
           </p>
         <div className="hero_copy_buttons">
-          <button type="button" className="hero_copy_buttons_button">
-            Read the Docs
+          <a href="https://github.com/3box/3box">
+            <button type="button" className="hero_copy_buttons_button">
+              Read the Docs
               <img src={TriangleWhite} alt="arrow" />
-          </button>
-          <button type="button" className="secondary">
-            About 3Box
+            </button>
+          </a>
+          <a href="">
+            <button type="button" className="secondary">
+              About 3Box
               <img src={TriangleBlack} alt="arrow" />
-          </button>
+            </button>
+          </a>
         </div>
       </div>
     </div>

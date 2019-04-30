@@ -499,10 +499,11 @@ nav {
   align-items: center; }
 
 .landing_nav_api_option {
-  width: 25%;
-  display: flex;
-  justify-content: center;
-  align-items: center; }
+  width: 23%; }
+  .landing_nav_api_option a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; }
 
 .landing_nav_api_option_icon {
   display: flex;
@@ -515,7 +516,7 @@ nav {
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-  width: 70%; }
+  width: 65%; }
   .landing_nav_api_option_text h4 {
     margin-bottom: 6px; }
   .landing_nav_api_option_text p {
