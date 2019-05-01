@@ -57,9 +57,9 @@ const Footer = () => (
           <h5>
             MORE
           </h5>
-          <p>
+          {/* <p>
             About
-          </p>
+          </p> */}
           <Link to={routes.JOBS}>
             Careers
           </Link>

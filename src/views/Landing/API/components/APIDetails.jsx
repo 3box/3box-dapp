@@ -1,6 +1,10 @@
 import React from 'react';
 import Highlight from 'react-highlight';
 
+import GreenBullet from '../../../../assets/GreenBullet.png';
+import YellowBullet from '../../../../assets/YellowBullet.png';
+import PinkBullet from '../../../../assets/PinkBullet.png';
+
 export const ProfileDetails = ({ openSection }) => (
   <section className={`api_sections_expanded ${openSection ? 'openSection' : ''}`}>
     <div className="api_sections_expanded_wrapper">
@@ -23,20 +27,35 @@ export const ProfileDetails = ({ openSection }) => (
       <div className="api_sections_expanded_usp">
         <ul>
           <li>
-            Humanize your decentralized application
-        </li>
+            <img src={PinkBullet} alt="bullet point" className="api_sections_expanded_usp_bullets" />
+            <p>
+              Humanize your decentralized application
+            </p>
+          </li>
           <li>
-            Access shared social identity and basic reputation
-        </li>
+            <img src={PinkBullet} alt="bullet point" className="api_sections_expanded_usp_bullets" />
+            <p>
+              Access shared social identity and basic reputation
+            </p>
+          </li>
           <li>
-            Save public and encrypted profile data
-        </li>
+            <img src={PinkBullet} alt="bullet point" className="api_sections_expanded_usp_bullets" />
+            <p>
+              Save public and encrypted profile data
+            </p>
+          </li>
           <li>
-            Support for shared or application specific profiles
-        </li>
+            <img src={PinkBullet} alt="bullet point" className="api_sections_expanded_usp_bullets" />
+            <p>
+              Support for shared or application specific profiles
+            </p>
+          </li>
           <li>
-            Compatible with Ethereum accounts
-        </li>
+            <img src={PinkBullet} alt="bullet point" className="api_sections_expanded_usp_bullets" />
+            <p>
+              Compatible with Ethereum accounts
+            </p>
+          </li>
         </ul>
       </div>
       <div className="api_sections_expanded_codeBlock">
@@ -144,17 +163,29 @@ export const MessagingDetails = ({ openSection }) => (
       <div className="api_sections_expanded_usp">
         <ul>
           <li>
-            Add interactivity to your decentralized application
-            </li>
+            <img src={GreenBullet} alt="bullet point" className="api_sections_expanded_usp_bullets" />
+            <p>
+              Add interactivity to your decentralized application
+            </p>
+          </li>
           <li>
-            Build chat, comment, and content threads
-            </li>
+            <img src={GreenBullet} alt="bullet point" className="api_sections_expanded_usp_bullets" />
+            <p>
+              Build chat, comment, and content threads
+            </p>
+          </li>
           <li>
-            Support for moderation, if desired
-            </li>
+            <img src={GreenBullet} alt="bullet point" className="api_sections_expanded_usp_bullets" />
+            <p>
+              Support for moderation, if desired
+            </p>
+          </li>
           <li>
-            Compatible with Ethereum apps
-            </li>
+            <img src={GreenBullet} alt="bullet point" className="api_sections_expanded_usp_bullets" />
+            <p>
+              Compatible with Ethereum apps
+            </p>
+          </li>
         </ul>
       </div>
       <div className="api_sections_expanded_codeBlock">
@@ -264,17 +295,29 @@ export const StorageDetails = ({ openSection }) => (
       <div className="api_sections_expanded_usp">
         <ul>
           <li>
-            Reduce liability by storing content directly with users
-        </li>
+            <img src={YellowBullet} alt="bullet point" className="api_sections_expanded_usp_bullets" />
+            <p>
+              Reduce liability by storing content directly with users
+            </p>
+          </li>
           <li>
-            Store sensitive, application-specific, and context-specific data
-        </li>
+            <img src={YellowBullet} alt="bullet point" className="api_sections_expanded_usp_bullets" />
+            <p>
+              Store sensitive, application-specific, and context-specific data
+            </p>
+          </li>
           <li>
-            Support for public and encrypted storage
-        </li>
+            <img src={YellowBullet} alt="bullet point" className="api_sections_expanded_usp_bullets" />
+            <p>
+              Support for public and encrypted storage
+            </p>
+          </li>
           <li>
-            Compatible with Ethereum apps
-        </li>
+            <img src={YellowBullet} alt="bullet point" className="api_sections_expanded_usp_bullets" />
+            <p>
+              Compatible with Ethereum apps
+            </p>
+          </li>
         </ul>
       </div>
       <div className="api_sections_expanded_codeBlock">

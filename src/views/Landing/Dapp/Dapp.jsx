@@ -52,7 +52,7 @@ const Landing = ({ showInfoBanner, handleSignInUp }) => (
         <div className="main_profileCard">
           <img src={NewProfileCard} alt="Profile card" className="main_profileCard_card" />
           <button type="button" onClick={handleSignInUp}>
-            Sign In to Hub
+            Log In
           </button>
         </div>
       </div>
@@ -60,7 +60,7 @@ const Landing = ({ showInfoBanner, handleSignInUp }) => (
     </main>
 
     <section className="dapp_screens">
-      <img src={ThreeBoxCloud} className="hero_copy_cloud" alt="3Box cloud" />
+      <img src={ThreeBoxCloud} className="hero_copy_cloud desktop" alt="3Box cloud" />
       <img src={DappScreens} alt="Dapp Screens" className="dapp_screens_devices"/>
       <img src={DappScreensBG} alt="Dapp Screens BG" className="dapp_screens_bg" />
     </section>

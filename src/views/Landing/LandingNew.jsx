@@ -34,7 +34,7 @@ const Footer = lazy(() => import('./components/Footer'));
 const Landing = ({ showInfoBanner }) => (
   <div className={`landing_page ${(showInfoBanner) ? 'bannerMargin' : ''}`}>
     <main className="hero">
-      <div className="hero_copy">
+      <div className="hero_text">
         <div className="hero_copy_wrapper">
           <img src={ThreeBoxCloud} className="hero_copy_cloud" alt="3Box cloud" />
           <h1>Secure Cloud Storage</h1>
@@ -67,11 +67,18 @@ const Landing = ({ showInfoBanner }) => (
     <section className="partners">
       <div className="partners_wrapper">
         <h4>PARTNERS</h4>
-        <div className="partners_list">
+        <div className="partners_list desktop">
+          <img src={DaoStack} alt="DaoStack" className="partners_list-daostack" />
+          <img src={Consensys} alt="Consensys" />
+          <img src={Foam} alt="FOAM" className="partners_list-foam" />
+          <img src={MetaMask} alt="MetaMask" />
+          <img src={Aragon} alt="Aragon" />
+        </div>
+        <div className="partners_list mobile">
           <div className="partners_list_wrapper">
             <img src={DaoStack} alt="DaoStack" className="partners_list-daostack" />
             <img src={Consensys} alt="Consensys" />
-            <img src={Foam} alt="FOAM" className="partners_list-foam"/>
+            <img src={Foam} alt="FOAM" className="partners_list-foam" />
           </div>
           <div className="partners_list_wrapper">
             <img src={MetaMask} alt="MetaMask" />
@@ -245,10 +252,10 @@ const Landing = ({ showInfoBanner }) => (
           </div>
         </div>
       </div>
-      <button className="secondary blueButton" type="button">
+      {/* <button className="secondary blueButton" type="button">
         More about 3Box
         <img src={TriangleBlue} alt="arrow" />
-      </button>
+      </button> */}
     </section>
 
     <section className="hub">

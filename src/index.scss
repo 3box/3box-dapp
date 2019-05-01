@@ -253,6 +253,10 @@ input:focus {
   }
 }
 
+.mobile {
+  display: none !important;
+}
+
 .signInFromPublicProfileBanner {
   width: 100vw;
   height: 54px;
@@ -413,6 +417,14 @@ input:focus {
       justify-content: space-between;
     }
 
+  }
+
+  .desktop {
+    display: none;
+  }
+
+  .mobile {
+    display: flex;
   }
 
   .webThreeBanner__close {

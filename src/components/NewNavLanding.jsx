@@ -65,6 +65,7 @@ class NavLanding extends Component {
 
     const { pathname } = this.props.location;
     const normalizedPath = normalizeURL(pathname);
+    const route = pathname.split('/')[1];
 
     return (
       <nav
@@ -99,13 +100,14 @@ class NavLanding extends Component {
             Blog
           </a>
         </div>
-        <div id="actionButtons">
-          <Link to={routes.HUB}>
-            <button type="button">
-              Sign in to Hub
-            </button>
-          </Link>
-        </div>
+        {route !== 'hub' && (
+          <div id="actionButtons">
+            <Link to={routes.HUB}>
+              <button type="button">
+                Sign in to Hub
+              </button>
+            </Link>
+          </div>)}
 
         <div className={`${showAPI ? 'showAPI' : ''} ${retractNav ? 'apiLower' : ''} landing_nav_api`}>
           <div className="landing_nav_api_wrapper">

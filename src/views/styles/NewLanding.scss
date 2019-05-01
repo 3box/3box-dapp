@@ -24,7 +24,21 @@
 .hero_copy {
   width: 65vw;
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.hero_text {
+  width: 65vw;
+  display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.api_main_wrapper {
+  width: 78%;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -44,6 +58,7 @@
 
 .main_wrapper {
   width: 76vw;
+  min-width: 640px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -106,6 +121,14 @@
   }
 }
 
+.partners_list-daostack {
+  width: 94px !important;
+}
+
+.partners_list-foam {
+  width: 94px !important;
+}
+
 .dapp_screens {
   position: relative;
   width: 100vw;
@@ -125,6 +148,7 @@
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fefe2f', endColorstr='#f931ff', GradientType=1);
   /* IE6-9 fallback on horizontal gradient */
+  overflow: hidden;
 }
 
 .dapp_screens_devices {
@@ -264,6 +288,7 @@
   flex-direction: column;
   height: fit-content;
   box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
+  min-width: 950px;
 }
 
 .section_header {
@@ -498,6 +523,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .hub_popout_info_wrapper {
@@ -562,8 +588,8 @@
   align-items: center;
 
   input {
-    height: 46px;
-    width: 300px;
+    height: 60px;
+    width: 400px;
     border-radius: 5px;
     border: none;
     padding-left: 15px;
@@ -655,7 +681,7 @@ footer {
 }
 
 .api_sections_wrapper {
-  width: 80%;
+  width: 78%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -688,7 +714,7 @@ footer {
 }
 
 .api_sections_expanded_wrapper {
-  width: 80%;
+  width: 60%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -751,6 +777,17 @@ footer {
 .api_sections_expanded_usp {
   margin-top: 30px;
   margin-bottom: 50px;
+
+  li {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 6px;
+
+    img {
+      margin-right: 12px;
+    }
+  }
 }
 
 .api_sections_expanded_codeBlock {
@@ -810,6 +847,12 @@ pre {
 
   .hero_copy {
     width: 100vw;
+    justify-content: center;
+  }
+
+  .hero_text {
+    width: 100vw;
+    justify-content: center;
   }
 
   .hero_graphic {
@@ -924,6 +967,7 @@ pre {
 
   .apis_popout {
     padding: 60px 25px;
+    min-width: 90vw;
   }
 
   .product_apis_featureList_features {
@@ -1076,5 +1120,37 @@ pre {
 
   .api_sections_expanded_codeBlock {
     overflow: scroll;
+  }
+
+  .main_wrapper {
+    flex-direction: column-reverse;
+    width: 90vw;
+    min-width: 90vw;
+  }
+
+  .dapp_main {
+    padding-top: 26px;
+    height: 148vh;
+  }
+
+  .main_profileCard {
+    width: 100%;
+  }
+
+  .main_copy {
+    width: 80%;
+    margin-top: 56px;
+  }
+
+  .dapp_screens_devices {
+    width: 90%;
+  }
+
+  .api_main_wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column-reverse;
   }
 }

@@ -6,30 +6,32 @@ import Devs from '../../../../assets/Devs.png';
 
 const APIMain = () => (
   <main className="api_main">
-    <div className="hero_copy">
-      <div className="hero_copy_wrapper">
-        <h1>Our products</h1>
-        <p>
-          A suite of APIs to easily build distributed consumer application
+    <div className="api_main_wrapper">
+      <div className="hero_copy">
+        <div className="hero_copy_wrapper">
+          <h1>Our products</h1>
+          <p>
+            A suite of APIs to easily build distributed consumer application
           </p>
-        <div className="hero_copy_buttons">
-          <a href="https://github.com/3box/3box">
-            <button type="button" className="hero_copy_buttons_button">
-              Read the Docs
+          <div className="hero_copy_buttons">
+            <a href="https://github.com/3box/3box">
+              <button type="button" className="hero_copy_buttons_button">
+                Read the Docs
               <img src={TriangleWhite} alt="arrow" />
-            </button>
-          </a>
-          <a href="">
-            <button type="button" className="secondary">
-              About 3Box
+              </button>
+            </a>
+            <a href="">
+              <button type="button" className="secondary">
+                About 3Box
               <img src={TriangleBlack} alt="arrow" />
-            </button>
-          </a>
+              </button>
+            </a>
+          </div>
         </div>
       </div>
-    </div>
-    <div className="hero_graphic">
-      <img src={Devs} alt="Developers" className="hero_devs" />
+      <div className="hero_graphic">
+        <img src={Devs} alt="Developers" className="hero_devs" />
+      </div>
     </div>
   </main>
 );

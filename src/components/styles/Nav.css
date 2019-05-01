@@ -188,7 +188,8 @@ nav {
     color: #6b6b6b;
     line-height: 4em;
     font-weight: 400;
-    cursor: pointer; }
+    cursor: pointer;
+    box-sizing: border-box; }
   .nav__dropdown li:hover {
     background: #f9f9f9; }
   .nav__dropdown div {

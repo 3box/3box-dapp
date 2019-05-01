@@ -206,6 +206,9 @@ input:focus {
   .webThreeBanner p {
     color: rgba(255, 255, 255, 0.904); }
 
+.mobile {
+  display: none !important; }
+
 .signInFromPublicProfileBanner {
   width: 100vw;
   height: 54px;
@@ -331,6 +334,10 @@ input:focus {
       display: flex;
       align-items: center;
       justify-content: space-between; }
+  .desktop {
+    display: none; }
+  .mobile {
+    display: flex; }
   .webThreeBanner__close {
     position: relative;
     width: 5% !important;
