@@ -57,15 +57,9 @@ const Footer = () => (
           <h5>
             MORE
           </h5>
-          {/* <p>
-            Partners
-          </p> */}
           <p>
             About
           </p>
-          {/* <p>
-            Team
-          </p> */}
           <Link to={routes.JOBS}>
             Careers
           </Link>
@@ -75,9 +69,11 @@ const Footer = () => (
         </div>
         <div className="footer_lane">
           <div>
-            <button type="button">
-              Sign in to Hub
-            </button>
+            <Link to={routes.HUB}>
+              <button type="button">
+                Sign in to Hub
+              </button>
+            </Link>
           </div>
           <div>
 

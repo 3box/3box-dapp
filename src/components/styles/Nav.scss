@@ -674,6 +674,10 @@ nav {
   cursor: pointer;
 }
 
+.landing_nav_hamburger-mobile {
+  display: none;
+}
+
 @media only screen and (max-width: 600px) {
   nav {
     justify-content: center;
@@ -880,4 +884,22 @@ nav {
     background: $backgroundHue;
     padding-left: calc(1.3em - 5px) !important;
   }
+
+  .landing_nav_hamburger-mobile {
+    display: flex;
+  }
+
+  .landing_nav_hamburger_button {
+    padding: 0;
+
+    img {
+      width: 24px;
+      margin: 0 20px 0 0;
+    }
+  }
+
+  .landing_nav_link {
+    display: none !important;
+  }
+
 }

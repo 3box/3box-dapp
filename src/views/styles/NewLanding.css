@@ -127,7 +127,7 @@
   .hero_graphic button {
     z-index: 2; }
 
-.hero_graphic_colorcubes {
+.hero_graphic_colorcubes-dtw {
   position: absolute;
   left: 0;
   top: 0;
@@ -166,7 +166,7 @@
     color: #b1b1b1;
     font-weight: 300;
     position: absolute;
-    top: 130px;
+    top: 60px;
     font-size: 18px; }
 
 .partners_wrapper {
@@ -181,6 +181,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center; }
+
+.partners_list_wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px; }
+  .partners_list_wrapper img {
+    width: 60px; }
 
 .apis {
   position: relative;
@@ -374,6 +383,11 @@
 
 .hub_popout_info {
   width: 64%;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.product_apis_featureList_features_copy {
   display: flex;
   justify-content: center;
   align-items: center; }
@@ -603,18 +617,122 @@ pre {
   opacity: .4;
   margin-top: 130px; }
 
+.hero_graphic_colorcubes-mobile {
+  display: none; }
+
 @media only screen and (max-width: 600px) {
   .hero {
-    flex-direction: column-reverse; }
+    flex-direction: column-reverse;
+    justify-content: flex-end; }
   .hero_copy {
     width: 100vw; }
   .hero_graphic {
-    width: 100vw; }
-  .hero_graphic_colorcubes {
-    height: 20vh;
+    width: 100vw;
+    align-items: flex-start;
+    height: 300px; }
+  .hero_graphic_colorcubes-dtw {
+    display: none; }
+  .hero_graphic_colorcubes-mobile {
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 21px;
+    height: 100%;
     width: 100vw;
     object-fit: fill; }
   .partners_list {
     flex-direction: column; }
   .product_apis_featureList {
-    flex-direction: column; } }
+    flex-direction: column;
+    margin-bottom: 50px; }
+  .hero_copy_buttons {
+    flex-direction: column; }
+  .hero_copy_buttons_button {
+    margin-bottom: 18px; }
+  .why_reason {
+    flex-direction: column;
+    margin-bottom: 100px; }
+  .why_reason_info_tags {
+    margin-top: 40px;
+    display: block; }
+  .why_reason_info_tag {
+    float: left;
+    margin-bottom: 12px; }
+  .why_reason_icon {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 50px; }
+    .why_reason_icon img {
+      width: 50%; }
+  .why_reason_icon-right {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 50px; }
+    .why_reason_icon-right img {
+      width: 50%; }
+  .why_reason_info {
+    width: 90%; }
+  .switch_why {
+    flex-direction: column-reverse; }
+  .hero_copy_cloud {
+    position: absolute;
+    top: 152px;
+    left: 24px;
+    width: 120px;
+    z-index: 1; }
+  .hero_copy_wrapper {
+    width: 84%; }
+  .partners_wrapper {
+    width: 84%; }
+  .section_blurb {
+    width: 90%; }
+    .section_blurb h3 {
+      font-size: 20px;
+      line-height: 34px; }
+  .apis_popout {
+    padding: 60px 25px; }
+  .product_apis_featureList_features {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 0;
+    margin-bottom: 40px; }
+    .product_apis_featureList_features h5 {
+      text-align: left;
+      margin-bottom: 6px; }
+    .product_apis_featureList_features p {
+      text-align: left; }
+  .feature_icon {
+    width: 64px; }
+  .product_apis_featureList_features_copy {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 26px; }
+  .partners_list-daostack {
+    width: 88px !important; }
+  .partners_list-foam {
+    width: 88px !important; }
+  .partners_list_wrapper {
+    margin-bottom: 30px; }
+    .partners_list_wrapper img {
+      width: 54px; }
+  .hub_popout {
+    flex-direction: column; }
+  .hub_popout_profile {
+    width: 100%;
+    margin-bottom: 60px; }
+  .hub_popout_profile_card {
+    width: 100%; }
+  .hub_popout_info {
+    width: 100%; }
+  .hub_popout_info_wrapper {
+    width: 100%;
+    align-items: center; }
+  .join h3 {
+    width: 80%; }
+  .footer_wrapper {
+    flex-direction: column;
+    width: 60vw; }
+  .footer_lane {
+    width: 100%;
+    margin-bottom: 30px; } }

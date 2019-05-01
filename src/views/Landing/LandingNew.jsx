@@ -23,6 +23,7 @@ import Consensys from '../../assets/Consensys.png';
 import MetaMask from '../../assets/MetaMask.png';
 import Foam from '../../assets/FOAM.png';
 import ColorCubes from '../../assets/ColorCubes.svg';
+import ColorCubesMobile from '../../assets/ColorCubesMobile.svg';
 import '../styles/Landing.css';
 import '../styles/NewLanding.css';
 import '../../components/styles/Nav.css';
@@ -57,7 +58,8 @@ const Landing = ({ showInfoBanner }) => (
         </div>
       </div>
       <div className="hero_graphic">
-        <img src={ColorCubes} alt="Color cubes" className="hero_graphic_colorcubes" />
+        <img src={ColorCubes} alt="Color cubes" className="hero_graphic_colorcubes-dtw" />
+        <img src={ColorCubesMobile} alt="Color cubes" className="hero_graphic_colorcubes-mobile" />
       </div>
       <DiscordButton />
     </main>
@@ -66,11 +68,15 @@ const Landing = ({ showInfoBanner }) => (
       <div className="partners_wrapper">
         <h4>PARTNERS</h4>
         <div className="partners_list">
-          <img src={DaoStack} alt="DaoStack" />
-          <img src={Aragon} alt="Aragon" />
-          <img src={Consensys} alt="Consensys" />
-          <img src={MetaMask} alt="MetaMask" />
-          <img src={Foam} alt="FOAM" />
+          <div className="partners_list_wrapper">
+            <img src={DaoStack} alt="DaoStack" className="partners_list-daostack" />
+            <img src={Consensys} alt="Consensys" />
+            <img src={Foam} alt="FOAM" className="partners_list-foam"/>
+          </div>
+          <div className="partners_list_wrapper">
+            <img src={MetaMask} alt="MetaMask" />
+            <img src={Aragon} alt="Aragon" />
+          </div>
         </div>
       </div>
     </section>
@@ -89,47 +95,55 @@ const Landing = ({ showInfoBanner }) => (
         <div className="product_apis_featureList">
           <div className="product_apis_featureList_features">
             <img src={Authentication} className="feature_icon" alt="API Feature Icon" />
-            <h5>Authentication (SSO)</h5>
-            <p>
-              Seamlessly onboard users to your application
+            <div className="product_apis_featureList_features_copy">
+              <h5>Authentication (SSO)</h5>
+              <p>
+                Seamlessly onboard users to your application
             </p>
-            <Link to={routes.API_PROFILES}>
-              Explore More
+              <Link to={routes.API_PROFILES}>
+                Explore More
               <img src={TriangleBlue} alt="Arrow" className="feature_link_arrow" />
-            </Link>
+              </Link>
+            </div>
           </div>
           <div className="product_apis_featureList_features">
             <img src={Profiles} className="feature_icon" alt="API Feature Icon" />
-            <h5>Profiles</h5>
-            <p>
-              Support social identity and basic reputation
-            </p>
-            <Link to={routes.API_PROFILES}>
-              Explore More
+            <div className="product_apis_featureList_features_copy">
+              <h5>Profiles</h5>
+              <p>
+                Support social identity and basic reputation
+              </p>
+              <Link to={routes.API_PROFILES}>
+                Explore More
               <img src={TriangleBlue} alt="Arrow" className="feature_link_arrow" />
-            </Link>
+              </Link>
+            </div>
           </div>
           <div className="product_apis_featureList_features">
             <img src={Messaging} className="feature_icon" alt="API Feature Icon" />
-            <h5>Messaging</h5>
-            <p>
-              Add decentralized chat, messaging, and commenting
-            </p>
-            <Link to={routes.API_MESSAGING}>
-              Explore More
+            <div className="product_apis_featureList_features_copy">
+              <h5>Messaging</h5>
+              <p>
+                Add decentralized chat, messaging, and commenting
+              </p>
+              <Link to={routes.API_MESSAGING}>
+                Explore More
               <img src={TriangleBlue} alt="Arrow" className="feature_link_arrow" />
-            </Link>
+              </Link>
+            </div>
           </div>
           <div className="product_apis_featureList_features">
             <img src={Storage} className="feature_icon" alt="API Feature Icon" />
-            <h5>Storage</h5>
-            <p>
-              Store user data in a private database just for your app
-            </p>
-            <Link to={routes.API_STORAGE}>
-              Explore More
+            <div className="product_apis_featureList_features_copy">
+              <h5>Storage</h5>
+              <p>
+                Store user data in a private database just for your app
+              </p>
+              <Link to={routes.API_STORAGE}>
+                Explore More
               <img src={TriangleBlue} alt="Arrow" className="feature_link_arrow" />
-            </Link>
+              </Link>
+            </div>
           </div>
         </div>
         <div className="api_buildBetter">
@@ -178,7 +192,7 @@ const Landing = ({ showInfoBanner }) => (
           </div>
         </div>
       </div>
-      <div className="why_reason">
+      <div className="why_reason switch_why">
         <div className="why_reason_info">
           <h4>
             Engage and delight users with interactive, social experiences.

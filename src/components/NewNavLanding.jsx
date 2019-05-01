@@ -9,6 +9,7 @@ import SSOSmall from '../assets/SSOSmall.png';
 import ProfilesSmall from '../assets/ProfilesSmall.png';
 import MessagingSmall from '../assets/MessagingSmall.png';
 import StorageSmall from '../assets/StorageSmall.png';
+import List from '../assets/List.svg';
 import '../views/styles/Landing.css';
 import './styles/Nav.css';
 
@@ -18,6 +19,7 @@ class NavLanding extends Component {
     this.state = {
       retractNav: false,
       showAPI: false,
+      showSideDrawer: false,
     };
   }
 
@@ -42,13 +44,18 @@ class NavLanding extends Component {
     this.setState({ showAPI: !showAPI });
   }
 
+  handleMobileSideBar = () => {
+    const { showSideDrawer } = this.state;
+    this.setState({
+      showSideDrawer: !showSideDrawer,
+    });
+  }
+
   render() {
-    const { retractNav, showAPI } = this.state;
+    const { retractNav, showAPI, showSideDrawer } = this.state;
     const {
-      handleSignInUp,
       showInfoBanner,
       landing,
-      pathname,
       onOtherProfilePage,
       showSignInBanner,
     } = this.props;
@@ -66,22 +73,25 @@ class NavLanding extends Component {
             ${landing}`}
       >
         <div id="landing__nav__logo--marginLeft">
+          <div className="landing_nav_hamburger-mobile">
+            <button
+              className="landing_nav_hamburger_button clearButton"
+              onClick={this.handleMobileSideBar}
+              type="button"
+            >
+              <img src={List} alt="" />
+            </button>
+          </div>
           <Link to={routes.LANDING}>
             <img src={ThreeBoxLogoBlack} alt="3Box Logo" className="landing__nav__logo" />
           </Link>
-          <div onClick={this.handleAPI} className="landing_nav_apiLink">
+          <div onClick={this.handleAPI} className="landing_nav_apiLink landing_nav_link">
             API Products
           </div>
-          <a href="https://github.com/3box/3box" target="_blank" rel="noopener noreferrer">
+          <a href="https://github.com/3box/3box" target="_blank" rel="noopener noreferrer" className="landing_nav_link">
             Docs
           </a>
-          {/* <Link to="/partners">
-            Partners
-          </Link>
-          <Link to="/partners">
-            Chat
-          </Link> */}
-          <a href="https://medium.com/3box" target="_blank" rel="noopener noreferrer">
+          <a href="https://medium.com/3box" target="_blank" rel="noopener noreferrer" className="landing_nav_link">
             Blog
           </a>
         </div>
@@ -167,7 +177,33 @@ class NavLanding extends Component {
               role="button"
             />)
         }
-      </nav >
+
+        <div
+          className={`${showSideDrawer ? 'sideDrawer' : undefined} nav__dropdown mobileDropDown`}
+          onClick={this.handleMobileSideBar}
+          onKeyPress={this.handleMobileSideBar}
+          role="button"
+          tabIndex={0}
+        >
+          <ul>
+            <Link to={routes.LANDING} className="nav__dropdown__mobileLogo">
+              <img src={ThreeBoxLogoBlack} alt="3Box Logo" className="landing__nav__logo" />
+            </Link>
+
+            <div onClick={this.handleAPI} className="landing_nav_apiLink">
+              API Products
+            </div>
+
+            <a href="https://github.com/3box/3box" target="_blank" rel="noopener noreferrer">
+              Docs
+            </a>
+
+            <a href="https://medium.com/3box" target="_blank" rel="noopener noreferrer">
+              Blog
+            </a>
+          </ul>
+        </div>
+      </nav>
     );
   }
 }
