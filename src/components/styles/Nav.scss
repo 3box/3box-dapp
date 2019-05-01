@@ -828,6 +828,7 @@ nav {
 
     li {
       line-height: 3.5em;
+      width: 100%;
     }
   }
 
@@ -880,7 +881,7 @@ nav {
   }
 
   .nav__activePage {
-    border-left: solid 5px $threeBoxBlue;
+    border-left: solid 5px $threeBoxBlack;
     background: $backgroundHue;
     padding-left: calc(1.3em - 5px) !important;
   }

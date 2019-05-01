@@ -8,7 +8,7 @@ const APIMain = () => (
   <main className="api_main">
     <div className="hero_copy">
       <div className="hero_copy_wrapper">
-        <h1>Our API products</h1>
+        <h1>Our products</h1>
         <p>
           A suite of APIs to easily build distributed consumer application
           </p>
@@ -29,7 +29,7 @@ const APIMain = () => (
       </div>
     </div>
     <div className="hero_graphic">
-      <img src={Devs} alt="Color cubes" className="hero_devs" />
+      <img src={Devs} alt="Developers" className="hero_devs" />
     </div>
   </main>
 );

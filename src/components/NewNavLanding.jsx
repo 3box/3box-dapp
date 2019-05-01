@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import * as routes from '../utils/routes';
+import { normalizeURL } from '../utils/funcs';
 import ThreeBoxLogoBlack from '../assets/ThreeBoxLogoBlack.svg';
 import SSOSmall from '../assets/SSOSmall.png';
 import ProfilesSmall from '../assets/ProfilesSmall.png';
@@ -61,6 +62,9 @@ class NavLanding extends Component {
     } = this.props;
 
     const classHide = retractNav ? 'hide' : '';
+
+    const { pathname } = this.props.location;
+    const normalizedPath = normalizeURL(pathname);
 
     return (
       <nav
@@ -190,19 +194,33 @@ class NavLanding extends Component {
               <img src={ThreeBoxLogoBlack} alt="3Box Logo" className="landing__nav__logo" />
             </Link>
 
-            <div onClick={this.handleAPI} className="landing_nav_apiLink">
-              API Products
-            </div>
+            <Link to={routes.API} className="landing_nav_apiLink">
+              <li className={normalizedPath === routes.API ? 'nav__activePage' : ''}>
+                API Products
+              </li>
+            </Link>
 
             <a href="https://github.com/3box/3box" target="_blank" rel="noopener noreferrer">
-              Docs
+              <li>
+                Docs
+              </li>
             </a>
 
             <a href="https://medium.com/3box" target="_blank" rel="noopener noreferrer">
-              Blog
+              <li>
+                Blog
+              </li>
             </a>
           </ul>
         </div>
+
+        <div
+          id={showSideDrawer ? 'dropdownContainer' : undefined}
+          onClick={this.handleMobileSideBar}
+          onKeyPress={this.handleMobileSideBar}
+          role="button"
+          tabIndex={0}
+        />
       </nav>
     );
   }

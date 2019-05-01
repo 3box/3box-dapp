@@ -631,7 +631,8 @@ nav {
     transform: translateX(-100%);
     transition: transform .3s ease-out; }
     .nav__dropdown li {
-      line-height: 3.5em; }
+      line-height: 3.5em;
+      width: 100%; }
   #nav__networkStatus {
     display: none; }
   #nav__networkStatus--mobile {
@@ -667,7 +668,7 @@ nav {
     align-items: center;
     margin: 4px 0 25px 6vw; }
   .nav__activePage {
-    border-left: solid 5px #1168df;
+    border-left: solid 5px #181F21;
     background: #f5f6f8;
     padding-left: calc(1.3em - 5px) !important; }
   .landing_nav_hamburger-mobile {
