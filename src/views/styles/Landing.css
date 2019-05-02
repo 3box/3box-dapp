@@ -556,7 +556,7 @@
     opacity: .7; }
 
 .footer__socialIcons {
-  width: 2vw;
+  width: 24px;
   z-index: 1; }
 
 @media only screen and (max-width: 600px) {

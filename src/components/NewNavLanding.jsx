@@ -75,6 +75,7 @@ class NavLanding extends Component {
             ${(showInfoBanner || showSignInBanner) ? 'bannerMargin' : ''} 
             ${classHide} 
             ${onOtherProfilePage && 'hide'} 
+            ${showAPI ? 'showAPINav' : ''}
             ${landing}`}
       >
         <div id="landing__nav__logo--marginLeft">
@@ -90,7 +91,10 @@ class NavLanding extends Component {
           <Link to={routes.LANDING}>
             <img src={ThreeBoxLogoBlack} alt="3Box Logo" className="landing__nav__logo" />
           </Link>
-          <div onClick={this.handleAPI} className="landing_nav_apiLink landing_nav_link">
+          <div
+            onClick={this.handleAPI}
+            className={`landing_nav_apiLink landing_nav_link ${route === 'products' ? 'activeNavLink' : ''}`}
+          >
             API Products
           </div>
           <a href="https://github.com/3box/3box" target="_blank" rel="noopener noreferrer" className="landing_nav_link">
@@ -111,7 +115,7 @@ class NavLanding extends Component {
 
         <div className={`${showAPI ? 'showAPI' : ''} ${retractNav ? 'apiLower' : ''} landing_nav_api`}>
           <div className="landing_nav_api_wrapper">
-            <div className="landing_nav_api_option">
+            {/* <div className="landing_nav_api_option">
               <Link to={routes.API_PROFILES} className="">
                 <div className="landing_nav_api_option_icon">
                   <img src={SSOSmall} alt="Single sign on icon" />
@@ -125,8 +129,14 @@ class NavLanding extends Component {
                   </p>
                 </div>
               </Link>
-            </div>
-            <div className="landing_nav_api_option">
+            </div> */}
+            <div
+              className="landing_nav_api_option"
+              onClick={this.handleAPI}
+              onKeyPress={this.handleDropdown}
+              role="button"
+              tabIndex={0}
+            >
               <Link to={routes.API_PROFILES}>
                 <div className="landing_nav_api_option_icon">
                   <img src={ProfilesSmall} alt="Single sign on icon" />
@@ -141,7 +151,13 @@ class NavLanding extends Component {
                 </div>
               </Link>
             </div>
-            <div className="landing_nav_api_option">
+            <div
+              className="landing_nav_api_option"
+              onClick={this.handleAPI}
+              onKeyPress={this.handleDropdown}
+              role="button"
+              tabIndex={0}
+            >
               <Link to={routes.API_MESSAGING}>
                 <div className="landing_nav_api_option_icon">
                   <img src={MessagingSmall} alt="Single sign on icon" />
@@ -156,7 +172,13 @@ class NavLanding extends Component {
                 </div>
               </Link>
             </div>
-            <div className="landing_nav_api_option">
+            <div
+              className="landing_nav_api_option"
+              onClick={this.handleAPI}
+              onKeyPress={this.handleDropdown}
+              role="button"
+              tabIndex={0}
+            >
               <Link to={routes.API_STORAGE}>
                 <div className="landing_nav_api_option_icon">
                   <img src={StorageSmall} alt="Single sign on icon" />

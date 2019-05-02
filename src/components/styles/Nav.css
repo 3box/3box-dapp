@@ -241,6 +241,9 @@ nav {
   background-color: transparent;
   border-bottom: none; }
 
+.showAPINav {
+  background-color: white !important; }
+
 .landing__nav__link {
   margin-left: 38px;
   font-size: 16px;
@@ -327,6 +330,11 @@ nav {
 .underline {
   border-bottom: 3px solid white;
   color: white;
+  margin-bottom: -6px;
+  padding-bottom: 3px; }
+
+.activeNavLink {
+  border-bottom: 3px solid #181F21;
   margin-bottom: -6px;
   padding-bottom: 3px; }
 
@@ -479,11 +487,12 @@ nav {
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 89px;
+  top: 88px;
   left: 0;
   background-color: white;
   transition: all .3s ease-in-out;
-  overflow: hidden; }
+  overflow: hidden;
+  z-index: 2; }
 
 .landing_nav_api.apiLower {
   top: 69px; }
@@ -494,13 +503,13 @@ nav {
 
 .landing_nav_api_wrapper {
   height: 100%;
-  width: 94%;
+  width: 66%;
   display: flex;
   justify-content: space-between;
   align-items: center; }
 
 .landing_nav_api_option {
-  width: 23%; }
+  width: 29%; }
   .landing_nav_api_option a {
     display: flex;
     justify-content: space-between;

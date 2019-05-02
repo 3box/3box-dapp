@@ -26,9 +26,9 @@ class APIsPage extends React.Component {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
     const { pathname } = this.props.history.location;
     const section = pathname.split('/')[2];
-    console.log('section', section);
     scroller.scrollTo(section, {
       duration: 1500,
       delay: 100,
