@@ -378,14 +378,13 @@
   margin-bottom: 150px; }
 
 .hub_popout {
-  background-position: -100px 0px;
   background: #fefe2f;
   /* Old browsers */
-  background: -moz-radial-gradient(center, ellipse cover, #fefe2f 0%, #f931ff 100%);
+  background: -moz-radial-gradient(20%, ellipse cover, #fefe2f 0%, #f931ff 100%);
   /* FF3.6-15 */
-  background: -webkit-radial-gradient(center, ellipse cover, #fefe2f 0%, #f931ff 100%);
+  background: -webkit-radial-gradient(20%, ellipse cover, #fefe2f 0%, #f931ff 100%);
   /* Chrome10-25,Safari5.1-6 */
-  background: radial-gradient(ellipse at center, #fefe2f 0%, #f931ff 100%);
+  background: radial-gradient(ellipse at 20%, #fefe2f 0%, #f931ff 100%);
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fefe2f', endColorstr='#f931ff', GradientType=1);
   /* IE6-9 fallback on horizontal gradient */
@@ -466,7 +465,8 @@
     width: 400px;
     border-radius: 5px;
     border: none;
-    padding-left: 15px; }
+    padding-left: 15px;
+    box-sizing: border-box; }
   .join_input div button {
     display: flex;
     align-items: center;
@@ -807,7 +807,7 @@ pre {
     width: 80%; }
   .footer_wrapper {
     flex-direction: column;
-    width: 60vw; }
+    width: 68vw; }
   .footer_lane {
     width: 100%;
     margin-bottom: 30px; }
@@ -864,4 +864,21 @@ pre {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column-reverse; } }
+    flex-direction: column-reverse; }
+  .join_input div input {
+    width: 82vw;
+    margin-left: -8px; }
+  .join_input div button {
+    margin-left: -98.5px; }
+  .rightLane {
+    align-items: flex-start;
+    height: 240px; }
+  .footer__gutter__social a {
+    margin: 0 12px 0 0 !important; }
+  .footer_privacy {
+    justify-content: flex-start; }
+  .footer_copyright {
+    justify-content: flex-start; }
+  .footer_mollie {
+    width: 150px;
+    right: 10vw; } }
