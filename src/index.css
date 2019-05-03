@@ -40,7 +40,8 @@ button {
   border: solid 2px #181F21;
   display: flex;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  letter-spacing: .77px; }
   button img {
     margin-left: 10px; }
   button:disabled {
@@ -64,6 +65,13 @@ button {
   .secondary:hover {
     background-color: #f5f6f8; }
 
+.secondaryBlue {
+  background-color: transparent;
+  color: #1168df;
+  border-color: #1168df; }
+  .secondaryBlue:hover {
+    background-color: #f5f6f8; }
+
 .blueButton {
   border-color: #1168df;
   color: #1168df; }
@@ -83,6 +91,21 @@ button {
   justify-content: center;
   align-items: center; }
   .clearButton:hover {
+    background-color: transparent;
+    border: none; }
+
+.textButton {
+  background-color: transparent;
+  border-radius: 5px;
+  padding: 14px 20px;
+  transition: background-color .4s ease;
+  font-family: 'Lato', sans-serif;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #1168df; }
+  .textButton:hover {
     background-color: transparent;
     border: none; }
 
@@ -188,24 +211,6 @@ ul {
 input:focus {
   border-radius: 5px; }
 
-.webThreeBanner {
-  width: 100vw;
-  height: 54px;
-  background: #2E3949;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 3;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  -webkit-transition: all .5s ease;
-  -moz-transition: all .5s ease;
-  -o-transition: all .5s ease;
-  transition: all .5s ease; }
-  .webThreeBanner p {
-    color: rgba(255, 255, 255, 0.904); }
-
 .mobile {
   display: none !important; }
 
@@ -241,18 +246,6 @@ input:focus {
   background: white; }
   .hideBanner button {
     background-color: white; }
-
-.infoBanner__link {
-  border: 1px solid rgba(255, 255, 255, 0.904);
-  margin-left: 20px;
-  padding: .6em .9em;
-  color: rgba(255, 255, 255, 0.904);
-  background-color: transparent;
-  font-weight: 500;
-  font-size: 12px;
-  border-radius: 6px; }
-  .infoBanner__link:hover {
-    background-color: rgba(255, 255, 255, 0.144); }
 
 .modal__reqWeb3__button {
   border: 1px solid white;
@@ -305,12 +298,6 @@ input:focus {
   margin-top: 0 !important; }
 
 @media only screen and (max-width: 600px) {
-  .webThreeBanner {
-    display: none; }
-    .webThreeBanner p {
-      margin-left: 4vw;
-      line-height: 15px;
-      width: 50%; }
   .signInFromPublicProfileBanner {
     height: 64px;
     width: 100vw;
@@ -335,9 +322,9 @@ input:focus {
       align-items: center;
       justify-content: space-between; }
   .desktop {
-    display: none; }
+    display: none !important; }
   .mobile {
-    display: flex; }
+    display: flex !important; }
   .webThreeBanner__close {
     position: relative;
     width: 5% !important;

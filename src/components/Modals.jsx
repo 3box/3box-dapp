@@ -32,34 +32,6 @@ export const ModalBackground = () => <div className="modal__overlay" />;
 
 export const DeskTopModalBackground = () => <div className="modal__overlay mobileInvisible" />;
 
-export const ThreeBoxInfoBanner = ({
-  handleInfoBanner,
-}) => (
-    <div className="webThreeBanner">
-      <p>
-        Support user profiles and off-chain data storage in your app.
-      </p>
-      <a href="https://github.com/3box/3box/" target="_blank" rel="noopener noreferrer">
-        <button type="button" className="infoBanner__link">
-          Learn more
-        </button>
-      </a>
-      <p
-        onClick={handleInfoBanner}
-        onKeyPress={handleInfoBanner}
-        className="webThreeBanner__close"
-        role="button"
-      >
-        &#10005;
-      </p>
-    </div>
-  );
-
-ThreeBoxInfoBanner.propTypes = {
-  handleInfoBanner: PropTypes.func.isRequired,
-  showInfoBanner: PropTypes.bool.isRequired,
-};
-
 export const SwitchedNetworksModal = ({
   prevNetwork,
   currentNetwork,

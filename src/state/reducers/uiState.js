@@ -49,7 +49,6 @@ const uiStateReducer = (state = {}, action) => {
         ...state,
         provideConsent: action.provideConsent,
         showSignInBanner: action.showSignInBanner,
-        showInfoBanner: action.showInfoBanner,
       };
 
     case 'UI_REQUIRE_METAMASK_MODAL':
@@ -103,12 +102,6 @@ const uiStateReducer = (state = {}, action) => {
       return {
         ...state,
         signInModal: action.signInModal,
-      };
-
-    case 'HANDLE_INFO_BANNER':
-      return {
-        ...state,
-        showInfoBanner: action.showInfoBanner,
       };
 
     case 'UI_HANDLE_SWITCHED_NETWORK_MODAL':
@@ -210,12 +203,6 @@ const uiStateReducer = (state = {}, action) => {
         ...state,
         accessDeniedModal: action.accessDeniedModal,
         allowAccessModal: action.allowAccessModal,
-      };
-
-    case 'UI_HANDLE_INFO_BANNER':
-      return {
-        ...state,
-        showInfoBanner: action.showInfoBanner,
       };
 
     case 'UI_ROUTE_UPDATE':

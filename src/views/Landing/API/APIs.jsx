@@ -2,9 +2,8 @@ import React, { Suspense, lazy } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { scroller } from 'react-scroll';
+import { scroller, scrollSpy } from 'react-scroll';
 
-import * as routes from '../../../utils/routes';
 import APIMain from './components/APIMain';
 import { ProfileSection, MessagingSection, StorageSection } from './components/APISections';
 import { ProfileDetails, MessagingDetails, StorageDetails } from './components/APIDetails';
@@ -22,20 +21,55 @@ class APIsPage extends React.Component {
     const section = pathname.split('/')[2];
     this.state = {
       openSection: section,
+      // width: window.innerWidth,
     };
   }
+
+  // componentWillMount() {
+  //   window.addEventListener('resize', this.handleWindowSizeChange);
+  // }
 
   componentDidMount() {
     window.scrollTo(0, 0);
     const { pathname } = this.props.history.location;
     const section = pathname.split('/')[2];
+    // const { width } = this.state;
+    // const offset = width <= 812 ? -68 : -120;
+    const offset = -68;
     scroller.scrollTo(section, {
-      duration: 1500,
-      delay: 100,
-      offset: -120,
+      duration: 1000,
+      delay: 300,
+      offset,
       smooth: 'easeInOutQuint',
     });
   }
+
+  componentWillReceiveProps(nextProps) {
+    const { openSection } = this.state;
+    const nextSection = nextProps.history.location.pathname.split('/')[2];
+
+    if (openSection !== nextSection) {
+      this.setState({ openSection: nextSection }, this.scrollTo(nextSection));
+    }
+  }
+
+  scrollTo = (section) => {
+    // scrollSpy.update();
+    // scroller.scrollTo(section, {
+    //   duration: 1000,
+    //   delay: 300,
+    //   offset: -68,
+    //   smooth: 'easeInOutQuint',
+    // });
+  }
+
+  // componentWillUnmount() {
+  //   window.removeEventListener('resize', this.handleWindowSizeChange);
+  // }
+
+  // handleWindowSizeChange = () => {
+  //   this.setState({ width: window.innerWidth });
+  // }
 
   handleOpenSection = (section) => {
     const { openSection } = this.state;
@@ -47,33 +81,36 @@ class APIsPage extends React.Component {
       this.setState({
         openSection: section,
       });
-      this.props.history.push(`/products/${section}`);
+      setTimeout(this.props.history.push(`/products/${section}`), 350);
     }
   }
 
   render() {
     const { openSection } = this.state;
-    const { showInfoBanner } = this.props;
+    const offset = -68;
 
     return (
-      <div className={`landing_page ${(showInfoBanner) ? 'bannerMargin' : ''}`}>
+      <div className="landing_page">
         <APIMain />
 
         <ProfileSection
           handleOpenSection={this.handleOpenSection}
           openSection={openSection === 'profiles'}
+          offset={offset}
         />
         <ProfileDetails openSection={openSection === 'profiles'} />
 
         <MessagingSection
           handleOpenSection={this.handleOpenSection}
           openSection={openSection === 'messaging'}
+          offset={offset}
         />
         <MessagingDetails openSection={openSection === 'messaging'} />
 
         <StorageSection
           handleOpenSection={this.handleOpenSection}
           openSection={openSection === 'storage'}
+          offset={offset}
         />
         <StorageDetails openSection={openSection === 'storage'} />
 
@@ -88,17 +125,14 @@ class APIsPage extends React.Component {
 APIsPage.propTypes = {
   handleSignInUp: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool,
-  showInfoBanner: PropTypes.bool,
 };
 
 APIsPage.defaultProps = {
   isLoggedIn: false,
-  showInfoBanner: false,
 };
 
 const mapState = state => ({
   isLoggedIn: state.userState.isLoggedIn,
-  showInfoBanner: state.uiState.showInfoBanner,
 });
 
 export default withRouter(connect(mapState)(APIsPage));

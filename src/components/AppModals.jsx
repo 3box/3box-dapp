@@ -19,7 +19,6 @@ import {
   MobileWalletRequiredModal,
   SignInToWalletModal,
   SignInToThreeBox,
-  ThreeBoxInfoBanner,
   ModalBackground,
   DeskTopModalBackground,
 } from './Modals';
@@ -47,7 +46,6 @@ class AppModals extends Component {
   render() {
     const { width } = this.state;
     const {
-      showInfoBanner,
       isFetchingThreeBox,
       onSyncFinished,
       isSyncing,
@@ -85,7 +83,6 @@ class AppModals extends Component {
       onBoardingModalMobileOne,
       onBoardingModalMobileTwo,
       onBoardingModalMobileThree,
-      handleInfoBanner,
       closeRequireMetaMaskModal,
       alertRequireMetaMask,
       provideConsent,
@@ -101,12 +98,6 @@ class AppModals extends Component {
         transitionEnterTimeout={300}
         transitionLeaveTimeout={300}
       >
-        {(!isMyProfilePath && showInfoBanner) && (
-          <ThreeBoxInfoBanner
-            // showInfoBanner={showInfoBanner}
-            handleInfoBanner={handleInfoBanner}
-          />)}
-
         {isFetchingThreeBox && (
           <LoadingThreeBoxProfileModal
             key="LoadingThreeBoxProfileModal"
@@ -270,11 +261,9 @@ AppModals.propTypes = {
   handleConsentModal: PropTypes.func.isRequired,
   handleDeniedAccessModal: PropTypes.func.isRequired,
   closeErrorModal: PropTypes.func.isRequired,
-  handleInfoBanner: PropTypes.func.isRequired,
   closeRequireMetaMaskModal: PropTypes.func.isRequired,
   handleAccessModal: PropTypes.func.isRequired,
 
-  showInfoBanner: PropTypes.bool,
   isFetchingThreeBox: PropTypes.bool,
   onSyncFinished: PropTypes.bool,
   isSyncing: PropTypes.bool,
@@ -311,7 +300,6 @@ AppModals.defaultProps = {
   prevAddress: '',
   directLogin: '',
 
-  showInfoBanner: false,
   isFetchingThreeBox: false,
   onSyncFinished: false,
   isSyncing: false,

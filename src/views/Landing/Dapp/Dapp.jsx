@@ -27,10 +27,10 @@ class Dapp extends Component {
   }
 
   render() {
-    const { showInfoBanner, handleSignInUp } = this.props;
+    const { handleSignInUp } = this.props;
 
     return (
-      <div className={`landing_page ${(showInfoBanner) ? 'bannerMargin' : ''}`}>
+      <div className="landing_page">
         <main className="dapp_main">
           <div className="main_wrapper">
             <div className="main_copy">
@@ -42,29 +42,32 @@ class Dapp extends Component {
               <div className="dapp_usp">
                 <div className="dapp_usp_feature">
                   <img src={SSOSmall} alt="Single sign on" />
-                  <h3>
+                  <h3 className="dapp_usp_feature_sso">
                     Ethereum Single Sign On
-                </h3>
+                  </h3>
                 </div>
                 <div className="dapp_usp_feature">
                   <img src={ProfilesSmall} alt="Profiles" />
-                  <h3>
+                  <h3 className="dapp_usp_feature_profiles">
                     Social Identity and Reputation
-                </h3>
+                  </h3>
                 </div>
                 <div className="dapp_usp_feature">
                   <img src={StorageSmall} alt="Storage" />
-                  <h3>
+                  <h3 className="dapp_usp_feature_storage">
                     Personal Cloud Storage
-                </h3>
+                  </h3>
                 </div>
               </div>
             </div>
             <div className="main_profileCard">
               <img src={NewProfileCard} alt="Profile card" className="main_profileCard_card" />
-              <button type="button" onClick={handleSignInUp}>
+              <button type="button" onClick={handleSignInUp} className="main_profileCard_card_login">
                 Log In
-            </button>
+              </button>
+              <button type="button" onClick={handleSignInUp} className="textButton">
+                Create profile
+              </button>
             </div>
           </div>
           <DiscordButton />
@@ -87,17 +90,14 @@ class Dapp extends Component {
 Dapp.propTypes = {
   handleSignInUp: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool,
-  showInfoBanner: PropTypes.bool,
 };
 
 Dapp.defaultProps = {
   isLoggedIn: false,
-  showInfoBanner: false,
 };
 
 const mapState = state => ({
   isLoggedIn: state.userState.isLoggedIn,
-  showInfoBanner: state.uiState.showInfoBanner,
 });
 
 export default withRouter(connect(mapState)(Dapp));

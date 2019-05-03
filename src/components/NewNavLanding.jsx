@@ -55,7 +55,6 @@ class NavLanding extends Component {
   render() {
     const { retractNav, showAPI, showSideDrawer } = this.state;
     const {
-      showInfoBanner,
       landing,
       onOtherProfilePage,
       showSignInBanner,
@@ -72,7 +71,7 @@ class NavLanding extends Component {
         id="landing__nav"
         className={`
             ${showSignInBanner ? 'showSignInBanner' : ''} 
-            ${(showInfoBanner || showSignInBanner) ? 'bannerMargin' : ''} 
+            ${(showSignInBanner) ? 'bannerMargin' : ''} 
             ${classHide} 
             ${onOtherProfilePage && 'hide'} 
             ${showAPI ? 'showAPINav' : ''}
@@ -218,6 +217,12 @@ class NavLanding extends Component {
               <img src={ThreeBoxLogoBlack} alt="3Box Logo" className="landing__nav__logo" />
             </Link>
 
+            <Link to={routes.HUB} className="landing_nav_apiLink">
+              <li className={normalizedPath === routes.HUB ? 'nav__activePage' : ''}>
+                Hub
+              </li>
+            </Link>
+
             <Link to={routes.API} className="landing_nav_apiLink">
               <li className={normalizedPath === routes.API ? 'nav__activePage' : ''}>
                 API Products
@@ -252,7 +257,6 @@ class NavLanding extends Component {
 
 NavLanding.propTypes = {
   isLoggedIn: PropTypes.bool,
-  showInfoBanner: PropTypes.bool,
   showSignInBanner: PropTypes.bool,
   onOtherProfilePage: PropTypes.bool,
   classHide: PropTypes.string,
@@ -265,7 +269,6 @@ NavLanding.propTypes = {
 
 NavLanding.defaultProps = {
   isLoggedIn: false,
-  showInfoBanner: false,
   onOtherProfilePage: false,
   showSignInBanner: false,
   classHide: '',
@@ -278,7 +281,6 @@ function mapState(state) {
   return {
     isLoggedIn: state.userState.isLoggedIn,
 
-    showInfoBanner: state.uiState.showInfoBanner,
     showSignInBanner: state.uiState.showSignInBanner,
   };
 }

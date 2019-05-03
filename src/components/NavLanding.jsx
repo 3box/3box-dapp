@@ -38,7 +38,6 @@ class NavLanding extends Component {
     const { retractNav } = this.state;
     const {
       handleSignInUp,
-      showInfoBanner,
       landing,
       pathname,
       onOtherProfilePage,
@@ -52,7 +51,7 @@ class NavLanding extends Component {
         id="landing__nav"
         className={`
             ${showSignInBanner ? 'showSignInBanner' : ''} 
-            ${(showInfoBanner || showSignInBanner) ? 'bannerMargin' : ''} 
+            ${(showSignInBanner) ? 'bannerMargin' : ''} 
             ${classHide} 
             ${onOtherProfilePage && 'hide'} 
             ${landing}`}
@@ -94,7 +93,6 @@ class NavLanding extends Component {
 
 NavLanding.propTypes = {
   isLoggedIn: PropTypes.bool,
-  showInfoBanner: PropTypes.bool,
   showSignInBanner: PropTypes.bool,
   onOtherProfilePage: PropTypes.bool,
   classHide: PropTypes.string,
@@ -107,7 +105,6 @@ NavLanding.propTypes = {
 
 NavLanding.defaultProps = {
   isLoggedIn: false,
-  showInfoBanner: false,
   onOtherProfilePage: false,
   showSignInBanner: false,
   classHide: '',
@@ -120,7 +117,6 @@ function mapState(state) {
   return {
     isLoggedIn: state.userState.isLoggedIn,
 
-    showInfoBanner: state.uiState.showInfoBanner,
     showSignInBanner: state.uiState.showSignInBanner,
   };
 }

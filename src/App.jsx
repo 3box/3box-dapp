@@ -41,7 +41,6 @@ const {
   handleLoggedOutModal,
   handleSwitchedAddressModal,
   requireMetaMaskModal,
-  handleInfoBanner,
   handleMobileWalletModal,
   handleOnboardingModal,
 } = actions.modal;
@@ -92,7 +91,6 @@ class App extends Component {
     const currentEthAddress = window.localStorage.getItem('userEthAddress');
 
     try {
-      this.props.handleInfoBanner();
       initialAddress(); // Initial get address
       pollNetworkAndAddress(); // Start polling for address change
       await this.props.checkWeb3();
@@ -277,7 +275,6 @@ class App extends Component {
       showErrorModal,
       isLoggedIn,
       isSignedIntoWallet,
-      showInfoBanner,
       location,
       onSyncFinished,
       isSyncing,
@@ -312,7 +309,6 @@ class App extends Component {
           )}
 
         <AppModals
-          showInfoBanner={showInfoBanner}
           isFetchingThreeBox={isFetchingThreeBox}
           onSyncFinished={onSyncFinished}
           isSyncing={isSyncing}
@@ -348,7 +344,6 @@ class App extends Component {
           handleDeniedAccessModal={this.props.handleDeniedAccessModal}
           closeErrorModal={this.props.closeErrorModal}
           handleSwitchedNetworkModal={this.props.handleSwitchedNetworkModal}
-          handleInfoBanner={this.props.handleInfoBanner}
           handleLoggedOutModal={this.props.handleLoggedOutModal}
           handleSignOut={this.props.handleSignOut}
           handleSwitchedAddressModal={this.props.handleSwitchedAddressModal}
@@ -385,7 +380,6 @@ class App extends Component {
                 errorMessage={errorMessage}
                 showErrorModal={showErrorModal}
                 isSignedIntoWallet={isSignedIntoWallet}
-                showInfoBanner={showInfoBanner}
               />
             )}
           />
@@ -400,7 +394,6 @@ class App extends Component {
                 errorMessage={errorMessage}
                 showErrorModal={showErrorModal}
                 isSignedIntoWallet={isSignedIntoWallet}
-                showInfoBanner={showInfoBanner}
               />
             )}
           />
@@ -416,7 +409,6 @@ class App extends Component {
                 errorMessage={errorMessage}
                 showErrorModal={showErrorModal}
                 isSignedIntoWallet={isSignedIntoWallet}
-                showInfoBanner={showInfoBanner}
               />
             )}
           />
@@ -545,7 +537,6 @@ App.propTypes = {
   getVerifiedPrivateEmail: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
   requireMetaMaskModal: PropTypes.func.isRequired,
-  handleInfoBanner: PropTypes.func,
   handleMobileWalletModal: PropTypes.func.isRequired,
   handleSwitchedNetworkModal: PropTypes.func.isRequired,
   handleAccessModal: PropTypes.func.isRequired,
@@ -583,7 +574,6 @@ App.propTypes = {
   onBoardingModal: PropTypes.bool,
   onBoardingModalTwo: PropTypes.bool,
   isFetchingThreeBox: PropTypes.bool,
-  showInfoBanner: PropTypes.bool,
   onOtherProfilePage: PropTypes.bool,
   prevNetwork: PropTypes.string,
   currentNetwork: PropTypes.string,
@@ -596,7 +586,6 @@ App.propTypes = {
 
 App.defaultProps = {
   showDifferentNetworkModal: false,
-  handleInfoBanner,
   handleSignOut,
   hasWeb3: false,
   accessDeniedModal: false,
@@ -612,7 +601,6 @@ App.defaultProps = {
   signInModal: false,
   mobileWalletRequiredModal: false,
   showErrorModal: false,
-  showInfoBanner: false,
   loggedOutModal: false,
   switchedAddressModal: false,
   onBoardingModal: false,
@@ -645,7 +633,6 @@ const mapState = state => ({
   prevAddress: state.uiState.prevAddress,
   showErrorModal: state.uiState.showErrorModal,
   accessDeniedModal: state.uiState.accessDeniedModal,
-  showInfoBanner: state.uiState.showInfoBanner,
   onOtherProfilePage: state.uiState.onOtherProfilePage,
 
   onSyncFinished: state.userState.onSyncFinished,
@@ -676,7 +663,6 @@ export default withRouter(connect(mapState,
     checkWeb3,
     requireMetaMaskModal,
     checkNetwork,
-    handleInfoBanner,
     handleMobileWalletModal,
     handleSignInModal,
     handleRequireWalletLoginModal,

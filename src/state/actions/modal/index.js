@@ -62,13 +62,6 @@ export const handleCollectiblesModal = (selectedCollectible, isFavorite) => asyn
   }
 };
 
-export const handleInfoBanner = () => async (dispatch) => {
-  dispatch({
-    type: 'HANDLE_INFO_BANNER',
-    showInfoBanner: !store.getState().uiState.showInfoBanner,
-  });
-};
-
 export const handleSignInModal = () => async (dispatch) => {
   dispatch({
     type: 'UI_HANDLE_SIGNIN_MODAL',

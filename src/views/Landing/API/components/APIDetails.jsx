@@ -133,9 +133,11 @@ export const ProfileDetails = ({ openSection }) => (
           {`await box.private.set('email', 'narwhal@3box.io')`}
         </Highlight>
       </div>
-      <button>
-        View full documentation
+      <a href="https://github.com/3box/3box-js">
+        <button className="secondaryBlue">
+          View full documentation
       </button>
+      </a>
     </div>
   </section>
 );
@@ -263,9 +265,11 @@ export const MessagingDetails = ({ openSection }) => (
           {`await box.private.set('email', 'narwhal@3box.io')`}
         </Highlight>
       </div>
-      <button>
-        View full documentation
+      <a href="https://github.com/3box/3box-js">
+        <button className="secondaryBlue">
+          View full documentation
         </button>
+      </a>
     </div>
   </section>
 );
@@ -395,9 +399,11 @@ export const StorageDetails = ({ openSection }) => (
           {`await box.private.set('email', 'narwhal@3box.io')`}
         </Highlight>
       </div>
-      <button>
-        View full documentation
+      <a href="https://github.com/3box/3box-js">
+        <button className="secondaryBlue">
+          View full documentation
     </button>
+      </a>
     </div>
   </section>
 );

@@ -49,6 +49,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
+  letter-spacing: .77px;
 
   img {
     margin-left: 10px;
@@ -84,6 +85,16 @@ button {
   }
 }
 
+.secondaryBlue {
+  background-color: transparent;
+  color: $threeBoxBlue;
+  border-color: $threeBoxBlue;
+
+  &:hover {
+    background-color: $backgroundHue;
+  }
+}
+
 .blueButton {
   border-color: $threeBoxBlue;
   color: $threeBoxBlue;
@@ -106,6 +117,24 @@ button {
   justify-content: center;
   align-items: center;
 
+  &:hover {
+    background-color: transparent;
+    border: none;
+  }
+}
+
+.textButton {
+  background-color: transparent;
+  border-radius: 5px;
+  padding: 14px 20px;
+  transition: background-color .4s ease;
+  font-family: 'Lato', sans-serif;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $threeBoxBlue;
+  
   &:hover {
     background-color: transparent;
     border: none;
@@ -232,26 +261,26 @@ input:focus {
   border-radius: 5px;
 }
 
-.webThreeBanner {
-  width: 100vw;
-  height: 54px;
-  background: #2E3949;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 3;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  -webkit-transition: all .5s ease;
-  -moz-transition: all .5s ease;
-  -o-transition: all .5s ease;
-  transition: all .5s ease;
+// .webThreeBanner {
+//   width: 100vw;
+//   height: 54px;
+//   background: #2E3949;
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   z-index: 3;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   -webkit-transition: all .5s ease;
+//   -moz-transition: all .5s ease;
+//   -o-transition: all .5s ease;
+//   transition: all .5s ease;
 
-  p {
-    color: rgba(255, 255, 255, 0.904);
-  }
-}
+//   p {
+//     color: rgba(255, 255, 255, 0.904);
+//   }
+// }
 
 .mobile {
   display: none !important;
@@ -296,21 +325,6 @@ input:focus {
 
   button {
     background-color: white;
-  }
-}
-
-.infoBanner__link {
-  border: 1px solid rgba(255, 255, 255, 0.904);
-  margin-left: 20px;
-  padding: .6em .9em;
-  color: rgba(255, 255, 255, 0.904);
-  background-color: transparent;
-  font-weight: 500;
-  font-size: 12px;
-  border-radius: 6px;
-
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.144);
   }
 }
 
@@ -379,15 +393,15 @@ input:focus {
 }
 
 @media only screen and (max-width: 600px) {
-  .webThreeBanner {
-    display: none;
+  // .webThreeBanner {
+  //   display: none;
 
-    p {
-      margin-left: 4vw;
-      line-height: 15px;
-      width: 50%;
-    }
-  }
+  //   p {
+  //     margin-left: 4vw;
+  //     line-height: 15px;
+  //     width: 50%;
+  //   }
+  // }
 
   .signInFromPublicProfileBanner {
     height: 64px;
@@ -420,11 +434,11 @@ input:focus {
   }
 
   .desktop {
-    display: none;
+    display: none !important;
   }
 
   .mobile {
-    display: flex;
+    display: flex !important;
   }
 
   .webThreeBanner__close {

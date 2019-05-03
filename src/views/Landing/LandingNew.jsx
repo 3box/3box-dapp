@@ -42,10 +42,8 @@ class Landing extends Component {
   }
 
   render() {
-    const { showInfoBanner } = this.props;
-
     return (
-      <div className={`landing_page ${(showInfoBanner) ? 'bannerMargin' : ''}`}>
+      <div className="landing_page">
         <main className="hero">
           <div className="hero_text">
             <div className="hero_copy_wrapper">
@@ -216,20 +214,23 @@ class Landing extends Component {
             <div className="why_reason_info">
               <h4>
                 Engage and delight users with interactive, social experiences.
-          </h4>
+              </h4>
               <div className="section_line pink_line" />
               <p>
                 The suite of 3Box APIs enable delightful user experiences on web3.  Build with social profiles, messaging, single sign on, data storage and sharing.
-          </p>
+              </p>
               <div className="why_reason_info_tags">
                 <div className="why_reason_info_tag">
-                  <p>Interoperability</p>
+                  <p>UX</p>
                 </div>
                 <div className="why_reason_info_tag">
-                  <p>Scalability</p>
+                  <p>Usability</p>
                 </div>
                 <div className="why_reason_info_tag">
-                  <p>Availability</p>
+                  <p>Onboarding</p>
+                </div>
+                <div className="why_reason_info_tag">
+                  <p>Social</p>
                 </div>
               </div>
             </div>
@@ -244,23 +245,23 @@ class Landing extends Component {
             <div className="why_reason_info">
               <h4>
                 Grow your community by tapping into a vibrant, collaborative data ecosystem.
-          </h4>
+              </h4>
               <div className="section_line purple_line" />
               <p>
                 Collaborative user data enables network effects, identity, reputation, and a social graph that travels with users from app to app, making it easy to grow your business.
-          </p>
+              </p>
               <div className="why_reason_info_tags">
                 <div className="why_reason_info_tag">
-                  <p>UX</p>
-                </div>
-                <div className="why_reason_info_tag">
-                  <p>Usability</p>
+                  <p>Interoperability</p>
                 </div>
                 <div className="why_reason_info_tag">
                   <p>Cooperation</p>
                 </div>
                 <div className="why_reason_info_tag">
-                  <p>Onboarding</p>
+                  <p>Community</p>
+                </div>
+                <div className="why_reason_info_tag">
+                  <p>Growth</p>
                 </div>
               </div>
             </div>
@@ -307,17 +308,14 @@ class Landing extends Component {
 Landing.propTypes = {
   handleSignInUp: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool,
-  showInfoBanner: PropTypes.bool,
 };
 
 Landing.defaultProps = {
   isLoggedIn: false,
-  showInfoBanner: false,
 };
 
 const mapState = state => ({
   isLoggedIn: state.userState.isLoggedIn,
-  showInfoBanner: state.uiState.showInfoBanner,
 });
 
 export default withRouter(connect(mapState)(Landing));

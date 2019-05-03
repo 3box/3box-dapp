@@ -19,13 +19,9 @@ const Footer = () => (
       <p>
         Join our mailing list to never miss an update.
       </p>
-      <form className="join_input">
-        {/* <input type="text" placeholder="Subscribe to email" />
-        <button type="button">
-          Join
-        </button> */}
+      <div className="join_input">
         <MailChimp />
-      </form>
+      </div>
       <div className="footer_line" />
     </section>
     <footer>
@@ -110,7 +106,7 @@ const Footer = () => (
           </div>
         </div>
       </div>
-      <img src={MolliePsychedelic} alt="Mollie" className="footer_mollie"/>
+      <img src={MolliePsychedelic} alt="Mollie" className="footer_mollie" />
     </footer>
   </React.Fragment>
 );
