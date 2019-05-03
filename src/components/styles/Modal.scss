@@ -1313,7 +1313,10 @@
   width: 100%;
   padding: 20px;
   height: 100%;
-
+  display: flex;
+  justify-content: flex-end;
+  box-sizing: border-box;
+  
   button {
     background-color: #00C77F;
     border: 1px solid #00C77F;

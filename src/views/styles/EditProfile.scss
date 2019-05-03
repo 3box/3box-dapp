@@ -471,6 +471,7 @@
   color: $threeBoxRed;
   align-items: center;
   justify-content: center;
+  border-radius: 50%;
 }
 
 #removeCoverPic {
@@ -480,6 +481,7 @@
   z-index: 2;
   background: #E3E3E3;
   color: #E78888;
+  border-radius: 50%;
 
   &:hover {
     background-color: #474747;

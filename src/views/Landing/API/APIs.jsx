@@ -21,20 +21,13 @@ class APIsPage extends React.Component {
     const section = pathname.split('/')[2];
     this.state = {
       openSection: section,
-      // width: window.innerWidth,
     };
   }
-
-  // componentWillMount() {
-  //   window.addEventListener('resize', this.handleWindowSizeChange);
-  // }
 
   componentDidMount() {
     window.scrollTo(0, 0);
     const { pathname } = this.props.history.location;
     const section = pathname.split('/')[2];
-    // const { width } = this.state;
-    // const offset = width <= 812 ? -68 : -120;
     const offset = -68;
     scroller.scrollTo(section, {
       duration: 1000,
@@ -42,6 +35,7 @@ class APIsPage extends React.Component {
       offset,
       smooth: 'easeInOutQuint',
     });
+    scrollSpy.update();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -49,26 +43,19 @@ class APIsPage extends React.Component {
     const nextSection = nextProps.history.location.pathname.split('/')[2];
 
     if (openSection !== nextSection) {
-      this.setState({ openSection: nextSection }, this.scrollTo(nextSection));
+      this.setState({ openSection: nextSection });
+      // this.scrollTo(nextSection);
     }
   }
 
-  scrollTo = (section) => {
-    // scrollSpy.update();
-    // scroller.scrollTo(section, {
-    //   duration: 1000,
-    //   delay: 300,
-    //   offset: -68,
-    //   smooth: 'easeInOutQuint',
-    // });
-  }
-
-  // componentWillUnmount() {
-  //   window.removeEventListener('resize', this.handleWindowSizeChange);
-  // }
-
-  // handleWindowSizeChange = () => {
-  //   this.setState({ width: window.innerWidth });
+  // scrollTo = (section) => {
+  //   scrollSpy.update();
+  //   scroller.scrollTo(section, {
+  //     duration: 1000,
+  //     delay: 300,
+  //     offset: -68,
+  //     smooth: 'easeInOutQuint',
+  //   });
   // }
 
   handleOpenSection = (section) => {

@@ -1034,7 +1034,10 @@
   background-color: #EFF5FE;
   width: 100%;
   padding: 20px;
-  height: 100%; }
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  box-sizing: border-box; }
   .modal__github__done button {
     background-color: #00C77F;
     border: 1px solid #00C77F; }
