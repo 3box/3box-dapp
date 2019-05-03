@@ -182,7 +182,8 @@
   overflow: hidden; }
 
 .dapp_screens_devices {
-  z-index: 1; }
+  z-index: 1;
+  width: 750px; }
 
 .dapp_screens_bg {
   position: absolute;
