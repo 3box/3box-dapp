@@ -5,19 +5,18 @@ import { withRouter, Link } from 'react-router-dom';
 
 import * as routes from '../../utils/routes';
 import ThreeBoxLogo from '../../assets/ThreeBoxLogoWhite.svg';
-import ThreeBoxCloud from '../../assets/3BoxCloud.png';
-import ThreeBoxCloudPink from '../../assets/ThreeBoxCloudPink.png';
+import ThreeBoxCloud from '../../assets/3BoxCloud.svg';
 import TriangleWhite from '../../assets/TriangleWhite.svg';
 import TriangleBlue from '../../assets/TriangleBlue.svg';
 import TriangleBlack from '../../assets/TriangleBlack.svg';
 import NewProfileCard from '../../assets/NewProfileCard.png';
 import Trust from '../../assets/Trust.png';
 import HighFive from '../../assets/HighFive.png';
-import Authentication from '../../assets/Authentication.png';
+import Authentication from '../../assets/Authentication.svg';
 import Collaboration from '../../assets/Collaboration.png';
-import Profiles from '../../assets/Profiles.png';
-import Messaging from '../../assets/Messaging.png';
-import Storage from '../../assets/Storage.png';
+import Profiles from '../../assets/Profiles.svg';
+import Messaging from '../../assets/Messaging.svg';
+import Storage from '../../assets/Storage.svg';
 import DaoStack from '../../assets/DaoStack.png';
 import Aragon from '../../assets/Aragon.png';
 import Consensys from '../../assets/Consensys.png';
@@ -275,7 +274,7 @@ class Landing extends Component {
 
         <section className="hub">
           <div className="hub_popout">
-            <img src={ThreeBoxCloudPink} alt="ThreeBox Cloud" className="hub_popout_cloud desktop" />
+            <img src={ThreeBoxCloud} alt="ThreeBox Cloud" className="hub_popout_cloud desktop" />
             <div className="hub_popout_profile">
               <img src={NewProfileCard} alt="Profile card" className="hub_popout_profile_card" />
             </div>

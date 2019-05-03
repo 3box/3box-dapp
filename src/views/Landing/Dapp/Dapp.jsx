@@ -1,15 +1,15 @@
 import React, { Suspense, lazy, Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
-import ThreeBoxCloud from '../../../assets/3BoxCloud.png';
+import ThreeBoxCloud from '../../../assets/3BoxCloud.svg';
 import DappScreensBG from '../../../assets/DappScreensBG.svg';
 import DappScreens from '../../../assets/DappScreens.png';
 import NewProfileCard from '../../../assets/NewProfileCard.png';
-import ProfilesSmall from '../../../assets/ProfilesSmall.png';
-import SSOSmall from '../../../assets/SSOSmall.png';
-import StorageSmall from '../../../assets/StorageSmall.png';
+import ProfilesSmall from '../../../assets/Profiles.svg';
+import SSOSmall from '../../../assets/Authentication.svg';
+import StorageSmall from '../../../assets/Storage.svg';
 import DiscordButton from '../components/DiscordButton';
 import '../../styles/NewLanding.css';
 import '../../../components/styles/Nav.css';

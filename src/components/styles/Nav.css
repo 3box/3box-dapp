@@ -524,6 +524,8 @@ nav {
   justify-content: center;
   align-items: center;
   width: 30%; }
+  .landing_nav_api_option_icon img {
+    width: 60px; }
 
 .landing_nav_api_option_text {
   display: flex;

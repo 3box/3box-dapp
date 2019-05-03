@@ -88,7 +88,8 @@
   font-size: 22px;
   letter-spacing: .84px; }
   .dapp_usp_feature img {
-    margin-right: 24px; }
+    margin-right: 24px;
+    width: 60px; }
   .dapp_usp_feature .dapp_usp_feature_sso {
     display: inline-block;
     position: relative;
@@ -676,6 +677,8 @@ footer {
   display: flex;
   justify-content: flex-start;
   align-items: center; }
+  .api_sections_content img {
+    width: 60px; }
 
 .api_sections_expanded {
   background-color: #f5f6f8;

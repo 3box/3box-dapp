@@ -113,6 +113,7 @@
 
   img {
     margin-right: 24px;
+    width: 60px;
   }
 
   // h3 {
@@ -870,6 +871,10 @@ footer {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+
+  img {
+    width: 60px;
+  }
 }
 
 .api_sections_expanded {
