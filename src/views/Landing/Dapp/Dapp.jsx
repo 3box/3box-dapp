@@ -38,7 +38,7 @@ class Dapp extends Component {
               <h1>Your new home online.</h1>
               <p>
                 Experience the internet like never before with your new all-in-one sign-in, profile, and cloud storage.
-            </p>
+              </p>
               <div className="dapp_usp">
                 <div className="dapp_usp_feature">
                   <img src={SSOSmall} alt="Single sign on" />
@@ -49,7 +49,7 @@ class Dapp extends Component {
                 <div className="dapp_usp_feature">
                   <img src={ProfilesSmall} alt="Profiles" />
                   <h3 className="dapp_usp_feature_profiles">
-                    Social Identity and Reputation
+                    Identity and Reputation
                   </h3>
                 </div>
                 <div className="dapp_usp_feature">

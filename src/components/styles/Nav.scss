@@ -425,8 +425,9 @@ nav {
 
 .activeNavLink {
   border-bottom: 3px solid $threeBoxBlack;
-  margin-bottom: -6px;
-  padding-bottom: 3px;
+  margin-bottom: -26px;
+  padding-bottom: 23px;
+  z-index: 1;
 }
 
 .landing {
@@ -638,6 +639,7 @@ nav {
 .landing_nav_api_wrapper {
   height: 100%;
   width: 66%;
+  min-width: 880px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -650,6 +652,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    min-width: 280px;
   }
 }
 
@@ -685,6 +688,13 @@ nav {
   margin-right: 44px;
   color: #010c16;
   cursor: pointer;
+  font-weight: 800;
+  letter-spacing: .6px;
+}
+
+.landing_nav_link {
+  font-weight: 800;
+  letter-spacing: .6px;
 }
 
 .landing_nav_hamburger-mobile {

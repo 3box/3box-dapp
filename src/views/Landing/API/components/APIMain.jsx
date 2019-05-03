@@ -15,7 +15,7 @@ const APIMain = () => (
           </p>
           <div className="hero_copy_buttons">
             <a href="https://github.com/3box/3box">
-              <button type="button" className="hero_copy_buttons_button">
+              <button type="button" className="hero_copy_buttons_button primaryMarketing">
                 Read the Docs
               <img src={TriangleWhite} alt="arrow" />
               </button>

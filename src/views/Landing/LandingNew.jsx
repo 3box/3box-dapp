@@ -6,6 +6,7 @@ import { withRouter, Link } from 'react-router-dom';
 import * as routes from '../../utils/routes';
 import ThreeBoxLogo from '../../assets/ThreeBoxLogoWhite.svg';
 import ThreeBoxCloud from '../../assets/3BoxCloud.png';
+import ThreeBoxCloudPink from '../../assets/ThreeBoxCloudPink.png';
 import TriangleWhite from '../../assets/TriangleWhite.svg';
 import TriangleBlue from '../../assets/TriangleBlue.svg';
 import TriangleBlack from '../../assets/TriangleBlack.svg';
@@ -54,7 +55,7 @@ class Landing extends Component {
               </p>
               <div className="hero_copy_buttons">
                 <Link to={routes.API}>
-                  <button type="button" className="hero_copy_buttons_button">
+                  <button type="button" className="hero_copy_buttons_button primaryMarketing">
                     For Developers
                     <img src={TriangleWhite} alt="arrow" />
                   </button>
@@ -274,6 +275,7 @@ class Landing extends Component {
 
         <section className="hub">
           <div className="hub_popout">
+            <img src={ThreeBoxCloudPink} alt="ThreeBox Cloud" className="hub_popout_cloud desktop" />
             <div className="hub_popout_profile">
               <img src={NewProfileCard} alt="Profile card" className="hub_popout_profile_card" />
             </div>
@@ -281,17 +283,17 @@ class Landing extends Component {
               <div className="hub_popout_info_wrapper">
                 <h5>
                   3BOX HUB
-          </h5>
+                </h5>
                 <h3>
                   Start building your social identity and reputation on web3
-          </h3>
+                </h3>
                 <p>
                   Create an account to experience the internet like never before.
-          </p>
+                </p>
                 <Link to={routes.HUB}>
                   <button type="button">
                     Sign In
-              </button>
+                  </button>
                 </Link>
               </div>
             </div>

@@ -59,6 +59,8 @@ export const ProfileDetails = ({ openSection }) => (
         </ul>
       </div>
       <div className="api_sections_expanded_codeBlock">
+        <div className="getSet getSet-pink codeBlockGet">GET</div>
+        <div className="getSet getSet-pink codeBlockSet">SET</div>
         <Highlight className="javascript">
           {`// GET`}
         </Highlight>
@@ -133,7 +135,7 @@ export const ProfileDetails = ({ openSection }) => (
           {`await box.private.set('email', 'narwhal@3box.io')`}
         </Highlight>
       </div>
-      <a href="https://github.com/3box/3box-js">
+      <a href="https://github.com/3box/3box-js#profiles-api">
         <button className="secondaryBlue">
           View full documentation
       </button>
@@ -265,7 +267,7 @@ export const MessagingDetails = ({ openSection }) => (
           {`await box.private.set('email', 'narwhal@3box.io')`}
         </Highlight>
       </div>
-      <a href="https://github.com/3box/3box-js">
+      <a href="https://github.com/3box/3box-js#threads-api-messaging">
         <button className="secondaryBlue">
           View full documentation
         </button>
@@ -399,7 +401,7 @@ export const StorageDetails = ({ openSection }) => (
           {`await box.private.set('email', 'narwhal@3box.io')`}
         </Highlight>
       </div>
-      <a href="https://github.com/3box/3box-js">
+      <a href="https://github.com/3box/3box-js#spaces-api-storage">
         <button className="secondaryBlue">
           View full documentation
     </button>

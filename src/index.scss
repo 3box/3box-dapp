@@ -76,9 +76,32 @@ button {
   }
 }
 
+.primaryMarketing {
+  font-size: 20px;
+  letter-spacing: .77px;
+  width: 235px;
+  display: flex;
+  justify-content: space-between;
+  height: 62px;
+  border: 3px solid $threeBoxBlack;
+  box-shadow: 0 3px 5px 0 #00000025, 0 4px 6px 0 #0000002f;
+
+  &:hover {
+    background-color: $threeBoxBlackHover;
+    border-color: $threeBoxBlackHover;
+  }
+}
+
 .secondary {
   background-color: transparent;
   color: $threeBoxBlack;
+  font-size: 20px;
+  letter-spacing: .77px;
+  width: 235px;
+  display: flex;
+  justify-content: space-between;
+  height: 62px;
+  border: 3px solid $threeBoxBlack;
 
   &:hover {
     background-color: $backgroundHue;
@@ -92,6 +115,7 @@ button {
 
   &:hover {
     background-color: $backgroundHue;
+    border-color: $threeBoxBlue;
   }
 }
 
@@ -134,7 +158,8 @@ button {
   justify-content: center;
   align-items: center;
   color: $threeBoxBlue;
-  
+  font-size: 16px;
+
   &:hover {
     background-color: transparent;
     border: none;

@@ -59,9 +59,29 @@ button {
     background-color: #2f383a;
     border-color: #2f383a; }
 
+.primaryMarketing {
+  font-size: 20px;
+  letter-spacing: .77px;
+  width: 235px;
+  display: flex;
+  justify-content: space-between;
+  height: 62px;
+  border: 3px solid #181F21;
+  box-shadow: 0 3px 5px 0 #00000025, 0 4px 6px 0 #0000002f; }
+  .primaryMarketing:hover {
+    background-color: #2f383a;
+    border-color: #2f383a; }
+
 .secondary {
   background-color: transparent;
-  color: #181F21; }
+  color: #181F21;
+  font-size: 20px;
+  letter-spacing: .77px;
+  width: 235px;
+  display: flex;
+  justify-content: space-between;
+  height: 62px;
+  border: 3px solid #181F21; }
   .secondary:hover {
     background-color: #f5f6f8; }
 
@@ -70,7 +90,8 @@ button {
   color: #1168df;
   border-color: #1168df; }
   .secondaryBlue:hover {
-    background-color: #f5f6f8; }
+    background-color: #f5f6f8;
+    border-color: #1168df; }
 
 .blueButton {
   border-color: #1168df;
@@ -104,7 +125,8 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #1168df; }
+  color: #1168df;
+  font-size: 16px; }
   .textButton:hover {
     background-color: transparent;
     border: none; }

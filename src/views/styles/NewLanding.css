@@ -24,7 +24,8 @@
   width: 65vw;
   display: flex;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  min-width: 700px; }
 
 .api_main_wrapper {
   width: 72%;
@@ -33,17 +34,20 @@
   align-items: center; }
 
 .hero_copy_wrapper {
-  width: 70%; }
+  width: 70%;
+  z-index: 1; }
   .hero_copy_wrapper h1 {
     margin-bottom: 22px;
     font-size: 40px;
     letter-spacing: 2px; }
   .hero_copy_wrapper p {
-    line-height: 28px;
+    line-height: 36px;
     margin-bottom: 50px;
     width: 76%;
     letter-spacing: .84px;
-    min-width: 404px; }
+    min-width: 554px;
+    font-size: 22px;
+    color: #181F21; }
 
 .main_wrapper {
   width: 76vw;
@@ -59,7 +63,15 @@
   flex-direction: column;
   width: 54%; }
   .main_copy h1 {
-    margin-bottom: 20px; }
+    margin-bottom: 20px;
+    font-size: 40px;
+    letter-spacing: 2px;
+    font-weight: 800; }
+  .main_copy p {
+    color: #181F21;
+    letter-spacing: .84px;
+    line-height: 36px;
+    font-size: 22px; }
 
 .dapp_usp {
   display: flex;
@@ -72,7 +84,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 18px; }
+  margin-bottom: 18px;
+  font-size: 22px;
+  letter-spacing: .84px; }
   .dapp_usp_feature img {
     margin-right: 24px; }
   .dapp_usp_feature .dapp_usp_feature_sso {
@@ -136,7 +150,8 @@
   width: 86%;
   max-width: 288px;
   min-width: 288px;
-  margin-bottom: 15px; }
+  margin-bottom: 15px;
+  font-size: 16px; }
 
 .partners_list-daostack {
   width: 94px !important; }
@@ -190,7 +205,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden; }
+  overflow: hidden;
+  min-width: 385px; }
   .hero_graphic button {
     z-index: 2; }
 
@@ -213,8 +229,8 @@
   height: 70px;
   width: 70px;
   position: fixed;
-  bottom: 15vh;
-  right: 5vw;
+  bottom: 2vh;
+  right: 2vw;
   box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
   z-index: 5; }
   .hero_graphic_discord img {
@@ -301,7 +317,8 @@
   color: #1168df !important;
   margin-bottom: 6px;
   letter-spacing: 3px;
-  font-family: 'Source Code Pro', monospace; }
+  font-family: 'Source Code Pro', monospace;
+  font-size: 16px; }
 
 .section_line {
   width: 70px;
@@ -336,7 +353,8 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 50px;
-  width: 90%; }
+  width: 90%;
+  min-width: 930px; }
 
 .product_apis_featureList_features {
   display: flex;
@@ -344,7 +362,8 @@
   align-items: center;
   flex-direction: column;
   padding: 14px 20px;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  max-width: 310px; }
   .product_apis_featureList_features p {
     text-align: center;
     margin-bottom: 18px;
@@ -391,15 +410,20 @@
   margin-top: 50px; }
 
 .why_reason_info {
-  width: 60%;
-  max-width: 480px; }
+  width: 64%;
+  max-width: 520px; }
   .why_reason_info h4 {
-    font-size: 22px;
-    line-height: 40px;
-    margin-bottom: 34px; }
+    font-size: 28px;
+    line-height: 50px;
+    margin-bottom: 34px;
+    letter-spacing: .68px; }
+  .why_reason_info p {
+    font-size: 18px;
+    line-height: 30px;
+    letter-spacing: .92px; }
 
 .why_reason_icon {
-  width: 40%;
+  width: 36%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -422,7 +446,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 26px; }
+  margin-top: 46px; }
 
 .why_reason_info_tag {
   background-color: #181F21;
@@ -430,7 +454,8 @@
   padding: 6px 14px;
   margin-right: 10px; }
   .why_reason_info_tag p {
-    color: white !important; }
+    color: white !important;
+    font-size: 16px; }
 
 .hub {
   width: 100vw;
@@ -443,11 +468,11 @@
 .hub_popout {
   background: #fefe2f;
   /* Old browsers */
-  background: -moz-radial-gradient(20%, ellipse cover, #fefe2f 0%, #f931ff 100%);
+  background: -moz-radial-gradient(20%, circle cover, #fefe2f 0%, #f931ff 100%);
   /* FF3.6-15 */
-  background: -webkit-radial-gradient(20%, ellipse cover, #fefe2f 0%, #f931ff 100%);
+  background: -webkit-radial-gradient(20%, circle cover, #fefe2f 0%, #f931ff 100%);
   /* Chrome10-25,Safari5.1-6 */
-  background: radial-gradient(ellipse at 20%, #fefe2f 0%, #f931ff 100%);
+  background: radial-gradient(circle at 20%, #fefe2f 0%, #f931ff 100%);
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fefe2f', endColorstr='#f931ff', GradientType=1);
   /* IE6-9 fallback on horizontal gradient */
@@ -458,7 +483,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f; }
+  box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #0000002f;
+  position: relative; }
+
+.hub_popout_cloud {
+  width: 90px;
+  position: absolute;
+  top: 30px;
+  right: 40px; }
 
 .hub_popout_profile {
   width: 36%;
@@ -492,12 +524,14 @@
     font-weight: 400;
     margin-bottom: 16px;
     letter-spacing: 3px;
-    font-family: 'Source Code Pro', monospace; }
+    font-family: 'Source Code Pro', monospace;
+    font-size: 18px; }
   .hub_popout_info_wrapper p {
     margin-bottom: 32px;
     color: #181F21; }
   .hub_popout_info_wrapper button {
-    width: 180px; }
+    width: 180px;
+    box-shadow: 0 3px 5px 0 #00000025, 0 4px 6px 0 #0000002f; }
 
 .hub_popout_profile_card {
   border-radius: 8px;
@@ -524,24 +558,34 @@
     letter-spacing: .2px;
     font-family: 'Source Code Pro', monospace; }
 
+.join_input {
+  height: 100px; }
+
 .join_input div {
   display: flex;
-  align-items: center; }
+  align-items: center;
+  justify-content: center;
+  flex-direction: column-reverse;
+  position: relative;
+  width: 400px; }
   .join_input div input {
     height: 60px;
     width: 400px;
     border-radius: 5px;
     border: none;
     padding-left: 20px;
-    box-sizing: border-box; }
+    box-sizing: border-box;
+    margin-bottom: 20px; }
   .join_input div button {
     display: flex;
     align-items: center;
-    margin-left: -100.5px;
     height: 47px;
     padding: 0 20px;
     background-color: #1168df;
-    border-color: #1168df; }
+    border-color: #1168df;
+    position: absolute;
+    top: 7px;
+    right: 8px; }
 
 .footer_section {
   width: 80vw;
@@ -595,7 +639,7 @@ footer {
   height: 272px; }
 
 .api_main {
-  height: 60vh;
+  height: 70vh;
   display: flex;
   justify-content: center;
   align-items: center; }
@@ -705,6 +749,18 @@ footer {
   background-color: #fefe2f;
   margin-left: 0; }
 
+.codeBlockGet {
+  position: absolute;
+  background-color: #f831ff;
+  top: 16px;
+  left: 5px; }
+
+.codeBlockSet {
+  position: absolute;
+  background-color: #f831ff;
+  top: 448px;
+  left: 5px; }
+
 .api_sections_expanded_usp {
   margin-top: 30px;
   margin-bottom: 50px; }
@@ -727,7 +783,8 @@ footer {
   flex-direction: column;
   padding: 15px;
   box-sizing: border-box;
-  margin-bottom: 60px; }
+  margin-bottom: 60px;
+  position: relative; }
   .api_sections_expanded_codeBlock p {
     color: #b1b1b1; }
 
@@ -745,7 +802,7 @@ pre {
   max-width: 990px;
   border-bottom: 1px solid #ececec;
   opacity: .4;
-  margin-top: 200px; }
+  margin-top: 160px; }
 
 .hero_graphic_colorcubes-mobile {
   display: none; }
@@ -783,17 +840,23 @@ pre {
 @media only screen and (max-width: 600px) {
   .hero {
     flex-direction: column-reverse;
-    justify-content: flex-end; }
+    justify-content: flex-end;
+    height: 100vh;
+    padding-bottom: 68px; }
   .hero_copy {
     width: 100vw;
     justify-content: center; }
   .hero_text {
     width: 100vw;
+    min-width: 100vw;
     justify-content: center; }
   .hero_graphic {
     width: 100vw;
+    min-width: 100vw;
     align-items: flex-start;
     height: 300px; }
+  .codeBlockSet {
+    top: 418px; }
   .hero_devs {
     height: 60%;
     margin-top: 84px; }
@@ -812,14 +875,17 @@ pre {
     margin-bottom: 0; }
   .product_apis_featureList {
     flex-direction: column;
-    width: 94%; }
+    width: 94%;
+    min-width: 94%; }
   .hero_copy_buttons {
     flex-direction: column; }
   .hero_copy_buttons_button {
     margin-bottom: 18px; }
   .why_reason {
     flex-direction: column;
-    margin-bottom: 100px; }
+    margin-bottom: 100px;
+    margin-top: 20px;
+    width: 80%; }
   .why_reason_info_tags {
     margin-top: 40px;
     display: block; }
@@ -842,6 +908,8 @@ pre {
     width: 90%; }
   .switch_why {
     flex-direction: column-reverse; }
+  .why {
+    margin-bottom: 20px; }
   .hero_copy_cloud {
     position: absolute;
     top: 152px;
@@ -961,12 +1029,12 @@ pre {
     min-width: 90vw; }
   .dapp_main {
     padding-top: 26px;
-    height: 148vh; }
+    height: 156vh; }
   .main_profileCard {
     width: 100%; }
   .main_copy {
     width: 84%;
-    margin-top: 56px; }
+    margin-top: 20px; }
   .dapp_screens_devices {
     width: 90%; }
   .api_main_wrapper {
@@ -975,11 +1043,15 @@ pre {
     justify-content: center;
     align-items: center;
     flex-direction: column-reverse; }
-  .join_input div input {
-    width: 82vw;
-    margin-left: -8px; }
-  .join_input div button {
-    margin-left: -98.5px; }
+  .main_profileCard_card_login {
+    margin-bottom: 8px; }
+  .join_input div {
+    width: 100vw; }
+    .join_input div input {
+      width: 82vw;
+      margin-left: -8px; }
+    .join_input div button {
+      right: 58px; }
   .rightLane {
     align-items: flex-start;
     height: 240px; }

@@ -336,8 +336,9 @@ nav {
 
 .activeNavLink {
   border-bottom: 3px solid #181F21;
-  margin-bottom: -6px;
-  padding-bottom: 3px; }
+  margin-bottom: -26px;
+  padding-bottom: 23px;
+  z-index: 1; }
 
 .landing {
   color: #1168df !important; }
@@ -505,6 +506,7 @@ nav {
 .landing_nav_api_wrapper {
   height: 100%;
   width: 66%;
+  min-width: 880px;
   display: flex;
   justify-content: space-between;
   align-items: center; }
@@ -514,7 +516,8 @@ nav {
   .landing_nav_api_option a {
     display: flex;
     justify-content: space-between;
-    align-items: center; }
+    align-items: center;
+    min-width: 280px; }
 
 .landing_nav_api_option_icon {
   display: flex;
@@ -541,7 +544,13 @@ nav {
   font-size: 16px;
   margin-right: 44px;
   color: #010c16;
-  cursor: pointer; }
+  cursor: pointer;
+  font-weight: 800;
+  letter-spacing: .6px; }
+
+.landing_nav_link {
+  font-weight: 800;
+  letter-spacing: .6px; }
 
 .landing_nav_hamburger-mobile {
   display: none; }
