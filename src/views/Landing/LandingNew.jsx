@@ -6,6 +6,7 @@ import { withRouter, Link } from 'react-router-dom';
 import * as routes from '../../utils/routes';
 import ThreeBoxLogo from '../../assets/ThreeBoxLogoWhite.svg';
 import ThreeBoxCloudWhite from '../../assets/3BoxCloudWhite.svg';
+import ThreeBoxCloudWhiteNoShadow from '../../assets/3BoxCloudWhiteNoShadow.svg';
 import ThreeBoxCloud from '../../assets/3BoxCloud.svg';
 import TriangleWhite from '../../assets/TriangleWhite.svg';
 import TriangleBlue from '../../assets/TriangleBlue.svg';
@@ -48,7 +49,8 @@ class Landing extends Component {
         <main className="hero">
           <div className="hero_text">
             <div className="hero_copy_wrapper">
-              <img src={ThreeBoxCloudWhite} className="hero_copy_cloud" alt="3Box cloud" />
+              <img src={ThreeBoxCloudWhite} className="hero_copy_cloud desktop" alt="3Box cloud" />
+              <img src={ThreeBoxCloudWhiteNoShadow} className="hero_copy_cloud mobile" alt="3Box cloud" />
               <h1>Secure Cloud Storage</h1>
               <p>
                 Developers trust the decentralized 3Box cloud to secure their most important user data.  #BuildBetter
