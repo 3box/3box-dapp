@@ -5,15 +5,16 @@ import { withRouter, Link } from 'react-router-dom';
 
 import * as routes from '../../utils/routes';
 import ThreeBoxLogo from '../../assets/ThreeBoxLogoWhite.svg';
+import ThreeBoxCloudWhite from '../../assets/3BoxCloudWhite.svg';
 import ThreeBoxCloud from '../../assets/3BoxCloud.svg';
 import TriangleWhite from '../../assets/TriangleWhite.svg';
 import TriangleBlue from '../../assets/TriangleBlue.svg';
 import TriangleBlack from '../../assets/TriangleBlack.svg';
 import NewProfileCard from '../../assets/NewProfileCard.png';
-import Trust from '../../assets/Trust.png';
-import HighFive from '../../assets/HighFive.png';
+import Trust from '../../assets/Trust.svg';
+import HighFive from '../../assets/HighFive.svg';
 import Authentication from '../../assets/Authentication.svg';
-import Collaboration from '../../assets/Collaboration.png';
+import Collaboration from '../../assets/Collaboration.svg';
 import Profiles from '../../assets/Profiles.svg';
 import Messaging from '../../assets/Messaging.svg';
 import Storage from '../../assets/Storage.svg';
@@ -47,7 +48,7 @@ class Landing extends Component {
         <main className="hero">
           <div className="hero_text">
             <div className="hero_copy_wrapper">
-              <img src={ThreeBoxCloud} className="hero_copy_cloud" alt="3Box cloud" />
+              <img src={ThreeBoxCloudWhite} className="hero_copy_cloud" alt="3Box cloud" />
               <h1>Secure Cloud Storage</h1>
               <p>
                 Developers trust the decentralized 3Box cloud to secure their most important user data.  #BuildBetter

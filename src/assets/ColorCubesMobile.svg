@@ -1,51 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="842px" height="374px" viewBox="0 0 842 374" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="837px" height="372px" viewBox="0 0 837 372" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
     <title>Group</title>
     <desc>Created with Sketch.</desc>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="Group" fill-rule="nonzero">
-            <g id="ColorCubes">
-                <rect id="Rectangle-27" fill="#8940FF" x="0" y="0" width="93" height="93"></rect>
-                <rect id="Rectangle-27" fill="#8940FF" opacity="0.85" x="94" y="0" width="93" height="93"></rect>
-                <rect id="Rectangle-27-Copy" fill="#8940FF" opacity="0.7" x="188" y="0" width="93" height="93"></rect>
-                <rect id="Rectangle-27" fill="#FEFE2F" x="0" y="281" width="93" height="93"></rect>
-                <rect id="Rectangle-27" fill="#FEFE2F" opacity="0.85" x="94" y="281" width="93" height="93"></rect>
-                <rect id="Rectangle-27-Copy-2" fill="#FEFE2F" opacity="0.7" x="188" y="281" width="93" height="93"></rect>
-                <rect id="Rectangle-27" fill="#F931FF" x="0" y="93" width="93" height="93"></rect>
-                <rect id="Rectangle-27" fill="#F931FF" opacity="0.85" x="94" y="93" width="93" height="93"></rect>
-                <rect id="Rectangle-27-Copy-3" fill="#F931FF" opacity="0.7" x="188" y="93" width="93" height="93"></rect>
-                <rect id="Rectangle-27" fill="#31F8C0" x="0" y="188" width="93" height="93"></rect>
-                <rect id="Rectangle-27" fill="#31F8C0" opacity="0.85" x="94" y="188" width="93" height="93"></rect>
-                <rect id="Rectangle-27-Copy-4" fill="#31F8C0" opacity="0.7" x="188" y="188" width="93" height="93"></rect>
+            <g id="ColorCubesMobile">
+                <g id="ColorCubes">
+                    <rect id="Rectangle-27" fill="#8940FF" x="0" y="0" width="93" height="93"></rect>
+                    <rect id="Rectangle-27" fill="#8940FF" opacity="0.85" x="93" y="0" width="93" height="93"></rect>
+                    <rect id="Rectangle-27-Copy" fill="#8940FF" opacity="0.7" x="186" y="0" width="93" height="93"></rect>
+                    <rect id="Rectangle-27" fill="#FEFE2F" x="0" y="279" width="93" height="93"></rect>
+                    <rect id="Rectangle-27" fill="#FEFE2F" opacity="0.85" x="93" y="279" width="93" height="93"></rect>
+                    <rect id="Rectangle-27-Copy-2" fill="#FEFE2F" opacity="0.7" x="186" y="279" width="93" height="93"></rect>
+                    <rect id="Rectangle-27" fill="#F931FF" x="0" y="93" width="93" height="93"></rect>
+                    <rect id="Rectangle-27" fill="#F931FF" opacity="0.85" x="93" y="93" width="93" height="93"></rect>
+                    <rect id="Rectangle-27-Copy-3" fill="#F931FF" opacity="0.7" x="186" y="93" width="93" height="93"></rect>
+                    <rect id="Rectangle-27" fill="#31F8C0" x="0" y="186" width="93" height="93"></rect>
+                    <rect id="Rectangle-27" fill="#31F8C0" opacity="0.85" x="93" y="186" width="93" height="93"></rect>
+                    <rect id="Rectangle-27-Copy-4" fill="#31F8C0" opacity="0.7" x="186" y="186" width="93" height="93"></rect>
+                </g>
             </g>
-            <g id="ColorCubes-Copy" transform="translate(281.000000, 0.000000)">
-                <rect id="Rectangle-27" fill="#8940FF" x="0" y="0" width="93" height="93"></rect>
-                <rect id="Rectangle-27" fill="#8940FF" opacity="0.85" x="94" y="0" width="93" height="93"></rect>
-                <rect id="Rectangle-27-Copy" fill="#8940FF" opacity="0.7" x="187" y="0" width="93" height="93"></rect>
-                <rect id="Rectangle-27" fill="#FEFE2F" x="0" y="281" width="93" height="93"></rect>
-                <rect id="Rectangle-27" fill="#FEFE2F" opacity="0.85" x="94" y="281" width="93" height="93"></rect>
-                <rect id="Rectangle-27-Copy-2" fill="#FEFE2F" opacity="0.7" x="187" y="281" width="93" height="93"></rect>
-                <rect id="Rectangle-27" fill="#F931FF" x="0" y="93" width="93" height="93"></rect>
-                <rect id="Rectangle-27" fill="#F931FF" opacity="0.85" x="94" y="93" width="93" height="93"></rect>
-                <rect id="Rectangle-27-Copy-3" fill="#F931FF" opacity="0.7" x="187" y="93" width="93" height="93"></rect>
-                <rect id="Rectangle-27" fill="#31F8C0" x="0" y="188" width="93" height="93"></rect>
-                <rect id="Rectangle-27" fill="#31F8C0" opacity="0.85" x="94" y="188" width="93" height="93"></rect>
-                <rect id="Rectangle-27-Copy-4" fill="#31F8C0" opacity="0.7" x="187" y="188" width="93" height="93"></rect>
+            <g id="ColorCubesMobile-Copy" transform="translate(279.000000, 0.000000)">
+                <g id="ColorCubes">
+                    <rect id="Rectangle-27" fill="#8940FF" x="0" y="0" width="93" height="93"></rect>
+                    <rect id="Rectangle-27" fill="#8940FF" opacity="0.85" x="93" y="0" width="93" height="93"></rect>
+                    <rect id="Rectangle-27-Copy" fill="#8940FF" opacity="0.7" x="186" y="0" width="93" height="93"></rect>
+                    <rect id="Rectangle-27" fill="#FEFE2F" x="0" y="279" width="93" height="93"></rect>
+                    <rect id="Rectangle-27" fill="#FEFE2F" opacity="0.85" x="93" y="279" width="93" height="93"></rect>
+                    <rect id="Rectangle-27-Copy-2" fill="#FEFE2F" opacity="0.7" x="186" y="279" width="93" height="93"></rect>
+                    <rect id="Rectangle-27" fill="#F931FF" x="0" y="93" width="93" height="93"></rect>
+                    <rect id="Rectangle-27" fill="#F931FF" opacity="0.85" x="93" y="93" width="93" height="93"></rect>
+                    <rect id="Rectangle-27-Copy-3" fill="#F931FF" opacity="0.7" x="186" y="93" width="93" height="93"></rect>
+                    <rect id="Rectangle-27" fill="#31F8C0" x="0" y="186" width="93" height="93"></rect>
+                    <rect id="Rectangle-27" fill="#31F8C0" opacity="0.85" x="93" y="186" width="93" height="93"></rect>
+                    <rect id="Rectangle-27-Copy-4" fill="#31F8C0" opacity="0.7" x="186" y="186" width="93" height="93"></rect>
+                </g>
             </g>
-            <g id="ColorCubes-Copy-2" transform="translate(561.000000, 0.000000)">
-                <rect id="Rectangle-27" fill="#8940FF" x="0" y="0" width="93" height="93"></rect>
-                <rect id="Rectangle-27" fill="#8940FF" opacity="0.85" x="94" y="0" width="93" height="93"></rect>
-                <rect id="Rectangle-27-Copy" fill="#8940FF" opacity="0.7" x="188" y="0" width="93" height="93"></rect>
-                <rect id="Rectangle-27" fill="#FEFE2F" x="0" y="281" width="93" height="93"></rect>
-                <rect id="Rectangle-27" fill="#FEFE2F" opacity="0.85" x="94" y="281" width="93" height="93"></rect>
-                <rect id="Rectangle-27-Copy-2" fill="#FEFE2F" opacity="0.7" x="188" y="281" width="93" height="93"></rect>
-                <rect id="Rectangle-27" fill="#F931FF" x="0" y="93" width="93" height="93"></rect>
-                <rect id="Rectangle-27" fill="#F931FF" opacity="0.85" x="94" y="93" width="93" height="93"></rect>
-                <rect id="Rectangle-27-Copy-3" fill="#F931FF" opacity="0.7" x="188" y="93" width="93" height="93"></rect>
-                <rect id="Rectangle-27" fill="#31F8C0" x="0" y="188" width="93" height="93"></rect>
-                <rect id="Rectangle-27" fill="#31F8C0" opacity="0.85" x="94" y="188" width="93" height="93"></rect>
-                <rect id="Rectangle-27-Copy-4" fill="#31F8C0" opacity="0.7" x="188" y="188" width="93" height="93"></rect>
+            <g id="ColorCubesMobile-Copy-2" transform="translate(558.000000, 0.000000)">
+                <g id="ColorCubes">
+                    <rect id="Rectangle-27" fill="#8940FF" x="0" y="0" width="93" height="93"></rect>
+                    <rect id="Rectangle-27" fill="#8940FF" opacity="0.85" x="93" y="0" width="93" height="93"></rect>
+                    <rect id="Rectangle-27-Copy" fill="#8940FF" opacity="0.7" x="186" y="0" width="93" height="93"></rect>
+                    <rect id="Rectangle-27" fill="#FEFE2F" x="0" y="279" width="93" height="93"></rect>
+                    <rect id="Rectangle-27" fill="#FEFE2F" opacity="0.85" x="93" y="279" width="93" height="93"></rect>
+                    <rect id="Rectangle-27-Copy-2" fill="#FEFE2F" opacity="0.7" x="186" y="279" width="93" height="93"></rect>
+                    <rect id="Rectangle-27" fill="#F931FF" x="0" y="93" width="93" height="93"></rect>
+                    <rect id="Rectangle-27" fill="#F931FF" opacity="0.85" x="93" y="93" width="93" height="93"></rect>
+                    <rect id="Rectangle-27-Copy-3" fill="#F931FF" opacity="0.7" x="186" y="93" width="93" height="93"></rect>
+                    <rect id="Rectangle-27" fill="#31F8C0" x="0" y="186" width="93" height="93"></rect>
+                    <rect id="Rectangle-27" fill="#31F8C0" opacity="0.85" x="93" y="186" width="93" height="93"></rect>
+                    <rect id="Rectangle-27-Copy-4" fill="#31F8C0" opacity="0.7" x="186" y="186" width="93" height="93"></rect>
+                </g>
             </g>
         </g>
     </g>

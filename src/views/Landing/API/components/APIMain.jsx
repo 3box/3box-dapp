@@ -11,7 +11,7 @@ const APIMain = () => (
         <div className="hero_copy_wrapper">
           <h1>Our products</h1>
           <p>
-            A suite of APIs to easily build distributed consumer application
+            A suite of APIs to easily build distributed consumer applications
           </p>
           <div className="hero_copy_buttons">
             <a href="https://github.com/3box/3box">

@@ -845,7 +845,7 @@ pre {
   .hero {
     flex-direction: column-reverse;
     justify-content: flex-end;
-    height: 100vh;
+    height: fit-content;
     padding-bottom: 68px; }
   .hero_copy {
     width: 100vw;
@@ -910,6 +910,11 @@ pre {
       width: 50%; }
   .why_reason_info {
     width: 90%; }
+    .why_reason_info h4 {
+      font-size: 16px;
+      line-height: 30px; }
+    .why_reason_info p {
+      font-size: 14px; }
   .switch_why {
     flex-direction: column-reverse; }
   .why {
@@ -1032,8 +1037,8 @@ pre {
     width: 90vw;
     min-width: 90vw; }
   .dapp_main {
-    padding-top: 26px;
-    height: 156vh; }
+    padding-top: 54px;
+    height: fit-content; }
   .main_profileCard {
     width: 100%; }
   .main_copy {
@@ -1055,7 +1060,7 @@ pre {
       width: 82vw;
       margin-left: -8px; }
     .join_input div button {
-      right: 58px; }
+      right: 46px; }
   .rightLane {
     align-items: flex-start;
     height: 240px; }

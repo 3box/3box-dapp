@@ -1087,7 +1087,7 @@ pre {
   .hero {
     flex-direction: column-reverse;
     justify-content: flex-end;
-    height: 100vh;
+    height: fit-content;
     padding-bottom: 68px;
   }
 
@@ -1190,6 +1190,15 @@ pre {
 
   .why_reason_info {
     width: 90%;
+
+    h4 {
+      font-size: 16px;
+      line-height: 30px;
+    }
+
+    p {
+      font-size: 14px;
+    }
   }
 
   .switch_why {
@@ -1411,8 +1420,8 @@ pre {
   }
 
   .dapp_main {
-    padding-top: 26px;
-    height: 156vh;
+    padding-top: 54px;
+    height: fit-content;
   }
 
   .main_profileCard {
@@ -1449,7 +1458,7 @@ pre {
     }
 
     button {
-      right: 58px;
+      right: 46px;
     }
   }
 

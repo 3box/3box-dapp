@@ -115,7 +115,6 @@ button {
 
   &:hover {
     background-color: $backgroundHue;
-    border-color: $threeBoxBlue;
   }
 }
 
@@ -159,7 +158,7 @@ button {
   align-items: center;
   color: $threeBoxBlue;
   font-size: 16px;
-
+  
   &:hover {
     background-color: transparent;
     border: none;

@@ -66,6 +66,7 @@ const {
 
 const {
   checkWeb3,
+  initialCheckWeb3,
   checkNetwork,
 } = actions.land;
 
@@ -93,7 +94,7 @@ class App extends Component {
     try {
       initialAddress(); // Initial get address
       pollNetworkAndAddress(); // Start polling for address change
-      await this.props.checkWeb3();
+      await this.props.initialCheckWeb3();
 
       const allowDirectSignIn = (this.props.hasWeb3
         && splitRoute.length > 1 // Route has more than one
@@ -527,6 +528,7 @@ App.propTypes = {
   requestAccess: PropTypes.func.isRequired,
   getMyProfileValue: PropTypes.func.isRequired,
   checkWeb3: PropTypes.func.isRequired,
+  initialCheckWeb3: PropTypes.func.isRequired,
   getMyDID: PropTypes.func.isRequired,
   getCollectibles: PropTypes.func.isRequired,
   getMySpacesData: PropTypes.func.isRequired,
@@ -661,6 +663,7 @@ export default withRouter(connect(mapState,
     getVerifiedPrivateEmail,
     getActivity,
     checkWeb3,
+    initialCheckWeb3,
     requireMetaMaskModal,
     checkNetwork,
     handleMobileWalletModal,
