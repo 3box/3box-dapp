@@ -1035,7 +1035,8 @@ pre {
   .main_wrapper {
     flex-direction: column-reverse;
     width: 90vw;
-    min-width: 90vw; }
+    min-width: 90vw;
+    padding-bottom: 60px; }
   .dapp_main {
     padding-top: 54px;
     height: fit-content; }
