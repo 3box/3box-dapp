@@ -20,12 +20,12 @@ const APIMain = () => (
               <img src={TriangleWhite} alt="arrow" />
               </button>
             </a>
-            <a href="">
+            {/* <a href="">
               <button type="button" className="secondary">
                 About 3Box
               <img src={TriangleBlack} alt="arrow" />
               </button>
-            </a>
+            </a> */}
           </div>
         </div>
       </div>
