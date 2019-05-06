@@ -9,10 +9,10 @@ import * as routes from './utils/routes';
 import { pollNetworkAndAddress, initialAddress } from './utils/address';
 import { normalizeURL, matchProtectedRoutes } from './utils/funcs';
 import { store } from './state/store';
-import Landing from './views/Landing/Landing';
 import APIs from './views/Landing/API/APIs';
 import Dapp from './views/Landing/Dapp/Dapp';
 import LandingNew from './views/Landing/LandingNew';
+import Partners from './views/Landing/Partners';
 import Spaces from './views/Spaces/Spaces.jsx';
 import MyProfile from './views/Profile/MyProfile';
 import PubProfile from './views/Profile/PubProfile';
@@ -23,7 +23,7 @@ import Jobs from './views/Landing/Jobs';
 import Privacy from './views/Landing/Privacy';
 import Terms from './views/Landing/Terms';
 import Create from './views/Landing/Create';
-import NewNavLanding from './components/NewNavLanding';
+import NavLanding from './components/NavLanding';
 import history from './utils/history';
 import './index.css';
 import AppModals from './components/AppModals';
@@ -301,7 +301,7 @@ class App extends Component {
       <div className="App">
         {(!isMyProfilePath) // show landing nav when user is not logged in, 3box is not fetching, and when route is not a protected route
           && (
-            <NewNavLanding
+            <NavLanding
               handleSignInUp={this.handleSignInUp}
               onOtherProfilePage={onOtherProfilePage}
               landing={landing}
@@ -451,6 +451,17 @@ class App extends Component {
             path={routes.JOBS}
             component={() => (
               <Jobs
+                isLoggedIn={isLoggedIn}
+                handleSignInUp={this.handleSignInUp}
+              />
+            )}
+          />
+
+          <Route
+            exact
+            path={routes.PARTNERS}
+            component={() => (
+              <Partners
                 isLoggedIn={isLoggedIn}
                 handleSignInUp={this.handleSignInUp}
               />

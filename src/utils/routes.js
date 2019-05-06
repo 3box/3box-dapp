@@ -6,6 +6,7 @@ export const CREATE = '/create';
 export const PROFILES = '/profiles';
 export const HUB = '/hub';
 export const API = '/products';
+export const PARTNERS = '/partners';
 export const API_PROFILES = '/products/profiles';
 export const API_MESSAGING = '/products/messaging';
 export const API_STORAGE = '/products/storage';

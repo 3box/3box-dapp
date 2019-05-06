@@ -27,6 +27,28 @@
   align-items: center;
   min-width: 700px; }
 
+.partners_content {
+  width: 80vw;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 700px; }
+
+.partners_content_wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  padding-top: 140px;
+  box-sizing: border-box; }
+  .partners_content_wrapper h4 {
+    font-family: 'Source Code Pro', monospace;
+    letter-spacing: 3px;
+    font-size: 16px; }
+
 .api_main_wrapper {
   width: 72%;
   display: flex;
@@ -852,6 +874,65 @@ pre {
 
 .codeblock-mobile {
   display: none; }
+
+.partners_content_header {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.partners_grid {
+  display: inline-grid;
+  grid-template-columns: repeat(3, 200px [col-start]);
+  column-gap: 20px;
+  row-gap: 20px;
+  min-width: 100%; }
+
+.partners_tile {
+  width: 180px;
+  height: 190px;
+  box-shadow: 0 3px 5px 0 #00000025, 0 2px 3px 0 #0000002f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 3px;
+  position: relative;
+  background-color: white; }
+  .partners_tile:hover {
+    background-color: #181F21;
+    cursor: pointer; }
+    .partners_tile:hover .partners_tile_name {
+      color: white !important; }
+    .partners_tile:hover .partners_tile_image img {
+      display: none; }
+    .partners_tile:hover .partners_tile_image p {
+      display: block;
+      font-size: 14px !important;
+      color: white !important; }
+    .partners_tile:hover .partners_tile_name_text {
+      color: white !important; }
+
+.partners_tile_image {
+  height: 70%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .partners_tile_image img {
+    width: 70%; }
+  .partners_tile_image p {
+    display: none; }
+
+.partners_tile_name {
+  height: 30%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.partners_tile_name_text {
+  font-size: 14px !important;
+  letter-spacing: .7 !important; }
 
 .footer_privacy {
   display: flex;

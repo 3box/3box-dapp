@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import actions from '../../state/actions';
-// import HeartGrey from '../../assets/HeartGrey.svg';
 import HeartBlue from '../../assets/HeartBlue.svg';
 import './styles/Profile.css';
 import './styles/Collectibles.css';
