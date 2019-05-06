@@ -6,7 +6,7 @@ import YellowBullet from '../../../../assets/YellowBullet.png';
 import PinkBullet from '../../../../assets/PinkBullet.png';
 
 export const ProfileDetails = ({ openSection }) => (
-  <section className={`api_sections_expanded ${openSection ? 'openSection' : ''}`}>
+  <section className={`api_sections_expanded ${openSection ? 'openSection openSection-profiles' : ''}`}>
     <div className="api_sections_expanded_wrapper">
       <div className="api_sections_expanded_header">
         <h4>Why use Profiles?</h4>
@@ -23,7 +23,7 @@ export const ProfileDetails = ({ openSection }) => (
         <br />
         3Box profile data is stored in a decentralized IPFS datastore that is controlled by the user,
         so data is secure and can be shared across various apps and services.
-    </p>
+      </p>
       <div className="api_sections_expanded_usp">
         <ul>
           <li>
@@ -59,8 +59,8 @@ export const ProfileDetails = ({ openSection }) => (
         </ul>
       </div>
       <div className="api_sections_expanded_codeBlock">
-        <div className="getSet getSet-pink codeBlockGet">GET</div>
-        <div className="getSet getSet-pink codeBlockSet">SET</div>
+        <div className="getSet getSet-pink codeBlockGet-profiles">GET</div>
+        <div className="getSet getSet-pink codeBlockSet-profiles">SET</div>
         <Highlight className="javascript">
           {`// GET`}
         </Highlight>
@@ -145,7 +145,7 @@ export const ProfileDetails = ({ openSection }) => (
 );
 
 export const MessagingDetails = ({ openSection }) => (
-  <section className={`api_sections_expanded ${openSection ? 'openSection' : ''}`}>
+  <section className={`api_sections_expanded ${openSection ? 'openSection openSection-messaging' : ''}`}>
     <div className="api_sections_expanded_wrapper">
       <div className="api_sections_expanded_header">
         <h4>Why use Messaging?</h4>
@@ -193,59 +193,17 @@ export const MessagingDetails = ({ openSection }) => (
         </ul>
       </div>
       <div className="api_sections_expanded_codeBlock">
+        <div className="getSet getSet-green codeBlockGet-messaging">GET</div>
+        <div className="getSet getSet-green codeBlockSet-messaging">SET</div>
         <Highlight className="javascript">
           {`// GET`}
         </Highlight>
         <br />
         <Highlight className="javascript">
-          {`// Read profile data`}
+          {`// Statically read thread`}
         </Highlight>
         <Highlight className="javascript">
-          {`const profile = await Box.getProfile(<ethereum-address>)`}
-        </Highlight>
-        <Highlight className="javascript">
-          {`console.log(profile)`}
-        </Highlight>
-        <Highlight className="javascript">
-          {`// Output:`}
-        </Highlight>
-        <Highlight className="javascript">
-          {`// {`}
-        </Highlight>
-        <Highlight className="javascript">
-          {`//   name: 'mollie the narwhal',`}
-        </Highlight>
-        <Highlight className="javascript">
-          {`//   emoji: 😋`}
-        </Highlight>
-        <Highlight className="javascript">
-          {`// }`}
-        </Highlight>
-        <br />
-        <Highlight className="javascript">
-          {`const name = await box.public.get('name')`}
-        </Highlight>
-        <Highlight className="javascript">
-          {`console.log(name)`}
-        </Highlight>
-        <Highlight className="javascript">
-          {`// Output:`}
-        </Highlight>
-        <Highlight className="javascript">
-          {`// 'mollie the narwhal'`}
-        </Highlight>
-        <br />
-        <Highlight className="javascript">
-          {`const email = await box.private.get('email')`}
-        </Highlight>
-        <Highlight className="javascript">
-          {`console.log(email)`}
-        </Highlight>
-        <Highlight className="javascript">
-          {`// Output:`}
-        </Highlight>
-        <Highlight className="javascript">
-          {`// 'mollyíe@3box.io'`}
+          {`const posts = await Box.getThread('myApp', 'thethread')`}
         </Highlight>
         <br />
         <br />
@@ -254,17 +212,13 @@ export const MessagingDetails = ({ openSection }) => (
         </Highlight>
         <br />
         <Highlight className="javascript">
-          {`// Update public profile data`}
+          {`// Post in thread`}
         </Highlight>
         <Highlight className="javascript">
-          {`await box.public.set('name', 'Molly the Narwhal')`}
-        </Highlight>
-        <br />
-        <Highlight className="javascript">
-          {`// Update encrypted profile data`}
+          {`const myAppSpace = await box.openSpace('myApp')`}
         </Highlight>
         <Highlight className="javascript">
-          {`await box.private.set('email', 'narwhal@3box.io')`}
+          {`await thread.post('the message')`}
         </Highlight>
       </div>
       <a href="https://github.com/3box/3box-js#threads-api-messaging">
@@ -277,7 +231,7 @@ export const MessagingDetails = ({ openSection }) => (
 );
 
 export const StorageDetails = ({ openSection }) => (
-  <section className={`api_sections_expanded ${openSection ? 'openSection' : ''}`}>
+  <section className={`api_sections_expanded ${openSection ? 'openSection openSection-storage' : ''}`}>
     <div className="api_sections_expanded_wrapper">
       <div className="api_sections_expanded_header">
         <h4>Why use Storage?</h4>
@@ -327,59 +281,17 @@ export const StorageDetails = ({ openSection }) => (
         </ul>
       </div>
       <div className="api_sections_expanded_codeBlock">
+        <div className="getSet getSet-yellow codeBlockGet-storage">GET</div>
+        <div className="getSet getSet-yellow codeBlockSet-storage">SET</div>
         <Highlight className="javascript">
           {`// GET`}
         </Highlight>
         <br />
         <Highlight className="javascript">
-          {`// Read profile data`}
+          {`// Read space data`}
         </Highlight>
         <Highlight className="javascript">
-          {`const profile = await Box.getProfile(<ethereum-address>)`}
-        </Highlight>
-        <Highlight className="javascript">
-          {`console.log(profile)`}
-        </Highlight>
-        <Highlight className="javascript">
-          {`// Output:`}
-        </Highlight>
-        <Highlight className="javascript">
-          {`// {`}
-        </Highlight>
-        <Highlight className="javascript">
-          {`//   name: 'mollie the narwhal',`}
-        </Highlight>
-        <Highlight className="javascript">
-          {`//   emoji: 😋`}
-        </Highlight>
-        <Highlight className="javascript">
-          {`// }`}
-        </Highlight>
-        <br />
-        <Highlight className="javascript">
-          {`const name = await box.public.get('name')`}
-        </Highlight>
-        <Highlight className="javascript">
-          {`console.log(name)`}
-        </Highlight>
-        <Highlight className="javascript">
-          {`// Output:`}
-        </Highlight>
-        <Highlight className="javascript">
-          {`// 'mollie the narwhal'`}
-        </Highlight>
-        <br />
-        <Highlight className="javascript">
-          {`const email = await box.private.get('email')`}
-        </Highlight>
-        <Highlight className="javascript">
-          {`console.log(email)`}
-        </Highlight>
-        <Highlight className="javascript">
-          {`// Output:`}
-        </Highlight>
-        <Highlight className="javascript">
-          {`// 'mollyíe@3box.io'`}
+          {`const spaceData = await Box.getSpace(<eth-address>, 'myApp')`}
         </Highlight>
         <br />
         <br />
@@ -388,17 +300,24 @@ export const StorageDetails = ({ openSection }) => (
         </Highlight>
         <br />
         <Highlight className="javascript">
-          {`// Update public profile data`}
+          {`// Open space for writing`}
         </Highlight>
         <Highlight className="javascript">
-          {`await box.public.set('name', 'Molly the Narwhal')`}
+          {`const myAppSpace = await box.openSpace('myApp')`}
         </Highlight>
         <br />
         <Highlight className="javascript">
-          {`// Update encrypted profile data`}
+          {`// Update public space data`}
         </Highlight>
         <Highlight className="javascript">
-          {`await box.private.set('email', 'narwhal@3box.io')`}
+          {`await myAppSpace.public.set('favorite-nft', 'Space Narwhal')`}
+        </Highlight>
+        <br />
+        <Highlight className="javascript">
+          {`// Update encrypted space data`}
+        </Highlight>
+        <Highlight className="javascript">
+          {`await myAppSpace.private.set('last used', 'id-of-last-used-item')`}
         </Highlight>
       </div>
       <a href="https://github.com/3box/3box-js#spaces-api-storage">

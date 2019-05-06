@@ -42,21 +42,8 @@ class APIsPage extends React.Component {
     const { openSection } = this.state;
     const nextSection = nextProps.history.location.pathname.split('/')[2];
 
-    if (openSection !== nextSection) {
-      this.setState({ openSection: nextSection });
-      // this.scrollTo(nextSection);
-    }
+    if (openSection !== nextSection) this.setState({ openSection: nextSection });
   }
-
-  // scrollTo = (section) => {
-  //   scrollSpy.update();
-  //   scroller.scrollTo(section, {
-  //     duration: 1000,
-  //     delay: 300,
-  //     offset: -68,
-  //     smooth: 'easeInOutQuint',
-  //   });
-  // }
 
   handleOpenSection = (section) => {
     const { openSection } = this.state;

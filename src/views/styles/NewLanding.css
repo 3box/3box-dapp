@@ -692,7 +692,19 @@ footer {
   transition: height .3s ease-in-out; }
 
 .openSection {
-  height: 1300px;
+  height: 1400px;
+  border-top: 1px solid #ececec; }
+
+.openSection-profiles {
+  height: 1413px;
+  border-top: 1px solid #ececec; }
+
+.openSection-messaging {
+  height: 1020px;
+  border-top: 1px solid #ececec; }
+
+.openSection-storage {
+  height: 1148px;
   border-top: 1px solid #ececec; }
 
 .openSectionButton {
@@ -753,16 +765,40 @@ footer {
   background-color: #fefe2f;
   margin-left: 0; }
 
-.codeBlockGet {
+.codeBlockGet-profiles {
   position: absolute;
   background-color: #f831ff;
   top: 16px;
   left: 5px; }
 
-.codeBlockSet {
+.codeBlockSet-profiles {
   position: absolute;
   background-color: #f831ff;
   top: 448px;
+  left: 5px; }
+
+.codeBlockGet-messaging {
+  position: absolute;
+  background-color: #31f8c0;
+  top: 16px;
+  left: 5px; }
+
+.codeBlockSet-messaging {
+  position: absolute;
+  background-color: #31f8c0;
+  top: 132px;
+  left: 5px; }
+
+.codeBlockGet-storage {
+  position: absolute;
+  background-color: #fefe2f;
+  top: 16px;
+  left: 5px; }
+
+.codeBlockSet-storage {
+  position: absolute;
+  background-color: #fefe2f;
+  top: 132px;
   left: 5px; }
 
 .api_sections_expanded_usp {
@@ -1019,8 +1055,6 @@ pre {
       font-size: 16px; }
   .openSectionButton {
     width: 16px !important; }
-  .openSection {
-    height: 1580px; }
   .api_sections_expanded_wrapper {
     width: 90%; }
   .api_sections_expanded code {
@@ -1097,4 +1131,16 @@ pre {
     align-items: flex-start; }
     .api_sections_expanded_usp li img {
       margin-right: 22px;
-      padding-top: 4px; } }
+      padding-top: 4px; }
+  .codeBlockSet-profiles {
+    top: 424px; }
+  .codeBlockSet-messaging {
+    top: 128px; }
+  .codeBlockSet-storage {
+    top: 127px; }
+  .openSection-profiles {
+    height: 1640px; }
+  .openSection-messaging {
+    height: 1180px; }
+  .openSection-storage {
+    height: 1350px; } }

@@ -891,7 +891,22 @@ footer {
 }
 
 .openSection {
-  height: 1300px;
+  height: 1400px;
+  border-top: 1px solid $borderColor;
+}
+
+.openSection-profiles {
+  height: 1413px;
+  border-top: 1px solid $borderColor;
+}
+
+.openSection-messaging {
+  height: 1020px;
+  border-top: 1px solid $borderColor;
+}
+
+.openSection-storage {
+  height: 1148px;
   border-top: 1px solid $borderColor;
 }
 
@@ -969,17 +984,45 @@ footer {
   margin-left: 0;
 }
 
-.codeBlockGet {
+.codeBlockGet-profiles {
   position: absolute;
   background-color: rgb(248, 49, 255);
   top: 16px;
   left: 5px;
 }
 
-.codeBlockSet {
+.codeBlockSet-profiles {
   position: absolute;
   background-color: rgb(248, 49, 255);
   top: 448px;
+  left: 5px;
+}
+
+.codeBlockGet-messaging {
+  position: absolute;
+  background-color: rgb(49, 248, 192);
+  top: 16px;
+  left: 5px;
+}
+
+.codeBlockSet-messaging {
+  position: absolute;
+  background-color: rgb(49, 248, 192);
+  top: 132px;
+  left: 5px;
+}
+
+.codeBlockGet-storage {
+  position: absolute;
+  background-color: rgb(254, 254, 47);
+  top: 16px;
+  left: 5px;
+}
+
+.codeBlockSet-storage {
+  position: absolute;
+  background-color: rgb(254, 254, 47);
+  top: 132px;
   left: 5px;
 }
 
@@ -1379,10 +1422,6 @@ pre {
     width: 16px !important;
   }
 
-  .openSection {
-    height: 1580px;
-  }
-
   .api_sections_expanded_wrapper {
     width: 90%;
   }
@@ -1528,5 +1567,29 @@ pre {
         padding-top: 4px;
       }
     }
+  }
+
+  .codeBlockSet-profiles {
+    top: 424px;
+  }
+
+  .codeBlockSet-messaging {
+    top: 128px;
+  }
+
+  .codeBlockSet-storage {
+    top: 127px;
+  }
+
+  .openSection-profiles {
+    height: 1640px;
+  }
+
+  .openSection-messaging {
+    height: 1180px;
+  }
+
+  .openSection-storage {
+    height: 1350px;
   }
 }
