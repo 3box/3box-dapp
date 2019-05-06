@@ -79,6 +79,84 @@ class Partners extends Component {
                     <div className="partners_tile_whitebg" />
                     <div className="partners_tile_darkbg" />
                   </div>
+                  <div className="partners_tile">
+                    <div className="partners_tile_image">
+                      <img src={DAOstack} alt="3Box Partner" />
+                      <p>Visit Project &rarr;</p>
+                    </div>
+                    <div className="partners_tile_name">
+                      <p className="partners_tile_name_text">
+                        DAOstack
+                      </p>
+                    </div>
+                    <div className="partners_tile_whitebg" />
+                    <div className="partners_tile_darkbg" />
+                  </div>
+                  <div className="partners_tile">
+                    <div className="partners_tile_image">
+                      <img src={DAOstack} alt="3Box Partner" />
+                      <p>Visit Project &rarr;</p>
+                    </div>
+                    <div className="partners_tile_name">
+                      <p className="partners_tile_name_text">
+                        DAOstack
+                      </p>
+                    </div>
+                    <div className="partners_tile_whitebg" />
+                    <div className="partners_tile_darkbg" />
+                  </div>
+                  <div className="partners_tile">
+                    <div className="partners_tile_image">
+                      <img src={DAOstack} alt="3Box Partner" />
+                      <p>Visit Project &rarr;</p>
+                    </div>
+                    <div className="partners_tile_name">
+                      <p className="partners_tile_name_text">
+                        DAOstack
+                      </p>
+                    </div>
+                    <div className="partners_tile_whitebg" />
+                    <div className="partners_tile_darkbg" />
+                  </div>
+                  <div className="partners_tile">
+                    <div className="partners_tile_image">
+                      <img src={DAOstack} alt="3Box Partner" />
+                      <p>Visit Project &rarr;</p>
+                    </div>
+                    <div className="partners_tile_name">
+                      <p className="partners_tile_name_text">
+                        DAOstack
+                      </p>
+                    </div>
+                    <div className="partners_tile_whitebg" />
+                    <div className="partners_tile_darkbg" />
+                  </div>
+                  <div className="partners_tile">
+                    <div className="partners_tile_image">
+                      <img src={DAOstack} alt="3Box Partner" />
+                      <p>Visit Project &rarr;</p>
+                    </div>
+                    <div className="partners_tile_name">
+                      <p className="partners_tile_name_text">
+                        DAOstack
+                      </p>
+                    </div>
+                    <div className="partners_tile_whitebg" />
+                    <div className="partners_tile_darkbg" />
+                  </div>
+                  <div className="partners_tile">
+                    <div className="partners_tile_image">
+                      <img src={DAOstack} alt="3Box Partner" />
+                      <p>Visit Project &rarr;</p>
+                    </div>
+                    <div className="partners_tile_name">
+                      <p className="partners_tile_name_text">
+                        DAOstack
+                      </p>
+                    </div>
+                    <div className="partners_tile_whitebg" />
+                    <div className="partners_tile_darkbg" />
+                  </div>
                 </div>
               </div>
             </div>
