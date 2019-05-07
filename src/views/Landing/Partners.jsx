@@ -28,135 +28,181 @@ class Partners extends Component {
   render() {
     return (
       <div className="landing_page">
-        <main className="hero">
+        <main className="hero partners_hero">
           <div className="partners_content">
             <div className="partners_content_wrapper">
               <div className="partners_content_header">
                 <h4>PARTNERS</h4>
-                <button className="textButton">
-                  Submit your project
-                </button>
+                <a
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSd8TuQQQGsTzjngR4seYEKN-vB2ygUoDugATdcomJzQdeWjdA/viewform"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <button className="textButton">
+                    Submit your project
+                  </button>
+                </a>
               </div>
 
               <div className="partners_content_partners">
                 <div className="partners_grid">
-                  <div className="partners_tile">
+                  <a
+                    className="partners_tile"
+                    href="https://map.foam.space/leaderboard"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <div className="partners_tile_image">
                       <img src={DAOstack} alt="3Box Partner" />
-                      <p>Visit Project &rarr;</p>
+                      <div className="partners_tile_image_text">
+                        <p>Visit Project</p>
+                        <p className="arrow">&rarr;</p>
+                      </div>
                     </div>
                     <div className="partners_tile_name">
                       <p className="partners_tile_name_text">
-                        DAOstack
+                        FOAM
+                      </p>
+                    </div>
+                    <div className="partners_tile_whitebg" />
+                    <div className="partners_tile_darkbg" />
+                  </a>
+                  <a
+                    className="partners_tile"
+                    href="https://niftyfootball.cards/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <div className="partners_tile_image">
+                      <img src={DAOstack} alt="3Box Partner" />
+                      <div className="partners_tile_image_text">
+                        <p>Visit Project</p>
+                        <p className="arrow">&rarr;</p>
+                      </div>
+                    </div>
+                    <div className="partners_tile_name">
+                      <p className="partners_tile_name_text">
+                        NiftyFootball
+                      </p>
+                    </div>
+                    <div className="partners_tile_whitebg" />
+                    <div className="partners_tile_darkbg" />
+                  </a>
+                  <a
+                    className="partners_tile"
+                    href="https://totem.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <div className="partners_tile_image">
+                      <img src={DAOstack} alt="3Box Partner" />
+                      <div className="partners_tile_image_text">
+                        <p>Visit Project</p>
+                        <p className="arrow">&rarr;</p>
+                      </div>
+                    </div>
+                    <div className="partners_tile_name">
+                      <p className="partners_tile_name_text">
+                        Totem
+                      </p>
+                    </div>
+                    <div className="partners_tile_whitebg" />
+                    <div className="partners_tile_darkbg" />
+                  </a>
+                  <div
+                    className="partners_tile"
+                  >
+                    <div className="partners_tile_image">
+                      <img src={DAOstack} alt="3Box Partner" />
+                      <div className="partners_tile_image_text">
+                        <p>Coming soon</p>
+                      </div>
+                    </div>
+                    <div className="partners_tile_name">
+                      <p className="partners_tile_name_text">
+                        MetaMask
                       </p>
                     </div>
                     <div className="partners_tile_whitebg" />
                     <div className="partners_tile_darkbg" />
                   </div>
-                  <div className="partners_tile">
+                  <div
+                    className="partners_tile"
+                  >
                     <div className="partners_tile_image">
                       <img src={DAOstack} alt="3Box Partner" />
-                      <p>Visit Project &rarr;</p>
+                      <div className="partners_tile_image_text">
+                        <p>Coming soon</p>
+                      </div>
                     </div>
                     <div className="partners_tile_name">
                       <p className="partners_tile_name_text">
-                        DAOstack
+                        Aragon
                       </p>
                     </div>
                     <div className="partners_tile_whitebg" />
                     <div className="partners_tile_darkbg" />
                   </div>
-                  <div className="partners_tile">
+                  <a
+                    className="partners_tile"
+                    href="https://map.foam.space/leaderboard"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <div className="partners_tile_image">
                       <img src={DAOstack} alt="3Box Partner" />
-                      <p>Visit Project &rarr;</p>
+                      <div className="partners_tile_image_text">
+                        <p>Coming soon</p>
+                      </div>
                     </div>
                     <div className="partners_tile_name">
                       <p className="partners_tile_name_text">
-                        DAOstack
+                        MolochDAO
                       </p>
                     </div>
                     <div className="partners_tile_whitebg" />
                     <div className="partners_tile_darkbg" />
-                  </div>
-                  <div className="partners_tile">
+                  </a>
+                  <a
+                    className="partners_tile"
+                    href="https://map.foam.space/leaderboard"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <div className="partners_tile_image">
                       <img src={DAOstack} alt="3Box Partner" />
-                      <p>Visit Project &rarr;</p>
+                      <div className="partners_tile_image_text">
+                        <p>Coming soon</p>
+                      </div>
                     </div>
                     <div className="partners_tile_name">
                       <p className="partners_tile_name_text">
-                        DAOstack
+                        Giveth
                       </p>
                     </div>
                     <div className="partners_tile_whitebg" />
                     <div className="partners_tile_darkbg" />
-                  </div>
-                  <div className="partners_tile">
+                  </a>
+                  <a
+                    className="partners_tile"
+                    href="https://map.foam.space/leaderboard"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <div className="partners_tile_image">
                       <img src={DAOstack} alt="3Box Partner" />
-                      <p>Visit Project &rarr;</p>
+                      <div className="partners_tile_image_text">
+                        <p>Coming soon</p>
+                      </div>
                     </div>
                     <div className="partners_tile_name">
                       <p className="partners_tile_name_text">
-                        DAOstack
+                        ConsenSys MeshHub
                       </p>
                     </div>
                     <div className="partners_tile_whitebg" />
                     <div className="partners_tile_darkbg" />
-                  </div>
-                  <div className="partners_tile">
-                    <div className="partners_tile_image">
-                      <img src={DAOstack} alt="3Box Partner" />
-                      <p>Visit Project &rarr;</p>
-                    </div>
-                    <div className="partners_tile_name">
-                      <p className="partners_tile_name_text">
-                        DAOstack
-                      </p>
-                    </div>
-                    <div className="partners_tile_whitebg" />
-                    <div className="partners_tile_darkbg" />
-                  </div>
-                  <div className="partners_tile">
-                    <div className="partners_tile_image">
-                      <img src={DAOstack} alt="3Box Partner" />
-                      <p>Visit Project &rarr;</p>
-                    </div>
-                    <div className="partners_tile_name">
-                      <p className="partners_tile_name_text">
-                        DAOstack
-                      </p>
-                    </div>
-                    <div className="partners_tile_whitebg" />
-                    <div className="partners_tile_darkbg" />
-                  </div>
-                  <div className="partners_tile">
-                    <div className="partners_tile_image">
-                      <img src={DAOstack} alt="3Box Partner" />
-                      <p>Visit Project &rarr;</p>
-                    </div>
-                    <div className="partners_tile_name">
-                      <p className="partners_tile_name_text">
-                        DAOstack
-                      </p>
-                    </div>
-                    <div className="partners_tile_whitebg" />
-                    <div className="partners_tile_darkbg" />
-                  </div>
-                  <div className="partners_tile">
-                    <div className="partners_tile_image">
-                      <img src={DAOstack} alt="3Box Partner" />
-                      <p>Visit Project &rarr;</p>
-                    </div>
-                    <div className="partners_tile_name">
-                      <p className="partners_tile_name_text">
-                        DAOstack
-                      </p>
-                    </div>
-                    <div className="partners_tile_whitebg" />
-                    <div className="partners_tile_darkbg" />
-                  </div>
+                  </a>
                 </div>
               </div>
             </div>

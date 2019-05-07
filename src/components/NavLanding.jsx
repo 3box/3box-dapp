@@ -96,6 +96,9 @@ class NavLanding extends Component {
           >
             API Products
           </div>
+          <Link to={routes.PARTNERS} className="landing_nav_link">
+            Partners
+          </Link>
           <a href="https://github.com/3box/3box" target="_blank" rel="noopener noreferrer" className="landing_nav_link">
             Docs
           </a>
@@ -234,6 +237,12 @@ class NavLanding extends Component {
                 Docs
               </li>
             </a>
+
+            <Link to={routes.PARTNERS} className="landing_nav_apiLink">
+              <li className={normalizedPath === routes.PARTNERS ? 'nav__activePage' : ''}>
+                Partners
+              </li>
+            </Link>
 
             <a href="https://medium.com/3box" target="_blank" rel="noopener noreferrer">
               <li>
