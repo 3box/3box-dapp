@@ -61,9 +61,9 @@ const Footer = () => (
           {/* <p>
             About
           </p> */}
-          {/* <Link to={routes.JOBS}>
+          <Link to={routes.CAREERS}>
             Careers
-          </Link> */}
+          </Link>
           <a href="https://chat.3box.io" target="_blank" rel="noopener noreferrer">
             Chat
           </a>

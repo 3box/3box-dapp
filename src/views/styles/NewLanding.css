@@ -35,7 +35,7 @@
   min-width: 700px; }
 
 .partners_content {
-  width: 80vw;
+  width: 65vw;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -908,8 +908,7 @@ pre {
   flex-direction: column;
   border-radius: 3px;
   position: relative;
-  background-color: white;
-  transition: all .3s ease-in-out; }
+  background-color: white; }
   .partners_tile:hover {
     background-color: #181F21;
     cursor: pointer; }
@@ -931,7 +930,10 @@ pre {
   justify-content: center;
   align-items: center; }
   .partners_tile_image img {
-    width: 70%; }
+    width: 70%;
+    max-height: 70px;
+    width: auto;
+    max-width: 130px; }
   .partners_tile_image p {
     display: none; }
 

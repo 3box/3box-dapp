@@ -47,7 +47,7 @@
 }
 
 .partners_content {
-  width: 80vw;
+  width: 65vw;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -1157,7 +1157,7 @@ pre {
   border-radius: 3px;
   position: relative;
   background-color: white;
-  transition: all .3s ease-in-out;
+  // transition: all .3s ease-in-out;
 
   &:hover {
     background-color: $threeBoxBlack;
@@ -1192,6 +1192,9 @@ pre {
 
   img {
     width: 70%;
+    max-height: 70px;
+    width: auto;
+    max-width: 130px;
   }
 
   p {

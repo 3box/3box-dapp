@@ -7,7 +7,8 @@ import './index.css';
 import App from './App.jsx';
 import { store } from './state/store';
 import history from './utils/history';
-import registerServiceWorker from './registerServiceWorker';
+import { unregister } from './registerServiceWorker';
+// import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -17,4 +18,5 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root'),
 );
-registerServiceWorker();
+unregister();
+// registerServiceWorker();

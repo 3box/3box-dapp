@@ -6,7 +6,14 @@ import { withRouter, Link } from 'react-router-dom';
 import * as routes from '../../utils/routes';
 import Foam from '../../assets/FOAM.png';
 import DAOstack from '../../assets/DAOstackPartner.png';
+import NiftyFootball from '../../assets/NiftyFootball.png';
+import Totem from '../../assets/Totem.png';
+import Aragon from '../../assets/Aragon.png';
+import MolochDAO from '../../assets/MolochDAO.png';
+import ConsensysLogo from '../../assets/ConsensysLogo.png';
+import Giveth from '../../assets/Giveth.png';
 import ColorCubes from '../../assets/ColorCubes.svg';
+import MetaMask from '../../assets/MetaMask.svg';
 import ColorCubesMobile from '../../assets/ColorCubesMobile.svg';
 import '../styles/Landing.css';
 import '../styles/NewLanding.css';
@@ -53,7 +60,7 @@ class Partners extends Component {
                     rel="noopener noreferrer"
                   >
                     <div className="partners_tile_image">
-                      <img src={DAOstack} alt="3Box Partner" />
+                      <img src={Foam} alt="3Box Partner" />
                       <div className="partners_tile_image_text">
                         <p>Visit Project</p>
                         <p className="arrow">&rarr;</p>
@@ -74,7 +81,7 @@ class Partners extends Component {
                     rel="noopener noreferrer"
                   >
                     <div className="partners_tile_image">
-                      <img src={DAOstack} alt="3Box Partner" />
+                      <img src={NiftyFootball} alt="3Box Partner" />
                       <div className="partners_tile_image_text">
                         <p>Visit Project</p>
                         <p className="arrow">&rarr;</p>
@@ -113,7 +120,7 @@ class Partners extends Component {
                     className="partners_tile"
                   >
                     <div className="partners_tile_image">
-                      <img src={DAOstack} alt="3Box Partner" />
+                      <img src={MetaMask} alt="3Box Partner" />
                       <div className="partners_tile_image_text">
                         <p>Coming soon</p>
                       </div>
@@ -130,7 +137,7 @@ class Partners extends Component {
                     className="partners_tile"
                   >
                     <div className="partners_tile_image">
-                      <img src={DAOstack} alt="3Box Partner" />
+                      <img src={Aragon} alt="3Box Partner" />
                       <div className="partners_tile_image_text">
                         <p>Coming soon</p>
                       </div>
@@ -150,7 +157,7 @@ class Partners extends Component {
                     rel="noopener noreferrer"
                   >
                     <div className="partners_tile_image">
-                      <img src={DAOstack} alt="3Box Partner" />
+                      <img src={MolochDAO} alt="3Box Partner" />
                       <div className="partners_tile_image_text">
                         <p>Coming soon</p>
                       </div>
@@ -170,7 +177,7 @@ class Partners extends Component {
                     rel="noopener noreferrer"
                   >
                     <div className="partners_tile_image">
-                      <img src={DAOstack} alt="3Box Partner" />
+                      <img src={Giveth} alt="3Box Partner" />
                       <div className="partners_tile_image_text">
                         <p>Coming soon</p>
                       </div>
@@ -190,7 +197,7 @@ class Partners extends Component {
                     rel="noopener noreferrer"
                   >
                     <div className="partners_tile_image">
-                      <img src={DAOstack} alt="3Box Partner" />
+                      <img src={ConsensysLogo} alt="3Box Partner" />
                       <div className="partners_tile_image_text">
                         <p>Coming soon</p>
                       </div>
