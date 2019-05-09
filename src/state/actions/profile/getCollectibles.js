@@ -35,7 +35,7 @@ const getCollectibles = (address, onPublicProfile) => async (dispatch) => {
       if (collectiblesFavorites.length !== updatedCollectiblesFavorites.length && !onPublicProfile) {
         const {
           box,
-        } = store.getState().threeBox;
+        } = store.getState().myData;
         box.public.set('collectiblesFavorites', collectiblesFavorites);
       }
     }
