@@ -1,4 +1,4 @@
-const checkWeb3 = () => async (dispatch) => {
+const initialCheckWeb3 = () => async (dispatch) => {
   const cp = typeof window.web3 !== 'undefined' ? window.web3.currentProvider : null; // eslint-disable-line no-undef
 
   let isToshi;
@@ -21,11 +21,11 @@ const checkWeb3 = () => async (dispatch) => {
   }
 
   dispatch({
-    type: 'USER_CHECK_WEB3',
+    type: 'INITIAL_USER_CHECK_WEB3',
     hasWeb3: typeof window.web3 !== 'undefined', // eslint-disable-line no-undef
     showDownloadBanner: typeof window.web3 === 'undefined', // eslint-disable-line no-undef
     currentWallet,
   });
 };
 
-export default checkWeb3;
+export default initialCheckWeb3;

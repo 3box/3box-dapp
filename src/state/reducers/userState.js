@@ -1,20 +1,28 @@
 const userStateReducer = (state = {}, action) => {
   switch (action.type) {
+    case 'INITIAL_USER_CHECK_WEB3':
+      return {
+        ...state,
+        hasWeb3: action.hasWeb3,
+          showDownloadBanner: action.showDownloadBanner,
+          currentWallet: action.currentWallet,
+      };
+
     case 'USER_CHECK_WEB3':
       return {
         ...state,
         hasWeb3: action.hasWeb3,
-        showDownloadBanner: action.showDownloadBanner,
-        currentWallet: action.currentWallet,
+          showDownloadBanner: action.showDownloadBanner,
+          currentWallet: action.currentWallet,
       };
 
     case 'USER_ADDRESSES_UPDATE':
       return {
         ...state,
         isSignedIntoWallet: action.isSignedIntoWallet,
-        isLoggedIn: action.isLoggedIn,
-        accountAddress: action.accountAddress,
-        currentAddress: action.currentAddress,
+          isLoggedIn: action.isLoggedIn,
+          accountAddress: action.accountAddress,
+          currentAddress: action.currentAddress,
       };
 
     case 'USER_WEB3_STATUS_UPDATE':
@@ -33,8 +41,8 @@ const userStateReducer = (state = {}, action) => {
       return {
         ...state,
         currentNetwork: action.currentNetwork,
-        prevNetwork: action.prevNetwork,
-        prevPrevNetwork: action.prevPrevNetwork,
+          prevNetwork: action.prevNetwork,
+          prevPrevNetwork: action.prevPrevNetwork,
       };
 
     case 'USER_LOGIN_UPDATE':
@@ -47,7 +55,7 @@ const userStateReducer = (state = {}, action) => {
       return {
         ...state,
         isLoggedIn: action.isLoggedIn,
-        hasSignedOut: action.hasSignedOut,
+          hasSignedOut: action.hasSignedOut,
       };
 
     case 'USER_UPDATE_ADDRESS':

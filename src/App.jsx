@@ -96,7 +96,7 @@ class App extends Component {
       pollNetworkAndAddress(); // Start polling for address change
       await this.props.initialCheckWeb3();
 
-      const allowDirectSignIn = (this.props.hasWeb3
+      const allowDirectSignIn = (window.web3 !== 'undefined'
         && splitRoute.length > 1 // Route has more than one
         && splitRoute[1].substring(0, 2) === '0x' // Lands on profile page
         && isMyProfilePath // Lands on protected page
@@ -195,13 +195,6 @@ class App extends Component {
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
 
-    if (!this.props.hasWeb3) {
-      history.push(routes.LANDING);
-      this.props.requireMetaMaskModal();
-      this.props.handleMobileWalletModal();
-      return;
-    }
-
     try {
       await this.props.checkWeb3();
       await this.props.requestAccess('directLogin');
@@ -244,7 +237,7 @@ class App extends Component {
         } else if (!this.props.isSignedIntoWallet && !accessDeniedModal) {
           this.props.handleRequireWalletLoginModal();
         }
-      } else if (!this.props.hasWeb3) {
+      } else if (typeof window.web3 === 'undefined') {
         this.props.requireMetaMaskModal();
         this.props.handleMobileWalletModal();
       }
