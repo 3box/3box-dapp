@@ -1265,7 +1265,8 @@ pre {
     padding-top: 54px;
     height: fit-content; }
   .main_profileCard {
-    width: 100%; }
+    width: 100%;
+    margin-bottom: 12px; }
   .main_copy {
     width: 84%;
     margin-top: 20px; }
@@ -1278,7 +1279,7 @@ pre {
     align-items: center;
     flex-direction: column-reverse; }
   .main_profileCard_card_login {
-    margin-bottom: 8px; }
+    margin-bottom: 22px; }
   .join_input div {
     width: 100vw; }
     .join_input div input {
