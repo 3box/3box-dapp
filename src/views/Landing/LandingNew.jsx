@@ -33,6 +33,11 @@ import DiscordButton from './components/DiscordButton';
 
 const Footer = lazy(() => import('./components/Footer'));
 
+const styles = {
+  backgroundImage: `url("${ColorCubes}")`,
+  backgroundRepeat: 'absolute',
+};
+
 class Landing extends Component {
   constructor(props) {
     super(props);
@@ -72,7 +77,7 @@ class Landing extends Component {
             </div>
           </div>
           <div className="hero_graphic">
-            <img src={ColorCubes} alt="Color cubes" className="hero_graphic_colorcubes-dtw" />
+            <div style={styles} className="hero_graphic_colorcubes-dtw" />
             <img src={ColorCubesMobile} alt="Color cubes" className="hero_graphic_colorcubes-mobile" />
           </div>
           <DiscordButton />
@@ -83,7 +88,7 @@ class Landing extends Component {
             <h4>PARTNERS</h4>
             <div className="partners_list desktop">
               <img src={DaoStack} alt="DaoStack" className="partners_list-daostack" />
-              <img src={Consensys} alt="Consensys" className="partners_list-consensys"/>
+              <img src={Consensys} alt="Consensys" className="partners_list-consensys" />
               <img src={Foam} alt="FOAM" className="partners_list-foam" />
               <img src={MetaMask} alt="MetaMask" />
               <img src={Aragon} alt="Aragon" />

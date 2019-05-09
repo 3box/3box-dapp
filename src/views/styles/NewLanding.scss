@@ -21,6 +21,7 @@
   justify-content: center;
   align-items: center;
   min-width: 1040px;
+  min-height: 700px;
 }
 
 .partners_hero {
@@ -315,6 +316,7 @@
   align-items: center;
   overflow: hidden;
   min-width: 385px;
+  min-height: 700px;
 
   button {
     z-index: 2;
@@ -325,7 +327,9 @@
   position: absolute;
   left: 0;
   top: 0;
-  min-height: 90vh;
+  min-height: 700px;
+  height: 90vh;
+  width: 100%;
 }
 
 .hero_copy_buttons {
@@ -1365,6 +1369,7 @@ pre {
     flex-direction: column-reverse;
     justify-content: flex-end;
     height: fit-content;
+    min-height: fit-content;
     padding-bottom: 68px;
     min-width: 100vw;
   }

@@ -355,21 +355,6 @@ class App extends Component {
         />
 
         <Switch>
-          {/* <Route
-            exact
-            path={routes.LANDING}
-
-            render={() => (
-              <Landing
-                handleSignInUp={this.handleSignInUp}
-                isLoggedIn={isLoggedIn}
-                errorMessage={errorMessage}
-                showErrorModal={showErrorModal}
-                isSignedIntoWallet={isSignedIntoWallet}
-              />
-            )}
-          /> */}
-
           <Route
             exact
             path={routes.LANDING}

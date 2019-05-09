@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import { isEthAddress } from '../utils/funcs';
 import * as routes from '../utils/routes';
 import { normalizeURL } from '../utils/funcs';
 import ThreeBoxLogoBlack from '../assets/ThreeBoxLogoBlack.svg';
@@ -17,10 +18,12 @@ import './styles/Nav.css';
 class NavLanding extends Component {
   constructor(props) {
     super(props);
+    const { pathname } = this.props.history.location;
     this.state = {
       retractNav: false,
       showAPI: false,
       showSideDrawer: false,
+      isProfilePage: isEthAddress(pathname.split('/')[1]),
     };
   }
 
@@ -53,11 +56,12 @@ class NavLanding extends Component {
   }
 
   render() {
-    const { retractNav, showAPI, showSideDrawer } = this.state;
+    const { retractNav, showAPI, showSideDrawer, isProfilePage } = this.state;
     const {
       landing,
       onOtherProfilePage,
       showSignInBanner,
+      handleSignInUp,
     } = this.props;
 
     const classHide = retractNav ? 'hide' : '';
@@ -106,13 +110,20 @@ class NavLanding extends Component {
             Blog
           </a>
         </div>
-        {route !== 'hub' && (
+        {(route !== 'hub' && !isProfilePage) && (
           <div id="actionButtons">
             <Link to={routes.HUB}>
               <button type="button">
                 Sign in to Hub
               </button>
             </Link>
+          </div>)}
+
+        {(route !== 'hub' && isProfilePage) && (
+          <div id="actionButtons">
+            <button type="button" onClick={handleSignInUp}>
+              Log in
+            </button>
           </div>)}
 
         <div className={`${showAPI ? 'showAPI' : ''} ${retractNav ? 'apiLower' : ''} landing_nav_api`}>
@@ -266,13 +277,13 @@ class NavLanding extends Component {
 
 NavLanding.propTypes = {
   isLoggedIn: PropTypes.bool,
+  handleSignInUp: PropTypes.func.isRequired,
   showSignInBanner: PropTypes.bool,
   onOtherProfilePage: PropTypes.bool,
   classHide: PropTypes.string,
   landing: PropTypes.string,
   normalizedPath: PropTypes.string,
   pathname: PropTypes.string,
-  handleSignInUp: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
 };
 
@@ -289,7 +300,6 @@ NavLanding.defaultProps = {
 function mapState(state) {
   return {
     isLoggedIn: state.userState.isLoggedIn,
-
     showSignInBanner: state.uiState.showSignInBanner,
   };
 }

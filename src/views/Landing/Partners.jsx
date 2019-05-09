@@ -22,6 +22,11 @@ import DiscordButton from './components/DiscordButton';
 
 const Footer = lazy(() => import('./components/Footer'));
 
+const styles = {
+  backgroundImage: `url("${ColorCubes}")`,
+  backgroundRepeat: 'absolute',
+};
+
 class Partners extends Component {
   constructor(props) {
     super(props);
@@ -215,7 +220,8 @@ class Partners extends Component {
             </div>
           </div>
           <div className="hero_graphic">
-            <img src={ColorCubes} alt="Color cubes" className="hero_graphic_colorcubes-dtw" />
+            <div style={styles} className="hero_graphic_colorcubes-dtw" />
+            {/* <img src={ColorCubes} alt="Color cubes" className="hero_graphic_colorcubes-dtw" /> */}
             <img src={ColorCubesMobile} alt="Color cubes" className="hero_graphic_colorcubes-mobile" />
           </div>
           <DiscordButton />
