@@ -186,7 +186,10 @@
   font-size: 16px; }
 
 .partners_list-daostack {
-  width: 94px !important; }
+  width: 118px !important; }
+
+.partners_list-consensys {
+  width: 100px !important; }
 
 .partners_list-foam {
   width: 94px !important; }
@@ -1194,6 +1197,8 @@ pre {
   .hub_popout_info_wrapper {
     width: 100%;
     align-items: center; }
+  .partners_list-consensys {
+    width: 74px !important; }
   .join {
     padding-top: 80px; }
     .join h3 {

@@ -23,7 +23,7 @@ import DaoStack from '../../assets/DaoStack.png';
 import Aragon from '../../assets/Aragon.png';
 import Consensys from '../../assets/Consensys.png';
 import MetaMask from '../../assets/MetaMask.png';
-import Foam from '../../assets/FOAM.png';
+import Foam from '../../assets/FOAMpartner.png';
 import ColorCubes from '../../assets/ColorCubes.svg';
 import ColorCubesMobile from '../../assets/ColorCubesMobile.svg';
 import '../styles/Landing.css';
@@ -83,7 +83,7 @@ class Landing extends Component {
             <h4>PARTNERS</h4>
             <div className="partners_list desktop">
               <img src={DaoStack} alt="DaoStack" className="partners_list-daostack" />
-              <img src={Consensys} alt="Consensys" />
+              <img src={Consensys} alt="Consensys" className="partners_list-consensys"/>
               <img src={Foam} alt="FOAM" className="partners_list-foam" />
               <img src={MetaMask} alt="MetaMask" />
               <img src={Aragon} alt="Aragon" />
@@ -91,7 +91,7 @@ class Landing extends Component {
             <div className="partners_list mobile">
               <div className="partners_list_wrapper">
                 <img src={DaoStack} alt="DaoStack" className="partners_list-daostack" />
-                <img src={Consensys} alt="Consensys" />
+                <img src={Consensys} alt="Consensys" className="partners_list-consensys" />
                 <img src={Foam} alt="FOAM" className="partners_list-foam" />
               </div>
               <div className="partners_list_wrapper">
