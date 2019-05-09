@@ -155,11 +155,8 @@ class Partners extends Component {
                     <div className="partners_tile_whitebg" />
                     <div className="partners_tile_darkbg" />
                   </div>
-                  <a
+                  <div
                     className="partners_tile"
-                    href="https://map.foam.space/leaderboard"
-                    target="_blank"
-                    rel="noopener noreferrer"
                   >
                     <div className="partners_tile_image">
                       <img src={MolochDAO} alt="3Box Partner" />
@@ -174,12 +171,9 @@ class Partners extends Component {
                     </div>
                     <div className="partners_tile_whitebg" />
                     <div className="partners_tile_darkbg" />
-                  </a>
-                  <a
+                  </div>
+                  <div
                     className="partners_tile"
-                    href="https://map.foam.space/leaderboard"
-                    target="_blank"
-                    rel="noopener noreferrer"
                   >
                     <div className="partners_tile_image">
                       <img src={Giveth} alt="3Box Partner" />
@@ -194,12 +188,9 @@ class Partners extends Component {
                     </div>
                     <div className="partners_tile_whitebg" />
                     <div className="partners_tile_darkbg" />
-                  </a>
-                  <a
+                  </div>
+                  <div
                     className="partners_tile"
-                    href="https://map.foam.space/leaderboard"
-                    target="_blank"
-                    rel="noopener noreferrer"
                   >
                     <div className="partners_tile_image">
                       <img src={ConsensysLogo} alt="3Box Partner" />
@@ -214,7 +205,7 @@ class Partners extends Component {
                     </div>
                     <div className="partners_tile_whitebg" />
                     <div className="partners_tile_darkbg" />
-                  </a>
+                  </div>
                 </div>
               </div>
             </div>
