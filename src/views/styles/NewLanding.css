@@ -1081,7 +1081,8 @@ pre {
     width: 100vw;
     min-width: 100vw;
     align-items: flex-start;
-    height: 300px; }
+    height: 300px;
+    min-height: 300px; }
   .codeBlockSet {
     top: 418px; }
   .hero_devs {
