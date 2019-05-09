@@ -126,7 +126,7 @@ class NavLanding extends Component {
             </button>
           </div>)}
 
-        <div className={`${showAPI ? 'showAPI' : ''} ${retractNav ? 'apiLower' : ''} landing_nav_api`}>
+        <div className={`${showAPI ? 'showAPI' : ''} ${(retractNav || isProfilePage) ? 'apiLower' : ''} landing_nav_api`}>
           <div className="landing_nav_api_wrapper">
             {/* <div className="landing_nav_api_option">
               <Link to={routes.API_PROFILES} className="">
