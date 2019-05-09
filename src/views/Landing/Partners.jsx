@@ -102,7 +102,7 @@ class Partners extends Component {
                     rel="noopener noreferrer"
                   >
                     <div className="partners_tile_image">
-                      <img src={DAOstack} alt="3Box Partner" />
+                      <img src={Totem} alt="3Box Partner" />
                       <div className="partners_tile_image_text">
                         <p>Visit Project</p>
                         <p className="arrow">&rarr;</p>
