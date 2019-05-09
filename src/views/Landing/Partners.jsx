@@ -8,7 +8,7 @@ import Foam from '../../assets/FOAM.png';
 import DAOstack from '../../assets/DAOstackPartner.png';
 import NiftyFootball from '../../assets/NiftyFootball.png';
 import Totem from '../../assets/Totem.png';
-import Aragon from '../../assets/Aragon.png';
+import Aragon from '../../assets/aragon_icon.png';
 import MolochDAO from '../../assets/MolochDAO.png';
 import ConsensysLogo from '../../assets/ConsensysLogo.png';
 import Giveth from '../../assets/Giveth.png';
