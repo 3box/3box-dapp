@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter, NavLink } from 'react-router-dom';
 
-import ThreeBoxLogo from '../assets/ThreeBoxLogoBlue.svg';
+import ThreeBoxLogo from '../assets/ThreeBoxLogoBlack.svg';
 import ThreeBoxB from '../assets/3Box3Blue.svg';
 import DropDown from '../assets/DropDown.svg';
 import actions from '../state/actions';
