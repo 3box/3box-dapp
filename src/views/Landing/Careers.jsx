@@ -105,7 +105,7 @@ class Landing extends Component {
                 </button>
               </div>
             </div>
-            <div className="careers_positions">
+            {/* <div className="careers_positions">
               <div className="careers_positions_content">
                 <h4>
                   JavaScript Distributed Systems Engineer
@@ -123,7 +123,7 @@ class Landing extends Component {
                   <img src={TriangleWhite} alt="arrow" />
                 </button>
               </div>
-            </div>
+            </div> */}
             <div className="careers_open">
               <h5>Don't see your position?</h5>
               <p>Email us a note and tell us about your superpower.</p>

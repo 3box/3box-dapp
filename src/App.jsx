@@ -19,7 +19,6 @@ import PubProfile from './views/Profile/PubProfile';
 import NoMatch from './views/Landing/NoMatch';
 import EditProfile from './views/Profile/EditProfile';
 import Profiles from './views/Landing/Profiles';
-import Jobs from './views/Landing/Jobs';
 import Careers from './views/Landing/Careers';
 import Privacy from './views/Landing/Privacy';
 import Terms from './views/Landing/Terms';
@@ -452,17 +451,6 @@ class App extends Component {
             exact
             path="(^[/][0][xX]\w{40}\b)/edit"
             component={EditProfile}
-          />
-
-          <Route
-            exact
-            path={routes.JOBS}
-            component={() => (
-              <Jobs
-                isLoggedIn={isLoggedIn}
-                handleSignInUp={this.handleSignInUp}
-              />
-            )}
           />
 
           <Route
