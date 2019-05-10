@@ -1,5 +1,6 @@
 .landing_page {
   background-color: white;
+  max-width: 100vw;
   transition: all .3s ease-in-out; }
   .landing_page p,
   .landing_page li {
@@ -1084,7 +1085,17 @@ pre {
     height: fit-content;
     min-height: fit-content;
     padding-bottom: 68px;
-    min-width: 100vw; }
+    min-width: 100vw;
+    max-width: 100vw;
+    box-sizing: border-box; }
+  .careers_open_text {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; }
+    .careers_open_text p {
+      font-size: 16px; }
+    .careers_open_text a {
+      font-size: 16px; }
   .hero_copy {
     width: 100vw;
     justify-content: center; }
@@ -1098,6 +1109,9 @@ pre {
     align-items: flex-start;
     height: 300px;
     min-height: 300px; }
+  .careers {
+    max-width: 100vw;
+    box-sizing: border-box; }
   .codeBlockSet {
     top: 418px; }
   .hero_devs {

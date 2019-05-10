@@ -189,8 +189,12 @@ class Landing extends Component {
             <div className="careers_open">
               <h5>Don't see your position?</h5>
               <div className="careers_open_text">
-                <a href="mailto:jobs@3box.io">Email us</a>
-                <p>a note and tell us about your superpower.</p>
+                <p>
+                  <a href="mailto:jobs@3box.io">
+                    Email us
+                  </a>
+                  a note and tell us about your superpower.
+                </p>
               </div>
             </div>
           </div>
