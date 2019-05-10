@@ -1012,7 +1012,7 @@ pre {
     line-height: 30px; }
 
 .careers_wrapper {
-  width: 70%;
+  width: 77%;
   min-width: 400px;
   margin: 80px 0 100px 0; }
 
@@ -1045,6 +1045,8 @@ pre {
     margin-bottom: 24px; }
   .careers_positions_content p {
     margin-bottom: 24px; }
+  .careers_positions_content ul {
+    margin-bottom: 40px; }
 
 .careers_positions_button {
   display: flex;
@@ -1061,6 +1063,17 @@ pre {
     font-size: 18px;
     letter-spacing: .83px;
     margin-bottom: 14px; }
+
+.careers_open_text {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; }
+  .careers_open_text a {
+    font-size: 18px;
+    line-height: 30px;
+    color: #1168df;
+    letter-spacing: .8px;
+    margin-right: 6px; }
 
 @media only screen and (max-width: 600px) {
   .hero {

@@ -97,41 +97,101 @@ class Landing extends Component {
                   Technical Product Marketing Manager
                 </h4>
                 <p>
-                  3Box is looking for a proven technical product marketing manager to help developers more easily engage with our products. Ideal candidates will be  dependable, humble, technical, team players who are committed to excellence and have a proven track record of marketing technical products to developers.
+                  For our next phase, we are seeking a technical Product Marketer to reach out to and grow our developer community, and help them build powerful new products on our infrastructure. Responsibilities will include:
                 </p>
-                <button className="textButton">
-                  View full description
-                </button>
+                <ul>
+                  <li>
+                    • Produce product marketing content (documentation, tutorials, demos) that show developers the value and ease of using 3Box
+                  </li>
+                  <li>
+                    • Communicate product updates and upcoming plans to current and potential customers
+                  </li>
+                  <li>
+                    • Be a trusted point of contact to developers, and help foster a sense of community and open source development
+                  </li>
+                  <li>
+                    • Find the right access points for new developers in the space and make sure 3Box is one of the first projects they know and use as they build apps
+                  </li>
+                  <li>
+                    • Constantly mine for needs, requirements and trends in our developer base to help inform our product team of how we can better serve them
+                  </li>
+                  <li>
+                    • Qualify high potential projects and partners and help them get the support they need for successful integrations
+                  </li>
+                  <li>
+                    • Find high-value ways to grow the pipeline off developers and projects in our funnel
+                  </li>
+                  <li>
+                    • Represent 3Box at events, in online forums, and within open source communities
+                  </li>
+                </ul>
+                <a href="https://www.notion.so/threebox/Technical-Product-Marketer-0b5847a878aa40d28b0ab612eda1196c" target="_blank" rel="noopener noreferrer">
+                  <button className="textButton" type="button">
+                    View full description
+                  </button>
+                </a>
               </div>
               <div className="careers_positions_button">
-                <button type="button" className="primaryMarketing">
-                  Apply Now
-                  <img src={TriangleWhite} alt="arrow" />
-                </button>
+                <a href="mailto:jobs@3box.io">
+                  <button type="button" className="primaryMarketing">
+                    Apply Now
+                    <img src={TriangleWhite} alt="arrow" />
+                  </button>
+                </a>
               </div>
             </div>
-            {/* <div className="careers_positions">
+            <div className="careers_positions">
               <div className="careers_positions_content">
                 <h4>
-                  JavaScript Distributed Systems Engineer
+                  Developer Relations Lead
                 </h4>
                 <p>
-                  3Box is looking for a proven technical product marketing manager to help developers more easily engage with our products. Ideal candidates will be  dependable, humble, technical, team players who are committed to excellence and have a proven track record of marketing technical products to developers.
+                  For our next phase, we are seeking a Developer Relations Lead to work closely with our developer community, communicating the value of 3Box and ensuring highly successful usage of our products among our partners. Responsibilities will include:
                 </p>
-                <button className="textButton">
-                  View full description
-                </button>
+                <ul>
+                  <li>
+                    • Constantly mine for needs, requirements and trends in our developer base to help inform our product team of how we can better serve them
+                  </li>
+                  <li>
+                    • Find the right access points for new developers in the space and make sure 3Box is one of the first projects they know and use as they build apps
+                  </li>
+                  <li>
+                    • Produce content that shows developers the value and ease of using 3Box
+                  </li>
+                  <li>
+                    • Qualify high potential projects and partners and help them get the support they need for successful integrations
+                  </li>
+                  <li>
+                    • Be a trusted point of contact to developers, and help foster a sense of community and open source development
+                  </li>
+                  <li>
+                    • Represent 3Box at events, in online forums, and within open source communities
+                  </li>
+                  <li>
+                    • Communicate product updates and upcoming plans to current and potential customers
+                  </li>
+                </ul>
+                <a href="https://www.notion.so/threebox/Developer-Relations-Lead-7e23b76bbf8d494bb0c95f1799965852" target="_blank" rel="noopener noreferrer">
+                  <button className="textButton" type="button">
+                    View full description
+                  </button>
+                </a>
               </div>
               <div className="careers_positions_button">
-                <button type="button" className="primaryMarketing">
-                  Apply Now
-                  <img src={TriangleWhite} alt="arrow" />
-                </button>
+                <a href="mailto:jobs@3box.io">
+                  <button type="button" className="primaryMarketing">
+                    Apply Now
+                    <img src={TriangleWhite} alt="arrow" />
+                  </button>
+                </a>
               </div>
-            </div> */}
+            </div>
             <div className="careers_open">
               <h5>Don't see your position?</h5>
-              <p>Email us a note and tell us about your superpower.</p>
+              <div className="careers_open_text">
+                <a href="mailto:jobs@3box.io">Email us</a>
+                <p>a note and tell us about your superpower.</p>
+              </div>
             </div>
           </div>
         </section>

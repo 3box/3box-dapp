@@ -1298,7 +1298,7 @@ pre {
 }
 
 .careers_wrapper {
-  width: 70%;
+  width: 77%;
   min-width: 400px;
   margin: 80px 0 100px 0;
 }
@@ -1342,6 +1342,10 @@ pre {
   p {
     margin-bottom: 24px;
   }
+
+  ul {
+    margin-bottom: 40px;
+  }
 }
 
 .careers_positions_button {
@@ -1361,6 +1365,20 @@ pre {
     font-size: 18px;
     letter-spacing: .83px;
     margin-bottom: 14px;
+  }
+}
+
+.careers_open_text {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  a {
+    font-size: 18px;
+    line-height: 30px;
+    color: $threeBoxBlue;
+    letter-spacing: .8px;
+    margin-right: 6px;
   }
 }
 
