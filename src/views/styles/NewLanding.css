@@ -1047,6 +1047,8 @@ pre {
     margin-bottom: 24px; }
   .careers_positions_content ul {
     margin-bottom: 40px; }
+  .careers_positions_content li {
+    line-height: 26px; }
 
 .careers_positions_button {
   display: flex;
