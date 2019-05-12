@@ -94,6 +94,58 @@ class Landing extends Component {
             <div className="careers_positions">
               <div className="careers_positions_content">
                 <h4>
+                  Javascript Engineer, Distributed Systems
+                </h4>
+                <p>
+                  For our next phase, we are seeking a javascript engineer, with focus on distributed systems, to drive the development of our database infrastructure and our developer API, contribute to exceptional developer operations, and anchor a stellar backend engineering team. Responsibilities will include:
+                </p>
+                <ul>
+                  <li>
+                    • Building & improving the 3box client and node implementations
+                  </li>
+                  <li>
+                    • Designing, architecting, and implementing systems that enables our platform to grow
+                  </li>
+                  <li>
+                    • Contribute to open source software and support knowledge sharing across the web3 ecosystem
+                  </li>
+                  <li>
+                    • Engage with and help educate the community building with 3box
+                  </li>
+                  <li>
+                    • Manage and monitor cloud infrastructure
+                  </li>
+                  <li>
+                    • Build javascript code you are proud of
+                  </li>
+                  <li>
+                    • Enable our continuous integration/delivery pipelines to work seamlessly
+                  </li>
+                  <li>
+                    • Implement scalability and data integrity solutions to our platform
+                  </li>
+                  <li>
+                    • Drive a continuous effort to reduce deployment time, infrastructure downtime, and maximize efficiency
+                  </li>
+                </ul>
+                <a href="https://www.notion.so/threebox/Javascript-Engineer-Distributed-Systems-967dad0c601e46349e83f57ef94c1279" target="_blank" rel="noopener noreferrer">
+                  <button className="textButton" type="button">
+                    View full description
+                  </button>
+                </a>
+              </div>
+              <div className="careers_positions_button">
+                <a href="mailto:jobs@3box.io">
+                  <button type="button" className="primaryMarketing">
+                    Apply Now
+                    <img src={TriangleWhite} alt="arrow" />
+                  </button>
+                </a>
+              </div>
+            </div>
+            <div className="careers_positions">
+              <div className="careers_positions_content">
+                <h4>
                   Technical Product Marketing Manager
                 </h4>
                 <p>
