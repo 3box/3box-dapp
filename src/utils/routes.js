@@ -18,6 +18,7 @@ export const DATA = 'data';
 export const DETAILS = 'details';
 export const EDIT = 'edit';
 export const COLLECTIBLES = 'collectibles';
+export const CONTACTS = 'contacts';
 
 // FORMAT STRUCTURE FOR REACT ROUTER
 export const FORMAT_PROFILE_ACTIVITY = `/:ethAddress/${ACTIVITY}`;

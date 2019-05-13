@@ -12,6 +12,7 @@ import Collectibles from '../Collectibles';
 import ActivityIcon from '../../../assets/Activity.svg';
 import DetailsIcon from '../../../assets/Details.svg';
 import CollectiblesIcon from '../../../assets/Collectibles.svg';
+import ContactsIcon from '../../../assets/Contacts.svg';
 import '../styles/Feed.css';
 import '../styles/Profile.css';
 import '../../../components/styles/NetworkArray.css';
@@ -28,21 +29,32 @@ const Content = ({ currentAddress }) => (
           <img src={ActivityIcon} alt="Activity" className="profile__category__tabIcon--activity--mobile" />
           Activity
         </NavLink>
+
         <NavLink
           exact
           to={`/${currentAddress}/${routes.DETAILS}`}
           className="profile__category__section "
         >
-          <img src={DetailsIcon} alt="Activity" className="profile__category__tabIcon--details--mobile" />
+          <img src={DetailsIcon} alt="Details" className="profile__category__tabIcon--details--mobile" />
           Details
         </NavLink>
+
         <NavLink
           exact
           to={`/${currentAddress}/${routes.COLLECTIBLES}`}
           className="profile__category__section "
         >
-          <img src={CollectiblesIcon} alt="Activity" className="profile__category__tabIcon--collectibles--mobile" />
+          <img src={CollectiblesIcon} alt="Collectibles" className="profile__category__tabIcon--collectibles--mobile" />
           Collectibles
+        </NavLink>
+
+        <NavLink
+          exact
+          to={`/${currentAddress}/${routes.CONTACTS}`}
+          className="profile__category__section "
+        >
+          <img src={ContactsIcon} alt="Contacts" className="profile__category__tabIcon--collectibles--mobile" />
+          Contacts
         </NavLink>
       </div>
     </div>
