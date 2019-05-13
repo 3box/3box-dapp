@@ -56,21 +56,21 @@ class Landing extends Component {
             <div className="hero_copy_wrapper">
               <h1>Careers</h1>
               <p>
-                Join us in building the uture of distributed consumer applications
+                Join us in building the future of distributed consumer applications
               </p>
               <div className="hero_copy_buttons">
-                <Link to={routes.API}>
+                {/* <Link to={routes.API}>
                   <button type="button" className="hero_copy_buttons_button primaryMarketing">
                     Meet the Team
                     <img src={TriangleWhite} alt="arrow" />
                   </button>
-                </Link>
-                <Link to={routes.HUB}>
+                </Link> */}
+                <a href="https://medium.com/3box/3box-culture-a-team-community-and-company-595004959b61">
                   <button type="button" className="secondary">
                     Our Culture
                     <img src={TriangleBlack} alt="arrow" />
                   </button>
-                </Link>
+                </a>
               </div>
             </div>
           </div>
@@ -90,6 +90,58 @@ class Landing extends Component {
               <p>
                 To apply, submit your resume along with a short note and relevant online social profiles.
               </p>
+            </div>
+            <div className="careers_positions">
+              <div className="careers_positions_content">
+                <h4>
+                  Javascript Engineer, Distributed Systems
+                </h4>
+                <p>
+                  For our next phase, we are seeking a javascript engineer, with focus on distributed systems, to drive the development of our database infrastructure and our developer API, contribute to exceptional developer operations, and anchor a stellar backend engineering team. Responsibilities will include:
+                </p>
+                <ul>
+                  <li>
+                    • Building & improving the 3Box client and node implementations
+                  </li>
+                  <li>
+                    • Designing, architecting, and implementing systems that enables our platform to grow
+                  </li>
+                  <li>
+                    • Contribute to open source software and support knowledge sharing across the web3 ecosystem
+                  </li>
+                  <li>
+                    • Engage with and help educate the community building with 3Box
+                  </li>
+                  <li>
+                    • Manage and monitor cloud infrastructure
+                  </li>
+                  <li>
+                    • Build javascript code you are proud of
+                  </li>
+                  <li>
+                    • Enable our continuous integration/delivery pipelines to work seamlessly
+                  </li>
+                  <li>
+                    • Implement scalability and data integrity solutions to our platform
+                  </li>
+                  <li>
+                    • Drive a continuous effort to reduce deployment time, infrastructure downtime, and maximize efficiency
+                  </li>
+                </ul>
+                <a href="https://www.notion.so/threebox/Javascript-Engineer-Distributed-Systems-967dad0c601e46349e83f57ef94c1279" target="_blank" rel="noopener noreferrer">
+                  <button className="textButton" type="button">
+                    View full description
+                  </button>
+                </a>
+              </div>
+              <div className="careers_positions_button">
+                <a href="mailto:jobs@3box.io">
+                  <button type="button" className="primaryMarketing">
+                    Apply Now
+                    <img src={TriangleWhite} alt="arrow" />
+                  </button>
+                </a>
+              </div>
             </div>
             <div className="careers_positions">
               <div className="careers_positions_content">
