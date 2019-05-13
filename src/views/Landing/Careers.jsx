@@ -59,18 +59,18 @@ class Landing extends Component {
                 Join us in building the future of distributed consumer applications
               </p>
               <div className="hero_copy_buttons">
-                <Link to={routes.API}>
+                {/* <Link to={routes.API}>
                   <button type="button" className="hero_copy_buttons_button primaryMarketing">
                     Meet the Team
                     <img src={TriangleWhite} alt="arrow" />
                   </button>
-                </Link>
-                <Link to={routes.HUB}>
+                </Link> */}
+                <a href="https://medium.com/3box/3box-culture-a-team-community-and-company-595004959b61">
                   <button type="button" className="secondary">
                     Our Culture
                     <img src={TriangleBlack} alt="arrow" />
                   </button>
-                </Link>
+                </a>
               </div>
             </div>
           </div>
