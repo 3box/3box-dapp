@@ -56,7 +56,7 @@ class Landing extends Component {
             <div className="hero_copy_wrapper">
               <h1>Careers</h1>
               <p>
-                Join us in building the uture of distributed consumer applications
+                Join us in building the future of distributed consumer applications
               </p>
               <div className="hero_copy_buttons">
                 <Link to={routes.API}>
@@ -101,7 +101,7 @@ class Landing extends Component {
                 </p>
                 <ul>
                   <li>
-                    • Building & improving the 3box client and node implementations
+                    • Building & improving the 3Box client and node implementations
                   </li>
                   <li>
                     • Designing, architecting, and implementing systems that enables our platform to grow
@@ -110,7 +110,7 @@ class Landing extends Component {
                     • Contribute to open source software and support knowledge sharing across the web3 ecosystem
                   </li>
                   <li>
-                    • Engage with and help educate the community building with 3box
+                    • Engage with and help educate the community building with 3Box
                   </li>
                   <li>
                     • Manage and monitor cloud infrastructure
