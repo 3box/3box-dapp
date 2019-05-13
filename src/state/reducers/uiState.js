@@ -4,7 +4,7 @@ const uiStateReducer = (state = {}, action) => {
       return {
         ...state,
         provideConsent: action.provideConsent,
-        isFetchingThreeBox: action.isFetchingThreeBox,
+          isFetchingThreeBox: action.isFetchingThreeBox,
       };
 
     case 'UI_FEED_LOADING':
@@ -17,24 +17,24 @@ const uiStateReducer = (state = {}, action) => {
       return {
         ...state,
         isFetchingActivity: action.isFetchingActivity,
-        provideConsent: action.provideConsent,
-        errorMessage: action.errorMessage,
+          provideConsent: action.provideConsent,
+          errorMessage: action.errorMessage,
       };
 
     case 'UI_APP_SYNC':
       return {
         ...state,
         isSyncing: action.isSyncing,
-        onSyncFinished: action.onSyncFinished,
+          onSyncFinished: action.onSyncFinished,
       };
 
     case 'UI_3BOX_FAILED':
       return {
         ...state,
         isFetchingThreeBox: false,
-        showErrorModal: true,
-        provideConsent: false,
-        errorMessage: action.errorMessage,
+          showErrorModal: true,
+          provideConsent: false,
+          errorMessage: action.errorMessage,
       };
 
       // MODALS & BANNERS
@@ -48,7 +48,7 @@ const uiStateReducer = (state = {}, action) => {
       return {
         ...state,
         provideConsent: action.provideConsent,
-        showSignInBanner: action.showSignInBanner,
+          showSignInBanner: action.showSignInBanner,
       };
 
     case 'UI_REQUIRE_METAMASK_MODAL':
@@ -61,35 +61,35 @@ const uiStateReducer = (state = {}, action) => {
       return {
         ...state,
         errorMessage: '',
-        showErrorModal: false,
+          showErrorModal: false,
       };
 
     case 'UI_HANDLE_DIFFERENT_NETWORK_MODAL':
       return {
         ...state,
         showDifferentNetworkModal: action.showDifferentNetworkModal,
-        onBoardingModal: action.onBoardingModal,
-        onBoardingModal2: action.onBoardingModal2,
-        isFetchingThreeBox: action.isFetchingThreeBox,
+          onBoardingModal: action.onBoardingModal,
+          onBoardingModal2: action.onBoardingModal2,
+          isFetchingThreeBox: action.isFetchingThreeBox,
       };
 
     case 'UI_HANDLE_LOGGEDOUT_MODAL':
       return {
         ...state,
         loggedOutModal: action.loggedOutModal,
-        isFetchingThreeBox: false,
-        onBoardingModal: false,
-        onBoardingModal2: false,
+          isFetchingThreeBox: false,
+          onBoardingModal: false,
+          onBoardingModal2: false,
       };
 
     case 'UI_HANDLE_SWITCHED_ADDRESS_MODAL':
       return {
         ...state,
         switchedAddressModal: action.switchedAddressModal,
-        isFetchingThreeBox: false,
-        onBoardingModal: false,
-        onBoardingModal2: false,
-        prevAddress: action.prevAddress,
+          isFetchingThreeBox: false,
+          onBoardingModal: false,
+          onBoardingModal2: false,
+          prevAddress: action.prevAddress,
       };
 
     case 'UI_3BOX_FETCHING':
@@ -102,6 +102,12 @@ const uiStateReducer = (state = {}, action) => {
       return {
         ...state,
         signInModal: action.signInModal,
+      };
+
+    case 'UI_HANDLE_CONTACTS_MODAL':
+      return {
+        ...state,
+        showContactsModal: action.showContactsModal,
       };
 
     case 'UI_HANDLE_SWITCHED_NETWORK_MODAL':
@@ -126,7 +132,7 @@ const uiStateReducer = (state = {}, action) => {
       return {
         ...state,
         spacesOpened: action.spacesOpened,
-        showSpaceOpenedModal: action.showSpaceOpenedModal,
+          showSpaceOpenedModal: action.showSpaceOpenedModal,
       };
 
     case 'UI_HANDLE_SPACE_OPENED_MODAL':
@@ -139,7 +145,7 @@ const uiStateReducer = (state = {}, action) => {
       return {
         ...state,
         onBoardingModal: action.onBoardingModal,
-        onBoardingModalTwo: action.onBoardingModalTwo,
+          onBoardingModalTwo: action.onBoardingModalTwo,
       };
 
     case 'UI_HANDLE_REQUIRE_LOGIN_MODAL':
@@ -176,15 +182,15 @@ const uiStateReducer = (state = {}, action) => {
       return {
         ...state,
         allowAccessModal: action.allowAccessModal,
-        directLogin: action.directLogin,
+          directLogin: action.directLogin,
       };
 
     case 'UI_HANDLE_COLLECTIBLES_MODAL':
       return {
         ...state,
         showCollectiblesModal: action.showCollectiblesModal,
-        selectedCollectible: action.selectedCollectible,
-        isFavorite: action.isFavorite,
+          selectedCollectible: action.selectedCollectible,
+          isFavorite: action.isFavorite,
       };
     case 'UI_CLOSE_COLLECTIBLES_MODAL':
       return {
@@ -195,14 +201,14 @@ const uiStateReducer = (state = {}, action) => {
       return {
         ...state,
         selectedCollectible: action.selectedCollectible,
-        isFavorite: action.isFavorite,
+          isFavorite: action.isFavorite,
       };
 
     case 'UI_HANDLE_DENIED_ACCESS_MODAL':
       return {
         ...state,
         accessDeniedModal: action.accessDeniedModal,
-        allowAccessModal: action.allowAccessModal,
+          allowAccessModal: action.allowAccessModal,
       };
 
     case 'UI_ROUTE_UPDATE':
@@ -227,9 +233,9 @@ const uiStateReducer = (state = {}, action) => {
       return {
         ...state,
         showSpaceDataItemModal: action.showSpaceDataItemModal,
-        showDeleteItemModal: action.showDeleteItemModal,
-        showOpenSpaceModal: action.showOpenSpaceModal,
-        spaceItem: action.spaceItem,
+          showDeleteItemModal: action.showDeleteItemModal,
+          showOpenSpaceModal: action.showOpenSpaceModal,
+          spaceItem: action.spaceItem,
       };
 
     case 'UI_SIGN_OUT':

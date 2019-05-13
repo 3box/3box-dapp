@@ -10,6 +10,7 @@ import * as routes from '../../utils/routes';
 import ActivityIcon from '../../assets/Activity.svg';
 import DetailsIcon from '../../assets/Details.svg';
 import CollectiblesIcon from '../../assets/Collectibles.svg';
+import ContactsIcon from '../../assets/Contacts.svg';
 import EthereumLogo from '../../assets/EthereumIcon.svg';
 import Copy from '../../assets/Copy.svg';
 import CopyGrey from '../../assets/CopyGrey.svg';
@@ -119,17 +120,26 @@ const SideBar = ({
                       </div>
                       Activity
                     </NavLink>
+
                     <NavLink exact to={`/${currentAddress}/${routes.DETAILS}`} className="profile__category__section ">
                       <div className="profile__category__tabIcon__wrappper">
-                        <img src={DetailsIcon} alt="Activity" className="profile__category__tabIcon--details" />
+                        <img src={DetailsIcon} alt="Details" className="profile__category__tabIcon--details" />
                       </div>
                       Details
                     </NavLink>
+
                     <NavLink exact to={`/${currentAddress}/${routes.COLLECTIBLES}`} className="profile__category__section ">
                       <div className="profile__category__tabIcon__wrappper">
-                        <img src={CollectiblesIcon} alt="Activity" className="profile__category__tabIcon--collectibles" />
+                        <img src={CollectiblesIcon} alt="Collectibles" className="profile__category__tabIcon--collectibles" />
                       </div>
                       Collectibles
+                    </NavLink>
+
+                    <NavLink exact to={`/${currentAddress}/${routes.CONTACTS}`} className="profile__category__section ">
+                      <div className="profile__category__tabIcon__wrappper">
+                        <img src={ContactsIcon} alt="Contacts" className="profile__category__tabIcon--contacts" />
+                      </div>
+                      Contacts
                     </NavLink>
                   </React.Fragment>)
                   : (

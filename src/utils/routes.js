@@ -26,3 +26,4 @@ export const FORMAT_PROFILE_ABOUT = `/:ethAddress/${DETAILS}`;
 export const FORMAT_PROFILE_DATA = `/:ethAddress/${DATA}`;
 export const FORMAT_PROFILE_COLLECTIBLES = `/:ethAddress/${COLLECTIBLES}`;
 export const FORMAT_PROFILE_EDIT = `/:ethAddress/${EDIT}`;
+export const FORMAT_PROFILE_CONTACTS = `/:ethAddress/${CONTACTS}`;

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import ContactTile from './ContactTile';
 import * as routes from '../utils/routes';
 import Status from '../assets/Status.png';
 import getCoinbaseWallet from '../assets/getCoinbaseWallet.svg';
@@ -1170,4 +1171,34 @@ OnBoardingModalMobile.propTypes = {
   showThree: PropTypes.bool.isRequired,
   showFour: PropTypes.bool.isRequired,
   isMobile: PropTypes.bool.isRequired,
+};
+
+export const ContactsListModal = ({ contacts, handleContactsModal }) => (
+  <div className="modal__container modal--effect">
+    <div className="modal contactsModal">
+      <h2>Mollie the Narwhal's Contacts</h2>
+      <div className="contactsModal_list">
+        {/* {contacts.map(contact => (
+          <ContactTile />
+        ))} */}
+        <ContactTile />
+      </div>
+    </div>
+    <div
+      className="onClickOutsideCollectibles"
+      onClick={() => handleContactsModal()}
+      onKeyPress={() => handleContactsModal()}
+      role="button"
+      tabIndex={0}
+    />
+  </div>
+);
+
+ContactsListModal.propTypes = {
+  contacts: PropTypes.array,
+  handleContactsModal: PropTypes.func.isRequired,
+};
+
+ContactsListModal.defaultProps = {
+  contacts: [1, 2, 3, 4, 5],
 };

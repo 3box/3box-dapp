@@ -421,6 +421,12 @@ class App extends Component {
 
           <Route
             exact
+            path="(^[/][0][xX]\w{40}\b)/contacts"
+            component={MyProfile}
+          />
+
+          <Route
+            exact
             path="(^[/][0][xX]\w{40}\b)/data"
             component={Spaces}
           />

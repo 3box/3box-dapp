@@ -23,7 +23,7 @@
 
 .profile__basic__wrapper {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   margin-bottom: 12px; }
 
 .publicProfile {
@@ -33,7 +33,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   margin-top: 34px;
   margin-bottom: 12px;
   width: 230px; }
@@ -48,7 +48,6 @@
 .profile__basic__description {
   width: 200px;
   line-height: 20px;
-  text-align: center !important;
   height: fit-content;
   word-break: normal; }
 
@@ -86,6 +85,44 @@
     font-size: 18px;
     color: #747677;
     font-weight: 400; }
+
+.contacts_header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; }
+  .contacts_header h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #747677; }
+  .contacts_header p {
+    font-size: 20px;
+    color: #747677; }
+
+.contact_list {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column; }
+
+.contact_tile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; }
+  .contact_tile h3 {
+    margin-bottom: 0;
+    margin-left: 20px; }
+
+.contact_tile_info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; }
+
+.contact_tile_info_image {
+  width: 60px;
+  height: 60px;
+  background-color: #1168df;
+  border-radius: 50%; }
 
 .profile__category__divider {
   width: 94%;
@@ -178,6 +215,15 @@
   -o-filter: grayscale(100%);
   opacity: .5; }
 
+.profile__category__tabIcon--contacts {
+  height: 20px;
+  filter: none;
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  opacity: .5; }
+
 .active {
   background-color: #dfdfdfa6 !important;
   color: #1168df !important; }
@@ -229,7 +275,7 @@
   width: 230px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   overflow: hidden;
   text-overflow: ellipsis;
   transition: all ease .5s; }
@@ -278,6 +324,28 @@
 
 .publicStatusUpdate--bannerMargin {
   margin-top: 284px !important; }
+
+.public_contacts {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-bottom: 40px; }
+
+.public_contacts_list {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px; }
+
+.public_contacts_mutual {
+  margin-bottom: 20px; }
+
+.public_contacts_add {
+  width: 100%; }
+  .public_contacts_add button {
+    width: 100%; }
 
 #profile__page {
   height: calc(100% - 133px); }

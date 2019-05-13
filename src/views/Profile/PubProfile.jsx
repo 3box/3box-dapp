@@ -8,6 +8,8 @@ import actions from '../../state/actions';
 import {
   PublicProfileLoading,
   SignInThroughPublicProfileBanner,
+  ContactsListModal,
+  ModalBackground,
 } from '../../components/Modals';
 import { store } from '../../state/store';
 import PubContent from './PublicProfile/PubContent';
@@ -16,6 +18,7 @@ import './styles/Profile.css';
 
 const {
   handleSignInBanner,
+  handleContactsModal,
 } = actions.modal;
 
 const {
@@ -80,7 +83,7 @@ class ProfilePublic extends Component {
   }
 
   render() {
-    const { isLoadingOtherProfile, showSignInBanner } = this.props;
+    const { isLoadingOtherProfile, showSignInBanner, showContactsModal } = this.props;
     return (
       <div>
         <SignInThroughPublicProfileBanner show={showSignInBanner} handleSignInBanner={this.props.handleSignInBanner} />
@@ -99,6 +102,9 @@ class ProfilePublic extends Component {
           >
 
             {isLoadingOtherProfile && <PublicProfileLoading />}
+            {showContactsModal && <ContactsListModal contacts={20} handleContactsModal={this.props.handleContactsModal} />}
+
+            {showContactsModal && <ModalBackground />}
           </ReactCSSTransitionGroup>
         </div>
       </div>
@@ -111,11 +117,13 @@ ProfilePublic.propTypes = {
   checkNetwork: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
   handleSignInBanner: PropTypes.func.isRequired,
+  handleContactsModal: PropTypes.func.isRequired,
   getCollectibles: PropTypes.func.isRequired,
   pathname: PropTypes.object,
   location: PropTypes.object,
   isLoadingOtherProfile: PropTypes.bool,
   showSignInBanner: PropTypes.bool,
+  showContactsModal: PropTypes.bool,
   currentAddress: PropTypes.string,
 };
 
@@ -124,12 +132,14 @@ ProfilePublic.defaultProps = {
   location: {},
   isLoadingOtherProfile: true,
   showSignInBanner: false,
+  showContactsModal: false,
   currentAddress: '',
 };
 
 const mapState = state => ({
   isLoadingOtherProfile: state.otherProfile.isLoadingOtherProfile,
   showSignInBanner: state.uiState.showSignInBanner,
+  showContactsModal: state.uiState.showContactsModal,
   currentAddress: state.userState.currentAddress,
 });
 
@@ -139,5 +149,6 @@ export default withRouter(connect(mapState,
     checkNetwork,
     getActivity,
     handleSignInBanner,
+    handleContactsModal,
     getCollectibles,
   })(ProfilePublic));
