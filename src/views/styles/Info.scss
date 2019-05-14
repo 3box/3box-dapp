@@ -13,7 +13,7 @@
 .info__banner {
   width: 100vw;
   height: 25em;
-  background-color: $threeBoxBlue;
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,7 +21,7 @@
   position: relative;
 
   h1 {
-    color: white;
+    color: $threeBoxBlack;
   }
 
   p {
@@ -36,16 +36,18 @@
 
 .info__banner--NoMatchPage {
   width: 100vw;
-  height: 100vh;
-  background-color: #004AA8;
+  height: 70vh;
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   position: relative;
+  padding-top: 180px;
+  box-sizing: border-box;
 
   h1 {
-    color: white;
+    color: $threeBoxBlack;
     margin-bottom: 20vh;
   }
 }
@@ -70,7 +72,7 @@
   }
 }
 
-.NoMatchPage{
+.NoMatchPage {
   min-height: 100vh;
 }
 

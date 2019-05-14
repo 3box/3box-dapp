@@ -351,7 +351,6 @@ class App extends Component {
           <Route
             exact
             path={routes.LANDING}
-
             render={() => (
               <LandingNew
                 handleSignInUp={this.handleSignInUp}
@@ -365,7 +364,6 @@ class App extends Component {
 
           <Route
             path={routes.API}
-
             render={() => (
               <APIs
                 handleSignInUp={this.handleSignInUp}
@@ -380,7 +378,6 @@ class App extends Component {
           <Route
             exact
             path={routes.HUB}
-
             render={() => (
               <Dapp
                 handleSignInUp={this.handleSignInUp}
@@ -395,8 +392,13 @@ class App extends Component {
           <Route
             exact
             path={routes.CAREERS}
-
             render={() => <Careers />}
+          />
+
+          <Route
+            exact
+            path={routes.JOBS}
+            render={() => <Redirect to={routes.CAREERS} />}
           />
 
           <Route

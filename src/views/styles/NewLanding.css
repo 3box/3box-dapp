@@ -985,6 +985,12 @@ pre {
   bottom: 0;
   right: 20vw; }
 
+.footer__gutter__social {
+  padding: 0;
+  margin-bottom: 20px; }
+  .footer__gutter__social a {
+    margin-left: 15px; }
+
 .arrow {
   margin-left: 15px;
   margin-top: 3px;
