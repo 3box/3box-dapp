@@ -35,13 +35,17 @@ class Partners extends Component {
           <div className="partners_content">
             <div className="partners_content_wrapper">
               <div className="partners_content_header">
-                <h4>TEAM</h4>
+                <h4 className="highlight_header">TEAM</h4>
               </div>
-
-              <div className="team_mates">
-                {/* <ProfileHover Danny address="0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0" displayFull />
-                <ProfileHover Michael address="0xa8ee0babe72cd9a80ae45dd74cd3eae7a82fd5d1" displayFull />
-                <ProfileHover Kenzo address="0x59B5fbC62519DBF9B7044fd0eCb6442aC16FAe2A" displayFull /> */}
+              <div className="team_mates_wrapper">
+                <div className="team_mates">
+                  {/* Danny */}
+                  <ProfileHover address="0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0" displayFull />
+                  {/* Michael */}
+                  <ProfileHover address="0xa8ee0babe72cd9a80ae45dd74cd3eae7a82fd5d1" displayFull />
+                  {/* Kenzo */}
+                  <ProfileHover address="0x59B5fbC62519DBF9B7044fd0eCb6442aC16FAe2A" displayFull />
+                </div>
               </div>
             </div>
           </div>

@@ -1146,6 +1146,23 @@ pre {
   margin-bottom: 100px;
 }
 
+.highlight_header {
+  z-index: 1;
+  display: inline-block;
+  position: relative;
+}
+
+.highlight_header::before {
+  background-color: #8CFFDE;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 90%;
+  top: 8px;
+  left: -5px;
+  z-index: -1;
+}
+
 .partners_grid {
   display: inline-grid;
   grid-template-columns: repeat(3, 180px [col-start]);

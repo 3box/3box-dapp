@@ -442,6 +442,19 @@
   margin-left: -18px;
 }
 
+.team_mates_wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.team_mates {
+  display: inline-grid;
+  grid-template-columns: repeat(1, fit-content [col-start]);
+  row-gap: 20px;
+}
+
 .first {
   margin-left: 0;
 }
