@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Footer from '../../components/Footer';
+import Footer from './components/Footer';
 import '../styles/Landing.css';
 import '../styles/Info.css';
 

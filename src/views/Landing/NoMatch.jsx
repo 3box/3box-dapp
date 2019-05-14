@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Footer from '../../components/Footer';
+import Footer from './components/Footer';
 import '../styles/Info.css';
 import '../styles/Landing.css';
 
-const NoMatch = ({ isLoggedIn, handleSignInUp }) => (
+const NoMatch = () => (
   <div className="info NoMatchPage">
 
     <div className="info__page">
@@ -13,11 +13,7 @@ const NoMatch = ({ isLoggedIn, handleSignInUp }) => (
       </div>
     </div>
 
-    <Footer
-      handleSignInUp={handleSignInUp}
-      isLoggedIn={isLoggedIn}
-    />
-
+    <Footer />
   </div>
 );
 
