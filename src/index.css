@@ -178,6 +178,12 @@ button {
     background-color: transparent;
     border: none; }
 
+.outlineButton {
+  background: transparent;
+  border: solid 1px #7a7a7a;
+  color: #7a7a7a;
+  box-shadow: none; }
+
 button:hover {
   cursor: pointer; }
 

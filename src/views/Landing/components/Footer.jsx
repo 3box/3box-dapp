@@ -58,11 +58,11 @@ const Footer = () => (
           <h5>
             MORE
           </h5>
-          {/* <p>
-            About
-          </p> */}
           <Link to={routes.CAREERS}>
             Careers
+          </Link>
+          <Link to={routes.TEAM}>
+            Team
           </Link>
           <a href="https://chat.3box.io" target="_blank" rel="noopener noreferrer">
             Chat

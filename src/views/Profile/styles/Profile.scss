@@ -110,6 +110,10 @@
   }
 }
 
+.contacts_page {
+  justify-content: flex-start !important;
+}
+
 .contacts_header {
   display: flex;
   justify-content: flex-start;
@@ -128,10 +132,15 @@
 }
 
 .contact_list {
-  display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
+  align-self: flex-start;
+  width: 100%;
+  margin-top: 30px;
+  display: inline-grid;
+  grid-template-columns: repeat(1, 100% [col-start]);
+  row-gap: 20px;
 }
 
 .contact_tile {

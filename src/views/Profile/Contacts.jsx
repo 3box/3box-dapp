@@ -9,20 +9,23 @@ import GithubIcon from '../../assets/GithubIcon.svg';
 import './styles/Profile.css';
 import './styles/Feed.css';
 
-const Contacts = ({
-  verifiedGithub,
-  contacts
-}) => (
-    <div id="myFeed">
-      <div className="contacts_header">
+const Contacts = () => (
+  <div id="myFeed" className="contacts_page">
+    <p className="header publicHeader" id="feed__header">
+      Contacts (122)
+    </p>
+    {/* <div className="contacts_header">
         <h2>Contacts</h2>
         <p>(122)</p>
-      </div>
-      <div className="contact_list">
-        <ContactTile />
-      </div>
+      </div> */}
+    <div className="contact_list">
+      <ContactTile />
+      <ContactTile />
+      <ContactTile />
+      <ContactTile />
     </div>
-  );
+  </div>
+);
 
 Contacts.propTypes = {
   verifiedGithub: PropTypes.string,

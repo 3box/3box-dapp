@@ -13,12 +13,12 @@ import APIs from './views/Landing/API/APIs';
 import Dapp from './views/Landing/Dapp/Dapp';
 import LandingNew from './views/Landing/LandingNew';
 import Partners from './views/Landing/Partners';
+import Team from './views/Landing/Team';
 import Spaces from './views/Spaces/Spaces.jsx';
 import MyProfile from './views/Profile/MyProfile';
 import PubProfile from './views/Profile/PubProfile';
 import NoMatch from './views/Landing/NoMatch';
 import EditProfile from './views/Profile/EditProfile';
-import Profiles from './views/Landing/Profiles';
 import Careers from './views/Landing/Careers';
 import Privacy from './views/Landing/Privacy';
 import Terms from './views/Landing/Terms';
@@ -441,12 +441,17 @@ class App extends Component {
 
           <Route
             exact
+            path={routes.TEAM}
+            component={() => (
+              <Team />
+            )}
+          />
+
+          <Route
+            exact
             path={routes.PARTNERS}
             component={() => (
-              <Partners
-                isLoggedIn={isLoggedIn}
-                handleSignInUp={this.handleSignInUp}
-              />
+              <Partners />
             )}
           />
 
@@ -454,10 +459,7 @@ class App extends Component {
             exact
             path={routes.PRIVACY}
             component={() => (
-              <Privacy
-                isLoggedIn={isLoggedIn}
-                handleSignInUp={this.handleSignInUp}
-              />
+              <Privacy />
             )}
           />
 
@@ -465,10 +467,7 @@ class App extends Component {
             exact
             path={routes.TERMS}
             component={() => (
-              <Terms
-                isLoggedIn={isLoggedIn}
-                handleSignInUp={this.handleSignInUp}
-              />
+              <Terms />
             )}
           />
 
@@ -477,17 +476,6 @@ class App extends Component {
             exact
             component={() => (
               <Create
-                isLoggedIn={isLoggedIn}
-                handleSignInUp={this.handleSignInUp}
-              />
-            )}
-          />
-
-          <Route
-            path={routes.PROFILES}
-            exact
-            component={() => (
-              <Profiles
                 isLoggedIn={isLoggedIn}
                 handleSignInUp={this.handleSignInUp}
               />
