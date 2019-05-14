@@ -179,10 +179,14 @@ button {
     border: none; }
 
 .outlineButton {
-  background: transparent;
+  background-color: transparent;
   border: solid 1px #7a7a7a;
   color: #7a7a7a;
   box-shadow: none; }
+  .outlineButton:hover {
+    border: solid 1px #7a7a7a;
+    color: #7a7a7a;
+    background-color: #bcbcbc !important; }
 
 button:hover {
   cursor: pointer; }

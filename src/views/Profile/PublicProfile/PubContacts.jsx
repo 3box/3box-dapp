@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import actions from '../../../state/actions';
+import Check from '../../../assets/Check.svg';
 import '../styles/Feed.css';
 import '../styles/Profile.css';
 import '../../../components/styles/NetworkArray.css';
@@ -24,7 +25,9 @@ const PubContacts = ({ handleContactsModal }) => (
         <p>Contacts</p>
       </div>
       <div className="public_contacts_list_profiles">
-
+        <div className="public_contacts_list_profiles_img first" />
+        <div className="public_contacts_list_profiles_img" />
+        <div className="public_contacts_list_profiles_img" />
       </div>
     </div>
     <div className="public_contacts_mutual">
@@ -33,6 +36,10 @@ const PubContacts = ({ handleContactsModal }) => (
     <div className="public_contacts_add">
       <button type="button">
         Add to Contacts
+      </button>
+      <button type="button" className="outlineButton">
+        <img src={Check} alt="Check" />
+        Added
       </button>
     </div>
   </div>

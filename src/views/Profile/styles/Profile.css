@@ -345,7 +345,23 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+  width: 100%; }
+
+.public_contacts_list_profiles {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center; }
+
+.public_contacts_list_profiles_img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #1168df;
+  margin-left: -18px; }
+
+.first {
+  margin-left: 0; }
 
 .public_contacts_mutual {
   margin-bottom: 20px; }
@@ -354,6 +370,9 @@
   width: 100%; }
   .public_contacts_add button {
     width: 100%; }
+    .public_contacts_add button img {
+      margin-right: 12px;
+      width: 18px; }
 
 #profile__page {
   height: calc(100% - 133px); }

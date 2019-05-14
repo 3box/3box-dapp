@@ -425,6 +425,25 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  width: 100%;
+}
+
+.public_contacts_list_profiles {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.public_contacts_list_profiles_img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: $threeBoxBlue;
+  margin-left: -18px;
+}
+
+.first {
+  margin-left: 0;
 }
 
 .public_contacts_mutual {
@@ -436,6 +455,11 @@
 
   button {
     width: 100%;
+
+    img {
+      margin-right: 12px;
+      width: 18px;
+    }
   }
 }
 

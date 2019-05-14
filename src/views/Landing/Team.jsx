@@ -39,10 +39,9 @@ class Partners extends Component {
               </div>
 
               <div className="team_mates">
-                {/* <ProfileHover address="0xFF326878D13b33591D286372E67B4AF05cD100bd" displayFull />
-                <ProfileHover address="0xC5adAC2938d9Ea3474cdD6f9E6D72D35665380B6" displayFull />
-                <ProfileHover address="0x258DDD84abf61ba1D1E39f95D8863ee9ca218c06" displayFull />
-                <ProfileHover address="0x59B5fbC62519DBF9B7044fd0eCb6442aC16FAe2A" displayFull /> */}
+                {/* <ProfileHover Danny address="0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0" displayFull />
+                <ProfileHover Michael address="0xa8ee0babe72cd9a80ae45dd74cd3eae7a82fd5d1" displayFull />
+                <ProfileHover Kenzo address="0x59B5fbC62519DBF9B7044fd0eCb6442aC16FAe2A" displayFull /> */}
               </div>
             </div>
           </div>
