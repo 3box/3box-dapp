@@ -32,25 +32,33 @@ class Partners extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      danny: null,
-      oed: null,
-      zach: null,
-      michael: null,
-      kenzo: null,
-    }
+      danny: {},
+      oed: {},
+      zach: {},
+      michael: {},
+      kenzo: {},
+    };
   }
 
   async componentDidMount() {
     window.scrollTo(0, 0);
     try {
-      const danny = await Box.profileGraphQL(graphqlQueryObject('0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0'));
-      const oed = await Box.profileGraphQL(graphqlQueryObject('0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0'));
-      const zach = await Box.profileGraphQL(graphqlQueryObject('0x9acb0539f2ea0c258ac43620dd03ef01f676a69b'));
-      const michael = await Box.profileGraphQL(graphqlQueryObject('0xa8ee0babe72cd9a80ae45dd74cd3eae7a82fd5d1'));
-      const kenzo = await Box.profileGraphQL(graphqlQueryObject('0x59B5fbC62519DBF9B7044fd0eCb6442aC16FAe2A'));
+      const profileCalls = [];
+      profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0'))); // danny
+      profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0'))); // oed
+      profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0x9acb0539f2ea0c258ac43620dd03ef01f676a69b'))); // zach
+      profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0xa8ee0babe72cd9a80ae45dd74cd3eae7a82fd5d1'))); // michael
+      profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0x59B5fbC62519DBF9B7044fd0eCb6442aC16FAe2A'))); // kenzo
+
+      const profilePromises = Promise.all(profileCalls);
+      const profiles = await profilePromises;
 
       this.setState({
-        danny, oed, zach, michael, kenzo,
+        danny: profiles[0],
+        oed: profiles[1],
+        zach: profiles[2],
+        michael: profiles[3],
+        kenzo: profiles[4],
       });
     } catch (error) {
       console.log(error);
@@ -61,7 +69,6 @@ class Partners extends Component {
     const {
       danny, oed, zach, michael, kenzo,
     } = this.state;
-    console.log(danny, oed, zach, michael, kenzo);
 
     return (
       <div className="landing_page">
@@ -74,25 +81,69 @@ class Partners extends Component {
               <div className="team_mates_wrapper">
                 <div className="team_mates">
                   {/* Danny */}
-                  <ProfileHover address="0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0" noTheme>
-                    <div>
+                  {danny.profile && (
+                    <ProfileHover address="0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0" noTheme>
+                      <div className="team_tile">
+                        <img src={`https://ipfs.infura.io/ipfs/${danny.profile.image}`} alt="profile" />
+                        <div className="team_info">
+                          <h3>{danny.profile.name}</h3>
+                          <p>Co-founder, Operations</p>
+                        </div>
+                      </div>
+                    </ProfileHover>
+                  )}
 
-                    </div>
-                  </ProfileHover>
+                  {/* oed */}
+                  {oed.profile && (
+                    <ProfileHover address="0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0" noTheme>
+                      <div className="team_tile">
+                        <img src={`https://ipfs.infura.io/ipfs/${oed.profile.image}`} alt="profile" />
+                        <div className="team_info">
+                          <h3>{oed.profile.name}</h3>
+                          <p>Co-founder, Engineering</p>
+                        </div>
+                      </div>
+                    </ProfileHover>
+                  )}
 
                   {/* Michael */}
-                  <ProfileHover address="0xa8ee0babe72cd9a80ae45dd74cd3eae7a82fd5d1" noTheme>
-
-                  </ProfileHover>
+                  {michael.profile && (
+                    <ProfileHover address="0xa8ee0babe72cd9a80ae45dd74cd3eae7a82fd5d1" noTheme>
+                      <div className="team_tile">
+                        <img src={`https://ipfs.infura.io/ipfs/${michael.profile.image}`} alt="profile" />
+                        <div className="team_info">
+                          <h3>{michael.profile.name}</h3>
+                          <p>Co-founder, Product</p>
+                        </div>
+                      </div>
+                    </ProfileHover>
+                  )}
 
                   {/* Zach */}
-                  <ProfileHover address="0x9acb0539f2ea0c258ac43620dd03ef01f676a69b" noTheme>
+                  {zach.profile && (
+                    <ProfileHover address="0x9acb0539f2ea0c258ac43620dd03ef01f676a69b" noTheme>
+                      <div className="team_tile">
+                        <img src={`https://ipfs.infura.io/ipfs/${zach.profile.image}`} alt="profile" />
+                        <div className="team_info">
+                          <h3>{zach.profile.name}</h3>
+                          <p>Fullstack Engineer</p>
+                        </div>
+                      </div>
+                    </ProfileHover>
+                  )}
 
-                  </ProfileHover>
                   {/* Kenzo */}
-                  <ProfileHover address="0x59B5fbC62519DBF9B7044fd0eCb6442aC16FAe2A" noTheme>
-
-                  </ProfileHover>
+                  {kenzo.profile && (
+                    <ProfileHover address="0x59B5fbC62519DBF9B7044fd0eCb6442aC16FAe2A" noTheme>
+                      <div className="team_tile">
+                        <img src={`https://ipfs.infura.io/ipfs/${kenzo.profile.image}`} alt="profile" />
+                        <div className="team_info">
+                          <h3>{kenzo.profile.name}</h3>
+                          <p>Front-End Engineer</p>
+                        </div>
+                      </div>
+                    </ProfileHover>
+                  )}
                 </div>
               </div>
             </div>
