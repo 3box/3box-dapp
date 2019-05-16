@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import ProfileHover from 'profile-hover';
+import Box from '3box';
 
 import ColorCubes from '../../assets/ColorCubes.svg';
 import ColorCubesMobile from '../../assets/ColorCubesMobile.svg';
@@ -18,17 +19,50 @@ const styles = {
   backgroundRepeat: 'absolute',
 };
 
+const graphqlQueryObject = address => `
+{
+  profile(id: "${address}") {
+    name
+    image
+  }
+}
+`;
+
 class Partners extends Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      danny: null,
+      oed: null,
+      zach: null,
+      michael: null,
+      kenzo: null,
+    }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     window.scrollTo(0, 0);
+    try {
+      const danny = await Box.profileGraphQL(graphqlQueryObject('0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0'));
+      const oed = await Box.profileGraphQL(graphqlQueryObject('0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0'));
+      const zach = await Box.profileGraphQL(graphqlQueryObject('0x9acb0539f2ea0c258ac43620dd03ef01f676a69b'));
+      const michael = await Box.profileGraphQL(graphqlQueryObject('0xa8ee0babe72cd9a80ae45dd74cd3eae7a82fd5d1'));
+      const kenzo = await Box.profileGraphQL(graphqlQueryObject('0x59B5fbC62519DBF9B7044fd0eCb6442aC16FAe2A'));
+
+      this.setState({
+        danny, oed, zach, michael, kenzo,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   render() {
+    const {
+      danny, oed, zach, michael, kenzo,
+    } = this.state;
+    console.log(danny, oed, zach, michael, kenzo);
+
     return (
       <div className="landing_page">
         <main className="hero partners_hero">
@@ -40,11 +74,25 @@ class Partners extends Component {
               <div className="team_mates_wrapper">
                 <div className="team_mates">
                   {/* Danny */}
-                  <ProfileHover address="0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0" displayFull />
+                  <ProfileHover address="0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0" noTheme>
+                    <div>
+
+                    </div>
+                  </ProfileHover>
+
                   {/* Michael */}
-                  <ProfileHover address="0xa8ee0babe72cd9a80ae45dd74cd3eae7a82fd5d1" displayFull />
+                  <ProfileHover address="0xa8ee0babe72cd9a80ae45dd74cd3eae7a82fd5d1" noTheme>
+
+                  </ProfileHover>
+
+                  {/* Zach */}
+                  <ProfileHover address="0x9acb0539f2ea0c258ac43620dd03ef01f676a69b" noTheme>
+
+                  </ProfileHover>
                   {/* Kenzo */}
-                  <ProfileHover address="0x59B5fbC62519DBF9B7044fd0eCb6442aC16FAe2A" displayFull />
+                  <ProfileHover address="0x59B5fbC62519DBF9B7044fd0eCb6442aC16FAe2A" noTheme>
+
+                  </ProfileHover>
                 </div>
               </div>
             </div>
