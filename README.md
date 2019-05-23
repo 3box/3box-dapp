@@ -1,6 +1,7 @@
 [![Twitter Follow](https://img.shields.io/twitter/follow/3boxdb.svg?style=for-the-badge&label=Twitter)](https://twitter.com/3boxdb)
 [![Discord](https://img.shields.io/discord/484729862368526356.svg?style=for-the-badge)](https://discordapp.com/invite/Z3f3Cxy)
-[![CircleCI](https://img.shields.io/circleci/project/github/3box/3box-js.svg?style=for-the-badge)](https://circleci.com/gh/3box/3box-dapp) 
+[![CircleCI](https://img.shields.io/circleci/project/github/3box/3box-js.svg?style=for-the-badge)](https://circleci.com/gh/3box/3box-dapp) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2F3box%2F3box-dapp.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2F3box%2F3box-dapp?ref=badge_shield)
+
 [![Greenkeeper badge](https://badges.greenkeeper.io/3box/3box-dapp.svg)](https://greenkeeper.io/)
 
 # 3Box Profiles Application
@@ -48,3 +49,7 @@ The Profiles App relies on the [`3box-verifications`](https://github.com/3box/3b
 
 ## 3Box Activity
 The activity feed populates 3Box activity using [`3box-js`](https://github.com/3box/3box-js) and Ethereum activity using the [`3box-activity`](https://github.com) library. The `3box-activity` library is a wrapper on the Etherscan API which presents public network activity.
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2F3box%2F3box-dapp.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2F3box%2F3box-dapp?ref=badge_large)
