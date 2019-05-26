@@ -1396,3 +1396,11 @@ pre {
   .careers_positions_button {
     width: 90%;
     justify-content: flex-start; } }
+
+
+.lr-auto-mg {
+  margin-left: auto;
+  margin-right: auto;
+  align-content: start;
+  align-items: start !important;
+}

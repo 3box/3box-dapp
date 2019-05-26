@@ -21,6 +21,7 @@ import EditProfile from './views/Profile/EditProfile';
 import Profiles from './views/Landing/Profiles';
 import Careers from './views/Landing/Careers';
 import Privacy from './views/Landing/Privacy';
+import FAQ from './views/Landing/FAQ';
 import Terms from './views/Landing/Terms';
 import Create from './views/Landing/Create';
 import NavLanding from './components/NavLanding';
@@ -358,6 +359,17 @@ class App extends Component {
                 errorMessage={errorMessage}
                 showErrorModal={showErrorModal}
                 isSignedIntoWallet={isSignedIntoWallet}
+              />
+            )}
+          />
+
+          <Route
+            exact
+            path={routes.FAQ}
+            render={() => (
+              <FAQ
+                handleSignInUp={this.handleSignInUp}
+                isLoggedIn={isLoggedIn}
               />
             )}
           />
