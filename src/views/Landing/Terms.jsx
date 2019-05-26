@@ -67,14 +67,17 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
           <h3>1. ACCOUNTS</h3>
           <p>
             <b>1.1 Account Creation.</b>
+            <br />
             In order to use certain features of the Site and Services, you must create a
             profile (“Account”) and provide certain information about yourself as prompted
             by the account registration form, such as your Ethereum public key and if you
             choose, other information such as your name, photo and github account.  You may
             delete your Account at any time, for any reason, by following the instructions on
             the Site.  Company may suspend or terminate your Account in accordance with Section 13.
-
+            <br />
+            <br />
             <b>1.2 Account Responsibilities.</b>
+            <br />
             You are responsible for maintaining the confidentiality of your Account login
             information and are fully responsible for all activities that occur under your
             Account. When you use our Site and Services, you may provide things such as your
@@ -94,15 +97,19 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
             suspected unauthorized use of your Account or any other breach of security.  Company
             cannot and will not be liable for any loss or damage arising from your failure to
             comply with the above requirements.
+            <br />
           </p>
 
           <h3>2. ACCESS TO SITE AND SERVICES</h3>
           <p>
             <b>2.1 License.</b>
+            <br />
             Subject to these Terms, Company grants you a non-transferable, non-exclusive,
             revocable, limited license to use and access the Site and Services.
-
+            <br />
+            <br />
             <b>2.2 Certain Restrictions.</b>
+            <br />
             The rights granted to you in these Terms are subject to the following restrictions:
             (a) you shall not license, sell, rent, lease, transfer, assign, distribute, host, or
             otherwise commercially exploit the Site or Services, whether in whole or in part, or
@@ -126,18 +133,24 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
             of the Site or Services shall be subject to these Terms.  All copyright and other
             proprietary notices on the Site or Services (or on any content displayed on the Site)
             must be retained on all copies thereof.
-
+            <br />
+            <br />
             <b>2.3 Modification.</b>
+            <br />
             Company reserves the right, at any time, to modify, suspend, or discontinue the Site
             (in whole or in part) with or without notice to you.  You agree that Company will not
             be liable to you or to any third party for any modification, suspension, or
             discontinuation of the Site and Services or any part thereof.
-
+            <br />
+            <br />
             <b>2.4 No Support or Maintenance.</b>
+            <br />
             You acknowledge and agree that Company will have no obligation to provide you
             with any support or maintenance in connection with the Site and Services.
-
+            <br />
+            <br />
             <b>2.5 Ownership.</b>
+            <br />
             Excluding any User Content that you may provide (defined below), you acknowledge
             that all the intellectual property rights, including copyrights, patents, trademarks,
             and trade secrets, in the Site and its content are owned by Company or Company’s
@@ -148,11 +161,14 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
             limited access rights expressly set forth in Section ‎2.1. Company and its suppliers
             reserve all rights not granted in these Terms.  There are no implied licenses granted
             under these Terms.
+            <br />
           </p>
 
           <h3>3. USER CONSENT</h3>
           <p>
+            <br />
             <b>3.1 User Content.</b>
+            <br />
             You are solely responsible for your User Content.  You assume all risks associated with
             use of your User Content, including any reliance on its accuracy, completeness or
             usefulness
@@ -170,8 +186,10 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
             time
             without prior notice.  You are solely responsible for creating and maintaining your own
             backup copies of your User Content if you desire.
-
+            <br />
+            <br />
             <b>3.2 License.</b>
+            <br />
             You hereby grant (and you represent and warrant that you have the right to grant) to
             Company
             an irrevocable, nonexclusive, royalty-free and fully paid, worldwide license to
@@ -184,57 +202,81 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
             Services.  You hereby irrevocably waive (and agree to cause to be waived) any claims
             and
             assertions of moral rights or attribution with respect to your User Content.
-
+            <br />
+            <br />
             <b>3.3 Acceptable Use Policy.</b>
+            <br />
             The following terms constitute our “Acceptable Use Policy”:
+            <br />
             <ul>
               <li>
                 a) You agree not to use the Site and Services to collect, upload, transmit, display,
-                or distribute any User Content (i) that violates any third-party right,
+                or distribute any User Content
+                <br />
+                (i) that violates any third-party right,
                 including any
                 copyright, trademark, patent, trade secret, moral right, privacy right, right
                 of publicity,
-                or any other intellectual property or proprietary right; (ii) that is unlawful,
+                or any other intellectual property or proprietary right;
+                <br />
+                (ii) that is unlawful,
                 harassing,
                 abusive, tortious, threatening, harmful, invasive of another’s privacy, vulgar,
                 defamatory,
                 false, intentionally misleading, trade libelous, pornographic, obscene, patently
                 offensive,
                 promotes racism, bigotry, hatred, or physical harm of any kind against any group or
-                individual or is otherwise objectionable; (iii) that is harmful to minors in any
-                way;
-                or (iv) that is in violation of any law, regulation, or obligations or restrictions
+                individual or is otherwise objectionable;
+                <br />
+                (iii) that is harmful to minors in any
+                way; or
+                <br />
+                (iv) that is in violation of any law, regulation, or obligations or restrictions
                 imposed
                 by any third party.
+                <br />
+                <br />
               </li>
               <li>
-                b) In addition, you agree not to: (i) upload, transmit, or distribute to or through
+                b) In addition, you agree not to:
+                <br />
+                (i) upload, transmit, or distribute to or through
                 the Site
                 or Services any computer viruses, worms, or any software intended to damage or alter
                 a computer
-                system or data; (ii) send through the Site or Services unsolicited or unauthorized
+                system or data;
+                <br />
+                (ii) send through the Site or Services unsolicited or unauthorized
                 advertising,
                 promotional materials, junk mail, spam, chain letters, pyramid schemes, or any other
                  form of
-                duplicative or unsolicited messages, whether commercial or otherwise; (iii)  use the
-                 Site or
+                duplicative or unsolicited messages, whether commercial or otherwise;
+                <br />
+                (iii)  use the Site or
                 Services to harvest, collect, gather or assemble information or data regarding other
                  users,
-                including e-mail addresses, without their consent; (iv) interfere with, disrupt, or
+                including e-mail addresses, without their consent;
+                <br />
+                (iv) interfere with, disrupt, or
                 create an
                 undue burden on servers or networks connected to the Site or Services, or violate
                 the
-                regulations, policies or procedures of such networks; (v) attempt to gain
+                regulations, policies or procedures of such networks;
+                <br />
+                (v) attempt to gain
                 unauthorized access
                 to the Site or Services (or to other computer systems or networks connected to or
                 used together
                 with the Site or Services), whether through password mining or any other means; or
+                <br />
                 (vi) harass
                 or interfere with any other user’s use and enjoyment of the Site or Services.
               </li>
             </ul>
-
+            <br />
+            <br />
             <b>3.4 Enforcement.</b>
+            <br />
             We reserve the right (but have no obligation) to review any User Content, and to
             investigate
             and/or take appropriate action against you in our sole discretion if you violate
@@ -245,8 +287,10 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
             Content, limiting or
             blocking your access to the Services, and/or reporting you to law enforcement
             authorities.
-
+            <br />
+            <br />
             <b>3.5 Feedback.</b>
+            <br />
             Should you encounter any bugs, glitches, lack of functionality or other problems
             on the Site or
             Service, please let us know as soon as possible. We appreciate your feedback as
@@ -262,6 +306,7 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
             to Company as non-confidential and non-proprietary.  You agree that you will not
             submit to Company
             any information or ideas that you consider to be confidential or proprietary.
+            <br />
           </p>
 
           <h3>4. INDEMNIFICATION</h3>
@@ -270,9 +315,17 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
             agents) harmless,
             including costs and attorneys’ fees, from any claim or demand made by any
             third party due to or
-            arising out of (a) your use of the Site and Services, (b) your violation
-            of these Terms, (c) your
-            violation of applicable laws or regulations or (d) your User Content.
+            arising out of
+            <br />
+            (a) your use of the Site and Services,
+            <br />
+            (b) your violation of these Terms,
+            <br />
+            (c) your violation of applicable laws or regulations or
+            <br />
+            (d) your User Content.
+            <br />
+            <br />
             Company reserves the right,
             at your expense, to assume the exclusive defense and control of any matter
             for which you are required
@@ -285,7 +338,9 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
 
           <h3>5. THIRD PARTY LINKS & ADS; OTHER USERS</h3>
           <p>
+            <br />
             <b>5.1 Third-Party Links & Ads.</b>
+            <br />
             The Site may contain links to third-party websites and services, and/or display
             advertisements for
             third parties (collectively, “Third-Party Links & Ads”).  Such Third-Party Links
@@ -306,8 +361,10 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
             or appropriate
             before proceeding with any transaction in connection with such Third-Party
             Links & Ads.
-
+            <br />
+            <br />
             <b>5.2 Other Users.</b>
+            <br />
             Each Site user is solely responsible for any and all of its own User Content.
             Because we do not
             control User Content, you acknowledge and agree that we are not responsible for
@@ -323,7 +380,10 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
             If there is a dispute between you and any Site user, we are under no obligation
             to become involved.
 
+            <br />
+            <br />
             <b>5.3 Release.</b>
+            <br />
             You hereby release and forever discharge the Company (and our officers,
             employees, agents,
             successors, and assigns) from, and hereby waive and relinquish, each and
@@ -346,7 +406,10 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
             HER SETTLEMENT WITH
             THE DEBTOR.”
 
+            <br />
+            <br />
             <b>5.4 Third Party Beneficiaries.</b>
+            <br />
             You agree that, except as otherwise expressly provided in these Terms, there
             shall be no third
             party beneficiaries to the Terms. The Terms of Use will not be construed
@@ -354,6 +417,7 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
             any relationship of agency, franchise, partnership, or joint venture between
             you and Company,
             except and solely to the extent expressly stated in these Terms.
+            <br />
           </p>
 
           <h3>6. DISCLAIMERS</h3>
@@ -378,35 +442,38 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
             APPLY TO YOU.  SOME JURISDICTIONS DO NOT ALLOW LIMITATIONS ON HOW LONG AN
             IMPLIED WARRANTY LASTS,
             SO THE ABOVE LIMITATION MAY NOT APPLY TO YOU.
+            <br />
           </p>
 
           <h3>7. FURTHER DISCLAIMERS</h3>
           <p>
+            <br />
             Without limiting the generality of Section 6, neither Company nor its affiliates
             or licensors will
-            have any responsibilities or liability with respect to the following: (a) the
-            Services could be
-            impacted by one or more regulatory inquiries or actions, which could prevent or
-            limit the ability
+            have any responsibilities or liability with respect to the following:
+            <br />
+            <br />
+            (a) the Services could be impacted by one or more regulatory inquiries or
+            actions, which could prevent or limit the ability
             of Company to continue to develop or provide the Services, or for you and your
-            users to use the
-            Services, (b) Company has no obligation to update the Services or its underlying
-            platforms and
-            networks to address, mitigate, or remediate any security or other vulnerabilities
-            in the Services,
-            or such platforms or networks, and (c) portions of the Services or any other
-            underlying networks
+            users to use the Services,
+            <br />
+            (b) Company has no obligation to update the Services or its underlying
+            platforms and networks to address, mitigate, or remediate any security or
+            other vulnerabilities in the Services, or such platforms or networks, and
+            <br />
+            (c) portions of the Services or any other underlying networks
             and platforms may rest on open-source software, and there is a risk that
-            weaknesses or bugs that
-            may be introduced in the infrastructural elements of the Services or any
-            other underlying networks
+            weaknesses or bugs that may be introduced in the infrastructural elements
+            of the Services or any other underlying networks
             and platforms, which may result in security vulnerabilities, data loss,
-            damage, destructions,
-            disclosure, or other compromises.
+            damage, destructions, disclosure, or other compromises.
+            <br />
           </p>
 
           <h3>8. LIMITATION ON LIABILITY</h3>
           <p>
+            <br />
             TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT SHALL COMPANY (OR OUR
             SUPPLIERS) BE LIABLE TO
             YOU OR ANY THIRD PARTY FOR ANY LOST PROFITS, LOST DATA, COSTS OF PROCUREMENT
@@ -435,10 +502,12 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
             FOR INCIDENTAL OR
             CONSEQUENTIAL DAMAGES, SO THE ABOVE LIMITATION OR EXCLUSION MAY NOT
             APPLY TO YOU.
+            <br />
           </p>
 
           <h3>9. CRYPTOGRAPHIC SYSTEMS</h3>
           <p>
+            <br />
             You acknowledge and understand that cryptography is a progressing field.
             Advances in code cracking
             or technical advances such as the development of quantum computers may
@@ -451,10 +520,12 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
             not guarantee or otherwise
             represent full security of the system. By using the Services, you acknowledge
             these inherent risks.
+            <br />
           </p>
 
           <h3>10. PLATFORM SECURITY</h3>
           <p>
+            <br />
             We are an early stage platform.  You acknowledge that applications are code
             subject to flaws and
             acknowledge that you are solely responsible for evaluating any available code
@@ -466,25 +537,39 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
             others later provided by us in no way evidence or represent an ongoing duty
             to alert you to all of the
             potential risks of utilizing the Site and Services.
+            <br />
           </p>
 
           <h3>11. COPYRIGHT INFRINGEMENT</h3>
           <p>
+            <br />
             If you believe that your copyright or the copyright of a person on whose
             behalf you are authorized to act has been infringed, please provide Company
-            a written notice containing the following information: (a) an electronic or
+            a written notice containing the following information:
+            <br />
+            (a) an electronic or
             physical signature of the person authorized to act on behalf of the owner of
-            the copyright or other intellectual property interest, (b) a description of
+            the copyright or other intellectual property interest,
+            <br />
+            (b) a description of
             the copyrighted work or other intellectual property that you claim has been
-            infringed, and (c) a description of where the material that you claim is
+            infringed, and
+            <br />
+            (c) a description of where the material that you claim is
             infringing is located on the Site.
+            <br />
+            <br />
             Company can be reached at:
+            <br />
             Email: support@3box.io
+            <br />
             Subject Line: Copyright Notification: 3Box
+            <br />
           </p>
 
           <h3>12. TERMS & TERMINATION</h3>
           <p>
+            <br />
           Subject to this Section, these Terms will remain in full force and effect while
           you use the Site.  We may suspend or terminate your rights to use the Site and
           Services (including your Account) at any time for any reason at our sole
@@ -498,20 +583,28 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
           Content.  Even after your rights under these Terms are terminated, the following
           provisions of these Terms will remain in effect: Sections ‎2.2 through ‎2.5,
           Sections ‎3 through 8, and Sections 11 through 14.
+            <br />
           </p>
 
           <h3>13. GENERAL</h3>
           <p>
+            <br />
             <b>13.1 Changes</b>
+            <br />
             These Terms are subject to occasional revision, and if we make any changes, we
             will change the Last Updated date above.  Continued use of our Sites following
             such notice of such changes shall indicate your acknowledgement of such changes
             and agreement to be bound by the terms and conditions of such changes.
 
+            <br />
+            <br />
             <b>13.2 Dispute Resolution.</b>
+            <br />
             Please read this Arbitration Agreement carefully.  It is part of your contract
             with Company and affects your rights.  It contains procedures for MANDATORY
             BINDING ARBITRATION AND A CLASS ACTION WAIVER.
+            <br />
+            <br />
             <ul>
               <li>
                 a) Applicability of Arbitration Agreement.  All claims and disputes
@@ -525,6 +618,8 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
                 affiliates, agents, employees, predecessors in interest, successors, and
                 assigns, as well as all authorized or unauthorized users or beneficiaries
                 of services or goods provided under the Terms.
+                <br />
+                <br />
               </li>
               <li>
                 b) Notice Requirement and Informal Dispute Resolution.  Before either
@@ -539,6 +634,8 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
                 settlement offer made by any party may not be disclosed to the arbitrator
                 until after the arbitrator has determined the amount of the award, if any,
                 to which either party is entitled.
+                <br />
+                <br />
               </li>
               <li>
                 c) Arbitration Rules.  Arbitration shall be initiated through the American
@@ -564,6 +661,8 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
                 Each party shall bear its own costs (including attorney’s fees) and
                 disbursements arising out of the arbitration and shall pay an equal share
                 of the fees and costs of the ADR Provider.
+                <br />
+                <br />
               </li>
               <li>
                 d) Additional Rules for Non-Appearance Based Arbitration.  If non-appearance
@@ -572,12 +671,16 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
                 be chosen by the party initiating the arbitration.  The arbitration shall not
                 involve any personal appearance by the parties or witnesses unless otherwise
                 agreed by the parties.
+                <br />
+                <br />
               </li>
               <li>
                 e) Time Limits.  If you or the Company pursue arbitration, the arbitration
                 action must be initiated and/or demanded within the statute of limitations
                 (i.e., the legal deadline for filing a claim) and within any deadline imposed
                 under the AAA Rules for the pertinent claim.
+                <br />
+                <br />
               </li>
               <li>
                 f) Authority of Arbitrator.  If arbitration is initiated, the arbitrator will
@@ -593,6 +696,8 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
                 has the same authority to award relief on an individual basis that a judge in
                 a court of law would have.  The award of the arbitrator is final and binding
                 upon you and the Company.
+                <br />
+                <br />
               </li>
               <li>
                 g) Waiver of Jury Trial.  THE PARTIES HEREBY WAIVE THEIR CONSTITUTIONAL AND
@@ -605,6 +710,8 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
                 suit to vacate or enforce an arbitration award or otherwise, YOU AND THE
                 COMPANY WAIVE ALL RIGHTS TO A JURY TRIAL, instead electing that the dispute
                 be resolved by a judge.
+                <br />
+                <br />
               </li>
               <li>
                 h) Waiver of Class or Consolidated Actions.  ALL CLAIMS AND DISPUTES WITHIN
@@ -612,6 +719,8 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
                 AN INDIVIDUAL BASIS AND NOT ON A CLASS BASIS, AND CLAIMS OF MORE THAN ONE
                 CUSTOMER OR USER CANNOT BE ARBITRATED OR LITIGATED JOINTLY OR CONSOLIDATED
                 WITH THOSE OF ANY OTHER CUSTOMER OR USER.
+                <br />
+                <br />
               </li>
               <li>
                 i) Confidentiality.  All aspects of the arbitration proceeding, including
@@ -621,6 +730,8 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
                 not prevent a party from submitting to a court of law any information
                 necessary to enforce this Agreement, to enforce an arbitration award,
                 or to seek injunctive or equitable relief.
+                <br />
+                <br />
               </li>
               <li>
                 j) Severability.  If any part or parts of this Arbitration Agreement
@@ -628,20 +739,28 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
                 competent jurisdiction, then such specific part or parts shall be of
                 no force and effect and shall be severed and the remainder of the
                 Agreement shall continue in full force and effect.
+                <br />
+                <br />
               </li>
               <li>
                 k) Right to Waive.  Any or all of the rights and limitations set forth
                 in this Arbitration Agreement may be waived by the party against whom
                 the claim is asserted.  Such waiver shall not waive or affect any other
                 portion of this Arbitration Agreement.
+                <br />
+                <br />
               </li>
               <li>
                 l) Survival of Agreement.  This Arbitration Agreement will survive the
                 termination of your relationship with Company.
+                <br />
+                <br />
               </li>
               <li>
                 m) Small Claims Court.  Notwithstanding the foregoing, either you or
                 the Company may bring an individual action in small claims court.
+                <br />
+                <br />
               </li>
               <li>
                 n) Emergency Equitable Relief.  Notwithstanding the foregoing, either
@@ -649,6 +768,8 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
                 court in order to maintain the status quo pending arbitration.
                 A request for interim measures shall not be deemed a waiver of any
                 other rights or obligations under this Arbitration Agreement.
+                <br />
+                <br />
               </li>
               <li>
                 o) Claims Not Subject to Arbitration.  Notwithstanding the foregoing,
@@ -656,29 +777,41 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
                 and infringement or misappropriation of the other party’s patent,
                 copyright, trademark or trade secrets shall not be subject to this
                 Arbitration Agreement.
+                <br />
+                <br />
               </li>
               <li>
                 p) Courts.  In any circumstances where the foregoing Arbitration
                 Agreement permits the parties to litigate in court, the parties
                 hereby agree to submit to the personal jurisdiction of the courts
                 located within Kings  County, New York, for such purpose.
+                <br />
+                <br />
               </li>
             </ul>
-
+            <br />
+            <br />
             <b>13.3 Export.</b>
+            <br />
             The Site may be subject to U.S. export control laws and may be subject
              to export or import regulations in other countries. You agree not to
              export, re-export, or transfer, directly or indirectly, any U.S.
              technical data acquired from Company, or any products utilizing such
              data, in violation of the United States export laws or regulations.
 
+            <br />
+            <br />
             <b>13.4 Disclosures.</b>
+            <br />
             If you are a California resident, you may report complaints to the
             Complaint Assistance Unit of the Division of Consumer Product of the
             California Department of Consumer Affairs by contacting them in writing
             at 400 R Street, Sacramento, CA 95814, or by telephone at (800) 952-5210.
 
+            <br />
+            <br />
             <b>13.5 Electronic Communications.</b>
+            <br />
             The communications between you and Company use electronic means, whether
             you use the Site or send us emails, or whether Company posts notices on
             the Site or communicates with you via email. For contractual purposes,
@@ -689,7 +822,10 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
             would satisfy if it were be in a hard-copy writing. The foregoing does
             not affect your non-waivable rights.
 
+            <br />
+            <br />
             <b>13.6 Entire Terms.</b>
+            <br />
             These Terms constitute the entire agreement between you and us regarding
             the use of the Site and Services. Our failure to exercise or enforce any
             right or provision of these Terms shall not operate as a waiver of such
@@ -708,9 +844,14 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
             null and void.  Company may freely assign these Terms.  The terms and
             conditions set forth in these Terms shall be binding upon assignees.
 
+            <br />
+            <br />
             <b>13.7 Contact.</b>
+            <br />
             We welcome your comments or questions about these Terms.
+            <br />
             Please contact us at: support@3box.io.
+            <br />
           </p>
         </div>
       </div>
