@@ -901,6 +901,16 @@
   position: absolute;
 }
 
+.showModalImage {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.showModalImage .modal__onBoardingModal__image {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
 #modal__onBoardingModal__image {
   object-fit: cover;
   border-radius: 6px;
@@ -1316,7 +1326,7 @@
   display: flex;
   justify-content: flex-end;
   box-sizing: border-box;
-  
+
   button {
     background-color: #00C77F;
     border: 1px solid #00C77F;
