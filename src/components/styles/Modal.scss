@@ -901,6 +901,11 @@
   position: absolute;
 }
 
+.showModalImage {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
 #modal__onBoardingModal__image {
   object-fit: cover;
   border-radius: 6px;

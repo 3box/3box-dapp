@@ -18,7 +18,7 @@
     "history": "^4.7.2",
     "lodash.clonedeep": "^4.5.0",
     "nacl-did": "^0.4.0",
-    "profile-hover": "^0.3.0-beta.1",
+    "profile-hover": "^0.2.3",
     "prop-types": "^15.6.1",
     "react": "^16.8.6",
     "react-addons-css-transition-group": "^15.6.2",

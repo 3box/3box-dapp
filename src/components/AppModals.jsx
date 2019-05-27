@@ -199,7 +199,7 @@ class AppModals extends Component {
             key="SwitchedAddressModal"
           />)}
 
-        {(onBoardingModal || onBoardingModalTwo) && (
+        {((onBoardingModal || onBoardingModalTwo) && !isMobile) && (
           <OnBoardingModalDesktop
             isMobile={isMobile}
             showOne={onBoardingModal}
@@ -208,7 +208,7 @@ class AppModals extends Component {
             key="OnBoardingModalDesktop"
           />)}
 
-        {(onBoardingModal || onBoardingModalMobileOne || onBoardingModalMobileTwo || onBoardingModalMobileThree) && (
+        {((onBoardingModal || onBoardingModalMobileOne || onBoardingModalMobileTwo || onBoardingModalMobileThree) && isMobile) && (
           <OnBoardingModalMobile
             isMobile={isMobile}
             handleOnboardingModal={handleOnboardingModal}

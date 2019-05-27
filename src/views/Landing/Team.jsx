@@ -1,7 +1,7 @@
 import React, { Suspense, lazy, Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import ProfileHover from 'profile-hover';
 import Box from '3box';
 
@@ -28,7 +28,7 @@ const graphqlQueryObject = address => `
 }
 `;
 
-class Partners extends Component {
+class Team extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -95,7 +95,7 @@ class Partners extends Component {
 
                   {/* oed */}
                   {oed.profile && (
-                    <ProfileHover address="0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0" noTheme>
+                    <ProfileHover address="0x5c44e8982fa3c3239c6e3c5be2cc6663c7c9387e" noTheme>
                       <div className="team_tile">
                         <img src={`https://ipfs.infura.io/ipfs/${oed.profile.image}`} alt="profile" />
                         <div className="team_info">
@@ -150,7 +150,6 @@ class Partners extends Component {
           </div>
           <div className="hero_graphic">
             <div style={styles} className="hero_graphic_colorcubes-dtw" />
-            {/* <img src={ColorCubes} alt="Color cubes" className="hero_graphic_colorcubes-dtw" /> */}
             <img src={ColorCubesMobile} alt="Color cubes" className="hero_graphic_colorcubes-mobile" />
           </div>
           <DiscordButton />
@@ -159,17 +158,17 @@ class Partners extends Component {
         <Suspense fallback={<div>Loading...</div>}>
           <Footer />
         </Suspense>
-      </div >
+      </div>
     );
   }
 }
 
-Partners.propTypes = {
+Team.propTypes = {
   handleSignInUp: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool,
 };
 
-Partners.defaultProps = {
+Team.defaultProps = {
   isLoggedIn: false,
 };
 
@@ -177,4 +176,4 @@ const mapState = state => ({
   isLoggedIn: state.userState.isLoggedIn,
 });
 
-export default withRouter(connect(mapState)(Partners));
+export default withRouter(connect(mapState)(Team));
