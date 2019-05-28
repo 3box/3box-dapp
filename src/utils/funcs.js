@@ -360,12 +360,20 @@ export const getAuthorsLatestPost = (threadArray, usersDID) => {
 
 export const getFollowingProfiles = async (following) => {
   const profileCalls = [];
-  following.forEach((profile) => {
+  const updatedFollowing = following.slice();
+  updatedFollowing.forEach((profile) => {
     profileCalls.push(Box.getProfile(profile.message.identifier[1].value));
   });
   const profilePromises = Promise.all(profileCalls);
   const profiles = await profilePromises;
 
-  const profilesAndAddress = profiles.map((profile, i) => [profile, following[i].message.identifier[1].value]);
+  const profilesAndAddress = [];
+  profiles.forEach((profile, i) => {
+    profilesAndAddress.push([profile, following[i].message.identifier[1].value]);
+  });
   return profilesAndAddress;
+};
+
+export const checkFollowing = (following, otherProfileAddress) => {
+  return following.some(user => user.message.identifier[1].value === otherProfileAddress);
 };

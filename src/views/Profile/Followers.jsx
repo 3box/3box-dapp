@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
-import * as routes from '../../utils/routes';
 import ContactTile from '../../components/ContactTile';
-import GithubIcon from '../../assets/GithubIcon.svg';
 import './styles/Profile.css';
 import './styles/Feed.css';
 

@@ -4,14 +4,28 @@ import {
   store,
 } from '../../store';
 
+import {
+  checkFollowing,
+  getFollowingProfiles,
+} from '../../../utils/funcs';
+
 const saveFollowing = otherProfileAddress => async (dispatch) => {
   try {
     const profile = await Box.getProfile(otherProfileAddress);
-    console.log('gotprofile', profile);
     const followingSpace = await store.getState().myData.box.openSpace('Follow');
-    console.log('followingSpace', followingSpace);
     const thread = await followingSpace.joinThread('follow');
-    console.log('thisthread', thread);
+
+    const followingList = await thread.getPosts();
+    const isFollowing = checkFollowing(followingList, otherProfileAddress);
+
+    const following = await getFollowingProfiles(followingList);
+    dispatch({
+      type: 'MY_FOLLOWING_UPDATE',
+      following,
+    });
+
+    if (isFollowing) return;
+
     const contact = {
       '@context': 'http://schema.org/',
       '@type': 'Person',
@@ -29,9 +43,9 @@ const saveFollowing = otherProfileAddress => async (dispatch) => {
       ],
     };
 
-    const saved = await thread.post(contact);
-    console.log('saved', saved);
+    await thread.post(contact);
 
+    // add user to following redux state so that follow button switches
     // dispatch({
     //   type: 'MY_FOLLOWING_UPDATE',
     //   following,

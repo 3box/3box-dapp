@@ -839,14 +839,27 @@
   align-items: center;
 }
 
-// .showModal {
-//   visibility: visible !important;
-// }
+.contactsModal {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 30px;
 
-// .showModal~.modal__overlay {
-//   opacity: 1;
-//   visibility: visible;
-// }
+  h2 {
+    margin-bottom: 30px;
+    font-size: 26px;
+    letter-spacing: .3px;
+  }
+}
+
+.contactsModal_list {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 100%;
+}
 
 .modal__onBoardingModal__container {
   position: fixed;

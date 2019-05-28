@@ -2,12 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import * as routes from '../utils/routes';
 import '../views/Profile/styles/Profile.css';
 
 const ContactTile = ({ user, onMyProfile, address }) => (
   <Link className="contact_tile" to={`/${address}`}>
-    {console.log('myuser', user)}
     <div className="contact_tile_info">
       {user.image && user.image[0].contentUrl
         ? (

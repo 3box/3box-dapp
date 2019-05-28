@@ -338,7 +338,8 @@
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
-  margin-bottom: 40px; }
+  margin-bottom: 40px;
+  width: 100%; }
 
 .public_contacts_list {
   cursor: pointer;
@@ -358,7 +359,7 @@
   height: 40px;
   border-radius: 50%;
   background-color: #1168df;
-  margin-left: -18px; }
+  margin-left: -22px; }
 
 .first {
   margin-left: 0; }

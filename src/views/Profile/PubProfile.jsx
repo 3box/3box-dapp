@@ -36,38 +36,39 @@ const {
 } = actions.profile;
 
 class ProfilePublic extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isFollowing: false,
+    };
+  }
+
   async componentDidMount() {
     try {
       window.scrollTo(0, 0);
       const { location: { pathname }, currentAddress } = this.props;
       const otherProfileAddress = pathname.split('/')[1];
-      let activeAddress;
 
-      store.dispatch({
-        type: 'OTHER_ADDRESS_UPDATE',
-        otherProfileAddress,
-      });
-      store.dispatch({
-        type: 'UI_ON_OTHER_PROFILE',
-        onOtherProfilePage: true,
-      });
-
-      if (typeof window.web3 !== 'undefined') {
-        if (!currentAddress) {
-          const returnedAddress = await accountsPromise;
-          [activeAddress] = returnedAddress;
-        } else {
-          activeAddress = currentAddress;
-        }
-        if (otherProfileAddress === activeAddress) this.props.handleSignInBanner();
-        await this.props.checkNetwork();
-      }
-
-      await this.props.getOtherProfile(otherProfileAddress);
-      this.props.getCollectibles(otherProfileAddress, true);
-      this.props.getActivity(otherProfileAddress);
+      this.updateUIState(otherProfileAddress);
+      await this.handleWeb3Checks(currentAddress, otherProfileAddress);
+      this.checkFollowingAndMutual(otherProfileAddress);
+      await this.getProfile(otherProfileAddress);
     } catch (err) {
       console.error(err);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { location: { pathname }, following, otherFollowing } = this.props;
+    const otherProfileAddress = pathname.split('/')[1];
+    if ((nextProps.following !== following) ||
+      (nextProps.otherFollowing !== otherFollowing)) {
+      console.log('in update cwrp');
+      this.checkFollowingAndMutual(
+        otherProfileAddress,
+        nextProps.following,
+        nextProps.otherFollowing,
+      );
     }
   }
 
@@ -82,16 +83,76 @@ class ProfilePublic extends Component {
     });
   }
 
+  updateUIState = (otherProfileAddress) => {
+    store.dispatch({
+      type: 'OTHER_ADDRESS_UPDATE',
+      otherProfileAddress,
+    });
+    store.dispatch({
+      type: 'UI_ON_OTHER_PROFILE',
+      onOtherProfilePage: true,
+    });
+  }
+
+  handleWeb3Checks = async (currentAddress, otherProfileAddress) => {
+    let activeAddress;
+    if (typeof window.web3 !== 'undefined') {
+      if (!currentAddress) {
+        const returnedAddress = await accountsPromise;
+        [activeAddress] = returnedAddress;
+      } else {
+        activeAddress = currentAddress;
+      }
+      if (otherProfileAddress === activeAddress) this.props.handleSignInBanner();
+      await this.props.checkNetwork();
+    }
+  }
+
+  getProfile = async (otherProfileAddress) => {
+    await this.props.getOtherProfile(otherProfileAddress);
+    this.props.getCollectibles(otherProfileAddress, true);
+    this.props.getActivity(otherProfileAddress);
+  }
+
+  checkFollowingAndMutual = (otherProfileAddress, nextFollowing, nextOtherFollowing) => {
+    const { following, otherFollowing } = this.props;
+    const updatedFollowing = nextFollowing || following;
+    const updatedOtherFollowing = nextOtherFollowing || otherFollowing;
+
+    updatedFollowing.forEach((user) => {
+      if (user[1] === otherProfileAddress) this.setState({ isFollowing: true });
+    });
+
+    console.log('updatedFollowing', updatedFollowing);
+    console.log('updatedOtherFollowing', updatedOtherFollowing);
+
+    const otherFollowingAddresses = updatedOtherFollowing.map(user => user[1]);
+    const otherMutualFollowing = updatedFollowing.filter(x => otherFollowingAddresses.includes(x[1]));
+    store.dispatch({
+      type: 'OTHER_MUTUAL_FOLLOWING',
+      otherMutualFollowing: otherMutualFollowing.slice(),
+    });
+  }
+
   render() {
     const { isLoadingOtherProfile, showSignInBanner, showContactsModal } = this.props;
+    const { isFollowing } = this.state;
+
     return (
       <div>
-        <SignInThroughPublicProfileBanner show={showSignInBanner} handleSignInBanner={this.props.handleSignInBanner} />
+        <SignInThroughPublicProfileBanner
+          show={showSignInBanner}
+          handleSignInBanner={this.props.handleSignInBanner}
+        />
+
         <div
           id="profile__page"
         >
           <div id="profile__contents">
-            <SideBar isPublicProfilePage />
+            <SideBar
+              isPublicProfilePage
+              isFollowing={isFollowing}
+            />
             <PubContent />
           </div>
 
@@ -125,6 +186,8 @@ ProfilePublic.propTypes = {
   showSignInBanner: PropTypes.bool,
   showContactsModal: PropTypes.bool,
   currentAddress: PropTypes.string,
+  following: PropTypes.array,
+  otherFollowing: PropTypes.array,
 };
 
 ProfilePublic.defaultProps = {
@@ -134,6 +197,8 @@ ProfilePublic.defaultProps = {
   showSignInBanner: false,
   showContactsModal: false,
   currentAddress: '',
+  following: [],
+  otherFollowing: [],
 };
 
 const mapState = state => ({
@@ -141,6 +206,8 @@ const mapState = state => ({
   showSignInBanner: state.uiState.showSignInBanner,
   showContactsModal: state.uiState.showContactsModal,
   currentAddress: state.userState.currentAddress,
+  following: state.myData.following,
+  otherFollowing: state.otherProfile.otherFollowing,
 });
 
 export default withRouter(connect(mapState,

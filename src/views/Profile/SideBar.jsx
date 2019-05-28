@@ -34,6 +34,7 @@ const SideBar = ({
   otherDescription,
   showSignInBanner,
   currentAddress,
+  isFollowing,
 }) => (
     <div>
       {!onOtherProfilePage && (
@@ -106,7 +107,7 @@ const SideBar = ({
 
               {onOtherProfilePage && (
                 <div className="publicProfile__basic--mobile">
-                  <PubSideBar />
+                  <PubSideBar isFollowing={isFollowing} />
                 </div>)}
 
             </div>
@@ -144,7 +145,7 @@ const SideBar = ({
                     </NavLink>
                   </React.Fragment>)
                   : (
-                    <PubSideBar />)}
+                    <PubSideBar isFollowing={isFollowing} />)}
               </div>
             </div>
 

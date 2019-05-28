@@ -417,6 +417,7 @@
   align-items: flex-start;
   flex-direction: column;
   margin-bottom: 40px;
+  width: 100%;
 }
 
 .public_contacts_list {
@@ -439,7 +440,7 @@
   height: 40px;
   border-radius: 50%;
   background-color: $threeBoxBlue;
-  margin-left: -18px;
+  margin-left: -22px;
 }
 
 .first {

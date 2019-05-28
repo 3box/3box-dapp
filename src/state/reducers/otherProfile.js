@@ -27,6 +27,7 @@ const otherProfileReducer = (state = {}, action) => {
         otherEmoji: action.otherEmoji,
         otherStatus: action.otherStatus,
         otherCollectiblesGallery: action.otherCollectiblesGallery,
+        otherFollowing: action.otherFollowing,
       };
 
     case 'OTHER_ACTIVITY_UPDATE':
@@ -45,6 +46,12 @@ const otherProfileReducer = (state = {}, action) => {
       return {
         ...state,
         otherProfileAddress: action.otherProfileAddress,
+      };
+
+    case 'OTHER_MUTUAL_FOLLOWING':
+      return {
+        ...state,
+        otherMutualFollowing: action.otherMutualFollowing,
       };
 
     default:

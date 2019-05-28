@@ -62,6 +62,7 @@ class NavLanding extends Component {
       onOtherProfilePage,
       showSignInBanner,
       handleSignInUp,
+      isLoggedIn,
     } = this.props;
 
     const classHide = retractNav ? 'hide' : '';
@@ -119,7 +120,7 @@ class NavLanding extends Component {
             </Link>
           </div>)}
 
-        {(route !== 'hub' && isProfilePage) && (
+        {(route !== 'hub' && isProfilePage && !isLoggedIn) && (
           <div id="actionButtons">
             <button type="button" onClick={handleSignInUp}>
               Log in

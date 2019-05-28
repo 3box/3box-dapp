@@ -18,7 +18,7 @@ const getOtherProfile = profileAddress => async (dispatch) => {
         twitter: null,
       };
     const profiles = await Box.getThread('Follow', 'follow');
-    const following = await getFollowingProfiles(profiles);
+    const otherFollowing = await getFollowingProfiles(profiles);
 
     dispatch({
       type: 'OTHER_PROFILE_UPDATE',
@@ -40,7 +40,7 @@ const getOtherProfile = profileAddress => async (dispatch) => {
       otherEmoji: publicProfile.emoji,
       otherStatus: publicProfile.status,
       otherCollectiblesGallery: publicProfile.collectiblesFavorites,
-      otherFollowing: following,
+      otherFollowing,
     });
 
     dispatch({
