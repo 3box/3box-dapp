@@ -390,7 +390,7 @@
   z-index: 1;
   background-color: #f5f6f8;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center; }
 
 #profile__footer__mobile {

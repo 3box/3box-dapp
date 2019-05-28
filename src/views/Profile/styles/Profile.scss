@@ -470,12 +470,10 @@
 #profile__contents {
   display: flex;
   height: 100%;
-  // margin-top: 69px;
 }
 
 #profile__footer {
   width: 300px;
-  // padding: 20px 0;
   margin-top: 33px;
   max-width: 200px;
   min-width: 200px;
@@ -483,7 +481,7 @@
   z-index: 1;
   background-color: $backgroundHue;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 

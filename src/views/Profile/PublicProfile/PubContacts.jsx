@@ -10,8 +10,10 @@ import '../../../components/styles/NetworkArray.css';
 import '../../../components/styles/Modal.css';
 
 const { handleContactsModal } = actions.modal;
+const { saveFollowing } = actions.profile;
+const { openBox } = actions.signin;
 
-const PubContacts = ({ handleContactsModal }) => (
+const PubContacts = ({ handleContactsModal, saveFollowing, otherProfileAddress, openBox }) => (
   <div className="public_contacts">
     <div
       className="public_contacts_list"
@@ -22,7 +24,7 @@ const PubContacts = ({ handleContactsModal }) => (
     >
       <div className="public_contacts_list_count">
         <h3>212</h3>
-        <p>Contacts</p>
+        <p>Followers</p>
       </div>
       <div className="public_contacts_list_profiles">
         <div className="public_contacts_list_profiles_img first" />
@@ -34,8 +36,14 @@ const PubContacts = ({ handleContactsModal }) => (
       <p>37 mutual contacts including Oed, Jake Brukhman, Michael Sena, Jorge...</p>
     </div>
     <div className="public_contacts_add">
-      <button type="button">
-        Add to Contacts
+      <button
+        type="button"
+        onClick={async () => {
+          await openBox();
+          saveFollowing(otherProfileAddress);
+        }}
+      >
+        Add to Followers
       </button>
       <button type="button" className="outlineButton">
         <img src={Check} alt="Check" />
@@ -48,14 +56,26 @@ const PubContacts = ({ handleContactsModal }) => (
 PubContacts.propTypes = {
   handleContactsModal: PropTypes.func.isRequired,
   selectedCollectible: PropTypes.object,
+  saveFollowing: PropTypes.func.isRequired,
+  otherProfileAddress: PropTypes.string,
+  otherName: PropTypes.string,
 };
 
 PubContacts.defaultProps = {
   selectedCollectible: {},
+  otherProfileAddress: '',
+  otherName: '',
 };
 
-const mapState = state => ({
-  selectedCollectible: state.uiState.selectedCollectible,
-});
+function mapState(state) {
+  return {
+    otherProfileAddress: state.otherProfile.otherProfileAddress,
+  };
+}
 
-export default connect(mapState, { handleContactsModal })(PubContacts);
+export default connect(mapState,
+  {
+    handleContactsModal,
+    saveFollowing,
+    openBox,
+  })(PubContacts);

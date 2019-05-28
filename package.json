@@ -4,7 +4,7 @@
   "description": "3box dapp",
   "private": true,
   "dependencies": {
-    "3box": "^1.8.1",
+    "3box": "^1.8.3",
     "3box-activity": "0.0.9",
     "@babel/polyfill": "^7.0.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.18",

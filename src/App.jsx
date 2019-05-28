@@ -9,12 +9,14 @@ import * as routes from './utils/routes';
 import { pollNetworkAndAddress, initialAddress } from './utils/address';
 import { normalizeURL, matchProtectedRoutes } from './utils/funcs';
 import { store } from './state/store';
+import history from './utils/history';
+
 import APIs from './views/Landing/API/APIs';
 import Dapp from './views/Landing/Dapp/Dapp';
 import LandingNew from './views/Landing/LandingNew';
 import Partners from './views/Landing/Partners';
 import Team from './views/Landing/Team';
-import Spaces from './views/Spaces/Spaces.jsx';
+import Spaces from './views/Spaces/Spaces';
 import MyProfile from './views/Profile/MyProfile';
 import PubProfile from './views/Profile/PubProfile';
 import NoMatch from './views/Landing/NoMatch';
@@ -24,10 +26,9 @@ import Privacy from './views/Landing/Privacy';
 import Terms from './views/Landing/Terms';
 import Create from './views/Landing/Create';
 import NavLanding from './components/NavLanding';
-import history from './utils/history';
-import './index.css';
 import AppModals from './components/AppModals';
 import actions from './state/actions';
+import './index.css';
 
 const {
   handleSignInModal,
@@ -54,6 +55,7 @@ const {
   getVerifiedPublicTwitter,
   getVerifiedPrivateEmail,
   getActivity,
+  getMyFollowing,
 } = actions.profile;
 
 const { getMySpacesData, convert3BoxToSpaces } = actions.spaces;
@@ -143,7 +145,6 @@ class App extends Component {
 
   async getMyData() {
     const { currentAddress } = this.props;
-
     store.dispatch({
       type: 'UI_SPACES_LOADING',
       isSpacesLoading: true,
@@ -170,6 +171,8 @@ class App extends Component {
       this.props.getMyProfileValue('public', 'year');
       this.props.getMyProfileValue('public', 'emoji');
       this.props.getMyProfileValue('private', 'birthday');
+      this.props.getMyFollowing();
+      // get my contacts
 
       await this.props.getCollectibles(currentAddress);
       await this.props.convert3BoxToSpaces();
@@ -533,6 +536,7 @@ App.propTypes = {
   closeErrorModal: PropTypes.func.isRequired,
   handleLoggedOutModal: PropTypes.func.isRequired,
   handleSwitchedAddressModal: PropTypes.func.isRequired,
+  getMyFollowing: PropTypes.func.isRequired,
   handleOnboardingModal: PropTypes.func.isRequired,
 
   showDifferentNetworkModal: PropTypes.bool,
@@ -660,4 +664,5 @@ export default withRouter(connect(mapState,
     handleOnboardingModal,
     closeErrorModal,
     closeRequireMetaMaskModal,
+    getMyFollowing,
   })(App));

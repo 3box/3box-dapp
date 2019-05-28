@@ -1,5 +1,9 @@
 import Box from '3box';
 
+import {
+  getFollowingProfiles,
+} from '../../../utils/funcs';
+
 const getOtherProfile = profileAddress => async (dispatch) => {
   try {
     dispatch({
@@ -7,12 +11,14 @@ const getOtherProfile = profileAddress => async (dispatch) => {
       isLoadingOtherProfile: true,
     });
 
-    const publicProfile = await Box.getProfile(profileAddress); // eslint-disable-line no-undef
+    const publicProfile = await Box.getProfile(profileAddress);
     const publicVerifiedAccounts = Object.entries(publicProfile).length > 0 ?
-      await Box.getVerifiedAccounts(publicProfile) : { // eslint-disable-line no-undef
+      await Box.getVerifiedAccounts(publicProfile) : {
         github: null,
         twitter: null,
       };
+    const profiles = await Box.getThread('Follow', 'follow');
+    const following = await getFollowingProfiles(profiles);
 
     dispatch({
       type: 'OTHER_PROFILE_UPDATE',
@@ -34,6 +40,7 @@ const getOtherProfile = profileAddress => async (dispatch) => {
       otherEmoji: publicProfile.emoji,
       otherStatus: publicProfile.status,
       otherCollectiblesGallery: publicProfile.collectiblesFavorites,
+      otherFollowing: following,
     });
 
     dispatch({

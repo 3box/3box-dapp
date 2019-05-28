@@ -41,6 +41,7 @@ const SideBar = ({
           ? <img src={`https://ipfs.infura.io/ipfs/${coverPhoto[0].contentUrl['/']}`} className="profile__coverPhoto clearProfPic" alt="profile" />
           : <div className="profile__coverPhoto" />)
       }
+
       {onOtherProfilePage && (
         otherCoverPhoto.length > 0 && otherCoverPhoto[0].contentUrl
           ? <img src={`https://ipfs.infura.io/ipfs/${otherCoverPhoto[0].contentUrl['/']}`} className={`${showSignInBanner ? 'showSignInBanner' : ''} ${showSignInBanner ? 'bannerMargin' : ''} profile__coverPhoto clearProfPic`} alt="profile" />
@@ -137,9 +138,9 @@ const SideBar = ({
 
                     <NavLink exact to={`/${currentAddress}/${routes.CONTACTS}`} className="profile__category__section ">
                       <div className="profile__category__tabIcon__wrappper">
-                        <img src={ContactsIcon} alt="Contacts" className="profile__category__tabIcon--contacts" />
+                        <img src={ContactsIcon} alt="Followers" className="profile__category__tabIcon--contacts" />
                       </div>
-                      Contacts
+                      Followers
                     </NavLink>
                   </React.Fragment>)
                   : (

@@ -5,13 +5,13 @@ import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import actions from '../../state/actions';
+import { store } from '../../state/store';
 import {
   PublicProfileLoading,
   SignInThroughPublicProfileBanner,
   ContactsListModal,
   ModalBackground,
 } from '../../components/Modals';
-import { store } from '../../state/store';
 import PubContent from './PublicProfile/PubContent';
 import SideBar from './SideBar';
 import './styles/Profile.css';

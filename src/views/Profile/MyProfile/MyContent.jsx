@@ -9,7 +9,7 @@ import * as routes from '../../../utils/routes';
 import Activity from './Activity';
 import Details from '../Details';
 import Collectibles from '../Collectibles';
-import Contacts from '../Contacts';
+import Followers from '../Followers';
 import ActivityIcon from '../../../assets/Activity.svg';
 import DetailsIcon from '../../../assets/Details.svg';
 import CollectiblesIcon from '../../../assets/Collectibles.svg';
@@ -54,8 +54,8 @@ const Content = ({ currentAddress }) => (
           to={`/${currentAddress}/${routes.CONTACTS}`}
           className="profile__category__section "
         >
-          <img src={ContactsIcon} alt="Contacts" className="profile__category__tabIcon--collectibles--mobile" />
-          Contacts
+          <img src={ContactsIcon} alt="Followers" className="profile__category__tabIcon--collectibles--mobile" />
+          Followers
         </NavLink>
       </div>
     </div>
@@ -82,7 +82,7 @@ const Content = ({ currentAddress }) => (
       <Route
         exact
         path={routes.FORMAT_PROFILE_CONTACTS}
-        component={Contacts}
+        component={Followers}
       />
     </Switch>
 
