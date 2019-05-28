@@ -1173,15 +1173,26 @@ OnBoardingModalMobile.propTypes = {
   isMobile: PropTypes.bool.isRequired,
 };
 
-export const ContactsListModal = ({ contacts, handleContactsModal }) => (
+export const FollowingListModal = ({ otherFollowing, handleContactsModal, otherName, following }) => (
   <div className="modal__container modal--effect">
     <div className="modal contactsModal">
-      <h2>Mollie the Narwhal's Contacts</h2>
+      <h2>{`Users ${otherName} follows`}</h2>
       <div className="contactsModal_list">
-        {/* {contacts.map(contact => (
-          <ContactTile />
-        ))} */}
-        <ContactTile />
+        {otherFollowing.map((user) => {
+          let isFollowing = false;
+          following.forEach((profile) => {
+            if (profile[1] === user[1]) {
+              isFollowing = true;
+            }
+          });
+
+          return (
+            <ContactTile
+              user={user[0]}
+              address={user[1]}
+              isFollowing={isFollowing}
+            />);
+        })}
       </div>
     </div>
     <div
@@ -1194,11 +1205,15 @@ export const ContactsListModal = ({ contacts, handleContactsModal }) => (
   </div>
 );
 
-ContactsListModal.propTypes = {
-  contacts: PropTypes.array,
+FollowingListModal.propTypes = {
+  otherFollowing: PropTypes.array,
+  otherName: PropTypes.string,
   handleContactsModal: PropTypes.func.isRequired,
+  following: PropTypes.object,
 };
 
-ContactsListModal.defaultProps = {
-  contacts: [1, 2, 3, 4, 5],
+FollowingListModal.defaultProps = {
+  otherFollowing: [],
+  otherName: '',
+  following: {},
 };

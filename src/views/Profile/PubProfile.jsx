@@ -9,7 +9,7 @@ import { store } from '../../state/store';
 import {
   PublicProfileLoading,
   SignInThroughPublicProfileBanner,
-  ContactsListModal,
+  FollowingListModal,
   ModalBackground,
 } from '../../components/Modals';
 import PubContent from './PublicProfile/PubContent';
@@ -123,9 +123,6 @@ class ProfilePublic extends Component {
       if (user[1] === otherProfileAddress) this.setState({ isFollowing: true });
     });
 
-    console.log('updatedFollowing', updatedFollowing);
-    console.log('updatedOtherFollowing', updatedOtherFollowing);
-
     const otherFollowingAddresses = updatedOtherFollowing.map(user => user[1]);
     const otherMutualFollowing = updatedFollowing.filter(x => otherFollowingAddresses.includes(x[1]));
     store.dispatch({
@@ -135,7 +132,15 @@ class ProfilePublic extends Component {
   }
 
   render() {
-    const { isLoadingOtherProfile, showSignInBanner, showContactsModal } = this.props;
+    const {
+      isLoadingOtherProfile,
+      showSignInBanner,
+      showContactsModal,
+      otherFollowing,
+      otherName,
+      following,
+    } = this.props;
+
     const { isFollowing } = this.state;
 
     return (
@@ -163,7 +168,13 @@ class ProfilePublic extends Component {
           >
 
             {isLoadingOtherProfile && <PublicProfileLoading />}
-            {showContactsModal && <ContactsListModal contacts={20} handleContactsModal={this.props.handleContactsModal} />}
+            {showContactsModal && (
+              <FollowingListModal
+                otherFollowing={otherFollowing}
+                otherName={otherName}
+                following={following}
+                handleContactsModal={this.props.handleContactsModal}
+              />)}
 
             {showContactsModal && <ModalBackground />}
           </ReactCSSTransitionGroup>
@@ -188,6 +199,7 @@ ProfilePublic.propTypes = {
   currentAddress: PropTypes.string,
   following: PropTypes.array,
   otherFollowing: PropTypes.array,
+  otherName: PropTypes.string,
 };
 
 ProfilePublic.defaultProps = {
@@ -197,6 +209,7 @@ ProfilePublic.defaultProps = {
   showSignInBanner: false,
   showContactsModal: false,
   currentAddress: '',
+  otherName: '',
   following: [],
   otherFollowing: [],
 };
@@ -208,6 +221,7 @@ const mapState = state => ({
   currentAddress: state.userState.currentAddress,
   following: state.myData.following,
   otherFollowing: state.otherProfile.otherFollowing,
+  otherName: state.otherProfile.otherName,
 });
 
 export default withRouter(connect(mapState,

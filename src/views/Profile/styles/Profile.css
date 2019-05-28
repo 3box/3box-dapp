@@ -127,8 +127,8 @@
   align-items: center; }
 
 .contact_tile_info_image {
-  width: 60px;
-  height: 60px;
+  width: 60px !important;
+  height: 60px !important;
   background-color: #1168df;
   border-radius: 50%; }
 

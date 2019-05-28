@@ -14,7 +14,11 @@ const Followers = ({ following }) => (
     </p>
     <div className="contact_list">
       {following.map(user => (
-        <ContactTile user={user[0]} onMyProfile address={user[1]} />
+        <ContactTile
+          user={user[0]}
+          isFollowing
+          address={user[1]}
+        />
       ))}
     </div>
   </div>

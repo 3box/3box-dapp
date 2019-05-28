@@ -54,8 +54,6 @@ const PubContacts = (
         </div>
       </div>
 
-      {console.log('otherMutualFollowing', otherMutualFollowing)}
-
       {otherMutualFollowing.length > 0 && (
         <div className="public_contacts_mutual">
           <p>
