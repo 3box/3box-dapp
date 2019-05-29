@@ -45,7 +45,7 @@ class Team extends Component {
     try {
       const profileCalls = [];
       profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0'))); // danny
-      profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0'))); // oed
+      profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0x5c44e8982fa3c3239c6e3c5be2cc6663c7c9387e'))); // oed
       profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0x9acb0539f2ea0c258ac43620dd03ef01f676a69b'))); // zach
       profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0xa8ee0babe72cd9a80ae45dd74cd3eae7a82fd5d1'))); // michael
       profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0x59B5fbC62519DBF9B7044fd0eCb6442aC16FAe2A'))); // kenzo
@@ -82,7 +82,11 @@ class Team extends Component {
                 <div className="team_mates">
                   {/* Danny */}
                   {danny.profile && (
-                    <ProfileHover address="0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0" noTheme>
+                    <ProfileHover
+                      address="0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0"
+                      noTheme
+                      orientation="right"
+                    >
                       <div className="team_tile">
                         <img src={`https://ipfs.infura.io/ipfs/${danny.profile.image}`} alt="profile" />
                         <div className="team_info">
@@ -95,7 +99,11 @@ class Team extends Component {
 
                   {/* oed */}
                   {oed.profile && (
-                    <ProfileHover address="0x5c44e8982fa3c3239c6e3c5be2cc6663c7c9387e" noTheme>
+                    <ProfileHover
+                      address="0x5c44e8982fa3c3239c6e3c5be2cc6663c7c9387e"
+                      noTheme
+                      orientation="right"
+                    >
                       <div className="team_tile">
                         <img src={`https://ipfs.infura.io/ipfs/${oed.profile.image}`} alt="profile" />
                         <div className="team_info">
@@ -108,7 +116,11 @@ class Team extends Component {
 
                   {/* Michael */}
                   {michael.profile && (
-                    <ProfileHover address="0xa8ee0babe72cd9a80ae45dd74cd3eae7a82fd5d1" noTheme>
+                    <ProfileHover
+                      address="0xa8ee0babe72cd9a80ae45dd74cd3eae7a82fd5d1"
+                      noTheme
+                      orientation="right"
+                    >
                       <div className="team_tile">
                         <img src={`https://ipfs.infura.io/ipfs/${michael.profile.image}`} alt="profile" />
                         <div className="team_info">
@@ -121,7 +133,11 @@ class Team extends Component {
 
                   {/* Zach */}
                   {zach.profile && (
-                    <ProfileHover address="0x9acb0539f2ea0c258ac43620dd03ef01f676a69b" noTheme>
+                    <ProfileHover
+                      address="0x9acb0539f2ea0c258ac43620dd03ef01f676a69b"
+                      noTheme
+                      orientation="right"
+                    >
                       <div className="team_tile">
                         <img src={`https://ipfs.infura.io/ipfs/${zach.profile.image}`} alt="profile" />
                         <div className="team_info">
@@ -134,7 +150,11 @@ class Team extends Component {
 
                   {/* Kenzo */}
                   {kenzo.profile && (
-                    <ProfileHover address="0x59B5fbC62519DBF9B7044fd0eCb6442aC16FAe2A" noTheme>
+                    <ProfileHover
+                      address="0x59B5fbC62519DBF9B7044fd0eCb6442aC16FAe2A"
+                      noTheme
+                      orientation="right"
+                    >
                       <div className="team_tile">
                         <img src={`https://ipfs.infura.io/ipfs/${kenzo.profile.image}`} alt="profile" />
                         <div className="team_info">

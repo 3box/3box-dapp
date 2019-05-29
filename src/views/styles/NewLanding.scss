@@ -64,12 +64,17 @@
 }
 
 .team_mates {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  flex-direction: column;
-  width: 100%;
+  // display: flex;
+  // justify-content: flex-start;
+  // align-items: flex-start;
+  // flex-direction: column;
+  // width: 100%;
   position: relative;
+
+  display: inline-grid;
+  grid-template-columns: repeat(1, 100% [col-start]);
+  row-gap: 20px;
+  min-width: 100%;
 }
 
 .team_tile {
