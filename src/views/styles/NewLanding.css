@@ -62,7 +62,6 @@
   height: 90px;
   width: 100%;
   border-radius: 4px;
-  margin-bottom: 30px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -85,17 +84,6 @@
   justify-content: center;
   align-items: flex-start;
   flex-direction: column; }
-
-.threeboxProfileHover__style_boxAddressWrap {
-  height: fit-content !important;
-  width: 100%; }
-
-.threeboxProfileHover__style_hoverProfile {
-  position: absolute !important;
-  top: 80px !important;
-  left: 44px !important;
-  z-index: 3333333 !important;
-  height: fit-content !important; }
 
 .partners_content_wrapper {
   width: 80%;

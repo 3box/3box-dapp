@@ -3,22 +3,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import actions from '../../../state/actions';
-import Check from '../../../assets/Check.svg';
+import FollowButton from './FollowButton';
 import '../styles/Feed.css';
 import '../styles/Profile.css';
 import '../../../components/styles/NetworkArray.css';
 import '../../../components/styles/Modal.css';
 
 const { handleContactsModal } = actions.modal;
-const { saveFollowing } = actions.profile;
-const { openBox } = actions.signin;
 
 const PubContacts = (
   {
     handleContactsModal,
-    saveFollowing,
-    openBox,
-    otherProfileAddress,
     otherFollowing,
     isFollowing,
     otherMutualFollowing,
@@ -66,61 +61,96 @@ const PubContacts = (
         </div>)}
 
       <div className="public_contacts_add">
-        <FollowButton
-          isFollowing={isFollowing}
-          otherProfileAddress={otherProfileAddress}
-          openBox={openBox}
-          saveFollowing={saveFollowing}
-        />
+        <FollowButton isFollowing={isFollowing} />
       </div>
     </div>
   );
 
-const FollowButton = ({ isFollowing, otherProfileAddress, openBox, saveFollowing }) => {
-  if (isFollowing) {
-    return (
-      <button type="button" className="outlineButton">
-        <img src={Check} alt="Check" />
-        Following
-      </button>
-    );
-  }
-  return (
-    <button
-      type="button"
-      onClick={
-        async () => {
-          await openBox();
-          saveFollowing(otherProfileAddress);
-        }}
-    >
-      Follow
-    </button>
-  );
-};
+// const FollowButton = ({
+//   isFollowing,
+//   otherProfileAddress,
+//   openBox,
+//   saveFollowing,
+//   getAllMyData,
+//   currentAddress,
+//   getMyProfileValue,
+//   getMyDID,
+//   getCollectibles,
+//   getMyMemberSince,
+//   getVerifiedPublicGithub,
+//   getVerifiedPublicTwitter,
+//   getVerifiedPrivateEmail,
+//   getActivity,
+//   getMyFollowing,
+//   getMySpacesData,
+//   convert3BoxToSpaces
+// }) => {
+//   if (isFollowing) {
+//     return (
+//       <button type="button" className="outlineButton">
+//         <img src={Check} alt="Check" />
+//         Following
+//       </button>
+//     );
+//   }
+//   return (
+//     <button
+//       type="button"
+//       onClick={
+//         async () => {
+//           await openBox();
+//           saveFollowing(otherProfileAddress);
+//           store.dispatch({
+//             type: 'UI_SPACES_LOADING',
+//             isSpacesLoading: true,
+//           });
+//           getVerifiedPublicGithub();
+//           getVerifiedPublicTwitter();
+//           getVerifiedPrivateEmail();
+//           getMyMemberSince();
+//           getMyDID();
+//           getMyProfileValue('public', 'status');
+//           getMyProfileValue('public', 'name');
+//           getMyProfileValue('public', 'description');
+//           getMyProfileValue('public', 'image');
+//           getMyProfileValue('public', 'coverPhoto');
+//           getMyProfileValue('public', 'location');
+//           getMyProfileValue('public', 'website');
+//           getMyProfileValue('public', 'employer');
+//           getMyProfileValue('public', 'job');
+//           getMyProfileValue('public', 'school');
+//           getMyProfileValue('public', 'degree');
+//           getMyProfileValue('public', 'major');
+//           getMyProfileValue('public', 'year');
+//           getMyProfileValue('public', 'emoji');
+//           getMyProfileValue('private', 'birthday');
+//           getMyFollowing();
+
+//           await getCollectibles(currentAddress);
+//           convert3BoxToSpaces();
+//           await getMySpacesData(currentAddress);
+//           getActivity();
+//         }}
+//     >
+//       Follow
+//     </button>
+//   );
+// };
 
 PubContacts.propTypes = {
   handleContactsModal: PropTypes.func.isRequired,
-  selectedCollectible: PropTypes.object,
-  saveFollowing: PropTypes.func.isRequired,
   isFollowing: PropTypes.bool.isRequired,
-  otherProfileAddress: PropTypes.string,
   otherFollowing: PropTypes.array,
-  otherName: PropTypes.string,
   otherMutualFollowing: PropTypes.array,
 };
 
 PubContacts.defaultProps = {
-  selectedCollectible: {},
   otherFollowing: [],
   otherMutualFollowing: [],
-  otherProfileAddress: '',
-  otherName: '',
 };
 
 function mapState(state) {
   return {
-    otherProfileAddress: state.otherProfile.otherProfileAddress,
     otherFollowing: state.otherProfile.otherFollowing,
     otherMutualFollowing: state.otherProfile.otherMutualFollowing,
   };
@@ -129,6 +159,4 @@ function mapState(state) {
 export default connect(mapState,
   {
     handleContactsModal,
-    saveFollowing,
-    openBox,
   })(PubContacts);

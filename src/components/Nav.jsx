@@ -93,7 +93,6 @@ class Nav extends Component {
             role="button"
             tabIndex={0}
           >
-            {/* &#9660; */}
             <img src={DropDown} alt="dropdown" className="nav__arrow__icon" />
           </div>
         }

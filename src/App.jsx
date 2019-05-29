@@ -29,6 +29,7 @@ import NavLanding from './components/NavLanding';
 import AppModals from './components/AppModals';
 import actions from './state/actions';
 import './index.css';
+import Nav from './components/Nav';
 
 const {
   handleSignInModal,
@@ -172,7 +173,6 @@ class App extends Component {
       this.props.getMyProfileValue('public', 'emoji');
       this.props.getMyProfileValue('private', 'birthday');
       this.props.getMyFollowing();
-      // get my contacts
 
       await this.props.getCollectibles(currentAddress);
       await this.props.convert3BoxToSpaces();
@@ -295,7 +295,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        {(!isMyProfilePath) // show landing nav when user is not logged in, 3box is not fetching, and when route is not a protected route
+        {(!isMyProfilePath && !isLoggedIn) // show landing nav when user is not logged in, 3box is not fetching, and when route is not a protected route
           && (
             <NavLanding
               handleSignInUp={this.handleSignInUp}
@@ -304,6 +304,8 @@ class App extends Component {
               pathname={normalizedPath}
             />
           )}
+
+        {(!isMyProfilePath && isLoggedIn) && <Nav />}
 
         <AppModals
           isFetchingThreeBox={isFetchingThreeBox}

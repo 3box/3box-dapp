@@ -4,6 +4,7 @@ import {
 
 const getVerifiedPublicGithub = () => async (dispatch) => {
   try {
+    console.log('in github')
     const verifiedGithub = await store.getState().myData.box.verified.github();
 
     dispatch({
