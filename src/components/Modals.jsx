@@ -1173,37 +1173,42 @@ OnBoardingModalMobile.propTypes = {
   isMobile: PropTypes.bool.isRequired,
 };
 
-export const FollowingListModal = ({ otherFollowing, handleContactsModal, otherName, following }) => (
-  <div className="modal__container modal--effect">
-    <div className="modal contactsModal">
-      <h2>{`Users ${otherName} follows`}</h2>
-      <div className="contactsModal_list">
-        {otherFollowing.map((user) => {
-          let isFollowing = false;
-          following.forEach((profile) => {
-            if (profile[1] === user[1]) {
-              isFollowing = true;
-            }
-          });
+export const FollowingListModal = ({
+  otherFollowing, handleContactsModal, otherName, following }) => (
+    <div className="modal__container modal--effect">
+      <div className="modal contactsModal">
+        <h2>{`Users ${otherName} follows`}</h2>
 
-          return (
-            <ContactTile
-              user={user[0]}
-              address={user[1]}
-              isFollowing={isFollowing}
-            />);
-        })}
+        <div className="contactsModal_list">
+          {otherFollowing.map((user) => {
+            let isFollowing = false;
+            following.forEach((profile) => {
+              if (profile[1] === user[1]) {
+                isFollowing = true;
+              }
+            });
+
+            return (
+              <ContactTile
+                user={user[0]}
+                address={user[1]}
+                isFollowing={isFollowing}
+                handleContactsModal={handleContactsModal}
+                fromModal
+              />);
+          })}
+        </div>
       </div>
+
+      <div
+        className="onClickOutsideCollectibles"
+        onClick={() => handleContactsModal()}
+        onKeyPress={() => handleContactsModal()}
+        role="button"
+        tabIndex={0}
+      />
     </div>
-    <div
-      className="onClickOutsideCollectibles"
-      onClick={() => handleContactsModal()}
-      onKeyPress={() => handleContactsModal()}
-      role="button"
-      tabIndex={0}
-    />
-  </div>
-);
+  );
 
 FollowingListModal.propTypes = {
   otherFollowing: PropTypes.array,

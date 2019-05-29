@@ -58,17 +58,25 @@ class ProfilePublic extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { location: { pathname }, following, otherFollowing } = this.props;
+  async componentWillReceiveProps(nextProps) {
+    const { location: { pathname }, following, otherFollowing, currentAddress } = this.props;
     const otherProfileAddress = pathname.split('/')[1];
+    const nextProfileAddress = nextProps.location.pathname.split('/')[1];
+
     if ((nextProps.following !== following) ||
       (nextProps.otherFollowing !== otherFollowing)) {
-      console.log('in update cwrp');
       this.checkFollowingAndMutual(
         otherProfileAddress,
         nextProps.following,
         nextProps.otherFollowing,
       );
+    }
+
+    if (otherProfileAddress !== nextProfileAddress) {
+      this.updateUIState(nextProfileAddress);
+      await this.handleWeb3Checks(currentAddress, nextProfileAddress);
+      this.checkFollowingAndMutual(nextProfileAddress);
+      await this.getProfile(nextProfileAddress);
     }
   }
 

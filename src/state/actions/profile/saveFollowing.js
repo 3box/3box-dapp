@@ -9,27 +9,31 @@ import {
   getFollowingProfiles,
 } from '../../../utils/funcs';
 
-const saveFollowing = otherProfileAddress => async (dispatch) => {
+const saveFollowing = (otherProfileAddress, unfollow) => async (dispatch) => {
   try {
+    // get user to follows DID
     const profile = await Box.getProfile(otherProfileAddress);
+
+    // open following space and get following
     const followingSpace = await store.getState().myData.box.openSpace('Follow');
     const thread = await followingSpace.joinThread('follow');
-
     const followingList = await thread.getPosts();
-    const isFollowing = checkFollowing(followingList, otherProfileAddress);
-
     const following = await getFollowingProfiles(followingList);
+
     dispatch({
       type: 'MY_FOLLOWING_UPDATE',
       following,
     });
 
-    if (isFollowing) return;
+    if (!unfollow) {
+      // if following, don't save following
+      const isFollowing = checkFollowing(followingList, otherProfileAddress);
+      if (isFollowing) return;
 
-    const contact = {
-      '@context': 'http://schema.org/',
-      '@type': 'Person',
-      identifier: [{
+      const contact = {
+        '@context': 'http://schema.org/',
+        '@type': 'Person',
+        identifier: [{
           '@type': 'PropertyValue',
           name: 'DID',
           value: `did:3:${profile.proof_did}`,
@@ -40,18 +44,22 @@ const saveFollowing = otherProfileAddress => async (dispatch) => {
           PropertyID: 'chainId_1',
           value: otherProfileAddress,
         },
-      ],
-    };
+        ],
+      };
+  
+      await thread.post(contact);
+    } else {
+      // delete thread post
+      console.log('unfollow user');
+    }
 
-    await thread.post(contact);
+    const updatedFollowingList = await thread.getPosts();
+    const updatedFollowing = await getFollowingProfiles(updatedFollowingList);
 
-    // add user to following redux state so that follow button switches
-    // dispatch({
-    //   type: 'MY_FOLLOWING_UPDATE',
-    //   following,
-    // });
-
-    // return following;
+    dispatch({
+      type: 'MY_FOLLOWING_UPDATE',
+      following: updatedFollowing,
+    });
   } catch (error) {
     console.error(error);
   }

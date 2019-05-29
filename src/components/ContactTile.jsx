@@ -2,12 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import actions from '../state/actions';
 import '../views/Profile/styles/Profile.css';
 
-const ContactTile = ({ user, address, isFollowing }) => (
-  <Link className="contact_tile" to={`/${address}`}>
+const { saveFollowing } = actions.profile;
+
+const ContactTile = ({ user, address, isFollowing, fromModal, handleContactsModal }) => (
+  <Link
+    className="contact_tile"
+    to={`/${address}`}
+    onClick={() => { if (fromModal) handleContactsModal(); }}
+  >
     <div className="contact_tile_info">
-      {console.log('isFollowing', isFollowing)}
       {user.image && user.image[0].contentUrl
         ? (
           <img
@@ -24,7 +30,7 @@ const ContactTile = ({ user, address, isFollowing }) => (
       <div className="contact_tile_add">
         <button
           type="button"
-          onClick={() => console.log('hit')}
+          onClick={() => saveFollowing(address, true)}
           className="outlineButton"
         >
           Unfollow
@@ -34,7 +40,7 @@ const ContactTile = ({ user, address, isFollowing }) => (
         <div className="contact_tile_add">
           <button
             type="button"
-            onClick={() => console.log('hit')}
+            onClick={() => saveFollowing(address)}
             className="outlineButton"
           >
             Follow
@@ -46,12 +52,15 @@ const ContactTile = ({ user, address, isFollowing }) => (
 ContactTile.propTypes = {
   user: PropTypes.object,
   isFollowing: PropTypes.bool,
+  fromModal: PropTypes.bool,
+  handleContactsModal: PropTypes.func.isRequired,
   address: PropTypes.string,
 };
 
 ContactTile.defaultProps = {
   user: {},
   isFollowing: false,
+  fromModal: false,
   address: '',
 };
 
