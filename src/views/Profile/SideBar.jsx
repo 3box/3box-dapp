@@ -57,7 +57,7 @@ const SideBar = ({
             ${showSignInBanner ? 'showSignInBanner' : ''} 
             ${onOtherProfilePage ? 'addBorderBottom' : ''} 
             ${(onOtherProfilePage && showSignInBanner) ? 'bannerMargin' : ''} 
-            ${isLoggedIn ? 'loggedInMargin' : ''} 
+            ${(onOtherProfilePage && isLoggedIn) ? 'loggedInMargin' : ''} 
             profile__user__info
           `}
           >
