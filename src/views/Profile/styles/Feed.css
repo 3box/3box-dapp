@@ -461,6 +461,11 @@
   height: 26px;
   margin-left: 14px; }
 
+.feed__activity__address__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start; }
+
 @media only screen and (max-width: 1278px) {
   #feed {
     left: 350px; }

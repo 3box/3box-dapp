@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ProfileHover from 'profile-hover';
 
 import networkArray from '../../../utils/networkArray';
 import '../styles/Feed.css';
@@ -28,13 +29,21 @@ const PublicActivityContext = ({ feedAddress, i }) => (
     <React.Fragment>
       {(feedAddress.metaData && feedAddress.metaData.name)
         && (
-          <a href={`https://3box.io/${Object.keys(feedAddress)[0]}`} className="feed__activity__address__wrapper" >
-            <h4>
-              {feedAddress.metaData.name}
-            </h4>
+          <a
+            href={`https://3box.io/${Object.keys(feedAddress)[0]}`}
+            className="feed__activity__address__wrapper"
+          >
+            <ProfileHover
+              noTheme
+              orientation="top"
+              address={Object.keys(feedAddress)[0]}
+            >
+              <h4>
+                {feedAddress.metaData.name}
+              </h4>
+            </ProfileHover>
             <p className="feed__activity__address__type">
-              Address
-              {` ${Object.keys(feedAddress)[0].substring(0, 12)}...`}
+              {`Address ${Object.keys(feedAddress)[0].substring(0, 12)}...`}
             </p>
           </a>
         )}
