@@ -13,6 +13,12 @@ const uiStateReducer = (state = {}, action) => {
         isFetchingActivity: action.isFetchingActivity,
       };
 
+    case 'UI_FEED_OTHER_LOADING':
+      return {
+        ...state,
+        isFetchingOtherActivity: action.isFetchingOtherActivity,
+      };
+
     case 'UI_FEED_FAILED':
       return {
         ...state,

@@ -76,8 +76,8 @@ const fireDispatch = (otherProfileAddress, feedByAddress) => {
       otherProfileActivity: feedByAddress,
     });
     store.dispatch({
-      type: 'UI_FEED_LOADING',
-      isFetchingActivity: false,
+      type: 'UI_FEED_OTHER_LOADING',
+      isFetchingOtherActivity: false,
     });
   } else {
     store.dispatch({

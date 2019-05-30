@@ -35,6 +35,7 @@ const SideBar = ({
   showSignInBanner,
   currentAddress,
   isFollowing,
+  isLoggedIn,
 }) => (
     <div>
       {!onOtherProfilePage && (
@@ -56,6 +57,7 @@ const SideBar = ({
             ${showSignInBanner ? 'showSignInBanner' : ''} 
             ${onOtherProfilePage ? 'addBorderBottom' : ''} 
             ${(onOtherProfilePage && showSignInBanner) ? 'bannerMargin' : ''} 
+            ${isLoggedIn ? 'loggedInMargin' : ''} 
             profile__user__info
           `}
           >
@@ -205,6 +207,8 @@ SideBar.propTypes = {
   onOtherProfilePage: PropTypes.bool,
   copySuccessful: PropTypes.bool,
   showSignInBanner: PropTypes.bool,
+  isLoggedIn: PropTypes.bool,
+  isFollowing: PropTypes.bool,
   copyToClipBoard: PropTypes.func.isRequired,
 };
 
@@ -223,6 +227,8 @@ SideBar.defaultProps = {
   copySuccessful: false,
   onOtherProfilePage: false,
   showSignInBanner: false,
+  isLoggedIn: false,
+  isFollowing: false,
 };
 
 function mapState(state) {
@@ -234,10 +240,11 @@ function mapState(state) {
     description: state.myData.description,
 
     currentAddress: state.userState.currentAddress,
-
     copySuccessful: state.uiState.copySuccessful,
     showSignInBanner: state.uiState.showSignInBanner,
     onOtherProfilePage: state.uiState.onOtherProfilePage,
+
+    isLoggedIn: state.userState.isLoggedIn,
 
     otherCoverPhoto: state.otherProfile.otherCoverPhoto,
     otherImage: state.otherProfile.otherImage,

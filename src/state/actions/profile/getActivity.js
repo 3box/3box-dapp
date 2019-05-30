@@ -15,10 +15,17 @@ import getPublicProfile from './getPublicProfile';
 
 const getActivity = otherProfileAddress => async (dispatch) => {
   try {
-    dispatch({
-      type: 'UI_FEED_LOADING',
-      isFetchingActivity: true,
-    });
+    if (otherProfileAddress) {
+      dispatch({
+        type: 'UI_FEED_OTHER_LOADING',
+        isFetchingOtherActivity: true,
+      });
+    } else {
+      dispatch({
+        type: 'UI_FEED_LOADING',
+        isFetchingActivity: true,
+      });
+    }
 
     // get Eth network activity
     let activity;

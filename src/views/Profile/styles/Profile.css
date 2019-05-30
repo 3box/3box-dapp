@@ -291,6 +291,9 @@
     text-align: left;
     font-size: 14.5px; }
 
+.loggedInMargin {
+  margin-top: -69px; }
+
 .public__about {
   display: flex;
   justify-content: flex-start;
@@ -329,6 +332,10 @@
 .publicStatusUpdate {
   padding: 0.3em 10px;
   margin-top: 230px; }
+
+.publicStatusUpdate-isLoggedIn {
+  padding: 0.3em 10px;
+  margin-top: 161px; }
 
 .publicStatusUpdate--bannerMargin {
   margin-top: 284px !important; }

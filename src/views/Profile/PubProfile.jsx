@@ -43,6 +43,8 @@ class ProfilePublic extends Component {
     };
   }
 
+  // 
+
   async componentDidMount() {
     try {
       window.scrollTo(0, 0);
@@ -51,6 +53,7 @@ class ProfilePublic extends Component {
 
       this.updateUIState(otherProfileAddress);
       await this.handleWeb3Checks(currentAddress, otherProfileAddress);
+      await 
       this.checkFollowingAndMutual(otherProfileAddress);
       await this.getProfile(otherProfileAddress);
     } catch (err) {
@@ -147,6 +150,7 @@ class ProfilePublic extends Component {
       otherFollowing,
       otherName,
       following,
+      isLoggedIn
     } = this.props;
 
     const { isFollowing } = this.state;

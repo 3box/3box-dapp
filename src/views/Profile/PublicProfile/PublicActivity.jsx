@@ -11,7 +11,7 @@ import '../styles/Profile.css';
 import '../../../components/styles/NetworkArray.css';
 
 const PublicActivity = ({
-  isFetchingActivity,
+  isFetchingOtherActivity,
   otherProfileActivity,
   otherCollectiblesFavorites,
   otherStatus,
@@ -21,7 +21,7 @@ const PublicActivity = ({
         <p className="header" id="feed__header">Activity</p>
         {otherStatus && <StatusUpdate />}
         <div className="feed__activity__header">
-          {(isFetchingActivity)
+          {(isFetchingOtherActivity)
             && (
               <div className="feed__activity__load">
                 <img src={Loading} alt="loading" id="activityLoad" />
@@ -34,7 +34,7 @@ const PublicActivity = ({
                 <PublicActivityTiles feedAddress={feedAddress} />
               </div>
             ))
-            : (!isFetchingActivity && otherProfileActivity.length === 0)
+            : (!isFetchingOtherActivity && otherProfileActivity.length === 0)
             && (
               <div className="feed__activity__load">
                 <p>No activity at this address yet</p>
@@ -52,21 +52,21 @@ const PublicActivity = ({
   );
 
 PublicActivity.propTypes = {
-  isFetchingActivity: PropTypes.bool,
+  isFetchingOtherActivity: PropTypes.bool,
   otherCollectiblesFavorites: PropTypes.array,
   otherProfileActivity: PropTypes.array,
   otherStatus: PropTypes.string,
 };
 
 PublicActivity.defaultProps = {
-  isFetchingActivity: false,
+  isFetchingOtherActivity: false,
   otherCollectiblesFavorites: [],
   otherProfileActivity: [],
   otherStatus: '',
 };
 
 const mapState = state => ({
-  isFetchingActivity: state.uiState.isFetchingActivity,
+  isFetchingOtherActivity: state.uiState.isFetchingOtherActivity,
 
   otherProfileActivity: state.otherProfile.otherProfileActivity,
   otherProfileAddress: state.otherProfile.otherProfileAddress,

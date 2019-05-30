@@ -10,10 +10,12 @@ const getMySpacesData = address => async (dispatch) => {
     const {
       allData,
     } = store.getState().spaces;
+    console.log('allData', allData);
+    console.log('spacesaddress', address);
     const updatedAllData = cloneDeep(allData);
 
     const fetchedLists = await Box.listSpaces(address); // get list of spaces
-
+    console.log('fetchedLists', fetchedLists)
     // remove duplicate spaces
     const onlyUnique = (value, index, self) => self.indexOf(value) === index;
     const list = fetchedLists.filter(onlyUnique);

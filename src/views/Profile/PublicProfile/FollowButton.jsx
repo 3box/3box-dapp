@@ -80,7 +80,7 @@ const FollowButton = ({
           getMyFollowing();
 
           await getCollectibles(currentAddress);
-          convert3BoxToSpaces();
+          await convert3BoxToSpaces();
           await getMySpacesData(currentAddress);
           getActivity();
           saveFollowing(otherProfileAddress);
