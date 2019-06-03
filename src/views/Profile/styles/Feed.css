@@ -331,7 +331,8 @@
     margin-bottom: .2em;
     color: #1168df; }
   .feed__activity__header p {
-    color: #747677; }
+    color: #747677;
+    padding-top: 3px; }
 
 .feed__activity__text {
   width: 96%; }
