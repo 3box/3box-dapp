@@ -79,25 +79,25 @@ const Activity = ({ name, image, feedAddress }) => (
           {/* ETH Activity w/ 3Box Profile */}
           {(feedAddress.metaData && feedAddress.metaData.name)
             && (
-              <a
-                href={`https://3box.io/${Object.keys(feedAddress)[0]}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="feed__activity__address__wrapper"
+              <ProfileHover
+                noTheme
+                orientation="top"
+                address={Object.keys(feedAddress)[0]}
               >
-                <ProfileHover
-                  noTheme
-                  orientation="top"
-                  address={Object.keys(feedAddress)[0]}
+                <a
+                  href={`https://3box.io/${Object.keys(feedAddress)[0]}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="feed__activity__address__wrapper"
                 >
                   <h4>
                     {feedAddress.metaData.name}
                   </h4>
-                </ProfileHover>
-                <p className="feed__activity__address__type">
-                  Address
-                </p>
-              </a>
+                  <p className="feed__activity__address__type">
+                    Address
+                  </p>
+                </a>
+              </ProfileHover>
             )}
 
           {/* ETH Activity: Contract */}
@@ -122,19 +122,25 @@ const Activity = ({ name, image, feedAddress }) => (
           {/* ETH Activity: */}
           {(!feedAddress.metaData || (!feedAddress.metaData.contractDetails && !feedAddress.metaData.name))
             && (
-              <a
-                href={`https://ethstats.io/account/${Object.keys(feedAddress)[0]}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="feed__activity__address__wrapper"
+              <ProfileHover
+                noTheme
+                orientation="top"
+                address={Object.keys(feedAddress)[0]}
               >
-                <h4>
-                  {Object.keys(feedAddress)[0]}
-                </h4>
-                <p className="feed__activity__address__type">
-                  Address
-                </p>
-              </a>
+                <a
+                  href={`https://ethstats.io/account/${Object.keys(feedAddress)[0]}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="feed__activity__address__wrapper"
+                >
+                  <h4>
+                    {Object.keys(feedAddress)[0]}
+                  </h4>
+                  <p className="feed__activity__address__type">
+                    Address
+                  </p>
+                </a>
+              </ProfileHover>
             )}
         </React.Fragment>
       )}
