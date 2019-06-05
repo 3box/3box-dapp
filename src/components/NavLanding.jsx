@@ -109,6 +109,9 @@ class NavLanding extends Component {
           <a href="https://medium.com/3box" target="_blank" rel="noopener noreferrer" className="landing_nav_link">
             Blog
           </a>
+          <Link to={routes.FAQ} className="landing_nav_link">
+            FAQs
+          </Link>
         </div>
         {(route !== 'hub' && !isProfilePage) && (
           <div id="actionButtons">
@@ -234,6 +237,12 @@ class NavLanding extends Component {
             <Link to={routes.HUB} className="landing_nav_apiLink">
               <li className={normalizedPath === routes.HUB ? 'nav__activePage' : ''}>
                 Hub
+              </li>
+            </Link>
+
+            <Link to={routes.FAQ}  className="landing_nav_apiLink">
+              <li className={normalizedPath === routes.FAQ ? 'nav__activePage' : ''}>
+                FAQ
               </li>
             </Link>
 
