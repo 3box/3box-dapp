@@ -15,8 +15,12 @@ const saveFollowing = (otherProfileAddress, unfollow) => async (dispatch) => {
     const profile = await Box.getProfile(otherProfileAddress);
 
     // open following space and get following
-    const followingSpace = await store.getState().myData.box.openSpace('Follow');
-    const thread = await followingSpace.joinThread('follow');
+    const followingSpace = await store.getState().myData.box.openSpace('Following');
+    const opts = {
+      membersOnly: true,
+    };
+    const thread = await followingSpace.joinThread('followingList', opts);
+    console.log('thisthread', thread);
     const followingList = await thread.getPosts();
     const following = await getFollowingProfiles(followingList);
 

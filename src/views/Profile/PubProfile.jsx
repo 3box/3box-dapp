@@ -17,8 +17,9 @@ import SideBar from './SideBar';
 import './styles/Profile.css';
 
 const {
-  handleSignInBanner,
+  handleShowSignInBanner,
   handleContactsModal,
+  handleHideSignInBanner,
 } = actions.modal;
 
 const {
@@ -53,8 +54,8 @@ class ProfilePublic extends Component {
 
       this.updateUIState(otherProfileAddress);
       await this.handleWeb3Checks(currentAddress, otherProfileAddress);
-      await 
-      this.checkFollowingAndMutual(otherProfileAddress);
+      await
+        this.checkFollowingAndMutual(otherProfileAddress);
       await this.getProfile(otherProfileAddress);
     } catch (err) {
       console.error(err);
@@ -114,7 +115,11 @@ class ProfilePublic extends Component {
       } else {
         activeAddress = currentAddress;
       }
-      if (otherProfileAddress === activeAddress) this.props.handleSignInBanner();
+      if (otherProfileAddress === activeAddress) {
+        this.props.handleShowSignInBanner()
+      } else {
+        this.props.handlehideSignInBanner();
+      }
       await this.props.checkNetwork();
     }
   }
@@ -159,7 +164,7 @@ class ProfilePublic extends Component {
       <div>
         <SignInThroughPublicProfileBanner
           show={showSignInBanner}
-          handleSignInBanner={this.props.handleSignInBanner}
+          handleShowSignInBanner={this.props.handleShowSignInBanner}
         />
 
         <div
@@ -200,7 +205,8 @@ ProfilePublic.propTypes = {
   getOtherProfile: PropTypes.func.isRequired,
   checkNetwork: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
-  handleSignInBanner: PropTypes.func.isRequired,
+  handleShowSignInBanner: PropTypes.func.isRequired,
+  handleHideSignInBanner: PropTypes.func.isRequired,
   handleContactsModal: PropTypes.func.isRequired,
   getCollectibles: PropTypes.func.isRequired,
   pathname: PropTypes.object,
@@ -241,7 +247,8 @@ export default withRouter(connect(mapState,
     getOtherProfile,
     checkNetwork,
     getActivity,
-    handleSignInBanner,
+    handleShowSignInBanner,
+    handleHideSignInBanner,
     handleContactsModal,
     getCollectibles,
   })(ProfilePublic));

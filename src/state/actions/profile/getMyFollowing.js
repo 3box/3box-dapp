@@ -6,7 +6,7 @@ import {
 
 const getMyFollowing = () => async (dispatch) => {
   try {
-    const profiles = await Box.getThread('Follow', 'follow');
+    const profiles = await Box.getThread('Following', 'followingList');
 
     if (!profiles) return null;
 

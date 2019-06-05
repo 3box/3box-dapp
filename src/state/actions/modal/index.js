@@ -183,3 +183,17 @@ export const handleSignInBanner = () => async (dispatch) => {
     showSignInBanner: !store.getState().uiState.showSignInBanner,
   });
 };
+
+export const handleShowSignInBanner = () => async (dispatch) => {
+  dispatch({
+    type: 'UI_HANDLE_SIGNIN_BANNER',
+    showSignInBanner: true,
+  });
+};
+
+export const handleHideSignInBanner = () => async (dispatch) => {
+  dispatch({
+    type: 'UI_HANDLE_SIGNIN_BANNER',
+    showSignInBanner: false,
+  });
+};

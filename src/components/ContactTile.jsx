@@ -13,6 +13,7 @@ const ContactTile = ({ user, address, isFollowing, fromModal, handleContactsModa
     to={`/${address}`}
     onClick={() => { if (fromModal) handleContactsModal(); }}
   >
+    {console.log(user)}
     <div className="contact_tile_info">
       {user.image && user.image[0].contentUrl
         ? (
@@ -23,7 +24,7 @@ const ContactTile = ({ user, address, isFollowing, fromModal, handleContactsModa
           />
         ) : <div className="contact_tile_info_image" />}
 
-      <h3>{user.name}</h3>
+      <h3>{user.name ? user.name : ''}</h3>
     </div>
 
     {isFollowing ? (

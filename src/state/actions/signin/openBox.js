@@ -76,46 +76,50 @@ const openBox = fromSignIn => async (dispatch) => {
     const memberSince = await store.getState().myData.box.public.get('memberSince');
 
     box.onSyncDone(() => {
-      const publicActivity = store.getState().myData.box.public.log;
-      const privateActivity = store.getState().myData.box.private.log;
+      try {
+        const publicActivity = store.getState().myData.box.public.log;
+        const privateActivity = store.getState().myData.box.private.log;
 
-      if (!privateActivity.length && !publicActivity.length) {
+        if (!privateActivity.length && !publicActivity.length) {
+          dispatch({
+            type: 'UI_HANDLE_ONBOARDING_MODAL',
+            onBoardingModal: true,
+          });
+          const date = Date.now();
+          const dateJoined = new Date(date);
+          const memberSinceDate = `${(dateJoined.getMonth() + 1)}/${dateJoined.getDate()}/${dateJoined.getFullYear()}`;
+          store.getState().myData.box.public.set('memberSince', dateJoined);
+          dispatch({
+            type: 'MY_MEMBERSINCE_UPDATE',
+            memberSince: memberSinceDate,
+          });
+          history.push(`/${store.getState().userState.currentAddress}/${routes.EDIT}`);
+        } else if (!memberSince && (privateActivity.length || publicActivity.length)) {
+          store.getState().myData.box.public.set('memberSince', 'Alpha');
+        }
+
         dispatch({
-          type: 'UI_HANDLE_ONBOARDING_MODAL',
-          onBoardingModal: true,
+          type: 'USER_LOGIN_UPDATE',
+          isLoggedIn: true,
         });
-        const date = Date.now();
-        const dateJoined = new Date(date);
-        const memberSinceDate = `${(dateJoined.getMonth() + 1)}/${dateJoined.getDate()}/${dateJoined.getFullYear()}`;
-        store.getState().myData.box.public.set('memberSince', dateJoined);
         dispatch({
-          type: 'MY_MEMBERSINCE_UPDATE',
-          memberSince: memberSinceDate,
+          type: 'MY_BOX_UPDATE',
+          box,
         });
-        history.push(`/${store.getState().userState.currentAddress}/${routes.EDIT}`);
-      } else if (!memberSince && (privateActivity.length || publicActivity.length)) {
-        store.getState().myData.box.public.set('memberSince', 'Alpha');
+        dispatch({
+          type: 'UI_3BOX_FETCHING',
+          isFetchingThreeBox: false,
+        });
+
+        // call data with new box object from onSyncDone
+        dispatch({
+          type: 'UI_APP_SYNC',
+          onSyncFinished: true,
+          isSyncing: true,
+        });
+      } catch (error) {
+        console.error(error);
       }
-
-      dispatch({
-        type: 'USER_LOGIN_UPDATE',
-        isLoggedIn: true,
-      });
-      dispatch({
-        type: 'MY_BOX_UPDATE',
-        box,
-      });
-      dispatch({
-        type: 'UI_3BOX_FETCHING',
-        isFetchingThreeBox: false,
-      });
-
-      // call data with new box object from onSyncDone
-      dispatch({
-        type: 'UI_APP_SYNC',
-        onSyncFinished: true,
-        isSyncing: true,
-      });
     });
   } catch (err) {
     history.push(routes.LANDING);

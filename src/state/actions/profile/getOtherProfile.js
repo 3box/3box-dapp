@@ -17,7 +17,9 @@ const getOtherProfile = profileAddress => async (dispatch) => {
         github: null,
         twitter: null,
       };
-    const profiles = await Box.getThread('Follow', 'follow');
+    const spaces = await Box.listSpaces(profileAddress);
+    console.log('thesespaces', spaces);
+    const profiles = await Box.getThread('Following', 'followingList');
     const otherFollowing = await getFollowingProfiles(profiles);
 
     dispatch({
