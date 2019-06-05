@@ -61,10 +61,9 @@ export const ProfileDetails = ({ openSection }) => (
         </ul>
       </div>
       <div className="api_sections_expanded_header_getSet mv-sm">
-        <div className="getSet getSet-pink">GET</div>
+        <div className="getSet getSet-pink noMargin">GET</div>
       </div>
       <div className="api_sections_expanded_codeBlock">
-        <br />
         <Highlight className="javascript">
           {'// Read profile data'}
         </Highlight>
@@ -116,8 +115,9 @@ export const ProfileDetails = ({ openSection }) => (
           {'// \'mollyíe@3box.io\''}
         </Highlight>
       </div>
+
       <div className="api_sections_expanded_header_getSet mv-sm">
-        <div className="getSet getSet-pink">SET</div>
+        <div className="getSet getSet-pink noMargin">SET</div>
       </div>
       <div className="api_sections_expanded_codeBlock margin-bottom-60">
         <Highlight className="javascript">
@@ -192,20 +192,19 @@ export const MessagingDetails = ({ openSection }) => (
         </ul>
       </div>
       <div className="api_sections_expanded_header_getSet mv-sm">
-        <div className="getSet getSet-green">GET</div>
+        <div className="getSet getSet-green noMargin">GET</div>
       </div>
       <div className="api_sections_expanded_codeBlock">
-        <br />
         <Highlight className="javascript">
           {'// Statically read thread'}
         </Highlight>
         <Highlight className="javascript">
           {'const posts = await Box.getThread(\'myApp\', \'thethread\')'}
         </Highlight>
-
       </div>
+
       <div className="api_sections_expanded_header_getSet mv-sm">
-        <div className="getSet getSet-green">SET</div>
+        <div className="getSet getSet-green noMargin">SET</div>
       </div>
       <div className="api_sections_expanded_codeBlock margin-bottom-60">
         <Highlight className="javascript">
@@ -278,23 +277,19 @@ export const StorageDetails = ({ openSection }) => (
         </ul>
       </div>
       <div className="api_sections_expanded_header_getSet mv-sm">
-        <div className="getSet getSet-yellow">GET</div>
+        <div className="getSet getSet-yellow noMargin">GET</div>
       </div>
       <div className="api_sections_expanded_codeBlock">
-        <Highlight className="javascript">
-          {'// GET'}
-        </Highlight>
-        <br />
         <Highlight className="javascript">
           {'// Read space data'}
         </Highlight>
         <Highlight className="javascript">
           {'const spaceData = await Box.getSpace(<eth-address>, \'myApp\')'}
         </Highlight>
-
       </div>
+
       <div className="api_sections_expanded_header_getSet mv-sm">
-        <div className="getSet getSet-yellow">SET</div>
+        <div className="getSet getSet-yellow noMargin">SET</div>
       </div>
       <div className="api_sections_expanded_codeBlock margin-bottom-60">
         <Highlight className="javascript">

@@ -771,7 +771,8 @@ footer {
     letter-spacing: 1px; }
 
 .api_sections_expanded_header_getSet {
-  display: flex; }
+  display: flex;
+  margin-bottom: 10px; }
 
 .getSet {
   border-radius: 5px;
@@ -862,6 +863,7 @@ footer {
   flex-direction: column;
   padding: 15px;
   box-sizing: border-box;
+  margin-bottom: 60px;
   position: relative; }
   .api_sections_expanded_codeBlock p {
     color: #b1b1b1; }
@@ -1364,11 +1366,11 @@ pre {
   .codeBlockSet-storage {
     top: 127px; }
   .openSection-profiles {
-    height: 1640px; }
+    height: 1760px; }
   .openSection-messaging {
-    height: 1180px; }
+    height: 1290px; }
   .openSection-storage {
-    height: 1350px; }
+    height: 1470px; }
   .partners_content_wrapper {
     min-width: 90%;
     padding-top: 0; }
@@ -1395,18 +1397,3 @@ pre {
   .careers_positions_button {
     width: 90%;
     justify-content: flex-start; } }
-
-.margin-top-30 {
-  margin-top: 30px;
-}
-.margin-bottom-30 {
-  margin-bottom: 30px;
-}
-.margin-bottom-60 {
-  margin-bottom: 60px;
-}
-.mv-sm {
-  /* margin-vertical-small */
-  margin-top: 1em;
-  margin-bottom: 1em;
-}

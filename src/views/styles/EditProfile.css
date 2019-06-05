@@ -26,7 +26,7 @@
     display: inline-block; }
 
 .noMargin {
-  margin-top: 0 !important; }
+  margin: 0 !important; }
 
 #edit__form {
   width: 100%;
