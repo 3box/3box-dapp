@@ -1,10 +1,10 @@
 import React, { Suspense, lazy, Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 
 import * as routes from '../../utils/routes';
-import ThreeBoxLogo from '../../assets/ThreeBoxLogoWhite.svg';
+// import ThreeBoxLogo from '../../assets/ThreeBoxLogoWhite.svg';
 import ThreeBoxCloudWhite from '../../assets/3BoxCloudWhite.svg';
 import ThreeBoxCloudWhiteNoShadow from '../../assets/3BoxCloudWhiteNoShadow.svg';
 import ThreeBoxCloud from '../../assets/3BoxCloud.svg';
@@ -14,7 +14,7 @@ import TriangleBlack from '../../assets/TriangleBlack.svg';
 import NewProfileCard from '../../assets/NewProfileCard.png';
 import Trust from '../../assets/Trust.svg';
 import HighFive from '../../assets/HighFive.svg';
-import Authentication from '../../assets/Authentication.svg';
+// import Authentication from '../../assets/Authentication.svg';
 import Collaboration from '../../assets/Collaboration.svg';
 import Profiles from '../../assets/Profiles.svg';
 import Messaging from '../../assets/Messaging.svg';
@@ -41,7 +41,7 @@ const styles = {
 class Landing extends Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {};
   }
 
   componentDidMount() {
@@ -58,7 +58,9 @@ class Landing extends Component {
               <img src={ThreeBoxCloudWhiteNoShadow} className="hero_copy_cloud mobile" alt="3Box cloud" />
               <h1>Secure Cloud Storage</h1>
               <p>
-                Developers trust the decentralized 3Box cloud to secure their most important user data.  #BuildBetter
+                Developers trust the decentralized 3Box cloud
+                to secure their most important user data.
+                #BuildBetter
               </p>
               <div className="hero_copy_buttons">
                 <Link to={routes.API}>
@@ -116,7 +118,7 @@ class Landing extends Component {
             <div className="section_blurb">
               <h3>
                 Build secure, lightweight, interactive distributed applications with our APIs
-          </h3>
+              </h3>
             </div>
             <div className="product_apis_featureList">
               {/* <div className="product_apis_featureList_features">
@@ -138,10 +140,10 @@ class Landing extends Component {
                   <h5>Profiles</h5>
                   <p>
                     Support social identity and basic reputation
-              </p>
+                  </p>
                   <Link to={routes.API_PROFILES}>
                     Explore More
-              <img src={TriangleBlue} alt="Arrow" className="feature_link_arrow" />
+                    <img src={TriangleBlue} alt="Arrow" className="feature_link_arrow" />
                   </Link>
                 </div>
               </div>
@@ -151,10 +153,10 @@ class Landing extends Component {
                   <h5>Messaging</h5>
                   <p>
                     Add decentralized chat, messaging, and commenting
-              </p>
+                  </p>
                   <Link to={routes.API_MESSAGING}>
                     Explore More
-              <img src={TriangleBlue} alt="Arrow" className="feature_link_arrow" />
+                    <img src={TriangleBlue} alt="Arrow" className="feature_link_arrow" />
                   </Link>
                 </div>
               </div>
@@ -164,10 +166,10 @@ class Landing extends Component {
                   <h5>Storage</h5>
                   <p>
                     Store user data in a private database just for your app
-              </p>
+                  </p>
                   <Link to={routes.API_STORAGE}>
                     Explore More
-              <img src={TriangleBlue} alt="Arrow" className="feature_link_arrow" />
+                    <img src={TriangleBlue} alt="Arrow" className="feature_link_arrow" />
                   </Link>
                 </div>
               </div>
@@ -186,7 +188,7 @@ class Landing extends Component {
           <div className="section_blurb">
             <h3>
               A next-generation framework for managing user data on the internet
-          </h3>
+            </h3>
           </div>
 
           <div className="why_reason">
@@ -196,12 +198,13 @@ class Landing extends Component {
             <div className="why_reason_info">
               <h4>
                 Reduce risk and build trust by storing data and content directly with users.
-          </h4>
+              </h4>
               <div className="section_line turquoise_line" />
               <p>
                 3Box storage is simple, secure, and private by design.  Apps that store data
-                with users on 3Box are lighter, more trustworthy, and enjoy reduced data management liability.
-          </p>
+                with users on 3Box are lighter, more trustworthy,
+                and enjoy reduced data management liability.
+              </p>
               <div className="why_reason_info_tags">
                 <div className="why_reason_info_tag">
                   <p>Security</p>
@@ -225,7 +228,8 @@ class Landing extends Component {
               </h4>
               <div className="section_line pink_line" />
               <p>
-                The suite of 3Box APIs enable delightful user experiences on web3.  Build with social profiles, messaging, single sign on, data storage and sharing.
+                The suite of 3Box APIs enable delightful user experiences on web3.
+                Build with social profiles, messaging, single sign on, data storage and sharing.
               </p>
               <div className="why_reason_info_tags">
                 <div className="why_reason_info_tag">
@@ -256,7 +260,9 @@ class Landing extends Component {
               </h4>
               <div className="section_line purple_line" />
               <p>
-                Collaborative user data enables network effects, identity, reputation, and a social graph that travels with users from app to app, making it easy to grow your business.
+                Collaborative user data enables network effects, identity, reputation,
+                and a social graph that travels with users from app to app,
+                making it easy to grow your business.
               </p>
               <div className="why_reason_info_tags">
                 <div className="why_reason_info_tag">
@@ -309,18 +315,18 @@ class Landing extends Component {
         <Suspense fallback={<div>Loading...</div>}>
           <Footer />
         </Suspense>
-      </div >
+      </div>
     );
   }
 }
 
 Landing.propTypes = {
-  handleSignInUp: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool,
+  /* handleSignInUp: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool, */
 };
 
 Landing.defaultProps = {
-  isLoggedIn: false,
+  /* isLoggedIn: false, */
 };
 
 const mapState = state => ({

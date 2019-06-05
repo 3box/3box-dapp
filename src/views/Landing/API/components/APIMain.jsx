@@ -1,7 +1,7 @@
 import React from 'react';
 
 import TriangleWhite from '../../../../assets/TriangleWhite.svg';
-import TriangleBlack from '../../../../assets/TriangleBlack.svg';
+// import TriangleBlack from '../../../../assets/TriangleBlack.svg';
 import Devs from '../../../../assets/Devs.png';
 
 const APIMain = () => (
@@ -17,7 +17,7 @@ const APIMain = () => (
             <a href="https://github.com/3box/3box">
               <button type="button" className="hero_copy_buttons_button primaryMarketing">
                 Read the Docs
-              <img src={TriangleWhite} alt="arrow" />
+                <img src={TriangleWhite} alt="arrow" />
               </button>
             </a>
             {/* <a href="">
