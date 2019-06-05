@@ -862,7 +862,6 @@ footer {
   flex-direction: column;
   padding: 15px;
   box-sizing: border-box;
-  margin-bottom: 60px;
   position: relative; }
   .api_sections_expanded_codeBlock p {
     color: #b1b1b1; }
@@ -1396,3 +1395,18 @@ pre {
   .careers_positions_button {
     width: 90%;
     justify-content: flex-start; } }
+
+.margin-top-30 {
+  margin-top: 30px;
+}
+.margin-bottom-30 {
+  margin-bottom: 30px;
+}
+.margin-bottom-60 {
+  margin-bottom: 60px;
+}
+.mv-sm {
+  /* margin-vertical-small */
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
