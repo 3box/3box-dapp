@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-// import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet';
 
 import actions from '../../state/actions';
 import {
@@ -81,24 +81,31 @@ class ProfilePublic extends Component {
   }
 
   render() {
-    const { isLoadingOtherProfile, showSignInBanner, otherImage, otherName, otherProfileAddress } = this.props;
+    const {
+      isLoadingOtherProfile,
+      showSignInBanner,
+      otherImage,
+      otherName,
+      otherProfileAddress,
+    } = this.props;
+
     return (
       <div>
-        {/* <Helmet>
+        <Helmet>
           <title>{otherName}</title>
           <meta name="description" content={`3Box Profile for ${otherProfileAddress}`} />
 
           <meta property="og:description" content={`3Box Profile for ${otherProfileAddress}`} />
           <meta property="og:url" content={`https://3box.io/${otherProfileAddress}`} />
           <meta property="og:title" content={otherName} />
-          <meta property="og:image" content={otherImage} />
+          <meta property="og:image" content={`${otherImage ? `https://ipfs.infura.io/ipfs/${otherImage[0].contentUrl['/']}` : ''}`} />
 
           <meta name="twitter:card" content="summary" />
           <meta name="twitter:site" content="@3boxdb" />
           <meta name="twitter:title" content={otherName} />
           <meta name="twitter:description" content={`3Box Profile for ${otherProfileAddress}`} />
-          <meta name="twitter:image" content={otherImage} />
-        </Helmet> */}
+          <meta name="twitter:image" content={`${otherImage ? `https://ipfs.infura.io/ipfs/${otherImage[0].contentUrl['/']}` : ''}`} />
+        </Helmet>
 
         <SignInThroughPublicProfileBanner show={showSignInBanner} handleSignInBanner={this.props.handleSignInBanner} />
 
@@ -135,6 +142,9 @@ ProfilePublic.propTypes = {
   isLoadingOtherProfile: PropTypes.bool,
   showSignInBanner: PropTypes.bool,
   currentAddress: PropTypes.string,
+  otherImage: PropTypes.object,
+  otherName: PropTypes.string,
+  otherProfileAddress: PropTypes.string,
 };
 
 ProfilePublic.defaultProps = {
@@ -143,6 +153,8 @@ ProfilePublic.defaultProps = {
   isLoadingOtherProfile: true,
   showSignInBanner: false,
   currentAddress: '',
+  otherName: '',
+  otherProfileAddress: '',
 };
 
 const mapState = state => ({
