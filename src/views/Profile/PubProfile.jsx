@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+// import { Helmet } from 'react-helmet';
 
 import actions from '../../state/actions';
 import {
@@ -80,10 +81,27 @@ class ProfilePublic extends Component {
   }
 
   render() {
-    const { isLoadingOtherProfile, showSignInBanner } = this.props;
+    const { isLoadingOtherProfile, showSignInBanner, otherImage, otherName, otherProfileAddress } = this.props;
     return (
       <div>
+        {/* <Helmet>
+          <title>{otherName}</title>
+          <meta name="description" content={`3Box Profile for ${otherProfileAddress}`} />
+
+          <meta property="og:description" content={`3Box Profile for ${otherProfileAddress}`} />
+          <meta property="og:url" content={`https://3box.io/${otherProfileAddress}`} />
+          <meta property="og:title" content={otherName} />
+          <meta property="og:image" content={otherImage} />
+
+          <meta name="twitter:card" content="summary" />
+          <meta name="twitter:site" content="@3boxdb" />
+          <meta name="twitter:title" content={otherName} />
+          <meta name="twitter:description" content={`3Box Profile for ${otherProfileAddress}`} />
+          <meta name="twitter:image" content={otherImage} />
+        </Helmet> */}
+
         <SignInThroughPublicProfileBanner show={showSignInBanner} handleSignInBanner={this.props.handleSignInBanner} />
+
         <div
           id="profile__page"
         >
@@ -131,6 +149,10 @@ const mapState = state => ({
   isLoadingOtherProfile: state.otherProfile.isLoadingOtherProfile,
   showSignInBanner: state.uiState.showSignInBanner,
   currentAddress: state.userState.currentAddress,
+
+  otherName: state.otherProfile.otherName,
+  otherImage: state.otherProfile.otherImage,
+  otherProfileAddress: state.otherProfile.otherProfileAddress,
 });
 
 export default withRouter(connect(mapState,

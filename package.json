@@ -22,6 +22,7 @@
     "react": "^16.8.6",
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.8.6",
+    "react-helmet": "^5.2.1",
     "react-highlight": "^0.12.0",
     "react-mailchimp-subscribe": "^2.0.2",
     "react-redux": "^7.0.1",
