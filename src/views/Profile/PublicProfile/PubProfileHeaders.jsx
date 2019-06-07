@@ -11,7 +11,7 @@ const PubProfileHeaders = ({
       <meta name="description" content={`3Box Profile for ${otherProfileAddress}`} />
 
       <meta property="og:description" content={`3Box Profile for ${otherProfileAddress}`} />
-      <meta property="og:url" content={`https://3box.io/${otherProfileAddress}`} />
+      <meta property="og:url" content={`https://test.3box.io/${otherProfileAddress}`} />
       <meta property="og:title" content={otherName} />
       <meta property="og:image" content={`${otherImage ? `https://ipfs.infura.io/ipfs/${otherImage[0].contentUrl['/']}` : ''}`} />
 
