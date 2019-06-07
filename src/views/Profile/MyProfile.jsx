@@ -2,11 +2,13 @@ import { withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
+import PropTypes from 'prop-types';
 
 import MyContent from './MyProfile/MyContent';
 import SideBar from './SideBar';
 import Nav from '../../components/Nav';
 import './styles/Profile.css';
+import MyProfileHeaders from './MyProfile/MyProfileHeaders';
 
 class Profile extends Component {
   componentDidMount() {
@@ -15,28 +17,18 @@ class Profile extends Component {
 
   render() {
     const {
-      otherImage,
-      otherName,
-      otherProfileAddress,
+      image,
+      name,
+      currentAddress,
     } = this.props;
 
     return (
       <div>
-        <Helmet>
-          <title>{otherName}</title>
-          <meta name="description" content={`3Box Profile for ${otherProfileAddress}`} />
-
-          <meta property="og:description" content={`3Box Profile for ${otherProfileAddress}`} />
-          <meta property="og:url" content={`https://3box.io/${otherProfileAddress}`} />
-          <meta property="og:title" content={otherName} />
-          <meta property="og:image" content={`${otherImage ? `https://ipfs.infura.io/ipfs/${otherImage[0].contentUrl['/']}` : ''}`} />
-
-          <meta name="twitter:card" content="summary" />
-          <meta name="twitter:site" content="@3boxdb" />
-          <meta name="twitter:title" content={otherName} />
-          <meta name="twitter:description" content={`3Box Profile for ${otherProfileAddress}`} />
-          <meta name="twitter:image" content={`${otherImage ? `https://ipfs.infura.io/ipfs/${otherImage[0].contentUrl['/']}` : ''}`} />
-        </Helmet>
+        <MyProfileHeaders
+          image={image}
+          name={name}
+          currentAddress={currentAddress}
+        />
 
         <Nav />
         <div id="profile__page">
@@ -50,10 +42,22 @@ class Profile extends Component {
   }
 }
 
+Profile.propTypes = {
+  name: PropTypes.string,
+  currentAddress: PropTypes.string,
+  image: PropTypes.array,
+};
+
+Profile.defaultProps = {
+  name: '',
+  currentAddress: '',
+  image: null,
+};
+
 const mapState = state => ({
-  otherName: state.otherProfile.otherName,
-  otherImage: state.otherProfile.otherImage,
-  otherProfileAddress: state.otherProfile.otherProfileAddress,
+  name: state.myData.name,
+  image: state.myData.image,
+  currentAddress: state.userState.currentAddress,
 });
 
 export default withRouter(connect(mapState)(Profile));

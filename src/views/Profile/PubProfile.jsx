@@ -14,6 +14,7 @@ import { store } from '../../state/store';
 import PubContent from './PublicProfile/PubContent';
 import SideBar from './SideBar';
 import './styles/Profile.css';
+import PubProfileHeaders from './PublicProfile/PubProfileHeaders';
 
 const {
   handleSignInBanner,
@@ -91,21 +92,11 @@ class ProfilePublic extends Component {
 
     return (
       <div>
-        <Helmet>
-          <title>{otherName}</title>
-          <meta name="description" content={`3Box Profile for ${otherProfileAddress}`} />
-
-          <meta property="og:description" content={`3Box Profile for ${otherProfileAddress}`} />
-          <meta property="og:url" content={`https://3box.io/${otherProfileAddress}`} />
-          <meta property="og:title" content={otherName} />
-          <meta property="og:image" content={`${otherImage ? `https://ipfs.infura.io/ipfs/${otherImage[0].contentUrl['/']}` : ''}`} />
-
-          <meta name="twitter:card" content="summary" />
-          <meta name="twitter:site" content="@3boxdb" />
-          <meta name="twitter:title" content={otherName} />
-          <meta name="twitter:description" content={`3Box Profile for ${otherProfileAddress}`} />
-          <meta name="twitter:image" content={`${otherImage ? `https://ipfs.infura.io/ipfs/${otherImage[0].contentUrl['/']}` : ''}`} />
-        </Helmet>
+        <PubProfileHeaders
+          otherName={otherName}
+          otherProfileAddress={otherProfileAddress}
+          otherImage={otherImage}
+        />
 
         <SignInThroughPublicProfileBanner show={showSignInBanner} handleSignInBanner={this.props.handleSignInBanner} />
 
