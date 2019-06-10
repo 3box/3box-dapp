@@ -1,6 +1,7 @@
 export const LANDING = '/';
 export const PRIVACY = '/privacy';
 export const TERMS = '/terms';
+export const TEAM = '/team';
 export const JOBS = '/jobs';
 export const CREATE = '/create';
 export const PROFILES = '/profiles';

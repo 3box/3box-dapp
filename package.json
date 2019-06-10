@@ -75,9 +75,6 @@
     "deploy-test": "npm run deploy-to-s3 3box-dapp-test.3box.io && npm run invalidate E256JNRDZ1B3QM"
   },
   "browserslist": [
-    "last 1 version",
-    "> 1%",
-    "maintained node versions",
-    "not dead"
+    "defaults"
   ]
 }

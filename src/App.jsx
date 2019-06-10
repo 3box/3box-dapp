@@ -19,6 +19,7 @@ import PubProfile from './views/Profile/PubProfile';
 import NoMatch from './views/Landing/NoMatch';
 import EditProfile from './views/Profile/EditProfile';
 import Profiles from './views/Landing/Profiles';
+import Team from './views/Landing/Team';
 import Careers from './views/Landing/Careers';
 import Privacy from './views/Landing/Privacy';
 import Terms from './views/Landing/Terms';
@@ -393,6 +394,12 @@ class App extends Component {
             exact
             path={routes.CAREERS}
             render={() => <Careers />}
+          />
+
+          <Route
+            exact
+            path={routes.TEAM}
+            render={() => <Team />}
           />
 
           <Route

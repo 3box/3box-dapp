@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
@@ -7,12 +7,11 @@ import { scroller, scrollSpy } from 'react-scroll';
 import APIMain from './components/APIMain';
 import { ProfileSection, MessagingSection, StorageSection } from './components/APISections';
 import { ProfileDetails, MessagingDetails, StorageDetails } from './components/APIDetails';
+import Footer from '../components/Footer';
 
 import '../../styles/Landing.css';
 import '../../styles/NewLanding.css';
 import '../../../components/styles/Nav.css';
-
-const Footer = lazy(() => import('../components/Footer'));
 
 class APIsPage extends React.Component {
   constructor(props) {
@@ -88,9 +87,7 @@ class APIsPage extends React.Component {
         />
         <StorageDetails openSection={openSection === 'storage'} />
 
-        <Suspense fallback={<div>Loading...</div>}>
-          <Footer />
-        </Suspense>
+        <Footer />
       </div>
     );
   }

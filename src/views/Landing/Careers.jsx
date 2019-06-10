@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
@@ -30,8 +30,7 @@ import '../styles/Landing.css';
 import '../styles/NewLanding.css';
 import '../../components/styles/Nav.css';
 import DiscordButton from './components/DiscordButton';
-
-const Footer = lazy(() => import('./components/Footer'));
+import Footer from './components/Footer';
 
 const styles = {
   backgroundImage: `url("${ColorCubes}")`,
@@ -252,9 +251,7 @@ class Landing extends Component {
           </div>
         </section>
 
-        <Suspense fallback={<div>Loading...</div>}>
-          <Footer />
-        </Suspense>
+        <Footer />
       </div >
     );
   }

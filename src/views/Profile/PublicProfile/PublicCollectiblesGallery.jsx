@@ -75,7 +75,7 @@ const PublicCollectiblesGallery = ({
 
 PublicCollectiblesGallery.propTypes = {
   otherCollectiblesFavorites: PropTypes.array,
-  showCollectiblesModal: PropTypes.bool.isRequired,
+  showCollectiblesModal: PropTypes.bool,
   handleCollectiblesModal: PropTypes.func.isRequired,
   selectedCollectible: PropTypes.object,
 };
@@ -83,6 +83,7 @@ PublicCollectiblesGallery.propTypes = {
 PublicCollectiblesGallery.defaultProps = {
   otherCollectiblesFavorites: [],
   selectedCollectible: {},
+  showCollectiblesModal: false,
 };
 
 const mapState = state => ({

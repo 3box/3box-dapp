@@ -46,7 +46,7 @@ const SideBar = ({
           : <div className={`${showSignInBanner ? 'showSignInBanner' : ''} ${showSignInBanner ? 'bannerMargin' : ''} profile__coverPhoto`} />)
       }
 
-      <div id="profile" className={!onOtherProfilePage && 'onMyProfile'}>
+      <div id="profile" className={!onOtherProfilePage ? 'onMyProfile' : ''}>
         <div id="profile__fixed">
 
           <div className={`
