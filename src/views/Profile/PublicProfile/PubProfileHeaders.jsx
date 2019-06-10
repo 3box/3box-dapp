@@ -19,7 +19,7 @@ const PubProfileHeaders = ({
       <meta name="twitter:site" content="@3boxdb" />
       <meta name="twitter:title" content={otherName || '3Box | Ethereum Profiles'} />
       <meta name="twitter:description" content={`3Box Profile for ${otherProfileAddress}`} />
-      <meta name="twitter:image" content={`${otherImage ? `https://ipfs.infura.io/ipfs/${otherImage[0].contentUrl['/']}` : ''}`} />
+      {/* <meta name="twitter:image" content={`${otherImage ? `https://ipfs.infura.io/ipfs/${otherImage[0].contentUrl['/']}` : ''}`} /> */}
     </Helmet>
   );
 
