@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import ProfileHover from 'profile-hover';
 import Box from '3box';
 
@@ -53,8 +53,6 @@ class Team extends Component {
       const profilePromises = Promise.all(profileCalls);
       const profiles = await profilePromises;
 
-      console.log('profiles2', profiles);
-      
       this.setState({
         danny: profiles[0],
         oed: profiles[1],
@@ -89,7 +87,11 @@ class Team extends Component {
                       noTheme
                       orientation="right"
                     >
-                      <Link to="/0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0">
+                      <a
+                        href="/0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <div className="team_tile">
                           <img src={`https://ipfs.infura.io/ipfs/${danny.profile.image}`} alt="profile" />
                           <div className="team_info">
@@ -97,7 +99,7 @@ class Team extends Component {
                             <p>Co-founder, Operations</p>
                           </div>
                         </div>
-                      </Link>
+                      </a>
                     </ProfileHover>
                   )}
 
@@ -108,7 +110,11 @@ class Team extends Component {
                       noTheme
                       orientation="right"
                     >
-                      <Link to="/0x5c44e8982fa3c3239c6e3c5be2cc6663c7c9387e">
+                      <a
+                        href="/0x5c44e8982fa3c3239c6e3c5be2cc6663c7c9387e"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <div className="team_tile">
                           <img src={`https://ipfs.infura.io/ipfs/${oed.profile.image}`} alt="profile" />
                           <div className="team_info">
@@ -116,7 +122,7 @@ class Team extends Component {
                             <p>Co-founder, Engineering</p>
                           </div>
                         </div>
-                      </Link>
+                      </a>
                     </ProfileHover>
                   )}
 
@@ -127,7 +133,11 @@ class Team extends Component {
                       noTheme
                       orientation="right"
                     >
-                      <Link to="/0xa8ee0babe72cd9a80ae45dd74cd3eae7a82fd5d1">
+                      <a
+                        href="/0xa8ee0babe72cd9a80ae45dd74cd3eae7a82fd5d1"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <div className="team_tile">
                           <img src={`https://ipfs.infura.io/ipfs/${michael.profile.image}`} alt="profile" />
                           <div className="team_info">
@@ -135,7 +145,7 @@ class Team extends Component {
                             <p>Co-founder, Product</p>
                           </div>
                         </div>
-                      </Link>
+                      </a>
                     </ProfileHover>
                   )}
 
@@ -146,7 +156,11 @@ class Team extends Component {
                       noTheme
                       orientation="right"
                     >
-                      <Link to="/0x9acb0539f2ea0c258ac43620dd03ef01f676a69b">
+                      <a
+                        href="/0x9acb0539f2ea0c258ac43620dd03ef01f676a69b"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <div className="team_tile">
                           <img src={`https://ipfs.infura.io/ipfs/${zach.profile.image}`} alt="profile" />
                           <div className="team_info">
@@ -154,7 +168,7 @@ class Team extends Component {
                             <p>Fullstack Engineer</p>
                           </div>
                         </div>
-                      </Link>
+                      </a>
                     </ProfileHover>
                   )}
 
@@ -165,7 +179,11 @@ class Team extends Component {
                       noTheme
                       orientation="right"
                     >
-                      <Link to="/0x59B5fbC62519DBF9B7044fd0eCb6442aC16FAe2A">
+                      <a
+                        href="/0x59B5fbC62519DBF9B7044fd0eCb6442aC16FAe2A"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <div className="team_tile">
                           <img src={`https://ipfs.infura.io/ipfs/${kenzo.profile.image}`} alt="profile" />
                           <div className="team_info">
@@ -173,7 +191,7 @@ class Team extends Component {
                             <p>Front-End Engineer</p>
                           </div>
                         </div>
-                      </Link>
+                      </a>
                     </ProfileHover>
                   )}
                 </div>
