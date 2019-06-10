@@ -81,119 +81,114 @@ class Team extends Component {
               <div className="team_mates_wrapper">
                 <div className="team_mates">
                   {/* Danny */}
-                  {danny.profile && (
-                    <ProfileHover
-                      address="0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0"
-                      noTheme
-                      orientation="right"
+                  <ProfileHover
+                    address="0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0"
+                    noTheme
+                    orientation="right"
+                  >
+                    <a
+                      href="/0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      <a
-                        href="/0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <div className="team_tile">
-                          <img src={`https://ipfs.infura.io/ipfs/${danny.profile.image}`} alt="profile" />
-                          <div className="team_info">
-                            <h3>{danny.profile.name}</h3>
-                            <p>Co-founder, Operations</p>
-                          </div>
+                      <div className="team_tile">
+                        {danny.profile ? <img src={`https://ipfs.infura.io/ipfs/${danny.profile.image}`} alt="profile" />
+                          : <div className="team_tile_emptyImage" />}
+                        <div className="team_info">
+                          <h3>{danny.profile ? danny.profile.name : 'Danny Zuckerman'}</h3>
+                          <p>Co-founder, Operations</p>
                         </div>
-                      </a>
-                    </ProfileHover>
-                  )}
+                      </div>
+                    </a>
+                  </ProfileHover>
 
                   {/* oed */}
-                  {oed.profile && (
-                    <ProfileHover
-                      address="0x5c44e8982fa3c3239c6e3c5be2cc6663c7c9387e"
-                      noTheme
-                      orientation="right"
+                  <ProfileHover
+                    address="0x5c44e8982fa3c3239c6e3c5be2cc6663c7c9387e"
+                    noTheme
+                    orientation="right"
+                  >
+                    <a
+                      href="/0x5c44e8982fa3c3239c6e3c5be2cc6663c7c9387e"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      <a
-                        href="/0x5c44e8982fa3c3239c6e3c5be2cc6663c7c9387e"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <div className="team_tile">
-                          <img src={`https://ipfs.infura.io/ipfs/${oed.profile.image}`} alt="profile" />
-                          <div className="team_info">
-                            <h3>{oed.profile.name}</h3>
-                            <p>Co-founder, Engineering</p>
-                          </div>
+                      <div className="team_tile">
+                        {oed.profile ? <img src={`https://ipfs.infura.io/ipfs/${oed.profile.image}`} alt="profile" />
+                          : <div className="team_tile_emptyImage" />}
+                        <div className="team_info">
+                          <h3>{oed.profile ? oed.profile.name : 'Joel Thorstensson'}</h3>
+                          <p>Co-founder, Engineering</p>
                         </div>
-                      </a>
-                    </ProfileHover>
-                  )}
+                      </div>
+                    </a>
+                  </ProfileHover>
 
                   {/* Michael */}
-                  {michael.profile && (
-                    <ProfileHover
-                      address="0xa8ee0babe72cd9a80ae45dd74cd3eae7a82fd5d1"
-                      noTheme
-                      orientation="right"
+                  <ProfileHover
+                    address="0xa8ee0babe72cd9a80ae45dd74cd3eae7a82fd5d1"
+                    noTheme
+                    orientation="right"
+                  >
+                    <a
+                      href="/0xa8ee0babe72cd9a80ae45dd74cd3eae7a82fd5d1"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      <a
-                        href="/0xa8ee0babe72cd9a80ae45dd74cd3eae7a82fd5d1"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <div className="team_tile">
-                          <img src={`https://ipfs.infura.io/ipfs/${michael.profile.image}`} alt="profile" />
-                          <div className="team_info">
-                            <h3>{michael.profile.name}</h3>
-                            <p>Co-founder, Product</p>
-                          </div>
+                      <div className="team_tile">
+                        {michael.profile ? <img src={`https://ipfs.infura.io/ipfs/${michael.profile.image}`} alt="profile" />
+                          : <div className="team_tile_emptyImage" />}
+                        <div className="team_info">
+                          <h3>{michael.profile ? michael.profile.name : 'Michael Sena'}</h3>
+                          <p>Co-founder, Product</p>
                         </div>
-                      </a>
-                    </ProfileHover>
-                  )}
+                      </div>
+                    </a>
+                  </ProfileHover>
 
                   {/* Zach */}
-                  {zach.profile && (
-                    <ProfileHover
-                      address="0x9acb0539f2ea0c258ac43620dd03ef01f676a69b"
-                      noTheme
-                      orientation="right"
+                  <ProfileHover
+                    address="0x9acb0539f2ea0c258ac43620dd03ef01f676a69b"
+                    noTheme
+                    orientation="right"
+                  >
+                    <a
+                      href="/0x9acb0539f2ea0c258ac43620dd03ef01f676a69b"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      <a
-                        href="/0x9acb0539f2ea0c258ac43620dd03ef01f676a69b"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <div className="team_tile">
-                          <img src={`https://ipfs.infura.io/ipfs/${zach.profile.image}`} alt="profile" />
-                          <div className="team_info">
-                            <h3>{zach.profile.name}</h3>
-                            <p>Fullstack Engineer</p>
-                          </div>
+                      <div className="team_tile">
+                        {zach.profile ? <img src={`https://ipfs.infura.io/ipfs/${zach.profile.image}`} alt="profile" />
+                          : <div className="team_tile_emptyImage" />}
+                        <div className="team_info">
+                          <h3>{zach.profile ? zach.profile.name : 'Zach Ferland'}</h3>
+                          <p>Fullstack Engineer</p>
                         </div>
-                      </a>
-                    </ProfileHover>
-                  )}
+                      </div>
+                    </a>
+                  </ProfileHover>
 
                   {/* Kenzo */}
-                  {kenzo.profile && (
-                    <ProfileHover
-                      address="0x59B5fbC62519DBF9B7044fd0eCb6442aC16FAe2A"
-                      noTheme
-                      orientation="right"
+                  <ProfileHover
+                    address="0x59B5fbC62519DBF9B7044fd0eCb6442aC16FAe2A"
+                    noTheme
+                    orientation="right"
+                  >
+                    <a
+                      href="/0x59B5fbC62519DBF9B7044fd0eCb6442aC16FAe2A"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      <a
-                        href="/0x59B5fbC62519DBF9B7044fd0eCb6442aC16FAe2A"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <div className="team_tile">
-                          <img src={`https://ipfs.infura.io/ipfs/${kenzo.profile.image}`} alt="profile" />
-                          <div className="team_info">
-                            <h3>{kenzo.profile.name}</h3>
-                            <p>Front-End Engineer</p>
-                          </div>
+                      <div className="team_tile">
+                        {kenzo.profile ? <img src={`https://ipfs.infura.io/ipfs/${kenzo.profile.image}`} alt="profile" />
+                          : <div className="team_tile_emptyImage" />}
+                        <div className="team_info">
+                          <h3>{kenzo.profile ? kenzo.profile.name : 'Kenzo Nakamura'}</h3>
+                          <p>Front-End Engineer</p>
                         </div>
-                      </a>
-                    </ProfileHover>
-                  )}
+                      </div>
+                    </a>
+                  </ProfileHover>
                 </div>
               </div>
             </div>

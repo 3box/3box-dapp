@@ -79,6 +79,18 @@
     object-fit: cover;
     margin-right: 20px; }
 
+.team_tile_emptyImage {
+  max-height: 100%;
+  min-height: 100%;
+  width: auto;
+  min-width: 90px;
+  max-width: 90px;
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+  object-fit: cover;
+  margin-right: 20px;
+  background-color: #ececec; }
+
 .team_info {
   display: flex;
   justify-content: center;
