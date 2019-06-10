@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import ProfileHover from 'profile-hover';
 
 import Space from '../../../assets/Space.svg';
 import networkArray from '../../../utils/networkArray';
@@ -60,6 +61,7 @@ const Activity = ({ name, image, feedAddress }) => (
       )}
 
     <div className="feed__activity__address">
+      {/* 3Box Activity */}
       {Object.keys(feedAddress)[0] === 'threeBox'
         && (
           <div className="feed__activity__address__wrapper">
@@ -74,20 +76,39 @@ const Activity = ({ name, image, feedAddress }) => (
 
       {isEthAddress(Object.keys(feedAddress)[0]) && (
         <React.Fragment>
+          {/* ETH Activity w/ 3Box Profile */}
           {(feedAddress.metaData && feedAddress.metaData.name)
             && (
-              <a href={`https://3box.io/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer" className="feed__activity__address__wrapper">
-                <h4>
-                  {feedAddress.metaData.name}
-                </h4>
-                <p className="feed__activity__address__type">
-                  Address
-                </p>
-              </a>
+              <ProfileHover
+                noTheme
+                orientation="top"
+                address={Object.keys(feedAddress)[0]}
+              >
+                <a
+                  href={`https://3box.io/${Object.keys(feedAddress)[0]}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="feed__activity__address__wrapper"
+                >
+                  <h4>
+                    {feedAddress.metaData.name}
+                  </h4>
+                  <p className="feed__activity__address__type">
+                    Address
+                  </p>
+                </a>
+              </ProfileHover>
             )}
+
+          {/* ETH Activity: Contract */}
           {(feedAddress.metaData && feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name)
             && (
-              <a href={`https://etherscan.io/address/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer" className="feed__activity__address__wrapper">
+              <a
+                href={`https://etherscan.io/address/${Object.keys(feedAddress)[0]}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="feed__activity__address__wrapper"
+              >
                 <h4>
                   {(feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()}
                 </h4>
@@ -97,20 +118,34 @@ const Activity = ({ name, image, feedAddress }) => (
                 </p>
               </a>
             )}
+
+          {/* ETH Activity: */}
           {(!feedAddress.metaData || (!feedAddress.metaData.contractDetails && !feedAddress.metaData.name))
             && (
-              <a href={`https://ethstats.io/account/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer" className="feed__activity__address__wrapper">
-                <h4>
-                  {Object.keys(feedAddress)[0]}
-                </h4>
-                <p className="feed__activity__address__type">
-                  Address
+              <ProfileHover
+                noTheme
+                orientation="top"
+                address={Object.keys(feedAddress)[0]}
+              >
+                <a
+                  href={`https://ethstats.io/account/${Object.keys(feedAddress)[0]}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="feed__activity__address__wrapper"
+                >
+                  <h4>
+                    {Object.keys(feedAddress)[0]}
+                  </h4>
+                  <p className="feed__activity__address__type">
+                    Address
                   </p>
-              </a>
+                </a>
+              </ProfileHover>
             )}
         </React.Fragment>
       )}
 
+      {/* 3Box Space Activity */}
       {(!isEthAddress(Object.keys(feedAddress)[0]) && Object.keys(feedAddress)[0] !== 'threeBox') && (
         <div className="feed__activity__address__wrapper">
           <h4>

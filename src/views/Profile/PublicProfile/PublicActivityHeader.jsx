@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ProfileHover from 'profile-hover';
 
 import networkArray from '../../../utils/networkArray';
 import '../styles/Feed.css';
@@ -28,16 +29,25 @@ const PublicActivityContext = ({ feedAddress, i }) => (
     <React.Fragment>
       {(feedAddress.metaData && feedAddress.metaData.name)
         && (
-          <a href={`https://3box.io/${Object.keys(feedAddress)[0]}`} className="feed__activity__address__wrapper" >
-            <h4>
-              {feedAddress.metaData.name}
-            </h4>
-            <p className="feed__activity__address__type">
-              Address
-              {` ${Object.keys(feedAddress)[0].substring(0, 12)}...`}
-            </p>
-          </a>
+          <ProfileHover
+            noTheme
+            orientation="top"
+            address={Object.keys(feedAddress)[0]}
+          >
+            <a
+              href={`https://3box.io/${Object.keys(feedAddress)[0]}`}
+              className="feed__activity__address__wrapper"
+            >
+              <h4>
+                {feedAddress.metaData.name}
+              </h4>
+              <p className="feed__activity__address__type">
+                {`Address ${Object.keys(feedAddress)[0].substring(0, 12)}...`}
+              </p>
+            </a>
+          </ProfileHover>
         )}
+
       {(feedAddress.metaData && feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name)
         && (
           <a href={`https://etherscan.io/address/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer" className="feed__activity__address__wrapper">
@@ -50,16 +60,23 @@ const PublicActivityContext = ({ feedAddress, i }) => (
             </p>
           </a>
         )}
+
       {(!feedAddress.metaData || (!feedAddress.metaData.contractDetails && !feedAddress.metaData.name))
         && (
-          <a href={`https://etherscan.io/address/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer" className="feed__activity__address__wrapper">
-            <h4>
-              {Object.keys(feedAddress)[0]}
-            </h4>
-            <p className="feed__activity__address__type">
-              Address
-            </p>
-          </a>
+          <ProfileHover
+            noTheme
+            orientation="top"
+            address={Object.keys(feedAddress)[0]}
+          >
+            <a href={`https://etherscan.io/address/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer" className="feed__activity__address__wrapper">
+              <h4>
+                {Object.keys(feedAddress)[0]}
+              </h4>
+              <p className="feed__activity__address__type">
+                Address
+              </p>
+            </a>
+          </ProfileHover>
         )}
     </React.Fragment>
   </div>

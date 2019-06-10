@@ -26,6 +26,8 @@ import Privacy from './views/Landing/Privacy';
 import Terms from './views/Landing/Terms';
 import Create from './views/Landing/Create';
 import NavLanding from './components/NavLanding';
+import AppHeaders from './components/AppHeaders';
+import './index.css';
 import AppModals from './components/AppModals';
 import actions from './state/actions';
 import './index.css';
@@ -295,6 +297,8 @@ class App extends Component {
 
     return (
       <div className="App">
+        <AppHeaders />
+
         {(!isMyProfilePath && !isLoggedIn) // show landing nav when user is not logged in, 3box is not fetching, and when route is not a protected route
           && (
             <NavLanding

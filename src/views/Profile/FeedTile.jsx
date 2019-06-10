@@ -108,7 +108,7 @@ export const FeedTileInternal = ({ item, name, onOtherProfilePage, metaDataName,
           && (
             <div className={`feed__activity__context__network feed__activity__data__icon ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
               0x
-          </div>
+            </div>
           )
         }
 
@@ -198,16 +198,19 @@ export const FeedTileToken = ({ item, name, onOtherProfilePage, metaDataName, is
           : <img src={Tokens} alt="Token Transaction Icon" className="feed__activity__data__icon" />
         }
 
-        {(item.value === '0' && contractImg)
+        {
+          (item.value === '0' && contractImg)
           && <img src={contractImg} alt="token icon" className="feed__activity__data__icon" />
         }
 
-        {(item.value === '0' && !contractImg)
+        {
+          (item.value === '0' && !contractImg && !tokenToData[item.tokenSymbol])
           && (
             <div className={`feed__activity__context__network feed__activity__data__icon ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
               0x
             </div>
-          )}
+          )
+        }
 
         <p className="feed__activity__text">
           <span className="feed__activity__info__key">

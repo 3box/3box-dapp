@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { Helmet } from 'react-helmet';
 
 import actions from '../../state/actions';
 import { store } from '../../state/store';
@@ -15,6 +16,7 @@ import {
 import PubContent from './PublicProfile/PubContent';
 import SideBar from './SideBar';
 import './styles/Profile.css';
+import PubProfileHeaders from './PublicProfile/PubProfileHeaders';
 
 const {
   handleShowSignInBanner,
@@ -153,23 +155,29 @@ class ProfilePublic extends Component {
       showSignInBanner,
       showContactsModal,
       otherFollowing,
-      otherName,
       following,
-      isLoggedIn
+      isLoggedIn,
+      otherImage,
+      otherName,
+      otherProfileAddress,
     } = this.props;
 
     const { isFollowing } = this.state;
 
     return (
       <div>
-        <SignInThroughPublicProfileBanner
-          show={showSignInBanner}
-          handleShowSignInBanner={this.props.handleShowSignInBanner}
+        <PubProfileHeaders
+          otherName={otherName}
+          otherProfileAddress={otherProfileAddress}
+          otherImage={otherImage}
         />
 
-        <div
-          id="profile__page"
-        >
+        <SignInThroughPublicProfileBanner
+          show={showSignInBanner}
+          handleSignInBanner={this.props.handleSignInBanner}
+        />
+
+        <div id="profile__page">
           <div id="profile__contents">
             <SideBar
               isPublicProfilePage
@@ -217,7 +225,9 @@ ProfilePublic.propTypes = {
   currentAddress: PropTypes.string,
   following: PropTypes.array,
   otherFollowing: PropTypes.array,
+  otherImage: PropTypes.object,
   otherName: PropTypes.string,
+  otherProfileAddress: PropTypes.string,
 };
 
 ProfilePublic.defaultProps = {
@@ -230,6 +240,7 @@ ProfilePublic.defaultProps = {
   otherName: '',
   following: [],
   otherFollowing: [],
+  otherProfileAddress: '',
 };
 
 const mapState = state => ({
@@ -240,6 +251,8 @@ const mapState = state => ({
   following: state.myData.following,
   otherFollowing: state.otherProfile.otherFollowing,
   otherName: state.otherProfile.otherName,
+  otherImage: state.otherProfile.otherImage,
+  otherProfileAddress: state.otherProfile.otherProfileAddress,
 });
 
 export default withRouter(connect(mapState,

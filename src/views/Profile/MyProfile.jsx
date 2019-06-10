@@ -1,10 +1,14 @@
 import { withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
+import PropTypes from 'prop-types';
 
 import MyContent from './MyProfile/MyContent';
 import SideBar from './SideBar';
 import Nav from '../../components/Nav';
 import './styles/Profile.css';
+import MyProfileHeaders from './MyProfile/MyProfileHeaders';
 
 class Profile extends Component {
   componentDidMount() {
@@ -12,8 +16,20 @@ class Profile extends Component {
   }
 
   render() {
+    const {
+      image,
+      name,
+      currentAddress,
+    } = this.props;
+
     return (
       <div>
+        <MyProfileHeaders
+          image={image}
+          name={name}
+          currentAddress={currentAddress}
+        />
+
         <Nav />
         <div id="profile__page">
           <div id="profile__contents">
@@ -26,4 +42,22 @@ class Profile extends Component {
   }
 }
 
-export default withRouter(Profile);
+Profile.propTypes = {
+  name: PropTypes.string,
+  currentAddress: PropTypes.string,
+  image: PropTypes.array,
+};
+
+Profile.defaultProps = {
+  name: '',
+  currentAddress: '',
+  image: null,
+};
+
+const mapState = state => ({
+  name: state.myData.name,
+  image: state.myData.image,
+  currentAddress: state.userState.currentAddress,
+});
+
+export default withRouter(connect(mapState)(Profile));

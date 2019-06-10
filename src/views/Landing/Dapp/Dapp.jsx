@@ -1,8 +1,9 @@
-import React, { Suspense, lazy, Component } from 'react';
+import React, { Suspense, Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
+import Footer from '../components/Footer';
 import ThreeBoxCloud from '../../../assets/3BoxCloud.svg';
 import DappScreensBG from '../../../assets/DappScreensBG.svg';
 import DappScreens from '../../../assets/DappScreens.png';
@@ -13,8 +14,6 @@ import StorageSmall from '../../../assets/Storage.svg';
 import DiscordButton from '../components/DiscordButton';
 import '../../styles/NewLanding.css';
 import '../../../components/styles/Nav.css';
-
-const Footer = lazy(() => import('../components/Footer'));
 
 class Dapp extends Component {
   constructor(props) {
@@ -79,9 +78,7 @@ class Dapp extends Component {
           <img src={DappScreensBG} alt="Dapp Screens BG" className="dapp_screens_bg" />
         </section>
 
-        <Suspense fallback={<div>Loading...</div>}>
-          <Footer />
-        </Suspense>
+        <Footer />
       </div>
     );
   }
