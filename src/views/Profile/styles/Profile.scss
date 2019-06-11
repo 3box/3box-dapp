@@ -137,7 +137,6 @@
   flex-direction: column;
   align-self: flex-start;
   width: 100%;
-  margin-top: 30px;
   display: inline-grid;
   grid-template-columns: repeat(1, 100% [col-start]);
   row-gap: 20px;
@@ -152,6 +151,27 @@
   h3 {
     margin-bottom: 0;
     margin-left: 20px;
+  }
+}
+
+.empty_contact_tile {
+  max-width: 694px;
+  min-width: 694px;
+  height: 44px;
+  padding: 10px 10px;
+  left: calc(50vw - 350px);
+  border: 1px solid #ececec;
+  border-radius: 6px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all ease .5s;
+  margin-bottom: 20px;
+
+  p {
+    color: $lightestFont;
+    font-size: 16px;
   }
 }
 

@@ -29,6 +29,14 @@ const saveFollowing = (otherProfileAddress, unfollow) => async (dispatch) => {
       following,
     });
 
+    if (following.length === 0) {
+      console.log('firstFollowing');
+      dispatch({
+        type: 'UI_HANDLE_WARN_PUBLIC_FOLLOWING',
+        showFollowingPublicModal: true,
+      });
+    }
+
     if (!unfollow) {
       // if following, don't save following
       const isFollowing = checkFollowing(followingList, otherProfileAddress);

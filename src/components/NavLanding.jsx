@@ -7,7 +7,7 @@ import { isEthAddress } from '../utils/funcs';
 import * as routes from '../utils/routes';
 import { normalizeURL } from '../utils/funcs';
 import ThreeBoxLogoBlack from '../assets/ThreeBoxLogoBlack.svg';
-import SSOSmall from '../assets/Authentication.svg';
+// import SSOSmall from '../assets/Authentication.svg';
 import ProfilesSmall from '../assets/Profiles.svg';
 import MessagingSmall from '../assets/Messaging.svg';
 import StorageSmall from '../assets/Storage.svg';

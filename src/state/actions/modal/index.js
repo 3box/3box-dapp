@@ -26,7 +26,6 @@ export const closeErrorModal = () => async (dispatch) => {
 
 export const handleCollectiblesModal = (selectedCollectible, isFavorite) => async (dispatch) => {
   let orderedCollectible;
-  console.log('runing');
   if (selectedCollectible) {
     const stringTraits = [];
     const intTraits = [];
@@ -63,7 +62,6 @@ export const handleCollectiblesModal = (selectedCollectible, isFavorite) => asyn
 };
 
 export const handleContactsModal = () => async (dispatch) => {
-  console.log('hit');
   dispatch({
     type: 'UI_HANDLE_CONTACTS_MODAL',
     showContactsModal: !store.getState().uiState.showContactsModal,
@@ -195,5 +193,12 @@ export const handleHideSignInBanner = () => async (dispatch) => {
   dispatch({
     type: 'UI_HANDLE_SIGNIN_BANNER',
     showSignInBanner: false,
+  });
+};
+
+export const handleFollowingPublicModal = () => async (dispatch) => {
+  dispatch({
+    type: 'UI_HANDLE_WARN_PUBLIC_FOLLOWING',
+    showFollowingPublicModal: false,
   });
 };

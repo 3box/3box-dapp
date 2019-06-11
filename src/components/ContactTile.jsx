@@ -13,7 +13,6 @@ const ContactTile = ({ user, address, isFollowing, fromModal, handleContactsModa
     to={`/${address}`}
     onClick={() => { if (fromModal) handleContactsModal(); }}
   >
-    {console.log(user)}
     <div className="contact_tile_info">
       {user.image && user.image[0].contentUrl
         ? (

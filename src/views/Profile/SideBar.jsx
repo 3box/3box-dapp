@@ -50,7 +50,7 @@ const SideBar = ({
           : <div className={`${showSignInBanner ? 'showSignInBanner' : ''} ${showSignInBanner ? 'bannerMargin' : ''} profile__coverPhoto`} />)
       }
 
-      <div id="profile" className={!onOtherProfilePage && 'onMyProfile'}>
+      <div id="profile" className={!onOtherProfilePage ? 'onMyProfile' : ''}>
         <div id="profile__fixed">
 
           <div className={`
@@ -141,9 +141,9 @@ const SideBar = ({
 
                     <NavLink exact to={`/${currentAddress}/${routes.CONTACTS}`} className="profile__category__section ">
                       <div className="profile__category__tabIcon__wrappper">
-                        <img src={ContactsIcon} alt="Followers" className="profile__category__tabIcon--contacts" />
+                        <img src={ContactsIcon} alt="Following" className="profile__category__tabIcon--contacts" />
                       </div>
-                      Followers
+                      Following
                     </NavLink>
                   </React.Fragment>)
                   : (

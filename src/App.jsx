@@ -27,7 +27,6 @@ import Terms from './views/Landing/Terms';
 import Create from './views/Landing/Create';
 import NavLanding from './components/NavLanding';
 import AppHeaders from './components/AppHeaders';
-import './index.css';
 import AppModals from './components/AppModals';
 import actions from './state/actions';
 import './index.css';
@@ -406,6 +405,12 @@ class App extends Component {
 
           <Route
             exact
+            path={routes.TEAM}
+            render={() => <Team />}
+          />
+
+          <Route
+            exact
             path={routes.JOBS}
             render={() => <Redirect to={routes.CAREERS} />}
           />
@@ -446,14 +451,6 @@ class App extends Component {
             exact
             path="(^[/][0][xX]\w{40}\b)/edit"
             component={EditProfile}
-          />
-
-          <Route
-            exact
-            path={routes.TEAM}
-            component={() => (
-              <Team />
-            )}
           />
 
           <Route

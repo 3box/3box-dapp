@@ -250,6 +250,12 @@ const uiStateReducer = (state = {}, action) => {
         onSyncFinished: action.onSyncFinished,
       };
 
+    case 'UI_HANDLE_WARN_PUBLIC_FOLLOWING':
+      return {
+        ...state,
+        showFollowingPublicModal: action.showFollowingPublicModal,
+      };
+
     default:
       return state;
   }
