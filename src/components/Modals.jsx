@@ -1177,7 +1177,7 @@ export const FollowingListModal = ({
   otherFollowing, handleContactsModal, otherName, following }) => (
     <div className="modal__container modal--effect">
       <div className="modal contactsModal">
-        <h2>{`Users ${otherName} follows`}</h2>
+        <h2>{`${otherName}`}</h2>
 
         <div className="contactsModal_list">
           {otherFollowing.map((user) => {

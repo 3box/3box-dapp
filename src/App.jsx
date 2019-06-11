@@ -451,7 +451,7 @@ class App extends Component {
 
           <Route
             exact
-            path="(^[/][0][xX]\w{40}\b)/contacts"
+            path="(^[/][0][xX]\w{40}\b)/following"
             component={MyProfile}
           />
 

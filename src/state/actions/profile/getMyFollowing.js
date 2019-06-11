@@ -24,7 +24,7 @@ const getMyFollowing = address => async (dispatch) => {
 
     return following;
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 };
 

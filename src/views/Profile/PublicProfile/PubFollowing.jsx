@@ -11,7 +11,7 @@ import '../../../components/styles/Modal.css';
 
 const { handleContactsModal } = actions.modal;
 
-const PubContacts = (
+const PubFollowing = (
   {
     handleContactsModal,
     otherFollowing,
@@ -52,7 +52,7 @@ const PubContacts = (
       {otherMutualFollowing.length > 0 && (
         <div className="public_contacts_mutual">
           <p>
-            {`${otherMutualFollowing.length} mutual contacts including 
+            {`${otherMutualFollowing.length} mutual following including 
           ${otherMutualFollowing[0] ? `${otherMutualFollowing[0][0].name}` : ''}
           ${otherMutualFollowing[1] ? `, ${otherMutualFollowing[1][0].name}`: ''} 
           ${otherMutualFollowing[2] ? `, ${otherMutualFollowing[2][0].name}` : ''} 
@@ -66,14 +66,14 @@ const PubContacts = (
     </div>
   );
 
-PubContacts.propTypes = {
+PubFollowing.propTypes = {
   handleContactsModal: PropTypes.func.isRequired,
   isFollowing: PropTypes.bool.isRequired,
   otherFollowing: PropTypes.array,
   otherMutualFollowing: PropTypes.array,
 };
 
-PubContacts.defaultProps = {
+PubFollowing.defaultProps = {
   otherFollowing: [],
   otherMutualFollowing: [],
 };
@@ -88,4 +88,4 @@ function mapState(state) {
 export default connect(mapState,
   {
     handleContactsModal,
-  })(PubContacts);
+  })(PubFollowing);

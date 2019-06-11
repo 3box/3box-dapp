@@ -18,8 +18,14 @@ const getOtherProfile = profileAddress => async (dispatch) => {
         twitter: null,
       };
 
-    const profiles = await Box.getThread('Following', 'followingList', profileAddress, true);
-    const otherFollowing = await getFollowingProfiles(profiles);
+    let profiles;
+    try {
+      profiles = await Box.getThread('Following', 'followingList', profileAddress, true);
+    } catch (error) {
+      console.log(error);
+    }
+
+    const otherFollowing = profiles ? await getFollowingProfiles(profiles) : [  ];
 
     dispatch({
       type: 'OTHER_PROFILE_UPDATE',
@@ -49,7 +55,11 @@ const getOtherProfile = profileAddress => async (dispatch) => {
       isLoadingOtherProfile: false,
     });
   } catch (error) {
-    console.error(error);
+    dispatch({
+      type: 'OTHER_PROFILE_LOADING',
+      isLoadingOtherProfile: false,
+    });
+    console.log(error);
   }
 };
 

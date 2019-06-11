@@ -24,7 +24,7 @@ export const matchProtectedRoutes = (normalizedPath) => {
     normalizedPath === routes.DETAILS ||
     normalizedPath === routes.COLLECTIBLES ||
     normalizedPath === routes.DATA ||
-    normalizedPath === routes.CONTACTS ||
+    normalizedPath === routes.FOLLOWING ||
     normalizedPath === routes.EDIT) {
     return true;
   }

@@ -139,7 +139,7 @@ const SideBar = ({
                       Collectibles
                     </NavLink>
 
-                    <NavLink exact to={`/${currentAddress}/${routes.CONTACTS}`} className="profile__category__section ">
+                    <NavLink exact to={`/${currentAddress}/${routes.FOLLOWING}`} className="profile__category__section ">
                       <div className="profile__category__tabIcon__wrappper">
                         <img src={ContactsIcon} alt="Following" className="profile__category__tabIcon--contacts" />
                       </div>
