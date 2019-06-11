@@ -59,6 +59,7 @@ const {
   getVerifiedPrivateEmail,
   getActivity,
   getMyFollowing,
+  saveFollowing,
 } = actions.profile;
 
 const { getMySpacesData, convert3BoxToSpaces } = actions.spaces;
@@ -280,6 +281,7 @@ class App extends Component {
       hasSignedOut,
       onOtherProfilePage,
       showFollowingPublicModal,
+      otherAddressToFollow,
     } = this.props;
 
     const {
@@ -342,6 +344,7 @@ class App extends Component {
           onBoardingModalMobileOne={onBoardingModalMobileOne}
           onBoardingModalMobileTwo={onBoardingModalMobileTwo}
           onBoardingModalMobileThree={onBoardingModalMobileThree}
+          otherAddressToFollow={otherAddressToFollow}
           handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal}
           handleSignInModal={this.props.handleSignInModal}
           handleMobileWalletModal={this.props.handleMobileWalletModal}
@@ -357,6 +360,7 @@ class App extends Component {
           handleNextMobileModal={this.handleNextMobileModal}
           closeRequireMetaMaskModal={this.props.closeRequireMetaMaskModal}
           handleFollowingPublicModal={this.props.handleFollowingPublicModal}
+          saveFollowing={this.props.saveFollowing}
         />
 
         <Switch>
@@ -545,6 +549,7 @@ App.propTypes = {
   handleSwitchedAddressModal: PropTypes.func.isRequired,
   getMyFollowing: PropTypes.func.isRequired,
   handleOnboardingModal: PropTypes.func.isRequired,
+  saveFollowing: PropTypes.func.isRequired,
 
   showDifferentNetworkModal: PropTypes.bool,
   onSyncFinished: PropTypes.bool,
@@ -576,6 +581,7 @@ App.propTypes = {
     pathname: PropTypes.string.isRequired,
   }).isRequired,
   prevAddress: PropTypes.string,
+  otherAddressToFollow: PropTypes.string,
 };
 
 App.defaultProps = {
@@ -607,6 +613,7 @@ App.defaultProps = {
   prevAddress: '',
   directLogin: '',
   currentAddress: '',
+  otherAddressToFollow: '',
 };
 
 const mapState = state => ({
@@ -639,6 +646,8 @@ const mapState = state => ({
   isSignedIntoWallet: state.userState.isSignedIntoWallet,
   currentAddress: state.userState.currentAddress,
   hasWeb3: state.userState.hasWeb3,
+
+  otherAddressToFollow: state.otherProfile.otherAddressToFollow,
 });
 
 export default withRouter(connect(mapState,
@@ -674,4 +683,5 @@ export default withRouter(connect(mapState,
     closeErrorModal,
     closeRequireMetaMaskModal,
     getMyFollowing,
+    saveFollowing,
   })(App));

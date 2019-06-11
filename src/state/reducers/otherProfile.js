@@ -54,6 +54,12 @@ const otherProfileReducer = (state = {}, action) => {
         otherMutualFollowing: action.otherMutualFollowing,
       };
 
+    case 'OTHER_ADDRESS_TO_FOLLOW':
+      return {
+        ...state,
+        otherAddressToFollow: action.otherAddressToFollow,
+      };
+
     default:
       return state;
   }

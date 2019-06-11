@@ -1223,16 +1223,30 @@ FollowingListModal.defaultProps = {
   following: {},
 };
 
-export const FollowingIsPublicModal = ({ handleFollowingPublicModal }) => (
+export const FollowingIsPublicModal = ({ handleFollowingPublicModal, saveFollowing, otherAddressToFollow }) => (
   <div className="modal__container modal--effect">
     <div className="modal contactsModal">
       <h2>Your Following list is public</h2>
+
+      <button
+        onClick={() => saveFollowing(otherAddressToFollow)}
+        type="button"
+      >
+        Follow user
+      </button>
+
+      <button
+        onClick={() => handleFollowingPublicModal()}
+        type="button"
+      >
+        Cancel
+      </button>
     </div>
 
     <div
       className="onClickOutsideCollectibles"
-      onClick={() => handleFollowingPublicModal()}
-      onKeyPress={() => handleFollowingPublicModal()}
+      onClick={handleFollowingPublicModal}
+      onKeyPress={handleFollowingPublicModal}
       role="button"
       tabIndex={0}
     />
@@ -1240,14 +1254,11 @@ export const FollowingIsPublicModal = ({ handleFollowingPublicModal }) => (
 );
 
 FollowingIsPublicModal.propTypes = {
-  otherFollowing: PropTypes.array,
-  otherName: PropTypes.string,
-  handleContactsModal: PropTypes.func.isRequired,
-  following: PropTypes.object,
+  handleFollowingPublicModal: PropTypes.func.isRequired,
+  saveFollowing: PropTypes.func.isRequired,
+  otherAddressToFollow: PropTypes.string,
 };
 
 FollowingIsPublicModal.defaultProps = {
-  otherFollowing: [],
-  otherName: '',
-  following: {},
+  otherAddressToFollow: '',
 };

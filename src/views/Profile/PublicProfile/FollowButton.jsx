@@ -86,7 +86,7 @@ const FollowButton = ({
           await convert3BoxToSpaces();
           await getMySpacesData(currentAddress);
           getActivity();
-          const shouldSave = await initializeSaveFollowing();
+          const shouldSave = await initializeSaveFollowing(otherProfileAddress);
           if (shouldSave) saveFollowing(otherProfileAddress);
         }}
     >

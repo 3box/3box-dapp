@@ -14,20 +14,6 @@ const saveFollowing = (otherProfileAddress, unfollow) => async (dispatch) => {
     // get user to follows DID
     const profile = await Box.getProfile(otherProfileAddress);
 
-    // // open following space and get following
-    // const followingSpace = await store.getState().myData.box.openSpace('Following');
-    // const opts = {
-    //   membersOnly: true,
-    // };
-    // const thread = await followingSpace.joinThread('followingList', opts);
-    // const followingList = await thread.getPosts();
-    // const following = await getFollowingProfiles(followingList);
-
-    // dispatch({
-    //   type: 'MY_FOLLOWING_UPDATE',
-    //   following,
-    // });
-
     const {
       followingList,
       followingThread,
@@ -60,12 +46,22 @@ const saveFollowing = (otherProfileAddress, unfollow) => async (dispatch) => {
 
       await followingThread.post(contact);
     } else {
-      // delete thread post
-      console.log('unfollow user');
+      // remove user from following list
+      let postId;
+      console.log('followingList2', followingList);
+      followingList.forEach((user) => {
+        if (user.message.identifier[1].value === otherProfileAddress) {
+          postId = user.postId;
+        }
+      });
+      console.log('postal', postId);
+      await followingThread.deletePost(postId);
     }
 
     const updatedFollowingList = await followingThread.getPosts();
+    console.log('updatedFollowingList', updatedFollowingList);
     const updatedFollowing = await getFollowingProfiles(updatedFollowingList);
+    console.log('updatedFollowing', updatedFollowing);
 
     dispatch({
       type: 'MY_FOLLOWING_UPDATE',

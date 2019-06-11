@@ -10,8 +10,9 @@ import {
 const getMyFollowing = () => async (dispatch) => {
   try {
     const myAddress = store.getState().userState.currentAddress;
+    console.log('memyAddress', myAddress);
     const followingList = await Box.getThread('Following', 'followingList', myAddress, true);
-
+    console.log('thisfollowingList', followingList);
     if (!followingList) return null;
 
     const following = await getFollowingProfiles(followingList);

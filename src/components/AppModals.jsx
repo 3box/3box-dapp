@@ -91,6 +91,8 @@ class AppModals extends Component {
       isMyProfilePath,
       showFollowingPublicModal,
       handleFollowingPublicModal,
+      saveFollowing,
+      otherAddressToFollow,
     } = this.props;
 
     const isMobile = width <= 812; // 600
@@ -209,6 +211,8 @@ class AppModals extends Component {
           <FollowingIsPublicModal
             isMobile={isMobile}
             handleFollowingPublicModal={handleFollowingPublicModal}
+            saveFollowing={saveFollowing}
+            otherAddressToFollow={otherAddressToFollow}
             key="FollowingIsPublicModal"
           />
         )}
