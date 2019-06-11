@@ -5,7 +5,10 @@ import { Link } from 'react-router-dom';
 import actions from '../state/actions';
 import '../views/Profile/styles/Profile.css';
 
-const { saveFollowing } = actions.profile;
+const {
+  saveFollowing,
+  initializeSaveFollowing,
+} = actions.profile;
 
 const ContactTile = ({ user, address, isFollowing, fromModal, handleContactsModal }) => (
   <Link
@@ -30,7 +33,10 @@ const ContactTile = ({ user, address, isFollowing, fromModal, handleContactsModa
       <div className="contact_tile_add">
         <button
           type="button"
-          onClick={() => saveFollowing(address, true)}
+          onClick={async () => {
+            const shouldSave = await initializeSaveFollowing();
+            if (shouldSave) saveFollowing(address, true);
+          }}
           className="outlineButton"
         >
           Unfollow
@@ -40,12 +46,16 @@ const ContactTile = ({ user, address, isFollowing, fromModal, handleContactsModa
         <div className="contact_tile_add">
           <button
             type="button"
-            onClick={() => saveFollowing(address)}
+            onClick={async () => {
+              const shouldSave = await initializeSaveFollowing();
+              if (shouldSave) saveFollowing(address);
+            }}
             className="outlineButton"
           >
             Follow
           </button>
-        </div>)}
+        </div>
+      )}
   </Link>
 );
 

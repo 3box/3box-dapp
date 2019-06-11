@@ -120,7 +120,7 @@ class ProfilePublic extends Component {
       if (otherProfileAddress === activeAddress) {
         this.props.handleShowSignInBanner()
       } else {
-        this.props.handlehideSignInBanner();
+        this.props.handleHideSignInBanner();
       }
       await this.props.checkNetwork();
     }

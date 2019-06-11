@@ -6,15 +6,16 @@ import {
 
 const getMyFollowingFromLocalStorage = () => async (dispatch) => {
   try {
-    const profiles = await Box.getThread('Following', 'followingList');
+    const followingList = await Box.getThread('Following', 'followingList');
 
-    if (!profiles) return null;
+    if (!followingList) return null;
 
-    const following = await getFollowingProfiles(profiles);
+    const following = await getFollowingProfiles(followingList);
 
     dispatch({
       type: 'MY_FOLLOWING_UPDATE',
       following,
+      followingList,
     });
 
     return following;

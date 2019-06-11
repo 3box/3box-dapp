@@ -10,6 +10,7 @@ import getActivity from './getActivity';
 import getPublicProfile from './getPublicProfile';
 import getMyFollowing from './getMyFollowing';
 import saveFollowing from './saveFollowing';
+import initializeSaveFollowing from './initializeSaveFollowing';
 
 export default {
   getCollectibles,
@@ -24,4 +25,5 @@ export default {
   getPublicProfile,
   getMyFollowing,
   saveFollowing,
+  initializeSaveFollowing,
 };

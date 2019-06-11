@@ -14,28 +14,27 @@ const saveFollowing = (otherProfileAddress, unfollow) => async (dispatch) => {
     // get user to follows DID
     const profile = await Box.getProfile(otherProfileAddress);
 
-    // open following space and get following
-    const followingSpace = await store.getState().myData.box.openSpace('Following');
-    const opts = {
-      membersOnly: true,
-    };
-    const thread = await followingSpace.joinThread('followingList', opts);
-    console.log('thisthread', thread);
-    const followingList = await thread.getPosts();
-    const following = await getFollowingProfiles(followingList);
+    // // open following space and get following
+    // const followingSpace = await store.getState().myData.box.openSpace('Following');
+    // const opts = {
+    //   membersOnly: true,
+    // };
+    // const thread = await followingSpace.joinThread('followingList', opts);
+    // const followingList = await thread.getPosts();
+    // const following = await getFollowingProfiles(followingList);
 
-    dispatch({
-      type: 'MY_FOLLOWING_UPDATE',
-      following,
-    });
+    // dispatch({
+    //   type: 'MY_FOLLOWING_UPDATE',
+    //   following,
+    // });
 
-    if (following.length === 0) {
-      console.log('firstFollowing');
-      dispatch({
-        type: 'UI_HANDLE_WARN_PUBLIC_FOLLOWING',
-        showFollowingPublicModal: true,
-      });
-    }
+    const {
+      followingList,
+      followingThread,
+    } = store.getState().myData;
+
+    console.log('myfollowingList', followingList);
+    console.log('myfollowingThread', followingThread);
 
     if (!unfollow) {
       // if following, don't save following
@@ -58,14 +57,14 @@ const saveFollowing = (otherProfileAddress, unfollow) => async (dispatch) => {
         },
         ],
       };
-  
-      await thread.post(contact);
+
+      await followingThread.post(contact);
     } else {
       // delete thread post
       console.log('unfollow user');
     }
 
-    const updatedFollowingList = await thread.getPosts();
+    const updatedFollowingList = await followingThread.getPosts();
     const updatedFollowing = await getFollowingProfiles(updatedFollowingList);
 
     dispatch({

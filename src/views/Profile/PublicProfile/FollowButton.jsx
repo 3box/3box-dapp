@@ -17,7 +17,9 @@ const {
   getVerifiedPrivateEmail,
   getActivity,
   getMyFollowing,
+  initializeSaveFollowing,
 } = actions.profile;
+
 const { getMySpacesData, convert3BoxToSpaces } = actions.spaces;
 const { openBox } = actions.signin;
 
@@ -37,7 +39,8 @@ const FollowButton = ({
   getActivity,
   getMyFollowing,
   getMySpacesData,
-  convert3BoxToSpaces
+  convert3BoxToSpaces,
+  initializeSaveFollowing,
 }) => {
   if (isFollowing) {
     return (
@@ -83,7 +86,8 @@ const FollowButton = ({
           await convert3BoxToSpaces();
           await getMySpacesData(currentAddress);
           getActivity();
-          saveFollowing(otherProfileAddress);
+          const shouldSave = await initializeSaveFollowing();
+          if (shouldSave) saveFollowing(otherProfileAddress);
         }}
     >
       Follow
@@ -137,4 +141,5 @@ export default connect(mapState,
     getMyFollowing,
     getMySpacesData,
     convert3BoxToSpaces,
+    initializeSaveFollowing,
   })(FollowButton);

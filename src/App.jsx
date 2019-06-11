@@ -46,6 +46,7 @@ const {
   requireMetaMaskModal,
   handleMobileWalletModal,
   handleOnboardingModal,
+  handleFollowingPublicModal,
 } = actions.modal;
 
 const {
@@ -173,8 +174,8 @@ class App extends Component {
       this.props.getMyProfileValue('public', 'year');
       this.props.getMyProfileValue('public', 'emoji');
       this.props.getMyProfileValue('private', 'birthday');
-      this.props.getMyFollowing();
 
+      await this.props.getMyFollowing();
       await this.props.getCollectibles(currentAddress);
       await this.props.convert3BoxToSpaces();
       await this.props.getMySpacesData(currentAddress);
@@ -278,6 +279,7 @@ class App extends Component {
       isSyncing,
       hasSignedOut,
       onOtherProfilePage,
+      showFollowingPublicModal,
     } = this.props;
 
     const {
@@ -336,6 +338,7 @@ class App extends Component {
           onBoardingModal={onBoardingModal}
           onBoardingModalTwo={onBoardingModalTwo}
           provideConsent={provideConsent}
+          showFollowingPublicModal={showFollowingPublicModal}
           onBoardingModalMobileOne={onBoardingModalMobileOne}
           onBoardingModalMobileTwo={onBoardingModalMobileTwo}
           onBoardingModalMobileThree={onBoardingModalMobileThree}
@@ -353,6 +356,7 @@ class App extends Component {
           handleAccessModal={this.props.handleAccessModal}
           handleNextMobileModal={this.handleNextMobileModal}
           closeRequireMetaMaskModal={this.props.closeRequireMetaMaskModal}
+          handleFollowingPublicModal={this.props.handleFollowingPublicModal}
         />
 
         <Switch>
@@ -624,6 +628,7 @@ const mapState = state => ({
   showErrorModal: state.uiState.showErrorModal,
   accessDeniedModal: state.uiState.accessDeniedModal,
   onOtherProfilePage: state.uiState.onOtherProfilePage,
+  showFollowingPublicModal: state.uiState.showFollowingPublicModal,
 
   onSyncFinished: state.userState.onSyncFinished,
   isSyncing: state.userState.isSyncing,
@@ -665,6 +670,7 @@ export default withRouter(connect(mapState,
     handleSignOut,
     handleSwitchedAddressModal,
     handleOnboardingModal,
+    handleFollowingPublicModal,
     closeErrorModal,
     closeRequireMetaMaskModal,
     getMyFollowing,
