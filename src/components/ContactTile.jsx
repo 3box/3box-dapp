@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import ProfileHover from 'profile-hover';
 
 import actions from '../state/actions';
 import '../views/Profile/styles/Profile.css';
@@ -21,23 +22,29 @@ const ContactTile = ({
   saveFollowing,
 }) => (
     <div className="contact_tile">
-      <Link
-        to={`/${address}`}
-        onClick={() => { if (fromModal) handleContactsModal(); }}
+      <ProfileHover
+        address={address}
+        noTheme
+        orientation="right"
       >
-        <div className="contact_tile_info">
-          {user.image && user.image[0].contentUrl
-            ? (
-              <img
-                src={`https://ipfs.infura.io/ipfs/${user.image[0].contentUrl['/']}`}
-                className="contact_tile_info_image"
-                alt="profile"
-              />
-            ) : <div className="contact_tile_info_image" />}
+        <Link
+          to={`/${address}`}
+          onClick={() => { if (fromModal) handleContactsModal(); }}
+        >
+          <div className="contact_tile_info">
+            {user.image && user.image[0].contentUrl
+              ? (
+                <img
+                  src={`https://ipfs.infura.io/ipfs/${user.image[0].contentUrl['/']}`}
+                  className="contact_tile_info_image"
+                  alt="profile"
+                />
+              ) : <div className="contact_tile_info_image" />}
 
-          <h3>{user.name ? user.name : ''}</h3>
-        </div>
-      </Link>
+            <h3>{user.name ? user.name : address}</h3>
+          </div>
+        </Link>
+      </ProfileHover>
 
       {isFollowing ? (
         <div className="contact_tile_add">

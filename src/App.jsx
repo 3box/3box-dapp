@@ -116,6 +116,12 @@ class App extends Component {
       } else if (onProfilePage) { // Lands on profile page
         if (isMyProfilePath) history.push(`/${splitRoute[1]}`);
       }
+
+      if (!allowDirectSignIn) {
+        const userEth = window.localStorage.getItem('userEthAddress');
+        console.log('userEth', userEth);
+        if (userEth) this.props.getMyFollowing(userEth);
+      }
     } catch (err) {
       console.error(err);
     }
@@ -524,6 +530,7 @@ App.propTypes = {
   getMyProfileValue: PropTypes.func.isRequired,
   checkWeb3: PropTypes.func.isRequired,
   initialCheckWeb3: PropTypes.func.isRequired,
+  getMyFollowing: PropTypes.func.isRequired,
   getMyDID: PropTypes.func.isRequired,
   getCollectibles: PropTypes.func.isRequired,
   getMySpacesData: PropTypes.func.isRequired,
@@ -666,6 +673,7 @@ export default withRouter(connect(mapState,
     getActivity,
     checkWeb3,
     initialCheckWeb3,
+    getMyFollowing,
     requireMetaMaskModal,
     checkNetwork,
     handleMobileWalletModal,
