@@ -669,7 +669,8 @@
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
-  padding: 30px; }
+  padding: 30px;
+  overflow: visible !important; }
   .contactsModal h2 {
     margin-bottom: 30px;
     font-size: 18px;

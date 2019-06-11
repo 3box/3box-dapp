@@ -909,7 +909,7 @@ export const PublicProfileLoading = () => (
   </div>
 );
 
-export const SignInThroughPublicProfileBanner = ({ show, handleSignInBanner }) => (
+export const SignInThroughPublicProfileBanner = ({ show, handleHideSignInBanner }) => (
   <React.Fragment>
     <div className={`${show ? '' : 'hideBanner'} signInFromPublicProfileBanner`}>
       <div className="signInFromPublicProfileBanner__wrapper">
@@ -917,8 +917,8 @@ export const SignInThroughPublicProfileBanner = ({ show, handleSignInBanner }) =
           This is the public version of your profile.  Sign in to access your full profile.
         </p>
         <p
-          onClick={handleSignInBanner}
-          onKeyPress={handleSignInBanner}
+          onClick={handleHideSignInBanner}
+          onKeyPress={handleHideSignInBanner}
           role="button"
           className="webThreeBanner__close"
         >

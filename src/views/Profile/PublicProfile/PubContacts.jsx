@@ -53,10 +53,10 @@ const PubContacts = (
         <div className="public_contacts_mutual">
           <p>
             {`${otherMutualFollowing.length} mutual contacts including 
-          ${otherMutualFollowing[0] ? otherMutualFollowing[0][0].name : ''},
-          ${otherMutualFollowing[1] ? otherMutualFollowing[1][0].name : ''}, 
-          ${otherMutualFollowing[2] ? otherMutualFollowing[2][0].name : ''}, 
-          ${otherMutualFollowing[3] ? otherMutualFollowing[3][0].name : ''}...`}
+          ${otherMutualFollowing[0] ? `${otherMutualFollowing[0][0].name}` : ''}
+          ${otherMutualFollowing[1] ? `, ${otherMutualFollowing[1][0].name}`: ''} 
+          ${otherMutualFollowing[2] ? `, ${otherMutualFollowing[2][0].name}` : ''} 
+          ${otherMutualFollowing[3] ? `, ${otherMutualFollowing[3][0].name}` : ''}...`}
           </p>
         </div>)}
 

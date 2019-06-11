@@ -160,6 +160,7 @@ class ProfilePublic extends Component {
       otherImage,
       otherName,
       otherProfileAddress,
+      handleHideSignInBanner,
     } = this.props;
 
     const { isFollowing } = this.state;
@@ -174,7 +175,7 @@ class ProfilePublic extends Component {
 
         <SignInThroughPublicProfileBanner
           show={showSignInBanner}
-          handleSignInBanner={this.props.handleSignInBanner}
+          handleHideSignInBanner={this.props.handleHideSignInBanner}
         />
 
         <div id="profile__page">
