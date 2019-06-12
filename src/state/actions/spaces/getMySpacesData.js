@@ -10,12 +10,10 @@ const getMySpacesData = address => async (dispatch) => {
     const {
       allData,
     } = store.getState().spaces;
-    console.log('allData', allData);
-    console.log('spacesaddress', address);
     const updatedAllData = cloneDeep(allData);
 
     const fetchedLists = await Box.listSpaces(address); // get list of spaces
-    console.log('fetchedLists', fetchedLists)
+
     // remove duplicate spaces
     const onlyUnique = (value, index, self) => self.indexOf(value) === index;
     const list = fetchedLists.filter(onlyUnique);
@@ -35,13 +33,13 @@ const getMySpacesData = address => async (dispatch) => {
       const threadCalls = [];
 
       Object.entries(space).forEach((kv) => {
-        if (kv[0].substring(0, 7) === 'thread-') {
+        if (kv[0].substring(0, 7) === 'thread-' && kv[0].substring(8, 15) !== 'orbitdb') {
           threadNames.push(kv[1].value.name);
           const promise = Box.getThread(spaceName, kv[1].value.name);
           threadCalls.push(promise);
         }
 
-        if (kv[0].substring(0, 14) === 'follow-thread-') {
+        if (kv[0].substring(0, 14) === 'follow-thread-' || kv[0].substring(8, 15) === 'orbitdb') {
           delete updatedAllData[spaceName].public[kv[0]];
         }
       });
