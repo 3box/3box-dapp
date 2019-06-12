@@ -52,14 +52,10 @@ const getActivity = otherProfileAddress => async (dispatch) => {
         .concat(categorizedActivity.token);
     } else {
       // get 3box logs
-      console.log('3box1');
       const unFilteredPublicActivity = await store.getState().myData.box.public.log;
-      console.log('3box2');
       const privateActivity = await store.getState().myData.box.private.log;
-      console.log('3box3');
       emailProof = await store.getState().myData.box.private._genDbKey('proof_email');
 
-      console.log('3box4');
       // remove ethereum_proof & proof_did & memberSince
       const publicActivity = unFilteredPublicActivity
         .filter(item => (item.key !== 'ethereum_proof' &&
@@ -68,12 +64,9 @@ const getActivity = otherProfileAddress => async (dispatch) => {
           item.key !== 'memberSince'));
 
       // assign public or private data type
-      console.log('3box5');
       const categorizedPublicActivity = addPublicOrPrivateDataType(publicActivity, 'Public');
-      console.log('3box6');
       const categorizedPrivateActivity = addPublicOrPrivateDataType(privateActivity, 'Private');
 
-      console.log('3box7');
       const spacesData = store.getState().spaces.allData;
       const spacesDataActivity = [];
 
@@ -135,7 +128,6 @@ const getActivity = otherProfileAddress => async (dispatch) => {
           });
         }
       });
-      console.log('3box8');
 
       feed = categorizedActivity.internal
         .concat(categorizedActivity.txs)
@@ -144,7 +136,6 @@ const getActivity = otherProfileAddress => async (dispatch) => {
         .concat(categorizedPrivateActivity)
         .concat(spacesDataActivity);
     }
-    console.log('3box9');
 
     // if timestamp is undefined, give it the timestamp of the previous entry
     feed.map((item, i) => {
@@ -156,11 +147,9 @@ const getActivity = otherProfileAddress => async (dispatch) => {
       if (!otherProfileAddress && feedItem.key === emailProof) feedItem.key = 'proof_email';
       return feedItem;
     });
-    console.log('3box10');
 
     // order feed chronologically
     feed.sort((a, b) => b.timeStamp - a.timeStamp);
-    console.log('3box11');
 
     // order feed by address
     const feedByAddress = [];
@@ -202,18 +191,14 @@ const getActivity = otherProfileAddress => async (dispatch) => {
         });
       }
     });
-    console.log('3box12');
 
     const checkedAddresses = {};
     const addressData = {};
     const isContract = {};
     let counter = 0;
-    console.log('3box13');
 
     // if there is no feed length, move on to next step
     if (feedByAddress.length === 0) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
-
-    console.log('3box14');
 
     // get contract and 3box profile metadata
     await feedByAddress.map(async (txGroup) => {
@@ -223,14 +208,12 @@ const getActivity = otherProfileAddress => async (dispatch) => {
       let contractArray = [];
       let name;
       let image;
-      console.log('3box15');
 
       if (otherAddress === 'threeBox') {
         counter += 1;
         if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
         return;
       }
-      console.log('3box16');
 
       if (!checkedAddresses[otherAddress]) {
         checkedAddresses[otherAddress] = true;
