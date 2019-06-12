@@ -98,15 +98,20 @@ const fireDispatch = (otherProfileAddress, feedByAddress) => {
 export const updateFeed = (otherProfileAddress, feedByAddress, addressData, isContract) => {
   let contractArray = [];
   let counter = 0;
+  console.log('update feed 1')
   if (feedByAddress.length === 0) fireDispatch(otherProfileAddress, feedByAddress);
   feedByAddress.map(async (txGroup, i) => {
     const otherAddress = Object.keys(txGroup)[0];
+    console.log('update feed 2')
 
     if (isContract[otherAddress]) { // then address is contract
       const contractDataABI = addressData[otherAddress].contractData;
+      console.log('update feed 3')
 
       if (contractDataABI) {
         abiDecoder.addABI(contractDataABI);
+        console.log('update feed 4')
+
         txGroup[otherAddress].map((lineItem, index) => {
           const methodCall = abiDecoder.decodeMethod(txGroup[otherAddress][index].input);
           lineItem.methodCall = methodCall && methodCall.name && (methodCall.name.charAt(0).toUpperCase() + methodCall.name.slice(1)).replace(/([A-Z])/g, ' $1').trim();
@@ -114,11 +119,13 @@ export const updateFeed = (otherProfileAddress, feedByAddress, addressData, isCo
       }
 
       contractArray = imageElFor(otherAddress);
+      console.log('update feed 5')
 
       feedByAddress[i].metaData = {
         contractImg: contractArray.length > 0 && contractArray[0],
         contractDetails: contractArray.length > 0 && contractArray[1],
       };
+      console.log('update feed 6')
 
       counter += 1;
       if (counter === feedByAddress.length) fireDispatch(otherProfileAddress, feedByAddress);
