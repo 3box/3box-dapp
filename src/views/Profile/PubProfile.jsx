@@ -46,8 +46,6 @@ class ProfilePublic extends Component {
     };
   }
 
-  // 
-
   async componentDidMount() {
     try {
       window.scrollTo(0, 0);
@@ -56,8 +54,7 @@ class ProfilePublic extends Component {
 
       this.updateUIState(otherProfileAddress);
       await this.handleWeb3Checks(currentAddress, otherProfileAddress);
-      await
-        this.checkFollowingAndMutual(otherProfileAddress);
+      await this.checkFollowingAndMutual(otherProfileAddress);
       await this.getProfile(otherProfileAddress);
     } catch (err) {
       console.error(err);
@@ -156,11 +153,9 @@ class ProfilePublic extends Component {
       showContactsModal,
       otherFollowing,
       following,
-      isLoggedIn,
       otherImage,
       otherName,
       otherProfileAddress,
-      handleHideSignInBanner,
     } = this.props;
 
     const { isFollowing } = this.state;
@@ -199,8 +194,10 @@ class ProfilePublic extends Component {
                 otherFollowing={otherFollowing}
                 otherName={otherName}
                 following={following}
+                otherProfileAddress={otherProfileAddress}
                 handleContactsModal={this.props.handleContactsModal}
-              />)}
+              />
+            )}
 
             {showContactsModal && <ModalBackground />}
           </ReactCSSTransitionGroup>

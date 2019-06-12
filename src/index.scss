@@ -150,7 +150,6 @@ button {
   background-color: transparent;
   border-radius: 5px;
   padding: 0;
-  // padding: 14px 20px;
   transition: background-color .4s ease;
   font-family: 'Lato', sans-serif;
   border: none;
@@ -233,7 +232,7 @@ button {
   &:hover {
     border: solid 1px #7a7a7a;
     color: #7a7a7a;
-    background-color: #bcbcbc !important;
+    background-color: #eaeaea !important;
   }
 }
 

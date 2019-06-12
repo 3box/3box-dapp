@@ -16,6 +16,7 @@ import TrustWallet from '../assets/TrustWallet.png';
 import Mollie from '../assets/Mollie.png';
 import Consent from '../assets/Consent.png';
 import Access from '../assets/Access.png';
+import ContactsIcon from '../assets/Contacts.svg';
 import Switched from '../assets/Switched.svg';
 import OnBoardingModalGraphic from '../assets/OnBoardingModal.png';
 import OnBoardingModalGraphic2 from '../assets/OnBoardingModal2.png';
@@ -1174,10 +1175,10 @@ OnBoardingModalMobile.propTypes = {
 };
 
 export const FollowingListModal = ({
-  otherFollowing, handleContactsModal, otherName, following }) => (
+  otherFollowing, handleContactsModal, otherName, following, otherProfileAddress }) => (
     <div className="modal__container modal--effect">
       <div className="modal contactsModal">
-        <h2>{`${otherName}`}</h2>
+        <h2>{`${otherName || otherProfileAddress} following`}</h2>
 
         <div className="contactsModal_list">
           {otherFollowing.map((user) => {
@@ -1226,21 +1227,29 @@ FollowingListModal.defaultProps = {
 export const FollowingIsPublicModal = ({ handleFollowingPublicModal, saveFollowing, otherAddressToFollow }) => (
   <div className="modal__container modal--effect">
     <div className="modal contactsModal">
-      <h2>Your Following list is public</h2>
+      <img src={ContactsIcon} alt="Following" className="contactsModal_icon" />
 
-      <button
-        onClick={() => saveFollowing(otherAddressToFollow)}
-        type="button"
-      >
-        Follow user
-      </button>
+      <div className="contactsModal_text">
+        <h2>Following is public</h2>
+        <p>The users you follow will be public and viewable by others.</p>
+      </div>
 
-      <button
-        onClick={() => handleFollowingPublicModal()}
-        type="button"
-      >
-        Cancel
-      </button>
+      <div className="contactsModal_buttons">
+        <button
+          onClick={() => handleFollowingPublicModal()}
+          type="button"
+          className="outlineButton"
+        >
+          Cancel
+        </button>
+
+        <button
+          onClick={() => saveFollowing(otherAddressToFollow)}
+          type="button"
+        >
+          Follow user
+        </button>
+      </div>
     </div>
 
     <div

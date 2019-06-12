@@ -207,6 +207,14 @@ class AppModals extends Component {
           />
         )}
 
+        <FollowingIsPublicModal
+          isMobile={isMobile}
+          handleFollowingPublicModal={handleFollowingPublicModal}
+          saveFollowing={saveFollowing}
+          otherAddressToFollow={otherAddressToFollow}
+          key="FollowingIsPublicModal"
+        />
+        {/* 
         {showFollowingPublicModal && (
           <FollowingIsPublicModal
             isMobile={isMobile}
@@ -215,7 +223,7 @@ class AppModals extends Component {
             otherAddressToFollow={otherAddressToFollow}
             key="FollowingIsPublicModal"
           />
-        )}
+        )} */}
 
         {switchedAddressModal && (
           <SwitchedAddressModal
@@ -270,7 +278,7 @@ class AppModals extends Component {
             || onBoardingModalMobileThree)
             && isMobile)
         ) && <ModalBackground />}
-        
+
         {(alertRequireMetaMask) && <DeskTopModalBackground />}
 
       </ReactCSSTransitionGroup>

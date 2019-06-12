@@ -186,7 +186,7 @@ button {
   .outlineButton:hover {
     border: solid 1px #7a7a7a;
     color: #7a7a7a;
-    background-color: #bcbcbc !important; }
+    background-color: #eaeaea !important; }
 
 button:hover {
   cursor: pointer; }

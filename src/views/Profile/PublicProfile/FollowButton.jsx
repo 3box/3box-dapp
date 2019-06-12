@@ -41,6 +41,7 @@ const FollowButton = ({
   getMySpacesData,
   convert3BoxToSpaces,
   initializeSaveFollowing,
+  isLoggedIn,
 }) => {
   if (isFollowing) {
     return (
@@ -55,37 +56,39 @@ const FollowButton = ({
       type="button"
       onClick={
         async () => {
-          await openBox();
-          store.dispatch({
-            type: 'UI_SPACES_LOADING',
-            isSpacesLoading: true,
-          });
-          getVerifiedPublicGithub();
-          getVerifiedPublicTwitter();
-          getVerifiedPrivateEmail();
-          getMyMemberSince();
-          getMyDID();
-          getMyProfileValue('public', 'status');
-          getMyProfileValue('public', 'name');
-          getMyProfileValue('public', 'description');
-          getMyProfileValue('public', 'image');
-          getMyProfileValue('public', 'coverPhoto');
-          getMyProfileValue('public', 'location');
-          getMyProfileValue('public', 'website');
-          getMyProfileValue('public', 'employer');
-          getMyProfileValue('public', 'job');
-          getMyProfileValue('public', 'school');
-          getMyProfileValue('public', 'degree');
-          getMyProfileValue('public', 'major');
-          getMyProfileValue('public', 'year');
-          getMyProfileValue('public', 'emoji');
-          getMyProfileValue('private', 'birthday');
-          getMyFollowing();
+          if (!isLoggedIn) {
+            await openBox();
+            store.dispatch({
+              type: 'UI_SPACES_LOADING',
+              isSpacesLoading: true,
+            });
+            getVerifiedPublicGithub();
+            getVerifiedPublicTwitter();
+            getVerifiedPrivateEmail();
+            getMyMemberSince();
+            getMyDID();
+            getMyProfileValue('public', 'status');
+            getMyProfileValue('public', 'name');
+            getMyProfileValue('public', 'description');
+            getMyProfileValue('public', 'image');
+            getMyProfileValue('public', 'coverPhoto');
+            getMyProfileValue('public', 'location');
+            getMyProfileValue('public', 'website');
+            getMyProfileValue('public', 'employer');
+            getMyProfileValue('public', 'job');
+            getMyProfileValue('public', 'school');
+            getMyProfileValue('public', 'degree');
+            getMyProfileValue('public', 'major');
+            getMyProfileValue('public', 'year');
+            getMyProfileValue('public', 'emoji');
+            getMyProfileValue('private', 'birthday');
+            getMyFollowing();
 
-          await getCollectibles(currentAddress);
-          await convert3BoxToSpaces();
-          await getMySpacesData(currentAddress);
-          getActivity();
+            await getCollectibles(currentAddress);
+            await convert3BoxToSpaces();
+            await getMySpacesData(currentAddress);
+            getActivity();
+          }
           const shouldSave = await initializeSaveFollowing(otherProfileAddress);
           if (shouldSave) saveFollowing(otherProfileAddress);
         }}
@@ -98,6 +101,7 @@ const FollowButton = ({
 FollowButton.propTypes = {
   saveFollowing: PropTypes.func.isRequired,
   isFollowing: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool,
   otherProfileAddress: PropTypes.string,
   currentAddress: PropTypes.string,
   openBox: PropTypes.func.isRequired,
@@ -117,12 +121,14 @@ FollowButton.propTypes = {
 FollowButton.defaultProps = {
   otherProfileAddress: '',
   currentAddress: '',
+  isLoggedIn: false,
 };
 
 function mapState(state) {
   return {
     otherProfileAddress: state.otherProfile.otherProfileAddress,
     currentAddress: state.userState.currentAddress,
+    isLoggedIn: state.userState.isLoggedIn,
   };
 }
 

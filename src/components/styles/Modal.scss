@@ -841,16 +841,52 @@
 
 .contactsModal {
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: space-between;
+  align-items: center;
   flex-direction: column;
   padding: 30px;
   overflow: visible !important;
 
   h2 {
-    margin-bottom: 30px;
-    font-size: 18px;
+    margin-bottom: 20px;
+    font-size: 22px;
     letter-spacing: .3px;
+  }
+
+  p {
+    font-size: 14px;
+    color: $lighterFont;
+    line-height: 22px;
+  }
+}
+
+.contactsModal_text {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 70%;
+}
+
+.contactsModal_icon {
+  margin-top: 80px;
+  height: 50px;
+  filter: none;
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  opacity: .5;
+}
+
+.contactsModal_buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  button:first-of-type {
+    margin-right: 15px;
   }
 }
 
