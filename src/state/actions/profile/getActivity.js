@@ -52,10 +52,14 @@ const getActivity = otherProfileAddress => async (dispatch) => {
         .concat(categorizedActivity.token);
     } else {
       // get 3box logs
+      console.log('3box1');
       const unFilteredPublicActivity = await store.getState().myData.box.public.log;
+      console.log('3box2');
       const privateActivity = await store.getState().myData.box.private.log;
+      console.log('3box3');
       emailProof = await store.getState().myData.box.private._genDbKey('proof_email');
 
+      console.log('3box4');
       // remove ethereum_proof & proof_did & memberSince
       const publicActivity = unFilteredPublicActivity
         .filter(item => (item.key !== 'ethereum_proof' &&
@@ -64,9 +68,12 @@ const getActivity = otherProfileAddress => async (dispatch) => {
           item.key !== 'memberSince'));
 
       // assign public or private data type
+      console.log('3box5');
       const categorizedPublicActivity = addPublicOrPrivateDataType(publicActivity, 'Public');
+      console.log('3box6');
       const categorizedPrivateActivity = addPublicOrPrivateDataType(privateActivity, 'Private');
 
+      console.log('3box7');
       const spacesData = store.getState().spaces.allData;
       const spacesDataActivity = [];
 
