@@ -134,9 +134,18 @@ class ProfilePublic extends Component {
     const updatedFollowing = nextFollowing || following;
     const updatedOtherFollowing = nextOtherFollowing || otherFollowing;
 
-    updatedFollowing.forEach((user) => {
-      if (user[1] === otherProfileAddress) this.setState({ isFollowing: true });
-    });
+    const checkIfFollowing = user => user[1] !== otherProfileAddress;
+
+    // updatedFollowing.forEach((user, i) => {
+    //   if (user[1] === otherProfileAddress) {
+    //     this.setState({ isFollowing: true });
+    //   });
+
+    if (updatedFollowing.every(checkIfFollowing)) {
+      this.setState({ isFollowing: false });
+    } else {
+      this.setState({ isFollowing: true });
+    }
 
     const otherFollowingAddresses = updatedOtherFollowing.map(user => user[1]);
     const otherMutualFollowing = updatedFollowing.filter(x => otherFollowingAddresses.includes(x[1]));

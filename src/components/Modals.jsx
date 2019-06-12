@@ -1177,7 +1177,7 @@ OnBoardingModalMobile.propTypes = {
 export const FollowingListModal = ({
   otherFollowing, handleContactsModal, otherName, following, otherProfileAddress }) => (
     <div className="modal__container modal--effect">
-      <div className="modal contactsModal">
+      <div className="modal followingModal">
         <h2>{`${otherName || `${otherProfileAddress.substr(0, 6)}...${otherProfileAddress.substr(-4)}`} is following`}</h2>
 
         <div className="contactsModal_list">
@@ -1226,15 +1226,15 @@ FollowingListModal.defaultProps = {
 
 export const FollowingIsPublicModal = ({ handleFollowingPublicModal, saveFollowing, otherAddressToFollow }) => (
   <div className="modal__container modal--effect">
-    <div className="modal contactsModal">
-      <img src={ContactsIcon} alt="Following" className="contactsModal_icon" />
+    <div className="modal followingWarning">
+      <img src={ContactsIcon} alt="Following" className="followingWarning_icon" />
 
-      <div className="contactsModal_text">
+      <div className="followingWarning_text">
         <h2>Following is public</h2>
         <p>The users you follow will be public and viewable by others.</p>
       </div>
 
-      <div className="contactsModal_buttons">
+      <div className="followingWarning_buttons">
         <button
           onClick={() => handleFollowingPublicModal()}
           type="button"
@@ -1244,7 +1244,10 @@ export const FollowingIsPublicModal = ({ handleFollowingPublicModal, saveFollowi
         </button>
 
         <button
-          onClick={() => saveFollowing(otherAddressToFollow)}
+          onClick={() => {
+            saveFollowing(otherAddressToFollow);
+            handleFollowingPublicModal();
+          }}
           type="button"
         >
           Follow user

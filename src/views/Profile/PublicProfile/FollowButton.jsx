@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { store } from '../../../state/store';
 import actions from '../../../state/actions';
-import Check from '../../../assets/Check.svg';
+import Loading from '../../../assets/Loading.svg';
 
 const {
   saveFollowing,
@@ -42,26 +42,85 @@ const FollowButton = ({
   convert3BoxToSpaces,
   initializeSaveFollowing,
   isLoggedIn,
+  isFollowLoading,
+  contactTileAddress,
+  fromContactTile,
+  isLoading,
 }) => {
   if (isFollowing) {
     return (
-      <button type="button" className="outlineButton">
-        <img src={Check} alt="Check" />
-        Following
-      </button>
-    );
-  }
-  return (
-    <button
-      type="button"
-      onClick={
-        async () => {
-          if (!isLoggedIn) {
-            await openBox();
+      <button
+        type="button"
+        className="outlineButton unfollowButton"
+        onClick={
+          async () => {
             store.dispatch({
               type: 'UI_SPACES_LOADING',
               isSpacesLoading: true,
             });
+            if (!isLoggedIn) {
+              store.dispatch({
+                type: 'UI_FOLLOW_LOADING',
+                isFollowLoading: true,
+              });
+              await openBox();
+              getVerifiedPublicGithub();
+              getVerifiedPublicTwitter();
+              getVerifiedPrivateEmail();
+              getMyMemberSince();
+              getMyDID();
+              getMyProfileValue('public', 'status');
+              getMyProfileValue('public', 'name');
+              getMyProfileValue('public', 'description');
+              getMyProfileValue('public', 'image');
+              getMyProfileValue('public', 'coverPhoto');
+              getMyProfileValue('public', 'location');
+              getMyProfileValue('public', 'website');
+              getMyProfileValue('public', 'employer');
+              getMyProfileValue('public', 'job');
+              getMyProfileValue('public', 'school');
+              getMyProfileValue('public', 'degree');
+              getMyProfileValue('public', 'major');
+              getMyProfileValue('public', 'year');
+              getMyProfileValue('public', 'emoji');
+              getMyProfileValue('private', 'birthday');
+              getMyFollowing();
+
+              await getCollectibles(currentAddress);
+              await convert3BoxToSpaces();
+              await getMySpacesData(currentAddress);
+              getActivity();
+            }
+            await initializeSaveFollowing(contactTileAddress || otherProfileAddress);
+            saveFollowing(contactTileAddress || otherProfileAddress, true);
+            store.dispatch({
+              type: 'UI_FOLLOW_LOADING',
+              isFollowLoading: false,
+            });
+          }}
+      >
+        {(!fromContactTile && isFollowLoading) && <img src={Loading} alt="loading" />}
+        {(fromContactTile && isFollowLoading && isLoading) && <img src={Loading} alt="loading" />}
+      </button>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      className="followButton"
+      onClick={
+        async () => {
+          store.dispatch({
+            type: 'UI_FOLLOW_LOADING',
+            isFollowLoading: true,
+          });
+          if (!isLoggedIn) {
+            store.dispatch({
+              type: 'UI_SPACES_LOADING',
+              isSpacesLoading: true,
+            });
+            await openBox();
             getVerifiedPublicGithub();
             getVerifiedPublicTwitter();
             getVerifiedPrivateEmail();
@@ -89,10 +148,16 @@ const FollowButton = ({
             await getMySpacesData(currentAddress);
             getActivity();
           }
-          const shouldSave = await initializeSaveFollowing(otherProfileAddress);
-          if (shouldSave) saveFollowing(otherProfileAddress);
+          const shouldSave = await initializeSaveFollowing(contactTileAddress || otherProfileAddress);
+          if (shouldSave) saveFollowing(contactTileAddress || otherProfileAddress);
+          store.dispatch({
+            type: 'UI_FOLLOW_LOADING',
+            isFollowLoading: false,
+          });
         }}
     >
+      {(!fromContactTile && isFollowLoading) && <img src={Loading} alt="loading" />}
+      {(fromContactTile && isFollowLoading && isLoading) && <img src={Loading} alt="loading" />}
       Follow
     </button>
   );
@@ -102,6 +167,7 @@ FollowButton.propTypes = {
   saveFollowing: PropTypes.func.isRequired,
   isFollowing: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool,
+  isFollowLoading: PropTypes.bool,
   otherProfileAddress: PropTypes.string,
   currentAddress: PropTypes.string,
   openBox: PropTypes.func.isRequired,
@@ -122,6 +188,7 @@ FollowButton.defaultProps = {
   otherProfileAddress: '',
   currentAddress: '',
   isLoggedIn: false,
+  isFollowLoading: false,
 };
 
 function mapState(state) {
@@ -129,6 +196,7 @@ function mapState(state) {
     otherProfileAddress: state.otherProfile.otherProfileAddress,
     currentAddress: state.userState.currentAddress,
     isLoggedIn: state.userState.isLoggedIn,
+    isFollowLoading: state.uiState.isFollowLoading,
   };
 }
 

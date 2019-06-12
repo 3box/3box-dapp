@@ -25,7 +25,14 @@ const getOtherProfile = profileAddress => async (dispatch) => {
       console.log(error);
     }
 
-    const otherFollowing = profiles ? await getFollowingProfiles(profiles) : [  ];
+    const otherFollowing = profiles ? await getFollowingProfiles(profiles) : [];
+
+    otherFollowing.sort((a, b) => {
+      if (!a[0].name) return -1;
+      if (a[0].name.toLowerCase() < b[0].name.toLowerCase()) return -1;
+      if (a[0].name.toLowerCase() > b[0].name.toLowerCase()) return 1;
+      return 0;
+    });
 
     dispatch({
       type: 'OTHER_PROFILE_UPDATE',

@@ -134,6 +134,12 @@ const uiStateReducer = (state = {}, action) => {
         isSpacesLoading: action.isSpacesLoading,
       };
 
+    case 'UI_FOLLOW_LOADING':
+      return {
+        ...state,
+        isFollowLoading: action.isFollowLoading,
+      };
+
     case 'UI_SPACE_OPENED':
       return {
         ...state,

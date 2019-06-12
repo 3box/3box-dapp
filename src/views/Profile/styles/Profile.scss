@@ -184,7 +184,7 @@
 .contact_tile_info_image {
   width: 60px !important;
   height: 60px !important;
-  background-color: $threeBoxBlue;
+  background-color: white;
   border-radius: 50%;
 }
 
@@ -468,9 +468,9 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: $threeBoxBlue;
+  background-color: white;
   margin-left: -22px;
-  border: 1.5px solid white;
+  border: 2px solid white;
 }
 
 .first {
@@ -492,6 +492,26 @@
       width: 18px;
     }
   }
+}
+
+.unfollowButton:after {
+  content: 'Following';
+}
+
+.unfollowButton:hover:after {
+  content: 'Unfollow';
+}
+
+.unfollowButton img {
+  width: 18px;
+  margin-right: 10px;
+  margin-left: 0;
+}
+
+.followButton img {
+  width: 18px;
+  margin-right: 10px;
+  margin-left: 0;
 }
 
 #profile__page {

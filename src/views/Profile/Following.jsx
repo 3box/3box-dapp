@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+import { alphabetize } from '../../utils/funcs';
 import Globe from '../../assets/Globe.svg';
 import ContactTile from '../../components/ContactTile';
 import EmptyContact from '../../components/EmptyContact';
@@ -22,13 +23,14 @@ const Following = ({ following }) => (
     </div>
 
     <div className="contact_list">
-      {following.length > 0 ? following.map(user => (
-        <ContactTile
-          user={user[0]}
-          isFollowing
-          address={user[1]}
-        />
-      )) : <EmptyContact />}
+      {
+        following.length > 0 ? alphabetize(following).map(user => (
+          <ContactTile
+            user={user[0]}
+            isFollowing
+            address={user[1]}
+          />
+        )) : <EmptyContact />}
     </div>
   </div>
 );

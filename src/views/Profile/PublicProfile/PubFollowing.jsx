@@ -17,6 +17,7 @@ const PubFollowing = (
     otherFollowing,
     isFollowing,
     otherMutualFollowing,
+    showSignInBanner,
   }) => (
     <div className="public_contacts">
       <div
@@ -49,26 +50,29 @@ const PubFollowing = (
         </div>
       </div>
 
-      {otherMutualFollowing.length > 0 && (
+      {(otherMutualFollowing.length > 0 && !showSignInBanner) && (
         <div className="public_contacts_mutual">
           <p>
             {`${otherMutualFollowing.length} mutual following including 
           ${otherMutualFollowing[0] ? `${otherMutualFollowing[0][0].name}` : ''}
-          ${otherMutualFollowing[1] ? `, ${otherMutualFollowing[1][0].name}`: ''} 
+          ${otherMutualFollowing[1] ? `, ${otherMutualFollowing[1][0].name}` : ''} 
           ${otherMutualFollowing[2] ? `, ${otherMutualFollowing[2][0].name}` : ''} 
           ${otherMutualFollowing[3] ? `, ${otherMutualFollowing[3][0].name}` : ''}...`}
           </p>
         </div>)}
 
-      <div className="public_contacts_add">
-        <FollowButton isFollowing={isFollowing} />
-      </div>
+      {!showSignInBanner && (
+        <div className="public_contacts_add">
+          <FollowButton isFollowing={isFollowing} />
+        </div>
+      )}
     </div>
   );
 
 PubFollowing.propTypes = {
   handleContactsModal: PropTypes.func.isRequired,
   isFollowing: PropTypes.bool.isRequired,
+  showSignInBanner: PropTypes.bool,
   otherFollowing: PropTypes.array,
   otherMutualFollowing: PropTypes.array,
 };
@@ -76,12 +80,14 @@ PubFollowing.propTypes = {
 PubFollowing.defaultProps = {
   otherFollowing: [],
   otherMutualFollowing: [],
+  showSignInBanner: false,
 };
 
 function mapState(state) {
   return {
     otherFollowing: state.otherProfile.otherFollowing,
     otherMutualFollowing: state.otherProfile.otherMutualFollowing,
+    showSignInBanner: state.uiState.showSignInBanner,
   };
 }
 

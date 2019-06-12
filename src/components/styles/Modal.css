@@ -664,30 +664,48 @@
   justify-content: space-between;
   align-items: center; }
 
-.contactsModal {
+.followingModal {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 30px;
+  overflow: visible !important;
+  min-height: 600px;
+  overflow-y: scroll; }
+  .followingModal h2 {
+    margin-bottom: 40px;
+    font-size: 22px;
+    letter-spacing: .3px; }
+  .followingModal p {
+    font-size: 14px;
+    color: #747677;
+    line-height: 22px; }
+
+.followingWarning {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
   padding: 30px;
   overflow: visible !important; }
-  .contactsModal h2 {
+  .followingWarning h2 {
     margin-bottom: 20px;
     font-size: 22px;
     letter-spacing: .3px; }
-  .contactsModal p {
+  .followingWarning p {
     font-size: 14px;
     color: #747677;
     line-height: 22px; }
 
-.contactsModal_text {
+.followingWarning_text {
   display: flex;
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
   width: 70%; }
 
-.contactsModal_icon {
+.followingWarning_icon {
   margin-top: 70px;
   height: 50px;
   filter: none;
@@ -697,12 +715,12 @@
   -o-filter: grayscale(100%);
   opacity: .5; }
 
-.contactsModal_buttons {
+.followingWarning_buttons {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%; }
-  .contactsModal_buttons button:first-of-type {
+  .followingWarning_buttons button:first-of-type {
     margin-right: 15px; }
 
 .contactsModal_list {

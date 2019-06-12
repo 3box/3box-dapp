@@ -23,10 +23,6 @@ const saveFollowing = (otherProfileAddress, unfollow) => async (dispatch) => {
       currentAddress,
     } = store.getState().userState;
 
-    console.log('myfollowingList', followingList);
-    console.log('myfollowingThread', followingThread);
-    console.log('mycurrentAddress', currentAddress);
-
     if (!unfollow) {
       // if following, don't save following
       const isFollowing = checkFollowing(followingList, otherProfileAddress);
@@ -62,9 +58,7 @@ const saveFollowing = (otherProfileAddress, unfollow) => async (dispatch) => {
     }
 
     const updatedFollowingList = await followingThread.getPosts();
-    console.log('updatedFollowingList', updatedFollowingList);
     const updatedFollowing = await getFollowingProfiles(updatedFollowingList);
-    console.log('updatedFollowing', updatedFollowing);
 
     dispatch({
       type: 'MY_FOLLOWING_UPDATE',
