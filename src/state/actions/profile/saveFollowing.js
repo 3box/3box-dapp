@@ -53,13 +53,11 @@ const saveFollowing = (otherProfileAddress, unfollow) => async (dispatch) => {
     } else {
       // remove user from following list
       let postId;
-      console.log('followingList2', followingList);
       followingList.forEach((user) => {
         if (user.message.identifier[1].value === otherProfileAddress) {
           postId = user.postId;
         }
       });
-      console.log('postal', postId);
       await followingThread.deletePost(postId);
     }
 
