@@ -23,7 +23,7 @@ const {
 const { getMySpacesData, convert3BoxToSpaces } = actions.spaces;
 
 const {
-  openBoxFromFollow,
+  openBox,
   requestAccess,
 } = actions.signin;
 
@@ -96,7 +96,7 @@ class FollowButton extends Component {
         await this.props.checkNetwork();
 
         if (this.props.isSignedIntoWallet) {
-          await this.props.openBoxFromFollow();
+          await this.props.openBox(false, true);
           if (!this.props.showErrorModal) this.getMyData();
         } else if (!this.props.isSignedIntoWallet && !accessDeniedModal) {
           this.props.handleRequireWalletLoginModal();
@@ -106,7 +106,7 @@ class FollowButton extends Component {
         this.props.handleMobileWalletModal();
       }
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
   }
 
@@ -185,7 +185,7 @@ FollowButton.propTypes = {
   isFollowLoading: PropTypes.bool,
   otherProfileAddress: PropTypes.string,
   currentAddress: PropTypes.string,
-  openBoxFromFollow: PropTypes.func.isRequired,
+  openBox: PropTypes.func.isRequired,
   getMyProfileValue: PropTypes.func.isRequired,
   getMyDID: PropTypes.func.isRequired,
   getCollectibles: PropTypes.func.isRequired,
@@ -233,7 +233,7 @@ export default connect(mapState,
     checkWeb3,
     checkNetwork,
     saveFollowing,
-    openBoxFromFollow,
+    openBox,
     getMyProfileValue,
     getMyDID,
     getCollectibles,

@@ -6,7 +6,7 @@ import {
 import * as routes from '../../../utils/routes';
 import history from '../../../utils/history';
 
-const openBox = fromSignIn => async (dispatch) => {
+const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
   dispatch({
     type: 'UI_HANDLE_CONSENT_MODAL',
     provideConsent: true,
@@ -14,7 +14,7 @@ const openBox = fromSignIn => async (dispatch) => {
   });
 
   const consentGiven = () => {
-    if (fromSignIn) history.push(`/${store.getState().userState.currentAddress || store.getState().userState.accountAddress}/${routes.ACTIVITY}`);
+    if (fromSignIn && !fromFollowButton) history.push(`/${store.getState().userState.currentAddress || store.getState().userState.accountAddress}/${routes.ACTIVITY}`);
     dispatch({
       type: 'UI_3BOX_LOADING',
       provideConsent: false,
