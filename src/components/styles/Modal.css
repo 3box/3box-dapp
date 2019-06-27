@@ -675,8 +675,9 @@
   overflow-y: scroll; }
   .followingModal h2 {
     margin-bottom: 40px;
-    font-size: 22px;
-    letter-spacing: .3px; }
+    font-size: 18px;
+    letter-spacing: .3px;
+    text-align: left; }
   .followingModal p {
     font-size: 14px;
     color: #747677;

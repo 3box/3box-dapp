@@ -75,7 +75,7 @@ CollectiblesTile.propTypes = {
   name: PropTypes.string,
   description: PropTypes.string,
   padded: PropTypes.bool,
-  updateGallery: PropTypes.func,
+  updateGallery: PropTypes.object,
   handleCollectiblesModal: PropTypes.func.isRequired,
   favorite: PropTypes.bool.isRequired,
   onPublicProfile: PropTypes.bool.isRequired,

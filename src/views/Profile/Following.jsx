@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 
 import { alphabetize } from '../../utils/funcs';
 import Globe from '../../assets/Globe.svg';
-import ContactTile from '../../components/ContactTile';
+import FollowingTile from '../../components/FollowingTile';
 import EmptyContact from '../../components/EmptyContact';
 import './styles/Profile.css';
 import './styles/Feed.css';
@@ -25,7 +25,7 @@ const Following = ({ following }) => (
     <div className="contact_list">
       {
         following.length > 0 ? alphabetize(following).map(user => (
-          <ContactTile
+          <FollowingTile
             user={user[0]}
             isFollowing
             address={user[1]}

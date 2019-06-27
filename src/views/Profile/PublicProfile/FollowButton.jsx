@@ -51,7 +51,7 @@ const FollowButton = ({
     return (
       <button
         type="button"
-        className="outlineButton unfollowButton"
+        className="outlineButton unfollowButton followActionButton"
         onClick={
           async () => {
             store.dispatch({
@@ -108,7 +108,7 @@ const FollowButton = ({
   return (
     <button
       type="button"
-      className="followButton"
+      className="followButton followActionButton"
       onClick={
         async () => {
           store.dispatch({

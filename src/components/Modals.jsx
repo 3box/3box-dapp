@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import ContactTile from './ContactTile';
+import FollowingTile from './FollowingTile';
 import * as routes from '../utils/routes';
 import Status from '../assets/Status.png';
 import getCoinbaseWallet from '../assets/getCoinbaseWallet.svg';
@@ -932,7 +932,7 @@ export const SignInThroughPublicProfileBanner = ({ show, handleHideSignInBanner 
 
 SignInThroughPublicProfileBanner.propTypes = {
   show: PropTypes.bool.isRequired,
-  handleSignInBanner: PropTypes.func.isRequired,
+  handleHideSignInBanner: PropTypes.func.isRequired,
 };
 
 export const ErrorModal = ({ closeErrorModal, errorMessage }) => (
@@ -1190,17 +1190,25 @@ export const FollowingListModal = ({
             });
 
             return (
-              <ContactTile
+              <FollowingTile
                 user={user[0]}
                 address={user[1]}
                 isFollowing={isFollowing}
                 handleContactsModal={handleContactsModal}
                 fromModal
-              />);
+                key={user[0]}
+              />
+            );
           })}
         </div>
       </div>
-
+      <div
+        className="onClickOutsideCollectibles--mobile"
+        onClick={() => handleContactsModal()}
+        onKeyPress={() => handleContactsModal()}
+        role="button"
+        tabIndex={0}
+      />
       <div
         className="onClickOutsideCollectibles"
         onClick={() => handleContactsModal()}
@@ -1215,13 +1223,13 @@ FollowingListModal.propTypes = {
   otherFollowing: PropTypes.array,
   otherName: PropTypes.string,
   handleContactsModal: PropTypes.func.isRequired,
-  following: PropTypes.object,
+  following: PropTypes.array,
 };
 
 FollowingListModal.defaultProps = {
   otherFollowing: [],
   otherName: '',
-  following: {},
+  following: [],
 };
 
 export const FollowingIsPublicModal = ({ handleFollowingPublicModal, saveFollowing, otherAddressToFollow }) => (

@@ -119,7 +119,6 @@ class App extends Component {
 
       if (!allowDirectSignIn) {
         const userEth = window.localStorage.getItem('userEthAddress');
-        console.log('userEth', userEth);
         if (userEth) this.props.getMyFollowing(userEth);
       }
     } catch (err) {

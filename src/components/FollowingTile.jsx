@@ -13,7 +13,7 @@ const {
   initializeSaveFollowing,
 } = actions.profile;
 
-class ContactTile extends Component {
+class FollowingTile extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,10 +32,12 @@ class ContactTile extends Component {
       isFollowing,
       fromModal,
       handleContactsModal,
+      currentAddress,
     } = this.props;
 
     const { isLoading } = this.state;
-    console.log('isLoading', isLoading);
+    const myAddress = currentAddress || window.localStorage.getItem('userEthAddress');
+
     return (
       <div className="contact_tile">
         <ProfileHover
@@ -68,38 +70,44 @@ class ContactTile extends Component {
           role="button"
           tabIndex={0}
         >
-          <FollowButton
-            isFollowing={isFollowing}
-            contactTileAddress={address}
-            isLoading={isLoading}
-            fromContactTile
-          />
+          {(address.toLowerCase() !== myAddress) && (
+            <FollowButton
+              isFollowing={isFollowing}
+              contactTileAddress={address}
+              isLoading={isLoading}
+              fromContactTile
+            />
+          )}
         </div>
       </div>
     );
   }
 }
 
-ContactTile.propTypes = {
+FollowingTile.propTypes = {
   user: PropTypes.object,
   isFollowing: PropTypes.bool,
   fromModal: PropTypes.bool,
   handleContactsModal: PropTypes.func.isRequired,
   address: PropTypes.string,
+  currentAddress: PropTypes.string,
 };
 
-ContactTile.defaultProps = {
+FollowingTile.defaultProps = {
   user: {},
   isFollowing: false,
   fromModal: false,
   address: '',
+  currentAddress: '',
 };
 
-function mapState() {
-  return {};
+function mapState(state) {
+  return {
+    currentAddress: state.userState.currentAddress,
+  };
 }
 
 export default connect(mapState, {
   initializeSaveFollowing,
   saveFollowing,
-})(ContactTile);
+})(FollowingTile);

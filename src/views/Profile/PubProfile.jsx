@@ -232,7 +232,7 @@ ProfilePublic.propTypes = {
   currentAddress: PropTypes.string,
   following: PropTypes.array,
   otherFollowing: PropTypes.array,
-  otherImage: PropTypes.object,
+  otherImage: PropTypes.array,
   otherName: PropTypes.string,
   otherProfileAddress: PropTypes.string,
 };

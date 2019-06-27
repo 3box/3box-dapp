@@ -634,6 +634,11 @@
 }
 
 @media only screen and (max-width: 600px) {
+  .followingHeader {
+    padding: 30px 20px 12px 20px;
+    margin-bottom: 0;
+  }
+
   .statusUpdate {
     margin-top: 0;
     border-radius: 0;
@@ -719,12 +724,7 @@
     margin-right: 3vw;
     align-items: center;
     justify-content: space-between;
-    // border-radius: 6;
     width: 94vw;
-    // border-bottom: 1px solid $borderColor;
-    // border-top: 1px solid $borderColor;
-    // border-left: none;
-    // border-right: none;
 
     border-top: 1px solid $borderColor;
   }
