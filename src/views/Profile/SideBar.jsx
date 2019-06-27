@@ -145,9 +145,8 @@ const SideBar = ({
                       </div>
                       Following
                     </NavLink>
-                  </React.Fragment>)
-                  : (
-                    <PubSideBar isFollowing={isFollowing} />)}
+                  </React.Fragment>
+                ) : <PubSideBar isFollowing={isFollowing} />}
               </div>
             </div>
 

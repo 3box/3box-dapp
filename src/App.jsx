@@ -47,6 +47,7 @@ const {
   handleMobileWalletModal,
   handleOnboardingModal,
   handleFollowingPublicModal,
+  handleContactsModal,
 } = actions.modal;
 
 const {
@@ -108,6 +109,7 @@ class App extends Component {
         && isMyProfilePath // Lands on protected page
         && splitRoute[1] === currentEthAddress // Eth address is own)
       );
+
       const onProfilePage = (splitRoute.length > 1 // Route has more than one
         && splitRoute[1].substring(0, 2) === '0x');
 
@@ -287,6 +289,11 @@ class App extends Component {
       onOtherProfilePage,
       showFollowingPublicModal,
       otherAddressToFollow,
+      showContactsModal,
+      otherFollowing,
+      otherName,
+      following,
+      otherProfileAddress,
     } = this.props;
 
     const {
@@ -345,11 +352,17 @@ class App extends Component {
           onBoardingModal={onBoardingModal}
           onBoardingModalTwo={onBoardingModalTwo}
           provideConsent={provideConsent}
+          showContactsModal={showContactsModal}
           showFollowingPublicModal={showFollowingPublicModal}
           onBoardingModalMobileOne={onBoardingModalMobileOne}
           onBoardingModalMobileTwo={onBoardingModalMobileTwo}
           onBoardingModalMobileThree={onBoardingModalMobileThree}
           otherAddressToFollow={otherAddressToFollow}
+          otherFollowing={otherFollowing}
+          otherName={otherName}
+          following={following}
+          otherProfileAddress={otherProfileAddress}
+          handleContactsModal={this.props.handleContactsModal}
           handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal}
           handleSignInModal={this.props.handleSignInModal}
           handleMobileWalletModal={this.props.handleMobileWalletModal}
@@ -579,6 +592,7 @@ App.propTypes = {
   onBoardingModal: PropTypes.bool,
   onBoardingModalTwo: PropTypes.bool,
   isFetchingThreeBox: PropTypes.bool,
+  showContactsModal: PropTypes.bool,
   onOtherProfilePage: PropTypes.bool,
   prevNetwork: PropTypes.string,
   currentNetwork: PropTypes.string,
@@ -599,6 +613,7 @@ App.defaultProps = {
   hasSignedOut: false,
   onOtherProfilePage: false,
   isSyncing: false,
+  showContactsModal: false,
   errorMessage: '',
   allowAccessModal: false,
   alertRequireMetaMask: false,
@@ -642,6 +657,7 @@ const mapState = state => ({
   accessDeniedModal: state.uiState.accessDeniedModal,
   onOtherProfilePage: state.uiState.onOtherProfilePage,
   showFollowingPublicModal: state.uiState.showFollowingPublicModal,
+  showContactsModal: state.uiState.showContactsModal,
 
   onSyncFinished: state.userState.onSyncFinished,
   isSyncing: state.userState.isSyncing,
@@ -654,12 +670,19 @@ const mapState = state => ({
   hasWeb3: state.userState.hasWeb3,
 
   otherAddressToFollow: state.otherProfile.otherAddressToFollow,
+
+  otherFollowing: state.otherProfile.otherFollowing,
+  otherName: state.otherProfile.otherName,
+  following: state.myData.following,
+  otherProfileAddress: state.otherProfile.otherProfileAddress,
 });
 
 export default withRouter(connect(mapState,
   {
     openBox,
     requestAccess,
+    checkWeb3,
+    checkNetwork,
     getMyProfileValue,
     getMyDID,
     getCollectibles,
@@ -670,11 +693,9 @@ export default withRouter(connect(mapState,
     getVerifiedPublicTwitter,
     getVerifiedPrivateEmail,
     getActivity,
-    checkWeb3,
     initialCheckWeb3,
     getMyFollowing,
     requireMetaMaskModal,
-    checkNetwork,
     handleMobileWalletModal,
     handleSignInModal,
     handleRequireWalletLoginModal,
@@ -691,4 +712,5 @@ export default withRouter(connect(mapState,
     closeRequireMetaMaskModal,
     getMyFollowing,
     saveFollowing,
+    handleContactsModal,
   })(App));

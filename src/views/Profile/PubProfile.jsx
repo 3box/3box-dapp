@@ -3,15 +3,12 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { Helmet } from 'react-helmet';
 
 import actions from '../../state/actions';
 import { store } from '../../state/store';
 import {
   PublicProfileLoading,
   SignInThroughPublicProfileBanner,
-  FollowingListModal,
-  ModalBackground,
 } from '../../components/Modals';
 import PubContent from './PublicProfile/PubContent';
 import SideBar from './SideBar';
@@ -114,11 +111,13 @@ class ProfilePublic extends Component {
       } else {
         activeAddress = currentAddress;
       }
+
       if (otherProfileAddress === activeAddress) {
-        this.props.handleShowSignInBanner()
+        this.props.handleShowSignInBanner();
       } else {
         this.props.handleHideSignInBanner();
       }
+
       await this.props.checkNetwork();
     }
   }
@@ -131,15 +130,14 @@ class ProfilePublic extends Component {
 
   checkFollowingAndMutual = (otherProfileAddress, nextFollowing, nextOtherFollowing) => {
     const { following, otherFollowing } = this.props;
+    console.log('nextFollowing', nextFollowing);
+    console.log('following', following);
     const updatedFollowing = nextFollowing || following;
     const updatedOtherFollowing = nextOtherFollowing || otherFollowing;
 
-    const checkIfFollowing = user => user[1] !== otherProfileAddress;
+    console.log('updatedFollowing', updatedFollowing);
 
-    // updatedFollowing.forEach((user, i) => {
-    //   if (user[1] === otherProfileAddress) {
-    //     this.setState({ isFollowing: true });
-    //   });
+    const checkIfFollowing = user => user[1] !== otherProfileAddress;
 
     if (updatedFollowing.every(checkIfFollowing)) {
       this.setState({ isFollowing: false });
@@ -169,8 +167,10 @@ class ProfilePublic extends Component {
 
     const { isFollowing } = this.state;
 
+    console.log('stateisFollowing', isFollowing);
+
     return (
-      <div>
+      <React.Fragment>
         <PubProfileHeaders
           otherName={otherName}
           otherProfileAddress={otherProfileAddress}
@@ -198,7 +198,8 @@ class ProfilePublic extends Component {
           >
 
             {isLoadingOtherProfile && <PublicProfileLoading />}
-            {showContactsModal && (
+
+            {/* {showContactsModal && (
               <FollowingListModal
                 otherFollowing={otherFollowing}
                 otherName={otherName}
@@ -206,12 +207,11 @@ class ProfilePublic extends Component {
                 otherProfileAddress={otherProfileAddress}
                 handleContactsModal={this.props.handleContactsModal}
               />
-            )}
+            )} */}
 
-            {showContactsModal && <ModalBackground />}
           </ReactCSSTransitionGroup>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
@@ -251,11 +251,13 @@ ProfilePublic.defaultProps = {
 };
 
 const mapState = state => ({
-  isLoadingOtherProfile: state.otherProfile.isLoadingOtherProfile,
   showSignInBanner: state.uiState.showSignInBanner,
   showContactsModal: state.uiState.showContactsModal,
   currentAddress: state.userState.currentAddress,
+
   following: state.myData.following,
+
+  isLoadingOtherProfile: state.otherProfile.isLoadingOtherProfile,
   otherFollowing: state.otherProfile.otherFollowing,
   otherName: state.otherProfile.otherName,
   otherImage: state.otherProfile.otherImage,

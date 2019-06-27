@@ -70,7 +70,7 @@ class FollowingTile extends Component {
           role="button"
           tabIndex={0}
         >
-          {(address.toLowerCase() !== myAddress) && (
+          {(address && address.toLowerCase() !== myAddress) && (
             <FollowButton
               isFollowing={isFollowing}
               contactTileAddress={address}

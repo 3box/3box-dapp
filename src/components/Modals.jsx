@@ -282,23 +282,20 @@ SwitchedAddressModal.defaultProps = {
 export const ProvideConsentModal = ({
   handleConsentModal, isMobile,
 }) => (
-    <div>
-      <div className="modal__container modal--effect">
-        <div className="modal">
-          <img src={Consent} alt="Partners background" />
-          <img src={Loading} alt="Loading" id="modal__loadingGraphic--access" />
-          <div id="modal__copy__card">
-            <h3>Log in to 3Box</h3>
-            {isMobile
-              ? <p>Approve the message in your web3 wallet to continue</p>
-              : <p>Approve the message in your MetaMask wallet to continue</p>
-            }
-          </div>
-
-          <button onClick={handleConsentModal} type="button" className="tertiaryButton">Close</button>
+    <div className="modal__container modal--effect">
+      <div className="modal">
+        <img src={Consent} alt="Partners background" />
+        <img src={Loading} alt="Loading" id="modal__loadingGraphic--access" />
+        <div id="modal__copy__card">
+          <h3>Log in to 3Box</h3>
+          {isMobile
+            ? <p>Approve the message in your web3 wallet to continue</p>
+            : <p>Approve the message in your MetaMask wallet to continue</p>
+          }
         </div>
-      </div>
 
+        <button onClick={handleConsentModal} type="button" className="tertiaryButton">Close</button>
+      </div>
     </div>
   );
 
@@ -1176,31 +1173,40 @@ OnBoardingModalMobile.propTypes = {
 
 export const FollowingListModal = ({
   otherFollowing, handleContactsModal, otherName, following, otherProfileAddress }) => (
-    <div className="modal__container modal--effect">
+    <div className="modal__container modal--effect followingModal-zindex">
       <div className="modal followingModal">
         <h2>{`${otherName || `${otherProfileAddress.substr(0, 6)}...${otherProfileAddress.substr(-4)}`} is following`}</h2>
 
-        <div className="contactsModal_list">
-          {otherFollowing.map((user) => {
-            let isFollowing = false;
-            following.forEach((profile) => {
-              if (profile[1] === user[1]) {
-                isFollowing = true;
-              }
-            });
+        {otherFollowing.length === 0 && (
+          <div className="contactsModal_list_empty">
+            <img src={ContactsIcon} alt="Following" />
+            <p>This user isn't following anyone yet</p>
+          </div>
+        )}
 
-            return (
-              <FollowingTile
-                user={user[0]}
-                address={user[1]}
-                isFollowing={isFollowing}
-                handleContactsModal={handleContactsModal}
-                fromModal
-                key={user[0]}
-              />
-            );
-          })}
-        </div>
+        {otherFollowing.length > 0 && (
+          <div className="contactsModal_list">
+            {otherFollowing.map((user) => {
+              let isFollowing = false;
+              following.forEach((profile) => {
+                if (profile[1] === user[1]) {
+                  isFollowing = true;
+                }
+              });
+
+              return (
+                <FollowingTile
+                  user={user[0]}
+                  address={user[1]}
+                  isFollowing={isFollowing}
+                  handleContactsModal={handleContactsModal}
+                  fromModal
+                  key={user[0]}
+                />
+              );
+            })}
+          </div>
+        )}
       </div>
       <div
         className="onClickOutsideCollectibles--mobile"

@@ -136,7 +136,7 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  width: 92%;
+  width: 100%;
   display: inline-grid;
   grid-template-columns: repeat(1, 100% [col-start]);
   row-gap: 20px;
@@ -888,6 +888,7 @@
   .contact_list {
     justify-content: center;
     margin-top: 30px;
+    width: 94%;
   }
 
   .contact_tile {
@@ -913,5 +914,12 @@
   .followActionButton {
     padding: 7px 10px;
     font-size: 12px;
+  }
+
+  .empty_contact_tile {
+    max-width: 100%;
+    min-width: 100%;
+    height: 64px;
+    box-sizing: border-box;
   }
 }

@@ -19,6 +19,8 @@ const saveFollowing = (otherProfileAddress, unfollow) => async (dispatch) => {
       followingThread,
     } = store.getState().myData;
 
+    console.log('savefollowingList', followingList);
+
     const {
       currentAddress,
     } = store.getState().userState;

@@ -206,7 +206,8 @@
   padding: 20px 20px 14px 20px;
   display: flex;
   box-sizing: border-box;
-  margin-bottom: 6px; }
+  margin-bottom: 6px;
+  width: 100%; }
   .followingHeader p {
     font-size: 18px;
     line-height: 24px !important;

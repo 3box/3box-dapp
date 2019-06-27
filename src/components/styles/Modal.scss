@@ -863,6 +863,10 @@
   }
 }
 
+.followingModal-zindex {
+  z-index: 6;
+}
+
 .followingWarning {
   display: flex;
   justify-content: space-between;
@@ -870,6 +874,7 @@
   flex-direction: column;
   padding: 30px;
   overflow: visible !important;
+  z-index: 20;
 
   h2 {
     margin-bottom: 20px;
@@ -919,6 +924,26 @@
   grid-template-columns: repeat(1, 100% [col-start]);
   row-gap: 20px;
   min-width: 100%;
+}
+
+.contactsModal_list_empty {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 400px;
+
+  img {
+    margin: 70px 0 30px 0;
+    height: 50px;
+    filter: none;
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    opacity: .5;
+  }
 }
 
 .modal__onBoardingModal__container {
@@ -1509,6 +1534,14 @@
   .spaceModal__content__collectibles__info {
     max-width: 64%;
     overflow: hidden;
+  }
+
+  .contactsModal_list_empty {
+    height: 170px;
+
+    img {
+      margin-top: 40px;
+    }
   }
 
   .collectiblesTileModal {

@@ -9,8 +9,8 @@ import {
 
 const getMyFollowing = address => async (dispatch) => {
   try {
-    const myAddress = store.getState().userState.currentAddress;
-    const followingList = await Box.getThread('Following', 'followingList', address || myAddress, true);
+    const myAddress = address || store.getState().userState.currentAddress;
+    const followingList = await Box.getThread('Following', 'followingList', myAddress, true);
 
     if (!followingList) return null;
 

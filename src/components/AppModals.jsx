@@ -22,6 +22,7 @@ import {
   ModalBackground,
   DeskTopModalBackground,
   FollowingIsPublicModal,
+  FollowingListModal,
 } from './Modals';
 
 class AppModals extends Component {
@@ -88,11 +89,17 @@ class AppModals extends Component {
       alertRequireMetaMask,
       provideConsent,
       handleAccessModal,
+      showContactsModal,
       isMyProfilePath,
       showFollowingPublicModal,
       handleFollowingPublicModal,
       saveFollowing,
       otherAddressToFollow,
+      otherFollowing,
+      otherName,
+      following,
+      otherProfileAddress,
+      handleContactsModal,
     } = this.props;
 
     const isMobile = width <= 812; // 600
@@ -207,6 +214,16 @@ class AppModals extends Component {
           />
         )}
 
+        {(showContactsModal && !showFollowingPublicModal) && (
+          <FollowingListModal
+            otherFollowing={otherFollowing}
+            otherName={otherName}
+            following={following}
+            otherProfileAddress={otherProfileAddress}
+            handleContactsModal={handleContactsModal}
+          />
+        )}
+
         {showFollowingPublicModal && (
           <FollowingIsPublicModal
             isMobile={isMobile}
@@ -263,6 +280,7 @@ class AppModals extends Component {
           || showDifferentNetworkModal
           || loggedOutModal
           || switchedAddressModal
+          || showContactsModal
           || ((onBoardingModal || onBoardingModalTwo) && !isMobile)
           || ((onBoardingModal
             || onBoardingModalMobileOne
@@ -323,6 +341,7 @@ AppModals.propTypes = {
   signInModal: PropTypes.bool,
   alertRequireMetaMask: PropTypes.bool,
   provideConsent: PropTypes.bool,
+  showContactsModal: PropTypes.bool,
 };
 
 AppModals.defaultProps = {
@@ -337,6 +356,7 @@ AppModals.defaultProps = {
   onSyncFinished: false,
   isSyncing: false,
   hasSignedOut: false,
+  showContactsModal: false,
   allowAccessModal: false,
   accessDeniedModal: false,
   showDifferentNetworkModal: false,
