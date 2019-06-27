@@ -6,13 +6,17 @@ import {
   getFollowingProfiles,
 } from '../../../utils/funcs';
 
-const initializeSaveFollowing = address => async (dispatch) => {
+const initializeSaveFollowing = (address, fromFollow) => async (dispatch) => {
   try {
     // open following space and get following
     const followingSpace = await store.getState().myData.box.openSpace('Following');
+    const myAddress = store.getState().userState.currentAddress;
+
     const opts = {
       members: true,
+      firstModerator: followingSpace.DID || myAddress,
     };
+
     const followingThread = await followingSpace.joinThread('followingList', opts);
     const followingList = await followingThread.getPosts();
     const following = await getFollowingProfiles(followingList);
@@ -24,7 +28,7 @@ const initializeSaveFollowing = address => async (dispatch) => {
       followingThread,
     });
 
-    if (following.length === 0) {
+    if (following.length === 0 && fromFollow) {
       dispatch({
         type: 'UI_HANDLE_WARN_PUBLIC_FOLLOWING',
         showFollowingPublicModal: true,
@@ -42,4 +46,4 @@ const initializeSaveFollowing = address => async (dispatch) => {
   }
 };
 
-export default initializeSaveFollowing; 
+export default initializeSaveFollowing;

@@ -23,7 +23,7 @@ const {
 const { getMySpacesData, convert3BoxToSpaces } = actions.spaces;
 
 const {
-  openBox,
+  openBoxFromFollow,
   requestAccess,
 } = actions.signin;
 
@@ -96,7 +96,7 @@ class FollowButton extends Component {
         await this.props.checkNetwork();
 
         if (this.props.isSignedIntoWallet) {
-          await this.props.openBox('fromSignIn');
+          await this.props.openBoxFromFollow();
           if (!this.props.showErrorModal) this.getMyData();
         } else if (!this.props.isSignedIntoWallet && !accessDeniedModal) {
           this.props.handleRequireWalletLoginModal();
@@ -114,8 +114,6 @@ class FollowButton extends Component {
     const {
       isFollowing,
       otherProfileAddress,
-      saveFollowing,
-      initializeSaveFollowing,
       isLoggedIn,
       isFollowLoading,
       contactTileAddress,
@@ -134,9 +132,11 @@ class FollowButton extends Component {
                 type: 'UI_SPACES_LOADING',
                 isSpacesLoading: true,
               });
-              if (!isLoggedIn) this.handleSignInUp();
-              await initializeSaveFollowing(contactTileAddress || otherProfileAddress);
-              saveFollowing(contactTileAddress || otherProfileAddress, true);
+
+              if (!isLoggedIn) await this.handleSignInUp();
+
+              await this.props.initializeSaveFollowing(contactTileAddress || otherProfileAddress);
+              await this.props.saveFollowing(contactTileAddress || otherProfileAddress, true);
               store.dispatch({
                 type: 'UI_FOLLOW_LOADING',
                 isFollowLoading: false,
@@ -160,10 +160,10 @@ class FollowButton extends Component {
               isFollowLoading: true,
             });
 
-            if (!isLoggedIn) this.handleSignInUp();
+            if (!isLoggedIn) await this.handleSignInUp();
 
-            const shouldSave = await initializeSaveFollowing(contactTileAddress || otherProfileAddress);
-            if (shouldSave) saveFollowing(contactTileAddress || otherProfileAddress);
+            const shouldSave = await this.props.initializeSaveFollowing(contactTileAddress || otherProfileAddress, true);
+            if (shouldSave) await this.props.saveFollowing(contactTileAddress || otherProfileAddress);
             store.dispatch({
               type: 'UI_FOLLOW_LOADING',
               isFollowLoading: false,
@@ -185,7 +185,7 @@ FollowButton.propTypes = {
   isFollowLoading: PropTypes.bool,
   otherProfileAddress: PropTypes.string,
   currentAddress: PropTypes.string,
-  openBox: PropTypes.func.isRequired,
+  openBoxFromFollow: PropTypes.func.isRequired,
   getMyProfileValue: PropTypes.func.isRequired,
   getMyDID: PropTypes.func.isRequired,
   getCollectibles: PropTypes.func.isRequired,
@@ -233,7 +233,7 @@ export default connect(mapState,
     checkWeb3,
     checkNetwork,
     saveFollowing,
-    openBox,
+    openBoxFromFollow,
     getMyProfileValue,
     getMyDID,
     getCollectibles,
@@ -250,153 +250,3 @@ export default connect(mapState,
     requireMetaMaskModal,
     initializeSaveFollowing,
   })(FollowButton);
-
-  // const FollowButton = ({
-//   isFollowing,
-//   otherProfileAddress,
-//   currentAddress,
-//   openBox,
-//   saveFollowing,
-//   getMyProfileValue,
-//   getMyDID,
-//   getCollectibles,
-//   getMyMemberSince,
-//   getVerifiedPublicGithub,
-//   getVerifiedPublicTwitter,
-//   getVerifiedPrivateEmail,
-//   getActivity,
-//   getMyFollowing,
-//   getMySpacesData,
-//   convert3BoxToSpaces,
-//   initializeSaveFollowing,
-//   isLoggedIn,
-//   isFollowLoading,
-//   contactTileAddress,
-//   fromContactTile,
-//   isLoading,
-// }) => {
-//   if (isFollowing) {
-//     return (
-//       <button
-//         type="button"
-//         className="outlineButton unfollowButton followActionButton"
-//         onClick={
-//           async () => {
-//             store.dispatch({
-//               type: 'UI_SPACES_LOADING',
-//               isSpacesLoading: true,
-//             });
-//             if (!isLoggedIn) {
-//               await checkWeb3();
-//               await requestAccess();
-//               await checkNetwork();
-
-//               store.dispatch({
-//                 type: 'UI_FOLLOW_LOADING',
-//                 isFollowLoading: true,
-//               });
-//               await openBox();
-//               getVerifiedPublicGithub();
-//               getVerifiedPublicTwitter();
-//               getVerifiedPrivateEmail();
-//               getMyMemberSince();
-//               getMyDID();
-//               getMyProfileValue('public', 'status');
-//               getMyProfileValue('public', 'name');
-//               getMyProfileValue('public', 'description');
-//               getMyProfileValue('public', 'image');
-//               getMyProfileValue('public', 'coverPhoto');
-//               getMyProfileValue('public', 'location');
-//               getMyProfileValue('public', 'website');
-//               getMyProfileValue('public', 'employer');
-//               getMyProfileValue('public', 'job');
-//               getMyProfileValue('public', 'school');
-//               getMyProfileValue('public', 'degree');
-//               getMyProfileValue('public', 'major');
-//               getMyProfileValue('public', 'year');
-//               getMyProfileValue('public', 'emoji');
-//               getMyProfileValue('private', 'birthday');
-//               getMyFollowing();
-
-//               await getCollectibles(currentAddress);
-//               await convert3BoxToSpaces();
-//               await getMySpacesData(currentAddress);
-//               getActivity();
-//             }
-//             await initializeSaveFollowing(contactTileAddress || otherProfileAddress);
-//             saveFollowing(contactTileAddress || otherProfileAddress, true);
-//             store.dispatch({
-//               type: 'UI_FOLLOW_LOADING',
-//               isFollowLoading: false,
-//             });
-//           }}
-//       >
-//         {(!fromContactTile && isFollowLoading) && <img src={Loading} alt="loading" />}
-//         {(fromContactTile && isFollowLoading && isLoading) && <img src={Loading} alt="loading" />}
-//       </button>
-//     );
-//   }
-
-//   return (
-//     <button
-//       type="button"
-//       className="followButton followActionButton"
-//       onClick={
-//         async () => {
-//           store.dispatch({
-//             type: 'UI_FOLLOW_LOADING',
-//             isFollowLoading: true,
-//           });
-
-//           if (!isLoggedIn) {
-//             await checkWeb3();
-//             console.log('beforerequest', requestAccess);
-//             await requestAccess();
-//             await checkNetwork();
-
-//             store.dispatch({
-//               type: 'UI_SPACES_LOADING',
-//               isSpacesLoading: true,
-//             });
-//             await openBox();
-//             getVerifiedPublicGithub();
-//             getVerifiedPublicTwitter();
-//             getVerifiedPrivateEmail();
-//             getMyMemberSince();
-//             getMyDID();
-//             getMyProfileValue('public', 'status');
-//             getMyProfileValue('public', 'name');
-//             getMyProfileValue('public', 'description');
-//             getMyProfileValue('public', 'image');
-//             getMyProfileValue('public', 'coverPhoto');
-//             getMyProfileValue('public', 'location');
-//             getMyProfileValue('public', 'website');
-//             getMyProfileValue('public', 'employer');
-//             getMyProfileValue('public', 'job');
-//             getMyProfileValue('public', 'school');
-//             getMyProfileValue('public', 'degree');
-//             getMyProfileValue('public', 'major');
-//             getMyProfileValue('public', 'year');
-//             getMyProfileValue('public', 'emoji');
-//             getMyProfileValue('private', 'birthday');
-//             getMyFollowing();
-
-//             await getCollectibles(currentAddress);
-//             await convert3BoxToSpaces();
-//             await getMySpacesData(currentAddress);
-//             getActivity();
-//           }
-//           const shouldSave = await initializeSaveFollowing(contactTileAddress || otherProfileAddress);
-//           if (shouldSave) saveFollowing(contactTileAddress || otherProfileAddress);
-//           store.dispatch({
-//             type: 'UI_FOLLOW_LOADING',
-//             isFollowLoading: false,
-//           });
-//         }}
-//     >
-//       {(!fromContactTile && isFollowLoading) && <img src={Loading} alt="loading" />}
-//       {(fromContactTile && isFollowLoading && isLoading) && <img src={Loading} alt="loading" />}
-//       Follow
-//     </button>
-//   );
-// };

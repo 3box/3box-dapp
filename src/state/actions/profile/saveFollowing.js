@@ -19,17 +19,17 @@ const saveFollowing = (otherProfileAddress, unfollow) => async (dispatch) => {
       followingThread,
     } = store.getState().myData;
 
-    console.log('savefollowingList', followingList);
-
     const {
       currentAddress,
     } = store.getState().userState;
 
+    console.log('followingList', followingList);
+
     if (!unfollow) {
       // if following, don't save following
-      const isFollowing = checkFollowing(followingList, otherProfileAddress);
+      const isFollowing = await checkFollowing(followingList, otherProfileAddress);
+      console.log('isFollowing', isFollowing);
       if (isFollowing || currentAddress === otherProfileAddress) return;
-
       const contact = {
         '@context': 'http://schema.org/',
         '@type': 'Person',
@@ -47,7 +47,8 @@ const saveFollowing = (otherProfileAddress, unfollow) => async (dispatch) => {
         ],
       };
 
-      await followingThread.post(contact);
+      const didsave = await followingThread.post(contact);
+      console.log('didsave', didsave);
     } else {
       // remove user from following list
       let postId;
