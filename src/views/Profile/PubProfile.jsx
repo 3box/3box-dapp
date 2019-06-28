@@ -166,8 +166,6 @@ class ProfilePublic extends Component {
 
     const { isFollowing, isMe } = this.state;
 
-    console.log('isMe', isMe)
-
     return (
       <React.Fragment>
         <PubProfileHeaders

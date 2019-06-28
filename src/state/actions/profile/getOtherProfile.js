@@ -25,10 +25,7 @@ const getOtherProfile = profileAddress => async (dispatch) => {
       console.log(error);
     }
 
-    console.log('otherpoile', profiles);
-
     const otherFollowing = profiles ? await getFollowingProfiles(profiles) : [];
-    console.log('otherFollowing', otherFollowing);
 
     otherFollowing.sort((a, b) => {
       if (!a[0].name) return -1;
