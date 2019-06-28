@@ -22,9 +22,12 @@ export const initialAddress = async () => {
     } else {
       address = null;
     }
+
+    const currentAddress = address || window.localStorage.getItem('userEthAddress');
+
     store.dispatch({
       type: 'USER_UPDATE_ADDRESS',
-      currentAddress: address,
+      currentAddress,
     });
   } catch (err) {
     console.error(err);

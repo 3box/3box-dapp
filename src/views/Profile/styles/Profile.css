@@ -402,6 +402,9 @@
       margin-right: 12px;
       width: 18px; }
 
+.unfollowButton {
+  padding: 15px 20px; }
+
 .unfollowButton:after {
   content: 'Following'; }
 

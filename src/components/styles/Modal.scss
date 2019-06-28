@@ -1135,6 +1135,10 @@
 
 #modal__copy__card {
   margin: 34px 0 40px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 @-moz-document url-prefix() {

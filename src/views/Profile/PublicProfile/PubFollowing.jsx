@@ -16,6 +16,7 @@ const PubFollowing = (
     handleContactsModal,
     otherFollowing,
     isFollowing,
+    isMe,
     otherMutualFollowing,
     showSignInBanner,
   }) => (
@@ -50,7 +51,7 @@ const PubFollowing = (
         </div>
       </div>
 
-      {(otherMutualFollowing.length > 0 && !showSignInBanner) && (
+      {(otherMutualFollowing.length > 0 && !showSignInBanner && !isMe) && (
         <div className="public_contacts_mutual">
           <p>
             {`${otherMutualFollowing.length} mutual following including 
@@ -61,7 +62,7 @@ const PubFollowing = (
           </p>
         </div>)}
 
-      {!showSignInBanner && (
+      {(!showSignInBanner && !isMe) && (
         <div className="public_contacts_add">
           <FollowButton isFollowing={isFollowing} />
         </div>

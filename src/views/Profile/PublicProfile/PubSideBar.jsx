@@ -31,9 +31,10 @@ const PubSideBar = ({
   otherMemberSince,
   otherTwitter,
   isFollowing,
+  isMe,
 }) => (
     <React.Fragment>
-      <PubFollowing isFollowing={isFollowing} />
+      <PubFollowing isFollowing={isFollowing} isMe={isMe} />
 
       <div className="public__about">
         <h5 className="public__about__header">About</h5>
@@ -151,6 +152,7 @@ PubSideBar.propTypes = {
   otherYear: PropTypes.string,
   otherEmployer: PropTypes.string,
   isFollowing: PropTypes.bool.isRequired,
+  isMe: PropTypes.bool.isRequired,
 };
 
 PubSideBar.defaultProps = {

@@ -36,6 +36,7 @@ const SideBar = ({
   currentAddress,
   isFollowing,
   isLoggedIn,
+  isMe,
 }) => (
     <div>
       {!onOtherProfilePage && (
@@ -109,7 +110,7 @@ const SideBar = ({
 
               {onOtherProfilePage && (
                 <div className="publicProfile__basic--mobile">
-                  <PubSideBar isFollowing={isFollowing} />
+                  <PubSideBar isFollowing={isFollowing} isMe={isMe} />
                 </div>)}
 
             </div>
@@ -146,7 +147,7 @@ const SideBar = ({
                       Following
                     </NavLink>
                   </React.Fragment>
-                ) : <PubSideBar isFollowing={isFollowing} />}
+                ) : <PubSideBar isFollowing={isFollowing} isMe={isMe} />}
               </div>
             </div>
 
@@ -207,7 +208,8 @@ SideBar.propTypes = {
   copySuccessful: PropTypes.bool,
   showSignInBanner: PropTypes.bool,
   isLoggedIn: PropTypes.bool,
-  isFollowing: PropTypes.bool,
+  isFollowing: PropTypes.bool.isRequired,
+  isMe: PropTypes.bool.isRequired,
   copyToClipBoard: PropTypes.func.isRequired,
 };
 
@@ -227,7 +229,6 @@ SideBar.defaultProps = {
   onOtherProfilePage: false,
   showSignInBanner: false,
   isLoggedIn: false,
-  isFollowing: false,
 };
 
 function mapState(state) {

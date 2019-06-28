@@ -40,6 +40,7 @@ class ProfilePublic extends Component {
     super(props);
     this.state = {
       isFollowing: false,
+      isMe: false,
     };
   }
 
@@ -92,6 +93,11 @@ class ProfilePublic extends Component {
   }
 
   updateUIState = (otherProfileAddress) => {
+    const { currentAddress } = this.props;
+
+    const myAddress = currentAddress || window.localStorage.getItem('userEthAddress');
+    this.setState({ isMe: otherProfileAddress.toLowerCase() === myAddress });
+
     store.dispatch({
       type: 'OTHER_ADDRESS_UPDATE',
       otherProfileAddress,
@@ -130,12 +136,8 @@ class ProfilePublic extends Component {
 
   checkFollowingAndMutual = (otherProfileAddress, nextFollowing, nextOtherFollowing) => {
     const { following, otherFollowing } = this.props;
-    console.log('nextFollowing', nextFollowing);
-    console.log('following', following);
     const updatedFollowing = nextFollowing || following;
     const updatedOtherFollowing = nextOtherFollowing || otherFollowing;
-
-    console.log('updatedFollowing', updatedFollowing);
 
     const checkIfFollowing = user => user[1] !== otherProfileAddress;
 
@@ -157,17 +159,14 @@ class ProfilePublic extends Component {
     const {
       isLoadingOtherProfile,
       showSignInBanner,
-      showContactsModal,
-      otherFollowing,
-      following,
       otherImage,
       otherName,
       otherProfileAddress,
     } = this.props;
 
-    const { isFollowing } = this.state;
+    const { isFollowing, isMe } = this.state;
 
-    console.log('stateisFollowing', isFollowing);
+    console.log('isMe', isMe)
 
     return (
       <React.Fragment>
@@ -187,6 +186,7 @@ class ProfilePublic extends Component {
             <SideBar
               isPublicProfilePage
               isFollowing={isFollowing}
+              isMe={isMe}
             />
             <PubContent />
           </div>

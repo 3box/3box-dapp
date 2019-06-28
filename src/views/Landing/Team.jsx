@@ -184,7 +184,7 @@ class Team extends Component {
                           : <div className="team_tile_emptyImage" />}
                         <div className="team_info">
                           <h3>{kenzo.profile ? kenzo.profile.name : 'Kenzo Nakamura'}</h3>
-                          <p>Front-End Engineer</p>
+                          <p>Front-end Engineer</p>
                         </div>
                       </div>
                     </a>
