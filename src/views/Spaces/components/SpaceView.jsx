@@ -29,7 +29,9 @@ const SpaceView = ({
       {spaceDataToRender && spaceDataToRender.length > 0 ? spaceDataToRender.map((row) => {
         const date = timeSince(row.lastUpdated);
         if (row.name !== 'collectiblesFavoritesToRender'
-          && row.name !== 'private_space_data' && width >= 600) {
+          && row.name !== 'private_space_data'
+          && row.name !== 'proof_did'
+          && width >= 600) {
           return (
             <PublicRow
               dataKey={row.name}
@@ -48,7 +50,9 @@ const SpaceView = ({
         }
 
         if (row.name !== 'collectiblesFavoritesToRender'
-          && row.name !== 'private_space_data' && width <= 600) {
+          && row.name !== 'private_space_data'
+          && row.name !== 'proof_did'
+          && width <= 600) {
           return (
             <PublicRowMobile
               dataKey={row.name}

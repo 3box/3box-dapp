@@ -59,11 +59,12 @@ const getMySpacesData = address => async (dispatch) => {
       }
     };
 
-
     const spaceDataPromise = async () => Promise // for each space
       .all(list.map(spaceName => getSpace(spaceName)));
 
     await spaceDataPromise();
+
+    console.log('updatedAllData', updatedAllData);
 
     dispatch({
       type: 'SPACES_DATA_UPDATE',
