@@ -1187,8 +1187,6 @@ export const FollowingListModal = ({
         {otherFollowing.length > 0 && (
           <div className="contactsModal_list">
             {otherFollowing.map((user) => {
-              console.log('thisuser', user);
-              console.log('followingmodal', following);
               let isFollowing = false;
               following.forEach((profile) => {
                 if (profile[1].toLowerCase() === user[1].toLowerCase()) {
@@ -1230,6 +1228,7 @@ export const FollowingListModal = ({
 FollowingListModal.propTypes = {
   otherFollowing: PropTypes.array,
   otherName: PropTypes.string,
+  otherProfileAddress: PropTypes.string,
   handleContactsModal: PropTypes.func.isRequired,
   following: PropTypes.array,
 };
@@ -1237,6 +1236,7 @@ FollowingListModal.propTypes = {
 FollowingListModal.defaultProps = {
   otherFollowing: [],
   otherName: '',
+  otherProfileAddress: '',
   following: [],
 };
 

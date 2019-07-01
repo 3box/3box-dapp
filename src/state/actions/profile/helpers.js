@@ -1,8 +1,11 @@
 import {
   store,
 } from '../../store';
+import {
+  getFollowingProfiles,
+} from '../../../utils/funcs';
 
-const deleteDuplicate = async (duplicates, myAddress) => {
+export const deleteDuplicate = async (duplicates, myAddress) => {
   // if logged in, delete duplicate from thread
   try {
     console.log('duplicates', duplicates);
@@ -30,4 +33,28 @@ const deleteDuplicate = async (duplicates, myAddress) => {
   }
 };
 
-export default deleteDuplicate;
+export const subscribeFollowing = async () => {
+  try {
+    const followingSpace = await store.getState().myData.box.openSpace('Following');
+    const myAddress = store.getState().userState.currentAddress;
+    console.log('hitsubscription');
+    const opts = {
+      members: true,
+      firstModerator: myAddress,
+      // firstModerator: followingSpace.DID || myAddress,
+    };
+
+    const followingThread = await followingSpace.joinThread('followingList', opts);
+    // followingThread.onUpdate((posts) => {
+    //   console.log('threadposts', posts);
+    //   if (posts) getFollowingProfiles(posts);
+    // });
+    console.log('postsposts', followingThread);
+    const posts = await followingThread.onUpdate();
+    console.log('actualposts', posts);
+    // const updatedFollowingList = await followingThread.getPosts();
+    // const updatedFollowing = await getFollowingProfiles(updatedFollowingList);
+  } catch (error) {
+    console.log('Error subscribing', error);
+  }
+};

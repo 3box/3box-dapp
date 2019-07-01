@@ -147,7 +147,7 @@ class FollowButton extends Component {
                 type: whichReduxAction,
                 [whichFollowButton]: false,
               });
-              handleTileLoading();
+              if (fromContactTile) handleTileLoading();
             }}
         >
           {(isFollowFromProfileLoading) && <img src={Loading} alt="loading" />}
@@ -176,7 +176,7 @@ class FollowButton extends Component {
               type: whichReduxAction,
               [whichFollowButton]: false,
             });
-            handleTileLoading();
+            if (fromContactTile) handleTileLoading();
           }}
       >
         {(isFollowFromProfileLoading) && <img src={Loading} alt="loading" />}

@@ -48,7 +48,7 @@ class FollowingTile extends Component {
         <ProfileHover
           address={address}
           noTheme
-          orientation="right"
+          orientation="top"
         >
           <Link
             to={`/${address}`}

@@ -8,30 +8,35 @@ import {
 
 const initializeSaveFollowing = (address, fromFollow) => async (dispatch) => {
   try {
-    // open following space and get following
-    const followingSpace = await store.getState().myData.box.openSpace('Following');
-    const myAddress = store.getState().userState.currentAddress;
+    let usersFollowing = store.getState().myData.following;
+    console.log('store.getState().myData.followingThread', store.getState().myData.followingThread);
 
-    const opts = {
-      members: true,
-      firstModerator: myAddress,
-      // firstModerator: followingSpace.DID || myAddress,
-    };
+    if (!store.getState().myData.followingThread) {
+      // open following space and get following
+      const followingSpace = await store.getState().myData.box.openSpace('Following');
+      const myAddress = store.getState().userState.currentAddress;
 
-    const followingThread = await followingSpace.joinThread('followingList', opts);
-    const followingList = await followingThread.getPosts();
-    const following = await getFollowingProfiles(followingList);
+      const opts = {
+        members: true,
+        firstModerator: myAddress,
+        // firstModerator: followingSpace.DID || myAddress,
+      };
 
-    console.log('initializesave', followingList);
+      const followingThread = await followingSpace.joinThread('followingList', opts);
+      const followingList = await followingThread.getPosts();
+      usersFollowing = await getFollowingProfiles(followingList);
 
-    dispatch({
-      type: 'MY_FOLLOWING_UPDATE',
-      following,
-      followingList,
-      followingThread,
-    });
+      console.log('initializesave', followingList);
 
-    if (following.length === 0 && fromFollow) {
+      dispatch({
+        type: 'MY_FOLLOWING_UPDATE',
+        following: usersFollowing,
+        followingList,
+        followingThread,
+      });
+    }
+
+    if (usersFollowing.length === 0 && fromFollow) {
       dispatch({
         type: 'UI_HANDLE_WARN_PUBLIC_FOLLOWING',
         showFollowingPublicModal: true,
