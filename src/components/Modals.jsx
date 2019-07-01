@@ -1187,9 +1187,11 @@ export const FollowingListModal = ({
         {otherFollowing.length > 0 && (
           <div className="contactsModal_list">
             {otherFollowing.map((user) => {
+              console.log('thisuser', user);
+              console.log('followingmodal', following);
               let isFollowing = false;
               following.forEach((profile) => {
-                if (profile[1] === user[1]) {
+                if (profile[1].toLowerCase() === user[1].toLowerCase()) {
                   isFollowing = true;
                 }
               });

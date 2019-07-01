@@ -14,7 +14,8 @@ const initializeSaveFollowing = (address, fromFollow) => async (dispatch) => {
 
     const opts = {
       members: true,
-      firstModerator: followingSpace.DID || myAddress,
+      firstModerator: myAddress,
+      // firstModerator: followingSpace.DID || myAddress,
     };
 
     const followingThread = await followingSpace.joinThread('followingList', opts);

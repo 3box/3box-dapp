@@ -26,6 +26,10 @@ class FollowingTile extends Component {
     this.setState({ isLoading: true });
   }
 
+  handleTileLoading = () => {
+    this.setState({ isLoading: false });
+  }
+
   render() {
     const {
       user,
@@ -73,6 +77,7 @@ class FollowingTile extends Component {
               isFollowing={isFollowing}
               contactTileAddress={address}
               isLoading={isLoading}
+              handleTileLoading={this.handleTileLoading}
               fromContactTile
             />
           )}

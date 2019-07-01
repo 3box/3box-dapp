@@ -120,9 +120,10 @@ class FollowButton extends Component {
       contactTileAddress,
       fromContactTile,
       isLoading,
+      handleTileLoading,
     } = this.props;
 
-    const whichFollowButton = fromContactTile ? 'isFollowFromProfileLoading' : 'isFollowFromTileLoading';
+    const whichFollowButton = fromContactTile ? 'isFollowFromTileLoading' : 'isFollowFromProfileLoading';
     const whichReduxAction = fromContactTile ? 'UI_FOLLOW_LOADING_TILE' : 'UI_FOLLOW_LOADING_PROFILE';
 
     if (isFollowing) {
@@ -146,6 +147,7 @@ class FollowButton extends Component {
                 type: whichReduxAction,
                 [whichFollowButton]: false,
               });
+              handleTileLoading();
             }}
         >
           {(isFollowFromProfileLoading) && <img src={Loading} alt="loading" />}
@@ -174,6 +176,7 @@ class FollowButton extends Component {
               type: whichReduxAction,
               [whichFollowButton]: false,
             });
+            handleTileLoading();
           }}
       >
         {(isFollowFromProfileLoading) && <img src={Loading} alt="loading" />}
