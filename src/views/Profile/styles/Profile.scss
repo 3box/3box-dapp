@@ -149,8 +149,16 @@
   width: 100%;
 
   h3 {
+    display: flex;
     margin-bottom: 0;
     margin-left: 20px;
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .threeboxProfileHover__style_boxAddressWrap{
+    width: 70%;
   }
 }
 

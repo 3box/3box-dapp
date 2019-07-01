@@ -115,11 +115,15 @@ class FollowButton extends Component {
       isFollowing,
       otherProfileAddress,
       isLoggedIn,
-      isFollowLoading,
+      isFollowFromProfileLoading,
+      isFollowFromTileLoading,
       contactTileAddress,
       fromContactTile,
       isLoading,
     } = this.props;
+
+    const whichFollowButton = fromContactTile ? 'isFollowFromProfileLoading' : 'isFollowFromTileLoading';
+    const whichReduxAction = fromContactTile ? 'UI_FOLLOW_LOADING_TILE' : 'UI_FOLLOW_LOADING_PROFILE';
 
     if (isFollowing) {
       return (
@@ -129,22 +133,23 @@ class FollowButton extends Component {
           onClick={
             async () => {
               store.dispatch({
-                type: 'UI_SPACES_LOADING',
-                isSpacesLoading: true,
+                type: whichReduxAction,
+                [whichFollowButton]: true,
               });
 
               if (!isLoggedIn) await this.handleSignInUp();
 
               await this.props.initializeSaveFollowing(contactTileAddress || otherProfileAddress);
               await this.props.saveFollowing(contactTileAddress || otherProfileAddress, true);
+
               store.dispatch({
-                type: 'UI_FOLLOW_LOADING',
-                isFollowLoading: false,
+                type: whichReduxAction,
+                [whichFollowButton]: false,
               });
             }}
         >
-          {(!fromContactTile && isFollowLoading) && <img src={Loading} alt="loading" />}
-          {(fromContactTile && isFollowLoading && isLoading) && <img src={Loading} alt="loading" />}
+          {(isFollowFromProfileLoading) && <img src={Loading} alt="loading" />}
+          {(isFollowFromTileLoading && isLoading) && <img src={Loading} alt="loading" />}
         </button>
       );
     }
@@ -156,22 +161,23 @@ class FollowButton extends Component {
         onClick={
           async () => {
             store.dispatch({
-              type: 'UI_FOLLOW_LOADING',
-              isFollowLoading: true,
+              type: whichReduxAction,
+              [whichFollowButton]: true,
             });
 
             if (!isLoggedIn) await this.handleSignInUp();
 
             const shouldSave = await this.props.initializeSaveFollowing(contactTileAddress || otherProfileAddress, true);
             if (shouldSave) await this.props.saveFollowing(contactTileAddress || otherProfileAddress);
+
             store.dispatch({
-              type: 'UI_FOLLOW_LOADING',
-              isFollowLoading: false,
+              type: whichReduxAction,
+              [whichFollowButton]: false,
             });
           }}
       >
-        {(!fromContactTile && isFollowLoading) && <img src={Loading} alt="loading" />}
-        {(fromContactTile && isFollowLoading && isLoading) && <img src={Loading} alt="loading" />}
+        {(isFollowFromProfileLoading) && <img src={Loading} alt="loading" />}
+        {(isFollowFromTileLoading && isLoading) && <img src={Loading} alt="loading" />}
         Follow
       </button>
     );
@@ -182,7 +188,8 @@ FollowButton.propTypes = {
   saveFollowing: PropTypes.func.isRequired,
   isFollowing: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool,
-  isFollowLoading: PropTypes.bool,
+  isFollowFromTileLoading: PropTypes.bool,
+  isFollowFromProfileLoading: PropTypes.bool,
   otherProfileAddress: PropTypes.string,
   currentAddress: PropTypes.string,
   openBox: PropTypes.func.isRequired,
@@ -209,7 +216,8 @@ FollowButton.defaultProps = {
   otherProfileAddress: '',
   currentAddress: '',
   isLoggedIn: false,
-  isFollowLoading: false,
+  isFollowFromProfileLoading: false,
+  isFollowFromTileLoading: false,
   accessDeniedModal: false,
   isSignedIntoWallet: false,
   showErrorModal: false,
@@ -220,7 +228,8 @@ function mapState(state) {
     otherProfileAddress: state.otherProfile.otherProfileAddress,
     currentAddress: state.userState.currentAddress,
     isLoggedIn: state.userState.isLoggedIn,
-    isFollowLoading: state.uiState.isFollowLoading,
+    isFollowFromTileLoading: state.uiState.isFollowFromTileLoading,
+    isFollowFromProfileLoading: state.uiState.isFollowFromProfileLoading,
     accessDeniedModal: state.uiState.accessDeniedModal,
     showErrorModal: state.uiState.showErrorModal,
     isSignedIntoWallet: state.userState.isSignedIntoWallet,

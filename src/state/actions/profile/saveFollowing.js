@@ -58,6 +58,7 @@ const saveFollowing = (otherProfileAddress, unfollow) => async (dispatch) => {
     }
 
     const updatedFollowingList = await followingThread.getPosts();
+    console.log('updatedFollowingList', updatedFollowingList);
     const updatedFollowing = await getFollowingProfiles(updatedFollowingList);
 
     dispatch({

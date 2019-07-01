@@ -214,7 +214,7 @@ class AppModals extends Component {
           />
         )}
 
-        {(showContactsModal && !showFollowingPublicModal) && (
+        {(showContactsModal && !showFollowingPublicModal && !isFetchingThreeBox) && (
           <FollowingListModal
             otherFollowing={otherFollowing}
             otherName={otherName}

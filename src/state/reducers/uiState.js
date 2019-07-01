@@ -134,10 +134,16 @@ const uiStateReducer = (state = {}, action) => {
         isSpacesLoading: action.isSpacesLoading,
       };
 
-    case 'UI_FOLLOW_LOADING':
+    case 'UI_FOLLOW_LOADING_TILE':
       return {
         ...state,
-        isFollowLoading: action.isFollowLoading,
+        isFollowFromTileLoading: action.isFollowFromTileLoading,
+      };
+
+    case 'UI_FOLLOW_LOADING_PROFILE':
+      return {
+        ...state,
+        isFollowFromProfileLoading: action.isFollowFromProfileLoading,
       };
 
     case 'UI_SPACE_OPENED':

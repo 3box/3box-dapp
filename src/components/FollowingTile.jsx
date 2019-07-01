@@ -7,6 +7,7 @@ import ProfileHover from 'profile-hover';
 import actions from '../state/actions';
 import '../views/Profile/styles/Profile.css';
 import FollowButton from '../views/Profile/PublicProfile/FollowButton';
+import DefaultProfile from '../assets/DefaultProfile.svg';
 
 const {
   saveFollowing,
@@ -50,14 +51,11 @@ class FollowingTile extends Component {
             onClick={() => { if (fromModal) handleContactsModal(); }}
           >
             <div className="contact_tile_info">
-              {user.image && user.image[0].contentUrl
-                ? (
-                  <img
-                    src={`https://ipfs.infura.io/ipfs/${user.image[0].contentUrl['/']}`}
-                    className="contact_tile_info_image"
-                    alt="profile"
-                  />
-                ) : <div className="contact_tile_info_image" />}
+              <img
+                src={(user.image && user.image[0].contentUrl) ? `https://ipfs.infura.io/ipfs/${user.image[0].contentUrl['/']}` : DefaultProfile}
+                className="contact_tile_info_image"
+                alt="profile"
+              />
 
               <h3>{user.name ? user.name : address}</h3>
             </div>

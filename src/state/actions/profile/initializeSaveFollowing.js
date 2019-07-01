@@ -21,6 +21,8 @@ const initializeSaveFollowing = (address, fromFollow) => async (dispatch) => {
     const followingList = await followingThread.getPosts();
     const following = await getFollowingProfiles(followingList);
 
+    console.log('initializesave', followingList);
+
     dispatch({
       type: 'MY_FOLLOWING_UPDATE',
       following,

@@ -117,8 +117,14 @@
   align-items: center;
   width: 100%; }
   .contact_tile h3 {
+    display: flex;
     margin-bottom: 0;
-    margin-left: 20px; }
+    margin-left: 20px;
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+  .contact_tile .threeboxProfileHover__style_boxAddressWrap {
+    width: 70%; }
 
 .empty_contact_tile {
   max-width: 694px;
