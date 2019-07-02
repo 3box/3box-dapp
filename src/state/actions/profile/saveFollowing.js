@@ -6,69 +6,50 @@ import {
 
 import {
   checkFollowing,
-  getFollowingProfiles,
 } from '../../../utils/funcs';
 
-const saveFollowing = (otherProfileAddress, unfollow) => async (dispatch) => {
-  try {
-    // get user-to-follow's DID
-    const profile = await Box.getProfile(otherProfileAddress);
+import {
+  formatContact,
+  getFollowingThreadAndPosts,
+} from './helpers';
 
+const saveFollowing = (otherProfileAddress, fromWarningModal) => async (dispatch) => {
+  try {
+    console.log('insavefollowing');
     const {
       followingList,
       followingThread,
     } = store.getState().myData;
-
     const {
       currentAddress,
     } = store.getState().userState;
 
-    console.log('insaveFollowingfollowingList', followingList);
+    const isFollowing = checkFollowing(followingList, otherProfileAddress);
+    const isMe = currentAddress === otherProfileAddress;
+    if (isFollowing || isMe) return;
 
-    if (!unfollow) {
-      // if following, don't save following
-      const isFollowing = await checkFollowing(followingList, otherProfileAddress);
-      
-      if (isFollowing || currentAddress === otherProfileAddress) return;
-      const contact = {
-        '@context': 'http://schema.org/',
-        '@type': 'Person',
-        identifier: [{
-          '@type': 'PropertyValue',
-          name: 'DID',
-          value: `did:3:${profile.proof_did}`,
-        },
-        {
-          '@type': 'PropertyValue',
-          name: 'Ethereum',
-          PropertyID: 'chainId_1',
-          value: otherProfileAddress,
-        },
-        ],
-      };
+    if (!followingThread) await getFollowingThreadAndPosts(currentAddress);
 
-      const saved = await followingThread.post(contact);
-      console.log('savingfollower', saved);
-    } else {
-      // remove user from following list
-      let postId;
-      followingList.forEach((user) => {
-        if (user.message.identifier[1].value === otherProfileAddress) {
-          postId = user.postId;
-        }
+    // if no followers, warn that ollowing is public
+    if (store.getState().myData.following.length === 0 && !fromWarningModal) {
+      dispatch({
+        type: 'UI_HANDLE_WARN_PUBLIC_FOLLOWING',
+        showFollowingPublicModal: true,
       });
-      await followingThread.deletePost(postId);
-      console.log('inDeleteFollower');
+      dispatch({
+        type: 'OTHER_ADDRESS_TO_FOLLOW',
+        otherAddressToFollow: otherProfileAddress,
+      });
+      return;
     }
 
-    // const updatedFollowingList = await followingThread.getPosts();
-    // console.log('updatedFollowingList', updatedFollowingList);
-    // const updatedFollowing = await getFollowingProfiles(updatedFollowingList);
-    // dispatch({
-    //   type: 'MY_FOLLOWING_UPDATE',
-    //   following: updatedFollowing,
-    //   followingList: updatedFollowingList,
-    // });
+    console.log('saveHere');
+    // get user-to-follow's DID
+    const profile = await Box.getProfile(otherProfileAddress);
+    const contact = formatContact(profile.proof_did, otherProfileAddress);
+
+    const saved = await store.getState().myData.followingThread.post(contact);
+    console.log('savingfollower', saved);
   } catch (error) {
     console.error(error);
   }

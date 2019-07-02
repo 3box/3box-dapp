@@ -60,6 +60,7 @@ const {
   getVerifiedPrivateEmail,
   getActivity,
   getMyFollowing,
+  getPublicFollowing,
   saveFollowing,
 } = actions.profile;
 
@@ -121,7 +122,7 @@ class App extends Component {
 
       if (!allowDirectSignIn) {
         const userEth = window.localStorage.getItem('userEthAddress');
-        if (userEth) this.props.getMyFollowing(userEth);
+        if (userEth) this.props.getPublicFollowing(userEth);
       }
     } catch (err) {
       console.error(err);
@@ -543,6 +544,7 @@ App.propTypes = {
   checkWeb3: PropTypes.func.isRequired,
   initialCheckWeb3: PropTypes.func.isRequired,
   getMyFollowing: PropTypes.func.isRequired,
+  getPublicFollowing: PropTypes.func.isRequired,
   getMyDID: PropTypes.func.isRequired,
   getCollectibles: PropTypes.func.isRequired,
   getMySpacesData: PropTypes.func.isRequired,
@@ -566,7 +568,6 @@ App.propTypes = {
   closeErrorModal: PropTypes.func.isRequired,
   handleLoggedOutModal: PropTypes.func.isRequired,
   handleSwitchedAddressModal: PropTypes.func.isRequired,
-  getMyFollowing: PropTypes.func.isRequired,
   handleOnboardingModal: PropTypes.func.isRequired,
   saveFollowing: PropTypes.func.isRequired,
 
@@ -710,7 +711,7 @@ export default withRouter(connect(mapState,
     handleFollowingPublicModal,
     closeErrorModal,
     closeRequireMetaMaskModal,
-    getMyFollowing,
+    getPublicFollowing,
     saveFollowing,
     handleContactsModal,
   })(App));

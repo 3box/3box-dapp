@@ -19,38 +19,79 @@ export const deleteDuplicate = async (duplicates, followingThread) => {
       await deletePromises;
     }
   } catch (error) {
-    console.log('Error deleting duplicate following entries', error);
+    console.error('Error deleting duplicate Following entries', error);
   }
 };
 
-const getPosts = async (followingThread) => {
-  console.log('inGETPOSTS');
-  const updatedFollowingList = await followingThread.getPosts();
-  const updatedFollowing = await getFollowingProfiles(updatedFollowingList);
 
-  store.dispatch({
-    type: 'MY_FOLLOWING_UPDATE',
-    following: updatedFollowing,
-    followingList: updatedFollowingList,
-    followingThread,
-  });
-};
-
-export const subscribeFollowing = async (followingThread) => {
+export const getPosts = async (followingThread) => {
   try {
-    followingThread.onUpdate(() => getPosts(followingThread));
+    const followingList = await followingThread.getPosts();
+
+    // remove duplicates from interface
+    const userInList = {};
+    const duplicates = [];
+    const updatedFollowingList = followingList.filter((user) => {
+      if (userInList[user.message.identifier[0].value]) {
+        duplicates.push(user.postId);
+        return false;
+      }
+      userInList[user.message.identifier[0].value] = true;
+      return true;
+    });
+    if (duplicates.length > 0) deleteDuplicate(duplicates, followingThread);
+
+    const updatedFollowing = await getFollowingProfiles(updatedFollowingList);
+    console.log('getpostupdatedFollowingList', updatedFollowingList);
+
+    store.dispatch({
+      type: 'MY_FOLLOWING_LIST_UPDATE',
+      following: updatedFollowing,
+      followingList: updatedFollowingList,
+    });
   } catch (error) {
-    console.log('Error subscribing', error);
+    console.error('Error getting Following posts', error);
   }
 };
 
-export const getThread = async (myAddress) => {
-  console.log('ingetthread');
-  const followingSpace = await store.getState().myData.box.openSpace('Following');
-  const opts = {
-    members: true,
-    firstModerator: myAddress,
+export const getFollowingThreadAndPosts = async (myAddress) => {
+  try {
+    const followingSpace = await store.getState().myData.box.openSpace('Following');
+    const opts = {
+      members: true,
+      firstModerator: myAddress,
+    };
+    const followingThread = await followingSpace.joinThread('followingList', opts);
+    store.dispatch({
+      type: 'MY_FOLLOWING_THREAD_UPDATE',
+      followingThread,
+    });
+    console.log('getMyFollowingThread', followingThread);
+
+    followingThread.onUpdate(() => getPosts(followingThread));
+    getPosts(followingThread);
+  } catch (error) {
+    console.log('Error getting thread', error);
+  }
+};
+
+export const formatContact = (proofDid, otherProfileAddress) => {
+  const contact = {
+    '@context': 'http://schema.org/',
+    '@type': 'Person',
+    identifier: [{
+      '@type': 'PropertyValue',
+      name: 'DID',
+      value: `did:3:${proofDid}`,
+    },
+    {
+      '@type': 'PropertyValue',
+      name: 'Ethereum',
+      PropertyID: 'chainId_1',
+      value: otherProfileAddress,
+    },
+    ],
   };
-  const followingThread = await followingSpace.joinThread('followingList', opts);
-  return followingThread;
-}
+
+  return contact;
+};

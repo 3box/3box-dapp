@@ -8,6 +8,7 @@ import Loading from '../../../assets/Loading.svg';
 
 const {
   saveFollowing,
+  deleteFollowing,
   getMyProfileValue,
   getMyDID,
   getCollectibles,
@@ -16,8 +17,6 @@ const {
   getVerifiedPublicTwitter,
   getVerifiedPrivateEmail,
   getActivity,
-  getMyFollowing,
-  initializeSaveFollowing,
 } = actions.profile;
 
 const { getMySpacesData, convert3BoxToSpaces } = actions.spaces;
@@ -75,10 +74,11 @@ class FollowButton extends Component {
       this.props.getMyProfileValue('public', 'emoji');
       this.props.getMyProfileValue('private', 'birthday');
 
-      await this.props.getMyFollowing();
       await this.props.getCollectibles(currentAddress);
       await this.props.convert3BoxToSpaces();
       await this.props.getMySpacesData(currentAddress);
+
+      console.log('hit1')
 
       this.props.getActivity();
     } catch (err) {
@@ -103,7 +103,7 @@ class FollowButton extends Component {
 
         if (this.props.isSignedIntoWallet) {
           await this.props.openBox(false, true);
-          if (!this.props.showErrorModal) this.getMyData();
+          if (!this.props.showErrorModal) await this.getMyData();
         } else if (!this.props.isSignedIntoWallet && !accessDeniedModal) {
           this.props.handleRequireWalletLoginModal();
         }
@@ -148,9 +148,8 @@ class FollowButton extends Component {
 
               if (!isLoggedIn) await this.handleSignInUp();
 
-              await this.props.initializeSaveFollowing(contactTileAddress || otherProfileAddress);
-              await this.props.saveFollowing(contactTileAddress || otherProfileAddress, true);
-              console.log('finishedSaving');
+              await this.props.deleteFollowing(contactTileAddress || otherProfileAddress);
+
               store.dispatch({
                 type: whichReduxAction,
                 [whichFollowButton]: false,
@@ -181,9 +180,7 @@ class FollowButton extends Component {
 
             if (!isLoggedIn) await this.handleSignInUp();
 
-            const shouldSave = await this.props.initializeSaveFollowing(contactTileAddress || otherProfileAddress, true);
-            if (shouldSave) await this.props.saveFollowing(contactTileAddress || otherProfileAddress);
-            console.log('finishedSaving');
+            await this.props.saveFollowing(contactTileAddress || otherProfileAddress);
 
             store.dispatch({
               type: whichReduxAction,
@@ -203,12 +200,14 @@ class FollowButton extends Component {
 
 FollowButton.propTypes = {
   saveFollowing: PropTypes.func.isRequired,
+  deleteFollowing: PropTypes.func.isRequired,
   isFollowing: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool,
   isFollowFromTileLoading: PropTypes.bool,
   isFollowFromProfileLoading: PropTypes.bool,
   otherProfileAddress: PropTypes.string,
   currentAddress: PropTypes.string,
+  contactTileAddress: PropTypes.string,
   openBox: PropTypes.func.isRequired,
   getMyProfileValue: PropTypes.func.isRequired,
   getMyDID: PropTypes.func.isRequired,
@@ -218,26 +217,30 @@ FollowButton.propTypes = {
   getVerifiedPublicTwitter: PropTypes.func.isRequired,
   getVerifiedPrivateEmail: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
-  getMyFollowing: PropTypes.func.isRequired,
   getMySpacesData: PropTypes.func.isRequired,
   convert3BoxToSpaces: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
   accessDeniedModal: PropTypes.bool,
   isSignedIntoWallet: PropTypes.bool,
   showErrorModal: PropTypes.bool,
+  fromContactTile: PropTypes.bool,
   handleRequireWalletLoginModal: PropTypes.func.isRequired,
   handleMobileWalletModal: PropTypes.func.isRequired,
   requireMetaMaskModal: PropTypes.func.isRequired,
+  handleTileLoading: PropTypes.func.isRequired,
 };
 
 FollowButton.defaultProps = {
   otherProfileAddress: '',
   currentAddress: '',
+  contactTileAddress: '',
   isLoggedIn: false,
   isFollowFromProfileLoading: false,
   isFollowFromTileLoading: false,
   accessDeniedModal: false,
   isSignedIntoWallet: false,
   showErrorModal: false,
+  fromContactTile: false,
 };
 
 function mapState(state) {
@@ -259,6 +262,7 @@ export default connect(mapState,
     checkWeb3,
     checkNetwork,
     saveFollowing,
+    deleteFollowing,
     openBox,
     getMyProfileValue,
     getMyDID,
@@ -268,11 +272,9 @@ export default connect(mapState,
     getVerifiedPublicTwitter,
     getVerifiedPrivateEmail,
     getActivity,
-    getMyFollowing,
     getMySpacesData,
     convert3BoxToSpaces,
     handleRequireWalletLoginModal,
     handleMobileWalletModal,
     requireMetaMaskModal,
-    initializeSaveFollowing,
   })(FollowButton);

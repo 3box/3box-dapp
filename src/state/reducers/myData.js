@@ -153,6 +153,19 @@ const myDataReducer = (state = {}, action) => {
         followingThread: action.followingThread,
       };
 
+    case 'MY_FOLLOWING_LIST_UPDATE':
+      return {
+        ...state,
+        following: action.following,
+        followingList: action.followingList,
+      };
+
+    case 'MY_FOLLOWING_THREAD_UPDATE':
+      return {
+        ...state,
+        followingThread: action.followingThread,
+      };
+
     case 'MY_DATA_SIGNOUT':
       return {
         ...state,

@@ -11,7 +11,6 @@ import DefaultProfile from '../assets/DefaultProfile.svg';
 
 const {
   saveFollowing,
-  initializeSaveFollowing,
 } = actions.profile;
 
 class FollowingTile extends Component {
@@ -22,12 +21,8 @@ class FollowingTile extends Component {
     };
   }
 
-  isLoading = () => {
-    this.setState({ isLoading: true });
-  }
-
-  handleTileLoading = () => {
-    this.setState({ isLoading: false });
+  handleTileLoading = (isLoading) => {
+    this.setState({ isLoading });
   }
 
   render() {
@@ -41,8 +36,6 @@ class FollowingTile extends Component {
     } = this.props;
 
     const { isLoading } = this.state;
-    console.log('thisisLoading', isLoading);
-    console.log('thisuser', user.name);
     const myAddress = currentAddress || window.localStorage.getItem('userEthAddress');
 
     return (
@@ -69,8 +62,8 @@ class FollowingTile extends Component {
         </ProfileHover>
 
         <div
-          onClick={this.isLoading}
-          onKeyPress={this.isLoading}
+          onClick={() => this.handleTileLoading(true)}
+          onKeyPress={() => this.handleTileLoading(true)}
           role="button"
           tabIndex={0}
         >
@@ -113,6 +106,5 @@ function mapState(state) {
 }
 
 export default connect(mapState, {
-  initializeSaveFollowing,
   saveFollowing,
 })(FollowingTile);
