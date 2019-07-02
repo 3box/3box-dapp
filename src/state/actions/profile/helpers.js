@@ -33,11 +33,32 @@ export const deleteDuplicate = async (duplicates, myAddress) => {
   }
 };
 
+const getPosts = async (followingThread) => {
+  console.log('inGETPOSTS');
+  const updatedFollowingList = await followingThread.getPosts();
+  const updatedFollowing = await getFollowingProfiles(updatedFollowingList);
+
+  store.dispatch({
+    type: 'MY_FOLLOWING_UPDATE',
+    following: updatedFollowing,
+    followingList: updatedFollowingList,
+    followingThread,
+  });
+};
+
 export const subscribeFollowing = async () => {
   try {
+    const {
+      box,
+    } = store.getState().myData;
+
+    if (!box) return;
+
     const followingSpace = await store.getState().myData.box.openSpace('Following');
     const myAddress = store.getState().userState.currentAddress;
+
     console.log('hitsubscription');
+
     const opts = {
       members: true,
       firstModerator: myAddress,
@@ -50,8 +71,7 @@ export const subscribeFollowing = async () => {
     //   if (posts) getFollowingProfiles(posts);
     // });
     console.log('postsposts', followingThread);
-    const posts = await followingThread.onUpdate();
-    console.log('actualposts', posts);
+    followingThread.onUpdate(() => getPosts(followingThread));
     // const updatedFollowingList = await followingThread.getPosts();
     // const updatedFollowing = await getFollowingProfiles(updatedFollowingList);
   } catch (error) {

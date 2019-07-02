@@ -41,6 +41,8 @@ class FollowingTile extends Component {
     } = this.props;
 
     const { isLoading } = this.state;
+    console.log('thisisLoading', isLoading);
+    console.log('thisuser', user.name);
     const myAddress = currentAddress || window.localStorage.getItem('userEthAddress');
 
     return (

@@ -498,7 +498,7 @@
     width: 100%;
 
     img {
-      margin-right: 12px;
+      // margin-right: 12px;
       width: 18px;
     }
   }
@@ -508,13 +508,13 @@
   padding: 15px 20px;
 }
 
-.unfollowButton:after {
-  content: 'Following';
-}
+// .unfollowButton:after {
+//   content: 'Following';
+// }
 
-.unfollowButton:hover:after {
-  content: 'Unfollow';
-}
+// .unfollowButton:hover:after {
+//   content: 'Unfollow';
+// }
 
 .unfollowButton img {
   width: 18px;
@@ -697,6 +697,7 @@
 
 .followActionButton {
   width: 108px;
+  min-height: 50px;
 }
 
 .loadingProfile {

@@ -8,7 +8,7 @@ import {
 } from '../../../utils/funcs';
 import {
   deleteDuplicate,
-  // subscribeFollowing,
+  subscribeFollowing,
 } from './helpers';
 
 const getMyFollowing = address => async (dispatch) => {
@@ -31,7 +31,7 @@ const getMyFollowing = address => async (dispatch) => {
       return true;
     });
 
-    // subscribeFollowing();
+    subscribeFollowing();
     // if logged in, delete duplicate from thread
     deleteDuplicate(duplicates, myAddress);
 

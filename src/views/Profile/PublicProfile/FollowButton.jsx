@@ -41,7 +41,9 @@ const {
 class FollowButton extends Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      showHoverText: 'Following',
+    };
   }
 
   async getMyData() {
@@ -84,6 +86,10 @@ class FollowButton extends Component {
     }
   }
 
+  handleShowHover = (showHoverText) => {
+    this.setState({ showHoverText });
+  }
+
   async handleSignInUp() {
     const {
       accessDeniedModal,
@@ -123,6 +129,8 @@ class FollowButton extends Component {
       handleTileLoading,
     } = this.props;
 
+    const { showHoverText } = this.state;
+
     const whichFollowButton = fromContactTile ? 'isFollowFromTileLoading' : 'isFollowFromProfileLoading';
     const whichReduxAction = fromContactTile ? 'UI_FOLLOW_LOADING_TILE' : 'UI_FOLLOW_LOADING_PROFILE';
 
@@ -142,16 +150,20 @@ class FollowButton extends Component {
 
               await this.props.initializeSaveFollowing(contactTileAddress || otherProfileAddress);
               await this.props.saveFollowing(contactTileAddress || otherProfileAddress, true);
-
+              console.log('finishedSaving');
               store.dispatch({
                 type: whichReduxAction,
                 [whichFollowButton]: false,
               });
               if (fromContactTile) handleTileLoading();
             }}
+          onMouseEnter={() => this.handleShowHover('Unfollow')}
+          onMouseLeave={() => this.handleShowHover('Following')}
         >
-          {(isFollowFromProfileLoading) && <img src={Loading} alt="loading" />}
+          {isFollowFromProfileLoading && <img src={Loading} alt="loading" />}
           {(isFollowFromTileLoading && isLoading) && <img src={Loading} alt="loading" />}
+
+          {((!isFollowFromTileLoading || (!isFollowFromProfileLoading && !isLoading))) && showHoverText}
         </button>
       );
     }
@@ -171,6 +183,7 @@ class FollowButton extends Component {
 
             const shouldSave = await this.props.initializeSaveFollowing(contactTileAddress || otherProfileAddress, true);
             if (shouldSave) await this.props.saveFollowing(contactTileAddress || otherProfileAddress);
+            console.log('finishedSaving');
 
             store.dispatch({
               type: whichReduxAction,
@@ -181,7 +194,8 @@ class FollowButton extends Component {
       >
         {(isFollowFromProfileLoading) && <img src={Loading} alt="loading" />}
         {(isFollowFromTileLoading && isLoading) && <img src={Loading} alt="loading" />}
-        Follow
+
+        {(!isFollowFromTileLoading || (!isFollowFromProfileLoading && !isLoading)) && 'Follow'}
       </button>
     );
   }

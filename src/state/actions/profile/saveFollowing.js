@@ -61,16 +61,14 @@ const saveFollowing = (otherProfileAddress, unfollow) => async (dispatch) => {
       console.log('inDeleteFollower');
     }
 
-    // const updatedFollowingList = await followingThread.onUpdate(followingThread.getPosts());
-    const updatedFollowingList = await followingThread.getPosts();
-    console.log('updatedFollowingList', updatedFollowingList);
-    const updatedFollowing = await getFollowingProfiles(updatedFollowingList);
-
-    dispatch({
-      type: 'MY_FOLLOWING_UPDATE',
-      following: updatedFollowing,
-      followingList: updatedFollowingList,
-    });
+    // const updatedFollowingList = await followingThread.getPosts();
+    // console.log('updatedFollowingList', updatedFollowingList);
+    // const updatedFollowing = await getFollowingProfiles(updatedFollowingList);
+    // dispatch({
+    //   type: 'MY_FOLLOWING_UPDATE',
+    //   following: updatedFollowing,
+    //   followingList: updatedFollowingList,
+    // });
   } catch (error) {
     console.error(error);
   }

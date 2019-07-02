@@ -405,17 +405,10 @@
   .public_contacts_add button {
     width: 100%; }
     .public_contacts_add button img {
-      margin-right: 12px;
       width: 18px; }
 
 .unfollowButton {
   padding: 15px 20px; }
-
-.unfollowButton:after {
-  content: 'Following'; }
-
-.unfollowButton:hover:after {
-  content: 'Unfollow'; }
 
 .unfollowButton img {
   width: 18px;
@@ -562,7 +555,8 @@
   opacity: .7; }
 
 .followActionButton {
-  width: 108px; }
+  width: 108px;
+  min-height: 50px; }
 
 .loadingProfile {
   position: fixed;
