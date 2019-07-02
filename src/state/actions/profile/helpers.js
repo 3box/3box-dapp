@@ -5,21 +5,11 @@ import {
   getFollowingProfiles,
 } from '../../../utils/funcs';
 
-export const deleteDuplicate = async (duplicates, myAddress) => {
+export const deleteDuplicate = async (duplicates, followingThread) => {
   // if logged in, delete duplicate from thread
   try {
-    console.log('duplicates', duplicates);
-    const {
-      box,
-    } = store.getState().myData;
-    if (box && duplicates.length > 0) {
+    if (duplicates.length > 0) {
       const deleteCalls = [];
-      const followingSpace = await box.openSpace('Following');
-      const opts = {
-        members: true,
-        firstModerator: followingSpace.DID || myAddress,
-      };
-      const followingThread = await followingSpace.joinThread('followingList', opts);
       duplicates.forEach((duplicate) => {
         const promise = followingThread.deletePost(duplicate);
         deleteCalls.push(promise);
@@ -46,35 +36,21 @@ const getPosts = async (followingThread) => {
   });
 };
 
-export const subscribeFollowing = async () => {
+export const subscribeFollowing = async (followingThread) => {
   try {
-    const {
-      box,
-    } = store.getState().myData;
-
-    if (!box) return;
-
-    const followingSpace = await store.getState().myData.box.openSpace('Following');
-    const myAddress = store.getState().userState.currentAddress;
-
-    console.log('hitsubscription');
-
-    const opts = {
-      members: true,
-      firstModerator: myAddress,
-      // firstModerator: followingSpace.DID || myAddress,
-    };
-
-    const followingThread = await followingSpace.joinThread('followingList', opts);
-    // followingThread.onUpdate((posts) => {
-    //   console.log('threadposts', posts);
-    //   if (posts) getFollowingProfiles(posts);
-    // });
-    console.log('postsposts', followingThread);
     followingThread.onUpdate(() => getPosts(followingThread));
-    // const updatedFollowingList = await followingThread.getPosts();
-    // const updatedFollowing = await getFollowingProfiles(updatedFollowingList);
   } catch (error) {
     console.log('Error subscribing', error);
   }
 };
+
+export const getThread = async (myAddress) => {
+  console.log('ingetthread');
+  const followingSpace = await store.getState().myData.box.openSpace('Following');
+  const opts = {
+    members: true,
+    firstModerator: myAddress,
+  };
+  const followingThread = await followingSpace.joinThread('followingList', opts);
+  return followingThread;
+}

@@ -9,11 +9,19 @@ import {
 import {
   deleteDuplicate,
   subscribeFollowing,
+  getThread,
 } from './helpers';
 
 const getMyFollowing = address => async (dispatch) => {
   try {
     const myAddress = address || store.getState().userState.currentAddress;
+    let followingThread;
+    const {
+      box,
+    } = store.getState().myData;
+
+    if (box) followingThread = await getThread();
+
     const followingList = await Box.getThread('Following', 'followingList', myAddress, true);
     console.log('getMyFollowingList', followingList);
 
@@ -31,9 +39,8 @@ const getMyFollowing = address => async (dispatch) => {
       return true;
     });
 
-    subscribeFollowing();
-    // if logged in, delete duplicate from thread
-    deleteDuplicate(duplicates, myAddress);
+    if (box) subscribeFollowing(followingThread); // listen to Following thread updates
+    if (box) deleteDuplicate(duplicates, followingThread); // delete duplicate from thread
 
     const following = await getFollowingProfiles(updatedFollowingList);
 
@@ -41,6 +48,7 @@ const getMyFollowing = address => async (dispatch) => {
       type: 'MY_FOLLOWING_UPDATE',
       following,
       followingList: updatedFollowingList,
+      followingThread,
     });
 
     return following;
