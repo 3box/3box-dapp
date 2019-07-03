@@ -30,8 +30,8 @@ const saveFollowing = (otherProfileAddress, fromWarningModal) => async (dispatch
 
     if (!followingThread) await getFollowingThreadAndPosts(currentAddress);
 
-    // if no followers, warn that ollowing is public
-    if (store.getState().myData.following.length === 0 && !fromWarningModal) {
+    // if no followers, warn that following is public
+    if ((!store.getState().myData.following || store.getState().myData.following.length === 0) && !fromWarningModal) {
       dispatch({
         type: 'UI_HANDLE_WARN_PUBLIC_FOLLOWING',
         showFollowingPublicModal: true,
@@ -48,6 +48,7 @@ const saveFollowing = (otherProfileAddress, fromWarningModal) => async (dispatch
     const profile = await Box.getProfile(otherProfileAddress);
     const contact = formatContact(profile.proof_did, otherProfileAddress);
 
+    console.log('savingThread', store.getState().myData.followingThread);
     const saved = await store.getState().myData.followingThread.post(contact);
     console.log('savingfollower', saved);
   } catch (error) {

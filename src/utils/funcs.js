@@ -361,8 +361,9 @@ export const getAuthorsLatestPost = (threadArray, usersDID) => {
 
 export const getFollowingProfiles = async (following) => {
   const profileCalls = [];
-  const updatedFollowing = following.slice();
-  updatedFollowing.forEach((profile) => {
+  // const updatedFollowing = following.slice();
+  // console.log('getFollowingProfiles', updatedFollowing);
+  following.forEach((profile) => {
     profileCalls.push(Box.getProfile(profile.message.identifier[1].value));
   });
   const profilePromises = Promise.all(profileCalls);
@@ -376,6 +377,7 @@ export const getFollowingProfiles = async (following) => {
 };
 
 export const checkFollowing = (following, otherProfileAddress) => {
+  if (!following) return false;
   return following.some(user => user.message.identifier[1].value === otherProfileAddress);
 };
 

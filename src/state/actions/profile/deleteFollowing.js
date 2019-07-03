@@ -6,7 +6,7 @@ import {
   getFollowingThreadAndPosts,
 } from './helpers';
 
-const deleteFollowing = otherProfileAddress => async (dispatch) => {
+const deleteFollowing = otherProfileAddress => async (/* dispatch */) => {
   try {
     const {
       followingList,
@@ -16,17 +16,18 @@ const deleteFollowing = otherProfileAddress => async (dispatch) => {
       currentAddress,
     } = store.getState().userState;
 
-    let postId;
+    let postIdToDelete;
     followingList.forEach((user) => {
       if (user.message.identifier[1].value === otherProfileAddress) {
-        postId = user.postId;
+        postIdToDelete = user.postId;
       }
     });
 
+    console.log('deleteFollowingThread', followingThread);
     if (!followingThread) await getFollowingThreadAndPosts(currentAddress);
 
-    await store.getState().myData.followingThread.deletePost(postId);
-    console.log('deletedpostId', postId);
+    await store.getState().myData.followingThread.deletePost(postIdToDelete);
+    console.log('deletedpostId', postIdToDelete);
   } catch (error) {
     console.error(error);
   }

@@ -109,7 +109,8 @@
   width: 100%;
   display: inline-grid;
   grid-template-columns: repeat(1, 100% [col-start]);
-  row-gap: 20px; }
+  row-gap: 20px;
+  z-index: 4; }
 
 .contact_tile {
   display: flex;
