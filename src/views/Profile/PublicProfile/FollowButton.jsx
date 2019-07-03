@@ -43,6 +43,7 @@ class FollowButton extends Component {
     this.state = {
       showHoverText: 'Following',
     };
+    this.handleFollowing = this.handleFollowing.bind(this);
   }
 
   async getMyData() {
@@ -77,8 +78,6 @@ class FollowButton extends Component {
       await this.props.getCollectibles(currentAddress);
       await this.props.convert3BoxToSpaces();
       await this.props.getMySpacesData(currentAddress);
-
-      console.log('hit1')
 
       this.props.getActivity();
     } catch (err) {
@@ -116,52 +115,58 @@ class FollowButton extends Component {
     }
   }
 
-  render() {
+  async handleFollowing() {
     const {
-      isFollowing,
-      otherProfileAddress,
-      isLoggedIn,
-      isFollowFromProfileLoading,
-      isFollowFromTileLoading,
-      contactTileAddress,
       fromContactTile,
-      isLoading,
       handleTileLoading,
+      isLoggedIn,
+      contactTileAddress,
+      otherProfileAddress,
+      isFollowing,
     } = this.props;
-
-    const { showHoverText } = this.state;
 
     const whichFollowButton = fromContactTile ? 'isFollowFromTileLoading' : 'isFollowFromProfileLoading';
     const whichReduxAction = fromContactTile ? 'UI_FOLLOW_LOADING_TILE' : 'UI_FOLLOW_LOADING_PROFILE';
+    const deleteOrSave = isFollowing ? 'deleteFollowing' : 'saveFollowing';
+    const address = contactTileAddress || otherProfileAddress;
+
+    store.dispatch({
+      type: whichReduxAction,
+      [whichFollowButton]: true,
+    });
+
+    if (!isLoggedIn) await this.handleSignInUp();
+
+    await this.props[deleteOrSave](address);
+
+    store.dispatch({
+      type: whichReduxAction,
+      [whichFollowButton]: false,
+    });
+    if (fromContactTile) handleTileLoading();
+  }
+
+  render() {
+    const {
+      isFollowing,
+      isFollowFromProfileLoading,
+      isFollowFromTileLoading,
+      isLoading,
+    } = this.props;
+
+    const { showHoverText } = this.state;
 
     if (isFollowing) {
       return (
         <button
           type="button"
           className="outlineButton unfollowButton followActionButton"
-          onClick={
-            async () => {
-              store.dispatch({
-                type: whichReduxAction,
-                [whichFollowButton]: true,
-              });
-
-              if (!isLoggedIn) await this.handleSignInUp();
-
-              await this.props.deleteFollowing(contactTileAddress || otherProfileAddress);
-
-              store.dispatch({
-                type: whichReduxAction,
-                [whichFollowButton]: false,
-              });
-              if (fromContactTile) handleTileLoading();
-            }}
+          onClick={this.handleFollowing}
           onMouseEnter={() => this.handleShowHover('Unfollow')}
           onMouseLeave={() => this.handleShowHover('Following')}
         >
           {isFollowFromProfileLoading && <img src={Loading} alt="loading" />}
           {(isFollowFromTileLoading && isLoading) && <img src={Loading} alt="loading" />}
-
           {((!isFollowFromTileLoading || (!isFollowFromProfileLoading && !isLoading))) && showHoverText}
         </button>
       );
@@ -171,27 +176,10 @@ class FollowButton extends Component {
       <button
         type="button"
         className="followButton followActionButton"
-        onClick={
-          async () => {
-            store.dispatch({
-              type: whichReduxAction,
-              [whichFollowButton]: true,
-            });
-
-            if (!isLoggedIn) await this.handleSignInUp();
-
-            await this.props.saveFollowing(contactTileAddress || otherProfileAddress);
-
-            store.dispatch({
-              type: whichReduxAction,
-              [whichFollowButton]: false,
-            });
-            if (fromContactTile) handleTileLoading();
-          }}
+        onClick={this.handleFollowing}
       >
         {(isFollowFromProfileLoading) && <img src={Loading} alt="loading" />}
         {(isFollowFromTileLoading && isLoading) && <img src={Loading} alt="loading" />}
-
         {(!isFollowFromTileLoading || (!isFollowFromProfileLoading && !isLoading)) && 'Follow'}
       </button>
     );
@@ -278,3 +266,39 @@ export default connect(mapState,
     handleMobileWalletModal,
     requireMetaMaskModal,
   })(FollowButton);
+
+// onClick={
+//   async () => {
+//     store.dispatch({
+//       type: whichReduxAction,
+//       [whichFollowButton]: true,
+//     });
+
+//     if (!isLoggedIn) await this.handleSignInUp();
+
+//     await this.props.deleteFollowing(contactTileAddress || otherProfileAddress);
+
+//     store.dispatch({
+//       type: whichReduxAction,
+//       [whichFollowButton]: false,
+//     });
+//     if (fromContactTile) handleTileLoading();
+//   }}
+
+// onClick={
+//   async () => {
+//     store.dispatch({
+//       type: whichReduxAction,
+//       [whichFollowButton]: true,
+//     });
+
+//     if (!isLoggedIn) await this.handleSignInUp();
+
+//     await this.props.saveFollowing(contactTileAddress || otherProfileAddress);
+
+//     store.dispatch({
+//       type: whichReduxAction,
+//       [whichFollowButton]: false,
+//     });
+//     if (fromContactTile) handleTileLoading();
+//   }}
