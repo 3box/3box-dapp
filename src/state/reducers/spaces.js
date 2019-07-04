@@ -20,6 +20,16 @@ const spacesReducer = (state = {}, action) => {
         hasUpdated: action.hasUpdated,
       };
 
+    case 'SPACES_SIGN_OUT':
+      return {
+        ...state,
+        hasUpdated: false,
+        list: [],
+        allData: {},
+        sortedSpace: [],
+        spaceDataToRender: [],
+      };
+
     default:
       return state;
   }

@@ -19,6 +19,9 @@ const handleSignOut = () => async (dispatch) => {
     dispatch({
       type: 'MY_DATA_SIGNOUT',
     });
+    dispatch({
+      type: 'SPACES_SIGN_OUT',
+    });
   }
   history.push(routes.LANDING);
 };
