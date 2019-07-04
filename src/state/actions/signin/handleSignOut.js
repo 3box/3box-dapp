@@ -18,25 +18,6 @@ const handleSignOut = () => async (dispatch) => {
     });
     dispatch({
       type: 'MY_DATA_SIGNOUT',
-      birthday: '',
-      name: '',
-      github: '',
-      image: [],
-      email: '',
-      feedByAddress: [],
-      box: {},
-      description: '',
-      location: '',
-      website: '',
-      employer: '',
-      job: '',
-      school: '',
-      degree: '',
-      major: '',
-      year: '',
-      coverPhoto: [],
-      emoji: '',
-      status: '',
     });
   }
   history.push(routes.LANDING);

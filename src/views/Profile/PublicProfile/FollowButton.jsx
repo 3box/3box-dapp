@@ -266,39 +266,3 @@ export default connect(mapState,
     handleMobileWalletModal,
     requireMetaMaskModal,
   })(FollowButton);
-
-// onClick={
-//   async () => {
-//     store.dispatch({
-//       type: whichReduxAction,
-//       [whichFollowButton]: true,
-//     });
-
-//     if (!isLoggedIn) await this.handleSignInUp();
-
-//     await this.props.deleteFollowing(contactTileAddress || otherProfileAddress);
-
-//     store.dispatch({
-//       type: whichReduxAction,
-//       [whichFollowButton]: false,
-//     });
-//     if (fromContactTile) handleTileLoading();
-//   }}
-
-// onClick={
-//   async () => {
-//     store.dispatch({
-//       type: whichReduxAction,
-//       [whichFollowButton]: true,
-//     });
-
-//     if (!isLoggedIn) await this.handleSignInUp();
-
-//     await this.props.saveFollowing(contactTileAddress || otherProfileAddress);
-
-//     store.dispatch({
-//       type: whichReduxAction,
-//       [whichFollowButton]: false,
-//     });
-//     if (fromContactTile) handleTileLoading();
-//   }}
