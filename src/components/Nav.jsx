@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter, NavLink } from 'react-router-dom';
 
+import ProfilePicture from './ProfilePicture';
 import ThreeBoxLogo from '../assets/ThreeBoxLogoBlack.svg';
 import ThreeBoxB from '../assets/3Box3Blue.svg';
 import DropDown from '../assets/DropDown.svg';
@@ -38,7 +39,7 @@ class Nav extends Component {
 
   render() {
     const { showProfileModal } = this.state;
-    const { image, location, currentAddress } = this.props;
+    const { location, currentAddress } = this.props;
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
     const networkColor = this.props.currentNetwork;
@@ -58,25 +59,11 @@ class Nav extends Component {
         </div>
 
         <div className="nav__profile--mobile">
-          {
-            image && image.length > 0 && image[0].contentUrl ? (
-              <img
-                src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`}
-                className="nav__userPicture clearProfPic"
-                alt="profile"
-                onClick={this.handleDropdown}
-                // onKeyPress={this.handleDropdown}
-                role="button"
-              />)
-              : (
-                <div
-                  className="nav__userPicture"
-                  onClick={this.handleDropdown}
-                  // onKeyPress={this.handleDropdown}
-                  role="button"
-                  tabIndex={0}
-                />)
-          }
+          <ProfilePicture
+            pictureClass="nav__userPicture clearProfPic"
+            onClickFunction={this.handleDropdown}
+            isMyPicture
+          />
         </div>
 
         <div id="nav__networkStatus">
@@ -103,17 +90,10 @@ class Nav extends Component {
             className="nav__profile"
             activeClassName="activeNav"
           >
-            {
-              image && image.length > 0 && image[0].contentUrl ?
-                (
-                  <img
-                    src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`}
-                    className="nav__userPicture clearProfPic"
-                    alt="profile"
-                    role="button"
-                  />
-                ) : <div className="nav__userPicture" />
-            }
+            <ProfilePicture
+              pictureClass="nav__userPicture clearProfPic"
+              isMyPicture
+            />
             Profile
           </NavLink>
 
@@ -239,7 +219,6 @@ class Nav extends Component {
 }
 
 Nav.propTypes = {
-  image: PropTypes.array,
   box: PropTypes.object,
   location: PropTypes.object,
   handleSignOut: PropTypes.func.isRequired,
@@ -248,7 +227,6 @@ Nav.propTypes = {
 };
 
 Nav.defaultProps = {
-  image: [],
   box: {},
   currentNetwork: '',
   currentAddress: '',
@@ -257,7 +235,6 @@ Nav.defaultProps = {
 
 function mapState(state) {
   return {
-    image: state.myData.image,
     box: state.myData.box,
 
     currentNetwork: state.userState.currentNetwork,

@@ -238,7 +238,6 @@ class AppModals extends Component {
         {switchedAddressModal && (
           <SwitchedAddressModal
             handleSwitchedAddressModal={handleSwitchedAddressModal}
-            show={switchedAddressModal}
             isMobile={isMobile}
             handleSignOut={handleSignOut}
             prevAddress={prevAddress}

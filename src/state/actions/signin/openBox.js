@@ -77,10 +77,22 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
 
     box.onSyncDone(() => {
       try {
-        const publicActivity = store.getState().myData.box.public.log;
-        const privateActivity = store.getState().myData.box.private.log;
+        let publicActivity;
+        let privateActivity;
 
-        if (!privateActivity.length && !publicActivity.length) {
+        try {
+          publicActivity = store.getState().myData.box.public.log;
+        } catch (error) {
+          console.error(error);
+        }
+        console.log('publicActivitypublicActivity', publicActivity);
+        try {
+          privateActivity = store.getState().myData.box.private.log;
+        } catch (error) {
+          console.error(error);
+        }
+
+        if ((!privateActivity || !privateActivity.length) && (!publicActivity || !publicActivity.length)) {
           dispatch({
             type: 'UI_HANDLE_ONBOARDING_MODAL',
             onBoardingModal: true,

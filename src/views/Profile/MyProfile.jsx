@@ -1,7 +1,6 @@
 import { withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 
 import MyContent from './MyProfile/MyContent';
@@ -24,6 +23,8 @@ class Profile extends Component {
 
     return (
       <div>
+        {console.log('objectimagMyProfileHeaderse', image)}
+
         <MyProfileHeaders
           image={image}
           name={name}
