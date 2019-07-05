@@ -233,35 +233,32 @@ CollectiblesModal.defaultProps = {
 export const SwitchedAddressModal = ({
   handleSwitchedAddressModal, handleSignOut, isMobile, prevAddress,
 }) => (
-    <div>
-      <div className="modal__container modal--effect">
-        <div className="modal">
-          <img src={Switched} alt="Partners background" id="modal__switchedNetworks" />
+    <div className="modal__container modal--effect">
+      <div className="modal">
+        <img src={Switched} alt="Partners background" id="modal__switchedNetworks" />
 
-          <div>
-            <h3>
-              Address change detected
-            </h3>
-            {isMobile
-              ? (
-                <p>
-                  {`Revert to the previous address ${prevAddress} in your web3 wallet or sign back in with the new address`}
-                </p>
-              )
-              : (
-                <p>
-                  {`Revert to the previous address ${prevAddress} in your MetaMask wallet or sign back in with the new address`}
-                </p>
-              )
-            }
-          </div>
-
-          <Link to={routes.LANDING}>
-            <button onClick={() => { handleSwitchedAddressModal(); handleSignOut(); }} type="button">Sign in with new address</button>
-          </Link>
+        <div>
+          <h3>
+            Address change detected
+          </h3>
+          {isMobile
+            ? (
+              <p>
+                {`Revert to the previous address ${prevAddress} in your web3 wallet or sign back in with the new address`}
+              </p>
+            )
+            : (
+              <p>
+                {`Revert to the previous address ${prevAddress} in your MetaMask wallet or sign back in with the new address`}
+              </p>
+            )
+          }
         </div>
-      </div>
 
+        <Link to={routes.LANDING}>
+          <button onClick={() => { handleSwitchedAddressModal(); handleSignOut(); }} type="button">Sign in with new address</button>
+        </Link>
+      </div>
     </div>
   );
 

@@ -79,7 +79,7 @@ export const pollNetworkAndAddress = () => {
         store.getState().userState.isLoggedIn) {
         prevAddress = address;
         store.dispatch({
-          type: 'HANDLE_SWITCHED_ADDRESS_MODAL',
+          type: 'UI_HANDLE_SWITCHED_ADDRESS_MODAL',
           switchedAddressModal: true,
           prevAddress,
         });
@@ -98,7 +98,7 @@ export const pollNetworkAndAddress = () => {
         currentAddress === prevAddress
       ) {
         store.dispatch({
-          type: 'HANDLE_SWITCHED_ADDRESS_MODAL',
+          type: 'UI_HANDLE_SWITCHED_ADDRESS_MODAL',
           switchedAddressModal: false,
           prevAddress: '',
         });

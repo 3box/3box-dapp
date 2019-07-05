@@ -122,8 +122,6 @@ const getActivity = otherProfileAddress => async (dispatch) => {
         }
       });
 
-      console.log('spacesDataActivity', spacesDataActivity);
-
       feed = categorizedActivity.internal
         .concat(categorizedActivity.txs)
         .concat(categorizedActivity.token)
