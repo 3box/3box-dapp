@@ -27,17 +27,15 @@ class PubProfileHeaders extends Component {
 
   getDataUri = async (url) => {
     const base64 = await image2base64(url);
-    const updatedBase64 = `data:image/jpeg;base64,${base64}`;
+    const updatedBase64 = base64;
+    // const updatedBase64 = `data:image/jpeg;base64,${base64}`;
     this.setState({ base64: updatedBase64 });
-    // console.log('ingetdatauri', uri);
-    // return uri;
   };
 
   render() {
     const {
       otherName,
       otherProfileAddress,
-      otherImage,
     } = this.props;
 
     const { base64 } = this.state;
