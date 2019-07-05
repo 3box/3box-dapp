@@ -21,24 +21,29 @@ class ProfilePicture extends Component {
       isMyPicture,
       pictureClass,
       imageToRender,
+      otherProfileAddress,
     } = this.props;
 
-    const blockie = currentAddress ? makeBlockie(currentAddress) : DefaultColorPic;
+    const addressToUse = isMyPicture ? currentAddress : otherProfileAddress;
+    const blockie = addressToUse ? makeBlockie(addressToUse) : DefaultColorPic;
+    const imageProp = imageToRender.length > 0 ? imageToRender : null;
     const profilePicture = isMyPicture
       ? image
-      : imageToRender || otherImage;
+      : imageProp || otherImage;
 
     const src = profilePicture && profilePicture.length > 0 && profilePicture[0].contentUrl
       ? `https://ipfs.infura.io/ipfs/${profilePicture[0].contentUrl['/']}`
       : blockie;
+
+    const action = onClickFunction || null;
 
     if (src) {
       return (
         <img
           src={src}
           className={pictureClass}
-          onClick={onClickFunction}
-          onKeyPress={onClickFunction}
+          onClick={action}
+          onKeyPress={action}
           role="button"
           alt="profile"
         />
@@ -55,6 +60,7 @@ ProfilePicture.propTypes = {
   onClickFunction: PropTypes.func,
   currentAddress: PropTypes.string,
   pictureClass: PropTypes.string,
+  otherProfileAddress: PropTypes.string,
   image: PropTypes.array,
   otherImage: PropTypes.array,
   imageToRender: PropTypes.array,
@@ -65,6 +71,7 @@ ProfilePicture.defaultProps = {
   onClickFunction: null,
   currentAddress: '',
   pictureClass: '',
+  otherProfileAddress: '',
   image: [],
   otherImage: [],
   imageToRender: [],
@@ -73,19 +80,12 @@ ProfilePicture.defaultProps = {
 
 function mapState(state) {
   return {
-    name: state.myData.name,
     image: state.myData.image,
-    coverPhoto: state.myData.coverPhoto,
-    emoji: state.myData.emoji,
-    description: state.myData.description,
 
     currentAddress: state.userState.currentAddress,
 
-    otherCoverPhoto: state.otherProfile.otherCoverPhoto,
     otherImage: state.otherProfile.otherImage,
-    otherName: state.otherProfile.otherName,
-    otherEmoji: state.otherProfile.otherEmoji,
-    otherDescription: state.otherProfile.otherDescription,
+    otherProfileAddress: state.otherProfile.otherProfileAddress,
   };
 }
 

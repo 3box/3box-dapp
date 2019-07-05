@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import 'emoji-mart/css/emoji-mart.css';
 import { Picker } from 'emoji-mart';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import makeBlockie from 'ethereum-blockies-base64';
 
 import {
   store,
@@ -26,6 +27,7 @@ import Verified from '../../assets/Verified.svg';
 import AddImage from '../../assets/AddImage.svg';
 import Loading from '../../assets/Loading.svg';
 import '../styles/EditProfile.css';
+import DefaultColorPic from '../../assets/DefaultColorPic.svg';
 
 const { getActivity, getMyProfileValue, getMyDID } = actions.profile;
 const {
@@ -1190,7 +1192,11 @@ class EditProfile extends Component {
                           <div className="profPic_div_overlay">
                             <p>Change picture</p>
                           </div>
-                          <div className="profPic" />
+                          <img
+                            className="profPic"
+                            src={currentAddress ? makeBlockie(currentAddress) : DefaultColorPic}
+                            alt="profile"
+                          />
                         </div>)}
 
                   </label>

@@ -92,10 +92,8 @@ class Nav extends Component {
           >
             <ProfilePicture
               pictureClass="nav__userPicture clearProfPic"
-              onClickFunction={this.handleDropdown}
               isMyPicture
             />
-
             Profile
           </NavLink>
 
