@@ -1134,7 +1134,7 @@ class EditProfile extends Component {
                     </div>
                   </label>
                 </div>
-                {(((coverPhoto.length > 0 && coverPhoto[0].contentUrl) || (this.coverUpload && this.coverUpload.files && this.coverUpload.files[0])) && !removeCoverPic)
+                {(((coverPhoto && coverPhoto.length > 0 && coverPhoto[0].contentUrl) || (this.coverUpload && this.coverUpload.files && this.coverUpload.files[0])) && !removeCoverPic)
                   && (
                     <img
                       className="coverPic"
@@ -1166,7 +1166,7 @@ class EditProfile extends Component {
                       id="removePic"
                       className="removeButton"
                       onClick={() => this.removePicture('User')}
-                      disabled={(image.length > 0 || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])) ? false : true}
+                      disabled={((image && image.length > 0 && image[0].contentUrl) || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])) ? false : true}
                       text="remove"
                       type="button"
                     >

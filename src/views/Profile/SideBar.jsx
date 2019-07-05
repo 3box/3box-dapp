@@ -40,7 +40,7 @@ const SideBar = ({
           : <div className="profile__coverPhoto" />)
       }
       {onOtherProfilePage && (
-        otherCoverPhoto.length > 0 && otherCoverPhoto[0].contentUrl
+        otherCoverPhoto && otherCoverPhoto.length > 0 && otherCoverPhoto[0].contentUrl
           ? <img src={`https://ipfs.infura.io/ipfs/${otherCoverPhoto[0].contentUrl['/']}`} className={`${showSignInBanner ? 'showSignInBanner' : ''} ${showSignInBanner ? 'bannerMargin' : ''} profile__coverPhoto clearProfPic`} alt="profile" />
           : <div className={`${showSignInBanner ? 'showSignInBanner' : ''} ${showSignInBanner ? 'bannerMargin' : ''} profile__coverPhoto`} />)
       }
