@@ -45,8 +45,21 @@ const getActivity = otherProfileAddress => async (dispatch) => {
         .concat(categorizedActivity.token);
     } else {
       // get 3box logs
-      const unFilteredPublicActivity = await store.getState().myData.box.public.log;
-      const privateActivity = await store.getState().myData.box.private.log;
+      let unFilteredPublicActivity;
+      let privateActivity;
+
+      try {
+        unFilteredPublicActivity = await store.getState().myData.box.public.log;
+      } catch (error) {
+        console.error(error);
+      }
+
+      try {
+        privateActivity = await store.getState().myData.box.private.log;
+      } catch (error) {
+        console.error(error);
+      }
+
       emailProof = await store.getState().myData.box.private._genDbKey('proof_email');
 
       // remove ethereum_proof & proof_did & memberSince
@@ -58,7 +71,7 @@ const getActivity = otherProfileAddress => async (dispatch) => {
 
       // assign public or private data type
       const categorizedPublicActivity = addPublicOrPrivateDataType(publicActivity, 'Public');
-      const categorizedPrivateActivity = addPublicOrPrivateDataType(privateActivity, 'Private');
+      const categorizedPrivateActivity = privateActivity ? addPublicOrPrivateDataType(privateActivity, 'Private') : [];
 
       const spacesData = store.getState().spaces.allData;
       const spacesDataActivity = [];
