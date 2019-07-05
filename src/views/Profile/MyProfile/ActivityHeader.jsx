@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ProfileHover from 'profile-hover';
 
+import ProfilePicture from '../../../components/ProfilePicture';
 import Space from '../../../assets/Space.svg';
 import networkArray from '../../../utils/networkArray';
 import { isEthAddress } from '../../../utils/funcs';
@@ -13,6 +14,24 @@ import '../../../components/styles/NetworkArray.css';
 const Activity = ({ name, image, feedAddress }) => (
   <div className="feed__activity__context">
     {(Object.keys(feedAddress)[0] === 'threeBox')
+      && (
+        <div className="feed__activity__userWrapper">
+          {/* <img
+            src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`}
+            className="feed__activity__user clear"
+            alt="profile"
+          /> */}
+          <ProfilePicture
+            pictureClass="feed__activity__user clear"
+            imageToRender={image}
+          />
+          <h5 className="feed__activity__threeBoxEmblem">
+            3
+          </h5>
+        </div>)
+    }
+    
+    {/* {(Object.keys(feedAddress)[0] === 'threeBox')
       && (image && image.length > 0 && image[0].contentUrl
         ? (
           <div className="feed__activity__userWrapper">
@@ -34,7 +53,7 @@ const Activity = ({ name, image, feedAddress }) => (
             </h5>
           </div>
         ))
-    }
+    } */}
 
     {(Object.keys(feedAddress)[0] !== 'threeBox' && feedAddress.metaData && feedAddress.metaData.image)
       && <img src={`https://ipfs.infura.io/ipfs/${feedAddress.metaData.image}`} className="feed__activity__user clear" alt="profile" />}

@@ -64,12 +64,17 @@ export const FeedTileActivity = ({ item, verifiedGithub, verifiedTwitter, verifi
       <FeedTileContext item={item} />
     </div>
 
+    {/* show updated image */}
     {((item.key === 'image' || item.key === 'coverPhoto')
       && item.value
       && item.value.length > 0
       && item.value[0].contentUrl)
       ? (
-        <img src={`https://ipfs.infura.io/ipfs/${item.value[0].contentUrl['/']}`} className="feed__activity__image clearProfPic" alt="profile" />
+        <img
+          src={`https://ipfs.infura.io/ipfs/${item.value[0].contentUrl['/']}`}
+          className="feed__activity__image clearProfPic"
+          alt="profile"
+        />
       ) : ''
     }
   </div>
