@@ -29,7 +29,6 @@ const getOtherProfile = profileAddress => async (dispatch) => {
       otherName: publicProfile.name,
       otherEmoji: publicProfile.emoji,
       otherStatus: publicProfile.status,
-      otherCollectiblesGallery: publicProfile.collectiblesFavorites,
     });
     window.prerenderReady = true;
 
@@ -56,7 +55,7 @@ const getOtherProfile = profileAddress => async (dispatch) => {
     });
 
     dispatch({
-      type: 'OTHER_PROFILE_UPDATE',
+      type: 'OTHER_PROFILE_UPDATE_VERIFIED_FOLLOWING',
       otherGithub: publicVerifiedAccounts.github && publicVerifiedAccounts.github.username,
       otherTwitter: publicVerifiedAccounts.twitter && publicVerifiedAccounts.twitter.username,
       otherCollectiblesGallery: publicProfile.collectiblesFavorites,
