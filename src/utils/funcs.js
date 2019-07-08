@@ -391,3 +391,8 @@ export const alphabetize = (array) => {
   });
   return sortedArray;
 };
+
+export const shortenEthAddr = (str) => {
+  const shortenStr = `${str.substring(0, 5)}...${str.substring(str.length - 5, str.length)}`;
+  return shortenStr; 
+};

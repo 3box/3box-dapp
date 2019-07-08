@@ -13,7 +13,7 @@ import {
 import PubContent from './PublicProfile/PubContent';
 import SideBar from './SideBar';
 import './styles/Profile.css';
-import PubProfileHeaders from './PublicProfile/PubProfileHeaders';
+import TwitterHeader from './PublicProfile/TwitterHeader';
 
 const {
   handleShowSignInBanner,
@@ -35,7 +35,7 @@ const {
   getCollectibles,
 } = actions.profile;
 
-class ProfilePublic extends Component {
+class TwitterPubProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -47,8 +47,6 @@ class ProfilePublic extends Component {
   async componentDidMount() {
     try {
       window.scrollTo(0, 0);
-      window.prerenderReady = false;
-
       const { location: { pathname }, currentAddress } = this.props;
       const otherProfileAddress = pathname.split('/')[1];
 
@@ -132,7 +130,6 @@ class ProfilePublic extends Component {
 
   getProfile = async (otherProfileAddress) => {
     await this.props.getOtherProfile(otherProfileAddress);
-    window.prerenderReady = true;
     this.props.getCollectibles(otherProfileAddress, true);
     this.props.getActivity(otherProfileAddress);
   }
@@ -171,7 +168,7 @@ class ProfilePublic extends Component {
 
     return (
       <React.Fragment>
-        <PubProfileHeaders
+        <TwitterHeader
           otherName={otherName}
           otherProfileAddress={otherProfileAddress}
           otherImage={otherImage}
@@ -217,7 +214,7 @@ class ProfilePublic extends Component {
   }
 }
 
-ProfilePublic.propTypes = {
+TwitterPubProfile.propTypes = {
   getOtherProfile: PropTypes.func.isRequired,
   checkNetwork: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
@@ -238,7 +235,7 @@ ProfilePublic.propTypes = {
   otherProfileAddress: PropTypes.string,
 };
 
-ProfilePublic.defaultProps = {
+TwitterPubProfile.defaultProps = {
   pathname: {},
   location: {},
   isLoadingOtherProfile: true,
@@ -274,4 +271,4 @@ export default withRouter(connect(mapState,
     handleHideSignInBanner,
     handleContactsModal,
     getCollectibles,
-  })(ProfilePublic));
+  })(TwitterPubProfile));

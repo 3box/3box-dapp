@@ -19,6 +19,7 @@ import Team from './views/Landing/Team';
 import Spaces from './views/Spaces/Spaces';
 import MyProfile from './views/Profile/MyProfile';
 import PubProfile from './views/Profile/PubProfile';
+import TwitterPubProfile from './views/Profile/TwitterPubProfile';
 import NoMatch from './views/Landing/NoMatch';
 import EditProfile from './views/Profile/EditProfile';
 import Careers from './views/Landing/Careers';
@@ -478,6 +479,12 @@ class App extends Component {
             exact
             path="(^[/][0][xX]\w{40}\b)/edit"
             component={EditProfile}
+          />
+
+          <Route
+            exact
+            path="(^[/][0][xX]\w{40}\b)/requestFromTwitter"
+            component={TwitterPubProfile}
           />
 
           <Route
