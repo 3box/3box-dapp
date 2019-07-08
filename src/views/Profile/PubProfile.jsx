@@ -132,7 +132,6 @@ class ProfilePublic extends Component {
 
   getProfile = async (otherProfileAddress) => {
     await this.props.getOtherProfile(otherProfileAddress);
-    window.prerenderReady = true;
     this.props.getCollectibles(otherProfileAddress, true);
     this.props.getActivity(otherProfileAddress);
   }
