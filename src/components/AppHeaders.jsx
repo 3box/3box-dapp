@@ -16,7 +16,7 @@ const AppHeaders = () => (
     <meta name="twitter:site" content="@3boxdb" />
     <meta name="twitter:title" content="3Box | Ethereum Profiles" />
     <meta name="twitter:description" content="One profile. A world of Ethereum dapps." />
-    <meta name="twitter:image" content="https://i.imgur.com/o2kYS30.png" />
+    {/* <meta name="twitter:image" content="https://i.imgur.com/o2kYS30.png" /> */}
   </Helmet>
 );
 
