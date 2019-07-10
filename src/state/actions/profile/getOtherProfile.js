@@ -30,7 +30,6 @@ const getOtherProfile = profileAddress => async (dispatch) => {
       otherEmoji: publicProfile.emoji,
       otherStatus: publicProfile.status,
     });
-    window.prerenderReady = true;
 
     const publicVerifiedAccounts = Object.entries(publicProfile).length > 0 ?
       await Box.getVerifiedAccounts(publicProfile) : {

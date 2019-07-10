@@ -19,7 +19,8 @@ import Team from './views/Landing/Team';
 import Spaces from './views/Spaces/Spaces';
 import MyProfile from './views/Profile/MyProfile';
 import PubProfile from './views/Profile/PubProfile';
-import TwitterPubProfile from './views/Profile/TwitterPubProfile';
+import PubProfileDummy from './views/Profile/PubProfileDummy';
+// import TwitterPubProfile from './views/Profile/TwitterPubProfile';
 import NoMatch from './views/Landing/NoMatch';
 import EditProfile from './views/Profile/EditProfile';
 import Careers from './views/Landing/Careers';
@@ -483,8 +484,19 @@ class App extends Component {
 
           <Route
             exact
-            path="(^[/][0][xX]\w{40}\b)/requestFromTwitter"
-            component={TwitterPubProfile}
+            path="(^[/][0][xX]\w{40}\b)/twitterRequest"
+            // component={TwitterPubProfile}
+            component={() => (
+              <PubProfileDummy isTwitter />
+            )}
+          />
+
+          <Route
+            exact
+            path="(^[/][0][xX]\w{40}\b)/previewRequest"
+            component={() => (
+              <PubProfileDummy />
+            )}
           />
 
           <Route
