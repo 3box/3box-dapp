@@ -20,7 +20,6 @@ import Spaces from './views/Spaces/Spaces';
 import MyProfile from './views/Profile/MyProfile';
 import PubProfile from './views/Profile/PubProfile';
 import PubProfileDummy from './views/Profile/PubProfileDummy';
-// import TwitterPubProfile from './views/Profile/TwitterPubProfile';
 import NoMatch from './views/Landing/NoMatch';
 import EditProfile from './views/Profile/EditProfile';
 import Careers from './views/Landing/Careers';
@@ -100,6 +99,12 @@ class App extends Component {
     const splitRoute = normalizedPath.split('/');
     const isMyProfilePath = matchProtectedRoutes(splitRoute[2]);
     const currentEthAddress = window.localStorage.getItem('userEthAddress');
+
+    const isRequest = splitRoute[2].toLowerCase() === 'twitterrequest'
+      || splitRoute[2].toLowerCase() === 'previewrequest'
+      || splitRoute[3].toLowerCase() === 'twitterrequest'
+      || splitRoute[3].toLowerCase() === 'previewrequest';
+    if (isRequest) return;
 
     try {
       initialAddress(); // Initial get address
@@ -485,7 +490,6 @@ class App extends Component {
           <Route
             exact
             path="(^[/][0][xX]\w{40}\b)/twitterRequest"
-            // component={TwitterPubProfile}
             component={() => (
               <PubProfileDummy isTwitter />
             )}
@@ -494,6 +498,22 @@ class App extends Component {
           <Route
             exact
             path="(^[/][0][xX]\w{40}\b)/previewRequest"
+            component={() => (
+              <PubProfileDummy />
+            )}
+          />
+
+          <Route
+            exact
+            path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|following|data|edit\w*)/twitterRequest"
+            component={() => (
+              <PubProfileDummy isTwitter />
+            )}
+          />
+
+          <Route
+            exact
+            path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|following|data|edit\w*)/previewRequest"
             component={() => (
               <PubProfileDummy />
             )}
