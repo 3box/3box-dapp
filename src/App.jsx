@@ -329,15 +329,47 @@ class App extends Component {
     const { userAgent: ua } = navigator;
     const isIOS = ua.includes('iPhone');
     const isMyProfilePath = matchProtectedRoutes(normalizedPath.split('/')[2]);
-    const splitRoute = normalizedPath.split('/');
 
+    const splitRoute = normalizedPath.split('/');
     const isRequestRoute = checkRequestRoute(splitRoute);
+
+    if (isRequestRoute) {
+      return (
+        <div className="App">
+          <Switch>
+            <Route
+              exact
+              path="(^[/][0][xX]\w{40}\b)/twitterRequest"
+              component={PubProfileDummyTwitter}
+            />
+
+            <Route
+              exact
+              path="(^[/][0][xX]\w{40}\b)/previewRequest"
+              component={PubProfileDummy}
+            />
+
+            <Route
+              exact
+              path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|following|data|edit\w*)/twitterRequest"
+              component={PubProfileDummyTwitter}
+            />
+
+            <Route
+              exact
+              path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|following|data|edit\w*)/previewRequest"
+              component={PubProfileDummy}
+            />
+          </Switch>
+        </div>
+      );
+    }
 
     return (
       <div className="App">
         <AppHeaders />
 
-        {(!isMyProfilePath && !isLoggedIn && !isRequestRoute) // show landing nav when user is not logged in, 3box is not fetching, and when route is not a protected route
+        {(!isMyProfilePath && !isLoggedIn) // show landing nav when user is not logged in, 3box is not fetching, and when route is not a protected route
           && (
             <NavLanding
               handleSignInUp={this.handleSignInUp}
@@ -349,62 +381,60 @@ class App extends Component {
 
         {(!isMyProfilePath && isLoggedIn) && <Nav />}
 
-        {!isRequestRoute && (
-          <AppModals
-            isFetchingThreeBox={isFetchingThreeBox}
-            onSyncFinished={onSyncFinished}
-            isSyncing={isSyncing}
-            hasSignedOut={hasSignedOut}
-            allowAccessModal={allowAccessModal}
-            directLogin={directLogin}
-            isMyProfilePath={isMyProfilePath}
-            alertRequireMetaMask={alertRequireMetaMask}
-            accessDeniedModal={accessDeniedModal}
-            signInToWalletModal={signInToWalletModal}
-            signInModal={signInModal}
-            isIOS={isIOS}
-            mobileWalletRequiredModal={mobileWalletRequiredModal}
-            errorMessage={errorMessage}
-            mustConsentError={mustConsentError}
-            showErrorModal={showErrorModal}
-            prevNetwork={prevNetwork}
-            currentNetwork={currentNetwork}
-            showDifferentNetworkModal={showDifferentNetworkModal}
-            loggedOutModal={loggedOutModal}
-            switchedAddressModal={switchedAddressModal}
-            prevAddress={prevAddress}
-            onBoardingModal={onBoardingModal}
-            onBoardingModalTwo={onBoardingModalTwo}
-            provideConsent={provideConsent}
-            showContactsModal={showContactsModal}
-            showFollowingPublicModal={showFollowingPublicModal}
-            onBoardingModalMobileOne={onBoardingModalMobileOne}
-            onBoardingModalMobileTwo={onBoardingModalMobileTwo}
-            onBoardingModalMobileThree={onBoardingModalMobileThree}
-            otherAddressToFollow={otherAddressToFollow}
-            otherFollowing={otherFollowing}
-            otherName={otherName}
-            following={following}
-            otherProfileAddress={otherProfileAddress}
-            handleContactsModal={this.props.handleContactsModal}
-            handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal}
-            handleSignInModal={this.props.handleSignInModal}
-            handleMobileWalletModal={this.props.handleMobileWalletModal}
-            handleConsentModal={this.props.handleConsentModal}
-            handleDeniedAccessModal={this.props.handleDeniedAccessModal}
-            closeErrorModal={this.props.closeErrorModal}
-            handleSwitchedNetworkModal={this.props.handleSwitchedNetworkModal}
-            handleLoggedOutModal={this.props.handleLoggedOutModal}
-            handleSignOut={this.props.handleSignOut}
-            handleSwitchedAddressModal={this.props.handleSwitchedAddressModal}
-            handleOnboardingModal={this.props.handleOnboardingModal}
-            handleAccessModal={this.props.handleAccessModal}
-            handleNextMobileModal={this.handleNextMobileModal}
-            closeRequireMetaMaskModal={this.props.closeRequireMetaMaskModal}
-            handleFollowingPublicModal={this.props.handleFollowingPublicModal}
-            saveFollowing={this.props.saveFollowing}
-          />
-        )}
+        <AppModals
+          isFetchingThreeBox={isFetchingThreeBox}
+          onSyncFinished={onSyncFinished}
+          isSyncing={isSyncing}
+          hasSignedOut={hasSignedOut}
+          allowAccessModal={allowAccessModal}
+          directLogin={directLogin}
+          isMyProfilePath={isMyProfilePath}
+          alertRequireMetaMask={alertRequireMetaMask}
+          accessDeniedModal={accessDeniedModal}
+          signInToWalletModal={signInToWalletModal}
+          signInModal={signInModal}
+          isIOS={isIOS}
+          mobileWalletRequiredModal={mobileWalletRequiredModal}
+          errorMessage={errorMessage}
+          mustConsentError={mustConsentError}
+          showErrorModal={showErrorModal}
+          prevNetwork={prevNetwork}
+          currentNetwork={currentNetwork}
+          showDifferentNetworkModal={showDifferentNetworkModal}
+          loggedOutModal={loggedOutModal}
+          switchedAddressModal={switchedAddressModal}
+          prevAddress={prevAddress}
+          onBoardingModal={onBoardingModal}
+          onBoardingModalTwo={onBoardingModalTwo}
+          provideConsent={provideConsent}
+          showContactsModal={showContactsModal}
+          showFollowingPublicModal={showFollowingPublicModal}
+          onBoardingModalMobileOne={onBoardingModalMobileOne}
+          onBoardingModalMobileTwo={onBoardingModalMobileTwo}
+          onBoardingModalMobileThree={onBoardingModalMobileThree}
+          otherAddressToFollow={otherAddressToFollow}
+          otherFollowing={otherFollowing}
+          otherName={otherName}
+          following={following}
+          otherProfileAddress={otherProfileAddress}
+          handleContactsModal={this.props.handleContactsModal}
+          handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal}
+          handleSignInModal={this.props.handleSignInModal}
+          handleMobileWalletModal={this.props.handleMobileWalletModal}
+          handleConsentModal={this.props.handleConsentModal}
+          handleDeniedAccessModal={this.props.handleDeniedAccessModal}
+          closeErrorModal={this.props.closeErrorModal}
+          handleSwitchedNetworkModal={this.props.handleSwitchedNetworkModal}
+          handleLoggedOutModal={this.props.handleLoggedOutModal}
+          handleSignOut={this.props.handleSignOut}
+          handleSwitchedAddressModal={this.props.handleSwitchedAddressModal}
+          handleOnboardingModal={this.props.handleOnboardingModal}
+          handleAccessModal={this.props.handleAccessModal}
+          handleNextMobileModal={this.handleNextMobileModal}
+          closeRequireMetaMaskModal={this.props.closeRequireMetaMaskModal}
+          handleFollowingPublicModal={this.props.handleFollowingPublicModal}
+          saveFollowing={this.props.saveFollowing}
+        />
 
         <Switch>
           <Route
@@ -506,30 +536,6 @@ class App extends Component {
 
           <Route
             exact
-            path="(^[/][0][xX]\w{40}\b)/twitterRequest"
-            component={PubProfileDummyTwitter}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/previewRequest"
-            component={PubProfileDummy}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|following|data|edit\w*)/twitterRequest"
-            component={PubProfileDummyTwitter}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|following|data|edit\w*)/previewRequest"
-            component={PubProfileDummy}
-          />
-
-          <Route
-            exact
             path={routes.PARTNERS}
             component={() => (
               <Partners />
@@ -578,8 +584,31 @@ class App extends Component {
             )}
           />
 
-        </Switch>
+          <Route
+            exact
+            path="(^[/][0][xX]\w{40}\b)/twitterRequest"
+            component={PubProfileDummyTwitter}
+          />
 
+          <Route
+            exact
+            path="(^[/][0][xX]\w{40}\b)/previewRequest"
+            component={PubProfileDummy}
+          />
+
+          <Route
+            exact
+            path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|following|data|edit\w*)/twitterRequest"
+            component={PubProfileDummyTwitter}
+          />
+
+          <Route
+            exact
+            path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|following|data|edit\w*)/previewRequest"
+            component={PubProfileDummy}
+          />
+
+        </Switch>
       </div>
     );
   }
