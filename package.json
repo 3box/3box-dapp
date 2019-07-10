@@ -79,7 +79,7 @@
     "invalidate": "node_modules/.bin/aws-cloudfront-invalidate",
     "deploy-develop": "npm run deploy-to-s3 3box-dapp-develop.3box.io && npm run invalidate E17Q4403A4B4C8",
     "deploy-master": "npm run deploy-to-s3 3box-dapp-master.3box.io && npm run invalidate ET1S25F7JOQM6",
-    "deploy-test": "npm run deploy-to-s3 3box-dapp-test.3box.io && npm run invalidate E256JNRDZ1B3QM"
+    "deploy-test": "GENERATE_SOURCEMAP=false npm run deploy-to-s3 3box-dapp-test.3box.io && npm run invalidate E256JNRDZ1B3QM"
   },
   "browserslist": [
     "defaults"
