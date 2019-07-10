@@ -31,6 +31,16 @@ export const matchProtectedRoutes = (normalizedPath) => {
   return false;
 };
 
+export const checkRequestRoute = (splitRoute) => {
+  const route2 = splitRoute[2] && splitRoute[2].toLowerCase();
+  const route3 = splitRoute[3] && splitRoute[3].toLowerCase();
+  const isRequest = route2 === 'twitterrequest' ||
+    route2 === 'previewrequest' ||
+    route3 === 'twitterrequest' ||
+    route3 === 'previewrequest';
+  return isRequest;
+};
+
 export const addhttp = (url) => {
   let correctedURL;
   if (!/^(?:f|ht)tps?\:\/\//.test(url)) {
@@ -394,5 +404,5 @@ export const alphabetize = (array) => {
 
 export const shortenEthAddr = (str) => {
   const shortenStr = `${str.substring(0, 5)}...${str.substring(str.length - 5, str.length)}`;
-  return shortenStr; 
+  return shortenStr;
 };

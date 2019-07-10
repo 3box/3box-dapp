@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 import * as routes from './utils/routes';
 import { pollNetworkAndAddress, initialAddress } from './utils/address';
-import { normalizeURL, matchProtectedRoutes } from './utils/funcs';
+import { normalizeURL, matchProtectedRoutes, checkRequestRoute } from './utils/funcs';
 import { store } from './state/store';
 import history from './utils/history';
 
@@ -143,8 +143,8 @@ class App extends Component {
     const { location } = nextProps;
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
-
     const splitRoute = normalizedPath.split('/');
+
     const route2 = splitRoute[2] && splitRoute[2].toLowerCase();
     const route3 = splitRoute[3] && splitRoute[3].toLowerCase();
     const isRequest = route2 === 'twitterrequest'
@@ -329,12 +329,15 @@ class App extends Component {
     const { userAgent: ua } = navigator;
     const isIOS = ua.includes('iPhone');
     const isMyProfilePath = matchProtectedRoutes(normalizedPath.split('/')[2]);
+    const splitRoute = normalizedPath.split('/');
+
+    const isRequestRoute = checkRequestRoute(splitRoute);
 
     return (
       <div className="App">
         <AppHeaders />
 
-        {(!isMyProfilePath && !isLoggedIn) // show landing nav when user is not logged in, 3box is not fetching, and when route is not a protected route
+        {(!isMyProfilePath && !isLoggedIn && !isRequestRoute) // show landing nav when user is not logged in, 3box is not fetching, and when route is not a protected route
           && (
             <NavLanding
               handleSignInUp={this.handleSignInUp}
@@ -346,60 +349,62 @@ class App extends Component {
 
         {(!isMyProfilePath && isLoggedIn) && <Nav />}
 
-        <AppModals
-          isFetchingThreeBox={isFetchingThreeBox}
-          onSyncFinished={onSyncFinished}
-          isSyncing={isSyncing}
-          hasSignedOut={hasSignedOut}
-          allowAccessModal={allowAccessModal}
-          directLogin={directLogin}
-          isMyProfilePath={isMyProfilePath}
-          alertRequireMetaMask={alertRequireMetaMask}
-          accessDeniedModal={accessDeniedModal}
-          signInToWalletModal={signInToWalletModal}
-          signInModal={signInModal}
-          isIOS={isIOS}
-          mobileWalletRequiredModal={mobileWalletRequiredModal}
-          errorMessage={errorMessage}
-          mustConsentError={mustConsentError}
-          showErrorModal={showErrorModal}
-          prevNetwork={prevNetwork}
-          currentNetwork={currentNetwork}
-          showDifferentNetworkModal={showDifferentNetworkModal}
-          loggedOutModal={loggedOutModal}
-          switchedAddressModal={switchedAddressModal}
-          prevAddress={prevAddress}
-          onBoardingModal={onBoardingModal}
-          onBoardingModalTwo={onBoardingModalTwo}
-          provideConsent={provideConsent}
-          showContactsModal={showContactsModal}
-          showFollowingPublicModal={showFollowingPublicModal}
-          onBoardingModalMobileOne={onBoardingModalMobileOne}
-          onBoardingModalMobileTwo={onBoardingModalMobileTwo}
-          onBoardingModalMobileThree={onBoardingModalMobileThree}
-          otherAddressToFollow={otherAddressToFollow}
-          otherFollowing={otherFollowing}
-          otherName={otherName}
-          following={following}
-          otherProfileAddress={otherProfileAddress}
-          handleContactsModal={this.props.handleContactsModal}
-          handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal}
-          handleSignInModal={this.props.handleSignInModal}
-          handleMobileWalletModal={this.props.handleMobileWalletModal}
-          handleConsentModal={this.props.handleConsentModal}
-          handleDeniedAccessModal={this.props.handleDeniedAccessModal}
-          closeErrorModal={this.props.closeErrorModal}
-          handleSwitchedNetworkModal={this.props.handleSwitchedNetworkModal}
-          handleLoggedOutModal={this.props.handleLoggedOutModal}
-          handleSignOut={this.props.handleSignOut}
-          handleSwitchedAddressModal={this.props.handleSwitchedAddressModal}
-          handleOnboardingModal={this.props.handleOnboardingModal}
-          handleAccessModal={this.props.handleAccessModal}
-          handleNextMobileModal={this.handleNextMobileModal}
-          closeRequireMetaMaskModal={this.props.closeRequireMetaMaskModal}
-          handleFollowingPublicModal={this.props.handleFollowingPublicModal}
-          saveFollowing={this.props.saveFollowing}
-        />
+        {!isRequestRoute && (
+          <AppModals
+            isFetchingThreeBox={isFetchingThreeBox}
+            onSyncFinished={onSyncFinished}
+            isSyncing={isSyncing}
+            hasSignedOut={hasSignedOut}
+            allowAccessModal={allowAccessModal}
+            directLogin={directLogin}
+            isMyProfilePath={isMyProfilePath}
+            alertRequireMetaMask={alertRequireMetaMask}
+            accessDeniedModal={accessDeniedModal}
+            signInToWalletModal={signInToWalletModal}
+            signInModal={signInModal}
+            isIOS={isIOS}
+            mobileWalletRequiredModal={mobileWalletRequiredModal}
+            errorMessage={errorMessage}
+            mustConsentError={mustConsentError}
+            showErrorModal={showErrorModal}
+            prevNetwork={prevNetwork}
+            currentNetwork={currentNetwork}
+            showDifferentNetworkModal={showDifferentNetworkModal}
+            loggedOutModal={loggedOutModal}
+            switchedAddressModal={switchedAddressModal}
+            prevAddress={prevAddress}
+            onBoardingModal={onBoardingModal}
+            onBoardingModalTwo={onBoardingModalTwo}
+            provideConsent={provideConsent}
+            showContactsModal={showContactsModal}
+            showFollowingPublicModal={showFollowingPublicModal}
+            onBoardingModalMobileOne={onBoardingModalMobileOne}
+            onBoardingModalMobileTwo={onBoardingModalMobileTwo}
+            onBoardingModalMobileThree={onBoardingModalMobileThree}
+            otherAddressToFollow={otherAddressToFollow}
+            otherFollowing={otherFollowing}
+            otherName={otherName}
+            following={following}
+            otherProfileAddress={otherProfileAddress}
+            handleContactsModal={this.props.handleContactsModal}
+            handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal}
+            handleSignInModal={this.props.handleSignInModal}
+            handleMobileWalletModal={this.props.handleMobileWalletModal}
+            handleConsentModal={this.props.handleConsentModal}
+            handleDeniedAccessModal={this.props.handleDeniedAccessModal}
+            closeErrorModal={this.props.closeErrorModal}
+            handleSwitchedNetworkModal={this.props.handleSwitchedNetworkModal}
+            handleLoggedOutModal={this.props.handleLoggedOutModal}
+            handleSignOut={this.props.handleSignOut}
+            handleSwitchedAddressModal={this.props.handleSwitchedAddressModal}
+            handleOnboardingModal={this.props.handleOnboardingModal}
+            handleAccessModal={this.props.handleAccessModal}
+            handleNextMobileModal={this.handleNextMobileModal}
+            closeRequireMetaMaskModal={this.props.closeRequireMetaMaskModal}
+            handleFollowingPublicModal={this.props.handleFollowingPublicModal}
+            saveFollowing={this.props.saveFollowing}
+          />
+        )}
 
         <Switch>
           <Route
