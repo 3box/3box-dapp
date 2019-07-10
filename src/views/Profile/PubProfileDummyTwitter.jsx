@@ -1,82 +1,83 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import actions from '../../state/actions';
-import { store } from '../../state/store';
 import './styles/Profile.css';
 import TwitterHeader from './PublicProfile/TwitterHeader';
 
 const {
-  getOtherProfileHeaders,
+  getPublicProfile,
 } = actions.profile;
 
 class ProfilePublic extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      otherImage: [],
+      otherName: '',
+      otherProfileAddress: '',
+    };
   }
 
   componentDidMount() {
     try {
       const { location: { pathname } } = this.props;
       const otherProfileAddress = pathname.split('/')[1];
-      store.dispatch({
-        type: 'OTHER_ADDRESS_UPDATE',
-        otherProfileAddress,
-      });
-      this.props.getOtherProfileHeaders(otherProfileAddress);
+      this.setState({ otherProfileAddress });
+      this.getOtherProfileHeaders(otherProfileAddress);
     } catch (err) {
       console.error(err);
     }
   }
+
+  getOtherProfileHeaders = async (profileAddress) => {
+    const graphqlQueryObject = `
+    {
+      profile(id: "${profileAddress}") {
+        name
+        image
+      }
+    }
+    `;
+    const publicProfile = await getPublicProfile(graphqlQueryObject);
+
+    this.setState({
+      otherImage: [{
+        '@type': 'ImageObject',
+        contentUrl: {
+          '/': publicProfile.profile.image,
+        },
+      }],
+      otherName: publicProfile.profile.name,
+    });
+  };
 
   render() {
     const {
       otherImage,
       otherName,
       otherProfileAddress,
-    } = this.props;
+    } = this.state;
 
     return (
-      <React.Fragment>
-        <TwitterHeader
-          otherName={otherName}
-          otherProfileAddress={otherProfileAddress}
-          otherImage={otherImage}
-        />
-      </React.Fragment>
+      <TwitterHeader
+        otherName={otherName}
+        otherProfileAddress={otherProfileAddress}
+        otherImage={otherImage}
+      />
     );
   }
 }
 
 ProfilePublic.propTypes = {
-  getOtherProfileHeaders: PropTypes.func.isRequired,
-  pathname: PropTypes.object,
   location: PropTypes.object,
-  currentAddress: PropTypes.string,
-  otherImage: PropTypes.array,
-  otherName: PropTypes.string,
-  otherProfileAddress: PropTypes.string,
+  pathname: PropTypes.string,
 };
 
 ProfilePublic.defaultProps = {
-  pathname: {},
   location: {},
-  currentAddress: '',
-  otherName: '',
-  otherProfileAddress: '',
+  pathname: '',
 };
 
-const mapState = state => ({
-  currentAddress: state.userState.currentAddress,
-  otherName: state.otherProfile.otherName,
-  otherImage: state.otherProfile.otherImage,
-  otherProfileAddress: state.otherProfile.otherProfileAddress,
-});
-
-export default withRouter(connect(mapState,
-  {
-    getOtherProfileHeaders,
-  })(ProfilePublic));
+export default withRouter(ProfilePublic);

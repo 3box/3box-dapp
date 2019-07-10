@@ -59,7 +59,8 @@
     "redux-logger": "^3.0.6",
     "regenerator-runtime": "^0.13.1",
     "s3-deploy": "^1.1.1",
-    "sass-loader": "^7.1.0"
+    "sass-loader": "^7.1.0",
+    "uglifyjs-webpack-plugin": "^2.1.3"
   },
   "scripts": {
     "babel": "babel --presets es2015 src/index.js -o build/main.bundle.js",
