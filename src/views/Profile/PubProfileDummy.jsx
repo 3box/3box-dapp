@@ -21,6 +21,7 @@ class ProfilePublic extends Component {
   }
 
   componentDidMount() {
+    console.log('process.env.NODE_ENV', process.env.NODE_ENV);
     try {
       const { location: { pathname } } = this.props;
       const otherProfileAddress = pathname.split('/')[1];
