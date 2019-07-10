@@ -20,6 +20,7 @@ import Spaces from './views/Spaces/Spaces';
 import MyProfile from './views/Profile/MyProfile';
 import PubProfile from './views/Profile/PubProfile';
 import PubProfileDummy from './views/Profile/PubProfileDummy';
+import PubProfileDummyTwitter from './views/Profile/PubProfileDummyTwitter';
 import NoMatch from './views/Landing/NoMatch';
 import EditProfile from './views/Profile/EditProfile';
 import Careers from './views/Landing/Careers';
@@ -142,6 +143,15 @@ class App extends Component {
     const { location } = nextProps;
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
+
+    const splitRoute = normalizedPath.split('/');
+    const route2 = splitRoute[2] && splitRoute[2].toLowerCase();
+    const route3 = splitRoute[3] && splitRoute[3].toLowerCase();
+    const isRequest = route2 === 'twitterrequest'
+      || route2 === 'previewrequest'
+      || route3 === 'twitterrequest'
+      || route3 === 'previewrequest';
+    if (isRequest) return;
 
     // check previous route for banner behavior on /Create & /Profiles
     // does not work with back button
@@ -492,33 +502,25 @@ class App extends Component {
           <Route
             exact
             path="(^[/][0][xX]\w{40}\b)/twitterRequest"
-            component={() => (
-              <PubProfileDummy isTwitter />
-            )}
+            component={PubProfileDummyTwitter}
           />
 
           <Route
             exact
             path="(^[/][0][xX]\w{40}\b)/previewRequest"
-            component={() => (
-              <PubProfileDummy />
-            )}
+            component={PubProfileDummy}
           />
 
           <Route
             exact
             path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|following|data|edit\w*)/twitterRequest"
-            component={() => (
-              <PubProfileDummy isTwitter />
-            )}
+            component={PubProfileDummyTwitter}
           />
 
           <Route
             exact
             path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|following|data|edit\w*)/previewRequest"
-            component={() => (
-              <PubProfileDummy />
-            )}
+            component={PubProfileDummy}
           />
 
           <Route

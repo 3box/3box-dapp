@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import actions from '../../state/actions';
 import { store } from '../../state/store';
 import './styles/Profile.css';
-import PubProfileHeaders from './PublicProfile/PubProfileHeaders';
+import TwitterHeader from './PublicProfile/TwitterHeader';
 
 const {
   getOtherProfileHeaders,
@@ -41,7 +41,7 @@ class ProfilePublic extends Component {
 
     return (
       <React.Fragment>
-        <PubProfileHeaders
+        <TwitterHeader
           otherName={otherName}
           otherProfileAddress={otherProfileAddress}
           otherImage={otherImage}
