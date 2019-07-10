@@ -4,14 +4,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import actions from '../../state/actions';
-// import PubContent from './PublicProfile/PubContent';
-// import SideBar from './SideBar';
+import { store } from '../../state/store';
 import './styles/Profile.css';
 import PubProfileHeaders from './PublicProfile/PubProfileHeaders';
 import TwitterHeader from './PublicProfile/TwitterHeader';
 
 const {
-  getOtherProfile,
+  getOtherProfileHeaders,
 } = actions.profile;
 
 class ProfilePublic extends Component {
@@ -24,14 +23,14 @@ class ProfilePublic extends Component {
     try {
       const { location: { pathname } } = this.props;
       const otherProfileAddress = pathname.split('/')[1];
-      await this.getProfile(otherProfileAddress);
+      store.dispatch({
+        type: 'OTHER_ADDRESS_UPDATE',
+        otherProfileAddress,
+      });
+      await this.props.getOtherProfileHeaders(otherProfileAddress);
     } catch (err) {
       console.error(err);
     }
-  }
-
-  getProfile = async (otherProfileAddress) => {
-    await this.props.getOtherProfile(otherProfileAddress);
   }
 
   render() {
@@ -64,7 +63,7 @@ class ProfilePublic extends Component {
 }
 
 ProfilePublic.propTypes = {
-  getOtherProfile: PropTypes.func.isRequired,
+  getOtherProfileHeaders: PropTypes.func.isRequired,
   pathname: PropTypes.object,
   location: PropTypes.object,
   currentAddress: PropTypes.string,
@@ -92,5 +91,5 @@ const mapState = state => ({
 
 export default withRouter(connect(mapState,
   {
-    getOtherProfile,
+    getOtherProfileHeaders,
   })(ProfilePublic));
