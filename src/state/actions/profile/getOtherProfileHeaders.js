@@ -1,7 +1,6 @@
 import getPublicProfile from './getPublicProfile';
 
 const getOtherProfileHeaders = profileAddress => async (dispatch) => {
-  console.log('calledthisnow')
   try {
     const graphqlQueryObject = `
     {
