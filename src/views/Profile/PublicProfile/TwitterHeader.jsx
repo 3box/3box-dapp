@@ -6,7 +6,6 @@ import { shortenEthAddr } from '../../../utils/funcs';
 const TwitterHeader = ({
   otherName,
   otherProfileAddress,
-  otherImage
 }) => (
     <Helmet>
       <title>{`${otherName} on 3Box` || '3Box | Ethereum Profiles'}</title>

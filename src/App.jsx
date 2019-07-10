@@ -100,10 +100,12 @@ class App extends Component {
     const isMyProfilePath = matchProtectedRoutes(splitRoute[2]);
     const currentEthAddress = window.localStorage.getItem('userEthAddress');
 
-    const isRequest = splitRoute[2].toLowerCase() === 'twitterrequest'
-      || splitRoute[2].toLowerCase() === 'previewrequest'
-      || splitRoute[3].toLowerCase() === 'twitterrequest'
-      || splitRoute[3].toLowerCase() === 'previewrequest';
+    const route2 = splitRoute[2] && splitRoute[2].toLowerCase();
+    const route3 = splitRoute[3] && splitRoute[3].toLowerCase();
+    const isRequest = route2 === 'twitterrequest'
+      || route2 === 'previewrequest'
+      || route3 === 'twitterrequest'
+      || route3 === 'previewrequest';
     if (isRequest) return;
 
     try {

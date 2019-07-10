@@ -19,7 +19,7 @@ class ProfilePublic extends Component {
     this.state = {};
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     try {
       const { location: { pathname } } = this.props;
       const otherProfileAddress = pathname.split('/')[1];
@@ -27,7 +27,7 @@ class ProfilePublic extends Component {
         type: 'OTHER_ADDRESS_UPDATE',
         otherProfileAddress,
       });
-      await this.props.getOtherProfileHeaders(otherProfileAddress);
+      this.props.getOtherProfileHeaders(otherProfileAddress);
     } catch (err) {
       console.error(err);
     }
