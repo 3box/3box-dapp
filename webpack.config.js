@@ -18,10 +18,7 @@ module.exports = {
       },
     }],
   },
-  optimization: {
-    minimizer: [new UglifyJsPlugin()],
-  },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('common.js'),
+    new UglifyJsPlugin(),
   ],
 };
