@@ -6,6 +6,7 @@ module.exports = {
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
+    chunkFilename: '[name].chunk.js',
   },
   mode: process.env.NODE_ENV,
   module: {
@@ -20,4 +21,7 @@ module.exports = {
   optimization: {
     minimizer: [new UglifyJsPlugin()],
   },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin('common.js'),
+  ],
 };

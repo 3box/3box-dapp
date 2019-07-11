@@ -15,7 +15,7 @@ const TwitterHeader = ({
       <meta name="twitter:site" content="@3boxdb" />
       <meta name="twitter:title" content={`${otherName} on 3Box` || '3Box | Ethereum Profiles'} />
       <meta name="twitter:description" content={`Profile for ${shortenEthAddr(otherProfileAddress)}`} />
-      <meta name="twitter:image" content="https://i.imgur.com/9YTMIoE.png" />
+      <meta name="twitter:image" content="https://i.imgur.com/RXJO8FD.png" />
     </Helmet>
   );
 
