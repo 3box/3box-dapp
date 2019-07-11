@@ -27,7 +27,6 @@ export const deleteDuplicate = async (duplicates, followingThread) => {
 export const getPosts = async (followingThread) => {
   try {
     const followingList = await followingThread.getPosts();
-    console.log('getpostupdatedFollowingList', followingList);
 
     // remove duplicates from interface
     const userInList = {};
@@ -66,7 +65,6 @@ export const getFollowingThreadAndPosts = async (myAddress) => {
       type: 'MY_FOLLOWING_THREAD_UPDATE',
       followingThread,
     });
-    console.log('getMyFollowingThread', followingThread);
 
     followingThread.onUpdate(() => getPosts(followingThread));
     getPosts(followingThread);

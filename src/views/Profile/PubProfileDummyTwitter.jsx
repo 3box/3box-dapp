@@ -3,13 +3,8 @@ import Box from '3box';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-// import actions from '../../state/actions';
 import './styles/Profile.css';
 import TwitterHeader from './PublicProfile/TwitterHeader';
-
-// const {
-//   getPublicProfile,
-// } = actions.profile;
 
 class ProfilePublic extends Component {
   constructor(props) {
@@ -32,14 +27,6 @@ class ProfilePublic extends Component {
   }
 
   getOtherProfileHeaders = async (profileAddress) => {
-    // const graphqlQueryObject = `
-    // {
-    //   profile(id: "${profileAddress}") {
-    //     name
-    //   }
-    // }
-    // `;
-    // const publicProfile = await getPublicProfile(graphqlQueryObject);
     const publicProfile = await Box.getProfile(profileAddress);
     const otherName = publicProfile.name;
 

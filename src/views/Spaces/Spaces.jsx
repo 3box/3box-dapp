@@ -116,8 +116,6 @@ class Spaces extends Component {
       const { sortBy, sortDirection } = this.state;
       let updatedSortedSpace = [];
 
-      console.log('allData3', allData);
-
       if (newSort || sortBy !== category) {
         if (spaceName === 'All Data') {
           const extractCalls = [];

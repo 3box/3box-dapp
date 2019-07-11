@@ -64,8 +64,6 @@ const getMySpacesData = address => async (dispatch) => {
 
     await spaceDataPromise();
 
-    console.log('updatedAllData', updatedAllData);
-
     dispatch({
       type: 'SPACES_DATA_UPDATE',
       list,

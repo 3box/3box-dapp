@@ -15,7 +15,6 @@ import {
 
 const saveFollowing = (otherProfileAddress, fromWarningModal) => async (dispatch) => {
   try {
-    console.log('insavefollowing');
     const {
       followingList,
       followingThread,
@@ -43,14 +42,11 @@ const saveFollowing = (otherProfileAddress, fromWarningModal) => async (dispatch
       return;
     }
 
-    console.log('saveHere');
     // get user-to-follow's DID
     const profile = await Box.getProfile(otherProfileAddress);
     const contact = formatContact(profile.proof_did, otherProfileAddress);
 
-    console.log('savingThread', store.getState().myData.followingThread);
     const saved = await store.getState().myData.followingThread.post(contact);
-    console.log('savingfollower', saved);
   } catch (error) {
     console.error(error);
   }

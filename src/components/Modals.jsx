@@ -1258,7 +1258,6 @@ export const FollowingIsPublicModal = ({ handleFollowingPublicModal, saveFollowi
 
         <button
           onClick={() => {
-            console.log('insave');
             saveFollowing(otherAddressToFollow, true);
             handleFollowingPublicModal();
           }}

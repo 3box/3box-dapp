@@ -23,8 +23,6 @@ class Profile extends Component {
 
     return (
       <div>
-        {console.log('objectimagMyProfileHeaderse', image)}
-
         <MyProfileHeaders
           image={image}
           name={name}

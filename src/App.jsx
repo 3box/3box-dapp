@@ -16,13 +16,9 @@ import Dapp from './views/Landing/Dapp/Dapp';
 import LandingNew from './views/Landing/LandingNew';
 import Partners from './views/Landing/Partners';
 import Team from './views/Landing/Team';
-// import Spaces from './views/Spaces/Spaces';
-// import MyProfile from './views/Profile/MyProfile';
-// import PubProfile from './views/Profile/PubProfile';
 import PubProfileDummy from './views/Profile/PubProfileDummy';
 import PubProfileDummyTwitter from './views/Profile/PubProfileDummyTwitter';
 import NoMatch from './views/Landing/NoMatch';
-// import EditProfile from './views/Profile/EditProfile';
 import {
   MyProfile,
   Spaces,
@@ -37,16 +33,8 @@ import {
   Privacy,
   Nav,
 } from './DynamicImports';
-// import Careers from './views/Landing/Careers';
-// import Privacy from './views/Landing/Privacy';
-// import Terms from './views/Landing/Terms';
-// import Create from './views/Landing/Create';
-// import NavLanding from './components/NavLanding';
-// import AppHeaders from './components/AppHeaders';
-// import AppModals from './components/AppModals';
 import actions from './state/actions';
 import './index.css';
-// import Nav from './components/Nav';
 
 const {
   handleSignInModal,
@@ -93,49 +81,6 @@ const {
   initialCheckWeb3,
   checkNetwork,
 } = actions.land;
-
-// class DynamicImport extends Component {
-//   state = {
-//     component: null
-//   }
-//   componentWillMount() {
-//     this.props.load()
-//       .then((mod) => this.setState(() => ({
-//         component: mod.default
-//       })))
-//   }
-//   render() {
-//     return this.props.children(this.state.component)
-//   }
-// }
-
-// const MyProfile = props => (
-//   <DynamicImport load={() => import('./views/Profile/MyProfile')}>
-//     {Component => Component !== null
-//       && <Component {...props} />}
-//   </DynamicImport>
-// );
-
-// const Spaces = props => (
-//   <DynamicImport load={() => import('./views/Spaces/Spaces')}>
-//     {Component => Component !== null
-//       && <Component {...props} />}
-//   </DynamicImport>
-// );
-
-// const EditProfile = props => (
-//   <DynamicImport load={() => import('./views/Profile/EditProfile')}>
-//     {Component => Component !== null
-//       && <Component {...props} />}
-//   </DynamicImport>
-// );
-
-// const PubProfile = props => (
-//   <DynamicImport load={() => import('./views/Profile/PubProfile')}>
-//     {Component => Component !== null
-//       && <Component {...props} />}
-//   </DynamicImport>
-// );
 
 class App extends Component {
   constructor(props) {

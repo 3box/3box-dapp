@@ -85,7 +85,6 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
         } catch (error) {
           console.error(error);
         }
-        console.log('publicActivitypublicActivity', publicActivity);
         try {
           privateActivity = store.getState().myData.box.private.log;
         } catch (error) {

@@ -54,7 +54,6 @@ export const addhttp = (url) => {
 export async function getContract(otherAddress) {
   try {
     const response = await fetch(`https://api.etherscan.io/api?module=contract&action=getabi&address=${otherAddress}&apikey=3VTI9D585DCX4RD4QSP3MYWKACCIVZID23`);
-    // const response = await fetch(`https://api.etherscan.io/api?module=contract&action=getabi&address=${otherAddress}&apikey=${process.env.ETHERSCAN_TOKEN}`);
     if (response.status !== 200) {
       return console.log(`Looks like there was a problem. Status Code: ${response.status}`);
     }
@@ -371,8 +370,6 @@ export const getAuthorsLatestPost = (threadArray, usersDID) => {
 
 export const getFollowingProfiles = async (following) => {
   const profileCalls = [];
-  // const updatedFollowing = following.slice();
-  // console.log('getFollowingProfiles', updatedFollowing);
   following.forEach((profile) => {
     profileCalls.push(Box.getProfile(profile.message.identifier[1].value));
   });
