@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link, NavLink, withRouter } from 'react-router-dom';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
+import ProfilePicture from '../../components/ProfilePicture';
 import PubSideBar from './PublicProfile/PubSideBar';
 import { copyToClipBoard } from '../../utils/funcs';
 import * as routes from '../../utils/routes';
@@ -19,7 +20,6 @@ import '../../components/styles/Modal.css';
 
 const SideBar = ({
   name,
-  image,
   coverPhoto,
   description,
   emoji,
@@ -28,7 +28,6 @@ const SideBar = ({
   copyToClipBoard,
   copySuccessful,
   otherCoverPhoto,
-  otherImage,
   otherName,
   otherEmoji,
   otherDescription,
@@ -46,7 +45,7 @@ const SideBar = ({
       }
 
       {onOtherProfilePage && (
-        otherCoverPhoto.length > 0 && otherCoverPhoto[0].contentUrl
+        otherCoverPhoto && otherCoverPhoto.length > 0 && otherCoverPhoto[0].contentUrl
           ? <img src={`https://ipfs.infura.io/ipfs/${otherCoverPhoto[0].contentUrl['/']}`} className={`${showSignInBanner ? 'showSignInBanner' : ''} ${showSignInBanner ? 'bannerMargin' : ''} profile__coverPhoto clearProfPic`} alt="profile" />
           : <div className={`${showSignInBanner ? 'showSignInBanner' : ''} ${showSignInBanner ? 'bannerMargin' : ''} profile__coverPhoto`} />)
       }
@@ -62,18 +61,10 @@ const SideBar = ({
             profile__user__info
           `}
           >
-
-            {!onOtherProfilePage && (
-              image && image.length > 0 && image[0].contentUrl
-                ? <img src={`https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`} className="profile__user__picture clearProfPic" alt="profile" />
-                : <div className="profile__user__picture" />)
-            }
-
-            {onOtherProfilePage && (
-              otherImage.length > 0 && otherImage[0].contentUrl
-                ? <img src={`https://ipfs.infura.io/ipfs/${otherImage[0].contentUrl['/']}`} className="profile__user__picture clearProfPic" alt="profile" />
-                : <div className="profile__user__picture" />)
-            }
+            <ProfilePicture
+              pictureClass="profile__user__picture clearProfPic"
+              isMyPicture={!onOtherProfilePage}
+            />
 
             <div className="profile__basic">
               <div className="profile__basic__wrapper">

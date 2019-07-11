@@ -76,28 +76,40 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
     const memberSince = await store.getState().myData.box.public.get('memberSince');
 
     box.onSyncDone(() => {
+      let publicActivity;
+      let privateActivity;
+
       try {
-        const publicActivity = store.getState().myData.box.public.log;
-        const privateActivity = store.getState().myData.box.private.log;
+        publicActivity = store.getState().myData.box.public.log;
+      } catch (error) {
+        console.error(error);
+      }
+      console.log('publicActivitypublicActivity', publicActivity);
+      try {
+        privateActivity = store.getState().myData.box.private.log;
+      } catch (error) {
+        console.error(error);
+      }
 
-        if (!privateActivity.length && !publicActivity.length) {
-          dispatch({
-            type: 'UI_HANDLE_ONBOARDING_MODAL',
-            onBoardingModal: true,
-          });
-          const date = Date.now();
-          const dateJoined = new Date(date);
-          const memberSinceDate = `${(dateJoined.getMonth() + 1)}/${dateJoined.getDate()}/${dateJoined.getFullYear()}`;
-          store.getState().myData.box.public.set('memberSince', dateJoined);
-          dispatch({
-            type: 'MY_MEMBERSINCE_UPDATE',
-            memberSince: memberSinceDate,
-          });
-          history.push(`/${store.getState().userState.currentAddress}/${routes.EDIT}`);
-        } else if (!memberSince && (privateActivity.length || publicActivity.length)) {
-          store.getState().myData.box.public.set('memberSince', 'Alpha');
-        }
+      if (!privateActivity.length && !publicActivity.length) {
+        dispatch({
+          type: 'UI_HANDLE_ONBOARDING_MODAL',
+          onBoardingModal: true,
+        });
+        const date = Date.now();
+        const dateJoined = new Date(date);
+        const memberSinceDate = `${(dateJoined.getMonth() + 1)}/${dateJoined.getDate()}/${dateJoined.getFullYear()}`;
+        store.getState().myData.box.public.set('memberSince', dateJoined);
+        dispatch({
+          type: 'MY_MEMBERSINCE_UPDATE',
+          memberSince: memberSinceDate,
+        });
+        history.push(`/${store.getState().userState.currentAddress}/${routes.EDIT}`);
+      } else if (!memberSince && (privateActivity.length || publicActivity.length)) {
+        store.getState().myData.box.public.set('memberSince', 'Alpha');
+      }
 
+      if ((!privateActivity || !privateActivity.length) && (!publicActivity || !publicActivity.length)) {
         dispatch({
           type: 'USER_LOGIN_UPDATE',
           isLoggedIn: true,
@@ -117,8 +129,6 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
           onSyncFinished: true,
           isSyncing: true,
         });
-      } catch (error) {
-        console.error(error);
       }
     });
   } catch (err) {
