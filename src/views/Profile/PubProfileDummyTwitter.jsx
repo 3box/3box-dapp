@@ -14,7 +14,6 @@ class ProfilePublic extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      otherImage: [],
       otherName: '',
       otherProfileAddress: '',
     };
@@ -36,26 +35,18 @@ class ProfilePublic extends Component {
     {
       profile(id: "${profileAddress}") {
         name
-        image
       }
     }
     `;
     const publicProfile = await getPublicProfile(graphqlQueryObject);
 
     this.setState({
-      otherImage: [{
-        '@type': 'ImageObject',
-        contentUrl: {
-          '/': publicProfile.profile.image,
-        },
-      }],
       otherName: publicProfile.profile.name,
     });
   };
 
   render() {
     const {
-      otherImage,
       otherName,
       otherProfileAddress,
     } = this.state;
@@ -64,7 +55,6 @@ class ProfilePublic extends Component {
       <TwitterHeader
         otherName={otherName}
         otherProfileAddress={otherProfileAddress}
-        otherImage={otherImage}
       />
     );
   }

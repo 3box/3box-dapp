@@ -1,6 +1,5 @@
 import getCollectibles from './getCollectibles';
 import getOtherProfile from './getOtherProfile';
-import getOtherProfileHeaders from './getOtherProfileHeaders';
 import getMyProfileValue from './getMyProfileValue';
 import getMyDID from './getMyDID';
 import getMyMemberSince from './getMyMemberSince';
@@ -29,5 +28,4 @@ export default {
   getPublicFollowing,
   saveFollowing,
   deleteFollowing,
-  getOtherProfileHeaders,
 };

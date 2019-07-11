@@ -41,13 +41,17 @@ class ProfilePublic extends Component {
     }
     `;
     const publicProfile = await getPublicProfile(graphqlQueryObject);
-    this.setState({
-      otherImage: [{
+    let otherImage;
+    if (publicProfile.profile.image) {
+      otherImage = [{
         '@type': 'ImageObject',
         contentUrl: {
           '/': publicProfile.profile.image,
         },
-      }],
+      }];
+    }
+    this.setState({
+      otherImage,
       otherName: publicProfile.profile.name,
     });
   };
