@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
+import Box from '3box';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import actions from '../../state/actions';
+// import actions from '../../state/actions';
 import './styles/Profile.css';
 import PubProfileHeaders from './PublicProfile/PubProfileHeaders';
 
-const {
-  getPublicProfile,
-} = actions.profile;
+// const {
+//   getPublicProfile,
+// } = actions.profile;
 
 class ProfilePublic extends Component {
   constructor(props) {
@@ -32,27 +33,30 @@ class ProfilePublic extends Component {
   }
 
   getOtherProfileHeaders = async (profileAddress) => {
-    const graphqlQueryObject = `
-    {
-      profile(id: "${profileAddress}") {
-        name
-        image
-      }
-    }
-    `;
-    const publicProfile = await getPublicProfile(graphqlQueryObject);
-    let otherImage;
-    if (publicProfile.profile.image) {
-      otherImage = [{
-        '@type': 'ImageObject',
-        contentUrl: {
-          '/': publicProfile.profile.image,
-        },
-      }];
-    }
+    // const graphqlQueryObject = `
+    // {
+    //   profile(id: "${profileAddress}") {
+    //     name
+    //     image
+    //   }
+    // }
+    // `;
+    // const publicProfile = await getPublicProfile(graphqlQueryObject);
+    // let otherImage;
+    // if (publicProfile.profile.image) {
+    //   otherImage = [{
+    //     '@type': 'ImageObject',
+    //     contentUrl: {
+    //       '/': publicProfile.profile.image,
+    //     },
+    //   }];
+    // }
+    const publicProfile = await Box.getProfile(profileAddress);
+    const otherImage = publicProfile.image;
+    const otherName = publicProfile.name;
     this.setState({
       otherImage,
-      otherName: publicProfile.profile.name,
+      otherName,
     });
   };
 

@@ -10,33 +10,19 @@ import { pollNetworkAndAddress, initialAddress } from './utils/address';
 import { normalizeURL, matchProtectedRoutes, checkRequestRoute } from './utils/funcs';
 import { store } from './state/store';
 import history from './utils/history';
-
-import APIs from './views/Landing/API/APIs';
-import Dapp from './views/Landing/Dapp/Dapp';
-import LandingNew from './views/Landing/LandingNew';
-import Partners from './views/Landing/Partners';
-import Team from './views/Landing/Team';
+import { MainApp, PreviewComponents } from './DynamicImport';
+// import APIs from './views/Landing/API/APIs';
+// import Dapp from './views/Landing/Dapp/Dapp';
+// import LandingNew from './views/Landing/LandingNew';
+// import Partners from './views/Landing/Partners';
+// import Team from './views/Landing/Team';
 // import Spaces from './views/Spaces/Spaces';
 // import MyProfile from './views/Profile/MyProfile';
 // import PubProfile from './views/Profile/PubProfile';
-import PubProfileDummy from './views/Profile/PubProfileDummy';
-import PubProfileDummyTwitter from './views/Profile/PubProfileDummyTwitter';
-import NoMatch from './views/Landing/NoMatch';
+// import PubProfileDummy from './views/Profile/PubProfileDummy';
+// import PubProfileDummyTwitter from './views/Profile/PubProfileDummyTwitter';
+// import NoMatch from './views/Landing/NoMatch';
 // import EditProfile from './views/Profile/EditProfile';
-import {
-  MyProfile,
-  Spaces,
-  EditProfile,
-  PubProfile,
-  AppModals,
-  AppHeaders,
-  NavLanding,
-  Careers,
-  Create,
-  Terms,
-  Privacy,
-  Nav,
-} from './DynamicImports';
 // import Careers from './views/Landing/Careers';
 // import Privacy from './views/Landing/Privacy';
 // import Terms from './views/Landing/Terms';
@@ -44,8 +30,9 @@ import {
 // import NavLanding from './components/NavLanding';
 // import AppHeaders from './components/AppHeaders';
 // import AppModals from './components/AppModals';
+// import PreviewComponents from './PreviewComponents';
 import actions from './state/actions';
-import './index.css';
+// import './index.css';
 // import Nav from './components/Nav';
 
 const {
@@ -109,29 +96,15 @@ const {
 //   }
 // }
 
-// const MyProfile = props => (
-//   <DynamicImport load={() => import('./views/Profile/MyProfile')}>
+// const MainApp = props => (
+//   <DynamicImport load={() => import('./MainApp')}>
 //     {Component => Component !== null
 //       && <Component {...props} />}
 //   </DynamicImport>
 // );
 
-// const Spaces = props => (
-//   <DynamicImport load={() => import('./views/Spaces/Spaces')}>
-//     {Component => Component !== null
-//       && <Component {...props} />}
-//   </DynamicImport>
-// );
-
-// const EditProfile = props => (
-//   <DynamicImport load={() => import('./views/Profile/EditProfile')}>
-//     {Component => Component !== null
-//       && <Component {...props} />}
-//   </DynamicImport>
-// );
-
-// const PubProfile = props => (
-//   <DynamicImport load={() => import('./views/Profile/PubProfile')}>
+// const PreviewComponents = props => (
+//   <DynamicImport load={() => import('./PreviewComponents')}>
 //     {Component => Component !== null
 //       && <Component {...props} />}
 //   </DynamicImport>
@@ -144,6 +117,9 @@ class App extends Component {
       onBoardingModalMobileOne: false,
       onBoardingModalMobileTwo: false,
       onBoardingModalMobileThree: false,
+      mainApp: null,
+      previewComponents: null,
+      isRequest: false,
     };
     this.handleSignInUp = this.handleSignInUp.bind(this);
     this.directSignIn = this.directSignIn.bind(this);
@@ -164,7 +140,9 @@ class App extends Component {
       || route2 === 'previewrequest'
       || route3 === 'twitterrequest'
       || route3 === 'previewrequest';
-    if (isRequest) return;
+    // if (isRequest) return;
+    this.setState({ isRequest });
+    // this.renderApp(!isRequest);
 
     try {
       initialAddress(); // Initial get address
@@ -332,9 +310,23 @@ class App extends Component {
         this.props.handleMobileWalletModal();
       }
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
   }
+
+  // renderApp = async (isMainApp) => {
+  //   if (isMainApp) {
+  //     const mod = await import('./MainApp');
+  //     this.setState(() => ({
+  //       mainApp: mod.default,
+  //     }));
+  //   } else {
+  //     const mod = await import('./PreviewComponents');
+  //     this.setState(() => ({
+  //       previewComponents: mod.default,
+  //     }));
+  //   }
+  // }
 
   render() {
     const {
@@ -377,6 +369,9 @@ class App extends Component {
       onBoardingModalMobileOne,
       onBoardingModalMobileTwo,
       onBoardingModalMobileThree,
+      isRequest,
+      // mainApp: MainApp,
+      // previewComponents: PreviewComponents,
     } = this.state;
 
     const { pathname } = location;
@@ -387,260 +382,50 @@ class App extends Component {
     const isIOS = ua.includes('iPhone');
     const isMyProfilePath = matchProtectedRoutes(normalizedPath.split('/')[2]);
 
-    const splitRoute = normalizedPath.split('/');
-    const isRequestRoute = checkRequestRoute(splitRoute);
-
-    if (isRequestRoute) {
-      return (
-        <div className="App">
-          <Switch>
-            <Route
-              exact
-              path="(^[/][0][xX]\w{40}\b)/twitterRequest"
-              component={PubProfileDummyTwitter}
-            />
-
-            <Route
-              exact
-              path="(^[/][0][xX]\w{40}\b)/previewRequest"
-              component={PubProfileDummy}
-            />
-
-            <Route
-              exact
-              path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|following|data|edit\w*)/twitterRequest"
-              component={PubProfileDummyTwitter}
-            />
-
-            <Route
-              exact
-              path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|following|data|edit\w*)/previewRequest"
-              component={PubProfileDummy}
-            />
-          </Switch>
-        </div>
-      );
-    }
-
     return (
-      <div className="App">
-        <AppHeaders />
-
-        {(!isMyProfilePath && !isLoggedIn) // show landing nav when user is not logged in, 3box is not fetching, and when route is not a protected route
-          && (
-            <NavLanding
-              handleSignInUp={this.handleSignInUp}
+      <div>
+        {!isRequest
+          ? (
+            <MainApp
+              showDifferentNetworkModal={showDifferentNetworkModal}
+              accessDeniedModal={accessDeniedModal}
+              errorMessage={errorMessage}
+              allowAccessModal={allowAccessModal}
+              alertRequireMetaMask={alertRequireMetaMask}
+              provideConsent={provideConsent}
+              signInToWalletModal={signInToWalletModal}
+              signInModal={signInModal}
+              mobileWalletRequiredModal={mobileWalletRequiredModal}
+              directLogin={directLogin}
+              loggedOutModal={loggedOutModal}
+              switchedAddressModal={switchedAddressModal}
+              prevNetwork={prevNetwork}
+              currentNetwork={currentNetwork}
+              onBoardingModal={onBoardingModal}
+              onBoardingModalTwo={onBoardingModalTwo}
+              isFetchingThreeBox={isFetchingThreeBox}
+              prevAddress={prevAddress}
+              showErrorModal={showErrorModal}
+              isLoggedIn={isLoggedIn}
+              isSignedIntoWallet={isSignedIntoWallet}
+              location={location}
+              onSyncFinished={onSyncFinished}
+              isSyncing={isSyncing}
+              hasSignedOut={hasSignedOut}
               onOtherProfilePage={onOtherProfilePage}
-              landing={landing}
-              pathname={normalizedPath}
+              showFollowingPublicModal={showFollowingPublicModal}
+              otherAddressToFollow={otherAddressToFollow}
+              showContactsModal={showContactsModal}
+              otherFollowing={otherFollowing}
+              otherName={otherName}
+              following={following}
+              otherProfileAddress={otherProfileAddress}
+              onBoardingModalMobileOne={onBoardingModalMobileOne}
+              onBoardingModalMobileTwo={onBoardingModalMobileTwo}
+              onBoardingModalMobileThree={onBoardingModalMobileThree}
             />
-          )}
-
-        {(!isMyProfilePath && isLoggedIn) && <Nav />}
-
-        <AppModals
-          isFetchingThreeBox={isFetchingThreeBox}
-          onSyncFinished={onSyncFinished}
-          isSyncing={isSyncing}
-          hasSignedOut={hasSignedOut}
-          allowAccessModal={allowAccessModal}
-          directLogin={directLogin}
-          isMyProfilePath={isMyProfilePath}
-          alertRequireMetaMask={alertRequireMetaMask}
-          accessDeniedModal={accessDeniedModal}
-          signInToWalletModal={signInToWalletModal}
-          signInModal={signInModal}
-          isIOS={isIOS}
-          mobileWalletRequiredModal={mobileWalletRequiredModal}
-          errorMessage={errorMessage}
-          mustConsentError={mustConsentError}
-          showErrorModal={showErrorModal}
-          prevNetwork={prevNetwork}
-          currentNetwork={currentNetwork}
-          showDifferentNetworkModal={showDifferentNetworkModal}
-          loggedOutModal={loggedOutModal}
-          switchedAddressModal={switchedAddressModal}
-          prevAddress={prevAddress}
-          onBoardingModal={onBoardingModal}
-          onBoardingModalTwo={onBoardingModalTwo}
-          provideConsent={provideConsent}
-          showContactsModal={showContactsModal}
-          showFollowingPublicModal={showFollowingPublicModal}
-          onBoardingModalMobileOne={onBoardingModalMobileOne}
-          onBoardingModalMobileTwo={onBoardingModalMobileTwo}
-          onBoardingModalMobileThree={onBoardingModalMobileThree}
-          otherAddressToFollow={otherAddressToFollow}
-          otherFollowing={otherFollowing}
-          otherName={otherName}
-          following={following}
-          otherProfileAddress={otherProfileAddress}
-          handleContactsModal={this.props.handleContactsModal}
-          handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal}
-          handleSignInModal={this.props.handleSignInModal}
-          handleMobileWalletModal={this.props.handleMobileWalletModal}
-          handleConsentModal={this.props.handleConsentModal}
-          handleDeniedAccessModal={this.props.handleDeniedAccessModal}
-          closeErrorModal={this.props.closeErrorModal}
-          handleSwitchedNetworkModal={this.props.handleSwitchedNetworkModal}
-          handleLoggedOutModal={this.props.handleLoggedOutModal}
-          handleSignOut={this.props.handleSignOut}
-          handleSwitchedAddressModal={this.props.handleSwitchedAddressModal}
-          handleOnboardingModal={this.props.handleOnboardingModal}
-          handleAccessModal={this.props.handleAccessModal}
-          handleNextMobileModal={this.handleNextMobileModal}
-          closeRequireMetaMaskModal={this.props.closeRequireMetaMaskModal}
-          handleFollowingPublicModal={this.props.handleFollowingPublicModal}
-          saveFollowing={this.props.saveFollowing}
-        />
-
-        <Switch>
-          <Route
-            exact
-            path={routes.LANDING}
-            render={() => (
-              <LandingNew
-                handleSignInUp={this.handleSignInUp}
-                isLoggedIn={isLoggedIn}
-                errorMessage={errorMessage}
-                showErrorModal={showErrorModal}
-                isSignedIntoWallet={isSignedIntoWallet}
-              />
-            )}
-          />
-
-          <Route
-            path={routes.API}
-            render={() => (
-              <APIs
-                handleSignInUp={this.handleSignInUp}
-                isLoggedIn={isLoggedIn}
-                errorMessage={errorMessage}
-                showErrorModal={showErrorModal}
-                isSignedIntoWallet={isSignedIntoWallet}
-              />
-            )}
-          />
-
-          <Route
-            exact
-            path={routes.HUB}
-            render={() => (
-              <Dapp
-                handleSignInUp={this.handleSignInUp}
-                isLoggedIn={isLoggedIn}
-                errorMessage={errorMessage}
-                showErrorModal={showErrorModal}
-                isSignedIntoWallet={isSignedIntoWallet}
-              />
-            )}
-          />
-
-          <Route
-            exact
-            path={routes.CAREERS}
-            render={() => <Careers />}
-          />
-
-          <Route
-            exact
-            path={routes.TEAM}
-            render={() => <Team />}
-          />
-
-          <Route
-            exact
-            path={routes.JOBS}
-            render={() => <Redirect to={routes.CAREERS} />}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/activity"
-            component={MyProfile}
-          />
-          <Redirect from="/profile" to="/" />
-          <Redirect from="/editprofile" to="/" />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/details"
-            component={MyProfile}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/collectibles"
-            component={MyProfile}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/following"
-            component={MyProfile}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/data"
-            component={Spaces}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/edit"
-            component={EditProfile}
-          />
-
-          <Route
-            exact
-            path={routes.PARTNERS}
-            component={() => (
-              <Partners />
-            )}
-          />
-
-          <Route
-            exact
-            path={routes.PRIVACY}
-            component={() => (
-              <Privacy />
-            )}
-          />
-
-          <Route
-            exact
-            path={routes.TERMS}
-            component={() => (
-              <Terms />
-            )}
-          />
-
-          <Route
-            path={routes.CREATE}
-            exact
-            component={() => (
-              <Create
-                isLoggedIn={isLoggedIn}
-                handleSignInUp={this.handleSignInUp}
-              />
-            )}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)"
-            component={PubProfile}
-          />
-
-          <Route
-            component={() => (
-              <NoMatch
-                isLoggedIn={isLoggedIn}
-                handleSignInUp={this.handleSignInUp}
-              />
-            )}
-          />
-        </Switch>
+          ) : <PreviewComponents />
+        }
       </div>
     );
   }
