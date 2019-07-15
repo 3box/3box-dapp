@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Web3Connect from 'web3connect';
 
 import { isEthAddress } from '../utils/funcs';
 import * as routes from '../utils/routes';
@@ -119,7 +120,8 @@ class NavLanding extends Component {
                 Sign in to Hub
               </button>
             </Link>
-          </div>)}
+          </div>
+        )}
 
         {(route !== 'hub' && isProfilePage && !isLoggedIn) && (
           <div id="actionButtons">

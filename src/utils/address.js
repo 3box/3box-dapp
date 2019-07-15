@@ -35,13 +35,19 @@ export const initialAddress = async () => {
 };
 
 export const pollNetworkAndAddress = () => {
-  setTimeout(() => {
+  setTimeout(async () => {
     try {
       let prevAddress;
+      let currentAddress;
+      const hasWeb3 = typeof window.web3 !== 'undefined';
 
-      const currentAddress =
-        typeof window.web3 !== 'undefined' ?
-        (typeof window.web3.eth !== 'undefined' ? window.web3.eth.accounts[0] : '') : ''; // eslint-disable-line no-undef
+      if (hasWeb3) {
+        let accounts = await window.web3.currentProvider.enable();
+        accounts = !accounts ? await accountsPromise : accounts;
+        [currentAddress] = accounts;
+      } else {
+        currentAddress = '';
+      }
 
       // Logged out of MM while logged in to 3Box
       if (currentAddress !== address &&
@@ -75,23 +81,23 @@ export const pollNetworkAndAddress = () => {
       }
 
       // Switched address
-      if (currentAddress !== address &&
-        typeof currentAddress === 'string' &&
-        currentAddress !== prevAddress &&
-        (address !== undefined && address !== '') &&
-        store.getState().userState.isLoggedIn) {
-        prevAddress = address;
-        store.dispatch({
-          type: 'UI_HANDLE_SWITCHED_ADDRESS_MODAL',
-          switchedAddressModal: true,
-          prevAddress,
-        });
-        store.dispatch({
-          type: 'UPDATE_ADDRESS',
-          currentAddress,
-        });
-        window.localStorage.setItem('userEthAddress', currentAddress);
-      }
+      // if (currentAddress !== address &&
+      //   typeof currentAddress === 'string' &&
+      //   currentAddress !== prevAddress &&
+      //   (address !== undefined && address !== '') &&
+      //   store.getState().userState.isLoggedIn) {
+      //   prevAddress = address;
+      //   store.dispatch({
+      //     type: 'UI_HANDLE_SWITCHED_ADDRESS_MODAL',
+      //     switchedAddressModal: true,
+      //     prevAddress,
+      //   });
+      //   store.dispatch({
+      //     type: 'UPDATE_ADDRESS',
+      //     currentAddress,
+      //   });
+      //   window.localStorage.setItem('userEthAddress', currentAddress);
+      // }
 
       // Switched back to previous address
       if (currentAddress !== address &&
@@ -116,7 +122,7 @@ export const pollNetworkAndAddress = () => {
       if (currentAddress !== address &&
         typeof currentAddress === 'string' &&
         address === undefined &&
-        !window.ethereum) {
+        (!window.ethereum || !window.web3)) {
         store.dispatch({
           type: 'HANDLE_WALLET_LOGIN_DETECTED_MODAL',
           isSignedIntoWallet: true,

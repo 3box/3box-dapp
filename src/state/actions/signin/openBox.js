@@ -13,8 +13,13 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
     showSignInBanner: false,
   });
 
+  const {
+    accountAddress,
+    currentAddress,
+  } = store.getState().userState;
+
   const consentGiven = () => {
-    if (fromSignIn && !fromFollowButton) history.push(`/${store.getState().userState.currentAddress || store.getState().userState.accountAddress}/${routes.ACTIVITY}`);
+    if (fromSignIn && !fromFollowButton) history.push(`/${currentAddress || accountAddress}/${routes.ACTIVITY}`);
     dispatch({
       type: 'UI_3BOX_LOADING',
       provideConsent: false,
@@ -44,7 +49,7 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
   try {
     const box = await Box // eslint-disable-line no-undef
       .openBox(
-        store.getState().userState.accountAddress || store.getState().userState.currentAddress,
+        accountAddress || currentAddress,
         window.web3.currentProvider, // eslint-disable-line no-undef
         opts,
       );
@@ -80,18 +85,17 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
       let privateActivity;
 
       try {
-        publicActivity = store.getState().myData.box.public.log;
+        publicActivity = store.getState().myData.box.public.log || [];
       } catch (error) {
         console.error(error);
       }
-      console.log('publicActivitypublicActivity', publicActivity);
       try {
-        privateActivity = store.getState().myData.box.private.log;
+        privateActivity = store.getState().myData.box.private.log || [];
       } catch (error) {
         console.error(error);
       }
 
-      if (!privateActivity.length && !publicActivity.length) {
+      if ((!privateActivity || !privateActivity.length) && (!publicActivity || !publicActivity.length)) {
         dispatch({
           type: 'UI_HANDLE_ONBOARDING_MODAL',
           onBoardingModal: true,
@@ -104,7 +108,7 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
           type: 'MY_MEMBERSINCE_UPDATE',
           memberSince: memberSinceDate,
         });
-        history.push(`/${store.getState().userState.currentAddress}/${routes.EDIT}`);
+        history.push(`/${currentAddress}/${routes.EDIT}`);
       } else if (!memberSince && (privateActivity.length || publicActivity.length)) {
         store.getState().myData.box.public.set('memberSince', 'Alpha');
       }

@@ -34,6 +34,12 @@ export const ModalBackground = () => <div className="modal__overlay" />;
 
 export const DeskTopModalBackground = () => <div className="modal__overlay mobileInvisible" />;
 
+export const PickProviderScreen = () => (
+  <div className="pickProvider_screen">
+    <h1>Pick a Web3 provider</h1>
+  </div>
+);
+
 export const SwitchedNetworksModal = ({
   prevNetwork,
   currentNetwork,

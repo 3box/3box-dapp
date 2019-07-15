@@ -5,41 +5,47 @@ import {
 // if has web3 wallet
 const checkNetwork = () => async (dispatch) => {
   const checkNetworkFunc = new Promise((resolve) => {
-    window.web3.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
-      switch (netId) {
-        case '1':
-          resolve('Main');
-          break;
-        case '2':
-          resolve('Morder');
-          break;
-        case '3':
-          resolve('Ropsten');
-          break;
-        case '4':
-          resolve('Rinkeby');
-          break;
-        case '42':
-          resolve('Kovan');
-          break;
-        default:
-          resolve('Unknown');
-      }
-    });
+    try {
+      console.log('inpromise', window.web3.version.getNetwork);
+      window.web3.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
+        console.log('netId', netId);
+        switch (netId) {
+          case '1':
+            resolve('Main');
+            break;
+          case '2':
+            resolve('Morder');
+            break;
+          case '3':
+            resolve('Ropsten');
+            break;
+          case '4':
+            resolve('Rinkeby');
+            break;
+          case '42':
+            resolve('Kovan');
+            break;
+          default:
+            resolve('Unknown');
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
   });
 
   // // check network, compatible with old & new v of MetaMask
   let currentNetwork;
   try {
     if (window.web3.eth.net) { // eslint-disable-line no-undef
-      await window.web3.eth.net.getNetworkType() // eslint-disable-line no-undef
-        .then((network) => {
-          currentNetwork = network;
-        });
-    } else {
-      await checkNetworkFunc.then((network) => {
-        currentNetwork = network;
-      });
+      const network = await window.web3.eth.net.getNetworkType(); // eslint-disable-line no-undef
+      currentNetwork = network;
+    } else if (!window.web3.currentProvider.isWalletConnect) {
+      const network = await checkNetworkFunc;
+      console.log('networkssss', network);
+      currentNetwork = network;
+    } else if (window.web3.currentProvider.isWalletConnect) {
+      currentNetwork = 'Main';
     }
   } catch (err) {
     console.error(err);

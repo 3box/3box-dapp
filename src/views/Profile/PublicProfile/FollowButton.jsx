@@ -24,7 +24,7 @@ const { getMySpacesData, convert3BoxToSpaces } = actions.spaces;
 
 const {
   openBox,
-  requestAccess,
+  injectWeb3,
 } = actions.signin;
 
 const {
@@ -92,7 +92,7 @@ class FollowButton extends Component {
     try {
       if (window.ethereum || typeof window.web3 !== 'undefined') {
         await this.props.checkWeb3();
-        await this.props.requestAccess();
+        await this.props.injectWeb3();
         await this.props.checkNetwork();
 
         if (this.props.isSignedIntoWallet) {
@@ -229,7 +229,7 @@ function mapState(state) {
 
 export default connect(mapState,
   {
-    requestAccess,
+    injectWeb3,
     checkWeb3,
     checkNetwork,
     saveFollowing,

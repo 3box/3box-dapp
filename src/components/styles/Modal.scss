@@ -1,5 +1,25 @@
 @import "../../variables.scss";
 
+
+.pickProvider_screen {
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    margin-bottom: 500px;
+    color: $threeBoxBlack;
+  }
+}
+
+.dALBps {
+  background-color: rgba(0, 0, 0, 0);
+}
+
 .modal__overlay {
   position: fixed;
   left: 0px;

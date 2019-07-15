@@ -68,7 +68,7 @@ const { getMySpacesData, convert3BoxToSpaces } = actions.spaces;
 const {
   openBox,
   handleSignOut,
-  requestAccess,
+  injectWeb3,
 } = actions.signin;
 
 const {
@@ -207,18 +207,25 @@ class App extends Component {
     } = this.props;
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
+    const currentUrlEthAddr = normalizedPath.split('/')[1];
+    const profilePage = normalizedPath.split('/')[2];
 
     try {
-      await this.props.checkWeb3();
-      await this.props.requestAccess('directLogin');
+      // await this.props.checkWeb3();
+      await this.props.injectWeb3('directLogin');
       await this.props.checkNetwork();
 
       const allowSignIn = (this.props.isSignedIntoWallet && this.props.isLoggedIn);
       const notSignedIn = (this.props.isSignedIntoWallet
         && !this.props.isLoggedIn
-        && matchProtectedRoutes(normalizedPath.split('/')[2]));
+        && matchProtectedRoutes(profilePage));
 
       if (allowSignIn) {
+        // if route doesnt match this url, historypush to the correct url
+        if (currentUrlEthAddr !== this.props.currentAddress) {
+          history.push(`/${this.props.currentAddress}/${profilePage}`);
+        }
+
         await this.props.openBox();
         if (!this.props.showErrorModal) this.getMyData();
       } else if (!this.props.isSignedIntoWallet) {
@@ -241,7 +248,7 @@ class App extends Component {
     try {
       if (window.ethereum || typeof window.web3 !== 'undefined') {
         await this.props.checkWeb3();
-        await this.props.requestAccess();
+        await this.props.injectWeb3();
         await this.props.checkNetwork();
 
         if (this.props.isSignedIntoWallet) {
@@ -262,6 +269,7 @@ class App extends Component {
   render() {
     const {
       showDifferentNetworkModal,
+      showPickProviderScreen,
       accessDeniedModal,
       errorMessage,
       allowAccessModal,
@@ -346,6 +354,7 @@ class App extends Component {
           prevNetwork={prevNetwork}
           currentNetwork={currentNetwork}
           showDifferentNetworkModal={showDifferentNetworkModal}
+          showPickProviderScreen={showPickProviderScreen}
           loggedOutModal={loggedOutModal}
           switchedAddressModal={switchedAddressModal}
           prevAddress={prevAddress}
@@ -538,7 +547,7 @@ class App extends Component {
 
 App.propTypes = {
   openBox: PropTypes.func.isRequired,
-  requestAccess: PropTypes.func.isRequired,
+  injectWeb3: PropTypes.func.isRequired,
   getMyProfileValue: PropTypes.func.isRequired,
   checkWeb3: PropTypes.func.isRequired,
   initialCheckWeb3: PropTypes.func.isRequired,
@@ -571,6 +580,7 @@ App.propTypes = {
   saveFollowing: PropTypes.func.isRequired,
 
   showDifferentNetworkModal: PropTypes.bool,
+  showPickProviderScreen: PropTypes.bool,
   onSyncFinished: PropTypes.bool,
   hasSignedOut: PropTypes.bool,
   isSyncing: PropTypes.bool,
@@ -606,6 +616,7 @@ App.propTypes = {
 
 App.defaultProps = {
   showDifferentNetworkModal: false,
+  showPickProviderScreen: false,
   handleSignOut,
   hasWeb3: false,
   accessDeniedModal: false,
@@ -639,6 +650,7 @@ App.defaultProps = {
 
 const mapState = state => ({
   showDifferentNetworkModal: state.uiState.showDifferentNetworkModal,
+  showPickProviderScreen: state.uiState.showPickProviderScreen,
   allowAccessModal: state.uiState.allowAccessModal,
   alertRequireMetaMask: state.uiState.alertRequireMetaMask,
   provideConsent: state.uiState.provideConsent,
@@ -680,7 +692,7 @@ const mapState = state => ({
 export default withRouter(connect(mapState,
   {
     openBox,
-    requestAccess,
+    injectWeb3,
     checkWeb3,
     checkNetwork,
     getMyProfileValue,
