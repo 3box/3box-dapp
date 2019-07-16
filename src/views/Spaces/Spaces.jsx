@@ -14,6 +14,7 @@ import {
   ListSpaceItemModal,
   EmptyListItemModal,
 } from './components/SpacesModals';
+import MyProfileHeaders from '../Profile/MyProfile/MyProfileHeaders';
 import { ModalBackground } from '../../components/Modals';
 import AllView from './components/AllView';
 import SpaceView from './components/SpaceView';
@@ -398,6 +399,9 @@ class Spaces extends Component {
       showDeleteItemModal,
       showOpenSpaceModal,
       did,
+      image,
+      name,
+      currentAddress,
     } = this.props;
 
     const {
@@ -421,6 +425,12 @@ class Spaces extends Component {
 
     return (
       <React.Fragment>
+        <MyProfileHeaders
+          image={image}
+          name={name}
+          currentAddress={currentAddress}
+        />
+
         <div className="data__nav--desktop">
           <Nav />
         </div>
@@ -654,6 +664,9 @@ Spaces.propTypes = {
   hasUpdated: PropTypes.bool,
   showOpenSpaceModal: PropTypes.bool,
   did: PropTypes.string,
+  name: PropTypes.string,
+  currentAddress: PropTypes.string,
+  image: PropTypes.array,
 };
 
 Spaces.defaultProps = {
@@ -671,6 +684,9 @@ Spaces.defaultProps = {
   showOpenSpaceModal: false,
   showDeleteItemModal: false,
   hasUpdated: false,
+  name: '',
+  currentAddress: '',
+  image: null,
 };
 
 function mapState(state) {
@@ -693,6 +709,9 @@ function mapState(state) {
     showSpaceDataItemModal: state.uiState.showSpaceDataItemModal,
     showDeleteItemModal: state.uiState.showDeleteItemModal,
     showOpenSpaceModal: state.uiState.showOpenSpaceModal,
+    name: state.myData.name,
+    image: state.myData.image,
+    currentAddress: state.userState.currentAddress,
   };
 }
 

@@ -29,7 +29,6 @@ class ProfilePublic extends Component {
   getOtherProfileHeaders = async (profileAddress) => {
     const publicProfile = await Box.getProfile(profileAddress);
     const otherName = publicProfile.name;
-    console.log('runzzzz')
     this.setState({
       otherName,
     });

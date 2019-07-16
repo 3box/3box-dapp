@@ -29,6 +29,7 @@ import AddImage from '../../assets/AddImage.svg';
 import Loading from '../../assets/Loading.svg';
 import '../styles/EditProfile.css';
 import DefaultColorPic from '../../assets/DefaultColorPic.svg';
+import MyProfileHeaders from './MyProfile/MyProfileHeaders';
 
 const { getActivity, getMyProfileValue, getMyDID } = actions.profile;
 const {
@@ -1011,6 +1012,12 @@ class EditProfile extends Component {
 
     return (
       <div id="edit__page">
+        <MyProfileHeaders
+          image={image}
+          name={name}
+          currentAddress={currentAddress}
+        />
+
         <Nav />
 
         <Prompt
