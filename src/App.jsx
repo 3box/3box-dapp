@@ -7,31 +7,34 @@ import { connect } from 'react-redux';
 
 import * as routes from './utils/routes';
 import { pollNetworkAndAddress, initialAddress } from './utils/address';
-import { normalizeURL, matchProtectedRoutes } from './utils/funcs';
+import { normalizeURL, matchProtectedRoutes, checkRequestRoute } from './utils/funcs';
 import { store } from './state/store';
+import history from './utils/history';
+
 import APIs from './views/Landing/API/APIs';
 import Dapp from './views/Landing/Dapp/Dapp';
 import LandingNew from './views/Landing/LandingNew';
 import Partners from './views/Landing/Partners';
-import Spaces from './views/Spaces/Spaces.jsx';
-import MyProfile from './views/Profile/MyProfile';
-import PubProfile from './views/Profile/PubProfile';
+import Team from './views/Landing/Team';
 import PubProfileDummy from './views/Profile/PubProfileDummy';
 import PubProfileDummyTwitter from './views/Profile/PubProfileDummyTwitter';
 import NoMatch from './views/Landing/NoMatch';
-import EditProfile from './views/Profile/EditProfile';
-import Profiles from './views/Landing/Profiles';
-import Team from './views/Landing/Team';
-import Careers from './views/Landing/Careers';
-import Privacy from './views/Landing/Privacy';
-import Terms from './views/Landing/Terms';
-import Create from './views/Landing/Create';
-import NavLanding from './components/NavLanding';
-import history from './utils/history';
-import './index.css';
-import AppModals from './components/AppModals';
-import AppHeaders from './components/AppHeaders';
+import {
+  MyProfile,
+  Spaces,
+  EditProfile,
+  PubProfile,
+  AppModals,
+  AppHeaders,
+  NavLanding,
+  Careers,
+  Create,
+  Terms,
+  Privacy,
+  Nav,
+} from './DynamicImports';
 import actions from './state/actions';
+import './index.css';
 
 const {
   handleSignInModal,
@@ -47,6 +50,7 @@ const {
   requireMetaMaskModal,
   handleMobileWalletModal,
   handleOnboardingModal,
+  handleContactsModal,
 } = actions.modal;
 
 const {
@@ -95,6 +99,14 @@ class App extends Component {
     const isMyProfilePath = matchProtectedRoutes(splitRoute[2]);
     const currentEthAddress = window.localStorage.getItem('userEthAddress');
 
+    const route2 = splitRoute[2] && splitRoute[2].toLowerCase();
+    const route3 = splitRoute[3] && splitRoute[3].toLowerCase();
+    const isRequest = route2 === 'twitterrequest'
+      || route2 === 'previewrequest'
+      || route3 === 'twitterrequest'
+      || route3 === 'previewrequest';
+    if (isRequest) return;
+
     try {
       initialAddress(); // Initial get address
       pollNetworkAndAddress(); // Start polling for address change
@@ -106,6 +118,7 @@ class App extends Component {
         && isMyProfilePath // Lands on protected page
         && splitRoute[1] === currentEthAddress // Eth address is own)
       );
+
       const onProfilePage = (splitRoute.length > 1 // Route has more than one
         && splitRoute[1].substring(0, 2) === '0x');
 
@@ -123,6 +136,15 @@ class App extends Component {
     const { location } = nextProps;
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
+    const splitRoute = normalizedPath.split('/');
+
+    const route2 = splitRoute[2] && splitRoute[2].toLowerCase();
+    const route3 = splitRoute[3] && splitRoute[3].toLowerCase();
+    const isRequest = route2 === 'twitterrequest'
+      || route2 === 'previewrequest'
+      || route3 === 'twitterrequest'
+      || route3 === 'previewrequest';
+    if (isRequest) return;
 
     // check previous route for banner behavior on /Create & /Profiles
     // does not work with back button
@@ -147,7 +169,6 @@ class App extends Component {
 
   async getMyData() {
     const { currentAddress } = this.props;
-
     store.dispatch({
       type: 'UI_SPACES_LOADING',
       isSpacesLoading: true,
@@ -278,6 +299,10 @@ class App extends Component {
       isSyncing,
       hasSignedOut,
       onOtherProfilePage,
+      otherAddressToFollow,
+      showContactsModal,
+      otherName,
+      otherProfileAddress,
     } = this.props;
 
     const {
@@ -294,11 +319,46 @@ class App extends Component {
     const isIOS = ua.includes('iPhone');
     const isMyProfilePath = matchProtectedRoutes(normalizedPath.split('/')[2]);
 
+    const splitRoute = normalizedPath.split('/');
+    const isRequestRoute = checkRequestRoute(splitRoute);
+
+    if (isRequestRoute) {
+      return (
+        <div className="App">
+          <Switch>
+            <Route
+              exact
+              path="(^[/][0][xX]\w{40}\b)/twitterRequest"
+              component={PubProfileDummyTwitter}
+            />
+
+            <Route
+              exact
+              path="(^[/][0][xX]\w{40}\b)/previewRequest"
+              component={PubProfileDummy}
+            />
+
+            <Route
+              exact
+              path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|data|edit\w*)/twitterRequest"
+              component={PubProfileDummyTwitter}
+            />
+
+            <Route
+              exact
+              path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|data|edit\w*)/previewRequest"
+              component={PubProfileDummy}
+            />
+          </Switch>
+        </div>
+      );
+    }
+
     return (
       <div className="App">
         <AppHeaders />
 
-        {(!isMyProfilePath) // show landing nav when user is not logged in, 3box is not fetching, and when route is not a protected route
+        {(!isMyProfilePath && !isLoggedIn) // show landing nav when user is not logged in, 3box is not fetching, and when route is not a protected route
           && (
             <NavLanding
               handleSignInUp={this.handleSignInUp}
@@ -307,6 +367,8 @@ class App extends Component {
               pathname={normalizedPath}
             />
           )}
+
+        {(!isMyProfilePath && isLoggedIn) && <Nav />}
 
         <AppModals
           isFetchingThreeBox={isFetchingThreeBox}
@@ -334,9 +396,14 @@ class App extends Component {
           onBoardingModal={onBoardingModal}
           onBoardingModalTwo={onBoardingModalTwo}
           provideConsent={provideConsent}
+          showContactsModal={showContactsModal}
           onBoardingModalMobileOne={onBoardingModalMobileOne}
           onBoardingModalMobileTwo={onBoardingModalMobileTwo}
           onBoardingModalMobileThree={onBoardingModalMobileThree}
+          otherAddressToFollow={otherAddressToFollow}
+          otherName={otherName}
+          otherProfileAddress={otherProfileAddress}
+          handleContactsModal={this.props.handleContactsModal}
           handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal}
           handleSignInModal={this.props.handleSignInModal}
           handleMobileWalletModal={this.props.handleMobileWalletModal}
@@ -354,30 +421,6 @@ class App extends Component {
         />
 
         <Switch>
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/twitterRequest"
-            component={PubProfileDummyTwitter}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/previewRequest"
-            component={PubProfileDummy}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|following|data|edit\w*)/twitterRequest"
-            component={PubProfileDummyTwitter}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|following|data|edit\w*)/previewRequest"
-            component={PubProfileDummy}
-          />
-
           <Route
             exact
             path={routes.LANDING}
@@ -424,7 +467,6 @@ class App extends Component {
             path={routes.CAREERS}
             render={() => <Careers />}
           />
-
           <Route
             exact
             path={routes.TEAM}
@@ -436,7 +478,6 @@ class App extends Component {
             path={routes.JOBS}
             render={() => <Redirect to={routes.CAREERS} />}
           />
-
           <Route
             exact
             path="(^[/][0][xX]\w{40}\b)/activity"
@@ -473,10 +514,7 @@ class App extends Component {
             exact
             path={routes.PARTNERS}
             component={() => (
-              <Partners
-                isLoggedIn={isLoggedIn}
-                handleSignInUp={this.handleSignInUp}
-              />
+              <Partners />
             )}
           />
 
@@ -484,10 +522,7 @@ class App extends Component {
             exact
             path={routes.PRIVACY}
             component={() => (
-              <Privacy
-                isLoggedIn={isLoggedIn}
-                handleSignInUp={this.handleSignInUp}
-              />
+              <Privacy />
             )}
           />
 
@@ -495,10 +530,7 @@ class App extends Component {
             exact
             path={routes.TERMS}
             component={() => (
-              <Terms
-                isLoggedIn={isLoggedIn}
-                handleSignInUp={this.handleSignInUp}
-              />
+              <Terms />
             )}
           />
 
@@ -507,17 +539,6 @@ class App extends Component {
             exact
             component={() => (
               <Create
-                isLoggedIn={isLoggedIn}
-                handleSignInUp={this.handleSignInUp}
-              />
-            )}
-          />
-
-          <Route
-            path={routes.PROFILES}
-            exact
-            component={() => (
-              <Profiles
                 isLoggedIn={isLoggedIn}
                 handleSignInUp={this.handleSignInUp}
               />
@@ -538,9 +559,7 @@ class App extends Component {
               />
             )}
           />
-
         </Switch>
-
       </div>
     );
   }
@@ -599,6 +618,7 @@ App.propTypes = {
   onBoardingModal: PropTypes.bool,
   onBoardingModalTwo: PropTypes.bool,
   isFetchingThreeBox: PropTypes.bool,
+  showContactsModal: PropTypes.bool,
   onOtherProfilePage: PropTypes.bool,
   prevNetwork: PropTypes.string,
   currentNetwork: PropTypes.string,
@@ -607,6 +627,7 @@ App.propTypes = {
     pathname: PropTypes.string.isRequired,
   }).isRequired,
   prevAddress: PropTypes.string,
+  otherAddressToFollow: PropTypes.string,
 };
 
 App.defaultProps = {
@@ -618,6 +639,7 @@ App.defaultProps = {
   hasSignedOut: false,
   onOtherProfilePage: false,
   isSyncing: false,
+  showContactsModal: false,
   errorMessage: '',
   allowAccessModal: false,
   alertRequireMetaMask: false,
@@ -638,6 +660,7 @@ App.defaultProps = {
   prevAddress: '',
   directLogin: '',
   currentAddress: '',
+  otherAddressToFollow: '',
 };
 
 const mapState = state => ({
@@ -659,6 +682,7 @@ const mapState = state => ({
   showErrorModal: state.uiState.showErrorModal,
   accessDeniedModal: state.uiState.accessDeniedModal,
   onOtherProfilePage: state.uiState.onOtherProfilePage,
+  showContactsModal: state.uiState.showContactsModal,
 
   onSyncFinished: state.userState.onSyncFinished,
   isSyncing: state.userState.isSyncing,
@@ -669,12 +693,19 @@ const mapState = state => ({
   isSignedIntoWallet: state.userState.isSignedIntoWallet,
   currentAddress: state.userState.currentAddress,
   hasWeb3: state.userState.hasWeb3,
+
+  otherAddressToFollow: state.otherProfile.otherAddressToFollow,
+
+  otherName: state.otherProfile.otherName,
+  otherProfileAddress: state.otherProfile.otherProfileAddress,
 });
 
 export default withRouter(connect(mapState,
   {
     openBox,
     requestAccess,
+    checkWeb3,
+    checkNetwork,
     getMyProfileValue,
     getMyDID,
     getCollectibles,
@@ -685,10 +716,8 @@ export default withRouter(connect(mapState,
     getVerifiedPublicTwitter,
     getVerifiedPrivateEmail,
     getActivity,
-    checkWeb3,
     initialCheckWeb3,
     requireMetaMaskModal,
-    checkNetwork,
     handleMobileWalletModal,
     handleSignInModal,
     handleRequireWalletLoginModal,
@@ -702,4 +731,5 @@ export default withRouter(connect(mapState,
     handleOnboardingModal,
     closeErrorModal,
     closeRequireMetaMaskModal,
+    handleContactsModal,
   })(App));
