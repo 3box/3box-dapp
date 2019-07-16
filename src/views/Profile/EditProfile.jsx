@@ -29,7 +29,6 @@ import AddImage from '../../assets/AddImage.svg';
 import Loading from '../../assets/Loading.svg';
 import '../styles/EditProfile.css';
 import DefaultColorPic from '../../assets/DefaultColorPic.svg';
-import { githubMessage } from '../EditProfile/utils';
 
 const { getActivity, getMyProfileValue, getMyDID } = actions.profile;
 const {
