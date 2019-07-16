@@ -26,7 +26,7 @@ export const FeedTileActivity = ({ item, verifiedGithub, verifiedTwitter, verifi
             ${item.key === 'proof_email' ? 'private email address' : ''}
             ${item.key === 'proof_twitter' ? 'Twitter username' : ''}
             ${(item.key !== 'proof_twitter' && item.key !== 'proof_github' && item.key !== 'proof_email' && item.dataType !== 'Private')
-                ? (item.key).replace(/([A-Z])/g, ' $1').trim().toLowerCase()
+                ? item.key && (item.key).replace(/([A-Z])/g, ' $1').trim().toLowerCase()
                 : ''} 
             `}
             {(item.op === 'PUT' && item.key === 'proof_email' && verifiedEmail) ? 'to' : ''}

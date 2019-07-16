@@ -16,6 +16,8 @@ import Partners from './views/Landing/Partners';
 import Spaces from './views/Spaces/Spaces.jsx';
 import MyProfile from './views/Profile/MyProfile';
 import PubProfile from './views/Profile/PubProfile';
+import PubProfileDummy from './views/Profile/PubProfileDummy';
+import PubProfileDummyTwitter from './views/Profile/PubProfileDummyTwitter';
 import NoMatch from './views/Landing/NoMatch';
 import EditProfile from './views/Profile/EditProfile';
 import Profiles from './views/Landing/Profiles';
@@ -28,6 +30,7 @@ import NavLanding from './components/NavLanding';
 import history from './utils/history';
 import './index.css';
 import AppModals from './components/AppModals';
+import AppHeaders from './components/AppHeaders';
 import actions from './state/actions';
 
 const {
@@ -293,6 +296,8 @@ class App extends Component {
 
     return (
       <div className="App">
+        <AppHeaders />
+
         {(!isMyProfilePath) // show landing nav when user is not logged in, 3box is not fetching, and when route is not a protected route
           && (
             <NavLanding
@@ -349,6 +354,30 @@ class App extends Component {
         />
 
         <Switch>
+          <Route
+            exact
+            path="(^[/][0][xX]\w{40}\b)/twitterRequest"
+            component={PubProfileDummyTwitter}
+          />
+
+          <Route
+            exact
+            path="(^[/][0][xX]\w{40}\b)/previewRequest"
+            component={PubProfileDummy}
+          />
+
+          <Route
+            exact
+            path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|following|data|edit\w*)/twitterRequest"
+            component={PubProfileDummyTwitter}
+          />
+
+          <Route
+            exact
+            path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|following|data|edit\w*)/previewRequest"
+            component={PubProfileDummy}
+          />
+
           <Route
             exact
             path={routes.LANDING}
