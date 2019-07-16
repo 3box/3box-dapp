@@ -12,6 +12,7 @@ import {
 import { store } from '../../state/store';
 import PubContent from './PublicProfile/PubContent';
 import SideBar from './SideBar';
+import PubProfileHeaders from './PublicProfile/PubProfileHeaders';
 import './styles/Profile.css';
 
 const {
@@ -80,9 +81,21 @@ class ProfilePublic extends Component {
   }
 
   render() {
-    const { isLoadingOtherProfile, showSignInBanner } = this.props;
+    const {
+      isLoadingOtherProfile,
+      showSignInBanner,
+      otherImage,
+      otherName,
+      otherProfileAddress,
+    } = this.props;
     return (
       <div>
+        <PubProfileHeaders
+          otherName={otherName}
+          otherProfileAddress={otherProfileAddress}
+          otherImage={otherImage}
+        />
+
         <SignInThroughPublicProfileBanner show={showSignInBanner} handleSignInBanner={this.props.handleSignInBanner} />
         <div
           id="profile__page"
@@ -117,6 +130,9 @@ ProfilePublic.propTypes = {
   isLoadingOtherProfile: PropTypes.bool,
   showSignInBanner: PropTypes.bool,
   currentAddress: PropTypes.string,
+  otherName: PropTypes.string,
+  otherImage: PropTypes.string,
+  otherProfileAddress: PropTypes.string,
 };
 
 ProfilePublic.defaultProps = {
@@ -125,12 +141,18 @@ ProfilePublic.defaultProps = {
   isLoadingOtherProfile: true,
   showSignInBanner: false,
   currentAddress: '',
+  otherName: '',
+  otherImage: '',
+  otherProfileAddress: '',
 };
 
 const mapState = state => ({
   isLoadingOtherProfile: state.otherProfile.isLoadingOtherProfile,
   showSignInBanner: state.uiState.showSignInBanner,
   currentAddress: state.userState.currentAddress,
+  otherName: state.otherProfile.otherName,
+  otherImage: state.otherProfile.otherImage,
+  otherProfileAddress: state.otherProfile.otherProfileAddress,
 });
 
 export default withRouter(connect(mapState,
