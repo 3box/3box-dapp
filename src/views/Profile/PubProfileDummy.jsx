@@ -31,6 +31,7 @@ class ProfilePublic extends Component {
     const publicProfile = await Box.getProfile(profileAddress);
     const otherImage = publicProfile.image;
     const otherName = publicProfile.name;
+    console.log('runzzzz');
     this.setState({
       otherImage,
       otherName,

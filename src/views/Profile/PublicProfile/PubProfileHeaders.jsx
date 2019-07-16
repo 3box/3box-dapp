@@ -9,6 +9,8 @@ const PubProfileHeaders = ({
   otherImage,
 }) => (
     <Helmet>
+      {console.log('otherImage', otherImage)}
+      {console.log('otherName', otherName)}
       <title>{otherName ? `${otherName} on 3Box` : '3Box | Ethereum Profiles'}</title>
       <meta name="description" content={`Profile for ${shortenEthAddr(otherProfileAddress)}`} />
 
