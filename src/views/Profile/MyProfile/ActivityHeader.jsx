@@ -6,7 +6,7 @@ import ProfileHover from 'profile-hover';
 import ProfilePicture from '../../../components/ProfilePicture';
 import Space from '../../../assets/Space.svg';
 import networkArray from '../../../utils/networkArray';
-import { isEthAddress } from '../../../utils/funcs';
+import { checkIsEthAddress } from '../../../utils/funcs';
 import '../styles/Feed.css';
 import '../styles/Profile.css';
 import '../../../components/styles/NetworkArray.css';
@@ -32,7 +32,7 @@ const Activity = ({ name, image, feedAddress }) => (
     {(Object.keys(feedAddress)[0] !== 'threeBox' && feedAddress.metaData && feedAddress.metaData.contractImg)
       && <img src={feedAddress.metaData.contractImg.src} className="feed__activity__user clear" alt="profile" />}
 
-    {(isEthAddress(Object.keys(feedAddress)[0]) &&
+    {(checkIsEthAddress(Object.keys(feedAddress)[0]) &&
       (!feedAddress.metaData || (!feedAddress.metaData.image
         && !feedAddress.metaData.contractImg
         && !feedAddress.metaData.contractData
@@ -43,7 +43,7 @@ const Activity = ({ name, image, feedAddress }) => (
           0x
         </div>)}
 
-    {(!isEthAddress(Object.keys(feedAddress)[0]) && Object.keys(feedAddress)[0] !== 'threeBox')
+    {(!checkIsEthAddress(Object.keys(feedAddress)[0]) && Object.keys(feedAddress)[0] !== 'threeBox')
       && (
         <div className={`feed__activity__user`}>
           <img src={Space} className="feed__activity__spaceIcon" alt="space icon" />
@@ -64,7 +64,7 @@ const Activity = ({ name, image, feedAddress }) => (
           </div>
         )}
 
-      {isEthAddress(Object.keys(feedAddress)[0]) && (
+      {checkIsEthAddress(Object.keys(feedAddress)[0]) && (
         <React.Fragment>
           {/* ETH Activity w/ 3Box Profile */}
           {(feedAddress.metaData && feedAddress.metaData.name)
@@ -136,7 +136,7 @@ const Activity = ({ name, image, feedAddress }) => (
       )}
 
       {/* 3Box Space Activity */}
-      {(!isEthAddress(Object.keys(feedAddress)[0]) && Object.keys(feedAddress)[0] !== 'threeBox') && (
+      {(!checkIsEthAddress(Object.keys(feedAddress)[0]) && Object.keys(feedAddress)[0] !== 'threeBox') && (
         <div className="feed__activity__address__wrapper">
           <h4>
             {Object.keys(feedAddress)[0]}

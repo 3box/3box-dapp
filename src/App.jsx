@@ -7,9 +7,10 @@ import { connect } from 'react-redux';
 
 import * as routes from './utils/routes';
 import { pollNetworkAndAddress, initialAddress } from './utils/address';
-import { normalizeURL, matchProtectedRoutes } from './utils/funcs';
+import { normalizeURL, matchProtectedRoutes, checkIsEthAddress } from './utils/funcs';
 import { store } from './state/store';
 import history from './utils/history';
+import actions from './state/actions';
 
 import APIs from './views/Landing/API/APIs';
 import Dapp from './views/Landing/Dapp/Dapp';
@@ -28,9 +29,8 @@ import Create from './views/Landing/Create';
 import NavLanding from './components/NavLanding';
 import AppHeaders from './components/AppHeaders';
 import AppModals from './components/AppModals';
-import actions from './state/actions';
-import './index.css';
 import Nav from './components/Nav';
+import './index.css';
 
 const {
   handleSignInModal,
@@ -97,21 +97,20 @@ class App extends Component {
     const splitRoute = normalizedPath.split('/');
     const isMyProfilePath = matchProtectedRoutes(splitRoute[2]);
     const currentEthAddress = window.localStorage.getItem('userEthAddress');
+    const isEtherAddress = checkIsEthAddress(splitRoute[1]);
+    const isMyAddr = splitRoute[1] === currentEthAddress;
+    const onProfilePage = isEtherAddress;
 
     try {
       initialAddress(); // Initial get address
       pollNetworkAndAddress(); // Start polling for address change
       await this.props.initialCheckWeb3();
 
-      const allowDirectSignIn = (window.web3 !== 'undefined'
-        && splitRoute.length > 1 // Route has more than one
-        && splitRoute[1].substring(0, 2) === '0x' // Lands on profile page
+      const allowDirectSignIn = (
+        isEtherAddress // Lands on profile page
         && isMyProfilePath // Lands on protected page
-        && splitRoute[1] === currentEthAddress // Eth address is own)
+        && isMyAddr
       );
-
-      const onProfilePage = (splitRoute.length > 1 // Route has more than one
-        && splitRoute[1].substring(0, 2) === '0x');
 
       if (allowDirectSignIn) { // Begin signin
         this.directSignIn();
@@ -119,10 +118,10 @@ class App extends Component {
         if (isMyProfilePath) history.push(`/${splitRoute[1]}`);
       }
 
-      if (!allowDirectSignIn) {
-        const userEth = window.localStorage.getItem('userEthAddress');
-        if (userEth) this.props.getMyFollowing(userEth);
-      }
+      // if (!allowDirectSignIn) {
+      //   const userEth = window.localStorage.getItem('userEthAddress');
+      //   if (userEth) this.props.getMyFollowing(userEth);
+      // }
     } catch (err) {
       console.error(err);
     }
@@ -215,10 +214,11 @@ class App extends Component {
       await this.props.injectWeb3('directLogin');
       await this.props.checkNetwork();
 
-      const allowSignIn = (this.props.isSignedIntoWallet && this.props.isLoggedIn);
-      const notSignedIn = (this.props.isSignedIntoWallet
-        && !this.props.isLoggedIn
-        && matchProtectedRoutes(profilePage));
+      const allowSignIn = (this.props.isSignedIntoWallet);
+      // const allowSignIn = (this.props.isSignedIntoWallet && this.props.isLoggedIn);
+      // const notSignedIn = (this.props.isSignedIntoWallet
+      //   && !this.props.isLoggedIn
+      //   && matchProtectedRoutes(profilePage));
 
       if (allowSignIn) {
         // if route doesnt match this url, historypush to the correct url
@@ -231,10 +231,11 @@ class App extends Component {
       } else if (!this.props.isSignedIntoWallet) {
         history.push(routes.LANDING);
         this.props.handleRequireWalletLoginModal();
-      } else if (notSignedIn) {
-        history.push(routes.LANDING);
-        this.props.handleSignInModal();
       }
+      // else if (notSignedIn) {
+      //   history.push(routes.LANDING);
+      //   this.props.handleSignInModal();
+      // }
     } catch (err) {
       console.error(err);
     }
@@ -246,23 +247,23 @@ class App extends Component {
     } = this.props;
 
     try {
-      if (window.ethereum || typeof window.web3 !== 'undefined') {
-        await this.props.checkWeb3();
-        await this.props.injectWeb3();
-        await this.props.checkNetwork();
+      // if (window.ethereum || typeof window.web3 !== 'undefined') {
+      await this.props.checkWeb3();
+      await this.props.injectWeb3();
+      await this.props.checkNetwork();
 
-        if (this.props.isSignedIntoWallet) {
-          await this.props.openBox('fromSignIn');
-          if (!this.props.showErrorModal) this.getMyData();
-        } else if (!this.props.isSignedIntoWallet && !accessDeniedModal) {
-          this.props.handleRequireWalletLoginModal();
-        }
-      } else if (typeof window.web3 === 'undefined') {
-        this.props.requireMetaMaskModal();
-        this.props.handleMobileWalletModal();
+      if (this.props.isSignedIntoWallet) {
+        await this.props.openBox('fromSignIn');
+        if (!this.props.showErrorModal) this.getMyData();
+      } else if (!this.props.isSignedIntoWallet && !accessDeniedModal) {
+        this.props.handleRequireWalletLoginModal();
       }
+      // } else if (typeof window.web3 === 'undefined') {
+      //   this.props.requireMetaMaskModal();
+      //   this.props.handleMobileWalletModal();
+      // }
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
   }
 

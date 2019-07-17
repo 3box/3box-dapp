@@ -53,6 +53,10 @@ const injectWeb3 = directLogin => async (dispatch) => {
         window.web3 = web3;
 
         dispatch({
+          type: 'USER_UPDATE_WEB3',
+          web3obj: web3,
+        });
+        dispatch({
           type: 'UI_HANDLE_ACCESS_MODAL',
           allowAccessModal: true,
           directLogin,

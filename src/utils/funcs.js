@@ -339,7 +339,7 @@ export const extractRow = async (spaceData, spaceNameGiven, updatedSortedSpace) 
   }
 };
 
-export const isEthAddress = (string) => {
+export const checkIsEthAddress = (string) => {
   const isEthereumAddress = /^(0x)?[0-9a-f]{40}$/i.test(string);
   return isEthereumAddress;
 };

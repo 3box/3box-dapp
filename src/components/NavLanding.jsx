@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Web3Connect from 'web3connect';
 
-import { isEthAddress } from '../utils/funcs';
+import { checkIsEthAddress } from '../utils/funcs';
 import * as routes from '../utils/routes';
 import { normalizeURL } from '../utils/funcs';
 import ThreeBoxLogoBlack from '../assets/ThreeBoxLogoBlack.svg';
@@ -24,7 +24,7 @@ class NavLanding extends Component {
       retractNav: false,
       showAPI: false,
       showSideDrawer: false,
-      isProfilePage: isEthAddress(pathname.split('/')[1]),
+      isProfilePage: checkIsEthAddress(pathname.split('/')[1]),
     };
   }
 
