@@ -20,6 +20,7 @@ import {
   ModalBackground,
 } from '../../components/Modals';
 import history from '../../utils/history';
+import { twitterMessage, githubMessage } from './EditProfile/utils';
 import Nav from '../../components/Nav.jsx';
 import * as routes from '../../utils/routes';
 import Private from '../../assets/Private.svg';
@@ -28,6 +29,7 @@ import AddImage from '../../assets/AddImage.svg';
 import Loading from '../../assets/Loading.svg';
 import '../styles/EditProfile.css';
 import DefaultColorPic from '../../assets/DefaultColorPic.svg';
+import MyProfileHeaders from './MyProfile/MyProfileHeaders';
 
 const { getActivity, getMyProfileValue, getMyDID } = actions.profile;
 const {
@@ -1008,18 +1010,14 @@ class EditProfile extends Component {
       emailCode,
     } = this.state;
 
-    const message = (`3Box is a social profiles network for web3. This post links my 3Box profile to my Github account!
-    
-    ✅ ${did} ✅
-      
-      Create your profile today to start building social connection and trust online. https://3box.io/`);
-
-    const twitterMessage = (`This tweet links my 3Box profile to my twitter account! %0D%0A%0D%0AJoin web3's social profiles network by creating your account on http://3box.io/ today. %0D%0A@3boxdb%0D%0A%0D%0A✅
-    %0D%0A${did}
-          %0D%0A✅`);
-
     return (
       <div id="edit__page">
+        <MyProfileHeaders
+          image={image}
+          name={name}
+          currentAddress={currentAddress}
+        />
+
         <Nav />
 
         <Prompt
@@ -1046,7 +1044,7 @@ class EditProfile extends Component {
             <GithubVerificationModal
               copyToClipBoard={this.props.copyToClipBoard}
               did={did}
-              message={message}
+              message={githubMessage(did)}
               verifyGithub={this.verifyGithub}
               isGithubVerified={isGithubVerified}
               verificationLoading={verificationLoading}
@@ -1054,19 +1052,21 @@ class EditProfile extends Component {
               resetVerification={this.resetVerification}
               copySuccessful={copySuccessful}
               handleGithubVerificationModal={this.props.handleGithubVerificationModal}
-            />)}
+            />
+          )}
 
           {showTwitterVerificationModal && (
             <TwitterVerificationModal
               verifyTwitter={this.verifyTwitter}
               did={did}
-              message={twitterMessage}
+              message={twitterMessage(did, currentAddress)}
               isTwitterVerified={isTwitterVerified}
               verificationLoading={verificationLoading}
               twitterVerifiedFailed={twitterVerifiedFailed}
               resetVerification={this.resetVerification}
               handleTwitterVerificationModal={this.props.handleTwitterVerificationModal}
-            />)}
+            />
+          )}
 
           {showEmailVerificationModal && (
             <EmailVerificationModal
@@ -1084,7 +1084,8 @@ class EditProfile extends Component {
               disableSendVerificationEmail={disableSendVerificationEmail}
               resetVerification={this.resetVerification}
               handleEmailVerificationModal={this.props.handleEmailVerificationModal}
-            />)}
+            />
+          )}
 
           {(showEmailVerificationModal
             || showTwitterVerificationModal

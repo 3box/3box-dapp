@@ -87,7 +87,6 @@ class AppModals extends Component {
       alertRequireMetaMask,
       provideConsent,
       handleAccessModal,
-      isMyProfilePath,
     } = this.props;
 
     const isMobile = width <= 812; // 600
@@ -101,12 +100,14 @@ class AppModals extends Component {
         {isFetchingThreeBox && (
           <LoadingThreeBoxProfileModal
             key="LoadingThreeBoxProfileModal"
-          />)}
+          />
+        )}
 
         {(!onSyncFinished && !isFetchingThreeBox && isSyncing && !hasSignedOut) && (
           <SyncingModal
             key="SyncingModal"
-          />)}
+          />
+        )}
 
         {allowAccessModal && (
           <ProvideAccessModal
@@ -114,41 +115,47 @@ class AppModals extends Component {
             directLogin={directLogin}
             isMobile={isMobile}
             key="ProvideAccessModal"
-          />)}
+          />
+        )}
 
         {alertRequireMetaMask && (
           <RequireMetaMaskModal
             closeRequireMetaMaskModal={closeRequireMetaMaskModal}
             isMobile={isMobile}
             key="RequireMetaMaskModal"
-          />)}
+          />
+        )}
 
         {provideConsent && (
           <ProvideConsentModal
             handleConsentModal={handleConsentModal}
             isMobile={isMobile}
             key="ProvideConsentModal"
-          />)}
+          />
+        )}
 
         {accessDeniedModal && (
           <AccessDeniedModal
             handleDeniedAccessModal={handleDeniedAccessModal}
             isMobile={isMobile}
             key="AccessDeniedModal"
-          />)}
+          />
+        )}
 
         {signInToWalletModal && (
           <SignInToWalletModal
             handleRequireWalletLoginModal={handleRequireWalletLoginModal}
             isMobile={isMobile}
             key="SignInToWalletModal"
-          />)}
+          />
+        )}
 
         {signInModal && (
           <SignInToThreeBox
             handleSignInModal={handleSignInModal}
             key="SignInToThreeBox"
-          />)}
+          />
+        )}
 
         {mobileWalletRequiredModal && (
           <MobileWalletRequiredModal
@@ -156,7 +163,8 @@ class AppModals extends Component {
             handleMobileWalletModal={handleMobileWalletModal}
             isMobile={isMobile}
             key="MobileWalletRequiredModal"
-          />)}
+          />
+        )}
 
         {(showErrorModal && !mustConsentError) && (
           <ErrorModal
@@ -164,14 +172,16 @@ class AppModals extends Component {
             closeErrorModal={closeErrorModal}
             isMobile={isMobile}
             key="ErrorModal"
-          />)}
+          />
+        )}
 
         {!!mustConsentError && (
           <MustConsentModal
             closeErrorModal={closeErrorModal}
             isMobile={isMobile}
             key="MustConsentModal"
-          />)}
+          />
+        )}
 
         {showDifferentNetworkModal && (
           <SwitchedNetworksModal
@@ -179,7 +189,8 @@ class AppModals extends Component {
             currentNetwork={currentNetwork}
             handleSwitchedNetworkModal={handleSwitchedNetworkModal}
             key="SwitchedNetworksModal"
-          />)}
+          />
+        )}
 
         {loggedOutModal && (
           <LoggedOutModal
@@ -187,7 +198,8 @@ class AppModals extends Component {
             handleLoggedOutModal={handleLoggedOutModal}
             handleSignOut={handleSignOut}
             key="LoggedOutModal"
-          />)}
+          />
+        )}
 
         {switchedAddressModal && (
           <SwitchedAddressModal
@@ -196,7 +208,8 @@ class AppModals extends Component {
             handleSignOut={handleSignOut}
             prevAddress={prevAddress}
             key="SwitchedAddressModal"
-          />)}
+          />
+        )}
 
         {((onBoardingModal || onBoardingModalTwo) && !isMobile) && (
           <OnBoardingModalDesktop
@@ -205,7 +218,8 @@ class AppModals extends Component {
             showTwo={onBoardingModalTwo}
             handleOnboardingModal={handleOnboardingModal}
             key="OnBoardingModalDesktop"
-          />)}
+          />
+        )}
 
         {((onBoardingModal || onBoardingModalMobileOne || onBoardingModalMobileTwo || onBoardingModalMobileThree) && isMobile) && (
           <OnBoardingModalMobile
@@ -217,7 +231,8 @@ class AppModals extends Component {
             showFour={onBoardingModalMobileThree}
             handleNextMobileModal={handleNextMobileModal}
             key="OnBoardingModalMobile"
-          />)}
+          />
+        )}
 
         {(isFetchingThreeBox
           || allowAccessModal
