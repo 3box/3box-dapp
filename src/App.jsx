@@ -552,12 +552,13 @@ class App extends Component {
           />
 
           <Route
-            component={() => (
-              <NoMatch
-                isLoggedIn={isLoggedIn}
-                handleSignInUp={this.handleSignInUp}
-              />
-            )}
+            // component={() => (
+            //   <NoMatch
+            //     isLoggedIn={isLoggedIn}
+            //     handleSignInUp={this.handleSignInUp}
+            //   />
+            // )}
+            render={() => <Redirect to={routes.LANDING} />}
           />
         </Switch>
       </div>
