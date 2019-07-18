@@ -1054,7 +1054,8 @@ class EditProfile extends Component {
               resetVerification={this.resetVerification}
               copySuccessful={copySuccessful}
               handleGithubVerificationModal={this.props.handleGithubVerificationModal}
-            />)}
+            />
+          )}
 
           {showTwitterVerificationModal && (
             <TwitterVerificationModal
@@ -1066,7 +1067,8 @@ class EditProfile extends Component {
               twitterVerifiedFailed={twitterVerifiedFailed}
               resetVerification={this.resetVerification}
               handleTwitterVerificationModal={this.props.handleTwitterVerificationModal}
-            />)}
+            />
+          )}
 
           {showEmailVerificationModal && (
             <EmailVerificationModal
@@ -1084,7 +1086,8 @@ class EditProfile extends Component {
               disableSendVerificationEmail={disableSendVerificationEmail}
               resetVerification={this.resetVerification}
               handleEmailVerificationModal={this.props.handleEmailVerificationModal}
-            />)}
+            />
+          )}
 
           {(showEmailVerificationModal
             || showTwitterVerificationModal

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import * as routes from './utils/routes';
-import { pollNetworkAndAddress, initialAddress } from './utils/address';
+import { pollNetworkAndAddress, initialAddress, startPollFlag } from './utils/address';
 import { normalizeURL, matchProtectedRoutes, checkIsEthAddress } from './utils/funcs';
 import { store } from './state/store';
 import history from './utils/history';
@@ -150,6 +150,8 @@ class App extends Component {
       type: 'UI_SPACES_LOADING',
       isSpacesLoading: true,
     });
+    startPollFlag();
+    pollNetworkAndAddress(); // Start polling for address change
 
     try {
       this.props.getVerifiedPublicGithub();
@@ -179,7 +181,6 @@ class App extends Component {
       await this.props.getMySpacesData(currentAddress);
 
       this.props.getActivity();
-      pollNetworkAndAddress(); // Start polling for address change
     } catch (err) {
       console.error(err);
     }

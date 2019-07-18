@@ -17,114 +17,105 @@ export const initialAddress = async () => {
   });
 };
 
+export const startPollFlag = async () => {
+  store.dispatch({
+    type: 'USER_HANDLE_POLLING',
+    shouldPoll: true,
+  });
+};
+
 export const pollNetworkAndAddress = () => {
-  const poll = setTimeout(async () => {
+  setTimeout(async () => {
     try {
-      let prevAddress;
-      let currentAddress;
+      // let prevAddress;
 
-      const hasWeb3 = typeof window.web3 !== 'undefined';
       const {
-        isLoggedIn,
+        // isLoggedIn,
+        shouldPoll,
+        currentAddress,
+        usingInjectedAddress,
       } = store.getState().userState;
+      const {
+        switchedAddressModal,
+      } = store.getState().uiState;
 
-      if (hasWeb3) {
-        let accounts = await window.web3.currentProvider.enable();
-        accounts = !accounts ? await accountsPromise : accounts;
-        [currentAddress] = accounts;
-      } else {
-        currentAddress = '';
-      }
-
-      const isSameAddr = currentAddress === address;
+      // const isSameAddr = currentAddress === address;
+      // const isAddrString = typeof currentAddress === 'string';
       const isAddrUndefined = currentAddress === undefined;
-      const isAddrString = typeof currentAddress === 'string';
-
       // Logged out of MM while logged in to 3Box
-      if (!isSameAddr && isAddrUndefined && isLoggedIn) {
-        prevAddress = address;
-        store.dispatch({
-          type: 'HANDLE_LOGGEDOUT_MODAL',
-          loggedOutModal: true,
-        });
-        store.dispatch({
-          type: 'UPDATE_ADDRESS',
-          currentAddress,
-        });
-        window.localStorage.setItem('userEthAddress', currentAddress);
+      // if (!isSameAddr && isAddrUndefined && isLoggedIn) {
+      //   prevAddress = address;
+      //   store.dispatch({
+      //     type: 'HANDLE_LOGGEDOUT_MODAL',
+      //     loggedOutModal: true,
+      //   });
+      // }
+      const hasWeb3 = window.web3 !== 'undefined';
+      let injectedAddress;
+      if (hasWeb3) {
+        let injectedAccounts = await window.web3.currentProvider.enable();
+        injectedAccounts = !injectedAccounts ? await accountsPromise : injectedAccounts;
+        [injectedAddress] = injectedAccounts;
       }
 
-      // Switched address while logged in
       if (
-        !isSameAddr &&
-        isAddrString &&
-        currentAddress !== prevAddress &&
-        address !== undefined &&
-        address !== '' &&
-        isLoggedIn
+        usingInjectedAddress &&
+        injectedAddress &&
+        injectedAddress !== currentAddress &&
+        !isAddrUndefined
       ) {
-        prevAddress = address;
         store.dispatch({
           type: 'UI_HANDLE_SWITCHED_ADDRESS_MODAL',
           switchedAddressModal: true,
-          prevAddress,
         });
-        store.dispatch({
-          type: 'UPDATE_ADDRESS',
-          currentAddress,
-        });
-        window.localStorage.setItem('userEthAddress', currentAddress);
       }
 
-      // Switched back to previous address while logged in
-      if (currentAddress !== address &&
-        isAddrString &&
-        typeof address === 'string' &&
-        isLoggedIn &&
-        currentAddress === prevAddress
-      ) {
+      if (switchedAddressModal && injectedAddress && injectedAddress === currentAddress) {
         store.dispatch({
           type: 'UI_HANDLE_SWITCHED_ADDRESS_MODAL',
           switchedAddressModal: false,
-          prevAddress: '',
         });
-        store.dispatch({
-          type: 'UPDATE_ADDRESS',
-          currentAddress,
-        });
-        window.localStorage.setItem('userEthAddress', currentAddress);
       }
 
-      // Logged in to MM so update address
-      // if (currentAddress !== address &&
+      // Switched address while logged in
+      // if (
+      //   !isSameAddr &&
       //   isAddrString &&
-      //   address === undefined &&
-      //   (!window.ethereum || !window.web3)) {
+      //   currentAddress !== prevAddress &&
+      //   address !== undefined &&
+      //   address !== '' &&
+      //   isLoggedIn
+      // ) {
+      //   prevAddress = address;
       //   store.dispatch({
-      //     type: 'UPDATE_ADDRESS',
-      //     currentAddress,
+      //     type: 'UI_HANDLE_SWITCHED_ADDRESS_MODAL',
+      //     switchedAddressModal: true,
+      //     prevAddress,
       //   });
-      //   window.localStorage.setItem('userEthAddress', currentAddress);
       // }
 
-      // Logged out of MM while not signed in to 3Box
+      // Switched back to previous address while logged in
       // if (currentAddress !== address &&
-      //   currentAddress === undefined) {
+      //   isAddrString &&
+      //   typeof address === 'string' &&
+      //   isLoggedIn &&
+      //   currentAddress === prevAddress
+      // ) {
       //   store.dispatch({
-      //     type: 'UPDATE_ADDRESS',
-      //     currentAddress,
+      //     type: 'UI_HANDLE_SWITCHED_ADDRESS_MODAL',
+      //     switchedAddressModal: false,
+      //     prevAddress: '',
       //   });
-      //   window.localStorage.setItem('userEthAddress', currentAddress);
       // }
 
       address = currentAddress;
-      pollNetworkAndAddress();
+      if (shouldPoll) {
+        pollNetworkAndAddress();
+      } else {
+        address = undefined;
+      }
     } catch (err) {
       console.error(err);
     }
   }, 1000);
-  // store.dispatch({
-  //   type: 'USER_HANDLE_POLLING',
-  //   pollId: poll,
-  // });
 };

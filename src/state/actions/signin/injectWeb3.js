@@ -48,12 +48,12 @@ const injectWeb3 = directLogin => async (dispatch) => {
         }
         // set provider to localstorage
         // if provider now does not equal previous provider, reset web3 details
-        const web3 = new Web3(provider); // eslint-disable-line no-undef
+        const web3Obj = new Web3(provider); // eslint-disable-line no-undef
         // if no provider throw error
         // window.web3 = web3;
         dispatch({
           type: 'USER_UPDATE_WEB3',
-          web3Obj: web3,
+          web3Obj,
         });
 
         dispatch({
@@ -61,9 +61,17 @@ const injectWeb3 = directLogin => async (dispatch) => {
           allowAccessModal: true,
           directLogin,
         });
-        accounts = await web3.currentProvider.enable(); // eslint-disable-line no-undef
+        accounts = await web3Obj.currentProvider.enable(); // eslint-disable-line no-undef
         accounts = !accounts ? await accountsPromise : accounts;
         window.localStorage.setItem('userEthAddress', accounts[0]);
+
+        const hasWeb3 = window.web3 !== 'undefined';
+        let injectedAddress;
+        if (hasWeb3) {
+          let injectedAccounts = await window.web3.currentProvider.enable();
+          injectedAccounts = !injectedAccounts ? await accountsPromise : injectedAccounts;
+          [injectedAddress] = injectedAccounts;
+        }
 
         dispatch({
           type: 'USER_ADDRESSES_UPDATE',
@@ -71,6 +79,7 @@ const injectWeb3 = directLogin => async (dispatch) => {
           isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
           accountAddress: accounts[0],
           currentAddress: accounts[0],
+          usingInjectedAddress: injectedAddress === accounts[0],
         });
         dispatch({
           type: 'UI_HANDLE_ACCESS_MODAL',

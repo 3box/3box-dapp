@@ -29,6 +29,7 @@ const userStateReducer = (state = {}, action) => {
           isLoggedIn: action.isLoggedIn,
           accountAddress: action.accountAddress,
           currentAddress: action.currentAddress,
+          usingInjectedAddress: action.usingInjectedAddress,
       };
 
     case 'USER_WEB3_STATUS_UPDATE':
@@ -61,7 +62,11 @@ const userStateReducer = (state = {}, action) => {
       return {
         ...state,
         isLoggedIn: action.isLoggedIn,
-          hasSignedOut: action.hasSignedOut,
+        hasSignedOut: action.hasSignedOut,
+        shouldPoll: action.shouldPoll,
+        web3Obj: action.web3Obj,
+        usingInjectedAddress: action.usingInjectedAddress,
+        currentAddress: action.currentAddress,
       };
 
     case 'USER_UPDATE_ADDRESS':
@@ -73,7 +78,7 @@ const userStateReducer = (state = {}, action) => {
     case 'USER_HANDLE_POLLING':
       return {
         ...state,
-        pollId: action.pollId,
+        shouldPoll: action.shouldPoll,
       };
 
     default:

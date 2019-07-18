@@ -7,7 +7,6 @@ import history from '../../../utils/history';
 const handleSignOut = () => async (dispatch) => {
   const {
     isLoggedIn,
-    pollId,
   } = store.getState().userState;
   const {
     box,
@@ -19,6 +18,10 @@ const handleSignOut = () => async (dispatch) => {
       type: 'USER_SIGN_OUT',
       isLoggedIn: false,
       hasSignedOut: true,
+      shouldPoll: false,
+      web3Obj: null,
+      usingInjectedAddress: false,
+      currentAddress: undefined,
     });
     dispatch({
       type: 'UI_SIGN_OUT',
@@ -46,8 +49,6 @@ const handleSignOut = () => async (dispatch) => {
       emoji: '',
       status: '',
     });
-
-    clearTimeout(pollId);
   }
   history.push(routes.LANDING);
 };
