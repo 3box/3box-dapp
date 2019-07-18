@@ -72,8 +72,7 @@ const {
 } = actions.signin;
 
 const {
-  checkWeb3,
-  initialCheckWeb3,
+  checkMobileWeb3,
   checkNetwork,
 } = actions.land;
 
@@ -108,7 +107,6 @@ class App extends Component {
 
     try {
       initialAddress(); // Initial get address
-      await this.props.initialCheckWeb3(); // eslint-disable-line
 
       if (allowDirectSignIn) { // Begin signin
         this.directSignIn();
@@ -203,7 +201,7 @@ class App extends Component {
     const profilePage = normalizedPath.split('/')[2];
 
     try {
-      await this.props.checkWeb3(); // this exists now only for mobile
+      await this.props.checkMobileWeb3(); // this exists now only for mobile
       await this.props.injectWeb3('directLogin');
       await this.props.checkNetwork();
 
@@ -241,7 +239,7 @@ class App extends Component {
 
     try {
       // if (window.ethereum || typeof window.web3 !== 'undefined') {
-      await this.props.checkWeb3(); // eslint-disable-line
+      await this.props.checkMobileWeb3(); // eslint-disable-line
       await this.props.injectWeb3(); // eslint-disable-line
       await this.props.checkNetwork(); // eslint-disable-line
 
@@ -543,8 +541,7 @@ App.propTypes = {
   openBox: PropTypes.func.isRequired,
   injectWeb3: PropTypes.func.isRequired,
   getMyProfileValue: PropTypes.func.isRequired,
-  checkWeb3: PropTypes.func.isRequired,
-  initialCheckWeb3: PropTypes.func.isRequired,
+  checkMobileWeb3: PropTypes.func.isRequired,
   getMyFollowing: PropTypes.func.isRequired,
   getMyDID: PropTypes.func.isRequired,
   getCollectibles: PropTypes.func.isRequired,
@@ -582,7 +579,6 @@ App.propTypes = {
   errorMessage: PropTypes.string,
   allowAccessModal: PropTypes.bool,
   alertRequireMetaMask: PropTypes.bool,
-  hasWeb3: PropTypes.bool,
   provideConsent: PropTypes.bool,
   signInToWalletModal: PropTypes.bool,
   signInModal: PropTypes.bool,
@@ -612,7 +608,6 @@ App.defaultProps = {
   showDifferentNetworkModal: false,
   showPickProviderScreen: false,
   handleSignOut,
-  hasWeb3: false,
   accessDeniedModal: false,
   onSyncFinished: false,
   hasSignedOut: false,
@@ -673,7 +668,6 @@ const mapState = state => ({
   isLoggedIn: state.userState.isLoggedIn,
   isSignedIntoWallet: state.userState.isSignedIntoWallet,
   currentAddress: state.userState.currentAddress,
-  hasWeb3: state.userState.hasWeb3,
 
   otherAddressToFollow: state.otherProfile.otherAddressToFollow,
 
@@ -687,7 +681,7 @@ export default withRouter(connect(mapState,
   {
     openBox,
     injectWeb3,
-    checkWeb3,
+    checkMobileWeb3,
     checkNetwork,
     getMyProfileValue,
     getMyDID,
@@ -699,7 +693,6 @@ export default withRouter(connect(mapState,
     getVerifiedPublicTwitter,
     getVerifiedPrivateEmail,
     getActivity,
-    initialCheckWeb3,
     getMyFollowing,
     requireMetaMaskModal,
     handleMobileWalletModal,

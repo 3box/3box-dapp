@@ -28,7 +28,7 @@ const {
 } = actions.signin;
 
 const {
-  checkWeb3,
+  checkMobileWeb3,
   checkNetwork,
 } = actions.land;
 
@@ -91,7 +91,7 @@ class FollowButton extends Component {
 
     try {
       if (window.ethereum || typeof window.web3 !== 'undefined') {
-        await this.props.checkWeb3();
+        await this.props.checkMobileWeb3();
         await this.props.injectWeb3();
         await this.props.checkNetwork();
 
@@ -230,7 +230,7 @@ function mapState(state) {
 export default connect(mapState,
   {
     injectWeb3,
-    checkWeb3,
+    checkMobileWeb3,
     checkNetwork,
     saveFollowing,
     openBox,

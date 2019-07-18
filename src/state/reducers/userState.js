@@ -3,16 +3,12 @@ const userStateReducer = (state = {}, action) => {
     case 'INITIAL_USER_CHECK_WEB3':
       return {
         ...state,
-        hasWeb3: action.hasWeb3,
-          showDownloadBanner: action.showDownloadBanner,
           currentWallet: action.currentWallet,
       };
 
     case 'USER_CHECK_WEB3':
       return {
         ...state,
-        hasWeb3: action.hasWeb3,
-          showDownloadBanner: action.showDownloadBanner,
           currentWallet: action.currentWallet,
       };
 
@@ -20,6 +16,7 @@ const userStateReducer = (state = {}, action) => {
       return {
         ...state,
         web3Obj: action.web3Obj,
+          currentWallet: action.currentWallet,
       };
 
     case 'USER_ADDRESSES_UPDATE':
@@ -35,7 +32,6 @@ const userStateReducer = (state = {}, action) => {
     case 'USER_WEB3_STATUS_UPDATE':
       return {
         ...state,
-        hasWeb3: action.hasWeb3,
       };
 
     case 'USER_WALLET_LOGIN_UPDATE':
@@ -62,11 +58,11 @@ const userStateReducer = (state = {}, action) => {
       return {
         ...state,
         isLoggedIn: action.isLoggedIn,
-        hasSignedOut: action.hasSignedOut,
-        shouldPoll: action.shouldPoll,
-        web3Obj: action.web3Obj,
-        usingInjectedAddress: action.usingInjectedAddress,
-        currentAddress: action.currentAddress,
+          hasSignedOut: action.hasSignedOut,
+          shouldPoll: action.shouldPoll,
+          web3Obj: action.web3Obj,
+          usingInjectedAddress: action.usingInjectedAddress,
+          currentAddress: action.currentAddress,
       };
 
     case 'USER_UPDATE_ADDRESS':

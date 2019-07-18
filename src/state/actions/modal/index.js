@@ -168,13 +168,6 @@ export const handleDeniedAccessModal = () => async (dispatch) => {
   });
 };
 
-export const handleDownloadMetaMaskBanner = () => async (dispatch) => {
-  dispatch({
-    type: 'HANDLE_DOWNLOAD_BANNER',
-    showDownloadBanner: !store.getState().uiState.showDownloadBanner,
-  });
-};
-
 export const handleSignInBanner = () => async (dispatch) => {
   dispatch({
     type: 'UI_HANDLE_SIGNIN_BANNER',

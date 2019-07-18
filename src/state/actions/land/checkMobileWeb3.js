@@ -1,4 +1,4 @@
-const checkWeb3 = () => async (dispatch) => {
+const checkMobileWeb3 = () => async (dispatch) => {
   const cp = typeof window.web3 !== 'undefined' ? window.web3.currentProvider : null; // eslint-disable-line no-undef
 
   let isToshi;
@@ -12,18 +12,16 @@ const checkWeb3 = () => async (dispatch) => {
     isMetaMask = !!cp.isMetaMask;
 
     if (isToshi) {
-      currentWallet = 'isToshi';
+      currentWallet = 'Toshi';
     } else if (isCipher) {
-      currentWallet = 'isCipher';
+      currentWallet = 'Cipher';
     } else if (isMetaMask) {
-      currentWallet = 'isMetaMask';
+      currentWallet = 'MetaMask';
     }
   }
 
   dispatch({
     type: 'USER_CHECK_WEB3',
-    hasWeb3: typeof window.web3 !== 'undefined', // eslint-disable-line no-undef
-    showDownloadBanner: typeof window.web3 === 'undefined', // eslint-disable-line no-undef
     currentWallet,
   });
   dispatch({
@@ -32,4 +30,4 @@ const checkWeb3 = () => async (dispatch) => {
   });
 };
 
-export default checkWeb3;
+export default checkMobileWeb3;
