@@ -19,7 +19,7 @@ const userStateReducer = (state = {}, action) => {
     case 'USER_UPDATE_WEB3':
       return {
         ...state,
-        web3obj: action.web3obj,
+        web3Obj: action.web3Obj,
       };
 
     case 'USER_ADDRESSES_UPDATE':
@@ -68,6 +68,12 @@ const userStateReducer = (state = {}, action) => {
       return {
         ...state,
         currentAddress: action.currentAddress,
+      };
+
+    case 'USER_HANDLE_POLLING':
+      return {
+        ...state,
+        pollId: action.pollId,
       };
 
     default:

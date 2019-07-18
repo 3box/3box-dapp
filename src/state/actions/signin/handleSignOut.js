@@ -5,8 +5,16 @@ import * as routes from '../../../utils/routes';
 import history from '../../../utils/history';
 
 const handleSignOut = () => async (dispatch) => {
-  if (store.getState().userState.isLoggedIn) {
-    if (store.getState().myData.box) store.getState().myData.box.logout();
+  const {
+    isLoggedIn,
+    pollId,
+  } = store.getState().userState;
+  const {
+    box,
+  } = store.getState().myData;
+
+  if (isLoggedIn) {
+    if (box) box.logout();
     dispatch({
       type: 'USER_SIGN_OUT',
       isLoggedIn: false,
@@ -38,6 +46,8 @@ const handleSignOut = () => async (dispatch) => {
       emoji: '',
       status: '',
     });
+
+    clearTimeout(pollId);
   }
   history.push(routes.LANDING);
 };

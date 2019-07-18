@@ -935,56 +935,62 @@ SignInThroughPublicProfileBanner.propTypes = {
   handleHideSignInBanner: PropTypes.func.isRequired,
 };
 
-export const ErrorModal = ({ closeErrorModal, errorMessage }) => (
-  <div>
-    <div className="modal__container modal--effect">
-      <div className="modal">
-        {
-          (errorMessage && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.')
-            || (errorMessage && errorMessage.message.substring(0, 26) === 'value/</<@moz-extension://')
+export const ErrorModal = ({ closeErrorModal, error }) => {
+  let isMetaMaskSignError;
+  let isMetaMaskFromError;
+  let isMozillaError;
+  let errorString;
+
+  const errorMsg = error.message;
+  if (errorMsg) {
+    isMetaMaskSignError = errorMsg.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
+    isMetaMaskFromError = errorMsg.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.';
+    isMozillaError = errorMsg.substring(0, 26) === 'value/</<@moz-extension://';
+    errorString = errorMsg.substring(0, 200);
+  }
+
+  errorString = errorString || 'There was an error logging in.';
+
+  return (
+    <div>
+      <div className="modal__container modal--effect">
+        <div className="modal">
+          {(isMetaMaskSignError || isMozillaError)
             ? <img src={Consent} alt="Consent required" />
-            : <img src={ErrorIcon} alt="Error" id="modal__switchedNetworks" />
-        }
-        <div
-          id={(errorMessage && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.')
-            || (errorMessage && errorMessage.message.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.')
-            || (errorMessage && errorMessage.message.substring(0, 26) === 'value/</<@moz-extension://')
-            ? 'modal__copy__card' : ''}
-        >
-          {
-            (errorMessage && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.')
-              || ((errorMessage && errorMessage.message.substring(0, 26) === 'value/</<@moz-extension://'))
+            : <img src={ErrorIcon} alt="Error" id="modal__switchedNetworks" />}
+
+          <div id={(isMetaMaskSignError || isMetaMaskFromError || isMozillaError) ? 'modal__copy__card' : ''}>
+            {isMetaMaskSignError
+              || (isMozillaError)
               ? <h3>Log in to 3Box</h3>
-              : <h3>Error</h3>
-          }
-          {
-            (errorMessage && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.')
-              || ((errorMessage && errorMessage.message.substring(0, 26) === 'value/</<@moz-extension://'))
+              : <h3>Error</h3>}
+
+            {(isMetaMaskSignError || isMozillaError)
               ? <p>You must provide consent to 3Box in your web3 wallet (e.g. MetaMask) to sign in or create a profile, please try again</p>
               : (
                 <React.Fragment>
-                  <p>{errorMessage && errorMessage.message.substring(0, 200)}</p>
+                  <p>{errorString}</p>
                   <br />
                   <p>
                     Please refresh the page and try again
                   </p>
                 </React.Fragment>
-              )
-          }
+              )}
+          </div>
+          <button onClick={closeErrorModal} type="button" className="tertiaryButton">Close</button>
         </div>
-        <button onClick={closeErrorModal} type="button" className="tertiaryButton">Close</button>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 ErrorModal.propTypes = {
-  errorMessage: PropTypes.string,
+  error: PropTypes.string,
   closeErrorModal: PropTypes.func.isRequired,
 };
 
 ErrorModal.defaultProps = {
-  errorMessage: '',
+  error: '',
 };
 
 export const MustConsentModal = ({ closeErrorModal, isMobile }) => (

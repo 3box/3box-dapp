@@ -85,9 +85,9 @@ class App extends Component {
       onBoardingModalMobileTwo: false,
       onBoardingModalMobileThree: false,
     };
-    this.handleSignInUp = this.handleSignInUp.bind(this);
-    this.directSignIn = this.directSignIn.bind(this);
-    this.getMyData = this.getMyData.bind(this);
+    // this.handleSignInUp = this.handleSignInUp.bind(this);
+    // this.directSignIn = this.directSignIn.bind(this);
+    // this.getMyData = this.getMyData.bind(this);
   }
 
   async componentDidMount() {
@@ -100,28 +100,21 @@ class App extends Component {
     const isEtherAddress = checkIsEthAddress(splitRoute[1]);
     const isMyAddr = splitRoute[1] === currentEthAddress;
     const onProfilePage = isEtherAddress;
+    const allowDirectSignIn = (
+      isEtherAddress // Lands on profile page
+      && isMyProfilePath // Lands on protected page
+      && isMyAddr
+    );
 
     try {
       initialAddress(); // Initial get address
-      pollNetworkAndAddress(); // Start polling for address change
-      await this.props.initialCheckWeb3();
-
-      const allowDirectSignIn = (
-        isEtherAddress // Lands on profile page
-        && isMyProfilePath // Lands on protected page
-        && isMyAddr
-      );
+      await this.props.initialCheckWeb3(); // eslint-disable-line
 
       if (allowDirectSignIn) { // Begin signin
         this.directSignIn();
       } else if (onProfilePage) { // Lands on profile page
         if (isMyProfilePath) history.push(`/${splitRoute[1]}`);
       }
-
-      // if (!allowDirectSignIn) {
-      //   const userEth = window.localStorage.getItem('userEthAddress');
-      //   if (userEth) this.props.getMyFollowing(userEth);
-      // }
     } catch (err) {
       console.error(err);
     }
@@ -131,29 +124,27 @@ class App extends Component {
     const { location } = nextProps;
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
+    const isNewPath = nextProps.location.pathname !== normalizedPath;
+    const onSyncDoneToTrigger = nextProps.onSyncFinished && nextProps.isSyncing;
 
-    // check previous route for banner behavior on /Create & /Profiles
-    // does not work with back button
-    if (nextProps.location.pathname !== normalizedPath) {
+    if (isNewPath) { // check previous route for banner behavior on /Create & /Profiles
       store.dispatch({
         type: 'UI_ROUTE_UPDATE',
         currentRoute: normalizedPath,
       });
     }
 
-    // get profile data again only when onSyncDone
-    if (nextProps.onSyncFinished && nextProps.isSyncing) {
+    if (onSyncDoneToTrigger) { // get profile data again only when onSyncDone
       store.dispatch({ // end onSyncDone animation
         type: 'UI_APP_SYNC',
         onSyncFinished: true,
         isSyncing: false,
       });
-
       this.getMyData();
     }
   }
 
-  async getMyData() {
+  getMyData = async () => {
     const { currentAddress } = this.props;
     store.dispatch({
       type: 'UI_SPACES_LOADING',
@@ -188,6 +179,7 @@ class App extends Component {
       await this.props.getMySpacesData(currentAddress);
 
       this.props.getActivity();
+      pollNetworkAndAddress(); // Start polling for address change
     } catch (err) {
       console.error(err);
     }
@@ -200,7 +192,7 @@ class App extends Component {
     });
   }
 
-  async directSignIn() {
+  directSignIn = async () => {
     const {
       location,
     } = this.props;
@@ -210,11 +202,11 @@ class App extends Component {
     const profilePage = normalizedPath.split('/')[2];
 
     try {
-      // await this.props.checkWeb3();
+      await this.props.checkWeb3(); // this exists now only for mobile
       await this.props.injectWeb3('directLogin');
       await this.props.checkNetwork();
 
-      const allowSignIn = (this.props.isSignedIntoWallet);
+      const allowSignIn = this.props.isSignedIntoWallet;
       // const allowSignIn = (this.props.isSignedIntoWallet && this.props.isLoggedIn);
       // const notSignedIn = (this.props.isSignedIntoWallet
       //   && !this.props.isLoggedIn
@@ -241,22 +233,22 @@ class App extends Component {
     }
   }
 
-  async handleSignInUp() {
+  handleSignInUp = async () => {
     const {
       accessDeniedModal,
     } = this.props;
 
     try {
       // if (window.ethereum || typeof window.web3 !== 'undefined') {
-      await this.props.checkWeb3();
-      await this.props.injectWeb3();
-      await this.props.checkNetwork();
+      await this.props.checkWeb3(); // eslint-disable-line
+      await this.props.injectWeb3(); // eslint-disable-line
+      await this.props.checkNetwork(); // eslint-disable-line
 
-      if (this.props.isSignedIntoWallet) {
-        await this.props.openBox('fromSignIn');
-        if (!this.props.showErrorModal) this.getMyData();
-      } else if (!this.props.isSignedIntoWallet && !accessDeniedModal) {
-        this.props.handleRequireWalletLoginModal();
+      if (this.props.isSignedIntoWallet) { // eslint-disable-line
+        await this.props.openBox('fromSignIn'); // eslint-disable-line
+        if (!this.props.showErrorModal) this.getMyData(); // eslint-disable-line
+      } else if (!this.props.isSignedIntoWallet && !accessDeniedModal) { // eslint-disable-line
+        this.props.handleRequireWalletLoginModal(); // eslint-disable-line
       }
       // } else if (typeof window.web3 === 'undefined') {
       //   this.props.requireMetaMaskModal();

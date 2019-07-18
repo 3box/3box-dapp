@@ -50,12 +50,12 @@ const injectWeb3 = directLogin => async (dispatch) => {
         // if provider now does not equal previous provider, reset web3 details
         const web3 = new Web3(provider); // eslint-disable-line no-undef
         // if no provider throw error
-        window.web3 = web3;
-
+        // window.web3 = web3;
         dispatch({
           type: 'USER_UPDATE_WEB3',
-          web3obj: web3,
+          web3Obj: web3,
         });
+
         dispatch({
           type: 'UI_HANDLE_ACCESS_MODAL',
           allowAccessModal: true,
