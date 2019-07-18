@@ -18,7 +18,7 @@ import Partners from './views/Landing/Partners';
 import Team from './views/Landing/Team';
 import PubProfileDummy from './views/Profile/PubProfileDummy';
 import PubProfileDummyTwitter from './views/Profile/PubProfileDummyTwitter';
-import NoMatch from './views/Landing/NoMatch';
+// import NoMatch from './views/Landing/NoMatch';
 import {
   MyProfile,
   Spaces,

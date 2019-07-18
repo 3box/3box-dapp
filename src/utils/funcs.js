@@ -364,7 +364,8 @@ export const shortenEthAddr = (str) => {
 export const checkRequestRoute = (splitRoute) => {
   const route2 = splitRoute[2] && splitRoute[2].toLowerCase();
   const route3 = splitRoute[3] && splitRoute[3].toLowerCase();
-  const isRequest = route2 === 'twitterrequest' ||
+  const isRequest =
+    route2 === 'twitterrequest' ||
     route2 === 'previewrequest' ||
     route3 === 'twitterrequest' ||
     route3 === 'previewrequest';
