@@ -2,20 +2,6 @@ import {
   store,
 } from '../../store';
 
-export const requireMetaMaskModal = () => (dispatch) => {
-  dispatch({
-    type: 'UI_REQUIRE_METAMASK_MODAL',
-    alertRequireMetaMask: true,
-  });
-};
-
-export const closeRequireMetaMaskModal = () => (dispatch) => {
-  dispatch({
-    type: 'UI_REQUIRE_METAMASK_MODAL',
-    alertRequireMetaMask: false,
-  });
-};
-
 export const closeErrorModal = () => async (dispatch) => {
   dispatch({
     type: 'UI_CLOSE_ERROR_MODAL',
@@ -138,13 +124,6 @@ export const handleOnboardingModal = mobile => async (dispatch) => {
       onBoardingModal: false,
     });
   }
-};
-
-export const handleRequireWalletLoginModal = () => async (dispatch) => {
-  dispatch({
-    type: 'UI_HANDLE_REQUIRE_LOGIN_MODAL',
-    signInToWalletModal: !store.getState().uiState.signInToWalletModal,
-  });
 };
 
 export const handleMobileWalletModal = () => async (dispatch) => {

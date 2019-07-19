@@ -57,12 +57,6 @@ const uiStateReducer = (state = {}, action) => {
           showSignInBanner: action.showSignInBanner,
       };
 
-    case 'UI_REQUIRE_METAMASK_MODAL':
-      return {
-        ...state,
-        alertRequireMetaMask: action.alertRequireMetaMask,
-      };
-
     case 'UI_CLOSE_ERROR_MODAL':
       return {
         ...state,
@@ -158,12 +152,6 @@ const uiStateReducer = (state = {}, action) => {
         ...state,
         onBoardingModal: action.onBoardingModal,
           onBoardingModalTwo: action.onBoardingModalTwo,
-      };
-
-    case 'UI_HANDLE_REQUIRE_LOGIN_MODAL':
-      return {
-        ...state,
-        signInToWalletModal: action.signInToWalletModal,
       };
 
     case 'UI_HANDLE_MOBILE_WALLET_REQUIRED_MODAL':

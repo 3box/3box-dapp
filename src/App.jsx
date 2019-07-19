@@ -35,15 +35,12 @@ import './index.css';
 const {
   handleSignInModal,
   closeErrorModal,
-  handleRequireWalletLoginModal,
   handleSwitchedNetworkModal,
   handleAccessModal,
-  closeRequireMetaMaskModal,
   handleConsentModal,
   handleDeniedAccessModal,
   handleLoggedOutModal,
   handleSwitchedAddressModal,
-  requireMetaMaskModal,
   handleMobileWalletModal,
   handleOnboardingModal,
   handleFollowingPublicModal,
@@ -189,40 +186,28 @@ class App extends Component {
   }
 
   directSignIn = async () => {
-    const {
-      location,
-    } = this.props;
-    const { pathname } = location;
-    const normalizedPath = normalizeURL(pathname);
-    const currentUrlEthAddr = normalizedPath.split('/')[1];
-    const profilePage = normalizedPath.split('/')[2];
-
     try {
+      const {
+        location,
+      } = this.props;
+      const { pathname } = location;
+      const normalizedPath = normalizeURL(pathname);
+      const currentUrlEthAddr = normalizedPath.split('/')[1];
+      const profilePage = normalizedPath.split('/')[2];
+
       await this.props.checkMobileWeb3(); // this exists now only for mobile
       await this.props.injectWeb3('directLogin');
       await this.props.checkNetwork();
 
-      const allowSignIn = this.props.isSignedIntoWallet; // enabled access to eth addr
-      // const notSignedIn = (this.props.isSignedIntoWallet
       //   && !this.props.isLoggedIn
-      //   && matchProtectedRoutes(profilePage));
 
-      if (allowSignIn) {
-        // if route doesnt match this url, historypush to the correct url
-        if (currentUrlEthAddr !== this.props.currentAddress) {
-          history.push(`/${this.props.currentAddress}/${profilePage}`);
-        }
-
-        await this.props.openBox();
-        if (!this.props.showErrorModal) this.getMyData();
-      } else if (!this.props.isSignedIntoWallet) {
-        history.push(routes.LANDING);
-        this.props.handleRequireWalletLoginModal();
+      // if route doesnt match this url, historypush to the correct url
+      if (currentUrlEthAddr !== this.props.currentAddress) {
+        history.push(`/${this.props.currentAddress}/${profilePage}`);
       }
-      // else if (notSignedIn) {
-      //   history.push(routes.LANDING);
-      //   this.props.handleSignInModal();
-      // }
+
+      await this.props.openBox();
+      if (!this.props.showErrorModal) this.getMyData();
     } catch (err) {
       console.error(err);
     }
@@ -230,21 +215,12 @@ class App extends Component {
 
   handleSignInUp = async () => {
     try {
-      const {
-        accessDeniedModal,
-      } = this.props;
-
       await this.props.checkMobileWeb3(); // eslint-disable-line
       await this.props.injectWeb3(); // eslint-disable-line
       await this.props.checkNetwork(); // eslint-disable-line
 
-      if (this.props.isSignedIntoWallet) { // eslint-disable-line
-        await this.props.openBox('fromSignIn'); // eslint-disable-line
-        if (!this.props.showErrorModal) this.getMyData(); // eslint-disable-line
-      } else if (!this.props.isSignedIntoWallet && !accessDeniedModal) { // eslint-disable-line
-        this.props.handleRequireWalletLoginModal(); // eslint-disable-line
-      }
-      //   this.props.requireMetaMaskModal();
+      await this.props.openBox('fromSignIn'); // eslint-disable-line
+      if (!this.props.showErrorModal) this.getMyData(); // eslint-disable-line
       //   this.props.handleMobileWalletModal();
       // }
     } catch (err) {
@@ -259,9 +235,7 @@ class App extends Component {
       accessDeniedModal,
       errorMessage,
       allowAccessModal,
-      alertRequireMetaMask,
       provideConsent,
-      signInToWalletModal,
       signInModal,
       mobileWalletRequiredModal,
       directLogin,
@@ -275,7 +249,6 @@ class App extends Component {
       prevAddress,
       showErrorModal,
       isLoggedIn,
-      isSignedIntoWallet,
       location,
       onSyncFinished,
       isSyncing,
@@ -328,9 +301,7 @@ class App extends Component {
           allowAccessModal={allowAccessModal}
           directLogin={directLogin}
           isMyProfilePath={isMyProfilePath}
-          alertRequireMetaMask={alertRequireMetaMask}
           accessDeniedModal={accessDeniedModal}
-          signInToWalletModal={signInToWalletModal}
           signInModal={signInModal}
           isIOS={isIOS}
           mobileWalletRequiredModal={mobileWalletRequiredModal}
@@ -358,7 +329,6 @@ class App extends Component {
           following={following}
           otherProfileAddress={otherProfileAddress}
           handleContactsModal={this.props.handleContactsModal}
-          handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal}
           handleSignInModal={this.props.handleSignInModal}
           handleMobileWalletModal={this.props.handleMobileWalletModal}
           handleConsentModal={this.props.handleConsentModal}
@@ -371,7 +341,6 @@ class App extends Component {
           handleOnboardingModal={this.props.handleOnboardingModal}
           handleAccessModal={this.props.handleAccessModal}
           handleNextMobileModal={this.handleNextMobileModal}
-          closeRequireMetaMaskModal={this.props.closeRequireMetaMaskModal}
           handleFollowingPublicModal={this.props.handleFollowingPublicModal}
           saveFollowing={this.props.saveFollowing}
         />
@@ -386,7 +355,6 @@ class App extends Component {
                 isLoggedIn={isLoggedIn}
                 errorMessage={errorMessage}
                 showErrorModal={showErrorModal}
-                isSignedIntoWallet={isSignedIntoWallet}
               />
             )}
           />
@@ -399,7 +367,6 @@ class App extends Component {
                 isLoggedIn={isLoggedIn}
                 errorMessage={errorMessage}
                 showErrorModal={showErrorModal}
-                isSignedIntoWallet={isSignedIntoWallet}
               />
             )}
           />
@@ -413,7 +380,6 @@ class App extends Component {
                 isLoggedIn={isLoggedIn}
                 errorMessage={errorMessage}
                 showErrorModal={showErrorModal}
-                isSignedIntoWallet={isSignedIntoWallet}
               />
             )}
           />
@@ -546,14 +512,11 @@ App.propTypes = {
   getVerifiedPublicTwitter: PropTypes.func.isRequired,
   getVerifiedPrivateEmail: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
-  requireMetaMaskModal: PropTypes.func.isRequired,
   handleMobileWalletModal: PropTypes.func.isRequired,
   handleSwitchedNetworkModal: PropTypes.func.isRequired,
   handleAccessModal: PropTypes.func.isRequired,
-  closeRequireMetaMaskModal: PropTypes.func.isRequired,
   handleConsentModal: PropTypes.func.isRequired,
   handleDeniedAccessModal: PropTypes.func.isRequired,
-  handleRequireWalletLoginModal: PropTypes.func.isRequired,
   handleSignInModal: PropTypes.func.isRequired,
   handleSignOut: PropTypes.func,
   checkNetwork: PropTypes.func.isRequired,
@@ -572,15 +535,12 @@ App.propTypes = {
   accessDeniedModal: PropTypes.bool,
   errorMessage: PropTypes.string,
   allowAccessModal: PropTypes.bool,
-  alertRequireMetaMask: PropTypes.bool,
   provideConsent: PropTypes.bool,
-  signInToWalletModal: PropTypes.bool,
   signInModal: PropTypes.bool,
   mobileWalletRequiredModal: PropTypes.bool,
   showErrorModal: PropTypes.bool,
   directLogin: PropTypes.string,
   isLoggedIn: PropTypes.bool,
-  isSignedIntoWallet: PropTypes.bool,
   loggedOutModal: PropTypes.bool,
   switchedAddressModal: PropTypes.bool,
   onBoardingModal: PropTypes.bool,
@@ -610,9 +570,7 @@ App.defaultProps = {
   showContactsModal: false,
   errorMessage: '',
   allowAccessModal: false,
-  alertRequireMetaMask: false,
   provideConsent: false,
-  signInToWalletModal: false,
   signInModal: false,
   mobileWalletRequiredModal: false,
   showErrorModal: false,
@@ -622,7 +580,6 @@ App.defaultProps = {
   onBoardingModalTwo: false,
   isFetchingThreeBox: false,
   isLoggedIn: false,
-  isSignedIntoWallet: false,
   prevNetwork: '',
   currentNetwork: '',
   prevAddress: '',
@@ -635,9 +592,7 @@ const mapState = state => ({
   showDifferentNetworkModal: state.uiState.showDifferentNetworkModal,
   showPickProviderScreen: state.uiState.showPickProviderScreen,
   allowAccessModal: state.uiState.allowAccessModal,
-  alertRequireMetaMask: state.uiState.alertRequireMetaMask,
   provideConsent: state.uiState.provideConsent,
-  signInToWalletModal: state.uiState.signInToWalletModal,
   signInModal: state.uiState.signInModal,
   mobileWalletRequiredModal: state.uiState.mobileWalletRequiredModal,
   directLogin: state.uiState.directLogin,
@@ -660,7 +615,6 @@ const mapState = state => ({
   prevNetwork: state.userState.prevNetwork,
   currentNetwork: state.userState.currentNetwork,
   isLoggedIn: state.userState.isLoggedIn,
-  isSignedIntoWallet: state.userState.isSignedIntoWallet,
   currentAddress: state.userState.currentAddress,
 
   otherAddressToFollow: state.otherProfile.otherAddressToFollow,
@@ -688,10 +642,8 @@ export default withRouter(connect(mapState,
     getVerifiedPrivateEmail,
     getActivity,
     getMyFollowing,
-    requireMetaMaskModal,
     handleMobileWalletModal,
     handleSignInModal,
-    handleRequireWalletLoginModal,
     handleSwitchedNetworkModal,
     handleAccessModal,
     handleConsentModal,
@@ -702,7 +654,6 @@ export default withRouter(connect(mapState,
     handleOnboardingModal,
     handleFollowingPublicModal,
     closeErrorModal,
-    closeRequireMetaMaskModal,
     getMyFollowing,
     saveFollowing,
     handleContactsModal,

@@ -32,8 +32,6 @@ import './styles/Modal.css';
 
 export const ModalBackground = () => <div className="modal__overlay" />;
 
-export const DeskTopModalBackground = () => <div className="modal__overlay mobileInvisible" />;
-
 export const PickProviderScreen = () => (
   <div className="pickProvider_screen">
     <h1>Pick a Web3 provider</h1>
@@ -809,64 +807,6 @@ export const FileSizeModal = ({ closeFileSizeModal }) => (
 
 FileSizeModal.propTypes = {
   closeFileSizeModal: PropTypes.func.isRequired,
-};
-
-export const RequireMetaMaskModal = ({ closeRequireMetaMaskModal, isMobile }) => (
-  <div className="mobileInvisible">
-    <div className="modal__container modal--effect">
-      <div className="modal">
-        <img src={MetaMaskWallet} alt="Partners background" />
-
-        <div id="modal__copy__card">
-          <h3>
-            Install Web3 Wallet
-          </h3>
-          {isMobile
-            ? <p>You must have a web3 wallet to use 3Box</p>
-            : <p>You must have MetaMask to use 3Box</p>
-          }
-          <a href="https://metamask.io/" target="_blank" rel="noopener noreferrer">
-            <button type="button" className="modal__reqWeb3__button">
-              Download MetaMask
-            </button>
-          </a>
-        </div>
-
-        <button onClick={closeRequireMetaMaskModal} type="button" className="tertiaryButton">Close</button>
-      </div>
-    </div>
-  </div>
-);
-
-RequireMetaMaskModal.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-  closeRequireMetaMaskModal: PropTypes.func.isRequired,
-};
-
-export const SignInToWalletModal = ({ handleRequireWalletLoginModal, isMobile }) => (
-  <div>
-    <div className="modal__container modal--effect">
-      <div className="modal">
-        <img src={MetaMaskWallet} alt="Partners background" />
-
-        <div id="modal__copy__card">
-          <h3>
-            Unlock Your Wallet
-          </h3>
-          {isMobile
-            ? <p>Unlock your web3 wallet to continue</p>
-            : <p>Unlock your MetaMask wallet to continue</p>
-          }
-        </div>
-        <button onClick={handleRequireWalletLoginModal} type="button" className="tertiaryButton">Close</button>
-      </div>
-    </div>
-  </div>
-);
-
-SignInToWalletModal.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-  handleRequireWalletLoginModal: PropTypes.func.isRequired,
 };
 
 

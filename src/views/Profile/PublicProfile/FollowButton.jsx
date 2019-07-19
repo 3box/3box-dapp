@@ -34,8 +34,6 @@ const {
 } = actions.land;
 
 const {
-  handleRequireWalletLoginModal,
-  requireMetaMaskModal,
   handleMobileWalletModal,
 } = actions.modal;
 
@@ -89,20 +87,11 @@ class FollowButton extends Component {
 
   async handleSignInUp() {
     try {
-      const {
-        accessDeniedModal,
-      } = this.props;
-
       await this.props.checkMobileWeb3();
       await this.props.injectWeb3();
       await this.props.checkNetwork();
-
-      if (this.props.isSignedIntoWallet) {
-        await this.props.openBox(false, true);
-        if (!this.props.showErrorModal) this.getMyData();
-      } else if (!this.props.isSignedIntoWallet && !accessDeniedModal) {
-        this.props.handleRequireWalletLoginModal();
-      }
+      await this.props.openBox(false, true);
+      if (!this.props.showErrorModal) this.getMyData();
     } catch (err) {
       console.error(err);
     }
@@ -196,11 +185,8 @@ FollowButton.propTypes = {
   getMySpacesData: PropTypes.func.isRequired,
   convert3BoxToSpaces: PropTypes.func.isRequired,
   accessDeniedModal: PropTypes.bool,
-  isSignedIntoWallet: PropTypes.bool,
   showErrorModal: PropTypes.bool,
-  handleRequireWalletLoginModal: PropTypes.func.isRequired,
   handleMobileWalletModal: PropTypes.func.isRequired,
-  requireMetaMaskModal: PropTypes.func.isRequired,
 };
 
 FollowButton.defaultProps = {
@@ -209,7 +195,6 @@ FollowButton.defaultProps = {
   isLoggedIn: false,
   isFollowLoading: false,
   accessDeniedModal: false,
-  isSignedIntoWallet: false,
   showErrorModal: false,
 };
 
@@ -221,7 +206,6 @@ function mapState(state) {
     isFollowLoading: state.uiState.isFollowLoading,
     accessDeniedModal: state.uiState.accessDeniedModal,
     showErrorModal: state.uiState.showErrorModal,
-    isSignedIntoWallet: state.userState.isSignedIntoWallet,
   };
 }
 
@@ -243,8 +227,6 @@ export default connect(mapState,
     getMyFollowing,
     getMySpacesData,
     convert3BoxToSpaces,
-    handleRequireWalletLoginModal,
     handleMobileWalletModal,
-    requireMetaMaskModal,
     initializeSaveFollowing,
   })(FollowButton);

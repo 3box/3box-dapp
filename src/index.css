@@ -278,12 +278,6 @@ input:focus {
   .hideBanner button {
     background-color: white; }
 
-.modal__reqWeb3__button {
-  border: 1px solid white;
-  padding: 12px 18px;
-  margin-top: 30px;
-  color: white; }
-
 .webThreeBanner__close {
   cursor: pointer;
   position: absolute;

@@ -49,10 +49,6 @@ const injectWeb3 = directLogin => async (dispatch) => {
         }
 
         const web3Obj = new Web3(provider); // eslint-disable-line no-undef
-        // set provider to localstorage
-        // if provider now does not equal previous provider, reset web3 details
-        // if no provider throw error
-        // show create wallet modal
         dispatch({
           type: 'USER_UPDATE_WEB3',
           web3Obj,
@@ -78,7 +74,6 @@ const injectWeb3 = directLogin => async (dispatch) => {
 
         dispatch({
           type: 'USER_ADDRESSES_UPDATE',
-          isSignedIntoWallet: accounts && (accounts.length > 0 || store.getState().userState.currentWallet === 'Toshi'),
           isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
           accountAddress: accounts[0],
           currentAddress: accounts[0],
@@ -105,7 +100,6 @@ const injectWeb3 = directLogin => async (dispatch) => {
           type: 'UI_HANDLE_DENIED_ACCESS_MODAL',
           accessDeniedModal: true,
           allowAccessModal: false,
-          isSignedIntoWallet: accounts && (accounts.length > 0 || store.getState().userState.currentWallet === 'Toshi'),
         });
         if (directLogin) {
           dispatch({
