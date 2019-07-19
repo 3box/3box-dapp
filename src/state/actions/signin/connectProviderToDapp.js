@@ -7,19 +7,16 @@ import history from '../../../utils/history';
 
 const connectProviderToDapp = async (provider, directLogin, dispatch) => {
   try {
+    // save wallet name to local storage
     const {
       getProviderInfo,
     } = Web3Connect;
     const {
       name,
     } = getProviderInfo(provider);
+    window.localStorage.setItem('defaultWallet', name); // eslint-disable-line no-undef
 
-    const prevWeb3Provider = window.localStorage.getItem('web3Provider'); // eslint-disable-line no-undef
-    window.localStorage.setItem('web3Provider', name); // eslint-disable-line no-undef
-    if (prevWeb3Provider !== name) {
-      window.localStorage.setItem('userEthAddress', undefined);
-    }
-
+    // create web3 object and save to redux store
     const web3Obj = new Web3(provider); // eslint-disable-line no-undef
     dispatch({
       type: 'USER_UPDATE_WEB3',
@@ -27,6 +24,7 @@ const connectProviderToDapp = async (provider, directLogin, dispatch) => {
       currentWallet: name,
     });
 
+    // begin process to get eth addresses
     dispatch({
       type: 'UI_HANDLE_ACCESS_MODAL',
       allowAccessModal: true,
@@ -37,6 +35,7 @@ const connectProviderToDapp = async (provider, directLogin, dispatch) => {
     accounts = !accounts ? await accountsPromise : accounts;
     window.localStorage.setItem('userEthAddress', accounts[0]);
 
+    // compare against addresses inject to flag if using injected web3 provider
     const hasWeb3 = window.web3 !== 'undefined';
     let injectedAddress;
     if (hasWeb3) {
@@ -44,7 +43,6 @@ const connectProviderToDapp = async (provider, directLogin, dispatch) => {
       injectedAccounts = !injectedAccounts ? await accountsPromise : injectedAccounts;
       [injectedAddress] = injectedAccounts;
     }
-
     dispatch({
       type: 'USER_ADDRESSES_UPDATE',
       isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
@@ -52,22 +50,21 @@ const connectProviderToDapp = async (provider, directLogin, dispatch) => {
       currentAddress: accounts[0],
       usingInjectedAddress: injectedAddress === accounts[0],
     });
+
+    // close process modals
     dispatch({
       type: 'UI_HANDLE_ACCESS_MODAL',
       allowAccessModal: false,
       directLogin,
     });
-
     if (directLogin) {
       dispatch({
         type: 'UI_HANDLE_PICK_PROVIDER_SCREEN',
         showPickProviderScreen: false,
       });
     }
-
-    // resolve();
   } catch (error) {
-    console.error('connectProviderToDappError', error);
+    console.error('Error connecting web3 provider to dapp', error);
     history.push(routes.LANDING);
     dispatch({
       type: 'UI_HANDLE_DENIED_ACCESS_MODAL',
@@ -80,7 +77,6 @@ const connectProviderToDapp = async (provider, directLogin, dispatch) => {
         showPickProviderScreen: false,
       });
     }
-    // reject();
   }
 };
 

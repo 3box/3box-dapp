@@ -2,7 +2,7 @@ import useDefaultWallet from './useDefaultWallet';
 import pickWallet from './pickWallet';
 
 const injectWeb3 = directLogin => async (dispatch) => {
-  const defaultWallet = window.localStorage.getItem('web3Provider'); // eslint-disable-line no-undef
+  const defaultWallet = window.localStorage.getItem('defaultWallet'); // eslint-disable-line no-undef
 
   if (defaultWallet) {
     await useDefaultWallet(defaultWallet, directLogin, dispatch);
