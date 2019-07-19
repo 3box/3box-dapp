@@ -10,7 +10,6 @@ import { pollNetworkAndAddress, initialAddress } from './utils/address';
 import { normalizeURL, matchProtectedRoutes, checkRequestRoute } from './utils/funcs';
 import { store } from './state/store';
 import history from './utils/history';
-
 import APIs from './views/Landing/API/APIs';
 import Dapp from './views/Landing/Dapp/Dapp';
 import LandingNew from './views/Landing/LandingNew';
