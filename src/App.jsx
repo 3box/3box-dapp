@@ -84,22 +84,22 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    const { location } = this.props;
-    const { pathname } = location;
-    const normalizedPath = normalizeURL(pathname);
-    const splitRoute = normalizedPath.split('/');
-    const isProtectedRoute = matchProtectedRoutes(splitRoute[2]);
-    const currentEthAddress = window.localStorage.getItem('userEthAddress');
-    const isEtherAddress = checkIsEthAddress(splitRoute[1]);
-    const isMyAddr = splitRoute[1] === currentEthAddress;
-    const onProfilePage = isEtherAddress;
-    const allowDirectSignIn = (
-      isEtherAddress // Lands on profile page
-      && isProtectedRoute // Lands on protected page
-      && isMyAddr
-    );
-
     try {
+      const { location } = this.props;
+      const { pathname } = location;
+      const normalizedPath = normalizeURL(pathname);
+      const splitRoute = normalizedPath.split('/');
+      const isProtectedRoute = matchProtectedRoutes(splitRoute[2]);
+      const currentEthAddress = window.localStorage.getItem('userEthAddress');
+      const isEtherAddress = checkIsEthAddress(splitRoute[1]);
+      const isMyAddr = splitRoute[1] === currentEthAddress;
+      const onProfilePage = isEtherAddress;
+      const allowDirectSignIn = (
+        isEtherAddress // Lands on profile page
+        && isProtectedRoute // Lands on protected page
+        && isMyAddr
+      );
+
       initialAddress(); // Initial get address
 
       if (allowDirectSignIn) { // Begin signin
