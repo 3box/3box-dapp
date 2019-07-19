@@ -36,6 +36,7 @@ export const pollNetworkAndAddress = () => {
 
       const isAddrUndefined = currentAddress === undefined;
       const hasWeb3 = window.web3 !== 'undefined';
+
       let injectedAddress;
       if (hasWeb3 && usingInjectedAddress) {
         let injectedAccounts = await window.web3.currentProvider.enable();

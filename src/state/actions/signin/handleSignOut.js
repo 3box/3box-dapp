@@ -23,10 +23,12 @@ const handleSignOut = () => async (dispatch) => {
       usingInjectedAddress: false,
       currentAddress: undefined,
     });
+
     dispatch({
       type: 'UI_SIGN_OUT',
       onSyncFinished: false,
     });
+
     dispatch({
       type: 'MY_DATA_SIGNOUT',
       birthday: '',

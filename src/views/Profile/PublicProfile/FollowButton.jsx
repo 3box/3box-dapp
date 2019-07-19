@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { store } from '../../../state/store';
 import actions from '../../../state/actions';
 import Loading from '../../../assets/Loading.svg';
+import { pollNetworkAndAddress, startPollFlag } from '../../../utils/address';
 
 const {
   saveFollowing,
@@ -50,6 +51,8 @@ class FollowButton extends Component {
       type: 'UI_SPACES_LOADING',
       isSpacesLoading: true,
     });
+    startPollFlag();
+    pollNetworkAndAddress(); // Start polling for address change
 
     try {
       this.props.getVerifiedPublicGithub();
@@ -85,25 +88,20 @@ class FollowButton extends Component {
   }
 
   async handleSignInUp() {
-    const {
-      accessDeniedModal,
-    } = this.props;
-
     try {
-      if (window.ethereum || typeof window.web3 !== 'undefined') {
-        await this.props.checkMobileWeb3();
-        await this.props.injectWeb3();
-        await this.props.checkNetwork();
+      const {
+        accessDeniedModal,
+      } = this.props;
 
-        if (this.props.isSignedIntoWallet) {
-          await this.props.openBox(false, true);
-          if (!this.props.showErrorModal) this.getMyData();
-        } else if (!this.props.isSignedIntoWallet && !accessDeniedModal) {
-          this.props.handleRequireWalletLoginModal();
-        }
-      } else if (typeof window.web3 === 'undefined') {
-        this.props.requireMetaMaskModal();
-        this.props.handleMobileWalletModal();
+      await this.props.checkMobileWeb3();
+      await this.props.injectWeb3();
+      await this.props.checkNetwork();
+
+      if (this.props.isSignedIntoWallet) {
+        await this.props.openBox(false, true);
+        if (!this.props.showErrorModal) this.getMyData();
+      } else if (!this.props.isSignedIntoWallet && !accessDeniedModal) {
+        this.props.handleRequireWalletLoginModal();
       }
     } catch (err) {
       console.error(err);

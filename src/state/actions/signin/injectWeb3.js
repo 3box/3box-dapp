@@ -41,17 +41,18 @@ const injectWeb3 = directLogin => async (dispatch) => {
         const {
           name,
         } = getProviderInfo(provider);
+
         const prevWeb3Provider = window.localStorage.getItem('web3Provider'); // eslint-disable-line no-undef
         window.localStorage.setItem('web3Provider', name); // eslint-disable-line no-undef
         if (prevWeb3Provider !== name) {
           window.localStorage.setItem('userEthAddress', undefined);
         }
+
+        const web3Obj = new Web3(provider); // eslint-disable-line no-undef
         // set provider to localstorage
         // if provider now does not equal previous provider, reset web3 details
-        const web3Obj = new Web3(provider); // eslint-disable-line no-undef
         // if no provider throw error
         // show create wallet modal
-        // window.web3 = web3;
         dispatch({
           type: 'USER_UPDATE_WEB3',
           web3Obj,

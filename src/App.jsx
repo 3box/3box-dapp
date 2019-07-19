@@ -84,9 +84,6 @@ class App extends Component {
       onBoardingModalMobileTwo: false,
       onBoardingModalMobileThree: false,
     };
-    // this.handleSignInUp = this.handleSignInUp.bind(this);
-    // this.directSignIn = this.directSignIn.bind(this);
-    // this.getMyData = this.getMyData.bind(this);
   }
 
   async componentDidMount() {
@@ -205,8 +202,7 @@ class App extends Component {
       await this.props.injectWeb3('directLogin');
       await this.props.checkNetwork();
 
-      const allowSignIn = this.props.isSignedIntoWallet;
-      // const allowSignIn = (this.props.isSignedIntoWallet && this.props.isLoggedIn);
+      const allowSignIn = this.props.isSignedIntoWallet; // enabled access to eth addr
       // const notSignedIn = (this.props.isSignedIntoWallet
       //   && !this.props.isLoggedIn
       //   && matchProtectedRoutes(profilePage));
@@ -233,12 +229,11 @@ class App extends Component {
   }
 
   handleSignInUp = async () => {
-    const {
-      accessDeniedModal,
-    } = this.props;
-
     try {
-      // if (window.ethereum || typeof window.web3 !== 'undefined') {
+      const {
+        accessDeniedModal,
+      } = this.props;
+
       await this.props.checkMobileWeb3(); // eslint-disable-line
       await this.props.injectWeb3(); // eslint-disable-line
       await this.props.checkNetwork(); // eslint-disable-line
@@ -249,7 +244,6 @@ class App extends Component {
       } else if (!this.props.isSignedIntoWallet && !accessDeniedModal) { // eslint-disable-line
         this.props.handleRequireWalletLoginModal(); // eslint-disable-line
       }
-      // } else if (typeof window.web3 === 'undefined') {
       //   this.props.requireMetaMaskModal();
       //   this.props.handleMobileWalletModal();
       // }
