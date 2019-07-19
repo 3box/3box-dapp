@@ -24,7 +24,6 @@ import OnBoardingModalMobileGraphic1 from '../assets/OnBoardingModalMobile1.png'
 import OnBoardingModalMobileGraphic2 from '../assets/OnBoardingModalMobile2.png';
 import OnBoardingModalMobileGraphic3 from '../assets/OnBoardingModalMobile3.png';
 import ErrorIcon from '../assets/ErrorIcon.svg';
-import MetaMaskWallet from '../assets/MetaMaskWallet.png';
 import LogOut from '../assets/LogOut.svg';
 import Loading from '../assets/Loading.svg';
 import LoadingWhite from '../assets/LoadingWhite.svg';

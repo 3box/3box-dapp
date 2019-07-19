@@ -88,14 +88,14 @@ class App extends Component {
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
     const splitRoute = normalizedPath.split('/');
-    const isMyProfilePath = matchProtectedRoutes(splitRoute[2]);
+    const isProtectedRoute = matchProtectedRoutes(splitRoute[2]);
     const currentEthAddress = window.localStorage.getItem('userEthAddress');
     const isEtherAddress = checkIsEthAddress(splitRoute[1]);
     const isMyAddr = splitRoute[1] === currentEthAddress;
     const onProfilePage = isEtherAddress;
     const allowDirectSignIn = (
       isEtherAddress // Lands on profile page
-      && isMyProfilePath // Lands on protected page
+      && isProtectedRoute // Lands on protected page
       && isMyAddr
     );
 
@@ -105,7 +105,7 @@ class App extends Component {
       if (allowDirectSignIn) { // Begin signin
         this.directSignIn();
       } else if (onProfilePage) { // Lands on profile page
-        if (isMyProfilePath) history.push(`/${splitRoute[1]}`);
+        if (isProtectedRoute) history.push(`/${splitRoute[1]}`);
       }
     } catch (err) {
       console.error(err);
@@ -146,33 +146,33 @@ class App extends Component {
     pollNetworkAndAddress(); // Start polling for address change
 
     try {
-      this.props.getVerifiedPublicGithub();
-      this.props.getVerifiedPublicTwitter();
-      this.props.getVerifiedPrivateEmail();
-      this.props.getMyMemberSince();
-      this.props.getMyDID();
-      this.props.getMyProfileValue('public', 'status');
-      this.props.getMyProfileValue('public', 'name');
-      this.props.getMyProfileValue('public', 'description');
-      this.props.getMyProfileValue('public', 'image');
-      this.props.getMyProfileValue('public', 'coverPhoto');
-      this.props.getMyProfileValue('public', 'location');
-      this.props.getMyProfileValue('public', 'website');
-      this.props.getMyProfileValue('public', 'employer');
-      this.props.getMyProfileValue('public', 'job');
-      this.props.getMyProfileValue('public', 'school');
-      this.props.getMyProfileValue('public', 'degree');
-      this.props.getMyProfileValue('public', 'major');
-      this.props.getMyProfileValue('public', 'year');
-      this.props.getMyProfileValue('public', 'emoji');
-      this.props.getMyProfileValue('private', 'birthday');
+      this.props.getVerifiedPublicGithub(); // eslint-disable-line
+      this.props.getVerifiedPublicTwitter(); // eslint-disable-line
+      this.props.getVerifiedPrivateEmail(); // eslint-disable-line
+      this.props.getMyMemberSince(); // eslint-disable-line
+      this.props.getMyDID(); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'status'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'name'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'description'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'image'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'coverPhoto'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'location'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'website'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'employer'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'job'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'school'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'degree'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'major'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'year'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'emoji'); // eslint-disable-line
+      this.props.getMyProfileValue('private', 'birthday'); // eslint-disable-line
 
-      await this.props.getMyFollowing();
-      await this.props.getCollectibles(currentAddress);
-      await this.props.convert3BoxToSpaces();
-      await this.props.getMySpacesData(currentAddress);
+      await this.props.getMyFollowing(); // eslint-disable-line
+      await this.props.getCollectibles(currentAddress); // eslint-disable-line
+      await this.props.convert3BoxToSpaces(); // eslint-disable-line
+      await this.props.getMySpacesData(currentAddress); // eslint-disable-line
 
-      this.props.getActivity();
+      this.props.getActivity(); // eslint-disable-line
     } catch (err) {
       console.error(err);
     }
@@ -194,20 +194,16 @@ class App extends Component {
       const normalizedPath = normalizeURL(pathname);
       const currentUrlEthAddr = normalizedPath.split('/')[1];
       const profilePage = normalizedPath.split('/')[2];
+      const doesEthAddrMatch = currentUrlEthAddr !== this.props.currentAddress;
 
-      await this.props.checkMobileWeb3(); // this exists now only for mobile
-      await this.props.injectWeb3('directLogin');
-      await this.props.checkNetwork();
+      await this.props.checkMobileWeb3(); // eslint-disable-line
+      await this.props.injectWeb3('directLogin'); // eslint-disable-line
+      await this.props.checkNetwork(); // eslint-disable-line
 
-      //   && !this.props.isLoggedIn
+      if (doesEthAddrMatch) history.push(`/${this.props.currentAddress}/${profilePage}`);
 
-      // if route doesnt match this url, historypush to the correct url
-      if (currentUrlEthAddr !== this.props.currentAddress) {
-        history.push(`/${this.props.currentAddress}/${profilePage}`);
-      }
-
-      await this.props.openBox();
-      if (!this.props.showErrorModal) this.getMyData();
+      await this.props.openBox(); // eslint-disable-line
+      if (!this.props.showErrorModal) this.getMyData(); // eslint-disable-line
     } catch (err) {
       console.error(err);
     }
@@ -221,8 +217,6 @@ class App extends Component {
 
       await this.props.openBox('fromSignIn'); // eslint-disable-line
       if (!this.props.showErrorModal) this.getMyData(); // eslint-disable-line
-      //   this.props.handleMobileWalletModal();
-      // }
     } catch (err) {
       console.error(err);
     }

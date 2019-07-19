@@ -33,10 +33,6 @@ const {
   checkNetwork,
 } = actions.land;
 
-const {
-  handleMobileWalletModal,
-} = actions.modal;
-
 class FollowButton extends Component {
   constructor(props) {
     super(props);
@@ -186,7 +182,6 @@ FollowButton.propTypes = {
   convert3BoxToSpaces: PropTypes.func.isRequired,
   accessDeniedModal: PropTypes.bool,
   showErrorModal: PropTypes.bool,
-  handleMobileWalletModal: PropTypes.func.isRequired,
 };
 
 FollowButton.defaultProps = {
@@ -227,6 +222,5 @@ export default connect(mapState,
     getMyFollowing,
     getMySpacesData,
     convert3BoxToSpaces,
-    handleMobileWalletModal,
     initializeSaveFollowing,
   })(FollowButton);

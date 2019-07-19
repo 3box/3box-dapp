@@ -1,9 +1,6 @@
 import Box from '3box';
 import Web3Connect from 'web3connect';
 
-import {
-  store,
-} from '../../store';
 import * as routes from '../../../utils/routes';
 import history from '../../../utils/history';
 import accountsPromise from './accountsPromise';

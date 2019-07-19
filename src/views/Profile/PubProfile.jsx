@@ -26,10 +26,6 @@ const {
 } = actions.land;
 
 const {
-  accountsPromise,
-} = actions.signin;
-
-const {
   getOtherProfile,
   getActivity,
   getCollectibles,
@@ -51,7 +47,7 @@ class ProfilePublic extends Component {
       const otherProfileAddress = pathname.split('/')[1];
 
       this.updateUIState(otherProfileAddress);
-      await this.handleWeb3Checks(currentAddress, otherProfileAddress);
+      await this.checkIfMyProfile(currentAddress, otherProfileAddress);
       await this.checkFollowingAndMutual(otherProfileAddress);
       await this.getProfile(otherProfileAddress);
     } catch (err) {
@@ -75,7 +71,7 @@ class ProfilePublic extends Component {
 
     if (otherProfileAddress !== nextProfileAddress) {
       this.updateUIState(nextProfileAddress);
-      await this.handleWeb3Checks(currentAddress, nextProfileAddress);
+      await this.checkIfMyProfile(currentAddress, nextProfileAddress);
       this.checkFollowingAndMutual(nextProfileAddress);
       await this.getProfile(nextProfileAddress);
     }
@@ -108,24 +104,9 @@ class ProfilePublic extends Component {
     });
   }
 
-  handleWeb3Checks = async (currentAddress, otherProfileAddress) => {
-    let activeAddress;
-    if (typeof window.web3 !== 'undefined') {
-      if (!currentAddress) {
-        const returnedAddress = await accountsPromise;
-        [activeAddress] = returnedAddress;
-      } else {
-        activeAddress = currentAddress;
-      }
-
-      if (otherProfileAddress === activeAddress) {
-        this.props.handleShowSignInBanner();
-      } else {
-        this.props.handleHideSignInBanner();
-      }
-
-      await this.props.checkNetwork();
-    }
+  checkIfMyProfile = async (currentAddress, otherProfileAddress) => {
+    const activeAddress = window.localStorage.getItem('userEthAddress');
+    if (otherProfileAddress === activeAddress) this.props.handleShowSignInBanner();
   }
 
   getProfile = async (otherProfileAddress) => {
@@ -165,8 +146,6 @@ class ProfilePublic extends Component {
     } = this.props;
 
     const { isFollowing, isMe } = this.state;
-
-    console.log('isMe', isMe)
 
     return (
       <React.Fragment>
