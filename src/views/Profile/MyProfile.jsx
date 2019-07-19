@@ -1,14 +1,13 @@
 import { withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 
 import MyContent from './MyProfile/MyContent';
 import SideBar from './SideBar';
 import Nav from '../../components/Nav';
-import './styles/Profile.css';
 import MyProfileHeaders from './MyProfile/MyProfileHeaders';
+import './styles/Profile.css';
 
 class Profile extends Component {
   componentDidMount() {

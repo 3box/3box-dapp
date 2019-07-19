@@ -105,7 +105,7 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
         const date = Date.now();
         const dateJoined = new Date(date);
         const memberSinceDate = `${(dateJoined.getMonth() + 1)}/${dateJoined.getDate()}/${dateJoined.getFullYear()}`;
-        box.public.set('memberSince', dateJoined);
+        store.getState().myData.box.public.set('memberSince', dateJoined.toString());
         dispatch({
           type: 'MY_MEMBERSINCE_UPDATE',
           memberSince: memberSinceDate,

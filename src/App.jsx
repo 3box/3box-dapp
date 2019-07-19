@@ -7,29 +7,32 @@ import { connect } from 'react-redux';
 
 import * as routes from './utils/routes';
 import { pollNetworkAndAddress, initialAddress, startPollFlag } from './utils/address';
-import { normalizeURL, matchProtectedRoutes, checkIsEthAddress } from './utils/funcs';
+import { normalizeURL, matchProtectedRoutes, checkIsEthAddress, checkRequestRoute } from './utils/funcs';
 import { store } from './state/store';
 import history from './utils/history';
-import actions from './state/actions';
-
 import APIs from './views/Landing/API/APIs';
 import Dapp from './views/Landing/Dapp/Dapp';
 import LandingNew from './views/Landing/LandingNew';
 import Partners from './views/Landing/Partners';
 import Team from './views/Landing/Team';
-import Spaces from './views/Spaces/Spaces';
-import MyProfile from './views/Profile/MyProfile';
-import PubProfile from './views/Profile/PubProfile';
-import NoMatch from './views/Landing/NoMatch';
-import EditProfile from './views/Profile/EditProfile';
-import Careers from './views/Landing/Careers';
-import Privacy from './views/Landing/Privacy';
-import Terms from './views/Landing/Terms';
-import Create from './views/Landing/Create';
-import NavLanding from './components/NavLanding';
-import AppHeaders from './components/AppHeaders';
-import AppModals from './components/AppModals';
-import Nav from './components/Nav';
+import PubProfileDummy from './views/Profile/PubProfileDummy';
+import PubProfileDummyTwitter from './views/Profile/PubProfileDummyTwitter';
+
+import {
+  MyProfile,
+  Spaces,
+  EditProfile,
+  PubProfile,
+  AppModals,
+  AppHeaders,
+  NavLanding,
+  Careers,
+  Create,
+  Terms,
+  Privacy,
+  Nav,
+} from './DynamicImports';
+import actions from './state/actions';
 import './index.css';
 
 const {
@@ -90,6 +93,13 @@ class App extends Component {
       const normalizedPath = normalizeURL(pathname);
       const splitRoute = normalizedPath.split('/');
       const isProtectedRoute = matchProtectedRoutes(splitRoute[2]);
+      const route2 = splitRoute[2] && splitRoute[2].toLowerCase();
+      const route3 = splitRoute[3] && splitRoute[3].toLowerCase();
+      const isRequest = route2 === 'twitterrequest'
+        || route2 === 'previewrequest'
+        || route3 === 'twitterrequest'
+        || route3 === 'previewrequest';
+      if (isRequest) return;
       const currentEthAddress = window.localStorage.getItem('userEthAddress');
       const isEtherAddress = checkIsEthAddress(splitRoute[1]);
       const isMyAddr = splitRoute[1] === currentEthAddress;
@@ -271,6 +281,41 @@ class App extends Component {
     const isIOS = ua.includes('iPhone');
     const isMyProfilePath = matchProtectedRoutes(normalizedPath.split('/')[2]);
 
+    const splitRoute = normalizedPath.split('/');
+    const isRequestRoute = checkRequestRoute(splitRoute);
+
+    if (isRequestRoute) {
+      return (
+        <div className="App">
+          <Switch>
+            <Route
+              exact
+              path="(^[/][0][xX]\w{40}\b)/twitterRequest"
+              component={PubProfileDummyTwitter}
+            />
+
+            <Route
+              exact
+              path="(^[/][0][xX]\w{40}\b)/previewRequest"
+              component={PubProfileDummy}
+            />
+
+            <Route
+              exact
+              path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|data|edit\w*)/twitterRequest"
+              component={PubProfileDummyTwitter}
+            />
+
+            <Route
+              exact
+              path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|data|edit\w*)/previewRequest"
+              component={PubProfileDummy}
+            />
+          </Switch>
+        </div>
+      );
+    }
+
     return (
       <div className="App">
         <AppHeaders />
@@ -383,7 +428,6 @@ class App extends Component {
             path={routes.CAREERS}
             render={() => <Careers />}
           />
-
           <Route
             exact
             path={routes.TEAM}
@@ -395,7 +439,6 @@ class App extends Component {
             path={routes.JOBS}
             render={() => <Redirect to={routes.CAREERS} />}
           />
-
           <Route
             exact
             path="(^[/][0][xX]\w{40}\b)/activity"
@@ -475,17 +518,8 @@ class App extends Component {
             component={PubProfile}
           />
 
-          <Route
-            component={() => (
-              <NoMatch
-                isLoggedIn={isLoggedIn}
-                handleSignInUp={this.handleSignInUp}
-              />
-            )}
-          />
-
+          <Route render={() => <Redirect to={routes.LANDING} />} />
         </Switch>
-
       </div>
     );
   }
@@ -648,7 +682,6 @@ export default withRouter(connect(mapState,
     handleOnboardingModal,
     handleFollowingPublicModal,
     closeErrorModal,
-    getMyFollowing,
     saveFollowing,
     handleContactsModal,
   })(App));

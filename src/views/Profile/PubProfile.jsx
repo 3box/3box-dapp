@@ -12,8 +12,8 @@ import {
 } from '../../components/Modals';
 import PubContent from './PublicProfile/PubContent';
 import SideBar from './SideBar';
-import './styles/Profile.css';
 import PubProfileHeaders from './PublicProfile/PubProfileHeaders';
+import './styles/Profile.css';
 
 const {
   handleShowSignInBanner,

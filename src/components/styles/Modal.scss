@@ -578,7 +578,7 @@
 }
 
 .modal__collectibles__image__wrapper {
-  height: fit-content;
+  // height: fit-content;
   min-height: 300px;
   width: 100%;
   display: flex;
@@ -617,6 +617,7 @@
   height: 100% !important;
   width: 100% !important;
   min-height: 300px;
+  max-height: 500px;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
   object-fit: cover;

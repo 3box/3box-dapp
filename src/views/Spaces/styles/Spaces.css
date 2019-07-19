@@ -262,6 +262,8 @@
   display: flex;
   justify-content: flex-start;
   align-items: center; }
+  .data__text img {
+    width: 18px; }
 
 .vault__loading {
   width: 18px;
