@@ -40,7 +40,6 @@ const PublicRow = ({
       onKeyPress={() => viewSpaceItem(true, false, false, dataKey, dataValue, spaceName, rowType, privacy, null, lastUpdated)}
       tabIndex={0}
     >
-      {console.log('dataKey', dataKey)}
       <span
         className="data__items__row__entry spaceRow__key"
         title={`${

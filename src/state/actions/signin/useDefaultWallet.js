@@ -4,7 +4,6 @@ import connectProviderToDapp from './connectProviderToDapp';
 
 const useDefaultWallet = async (defaultWallet, directLogin, dispatch) => {
   let provider;
-  console.log('defaultWallet', defaultWallet);
 
   switch (defaultWallet) {
     case 'MetaMask':

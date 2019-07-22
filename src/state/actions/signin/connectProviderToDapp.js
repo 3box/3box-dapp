@@ -48,8 +48,6 @@ const connectProviderToDapp = async (provider, directLogin, dispatch) => {
     }
     dispatch({
       type: 'USER_ADDRESSES_UPDATE',
-      isLoggedIn: accounts && Box.isLoggedIn(accounts[0]), // eslint-disable-line no-undef
-      accountAddress: accounts[0],
       currentAddress: accounts[0],
       usingInjectedAddress: injectedAddress === accounts[0],
     });

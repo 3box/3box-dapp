@@ -25,6 +25,11 @@ nav {
 .bannerMargin {
   margin-top: 54px; }
 
+.newWallet {
+  font-size: 14px;
+  color: #747677 !important;
+  margin-right: 20px; }
+
 #nav__networkStatus {
   border: 1px solid #e4e4e4;
   padding: 8px 12px;
@@ -564,6 +569,8 @@ nav {
   #landing__nav {
     display: flex;
     justify-content: flex-start; }
+  .newWallet {
+    margin-right: 0; }
   .hide {
     border-bottom: 1px solid #E4E4E4 !important;
     height: 68px !important;
@@ -616,6 +623,8 @@ nav {
       align-items: center; }
   #landing__nav__logo--marginLeft {
     margin-left: 5vw; }
+    #landing__nav__logo--marginLeft a {
+      margin-right: 0; }
   .nav__userPicture {
     margin: 0;
     align-self: flex-end;
@@ -634,7 +643,7 @@ nav {
       margin-right: 6vw; }
     #actionButtons button {
       cursor: pointer;
-      font-size: 14px;
+      font-size: 12px;
       border: none;
       padding: 2vh 5vw; }
   .nav__dropdown {

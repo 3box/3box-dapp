@@ -2,19 +2,17 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Web3Connect from 'web3connect';
 
-import { checkIsEthAddress } from '../utils/funcs';
+import { checkIsEthAddress, normalizeURL } from '../utils/funcs';
 import * as routes from '../utils/routes';
-import { normalizeURL } from '../utils/funcs';
 import ThreeBoxLogoBlack from '../assets/ThreeBoxLogoBlack.svg';
-// import SSOSmall from '../assets/Authentication.svg';
 import ProfilesSmall from '../assets/Profiles.svg';
 import MessagingSmall from '../assets/Messaging.svg';
 import StorageSmall from '../assets/Storage.svg';
 import List from '../assets/List.svg';
 import '../views/styles/Landing.css';
 import './styles/Nav.css';
+// import SSOSmall from '../assets/Authentication.svg';
 
 class NavLanding extends Component {
   constructor(props) {
@@ -30,6 +28,13 @@ class NavLanding extends Component {
 
   componentWillMount() {
     window.addEventListener('scroll', this.hideBar);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { location } = this.props;
+    const { pathname } = nextProps.location;
+    const isProfilePage = checkIsEthAddress(pathname.split('/')[1]);
+    if (location.pathname !== pathname) this.setState({ isProfilePage });
   }
 
   componentWillUnmount() {
@@ -125,10 +130,18 @@ class NavLanding extends Component {
 
         {(route !== 'hub' && isProfilePage && !isLoggedIn) && (
           <div id="actionButtons">
-            <button type="button" onClick={handleSignInUp}>
+            <button
+              type="button"
+              className="textButton newWallet"
+              onClick={() => handleSignInUp(true)}
+            >
+              Choose wallet
+            </button>
+            <button type="button" onClick={() => handleSignInUp(false)}>
               Log in
             </button>
-          </div>)}
+          </div>
+        )}
 
         <div className={`${showAPI ? 'showAPI' : ''} ${(retractNav || isProfilePage) ? 'apiLower' : ''} landing_nav_api`}>
           <div className="landing_nav_api_wrapper">

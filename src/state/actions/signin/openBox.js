@@ -14,14 +14,13 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
   });
 
   const {
-    accountAddress,
     currentAddress,
     web3Obj,
     hasSignedOut,
   } = store.getState().userState;
 
   const consentGiven = () => {
-    if (fromSignIn && !fromFollowButton) history.push(`/${currentAddress || accountAddress}/${routes.ACTIVITY}`);
+    if (fromSignIn && !fromFollowButton) history.push(`/${currentAddress}/${routes.ACTIVITY}`);
     dispatch({
       type: 'UI_3BOX_LOADING',
       provideConsent: false,
@@ -44,14 +43,14 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
     });
   }
 
-  const opts = {
-    consentCallback: consentGiven,
-  };
-  console.log('web3Obj.currentProviderfromopen', web3Obj.currentProvider);
   try {
+    const opts = {
+      consentCallback: consentGiven,
+    };
+
     const box = await Box // eslint-disable-line no-undef
       .openBox(
-        accountAddress || currentAddress,
+        currentAddress,
         web3Obj.currentProvider, // eslint-disable-line no-undef
         opts,
       );

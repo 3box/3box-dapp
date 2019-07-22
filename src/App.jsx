@@ -219,10 +219,10 @@ class App extends Component {
     }
   }
 
-  handleSignInUp = async () => {
+  handleSignInUp = async (chooseWallet) => {
     try {
       await this.props.checkMobileWeb3(); // eslint-disable-line
-      await this.props.injectWeb3(); // eslint-disable-line
+      await this.props.injectWeb3(null, chooseWallet); // eslint-disable-line
       await this.props.checkNetwork(); // eslint-disable-line
 
       await this.props.openBox('fromSignIn'); // eslint-disable-line

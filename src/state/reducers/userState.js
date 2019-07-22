@@ -23,7 +23,6 @@ const userStateReducer = (state = {}, action) => {
       return {
         ...state,
         isLoggedIn: action.isLoggedIn,
-          accountAddress: action.accountAddress,
           currentAddress: action.currentAddress,
           usingInjectedAddress: action.usingInjectedAddress,
       };

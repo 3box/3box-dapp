@@ -135,22 +135,28 @@ class Create extends Component {
                 </div>
               </div>
 
-              {!isLoggedIn && <button className="create__action__form__button" type="button" onClick={handleSignInUp}>Create Profile</button>}
+              {!isLoggedIn && <button className="create__action__form__button" type="button" onClick={() => handleSignInUp(false)}>Create Profile</button>}
               {!isLoggedIn
                 && (
                   <p className="create__action__form__already">
                     Already have a profile?
-                  </p>)
-              }
+                  </p>
+                )}
               {!isLoggedIn
                 && (
-                  <p onClick={handleSignInUp} className="create__action__form__signIn">
+                  <p
+                    onClick={() => handleSignInUp(false)}
+                    className="create__action__form__signIn"
+                  >
                     Sign in.
-                  </p>)}
+                  </p>
+                )}
 
-              {isLoggedIn && <p>
-                You already have a profile, have fun!
-                    </p>}
+              {isLoggedIn && (
+                <p>
+                  You already have a profile, have fun!
+                </p>
+              )}
 
             </div>
           </div>
