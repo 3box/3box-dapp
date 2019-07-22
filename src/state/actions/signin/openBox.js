@@ -47,7 +47,7 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
   const opts = {
     consentCallback: consentGiven,
   };
-
+  console.log('web3Obj.currentProviderfromopen', web3Obj.currentProvider);
   try {
     const box = await Box // eslint-disable-line no-undef
       .openBox(

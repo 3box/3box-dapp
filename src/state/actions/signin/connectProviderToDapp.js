@@ -31,16 +31,19 @@ const connectProviderToDapp = async (provider, directLogin, dispatch) => {
       directLogin,
     });
     let accounts = [];
-    accounts = await web3Obj.currentProvider.enable(); // eslint-disable-line no-undef
-    accounts = !accounts ? await accountsPromise : accounts;
+    accounts = web3Obj.currentProvider ?
+      await web3Obj.currentProvider.enable() :
+      await accountsPromise;
+    // accounts = !accounts ? await accountsPromise : accounts;
     window.localStorage.setItem('userEthAddress', accounts[0]);
 
     // compare against addresses inject to flag if using injected web3 provider
     const hasWeb3 = window.web3 !== 'undefined';
     let injectedAddress;
     if (hasWeb3) {
-      let injectedAccounts = await window.web3.currentProvider.enable();
-      injectedAccounts = !injectedAccounts ? await accountsPromise : injectedAccounts;
+      const injectedAccounts = window.web3.currentProvider ?
+        await window.web3.currentProvider.enable() :
+        await accountsPromise;
       [injectedAddress] = injectedAccounts;
     }
     dispatch({

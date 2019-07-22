@@ -4,6 +4,7 @@ import connectProviderToDapp from './connectProviderToDapp';
 
 const useDefaultWallet = async (defaultWallet, directLogin, dispatch) => {
   let provider;
+  console.log('defaultWallet', defaultWallet);
 
   switch (defaultWallet) {
     case 'MetaMask':
@@ -30,6 +31,8 @@ const useDefaultWallet = async (defaultWallet, directLogin, dispatch) => {
       });
       break;
     default:
+      provider = await Web3Connect.ConnectToInjected();
+      break;
   }
 
   await connectProviderToDapp(provider, directLogin, dispatch);
