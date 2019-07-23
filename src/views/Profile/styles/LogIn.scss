@@ -1,0 +1,21 @@
+@import "../../../variables.scss";
+
+.login {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mock_web3c {
+  position: relative;
+  width: 800px;
+  height: 320px;
+
+  h2 {
+    position: absolute;
+    left: 0;
+    top: -40px;
+  }
+}

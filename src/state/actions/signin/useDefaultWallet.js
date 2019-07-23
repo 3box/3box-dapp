@@ -4,27 +4,28 @@ import connectProviderToDapp from './connectProviderToDapp';
 
 const useDefaultWallet = async (defaultWallet, directLogin, dispatch) => {
   let provider;
+  const normalizedWallet = defaultWallet.toLowerCase();
 
-  switch (defaultWallet) {
-    case 'MetaMask':
+  switch (normalizedWallet) {
+    case 'metamask':
       provider = await Web3Connect.ConnectToInjected();
       break;
-    case 'Dapper':
+    case 'dapper':
       provider = await Web3Connect.ConnectToInjected();
       break;
-    case 'Fortmatic':
+    case 'fortmatic':
       provider = await Web3Connect.ConnectToFortmatic({
         key: 'pk_live_EC842EEAC7F08995',
         network: 'mainnet',
       });
       break;
-    case 'Portis':
+    case 'portis':
       provider = await Web3Connect.ConnectToPortis({
         id: '8f5cf962-ad62-4861-ab0c-7b234b6e6cff',
         network: 'mainnet',
       });
       break;
-    case 'WalletConnect':
+    case 'walletconnect':
       provider = await Web3Connect.ConnectToWalletConnect({
         bridge: 'https://bridge.walletconnect.org',
       });

@@ -185,12 +185,6 @@ const uiStateReducer = (state = {}, action) => {
           directLogin: action.directLogin,
       };
 
-    case 'UI_HANDLE_PICK_PROVIDER_SCREEN':
-      return {
-        ...state,
-        showPickProviderScreen: action.showPickProviderScreen,
-      };
-
     case 'UI_HANDLE_COLLECTIBLES_MODAL':
       return {
         ...state,

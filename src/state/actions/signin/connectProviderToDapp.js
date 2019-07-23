@@ -15,7 +15,7 @@ const connectProviderToDapp = async (provider, directLogin, dispatch) => {
       name,
     } = getProviderInfo(provider);
     window.localStorage.setItem('defaultWallet', name); // eslint-disable-line no-undef
-
+    
     // create web3 object and save to redux store
     const web3Obj = new Web3(provider); // eslint-disable-line no-undef
     dispatch({
@@ -58,12 +58,6 @@ const connectProviderToDapp = async (provider, directLogin, dispatch) => {
       allowAccessModal: false,
       directLogin,
     });
-    if (directLogin) {
-      dispatch({
-        type: 'UI_HANDLE_PICK_PROVIDER_SCREEN',
-        showPickProviderScreen: false,
-      });
-    }
   } catch (error) {
     console.error('Error connecting web3 provider to dapp', error);
     history.push(routes.LANDING);
@@ -72,12 +66,6 @@ const connectProviderToDapp = async (provider, directLogin, dispatch) => {
       accessDeniedModal: true,
       allowAccessModal: false,
     });
-    if (directLogin) {
-      dispatch({
-        type: 'UI_HANDLE_PICK_PROVIDER_SCREEN',
-        showPickProviderScreen: false,
-      });
-    }
   }
 };
 

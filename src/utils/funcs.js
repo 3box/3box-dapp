@@ -19,13 +19,15 @@ export const normalizeURL = (pathname) => {
   return fuzzyLowercasePathname;
 };
 
-export const matchProtectedRoutes = (normalizedPath) => {
-  if (normalizedPath === routes.ACTIVITY ||
-    normalizedPath === routes.DETAILS ||
-    normalizedPath === routes.COLLECTIBLES ||
-    normalizedPath === routes.DATA ||
-    normalizedPath === routes.FOLLOWING ||
-    normalizedPath === routes.EDIT) {
+export const matchProtectedRoutes = (secondRoute) => {
+  if (
+    secondRoute === routes.ACTIVITY ||
+    secondRoute === routes.DETAILS ||
+    secondRoute === routes.COLLECTIBLES ||
+    secondRoute === routes.DATA ||
+    secondRoute === routes.FOLLOWING ||
+    secondRoute === routes.EDIT
+  ) {
     return true;
   }
   return false;

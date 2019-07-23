@@ -4,10 +4,16 @@ import {
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import queryString from 'query-string';
 
 import * as routes from './utils/routes';
 import { pollNetworkAndAddress, initialAddress, startPollFlag } from './utils/address';
-import { normalizeURL, matchProtectedRoutes, checkIsEthAddress, checkRequestRoute } from './utils/funcs';
+import {
+  normalizeURL,
+  matchProtectedRoutes,
+  checkIsEthAddress,
+  checkRequestRoute,
+} from './utils/funcs';
 import { store } from './state/store';
 import history from './utils/history';
 import APIs from './views/Landing/API/APIs';
@@ -15,6 +21,7 @@ import Dapp from './views/Landing/Dapp/Dapp';
 import LandingNew from './views/Landing/LandingNew';
 import Partners from './views/Landing/Partners';
 import Team from './views/Landing/Team';
+import LogIn from './views/Profile/LogIn';
 import PubProfileDummy from './views/Profile/PubProfileDummy';
 import PubProfileDummyTwitter from './views/Profile/PubProfileDummyTwitter';
 
@@ -89,31 +96,29 @@ class App extends Component {
   async componentDidMount() {
     try {
       const { location } = this.props;
-      const { pathname } = location;
+      const { pathname, search } = location;
       const normalizedPath = normalizeURL(pathname);
       const splitRoute = normalizedPath.split('/');
       const isProtectedRoute = matchProtectedRoutes(splitRoute[2]);
-      const route2 = splitRoute[2] && splitRoute[2].toLowerCase();
-      const route3 = splitRoute[3] && splitRoute[3].toLowerCase();
-      const isRequest = route2 === 'twitterrequest'
-        || route2 === 'previewrequest'
-        || route3 === 'twitterrequest'
-        || route3 === 'previewrequest';
+      const queryParams = queryString.parse(search);
+      const isRequest = checkRequestRoute(splitRoute);
       if (isRequest) return;
+
       const currentEthAddress = window.localStorage.getItem('userEthAddress');
       const isEtherAddress = checkIsEthAddress(splitRoute[1]);
       const isMyAddr = splitRoute[1] === currentEthAddress;
       const onProfilePage = isEtherAddress;
       const allowDirectSignIn = (
-        isEtherAddress // Lands on profile page
-        && isProtectedRoute // Lands on protected page
-        && isMyAddr
+        (isEtherAddress // Lands on profile page
+          && isProtectedRoute // Lands on protected page
+          && isMyAddr) ||
+        !!queryParams.wallet
       );
 
       initialAddress(); // Initial get address
 
       if (allowDirectSignIn) { // Begin signin
-        this.directSignIn();
+        this.directSignIn(queryParams.wallet);
       } else if (onProfilePage) { // Lands on profile page
         if (isProtectedRoute) history.push(`/${splitRoute[1]}`);
       }
@@ -195,7 +200,7 @@ class App extends Component {
     });
   }
 
-  directSignIn = async () => {
+  directSignIn = async (wallet) => {
     try {
       const {
         location,
@@ -204,13 +209,14 @@ class App extends Component {
       const normalizedPath = normalizeURL(pathname);
       const currentUrlEthAddr = normalizedPath.split('/')[1];
       const profilePage = normalizedPath.split('/')[2];
-      const doesEthAddrMatch = currentUrlEthAddr !== this.props.currentAddress;
+      const doesEthAddrMatch = currentUrlEthAddr === this.props.currentAddress;
 
       await this.props.checkMobileWeb3(); // eslint-disable-line
-      await this.props.injectWeb3('directLogin'); // eslint-disable-line
+      await this.props.injectWeb3('directLogin', false, wallet); // eslint-disable-line
       await this.props.checkNetwork(); // eslint-disable-line
 
-      if (doesEthAddrMatch) history.push(`/${this.props.currentAddress}/${profilePage}`);
+      if (!doesEthAddrMatch) history.push(`/${this.props.currentAddress}/${profilePage || routes.ACTIVITY}`);
+      // if (profilePage === routes.DIRECT_LOGIN) history.push(`/${currentEthAddress}/${routes.ACTIVITY}`);
 
       await this.props.openBox(); // eslint-disable-line
       if (!this.props.showErrorModal) this.getMyData(); // eslint-disable-line
@@ -224,7 +230,6 @@ class App extends Component {
       await this.props.checkMobileWeb3(); // eslint-disable-line
       await this.props.injectWeb3(null, chooseWallet); // eslint-disable-line
       await this.props.checkNetwork(); // eslint-disable-line
-
       await this.props.openBox('fromSignIn'); // eslint-disable-line
       if (!this.props.showErrorModal) this.getMyData(); // eslint-disable-line
     } catch (err) {
@@ -235,7 +240,6 @@ class App extends Component {
   render() {
     const {
       showDifferentNetworkModal,
-      showPickProviderScreen,
       accessDeniedModal,
       errorMessage,
       allowAccessModal,
@@ -350,7 +354,6 @@ class App extends Component {
           prevNetwork={prevNetwork}
           currentNetwork={currentNetwork}
           showDifferentNetworkModal={showDifferentNetworkModal}
-          showPickProviderScreen={showPickProviderScreen}
           loggedOutModal={loggedOutModal}
           switchedAddressModal={switchedAddressModal}
           prevAddress={prevAddress}
@@ -444,6 +447,11 @@ class App extends Component {
             path="(^[/][0][xX]\w{40}\b)/activity"
             component={MyProfile}
           />
+          <Route
+            exact
+            path="(^[/][0][xX]\w{40}\b)/activity"
+            component={MyProfile}
+          />
           <Redirect from="/profile" to="/" />
           <Redirect from="/editprofile" to="/" />
 
@@ -479,6 +487,16 @@ class App extends Component {
 
           <Route
             exact
+            path={routes.LOGIN}
+            render={() => (
+              <LogIn
+                handleSignInUp={this.handleSignInUp}
+              />
+            )}
+          />
+
+          <Route
+            exact
             path={routes.PARTNERS}
             component={() => (
               <Partners />
@@ -504,7 +522,7 @@ class App extends Component {
           <Route
             path={routes.CREATE}
             exact
-            component={() => (
+            render={() => (
               <Create
                 isLoggedIn={isLoggedIn}
                 handleSignInUp={this.handleSignInUp}
@@ -551,12 +569,11 @@ App.propTypes = {
   closeErrorModal: PropTypes.func.isRequired,
   handleLoggedOutModal: PropTypes.func.isRequired,
   handleSwitchedAddressModal: PropTypes.func.isRequired,
-  getMyFollowing: PropTypes.func.isRequired,
   handleOnboardingModal: PropTypes.func.isRequired,
   saveFollowing: PropTypes.func.isRequired,
 
   showDifferentNetworkModal: PropTypes.bool,
-  showPickProviderScreen: PropTypes.bool,
+  showFollowingPublicModal: PropTypes.bool,
   onSyncFinished: PropTypes.bool,
   hasSignedOut: PropTypes.bool,
   isSyncing: PropTypes.bool,
@@ -584,16 +601,20 @@ App.propTypes = {
   }).isRequired,
   prevAddress: PropTypes.string,
   otherAddressToFollow: PropTypes.string,
+  otherName: PropTypes.string,
+  otherProfileAddress: PropTypes.string,
+  following: PropTypes.array,
+  otherFollowing: PropTypes.array,
 };
 
 App.defaultProps = {
   showDifferentNetworkModal: false,
-  showPickProviderScreen: false,
   handleSignOut,
   accessDeniedModal: false,
   onSyncFinished: false,
   hasSignedOut: false,
   onOtherProfilePage: false,
+  showFollowingPublicModal: false,
   isSyncing: false,
   showContactsModal: false,
   errorMessage: '',
@@ -614,11 +635,14 @@ App.defaultProps = {
   directLogin: '',
   currentAddress: '',
   otherAddressToFollow: '',
+  otherFollowing: [],
+  otherName: '',
+  following: [],
+  otherProfileAddress: '',
 };
 
 const mapState = state => ({
   showDifferentNetworkModal: state.uiState.showDifferentNetworkModal,
-  showPickProviderScreen: state.uiState.showPickProviderScreen,
   allowAccessModal: state.uiState.allowAccessModal,
   provideConsent: state.uiState.provideConsent,
   signInModal: state.uiState.signInModal,

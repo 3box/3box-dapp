@@ -31,12 +31,6 @@ import './styles/Modal.css';
 
 export const ModalBackground = () => <div className="modal__overlay" />;
 
-export const PickProviderScreen = () => (
-  <div className="pickProvider_screen">
-    <h1>Pick a Web3 provider</h1>
-  </div>
-);
-
 export const SwitchedNetworksModal = ({
   prevNetwork,
   currentNetwork,

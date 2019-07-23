@@ -68,7 +68,6 @@ class AppModals extends Component {
       currentNetwork,
       handleSwitchedNetworkModal,
       showDifferentNetworkModal,
-      showPickProviderScreen,
       loggedOutModal,
       switchedAddressModal,
       handleLoggedOutModal,
@@ -184,7 +183,6 @@ class AppModals extends Component {
           />
         )}
 
-        {showPickProviderScreen && <PickProviderScreen key="PickProviderScreen" />}
 
         {loggedOutModal && (
           <LoggedOutModal
@@ -299,7 +297,6 @@ AppModals.propTypes = {
   accessDeniedModal: PropTypes.bool,
   directLogin: PropTypes.string,
   showDifferentNetworkModal: PropTypes.bool,
-  showPickProviderScreen: PropTypes.bool.isRequired,
   loggedOutModal: PropTypes.bool,
   switchedAddressModal: PropTypes.bool,
   onBoardingModal: PropTypes.bool,

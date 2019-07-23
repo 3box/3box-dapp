@@ -1,5 +1,6 @@
 import Web3Connect from 'web3connect';
 
+import history from '../../../utils/history';
 import connectProviderToDapp from './connectProviderToDapp';
 
 const web3Connect = new Web3Connect.Core({
@@ -16,12 +17,10 @@ const web3Connect = new Web3Connect.Core({
 });
 
 const pickWallet = async (directLogin, dispatch) => {
-  if (directLogin) {
-    dispatch({
-      type: 'UI_HANDLE_PICK_PROVIDER_SCREEN',
-      showPickProviderScreen: true,
-    });
-  }
+  dispatch({
+    type: 'USER_WEB3CONNECT',
+    web3Connect,
+  });
 
   const web3Promise = new Promise((resolve, reject) => {
     web3Connect.on('connect', async (provider) => {
@@ -36,7 +35,11 @@ const pickWallet = async (directLogin, dispatch) => {
 
   // subscibe to close
   web3Connect.on('close', () => {
-    if (directLogin) web3Connect.toggleModal(); // open modal on button click
+    const {
+      pathname,
+    } = history.location;
+    const keepOpen = pathname === '/login';
+    if (keepOpen) web3Connect.toggleModal(); // open modal on button click
   });
 
   web3Connect.toggleModal(); // open modal on button click

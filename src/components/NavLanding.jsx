@@ -118,7 +118,7 @@ class NavLanding extends Component {
           </a>
         </div>
 
-        {(route !== 'hub' && !isProfilePage) && (
+        {(route !== 'hub' && !isProfilePage && route !== 'login') && (
           <div id="actionButtons">
             <Link to={routes.HUB}>
               <button type="button">

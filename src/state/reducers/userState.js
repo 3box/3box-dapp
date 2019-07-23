@@ -12,6 +12,12 @@ const userStateReducer = (state = {}, action) => {
         currentWallet: action.currentWallet,
       };
 
+    case 'USER_WEB3CONNECT':
+      return {
+        ...state,
+        web3Connect: action.web3Connect,
+      };
+
     case 'USER_UPDATE_WEB3':
       return {
         ...state,
