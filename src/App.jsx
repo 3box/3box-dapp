@@ -222,10 +222,11 @@ class App extends Component {
     }
   }
 
-  handleSignInUp = async (chooseWallet) => {
+  handleSignInUp = async (chooseWallet, shouldSignOut, e) => {
     try {
+      e.stopPropagation();
       await this.props.checkMobileWeb3(); // eslint-disable-line
-      await this.props.injectWeb3(null, chooseWallet); // eslint-disable-line
+      await this.props.injectWeb3(null, chooseWallet, false, shouldSignOut); // eslint-disable-line
       await this.props.checkNetwork(); // eslint-disable-line
       await this.props.openBox('fromSignIn'); // eslint-disable-line
       if (!this.props.showErrorModal) this.getMyData(); // eslint-disable-line
@@ -442,12 +443,12 @@ class App extends Component {
           <Route
             exact
             path="(^[/][0][xX]\w{40}\b)/activity"
-            component={MyProfile}
+            render={() => <MyProfile handleSignInUp={this.handleSignInUp} />}
           />
           <Route
             exact
             path="(^[/][0][xX]\w{40}\b)/activity"
-            component={MyProfile}
+            render={() => <MyProfile handleSignInUp={this.handleSignInUp} />}
           />
           <Redirect from="/profile" to="/" />
           <Redirect from="/editprofile" to="/" />
@@ -455,31 +456,31 @@ class App extends Component {
           <Route
             exact
             path="(^[/][0][xX]\w{40}\b)/details"
-            component={MyProfile}
+            render={() => <MyProfile handleSignInUp={this.handleSignInUp} />}
           />
 
           <Route
             exact
             path="(^[/][0][xX]\w{40}\b)/collectibles"
-            component={MyProfile}
+            render={() => <MyProfile handleSignInUp={this.handleSignInUp} />}
           />
 
           <Route
             exact
             path="(^[/][0][xX]\w{40}\b)/following"
-            component={MyProfile}
+            render={() => <MyProfile handleSignInUp={this.handleSignInUp} />}
           />
 
           <Route
             exact
             path="(^[/][0][xX]\w{40}\b)/data"
-            component={Spaces}
+            render={() => <Spaces handleSignInUp={this.handleSignInUp} />}
           />
 
           <Route
             exact
             path="(^[/][0][xX]\w{40}\b)/edit"
-            component={EditProfile}
+            render={() => <EditProfile handleSignInUp={this.handleSignInUp} />}
           />
 
           <Route

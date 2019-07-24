@@ -40,7 +40,14 @@ class Nav extends Component {
 
   render() {
     const { showProfileModal } = this.state;
-    const { location, currentAddress, currentWallet, currentNetwork, currentWalletLogo } = this.props;
+    const {
+      location,
+      currentAddress,
+      currentWallet,
+      currentNetwork,
+      currentWalletLogo,
+      handleSignInUp
+    } = this.props;
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
     const networkColor = this.props.currentNetwork;
@@ -158,6 +165,9 @@ class Nav extends Component {
             <div className="nav__divide" />
             <li
               className="nav__dropdown__wrapper--extra"
+              onClick={e => handleSignInUp(true, true, e)}
+              onKeyPress={e => handleSignInUp(true, true, e)}
+              role="button"
             >
               <div className="nav_network nav_dropdown_icon_wrapper">
                 <img
@@ -165,15 +175,11 @@ class Nav extends Component {
                   className="nav__dropdown__icon"
                   alt="profile"
                 />
-                {/* <p>
-                  {currentWallet}
-                </p> */}
               </div>
               <p>
                 Wallet
               </p>
               <button
-                onClick={() => { }}
                 type="button"
                 className="clearButton nav_dropdown_switchWalletButton"
               >

@@ -402,6 +402,7 @@ class Spaces extends Component {
       image,
       name,
       currentAddress,
+      handleSignInUp,
     } = this.props;
 
     const {
@@ -432,7 +433,7 @@ class Spaces extends Component {
         />
 
         <div className="data__nav--desktop">
-          <Nav />
+          <Nav handleSignInUp={handleSignInUp} />
         </div>
         <div className="data__page">
           <ReactCSSTransitionGroup

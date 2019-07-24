@@ -966,6 +966,7 @@ class EditProfile extends Component {
       showEmailVerificationModal,
       copySuccessful,
       currentAddress,
+      handleSignInUp,
     } = this.props;
 
     const {
@@ -1018,7 +1019,7 @@ class EditProfile extends Component {
           currentAddress={currentAddress}
         />
 
-        <Nav />
+        <Nav handleSignInUp={handleSignInUp} />
 
         <Prompt
           when={!disableSave}

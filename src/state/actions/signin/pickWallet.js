@@ -2,6 +2,7 @@ import Web3Connect from 'web3connect';
 
 import history from '../../../utils/history';
 import connectProviderToDapp from './connectProviderToDapp';
+import handleSignOut from './handleSignOut';
 
 const web3Connect = new Web3Connect.Core({
   providerOptions: {
@@ -16,15 +17,17 @@ const web3Connect = new Web3Connect.Core({
   },
 });
 
-const pickWallet = async (directLogin, dispatch) => {
+const pickWallet = async (directLogin, dispatch, shouldSignOut) => {
   dispatch({
     type: 'USER_WEB3CONNECT',
     web3Connect,
   });
+  console.log('shouldSignOut', shouldSignOut);
 
   const web3Promise = new Promise((resolve, reject) => {
     web3Connect.on('connect', async (provider) => {
       try {
+        if (shouldSignOut) handleSignOut();
         await connectProviderToDapp(provider, directLogin, dispatch);
         resolve();
       } catch (error) {
