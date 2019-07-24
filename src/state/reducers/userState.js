@@ -23,6 +23,7 @@ const userStateReducer = (state = {}, action) => {
         ...state,
         web3Obj: action.web3Obj,
           currentWallet: action.currentWallet,
+          currentWalletLogo: action.currentWalletLogo,
       };
 
     case 'USER_ADDRESSES_UPDATE':

@@ -202,10 +202,7 @@ class App extends Component {
 
   directSignIn = async (wallet) => {
     try {
-      const {
-        location,
-      } = this.props;
-      const { pathname } = location;
+      const { pathname } = this.props.location;
       const normalizedPath = normalizeURL(pathname);
       const currentUrlEthAddr = normalizedPath.split('/')[1];
       const profilePage = normalizedPath.split('/')[2];

@@ -406,3 +406,17 @@ export const checkRequestRoute = (splitRoute) => {
     route3 === 'previewrequest';
   return isRequest;
 };
+
+export const checkUsingInjectedProvider = (provider) => {
+  const {
+    isFortmatic,
+    isPortis,
+    isWalletConnect,
+  } = provider;
+
+  if (isFortmatic || isPortis || isWalletConnect) return false;
+  return true;
+  // isCipher,
+  // isMetaMask,
+  // isDapper,
+};

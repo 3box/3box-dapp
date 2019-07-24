@@ -1,9 +1,10 @@
 import Web3Connect from 'web3connect';
-import Box from '3box';
+// import Box from '3box';
 
 import * as routes from '../../../utils/routes';
 import accountsPromise from './accountsPromise';
 import history from '../../../utils/history';
+import { checkUsingInjectedProvider } from '../../../utils/funcs';
 
 const connectProviderToDapp = async (provider, directLogin, dispatch) => {
   try {
@@ -13,6 +14,7 @@ const connectProviderToDapp = async (provider, directLogin, dispatch) => {
     } = Web3Connect;
     const {
       name,
+      logo
     } = getProviderInfo(provider);
     window.localStorage.setItem('defaultWallet', name); // eslint-disable-line no-undef
     
@@ -22,6 +24,7 @@ const connectProviderToDapp = async (provider, directLogin, dispatch) => {
       type: 'USER_UPDATE_WEB3',
       web3Obj,
       currentWallet: name,
+      currentWalletLogo: logo,
     });
 
     // begin process to get eth addresses
@@ -37,19 +40,11 @@ const connectProviderToDapp = async (provider, directLogin, dispatch) => {
     // accounts = !accounts ? await accountsPromise : accounts;
     window.localStorage.setItem('userEthAddress', accounts[0]);
 
-    // compare against addresses inject to flag if using injected web3 provider
-    const hasWeb3 = window.web3 !== 'undefined';
-    let injectedAddress;
-    if (hasWeb3) {
-      const injectedAccounts = window.web3.currentProvider ?
-        await window.web3.currentProvider.enable() :
-        await accountsPromise;
-      [injectedAddress] = injectedAccounts;
-    }
+    const usingInjectedAddress = checkUsingInjectedProvider(provider);
     dispatch({
       type: 'USER_ADDRESSES_UPDATE',
       currentAddress: accounts[0],
-      usingInjectedAddress: injectedAddress === accounts[0],
+      usingInjectedAddress,
     });
 
     // close process modals

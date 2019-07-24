@@ -13,6 +13,7 @@ import { normalizeURL } from '../utils/funcs';
 import Edit from '../assets/Edit.svg';
 import SignOut from '../assets/SignOut.svg';
 import Folder from '../assets/Folder.svg';
+import Switch from '../assets/Switched.svg';
 import './styles/Nav.css';
 
 const { handleSignOut } = actions.signin;
@@ -39,10 +40,11 @@ class Nav extends Component {
 
   render() {
     const { showProfileModal } = this.state;
-    const { location, currentAddress } = this.props;
+    const { location, currentAddress, currentWallet, currentNetwork, currentWalletLogo } = this.props;
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
     const networkColor = this.props.currentNetwork;
+    // console.log('Web3Connect', Web3Connect.getProviderInfo());
 
     return (
       <nav>
@@ -121,13 +123,17 @@ class Nav extends Component {
           <ul>
             <Link to={`/${currentAddress}/${routes.EDIT}`}>
               <li className="nav__dropdown__wrapper">
-                <img
-                  src={Edit}
-                  className="nav__dropdown__icon"
-                  alt="profile"
-                  role="button"
-                />
-                Edit profile
+                <div className="nav_dropdown_icon_wrapper">
+                  <img
+                    src={Edit}
+                    className="nav__dropdown__icon"
+                    alt="profile"
+                    role="button"
+                  />
+                </div>
+                <p>
+                  Edit profile
+                </p>
               </li>
             </Link>
             <div className="nav__divide" />
@@ -137,16 +143,61 @@ class Nav extends Component {
               className="nav__dropdown__wrapper"
               role="button"
             >
-              <img
-                src={SignOut}
-                className="nav__dropdown__icon"
-                alt="profile"
-                role="button"
-              />
-              Sign Out
+              <div className="nav_dropdown_icon_wrapper">
+                <img
+                  src={SignOut}
+                  className="nav__dropdown__icon"
+                  alt="profile"
+                  role="button"
+                />
+              </div>
+              <p>
+                Sign Out
+              </p>
+            </li>
+            <div className="nav__divide" />
+            <li
+              className="nav__dropdown__wrapper--extra"
+            >
+              <div className="nav_network nav_dropdown_icon_wrapper">
+                <img
+                  src={currentWalletLogo}
+                  className="nav__dropdown__icon"
+                  alt="profile"
+                />
+                {/* <p>
+                  {currentWallet}
+                </p> */}
+              </div>
+              <p>
+                Wallet
+              </p>
+              <button
+                onClick={() => { }}
+                type="button"
+                className="clearButton nav_dropdown_switchWalletButton"
+              >
+                <img
+                  src={Switch}
+                  className="nav_dropdown_switchWallet"
+                  alt="profile"
+                />
+              </button>
+            </li>
+            <div className="nav__divide" />
+            <li
+              className="nav__dropdown__wrapper--extra"
+            >
+              <div className="nav_network nav_dropdown_icon_wrapper">
+                <div id="nav__networkStatus__networkColor" className={`${networkColor}`} />
+                <p>{networkColor}</p>
+              </div>
+              <p>
+                Network
+              </p>
             </li>
           </ul>
-        </div >
+        </div>
 
         {showProfileModal &&
           (
@@ -225,12 +276,14 @@ Nav.propTypes = {
   handleSignOut: PropTypes.func.isRequired,
   currentNetwork: PropTypes.string,
   currentAddress: PropTypes.string,
+  currentWallet: PropTypes.string,
 };
 
 Nav.defaultProps = {
   box: {},
   currentNetwork: '',
   currentAddress: '',
+  currentWallet: '',
   location: {},
 };
 
@@ -240,6 +293,8 @@ function mapState(state) {
 
     currentNetwork: state.userState.currentNetwork,
     currentAddress: state.userState.currentAddress,
+    currentWallet: state.userState.currentWallet,
+    currentWalletLogo: state.userState.currentWalletLogo,
   };
 }
 

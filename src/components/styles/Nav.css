@@ -140,6 +140,21 @@ nav {
   display: flex;
   align-items: center; }
 
+.nav__dropdown__wrapper--extra {
+  background-color: #f2f2f2;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 4em; }
+  .nav__dropdown__wrapper--extra p {
+    font-size: 14px;
+    color: #6b6b6b;
+    font-weight: 400;
+    cursor: pointer;
+    box-sizing: border-box; }
+  .nav__dropdown__wrapper--extra:hover {
+    background-color: #f2f2f2 !important; }
+
 .nav__dropdown__icon {
   width: 22px;
   height: 22px;
@@ -188,31 +203,50 @@ nav {
   .nav__dropdown ul {
     padding: 0; }
   .nav__dropdown li {
-    font-size: 14px;
     padding-left: 1.3em;
-    color: #6b6b6b;
-    line-height: 4em;
-    font-weight: 400;
+    height: 4.2em;
     cursor: pointer;
-    box-sizing: border-box; }
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; }
   .nav__dropdown li:hover {
     background: #f9f9f9; }
-  .nav__dropdown div {
-    line-height: 0; }
+  .nav__dropdown p {
+    font-weight: 400;
+    color: #6b6b6b;
+    font-size: 14px; }
+
+.nav_dropdown_icon_wrapper {
+  width: 80px; }
 
 .nav__dropdown--desktop {
   visibility: hidden;
   opacity: 0;
   transform: translateY(-14px);
-  transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s; }
+  transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
+  width: 210px; }
+
+.nav_dropdown_switchWalletButton {
+  padding: 0; }
+
+.nav_dropdown_switchWallet {
+  width: 16px;
+  filter: grayscale(100%);
+  margin-left: 32px; }
 
 .nav__divide {
-  border-top: 1px solid #CBCBCB;
+  border-top: 1px solid #ececec;
   margin-top: 0;
   margin-bottom: 0;
   padding-left: 0;
   padding-right: 0;
   width: 100% !important; }
+
+.nav_network {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; }
 
 #actionButtons {
   display: flex;
