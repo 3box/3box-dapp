@@ -22,8 +22,6 @@ const pickWallet = async (directLogin, dispatch, shouldSignOut) => {
     type: 'USER_WEB3CONNECT',
     web3Connect,
   });
-  console.log('shouldSignOut', shouldSignOut);
-
   const web3Promise = new Promise((resolve, reject) => {
     web3Connect.on('connect', async (provider) => {
       try {

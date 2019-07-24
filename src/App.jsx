@@ -224,7 +224,7 @@ class App extends Component {
 
   handleSignInUp = async (chooseWallet, shouldSignOut, e) => {
     try {
-      e.stopPropagation();
+      if (e) e.stopPropagation();
       await this.props.checkMobileWeb3(); // eslint-disable-line
       await this.props.injectWeb3(null, chooseWallet, false, shouldSignOut); // eslint-disable-line
       await this.props.checkNetwork(); // eslint-disable-line
@@ -277,7 +277,7 @@ class App extends Component {
 
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
-    const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
+    const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: Web3 Wallet Message Signature: User denied message signature.';
     const landing = pathname === routes.LANDING ? 'landing' : '';
     const { userAgent: ua } = navigator;
     const isIOS = ua.includes('iPhone');

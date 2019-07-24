@@ -14,7 +14,7 @@ const connectProviderToDapp = async (provider, directLogin, dispatch) => {
     } = Web3Connect;
     const {
       name,
-      logo
+      logo,
     } = getProviderInfo(provider);
     window.localStorage.setItem('defaultWallet', name); // eslint-disable-line no-undef
     

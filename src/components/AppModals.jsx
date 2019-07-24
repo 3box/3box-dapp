@@ -120,7 +120,6 @@ class AppModals extends Component {
           <ProvideAccessModal
             handleAccessModal={handleAccessModal}
             directLogin={directLogin}
-            isMobile={isMobile}
             key="ProvideAccessModal"
           />
         )}
@@ -128,7 +127,6 @@ class AppModals extends Component {
         {provideConsent && (
           <ProvideConsentModal
             handleConsentModal={handleConsentModal}
-            isMobile={isMobile}
             key="ProvideConsentModal"
           />
         )}
@@ -169,7 +167,6 @@ class AppModals extends Component {
         {!!mustConsentError && (
           <MustConsentModal
             closeErrorModal={closeErrorModal}
-            isMobile={isMobile}
             key="MustConsentModal"
           />
         )}

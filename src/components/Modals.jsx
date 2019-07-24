@@ -50,7 +50,7 @@ export const SwitchedNetworksModal = ({
             </p>
             <p id="modal__switchBack">
               <b>
-                {`Switch back to ${prevNetwork} in MetaMask or continue on ${currentNetwork}`}
+                {`Switch back to ${prevNetwork} in your Web3 Wallet or continue on ${currentNetwork}`}
               </b>
             </p>
           </div>
@@ -91,8 +91,8 @@ export const LoggedOutModal = ({
             </h3>
 
             {isMobile
-              ? <p>Sign back in to your web3 wallet or exit 3Box</p>
-              : <p>Sign back in to your MetaMask wallet or exit 3Box</p>
+              ? <p>Sign back in to your Web3 wallet or exit 3Box</p>
+              : <p>Sign back in to your Web3 wallet or exit 3Box</p>
             }
           </div>
 
@@ -243,12 +243,12 @@ export const SwitchedAddressModal = ({
           {isMobile
             ? (
               <p>
-                {`Revert to the previous address ${prevAddress} in your web3 wallet or sign back in with the new address`}
+                {`Revert to the previous address ${prevAddress} in your Web3 wallet or sign back in with the new address`}
               </p>
             )
             : (
               <p>
-                {`Revert to the previous address ${prevAddress} in your MetaMask wallet or sign back in with the new address`}
+                {`Revert to the previous address ${prevAddress} in your Web3 wallet or sign back in with the new address`}
               </p>
             )
           }
@@ -274,7 +274,7 @@ SwitchedAddressModal.defaultProps = {
 
 // Landing Page Modals
 export const ProvideConsentModal = ({
-  handleConsentModal, isMobile,
+  handleConsentModal,
 }) => (
     <div className="modal__container modal--effect">
       <div className="modal">
@@ -282,10 +282,7 @@ export const ProvideConsentModal = ({
         <img src={Loading} alt="Loading" id="modal__loadingGraphic--access" />
         <div id="modal__copy__card">
           <h3>Log in to 3Box</h3>
-          {isMobile
-            ? <p>Approve the message in your web3 wallet to continue</p>
-            : <p>Approve the message in your MetaMask wallet to continue</p>
-          }
+          <p>Approve the message in your Web3 wallet to continue</p>
         </div>
 
         <button onClick={handleConsentModal} type="button" className="tertiaryButton">Close</button>
@@ -299,7 +296,7 @@ ProvideConsentModal.propTypes = {
 };
 
 export const ProvideAccessModal = ({
-  handleAccessModal, isMobile, directLogin,
+  handleAccessModal, directLogin,
 }) => (
     <div>
       <div className="modal__container modal--effect">
@@ -309,10 +306,7 @@ export const ProvideAccessModal = ({
 
           <div id="modal__copy__card">
             <h3>Share Your Account</h3>
-            {isMobile
-              ? <p>To allow 3Box to read your Ethereum address, make sure you are logged in to your Web3 wallet.</p>
-              : <p>To allow 3Box to read your Ethereum address, make sure you are logged in to MetaMask.</p>
-            }
+            <p>To allow 3Box to read your Ethereum address, make sure you are logged in to your Web3 wallet.</p>
           </div>
 
           {!directLogin
@@ -876,8 +870,8 @@ export const ErrorModal = ({ closeErrorModal, error }) => {
 
   const errorMsg = error.message;
   if (errorMsg) {
-    isMetaMaskSignError = errorMsg.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
-    isMetaMaskFromError = errorMsg.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.';
+    isMetaMaskSignError = errorMsg.substring(0, 65) === 'Web3 Wallet Signature Error: User denied message signature.';
+    isMetaMaskFromError = errorMsg.substring(0, 58) === 'Web3 Wallet Signature Error: from field is required.';
     isMozillaError = errorMsg.substring(0, 26) === 'value/</<@moz-extension://';
     errorString = errorMsg.substring(0, 200);
   }
@@ -899,7 +893,7 @@ export const ErrorModal = ({ closeErrorModal, error }) => {
               : <h3>Error</h3>}
 
             {(isMetaMaskSignError || isMozillaError)
-              ? <p>You must provide consent to 3Box in your web3 wallet (e.g. MetaMask) to sign in or create a profile, please try again</p>
+              ? <p>You must provide consent to 3Box in your Web3 wallet to sign in or create a profile, please try again</p>
               : (
                 <React.Fragment>
                   <p>{errorString}</p>
@@ -926,17 +920,14 @@ ErrorModal.defaultProps = {
   error: '',
 };
 
-export const MustConsentModal = ({ closeErrorModal, isMobile }) => (
+export const MustConsentModal = ({ closeErrorModal }) => (
   <div>
     <div className="modal__container modal--effect">
       <div className="modal">
         <img src={Consent} alt="Consent required" />
         <div id="modal__copy__card">
           <h3>Sign in to 3Box</h3>
-          {isMobile
-            ? <p>You must provide consent to 3Box in your web3 wallet to sign in or create a profile, please try again</p>
-            : <p>You must provide consent to 3Box in MetaMask to sign in or create a profile, please try again</p>
-          }
+          <p>You must provide consent to 3Box in your Web3 wallet to sign in or create a profile, please try again</p>
         </div>
         <button onClick={closeErrorModal} type="button" className="tertiaryButton">Close</button>
       </div>

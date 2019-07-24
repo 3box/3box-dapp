@@ -11,7 +11,6 @@ const handleSignOut = () => async (dispatch) => {
   const {
     box,
   } = store.getState().myData;
-  console.log('insignout');
   if (isLoggedIn) {
     if (box) box.logout();
     dispatch({
