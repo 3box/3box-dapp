@@ -13,6 +13,7 @@ import {
   matchProtectedRoutes,
   checkIsEthAddress,
   checkRequestRoute,
+  checkIsMobileWithoutWeb3,
 } from './utils/funcs';
 import { store } from './state/store';
 import history from './utils/history';
@@ -34,7 +35,6 @@ import {
   AppHeaders,
   NavLanding,
   Careers,
-  Create,
   Terms,
   Privacy,
   Nav,
@@ -107,10 +107,13 @@ class App extends Component {
       const isEtherAddress = checkIsEthAddress(splitRoute[1]);
       const isMyAddr = splitRoute[1] === currentEthAddress;
       const onProfilePage = isEtherAddress;
+      const isMobileWithoutWeb3 = checkIsMobileWithoutWeb3();
+
       const allowDirectSignIn = (
         (isEtherAddress // Lands on profile page
           && isProtectedRoute // Lands on protected page
-          && isMyAddr) ||
+          && isMyAddr
+          && !isMobileWithoutWeb3) ||
         !!queryParams.wallet
       );
 
@@ -127,17 +130,7 @@ class App extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { location: { pathname } } = nextProps;
-    const normalizedPath = normalizeURL(pathname);
-    const isNewPath = nextProps.location.pathname !== normalizedPath;
     const onSyncDoneToTrigger = nextProps.onSyncFinished && nextProps.isSyncing;
-
-    if (isNewPath) { // check previous route for banner behavior on /Create & /Profiles
-      store.dispatch({
-        type: 'UI_ROUTE_UPDATE',
-        currentRoute: normalizedPath,
-      });
-    }
 
     if (onSyncDoneToTrigger) { // get profile data again only when onSyncDone
       store.dispatch({ // end onSyncDone animation
@@ -224,6 +217,7 @@ class App extends Component {
     try {
       if (e) e.stopPropagation();
       await this.props.checkMobileWeb3(); // eslint-disable-line
+      if (checkIsMobileWithoutWeb3()) return;
       await this.props.injectWeb3(null, chooseWallet, false, shouldSignOut); // eslint-disable-line
       await this.props.checkNetwork(); // eslint-disable-line
       await this.props.openBox('fromSignIn'); // eslint-disable-line
@@ -515,17 +509,6 @@ class App extends Component {
           />
 
           <Route
-            path={routes.CREATE}
-            exact
-            render={() => (
-              <Create
-                isLoggedIn={isLoggedIn}
-                handleSignInUp={this.handleSignInUp}
-              />
-            )}
-          />
-
-          <Route
             exact
             path="(^[/][0][xX]\w{40}\b)"
             component={PubProfile}
@@ -663,6 +646,7 @@ const mapState = state => ({
   currentNetwork: state.userState.currentNetwork,
   isLoggedIn: state.userState.isLoggedIn,
   currentAddress: state.userState.currentAddress,
+  isMobile: state.userState.isMobile,
 
   otherAddressToFollow: state.otherProfile.otherAddressToFollow,
 

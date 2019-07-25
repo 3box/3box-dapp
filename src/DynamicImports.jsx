@@ -80,13 +80,6 @@ export const Careers = props => (
   </DynamicImports>
 );
 
-export const Create = props => (
-  <DynamicImports load={() => import('./views/Landing/Create')}>
-    {Component => Component !== null
-      && <Component {...props} />}
-  </DynamicImports>
-);
-
 export const Terms = props => (
   <DynamicImports load={() => import('./views/Landing/Terms')}>
     {Component => Component !== null

@@ -58,15 +58,6 @@ class Dapp extends Component {
                     Personal Cloud Storage
                   </h3>
                 </div>
-                <button
-                  type="button"
-                  className="hero_copy_buttons_button primaryMarketing main_section_create"
-                  type="button"
-                  onClick={() => handleSignInUp(false)}
-                >
-                  Create Profile
-                  <img src={TriangleWhite} alt="arrow" />
-                </button>
               </div>
             </div>
             <div className="main_profileCard">

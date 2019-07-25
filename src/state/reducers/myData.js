@@ -149,36 +149,12 @@ const myDataReducer = (state = {}, action) => {
       return {
         ...state,
         following: action.following,
-        followingList: action.followingList,
-        followingThread: action.followingThread,
+          followingList: action.followingList,
+          followingThread: action.followingThread,
       };
 
     case 'MY_DATA_SIGNOUT':
-      return {
-        ...state,
-        birthday: '',
-          name: '',
-          github: '',
-          image: [],
-          email: '',
-          feedByAddress: [],
-          box: {},
-          description: '',
-          location: '',
-          website: '',
-          employer: '',
-          job: '',
-          school: '',
-          degree: '',
-          major: '',
-          year: '',
-          coverPhoto: [],
-          emoji: '',
-          status: '',
-          verifiedGithub: '',
-          verifiedTwitter: '',
-          verifiedEmail: '',
-      };
+      return {};
 
     default:
       return state;

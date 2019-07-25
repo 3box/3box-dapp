@@ -124,17 +124,6 @@ const AppRoutes = () => (
     />
 
     <Route
-      path={routes.CREATE}
-      exact
-      component={() => (
-        <Create
-          isLoggedIn={isLoggedIn}
-          handleSignInUp={this.handleSignInUp}
-        />
-      )}
-    />
-
-    <Route
       exact
       path="(^[/][0][xX]\w{40}\b)"
       component={PubProfile}

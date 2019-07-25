@@ -23,7 +23,7 @@ class LogIn extends Component {
     if (search) {
       this.setState({
         isDirectLogin: true,
-        directLoginWallet: queryParams.wallet,
+        directLoginWallet: queryParams.wallet.toUpperCase(),
       });
     } else {
       handleSignInUp(true);
@@ -41,11 +41,11 @@ class LogIn extends Component {
     if (isDirectLogin) {
       return (
         <div className="modal__container modal--effect">
-          <div className="modal loadingModal">
+          <div className="modal standardModal">
             <img src={ThreeBoxLogoBlack} alt="Loading" className="login_3box" />
             <p className="login_text">
-              LOGGING IN
-          </p>
+              {`LOGGING IN WITH ${directLoginWallet}`}
+            </p>
             <img src={Loading} alt="Loading" id="modal__loadingGraphic--access" />
           </div>
         </div>

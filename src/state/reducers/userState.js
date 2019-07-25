@@ -10,7 +10,7 @@ const userStateReducer = (state = {}, action) => {
       return {
         ...state,
         currentWallet: action.currentWallet,
-        isMobile: action.isMobile,
+          isMobile: action.isMobile,
       };
 
     case 'USER_WEB3CONNECT':
@@ -54,17 +54,6 @@ const userStateReducer = (state = {}, action) => {
         isLoggedIn: action.isLoggedIn,
       };
 
-    case 'USER_SIGN_OUT':
-      return {
-        ...state,
-        isLoggedIn: action.isLoggedIn,
-          hasSignedOut: action.hasSignedOut,
-          shouldPoll: action.shouldPoll,
-          web3Obj: action.web3Obj,
-          usingInjectedAddress: action.usingInjectedAddress,
-          currentAddress: action.currentAddress,
-      };
-
     case 'USER_UPDATE_ADDRESS':
       return {
         ...state,
@@ -76,6 +65,9 @@ const userStateReducer = (state = {}, action) => {
         ...state,
         shouldPoll: action.shouldPoll,
       };
+
+    case 'USER_SIGN_OUT':
+      return {};
 
     default:
       return state;

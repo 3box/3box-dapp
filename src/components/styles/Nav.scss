@@ -196,6 +196,7 @@ nav {
     font-weight: 400;
     cursor: pointer;
     box-sizing: border-box;
+    margin-right: 15px;
   }
 
   &:hover {
@@ -206,7 +207,6 @@ nav {
 .nav__dropdown__icon {
   width: 22px;
   height: 22px;
-  margin-right: 17px;
 }
 
 .nav__userPicture {
@@ -222,21 +222,33 @@ nav {
 
 .nav__arrow {
   position: absolute;
-  right: 16px;
-  top: 8px;
+  right: 25px;
+  top: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 55px;
-  width: 55px;
+  height: 45px;
+  width: 45px;
   box-sizing: border-box;
   cursor: pointer;
   font-size: 12px;
-  color: $lightFont;
+  border-radius: 50%;
+  transition: all .3s;
+
+  &:hover {
+    background-color: $backgroundHue;
+
+    .nav__arrow__icon {
+      filter: grayscale(0%);
+    }
+  }
 }
 
 .nav__arrow__icon {
-  width: 10px;
+  height: 30px;
+  width: 5.4px;
+  transition: all .3s;
+  filter: grayscale(100%);
 }
 
 .nav__dropdown {
@@ -279,7 +291,7 @@ nav {
 }
 
 .nav_dropdown_icon_wrapper {
-  width: 80px;
+  width: 52px;
 }
 
 .nav__dropdown--desktop {
@@ -289,7 +301,7 @@ nav {
   transition: all 0.3s ease-in-out 0s,
     visibility 0s linear 0.3s,
     z-index 0s linear 0.01s;
-  width: 210px;
+  width: 180px;
 }
 
 .nav_dropdown_switchWalletButton {
@@ -297,9 +309,8 @@ nav {
 }
 
 .nav_dropdown_switchWallet {
-  width: 16px;
+  width: 20px;
   filter: grayscale(100%);
-  margin-left: 32px;
 }
 
 .nav__divide {
@@ -309,12 +320,6 @@ nav {
   padding-left: 0;
   padding-right: 0;
   width: 100% !important;
-}
-
-.nav_network {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
 }
 
 #actionButtons {

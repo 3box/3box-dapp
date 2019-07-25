@@ -4,14 +4,14 @@ const spacesReducer = (state = {}, action) => {
       return {
         ...state,
         list: action.list,
-        allData: action.allData,
+          allData: action.allData,
       };
 
     case 'SPACES_DATA_TO_RENDER_UPDATE':
       return {
         ...state,
         sortedSpace: action.sortedSpace,
-        spaceDataToRender: action.spaceDataToRender,
+          spaceDataToRender: action.spaceDataToRender,
       };
 
     case 'SPACES_HAS_UPDATED':
@@ -19,6 +19,9 @@ const spacesReducer = (state = {}, action) => {
         ...state,
         hasUpdated: action.hasUpdated,
       };
+
+    case 'SPACES_SIGN_OUT':
+      return {};
 
     default:
       return state;

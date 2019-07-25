@@ -14,10 +14,9 @@ import TwitterIcon from '../assets/twitterGrey.svg';
 import Email from '../assets/Email.svg';
 import TrustWallet from '../assets/TrustWallet.png';
 import Mollie from '../assets/Mollie.png';
-import Consent from '../assets/Consent.png';
-import Access from '../assets/Access.png';
 import ContactsIcon from '../assets/Contacts.svg';
 import Switched from '../assets/Switched.svg';
+import Wallet from '../assets/Wallet.svg';
 import OnBoardingModalGraphic from '../assets/OnBoardingModal.png';
 import OnBoardingModalGraphic2 from '../assets/OnBoardingModal2.png';
 import OnBoardingModalMobileGraphic1 from '../assets/OnBoardingModalMobile1.png';
@@ -233,7 +232,7 @@ export const SwitchedAddressModal = ({
   handleSwitchedAddressModal, handleSignOut, isMobile, prevAddress,
 }) => (
     <div className="modal__container modal--effect">
-      <div className="modal">
+      <div className="modal standardModal">
         <img src={Switched} alt="Partners background" id="modal__switchedNetworks" />
 
         <div>
@@ -254,9 +253,16 @@ export const SwitchedAddressModal = ({
           }
         </div>
 
-        <Link to={routes.LANDING}>
-          <button onClick={() => { handleSwitchedAddressModal(); handleSignOut(); }} type="button">Sign in with new address</button>
-        </Link>
+        <button
+          onClick={() => {
+            const signInAgain = true;
+            handleSwitchedAddressModal();
+            handleSignOut(signInAgain);
+          }}
+          type="button"
+        >
+          Sign in with new address
+        </button>
       </div>
     </div>
   );
@@ -277,13 +283,13 @@ export const ProvideConsentModal = ({
   handleConsentModal,
 }) => (
     <div className="modal__container modal--effect">
-      <div className="modal">
-        <img src={Consent} alt="Partners background" />
-        <img src={Loading} alt="Loading" id="modal__loadingGraphic--access" />
+      <div className="modal standardModal">
+        <img src={Wallet} className="modal_wallet" alt="Partners background" />
         <div id="modal__copy__card">
           <h3>Log in to 3Box</h3>
-          <p>Approve the message in your Web3 wallet to continue</p>
+          <p>Approve the message in your <br /> Web3 wallet to continue</p>
         </div>
+        <img src={Loading} alt="Loading" id="modal__loadingGraphic--access" />
 
         <button onClick={handleConsentModal} type="button" className="tertiaryButton">Close</button>
       </div>
@@ -298,20 +304,18 @@ ProvideConsentModal.propTypes = {
 export const ProvideAccessModal = ({
   handleAccessModal, directLogin,
 }) => (
-    <div>
-      <div className="modal__container modal--effect">
-        <div className="modal">
-          <img src={Access} alt="Partners background" />
-          <img src={Loading} alt="Loading" id="modal__loadingGraphic--access" />
-
-          <div id="modal__copy__card">
-            <h3>Share Your Account</h3>
-            <p>To allow 3Box to read your Ethereum address, make sure you are logged in to your Web3 wallet.</p>
-          </div>
-
-          {!directLogin
-            && <button onClick={handleAccessModal} type="button" className="tertiaryButton">Close</button>}
+    <div className="modal__container modal--effect">
+      <div className="modal standardModal">
+        <img src={Wallet} className="modal_wallet" alt="Partners background" />
+        <div id="modal__copy__card">
+          <h3>Share Your Account</h3>
+          <p>To allow 3Box to read your Ethereum address, make sure you are logged in to your Web3 wallet.</p>
         </div>
+
+        <img src={Loading} alt="Loading" id="modal__loadingGraphic--access" />
+
+        {!directLogin
+          && <button onClick={handleAccessModal} type="button" className="tertiaryButton">Close</button>}
       </div>
     </div>
   );
@@ -741,8 +745,8 @@ export const AccessDeniedModal = ({
 }) => (
     <div>
       <div className="modal__container modal--effect">
-        <div className="modal">
-          <img src={Access} alt="Partners background" />
+        <div className="modal standardModal">
+          <img src={Wallet} className="modal_wallet" alt="Partners background" />
 
           <div id="modal__copy__card">
             <h3>Access Denied to 3Box</h3>
@@ -765,7 +769,7 @@ AccessDeniedModal.propTypes = {
 
 export const LoadingThreeBoxProfileModal = () => (
   <div className="modal__container modal--effect">
-    <div className="modal loadingModal">
+    <div className="modal standardModal">
       <div className="modal__threebox__mollie">
         <img src={Mollie} alt="Mollie the Narwhal" className="modal__loading__mollie" />
         <img src={ThreeBoxLogoBlue} alt="3Box Logo" className="modal__loading__3" />
@@ -879,9 +883,9 @@ export const ErrorModal = ({ closeErrorModal, error }) => {
   return (
     <div>
       <div className="modal__container modal--effect">
-        <div className="modal">
+        <div className="modal standardModal">
           {(isMetaMaskSignError || isMozillaError)
-            ? <img src={Consent} alt="Consent required" />
+            ? <img src={Wallet} alt="Wallet signature required" />
             : <img src={ErrorIcon} alt="Error" id="modal__switchedNetworks" />}
 
           <div id={(isMetaMaskSignError || isMetaMaskFromError || isMozillaError) ? 'modal__copy__card' : ''}>
@@ -921,8 +925,8 @@ ErrorModal.defaultProps = {
 export const MustConsentModal = ({ closeErrorModal }) => (
   <div>
     <div className="modal__container modal--effect">
-      <div className="modal">
-        <img src={Consent} alt="Consent required" />
+      <div className="modal standardModal">
+        <img src={Wallet} className="modal_wallet" alt="Partners background" />
         <div id="modal__copy__card">
           <h3>Sign in to 3Box</h3>
           <p>You must provide consent to 3Box in your Web3 wallet to sign in or create a profile, please try again</p>

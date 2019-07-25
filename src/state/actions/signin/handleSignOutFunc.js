@@ -4,7 +4,7 @@ import {
 import * as routes from '../../../utils/routes';
 import history from '../../../utils/history';
 
-const handleSignOut = signInAgain => async (dispatch) => {
+const handleSignOutFunc = () => {
   const {
     userState: {
       isLoggedIn,
@@ -14,15 +14,7 @@ const handleSignOut = signInAgain => async (dispatch) => {
     },
   } = store.getState();
 
-  if (signInAgain) {
-    window.localStorage.removeItem('userEthAddress');
-    window.localStorage.removeItem('prevNetwork');
-    window.localStorage.removeItem('prevPrevNetwork');
-    window.localStorage.removeItem('currentNetwork');
-    window.localStorage.removeItem('shouldShowSwitchNetwork');
-    window.location.reload();
-    return;
-  }
+  console.log('isLoggedInisLoggedIn', isLoggedIn)
 
   if (isLoggedIn) {
     if (box) box.logout();
@@ -33,25 +25,24 @@ const handleSignOut = signInAgain => async (dispatch) => {
     window.localStorage.removeItem('currentNetwork');
     window.localStorage.removeItem('shouldShowSwitchNetwork');
 
-    dispatch({
+    store.dispatch({
       type: 'USER_SIGN_OUT',
     });
 
-    dispatch({
+    store.dispatch({
       type: 'UI_SIGN_OUT',
       onSyncFinished: false,
     });
 
-    dispatch({
+    store.dispatch({
       type: 'SPACES_SIGN_OUT',
     });
 
-    dispatch({
+    store.dispatch({
       type: 'MY_DATA_SIGNOUT',
     });
   }
-
   history.push(routes.LANDING);
 };
 
-export default handleSignOut;
+export default handleSignOutFunc;

@@ -6,12 +6,14 @@ import { Link, withRouter, NavLink } from 'react-router-dom';
 import ProfilePicture from './ProfilePicture';
 import ThreeBoxLogo from '../assets/ThreeBoxLogoBlack.svg';
 import ThreeBoxB from '../assets/3Box3Blue.svg';
-import DropDown from '../assets/DropDown.svg';
+// import DropDown from '../assets/DropDown.svg';
+import DropDownMenu from '../assets/DropDownMenu.svg';
 import actions from '../state/actions';
 import * as routes from '../utils/routes';
 import { normalizeURL } from '../utils/funcs';
 import Edit from '../assets/Edit.svg';
 import SignOut from '../assets/SignOut.svg';
+import EthereumNetwork from '../assets/EthereumNetwork.svg';
 import Folder from '../assets/Folder.svg';
 import Switch from '../assets/Switched.svg';
 import './styles/Nav.css';
@@ -83,13 +85,13 @@ class Nav extends Component {
         {
           <div
             className="nav__arrow"
-            onMouseOver={this.handleDropdown}
-            onFocus={this.handleDropdown}
+            onClick={this.handleDropdown}
+            onKeyPress={this.handleDropdown}
 
             role="button"
             tabIndex={0}
           >
-            <img src={DropDown} alt="dropdown" className="nav__arrow__icon" />
+            <img src={DropDownMenu} alt="dropdown" className="nav__arrow__icon" />
           </div>
         }
 
@@ -119,17 +121,20 @@ class Nav extends Component {
         {/* desktop nav dropdown */}
         <div
           className={`${showProfileModal ? 'nav__dropdown--visible' : undefined} nav__dropdown nav__dropdown--desktop`}
-          onClick={this.handleDropdown}
-          onKeyPress={this.handleDropdown}
-
-          onMouseLeave={this.handleDropdown}
-          onBlur={this.handleDropdown}
+          // onMouseLeave={this.handleDropdown}
+          // onBlur={this.handleDropdown}
           tabIndex={0}
           role="button"
         >
           <ul>
             <Link to={`/${currentAddress}/${routes.EDIT}`}>
-              <li className="nav__dropdown__wrapper">
+              <li
+                className="nav__dropdown__wrapper"
+                onClick={this.handleDropdown}
+                onKeyPress={this.handleDropdown}
+                tabIndex={0}
+                role="button"
+              >
                 <div className="nav_dropdown_icon_wrapper">
                   <img
                     src={Edit}
@@ -145,8 +150,9 @@ class Nav extends Component {
             </Link>
             <div className="nav__divide" />
             <li
-              onClick={() => this.handleSignOut()}
-              onKeyPress={() => this.handleSignOut()}
+              onClick={() => { this.handleSignOut(); this.handleDropdown(); }}
+              onKeyPress={() => { this.handleSignOut(); this.handleDropdown(); }}
+              tabIndex={0}
               className="nav__dropdown__wrapper"
               role="button"
             >
@@ -165,42 +171,41 @@ class Nav extends Component {
             <div className="nav__divide" />
             <li
               className="nav__dropdown__wrapper--extra"
-              onClick={e => handleSignInUp(true, true, e)}
-              onKeyPress={e => handleSignInUp(true, true, e)}
+              onClick={(e) => { handleSignInUp(true, true, e); this.handleDropdown(); }}
+              onKeyPress={(e) => { handleSignInUp(true, true, e); this.handleDropdown(); }}
               role="button"
             >
-              <div className="nav_network nav_dropdown_icon_wrapper">
+              <div className="nav_dropdown_icon_wrapper">
                 <img
-                  src={currentWalletLogo}
-                  className="nav__dropdown__icon"
+                  src={Switch}
+                  className="nav__dropdown__icon nav_dropdown_switchWallet"
                   alt="profile"
                 />
               </div>
               <p>
                 Wallet
               </p>
-              <button
-                type="button"
-                className="clearButton nav_dropdown_switchWalletButton"
-              >
-                <img
-                  src={Switch}
-                  className="nav_dropdown_switchWallet"
-                  alt="profile"
-                />
-              </button>
+              <img
+                src={currentWalletLogo}
+                className="nav__dropdown__icon"
+                alt="profile"
+              />
             </li>
             <div className="nav__divide" />
             <li
               className="nav__dropdown__wrapper--extra"
             >
-              <div className="nav_network nav_dropdown_icon_wrapper">
-                <div id="nav__networkStatus__networkColor" className={`${networkColor}`} />
-                <p>{networkColor}</p>
+              <div className="nav_dropdown_icon_wrapper">
+                <img
+                  src={EthereumNetwork}
+                  className="nav__dropdown__icon"
+                  alt="profile"
+                />
               </div>
               <p>
-                Network
+                {networkColor}
               </p>
+              <div id="nav__networkStatus__networkColor" className={`${networkColor}`} />
             </li>
           </ul>
         </div>

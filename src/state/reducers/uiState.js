@@ -211,12 +211,6 @@ const uiStateReducer = (state = {}, action) => {
           allowAccessModal: action.allowAccessModal,
       };
 
-    case 'UI_ROUTE_UPDATE':
-      return {
-        ...state,
-        currentRoute: action.currentRoute,
-      };
-
     case 'UI_ON_OTHER_PROFILE':
       return {
         ...state,
@@ -239,10 +233,7 @@ const uiStateReducer = (state = {}, action) => {
       };
 
     case 'UI_SIGN_OUT':
-      return {
-        ...state,
-        onSyncFinished: action.onSyncFinished,
-      };
+      return {};
 
     case 'UI_HANDLE_WARN_PUBLIC_FOLLOWING':
       return {

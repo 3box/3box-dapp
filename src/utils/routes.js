@@ -4,7 +4,6 @@ export const TERMS = '/terms';
 export const TEAM = '/team';
 export const JOBS = '/jobs';
 export const LOGIN = '/login';
-export const CREATE = '/create';
 export const HUB = '/hub';
 export const API = '/products';
 export const PARTNERS = '/partners';
