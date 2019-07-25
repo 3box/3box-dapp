@@ -105,7 +105,7 @@ class App extends Component {
 
       const currentEthAddress = window.localStorage.getItem('userEthAddress');
       const isEtherAddress = checkIsEthAddress(splitRoute[1]);
-      const isMyAddr = splitRoute[1].toLowerCase() === currentEthAddress.toLowerCase();
+      const isMyAddr = splitRoute[1] && splitRoute[1].toLowerCase() === currentEthAddress.toLowerCase();
       const onProfilePage = isEtherAddress;
       const isMobileWithoutWeb3 = checkIsMobileWithoutWeb3();
 
@@ -204,7 +204,6 @@ class App extends Component {
       await this.props.checkNetwork(); // eslint-disable-line
 
       if (!doesEthAddrMatch) history.push(`/${this.props.currentAddress}/${profilePage || routes.ACTIVITY}`);
-      // if (profilePage === routes.DIRECT_LOGIN) history.push(`/${currentEthAddress}/${routes.ACTIVITY}`);
 
       await this.props.openBox(); // eslint-disable-line
       if (!this.props.showErrorModal) this.getMyData(); // eslint-disable-line
