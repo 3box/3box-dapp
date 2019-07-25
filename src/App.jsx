@@ -105,7 +105,7 @@ class App extends Component {
 
       const currentEthAddress = window.localStorage.getItem('userEthAddress');
       const isEtherAddress = checkIsEthAddress(splitRoute[1]);
-      const isMyAddr = splitRoute[1] === currentEthAddress;
+      const isMyAddr = splitRoute[1].toLowerCase() === currentEthAddress.toLowerCase();
       const onProfilePage = isEtherAddress;
       const isMobileWithoutWeb3 = checkIsMobileWithoutWeb3();
 
