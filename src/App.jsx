@@ -198,13 +198,13 @@ class App extends Component {
       const currentUrlEthAddr = normalizedPath.split('/')[1];
       const profilePage = normalizedPath.split('/')[2];
       const doesEthAddrMatch = currentUrlEthAddr === this.props.currentAddress;
+      const correctedPath = `/${this.props.currentAddress}/${profilePage || routes.ACTIVITY}`;
 
       await this.props.checkMobileWeb3(); // eslint-disable-line
       await this.props.injectWeb3('directLogin', false, wallet); // eslint-disable-line
       await this.props.checkNetwork(); // eslint-disable-line
 
-      if (!doesEthAddrMatch) history.push(`/${this.props.currentAddress}/${profilePage || routes.ACTIVITY}`);
-      // if (profilePage === routes.DIRECT_LOGIN) history.push(`/${currentEthAddress}/${routes.ACTIVITY}`);
+      if (!doesEthAddrMatch) history.push(correctedPath);
 
       await this.props.openBox(); // eslint-disable-line
       if (!this.props.showErrorModal) this.getMyData(); // eslint-disable-line

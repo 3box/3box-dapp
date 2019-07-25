@@ -1,14 +1,9 @@
 import useDefaultWallet from './useDefaultWallet';
 import pickWallet from './pickWallet';
-import {
-  store,
-} from '../../store';
 
-const {
-  userState: {
-    isMobile,
-  },
-} = store.getState();
+import {
+  checkIsMobile,
+} from '../../../utils/funcs';
 
 const injectWeb3 = (
   directLogin,
@@ -17,6 +12,7 @@ const injectWeb3 = (
   shouldSignOut,
 ) => async (dispatch) => {
   const defaultWallet = outsideLoginWallet || window.localStorage.getItem('defaultWallet'); // eslint-disable-line no-undef
+  const isMobile = checkIsMobile();
   if ((chooseWallet || !defaultWallet) && !isMobile) {
     await pickWallet(directLogin, dispatch, shouldSignOut);
   } else {
