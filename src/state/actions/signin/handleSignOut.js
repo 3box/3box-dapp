@@ -6,13 +6,19 @@ import history from '../../../utils/history';
 
 const handleSignOut = () => async (dispatch) => {
   const {
-    isLoggedIn,
+    userState: {
+      isLoggedIn,
+    },
+    myData: {
+      box,
+    },
   } = store.getState().userState;
-  const {
-    box,
-  } = store.getState().myData;
+
   if (isLoggedIn) {
     if (box) box.logout();
+    window.localStorage.removeItem('defaultWallet');
+    window.localStorage.removeItem('userEthAddress');
+
     dispatch({
       type: 'USER_SIGN_OUT',
       isLoggedIn: false,

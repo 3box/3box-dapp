@@ -20,31 +20,19 @@ import {
   ModalBackground,
   FollowingIsPublicModal,
   FollowingListModal,
-  PickProviderScreen
+  // PickProviderScreen
 } from './Modals';
+import { checkIsMobile } from '../utils/funcs';
 
 class AppModals extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      width: window.innerWidth,
+      isMobile: checkIsMobile(),
     };
   }
 
-  componentWillMount() {
-    window.addEventListener('resize', this.handleWindowSizeChange);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleWindowSizeChange);
-  }
-
-  handleWindowSizeChange = () => {
-    this.setState({ width: window.innerWidth });
-  }
-
   render() {
-    const { width } = this.state;
     const {
       isFetchingThreeBox,
       onSyncFinished,
@@ -84,7 +72,6 @@ class AppModals extends Component {
       provideConsent,
       handleAccessModal,
       showContactsModal,
-      isMyProfilePath,
       showFollowingPublicModal,
       handleFollowingPublicModal,
       saveFollowing,
@@ -95,8 +82,7 @@ class AppModals extends Component {
       otherProfileAddress,
       handleContactsModal,
     } = this.props;
-
-    const isMobile = width <= 812; // 600
+    const { isMobile } = this.state;
 
     return (
       <ReactCSSTransitionGroup

@@ -10,6 +10,7 @@ const userStateReducer = (state = {}, action) => {
       return {
         ...state,
         currentWallet: action.currentWallet,
+        isMobile: action.isMobile,
       };
 
     case 'USER_WEB3CONNECT':

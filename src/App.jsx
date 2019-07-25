@@ -95,8 +95,7 @@ class App extends Component {
 
   async componentDidMount() {
     try {
-      const { location } = this.props;
-      const { pathname, search } = location;
+      const { location: { pathname, search } } = this.props;
       const normalizedPath = normalizeURL(pathname);
       const splitRoute = normalizedPath.split('/');
       const isProtectedRoute = matchProtectedRoutes(splitRoute[2]);
@@ -128,8 +127,7 @@ class App extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { location } = nextProps;
-    const { pathname } = location;
+    const { location: { pathname } } = nextProps;
     const normalizedPath = normalizeURL(pathname);
     const isNewPath = nextProps.location.pathname !== normalizedPath;
     const onSyncDoneToTrigger = nextProps.onSyncFinished && nextProps.isSyncing;
@@ -202,7 +200,7 @@ class App extends Component {
 
   directSignIn = async (wallet) => {
     try {
-      const { pathname } = this.props.location;
+      const { location: { pathname } } = this.props;
       const normalizedPath = normalizeURL(pathname);
       const currentUrlEthAddr = normalizedPath.split('/')[1];
       const profilePage = normalizedPath.split('/')[2];
@@ -255,7 +253,7 @@ class App extends Component {
       prevAddress,
       showErrorModal,
       isLoggedIn,
-      location,
+      location: { pathname },
       onSyncFinished,
       isSyncing,
       hasSignedOut,
@@ -275,7 +273,6 @@ class App extends Component {
       onBoardingModalMobileThree,
     } = this.state;
 
-    const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
     const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: Web3 Wallet Message Signature: User denied message signature.';
     const landing = pathname === routes.LANDING ? 'landing' : '';

@@ -764,15 +764,13 @@ AccessDeniedModal.propTypes = {
 };
 
 export const LoadingThreeBoxProfileModal = () => (
-  <div>
-    <div className="modal__container modal--effect">
-      <div className="modal loadingModal">
-        <div className="modal__threebox__mollie">
-          <img src={Mollie} alt="Mollie the Narwhal" className="modal__loading__mollie" />
-          <img src={ThreeBoxLogoBlue} alt="3Box Logo" className="modal__loading__3" />
-        </div>
-        <img src={Loading} alt="Loading" id="modal__loadingGraphic" />
+  <div className="modal__container modal--effect">
+    <div className="modal loadingModal">
+      <div className="modal__threebox__mollie">
+        <img src={Mollie} alt="Mollie the Narwhal" className="modal__loading__mollie" />
+        <img src={ThreeBoxLogoBlue} alt="3Box Logo" className="modal__loading__3" />
       </div>
+      <img src={Loading} alt="Loading" id="modal__loadingGraphic" />
     </div>
   </div>
 );
