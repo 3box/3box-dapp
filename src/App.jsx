@@ -105,7 +105,7 @@ class App extends Component {
 
       const currentEthAddress = window.localStorage.getItem('userEthAddress');
       const isEtherAddress = checkIsEthAddress(splitRoute[1]);
-      const isMyAddr = splitRoute[1] && splitRoute[1].toLowerCase() === currentEthAddress.toLowerCase();
+      const isMyAddr = (splitRoute[1] && splitRoute[1].toLowerCase()) === (currentEthAddress && currentEthAddress.toLowerCase());
       const onProfilePage = isEtherAddress;
       const isMobileWithoutWeb3 = checkIsMobileWithoutWeb3();
 
@@ -131,6 +131,10 @@ class App extends Component {
 
   componentWillReceiveProps(nextProps) {
     const onSyncDoneToTrigger = nextProps.onSyncFinished && nextProps.isSyncing;
+    const { location: { search } } = nextProps;
+    const queryParams = queryString.parse(search);
+
+    if (queryParams.wallet) this.directSignIn(queryParams.wallet);
 
     if (onSyncDoneToTrigger) { // get profile data again only when onSyncDone
       store.dispatch({ // end onSyncDone animation

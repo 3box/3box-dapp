@@ -14,8 +14,6 @@ const handleSignOutFunc = () => {
     },
   } = store.getState();
 
-  console.log('isLoggedInisLoggedIn', isLoggedIn)
-
   if (isLoggedIn) {
     if (box) box.logout();
     window.localStorage.removeItem('defaultWallet');
