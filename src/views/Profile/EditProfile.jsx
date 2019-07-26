@@ -20,7 +20,7 @@ import {
   ModalBackground,
 } from '../../components/Modals';
 import history from '../../utils/history';
-import { twitterMessage, githubMessage, checkVerifiedFormatting } from './EditProfile/utils';
+import { twitterMessage, githubMessage, checkVerifiedFormatting, capitalizeFirst } from './EditProfile/utils';
 import Nav from '../../components/Nav.jsx';
 import * as routes from '../../utils/routes';
 import Private from '../../assets/Private.svg';
@@ -197,7 +197,7 @@ class EditProfile extends Component {
           if (this.state[property] === '') { // deactivate Verify button
             this.setState({ [`${key}Edited`]: false });
           } else if (this.props[property] !== this.state[property] && this.state[property] !== '') {
-            const passesVerifiedCheck = checkVerifiedFormatting(value, isEmail);
+            const passesVerifiedCheck = checkVerifiedFormatting(value, key);
             this.setState({ [`${key}Edited`]: true });
             if (passesVerifiedCheck) {
               this.setState({
@@ -205,7 +205,7 @@ class EditProfile extends Component {
                 [`${key}InvalidFormat`]: false,
               });
             } else {
-              const errorMsg = isEmail ? 'Entry is not properly formatted email addresss.' : 'Entry must not have any numbers or special characters.';
+              const errorMsg = `${capitalizeFirst(key)} entry improperly formatted.`;
               this.setState({
                 [`${key}InvalidFormat`]: true,
                 [`${key}ErrorMessage`]: errorMsg,
