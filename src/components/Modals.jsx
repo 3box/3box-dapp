@@ -229,28 +229,19 @@ CollectiblesModal.defaultProps = {
 };
 
 export const SwitchedAddressModal = ({
-  handleSwitchedAddressModal, handleSignOut, isMobile, prevAddress,
+  handleSwitchedAddressModal, handleSignOut, prevAddress,
 }) => (
     <div className="modal__container modal--effect">
       <div className="modal standardModal">
-        <img src={Switched} alt="Partners background" id="modal__switchedNetworks" />
+        <img src={Switched} alt="Switched wallet" id="modal__switchedNetworks" />
 
         <div>
           <h3>
             Address change detected
           </h3>
-          {isMobile
-            ? (
-              <p>
-                {`Revert to the previous address ${prevAddress} in your Web3 wallet or sign back in with the new address`}
-              </p>
-            )
-            : (
-              <p>
-                {`Revert to the previous address ${prevAddress} in your Web3 wallet or sign back in with the new address`}
-              </p>
-            )
-          }
+          <p>
+            {`Revert to the previous address ${prevAddress} in your Web3 wallet or sign back in with the new address`}
+          </p>
         </div>
 
         <button

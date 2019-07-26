@@ -53,7 +53,6 @@ class Nav extends Component {
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
     const networkColor = this.props.currentNetwork;
-    // console.log('Web3Connect', Web3Connect.getProviderInfo());
 
     return (
       <nav>

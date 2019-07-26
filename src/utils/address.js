@@ -23,6 +23,7 @@ export const startPollFlag = async () => {
 };
 
 export const pollNetworkAndAddress = () => {
+  let getInjectedAddressFlag = false;
   setTimeout(async () => {
     try {
       const {
@@ -38,17 +39,19 @@ export const pollNetworkAndAddress = () => {
       const hasWeb3 = window.web3 !== 'undefined';
 
       let injectedAddress;
-      if (hasWeb3 && usingInjectedAddress) {
+      if (hasWeb3 && usingInjectedAddress && !getInjectedAddressFlag) {
         let injectedAccounts = await window.web3.currentProvider.enable();
         injectedAccounts = !injectedAccounts ? await accountsPromise : injectedAccounts;
         [injectedAddress] = injectedAccounts;
+        getInjectedAddressFlag = true;
       }
 
       if (
         usingInjectedAddress &&
         injectedAddress &&
         injectedAddress !== currentAddress &&
-        !isAddrUndefined
+        !isAddrUndefined &&
+        !switchedAddressModal
       ) {
         store.dispatch({
           type: 'UI_HANDLE_SWITCHED_ADDRESS_MODAL',

@@ -8,7 +8,7 @@ const handleSignOut = signInAgain => async (dispatch) => {
   const {
     userState: {
       isLoggedIn,
-      currentWallet
+      currentWallet,
     },
     myData: {
       box,
@@ -41,10 +41,10 @@ const handleSignOut = signInAgain => async (dispatch) => {
       type: 'MY_DATA_SIGNOUT',
     });
   }
-
+  
   let route;
   if (signInAgain) {
-    route = `${routes.LOGIN}?wallet=${currentWallet}`
+    route = `${routes.LOGIN}?wallet=${currentWallet}`;
   } else {
     route = routes.LANDING;
   }

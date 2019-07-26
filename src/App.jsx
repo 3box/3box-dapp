@@ -133,8 +133,10 @@ class App extends Component {
     const onSyncDoneToTrigger = nextProps.onSyncFinished && nextProps.isSyncing;
     const { location: { search } } = nextProps;
     const queryParams = queryString.parse(search);
+    const { location } = this.props;
+    const isNewPath = nextProps.location.pathname !== location.pathname;
 
-    if (queryParams.wallet) this.directSignIn(queryParams.wallet);
+    if (queryParams.wallet && isNewPath) this.directSignIn(queryParams.wallet, nextProps);
 
     if (onSyncDoneToTrigger) { // get profile data again only when onSyncDone
       store.dispatch({ // end onSyncDone animation
@@ -195,10 +197,11 @@ class App extends Component {
     });
   }
 
-  directSignIn = async (wallet) => {
+  directSignIn = async (wallet, nextProps) => {
     try {
       const { location: { pathname } } = this.props;
-      const normalizedPath = normalizeURL(pathname);
+      const pathToUse = nextProps ? nextProps.location.pathname : pathname;
+      const normalizedPath = normalizeURL(pathToUse);
       const currentUrlEthAddr = normalizedPath.split('/')[1];
       const profilePage = normalizedPath.split('/')[2];
       const doesEthAddrMatch = currentUrlEthAddr === this.props.currentAddress;
