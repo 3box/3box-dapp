@@ -524,7 +524,8 @@ export const TwitterVerificationModal = ({
               <button type="button">
                 <a
                   href={`https://twitter.com/intent/tweet?text=${message}`}
-                  target="_blank" rel="noopener noreferrer"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="modal__github__description__copy__tweet"
                 >
                   Tweet this

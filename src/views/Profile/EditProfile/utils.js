@@ -27,11 +27,11 @@ export const checkVerifiedFormatting = (value, field) => {
   } else if (isTwitter) {
     isValid = /^@?(\w){1,15}$/.test(value);
   } else if (isGithub) {
-    isValid = /\B@([a-z0-9](?:-?[a-z0-9]){0,38})$/.test(value);
+    isValid = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/.test(value);
   }
   return isValid;
 };
 
-export const capitalizeFirst = string => {
+export const capitalizeFirst = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
-}
+};

@@ -317,6 +317,7 @@ class EditProfile extends Component {
                   editedArray: updatedEditedArray,
                   disableSave: false,
                   savedGithub: true,
+                  githubErrorMessage: null,
                 });
                 store.dispatch({
                   type: 'MY_VERIFIED_GITHUB_UPDATE',
@@ -447,6 +448,7 @@ class EditProfile extends Component {
             editedArray: updatedEditedArray,
             disableSave: false,
             savedTwitter: true,
+            twitterErrorMessage: null,
           });
           store.dispatch({
             type: 'MY_VERIFIED_TWITTER_UPDATE',
@@ -1029,8 +1031,6 @@ class EditProfile extends Component {
       githubErrorMessage,
       twitterErrorMessage,
     } = this.state;
-
-    console.log('githubInvalidFormat', githubInvalidFormat)
 
     return (
       <div id="edit__page">
