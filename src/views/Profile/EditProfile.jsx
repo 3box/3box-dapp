@@ -20,7 +20,7 @@ import {
   ModalBackground,
 } from '../../components/Modals';
 import history from '../../utils/history';
-import { twitterMessage, githubMessage } from './EditProfile/utils';
+import { twitterMessage, githubMessage, checkVerifiedFormatting } from './EditProfile/utils';
 import Nav from '../../components/Nav.jsx';
 import * as routes from '../../utils/routes';
 import Private from '../../assets/Private.svg';
@@ -174,29 +174,43 @@ class EditProfile extends Component {
   }
 
   handleFormChange = (e, property) => {
-    const { verifiedGithub, verifiedTwitter, verifiedEmail } = this.props;
     const { editedArray } = this.state;
+    const { value } = e.target;
 
-    this.setState({ [property]: e.target.value },
+    this.setState({ [property]: value },
       () => {
         if (property === 'emailCode') return;
-        if (property === 'verifiedGithub') {
-          if (this.state.verifiedGithub === '') {
-            this.setState({ githubEdited: false });
-          } else if (verifiedGithub !== this.state.verifiedGithub && this.state.verifiedGithub !== '') {
-            this.setState({ githubEdited: true });
-          }
-        } else if (property === 'verifiedTwitter') {
-          if (this.state.verifiedTwitter === '') {
-            this.setState({ twitterEdited: false });
-          } else if (verifiedTwitter !== this.state.verifiedTwitter && this.state.verifiedTwitter !== '') {
-            this.setState({ twitterEdited: true });
-          }
-        } else if (property === 'verifiedEmail') {
-          if (this.state.verifiedEmail === '') {
-            this.setState({ emailEdited: false });
-          } else if (verifiedEmail !== this.state.verifiedEmail && this.state.verifiedEmail !== '') {
-            this.setState({ emailEdited: true });
+        const isEmail = property === 'verifiedEmail';
+        const isGithub = property === 'verifiedGithub';
+        const isTwitter = property === 'verifiedTwitter';
+
+        let key;
+        if (isGithub) {
+          key = 'github';
+        } else if (isTwitter) {
+          key = 'twitter';
+        } else if (isEmail) {
+          key = 'email';
+        }
+
+        if (key) {
+          if (this.state[property] === '') { // deactivate Verify button
+            this.setState({ [`${key}Edited`]: false });
+          } else if (this.props[property] !== this.state[property] && this.state[property] !== '') {
+            const passesVerifiedCheck = checkVerifiedFormatting(value, isEmail);
+            this.setState({ [`${key}Edited`]: true });
+            if (passesVerifiedCheck) {
+              this.setState({
+                [`${key}ErrorMessage`]: 'Verification is required for your verified accounts to save.',
+                [`${key}InvalidFormat`]: false,
+              });
+            } else {
+              const errorMsg = isEmail ? 'Entry is not properly formatted email addresss.' : 'Entry must not have any numbers or special characters.';
+              this.setState({
+                [`${key}InvalidFormat`]: true,
+                [`${key}ErrorMessage`]: errorMsg,
+              });
+            }
           }
         } else if (this.state[property] !== this.props[property]) {
           const updatedEditedArray = editedArray;
@@ -1008,7 +1022,15 @@ class EditProfile extends Component {
       verifiedEmail,
       emailVerificationErrMsg,
       emailCode,
+      twitterInvalidFormat,
+      githubInvalidFormat,
+      emailInvalidFormat,
+      emailErrorMessage,
+      githubErrorMessage,
+      twitterErrorMessage,
     } = this.state;
+
+    console.log('githubInvalidFormat', githubInvalidFormat)
 
     return (
       <div id="edit__page">
@@ -1361,7 +1383,7 @@ class EditProfile extends Component {
                     </div>
                     <div className="edit__profile__fields__entry noMargin">
                       <div className="edit__profile__keyContainer">
-                        <h5>Github</h5>
+                        <h5>Github.com/</h5>
                       </div>
                       {this.props.verifiedGithub
                         && (
@@ -1390,7 +1412,7 @@ class EditProfile extends Component {
                                   onClick={() => this.handleGithubUsername()}
                                 >
                                   Cancel
-                            </button>
+                                </button>
                               )}
                           </div>
                         )}
@@ -1403,12 +1425,13 @@ class EditProfile extends Component {
                               type="text"
                               className="edit__profile__value--github verifiedForm"
                               value={verifiedGithub}
+                              placeholder="username"
                               onChange={e => this.handleFormChange(e, 'verifiedGithub')}
                             />
                             <button
                               type="button"
-                              className={`unstyledButton ${!githubEdited && 'uneditedGithub'} verificationButton verifiedForm`}
-                              disabled={!githubEdited}
+                              className={`unstyledButton ${(!githubEdited || githubInvalidFormat) && 'uneditedGithub'} verificationButton verifiedForm`}
+                              disabled={!githubEdited || githubInvalidFormat}
                               onClick={() => {
                                 this.props.getMyDID();
                                 this.props.handleGithubVerificationModal();
@@ -1426,7 +1449,7 @@ class EditProfile extends Component {
 
                     <div className="edit__profile__fields__entry">
                       <div className="edit__profile__keyContainer">
-                        <h5>Twitter</h5>
+                        <h5>Twitter.com/</h5>
                       </div>
                       {this.props.verifiedTwitter
                         && (
@@ -1455,7 +1478,7 @@ class EditProfile extends Component {
                                   onClick={() => this.handleTwitterUsername()}
                                 >
                                   Cancel
-                            </button>
+                                </button>
                               )}
                           </div>
                         )}
@@ -1468,12 +1491,13 @@ class EditProfile extends Component {
                               type="text"
                               className="edit__profile__value--github verifiedForm"
                               value={verifiedTwitter}
+                              placeholder="username"
                               onChange={e => this.handleFormChange(e, 'verifiedTwitter')}
                             />
                             <button
                               type="button"
-                              className={`unstyledButton ${!twitterEdited && 'uneditedGithub'} verificationButton verifiedForm`}
-                              disabled={!twitterEdited}
+                              className={`unstyledButton ${(!twitterEdited || twitterInvalidFormat) && 'uneditedGithub'} verificationButton verifiedForm`}
+                              disabled={!twitterEdited || twitterInvalidFormat}
                               onClick={() => {
                                 this.props.getMyDID();
                                 this.props.handleTwitterVerificationModal();
@@ -1499,7 +1523,7 @@ class EditProfile extends Component {
                     || (!this.props.verifiedTwitter && twitterEdited && !isTwitterVerified))
                     && (
                       <p className={`edit__profile__verifiedWrapper__warning ${(githubRemoved || twitterRemoved) && 'second'}`}>
-                        Verification is required for your verified accounts to save.
+                        {githubErrorMessage || twitterErrorMessage}
                       </p>
                     )
                   }
@@ -1563,8 +1587,8 @@ class EditProfile extends Component {
                             />
                             <button
                               type="button"
-                              className={`unstyledButton ${!emailEdited && 'uneditedGithub'} verificationButton verifiedForm`}
-                              disabled={!emailEdited}
+                              className={`unstyledButton ${(!emailEdited || emailInvalidFormat) && 'uneditedGithub'} verificationButton verifiedForm`}
+                              disabled={!emailEdited || emailInvalidFormat}
                               onClick={() => {
                                 this.props.getMyDID();
                                 this.props.handleEmailVerificationModal();
@@ -1590,7 +1614,7 @@ class EditProfile extends Component {
                   {(!this.props.verfiedEmail && emailEdited && !isEmailVerified)
                     && (
                       <p className={`edit__profile__verifiedWrapper__warning ${emailRemoved && 'second'}`}>
-                        Verification is required for your verified accounts to save.
+                        {emailErrorMessage}
                       </p>
                     )}
                 </div>

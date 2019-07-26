@@ -521,9 +521,15 @@ export const TwitterVerificationModal = ({
                 </div>
                 <p className="modal__github__description__copy__input blueFont" id="muportDID">{did}</p>
               </div>
-              <a href={`https://twitter.com/intent/tweet?text=${message}`} target="_blank" rel="noopener noreferrer" className="modal__github__description__copy__tweet">
-                Tweet this
-              </a>
+              <button type="button">
+                <a
+                  href={`https://twitter.com/intent/tweet?text=${message}`}
+                  target="_blank" rel="noopener noreferrer"
+                  className="modal__github__description__copy__tweet"
+                >
+                  Tweet this
+                </a>
+              </button>
             </div>
 
             <div className="modal__twitter__steps__step">

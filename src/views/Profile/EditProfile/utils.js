@@ -14,3 +14,14 @@ export const githubMessage = (did) => {
     
     Create your profile today to start building social connection and trust online at https://3Box.io/`);
 };
+
+export const checkVerifiedFormatting = (value, isEmail) => {
+  let isValid;
+  if (isEmail) {
+    const emailCheck = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    isValid = emailCheck.test(String(value).toLowerCase());
+  } else {
+    isValid = /^[a-zA-Z]+$/.test(value);
+  }
+  return isValid;
+};
