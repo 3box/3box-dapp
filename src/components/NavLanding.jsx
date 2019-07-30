@@ -103,7 +103,7 @@ class NavLanding extends Component {
           <Link to={routes.PARTNERS} className="landing_nav_link">
             Partners
           </Link>
-          <a href="https://github.com/3box/3box" target="_blank" rel="noopener noreferrer" className="landing_nav_link">
+          <a href="https://docs.3box.io" target="_blank" rel="noopener noreferrer" className="landing_nav_link">
             Docs
           </a>
           <a href="https://medium.com/3box" target="_blank" rel="noopener noreferrer" className="landing_nav_link">

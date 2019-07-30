@@ -50,8 +50,14 @@ const Footer = () => (
           <h5>
             DOCS
           </h5>
-          <a href="https://github.com/3box/3box" target="_blank" rel="noopener noreferrer">
+          <a href="https://docs.3box.io" target="_blank" rel="noopener noreferrer">
             Overview
+          </a>
+          <a href="https://docs.3box.io/build/web-apps" target="_blank" rel="noopener noreferrer">
+            Web Apps
+          </a>
+          <a href="https://docs.3box.io/api/index" target="_blank" rel="noopener noreferrer">
+            API
           </a>
         </div>
         <div className="footer_lane">
