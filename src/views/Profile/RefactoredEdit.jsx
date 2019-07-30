@@ -96,43 +96,46 @@ class EditProfile extends Component {
 
   componentDidMount() {
     window.scrollTo(0, 0);
-    const {
-      name,
-      verifiedGithub,
-      verifiedTwitter,
-      verifiedEmail,
-      email,
-      description,
-      location,
-      website,
-      birthday,
-      employer,
-      job,
-      school,
-      degree,
-      major,
-      year,
-      emoji,
-    } = this.props;
-
-    this.setState({
-      name,
-      verifiedGithub,
-      verifiedTwitter,
-      verifiedEmail,
-      email,
-      description,
-      location,
-      website,
-      birthday,
-      job,
-      school,
-      degree,
-      major,
-      year,
-      emoji,
-      employer,
+    editProfileFields.forEach((fieldSet) => {
+      const field = this.props[fieldSet[0]];
+      this.setState({ field });
     });
+
+    // const {
+    //   name,
+    //   verifiedGithub,
+    //   verifiedTwitter,
+    //   verifiedEmail,
+    //   description,
+    //   location,
+    //   website,
+    //   birthday,
+    //   employer,
+    //   job,
+    //   school,
+    //   degree,
+    //   major,
+    //   year,
+    //   emoji,
+    // } = this.props;
+
+    // this.setState({
+    //   name,
+    //   verifiedGithub,
+    //   verifiedTwitter,
+    //   verifiedEmail,
+    //   description,
+    //   location,
+    //   website,
+    //   birthday,
+    //   job,
+    //   school,
+    //   degree,
+    //   major,
+    //   year,
+    //   emoji,
+    //   employer,
+    // });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -174,41 +177,29 @@ class EditProfile extends Component {
   }
 
   handleFormChange = (e, property) => {
-    const { verifiedGithub, verifiedTwitter, verifiedEmail } = this.props;
     const { editedArray } = this.state;
+    const fieldState = this.state[property];
+    const fieldProp = this.props[property];
+    const isFieldsSame = fieldState === fieldProp;
+
+    let editedField;
+    if (property === 'verifiedGithub') editedField = 'github';
+    if (property === 'verifiedTwitter') editedField = 'twitter';
+    if (property === 'verifiedEmail') editedField = 'email';
 
     this.setState({ [property]: e.target.value },
       () => {
         if (property === 'emailCode') return;
-        if (property === 'verifiedGithub') {
-          if (this.state.verifiedGithub === '') {
-            this.setState({ githubEdited: false });
-          } else if (verifiedGithub !== this.state.verifiedGithub && this.state.verifiedGithub !== '') {
-            this.setState({ githubEdited: true });
+        if (editedField) {
+          if (fieldState === '') {
+            this.setState({ [`${editedField}Edited`]: false });
+          } else if (!isFieldsSame && fieldState !== '') {
+            this.setState({ [`${editedField}Edited`]: true });
           }
-        } else if (property === 'verifiedTwitter') {
-          if (this.state.verifiedTwitter === '') {
-            this.setState({ twitterEdited: false });
-          } else if (verifiedTwitter !== this.state.verifiedTwitter && this.state.verifiedTwitter !== '') {
-            this.setState({ twitterEdited: true });
-          }
-        } else if (property === 'verifiedEmail') {
-          if (this.state.verifiedEmail === '') {
-            this.setState({ emailEdited: false });
-          } else if (verifiedEmail !== this.state.verifiedEmail && this.state.verifiedEmail !== '') {
-            this.setState({ emailEdited: true });
-          }
-        } else if (this.state[property] !== this.props[property]) {
+        } else {
           const updatedEditedArray = editedArray;
-          if (updatedEditedArray.indexOf(property) === -1) updatedEditedArray.push(property);
-          if (Object.values(updatedEditedArray).length) {
-            this.setState({ disableSave: false, editedArray: updatedEditedArray });
-          } else {
-            this.setState({ disableSave: true, editedArray: updatedEditedArray });
-          }
-        } else if (this.state[property] === this.props[property]) {
-          const updatedEditedArray = editedArray;
-          updatedEditedArray.splice(updatedEditedArray.indexOf(property), 1);
+          if (!isFieldsSame && updatedEditedArray.indexOf(property) === -1) updatedEditedArray.push(property);
+          if (isFieldsSame) updatedEditedArray.splice(updatedEditedArray.indexOf(property), 1);
           if (Object.values(updatedEditedArray).length) {
             this.setState({ disableSave: false, editedArray: updatedEditedArray });
           } else {

@@ -438,3 +438,7 @@ export const checkIsMobileWithoutWeb3 = () => {
   if (isMobile && !hasWeb3) isMobileWithWeb3 = true;
   return isMobileWithWeb3;
 };
+
+export const capitalizeFirst = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
