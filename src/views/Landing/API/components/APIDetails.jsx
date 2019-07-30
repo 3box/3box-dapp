@@ -134,7 +134,7 @@ export const ProfileDetails = ({ openSection }) => (
           {'await box.private.set(\'email\', \'narwhal@3box.io\')'}
         </Highlight>
       </div>
-      <a href="https://github.com/3box/3box-js#profiles-api">
+      <a href="https://docs.3box.io/api/profiles" target="_blank" rel="noopener noreferrer">
         <button className="secondaryBlue" type="button">
           View full documentation
         </button>
@@ -217,7 +217,7 @@ export const MessagingDetails = ({ openSection }) => (
           {'await thread.post(\'the message\')'}
         </Highlight>
       </div>
-      <a href="https://github.com/3box/3box-js#threads-api-messaging">
+      <a href="https://docs.3box.io/api/messaging" target="_blank" rel="noopener noreferrer">
         <button className="secondaryBlue" type="button">
           View full documentation
         </button>
@@ -313,7 +313,7 @@ export const StorageDetails = ({ openSection }) => (
           {'await myAppSpace.private.set(\'last used\', \'id-of-last-used-item\')'}
         </Highlight>
       </div>
-      <a href="https://github.com/3box/3box-js#spaces-api-storage">
+      <a href="https://docs.3box.io/api/storage" target="_blank" rel="noopener noreferrer">
         <button className="secondaryBlue" type="button">
           View full documentation
         </button>
