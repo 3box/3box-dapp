@@ -4,7 +4,9 @@ import Web3Connect from 'web3connect';
 import * as routes from '../../../utils/routes';
 import accountsPromise from './accountsPromise';
 import history from '../../../utils/history';
-import { checkUsingInjectedProvider } from '../../../utils/funcs';
+import {
+  checkUsingInjectedProvider
+} from '../../../utils/funcs';
 
 const connectProviderToDapp = async (provider, directLogin, dispatch) => {
   try {
@@ -17,7 +19,7 @@ const connectProviderToDapp = async (provider, directLogin, dispatch) => {
       logo,
     } = getProviderInfo(provider);
     window.localStorage.setItem('defaultWallet', name); // eslint-disable-line no-undef
-    
+
     // create web3 object and save to redux store
     const web3Obj = new Web3(provider); // eslint-disable-line no-undef
     dispatch({
@@ -34,10 +36,11 @@ const connectProviderToDapp = async (provider, directLogin, dispatch) => {
       directLogin,
     });
     let accounts = [];
+    console.log('web3Obj.currentProvider', web3Obj.currentProvider);
     accounts = web3Obj.currentProvider ?
       await web3Obj.currentProvider.enable() :
       await accountsPromise;
-    // accounts = !accounts ? await accountsPromise : accounts;
+    console.log('accounts[0]', accounts[0]);
     window.localStorage.setItem('userEthAddress', accounts[0]);
 
     const usingInjectedAddress = checkUsingInjectedProvider(provider);
