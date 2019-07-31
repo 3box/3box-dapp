@@ -9,7 +9,7 @@ import ThreeBoxB from '../assets/3Box3Blue.svg';
 import DropDownMenu from '../assets/DropDownMenu.svg';
 import actions from '../state/actions';
 import * as routes from '../utils/routes';
-import { normalizeURL, shortenEthAddr } from '../utils/funcs';
+import { normalizeURL, checkIsEthAddress } from '../utils/funcs';
 import Edit from '../assets/Edit.svg';
 import SignOut from '../assets/SignOut.svg';
 import EthereumNetwork from '../assets/EthereumNetwork.svg';
@@ -51,6 +51,9 @@ class Nav extends Component {
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
     const networkColor = this.props.currentNetwork;
+    const currentUrlEthAddr = checkIsEthAddress(normalizedPath.split('/')[1]);
+    const profilePage = typeof normalizedPath.split('/')[2] === 'undefined';
+    const isPublicProfile = currentUrlEthAddr && profilePage;
 
     return (
       <nav>
@@ -324,26 +327,6 @@ class Nav extends Component {
               </p>
               </li>
             </ul>
-
-            <div className="nav_account">
-              <div className="nav_account_top">
-                <p className="nav_account_top_description">You last used this account</p>
-                <div className="nav_account_user">
-                  <ProfilePicture
-                    pictureClass="nav__userPicture--mobile"
-                    isMyPicture
-                  />
-                  <div className="nav_account_user_name">
-                    <h4>{name}</h4>
-                    <p>{shortenEthAddr(currentAddress)}</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="nav_account_info">
-                Last account is used for mutual followers and other features
-              </div>
-            </div>
           </div>
         </div>
         <div

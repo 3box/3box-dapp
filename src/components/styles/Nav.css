@@ -442,8 +442,6 @@ nav {
   border-bottom: 1px solid #E4E4E4 !important;
   height: 68px !important;
   background-color: white !important; }
-  .hide p {
-    color: #1168df !important; }
   .hide .secondaryButton:hover {
     color: white !important; }
   .hide .landing__nav__createProfile:hover .landing__nav__createProfile {
@@ -706,13 +704,13 @@ nav {
     width: 80%;
     max-width: 400px;
     height: 100vh;
-    padding: 1em 0 0 0;
     border-radius: 0;
     border-right: 1px solid #E4E4E4;
     border-left: none;
     border-top: none;
     border-bottom: none;
     box-shadow: none;
+    box-sizing: border-box;
     z-index: 99999;
     transform: translateX(-100%);
     transition: transform .3s ease-out; }
@@ -721,7 +719,8 @@ nav {
       width: 100%; }
       .nav__dropdown li p {
         font-size: 22px;
-        font-weight: 600; }
+        font-weight: 600;
+        color: #181F21 !important; }
   #nav__networkStatus {
     display: none; }
   #nav__networkStatus--mobile {
@@ -748,14 +747,15 @@ nav {
     height: 100%;
     background: rgba(0, 0, 0, 0.76);
     z-index: 99998;
-    transition: all .3s ease-out; }
+    transition: all .3s ease-out;
+    box-sizing: border-box; }
   #mobileNav__signout {
     color: #747677; }
   .nav__dropdown__mobileLogo {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin: 4px 0 25px 7vw; }
+    margin: 1.2em 0 25px 7vw; }
   .nav__activePage {
     border-left: solid 5px #181F21;
     background: #f5f6f8;
@@ -776,10 +776,12 @@ nav {
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    height: 100%; }
+    height: 100%;
+    box-sizing: border-box; }
     .sideDrawer_wrapper ul {
       width: 100%; }
   .nav_account {
+    box-sizing: border-box;
     max-width: 100%;
     height: fit-content;
     display: flex;
@@ -789,11 +791,11 @@ nav {
     background-color: #f5f6f8; }
   .nav_account_top {
     max-width: 100%;
-    padding: 12px 6vw;
+    padding: 14px 6vw 18px 6vw;
     box-sizing: border-box; }
   .nav_account_top_description {
-    color: #747677;
-    font-size: 13px;
+    color: #b1b1b1 !important;
+    font-size: 13px !important;
     margin-bottom: 8px; }
   .nav_account_user {
     display: flex;
@@ -802,12 +804,12 @@ nav {
     .nav_account_user img {
       margin-right: 10px; }
   .nav_account_user_name p {
-    color: #747677;
+    color: #b1b1b1;
     font-size: 13px; }
   .nav_account_info {
-    padding: 12px 6vw;
+    padding: 14px 6vw 18px 6vw;
     box-sizing: border-box;
     width: 100%;
     border-top: 1px solid #ececec;
-    color: #747677;
+    color: #b1b1b1;
     font-size: 13px; } }

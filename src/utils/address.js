@@ -1,6 +1,7 @@
 import {
   store,
 } from '../state/store';
+import Box from '3box';
 
 import actions from '../state/actions';
 
@@ -9,10 +10,23 @@ const {
 } = actions.signin;
 
 export const initialAddress = async () => {
+  const currentAddress = window.localStorage.getItem('userEthAddress');
   store.dispatch({
     type: 'USER_UPDATE_ADDRESS',
-    currentAddress: window.localStorage.getItem('userEthAddress'),
+    currentAddress,
   });
+
+  if (currentAddress) {
+    const myPublicProfile = await Box.getProfile(currentAddress);
+    store.dispatch({
+      type: 'MY_NAME_UPDATE',
+      name: myPublicProfile.name,
+    });
+    store.dispatch({
+      type: 'MY_IMAGE_UPDATE',
+      name: myPublicProfile.image,
+    });
+  }
 };
 
 export const startPollFlag = async () => {

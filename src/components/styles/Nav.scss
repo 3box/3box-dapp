@@ -562,9 +562,9 @@ nav {
   height: 68px !important;
   background-color: white !important;
 
-  p {
-    color: $threeBoxBlue !important;
-  }
+  // p {
+  //   color: $threeBoxBlue !important;
+  // }
 
   .secondaryButton:hover {
     color: white !important;
@@ -935,13 +935,13 @@ nav {
     width: 80%;
     max-width: 400px;
     height: 100vh;
-    padding: 1em 0 0 0;
     border-radius: 0;
     border-right: 1px solid #E4E4E4;
     border-left: none;
     border-top: none;
     border-bottom: none;
     box-shadow: none;
+    box-sizing: border-box;
     z-index: 99999;
     transform: translateX(-100%);
     transition: transform .3s ease-out;
@@ -953,6 +953,7 @@ nav {
       p {
         font-size: 22px;
         font-weight: 600;
+        color: $threeBoxBlack !important;
       }
     }
   }
@@ -992,6 +993,7 @@ nav {
     background: rgba(0, 0, 0, 0.76);
     z-index: 99998;
     transition: all .3s ease-out;
+    box-sizing: border-box;
   }
 
   #mobileNav__signout {
@@ -1002,7 +1004,7 @@ nav {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin: 4px 0 25px 7vw;
+    margin: 1.2em 0 25px 7vw;
   }
 
   .nav__activePage {
@@ -1038,6 +1040,7 @@ nav {
     justify-content: space-between;
     align-items: flex-start;
     height: 100%;
+    box-sizing: border-box;
 
     ul {
       width: 100%;
@@ -1045,6 +1048,7 @@ nav {
   }
 
   .nav_account {
+    box-sizing: border-box;
     max-width: 100%;
     height: fit-content;
     display: flex;
@@ -1056,13 +1060,13 @@ nav {
 
   .nav_account_top {
     max-width: 100%;
-    padding: 12px 6vw;
+    padding: 14px 6vw 18px 6vw;
     box-sizing: border-box;
   }
 
   .nav_account_top_description {
-    color: $lighterFont;
-    font-size: 13px;
+    color: $lightestFont !important;
+    font-size: 13px !important;
     margin-bottom: 8px;
   }
 
@@ -1078,17 +1082,17 @@ nav {
 
   .nav_account_user_name {
     p {
-      color: $lighterFont;
+      color: $lightestFont;
       font-size: 13px;
     }
   }
 
   .nav_account_info {
-    padding: 12px 6vw;
+    padding: 14px 6vw 18px 6vw;
     box-sizing: border-box;
     width: 100%;
     border-top: 1px solid $borderColor;
-    color: $lighterFont;
+    color: $lightestFont;
     font-size: 13px;
   }
 }

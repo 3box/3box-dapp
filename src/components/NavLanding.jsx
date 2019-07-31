@@ -3,7 +3,8 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { checkIsEthAddress, normalizeURL } from '../utils/funcs';
+import { checkIsEthAddress, normalizeURL, shortenEthAddr } from '../utils/funcs';
+import ProfilePicture from './ProfilePicture';
 import * as routes from '../utils/routes';
 import ThreeBoxLogoBlack from '../assets/ThreeBoxLogoBlack.svg';
 import ProfilesSmall from '../assets/Profiles.svg';
@@ -62,13 +63,20 @@ class NavLanding extends Component {
   }
 
   render() {
-    const { retractNav, showAPI, showSideDrawer, isProfilePage } = this.state;
+    const {
+      retractNav,
+      showAPI,
+      showSideDrawer,
+      isProfilePage,
+    } = this.state;
     const {
       landing,
       onOtherProfilePage,
       showSignInBanner,
       handleSignInUp,
       isLoggedIn,
+      currentAddress,
+      name,
     } = this.props;
 
     const classHide = retractNav ? 'hide' : '';
@@ -76,6 +84,9 @@ class NavLanding extends Component {
     const { pathname } = this.props.location;
     const normalizedPath = normalizeURL(pathname);
     const route = pathname.split('/')[1];
+    const currentUrlEthAddr = checkIsEthAddress(normalizedPath.split('/')[1]);
+    const profilePage = typeof normalizedPath.split('/')[2] === 'undefined';
+    const isPublicProfile = currentUrlEthAddr && profilePage;
 
     return (
       <nav
@@ -243,41 +254,75 @@ class NavLanding extends Component {
           role="button"
           tabIndex={0}
         >
-          <ul>
-            <Link to={routes.LANDING} className="nav__dropdown__mobileLogo">
-              <img src={ThreeBoxLogoBlack} alt="3Box Logo" className="landing__nav__logo" />
-            </Link>
+          <div className="sideDrawer_wrapper">
+            <ul>
+              <Link to={routes.LANDING} className="nav__dropdown__mobileLogo">
+                <img src={ThreeBoxLogoBlack} alt="3Box Logo" className="landing__nav__logo" />
+              </Link>
 
-            <Link to={routes.HUB} className="landing_nav_apiLink">
-              <li className={normalizedPath === routes.HUB ? 'nav__activePage' : ''}>
-                Hub
-              </li>
-            </Link>
+              <Link to={routes.HUB} className="landing_nav_apiLink">
+                <li className={normalizedPath === routes.HUB ? 'nav__activePage' : ''}>
+                  <p>
+                    Hub
+                  </p>
+                </li>
+              </Link>
 
-            <Link to={routes.API} className="landing_nav_apiLink">
-              <li className={normalizedPath === routes.API ? 'nav__activePage' : ''}>
-                API Products
-              </li>
-            </Link>
+              <Link to={routes.API} className="landing_nav_apiLink">
+                <li className={normalizedPath === routes.API ? 'nav__activePage' : ''}>
+                  <p>
+                    API Products
+                  </p>
+                </li>
+              </Link>
 
-            <a href="https://github.com/3box/3box" target="_blank" rel="noopener noreferrer">
-              <li>
-                Docs
-              </li>
-            </a>
+              <a href="https://github.com/3box/3box" target="_blank" rel="noopener noreferrer">
+                <li>
+                  <p>
+                    Docs
+                  </p>
+                </li>
+              </a>
 
-            <Link to={routes.PARTNERS} className="landing_nav_apiLink">
-              <li className={normalizedPath === routes.PARTNERS ? 'nav__activePage' : ''}>
-                Partners
-              </li>
-            </Link>
+              <Link to={routes.PARTNERS} className="landing_nav_apiLink">
+                <li className={normalizedPath === routes.PARTNERS ? 'nav__activePage' : ''}>
+                  <p>
+                    Partners
+                  </p>
+                </li>
+              </Link>
 
-            <a href="https://medium.com/3box" target="_blank" rel="noopener noreferrer">
-              <li>
-                Blog
-              </li>
-            </a>
-          </ul>
+              <a href="https://medium.com/3box" target="_blank" rel="noopener noreferrer">
+                <li>
+                  <p>
+                    Blog
+                  </p>
+                </li>
+              </a>
+            </ul>
+
+            {isPublicProfile && (
+              <div className="nav_account">
+                <div className="nav_account_top">
+                  <p className="nav_account_top_description">You last used this account</p>
+                  <div className="nav_account_user">
+                    <ProfilePicture
+                      pictureClass="nav__userPicture--mobile"
+                      isMyPicture
+                    />
+                    <div className="nav_account_user_name">
+                      <h4>{name}</h4>
+                      <p>{shortenEthAddr(currentAddress)}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="nav_account_info">
+                  Last account is used for mutual followers and other features
+              </div>
+              </div>
+            )}
+          </div>
         </div>
 
         <div
@@ -297,17 +342,21 @@ NavLanding.propTypes = {
   handleSignInUp: PropTypes.func.isRequired,
   showSignInBanner: PropTypes.bool,
   onOtherProfilePage: PropTypes.bool,
+  name: PropTypes.string,
   classHide: PropTypes.string,
   landing: PropTypes.string,
   normalizedPath: PropTypes.string,
   pathname: PropTypes.string,
   location: PropTypes.object.isRequired,
+  currentAddress: PropTypes.string,
 };
 
 NavLanding.defaultProps = {
   isLoggedIn: false,
   onOtherProfilePage: false,
   showSignInBanner: false,
+  name: '',
+  currentAddress: '',
   classHide: '',
   landing: '',
   pathname: '',
@@ -318,6 +367,10 @@ function mapState(state) {
   return {
     isLoggedIn: state.userState.isLoggedIn,
     showSignInBanner: state.uiState.showSignInBanner,
+
+    name: state.myData.name,
+
+    currentAddress: state.userState.currentAddress,
   };
 }
 

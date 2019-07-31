@@ -80,6 +80,7 @@ const {
 const {
   checkMobileWeb3,
   checkNetwork,
+  checkInitialAddr
 } = actions.land;
 
 class App extends Component {
@@ -102,7 +103,8 @@ class App extends Component {
       const isRequest = checkRequestRoute(splitRoute);
       if (isRequest) return;
 
-      const currentEthAddress = window.localStorage.getItem('userEthAddress');
+      const currentEthAddress = initialAddress(); // Initial get address
+
       const isEtherAddress = checkIsEthAddress(splitRoute[1]);
       const isMyAddr = (splitRoute[1] && splitRoute[1].toLowerCase()) === (currentEthAddress && currentEthAddress.toLowerCase());
       const onProfilePage = isEtherAddress;
@@ -113,8 +115,6 @@ class App extends Component {
           && isMyAddr) ||
         !!queryParams.wallet
       );
-
-      initialAddress(); // Initial get address
 
       if (allowDirectSignIn) { // Begin signin
         this.directSignIn(queryParams.wallet);

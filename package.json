@@ -4,11 +4,7 @@
   "description": "3box dapp",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
     "3box": "^1.10.5-beta.1",
-=======
-    "3box": "^1.10.3",
->>>>>>> 7a45edc1e35033b4eb650c979e93b4bcfd8ba178
     "3box-activity": "0.0.9",
     "@babel/polyfill": "^7.4.4",
     "abi-decoder": "^1.2.0",
