@@ -211,7 +211,7 @@ nav {
   .nav__dropdown ul {
     padding: 0; }
   .nav__dropdown li {
-    padding-left: 1.3em;
+    padding-left: 5vw;
     height: 4.2em;
     cursor: pointer;
     box-sizing: border-box;
@@ -226,7 +226,8 @@ nav {
     font-size: 14px; }
 
 .nav_dropdown_icon_wrapper {
-  width: 52px; }
+  width: 52px;
+  position: relative; }
 
 .nav__dropdown--desktop {
   visibility: hidden;
@@ -241,6 +242,9 @@ nav {
 .nav_dropdown_switchWallet {
   width: 20px;
   filter: grayscale(100%); }
+
+.nav_dropdown_walletIcon {
+  margin-left: 15px; }
 
 .nav__divide {
   border-top: 1px solid #ececec;
@@ -614,10 +618,18 @@ nav {
     -moz-transition: all .5s ease;
     -o-transition: all .5s ease;
     transition: all .5s ease; }
+  .nav__userPicture--mobile {
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    background-color: #006ECC; }
   .hide #actionButtons p {
     color: #1168df !important; }
   .hide #actionButtons button {
     color: white; }
+  .nav__dropdown__icon--mobileData {
+    filter: grayscale(1) !important; }
   .nav__data {
     display: none; }
   .landing__nav__developers {
@@ -682,12 +694,16 @@ nav {
       font-size: 12px;
       border: none;
       padding: 2vh 5vw; }
+  .nav_dropdown_icon_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center; }
   .nav__dropdown {
     display: block !important;
     position: fixed;
     top: 0;
     left: 0;
-    width: 60%;
+    width: 80%;
     max-width: 400px;
     height: 100vh;
     padding: 1em 0 0 0;
@@ -701,8 +717,11 @@ nav {
     transform: translateX(-100%);
     transition: transform .3s ease-out; }
     .nav__dropdown li {
-      line-height: 3.5em;
+      height: 5.2em;
       width: 100%; }
+      .nav__dropdown li p {
+        font-size: 22px;
+        font-weight: 600; }
   #nav__networkStatus {
     display: none; }
   #nav__networkStatus--mobile {
@@ -712,7 +731,7 @@ nav {
     align-items: center;
     justify-content: center;
     border-radius: 20px;
-    margin: 0 0 30px 10px;
+    margin: 0 0 30px 7vw;
     width: fit-content; }
     #nav__networkStatus--mobile p {
       font-size: 11px !important;
@@ -736,7 +755,7 @@ nav {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin: 4px 0 25px 6vw; }
+    margin: 4px 0 25px 7vw; }
   .nav__activePage {
     border-left: solid 5px #181F21;
     background: #f5f6f8;
@@ -751,4 +770,44 @@ nav {
   .landing_nav_link {
     display: none !important; }
   .landing_nav_apiLink {
-    margin-right: 0; } }
+    margin-right: 0; }
+  .sideDrawer_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 100%; }
+    .sideDrawer_wrapper ul {
+      width: 100%; }
+  .nav_account {
+    max-width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    background-color: #f5f6f8; }
+  .nav_account_top {
+    max-width: 100%;
+    padding: 12px 6vw;
+    box-sizing: border-box; }
+  .nav_account_top_description {
+    color: #747677;
+    font-size: 13px;
+    margin-bottom: 8px; }
+  .nav_account_user {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; }
+    .nav_account_user img {
+      margin-right: 10px; }
+  .nav_account_user_name p {
+    color: #747677;
+    font-size: 13px; }
+  .nav_account_info {
+    padding: 12px 6vw;
+    box-sizing: border-box;
+    width: 100%;
+    border-top: 1px solid #ececec;
+    color: #747677;
+    font-size: 13px; } }

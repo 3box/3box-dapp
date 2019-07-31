@@ -17,17 +17,16 @@ const web3Connect = new Web3Connect.Core({
   },
 });
 
-const pickWallet = async (directLogin, dispatch, shouldSignOut, showModalBG) => {
+const pickWallet = async (directLogin, dispatch, shouldSignOut) => {
   dispatch({
     type: 'USER_WEB3CONNECT',
     web3Connect,
   });
-  if (showModalBG) {
-    dispatch({
-      type: 'USER_WEB3CONNECT',
-      web3Connect,
-    });
-  }
+  dispatch({
+    type: 'UI_FIX_BODY',
+    fixBody: true,
+  });
+
   const web3Promise = new Promise((resolve, reject) => {
     web3Connect.on('connect', async (provider) => {
       try {
@@ -46,7 +45,14 @@ const pickWallet = async (directLogin, dispatch, shouldSignOut, showModalBG) => 
       pathname,
     } = history.location;
     const keepOpen = pathname === '/login';
-    if (keepOpen) web3Connect.toggleModal(); // open modal on button click
+    if (keepOpen) {
+      web3Connect.toggleModal(); // open modal on button click
+    } else {
+      dispatch({
+        type: 'UI_FIX_BODY',
+        fixBody: false,
+      });
+    }
   });
 
   web3Connect.toggleModal(); // open modal on button click

@@ -958,44 +958,44 @@ SignInToThreeBox.propTypes = {
   handleSignInModal: PropTypes.func.isRequired,
 };
 
-export const MobileWalletRequiredModal = ({ isIOS, handleMobileWalletModal }) => (
-  <div id="mobile__landing__prompt">
-    <div id="mobile__landing__prompt__logo">
-      <img src={ThreeBoxLogoWhite} alt="3Box Logo" />
-    </div>
+// export const MobileWalletRequiredModal = ({ isIOS, handleMobileWalletModal }) => (
+//   <div id="mobile__landing__prompt">
+//     <div id="mobile__landing__prompt__logo">
+//       <img src={ThreeBoxLogoWhite} alt="3Box Logo" />
+//     </div>
 
-    <div id="mobile__landing__prompt__text">
-      <p>3Box requires a mobile dApp browser in order to work</p>
-      <br />
-      <p>Download Coinbase Wallet or Status.im then revisit this site in the mobile dApp browser to continue</p>
-    </div>
+//     <div id="mobile__landing__prompt__text">
+//       <p>3Box requires a mobile dApp browser in order to work</p>
+//       <br />
+//       <p>Download Coinbase Wallet or Status.im then revisit this site in the mobile dApp browser to continue</p>
+//     </div>
 
-    <div id="mobile__landing__prompt__buttons">
-      <a href={isIOS ? 'https://itunes.apple.com/app/coinbase-wallet/id1278383455?ls=1&mt=8' : 'https://play.google.com/store/apps/details?id=org.toshi'}>
-        <img src={getCoinbaseWallet} alt="Get Coinbase wallet" />
-      </a>
+//     <div id="mobile__landing__prompt__buttons">
+//       <a href={isIOS ? 'https://itunes.apple.com/app/coinbase-wallet/id1278383455?ls=1&mt=8' : 'https://play.google.com/store/apps/details?id=org.toshi'}>
+//         <img src={getCoinbaseWallet} alt="Get Coinbase wallet" />
+//       </a>
 
-      {!isIOS
-        ? (
-          <a href="https://play.google.com/store/apps/details?id=im.status.ethereum&hl=en_US">
-            <img src={Status} alt="Get Status wallet" />
-          </a>)
+//       {!isIOS
+//         ? (
+//           <a href="https://play.google.com/store/apps/details?id=im.status.ethereum&hl=en_US">
+//             <img src={Status} alt="Get Status wallet" />
+//           </a>)
 
-        : (
-          <a href="https://itunes.apple.com/us/app/trust-ethereum-wallet/id1288339409?mt=8">
-            <img src={TrustWallet} alt="Get TrustWallet" />
-          </a>)}
-    </div>
+//         : (
+//           <a href="https://itunes.apple.com/us/app/trust-ethereum-wallet/id1288339409?mt=8">
+//             <img src={TrustWallet} alt="Get TrustWallet" />
+//           </a>)}
+//     </div>
 
-    <button onClick={() => handleMobileWalletModal()} type="button" className="tertiaryButton mobile__landing__closeButton">X</button>
-  </div>
-);
+//     <button onClick={() => handleMobileWalletModal()} type="button" className="tertiaryButton mobile__landing__closeButton">X</button>
+//   </div>
+// );
 
-MobileWalletRequiredModal.propTypes = {
-  isIOS: PropTypes.bool.isRequired,
-  handleMobileWalletModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
-};
+// MobileWalletRequiredModal.propTypes = {
+//   isIOS: PropTypes.bool.isRequired,
+//   handleMobileWalletModal: PropTypes.func.isRequired,
+//   show: PropTypes.bool.isRequired,
+// };
 
 export const OnBoardingModalDesktop = ({ handleOnboardingModal, showOne, showTwo }) => (
   <div>

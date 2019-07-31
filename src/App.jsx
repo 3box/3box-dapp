@@ -13,7 +13,6 @@ import {
   matchProtectedRoutes,
   checkIsEthAddress,
   checkRequestRoute,
-  checkIsMobileWithoutWeb3,
 } from './utils/funcs';
 import { store } from './state/store';
 import history from './utils/history';
@@ -51,7 +50,7 @@ const {
   handleDeniedAccessModal,
   handleLoggedOutModal,
   handleSwitchedAddressModal,
-  handleMobileWalletModal,
+  // handleMobileWalletModal,
   handleOnboardingModal,
   handleFollowingPublicModal,
   handleContactsModal,
@@ -107,13 +106,11 @@ class App extends Component {
       const isEtherAddress = checkIsEthAddress(splitRoute[1]);
       const isMyAddr = (splitRoute[1] && splitRoute[1].toLowerCase()) === (currentEthAddress && currentEthAddress.toLowerCase());
       const onProfilePage = isEtherAddress;
-      const isMobileWithoutWeb3 = checkIsMobileWithoutWeb3();
 
       const allowDirectSignIn = (
         (isEtherAddress // Lands on profile page
           && isProtectedRoute // Lands on protected page
-          && isMyAddr
-          && !isMobileWithoutWeb3) ||
+          && isMyAddr) ||
         !!queryParams.wallet
       );
 
@@ -223,7 +220,7 @@ class App extends Component {
     try {
       if (e) e.stopPropagation();
       await this.props.checkMobileWeb3(); // eslint-disable-line
-      if (checkIsMobileWithoutWeb3()) return;
+      // if (checkIsMobileWithoutWeb3()) return;
       await this.props.injectWeb3(null, chooseWallet, false, shouldSignOut); // eslint-disable-line
       await this.props.checkNetwork(); // eslint-disable-line
       await this.props.openBox('fromSignIn'); // eslint-disable-line
@@ -241,7 +238,7 @@ class App extends Component {
       allowAccessModal,
       provideConsent,
       signInModal,
-      mobileWalletRequiredModal,
+      // mobileWalletRequiredModal,
       directLogin,
       loggedOutModal,
       switchedAddressModal,
@@ -265,6 +262,7 @@ class App extends Component {
       otherName,
       following,
       otherProfileAddress,
+      fixBody,
     } = this.props;
 
     const {
@@ -316,7 +314,7 @@ class App extends Component {
     }
 
     return (
-      <div className="App">
+      <div className={`App ${fixBody ? 'fixBody' : ''}`}>
         <AppHeaders />
 
         {(!isMyProfilePath && !isLoggedIn) // show landing nav when user is not logged in, 3box is not fetching, and when route is not a protected route
@@ -342,7 +340,7 @@ class App extends Component {
           accessDeniedModal={accessDeniedModal}
           signInModal={signInModal}
           isIOS={isIOS}
-          mobileWalletRequiredModal={mobileWalletRequiredModal}
+          // mobileWalletRequiredModal={mobileWalletRequiredModal}
           errorMessage={errorMessage}
           mustConsentError={mustConsentError}
           showErrorModal={showErrorModal}
@@ -367,7 +365,7 @@ class App extends Component {
           otherProfileAddress={otherProfileAddress}
           handleContactsModal={this.props.handleContactsModal}
           handleSignInModal={this.props.handleSignInModal}
-          handleMobileWalletModal={this.props.handleMobileWalletModal}
+          // handleMobileWalletModal={this.props.handleMobileWalletModal}
           handleConsentModal={this.props.handleConsentModal}
           handleDeniedAccessModal={this.props.handleDeniedAccessModal}
           closeErrorModal={this.props.closeErrorModal}
@@ -542,7 +540,7 @@ App.propTypes = {
   getVerifiedPublicTwitter: PropTypes.func.isRequired,
   getVerifiedPrivateEmail: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
-  handleMobileWalletModal: PropTypes.func.isRequired,
+  // handleMobileWalletModal: PropTypes.func.isRequired,
   handleSwitchedNetworkModal: PropTypes.func.isRequired,
   handleAccessModal: PropTypes.func.isRequired,
   handleConsentModal: PropTypes.func.isRequired,
@@ -566,7 +564,8 @@ App.propTypes = {
   allowAccessModal: PropTypes.bool,
   provideConsent: PropTypes.bool,
   signInModal: PropTypes.bool,
-  mobileWalletRequiredModal: PropTypes.bool,
+  // mobileWalletRequiredModal: PropTypes.bool,
+  fixBody: PropTypes.bool,
   showErrorModal: PropTypes.bool,
   directLogin: PropTypes.string,
   isLoggedIn: PropTypes.bool,
@@ -593,6 +592,7 @@ App.propTypes = {
 
 App.defaultProps = {
   showDifferentNetworkModal: false,
+  fixBody: false,
   handleSignOut,
   accessDeniedModal: false,
   onSyncFinished: false,
@@ -605,7 +605,7 @@ App.defaultProps = {
   allowAccessModal: false,
   provideConsent: false,
   signInModal: false,
-  mobileWalletRequiredModal: false,
+  // mobileWalletRequiredModal: false,
   showErrorModal: false,
   loggedOutModal: false,
   switchedAddressModal: false,
@@ -630,7 +630,7 @@ const mapState = state => ({
   allowAccessModal: state.uiState.allowAccessModal,
   provideConsent: state.uiState.provideConsent,
   signInModal: state.uiState.signInModal,
-  mobileWalletRequiredModal: state.uiState.mobileWalletRequiredModal,
+  // mobileWalletRequiredModal: state.uiState.mobileWalletRequiredModal,
   directLogin: state.uiState.directLogin,
   loggedOutModal: state.uiState.loggedOutModal,
   switchedAddressModal: state.uiState.switchedAddressModal,
@@ -644,6 +644,7 @@ const mapState = state => ({
   onOtherProfilePage: state.uiState.onOtherProfilePage,
   showFollowingPublicModal: state.uiState.showFollowingPublicModal,
   showContactsModal: state.uiState.showContactsModal,
+  fixBody: state.uiState.fixBody,
 
   onSyncFinished: state.userState.onSyncFinished,
   isSyncing: state.userState.isSyncing,
@@ -679,7 +680,7 @@ export default withRouter(connect(mapState,
     getVerifiedPrivateEmail,
     getActivity,
     getMyFollowing,
-    handleMobileWalletModal,
+    // handleMobileWalletModal,
     handleSignInModal,
     handleSwitchedNetworkModal,
     handleAccessModal,

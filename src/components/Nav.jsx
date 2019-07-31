@@ -6,11 +6,10 @@ import { Link, withRouter, NavLink } from 'react-router-dom';
 import ProfilePicture from './ProfilePicture';
 import ThreeBoxLogo from '../assets/ThreeBoxLogoBlack.svg';
 import ThreeBoxB from '../assets/3Box3Blue.svg';
-// import DropDown from '../assets/DropDown.svg';
 import DropDownMenu from '../assets/DropDownMenu.svg';
 import actions from '../state/actions';
 import * as routes from '../utils/routes';
-import { normalizeURL } from '../utils/funcs';
+import { normalizeURL, shortenEthAddr } from '../utils/funcs';
 import Edit from '../assets/Edit.svg';
 import SignOut from '../assets/SignOut.svg';
 import EthereumNetwork from '../assets/EthereumNetwork.svg';
@@ -45,10 +44,9 @@ class Nav extends Component {
     const {
       location,
       currentAddress,
-      currentWallet,
-      currentNetwork,
       currentWalletLogo,
-      handleSignInUp
+      handleSignInUp,
+      name,
     } = this.props;
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
@@ -120,8 +118,6 @@ class Nav extends Component {
         {/* desktop nav dropdown */}
         <div
           className={`${showProfileModal ? 'nav__dropdown--visible' : undefined} nav__dropdown nav__dropdown--desktop`}
-          // onMouseLeave={this.handleDropdown}
-          // onBlur={this.handleDropdown}
           tabIndex={0}
           role="button"
         >
@@ -228,45 +224,128 @@ class Nav extends Component {
           role="button"
           tabIndex={0}
         >
-          <ul>
-            <div className="nav__dropdown__mobileLogo">
-              <img src={ThreeBoxLogo} alt="3Box Logo" className="landing__nav__logo" />
+          <div className="sideDrawer_wrapper">
+
+            <ul>
+              <div className="nav__dropdown__mobileLogo">
+                <img src={ThreeBoxLogo} alt="3Box Logo" className="landing__nav__logo" />
+              </div>
+              <div id="nav__networkStatus--mobile">
+                <div id="nav__networkStatus__networkColor" className={`${networkColor}`} />
+                <p>{networkColor}</p>
+              </div>
+
+              <Link to={`/${currentAddress}/${routes.ACTIVITY}`}>
+                <li className={normalizedPath === `/${currentAddress}/${routes.ACTIVITY}` ? 'nav__activePage' : ''}>
+                  <div className="nav_dropdown_icon_wrapper">
+                    <ProfilePicture
+                      pictureClass="nav__userPicture--mobile"
+                      isMyPicture
+                    />
+                  </div>
+                  <p>
+                    Profile
+                </p>
+                </li>
+              </Link>
+
+              <Link to={`/${currentAddress}/${routes.EDIT}`}>
+                <li className={normalizedPath === `/${currentAddress}/${routes.EDIT}` ? 'nav__activePage' : ''}>
+                  <div className="nav_dropdown_icon_wrapper">
+                    <img
+                      src={Edit}
+                      className="nav__dropdown__icon"
+                      alt="profile"
+                      role="button"
+                    />
+                  </div>
+                  <p>
+                    Edit profile
+                </p>
+                </li>
+              </Link>
+
+              <Link to={`/${currentAddress}/${routes.DATA}`}>
+                <li className={normalizedPath === `/${currentAddress}/${routes.DATA}` ? 'nav__activePage' : ''}>
+                  <div className="nav_dropdown_icon_wrapper">
+                    <img
+                      src={Folder}
+                      className="nav__dropdown__icon nav__dropdown__icon--mobileData"
+                      alt="profile"
+                      role="button"
+                    />
+                  </div>
+                  <p>
+                    Data
+                </p>
+                </li>
+              </Link>
+
+              <li
+                className="nav__dropdown__wrapper"
+                onClick={(e) => { handleSignInUp(true, true, e); this.handleDropdown(); }}
+                onKeyPress={(e) => { handleSignInUp(true, true, e); this.handleDropdown(); }}
+                role="button"
+              >
+                <div className="nav_dropdown_icon_wrapper">
+                  <img
+                    src={Switch}
+                    className="nav__dropdown__icon nav_dropdown_switchWallet"
+                    alt="profile"
+                  />
+                </div>
+                <p>
+                  Wallet
+              </p>
+                <img
+                  src={currentWalletLogo}
+                  className="nav__dropdown__icon nav_dropdown_walletIcon"
+                  alt="profile"
+                />
+              </li>
+
+              <li
+                id="mobileNav__signout"
+                onClick={() => this.handleSignOut()}
+                tabIndex={0}
+                onKeyPress={() => this.handleSignOut()}
+                role="button"
+              >
+                <div className="nav_dropdown_icon_wrapper">
+                  <img
+                    src={SignOut}
+                    className="nav__dropdown__icon"
+                    alt="profile"
+                    role="button"
+                  />
+                </div>
+                <p>
+                  Sign Out
+              </p>
+              </li>
+            </ul>
+
+            <div className="nav_account">
+              <div className="nav_account_top">
+                <p className="nav_account_top_description">You last used this account</p>
+                <div className="nav_account_user">
+                  <ProfilePicture
+                    pictureClass="nav__userPicture--mobile"
+                    isMyPicture
+                  />
+                  <div className="nav_account_user_name">
+                    <h4>{name}</h4>
+                    <p>{shortenEthAddr(currentAddress)}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="nav_account_info">
+                Last account is used for mutual followers and other features
+              </div>
             </div>
-            <div id="nav__networkStatus--mobile">
-              <div id="nav__networkStatus__networkColor" className={`${networkColor}`} />
-              <p>{networkColor}</p>
-            </div>
-
-            <Link to={`/${currentAddress}/${routes.ACTIVITY}`}>
-              <li className={normalizedPath === `/${currentAddress}/${routes.ACTIVITY}` ? 'nav__activePage' : ''}>
-                Profile
-              </li>
-            </Link>
-
-            <Link to={`/${currentAddress}/${routes.EDIT}`}>
-              <li className={normalizedPath === `/${currentAddress}/${routes.EDIT}` ? 'nav__activePage' : ''}>
-                Edit profile
-              </li>
-            </Link>
-
-            <Link to={`/${currentAddress}/${routes.DATA}`}>
-              <li className={normalizedPath === `/${currentAddress}/${routes.DATA}` ? 'nav__activePage' : ''}>
-                Data
-              </li>
-            </Link>
-
-            <li
-              id="mobileNav__signout"
-              onClick={() => this.handleSignOut()}
-              tabIndex={0}
-              onKeyPress={() => this.handleSignOut()}
-              role="button"
-            >
-              Sign Out
-            </li>
-          </ul>
+          </div>
         </div>
-
         <div
           id={showProfileModal ? 'dropdownContainer' : undefined}
           onClick={this.handleDropdown}
@@ -274,8 +353,7 @@ class Nav extends Component {
           role="button"
           tabIndex={0}
         />
-
-      </nav >
+      </nav>
     );
   }
 }
@@ -284,22 +362,28 @@ Nav.propTypes = {
   box: PropTypes.object,
   location: PropTypes.object,
   handleSignOut: PropTypes.func.isRequired,
+  name: PropTypes.string,
   currentNetwork: PropTypes.string,
   currentAddress: PropTypes.string,
   currentWallet: PropTypes.string,
+  currentWalletLogo: PropTypes.string,
+  handleSignInUp: PropTypes.func.isRequired,
 };
 
 Nav.defaultProps = {
   box: {},
   currentNetwork: '',
+  name: '',
   currentAddress: '',
   currentWallet: '',
+  currentWalletLogo: '',
   location: {},
 };
 
 function mapState(state) {
   return {
     box: state.myData.box,
+    name: state.myData.name,
 
     currentNetwork: state.userState.currentNetwork,
     currentAddress: state.userState.currentAddress,

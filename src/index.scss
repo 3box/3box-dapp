@@ -323,6 +323,16 @@ input:focus {
   display: none !important;
 }
 
+// for preventing body from moving when modals are open
+.fixBody {
+  position: fixed;
+}
+
+// web3connect modal
+.dALBps {
+  position: fixed !important;
+}
+
 .signInFromPublicProfileBanner {
   width: 100vw;
   height: 54px;
@@ -475,6 +485,11 @@ input:focus {
     position: relative;
     width: 5% !important;
     right: 0;
+  }
+
+  // web3connect modal
+  .kaYREe {
+    margin-top: -90px !important;
   }
 
   input[type="color"],

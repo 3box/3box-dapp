@@ -270,7 +270,7 @@ nav {
   }
 
   li {
-    padding-left: 1.3em;
+    padding-left: 5vw;
     height: 4.2em;
     cursor: pointer;
     box-sizing: border-box;
@@ -292,6 +292,7 @@ nav {
 
 .nav_dropdown_icon_wrapper {
   width: 52px;
+  position: relative;
 }
 
 .nav__dropdown--desktop {
@@ -311,6 +312,10 @@ nav {
 .nav_dropdown_switchWallet {
   width: 20px;
   filter: grayscale(100%);
+}
+
+.nav_dropdown_walletIcon {
+  margin-left: 15px;
 }
 
 .nav__divide {
@@ -783,6 +788,17 @@ nav {
     transition: all .5s ease;
   }
 
+  .nav__userPicture--mobile {
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    // margin: 14px 16px 14px 14px;
+    // margin-left: auto;
+    // cursor: pointer;
+    object-fit: cover;
+    background-color: $defaultProfPic;
+  }
+
   .hide #actionButtons {
     p {
       color: $threeBoxBlue !important;
@@ -791,6 +807,10 @@ nav {
     button {
       color: white;
     }
+  }
+
+  .nav__dropdown__icon--mobileData {
+    filter: grayscale(1) !important;
   }
 
   .nav__data {
@@ -901,12 +921,18 @@ nav {
     }
   }
 
+  .nav_dropdown_icon_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .nav__dropdown {
     display: block !important;
     position: fixed;
     top: 0;
     left: 0;
-    width: 60%;
+    width: 80%;
     max-width: 400px;
     height: 100vh;
     padding: 1em 0 0 0;
@@ -921,8 +947,13 @@ nav {
     transition: transform .3s ease-out;
 
     li {
-      line-height: 3.5em;
+      height: 5.2em;
       width: 100%;
+
+      p {
+        font-size: 22px;
+        font-weight: 600;
+      }
     }
   }
 
@@ -937,7 +968,7 @@ nav {
     align-items: center;
     justify-content: center;
     border-radius: 20px;
-    margin: 0 0 30px 10px;
+    margin: 0 0 30px 7vw;
     width: fit-content;
 
     p {
@@ -971,7 +1002,7 @@ nav {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin: 4px 0 25px 6vw;
+    margin: 4px 0 25px 7vw;
   }
 
   .nav__activePage {
@@ -999,5 +1030,65 @@ nav {
 
   .landing_nav_apiLink {
     margin-right: 0;
+  }
+
+  .sideDrawer_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 100%;
+
+    ul {
+      width: 100%;
+    }
+  }
+
+  .nav_account {
+    max-width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    background-color: $backgroundHue;
+  }
+
+  .nav_account_top {
+    max-width: 100%;
+    padding: 12px 6vw;
+    box-sizing: border-box;
+  }
+
+  .nav_account_top_description {
+    color: $lighterFont;
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  .nav_account_user {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    img {
+      margin-right: 10px;
+    }
+  }
+
+  .nav_account_user_name {
+    p {
+      color: $lighterFont;
+      font-size: 13px;
+    }
+  }
+
+  .nav_account_info {
+    padding: 12px 6vw;
+    box-sizing: border-box;
+    width: 100%;
+    border-top: 1px solid $borderColor;
+    color: $lighterFont;
+    font-size: 13px;
   }
 }
