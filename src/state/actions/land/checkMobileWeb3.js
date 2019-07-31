@@ -23,10 +23,10 @@ const checkMobileWeb3 = () => async (dispatch) => {
   let isMobile;
   if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     isMobile = true;
-    dispatch({
-      type: 'UI_HANDLE_MOBILE_WALLET_REQUIRED_MODAL',
-      mobileWalletRequiredModal: (typeof window.web3 === 'undefined' && typeof window.ethereum === 'undefined'), // eslint-disable-line no-undef
-    });
+    // dispatch({
+    //   type: 'UI_HANDLE_MOBILE_WALLET_REQUIRED_MODAL',
+    //   mobileWalletRequiredModal: (typeof window.web3 === 'undefined' && typeof window.ethereum === 'undefined'), // eslint-disable-line no-undef
+    // });
   }
 
   dispatch({

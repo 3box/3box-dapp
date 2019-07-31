@@ -15,7 +15,7 @@ import {
   AccessDeniedModal,
   ErrorModal,
   MustConsentModal,
-  MobileWalletRequiredModal,
+  // MobileWalletRequiredModal,
   SignInToThreeBox,
   ModalBackground,
   FollowingIsPublicModal,
@@ -45,8 +45,8 @@ class AppModals extends Component {
       accessDeniedModal,
       signInModal,
       handleSignInModal,
-      handleMobileWalletModal,
-      isIOS,
+      // handleMobileWalletModal,
+      // isIOS,
       mobileWalletRequiredModal,
       errorMessage,
       mustConsentError,
@@ -132,14 +132,14 @@ class AppModals extends Component {
           />
         )}
 
-        {mobileWalletRequiredModal && (
+        {/* {mobileWalletRequiredModal && (
           <MobileWalletRequiredModal
             isIOS={isIOS}
             handleMobileWalletModal={handleMobileWalletModal}
             isMobile={isMobile}
             key="MobileWalletRequiredModal"
           />
-        )}
+        )} */}
 
         {(showErrorModal && !mustConsentError) && (
           <ErrorModal
@@ -290,9 +290,9 @@ AppModals.propTypes = {
   onBoardingModalMobileThree: PropTypes.bool,
   showErrorModal: PropTypes.bool,
   handleSignInModal: PropTypes.func.isRequired,
-  handleMobileWalletModal: PropTypes.func.isRequired,
+  // handleMobileWalletModal: PropTypes.func.isRequired,
   isMyProfilePath: PropTypes.bool.isRequired,
-  isIOS: PropTypes.bool,
+  // isIOS: PropTypes.bool,
   mobileWalletRequiredModal: PropTypes.bool,
   signInModal: PropTypes.bool,
   provideConsent: PropTypes.bool,
@@ -323,7 +323,7 @@ AppModals.defaultProps = {
   onBoardingModalMobileTwo: false,
   onBoardingModalMobileThree: false,
   showErrorModal: false,
-  isIOS: false,
+  // isIOS: false,
   mobileWalletRequiredModal: false,
   signInModal: false,
   provideConsent: false,

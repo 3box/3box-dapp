@@ -151,14 +151,14 @@ const uiStateReducer = (state = {}, action) => {
       return {
         ...state,
         onBoardingModal: action.onBoardingModal,
-          onBoardingModalTwo: action.onBoardingModalTwo,
+        onBoardingModalTwo: action.onBoardingModalTwo,
       };
 
-    case 'UI_HANDLE_MOBILE_WALLET_REQUIRED_MODAL':
-      return {
-        ...state,
-        mobileWalletRequiredModal: action.mobileWalletRequiredModal,
-      };
+      // case 'UI_HANDLE_MOBILE_WALLET_REQUIRED_MODAL':
+      //   return {
+      //     ...state,
+      //     mobileWalletRequiredModal: action.mobileWalletRequiredModal,
+      //   };
 
     case 'UI_HANDLE_GITHUB_MODAL':
       return {

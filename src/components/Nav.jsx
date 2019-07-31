@@ -6,7 +6,6 @@ import { Link, withRouter, NavLink } from 'react-router-dom';
 import ProfilePicture from './ProfilePicture';
 import ThreeBoxLogo from '../assets/ThreeBoxLogoBlack.svg';
 import ThreeBoxB from '../assets/3Box3Blue.svg';
-// import DropDown from '../assets/DropDown.svg';
 import DropDownMenu from '../assets/DropDownMenu.svg';
 import actions from '../state/actions';
 import * as routes from '../utils/routes';
@@ -45,15 +44,12 @@ class Nav extends Component {
     const {
       location,
       currentAddress,
-      currentWallet,
-      currentNetwork,
       currentWalletLogo,
-      handleSignInUp
+      handleSignInUp,
     } = this.props;
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
     const networkColor = this.props.currentNetwork;
-    // console.log('Web3Connect', Web3Connect.getProviderInfo());
 
     return (
       <nav>
@@ -121,8 +117,6 @@ class Nav extends Component {
         {/* desktop nav dropdown */}
         <div
           className={`${showProfileModal ? 'nav__dropdown--visible' : undefined} nav__dropdown nav__dropdown--desktop`}
-          // onMouseLeave={this.handleDropdown}
-          // onBlur={this.handleDropdown}
           tabIndex={0}
           role="button"
         >
@@ -285,16 +279,17 @@ Nav.propTypes = {
   box: PropTypes.object,
   location: PropTypes.object,
   handleSignOut: PropTypes.func.isRequired,
+  handleSignInUp: PropTypes.func.isRequired,
   currentNetwork: PropTypes.string,
   currentAddress: PropTypes.string,
-  currentWallet: PropTypes.string,
+  currentWalletLogo: PropTypes.string,
 };
 
 Nav.defaultProps = {
   box: {},
   currentNetwork: '',
   currentAddress: '',
-  currentWallet: '',
+  currentWalletLogo: '',
   location: {},
 };
 

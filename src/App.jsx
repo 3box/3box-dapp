@@ -51,7 +51,7 @@ const {
   handleDeniedAccessModal,
   handleLoggedOutModal,
   handleSwitchedAddressModal,
-  handleMobileWalletModal,
+  // handleMobileWalletModal,
   handleOnboardingModal,
   handleFollowingPublicModal,
   handleContactsModal,
@@ -217,7 +217,7 @@ class App extends Component {
     try {
       if (e) e.stopPropagation();
       await this.props.checkMobileWeb3(); // eslint-disable-line
-      if (checkIsMobileWithoutWeb3()) return;
+      // if (checkIsMobileWithoutWeb3()) return;
       await this.props.injectWeb3(null, chooseWallet, false, shouldSignOut); // eslint-disable-line
       await this.props.checkNetwork(); // eslint-disable-line
       await this.props.openBox('fromSignIn'); // eslint-disable-line
@@ -361,7 +361,7 @@ class App extends Component {
           otherProfileAddress={otherProfileAddress}
           handleContactsModal={this.props.handleContactsModal}
           handleSignInModal={this.props.handleSignInModal}
-          handleMobileWalletModal={this.props.handleMobileWalletModal}
+          // handleMobileWalletModal={this.props.handleMobileWalletModal}
           handleConsentModal={this.props.handleConsentModal}
           handleDeniedAccessModal={this.props.handleDeniedAccessModal}
           closeErrorModal={this.props.closeErrorModal}
@@ -536,7 +536,7 @@ App.propTypes = {
   getVerifiedPublicTwitter: PropTypes.func.isRequired,
   getVerifiedPrivateEmail: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
-  handleMobileWalletModal: PropTypes.func.isRequired,
+  // handleMobileWalletModal: PropTypes.func.isRequired,
   handleSwitchedNetworkModal: PropTypes.func.isRequired,
   handleAccessModal: PropTypes.func.isRequired,
   handleConsentModal: PropTypes.func.isRequired,
@@ -673,7 +673,7 @@ export default withRouter(connect(mapState,
     getVerifiedPrivateEmail,
     getActivity,
     getMyFollowing,
-    handleMobileWalletModal,
+    // handleMobileWalletModal,
     handleSignInModal,
     handleSwitchedNetworkModal,
     handleAccessModal,
