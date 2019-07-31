@@ -170,7 +170,6 @@ class AppModals extends Component {
 
         {loggedOutModal && (
           <LoggedOutModal
-            isMobile={isMobile}
             handleLoggedOutModal={handleLoggedOutModal}
             handleSignOut={handleSignOut}
             key="LoggedOutModal"

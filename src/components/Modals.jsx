@@ -35,32 +35,29 @@ export const SwitchedNetworksModal = ({
   currentNetwork,
   handleSwitchedNetworkModal,
 }) => (
-    <div>
-      <div className="modal__container modal--effect">
-        <div className="modal">
-          <img src={Switched} alt="Partners background" id="modal__switchedNetworks" />
+    <div className="modal__container modal--effect">
+      <div className="modal">
+        <img src={Switched} alt="Partners background" id="modal__switchedNetworks" />
 
-          <div>
-            <h3>
-              Network Change Detected
+        <div>
+          <h3>
+            Network Change Detected
             </h3>
-            <p>
-              Your profile will stay the same, but your Ethereum activity will update
+          <p>
+            Your profile will stay the same, but your Ethereum activity will update
             </p>
-            <p id="modal__switchBack">
-              <b>
-                {`Switch back to ${prevNetwork} in your Web3 Wallet or continue on ${currentNetwork}`}
-              </b>
-            </p>
-          </div>
-
-          <button onClick={() => { handleSwitchedNetworkModal(); window.localStorage.setItem('shouldShowSwitchNetwork', true); }} type="button">
-            {`Continue on ${currentNetwork}`}
-          </button>
-
+          <p id="modal__switchBack">
+            <b>
+              {`Switch back to ${prevNetwork} in your Web3 Wallet or continue on ${currentNetwork}`}
+            </b>
+          </p>
         </div>
-      </div>
 
+        <button onClick={() => { handleSwitchedNetworkModal(); window.localStorage.setItem('shouldShowSwitchNetwork', true); }} type="button">
+          {`Continue on ${currentNetwork}`}
+        </button>
+
+      </div>
     </div>
   );
 
@@ -77,30 +74,22 @@ SwitchedNetworksModal.defaultProps = {
 export const LoggedOutModal = ({
   handleLoggedOutModal,
   handleSignOut,
-  isMobile,
 }) => (
-    <div>
-      <div className="modal__container modal--effect">
-        <div className="modal">
-          <img src={LogOut} alt="Partners background" id="modal__switchedNetworks" />
+    <div className="modal__container modal--effect">
+      <div className="modal">
+        <img src={LogOut} alt="Partners background" id="modal__switchedNetworks" />
+        <div>
+          <h3>
+            Logged out
+          </h3>
 
-          <div>
-            <h3>
-              Logged out
-            </h3>
-
-            {isMobile
-              ? <p>Sign back in to your Web3 wallet or exit 3Box</p>
-              : <p>Sign back in to your Web3 wallet or exit 3Box</p>
-            }
-          </div>
-
-          <Link to={routes.LANDING}>
-            <button onClick={() => { handleLoggedOutModal(); handleSignOut(); }} type="button">Exit</button>
-          </Link>
+          <p>Sign back in to your Web3 wallet or exit 3Box</p>
         </div>
-      </div>
 
+        <Link to={routes.LANDING}>
+          <button onClick={() => { handleLoggedOutModal(); handleSignOut(); }} type="button">Exit</button>
+        </Link>
+      </div>
     </div>
   );
 
@@ -771,16 +760,14 @@ export const LoadingThreeBoxProfileModal = () => (
 );
 
 export const FileSizeModal = ({ closeFileSizeModal }) => (
-  <div>
-    <div className="modal__container modal--effect">
-      <div className="modal">
+  <div className="modal__container modal--effect">
+    <div className="modal">
 
-        <div>
-          <p>Profile pictures must be less than 2.5 MB</p>
-        </div>
-
-        <button onClick={closeFileSizeModal} type="button" className="tertiaryButton">Close</button>
+      <div>
+        <p>Profile pictures must be less than 2.5 MB</p>
       </div>
+
+      <button onClick={closeFileSizeModal} type="button" className="tertiaryButton">Close</button>
     </div>
   </div>
 );
@@ -791,19 +778,17 @@ FileSizeModal.propTypes = {
 
 
 export const SyncingModal = () => (
-  <div>
-    <div className="modal__container--sync modal--effect">
-      <div className="modal--sync ">
-        <div className="modal--sync__wrapper">
-          <img src={LoadingWhite} alt="Loading" id="modal__loadingGraphic" />
+  <div className="modal__container--sync modal--effect">
+    <div className="modal--sync ">
+      <div className="modal--sync__wrapper">
+        <img src={LoadingWhite} alt="Loading" id="modal__loadingGraphic" />
 
-          <div id="logo" className="modal__loading3Box">
-            <img src={ThreeBoxLogoWhite} alt="3Box Logo" />
-          </div>
+        <div id="logo" className="modal__loading3Box">
+          <img src={ThreeBoxLogoWhite} alt="3Box Logo" />
+        </div>
 
-          <div>
-            <p>SYNCING 3BOX DATA</p>
-          </div>
+        <div>
+          <p>SYNCING 3BOX DATA</p>
         </div>
       </div>
     </div>
@@ -811,19 +796,17 @@ export const SyncingModal = () => (
 );
 
 export const PublicProfileLoading = () => (
-  <div>
-    <div className="modal__container--sync modal--effect">
-      <div className="modal--sync ">
-        <div className="modal--sync__wrapper">
-          <img src={LoadingWhite} alt="Loading" id="modal__loadingGraphic" />
+  <div className="modal__container--sync modal--effect">
+    <div className="modal--sync ">
+      <div className="modal--sync__wrapper">
+        <img src={LoadingWhite} alt="Loading" id="modal__loadingGraphic" />
 
-          <div id="logo" className="modal__loading3Box">
-            <img src={ThreeBoxLogoWhite} alt="3Box Logo" />
-          </div>
+        <div id="logo" className="modal__loading3Box">
+          <img src={ThreeBoxLogoWhite} alt="3Box Logo" />
+        </div>
 
-          <div>
-            <p>LOADING PUBLIC PROFILE</p>
-          </div>
+        <div>
+          <p>LOADING PUBLIC PROFILE</p>
         </div>
       </div>
     </div>
@@ -872,33 +855,31 @@ export const ErrorModal = ({ closeErrorModal, error }) => {
   errorString = errorString || 'There was an error logging in.';
 
   return (
-    <div>
-      <div className="modal__container modal--effect">
-        <div className="modal standardModal">
+    <div className="modal__container modal--effect">
+      <div className="modal standardModal">
+        {(isMetaMaskSignError || isMozillaError)
+          ? <img src={Wallet} alt="Wallet signature required" />
+          : <img src={ErrorIcon} alt="Error" id="modal__switchedNetworks" />}
+
+        <div id={(isMetaMaskSignError || isMetaMaskFromError || isMozillaError) ? 'modal__copy__card' : ''}>
+          {isMetaMaskSignError
+            || (isMozillaError)
+            ? <h3>Log in to 3Box</h3>
+            : <h3>Error</h3>}
+
           {(isMetaMaskSignError || isMozillaError)
-            ? <img src={Wallet} alt="Wallet signature required" />
-            : <img src={ErrorIcon} alt="Error" id="modal__switchedNetworks" />}
-
-          <div id={(isMetaMaskSignError || isMetaMaskFromError || isMozillaError) ? 'modal__copy__card' : ''}>
-            {isMetaMaskSignError
-              || (isMozillaError)
-              ? <h3>Log in to 3Box</h3>
-              : <h3>Error</h3>}
-
-            {(isMetaMaskSignError || isMozillaError)
-              ? <p>You must provide consent to 3Box in your Web3 wallet to sign in or create a profile, please try again</p>
-              : (
-                <React.Fragment>
-                  <p>{errorString}</p>
-                  <br />
-                  <p>
-                    Please refresh the page and try again
+            ? <p>You must provide consent to 3Box in your Web3 wallet to sign in or create a profile, please try again</p>
+            : (
+              <React.Fragment>
+                <p>{errorString}</p>
+                <br />
+                <p>
+                  Please refresh the page and try again
                   </p>
-                </React.Fragment>
-              )}
-          </div>
-          <button onClick={closeErrorModal} type="button" className="tertiaryButton">Close</button>
+              </React.Fragment>
+            )}
         </div>
+        <button onClick={closeErrorModal} type="button" className="tertiaryButton">Close</button>
       </div>
     </div>
   );

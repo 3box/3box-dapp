@@ -14,3 +14,21 @@ export const githubMessage = (did) => {
     
     Create your profile today to start building social connection and trust online at https://3Box.io/`);
 };
+
+export const editProfileFields = [
+  ['verifiedGithub', 'public'],
+  ['verifiedTwitter', 'public'],
+  ['name', 'public'],
+  ['description', 'public'],
+  ['location', 'public'],
+  ['website', 'public'],
+  ['employer', 'public'],
+  ['job', 'public'],
+  ['school', 'public'],
+  ['degree', 'public'],
+  ['major', 'public'],
+  ['year', 'public'],
+  ['emoji', 'public'],
+  ['verifiedEmail', 'private'],
+  ['birthday', 'private'],
+];
