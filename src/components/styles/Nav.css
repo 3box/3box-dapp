@@ -183,7 +183,8 @@ nav {
   cursor: pointer;
   font-size: 12px;
   border-radius: 50%;
-  transition: all .3s; }
+  transition: all .3s;
+  background-color: white; }
   .nav__arrow:hover {
     background-color: #f5f6f8; }
     .nav__arrow:hover .nav__arrow__icon {
@@ -236,6 +237,9 @@ nav {
   transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
   width: 180px; }
 
+.nav__dropdown--desktop-landing {
+  width: 260px; }
+
 .nav_dropdown_switchWalletButton {
   padding: 0; }
 
@@ -258,7 +262,7 @@ nav {
   display: flex;
   align-items: center;
   margin-left: auto;
-  margin-right: 4vw; }
+  margin-right: 8vw; }
   #actionButtons p {
     margin-right: 2vw;
     cursor: pointer;
@@ -285,6 +289,13 @@ nav {
   transition: all .5s ease;
   background-color: transparent;
   border-bottom: none; }
+
+.nav__userPicture--deskopDropdown {
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  background-color: #006ECC; }
 
 .showAPINav {
   background-color: white !important;
@@ -599,6 +610,45 @@ nav {
 
 .landing_nav_hamburger-mobile {
   display: none; }
+
+.nav_account {
+  box-sizing: border-box;
+  max-width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: #f5f6f8; }
+
+.nav_account_top {
+  max-width: 100%;
+  padding: 14px 20px 18px 20px;
+  box-sizing: border-box; }
+
+.nav_account_top_description {
+  color: #b1b1b1 !important;
+  font-size: 13px !important;
+  margin-bottom: 8px; }
+
+.nav_account_user {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; }
+  .nav_account_user img {
+    margin-right: 10px; }
+
+.nav_account_user_name p {
+  color: #b1b1b1;
+  font-size: 13px; }
+
+.nav_account_info {
+  padding: 14px 20px 18px 20px;
+  box-sizing: border-box;
+  width: 100%;
+  border-top: 1px solid #ececec;
+  color: #b1b1b1;
+  font-size: 13px; }
 
 @media only screen and (max-width: 600px) {
   nav {

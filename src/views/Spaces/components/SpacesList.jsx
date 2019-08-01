@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Nav from '../../../components/Nav';
+import Nav from '../../../components/Nav/Nav';
 import Loading from '../../../assets/Loading.svg';
 import Arrow from '../../../assets/Arrow.svg';
 

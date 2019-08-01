@@ -21,7 +21,7 @@ import {
 } from '../../../components/Modals';
 import history from '../../../utils/history';
 import { twitterMessage, githubMessage, editProfileFields } from './EditProfile/utils';
-import Nav from '../../../components/Nav';
+import Nav from '../../../components/Nav/Nav';
 import * as routes from '../../../utils/routes';
 import Private from '../../../assets/Private.svg';
 import Verified from '../../../assets/Verified.svg';

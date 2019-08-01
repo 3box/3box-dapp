@@ -80,7 +80,6 @@ const {
 const {
   checkMobileWeb3,
   checkNetwork,
-  checkInitialAddr
 } = actions.land;
 
 class App extends Component {
