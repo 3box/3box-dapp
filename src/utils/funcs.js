@@ -392,7 +392,7 @@ export const alphabetize = (array) => {
 };
 
 export const shortenEthAddr = (str) => {
-  const shortenStr = `${str.substring(0, 5)}...${str.substring(str.length - 5, str.length)}`;
+  const shortenStr = str && `${str.substring(0, 5)}...${str.substring(str.length - 5, str.length)}`;
   return shortenStr;
 };
 

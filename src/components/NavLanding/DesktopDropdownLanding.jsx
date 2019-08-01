@@ -15,17 +15,21 @@ const DesktopDropdownLanding = props => (
     >
       <div className="nav_account">
         <div className="nav_account_top">
-          <p className="nav_account_top_description">You last used this account</p>
-          <div className="nav_account_user">
-            <ProfilePicture
-              pictureClass="nav__userPicture--deskopDropdown"
-              isMyPicture
-            />
-            <div className="nav_account_user_name">
-              <h4>{props.name}</h4>
-              <p>{shortenEthAddr(props.currentAddress)}</p>
-            </div>
-          </div>
+          {props.currenAddress ? (
+            <React.Fragment>
+              <p className="nav_account_top_description">You last used this account</p>
+              <div className="nav_account_user">
+                <ProfilePicture
+                  pictureClass="nav__userPicture--deskopDropdown"
+                  isMyPicture
+                />
+                <div className="nav_account_user_name">
+                  <h4>{props.name}</h4>
+                  <p>{shortenEthAddr(props.currentAddress)}</p>
+                </div>
+              </div>
+            </React.Fragment>
+          ) : <h4>No previous account saved</h4>}
         </div>
 
         <div className="nav_account_info">
