@@ -36,7 +36,7 @@
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
     "web3-eth-personal": "^1.0.0-beta.36",
-    "web3connect": "^1.0.0-beta.15"
+    "web3connect": "^1.0.0-beta.16"
   },
   "devDependencies": {
     "acorn-dynamic-import": "^3.0.0",
