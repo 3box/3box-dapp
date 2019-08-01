@@ -160,6 +160,7 @@ class NavLanding extends Component {
           isPublicProfile={isPublicProfile}
           name={name}
           currentAddress={currentAddress}
+          showSignInBanner={showSignInBanner}
         />
 
         <div

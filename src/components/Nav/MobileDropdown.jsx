@@ -7,11 +7,15 @@ import Edit from '../../assets/Edit.svg';
 import SignOut from '../../assets/SignOut.svg';
 import Switch from '../../assets/Switched.svg';
 import ThreeBoxLogo from '../../assets/ThreeBoxLogoBlack.svg';
-import Folder from '../../assets/Folder.svg';
+import Folder from '../../assets/FolderOutline.svg';
 
 const MobileDropdown = props => (
   <div
-    className={`${props.showProfileModal ? 'sideDrawer' : undefined} nav__dropdown mobileDropDown`}
+    className={`
+      ${props.showProfileModal ? 'sideDrawer' : undefined} 
+      nav__dropdown 
+      mobileDropDown
+    `}
     onClick={props.handleDropdown}
     onKeyPress={props.handleDropdown}
     role="button"

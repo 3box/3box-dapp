@@ -179,10 +179,10 @@ class App extends Component {
 
   directSignIn = async (wallet, nextProps) => {
     try {
-      store.dispatch({
-        type: 'UI_3BOX_LOADING',
-        isFetchingThreeBox: true,
-      });
+      // store.dispatch({
+      //   type: 'UI_3BOX_LOADING',
+      //   isFetchingThreeBox: true,
+      // });
 
       const { location: { pathname } } = this.props;
       const pathToUse = nextProps ? nextProps.location.pathname : pathname;
@@ -190,15 +190,21 @@ class App extends Component {
       const currentUrlEthAddr = normalizedPath.split('/')[1];
       const profilePage = normalizedPath.split('/')[2];
       const doesEthAddrMatch = currentUrlEthAddr === this.props.currentAddress;
-
+      console.log('1')
       await this.props.checkMobileWeb3(); // eslint-disable-line
+      console.log('2')
       await this.props.injectWeb3('directLogin', false, wallet); // eslint-disable-line
+      console.log('3')
       await this.props.checkNetwork(); // eslint-disable-line
+      console.log('4')
 
       if (!doesEthAddrMatch) history.push(`/${this.props.currentAddress}/${profilePage || routes.ACTIVITY}`);
+      console.log('5')
 
       await this.props.openBox(); // eslint-disable-line
+      console.log('6')
       if (!this.props.showErrorModal) this.getMyData(); // eslint-disable-line
+      console.log('7')
     } catch (err) {
       console.error(err); // eslint-disable-line
       store.dispatch({

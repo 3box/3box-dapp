@@ -8,14 +8,18 @@ import ThreeBoxLogoBlack from '../../assets/ThreeBoxLogoBlack.svg';
 
 const MobileSidedrawer = props => (
   <div
-    className={`${props.showSideDrawer ? 'sideDrawer' : undefined} nav__dropdown mobileDropDown`}
+    className={`
+    ${props.showSideDrawer ? 'sideDrawer' : undefined} 
+    nav__dropdown 
+    mobileDropDown
+    `}
     onClick={props.handleMobileSideBar}
     onKeyPress={props.handleMobileSideBar}
     role="button"
     tabIndex={0}
   >
     <div className="sideDrawer_wrapper">
-      <ul>
+      <ul className={`${props.showSignInBanner ? 'showSignInBanner' : ''}`}>
         <Link to={routes.LANDING} className="nav__dropdown__mobileLogo">
           <img src={ThreeBoxLogoBlack} alt="3Box Logo" className="landing__nav__logo" />
         </Link>

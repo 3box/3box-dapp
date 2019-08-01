@@ -32,8 +32,16 @@ const pickWallet = async (directLogin, dispatch, shouldSignOut) => {
       try {
         if (shouldSignOut) handleSignOutFunc();
         await connectProviderToDapp(provider, directLogin, dispatch);
+        dispatch({
+          type: 'UI_FIX_BODY',
+          fixBody: false,
+        });
         resolve();
       } catch (error) {
+        dispatch({
+          type: 'UI_FIX_BODY',
+          fixBody: false,
+        });
         reject();
       }
     });

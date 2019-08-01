@@ -907,6 +907,10 @@ nav {
     margin-top: 64px;
   }
 
+  .sideDrawer_wrapper .showSignInBanner {
+    margin-top: 64px;
+  }
+
   .landing__nav__link {
     margin-left: 15px;
     font-size: 14px;
@@ -1103,6 +1107,7 @@ nav {
     box-sizing: border-box;
 
     ul {
+      transition: all .5s ease;
       width: 100%;
     }
   }

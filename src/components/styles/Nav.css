@@ -696,6 +696,8 @@ nav {
     margin-top: 0; }
   .showSignInBanner.bannerMargin {
     margin-top: 64px; }
+  .sideDrawer_wrapper .showSignInBanner {
+    margin-top: 64px; }
   .landing__nav__link {
     margin-left: 15px;
     font-size: 14px;
@@ -831,6 +833,7 @@ nav {
     height: 100%;
     box-sizing: border-box; }
     .sideDrawer_wrapper ul {
+      transition: all .5s ease;
       width: 100%; }
   .nav_account {
     box-sizing: border-box;
