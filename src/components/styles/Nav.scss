@@ -271,7 +271,7 @@ nav {
   }
 
   li {
-    padding-left: 5vw;
+    padding-left: 20px;
     height: 4.2em;
     cursor: pointer;
     box-sizing: border-box;
@@ -292,7 +292,7 @@ nav {
 }
 
 .nav_dropdown_icon_wrapper {
-  width: 52px;
+  width: 44px;
   position: relative;
 }
 
@@ -336,7 +336,7 @@ nav {
   display: flex;
   align-items: center;
   margin-left: auto;
-  margin-right: 8vw;
+  margin-right: 84px;
 
   p {
     margin-right: 2vw;
@@ -980,6 +980,7 @@ nav {
   }
 
   .nav_dropdown_icon_wrapper {
+    width: 52px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1007,6 +1008,7 @@ nav {
     li {
       height: 5.2em;
       width: 100%;
+      padding-left: 5vw;
 
       p {
         font-size: 22px;

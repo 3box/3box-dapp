@@ -81,27 +81,28 @@ class App extends Component {
       const { location: { pathname, search } } = this.props;
       const normalizedPath = normalizeURL(pathname);
       const splitRoute = normalizedPath.split('/');
+      const firstParam = splitRoute[1] && splitRoute[1].toLowerCase();
       const isProtectedRoute = matchProtectedRoutes(splitRoute[2]);
       const queryParams = queryString.parse(search);
       const isRequest = checkRequestRoute(splitRoute);
       if (isRequest) return;
 
-      const currentEthAddress = initialAddress(); // Initial get address
-      const isEtherAddress = checkIsEthAddress(splitRoute[1]);
-      const isMyAddr = (splitRoute[1] && splitRoute[1].toLowerCase()) === (currentEthAddress && currentEthAddress.toLowerCase());
-      const onProfilePage = isEtherAddress;
+      const currentEthAddress = await initialAddress(); // Initial get address
+      const isEthAddr = checkIsEthAddress(firstParam);
+      const isMyAddr = firstParam === currentEthAddress;
+      const onProfilePage = isEthAddr;
 
       const allowDirectSignIn = (
-        (isEtherAddress // Lands on profile page
+        (isEthAddr // Lands on profile page
           && isProtectedRoute // Lands on protected page
-          && isMyAddr) ||
-        !!queryParams.wallet
+          && isMyAddr)
+        || !!queryParams.wallet
       );
 
       if (allowDirectSignIn) { // Begin signin
         this.directSignIn(queryParams.wallet);
       } else if (onProfilePage) { // Lands on profile page
-        if (isProtectedRoute) history.push(`/${splitRoute[1]}`);
+        if (isProtectedRoute) history.push(`/${firstParam}`);
       }
     } catch (err) {
       console.error(err);
@@ -178,6 +179,11 @@ class App extends Component {
 
   directSignIn = async (wallet, nextProps) => {
     try {
+      store.dispatch({
+        type: 'UI_3BOX_LOADING',
+        isFetchingThreeBox: true,
+      });
+
       const { location: { pathname } } = this.props;
       const pathToUse = nextProps ? nextProps.location.pathname : pathname;
       const normalizedPath = normalizeURL(pathToUse);
@@ -194,7 +200,11 @@ class App extends Component {
       await this.props.openBox(); // eslint-disable-line
       if (!this.props.showErrorModal) this.getMyData(); // eslint-disable-line
     } catch (err) {
-      console.error(err);
+      console.error(err); // eslint-disable-line
+      store.dispatch({
+        type: 'UI_3BOX_LOADING',
+        isFetchingThreeBox: false,
+      });
     }
   }
 

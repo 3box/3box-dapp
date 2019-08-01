@@ -11,7 +11,8 @@ const {
 } = actions.signin;
 
 export const initialAddress = async () => {
-  const currentAddress = window.localStorage.getItem('userEthAddress');
+  const rawAddress = window.localStorage.getItem('userEthAddress');
+  const currentAddress = rawAddress && rawAddress.toLowerCase();
   store.dispatch({
     type: 'USER_UPDATE_ADDRESS',
     currentAddress,
@@ -25,9 +26,10 @@ export const initialAddress = async () => {
     });
     store.dispatch({
       type: 'MY_IMAGE_UPDATE',
-      name: myPublicProfile.image,
+      image: myPublicProfile.image,
     });
   }
+  return currentAddress;
 };
 
 export const startPollFlag = async () => {

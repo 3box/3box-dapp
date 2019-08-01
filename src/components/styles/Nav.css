@@ -212,7 +212,7 @@ nav {
   .nav__dropdown ul {
     padding: 0; }
   .nav__dropdown li {
-    padding-left: 5vw;
+    padding-left: 20px;
     height: 4.2em;
     cursor: pointer;
     box-sizing: border-box;
@@ -227,7 +227,7 @@ nav {
     font-size: 14px; }
 
 .nav_dropdown_icon_wrapper {
-  width: 52px;
+  width: 44px;
   position: relative; }
 
 .nav__dropdown--desktop {
@@ -262,7 +262,7 @@ nav {
   display: flex;
   align-items: center;
   margin-left: auto;
-  margin-right: 8vw; }
+  margin-right: 84px; }
   #actionButtons p {
     margin-right: 2vw;
     cursor: pointer;
@@ -743,6 +743,7 @@ nav {
       border: none;
       padding: 2vh 5vw; }
   .nav_dropdown_icon_wrapper {
+    width: 52px;
     display: flex;
     justify-content: center;
     align-items: center; }
@@ -766,7 +767,8 @@ nav {
     transition: transform .3s ease-out; }
     .nav__dropdown li {
       height: 5.2em;
-      width: 100%; }
+      width: 100%;
+      padding-left: 5vw; }
       .nav__dropdown li p {
         font-size: 22px;
         font-weight: 600;
