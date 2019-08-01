@@ -154,12 +154,6 @@ const uiStateReducer = (state = {}, action) => {
           onBoardingModalTwo: action.onBoardingModalTwo,
       };
 
-      // case 'UI_HANDLE_MOBILE_WALLET_REQUIRED_MODAL':
-      //   return {
-      //     ...state,
-      //     mobileWalletRequiredModal: action.mobileWalletRequiredModal,
-      //   };
-
     case 'UI_HANDLE_GITHUB_MODAL':
       return {
         ...state,

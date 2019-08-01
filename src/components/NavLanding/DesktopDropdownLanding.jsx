@@ -30,7 +30,7 @@ const DesktopDropdownLanding = props => (
 
         <div className="nav_account_info">
           Last account is used for mutual followers and other features
-      </div>
+        </div>
       </div>
     </div>
 

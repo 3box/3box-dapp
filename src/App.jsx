@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Route, Switch, withRouter, Redirect,
-} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
@@ -16,26 +14,13 @@ import {
 } from './utils/funcs';
 import { store } from './state/store';
 import history from './utils/history';
-import APIs from './views/Landing/API/APIs';
-import Dapp from './views/Landing/Dapp/Dapp';
-import LandingNew from './views/Landing/LandingNew';
-import Partners from './views/Landing/Partners';
-import Team from './views/Landing/Team';
-import LogIn from './views/Profile/LogIn';
-import PubProfileDummy from './views/Profile/PubProfileDummy';
-import PubProfileDummyTwitter from './views/Profile/PubProfileDummyTwitter';
+import AppRoutes from './AppRoutes';
+import AppPreviewRoutes from './AppPreviewRoutes';
 
 import {
-  MyProfile,
-  Spaces,
-  EditProfile,
-  PubProfile,
   AppModals,
   AppHeaders,
   NavLanding,
-  Careers,
-  Terms,
-  Privacy,
   Nav,
 } from './DynamicImports';
 import actions from './state/actions';
@@ -50,7 +35,6 @@ const {
   handleDeniedAccessModal,
   handleLoggedOutModal,
   handleSwitchedAddressModal,
-  // handleMobileWalletModal,
   handleOnboardingModal,
   handleFollowingPublicModal,
   handleContactsModal,
@@ -103,7 +87,6 @@ class App extends Component {
       if (isRequest) return;
 
       const currentEthAddress = initialAddress(); // Initial get address
-
       const isEtherAddress = checkIsEthAddress(splitRoute[1]);
       const isMyAddr = (splitRoute[1] && splitRoute[1].toLowerCase()) === (currentEthAddress && currentEthAddress.toLowerCase());
       const onProfilePage = isEtherAddress;
@@ -219,7 +202,6 @@ class App extends Component {
     try {
       if (e) e.stopPropagation();
       await this.props.checkMobileWeb3(); // eslint-disable-line
-      // if (checkIsMobileWithoutWeb3()) return;
       await this.props.injectWeb3(null, chooseWallet, false, shouldSignOut); // eslint-disable-line
       await this.props.checkNetwork(); // eslint-disable-line
       await this.props.openBox('fromSignIn'); // eslint-disable-line
@@ -237,7 +219,6 @@ class App extends Component {
       allowAccessModal,
       provideConsent,
       signInModal,
-      // mobileWalletRequiredModal,
       directLogin,
       loggedOutModal,
       switchedAddressModal,
@@ -273,44 +254,12 @@ class App extends Component {
     const normalizedPath = normalizeURL(pathname);
     const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: Web3 Wallet Message Signature: User denied message signature.';
     const landing = pathname === routes.LANDING ? 'landing' : '';
-    const { userAgent: ua } = navigator;
-    const isIOS = ua.includes('iPhone');
     const isMyProfilePath = matchProtectedRoutes(normalizedPath.split('/')[2]);
 
     const splitRoute = normalizedPath.split('/');
     const isRequestRoute = checkRequestRoute(splitRoute);
 
-    if (isRequestRoute) {
-      return (
-        <div className="App">
-          <Switch>
-            <Route
-              exact
-              path="(^[/][0][xX]\w{40}\b)/twitterRequest"
-              component={PubProfileDummyTwitter}
-            />
-
-            <Route
-              exact
-              path="(^[/][0][xX]\w{40}\b)/previewRequest"
-              component={PubProfileDummy}
-            />
-
-            <Route
-              exact
-              path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|data|edit\w*)/twitterRequest"
-              component={PubProfileDummyTwitter}
-            />
-
-            <Route
-              exact
-              path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|data|edit\w*)/previewRequest"
-              component={PubProfileDummy}
-            />
-          </Switch>
-        </div>
-      );
-    }
+    if (isRequestRoute) return <AppPreviewRoutes />; // routes for when client request is for link preview
 
     return (
       <div className={`App ${fixBody ? 'fixBody' : ''}`}>
@@ -338,8 +287,6 @@ class App extends Component {
           isMyProfilePath={isMyProfilePath}
           accessDeniedModal={accessDeniedModal}
           signInModal={signInModal}
-          isIOS={isIOS}
-          // mobileWalletRequiredModal={mobileWalletRequiredModal}
           errorMessage={errorMessage}
           mustConsentError={mustConsentError}
           showErrorModal={showErrorModal}
@@ -364,7 +311,6 @@ class App extends Component {
           otherProfileAddress={otherProfileAddress}
           handleContactsModal={this.props.handleContactsModal}
           handleSignInModal={this.props.handleSignInModal}
-          // handleMobileWalletModal={this.props.handleMobileWalletModal}
           handleConsentModal={this.props.handleConsentModal}
           handleDeniedAccessModal={this.props.handleDeniedAccessModal}
           closeErrorModal={this.props.closeErrorModal}
@@ -379,146 +325,12 @@ class App extends Component {
           saveFollowing={this.props.saveFollowing}
         />
 
-        <Switch>
-          <Route
-            exact
-            path={routes.LANDING}
-            render={() => (
-              <LandingNew
-                handleSignInUp={this.handleSignInUp}
-                isLoggedIn={isLoggedIn}
-                errorMessage={errorMessage}
-                showErrorModal={showErrorModal}
-              />
-            )}
-          />
-
-          <Route
-            path={routes.API}
-            render={() => (
-              <APIs
-                handleSignInUp={this.handleSignInUp}
-                isLoggedIn={isLoggedIn}
-                errorMessage={errorMessage}
-                showErrorModal={showErrorModal}
-              />
-            )}
-          />
-
-          <Route
-            exact
-            path={routes.HUB}
-            render={() => (
-              <Dapp
-                handleSignInUp={this.handleSignInUp}
-                isLoggedIn={isLoggedIn}
-                errorMessage={errorMessage}
-                showErrorModal={showErrorModal}
-              />
-            )}
-          />
-
-          <Route
-            exact
-            path={routes.CAREERS}
-            render={() => <Careers />}
-          />
-          <Route
-            exact
-            path={routes.TEAM}
-            render={() => <Team />}
-          />
-
-          <Route
-            exact
-            path={routes.JOBS}
-            render={() => <Redirect to={routes.CAREERS} />}
-          />
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/activity"
-            render={() => <MyProfile handleSignInUp={this.handleSignInUp} />}
-          />
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/activity"
-            render={() => <MyProfile handleSignInUp={this.handleSignInUp} />}
-          />
-          <Redirect from="/profile" to="/" />
-          <Redirect from="/editprofile" to="/" />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/details"
-            render={() => <MyProfile handleSignInUp={this.handleSignInUp} />}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/collectibles"
-            render={() => <MyProfile handleSignInUp={this.handleSignInUp} />}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/following"
-            render={() => <MyProfile handleSignInUp={this.handleSignInUp} />}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/data"
-            render={() => <Spaces handleSignInUp={this.handleSignInUp} />}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/edit"
-            render={() => <EditProfile handleSignInUp={this.handleSignInUp} />}
-          />
-
-          <Route
-            exact
-            path={routes.LOGIN}
-            render={() => (
-              <LogIn
-                handleSignInUp={this.handleSignInUp}
-              />
-            )}
-          />
-
-          <Route
-            exact
-            path={routes.PARTNERS}
-            component={() => (
-              <Partners />
-            )}
-          />
-
-          <Route
-            exact
-            path={routes.PRIVACY}
-            component={() => (
-              <Privacy />
-            )}
-          />
-
-          <Route
-            exact
-            path={routes.TERMS}
-            component={() => (
-              <Terms />
-            )}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)"
-            component={PubProfile}
-          />
-
-          <Route render={() => <Redirect to={routes.LANDING} />} />
-        </Switch>
+        <AppRoutes
+          handleSignInUp={this.handleSignInUp}
+          isLoggedIn={isLoggedIn}
+          errorMessage={errorMessage}
+          showErrorModal={showErrorModal}
+        />
       </div>
     );
   }
@@ -539,7 +351,6 @@ App.propTypes = {
   getVerifiedPublicTwitter: PropTypes.func.isRequired,
   getVerifiedPrivateEmail: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
-  // handleMobileWalletModal: PropTypes.func.isRequired,
   handleSwitchedNetworkModal: PropTypes.func.isRequired,
   handleAccessModal: PropTypes.func.isRequired,
   handleConsentModal: PropTypes.func.isRequired,
@@ -563,7 +374,6 @@ App.propTypes = {
   allowAccessModal: PropTypes.bool,
   provideConsent: PropTypes.bool,
   signInModal: PropTypes.bool,
-  // mobileWalletRequiredModal: PropTypes.bool,
   fixBody: PropTypes.bool,
   showErrorModal: PropTypes.bool,
   directLogin: PropTypes.string,
@@ -604,7 +414,6 @@ App.defaultProps = {
   allowAccessModal: false,
   provideConsent: false,
   signInModal: false,
-  // mobileWalletRequiredModal: false,
   showErrorModal: false,
   loggedOutModal: false,
   switchedAddressModal: false,
@@ -629,7 +438,6 @@ const mapState = state => ({
   allowAccessModal: state.uiState.allowAccessModal,
   provideConsent: state.uiState.provideConsent,
   signInModal: state.uiState.signInModal,
-  // mobileWalletRequiredModal: state.uiState.mobileWalletRequiredModal,
   directLogin: state.uiState.directLogin,
   loggedOutModal: state.uiState.loggedOutModal,
   switchedAddressModal: state.uiState.switchedAddressModal,
@@ -679,7 +487,6 @@ export default withRouter(connect(mapState,
     getVerifiedPrivateEmail,
     getActivity,
     getMyFollowing,
-    // handleMobileWalletModal,
     handleSignInModal,
     handleSwitchedNetworkModal,
     handleAccessModal,

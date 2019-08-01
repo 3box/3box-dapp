@@ -4,10 +4,7 @@ import { Link } from 'react-router-dom';
 import ProfilesSmall from '../../assets/Profiles.svg';
 import MessagingSmall from '../../assets/Messaging.svg';
 import StorageSmall from '../../assets/Storage.svg';
-import ProfilePicture from '../ProfilePicture';
-import { shortenEthAddr } from '../../utils/funcs';
 import * as routes from '../../utils/routes';
-import ThreeBoxLogoBlack from '../../assets/ThreeBoxLogoBlack.svg';
 
 const MobileSidedrawer = props => (
   <div className={`${props.showAPI ? 'showAPI' : ''} ${(props.retractNav || props.isProfilePage) ? 'apiLower' : ''} landing_nav_api`}>
@@ -41,10 +38,10 @@ const MobileSidedrawer = props => (
           <div className="landing_nav_api_option_text">
             <h4>
               Profiles
-          </h4>
+            </h4>
             <p>
               Support social profiles and basic reputation
-          </p>
+            </p>
           </div>
         </Link>
       </div>

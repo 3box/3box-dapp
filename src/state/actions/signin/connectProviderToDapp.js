@@ -27,7 +27,7 @@ const connectProviderToDapp = async (provider, directLogin, dispatch) => {
       currentWallet: name,
       currentWalletLogo: logo,
     });
-    console.log('web3Obj', web3Obj);
+
     // begin process to get eth addresses
     dispatch({
       type: 'UI_HANDLE_ACCESS_MODAL',

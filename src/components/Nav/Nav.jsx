@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link, withRouter, NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
-import ProfilePicture from '../ProfilePicture';
 import DesktopDropdown from './DesktopDropdown';
-import ThreeBoxLogo from '../../assets/ThreeBoxLogoBlack.svg';
-import ThreeBoxB from '../../assets/3Box3Blue.svg';
-import DropDownMenu from '../../assets/DropDownMenu.svg';
+import NavLinks from './NavLinks';
 import actions from '../../state/actions';
-import * as routes from '../../utils/routes';
 import { normalizeURL } from '../../utils/funcs';
-import Folder from '../../assets/Folder.svg';
-import '../styles/Nav.css';
 import MobileDropdown from './MobileDropdown';
+import '../styles/Nav.css';
 
 const { handleSignOut } = actions.signin;
 
@@ -51,64 +46,11 @@ class Nav extends Component {
 
     return (
       <nav>
-        <div id="nav__logo--marginLeft">
-          <Link to={`/${currentAddress}/${routes.ACTIVITY}`}>
-            <img src={ThreeBoxLogo} alt="3Box Logo" className="landing__nav__logo" />
-          </Link>
-        </div>
-
-        <div id="nav__logo--mobile">
-          <Link to={`/${currentAddress}/${routes.ACTIVITY}`}>
-            <img src={ThreeBoxB} alt="3Box Logo" className="landing__nav__logo" />
-          </Link>
-        </div>
-
-        <div className="nav__profile--mobile">
-          <ProfilePicture
-            pictureClass="nav__userPicture clearProfPic"
-            onClickFunction={this.handleDropdown}
-            isMyPicture
-          />
-        </div>
-
-        <div id="nav__networkStatus">
-          <div id="nav__networkStatus__networkColor" className={`${networkColor}`} />
-          <p>{networkColor}</p>
-        </div>
-
-        <div
-          className="nav__arrow"
-          onClick={this.handleDropdown}
-          onKeyPress={this.handleDropdown}
-
-          role="button"
-          tabIndex={0}
-        >
-          <img src={DropDownMenu} alt="dropdown" className="nav__arrow__icon" />
-        </div>
-
-        <span className="nav__tabs">
-          <NavLink
-            to={`/${currentAddress}/${routes.ACTIVITY}`}
-            className="nav__profile"
-            activeClassName="activeNav"
-          >
-            <ProfilePicture
-              pictureClass="nav__userPicture clearProfPic"
-              isMyPicture
-            />
-            Profile
-          </NavLink>
-
-          <NavLink
-            to={`/${currentAddress}/${routes.DATA}`}
-            className="nav__data"
-            activeClassName="activeNav"
-          >
-            <img src={Folder} alt="Folder" className="nav__folder" />
-            Data
-          </NavLink>
-        </span>
+        <NavLinks
+          currentAddress={currentAddress}
+          handleDropdown={this.handleDropdown}
+          networkColor={networkColor}
+        />
 
         <DesktopDropdown
           showProfileModal={showProfileModal}

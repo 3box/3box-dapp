@@ -115,28 +115,11 @@ class NavLanding extends Component {
         />
 
         {(route !== 'hub' && !isProfilePage && route !== 'login') && (
-          <div id="actionButtons">
-            <Link to={routes.HUB}>
-              <button type="button">
-                Sign in to Hub
-              </button>
-            </Link>
-          </div>
+          <LoginToHubButton />
         )}
 
         {(route !== 'hub' && isProfilePage && !isLoggedIn) && (
-          <div id="actionButtons">
-            <button
-              type="button"
-              className="textButton newWallet"
-              onClick={() => handleSignInUp(true)}
-            >
-              Choose wallet
-            </button>
-            <button type="button" onClick={() => handleSignInUp(false)}>
-              Log in
-            </button>
-          </div>
+          <LoginButton handleSignInUp={handleSignInUp} />
         )}
 
         <APILinks
@@ -158,16 +141,9 @@ class NavLanding extends Component {
         )}
 
         {isPublicProfile && (
-          <div
-            className="nav__arrow"
-            onClick={this.handleDropdown}
-            onKeyPress={this.handleDropdown}
-
-            role="button"
-            tabIndex={0}
-          >
-            <img src={DropDownMenu} alt="dropdown" className="nav__arrow__icon" />
-          </div>
+          <DropDownButton
+            handleDropdown={this.handleDropdown}
+          />
         )}
 
         <DesktopDropdownLanding
@@ -236,3 +212,42 @@ function mapState(state) {
 }
 
 export default withRouter(connect(mapState)(NavLanding));
+
+
+const DropDownButton = props => (
+  <div
+    className="nav__arrow"
+    onClick={props.handleDropdown}
+    onKeyPress={props.handleDropdown}
+
+    role="button"
+    tabIndex={0}
+  >
+    <img src={DropDownMenu} alt="dropdown" className="nav__arrow__icon" />
+  </div>
+);
+
+const LoginButton = props => (
+  <div id="actionButtons">
+    <button
+      type="button"
+      className="textButton newWallet"
+      onClick={() => props.handleSignInUp(true)}
+    >
+      Choose wallet
+    </button>
+    <button type="button" onClick={() => props.handleSignInUp(false)}>
+      Log in
+    </button>
+  </div>
+);
+
+const LoginToHubButton = () => (
+  <div id="actionButtons">
+    <Link to={routes.HUB}>
+      <button type="button">
+        Sign in to Hub
+      </button>
+    </Link>
+  </div>
+);

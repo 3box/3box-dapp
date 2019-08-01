@@ -1,7 +1,8 @@
+import Box from '3box';
+
 import {
   store,
 } from '../state/store';
-import Box from '3box';
 
 import actions from '../state/actions';
 

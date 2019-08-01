@@ -126,13 +126,6 @@ export const handleOnboardingModal = mobile => async (dispatch) => {
   }
 };
 
-// export const handleMobileWalletModal = () => async (dispatch) => {
-//   dispatch({
-//     type: 'UI_HANDLE_MOBILE_WALLET_REQUIRED_MODAL',
-//     mobileWalletRequiredModal: !store.getState().uiState.mobileWalletRequiredModal,
-//   });
-// };
-
 export const handleAccessModal = () => async (dispatch) => {
   dispatch({
     type: 'UI_HANDLE_ACCESS_MODAL',

@@ -1,19 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import {
+  Switch,
+  Route,
+  withRouter,
+  Redirect,
+} from 'react-router-dom';
 
-const AppRoutes = () => (
+import * as routes from './utils/routes';
+
+import APIs from './views/Landing/API/APIs';
+import Dapp from './views/Landing/Dapp/Dapp';
+import LandingNew from './views/Landing/LandingNew';
+import Partners from './views/Landing/Partners';
+import Team from './views/Landing/Team';
+import LogIn from './views/Profile/LogIn';
+import {
+  MyProfile,
+  Spaces,
+  EditProfile,
+  PubProfile,
+  Careers,
+  Terms,
+  Privacy,
+} from './DynamicImports';
+
+const AppRoutes = props => (
   <Switch>
     <Route
       exact
       path={routes.LANDING}
       render={() => (
         <LandingNew
-          handleSignInUp={this.handleSignInUp}
-          isLoggedIn={isLoggedIn}
-          errorMessage={errorMessage}
-          showErrorModal={showErrorModal}
+          handleSignInUp={props.handleSignInUp}
+          isLoggedIn={props.isLoggedIn}
+          errorMessage={props.errorMessage}
+          showErrorModal={props.showErrorModal}
         />
       )}
     />
@@ -22,10 +45,10 @@ const AppRoutes = () => (
       path={routes.API}
       render={() => (
         <APIs
-          handleSignInUp={this.handleSignInUp}
-          isLoggedIn={isLoggedIn}
-          errorMessage={errorMessage}
-          showErrorModal={showErrorModal}
+          handleSignInUp={props.handleSignInUp}
+          isLoggedIn={props.isLoggedIn}
+          errorMessage={props.errorMessage}
+          showErrorModal={props.showErrorModal}
         />
       )}
     />
@@ -35,10 +58,10 @@ const AppRoutes = () => (
       path={routes.HUB}
       render={() => (
         <Dapp
-          handleSignInUp={this.handleSignInUp}
-          isLoggedIn={isLoggedIn}
-          errorMessage={errorMessage}
-          showErrorModal={showErrorModal}
+          handleSignInUp={props.handleSignInUp}
+          isLoggedIn={props.isLoggedIn}
+          errorMessage={props.errorMessage}
+          showErrorModal={props.showErrorModal}
         />
       )}
     />
@@ -48,7 +71,6 @@ const AppRoutes = () => (
       path={routes.CAREERS}
       render={() => <Careers />}
     />
-
     <Route
       exact
       path={routes.TEAM}
@@ -60,11 +82,15 @@ const AppRoutes = () => (
       path={routes.JOBS}
       render={() => <Redirect to={routes.CAREERS} />}
     />
-
     <Route
       exact
       path="(^[/][0][xX]\w{40}\b)/activity"
-      component={MyProfile}
+      render={() => <MyProfile handleSignInUp={props.handleSignInUp} />}
+    />
+    <Route
+      exact
+      path="(^[/][0][xX]\w{40}\b)/activity"
+      render={() => <MyProfile handleSignInUp={props.handleSignInUp} />}
     />
     <Redirect from="/profile" to="/" />
     <Redirect from="/editprofile" to="/" />
@@ -72,31 +98,41 @@ const AppRoutes = () => (
     <Route
       exact
       path="(^[/][0][xX]\w{40}\b)/details"
-      component={MyProfile}
+      render={() => <MyProfile handleSignInUp={props.handleSignInUp} />}
     />
 
     <Route
       exact
       path="(^[/][0][xX]\w{40}\b)/collectibles"
-      component={MyProfile}
+      render={() => <MyProfile handleSignInUp={props.handleSignInUp} />}
     />
 
     <Route
       exact
       path="(^[/][0][xX]\w{40}\b)/following"
-      component={MyProfile}
+      render={() => <MyProfile handleSignInUp={props.handleSignInUp} />}
     />
 
     <Route
       exact
       path="(^[/][0][xX]\w{40}\b)/data"
-      component={Spaces}
+      render={() => <Spaces handleSignInUp={props.handleSignInUp} />}
     />
 
     <Route
       exact
       path="(^[/][0][xX]\w{40}\b)/edit"
-      component={EditProfile}
+      render={() => <EditProfile handleSignInUp={props.handleSignInUp} />}
+    />
+
+    <Route
+      exact
+      path={routes.LOGIN}
+      render={() => (
+        <LogIn
+          handleSignInUp={props.handleSignInUp}
+        />
+      )}
     />
 
     <Route
@@ -129,15 +165,7 @@ const AppRoutes = () => (
       component={PubProfile}
     />
 
-    <Route
-      component={() => (
-        <NoMatch
-          isLoggedIn={isLoggedIn}
-          handleSignInUp={this.handleSignInUp}
-        />
-      )}
-    />
-
+    <Route render={() => <Redirect to={routes.LANDING} />} />
   </Switch>
 );
 
