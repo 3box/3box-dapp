@@ -1,15 +1,21 @@
+import {
+  store,
+} from '../../store';
+
 const accountsPromise = new Promise((resolve, reject) => {
   try {
-    if (window.web3) {
-      window.web3.eth.getAccounts((e, accountsFound) => { // eslint-disable-line no-undef
+    const {
+      web3Obj,
+    } = store.getState().userState;
+    if (web3Obj) {
+      web3Obj.eth.getAccounts((e, accountsFound) => { // eslint-disable-line no-undef
         if (e != null) {
           reject(e);
         } else {
           resolve(accountsFound);
         }
       });
-    } else {
-      console.error('You must have web3 to continue');
+      return;
     }
   } catch (err) {
     console.error(err);

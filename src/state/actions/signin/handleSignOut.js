@@ -4,26 +4,51 @@ import {
 import * as routes from '../../../utils/routes';
 import history from '../../../utils/history';
 
-const handleSignOut = () => async (dispatch) => {
-  if (store.getState().userState.isLoggedIn) {
-    if (store.getState().myData.box) store.getState().myData.box.logout();
+const handleSignOut = signInAgain => async (dispatch) => {
+  const {
+    userState: {
+      isLoggedIn,
+      currentWallet,
+    },
+    myData: {
+      box,
+    },
+  } = store.getState();
+
+  if (isLoggedIn) {
+    if (box) box.logout();
+    window.localStorage.removeItem('defaultWallet');
+    window.localStorage.removeItem('userEthAddress');
+    window.localStorage.removeItem('prevNetwork');
+    window.localStorage.removeItem('prevPrevNetwork');
+    window.localStorage.removeItem('currentNetwork');
+    window.localStorage.removeItem('shouldShowSwitchNetwork');
+
     dispatch({
       type: 'USER_SIGN_OUT',
-      isLoggedIn: false,
-      hasSignedOut: true,
     });
+
     dispatch({
       type: 'UI_SIGN_OUT',
       onSyncFinished: false,
     });
-    dispatch({
-      type: 'MY_DATA_SIGNOUT',
-    });
+
     dispatch({
       type: 'SPACES_SIGN_OUT',
     });
+
+    dispatch({
+      type: 'MY_DATA_SIGNOUT',
+    });
   }
-  history.push(routes.LANDING);
+  
+  let route;
+  if (signInAgain) {
+    route = `${routes.LOGIN}?wallet=${currentWallet}`;
+  } else {
+    route = routes.LANDING;
+  }
+  history.push(route);
 };
 
 export default handleSignOut;

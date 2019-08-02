@@ -15,6 +15,10 @@ import getPublicProfile from './getPublicProfile';
 
 const getActivity = otherProfileAddress => async (dispatch) => {
   try {
+    const {
+      web3Obj,
+    } = store.getState().userState;
+
     if (otherProfileAddress) {
       dispatch({
         type: 'UI_FEED_OTHER_LOADING',
@@ -231,7 +235,7 @@ const getActivity = otherProfileAddress => async (dispatch) => {
       if (!checkedAddresses[otherAddress]) {
         checkedAddresses[otherAddress] = true;
         try {
-          web3.eth.getCode(otherAddress, (err, code) => { // eslint-disable-line no-undef
+          web3Obj.eth.getCode(otherAddress, (err, code) => {
             if (err) {
               addressData[otherAddress] = false;
               counter += 1;

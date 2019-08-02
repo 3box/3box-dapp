@@ -26,7 +26,7 @@ class ProfilePicture extends Component {
 
     const addressToUse = isMyPicture ? currentAddress : otherProfileAddress;
     const blockie = addressToUse ? makeBlockie(addressToUse) : DefaultColorPic;
-    const imageProp = imageToRender.length > 0 ? imageToRender : null;
+    const imageProp = (imageToRender && imageToRender.length > 0) ? imageToRender : null;
     const profilePicture = isMyPicture
       ? image
       : imageProp || otherImage;

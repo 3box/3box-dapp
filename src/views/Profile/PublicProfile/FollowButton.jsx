@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { store } from '../../../state/store';
 import actions from '../../../state/actions';
 import Loading from '../../../assets/Loading.svg';
+import { pollNetworkAndAddress, startPollFlag } from '../../../utils/address';
 
 const {
   saveFollowing,
@@ -23,19 +24,13 @@ const { getMySpacesData, convert3BoxToSpaces } = actions.spaces;
 
 const {
   openBox,
-  requestAccess,
+  injectWeb3,
 } = actions.signin;
 
 const {
-  checkWeb3,
+  checkMobileWeb3,
   checkNetwork,
 } = actions.land;
-
-const {
-  handleRequireWalletLoginModal,
-  requireMetaMaskModal,
-  handleMobileWalletModal,
-} = actions.modal;
 
 class FollowButton extends Component {
   constructor(props) {
@@ -52,6 +47,8 @@ class FollowButton extends Component {
       type: 'UI_SPACES_LOADING',
       isSpacesLoading: true,
     });
+    startPollFlag();
+    pollNetworkAndAddress(); // Start polling for address change
 
     try {
       this.props.getVerifiedPublicGithub();
@@ -90,26 +87,12 @@ class FollowButton extends Component {
   }
 
   async handleSignInUp() {
-    const {
-      accessDeniedModal,
-    } = this.props;
-
     try {
-      if (window.ethereum || typeof window.web3 !== 'undefined') {
-        await this.props.checkWeb3();
-        await this.props.requestAccess();
-        await this.props.checkNetwork();
-
-        if (this.props.isSignedIntoWallet) {
-          await this.props.openBox(false, true);
-          if (!this.props.showErrorModal) await this.getMyData();
-        } else if (!this.props.isSignedIntoWallet && !accessDeniedModal) {
-          this.props.handleRequireWalletLoginModal();
-        }
-      } else if (typeof window.web3 === 'undefined') {
-        this.props.requireMetaMaskModal();
-        this.props.handleMobileWalletModal();
-      }
+      await this.props.checkMobileWeb3();
+      await this.props.injectWeb3();
+      await this.props.checkNetwork();
+      await this.props.openBox(false, true);
+      if (!this.props.showErrorModal) this.getMyData();
     } catch (err) {
       console.error(err);
     }
@@ -209,12 +192,9 @@ FollowButton.propTypes = {
   convert3BoxToSpaces: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   accessDeniedModal: PropTypes.bool,
-  isSignedIntoWallet: PropTypes.bool,
   showErrorModal: PropTypes.bool,
   fromContactTile: PropTypes.bool,
-  handleRequireWalletLoginModal: PropTypes.func.isRequired,
   handleMobileWalletModal: PropTypes.func.isRequired,
-  requireMetaMaskModal: PropTypes.func.isRequired,
   handleTileLoading: PropTypes.func.isRequired,
 };
 
@@ -226,7 +206,6 @@ FollowButton.defaultProps = {
   isFollowFromProfileLoading: false,
   isFollowFromTileLoading: false,
   accessDeniedModal: false,
-  isSignedIntoWallet: false,
   showErrorModal: false,
   fromContactTile: false,
 };
@@ -240,14 +219,13 @@ function mapState(state) {
     isFollowFromProfileLoading: state.uiState.isFollowFromProfileLoading,
     accessDeniedModal: state.uiState.accessDeniedModal,
     showErrorModal: state.uiState.showErrorModal,
-    isSignedIntoWallet: state.userState.isSignedIntoWallet,
   };
 }
 
 export default connect(mapState,
   {
-    requestAccess,
-    checkWeb3,
+    injectWeb3,
+    checkMobileWeb3,
     checkNetwork,
     saveFollowing,
     deleteFollowing,
@@ -262,7 +240,6 @@ export default connect(mapState,
     getActivity,
     getMySpacesData,
     convert3BoxToSpaces,
-    handleRequireWalletLoginModal,
-    handleMobileWalletModal,
-    requireMetaMaskModal,
+    // handleMobileWalletModal,
+    // initializeSaveFollowing,
   })(FollowButton);

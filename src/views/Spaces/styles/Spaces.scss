@@ -327,6 +327,10 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+
+  img {
+    width: 18px;
+  }
 }
 
 .vault__loading {

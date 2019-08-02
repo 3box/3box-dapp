@@ -1,28 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Nav from '../../../components/Nav';
 import Loading from '../../../assets/Loading.svg';
 import Arrow from '../../../assets/Arrow.svg';
 
 import '../styles/Spaces.css';
 
-const SpacesList = ({
-  sortData,
-  list,
-  sortBy,
-  spaceToDisplay,
-  show,
-  hideSpacesMobile,
-  handleMobileSpaceListView,
-  isSpacesLoading,
-  clearSpacesMobile,
-}) => (
+const SpacesList = (props) => {
+  const {
+    show,
+    hideSpacesMobile,
+    clearSpacesMobile,
+    spaceToDisplay,
+    sortData,
+    sortBy,
+    handleMobileSpaceListView,
+    isSpacesLoading,
+    list,
+  } = props;
+
+  return (
     <section className={`spaces 
       ${show ? '' : 'closeSpaces'} 
       ${hideSpacesMobile ? 'closeSpaces--mobile' : ''}
       ${clearSpacesMobile ? 'hideSpaces--mobile' : ''}
-    `}>
+    `}
+    >
       <div
         className={`space ${spaceToDisplay === 'All Data' ? 'activeSpace' : ''}`}
         onClick={() => {
@@ -34,6 +37,7 @@ const SpacesList = ({
           sortData(sortBy, false, 'All Data', true);
           handleMobileSpaceListView();
         }}
+        tabIndex={0}
       >
         <p className="space__name">All Data</p>
         {isSpacesLoading && <img className="data__space__loading--mobile" src={Loading} alt="info" />}
@@ -41,7 +45,9 @@ const SpacesList = ({
           <img src={Arrow} alt="arrow" />
         </span>
       </div>
+
       <div className="space__divider--mobile" />
+
       <div
         className={`space ${spaceToDisplay === '3Box_app' ? 'activeSpace' : ''}`}
         onClick={() => {
@@ -53,13 +59,16 @@ const SpacesList = ({
           sortData(sortBy, false, '3Box_app', true);
           handleMobileSpaceListView();
         }}
+        tabIndex={0}
       >
         <p className="space__name">3Box Profile</p>
         <span className="space__arrow">
           <img src={Arrow} alt="arrow" />
         </span>
       </div>
+
       <div className="space__divider--mobile" />
+
       {list && list.map((space, i) => space !== '3Box_app' && (
         <React.Fragment key={`${space}-${i}`}>
           <div
@@ -74,6 +83,7 @@ const SpacesList = ({
               handleMobileSpaceListView();
             }}
             title={space}
+            tabIndex={0}
           >
             <p className="space__name">{space}</p>
             <span className="space__arrow">
@@ -85,6 +95,7 @@ const SpacesList = ({
       ))}
     </section>
   );
+};
 
 SpacesList.propTypes = {
   sortData: PropTypes.func.isRequired,

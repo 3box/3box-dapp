@@ -57,12 +57,6 @@ const uiStateReducer = (state = {}, action) => {
           showSignInBanner: action.showSignInBanner,
       };
 
-    case 'UI_REQUIRE_METAMASK_MODAL':
-      return {
-        ...state,
-        alertRequireMetaMask: action.alertRequireMetaMask,
-      };
-
     case 'UI_CLOSE_ERROR_MODAL':
       return {
         ...state,
@@ -166,18 +160,6 @@ const uiStateReducer = (state = {}, action) => {
           onBoardingModalTwo: action.onBoardingModalTwo,
       };
 
-    case 'UI_HANDLE_REQUIRE_LOGIN_MODAL':
-      return {
-        ...state,
-        signInToWalletModal: action.signInToWalletModal,
-      };
-
-    case 'UI_HANDLE_MOBILE_WALLET_REQUIRED_MODAL':
-      return {
-        ...state,
-        mobileWalletRequiredModal: action.mobileWalletRequiredModal,
-      };
-
     case 'UI_HANDLE_GITHUB_MODAL':
       return {
         ...state,
@@ -229,12 +211,6 @@ const uiStateReducer = (state = {}, action) => {
           allowAccessModal: action.allowAccessModal,
       };
 
-    case 'UI_ROUTE_UPDATE':
-      return {
-        ...state,
-        currentRoute: action.currentRoute,
-      };
-
     case 'UI_ON_OTHER_PROFILE':
       return {
         ...state,
@@ -257,15 +233,18 @@ const uiStateReducer = (state = {}, action) => {
       };
 
     case 'UI_SIGN_OUT':
-      return {
-        ...state,
-        onSyncFinished: action.onSyncFinished,
-      };
+      return {};
 
     case 'UI_HANDLE_WARN_PUBLIC_FOLLOWING':
       return {
         ...state,
         showFollowingPublicModal: action.showFollowingPublicModal,
+      };
+
+    case 'UI_FIX_BODY':
+      return {
+        ...state,
+        fixBody: action.fixBody,
       };
 
     default:

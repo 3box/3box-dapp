@@ -1,0 +1,38 @@
+.directLogin {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.login {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.mock_web3c {
+  position: relative;
+  width: 800px;
+  height: 320px; }
+  .mock_web3c h2 {
+    position: absolute;
+    left: 0;
+    top: -40px;
+    font-size: 26px;
+    letter-spacing: 2px; }
+
+.modal {
+  position: relative;
+  width: 800px;
+  height: 320px; }
+
+.login_text {
+  font-size: 22px;
+  letter-spacing: 2px;
+  margin-top: -40px;
+  color: #747677; }
+
+.login_3box {
+  width: 120px !important; }

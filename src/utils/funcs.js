@@ -19,26 +19,18 @@ export const normalizeURL = (pathname) => {
   return fuzzyLowercasePathname;
 };
 
-export const matchProtectedRoutes = (normalizedPath) => {
-  if (normalizedPath === routes.ACTIVITY ||
-    normalizedPath === routes.DETAILS ||
-    normalizedPath === routes.COLLECTIBLES ||
-    normalizedPath === routes.DATA ||
-    normalizedPath === routes.FOLLOWING ||
-    normalizedPath === routes.EDIT) {
+export const matchProtectedRoutes = (secondRoute) => {
+  if (
+    secondRoute === routes.ACTIVITY ||
+    secondRoute === routes.DETAILS ||
+    secondRoute === routes.COLLECTIBLES ||
+    secondRoute === routes.DATA ||
+    secondRoute === routes.FOLLOWING ||
+    secondRoute === routes.EDIT
+  ) {
     return true;
   }
   return false;
-};
-
-export const checkRequestRoute = (splitRoute) => {
-  const route2 = splitRoute[2] && splitRoute[2].toLowerCase();
-  const route3 = splitRoute[3] && splitRoute[3].toLowerCase();
-  const isRequest = route2 === 'twitterrequest' ||
-    route2 === 'previewrequest' ||
-    route3 === 'twitterrequest' ||
-    route3 === 'previewrequest';
-  return isRequest;
 };
 
 export const addhttp = (url) => {
@@ -348,7 +340,7 @@ export const extractRow = async (spaceData, spaceNameGiven, updatedSortedSpace) 
   }
 };
 
-export const isEthAddress = (string) => {
+export const checkIsEthAddress = (string) => {
   const isEthereumAddress = /^(0x)?[0-9a-f]{40}$/i.test(string);
   return isEthereumAddress;
 };
@@ -400,6 +392,53 @@ export const alphabetize = (array) => {
 };
 
 export const shortenEthAddr = (str) => {
-  const shortenStr = `${str.substring(0, 5)}...${str.substring(str.length - 5, str.length)}`;
+  const shortenStr = str && `${str.substring(0, 5)}...${str.substring(str.length - 5, str.length)}`;
   return shortenStr;
 };
+
+export const checkRequestRoute = (splitRoute) => {
+  const route2 = splitRoute[2] && splitRoute[2].toLowerCase();
+  const route3 = splitRoute[3] && splitRoute[3].toLowerCase();
+  const isRequest =
+    route2 === 'twitterrequest' ||
+    route2 === 'previewrequest' ||
+    route3 === 'twitterrequest' ||
+    route3 === 'previewrequest';
+  return isRequest;
+};
+
+export const checkUsingInjectedProvider = (provider) => {
+  const {
+    isFortmatic,
+    isPortis,
+    isWalletConnect,
+  } = provider;
+
+  if (isFortmatic || isPortis || isWalletConnect) return false;
+  return true;
+  // isCipher,
+  // isMetaMask,
+  // isDapper,
+};
+
+export const checkIsMobile = () => {
+  let isMobile;
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    isMobile = true;
+  } else {
+    isMobile = false;
+  }
+  return isMobile;
+};
+
+export const checkIsMobileWithoutWeb3 = () => {
+  let isMobileWithWeb3 = false;
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const hasWeb3 = typeof window.web3 !== 'undefined' || typeof window.ethereum !== 'undefined';
+  if (isMobile && !hasWeb3) isMobileWithWeb3 = true;
+  return isMobileWithWeb3;
+};
+
+export const capitalizeFirst = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}

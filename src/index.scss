@@ -298,29 +298,18 @@ input:focus {
   border-radius: 5px;
 }
 
-// .webThreeBanner {
-//   width: 100vw;
-//   height: 54px;
-//   background: #2E3949;
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   z-index: 3;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   -webkit-transition: all .5s ease;
-//   -moz-transition: all .5s ease;
-//   -o-transition: all .5s ease;
-//   transition: all .5s ease;
-
-//   p {
-//     color: rgba(255, 255, 255, 0.904);
-//   }
-// }
-
 .mobile {
   display: none !important;
+}
+
+// for preventing body from moving when modals are open
+.fixBody {
+  position: fixed;
+}
+
+// web3connect modal
+.dALBps {
+  position: fixed !important;
 }
 
 .signInFromPublicProfileBanner {
@@ -363,13 +352,6 @@ input:focus {
   button {
     background-color: white;
   }
-}
-
-.modal__reqWeb3__button {
-  border: 1px solid white;
-  padding: 12px 18px;
-  margin-top: 30px;
-  color: white;
 }
 
 .webThreeBanner__close {
@@ -482,6 +464,11 @@ input:focus {
     position: relative;
     width: 5% !important;
     right: 0;
+  }
+
+  // web3connect modal
+  .kaYREe {
+    margin-top: -90px !important;
   }
 
   input[type="color"],

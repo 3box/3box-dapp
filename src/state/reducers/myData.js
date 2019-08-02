@@ -149,8 +149,8 @@ const myDataReducer = (state = {}, action) => {
       return {
         ...state,
         following: action.following,
-        followingList: action.followingList,
-        followingThread: action.followingThread,
+          followingList: action.followingList,
+          followingThread: action.followingThread,
       };
 
     case 'MY_FOLLOWING_LIST_UPDATE':
@@ -167,39 +167,7 @@ const myDataReducer = (state = {}, action) => {
       };
 
     case 'MY_DATA_SIGNOUT':
-      return {
-        ...state,
-        birthday: '',
-        box: {},
-        collectiblesFavorites: [],
-        collectiblesFavoritesToRender: [],
-        collection: [],
-        coverPhoto: [],
-        degree: '',
-        description: '',
-        did: '',
-        email: '',
-        emoji: '',
-        employer: '',
-        feedByAddress: [],
-        following: [],
-        followingList: [],
-        followingThread: null,
-        github: '',
-        image: [],
-        job: '',
-        location: '',
-        major: '',
-        memberSince: '',
-        name: '',
-        website: '',
-        school: '',
-        status: '',
-        verifiedGithub: '',
-        verifiedTwitter: '',
-        verifiedEmail: '',
-        year: '',
-      };
+      return {};
 
     default:
       return state;

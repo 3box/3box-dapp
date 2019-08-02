@@ -14,13 +14,14 @@ import {
   ListSpaceItemModal,
   EmptyListItemModal,
 } from './components/SpacesModals';
+import MyProfileHeaders from '../Profile/MyProfile/MyProfileHeaders';
 import { ModalBackground } from '../../components/Modals';
 import AllView from './components/AllView';
 import SpaceView from './components/SpaceView';
 import SortByMobile from './components/SortByMobile';
 import Header from './components/Header';
 import SpacesList from './components/SpacesList';
-import Nav from '../../components/Nav';
+import Nav from '../../components/Nav/Nav';
 import './styles/Spaces.css';
 import { sortSpace, extractRow } from '../../utils/funcs';
 import actions from '../../state/actions';
@@ -398,6 +399,10 @@ class Spaces extends Component {
       showDeleteItemModal,
       showOpenSpaceModal,
       did,
+      image,
+      name,
+      currentAddress,
+      handleSignInUp,
     } = this.props;
 
     const {
@@ -421,8 +426,14 @@ class Spaces extends Component {
 
     return (
       <React.Fragment>
+        <MyProfileHeaders
+          image={image}
+          name={name}
+          currentAddress={currentAddress}
+        />
+
         <div className="data__nav--desktop">
-          <Nav />
+          <Nav handleSignInUp={handleSignInUp} />
         </div>
         <div className="data__page">
           <ReactCSSTransitionGroup
@@ -654,6 +665,9 @@ Spaces.propTypes = {
   hasUpdated: PropTypes.bool,
   showOpenSpaceModal: PropTypes.bool,
   did: PropTypes.string,
+  name: PropTypes.string,
+  currentAddress: PropTypes.string,
+  image: PropTypes.array,
 };
 
 Spaces.defaultProps = {
@@ -671,6 +685,9 @@ Spaces.defaultProps = {
   showOpenSpaceModal: false,
   showDeleteItemModal: false,
   hasUpdated: false,
+  name: '',
+  currentAddress: '',
+  image: null,
 };
 
 function mapState(state) {
@@ -693,6 +710,9 @@ function mapState(state) {
     showSpaceDataItemModal: state.uiState.showSpaceDataItemModal,
     showDeleteItemModal: state.uiState.showDeleteItemModal,
     showOpenSpaceModal: state.uiState.showOpenSpaceModal,
+    name: state.myData.name,
+    image: state.myData.image,
+    currentAddress: state.userState.currentAddress,
   };
 }
 

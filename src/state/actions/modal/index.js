@@ -2,20 +2,6 @@ import {
   store,
 } from '../../store';
 
-export const requireMetaMaskModal = () => (dispatch) => {
-  dispatch({
-    type: 'UI_REQUIRE_METAMASK_MODAL',
-    alertRequireMetaMask: true,
-  });
-};
-
-export const closeRequireMetaMaskModal = () => (dispatch) => {
-  dispatch({
-    type: 'UI_REQUIRE_METAMASK_MODAL',
-    alertRequireMetaMask: false,
-  });
-};
-
 export const closeErrorModal = () => async (dispatch) => {
   dispatch({
     type: 'UI_CLOSE_ERROR_MODAL',
@@ -140,20 +126,6 @@ export const handleOnboardingModal = mobile => async (dispatch) => {
   }
 };
 
-export const handleRequireWalletLoginModal = () => async (dispatch) => {
-  dispatch({
-    type: 'UI_HANDLE_REQUIRE_LOGIN_MODAL',
-    signInToWalletModal: !store.getState().uiState.signInToWalletModal,
-  });
-};
-
-export const handleMobileWalletModal = () => async (dispatch) => {
-  dispatch({
-    type: 'UI_HANDLE_MOBILE_WALLET_REQUIRED_MODAL',
-    mobileWalletRequiredModal: !store.getState().uiState.mobileWalletRequiredModal,
-  });
-};
-
 export const handleAccessModal = () => async (dispatch) => {
   dispatch({
     type: 'UI_HANDLE_ACCESS_MODAL',
@@ -165,13 +137,6 @@ export const handleDeniedAccessModal = () => async (dispatch) => {
   dispatch({
     type: 'UI_HANDLE_DENIED_ACCESS_MODAL',
     accessDeniedModal: !store.getState().uiState.accessDeniedModal,
-  });
-};
-
-export const handleDownloadMetaMaskBanner = () => async (dispatch) => {
-  dispatch({
-    type: 'HANDLE_DOWNLOAD_BANNER',
-    showDownloadBanner: !store.getState().uiState.showDownloadBanner,
   });
 };
 

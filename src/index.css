@@ -245,6 +245,12 @@ input:focus {
 .mobile {
   display: none !important; }
 
+.fixBody {
+  position: fixed; }
+
+.dALBps {
+  position: fixed !important; }
+
 .signInFromPublicProfileBanner {
   width: 100vw;
   height: 54px;
@@ -277,12 +283,6 @@ input:focus {
   background: white; }
   .hideBanner button {
     background-color: white; }
-
-.modal__reqWeb3__button {
-  border: 1px solid white;
-  padding: 12px 18px;
-  margin-top: 30px;
-  color: white; }
 
 .webThreeBanner__close {
   cursor: pointer;
@@ -360,6 +360,8 @@ input:focus {
     position: relative;
     width: 5% !important;
     right: 0; }
+  .kaYREe {
+    margin-top: -90px !important; }
   input[type="color"],
   input[type="date"],
   input[type="datetime"],

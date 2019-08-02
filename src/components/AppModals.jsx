@@ -11,42 +11,26 @@ import {
   OnBoardingModalMobile,
   ProvideAccessModal,
   SyncingModal,
-  RequireMetaMaskModal,
   ProvideConsentModal,
   AccessDeniedModal,
   ErrorModal,
   MustConsentModal,
-  MobileWalletRequiredModal,
-  SignInToWalletModal,
   SignInToThreeBox,
   ModalBackground,
-  DeskTopModalBackground,
   FollowingIsPublicModal,
   FollowingListModal,
 } from './Modals';
+import { checkIsMobile } from '../utils/funcs';
 
 class AppModals extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      width: window.innerWidth,
+      isMobile: checkIsMobile(),
     };
   }
 
-  componentWillMount() {
-    window.addEventListener('resize', this.handleWindowSizeChange);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleWindowSizeChange);
-  }
-
-  handleWindowSizeChange = () => {
-    this.setState({ width: window.innerWidth });
-  }
-
   render() {
-    const { width } = this.state;
     const {
       isFetchingThreeBox,
       onSyncFinished,
@@ -57,13 +41,8 @@ class AppModals extends Component {
       handleConsentModal,
       handleDeniedAccessModal,
       accessDeniedModal,
-      signInToWalletModal,
       signInModal,
-      handleRequireWalletLoginModal,
       handleSignInModal,
-      handleMobileWalletModal,
-      isIOS,
-      mobileWalletRequiredModal,
       errorMessage,
       mustConsentError,
       showErrorModal,
@@ -85,12 +64,9 @@ class AppModals extends Component {
       onBoardingModalMobileOne,
       onBoardingModalMobileTwo,
       onBoardingModalMobileThree,
-      closeRequireMetaMaskModal,
-      alertRequireMetaMask,
       provideConsent,
       handleAccessModal,
       showContactsModal,
-      isMyProfilePath,
       showFollowingPublicModal,
       handleFollowingPublicModal,
       saveFollowing,
@@ -101,8 +77,7 @@ class AppModals extends Component {
       otherProfileAddress,
       handleContactsModal,
     } = this.props;
-
-    const isMobile = width <= 812; // 600
+    const { isMobile } = this.state;
 
     return (
       <ReactCSSTransitionGroup
@@ -126,23 +101,13 @@ class AppModals extends Component {
           <ProvideAccessModal
             handleAccessModal={handleAccessModal}
             directLogin={directLogin}
-            isMobile={isMobile}
             key="ProvideAccessModal"
-          />
-        )}
-
-        {alertRequireMetaMask && (
-          <RequireMetaMaskModal
-            closeRequireMetaMaskModal={closeRequireMetaMaskModal}
-            isMobile={isMobile}
-            key="RequireMetaMaskModal"
           />
         )}
 
         {provideConsent && (
           <ProvideConsentModal
             handleConsentModal={handleConsentModal}
-            isMobile={isMobile}
             key="ProvideConsentModal"
           />
         )}
@@ -155,27 +120,10 @@ class AppModals extends Component {
           />
         )}
 
-        {signInToWalletModal && (
-          <SignInToWalletModal
-            handleRequireWalletLoginModal={handleRequireWalletLoginModal}
-            isMobile={isMobile}
-            key="SignInToWalletModal"
-          />
-        )}
-
         {signInModal && (
           <SignInToThreeBox
             handleSignInModal={handleSignInModal}
             key="SignInToThreeBox"
-          />
-        )}
-
-        {mobileWalletRequiredModal && (
-          <MobileWalletRequiredModal
-            isIOS={isIOS}
-            handleMobileWalletModal={handleMobileWalletModal}
-            isMobile={isMobile}
-            key="MobileWalletRequiredModal"
           />
         )}
 
@@ -188,10 +136,10 @@ class AppModals extends Component {
           />
         )}
 
+
         {!!mustConsentError && (
           <MustConsentModal
             closeErrorModal={closeErrorModal}
-            isMobile={isMobile}
             key="MustConsentModal"
           />
         )}
@@ -205,9 +153,9 @@ class AppModals extends Component {
           />
         )}
 
+
         {loggedOutModal && (
           <LoggedOutModal
-            isMobile={isMobile}
             handleLoggedOutModal={handleLoggedOutModal}
             handleSignOut={handleSignOut}
             key="LoggedOutModal"
@@ -238,7 +186,6 @@ class AppModals extends Component {
         {switchedAddressModal && (
           <SwitchedAddressModal
             handleSwitchedAddressModal={handleSwitchedAddressModal}
-            isMobile={isMobile}
             handleSignOut={handleSignOut}
             prevAddress={prevAddress}
             key="SwitchedAddressModal"
@@ -273,7 +220,6 @@ class AppModals extends Component {
           || provideConsent
           || showFollowingPublicModal
           || accessDeniedModal
-          || signInToWalletModal
           || signInModal
           || (showErrorModal && !mustConsentError)
           || mustConsentError
@@ -288,8 +234,6 @@ class AppModals extends Component {
             || onBoardingModalMobileThree)
             && isMobile)
         ) && <ModalBackground />}
-
-        {(alertRequireMetaMask) && <DeskTopModalBackground />}
 
       </ReactCSSTransitionGroup>
     );
@@ -312,7 +256,6 @@ AppModals.propTypes = {
   handleConsentModal: PropTypes.func.isRequired,
   handleDeniedAccessModal: PropTypes.func.isRequired,
   closeErrorModal: PropTypes.func.isRequired,
-  closeRequireMetaMaskModal: PropTypes.func.isRequired,
   handleAccessModal: PropTypes.func.isRequired,
 
   isFetchingThreeBox: PropTypes.bool,
@@ -331,15 +274,9 @@ AppModals.propTypes = {
   onBoardingModalMobileTwo: PropTypes.bool,
   onBoardingModalMobileThree: PropTypes.bool,
   showErrorModal: PropTypes.bool,
-  handleRequireWalletLoginModal: PropTypes.func.isRequired,
   handleSignInModal: PropTypes.func.isRequired,
-  handleMobileWalletModal: PropTypes.func.isRequired,
   isMyProfilePath: PropTypes.bool.isRequired,
-  isIOS: PropTypes.bool,
-  mobileWalletRequiredModal: PropTypes.bool,
-  signInToWalletModal: PropTypes.bool,
   signInModal: PropTypes.bool,
-  alertRequireMetaMask: PropTypes.bool,
   provideConsent: PropTypes.bool,
   showContactsModal: PropTypes.bool,
 };
@@ -368,11 +305,7 @@ AppModals.defaultProps = {
   onBoardingModalMobileTwo: false,
   onBoardingModalMobileThree: false,
   showErrorModal: false,
-  isIOS: false,
-  mobileWalletRequiredModal: false,
-  signInToWalletModal: false,
   signInModal: false,
-  alertRequireMetaMask: false,
   provideConsent: false,
 };
 

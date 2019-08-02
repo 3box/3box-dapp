@@ -25,21 +25,6 @@
     line-height: 24px;
     text-align: center; }
 
-.info__banner--NoMatchPage {
-  width: 100vw;
-  height: 70vh;
-  background-color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  position: relative;
-  padding-top: 180px;
-  box-sizing: border-box; }
-  .info__banner--NoMatchPage h1 {
-    color: #181F21;
-    margin-bottom: 20vh; }
-
 .info__article {
   display: flex;
   justify-content: center;
