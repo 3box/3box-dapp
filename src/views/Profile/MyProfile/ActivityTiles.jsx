@@ -18,6 +18,7 @@ const ActivityTiles = ({
   verifiedTwitter,
   verifiedEmail,
   currentAddress,
+  currentNetwork,
   name,
   feedAddress,
 }) => (
@@ -29,6 +30,7 @@ const ActivityTiles = ({
               return (
                 <FeedTileInternal
                   currentAddress={currentAddress}
+                  currentNetwork={currentNetwork}
                   metaDataName={feedAddress.metaData
                     && (feedAddress.metaData.name
                       || (feedAddress.metaData.contractDetails
@@ -45,6 +47,7 @@ const ActivityTiles = ({
               return (
                 <FeedTileToken
                   currentAddress={currentAddress}
+                  currentNetwork={currentNetwork}
                   metaDataName={feedAddress.metaData
                     && (feedAddress.metaData.name
                       || (feedAddress.metaData.contractDetails
@@ -61,6 +64,7 @@ const ActivityTiles = ({
               return (
                 <FeedTileTXS
                   currentAddress={currentAddress}
+                  currentNetwork={currentNetwork}
                   item={item}
                   key={index}
                   metaDataName={feedAddress.metaData
@@ -112,6 +116,7 @@ ActivityTiles.propTypes = {
   verifiedEmail: PropTypes.string,
   verifiedTwitter: PropTypes.string,
   currentAddress: PropTypes.string,
+  currentNetwork: PropTypes.string,
   name: PropTypes.string,
 };
 
@@ -121,14 +126,17 @@ ActivityTiles.defaultProps = {
   verifiedGithub: '',
   verifiedTwitter: '',
   currentAddress: '',
+  currentNetwork: '',
 };
 
 const mapState = state => ({
   verifiedGithub: state.myData.verifiedGithub,
   verifiedTwitter: state.myData.verifiedTwitter,
   verifiedEmail: state.myData.verifiedEmail,
-  currentAddress: state.userState.currentAddress,
   name: state.myData.name,
+
+  currentAddress: state.userState.currentAddress,
+  currentNetwork: state.userState.currentNetwork,
 });
 
 export default connect(mapState)(ActivityTiles);

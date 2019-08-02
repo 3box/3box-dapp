@@ -94,86 +94,97 @@ FeedTileActivity.defaultProps = {
   verifiedEmail: '',
 };
 
-export const FeedTileInternal = ({ item, name, onOtherProfilePage, metaDataName, isFromProfile, contractImg }) => (
-  <a href={`https://etherscan.io/tx/${item.hash}`} target="_blank" rel="noopener noreferrer" className="feed__activity">
-    <div className="feed__activity__data">
+export const FeedTileInternal = (props) => {
+  const { item, name, onOtherProfilePage, metaDataName, isFromProfile, contractImg, currentNetwork } = props;
+  const isMain = currentNetwork.toLowerCase() === 'main';
+  let txURL;
 
-      <div className="feed__activity__info">
-        {(item.tokenSymbol && (
-          ((tokenToData[item.tokenSymbol])
-            ? <img src={`/contractIcons/${tokenToData[item.tokenSymbol].logo}`} alt="token icon" className="feed__activity__data__icon" />
-            : <img src={Internal} alt="Internal Transaction Icon" className="feed__activity__data__icon" />)
-        ))}
+  if (isMain) {
+    txURL = `https://etherscan.io/tx/${item.hash}`;
+  } else {
+    txURL = `https://${currentNetwork}.etherscan.io/tx/${item.hash}`;
+  }
 
-        {(item.value === '0' && contractImg)
-          && <img src={contractImg} alt="token icon" className="feed__activity__data__icon" />
-        }
+  return (
+    <a href={txURL} target="_blank" rel="noopener noreferrer" className="feed__activity">
+      <div className="feed__activity__data">
 
-        {(item.value === '0' && !contractImg)
-          && (
-            <div className={`feed__activity__context__network feed__activity__data__icon ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
-              0x
+        <div className="feed__activity__info">
+          {(item.tokenSymbol && (
+            ((tokenToData[item.tokenSymbol])
+              ? <img src={`/contractIcons/${tokenToData[item.tokenSymbol].logo}`} alt="token icon" className="feed__activity__data__icon" />
+              : <img src={Internal} alt="Internal Transaction Icon" className="feed__activity__data__icon" />)
+          ))}
+
+          {(item.value === '0' && contractImg)
+            && <img src={contractImg} alt="token icon" className="feed__activity__data__icon" />
+          }
+
+          {(item.value === '0' && !contractImg)
+            && (
+              <div className={`feed__activity__context__network feed__activity__data__icon ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
+                0x
             </div>
-          )
-        }
+            )
+          }
 
-        {(item.value !== '0' && !item.tokenSymbol)
-          && <img src={EthereumLine} alt="token icon" className="feed__activity__data__icon" />
-        }
-        <p className="feed__activity__text">
-          <span className="feed__activity__info__key">
-            {(onOtherProfilePage && item.value === '0') && (isFromProfile
-              ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`
-              : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`)
-            }
-            {(!onOtherProfilePage && item.value === '0') && (isFromProfile
-              ? 'You performed the action'
-              : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`)
-            }
-
-            {(onOtherProfilePage && item.value !== '0') && (isFromProfile
-              ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} sent`
-              : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
-            }
-            {(!onOtherProfilePage && item.value !== '0') && (isFromProfile
-              ? 'You sent'
-              : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
-            }
-          </span>
-
-          {item.value !== '0' && (
-            <span className={`feed__activity__info__token ${isFromProfile ? 'sentCurrency' : 'receivedCurrency'}`} title={(Number(item.value) / 1000000000000000000).toString()}>
-              {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ${item.tokenSymbol ? item.tokenSymbol : 'ETH'}`}
-            </span>)}
-
-          {item.value !== '0' && (
+          {(item.value !== '0' && !item.tokenSymbol)
+            && <img src={EthereumLine} alt="token icon" className="feed__activity__data__icon" />
+          }
+          <p className="feed__activity__text">
             <span className="feed__activity__info__key">
-              {onOtherProfilePage && (isFromProfile
-                ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
-                : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`)
+              {(onOtherProfilePage && item.value === '0') && (isFromProfile
+                ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`
+                : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`)
               }
-              {!onOtherProfilePage && (isFromProfile
-                ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
-                : `to you`)
+              {(!onOtherProfilePage && item.value === '0') && (isFromProfile
+                ? 'You performed the action'
+                : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`)
               }
-            </span>)}
 
-          {(item.methodCall && item.value !== '0') && (
-            <span className="feed__activity__info__method">
-              {`for ${item.methodCall}`}
+              {(onOtherProfilePage && item.value !== '0') && (isFromProfile
+                ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} sent`
+                : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
+              }
+              {(!onOtherProfilePage && item.value !== '0') && (isFromProfile
+                ? 'You sent'
+                : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
+              }
             </span>
-          )}
-          {(item.methodCall && item.value === '0') && (
-            <span className="feed__activity__info__method">
-              {`${item.methodCall}`}
-            </span>
-          )}
-        </p>
+
+            {item.value !== '0' && (
+              <span className={`feed__activity__info__token ${isFromProfile ? 'sentCurrency' : 'receivedCurrency'}`} title={(Number(item.value) / 1000000000000000000).toString()}>
+                {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ${item.tokenSymbol ? item.tokenSymbol : 'ETH'}`}
+              </span>)}
+
+            {item.value !== '0' && (
+              <span className="feed__activity__info__key">
+                {onOtherProfilePage && (isFromProfile
+                  ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
+                  : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`)
+                }
+                {!onOtherProfilePage && (isFromProfile
+                  ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
+                  : `to you`)
+                }
+              </span>)}
+
+            {(item.methodCall && item.value !== '0') && (
+              <span className="feed__activity__info__method">
+                {`for ${item.methodCall}`}
+              </span>
+            )}
+            {(item.methodCall && item.value === '0') && (
+              <span className="feed__activity__info__method">
+                {`${item.methodCall}`}
+              </span>
+            )}
+          </p>
+        </div>
+        <FeedTileContext item={item} />
       </div>
-      <FeedTileContext item={item} />
-    </div>
-  </a>
-);
+    </a>)
+};
 
 FeedTileInternal.propTypes = {
   item: PropTypes.object,
@@ -193,82 +204,93 @@ FeedTileInternal.defaultProps = {
   isFromProfile: false,
 };
 
-export const FeedTileToken = ({ item, name, onOtherProfilePage, metaDataName, isFromProfile, contractImg }) => (
-  <a href={`https://etherscan.io/tx/${item.hash}`} target="_blank" rel="noopener noreferrer" className="feed__activity">
-    <div className="feed__activity__data">
-      <div className="feed__activity__info">
-        {
-          (tokenToData[item.tokenSymbol])
-            ? <img src={`/contractIcons/${tokenToData[item.tokenSymbol].logo}`} alt="token icon" className="feed__activity__data__icon" />
-            : <img src={Tokens} alt="Token Transaction Icon" className="feed__activity__data__icon" />
-        }
+export const FeedTileToken = (props) => {
+  const { item, name, onOtherProfilePage, metaDataName, isFromProfile, contractImg, currentNetwork } = props;
+  const isMain = currentNetwork.toLowerCase() === 'main';
+  let txURL;
 
-        {
-          (item.value === '0' && contractImg)
-          && <img src={contractImg} alt="token icon" className="feed__activity__data__icon" />
-        }
+  if (isMain) {
+    txURL = `https://etherscan.io/tx/${item.hash}`;
+  } else {
+    txURL = `https://${currentNetwork}.etherscan.io/tx/${item.hash}`;
+  }
 
-        {
-          (item.value === '0' && !contractImg && !tokenToData[item.tokenSymbol])
-          && (
-            <div className={`feed__activity__context__network feed__activity__data__icon ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
-              0x
+  return (
+    <a href={txURL} target="_blank" rel="noopener noreferrer" className="feed__activity">
+      <div className="feed__activity__data">
+        <div className="feed__activity__info">
+          {
+            (tokenToData[item.tokenSymbol])
+              ? <img src={`/contractIcons/${tokenToData[item.tokenSymbol].logo}`} alt="token icon" className="feed__activity__data__icon" />
+              : <img src={Tokens} alt="Token Transaction Icon" className="feed__activity__data__icon" />
+          }
+
+          {
+            (item.value === '0' && contractImg)
+            && <img src={contractImg} alt="token icon" className="feed__activity__data__icon" />
+          }
+
+          {
+            (item.value === '0' && !contractImg && !tokenToData[item.tokenSymbol])
+            && (
+              <div className={`feed__activity__context__network feed__activity__data__icon ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
+                0x
             </div>
-          )
-        }
+            )
+          }
 
-        <p className="feed__activity__text">
-          <span className="feed__activity__info__key">
-            {(onOtherProfilePage && item.value === '0') && (isFromProfile
-              ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`
-              : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`)
-            }
-            {(!onOtherProfilePage && item.value === '0') && (isFromProfile
-              ? 'You performed the action'
-              : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`)
-            }
-
-            {(onOtherProfilePage && item.value !== '0') && (isFromProfile
-              ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} sent`
-              : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
-            }
-            {(!onOtherProfilePage && item.value !== '0') && (isFromProfile
-              ? 'You sent'
-              : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
-            }
-          </span>
-          {item.value !== '0' && (
-            <span className={`feed__activity__info__token ${isFromProfile ? 'sentCurrency' : 'receivedCurrency'}`} title={(Number(item.value) / 1000000000000000000).toString()}>
-              {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ${item.tokenSymbol ? item.tokenSymbol : 'Tokens'}`}
-            </span>)}
-
-          {item.value !== '0' && (
+          <p className="feed__activity__text">
             <span className="feed__activity__info__key">
-              {onOtherProfilePage && (isFromProfile
-                ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
-                : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`)
+              {(onOtherProfilePage && item.value === '0') && (isFromProfile
+                ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`
+                : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`)
               }
-              {!onOtherProfilePage && (isFromProfile
-                ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
-                : `to you`)
+              {(!onOtherProfilePage && item.value === '0') && (isFromProfile
+                ? 'You performed the action'
+                : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`)
               }
-            </span>)}
-          {(item.methodCall && item.value !== '0') && (
-            <span className="feed__activity__info__method">
-              {`for ${item.methodCall}`}
+
+              {(onOtherProfilePage && item.value !== '0') && (isFromProfile
+                ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} sent`
+                : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
+              }
+              {(!onOtherProfilePage && item.value !== '0') && (isFromProfile
+                ? 'You sent'
+                : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
+              }
             </span>
-          )}
-          {(item.methodCall && item.value === '0') && (
-            <span className="feed__activity__info__method">
-              {`${item.methodCall}`}
-            </span>
-          )}
-        </p>
+            {item.value !== '0' && (
+              <span className={`feed__activity__info__token ${isFromProfile ? 'sentCurrency' : 'receivedCurrency'}`} title={(Number(item.value) / 1000000000000000000).toString()}>
+                {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ${item.tokenSymbol ? item.tokenSymbol : 'Tokens'}`}
+              </span>)}
+
+            {item.value !== '0' && (
+              <span className="feed__activity__info__key">
+                {onOtherProfilePage && (isFromProfile
+                  ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
+                  : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`)
+                }
+                {!onOtherProfilePage && (isFromProfile
+                  ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
+                  : `to you`)
+                }
+              </span>)}
+            {(item.methodCall && item.value !== '0') && (
+              <span className="feed__activity__info__method">
+                {`for ${item.methodCall}`}
+              </span>
+            )}
+            {(item.methodCall && item.value === '0') && (
+              <span className="feed__activity__info__method">
+                {`${item.methodCall}`}
+              </span>
+            )}
+          </p>
+        </div>
+        <FeedTileContext item={item} />
       </div>
-      <FeedTileContext item={item} />
-    </div>
-  </a>
-);
+    </a>)
+};
 
 FeedTileToken.propTypes = {
   item: PropTypes.object,
@@ -288,79 +310,91 @@ FeedTileToken.defaultProps = {
   isFromProfile: false,
 };
 
-export const FeedTileTXS = ({ item, name, onOtherProfilePage, metaDataName, isFromProfile, contractImg }) => (
-  <a href={`https://etherscan.io/tx/${item.hash}`} target="_blank" rel="noopener noreferrer" className="feed__activity">
-    <div className="feed__activity__data">
-      <div className="feed__activity__info">
-        {
-          (item.value === '0' && contractImg)
-          && <img src={contractImg} alt="token icon" className="feed__activity__data__icon" />
-        }
-        {
-          (item.value === '0' && !contractImg)
-          && (
-            <div className={`feed__activity__context__network feed__activity__data__icon ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
-              0x
+export const FeedTileTXS = (props) => {
+  const { item, name, onOtherProfilePage, metaDataName, isFromProfile, contractImg, currentNetwork } = props;
+  const isMain = currentNetwork.toLowerCase() === 'main';
+  let txURL;
+
+  if (isMain) {
+    txURL = `https://etherscan.io/tx/${item.hash}`;
+  } else {
+    txURL = `https://${currentNetwork}.etherscan.io/tx/${item.hash}`;
+  }
+
+  return (
+    <a href={txURL} target="_blank" rel="noopener noreferrer" className="feed__activity">
+      <div className="feed__activity__data">
+        <div className="feed__activity__info">
+          {
+            (item.value === '0' && contractImg)
+            && <img src={contractImg} alt="token icon" className="feed__activity__data__icon" />
+          }
+          {
+            (item.value === '0' && !contractImg)
+            && (
+              <div className={`feed__activity__context__network feed__activity__data__icon ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
+                0x
             </div>)
-        }
-        {
-          item.value !== '0'
-          && <img src={EthereumLine} alt="Ethereum Transaction Icon" className="feed__activity__data__icon" />
-        }
-        <p className="feed__activity__text">
-          <span className="feed__activity__info__key">
-            {(onOtherProfilePage && item.value === '0') && (isFromProfile
-              ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`
-              : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`)
-            }
-            {(!onOtherProfilePage && item.value === '0') && (isFromProfile
-              ? 'You performed the action'
-              : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`)
-            }
-
-            {(onOtherProfilePage && item.value !== '0') && (isFromProfile
-              ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} sent`
-              : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
-            }
-            {(!onOtherProfilePage && item.value !== '0') && (isFromProfile
-              ? 'You sent'
-              : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
-            }
-          </span>
-
-          {item.value !== '0' && (
-            <span className={`feed__activity__info__token ${isFromProfile ? 'sentCurrency' : 'receivedCurrency'}`} title={`${(Number(item.value) / 1000000000000000000).toString()} ETH`}>
-              {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ETH`}
-            </span>)}
-
-          {item.value !== '0' && (
+          }
+          {
+            item.value !== '0'
+            && <img src={EthereumLine} alt="Ethereum Transaction Icon" className="feed__activity__data__icon" />
+          }
+          <p className="feed__activity__text">
             <span className="feed__activity__info__key">
-              {onOtherProfilePage && (isFromProfile
-                ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
-                : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`)
+              {(onOtherProfilePage && item.value === '0') && (isFromProfile
+                ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`
+                : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`)
               }
-              {!onOtherProfilePage && (isFromProfile
-                ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
-                : `to you`)
+              {(!onOtherProfilePage && item.value === '0') && (isFromProfile
+                ? 'You performed the action'
+                : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} performed the action`)
               }
-            </span>)}
 
-          {(item.methodCall && item.value !== '0') && (
-            <span className="feed__activity__info__method">
-              {`for ${item.methodCall}`}
+              {(onOtherProfilePage && item.value !== '0') && (isFromProfile
+                ? `${name || `${item.from.toLowerCase().substring(0, 12)}...`} sent`
+                : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
+              }
+              {(!onOtherProfilePage && item.value !== '0') && (isFromProfile
+                ? 'You sent'
+                : `${metaDataName || `${item.from.toLowerCase().substring(0, 12)}...`} sent`)
+              }
             </span>
-          )}
-          {(item.methodCall && item.value === '0') && (
-            <span className="feed__activity__info__method">
-              {`${item.methodCall}`}
-            </span>
-          )}
-        </p>
+
+            {item.value !== '0' && (
+              <span className={`feed__activity__info__token ${isFromProfile ? 'sentCurrency' : 'receivedCurrency'}`} title={`${(Number(item.value) / 1000000000000000000).toString()} ETH`}>
+                {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ETH`}
+              </span>)}
+
+            {item.value !== '0' && (
+              <span className="feed__activity__info__key">
+                {onOtherProfilePage && (isFromProfile
+                  ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
+                  : `to ${name || `${item.from.toLowerCase().substring(0, 12)}...`}`)
+                }
+                {!onOtherProfilePage && (isFromProfile
+                  ? `to ${metaDataName || `${item.to.toLowerCase().substring(0, 12)}...`}`
+                  : `to you`)
+                }
+              </span>)}
+
+            {(item.methodCall && item.value !== '0') && (
+              <span className="feed__activity__info__method">
+                {`for ${item.methodCall}`}
+              </span>
+            )}
+
+            {(item.methodCall && item.value === '0') && (
+              <span className="feed__activity__info__method">
+                {`${item.methodCall}`}
+              </span>
+            )}
+          </p>
+        </div>
+        <FeedTileContext item={item} />
       </div>
-      <FeedTileContext item={item} />
-    </div>
-  </a>
-);
+    </a>)
+};
 
 FeedTileTXS.propTypes = {
   item: PropTypes.object,
