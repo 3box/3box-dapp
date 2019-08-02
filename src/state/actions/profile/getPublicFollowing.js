@@ -9,6 +9,7 @@ import {
 
 const getPublicFollowing = address => async (dispatch) => {
   try {
+    console.log('getPublicFollowing');
     const myAddress = address || store.getState().userState.currentAddress;
 
     const followingList = await Box.getThread('Following', 'followingList', myAddress, true);

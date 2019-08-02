@@ -27,6 +27,7 @@ export const deleteDuplicate = async (duplicates, followingThread) => {
 export const getPosts = async (followingThread) => {
   try {
     const followingList = await followingThread.getPosts();
+    console.log('getPosts');
 
     // remove duplicates from interface
     const userInList = {};

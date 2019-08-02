@@ -182,10 +182,10 @@ class App extends Component {
 
   directSignIn = async (wallet, nextProps) => {
     try {
-      // store.dispatch({
-      //   type: 'UI_3BOX_LOADING',
-      //   isFetchingThreeBox: true,
-      // });
+      store.dispatch({
+        type: 'UI_3BOX_LOADING',
+        isFetchingThreeBox: true,
+      });
 
       const { location: { pathname } } = this.props;
       const pathToUse = nextProps ? nextProps.location.pathname : pathname;
