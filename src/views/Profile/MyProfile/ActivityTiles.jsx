@@ -40,7 +40,8 @@ const ActivityTiles = ({
                   name={name}
                   item={item}
                   key={index}
-                />);
+                />
+              );
             }
 
             if (item.dataType === 'Token') {
