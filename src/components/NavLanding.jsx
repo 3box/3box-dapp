@@ -110,7 +110,7 @@ class NavLanding extends Component {
           <Link to={routes.PARTNERS} className="landing_nav_link">
             Partners
           </Link>
-          <a href="https://github.com/3box/3box" target="_blank" rel="noopener noreferrer" className="landing_nav_link">
+          <a href="https://docs.3box.io" target="_blank" rel="noopener noreferrer" className="landing_nav_link">
             Docs
           </a>
           <a href="https://medium.com/3box" target="_blank" rel="noopener noreferrer" className="landing_nav_link">
@@ -233,8 +233,8 @@ class NavLanding extends Component {
               onKeyPress={this.handleAPI}
               tabIndex={0}
               role="button"
-            />)
-        }
+            />
+          )}
 
         <div
           className={`${showSideDrawer ? 'sideDrawer' : undefined} nav__dropdown mobileDropDown`}
@@ -260,7 +260,7 @@ class NavLanding extends Component {
               </li>
             </Link>
 
-            <a href="https://github.com/3box/3box" target="_blank" rel="noopener noreferrer">
+            <a href="https://docs.3box.io" target="_blank" rel="noopener noreferrer">
               <li>
                 Docs
               </li>

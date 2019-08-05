@@ -14,3 +14,24 @@ export const githubMessage = (did) => {
     
     Create your profile today to start building social connection and trust online at https://3Box.io/`);
 };
+
+export const checkVerifiedFormatting = (value, field) => {
+  let isValid;
+  const isEmail = field === 'email';
+  const isGithub = field === 'github';
+  const isTwitter = field === 'twitter';
+
+  if (isEmail) {
+    const emailCheck = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    isValid = emailCheck.test(String(value).toLowerCase());
+  } else if (isTwitter) {
+    isValid = /^@?(\w){1,15}$/.test(value);
+  } else if (isGithub) {
+    isValid = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/.test(value);
+  }
+  return isValid;
+};
+
+export const capitalizeFirst = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
