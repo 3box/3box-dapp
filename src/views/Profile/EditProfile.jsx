@@ -20,8 +20,13 @@ import {
   ModalBackground,
 } from '../../components/Modals';
 import history from '../../utils/history';
-import { twitterMessage, githubMessage, checkVerifiedFormatting, capitalizeFirst } from './EditProfile/utils';
-import Nav from '../../components/Nav.jsx';
+import {
+  twitterMessage,
+  githubMessage,
+  checkVerifiedFormatting,
+  capitalizeFirst,
+} from './EditProfile/utils';
+import Nav from '../../components/Nav';
 import * as routes from '../../utils/routes';
 import Private from '../../assets/Private.svg';
 import Verified from '../../assets/Verified.svg';
