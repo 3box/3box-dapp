@@ -260,7 +260,7 @@
   box-sizing: border-box;
   margin-bottom: 6px;
   width: 100%;
-  
+
   p {
     font-size: 18px;
     line-height: 24px !important;
@@ -270,13 +270,23 @@
   }
 }
 
-.followingHeader_count {
+.followingHeader_title {
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
 .followingHeader_warning {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  img {
+    margin-right: 14px;
+  }
+}
+
+.followingHeader_warning_text {
   line-height: 24px !important;
   color: $lightestFont !important;
   font-weight: 400;

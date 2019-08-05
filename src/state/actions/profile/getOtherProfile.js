@@ -3,6 +3,10 @@ import Box from '3box';
 import {
   getFollowingProfiles,
 } from '../../../utils/funcs';
+import {
+  followingSpaceName,
+  followingThreadName,
+} from '../../../utils/constants';
 
 const getOtherProfile = profileAddress => async (dispatch) => {
   try {
@@ -39,7 +43,7 @@ const getOtherProfile = profileAddress => async (dispatch) => {
 
     let profiles;
     try {
-      profiles = await Box.getThread('Following', 'followingList', profileAddress, true);
+      profiles = await Box.getThread(followingSpaceName, followingThreadName, profileAddress, true);
     } catch (error) {
       console.log(error);
     }

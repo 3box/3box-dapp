@@ -305,7 +305,7 @@ class App extends Component {
           <Route
             exact
             path={routes.PARTNERS}
-            component={() => (
+            render={() => (
               <Partners />
             )}
           />
@@ -313,7 +313,7 @@ class App extends Component {
           <Route
             exact
             path={routes.PRIVACY}
-            component={() => (
+            render={() => (
               <Privacy />
             )}
           />
@@ -321,7 +321,7 @@ class App extends Component {
           <Route
             exact
             path={routes.TERMS}
-            component={() => (
+            render={() => (
               <Terms />
             )}
           />
@@ -329,7 +329,7 @@ class App extends Component {
           <Route
             path={routes.CREATE}
             exact
-            component={() => (
+            render={() => (
               <Create
                 isLoggedIn={isLoggedIn}
                 handleSignInUp={this.handleSignInUp}
@@ -344,7 +344,7 @@ class App extends Component {
           />
 
           <Route
-            component={() => (
+            render={() => (
               <NoMatch
                 isLoggedIn={isLoggedIn}
                 handleSignInUp={this.handleSignInUp}

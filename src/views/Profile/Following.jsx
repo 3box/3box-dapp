@@ -4,22 +4,25 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { alphabetize } from '../../utils/funcs';
-import Globe from '../../assets/Globe.svg';
+
 import FollowingTile from '../../components/FollowingTile';
 import EmptyContact from '../../components/EmptyContact';
+import Loading from '../../assets/Loading.svg';
+import Globe from '../../assets/Globe.svg';
 import './styles/Profile.css';
 import './styles/Feed.css';
 
-const Following = ({ following }) => (
+const Following = ({ following, isLoadingMyFollowing }) => (
   <div id="myFeed" className="contacts_page">
-    <div className="header followingHeader">
-      <div className="followingHeader_count">
-        <p>
-          {`Following (${following.length})`}
-        </p>
+    <div className="header followingHeader" id="feed__header">
+      <div className="followingHeader_title">
+        {`Following (${following.length})`}
         <img src={Globe} alt="Public" className="favorites__publicIcon" title="Following will appear in your public profile" />
+        {isLoadingMyFollowing && <img src={Loading} alt="loading" id="activityLoad" />}
       </div>
-      <p className="followingHeader_warning">Addresses you follow are public</p>
+      <div className="followingHeader_warning">
+        <p className="followingHeader_warning_text">Addresses you follow are public</p>
+      </div>
     </div>
 
     <div className="contact_list">
@@ -37,15 +40,19 @@ const Following = ({ following }) => (
 
 Following.propTypes = {
   following: PropTypes.array,
+  isLoadingMyFollowing: PropTypes.bool,
 };
 
 Following.defaultProps = {
   following: [],
+  isLoadingMyFollowing: false,
 };
 
 function mapState(state) {
   return {
     following: state.myData.following,
+
+    isLoadingMyFollowing: state.uiState.isLoadingMyFollowing,
   };
 }
 

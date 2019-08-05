@@ -4,6 +4,10 @@ import {
 import {
   getFollowingProfiles,
 } from '../../../utils/funcs';
+import {
+  followingSpaceName,
+  followingThreadName,
+} from '../../../utils/constants';
 
 export const deleteDuplicate = async (duplicates, followingThread) => {
   // if logged in, delete duplicate from thread
@@ -27,7 +31,7 @@ export const deleteDuplicate = async (duplicates, followingThread) => {
 export const getPosts = async (followingThread) => {
   try {
     const followingList = await followingThread.getPosts();
-    console.log('getPosts');
+    console.log('getPosts', followingList);
 
     // remove duplicates from interface
     const userInList = {};
@@ -56,15 +60,24 @@ export const getPosts = async (followingThread) => {
 
 export const getFollowingThreadAndPosts = async (myAddress) => {
   try {
-    const followingSpace = await store.getState().myData.box.openSpace('Following');
+    store.dispatch({
+      type: 'UI_FOLLOWING_LOADING',
+      isLoadingMyFollowing: true,
+    });
+
+    const followingSpace = await store.getState().myData.box.openSpace(followingSpaceName);
     const opts = {
       members: true,
       firstModerator: myAddress,
     };
-    const followingThread = await followingSpace.joinThread('followingList', opts);
+    const followingThread = await followingSpace.joinThread(followingThreadName, opts);
     store.dispatch({
       type: 'MY_FOLLOWING_THREAD_UPDATE',
       followingThread,
+    });
+    store.dispatch({
+      type: 'UI_FOLLOWING_LOADING',
+      isLoadingMyFollowing: false,
     });
 
     followingThread.onUpdate(() => getPosts(followingThread));
@@ -79,16 +92,16 @@ export const formatContact = (proofDid, otherProfileAddress) => {
     '@context': 'http://schema.org/',
     '@type': 'Person',
     identifier: [{
-      '@type': 'PropertyValue',
-      name: 'DID',
-      value: `did:3:${proofDid}`,
-    },
-    {
-      '@type': 'PropertyValue',
-      name: 'Ethereum',
-      PropertyID: 'chainId_1',
-      value: otherProfileAddress,
-    },
+        '@type': 'PropertyValue',
+        name: 'DID',
+        value: `did:3:${proofDid}`,
+      },
+      {
+        '@type': 'PropertyValue',
+        name: 'Ethereum',
+        PropertyID: 'chainId_1',
+        value: otherProfileAddress,
+      },
     ],
   };
 

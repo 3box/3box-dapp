@@ -18,11 +18,10 @@ import {
   TwitterVerificationModal,
   EmailVerificationModal,
   ModalBackground,
-} from '../../components/Modals';
-import { twitterMessage, githubMessage, checkVerifiedFormatting, capitalizeFirst } from './EditProfile/utils';
+} from '../../../components/Modals';
 import '../styles/EditProfile.css';
 import history from '../../../utils/history';
-import { twitterMessage, githubMessage, editProfileFields } from './utils';
+import { twitterMessage, githubMessage, editProfileFields, checkVerifiedFormatting } from './utils';
 import Nav from '../../../components/Nav/Nav';
 import * as routes from '../../../utils/routes';
 import Private from '../../../assets/Private.svg';
@@ -115,6 +114,7 @@ class EditProfile extends Component {
   handleFormChange = (e, property) => {
     const { editedArray } = this.state;
     const fieldProp = this.props[property];
+    const { value } = e.target;
 
     let editedField;
     if (property === 'verifiedGithub') editedField = 'github';
@@ -124,11 +124,25 @@ class EditProfile extends Component {
     this.setState({ [property]: value },
       () => {
         if (property === 'emailCode') return;
+
         if (editedField) {
           if (this.state[property] === '') {
             this.setState({ [`${editedField}Edited`]: false });
           } else if (fieldProp !== this.state[property] && this.state[property] !== '') {
+            const passesVerifiedCheck = checkVerifiedFormatting(value, editedField);
             this.setState({ [`${editedField}Edited`]: true });
+            if (passesVerifiedCheck) {
+              this.setState({
+                [`${editedField}ErrorMessage`]: 'Verification is required for your verified accounts to save.',
+                [`${editedField}InvalidFormat`]: false,
+              });
+            } else {
+              const errorMsg = `${capitalizeFirst(editedField)} entry improperly formatted.`;
+              this.setState({
+                [`${editedField}InvalidFormat`]: true,
+                [`${editedField}ErrorMessage`]: errorMsg,
+              });
+            }
           }
         } else {
           const updatedEditedArray = editedArray;
@@ -959,7 +973,7 @@ class EditProfile extends Component {
             || showGithubVerificationModal
             || showFileSizeModal) && (
               <ModalBackground />
-          )}
+            )}
         </ReactCSSTransitionGroup>
 
         <div id="edit__breadCrumb">

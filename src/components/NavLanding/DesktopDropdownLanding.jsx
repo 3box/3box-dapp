@@ -15,7 +15,7 @@ const DesktopDropdownLanding = props => (
     >
       <div className="nav_account">
         <div className="nav_account_top">
-          {props.currenAddress ? (
+          {props.currentAddress ? (
             <React.Fragment>
               <p className="nav_account_top_description">You last used this account</p>
               <div className="nav_account_user">

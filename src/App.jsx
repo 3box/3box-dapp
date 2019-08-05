@@ -60,6 +60,7 @@ const {
   openBox,
   handleSignOut,
   injectWeb3,
+  clearReduxState,
 } = actions.signin;
 
 const {
@@ -162,7 +163,8 @@ class App extends Component {
       this.props.getMyProfileValue('public', 'emoji'); // eslint-disable-line
       this.props.getMyProfileValue('private', 'birthday'); // eslint-disable-line
 
-      await this.props.getMyFollowing(); // eslint-disable-line
+      this.props.getMyFollowing(); // eslint-disable-line
+
       await this.props.getCollectibles(currentAddress); // eslint-disable-line
       await this.props.convert3BoxToSpaces(); // eslint-disable-line
       await this.props.getMySpacesData(currentAddress); // eslint-disable-line
@@ -193,21 +195,14 @@ class App extends Component {
       const currentUrlEthAddr = normalizedPath.split('/')[1];
       const profilePage = normalizedPath.split('/')[2];
       const doesEthAddrMatch = currentUrlEthAddr === this.props.currentAddress;
-      console.log('1')
       await this.props.checkMobileWeb3(); // eslint-disable-line
-      console.log('2')
       await this.props.injectWeb3('directLogin', false, wallet); // eslint-disable-line
-      console.log('3')
       await this.props.checkNetwork(); // eslint-disable-line
-      console.log('4')
 
       if (!doesEthAddrMatch) history.push(`/${this.props.currentAddress}/${profilePage || routes.ACTIVITY}`);
-      console.log('5')
 
       await this.props.openBox(); // eslint-disable-line
-      console.log('6')
       if (!this.props.showErrorModal) this.getMyData(); // eslint-disable-line
-      console.log('7')
     } catch (err) {
       console.error(err); // eslint-disable-line
       store.dispatch({
@@ -521,4 +516,5 @@ export default withRouter(connect(mapState,
     getPublicFollowing,
     saveFollowing,
     handleContactsModal,
+    clearReduxState,
   })(App));

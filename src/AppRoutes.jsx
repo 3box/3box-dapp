@@ -138,7 +138,7 @@ const AppRoutes = props => (
     <Route
       exact
       path={routes.PARTNERS}
-      component={() => (
+      render={() => (
         <Partners />
       )}
     />
@@ -146,7 +146,7 @@ const AppRoutes = props => (
     <Route
       exact
       path={routes.PRIVACY}
-      component={() => (
+      render={() => (
         <Privacy />
       )}
     />
@@ -154,7 +154,7 @@ const AppRoutes = props => (
     <Route
       exact
       path={routes.TERMS}
-      component={() => (
+      render={() => (
         <Terms />
       )}
     />

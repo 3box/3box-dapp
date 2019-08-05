@@ -215,12 +215,19 @@
     font-weight: 400;
     margin: 0; }
 
-.followingHeader_count {
+.followingHeader_title {
   display: flex;
   justify-content: flex-start;
   align-items: center; }
 
 .followingHeader_warning {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center; }
+  .followingHeader_warning img {
+    margin-right: 14px; }
+
+.followingHeader_warning_text {
   line-height: 24px !important;
   color: #b1b1b1 !important;
   font-weight: 400;

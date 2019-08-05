@@ -97,12 +97,14 @@ class NavLanding extends Component {
     const profilePage = typeof normalizedPath.split('/')[2] === 'undefined';
     const isPublicProfile = currentUrlEthAddr && profilePage;
 
+    // ${(showSignInBanner) ? 'showSignInBanner' : ''} 
+    // ${(showSignInBanner) ? 'bannerMargin' : ''} 
+
     return (
       <nav
         id="landing__nav"
         className={`
-            ${showSignInBanner ? 'showSignInBanner' : ''} 
-            ${(showSignInBanner) ? 'bannerMargin' : ''} 
+            ${(showSignInBanner && isPublicProfile) ? 'bannerMargin' : ''} 
             ${classHide} 
             ${onOtherProfilePage && 'hide'} 
             ${showAPI ? 'showAPINav' : ''}

@@ -4,6 +4,11 @@ import cloneDeep from 'lodash.clonedeep';
 import {
   store,
 } from '../../store';
+import {
+  followingSpaceName,
+  followingThreadName,
+  followingSpaceNameLength,
+} from '../../../utils/constants';
 
 const getMySpacesData = address => async (dispatch) => {
   try {
@@ -35,7 +40,8 @@ const getMySpacesData = address => async (dispatch) => {
       Object.entries(space).forEach((kv) => {
         if (kv[0].substring(0, 7) === 'thread-' &&
           kv[0].substring(8, 15) !== 'orbitdb' &&
-          kv[0].slice(-23) !== 'Following.followingList') {
+          kv[0].slice(-23) !== 'Following.followingList' &&
+          kv[0].slice(`-${followingSpaceNameLength}`) !== `${followingSpaceName}.${followingThreadName}`) {
           threadNames.push(kv[1].value.name);
           const promise = Box.getThread(spaceName, kv[1].value.name);
           threadCalls.push(promise);
@@ -43,7 +49,8 @@ const getMySpacesData = address => async (dispatch) => {
 
         if (kv[0].substring(0, 14) === 'follow-thread-' ||
           kv[0].substring(8, 15) === 'orbitdb' ||
-          kv[0].slice(-23) === 'Following.followingList'
+          kv[0].slice(-23) === 'Following.followingList' ||
+          kv[0].slice(`-${followingSpaceNameLength}`) === `${followingSpaceName}.${followingThreadName}`
         ) {
           delete updatedAllData[spaceName].public[kv[0]];
         }

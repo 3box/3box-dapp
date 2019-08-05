@@ -6,13 +6,17 @@ import {
 import {
   getFollowingProfiles,
 } from '../../../utils/funcs';
+import {
+  followingSpaceName,
+  followingThreadName,
+} from '../../../utils/constants';
 
 const getPublicFollowing = address => async (dispatch) => {
   try {
     console.log('getPublicFollowing');
     const myAddress = address || store.getState().userState.currentAddress;
 
-    const followingList = await Box.getThread('Following', 'followingList', myAddress, true);
+    const followingList = await Box.getThread(followingSpaceName, followingThreadName, myAddress, true);
 
     if (!followingList) return null;
 

@@ -247,6 +247,12 @@ const uiStateReducer = (state = {}, action) => {
         fixBody: action.fixBody,
       };
 
+    case 'UI_FOLLOWING_LOADING':
+      return {
+        ...state,
+        isLoadingMyFollowing: action.isLoadingMyFollowing,
+      };
+
     default:
       return state;
   }

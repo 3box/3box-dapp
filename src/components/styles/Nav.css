@@ -183,12 +183,8 @@ nav {
   cursor: pointer;
   font-size: 12px;
   border-radius: 50%;
-<<<<<<< HEAD
-  transition: all .3s; }
-=======
   transition: all .3s;
   background-color: white; }
->>>>>>> origin/followingW3C
   .nav__arrow:hover {
     background-color: #f5f6f8; }
     .nav__arrow:hover .nav__arrow__icon {
@@ -216,11 +212,7 @@ nav {
   .nav__dropdown ul {
     padding: 0; }
   .nav__dropdown li {
-<<<<<<< HEAD
-    padding-left: 1.3em;
-=======
     padding-left: 20px;
->>>>>>> origin/followingW3C
     height: 4.2em;
     cursor: pointer;
     box-sizing: border-box;
@@ -235,12 +227,8 @@ nav {
     font-size: 14px; }
 
 .nav_dropdown_icon_wrapper {
-<<<<<<< HEAD
-  width: 52px; }
-=======
   width: 44px;
   position: relative; }
->>>>>>> origin/followingW3C
 
 .nav__dropdown--desktop {
   visibility: hidden;
@@ -249,24 +237,18 @@ nav {
   transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
   width: 180px; }
 
-<<<<<<< HEAD
-=======
 .nav__dropdown--desktop-landing {
   width: 260px; }
 
->>>>>>> origin/followingW3C
 .nav_dropdown_switchWalletButton {
   padding: 0; }
 
 .nav_dropdown_switchWallet {
   width: 20px;
   filter: grayscale(100%); }
-<<<<<<< HEAD
-=======
 
 .nav_dropdown_walletIcon {
   margin-left: 15px; }
->>>>>>> origin/followingW3C
 
 .nav__divide {
   border-top: 1px solid #ececec;

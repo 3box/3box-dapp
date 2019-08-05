@@ -156,7 +156,8 @@
   min-width: 60px !important;
   min-height: 60px !important;
   background-color: white;
-  border-radius: 50%; }
+  border-radius: 50%;
+  object-fit: cover; }
 
 .profile__category__divider {
   width: 94%;
@@ -393,7 +394,8 @@
   border-radius: 50%;
   background-color: white;
   margin-left: -22px;
-  border: 2px solid white; }
+  border: 2px solid white;
+  object-fit: cover; }
 
 .first {
   margin-left: 0; }
@@ -405,8 +407,6 @@
   width: 100%; }
   .public_contacts_add button {
     width: 100%; }
-    .public_contacts_add button img {
-      width: 18px; }
 
 .unfollowButton {
   padding: 15px 20px; }
@@ -558,6 +558,8 @@
 .followActionButton {
   width: 108px;
   min-height: 50px; }
+  .followActionButton img {
+    width: 18px !important; }
 
 .loadingProfile {
   position: fixed;

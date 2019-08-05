@@ -12,25 +12,25 @@ const AppPreviewRoutes = () => (
       <Route
         exact
         path="(^[/][0][xX]\w{40}\b)/twitterRequest"
-        component={PubProfileDummyTwitter}
+        render={PubProfileDummyTwitter}
       />
 
       <Route
         exact
         path="(^[/][0][xX]\w{40}\b)/previewRequest"
-        component={PubProfileDummy}
+        render={PubProfileDummy}
       />
 
       <Route
         exact
         path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|data|edit\w*)/twitterRequest"
-        component={PubProfileDummyTwitter}
+        render={PubProfileDummyTwitter}
       />
 
       <Route
         exact
         path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|data|edit\w*)/previewRequest"
-        component={PubProfileDummy}
+        render={PubProfileDummy}
       />
     </Switch>
   </div>

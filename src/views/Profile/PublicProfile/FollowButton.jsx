@@ -18,6 +18,7 @@ const {
   getVerifiedPublicTwitter,
   getVerifiedPrivateEmail,
   getActivity,
+  getMyFollowing,
 } = actions.profile;
 
 const { getMySpacesData, convert3BoxToSpaces } = actions.spaces;
@@ -72,6 +73,7 @@ class FollowButton extends Component {
       this.props.getMyProfileValue('public', 'emoji');
       this.props.getMyProfileValue('private', 'birthday');
 
+      // await this.props.getMyFollowing();
       await this.props.getCollectibles(currentAddress);
       await this.props.convert3BoxToSpaces();
       await this.props.getMySpacesData(currentAddress);
@@ -145,6 +147,7 @@ class FollowButton extends Component {
           type="button"
           className="outlineButton unfollowButton followActionButton"
           onClick={this.handleFollowing}
+          disabled={isFollowFromProfileLoading || isLoading}
           onMouseEnter={() => this.handleShowHover('Unfollow')}
           onMouseLeave={() => this.handleShowHover('Following')}
         >
@@ -160,6 +163,7 @@ class FollowButton extends Component {
         type="button"
         className="followButton followActionButton"
         onClick={this.handleFollowing}
+        disabled={isFollowFromProfileLoading || isLoading}
       >
         {(isFollowFromProfileLoading) && <img src={Loading} alt="loading" />}
         {(isFollowFromTileLoading && isLoading) && <img src={Loading} alt="loading" />}
@@ -193,12 +197,9 @@ FollowButton.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   accessDeniedModal: PropTypes.bool,
   showErrorModal: PropTypes.bool,
-<<<<<<< HEAD
-=======
   fromContactTile: PropTypes.bool,
   handleMobileWalletModal: PropTypes.func.isRequired,
   handleTileLoading: PropTypes.func.isRequired,
->>>>>>> origin/followingW3C
 };
 
 FollowButton.defaultProps = {
@@ -242,11 +243,6 @@ export default connect(mapState,
     getVerifiedPrivateEmail,
     getActivity,
     getMySpacesData,
+    getMyFollowing,
     convert3BoxToSpaces,
-<<<<<<< HEAD
-    initializeSaveFollowing,
-=======
-    // handleMobileWalletModal,
-    // initializeSaveFollowing,
->>>>>>> origin/followingW3C
   })(FollowButton);

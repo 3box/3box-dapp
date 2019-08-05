@@ -21,6 +21,7 @@ const saveFollowing = (otherProfileAddress, fromWarningModal) => async (dispatch
     } = store.getState().myData;
     const {
       currentAddress,
+      // isLoggedIn
     } = store.getState().userState;
 
     const isFollowing = checkFollowing(followingList, otherProfileAddress);
@@ -39,6 +40,7 @@ const saveFollowing = (otherProfileAddress, fromWarningModal) => async (dispatch
         type: 'OTHER_ADDRESS_TO_FOLLOW',
         otherAddressToFollow: otherProfileAddress,
       });
+      // End this process. Will continue with "Yes" on warning modal
       return;
     }
 
@@ -47,6 +49,8 @@ const saveFollowing = (otherProfileAddress, fromWarningModal) => async (dispatch
     const contact = formatContact(profile.proof_did, otherProfileAddress);
 
     const saved = await store.getState().myData.followingThread.post(contact);
+    console.log('saved', saved);
+    // `onUpdate` will handle updateing myFollowing
   } catch (error) {
     console.error(error);
   }
