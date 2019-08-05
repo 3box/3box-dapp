@@ -140,6 +140,7 @@ class FollowButton extends Component {
     } = this.props;
 
     const { showHoverText } = this.state;
+    console.log('isFollowFromProfileLoading || isLoading', isFollowFromProfileLoading || isLoading)
 
     if (isFollowing) {
       return (

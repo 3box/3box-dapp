@@ -70,7 +70,9 @@ export const getFollowingThreadAndPosts = async (myAddress) => {
       members: true,
       firstModerator: myAddress,
     };
+    console.log('followingSpace', followingSpace);
     const followingThread = await followingSpace.joinThread(followingThreadName, opts);
+    console.log('followingThread', followingThread);
     store.dispatch({
       type: 'MY_FOLLOWING_THREAD_UPDATE',
       followingThread,
