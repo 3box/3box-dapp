@@ -60,6 +60,8 @@ export const FeedTileActivity = (props) => {
     isPrivateValue ||
     restValue ||
     '';
+  const valueClass = isEmojiValue ? 'feed__activity__address__amount__emoji' : 'feed__activity__info__value';
+  const valueToRender = isEmojiValue ? (typeof item.value === 'object' ? Object.keys(item.value)[0] : item.value) : whichValue;
 
   const updatedImage =
     (item.key === 'image' || item.key === 'coverPhoto')
@@ -81,15 +83,9 @@ export const FeedTileActivity = (props) => {
               {(item.op === 'PUT' && item.key !== 'proof_github' && item.key !== 'proof_twitter' && item.key !== 'proof_email') ? 'to' : ''}
             </span>
 
-            {isEmojiValue ? (
-              <span className="feed__activity__address__amount__emoji">
-                {typeof item.value === 'object' ? Object.keys(item.value)[0] : item.value}
-              </span>
-            ) : (
-                <span className="feed__activity__info__value">
-                  {`${whichValue}`}
-                </span>
-              )}
+            <span className={valueClass}>
+              {valueToRender}
+            </span>
           </p>
         </div>
         <FeedTileContext item={item} />
@@ -132,6 +128,7 @@ export const FeedTileInternal = (props) => {
 
   const fromAddress = item.from && `${item.from.toLowerCase().substring(0, 12)}...`;
   const toAddress = `${item.to.toLowerCase().substring(0, 12)}...`;
+  const isValueZero = item.value === '0';
 
   return (
     <a href={`https://etherscan.io/tx/${item.hash}`} target="_blank" rel="noopener noreferrer" className="feed__activity">
@@ -144,19 +141,19 @@ export const FeedTileInternal = (props) => {
               : <img src={Internal} alt="Internal Transaction Icon" className="feed__activity__data__icon" />)
           ))}
 
-          {(item.value === '0' && contractImg) && <contractImgJSX contractImg={contractImg} />}
-          {(item.value === '0' && !contractImg) && <EthereumIcon />}
+          {(isValueZero && contractImg) && <contractImgJSX contractImg={contractImg} />}
+          {(isValueZero && !contractImg) && <EthereumIcon />}
           {(item.value !== '0' && !item.tokenSymbol) && <img src={EthereumLine} alt="token icon" className="feed__activity__data__icon" />}
 
           <p className="feed__activity__text">
             <span className="feed__activity__info__key">
-              {(onOtherProfilePage && item.value === '0') && (
+              {(onOtherProfilePage && isValueZero) && (
                 isFromProfile
                   ? `${name || fromAddress} performed the action`
                   : `${metaDataName || fromAddress} performed the action`)
               }
 
-              {(!onOtherProfilePage && item.value === '0') && (
+              {(!onOtherProfilePage && isValueZero) && (
                 isFromProfile
                   ? 'You performed the action'
                   : `${metaDataName || fromAddress} performed the action`)
@@ -175,13 +172,13 @@ export const FeedTileInternal = (props) => {
               }
             </span>
 
-            {item.value !== '0' && (
+            {!isValueZero && (
               <span className={`feed__activity__info__token ${isFromProfile ? 'sentCurrency' : 'receivedCurrency'}`} title={(Number(item.value) / 1000000000000000000).toString()}>
                 {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ${item.tokenSymbol ? item.tokenSymbol : 'ETH'}`}
               </span>
             )}
 
-            {item.value !== '0' && (
+            {!isValueZero && (
               <span className="feed__activity__info__key">
                 {onOtherProfilePage && (
                   isFromProfile
@@ -196,12 +193,12 @@ export const FeedTileInternal = (props) => {
               </span>
             )}
 
-            {(item.methodCall && item.value !== '0') && (
+            {(item.methodCall && !isValueZero) && (
               <span className="feed__activity__info__method">
                 {`for ${item.methodCall}`}
               </span>
             )}
-            {(item.methodCall && item.value === '0') && (
+            {(item.methodCall && isValueZero) && (
               <span className="feed__activity__info__method">
                 {`${item.methodCall}`}
               </span>
@@ -244,6 +241,7 @@ export const FeedTileToken = (props) => {
 
   const fromAddress = item.from && `${item.from.toLowerCase().substring(0, 12)}...`;
   const toAddress = `${item.to.toLowerCase().substring(0, 12)}...`;
+  const isValueZero = item.value === '0';
 
   return (
     <a href={`https://etherscan.io/tx/${item.hash}`} target="_blank" rel="noopener noreferrer" className="feed__activity">
@@ -255,39 +253,39 @@ export const FeedTileToken = (props) => {
               : <img src={Tokens} alt="Token Transaction Icon" className="feed__activity__data__icon" />
           }
 
-          {(item.value === '0' && contractImg) && <contractImgJSX contractImg={contractImg} />}
-          {(item.value === '0' && !contractImg && !tokenToData[item.tokenSymbol]) && <EthereumIcon />}
+          {(isValueZero && contractImg) && <contractImgJSX contractImg={contractImg} />}
+          {(isValueZero && !contractImg && !tokenToData[item.tokenSymbol]) && <EthereumIcon />}
 
           <p className="feed__activity__text">
             <span className="feed__activity__info__key">
-              {(onOtherProfilePage && item.value === '0') && (isFromProfile
+              {(onOtherProfilePage && isValueZero) && (isFromProfile
                 ? `${name || fromAddress} performed the action`
                 : `${metaDataName || fromAddress} performed the action`)
               }
 
-              {(!onOtherProfilePage && item.value === '0') && (isFromProfile
+              {(!onOtherProfilePage && isValueZero) && (isFromProfile
                 ? 'You performed the action'
                 : `${metaDataName || fromAddress} performed the action`)
               }
 
-              {(onOtherProfilePage && item.value !== '0') && (isFromProfile
+              {(onOtherProfilePage && !isValueZero) && (isFromProfile
                 ? `${name || fromAddress} sent`
                 : `${metaDataName || fromAddress} sent`)
               }
 
-              {(!onOtherProfilePage && item.value !== '0') && (isFromProfile
+              {(!onOtherProfilePage && !isValueZero) && (isFromProfile
                 ? 'You sent'
                 : `${metaDataName || fromAddress} sent`)
               }
             </span>
 
-            {item.value !== '0' && (
+            {!isValueZero && (
               <span className={`feed__activity__info__token ${isFromProfile ? 'sentCurrency' : 'receivedCurrency'}`} title={(Number(item.value) / 1000000000000000000).toString()}>
                 {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ${item.tokenSymbol ? item.tokenSymbol : 'Tokens'}`}
               </span>
             )}
 
-            {item.value !== '0' && (
+            {!isValueZero && (
               <span className="feed__activity__info__key">
                 {onOtherProfilePage && (isFromProfile
                   ? `to ${metaDataName || toAddress}`
@@ -299,12 +297,12 @@ export const FeedTileToken = (props) => {
                 }
               </span>
             )}
-            {(item.methodCall && item.value !== '0') && (
+            {(item.methodCall && !isValueZero) && (
               <span className="feed__activity__info__method">
                 {`for ${item.methodCall}`}
               </span>
             )}
-            {(item.methodCall && item.value === '0') && (
+            {(item.methodCall && isValueZero) && (
               <span className="feed__activity__info__method">
                 {`${item.methodCall}`}
               </span>
@@ -347,44 +345,45 @@ export const FeedTileTXS = (props) => {
 
   const fromAddress = `${item.from.toLowerCase().substring(0, 12)}...`;
   const toAddress = `${item.to.toLowerCase().substring(0, 12)}...`;
+  const isValueZero = item.value === '0';
 
   return (
     <a href={`https://etherscan.io/tx/${item.hash}`} target="_blank" rel="noopener noreferrer" className="feed__activity">
       <div className="feed__activity__data">
         <div className="feed__activity__info">
 
-          {(item.value === '0' && contractImg) && <contractImgJSX contractImg={contractImg} />}
-          {(item.value === '0' && !contractImg) && <EthereumIcon />}
-          {item.value !== '0' && <img src={EthereumLine} alt="Ethereum Transaction Icon" className="feed__activity__data__icon" />}
+          {(isValueZero && contractImg) && <contractImgJSX contractImg={contractImg} />}
+          {(isValueZero && !contractImg) && <EthereumIcon />}
+          {!isValueZero && <img src={EthereumLine} alt="Ethereum Transaction Icon" className="feed__activity__data__icon" />}
 
           <p className="feed__activity__text">
             <span className="feed__activity__info__key">
-              {(onOtherProfilePage && item.value === '0') && (isFromProfile
+              {(onOtherProfilePage && isValueZero) && (isFromProfile
                 ? `${name || fromAddress} performed the action`
                 : `${metaDataName || fromAddress} performed the action`)
               }
-              {(!onOtherProfilePage && item.value === '0') && (isFromProfile
+              {(!onOtherProfilePage && isValueZero) && (isFromProfile
                 ? 'You performed the action'
                 : `${metaDataName || fromAddress} performed the action`)
               }
 
-              {(onOtherProfilePage && item.value !== '0') && (isFromProfile
+              {(onOtherProfilePage && !isValueZero) && (isFromProfile
                 ? `${name || fromAddress} sent`
                 : `${metaDataName || fromAddress} sent`)
               }
-              {(!onOtherProfilePage && item.value !== '0') && (isFromProfile
+              {(!onOtherProfilePage && !isValueZero) && (isFromProfile
                 ? 'You sent'
                 : `${metaDataName || fromAddress} sent`)
               }
             </span>
 
-            {item.value !== '0' && (
+            {!isValueZero && (
               <span className={`feed__activity__info__token ${isFromProfile ? 'sentCurrency' : 'receivedCurrency'}`} title={`${(Number(item.value) / 1000000000000000000).toString()} ETH`}>
                 {`${item.value && (Number(item.value) / 1000000000000000000).toString().substring(0, 6)} ETH`}
               </span>
             )}
 
-            {item.value !== '0' && (
+            {!isValueZero && (
               <span className="feed__activity__info__key">
                 {onOtherProfilePage && (isFromProfile
                   ? `to ${metaDataName || toAddress}`
@@ -397,13 +396,13 @@ export const FeedTileTXS = (props) => {
               </span>
             )}
 
-            {(item.methodCall && item.value !== '0') && (
+            {(item.methodCall && !isValueZero) && (
               <span className="feed__activity__info__method">
                 {`for ${item.methodCall}`}
               </span>
             )}
 
-            {(item.methodCall && item.value === '0') && (
+            {(item.methodCall && isValueZero) && (
               <span className="feed__activity__info__method">
                 {`${item.methodCall}`}
               </span>
