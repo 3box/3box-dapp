@@ -1,3 +1,5 @@
+import Box from '3box';
+
 import {
   store,
 } from '../state/store';
@@ -9,10 +11,25 @@ const {
 } = actions.signin;
 
 export const initialAddress = async () => {
+  const rawAddress = window.localStorage.getItem('userEthAddress');
+  const currentAddress = rawAddress && rawAddress.toLowerCase();
   store.dispatch({
     type: 'USER_UPDATE_ADDRESS',
-    currentAddress: window.localStorage.getItem('userEthAddress'),
+    currentAddress,
   });
+
+  if (currentAddress) {
+    const myPublicProfile = await Box.getProfile(currentAddress);
+    store.dispatch({
+      type: 'MY_NAME_UPDATE',
+      name: myPublicProfile.name,
+    });
+    store.dispatch({
+      type: 'MY_IMAGE_UPDATE',
+      image: myPublicProfile.image,
+    });
+  }
+  return currentAddress;
 };
 
 export const startPollFlag = async () => {
@@ -23,6 +40,7 @@ export const startPollFlag = async () => {
 };
 
 export const pollNetworkAndAddress = () => {
+  let getInjectedAddressFlag = false;
   setTimeout(async () => {
     try {
       const {
@@ -38,17 +56,19 @@ export const pollNetworkAndAddress = () => {
       const hasWeb3 = window.web3 !== 'undefined';
 
       let injectedAddress;
-      if (hasWeb3 && usingInjectedAddress) {
+      if (hasWeb3 && usingInjectedAddress && !getInjectedAddressFlag) {
         let injectedAccounts = await window.web3.currentProvider.enable();
         injectedAccounts = !injectedAccounts ? await accountsPromise : injectedAccounts;
         [injectedAddress] = injectedAccounts;
+        getInjectedAddressFlag = true;
       }
 
       if (
         usingInjectedAddress &&
         injectedAddress &&
         injectedAddress !== currentAddress &&
-        !isAddrUndefined
+        !isAddrUndefined &&
+        !switchedAddressModal
       ) {
         store.dispatch({
           type: 'UI_HANDLE_SWITCHED_ADDRESS_MODAL',

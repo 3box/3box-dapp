@@ -13,7 +13,7 @@ const getMySpacesData = address => async (dispatch) => {
     const updatedAllData = cloneDeep(allData);
 
     const fetchedLists = await Box.listSpaces(address); // get list of spaces
-    
+
     // remove duplicate spaces
     const onlyUnique = (value, index, self) => self.indexOf(value) === index;
     const list = fetchedLists.filter(onlyUnique);
@@ -33,13 +33,18 @@ const getMySpacesData = address => async (dispatch) => {
       const threadCalls = [];
 
       Object.entries(space).forEach((kv) => {
-        if (kv[0].substring(0, 7) === 'thread-' && kv[0].substring(8, 15) !== 'orbitdb') {
+        if (kv[0].substring(0, 7) === 'thread-' &&
+          kv[0].substring(8, 15) !== 'orbitdb' &&
+          kv[0].slice(-23) !== 'Following.followingList') {
           threadNames.push(kv[1].value.name);
           const promise = Box.getThread(spaceName, kv[1].value.name);
           threadCalls.push(promise);
         }
 
-        if (kv[0].substring(0, 14) === 'follow-thread-' || kv[0].substring(8, 15) === 'orbitdb') {
+        if (kv[0].substring(0, 14) === 'follow-thread-' ||
+          kv[0].substring(8, 15) === 'orbitdb' ||
+          kv[0].slice(-23) === 'Following.followingList'
+        ) {
           delete updatedAllData[spaceName].public[kv[0]];
         }
       });

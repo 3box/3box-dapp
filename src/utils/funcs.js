@@ -46,7 +46,6 @@ export const addhttp = (url) => {
 export async function getContract(otherAddress) {
   try {
     const response = await fetch(`https://api.etherscan.io/api?module=contract&action=getabi&address=${otherAddress}&apikey=3VTI9D585DCX4RD4QSP3MYWKACCIVZID23`);
-    // const response = await fetch(`https://api.etherscan.io/api?module=contract&action=getabi&address=${otherAddress}&apikey=${process.env.ETHERSCAN_TOKEN}`);
     if (response.status !== 200) {
       return console.log(`Looks like there was a problem. Status Code: ${response.status}`);
     }
@@ -363,8 +362,7 @@ export const getAuthorsLatestPost = (threadArray, usersDID) => {
 
 export const getFollowingProfiles = async (following) => {
   const profileCalls = [];
-  const updatedFollowing = following.slice();
-  updatedFollowing.forEach((profile) => {
+  following.forEach((profile) => {
     profileCalls.push(Box.getProfile(profile.message.identifier[1].value));
   });
   const profilePromises = Promise.all(profileCalls);
@@ -378,12 +376,14 @@ export const getFollowingProfiles = async (following) => {
 };
 
 export const checkFollowing = (following, otherProfileAddress) => {
+  if (!following) return false;
   return following.some(user => user.message.identifier[1].value === otherProfileAddress);
 };
 
 export const alphabetize = (array) => {
   const sortedArray = array.sort((a, b) => {
     if (!a[0].name) return -1;
+    if (!b[0].name) return 1;
     if (a[0].name.toLowerCase() < b[0].name.toLowerCase()) return -1;
     if (a[0].name.toLowerCase() > b[0].name.toLowerCase()) return 1;
     return 0;
@@ -392,7 +392,7 @@ export const alphabetize = (array) => {
 };
 
 export const shortenEthAddr = (str) => {
-  const shortenStr = `${str.substring(0, 5)}...${str.substring(str.length - 5, str.length)}`;
+  const shortenStr = str && `${str.substring(0, 5)}...${str.substring(str.length - 5, str.length)}`;
   return shortenStr;
 };
 
@@ -434,7 +434,11 @@ export const checkIsMobile = () => {
 export const checkIsMobileWithoutWeb3 = () => {
   let isMobileWithWeb3 = false;
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  const hasWeb3 = typeof window.web3 !== 'undefined' && typeof window.ethereum !== 'undefined';
+  const hasWeb3 = typeof window.web3 !== 'undefined' || typeof window.ethereum !== 'undefined';
   if (isMobile && !hasWeb3) isMobileWithWeb3 = true;
   return isMobileWithWeb3;
 };
+
+export const capitalizeFirst = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}

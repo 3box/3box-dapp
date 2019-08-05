@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import actions from '../../../state/actions';
 import FollowButton from './FollowButton';
+import DefaultProfile from '../../../assets/DefaultProfile.svg';
 import '../styles/Feed.css';
 import '../styles/Profile.css';
 import '../../../components/styles/NetworkArray.css';
@@ -35,18 +36,14 @@ const PubFollowing = (
 
         <div className="public_contacts_list_profiles">
           {otherFollowing.slice().splice(0, 5).map((user, i) => {
-            if (user[0].image) {
-              return (
-                <img
-                  src={`https://ipfs.infura.io/ipfs/${user[0].image[0].contentUrl['/']}`}
-                  className={`public_contacts_list_profiles_img ${i === 0 ? 'first' : ''}`}
-                  alt="profile"
-                  key={`${user[0].name}${i}`}
-                />
-              );
-            }
-
-            return <div className="public_contacts_list_profiles_img" key={`${user[0].name}${i}`} />;
+            return (
+              <img
+                src={user[0].image ? `https://ipfs.infura.io/ipfs/${user[0].image[0].contentUrl['/']}` : DefaultProfile}
+                className={`public_contacts_list_profiles_img ${i === 0 ? 'first' : ''}`}
+                alt="profile"
+                key={`${user[0].name}${i}`}
+              />
+            );
           })}
         </div>
       </div>

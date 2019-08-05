@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Route, Switch, withRouter, Redirect,
-} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
@@ -13,30 +11,16 @@ import {
   matchProtectedRoutes,
   checkIsEthAddress,
   checkRequestRoute,
-  checkIsMobileWithoutWeb3,
 } from './utils/funcs';
 import { store } from './state/store';
 import history from './utils/history';
-import APIs from './views/Landing/API/APIs';
-import Dapp from './views/Landing/Dapp/Dapp';
-import LandingNew from './views/Landing/LandingNew';
-import Partners from './views/Landing/Partners';
-import Team from './views/Landing/Team';
-import LogIn from './views/Profile/LogIn';
-import PubProfileDummy from './views/Profile/PubProfileDummy';
-import PubProfileDummyTwitter from './views/Profile/PubProfileDummyTwitter';
+import AppRoutes from './AppRoutes';
+import AppPreviewRoutes from './AppPreviewRoutes';
 
 import {
-  MyProfile,
-  Spaces,
-  EditProfile,
-  PubProfile,
   AppModals,
   AppHeaders,
   NavLanding,
-  Careers,
-  Terms,
-  Privacy,
   Nav,
 } from './DynamicImports';
 import actions from './state/actions';
@@ -51,7 +35,6 @@ const {
   handleDeniedAccessModal,
   handleLoggedOutModal,
   handleSwitchedAddressModal,
-  // handleMobileWalletModal,
   handleOnboardingModal,
   handleFollowingPublicModal,
   handleContactsModal,
@@ -67,6 +50,7 @@ const {
   getVerifiedPrivateEmail,
   getActivity,
   getMyFollowing,
+  getPublicFollowing,
   saveFollowing,
 } = actions.profile;
 
@@ -98,31 +82,30 @@ class App extends Component {
       const { location: { pathname, search } } = this.props;
       const normalizedPath = normalizeURL(pathname);
       const splitRoute = normalizedPath.split('/');
+      const firstParam = splitRoute[1] && splitRoute[1].toLowerCase();
       const isProtectedRoute = matchProtectedRoutes(splitRoute[2]);
       const queryParams = queryString.parse(search);
       const isRequest = checkRequestRoute(splitRoute);
       if (isRequest) return;
 
-      const currentEthAddress = window.localStorage.getItem('userEthAddress');
-      const isEtherAddress = checkIsEthAddress(splitRoute[1]);
-      const isMyAddr = splitRoute[1].toLowerCase() === currentEthAddress.toLowerCase();
-      const onProfilePage = isEtherAddress;
-      const isMobileWithoutWeb3 = checkIsMobileWithoutWeb3();
+      const currentEthAddress = await initialAddress(); // Initial get address
+      const isEthAddr = checkIsEthAddress(firstParam);
+      const isMyAddr = firstParam === currentEthAddress;
+      const onProfilePage = isEthAddr;
 
       const allowDirectSignIn = (
-        (isEtherAddress // Lands on profile page
+        (isEthAddr // Lands on profile page
           && isProtectedRoute // Lands on protected page
-          && isMyAddr
-          && !isMobileWithoutWeb3) ||
-        !!queryParams.wallet
+          && isMyAddr)
+        || !!queryParams.wallet
       );
-
-      initialAddress(); // Initial get address
 
       if (allowDirectSignIn) { // Begin signin
         this.directSignIn(queryParams.wallet);
       } else if (onProfilePage) { // Lands on profile page
-        if (isProtectedRoute) history.push(`/${splitRoute[1]}`);
+        const userEth = window.localStorage.getItem('userEthAddress');
+        if (userEth) this.props.getPublicFollowing(userEth);
+        if (isProtectedRoute) history.push(`/${firstParam}`);
       }
     } catch (err) {
       console.error(err);
@@ -131,6 +114,12 @@ class App extends Component {
 
   componentWillReceiveProps(nextProps) {
     const onSyncDoneToTrigger = nextProps.onSyncFinished && nextProps.isSyncing;
+    const { location: { search } } = nextProps;
+    const queryParams = queryString.parse(search);
+    const { location } = this.props;
+    const isNewPath = nextProps.location.pathname !== location.pathname;
+
+    if (queryParams.wallet && isNewPath) this.directSignIn(queryParams.wallet, nextProps);
 
     if (onSyncDoneToTrigger) { // get profile data again only when onSyncDone
       store.dispatch({ // end onSyncDone animation
@@ -191,25 +180,40 @@ class App extends Component {
     });
   }
 
-  directSignIn = async (wallet) => {
+  directSignIn = async (wallet, nextProps) => {
     try {
+      store.dispatch({
+        type: 'UI_3BOX_LOADING',
+        isFetchingThreeBox: true,
+      });
+
       const { location: { pathname } } = this.props;
-      const normalizedPath = normalizeURL(pathname);
+      const pathToUse = nextProps ? nextProps.location.pathname : pathname;
+      const normalizedPath = normalizeURL(pathToUse);
       const currentUrlEthAddr = normalizedPath.split('/')[1];
       const profilePage = normalizedPath.split('/')[2];
       const doesEthAddrMatch = currentUrlEthAddr === this.props.currentAddress;
-
+      console.log('1')
       await this.props.checkMobileWeb3(); // eslint-disable-line
+      console.log('2')
       await this.props.injectWeb3('directLogin', false, wallet); // eslint-disable-line
+      console.log('3')
       await this.props.checkNetwork(); // eslint-disable-line
+      console.log('4')
 
       if (!doesEthAddrMatch) history.push(`/${this.props.currentAddress}/${profilePage || routes.ACTIVITY}`);
-      // if (profilePage === routes.DIRECT_LOGIN) history.push(`/${currentEthAddress}/${routes.ACTIVITY}`);
+      console.log('5')
 
       await this.props.openBox(); // eslint-disable-line
+      console.log('6')
       if (!this.props.showErrorModal) this.getMyData(); // eslint-disable-line
+      console.log('7')
     } catch (err) {
-      console.error(err);
+      console.error(err); // eslint-disable-line
+      store.dispatch({
+        type: 'UI_3BOX_LOADING',
+        isFetchingThreeBox: false,
+      });
     }
   }
 
@@ -217,7 +221,6 @@ class App extends Component {
     try {
       if (e) e.stopPropagation();
       await this.props.checkMobileWeb3(); // eslint-disable-line
-      // if (checkIsMobileWithoutWeb3()) return;
       await this.props.injectWeb3(null, chooseWallet, false, shouldSignOut); // eslint-disable-line
       await this.props.checkNetwork(); // eslint-disable-line
       await this.props.openBox('fromSignIn'); // eslint-disable-line
@@ -235,7 +238,6 @@ class App extends Component {
       allowAccessModal,
       provideConsent,
       signInModal,
-      mobileWalletRequiredModal,
       directLogin,
       loggedOutModal,
       switchedAddressModal,
@@ -259,6 +261,7 @@ class App extends Component {
       otherName,
       following,
       otherProfileAddress,
+      fixBody,
     } = this.props;
 
     const {
@@ -270,47 +273,15 @@ class App extends Component {
     const normalizedPath = normalizeURL(pathname);
     const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: Web3 Wallet Message Signature: User denied message signature.';
     const landing = pathname === routes.LANDING ? 'landing' : '';
-    const { userAgent: ua } = navigator;
-    const isIOS = ua.includes('iPhone');
     const isMyProfilePath = matchProtectedRoutes(normalizedPath.split('/')[2]);
 
     const splitRoute = normalizedPath.split('/');
     const isRequestRoute = checkRequestRoute(splitRoute);
 
-    if (isRequestRoute) {
-      return (
-        <div className="App">
-          <Switch>
-            <Route
-              exact
-              path="(^[/][0][xX]\w{40}\b)/twitterRequest"
-              component={PubProfileDummyTwitter}
-            />
-
-            <Route
-              exact
-              path="(^[/][0][xX]\w{40}\b)/previewRequest"
-              component={PubProfileDummy}
-            />
-
-            <Route
-              exact
-              path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|data|edit\w*)/twitterRequest"
-              component={PubProfileDummyTwitter}
-            />
-
-            <Route
-              exact
-              path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|data|edit\w*)/previewRequest"
-              component={PubProfileDummy}
-            />
-          </Switch>
-        </div>
-      );
-    }
+    if (isRequestRoute) return <AppPreviewRoutes />; // routes for when client request is for link preview
 
     return (
-      <div className="App">
+      <div className={`App ${fixBody ? 'fixBody' : ''}`}>
         <AppHeaders />
 
         {(!isMyProfilePath && !isLoggedIn) // show landing nav when user is not logged in, 3box is not fetching, and when route is not a protected route
@@ -335,8 +306,6 @@ class App extends Component {
           isMyProfilePath={isMyProfilePath}
           accessDeniedModal={accessDeniedModal}
           signInModal={signInModal}
-          isIOS={isIOS}
-          mobileWalletRequiredModal={mobileWalletRequiredModal}
           errorMessage={errorMessage}
           mustConsentError={mustConsentError}
           showErrorModal={showErrorModal}
@@ -361,7 +330,6 @@ class App extends Component {
           otherProfileAddress={otherProfileAddress}
           handleContactsModal={this.props.handleContactsModal}
           handleSignInModal={this.props.handleSignInModal}
-          // handleMobileWalletModal={this.props.handleMobileWalletModal}
           handleConsentModal={this.props.handleConsentModal}
           handleDeniedAccessModal={this.props.handleDeniedAccessModal}
           closeErrorModal={this.props.closeErrorModal}
@@ -376,146 +344,12 @@ class App extends Component {
           saveFollowing={this.props.saveFollowing}
         />
 
-        <Switch>
-          <Route
-            exact
-            path={routes.LANDING}
-            render={() => (
-              <LandingNew
-                handleSignInUp={this.handleSignInUp}
-                isLoggedIn={isLoggedIn}
-                errorMessage={errorMessage}
-                showErrorModal={showErrorModal}
-              />
-            )}
-          />
-
-          <Route
-            path={routes.API}
-            render={() => (
-              <APIs
-                handleSignInUp={this.handleSignInUp}
-                isLoggedIn={isLoggedIn}
-                errorMessage={errorMessage}
-                showErrorModal={showErrorModal}
-              />
-            )}
-          />
-
-          <Route
-            exact
-            path={routes.HUB}
-            render={() => (
-              <Dapp
-                handleSignInUp={this.handleSignInUp}
-                isLoggedIn={isLoggedIn}
-                errorMessage={errorMessage}
-                showErrorModal={showErrorModal}
-              />
-            )}
-          />
-
-          <Route
-            exact
-            path={routes.CAREERS}
-            render={() => <Careers />}
-          />
-          <Route
-            exact
-            path={routes.TEAM}
-            render={() => <Team />}
-          />
-
-          <Route
-            exact
-            path={routes.JOBS}
-            render={() => <Redirect to={routes.CAREERS} />}
-          />
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/activity"
-            render={() => <MyProfile handleSignInUp={this.handleSignInUp} />}
-          />
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/activity"
-            render={() => <MyProfile handleSignInUp={this.handleSignInUp} />}
-          />
-          <Redirect from="/profile" to="/" />
-          <Redirect from="/editprofile" to="/" />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/details"
-            render={() => <MyProfile handleSignInUp={this.handleSignInUp} />}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/collectibles"
-            render={() => <MyProfile handleSignInUp={this.handleSignInUp} />}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/following"
-            render={() => <MyProfile handleSignInUp={this.handleSignInUp} />}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/data"
-            render={() => <Spaces handleSignInUp={this.handleSignInUp} />}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/edit"
-            render={() => <EditProfile handleSignInUp={this.handleSignInUp} />}
-          />
-
-          <Route
-            exact
-            path={routes.LOGIN}
-            render={() => (
-              <LogIn
-                handleSignInUp={this.handleSignInUp}
-              />
-            )}
-          />
-
-          <Route
-            exact
-            path={routes.PARTNERS}
-            component={() => (
-              <Partners />
-            )}
-          />
-
-          <Route
-            exact
-            path={routes.PRIVACY}
-            component={() => (
-              <Privacy />
-            )}
-          />
-
-          <Route
-            exact
-            path={routes.TERMS}
-            component={() => (
-              <Terms />
-            )}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)"
-            component={PubProfile}
-          />
-
-          <Route render={() => <Redirect to={routes.LANDING} />} />
-        </Switch>
+        <AppRoutes
+          handleSignInUp={this.handleSignInUp}
+          isLoggedIn={isLoggedIn}
+          errorMessage={errorMessage}
+          showErrorModal={showErrorModal}
+        />
       </div>
     );
   }
@@ -527,6 +361,7 @@ App.propTypes = {
   getMyProfileValue: PropTypes.func.isRequired,
   checkMobileWeb3: PropTypes.func.isRequired,
   getMyFollowing: PropTypes.func.isRequired,
+  getPublicFollowing: PropTypes.func.isRequired,
   getMyDID: PropTypes.func.isRequired,
   getCollectibles: PropTypes.func.isRequired,
   getMySpacesData: PropTypes.func.isRequired,
@@ -536,7 +371,6 @@ App.propTypes = {
   getVerifiedPublicTwitter: PropTypes.func.isRequired,
   getVerifiedPrivateEmail: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
-  // handleMobileWalletModal: PropTypes.func.isRequired,
   handleSwitchedNetworkModal: PropTypes.func.isRequired,
   handleAccessModal: PropTypes.func.isRequired,
   handleConsentModal: PropTypes.func.isRequired,
@@ -560,7 +394,7 @@ App.propTypes = {
   allowAccessModal: PropTypes.bool,
   provideConsent: PropTypes.bool,
   signInModal: PropTypes.bool,
-  mobileWalletRequiredModal: PropTypes.bool,
+  fixBody: PropTypes.bool,
   showErrorModal: PropTypes.bool,
   directLogin: PropTypes.string,
   isLoggedIn: PropTypes.bool,
@@ -587,6 +421,7 @@ App.propTypes = {
 
 App.defaultProps = {
   showDifferentNetworkModal: false,
+  fixBody: false,
   handleSignOut,
   accessDeniedModal: false,
   onSyncFinished: false,
@@ -599,7 +434,6 @@ App.defaultProps = {
   allowAccessModal: false,
   provideConsent: false,
   signInModal: false,
-  mobileWalletRequiredModal: false,
   showErrorModal: false,
   loggedOutModal: false,
   switchedAddressModal: false,
@@ -624,7 +458,6 @@ const mapState = state => ({
   allowAccessModal: state.uiState.allowAccessModal,
   provideConsent: state.uiState.provideConsent,
   signInModal: state.uiState.signInModal,
-  mobileWalletRequiredModal: state.uiState.mobileWalletRequiredModal,
   directLogin: state.uiState.directLogin,
   loggedOutModal: state.uiState.loggedOutModal,
   switchedAddressModal: state.uiState.switchedAddressModal,
@@ -638,6 +471,7 @@ const mapState = state => ({
   onOtherProfilePage: state.uiState.onOtherProfilePage,
   showFollowingPublicModal: state.uiState.showFollowingPublicModal,
   showContactsModal: state.uiState.showContactsModal,
+  fixBody: state.uiState.fixBody,
 
   onSyncFinished: state.userState.onSyncFinished,
   isSyncing: state.userState.isSyncing,
@@ -673,7 +507,6 @@ export default withRouter(connect(mapState,
     getVerifiedPrivateEmail,
     getActivity,
     getMyFollowing,
-    // handleMobileWalletModal,
     handleSignInModal,
     handleSwitchedNetworkModal,
     handleAccessModal,
@@ -685,6 +518,7 @@ export default withRouter(connect(mapState,
     handleOnboardingModal,
     handleFollowingPublicModal,
     closeErrorModal,
+    getPublicFollowing,
     saveFollowing,
     handleContactsModal,
   })(App));

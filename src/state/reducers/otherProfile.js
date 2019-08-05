@@ -9,8 +9,6 @@ const otherProfileReducer = (state = {}, action) => {
     case 'OTHER_PROFILE_UPDATE':
       return {
         ...state,
-        otherGithub: action.otherGithub,
-        otherTwitter: action.otherTwitter,
         otherDescription: action.otherDescription,
         otherLocation: action.otherLocation,
         otherWebsite: action.otherWebsite,
@@ -26,6 +24,13 @@ const otherProfileReducer = (state = {}, action) => {
         otherName: action.otherName,
         otherEmoji: action.otherEmoji,
         otherStatus: action.otherStatus,
+      };
+
+    case 'OTHER_PROFILE_UPDATE_VERIFIED_FOLLOWING':
+      return {
+        ...state,
+        otherGithub: action.otherGithub,
+        otherTwitter: action.otherTwitter,
         otherCollectiblesGallery: action.otherCollectiblesGallery,
         otherFollowing: action.otherFollowing,
       };

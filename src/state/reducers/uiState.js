@@ -128,10 +128,16 @@ const uiStateReducer = (state = {}, action) => {
         isSpacesLoading: action.isSpacesLoading,
       };
 
-    case 'UI_FOLLOW_LOADING':
+    case 'UI_FOLLOW_LOADING_TILE':
       return {
         ...state,
-        isFollowLoading: action.isFollowLoading,
+        isFollowFromTileLoading: action.isFollowFromTileLoading,
+      };
+
+    case 'UI_FOLLOW_LOADING_PROFILE':
+      return {
+        ...state,
+        isFollowFromProfileLoading: action.isFollowFromProfileLoading,
       };
 
     case 'UI_SPACE_OPENED':
@@ -153,12 +159,6 @@ const uiStateReducer = (state = {}, action) => {
         onBoardingModal: action.onBoardingModal,
         onBoardingModalTwo: action.onBoardingModalTwo,
       };
-
-      // case 'UI_HANDLE_MOBILE_WALLET_REQUIRED_MODAL':
-      //   return {
-      //     ...state,
-      //     mobileWalletRequiredModal: action.mobileWalletRequiredModal,
-      //   };
 
     case 'UI_HANDLE_GITHUB_MODAL':
       return {
@@ -239,6 +239,12 @@ const uiStateReducer = (state = {}, action) => {
       return {
         ...state,
         showFollowingPublicModal: action.showFollowingPublicModal,
+      };
+
+    case 'UI_FIX_BODY':
+      return {
+        ...state,
+        fixBody: action.fixBody,
       };
 
     default:

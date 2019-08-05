@@ -24,6 +24,9 @@ const convert3BoxToSpaces = () => async (dispatch) => {
         (row[0] !== 'collection') &&
         (row[0] !== 'did') &&
         (row[0] !== 'memberSince') &&
+        (row[0] !== 'following') &&
+        (row[0] !== 'followingList') &&
+        (row[0] !== 'followingThread') &&
         (row[0] !== 'collectiblesFavorites')) {
         if (row[0] === 'verifiedEmail' || row[0] === 'birthday') {
           rowData.push([row[0], cloneDeep(row[1])]);

@@ -15,12 +15,10 @@ import {
   AccessDeniedModal,
   ErrorModal,
   MustConsentModal,
-  // MobileWalletRequiredModal,
   SignInToThreeBox,
   ModalBackground,
   FollowingIsPublicModal,
   FollowingListModal,
-  // PickProviderScreen
 } from './Modals';
 import { checkIsMobile } from '../utils/funcs';
 
@@ -45,9 +43,6 @@ class AppModals extends Component {
       accessDeniedModal,
       signInModal,
       handleSignInModal,
-      // handleMobileWalletModal,
-      // isIOS,
-      mobileWalletRequiredModal,
       errorMessage,
       mustConsentError,
       showErrorModal,
@@ -132,15 +127,6 @@ class AppModals extends Component {
           />
         )}
 
-        {/* {mobileWalletRequiredModal && (
-          <MobileWalletRequiredModal
-            isIOS={isIOS}
-            handleMobileWalletModal={handleMobileWalletModal}
-            isMobile={isMobile}
-            key="MobileWalletRequiredModal"
-          />
-        )} */}
-
         {(showErrorModal && !mustConsentError) && (
           <ErrorModal
             errorMessage={errorMessage}
@@ -170,7 +156,6 @@ class AppModals extends Component {
 
         {loggedOutModal && (
           <LoggedOutModal
-            isMobile={isMobile}
             handleLoggedOutModal={handleLoggedOutModal}
             handleSignOut={handleSignOut}
             key="LoggedOutModal"
@@ -178,6 +163,7 @@ class AppModals extends Component {
         )}
 
         {(showContactsModal && !showFollowingPublicModal) && (
+        // {(showContactsModal && !showFollowingPublicModal && !isFetchingThreeBox) && (
           <FollowingListModal
             otherFollowing={otherFollowing}
             otherName={otherName}
@@ -200,7 +186,6 @@ class AppModals extends Component {
         {switchedAddressModal && (
           <SwitchedAddressModal
             handleSwitchedAddressModal={handleSwitchedAddressModal}
-            isMobile={isMobile}
             handleSignOut={handleSignOut}
             prevAddress={prevAddress}
             key="SwitchedAddressModal"
@@ -290,10 +275,7 @@ AppModals.propTypes = {
   onBoardingModalMobileThree: PropTypes.bool,
   showErrorModal: PropTypes.bool,
   handleSignInModal: PropTypes.func.isRequired,
-  // handleMobileWalletModal: PropTypes.func.isRequired,
   isMyProfilePath: PropTypes.bool.isRequired,
-  // isIOS: PropTypes.bool,
-  mobileWalletRequiredModal: PropTypes.bool,
   signInModal: PropTypes.bool,
   provideConsent: PropTypes.bool,
   showContactsModal: PropTypes.bool,
@@ -323,8 +305,6 @@ AppModals.defaultProps = {
   onBoardingModalMobileTwo: false,
   onBoardingModalMobileThree: false,
   showErrorModal: false,
-  // isIOS: false,
-  mobileWalletRequiredModal: false,
   signInModal: false,
   provideConsent: false,
 };

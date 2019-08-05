@@ -746,7 +746,8 @@
   display: inline-grid;
   grid-template-columns: repeat(1, 100% [col-start]);
   row-gap: 20px;
-  min-width: 100%; }
+  min-width: 100%;
+  max-width: 100%; }
 
 .contactsModal_list_empty {
   width: 100%;
@@ -1147,7 +1148,6 @@
   background-color: #EFF5FE;
   width: 100%;
   padding: 20px;
-  height: 100%;
   display: flex;
   justify-content: flex-end;
   box-sizing: border-box; }

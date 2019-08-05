@@ -109,7 +109,8 @@
   width: 100%;
   display: inline-grid;
   grid-template-columns: repeat(1, 100% [col-start]);
-  row-gap: 20px; }
+  row-gap: 20px;
+  z-index: 4; }
 
 .contact_tile {
   display: flex;
@@ -117,8 +118,14 @@
   align-items: center;
   width: 100%; }
   .contact_tile h3 {
+    display: flex;
     margin-bottom: 0;
-    margin-left: 20px; }
+    margin-left: 20px;
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+  .contact_tile .threeboxProfileHover__style_boxAddressWrap {
+    width: 70%; }
 
 .empty_contact_tile {
   max-width: 694px;
@@ -399,17 +406,10 @@
   .public_contacts_add button {
     width: 100%; }
     .public_contacts_add button img {
-      margin-right: 12px;
       width: 18px; }
 
 .unfollowButton {
   padding: 15px 20px; }
-
-.unfollowButton:after {
-  content: 'Following'; }
-
-.unfollowButton:hover:after {
-  content: 'Unfollow'; }
 
 .unfollowButton img {
   width: 18px;
@@ -554,6 +554,10 @@
   align-content: left;
   margin-right: .6em;
   opacity: .7; }
+
+.followActionButton {
+  width: 108px;
+  min-height: 50px; }
 
 .loadingProfile {
   position: fixed;

@@ -6,7 +6,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import ProfilePicture from '../../components/ProfilePicture';
 import PubSideBar from './PublicProfile/PubSideBar';
-import { copyToClipBoard } from '../../utils/funcs';
+import { copyToClipBoard, shortenEthAddr } from '../../utils/funcs';
 import * as routes from '../../utils/routes';
 import ActivityIcon from '../../assets/Activity.svg';
 import DetailsIcon from '../../assets/Details.svg';
@@ -78,7 +78,6 @@ const SideBar = ({
                   : '')
                 }
 
-
                 <span className="profile__basic__emoji">
                   {(!onOtherProfilePage && emoji) && (emoji.code ? emoji.code : emoji)}
                   {(onOtherProfilePage && otherEmoji) && (otherEmoji.code ? otherEmoji.code : otherEmoji)}
@@ -88,9 +87,8 @@ const SideBar = ({
               <div id="profile__network" title="Network">
                 <img id="profile__network__networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
                 <p id="profile__details__address" title={currentAddress}>
-                  {!onOtherProfilePage && currentAddress && currentAddress.substring(0, 8)}
-                  {onOtherProfilePage && location.pathname.split('/')[1].substring(0, 8)}
-                  ...
+                  {!onOtherProfilePage && currentAddress && shortenEthAddr(currentAddress)}
+                  {onOtherProfilePage && shortenEthAddr(location.pathname.split('/')[1])}
                 </p>
               </div>
 

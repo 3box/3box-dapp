@@ -183,7 +183,12 @@ nav {
   cursor: pointer;
   font-size: 12px;
   border-radius: 50%;
+<<<<<<< HEAD
   transition: all .3s; }
+=======
+  transition: all .3s;
+  background-color: white; }
+>>>>>>> origin/followingW3C
   .nav__arrow:hover {
     background-color: #f5f6f8; }
     .nav__arrow:hover .nav__arrow__icon {
@@ -211,7 +216,11 @@ nav {
   .nav__dropdown ul {
     padding: 0; }
   .nav__dropdown li {
+<<<<<<< HEAD
     padding-left: 1.3em;
+=======
+    padding-left: 20px;
+>>>>>>> origin/followingW3C
     height: 4.2em;
     cursor: pointer;
     box-sizing: border-box;
@@ -226,7 +235,12 @@ nav {
     font-size: 14px; }
 
 .nav_dropdown_icon_wrapper {
+<<<<<<< HEAD
   width: 52px; }
+=======
+  width: 44px;
+  position: relative; }
+>>>>>>> origin/followingW3C
 
 .nav__dropdown--desktop {
   visibility: hidden;
@@ -235,12 +249,24 @@ nav {
   transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
   width: 180px; }
 
+<<<<<<< HEAD
+=======
+.nav__dropdown--desktop-landing {
+  width: 260px; }
+
+>>>>>>> origin/followingW3C
 .nav_dropdown_switchWalletButton {
   padding: 0; }
 
 .nav_dropdown_switchWallet {
   width: 20px;
   filter: grayscale(100%); }
+<<<<<<< HEAD
+=======
+
+.nav_dropdown_walletIcon {
+  margin-left: 15px; }
+>>>>>>> origin/followingW3C
 
 .nav__divide {
   border-top: 1px solid #ececec;
@@ -254,7 +280,7 @@ nav {
   display: flex;
   align-items: center;
   margin-left: auto;
-  margin-right: 4vw; }
+  margin-right: 84px; }
   #actionButtons p {
     margin-right: 2vw;
     cursor: pointer;
@@ -281,6 +307,13 @@ nav {
   transition: all .5s ease;
   background-color: transparent;
   border-bottom: none; }
+
+.nav__userPicture--deskopDropdown {
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  background-color: #006ECC; }
 
 .showAPINav {
   background-color: white !important;
@@ -438,8 +471,6 @@ nav {
   border-bottom: 1px solid #E4E4E4 !important;
   height: 68px !important;
   background-color: white !important; }
-  .hide p {
-    color: #1168df !important; }
   .hide .secondaryButton:hover {
     color: white !important; }
   .hide .landing__nav__createProfile:hover .landing__nav__createProfile {
@@ -598,6 +629,45 @@ nav {
 .landing_nav_hamburger-mobile {
   display: none; }
 
+.nav_account {
+  box-sizing: border-box;
+  max-width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: #f5f6f8; }
+
+.nav_account_top {
+  max-width: 100%;
+  padding: 14px 20px 18px 20px;
+  box-sizing: border-box; }
+
+.nav_account_top_description {
+  color: #b1b1b1 !important;
+  font-size: 13px !important;
+  margin-bottom: 8px; }
+
+.nav_account_user {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; }
+  .nav_account_user img {
+    margin-right: 10px; }
+
+.nav_account_user_name p {
+  color: #b1b1b1;
+  font-size: 13px; }
+
+.nav_account_info {
+  padding: 14px 20px 18px 20px;
+  box-sizing: border-box;
+  width: 100%;
+  border-top: 1px solid #ececec;
+  color: #b1b1b1;
+  font-size: 13px; }
+
 @media only screen and (max-width: 600px) {
   nav {
     justify-content: center;
@@ -614,10 +684,18 @@ nav {
     -moz-transition: all .5s ease;
     -o-transition: all .5s ease;
     transition: all .5s ease; }
+  .nav__userPicture--mobile {
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    background-color: #006ECC; }
   .hide #actionButtons p {
     color: #1168df !important; }
   .hide #actionButtons button {
     color: white; }
+  .nav__dropdown__icon--mobileData {
+    filter: grayscale(1) !important; }
   .nav__data {
     display: none; }
   .landing__nav__developers {
@@ -635,6 +713,8 @@ nav {
   .bannerMargin {
     margin-top: 0; }
   .showSignInBanner.bannerMargin {
+    margin-top: 64px; }
+  .sideDrawer_wrapper .showSignInBanner {
     margin-top: 64px; }
   .landing__nav__link {
     margin-left: 15px;
@@ -682,27 +762,37 @@ nav {
       font-size: 12px;
       border: none;
       padding: 2vh 5vw; }
+  .nav_dropdown_icon_wrapper {
+    width: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
   .nav__dropdown {
     display: block !important;
     position: fixed;
     top: 0;
     left: 0;
-    width: 60%;
+    width: 80%;
     max-width: 400px;
     height: 100vh;
-    padding: 1em 0 0 0;
     border-radius: 0;
     border-right: 1px solid #E4E4E4;
     border-left: none;
     border-top: none;
     border-bottom: none;
     box-shadow: none;
+    box-sizing: border-box;
     z-index: 99999;
     transform: translateX(-100%);
     transition: transform .3s ease-out; }
     .nav__dropdown li {
-      line-height: 3.5em;
-      width: 100%; }
+      height: 5.2em;
+      width: 100%;
+      padding-left: 5vw; }
+      .nav__dropdown li p {
+        font-size: 22px;
+        font-weight: 600;
+        color: #181F21 !important; }
   #nav__networkStatus {
     display: none; }
   #nav__networkStatus--mobile {
@@ -712,7 +802,7 @@ nav {
     align-items: center;
     justify-content: center;
     border-radius: 20px;
-    margin: 0 0 30px 10px;
+    margin: 0 0 30px 7vw;
     width: fit-content; }
     #nav__networkStatus--mobile p {
       font-size: 11px !important;
@@ -729,14 +819,15 @@ nav {
     height: 100%;
     background: rgba(0, 0, 0, 0.76);
     z-index: 99998;
-    transition: all .3s ease-out; }
+    transition: all .3s ease-out;
+    box-sizing: border-box; }
   #mobileNav__signout {
     color: #747677; }
   .nav__dropdown__mobileLogo {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin: 4px 0 25px 6vw; }
+    margin: 1.2em 0 25px 7vw; }
   .nav__activePage {
     border-left: solid 5px #181F21;
     background: #f5f6f8;
@@ -751,4 +842,47 @@ nav {
   .landing_nav_link {
     display: none !important; }
   .landing_nav_apiLink {
-    margin-right: 0; } }
+    margin-right: 0; }
+  .sideDrawer_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 100%;
+    box-sizing: border-box; }
+    .sideDrawer_wrapper ul {
+      transition: all .5s ease;
+      width: 100%; }
+  .nav_account {
+    box-sizing: border-box;
+    max-width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    background-color: #f5f6f8; }
+  .nav_account_top {
+    max-width: 100%;
+    padding: 14px 6vw 18px 6vw;
+    box-sizing: border-box; }
+  .nav_account_top_description {
+    color: #b1b1b1 !important;
+    font-size: 13px !important;
+    margin-bottom: 8px; }
+  .nav_account_user {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; }
+    .nav_account_user img {
+      margin-right: 10px; }
+  .nav_account_user_name p {
+    color: #b1b1b1;
+    font-size: 13px; }
+  .nav_account_info {
+    padding: 14px 6vw 18px 6vw;
+    box-sizing: border-box;
+    width: 100%;
+    border-top: 1px solid #ececec;
+    color: #b1b1b1;
+    font-size: 13px; } }

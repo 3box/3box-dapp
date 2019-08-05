@@ -7,10 +7,10 @@ import ProfileHover from 'profile-hover';
 import actions from '../state/actions';
 import '../views/Profile/styles/Profile.css';
 import FollowButton from '../views/Profile/PublicProfile/FollowButton';
+import DefaultProfile from '../assets/DefaultProfile.svg';
 
 const {
   saveFollowing,
-  initializeSaveFollowing,
 } = actions.profile;
 
 class FollowingTile extends Component {
@@ -21,8 +21,8 @@ class FollowingTile extends Component {
     };
   }
 
-  isLoading = () => {
-    this.setState({ isLoading: true });
+  handleTileLoading = (isLoading) => {
+    this.setState({ isLoading });
   }
 
   render() {
@@ -43,21 +43,18 @@ class FollowingTile extends Component {
         <ProfileHover
           address={address}
           noTheme
-          orientation="right"
+          orientation="top"
         >
           <Link
             to={`/${address}`}
             onClick={() => { if (fromModal) handleContactsModal(); }}
           >
             <div className="contact_tile_info">
-              {user.image && user.image[0].contentUrl
-                ? (
-                  <img
-                    src={`https://ipfs.infura.io/ipfs/${user.image[0].contentUrl['/']}`}
-                    className="contact_tile_info_image"
-                    alt="profile"
-                  />
-                ) : <div className="contact_tile_info_image" />}
+              <img
+                src={(user.image && user.image[0].contentUrl) ? `https://ipfs.infura.io/ipfs/${user.image[0].contentUrl['/']}` : DefaultProfile}
+                className="contact_tile_info_image"
+                alt="profile"
+              />
 
               <h3>{user.name ? user.name : address}</h3>
             </div>
@@ -65,8 +62,8 @@ class FollowingTile extends Component {
         </ProfileHover>
 
         <div
-          onClick={this.isLoading}
-          onKeyPress={this.isLoading}
+          onClick={() => this.handleTileLoading(true)}
+          onKeyPress={() => this.handleTileLoading(true)}
           role="button"
           tabIndex={0}
         >
@@ -75,6 +72,7 @@ class FollowingTile extends Component {
               isFollowing={isFollowing}
               contactTileAddress={address}
               isLoading={isLoading}
+              handleTileLoading={this.handleTileLoading}
               fromContactTile
             />
           )}
@@ -108,6 +106,5 @@ function mapState(state) {
 }
 
 export default connect(mapState, {
-  initializeSaveFollowing,
   saveFollowing,
 })(FollowingTile);

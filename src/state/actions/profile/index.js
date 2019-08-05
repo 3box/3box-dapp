@@ -9,8 +9,9 @@ import getVerifiedPublicTwitter from './getVerifiedPublicTwitter';
 import getActivity from './getActivity';
 import getPublicProfile from './getPublicProfile';
 import getMyFollowing from './getMyFollowing';
+import getPublicFollowing from './getPublicFollowing';
 import saveFollowing from './saveFollowing';
-import initializeSaveFollowing from './initializeSaveFollowing';
+import deleteFollowing from './deleteFollowing';
 
 export default {
   getCollectibles,
@@ -24,6 +25,7 @@ export default {
   getVerifiedPublicTwitter,
   getPublicProfile,
   getMyFollowing,
+  getPublicFollowing,
   saveFollowing,
-  initializeSaveFollowing,
+  deleteFollowing,
 };

@@ -9,6 +9,7 @@ import { pollNetworkAndAddress, startPollFlag } from '../../../utils/address';
 
 const {
   saveFollowing,
+  deleteFollowing,
   getMyProfileValue,
   getMyDID,
   getCollectibles,
@@ -17,8 +18,6 @@ const {
   getVerifiedPublicTwitter,
   getVerifiedPrivateEmail,
   getActivity,
-  getMyFollowing,
-  initializeSaveFollowing,
 } = actions.profile;
 
 const { getMySpacesData, convert3BoxToSpaces } = actions.spaces;
@@ -36,7 +35,10 @@ const {
 class FollowButton extends Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      showHoverText: 'Following',
+    };
+    this.handleFollowing = this.handleFollowing.bind(this);
   }
 
   async getMyData() {
@@ -70,7 +72,6 @@ class FollowButton extends Component {
       this.props.getMyProfileValue('public', 'emoji');
       this.props.getMyProfileValue('private', 'birthday');
 
-      await this.props.getMyFollowing();
       await this.props.getCollectibles(currentAddress);
       await this.props.convert3BoxToSpaces();
       await this.props.getMySpacesData(currentAddress);
@@ -79,6 +80,10 @@ class FollowButton extends Component {
     } catch (err) {
       console.error(err);
     }
+  }
+
+  handleShowHover = (showHoverText) => {
+    this.setState({ showHoverText });
   }
 
   async handleSignInUp() {
@@ -93,41 +98,59 @@ class FollowButton extends Component {
     }
   }
 
+  async handleFollowing() {
+    const {
+      fromContactTile,
+      handleTileLoading,
+      isLoggedIn,
+      contactTileAddress,
+      otherProfileAddress,
+      isFollowing,
+    } = this.props;
+
+    const whichFollowButton = fromContactTile ? 'isFollowFromTileLoading' : 'isFollowFromProfileLoading';
+    const whichReduxAction = fromContactTile ? 'UI_FOLLOW_LOADING_TILE' : 'UI_FOLLOW_LOADING_PROFILE';
+    const deleteOrSave = isFollowing ? 'deleteFollowing' : 'saveFollowing';
+    const address = contactTileAddress || otherProfileAddress;
+
+    store.dispatch({
+      type: whichReduxAction,
+      [whichFollowButton]: true,
+    });
+
+    if (!isLoggedIn) await this.handleSignInUp();
+
+    await this.props[deleteOrSave](address);
+
+    store.dispatch({
+      type: whichReduxAction,
+      [whichFollowButton]: false,
+    });
+    if (fromContactTile) handleTileLoading();
+  }
+
   render() {
     const {
       isFollowing,
-      otherProfileAddress,
-      isLoggedIn,
-      isFollowLoading,
-      contactTileAddress,
-      fromContactTile,
+      isFollowFromProfileLoading,
+      isFollowFromTileLoading,
       isLoading,
     } = this.props;
+
+    const { showHoverText } = this.state;
 
     if (isFollowing) {
       return (
         <button
           type="button"
           className="outlineButton unfollowButton followActionButton"
-          onClick={
-            async () => {
-              store.dispatch({
-                type: 'UI_SPACES_LOADING',
-                isSpacesLoading: true,
-              });
-
-              if (!isLoggedIn) await this.handleSignInUp();
-
-              await this.props.initializeSaveFollowing(contactTileAddress || otherProfileAddress);
-              await this.props.saveFollowing(contactTileAddress || otherProfileAddress, true);
-              store.dispatch({
-                type: 'UI_FOLLOW_LOADING',
-                isFollowLoading: false,
-              });
-            }}
+          onClick={this.handleFollowing}
+          onMouseEnter={() => this.handleShowHover('Unfollow')}
+          onMouseLeave={() => this.handleShowHover('Following')}
         >
-          {(!fromContactTile && isFollowLoading) && <img src={Loading} alt="loading" />}
-          {(fromContactTile && isFollowLoading && isLoading) && <img src={Loading} alt="loading" />}
+          {isFollowFromProfileLoading && <img src={Loading} alt="loading" />}
+          {(isFollowFromTileLoading && isLoading) && <img src={Loading} alt="loading" />}
+          {((!isFollowFromTileLoading || (!isFollowFromProfileLoading && !isLoading))) && showHoverText}
         </button>
       );
     }
@@ -136,26 +159,11 @@ class FollowButton extends Component {
       <button
         type="button"
         className="followButton followActionButton"
-        onClick={
-          async () => {
-            store.dispatch({
-              type: 'UI_FOLLOW_LOADING',
-              isFollowLoading: true,
-            });
-
-            if (!isLoggedIn) await this.handleSignInUp();
-
-            const shouldSave = await this.props.initializeSaveFollowing(contactTileAddress || otherProfileAddress, true);
-            if (shouldSave) await this.props.saveFollowing(contactTileAddress || otherProfileAddress);
-            store.dispatch({
-              type: 'UI_FOLLOW_LOADING',
-              isFollowLoading: false,
-            });
-          }}
+        onClick={this.handleFollowing}
       >
-        {(!fromContactTile && isFollowLoading) && <img src={Loading} alt="loading" />}
-        {(fromContactTile && isFollowLoading && isLoading) && <img src={Loading} alt="loading" />}
-        Follow
+        {(isFollowFromProfileLoading) && <img src={Loading} alt="loading" />}
+        {(isFollowFromTileLoading && isLoading) && <img src={Loading} alt="loading" />}
+        {(!isFollowFromTileLoading || (!isFollowFromProfileLoading && !isLoading)) && 'Follow'}
       </button>
     );
   }
@@ -163,11 +171,14 @@ class FollowButton extends Component {
 
 FollowButton.propTypes = {
   saveFollowing: PropTypes.func.isRequired,
+  deleteFollowing: PropTypes.func.isRequired,
   isFollowing: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool,
-  isFollowLoading: PropTypes.bool,
+  isFollowFromTileLoading: PropTypes.bool,
+  isFollowFromProfileLoading: PropTypes.bool,
   otherProfileAddress: PropTypes.string,
   currentAddress: PropTypes.string,
+  contactTileAddress: PropTypes.string,
   openBox: PropTypes.func.isRequired,
   getMyProfileValue: PropTypes.func.isRequired,
   getMyDID: PropTypes.func.isRequired,
@@ -177,20 +188,29 @@ FollowButton.propTypes = {
   getVerifiedPublicTwitter: PropTypes.func.isRequired,
   getVerifiedPrivateEmail: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
-  getMyFollowing: PropTypes.func.isRequired,
   getMySpacesData: PropTypes.func.isRequired,
   convert3BoxToSpaces: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
   accessDeniedModal: PropTypes.bool,
   showErrorModal: PropTypes.bool,
+<<<<<<< HEAD
+=======
+  fromContactTile: PropTypes.bool,
+  handleMobileWalletModal: PropTypes.func.isRequired,
+  handleTileLoading: PropTypes.func.isRequired,
+>>>>>>> origin/followingW3C
 };
 
 FollowButton.defaultProps = {
   otherProfileAddress: '',
   currentAddress: '',
+  contactTileAddress: '',
   isLoggedIn: false,
-  isFollowLoading: false,
+  isFollowFromProfileLoading: false,
+  isFollowFromTileLoading: false,
   accessDeniedModal: false,
   showErrorModal: false,
+  fromContactTile: false,
 };
 
 function mapState(state) {
@@ -198,7 +218,8 @@ function mapState(state) {
     otherProfileAddress: state.otherProfile.otherProfileAddress,
     currentAddress: state.userState.currentAddress,
     isLoggedIn: state.userState.isLoggedIn,
-    isFollowLoading: state.uiState.isFollowLoading,
+    isFollowFromTileLoading: state.uiState.isFollowFromTileLoading,
+    isFollowFromProfileLoading: state.uiState.isFollowFromProfileLoading,
     accessDeniedModal: state.uiState.accessDeniedModal,
     showErrorModal: state.uiState.showErrorModal,
   };
@@ -210,6 +231,7 @@ export default connect(mapState,
     checkMobileWeb3,
     checkNetwork,
     saveFollowing,
+    deleteFollowing,
     openBox,
     getMyProfileValue,
     getMyDID,
@@ -219,8 +241,12 @@ export default connect(mapState,
     getVerifiedPublicTwitter,
     getVerifiedPrivateEmail,
     getActivity,
-    getMyFollowing,
     getMySpacesData,
     convert3BoxToSpaces,
+<<<<<<< HEAD
     initializeSaveFollowing,
+=======
+    // handleMobileWalletModal,
+    // initializeSaveFollowing,
+>>>>>>> origin/followingW3C
   })(FollowButton);

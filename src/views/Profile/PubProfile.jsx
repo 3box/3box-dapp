@@ -43,6 +43,7 @@ class ProfilePublic extends Component {
   async componentDidMount() {
     try {
       window.scrollTo(0, 0);
+
       const { location: { pathname }, currentAddress } = this.props;
       const otherProfileAddress = pathname.split('/')[1];
 

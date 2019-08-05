@@ -269,8 +269,7 @@ class Nav extends Component {
           role="button"
           tabIndex={0}
         />
-
-      </nav >
+      </nav>
     );
   }
 }

@@ -8,21 +8,12 @@ const handleSignOut = signInAgain => async (dispatch) => {
   const {
     userState: {
       isLoggedIn,
+      currentWallet,
     },
     myData: {
       box,
     },
   } = store.getState();
-
-  if (signInAgain) {
-    window.localStorage.removeItem('userEthAddress');
-    window.localStorage.removeItem('prevNetwork');
-    window.localStorage.removeItem('prevPrevNetwork');
-    window.localStorage.removeItem('currentNetwork');
-    window.localStorage.removeItem('shouldShowSwitchNetwork');
-    window.location.reload();
-    return;
-  }
 
   if (isLoggedIn) {
     if (box) box.logout();
@@ -50,8 +41,14 @@ const handleSignOut = signInAgain => async (dispatch) => {
       type: 'MY_DATA_SIGNOUT',
     });
   }
-
-  history.push(routes.LANDING);
+  
+  let route;
+  if (signInAgain) {
+    route = `${routes.LOGIN}?wallet=${currentWallet}`;
+  } else {
+    route = routes.LANDING;
+  }
+  history.push(route);
 };
 
 export default handleSignOut;

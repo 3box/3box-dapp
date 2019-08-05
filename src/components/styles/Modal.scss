@@ -945,6 +945,7 @@
   grid-template-columns: repeat(1, 100% [col-start]);
   row-gap: 20px;
   min-width: 100%;
+  max-width: 100%;
 }
 
 .contactsModal_list_empty {
@@ -1449,7 +1450,6 @@
   background-color: $threeBoxBlueLightShade;
   width: 100%;
   padding: 20px;
-  height: 100%;
   display: flex;
   justify-content: flex-end;
   box-sizing: border-box;

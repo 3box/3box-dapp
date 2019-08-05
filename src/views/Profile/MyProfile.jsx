@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import MyContent from './MyProfile/MyContent';
 import SideBar from './SideBar';
-import Nav from '../../components/Nav';
+import Nav from '../../components/Nav/Nav';
 import MyProfileHeaders from './MyProfile/MyProfileHeaders';
 import './styles/Profile.css';
 

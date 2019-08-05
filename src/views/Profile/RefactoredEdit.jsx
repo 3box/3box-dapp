@@ -9,27 +9,27 @@ import makeBlockie from 'ethereum-blockies-base64';
 
 import {
   store,
-} from '../../state/store';
-import actions from '../../state/actions';
-import { copyToClipBoard } from '../../utils/funcs';
+} from '../../../state/store';
+import actions from '../../../state/actions';
+import { copyToClipBoard } from '../../../utils/funcs';
 import {
   FileSizeModal,
   GithubVerificationModal,
   TwitterVerificationModal,
   EmailVerificationModal,
   ModalBackground,
-} from '../../components/Modals';
-import history from '../../utils/history';
-import { twitterMessage, githubMessage, checkVerifiedFormatting, capitalizeFirst } from './EditProfile/utils';
-import Nav from '../../components/Nav.jsx';
-import * as routes from '../../utils/routes';
-import Private from '../../assets/Private.svg';
-import Verified from '../../assets/Verified.svg';
-import AddImage from '../../assets/AddImage.svg';
-import Loading from '../../assets/Loading.svg';
-import '../styles/EditProfile.css';
-import DefaultColorPic from '../../assets/DefaultColorPic.svg';
-import MyProfileHeaders from './MyProfile/MyProfileHeaders';
+} from '../../../components/Modals';
+import history from '../../../utils/history';
+import { twitterMessage, githubMessage, editProfileFields } from './EditProfile/utils';
+import Nav from '../../../components/Nav/Nav';
+import * as routes from '../../../utils/routes';
+import Private from '../../../assets/Private.svg';
+import Verified from '../../../assets/Verified.svg';
+import AddImage from '../../../assets/AddImage.svg';
+import Loading from '../../../assets/Loading.svg';
+import '../../styles/EditProfile.css';
+import DefaultColorPic from '../../../assets/DefaultColorPic.svg';
+import MyProfileHeaders from '../MyProfile/MyProfileHeaders';
 
 const { getActivity, getMyProfileValue, getMyDID } = actions.profile;
 const {
@@ -96,43 +96,46 @@ class EditProfile extends Component {
 
   componentDidMount() {
     window.scrollTo(0, 0);
-    const {
-      name,
-      verifiedGithub,
-      verifiedTwitter,
-      verifiedEmail,
-      email,
-      description,
-      location,
-      website,
-      birthday,
-      employer,
-      job,
-      school,
-      degree,
-      major,
-      year,
-      emoji,
-    } = this.props;
-
-    this.setState({
-      name,
-      verifiedGithub,
-      verifiedTwitter,
-      verifiedEmail,
-      email,
-      description,
-      location,
-      website,
-      birthday,
-      job,
-      school,
-      degree,
-      major,
-      year,
-      emoji,
-      employer,
+    editProfileFields.forEach((fieldSet) => {
+      const field = this.props[fieldSet[0]];
+      this.setState({ field });
     });
+
+    // const {
+    //   name,
+    //   verifiedGithub,
+    //   verifiedTwitter,
+    //   verifiedEmail,
+    //   description,
+    //   location,
+    //   website,
+    //   birthday,
+    //   employer,
+    //   job,
+    //   school,
+    //   degree,
+    //   major,
+    //   year,
+    //   emoji,
+    // } = this.props;
+
+    // this.setState({
+    //   name,
+    //   verifiedGithub,
+    //   verifiedTwitter,
+    //   verifiedEmail,
+    //   description,
+    //   location,
+    //   website,
+    //   birthday,
+    //   job,
+    //   school,
+    //   degree,
+    //   major,
+    //   year,
+    //   emoji,
+    //   employer,
+    // });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -175,54 +178,28 @@ class EditProfile extends Component {
 
   handleFormChange = (e, property) => {
     const { editedArray } = this.state;
-    const { value } = e.target;
+    const fieldState = this.state[property];
+    const fieldProp = this.props[property];
+    const isFieldsSame = fieldState === fieldProp;
 
-    this.setState({ [property]: value },
+    let editedField;
+    if (property === 'verifiedGithub') editedField = 'github';
+    if (property === 'verifiedTwitter') editedField = 'twitter';
+    if (property === 'verifiedEmail') editedField = 'email';
+
+    this.setState({ [property]: e.target.value },
       () => {
         if (property === 'emailCode') return;
-        const isEmail = property === 'verifiedEmail';
-        const isGithub = property === 'verifiedGithub';
-        const isTwitter = property === 'verifiedTwitter';
-
-        let key;
-        if (isGithub) {
-          key = 'github';
-        } else if (isTwitter) {
-          key = 'twitter';
-        } else if (isEmail) {
-          key = 'email';
-        }
-
-        if (key) {
-          if (this.state[property] === '') { // deactivate Verify button
-            this.setState({ [`${key}Edited`]: false });
-          } else if (this.props[property] !== this.state[property] && this.state[property] !== '') {
-            const passesVerifiedCheck = checkVerifiedFormatting(value, key);
-            this.setState({ [`${key}Edited`]: true });
-            if (passesVerifiedCheck) {
-              this.setState({
-                [`${key}ErrorMessage`]: 'Verification is required for your verified accounts to save.',
-                [`${key}InvalidFormat`]: false,
-              });
-            } else {
-              const errorMsg = `${capitalizeFirst(key)} entry improperly formatted.`;
-              this.setState({
-                [`${key}InvalidFormat`]: true,
-                [`${key}ErrorMessage`]: errorMsg,
-              });
-            }
+        if (editedField) {
+          if (fieldState === '') {
+            this.setState({ [`${editedField}Edited`]: false });
+          } else if (!isFieldsSame && fieldState !== '') {
+            this.setState({ [`${editedField}Edited`]: true });
           }
-        } else if (this.state[property] !== this.props[property]) {
+        } else {
           const updatedEditedArray = editedArray;
-          if (updatedEditedArray.indexOf(property) === -1) updatedEditedArray.push(property);
-          if (Object.values(updatedEditedArray).length) {
-            this.setState({ disableSave: false, editedArray: updatedEditedArray });
-          } else {
-            this.setState({ disableSave: true, editedArray: updatedEditedArray });
-          }
-        } else if (this.state[property] === this.props[property]) {
-          const updatedEditedArray = editedArray;
-          updatedEditedArray.splice(updatedEditedArray.indexOf(property), 1);
+          if (!isFieldsSame && updatedEditedArray.indexOf(property) === -1) updatedEditedArray.push(property);
+          if (isFieldsSame) updatedEditedArray.splice(updatedEditedArray.indexOf(property), 1);
           if (Object.values(updatedEditedArray).length) {
             this.setState({ disableSave: false, editedArray: updatedEditedArray });
           } else {
@@ -317,7 +294,6 @@ class EditProfile extends Component {
                   editedArray: updatedEditedArray,
                   disableSave: false,
                   savedGithub: true,
-                  githubErrorMessage: null,
                 });
                 store.dispatch({
                   type: 'MY_VERIFIED_GITHUB_UPDATE',
@@ -448,7 +424,6 @@ class EditProfile extends Component {
             editedArray: updatedEditedArray,
             disableSave: false,
             savedTwitter: true,
-            twitterErrorMessage: null,
           });
           store.dispatch({
             type: 'MY_VERIFIED_TWITTER_UPDATE',
@@ -624,28 +599,12 @@ class EditProfile extends Component {
 
   async handleSubmit(e) {
     const {
-      name,
-      verifiedGithub,
-      verifiedTwitter,
-      verifiedEmail,
-      email,
       removeUserPic,
       removeCoverPic,
       buffer,
       coverBuffer,
       editPic,
       editCoverPic,
-      description,
-      location,
-      website,
-      birthday,
-      job,
-      school,
-      degree,
-      major,
-      year,
-      employer,
-      emoji,
     } = this.state;
 
     const { box, currentAddress, allData, list } = this.props;
@@ -655,54 +614,32 @@ class EditProfile extends Component {
       const updatedAllData = allData;
       this.setState({ saveLoading: true });
 
-      const nameChanged = name !== this.props.name;
-      const verifiedGithubChanged = verifiedGithub !== this.props.verifiedGithub;
-      const verifiedTwitterChanged = verifiedTwitter !== this.props.verifiedTwitter;
-      const verifiedEmailChanged = verifiedEmail !== this.props.verifiedEmail;
-      const emailChanged = email !== this.props.email;
-      const descriptionChanged = description !== this.props.description;
-      const locationChanged = location !== this.props.location;
-      const websiteChanged = website !== this.props.website;
-      const employerChanged = employer !== this.props.employer;
-      const jobChanged = job !== this.props.job;
-      const schoolChanged = school !== this.props.school;
-      const degreeChanged = degree !== this.props.degree;
-      const majorChanged = major !== this.props.major;
-      const yearChanged = year !== this.props.year;
-      const emojiChanged = emoji !== this.props.emoji;
-      const birthdayChanged = birthday !== this.props.birthday;
+      const didChangeArray = [];
+      editProfileFields.forEach((field) => {
+        const didChange = this.state[field[0]] !== this.props[field[0]];
+        didChangeArray.push(didChange);
+      });
 
-      // if value changed and is not empty, save new value, else remove value
-      if (nameChanged && name !== '') await box.public.set('name', name);
-      if (nameChanged && name === '') await box.public.remove('name');
-      if (descriptionChanged && description !== '') await box.public.set('description', description);
-      if (descriptionChanged && description === '') await box.public.remove('description');
-      if (locationChanged && location !== '') await box.public.set('location', location);
-      if (locationChanged && location === '') await box.public.remove('location');
-      if (websiteChanged && website !== '') await box.public.set('website', website);
-      if (websiteChanged && website === '') await box.public.remove('website');
-      if (employerChanged && employer !== '') await box.public.set('employer', employer);
-      if (employerChanged && employer === '') await box.public.remove('employer');
-      if (jobChanged && job !== '') await box.public.set('job', job);
-      if (jobChanged && job === '') await box.public.remove('job');
-      if (schoolChanged && school !== '') await box.public.set('school', school);
-      if (schoolChanged && school === '') await box.public.remove('school');
-      if (degreeChanged && degree !== '') await box.public.set('degree', degree);
-      if (degreeChanged && degree === '') await box.public.remove('degree');
-      if (majorChanged && major !== '') await box.public.set('major', major);
-      if (majorChanged && major === '') await box.public.remove('major');
-      if (yearChanged && year !== '') await box.public.set('year', year);
-      if (yearChanged && year === '') await box.public.remove('year');
-      if (emojiChanged && emoji !== '') await box.public.set('emoji', emoji);
-      if (emojiChanged && emoji === '') await box.public.remove('emoji');
-      if (birthdayChanged && birthday !== '') await box.private.set('birthday', birthday);
-      if (birthdayChanged && birthday === '') await box.private.remove('birthday');
-      if (emailChanged && email !== '') await box.private.set('email', email);
-      if (emailChanged && email === '') await box.private.remove('email');
+      const updateArray = [];
+      didChangeArray.map((fieldChanged, i) => {
+        const field = editProfileFields[i][0];
+        const privOrPublic = editProfileFields[i][1];
+        const fieldState = this.state[field];
+        const fieldIsEmpty = fieldState === '';
+        let verifiedField;
+        let promise;
+        if (field === 'verifiedGithub') verifiedField = 'proof_github';
+        if (field === 'verifiedTwitter') verifiedField = 'proof_twitter';
+        if (field === 'verifiedEmail') verifiedField = 'proof_email';
+        if (fieldChanged && !fieldIsEmpty) promise = box[privOrPublic].set(field, fieldState);
+        if (fieldChanged && fieldIsEmpty) promise = box[privOrPublic].remove(verifiedField || field);
+        if (promise) updateArray.push(promise);
+      });
+      console.log('updateArray', updateArray);
+      const updatePromises = Promise.all(updateArray);
+      console.log('updatePromises', updatePromises);
+      await updatePromises;
 
-      if (verifiedGithubChanged && verifiedGithub === '') await box.public.remove('proof_github');
-      if (verifiedTwitterChanged && verifiedTwitter === '') await box.public.remove('proof_twitter');
-      if (verifiedEmailChanged && verifiedEmail === '') await box.private.remove('proof_email');
       if (removeUserPic) await box.public.remove('image');
       if (removeCoverPic) await box.public.remove('coverPhoto');
 
@@ -715,207 +652,49 @@ class EditProfile extends Component {
       const returnedCoverData = editCoverPic && await fetchCover.json();
       if (editCoverPic) await box.public.set('coverPhoto', [{ '@type': 'ImageObject', contentUrl: { '/': returnedCoverData.Hash } }]);
 
-      // only get values that have changed
-      if (verifiedGithubChanged) {
-        store.dispatch({
-          type: 'MY_VERIFIED_GITHUB_UPDATE',
-          verifiedGithub: null,
-        });
-        delete updatedAllData['3Box_app'].public.verifiedGithub;
-        store.dispatch({
-          type: 'SPACES_DATA_UPDATE',
-          list,
-          allData: updatedAllData,
-        });
-      }
-      if (verifiedTwitterChanged) {
-        store.dispatch({
-          type: 'MY_VERIFIED_TWITTER_UPDATE',
-          verifiedTwitter: null,
-        });
-        delete updatedAllData['3Box_app'].public.verifiedTwitter;
-        store.dispatch({
-          type: 'SPACES_DATA_UPDATE',
-          list,
-          allData: updatedAllData,
-        });
-      }
-      if (verifiedEmailChanged) {
-        store.dispatch({
-          type: 'MY_VERIFIED_EMAIL_UPDATE',
-          verifiedEmail: null,
-        });
-        delete updatedAllData['3Box_app'].private.verifiedEmail;
-        store.dispatch({
-          type: 'SPACES_DATA_UPDATE',
-          list,
-          allData: updatedAllData,
-        });
-      }
-      if (nameChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'name', true); // change these to just update the redux store
-
-        if (savedObject) {
-          updatedAllData['3Box_app'].public.name = savedObject;
-        } else {
-          delete updatedAllData['3Box_app'].public.name;
+      console.log('beforestart');
+      const fetchedUpdates = [];
+      const fetchedUpdatesParams = [];
+      didChangeArray.map(async (fieldChanged, i) => {
+        const field = editProfileFields[i][0];
+        const privOrPublic = editProfileFields[i][1];
+        let dispatchAction;
+        if (field === 'verifiedGithub') dispatchAction = 'MY_VERIFIED_GITHUB_UPDATE';
+        if (field === 'verifiedTwitter') dispatchAction = 'MY_VERIFIED_TWITTER_UPDATE';
+        if (field === 'verifiedEmail') dispatchAction = 'MY_VERIFIED_EMAIL_UPDATE';
+        if (dispatchAction && fieldChanged) {
+          store.dispatch({
+            type: dispatchAction,
+            [field]: null,
+          });
+          delete updatedAllData['3Box_app'].public[field];
+          store.dispatch({
+            type: 'SPACES_DATA_UPDATE',
+            list,
+            allData: updatedAllData,
+          });
+        } else if (fieldChanged) {
+          const savedObject = this.props.getMyProfileValue(privOrPublic, field, true);
+          fetchedUpdates.push(savedObject);
+          fetchedUpdatesParams.push([privOrPublic, field]);
         }
-
-        store.dispatch({
-          type: 'SPACES_DATA_UPDATE',
-          list,
-          allData: updatedAllData,
-        });
-      }
-      if (descriptionChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'description', true);
-
-        if (savedObject) {
-          updatedAllData['3Box_app'].public.description = savedObject;
+      });
+      const fetchedPromises = Promise.all(fetchedUpdates);
+      const fetchedData = await fetchedPromises;
+      fetchedData.forEach((data, i) => {
+        const privOrPublic = fetchedUpdatesParams[i][0];
+        const field = fetchedUpdatesParams[i][1];
+        if (data) {
+          updatedAllData['3Box_app'][privOrPublic][field] = data;
         } else {
-          delete updatedAllData['3Box_app'].public.description;
-        }
-
-        store.dispatch({
-          type: 'SPACES_DATA_UPDATE',
-          list,
-          allData: updatedAllData,
-        });
-      }
-      if (locationChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'location', true);
-
-        if (savedObject) {
-          updatedAllData['3Box_app'].public.location = savedObject;
-        } else {
-          delete updatedAllData['3Box_app'].public.location;
-        }
-
-        store.dispatch({
-          type: 'SPACES_DATA_UPDATE',
-          list,
-          allData: updatedAllData,
-        });
-      }
-      if (websiteChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'website', true);
-
-        if (savedObject) {
-          updatedAllData['3Box_app'].public.website = savedObject;
-        } else {
-          delete updatedAllData['3Box_app'].public.website;
-        }
-
-        store.dispatch({
-          type: 'SPACES_DATA_UPDATE',
-          list,
-          allData: updatedAllData,
-        });
-      }
-      if (employerChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'employer', true);
-
-        if (savedObject) {
-          updatedAllData['3Box_app'].public.employer = savedObject;
-        } else {
-          delete updatedAllData['3Box_app'].public.employer;
-        }
-
-        store.dispatch({
-          type: 'SPACES_DATA_UPDATE',
-          list,
-          allData: updatedAllData,
-        });
-      }
-      if (jobChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'job', true);
-
-        if (savedObject) {
-          updatedAllData['3Box_app'].public.job = savedObject;
-        } else {
-          delete updatedAllData['3Box_app'].public.job;
-        }
-
-        store.dispatch({
-          type: 'SPACES_DATA_UPDATE',
-          list,
-          allData: updatedAllData,
-        });
-      }
-      if (schoolChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'school', true);
-
-        if (savedObject) {
-          updatedAllData['3Box_app'].public.school = savedObject;
-        } else {
-          delete updatedAllData['3Box_app'].public.school;
-        }
-
-        store.dispatch({
-          type: 'SPACES_DATA_UPDATE',
-          list,
-          allData: updatedAllData,
-        });
-      }
-      if (degreeChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'degree', true);
-
-        if (savedObject) {
-          updatedAllData['3Box_app'].public.degree = savedObject;
-        } else {
-          delete updatedAllData['3Box_app'].public.degree;
-        }
-
-        store.dispatch({
-          type: 'SPACES_DATA_UPDATE',
-          list,
-          allData: updatedAllData,
-        });
-      }
-      if (majorChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'major', true);
-
-        if (savedObject) {
-          updatedAllData['3Box_app'].public.major = savedObject;
-        } else {
-          delete updatedAllData['3Box_app'].public.major;
-        }
-
-        store.dispatch({
-          type: 'SPACES_DATA_UPDATE',
-          list,
-          allData: updatedAllData,
-        });
-      }
-      if (yearChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'year', true);
-
-        if (savedObject) {
-          updatedAllData['3Box_app'].public.year = savedObject;
-        } else {
-          delete updatedAllData['3Box_app'].public.year;
+          delete updatedAllData['3Box_app'][privOrPublic][field];
         }
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
           allData: updatedAllData,
         });
-      }
-      if (emojiChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'emoji', true);
-
-        if (savedObject) {
-          updatedAllData['3Box_app'].public.emoji = savedObject;
-        } else {
-          delete updatedAllData['3Box_app'].public.emoji;
-        }
-
-        store.dispatch({
-          type: 'SPACES_DATA_UPDATE',
-          list,
-          allData: updatedAllData,
-        });
-      }
+      });
 
       if (removeUserPic || editPic) {
         const savedObject = await this.props.getMyProfileValue('public', 'image', true);
@@ -942,21 +721,6 @@ class EditProfile extends Component {
         } else {
           updatedAllData['3Box_app'].public.coverPhoto = savedObject;
         }
-        store.dispatch({
-          type: 'SPACES_DATA_UPDATE',
-          list,
-          allData: updatedAllData,
-        });
-      }
-      if (birthdayChanged) {
-        const savedObject = await this.props.getMyProfileValue('private', 'birthday', true);
-
-        if (savedObject) {
-          updatedAllData['3Box_app'].private.birthday = savedObject;
-        } else {
-          delete updatedAllData['3Box_app'].private.birthday;
-        }
-
         store.dispatch({
           type: 'SPACES_DATA_UPDATE',
           list,
@@ -1025,12 +789,6 @@ class EditProfile extends Component {
       verifiedEmail,
       emailVerificationErrMsg,
       emailCode,
-      twitterInvalidFormat,
-      githubInvalidFormat,
-      emailInvalidFormat,
-      emailErrorMessage,
-      githubErrorMessage,
-      twitterErrorMessage,
     } = this.state;
 
     return (
@@ -1122,7 +880,7 @@ class EditProfile extends Component {
           <div id="edit__breadCrumb__crumbs">
             <p className="light">
               Edit Profile
-            </p>
+</p>
           </div>
         </div>
 
@@ -1142,7 +900,7 @@ class EditProfile extends Component {
                     type="button"
                   >
                     &#10005;
-                  </button>
+</button>
                   <label htmlFor="coverInput" id="chooseCanvas">
                     <input
                       id="coverInput"
@@ -1155,7 +913,7 @@ class EditProfile extends Component {
                     />
                     <div className="edit__profile__editCanvas__button">
                       Edit
-                    </div>
+</div>
                   </label>
                 </div>
                 {(((coverPhoto && coverPhoto.length > 0 && coverPhoto[0].contentUrl) || (this.coverUpload && this.coverUpload.files && this.coverUpload.files[0])) && !removeCoverPic)
@@ -1195,7 +953,7 @@ class EditProfile extends Component {
                       type="button"
                     >
                       &#10005;
-                    </button>
+</button>
 
                     {(((image && image.length > 0 && image[0].contentUrl) || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])) && !removeUserPic)
                       ? (
@@ -1298,7 +1056,7 @@ class EditProfile extends Component {
                             : (
                               <span className="edit__profile__value--spirit__character" role="img" aria-label="unicorn">
                                 🦄
-                              </span>
+</span>
                             )
                         }
                       </div>
@@ -1384,7 +1142,7 @@ class EditProfile extends Component {
                     </div>
                     <div className="edit__profile__fields__entry noMargin">
                       <div className="edit__profile__keyContainer">
-                        <h5>Github.com/</h5>
+                        <h5>Github</h5>
                       </div>
                       {this.props.verifiedGithub
                         && (
@@ -1404,7 +1162,7 @@ class EditProfile extends Component {
                                   onClick={() => this.handleGithubUsername('remove')}
                                 >
                                   Remove
-                                </button>
+</button>
                               )
                               : (
                                 <button
@@ -1413,7 +1171,7 @@ class EditProfile extends Component {
                                   onClick={() => this.handleGithubUsername()}
                                 >
                                   Cancel
-                                </button>
+</button>
                               )}
                           </div>
                         )}
@@ -1426,23 +1184,22 @@ class EditProfile extends Component {
                               type="text"
                               className="edit__profile__value--github verifiedForm"
                               value={verifiedGithub}
-                              placeholder="username"
                               onChange={e => this.handleFormChange(e, 'verifiedGithub')}
                             />
                             <button
                               type="button"
-                              className={`unstyledButton ${(!githubEdited || githubInvalidFormat) && 'uneditedGithub'} verificationButton verifiedForm`}
-                              disabled={!githubEdited || githubInvalidFormat}
+                              className={`unstyledButton ${!githubEdited && 'uneditedGithub'} verificationButton verifiedForm`}
+                              disabled={!githubEdited}
                               onClick={() => {
                                 this.props.getMyDID();
                                 this.props.handleGithubVerificationModal();
                               }}
                             >
                               Verify
-                              </button>
+</button>
                             <p className="edit__profile__verified--NoMobile">
                               Add verifications using a desktop browser.
-                            </p>
+</p>
                           </div>
                         )}
 
@@ -1450,7 +1207,7 @@ class EditProfile extends Component {
 
                     <div className="edit__profile__fields__entry">
                       <div className="edit__profile__keyContainer">
-                        <h5>Twitter.com/</h5>
+                        <h5>Twitter</h5>
                       </div>
                       {this.props.verifiedTwitter
                         && (
@@ -1470,7 +1227,7 @@ class EditProfile extends Component {
                                   onClick={() => this.handleTwitterUsername('remove')}
                                 >
                                   Remove
-                                </button>
+</button>
                               )
                               : (
                                 <button
@@ -1479,7 +1236,7 @@ class EditProfile extends Component {
                                   onClick={() => this.handleTwitterUsername()}
                                 >
                                   Cancel
-                                </button>
+</button>
                               )}
                           </div>
                         )}
@@ -1492,23 +1249,22 @@ class EditProfile extends Component {
                               type="text"
                               className="edit__profile__value--github verifiedForm"
                               value={verifiedTwitter}
-                              placeholder="username"
                               onChange={e => this.handleFormChange(e, 'verifiedTwitter')}
                             />
                             <button
                               type="button"
-                              className={`unstyledButton ${(!twitterEdited || twitterInvalidFormat) && 'uneditedGithub'} verificationButton verifiedForm`}
-                              disabled={!twitterEdited || twitterInvalidFormat}
+                              className={`unstyledButton ${!twitterEdited && 'uneditedGithub'} verificationButton verifiedForm`}
+                              disabled={!twitterEdited}
                               onClick={() => {
                                 this.props.getMyDID();
                                 this.props.handleTwitterVerificationModal();
                               }}
                             >
                               Verify
-                            </button>
+</button>
                             <p className="edit__profile__verified--NoMobile">
                               Add verifications using a desktop browser.
-                            </p>
+</p>
                           </div>
                         )}
 
@@ -1524,8 +1280,8 @@ class EditProfile extends Component {
                     || (!this.props.verifiedTwitter && twitterEdited && !isTwitterVerified))
                     && (
                       <p className={`edit__profile__verifiedWrapper__warning ${(githubRemoved || twitterRemoved) && 'second'}`}>
-                        {githubErrorMessage || twitterErrorMessage}
-                      </p>
+                        Verification is required for your verified accounts to save.
+</p>
                     )
                   }
                 </div>
@@ -1561,7 +1317,7 @@ class EditProfile extends Component {
                                   onClick={() => this.handleEmailAddress('remove')}
                                 >
                                   Remove
-                                </button>
+</button>
                               )
                               : (
                                 <button
@@ -1570,7 +1326,7 @@ class EditProfile extends Component {
                                   onClick={() => this.handleEmailAddress()}
                                 >
                                   Cancel
-                                </button>
+</button>
                               )}
                           </div>
                         )}
@@ -1588,18 +1344,18 @@ class EditProfile extends Component {
                             />
                             <button
                               type="button"
-                              className={`unstyledButton ${(!emailEdited || emailInvalidFormat) && 'uneditedGithub'} verificationButton verifiedForm`}
-                              disabled={!emailEdited || emailInvalidFormat}
+                              className={`unstyledButton ${!emailEdited && 'uneditedGithub'} verificationButton verifiedForm`}
+                              disabled={!emailEdited}
                               onClick={() => {
                                 this.props.getMyDID();
                                 this.props.handleEmailVerificationModal();
                               }}
                             >
                               Verify
-                            </button>
+</button>
                             <p className="edit__profile__verified--NoMobile">
                               Add verifications using a desktop browser.
-                            </p>
+</p>
                           </div>
                         )}
 
@@ -1615,8 +1371,8 @@ class EditProfile extends Component {
                   {(!this.props.verfiedEmail && emailEdited && !isEmailVerified)
                     && (
                       <p className={`edit__profile__verifiedWrapper__warning ${emailRemoved && 'second'}`}>
-                        {emailErrorMessage}
-                      </p>
+                        Verification is required for your verified accounts to save.
+</p>
                     )}
                 </div>
               </div>
@@ -1734,7 +1490,7 @@ class EditProfile extends Component {
                     }}
                 >
                   Save
-                  </button>
+</button>
                 <Link
                   to={`/${currentAddress}/${routes.ACTIVITY}`}
                   className="subtext"
@@ -1757,7 +1513,7 @@ class EditProfile extends Component {
                   }}
                 >
                   Cancel
-                </Link>
+</Link>
               </div>
             </div>
           </div>
