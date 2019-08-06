@@ -10,27 +10,51 @@ const checkNetwork = () => async (dispatch) => {
 
   const checkNetworkFunc = new Promise((resolve) => {
     try {
-      web3Obj.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
-        switch (netId) {
-          case '1':
-            resolve('Main');
-            break;
-          case '2':
-            resolve('Morder');
-            break;
-          case '3':
-            resolve('Ropsten');
-            break;
-          case '4':
-            resolve('Rinkeby');
-            break;
-          case '42':
-            resolve('Kovan');
-            break;
-          default:
-            resolve('Unknown');
-        }
-      });
+      if (web3Obj.version) {
+        web3Obj.version.getNetwork((err, netId) => { // eslint-disable-line no-undef
+          switch (netId) {
+            case '1':
+              resolve('Main');
+              break;
+            case '2':
+              resolve('Morder');
+              break;
+            case '3':
+              resolve('Ropsten');
+              break;
+            case '4':
+              resolve('Rinkeby');
+              break;
+            case '42':
+              resolve('Kovan');
+              break;
+            default:
+              resolve('Unknown');
+          }
+        });
+      } else if (web3Obj.eth) {
+        web3Obj.eth.net.getId().then(netId => {
+          switch (netId) {
+            case '1':
+              resolve('Main');
+              break;
+            case '2':
+              resolve('Morder');
+              break;
+            case '3':
+              resolve('Ropsten');
+              break;
+            case '4':
+              resolve('Rinkeby');
+              break;
+            case '42':
+              resolve('Kovan');
+              break;
+            default:
+              resolve('Unknown');
+          }
+        })
+      }
     } catch (error) {
       console.error(error);
       return error;

@@ -1,5 +1,5 @@
 import Web3Connect from 'web3connect';
-// import Web3 from 'web3';
+import Web3 from 'web3';
 
 import * as routes from '../../../utils/routes';
 import accountsPromise from './accountsPromise';
