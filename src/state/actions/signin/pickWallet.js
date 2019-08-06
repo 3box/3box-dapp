@@ -18,6 +18,7 @@ const web3Connect = new Web3Connect.Core({
 });
 
 const pickWallet = async (directLogin, dispatch, shouldSignOut) => {
+  console.log('inpick');
   dispatch({
     type: 'USER_WEB3CONNECT',
     web3Connect,
@@ -28,9 +29,12 @@ const pickWallet = async (directLogin, dispatch, shouldSignOut) => {
   });
 
   const web3Promise = new Promise((resolve, reject) => {
+    console.log('inconnecttttt');
     web3Connect.on('connect', async (provider) => {
       try {
+        console.log('inOnnnnn');
         if (shouldSignOut) handleSignOutFunc();
+        console.log('provider', provider);
         await connectProviderToDapp(provider, directLogin, dispatch);
         dispatch({
           type: 'UI_FIX_BODY',

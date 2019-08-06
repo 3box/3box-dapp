@@ -16,6 +16,8 @@ const getPublicFollowing = address => async (dispatch) => {
     console.log('getPublicFollowing');
     const myAddress = address || store.getState().userState.currentAddress;
 
+    const config = await Box.getConfig(myAddress);
+    console.log('config', JSON.stringify(config))
     const followingList = await Box.getThread(followingSpaceName, followingThreadName, myAddress, true);
 
     if (!followingList) return null;

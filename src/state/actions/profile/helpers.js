@@ -65,10 +65,12 @@ export const getFollowingThreadAndPosts = async (myAddress) => {
       isLoadingMyFollowing: true,
     });
 
+    const rootstore = await store.getState().myData.box._rootStore.iterator({limit:-1}).collect().map(e => e.payload.value);
+    console.log('rootstore', rootstore);
     const followingSpace = await store.getState().myData.box.openSpace(followingSpaceName);
     const opts = {
       members: true,
-      firstModerator: myAddress,
+      // firstModerator: myAddress,
     };
     console.log('followingSpace', followingSpace);
     const followingThread = await followingSpace.joinThread(followingThreadName, opts);

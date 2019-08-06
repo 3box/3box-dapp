@@ -90,6 +90,7 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
       } catch (error) {
         console.error(error);
       }
+      
       try {
         privateActivity = box.private.log || [];
       } catch (error) {
