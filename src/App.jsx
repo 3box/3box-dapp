@@ -221,11 +221,7 @@ class App extends Component {
       console.log('3');
       await this.props.injectWeb3(null, chooseWallet, false, shouldSignOut); // eslint-disable-line
       console.log('4');
-      console.log('this.props.currentWallet', this.props.currentWallet);
-      if (this.props.currentWallet !== 'Fortmatic'
-        && this.props.currentWallet !== 'Portis') {
-        await this.props.checkNetwork(); // eslint-disable-line
-      }
+      await this.props.checkNetwork(); // eslint-disable-line
       console.log('5');
       await this.props.openBox('fromSignIn'); // eslint-disable-line
       console.log('6');
@@ -414,7 +410,6 @@ App.propTypes = {
   prevNetwork: PropTypes.string,
   currentNetwork: PropTypes.string,
   currentAddress: PropTypes.string,
-  currentWallet: PropTypes.string,
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
   }).isRequired,
@@ -453,7 +448,6 @@ App.defaultProps = {
   prevAddress: '',
   directLogin: '',
   currentAddress: '',
-  currentWallet: '',
   otherAddressToFollow: '',
   otherFollowing: [],
   otherName: '',
@@ -488,7 +482,6 @@ const mapState = state => ({
   currentNetwork: state.userState.currentNetwork,
   isLoggedIn: state.userState.isLoggedIn,
   currentAddress: state.userState.currentAddress,
-  currentWallet: state.userState.currentWallet,
   isMobile: state.userState.isMobile,
 
   otherAddressToFollow: state.otherProfile.otherAddressToFollow,
