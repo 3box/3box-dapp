@@ -635,9 +635,7 @@ class EditProfile extends Component {
         if (fieldChanged && fieldIsEmpty) promise = box[privOrPublic].remove(verifiedField || field);
         if (promise) updateArray.push(promise);
       });
-      console.log('updateArray', updateArray);
       const updatePromises = Promise.all(updateArray);
-      console.log('updatePromises', updatePromises);
       await updatePromises;
 
       if (removeUserPic) await box.public.remove('image');
@@ -652,7 +650,6 @@ class EditProfile extends Component {
       const returnedCoverData = editCoverPic && await fetchCover.json();
       if (editCoverPic) await box.public.set('coverPhoto', [{ '@type': 'ImageObject', contentUrl: { '/': returnedCoverData.Hash } }]);
 
-      console.log('beforestart');
       const fetchedUpdates = [];
       const fetchedUpdatesParams = [];
       didChangeArray.map(async (fieldChanged, i) => {

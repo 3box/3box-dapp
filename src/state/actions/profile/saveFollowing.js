@@ -49,7 +49,6 @@ const saveFollowing = (otherProfileAddress, fromWarningModal) => async (dispatch
     const contact = formatContact(profile.proof_did, otherProfileAddress);
 
     const saved = await store.getState().myData.followingThread.post(contact);
-    console.log('saved', saved);
     // `onUpdate` will handle updateing myFollowing
   } catch (error) {
     console.error(error);

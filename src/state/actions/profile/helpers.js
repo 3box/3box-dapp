@@ -31,7 +31,6 @@ export const deleteDuplicate = async (duplicates, followingThread) => {
 export const getPosts = async (followingThread) => {
   try {
     const followingList = await followingThread.getPosts();
-    console.log('getPosts', followingList);
 
     // remove duplicates from interface
     const userInList = {};
@@ -65,16 +64,13 @@ export const getFollowingThreadAndPosts = async (myAddress) => {
       isLoadingMyFollowing: true,
     });
 
-    const rootstore = await store.getState().myData.box._rootStore.iterator({limit:-1}).collect().map(e => e.payload.value);
-    console.log('rootstore', rootstore);
+    // const rootstore = await store.getState().myData.box._rootStore.iterator({limit:-1}).collect().map(e => e.payload.value);
     const followingSpace = await store.getState().myData.box.openSpace(followingSpaceName);
     const opts = {
       members: true,
       // firstModerator: myAddress,
     };
-    console.log('followingSpace', followingSpace);
     const followingThread = await followingSpace.joinThread(followingThreadName, opts);
-    console.log('followingThread', followingThread);
     store.dispatch({
       type: 'MY_FOLLOWING_THREAD_UPDATE',
       followingThread,

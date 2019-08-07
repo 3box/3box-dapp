@@ -13,11 +13,9 @@ import {
 
 const getPublicFollowing = address => async (dispatch) => {
   try {
-    console.log('getPublicFollowing');
     const myAddress = address || store.getState().userState.currentAddress;
 
-    const config = await Box.getConfig(myAddress);
-    console.log('config', JSON.stringify(config))
+    // const config = await Box.getConfig(myAddress);
     const followingList = await Box.getThread(followingSpaceName, followingThreadName, myAddress, true);
 
     if (!followingList) return null;

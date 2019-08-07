@@ -18,7 +18,6 @@ const web3Connect = new Web3Connect.Core({
 });
 
 const pickWallet = async (directLogin, dispatch, shouldSignOut) => {
-  console.log('inpick');
   dispatch({
     type: 'USER_WEB3CONNECT',
     web3Connect,

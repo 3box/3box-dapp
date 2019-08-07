@@ -15,13 +15,22 @@
 .mock_web3c {
   position: relative;
   width: 800px;
-  height: 320px; }
+  height: 320px;
+  margin-left: 25px; }
   .mock_web3c h2 {
     position: absolute;
     left: 0;
-    top: -40px;
+    top: -78px;
     font-size: 26px;
     letter-spacing: 2px; }
+
+@media only screen and (max-width: 690px) {
+  .mock_web3c h2 {
+    top: -220px; } }
+
+@media only screen and (max-width: 600px) {
+  .mock_web3c h2 {
+    top: -260px; } }
 
 .modal {
   position: relative;

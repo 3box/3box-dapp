@@ -5,9 +5,7 @@ import connectProviderToDapp from './connectProviderToDapp';
 const useDefaultWallet = async (defaultWallet, directLogin, dispatch) => {
   let provider;
   let normalizedWallet;
-  console.log('defaultWallet', defaultWallet);
   if (defaultWallet) normalizedWallet = defaultWallet.toLowerCase();
-  console.log('normalizedWallet', normalizedWallet);
 
   switch (normalizedWallet) {
     case 'metamask':

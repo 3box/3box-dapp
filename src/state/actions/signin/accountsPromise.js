@@ -17,7 +17,6 @@ const accountsPromise = new Promise((resolve, reject) => {
       });
       return;
     }
-    console.log('No web3 injected');
   } catch (err) {
     console.error(err);
   }

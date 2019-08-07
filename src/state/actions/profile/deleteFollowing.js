@@ -26,7 +26,6 @@ const deleteFollowing = otherProfileAddress => async (/* dispatch */) => {
     if (!followingThread) await getFollowingThreadAndPosts(currentAddress);
 
     const deleted = await store.getState().myData.followingThread.deletePost(postIdToDelete);
-    console.log('deleted', deleted)
   } catch (error) {
     console.error(error);
   }
