@@ -5,12 +5,16 @@ import {
 const checkNetworkFunc = async (web3Obj) => {
   let network;
   let networkName;
+  const hasGetNetwork = web3Obj.version && web3Obj.version.getNetwork;
+  const hasGetId = web3Obj.eth.net && web3Obj.eth.net.getId;
+  const hasGetNetworkType = web3Obj.eth.net && web3Obj.eth.net.getNetworkType;
+
   try {
-    if (web3Obj.version && web3Obj.version.getNetwork) {
+    if (hasGetNetwork) {
       network = await web3Obj.version.getNetwork();
-    } else if (web3Obj.eth.net && web3Obj.eth.net.getId) {
+    } else if (hasGetId) {
       network = await web3Obj.eth.net.getId();
-    } else if (web3Obj.eth.net.getNetworkType) {
+    } else if (hasGetNetworkType) {
       network = await web3Obj.eth.net.getNetworkType();
       return network
     }

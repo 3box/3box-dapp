@@ -11,7 +11,6 @@ import {
 const connectProviderToDapp = async (provider, directLogin, dispatch) => {
   try {
     // save wallet name to local storage
-    console.log('inconnect');
     const {
       getProviderInfo,
     } = Web3Connect;
@@ -19,11 +18,15 @@ const connectProviderToDapp = async (provider, directLogin, dispatch) => {
       name,
       logo,
     } = getProviderInfo(provider);
-    console.log('name', name);
-    window.localStorage.setItem('defaultWallet', name); // eslint-disable-line no-undef
+
+    if (name.toLowerCase() === 'walletconnect') {
+      window.localStorage.removeItem('walletconnect');
+    } else {
+      window.localStorage.setItem('defaultWallet', name); // eslint-disable-line no-undef
+    }
+
     // create web3 object and save to redux store
     const web3Obj = new Web3(provider); // eslint-disable-line no-undef
-    console.log('web3Objsss', web3Obj);
     dispatch({
       type: 'USER_UPDATE_WEB3',
       web3Obj,
