@@ -19,6 +19,7 @@ import {
   ModalBackground,
   FollowingIsPublicModal,
   FollowingListModal,
+  UnsupportedBrowserModal,
 } from './Modals';
 import { checkIsMobile } from '../utils/funcs';
 
@@ -76,6 +77,8 @@ class AppModals extends Component {
       following,
       otherProfileAddress,
       handleContactsModal,
+      handleUnsupportedBrowserModal,
+      showUnsupportedBrowser,
     } = this.props;
     const { isMobile } = this.state;
 
@@ -124,6 +127,13 @@ class AppModals extends Component {
           <SignInToThreeBox
             handleSignInModal={handleSignInModal}
             key="SignInToThreeBox"
+          />
+        )}
+
+        {showUnsupportedBrowser && (
+          <UnsupportedBrowserModal
+            handleUnsupportedBrowserModal={handleUnsupportedBrowserModal}
+            key="UnsupportedBrowserModal"
           />
         )}
 

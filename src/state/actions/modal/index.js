@@ -69,6 +69,13 @@ export const handleConsentModal = () => async (dispatch) => {
   });
 };
 
+export const handleUnsupportedBrowserModal = () => async (dispatch) => {
+  dispatch({
+    type: 'UI_UNSUPPORTED_BROWSER_MODAL',
+    showUnsupportedBrowser: false,
+  });
+};
+
 export const handleLoggedOutModal = () => async (dispatch) => {
   dispatch({
     type: 'UI_HANDLE_LOGGEDOUT_MODAL',
@@ -151,6 +158,13 @@ export const handleShowSignInBanner = () => async (dispatch) => {
   dispatch({
     type: 'UI_HANDLE_SIGNIN_BANNER',
     showSignInBanner: true,
+  });
+};
+
+export const handleShowSafariBanner = () => async (dispatch) => {
+  dispatch({
+    type: 'UI_HANDLE_SAFARI_BANNER',
+    showSafariBanner: !store.getState().uiState.showSafariBanner,
   });
 };
 

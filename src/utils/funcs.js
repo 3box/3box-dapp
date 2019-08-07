@@ -2,6 +2,9 @@ import Box from '3box';
 import contractMap from 'eth-contract-metadata';
 import abiDecoder from 'abi-decoder';
 import {
+  detect,
+} from 'detect-browser';
+import {
   toChecksumAddress,
 } from 'ethereumjs-util';
 
@@ -441,4 +444,24 @@ export const checkIsMobileWithoutWeb3 = () => {
 
 export const capitalizeFirst = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
-}
+};
+
+export const isBrowserCompatible = () => {
+  const browser = detect();
+  const {
+    version,
+    name
+  } = browser;
+
+  if (name !== 'safari') return true;
+
+  const majorVersion = version.split('.')[0];
+  const minorVersion = version.split('.')[0];
+  if (majorVersion > 11 || (majorVersion === 11 && minorVersion >= 1)) return true;
+
+  store.dispatch({
+    type: 'UI_UNSUPPORTED_BROWSER_MODAL',
+    showUnsupportedBrowser: true,
+  });
+  return false;
+};

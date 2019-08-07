@@ -22,6 +22,7 @@ import OnBoardingModalMobileGraphic3 from '../assets/OnBoardingModalMobile3.png'
 import ErrorIcon from '../assets/ErrorIcon.svg';
 import LogOut from '../assets/LogOut.svg';
 import Loading from '../assets/Loading.svg';
+import Browser from '../assets/Browser.svg';
 import LoadingWhite from '../assets/LoadingWhite.svg';
 import './styles/Modal.css';
 
@@ -276,6 +277,25 @@ export const ProvideConsentModal = ({
 ProvideConsentModal.propTypes = {
   isMobile: PropTypes.bool.isRequired,
   handleConsentModal: PropTypes.func.isRequired,
+};
+
+export const UnsupportedBrowserModal = ({
+  handleUnsupportedBrowserModal,
+}) => (
+    <div className="modal__container modal--effect">
+      <div className="modal standardModal">
+        <img src={Browser} className="modal_wallet" alt="Browser" />
+        <div id="modal__copy__card">
+          <h3>You must user Safari version 11.1 or higher</h3>
+        </div>
+
+        <button onClick={handleUnsupportedBrowserModal} type="button" className="tertiaryButton">Close</button>
+      </div>
+    </div>
+  );
+
+UnsupportedBrowserModal.propTypes = {
+  handleUnsupportedBrowserModal: PropTypes.func.isRequired,
 };
 
 export const ProvideAccessModal = ({
@@ -827,6 +847,26 @@ export const SignInThroughPublicProfileBanner = ({ show, handleHideSignInBanner 
         <p
           onClick={handleHideSignInBanner}
           onKeyPress={handleHideSignInBanner}
+          role="button"
+          className="webThreeBanner__close"
+        >
+          &#10005;
+        </p>
+      </div>
+    </div>
+  </React.Fragment>
+);
+
+export const UnsupportedBrowserBanner = ({ show, handleShowSafariBanner }) => (
+  <React.Fragment>
+    <div className={`${show ? '' : 'hideBanner'} signInFromPublicProfileBanner`}>
+      <div className="signInFromPublicProfileBanner__wrapper">
+        <p>
+          You must user Safari version 11.1 or higher.
+        </p>
+        <p
+          onClick={handleShowSafariBanner}
+          onKeyPress={handleShowSafariBanner}
           role="button"
           className="webThreeBanner__close"
         >

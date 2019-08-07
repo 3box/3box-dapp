@@ -3,6 +3,9 @@ import Web3Connect from 'web3connect';
 import history from '../../../utils/history';
 import connectProviderToDapp from './connectProviderToDapp';
 import handleSignOutFunc from './handleSignOutFunc';
+import {
+  isBrowserCompatible
+} from '../../../utils/funcs';
 
 const web3Connect = new Web3Connect.Core({
   providerOptions: {
@@ -31,6 +34,8 @@ const pickWallet = async (directLogin, dispatch, shouldSignOut) => {
     web3Connect.on('connect', async (provider) => {
       try {
         if (shouldSignOut) handleSignOutFunc();
+        if(!isBrowserCompatible()) return;
+        // if browser is safari less than 11, show error modal
         await connectProviderToDapp(provider, directLogin, dispatch);
         dispatch({
           type: 'UI_FIX_BODY',

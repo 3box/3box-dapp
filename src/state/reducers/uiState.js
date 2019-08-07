@@ -157,7 +157,7 @@ const uiStateReducer = (state = {}, action) => {
       return {
         ...state,
         onBoardingModal: action.onBoardingModal,
-        onBoardingModalTwo: action.onBoardingModalTwo,
+          onBoardingModalTwo: action.onBoardingModalTwo,
       };
 
     case 'UI_HANDLE_GITHUB_MODAL':
@@ -239,6 +239,18 @@ const uiStateReducer = (state = {}, action) => {
       return {
         ...state,
         showFollowingPublicModal: action.showFollowingPublicModal,
+      };
+
+    case 'UI_UNSUPPORTED_BROWSER_MODAL':
+      return {
+        ...state,
+        showUnsupportedBrowser: action.showUnsupportedBrowser,
+      };
+
+    case 'UI_HANDLE_SAFARI_BANNER':
+      return {
+        ...state,
+        showSafariBanner: action.showSafariBanner,
       };
 
     case 'UI_FIX_BODY':

@@ -38,6 +38,7 @@ const {
   handleOnboardingModal,
   handleFollowingPublicModal,
   handleContactsModal,
+  handleUnsupportedBrowserModal,
 } = actions.modal;
 
 const {
@@ -263,6 +264,7 @@ class App extends Component {
       following,
       otherProfileAddress,
       fixBody,
+      showUnsupportedBrowser,
     } = this.props;
 
     const {
@@ -329,6 +331,7 @@ class App extends Component {
           otherName={otherName}
           following={following}
           otherProfileAddress={otherProfileAddress}
+          showUnsupportedBrowser={showUnsupportedBrowser}
           handleContactsModal={this.props.handleContactsModal}
           handleSignInModal={this.props.handleSignInModal}
           handleConsentModal={this.props.handleConsentModal}
@@ -343,6 +346,7 @@ class App extends Component {
           handleNextMobileModal={this.handleNextMobileModal}
           handleFollowingPublicModal={this.props.handleFollowingPublicModal}
           saveFollowing={this.props.saveFollowing}
+          handleUnsupportedBrowserModal={this.props.handleUnsupportedBrowserModal}
         />
 
         <AppRoutes
@@ -472,6 +476,7 @@ const mapState = state => ({
   onOtherProfilePage: state.uiState.onOtherProfilePage,
   showFollowingPublicModal: state.uiState.showFollowingPublicModal,
   showContactsModal: state.uiState.showContactsModal,
+  showUnsupportedBrowser: state.uiState.showUnsupportedBrowser,
   fixBody: state.uiState.fixBody,
 
   onSyncFinished: state.userState.onSyncFinished,
@@ -523,4 +528,5 @@ export default withRouter(connect(mapState,
     saveFollowing,
     handleContactsModal,
     clearReduxState,
+    handleUnsupportedBrowserModal,
   })(App));

@@ -6,9 +6,11 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import actions from '../../state/actions';
 import { store } from '../../state/store';
+import { isBrowserCompatible } from '../../utils/funcs';
 import {
   PublicProfileLoading,
   SignInThroughPublicProfileBanner,
+  UnsupportedBrowserBanner
 } from '../../components/Modals';
 import PubContent from './PublicProfile/PubContent';
 import SideBar from './SideBar';
@@ -17,6 +19,7 @@ import './styles/Profile.css';
 
 const {
   handleShowSignInBanner,
+  handleShowSafariBanner,
   handleContactsModal,
   handleHideSignInBanner,
 } = actions.modal;
@@ -108,6 +111,7 @@ class ProfilePublic extends Component {
   checkIfMyProfile = async (currentAddress, otherProfileAddress) => {
     const activeAddress = window.localStorage.getItem('userEthAddress');
     if (otherProfileAddress === activeAddress) this.props.handleShowSignInBanner();
+    if (!isBrowserCompatible) this.props.handleShowSafariBanner();
   }
 
   getProfile = async (otherProfileAddress) => {
@@ -144,6 +148,7 @@ class ProfilePublic extends Component {
       otherImage,
       otherName,
       otherProfileAddress,
+      showSafariBanner,
     } = this.props;
 
     const { isFollowing, isMe } = this.state;
@@ -159,6 +164,11 @@ class ProfilePublic extends Component {
         <SignInThroughPublicProfileBanner
           show={showSignInBanner}
           handleHideSignInBanner={this.props.handleHideSignInBanner}
+        />
+
+        <UnsupportedBrowserBanner
+          show={showSafariBanner}
+          handleShowSafariBanner={this.props.handleShowSafariBanner}
         />
 
         <div id="profile__page">
@@ -231,8 +241,10 @@ ProfilePublic.defaultProps = {
 };
 
 const mapState = state => ({
-  showSignInBanner: state.uiState.showSignInBanner,
+  showSafariBanner: state.uiState.showSafariBanner,
   showContactsModal: state.uiState.showContactsModal,
+  showSignInBanner: state.uiState.showSignInBanner,
+
   currentAddress: state.userState.currentAddress,
 
   following: state.myData.following,
@@ -253,4 +265,5 @@ export default withRouter(connect(mapState,
     handleHideSignInBanner,
     handleContactsModal,
     getCollectibles,
+    handleShowSafariBanner,
   })(ProfilePublic));
