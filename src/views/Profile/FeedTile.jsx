@@ -128,12 +128,8 @@ export const FeedTileInternal = (props) => {
   }
 
   const fromAddress = item.from && `${item.from.toLowerCase().substring(0, 12)}...`;
-<<<<<<< HEAD
   const toAddress = item.to && `${item.to.toLowerCase().substring(0, 12)}...`;
-=======
-  const toAddress = `${item.to.toLowerCase().substring(0, 12)}...`;
   const isValueZero = item.value === '0';
->>>>>>> 5552c3c7b1e0fd99f2b9bb3516fb2af977df3b1c
 
   return (
     <a href={txURL} target="_blank" rel="noopener noreferrer" className="feed__activity">
@@ -246,12 +242,8 @@ export const FeedTileToken = (props) => {
   }
 
   const fromAddress = item.from && `${item.from.toLowerCase().substring(0, 12)}...`;
-<<<<<<< HEAD
   const toAddress = item.to && `${item.to.toLowerCase().substring(0, 12)}...`;
-=======
-  const toAddress = `${item.to.toLowerCase().substring(0, 12)}...`;
   const isValueZero = item.value === '0';
->>>>>>> 5552c3c7b1e0fd99f2b9bb3516fb2af977df3b1c
 
   return (
     <a href={txURL} target="_blank" rel="noopener noreferrer" className="feed__activity">
@@ -354,14 +346,9 @@ export const FeedTileTXS = (props) => {
     txURL = `https://${currentNetwork}.etherscan.io/tx/${item.hash}`;
   }
 
-<<<<<<< HEAD
   const fromAddress = item.from && `${item.from.toLowerCase().substring(0, 12)}...`;
   const toAddress = item.to && `${item.to.toLowerCase().substring(0, 12)}...`;
-=======
-  const fromAddress = `${item.from.toLowerCase().substring(0, 12)}...`;
-  const toAddress = `${item.to.toLowerCase().substring(0, 12)}...`;
   const isValueZero = item.value === '0';
->>>>>>> 5552c3c7b1e0fd99f2b9bb3516fb2af977df3b1c
 
   return (
     <a href={txURL} target="_blank" rel="noopener noreferrer" className="feed__activity">
