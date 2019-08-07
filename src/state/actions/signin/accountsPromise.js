@@ -23,3 +23,4 @@ const accountsPromise = new Promise((resolve, reject) => {
 });
 
 export default accountsPromise;
+

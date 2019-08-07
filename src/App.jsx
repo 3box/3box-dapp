@@ -93,6 +93,7 @@ class App extends Component {
       const isEthAddr = checkIsEthAddress(firstParam);
       const isMyAddr = firstParam === currentEthAddress;
       const onProfilePage = isEthAddr;
+      const isWalletConnectDefault = window.localStorage.getItem('defaultWallet') === 'WalletConnect';
 
       const allowDirectSignIn = (
         (isEthAddr // Lands on profile page
@@ -100,6 +101,11 @@ class App extends Component {
           && isMyAddr)
         || !!queryParams.wallet
       );
+
+      if (isWalletConnectDefault && allowDirectSignIn) {
+        history.push('/login');
+        return;
+      }
 
       if (allowDirectSignIn) { // Begin signin
         this.directSignIn(queryParams.wallet);

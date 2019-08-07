@@ -1,4 +1,5 @@
 import ThreeBoxActivity from '3box-activity';
+import Web3 from 'web3';
 
 import {
   store,
@@ -15,10 +16,9 @@ import getPublicProfile from './getPublicProfile';
 
 const getActivity = otherProfileAddress => async (dispatch) => {
   try {
-    const {
-      web3Obj,
-    } = store.getState().userState;
-
+    const reduxWeb3 = store.getState().userState.web3Obj;
+    const web3Obj = reduxWeb3 || Web3;
+    console.log('1', reduxWeb3)
     if (otherProfileAddress) {
       dispatch({
         type: 'UI_FEED_OTHER_LOADING',
@@ -30,6 +30,7 @@ const getActivity = otherProfileAddress => async (dispatch) => {
         isFetchingActivity: true,
       });
     }
+    console.log('2')
 
     // get Eth network activity
     let activity;
@@ -43,9 +44,11 @@ const getActivity = otherProfileAddress => async (dispatch) => {
         otherProfileAddress || store.getState().userState.currentAddress,
       );
     }
+    console.log('3')
 
     // add datatype to each row
     const categorizedActivity = addDataType(activity);
+    console.log('4')
 
     // sort and merge feed
     let feed;
@@ -153,6 +156,7 @@ const getActivity = otherProfileAddress => async (dispatch) => {
         .concat(categorizedPrivateActivity)
         .concat(spacesDataActivity);
     }
+    console.log('5')
 
     // if timestamp is undefined, give it the timestamp of the previous entry
     feed.map((item, i) => {
@@ -164,9 +168,11 @@ const getActivity = otherProfileAddress => async (dispatch) => {
       if (!otherProfileAddress && feedItem.key === emailProof) feedItem.key = 'proof_email';
       return feedItem;
     });
+    console.log('6')
 
     // order feed chronologically
     feed.sort((a, b) => b.timeStamp - a.timeStamp);
+    console.log('7')
 
     // order feed by address
     const feedByAddress = [];
@@ -209,6 +215,7 @@ const getActivity = otherProfileAddress => async (dispatch) => {
       }
     });
 
+    console.log('8')
     const checkedAddresses = {};
     const addressData = {};
     const isContract = {};
@@ -216,6 +223,7 @@ const getActivity = otherProfileAddress => async (dispatch) => {
 
     // if there is no feed length, move on to next step
     if (feedByAddress.length === 0) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
+    console.log('9')
 
     // get contract and 3box profile metadata
     await feedByAddress.map(async (txGroup) => {
@@ -225,6 +233,7 @@ const getActivity = otherProfileAddress => async (dispatch) => {
       let contractArray = [];
       let name;
       let image;
+      console.log('10', otherAddress)
 
       if (otherAddress === 'threeBox') {
         counter += 1;
@@ -235,7 +244,9 @@ const getActivity = otherProfileAddress => async (dispatch) => {
       if (!checkedAddresses[otherAddress]) {
         checkedAddresses[otherAddress] = true;
         try {
+          console.log('11', web3Obj.eth.getCode)
           web3Obj.eth.getCode(otherAddress, (err, code) => {
+            console.log('12')
             if (err) {
               addressData[otherAddress] = false;
               counter += 1;
@@ -247,6 +258,7 @@ const getActivity = otherProfileAddress => async (dispatch) => {
               isContract[otherAddress] = true;
               getContract(otherAddress)
                 .then((data) => {
+                  console.log('13')
                   if (data.status === '1') {
                     contractData = JSON.parse(data.result);
                     contractArray = imageElFor(otherAddress);
@@ -278,6 +290,7 @@ const getActivity = otherProfileAddress => async (dispatch) => {
                 }
                 `;
               getPublicProfile(graphqlQueryObject).then((profile) => {
+                console.log('14')
                 metaData = profile;
                 name = metaData && metaData.profile && metaData.profile.name;
                 image = metaData && metaData.profile && metaData.profile.image;
