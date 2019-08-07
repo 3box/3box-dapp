@@ -16,9 +16,13 @@ import getPublicProfile from './getPublicProfile';
 
 const getActivity = otherProfileAddress => async (dispatch) => {
   try {
+    const {
+      currentWallet
+    } = store.getState().userState;
+    const isWalletConnect = currentWallet === 'WalletConnect';
     const reduxWeb3 = store.getState().userState.web3Obj;
-    const web3Obj = reduxWeb3 || Web3;
-    console.log('1', reduxWeb3)
+    const web3Obj = isWalletConnect ? Web3 : reduxWeb3 || Web3;
+
     if (otherProfileAddress) {
       dispatch({
         type: 'UI_FEED_OTHER_LOADING',

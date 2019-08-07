@@ -30,12 +30,12 @@ class LogIn extends Component {
     }
   }
 
-  componentWillUnmount() {
-    const { web3Connect } = this.props;
-    const { isDirectLogin } = this.state;
-    // if (!isDirectLogin) 
-    // web3Connect.toggleModal();
-  }
+  // componentWillUnmount() {
+  //   const { web3Connect } = this.props;
+  //   const { isDirectLogin } = this.state;
+  //   // if (!isDirectLogin) 
+  //   // web3Connect.toggleModal();
+  // }
 
   render() {
     const { isDirectLogin, directLoginWallet } = this.state;
