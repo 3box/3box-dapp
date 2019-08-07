@@ -131,7 +131,7 @@ export const FeedTileInternal = (props) => {
   } = props;
 
   const fromAddress = item.from && `${item.from.toLowerCase().substring(0, 12)}...`;
-  const toAddress = `${item.to.toLowerCase().substring(0, 12)}...`;
+  const toAddress = item.to && `${item.to.toLowerCase().substring(0, 12)}...`;
 
   return (
     <a href={`https://etherscan.io/tx/${item.hash}`} target="_blank" rel="noopener noreferrer" className="feed__activity">
@@ -243,7 +243,7 @@ export const FeedTileToken = (props) => {
   } = props;
 
   const fromAddress = item.from && `${item.from.toLowerCase().substring(0, 12)}...`;
-  const toAddress = `${item.to.toLowerCase().substring(0, 12)}...`;
+  const toAddress = item.to && `${item.to.toLowerCase().substring(0, 12)}...`;
 
   return (
     <a href={`https://etherscan.io/tx/${item.hash}`} target="_blank" rel="noopener noreferrer" className="feed__activity">
@@ -345,8 +345,8 @@ export const FeedTileTXS = (props) => {
     contractImg,
   } = props;
 
-  const fromAddress = `${item.from.toLowerCase().substring(0, 12)}...`;
-  const toAddress = `${item.to.toLowerCase().substring(0, 12)}...`;
+  const fromAddress = item.from && `${item.from.toLowerCase().substring(0, 12)}...`;
+  const toAddress = item.to && `${item.to.toLowerCase().substring(0, 12)}...`;
 
   return (
     <a href={`https://etherscan.io/tx/${item.hash}`} target="_blank" rel="noopener noreferrer" className="feed__activity">
