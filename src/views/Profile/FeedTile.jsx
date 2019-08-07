@@ -118,7 +118,7 @@ FeedTileActivity.defaultProps = {
 
 export const FeedTileInternal = (props) => {
   const { item, name, onOtherProfilePage, metaDataName, isFromProfile, contractImg, currentNetwork } = props;
-  const isMain = currentNetwork.toLowerCase() === 'main';
+  const isMain = currentNetwork && currentNetwork.toLowerCase() === 'main';
   let txURL;
 
   if (isMain) {
@@ -232,7 +232,7 @@ FeedTileInternal.defaultProps = {
 
 export const FeedTileToken = (props) => {
   const { item, name, onOtherProfilePage, metaDataName, isFromProfile, contractImg, currentNetwork } = props;
-  const isMain = currentNetwork.toLowerCase() === 'main';
+  const isMain = currentNetwork && currentNetwork.toLowerCase() === 'main';
   let txURL;
 
   if (isMain) {
@@ -337,7 +337,7 @@ FeedTileToken.defaultProps = {
 
 export const FeedTileTXS = (props) => {
   const { item, name, onOtherProfilePage, metaDataName, isFromProfile, contractImg, currentNetwork } = props;
-  const isMain = currentNetwork.toLowerCase() === 'main';
+  const isMain = currentNetwork && currentNetwork.toLowerCase() === 'main';
   let txURL;
 
   if (isMain) {

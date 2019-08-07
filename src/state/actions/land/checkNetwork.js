@@ -32,14 +32,11 @@ const checkNetwork = () => async (dispatch) => {
   let currentNetwork;
   try {
     if (window.web3.eth.net) { // eslint-disable-line no-undef
-      await window.web3.eth.net.getNetworkType() // eslint-disable-line no-undef
-        .then((network) => {
-          currentNetwork = network;
-        });
+      const network = await window.web3.eth.net.getNetworkType(); // eslint-disable-line no-undef
+      currentNetwork = network;
     } else {
-      await checkNetworkFunc.then((network) => {
-        currentNetwork = network;
-      });
+      const network = await checkNetworkFunc;
+      currentNetwork = network;
     }
   } catch (err) {
     console.error(err);
