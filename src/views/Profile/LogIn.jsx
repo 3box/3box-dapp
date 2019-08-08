@@ -30,12 +30,11 @@ class LogIn extends Component {
     }
   }
 
-  // componentWillUnmount() {
-  //   const { web3Connect } = this.props;
-  //   const { isDirectLogin } = this.state;
-  //   // if (!isDirectLogin) 
-  //   // web3Connect.toggleModal();
-  // }
+  componentWillUnmount() {
+    const { web3Connect, web3Obj } = this.props;
+    const { isDirectLogin } = this.state;
+    if (!web3Obj.eth) web3Connect.toggleModal();
+  }
 
   render() {
     const { isDirectLogin, directLoginWallet } = this.state;
@@ -66,17 +65,20 @@ class LogIn extends Component {
 LogIn.propTypes = {
   location: PropTypes.object,
   web3Connect: PropTypes.object,
+  web3Obj: PropTypes.object,
   handleSignInUp: PropTypes.func.isRequired,
 };
 
 LogIn.defaultProps = {
   location: {},
   web3Connect: {},
+  web3Obj: {},
 };
 
 const mapState = state => ({
   isLoggedIn: state.userState.isLoggedIn,
   web3Connect: state.userState.web3Connect,
+  web3Obj: state.userState.web3Obj,
 });
 
 export default withRouter(connect(mapState)(LogIn));

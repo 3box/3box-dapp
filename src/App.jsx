@@ -280,11 +280,12 @@ class App extends Component {
 
     const splitRoute = normalizedPath.split('/');
     const isRequestRoute = checkRequestRoute(splitRoute);
+    const isNotLoginPage = splitRoute[1] !== 'login';
 
     if (isRequestRoute) return <AppPreviewRoutes />; // routes for when client request is for link preview
 
     return (
-      <div className={`App ${fixBody ? 'fixBody' : ''}`}>
+      <div className={`App ${(fixBody && isNotLoginPage) ? 'fixBody' : ''}`}>
         <AppHeaders />
 
         {(!isMyProfilePath && !isLoggedIn) // show landing nav when user is not logged in, 3box is not fetching, and when route is not a protected route

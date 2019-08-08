@@ -38,6 +38,12 @@ const pickWallet = async (directLogin, dispatch, shouldSignOut) => {
       web3Connect.on('connect', async (provider) => {
         try {
           if (shouldSignOut) handleSignOutFunc();
+          dispatch({
+            type: 'SPACES_SIGN_OUT',
+          });
+          dispatch({
+            type: 'MY_DATA_SIGNOUT',
+          });
           await connectProviderToDapp(provider, directLogin, dispatch);
           dispatch({
             type: 'UI_FIX_BODY',
