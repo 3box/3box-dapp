@@ -456,15 +456,16 @@ export const isBrowserCompatible = () => {
   console.log('namenamename', name)
   if (name !== 'safari') return true;
 
-  const majorVersion = version.split('.')[0];
-  const minorVersion = version.split('.')[1];
+  const majorVersion = parseInt(version.split('.')[0]);
+  const minorVersion = parseInt(version.split('.')[1]);
   console.log('majorVersion', majorVersion)
   console.log('minorVersion', minorVersion)
   if (majorVersion > 11 || (majorVersion === 11 && minorVersion >= 1)) return true;
-
-  store.dispatch({
-    type: 'UI_UNSUPPORTED_BROWSER_MODAL',
-    showUnsupportedBrowser: true,
-  });
-  return false;
+  if (majorVersion < 11 || (majorVersion === 11 && minorVersion < 1)) {
+    store.dispatch({
+      type: 'UI_UNSUPPORTED_BROWSER_MODAL',
+      showUnsupportedBrowser: true,
+    });
+    return false;
+  }
 };

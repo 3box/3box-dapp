@@ -31,24 +31,28 @@ const pickWallet = async (directLogin, dispatch, shouldSignOut) => {
   });
 
   const web3Promise = new Promise((resolve, reject) => {
-    if (!isBrowserCompatible()) reject();
-    web3Connect.on('connect', async (provider) => {
-      try {
-        if (shouldSignOut) handleSignOutFunc();
-        await connectProviderToDapp(provider, directLogin, dispatch);
-        dispatch({
-          type: 'UI_FIX_BODY',
-          fixBody: false,
-        });
-        resolve();
-      } catch (error) {
-        dispatch({
-          type: 'UI_FIX_BODY',
-          fixBody: false,
-        });
-        reject();
-      }
-    });
+    if (!isBrowserCompatible()) {
+      reject();;
+    } else {
+      web3Connect.toggleModal(); // open modal on button click
+      web3Connect.on('connect', async (provider) => {
+        try {
+          if (shouldSignOut) handleSignOutFunc();
+          await connectProviderToDapp(provider, directLogin, dispatch);
+          dispatch({
+            type: 'UI_FIX_BODY',
+            fixBody: false,
+          });
+          resolve();
+        } catch (error) {
+          dispatch({
+            type: 'UI_FIX_BODY',
+            fixBody: false,
+          });
+          reject();
+        }
+      });
+    }
   });
 
   // subscibe to close
@@ -67,7 +71,7 @@ const pickWallet = async (directLogin, dispatch, shouldSignOut) => {
     }
   });
 
-  web3Connect.toggleModal(); // open modal on button click
+  // web3Connect.toggleModal(); // open modal on button click
 
   try {
     await web3Promise;
