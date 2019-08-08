@@ -52,7 +52,7 @@ class ProfilePublic extends Component {
 
       this.updateUIState(otherProfileAddress);
       await this.checkIfMyProfile(currentAddress, otherProfileAddress);
-      await this.checkFollowingAndMutual(otherProfileAddress);
+      // await this.checkFollowingAndMutual(otherProfileAddress);
       await this.getProfile(otherProfileAddress);
     } catch (err) {
       console.error(err);
@@ -60,23 +60,28 @@ class ProfilePublic extends Component {
   }
 
   async componentWillReceiveProps(nextProps) {
-    const { location: { pathname }, following, otherFollowing, currentAddress } = this.props;
+    const {
+      location: { pathname },
+      // following,
+      // otherFollowing,
+      currentAddress
+    } = this.props;
     const otherProfileAddress = pathname.split('/')[1];
     const nextProfileAddress = nextProps.location.pathname.split('/')[1];
 
-    if ((nextProps.following !== following) ||
-      (nextProps.otherFollowing !== otherFollowing)) {
-      this.checkFollowingAndMutual(
-        otherProfileAddress,
-        nextProps.following,
-        nextProps.otherFollowing,
-      );
-    }
+    // if ((nextProps.following !== following) ||
+    //   (nextProps.otherFollowing !== otherFollowing)) {
+    //   this.checkFollowingAndMutual(
+    //     otherProfileAddress,
+    //     nextProps.following,
+    //     nextProps.otherFollowing,
+    //   );
+    // }
 
     if (otherProfileAddress !== nextProfileAddress) {
       this.updateUIState(nextProfileAddress);
       await this.checkIfMyProfile(currentAddress, nextProfileAddress);
-      this.checkFollowingAndMutual(nextProfileAddress);
+      // this.checkFollowingAndMutual(nextProfileAddress);
       await this.getProfile(nextProfileAddress);
     }
   }
@@ -120,26 +125,26 @@ class ProfilePublic extends Component {
     this.props.getActivity(otherProfileAddress);
   }
 
-  checkFollowingAndMutual = (otherProfileAddress, nextFollowing, nextOtherFollowing) => {
-    const { following, otherFollowing } = this.props;
-    const updatedFollowing = nextFollowing || following;
-    const updatedOtherFollowing = nextOtherFollowing || otherFollowing;
+  // checkFollowingAndMutual = (otherProfileAddress, nextFollowing, nextOtherFollowing) => {
+  //   const { following, otherFollowing } = this.props;
+  //   const updatedFollowing = nextFollowing || following;
+  //   const updatedOtherFollowing = nextOtherFollowing || otherFollowing;
 
-    const checkIfFollowing = user => user[1] !== otherProfileAddress;
+  //   const checkIfFollowing = user => user[1] !== otherProfileAddress;
 
-    if (updatedFollowing.every(checkIfFollowing)) {
-      this.setState({ isFollowing: false });
-    } else {
-      this.setState({ isFollowing: true });
-    }
+  //   if (updatedFollowing.every(checkIfFollowing)) {
+  //     this.setState({ isFollowing: false });
+  //   } else {
+  //     this.setState({ isFollowing: true });
+  //   }
 
-    const otherFollowingAddresses = updatedOtherFollowing.map(user => user[1]);
-    const otherMutualFollowing = updatedFollowing.filter(x => otherFollowingAddresses.includes(x[1]));
-    store.dispatch({
-      type: 'OTHER_MUTUAL_FOLLOWING',
-      otherMutualFollowing: otherMutualFollowing.slice(),
-    });
-  }
+  //   const otherFollowingAddresses = updatedOtherFollowing.map(user => user[1]);
+  //   const otherMutualFollowing = updatedFollowing.filter(x => otherFollowingAddresses.includes(x[1]));
+  //   store.dispatch({
+  //     type: 'OTHER_MUTUAL_FOLLOWING',
+  //     otherMutualFollowing: otherMutualFollowing.slice(),
+  //   });
+  // }
 
   render() {
     const {
@@ -221,7 +226,7 @@ ProfilePublic.propTypes = {
   showContactsModal: PropTypes.bool,
   currentAddress: PropTypes.string,
   following: PropTypes.array,
-  otherFollowing: PropTypes.array,
+  // otherFollowing: PropTypes.array,
   otherImage: PropTypes.array,
   otherName: PropTypes.string,
   otherProfileAddress: PropTypes.string,
@@ -236,7 +241,7 @@ ProfilePublic.defaultProps = {
   currentAddress: '',
   otherName: '',
   following: [],
-  otherFollowing: [],
+  // otherFollowing: [],
   otherProfileAddress: '',
 };
 
@@ -250,7 +255,7 @@ const mapState = state => ({
   following: state.myData.following,
 
   isLoadingOtherProfile: state.otherProfile.isLoadingOtherProfile,
-  otherFollowing: state.otherProfile.otherFollowing,
+  // otherFollowing: state.otherProfile.otherFollowing,
   otherName: state.otherProfile.otherName,
   otherImage: state.otherProfile.otherImage,
   otherProfileAddress: state.otherProfile.otherProfileAddress,

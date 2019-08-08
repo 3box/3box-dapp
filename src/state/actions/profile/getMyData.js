@@ -12,7 +12,7 @@ import getVerifiedPublicTwitter from './getVerifiedPublicTwitter';
 import getMyMemberSince from './getMyMemberSince';
 import getMyDID from './getMyDID';
 import getMyProfileValue from './getMyProfileValue';
-import getMyFollowing from './getMyFollowing';
+// import getMyFollowing from './getMyFollowing';
 import getCollectibles from './getCollectibles';
 import getActivity from './getActivity';
 import convert3BoxToSpaces from '../spaces/convert3BoxToSpaces';
@@ -52,7 +52,7 @@ const getMyData = async () => {
     getMyProfileValue('public', 'emoji'); // eslint-disable-line
     getMyProfileValue('private', 'birthday'); // eslint-disable-line
 
-    await getMyFollowing(); // eslint-disable-line
+    // await getMyFollowing(); // eslint-disable-line
     await getCollectibles(currentAddress); // eslint-disable-line
     await convert3BoxToSpaces(); // eslint-disable-line
     await getMySpacesData(currentAddress); // eslint-disable-line
