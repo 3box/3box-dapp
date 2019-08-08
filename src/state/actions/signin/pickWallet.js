@@ -31,10 +31,10 @@ const pickWallet = async (directLogin, dispatch, shouldSignOut) => {
   });
 
   const web3Promise = new Promise((resolve, reject) => {
+    if (!isBrowserCompatible()) reject();
     web3Connect.on('connect', async (provider) => {
       try {
         if (shouldSignOut) handleSignOutFunc();
-        if(!isBrowserCompatible()) return;
         await connectProviderToDapp(provider, directLogin, dispatch);
         dispatch({
           type: 'UI_FIX_BODY',
