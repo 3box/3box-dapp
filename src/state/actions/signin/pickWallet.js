@@ -35,7 +35,6 @@ const pickWallet = async (directLogin, dispatch, shouldSignOut) => {
       try {
         if (shouldSignOut) handleSignOutFunc();
         if(!isBrowserCompatible()) return;
-        // if browser is safari less than 11, show error modal
         await connectProviderToDapp(provider, directLogin, dispatch);
         dispatch({
           type: 'UI_FIX_BODY',

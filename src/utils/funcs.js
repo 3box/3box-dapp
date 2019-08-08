@@ -453,10 +453,13 @@ export const isBrowserCompatible = () => {
     name
   } = browser;
 
+  console.log('namenamename', name)
   if (name !== 'safari') return true;
 
   const majorVersion = version.split('.')[0];
-  const minorVersion = version.split('.')[0];
+  const minorVersion = version.split('.')[1];
+  console.log('majorVersion', majorVersion)
+  console.log('minorVersion', minorVersion)
   if (majorVersion > 11 || (majorVersion === 11 && minorVersion >= 1)) return true;
 
   store.dispatch({

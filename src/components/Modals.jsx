@@ -286,7 +286,7 @@ export const UnsupportedBrowserModal = ({
       <div className="modal standardModal">
         <img src={Browser} className="modal_wallet" alt="Browser" />
         <div id="modal__copy__card">
-          <h3>You must user Safari version 11.1 or higher</h3>
+          <h3>You must use Safari version 11.1 or higher</h3>
         </div>
 
         <button onClick={handleUnsupportedBrowserModal} type="button" className="tertiaryButton">Close</button>
