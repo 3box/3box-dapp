@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import MyContent from './MyProfile/MyContent';
 import SideBar from './SideBar';
-import Nav from '../../components/Nav';
+import Nav from '../../components/Nav/Nav';
 import MyProfileHeaders from './MyProfile/MyProfileHeaders';
 import './styles/Profile.css';
 
@@ -19,6 +19,7 @@ class Profile extends Component {
       image,
       name,
       currentAddress,
+      handleSignInUp,
     } = this.props;
 
     return (
@@ -29,7 +30,7 @@ class Profile extends Component {
           currentAddress={currentAddress}
         />
 
-        <Nav />
+        <Nav handleSignInUp={handleSignInUp} />
         <div id="profile__page">
           <div id="profile__contents">
             <SideBar />
@@ -45,6 +46,7 @@ Profile.propTypes = {
   name: PropTypes.string,
   currentAddress: PropTypes.string,
   image: PropTypes.array,
+  handleSignInUp: PropTypes.func.isRequired,
 };
 
 Profile.defaultProps = {

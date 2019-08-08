@@ -2,6 +2,9 @@ import Box from '3box';
 import contractMap from 'eth-contract-metadata';
 import abiDecoder from 'abi-decoder';
 import {
+  detect,
+} from 'detect-browser';
+import {
   toChecksumAddress,
 } from 'ethereumjs-util';
 
@@ -19,12 +22,15 @@ export const normalizeURL = (pathname) => {
   return fuzzyLowercasePathname;
 };
 
-export const matchProtectedRoutes = (normalizedPath) => {
-  if (normalizedPath === routes.ACTIVITY ||
-    normalizedPath === routes.DETAILS ||
-    normalizedPath === routes.COLLECTIBLES ||
-    normalizedPath === routes.DATA ||
-    normalizedPath === routes.EDIT) {
+export const matchProtectedRoutes = (secondRoute) => {
+  if (
+    secondRoute === routes.ACTIVITY ||
+    secondRoute === routes.DETAILS ||
+    secondRoute === routes.COLLECTIBLES ||
+    secondRoute === routes.DATA ||
+    secondRoute === routes.FOLLOWING ||
+    secondRoute === routes.EDIT
+  ) {
     return true;
   }
   return false;
@@ -42,7 +48,7 @@ export const addhttp = (url) => {
 
 export async function getContract(otherAddress) {
   try {
-    const response = await fetch(`https://api.etherscan.io/api?module=contract&action=getabi&address=${otherAddress}&apikey=${process.env.ETHERSCAN_TOKEN}`);
+    const response = await fetch(`https://api.etherscan.io/api?module=contract&action=getabi&address=${otherAddress}&apikey=3VTI9D585DCX4RD4QSP3MYWKACCIVZID23`);
     if (response.status !== 200) {
       return console.log(`Looks like there was a problem. Status Code: ${response.status}`);
     }
@@ -74,8 +80,8 @@ const fireDispatch = (otherProfileAddress, feedByAddress) => {
       otherProfileActivity: feedByAddress,
     });
     store.dispatch({
-      type: 'UI_FEED_LOADING',
-      isFetchingActivity: false,
+      type: 'UI_FEED_OTHER_LOADING',
+      isFetchingOtherActivity: false,
     });
   } else {
     store.dispatch({
@@ -105,6 +111,7 @@ export const updateFeed = (otherProfileAddress, feedByAddress, addressData, isCo
 
       if (contractDataABI) {
         abiDecoder.addABI(contractDataABI);
+
         txGroup[otherAddress].map((lineItem, index) => {
           const methodCall = abiDecoder.decodeMethod(txGroup[otherAddress][index].input);
           lineItem.methodCall = methodCall && methodCall.name && (methodCall.name.charAt(0).toUpperCase() + methodCall.name.slice(1)).replace(/([A-Z])/g, ' $1').trim();
@@ -336,7 +343,7 @@ export const extractRow = async (spaceData, spaceNameGiven, updatedSortedSpace) 
   }
 };
 
-export const isEthAddress = (string) => {
+export const checkIsEthAddress = (string) => {
   const isEthereumAddress = /^(0x)?[0-9a-f]{40}$/i.test(string);
   return isEthereumAddress;
 };
@@ -356,8 +363,39 @@ export const getAuthorsLatestPost = (threadArray, usersDID) => {
   return threadArray[lastPostIndex];
 };
 
+export const getFollowingProfiles = async (following) => {
+  const profileCalls = [];
+  following.forEach((profile) => {
+    profileCalls.push(Box.getProfile(profile.message.identifier[1].value));
+  });
+  const profilePromises = Promise.all(profileCalls);
+  const profiles = await profilePromises;
+
+  const profilesAndAddress = [];
+  profiles.forEach((profile, i) => {
+    profilesAndAddress.push([profile, following[i].message.identifier[1].value]);
+  });
+  return profilesAndAddress;
+};
+
+export const checkFollowing = (following, otherProfileAddress) => {
+  if (!following) return false;
+  return following.some(user => user.message.identifier[1].value === otherProfileAddress);
+};
+
+export const alphabetize = (array) => {
+  const sortedArray = array.sort((a, b) => {
+    if (!a[0].name) return -1;
+    if (!b[0].name) return 1;
+    if (a[0].name.toLowerCase() < b[0].name.toLowerCase()) return -1;
+    if (a[0].name.toLowerCase() > b[0].name.toLowerCase()) return 1;
+    return 0;
+  });
+  return sortedArray;
+};
+
 export const shortenEthAddr = (str) => {
-  const shortenStr = `${str.substring(0, 5)}...${str.substring(str.length - 5, str.length)}`;
+  const shortenStr = str && `${str.substring(0, 5)}...${str.substring(str.length - 5, str.length)}`;
   return shortenStr;
 };
 
@@ -370,4 +408,61 @@ export const checkRequestRoute = (splitRoute) => {
     route3 === 'twitterrequest' ||
     route3 === 'previewrequest';
   return isRequest;
+};
+
+export const checkUsingInjectedProvider = (provider) => {
+  const {
+    isFortmatic,
+    isPortis,
+    isWalletConnect,
+  } = provider;
+
+  if (isFortmatic || isPortis || isWalletConnect) return false;
+  return true;
+  // isCipher,
+  // isMetaMask,
+  // isDapper,
+};
+
+export const checkIsMobile = () => {
+  let isMobile;
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    isMobile = true;
+  } else {
+    isMobile = false;
+  }
+  return isMobile;
+};
+
+export const checkIsMobileWithoutWeb3 = () => {
+  let isMobileWithWeb3 = false;
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const hasWeb3 = typeof window.web3 !== 'undefined' || typeof window.ethereum !== 'undefined';
+  if (isMobile && !hasWeb3) isMobileWithWeb3 = true;
+  return isMobileWithWeb3;
+};
+
+export const capitalizeFirst = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
+export const isBrowserCompatible = () => {
+  const browser = detect();
+  const {
+    version,
+    name
+  } = browser;
+
+  if (name !== 'safari') return true;
+
+  const majorVersion = parseInt(version.split('.')[0]);
+  const minorVersion = parseInt(version.split('.')[1]);
+  if (majorVersion > 11 || (majorVersion === 11 && minorVersion >= 1)) return true;
+  if (majorVersion < 11 || (majorVersion === 11 && minorVersion < 1)) {
+    store.dispatch({
+      type: 'UI_UNSUPPORTED_BROWSER_MODAL',
+      showUnsupportedBrowser: true,
+    });
+    return false;
+  }
 };

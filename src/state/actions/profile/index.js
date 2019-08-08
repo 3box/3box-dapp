@@ -8,6 +8,10 @@ import getVerifiedPublicGithub from './getVerifiedPublicGithub';
 import getVerifiedPublicTwitter from './getVerifiedPublicTwitter';
 import getActivity from './getActivity';
 import getPublicProfile from './getPublicProfile';
+import getMyFollowing from './getMyFollowing';
+import getPublicFollowing from './getPublicFollowing';
+import saveFollowing from './saveFollowing';
+import deleteFollowing from './deleteFollowing';
 
 export default {
   getCollectibles,
@@ -20,4 +24,8 @@ export default {
   getVerifiedPublicGithub,
   getVerifiedPublicTwitter,
   getPublicProfile,
+  getMyFollowing,
+  getPublicFollowing,
+  saveFollowing,
+  deleteFollowing,
 };

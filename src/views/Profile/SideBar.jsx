@@ -6,11 +6,12 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import ProfilePicture from '../../components/ProfilePicture';
 import PubSideBar from './PublicProfile/PubSideBar';
-import { copyToClipBoard } from '../../utils/funcs';
+import { copyToClipBoard, shortenEthAddr } from '../../utils/funcs';
 import * as routes from '../../utils/routes';
 import ActivityIcon from '../../assets/Activity.svg';
 import DetailsIcon from '../../assets/Details.svg';
 import CollectiblesIcon from '../../assets/Collectibles.svg';
+import ContactsIcon from '../../assets/Contacts.svg';
 import EthereumLogo from '../../assets/EthereumIcon.svg';
 import Copy from '../../assets/Copy.svg';
 import CopyGrey from '../../assets/CopyGrey.svg';
@@ -32,6 +33,9 @@ const SideBar = ({
   otherDescription,
   showSignInBanner,
   currentAddress,
+  isFollowing,
+  isLoggedIn,
+  isMe,
 }) => (
     <div>
       {!onOtherProfilePage && (
@@ -39,6 +43,7 @@ const SideBar = ({
           ? <img src={`https://ipfs.infura.io/ipfs/${coverPhoto[0].contentUrl['/']}`} className="profile__coverPhoto clearProfPic" alt="profile" />
           : <div className="profile__coverPhoto" />)
       }
+
       {onOtherProfilePage && (
         otherCoverPhoto && otherCoverPhoto.length > 0 && otherCoverPhoto[0].contentUrl
           ? <img src={`https://ipfs.infura.io/ipfs/${otherCoverPhoto[0].contentUrl['/']}`} className={`${showSignInBanner ? 'showSignInBanner' : ''} ${showSignInBanner ? 'bannerMargin' : ''} profile__coverPhoto clearProfPic`} alt="profile" />
@@ -52,6 +57,7 @@ const SideBar = ({
             ${showSignInBanner ? 'showSignInBanner' : ''} 
             ${onOtherProfilePage ? 'addBorderBottom' : ''} 
             ${(onOtherProfilePage && showSignInBanner) ? 'bannerMargin' : ''} 
+            ${(onOtherProfilePage && isLoggedIn) ? 'loggedInMargin' : ''} 
             profile__user__info
           `}
           >
@@ -72,7 +78,6 @@ const SideBar = ({
                   : '')
                 }
 
-
                 <span className="profile__basic__emoji">
                   {(!onOtherProfilePage && emoji) && (emoji.code ? emoji.code : emoji)}
                   {(onOtherProfilePage && otherEmoji) && (otherEmoji.code ? otherEmoji.code : otherEmoji)}
@@ -82,9 +87,8 @@ const SideBar = ({
               <div id="profile__network" title="Network">
                 <img id="profile__network__networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
                 <p id="profile__details__address" title={currentAddress}>
-                  {!onOtherProfilePage && currentAddress && currentAddress.substring(0, 8)}
-                  {onOtherProfilePage && location.pathname.split('/')[1].substring(0, 8)}
-                  ...
+                  {!onOtherProfilePage && currentAddress && shortenEthAddr(currentAddress)}
+                  {onOtherProfilePage && shortenEthAddr(location.pathname.split('/')[1])}
                 </p>
               </div>
 
@@ -95,7 +99,7 @@ const SideBar = ({
 
               {onOtherProfilePage && (
                 <div className="publicProfile__basic--mobile">
-                  <PubSideBar />
+                  <PubSideBar isFollowing={isFollowing} isMe={isMe} />
                 </div>)}
 
             </div>
@@ -110,21 +114,29 @@ const SideBar = ({
                       </div>
                       Activity
                     </NavLink>
+
                     <NavLink exact to={`/${currentAddress}/${routes.DETAILS}`} className="profile__category__section ">
                       <div className="profile__category__tabIcon__wrappper">
-                        <img src={DetailsIcon} alt="Activity" className="profile__category__tabIcon--details" />
+                        <img src={DetailsIcon} alt="Details" className="profile__category__tabIcon--details" />
                       </div>
                       Details
                     </NavLink>
+
                     <NavLink exact to={`/${currentAddress}/${routes.COLLECTIBLES}`} className="profile__category__section ">
                       <div className="profile__category__tabIcon__wrappper">
-                        <img src={CollectiblesIcon} alt="Activity" className="profile__category__tabIcon--collectibles" />
+                        <img src={CollectiblesIcon} alt="Collectibles" className="profile__category__tabIcon--collectibles" />
                       </div>
                       Collectibles
                     </NavLink>
-                  </React.Fragment>)
-                  : (
-                    <PubSideBar />)}
+
+                    {/* <NavLink exact to={`/${currentAddress}/${routes.FOLLOWING}`} className="profile__category__section ">
+                      <div className="profile__category__tabIcon__wrappper">
+                        <img src={ContactsIcon} alt="Following" className="profile__category__tabIcon--contacts" />
+                      </div>
+                      Following
+                    </NavLink> */}
+                  </React.Fragment>
+                ) : <PubSideBar isFollowing={isFollowing} isMe={isMe} />}
               </div>
             </div>
 
@@ -184,6 +196,9 @@ SideBar.propTypes = {
   onOtherProfilePage: PropTypes.bool,
   copySuccessful: PropTypes.bool,
   showSignInBanner: PropTypes.bool,
+  isLoggedIn: PropTypes.bool,
+  isFollowing: PropTypes.bool.isRequired,
+  isMe: PropTypes.bool.isRequired,
   copyToClipBoard: PropTypes.func.isRequired,
 };
 
@@ -202,6 +217,7 @@ SideBar.defaultProps = {
   copySuccessful: false,
   onOtherProfilePage: false,
   showSignInBanner: false,
+  isLoggedIn: false,
 };
 
 function mapState(state) {
@@ -213,10 +229,11 @@ function mapState(state) {
     description: state.myData.description,
 
     currentAddress: state.userState.currentAddress,
-
     copySuccessful: state.uiState.copySuccessful,
     showSignInBanner: state.uiState.showSignInBanner,
     onOtherProfilePage: state.uiState.onOtherProfilePage,
+
+    isLoggedIn: state.userState.isLoggedIn,
 
     otherCoverPhoto: state.otherProfile.otherCoverPhoto,
     otherImage: state.otherProfile.otherImage,

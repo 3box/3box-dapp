@@ -6,15 +6,21 @@ import {
 import * as routes from '../../../utils/routes';
 import history from '../../../utils/history';
 
-const openBox = fromSignIn => async (dispatch) => {
+const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
   dispatch({
     type: 'UI_HANDLE_CONSENT_MODAL',
     provideConsent: true,
     showSignInBanner: false,
   });
 
+  const {
+    currentAddress,
+    web3Obj,
+    hasSignedOut,
+  } = store.getState().userState;
+
   const consentGiven = () => {
-    if (fromSignIn) history.push(`/${store.getState().userState.currentAddress || store.getState().userState.accountAddress}/${routes.ACTIVITY}`);
+    if (fromSignIn && !fromFollowButton) history.push(`/${currentAddress}/${routes.ACTIVITY}`);
     dispatch({
       type: 'UI_3BOX_LOADING',
       provideConsent: false,
@@ -28,7 +34,7 @@ const openBox = fromSignIn => async (dispatch) => {
 
   // onSyncDone only happens on first openBox so only run
   // this when a user hasn't signed out and signed back in again
-  if (!store.getState().userState.hasSignedOut) {
+  if (!hasSignedOut) {
     // initialize onSyncDone process
     dispatch({
       type: 'UI_APP_SYNC',
@@ -37,15 +43,15 @@ const openBox = fromSignIn => async (dispatch) => {
     });
   }
 
-  const opts = {
-    consentCallback: consentGiven,
-  };
-
   try {
+    const opts = {
+      consentCallback: consentGiven,
+    };
+
     const box = await Box // eslint-disable-line no-undef
       .openBox(
-        store.getState().userState.accountAddress || store.getState().userState.currentAddress,
-        window.web3.currentProvider, // eslint-disable-line no-undef
+        currentAddress,
+        web3Obj.currentProvider, // eslint-disable-line no-undef
         opts,
       );
 
@@ -64,7 +70,7 @@ const openBox = fromSignIn => async (dispatch) => {
 
     // onSyncDone only happens on first openBox so only run
     // this when a user hasn't signed out and signed back in again
-    if (!store.getState().userState.hasSignedOut) {
+    if (!hasSignedOut) {
       // start onSyncDone loading animation
       dispatch({
         type: 'UI_APP_SYNC',
@@ -73,19 +79,20 @@ const openBox = fromSignIn => async (dispatch) => {
       });
     }
 
-    const memberSince = await store.getState().myData.box.public.get('memberSince');
+    const memberSince = await box.public.get('memberSince');
 
     box.onSyncDone(() => {
       let publicActivity;
       let privateActivity;
 
       try {
-        publicActivity = store.getState().myData.box.public.log;
+        publicActivity = box.public.log || [];
       } catch (error) {
         console.error(error);
       }
+      
       try {
-        privateActivity = store.getState().myData.box.private.log;
+        privateActivity = box.private.log || [];
       } catch (error) {
         console.error(error);
       }
@@ -98,35 +105,37 @@ const openBox = fromSignIn => async (dispatch) => {
         const date = Date.now();
         const dateJoined = new Date(date);
         const memberSinceDate = `${(dateJoined.getMonth() + 1)}/${dateJoined.getDate()}/${dateJoined.getFullYear()}`;
-        store.getState().myData.box.public.set('memberSince', dateJoined.toString())
+        store.getState().myData.box.public.set('memberSince', dateJoined.toString());
         dispatch({
           type: 'MY_MEMBERSINCE_UPDATE',
           memberSince: memberSinceDate,
         });
-        history.push(`/${store.getState().userState.currentAddress}/${routes.EDIT}`);
+        history.push(`/${currentAddress}/${routes.EDIT}`);
       } else if (!memberSince && (privateActivity.length || publicActivity.length)) {
-        store.getState().myData.box.public.set('memberSince', 'Alpha');
+        box.public.set('memberSince', 'Alpha');
       }
 
-      dispatch({
-        type: 'USER_LOGIN_UPDATE',
-        isLoggedIn: true,
-      });
-      dispatch({
-        type: 'MY_BOX_UPDATE',
-        box,
-      });
-      dispatch({
-        type: 'UI_3BOX_FETCHING',
-        isFetchingThreeBox: false,
-      });
+      if ((!privateActivity || !privateActivity.length) && (!publicActivity || !publicActivity.length)) {
+        dispatch({
+          type: 'USER_LOGIN_UPDATE',
+          isLoggedIn: true,
+        });
+        dispatch({
+          type: 'MY_BOX_UPDATE',
+          box,
+        });
+        dispatch({
+          type: 'UI_3BOX_FETCHING',
+          isFetchingThreeBox: false,
+        });
 
-      // call data with new box object from onSyncDone
-      dispatch({
-        type: 'UI_APP_SYNC',
-        onSyncFinished: true,
-        isSyncing: true,
-      });
+        // call data with new box object from onSyncDone
+        dispatch({
+          type: 'UI_APP_SYNC',
+          onSyncFinished: true,
+          isSyncing: true,
+        });
+      }
     });
   } catch (err) {
     history.push(routes.LANDING);

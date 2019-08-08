@@ -58,7 +58,8 @@ const ActivityTiles = ({
                   isFromProfile={item.from.toLowerCase() === currentAddress.toLowerCase()}
                   contractImg={feedAddress.metaData && feedAddress.metaData.contractImg && feedAddress.metaData.contractImg.src}
                   name={name}
-                />);
+                />
+              );
             }
 
             if (item.dataType === 'Txs') {
@@ -75,7 +76,8 @@ const ActivityTiles = ({
                   isFromProfile={item.from.toLowerCase() === currentAddress.toLowerCase()}
                   contractImg={feedAddress.metaData && feedAddress.metaData.contractImg && feedAddress.metaData.contractImg.src}
                   name={name}
-                />);
+                />
+              );
             }
 
             if (!item.spaceName && item.dataType === 'Public') {
@@ -85,7 +87,8 @@ const ActivityTiles = ({
                   key={index}
                   verifiedGithub={verifiedGithub}
                   verifiedTwitter={verifiedTwitter}
-                />);
+                />
+              );
             }
 
             if (!item.spaceName && item.dataType === 'Private') {
@@ -94,7 +97,8 @@ const ActivityTiles = ({
                   verifiedEmail={verifiedEmail}
                   item={item}
                   key={index}
-                />);
+                />
+              );
             }
 
             if (item.spaceName) {
@@ -102,7 +106,8 @@ const ActivityTiles = ({
                 <FeedTileSpace
                   item={item}
                   key={index}
-                />);
+                />
+              );
             }
           })()
         ))

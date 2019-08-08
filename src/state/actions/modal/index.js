@@ -2,20 +2,6 @@ import {
   store,
 } from '../../store';
 
-export const requireMetaMaskModal = () => (dispatch) => {
-  dispatch({
-    type: 'UI_REQUIRE_METAMASK_MODAL',
-    alertRequireMetaMask: true,
-  });
-};
-
-export const closeRequireMetaMaskModal = () => (dispatch) => {
-  dispatch({
-    type: 'UI_REQUIRE_METAMASK_MODAL',
-    alertRequireMetaMask: false,
-  });
-};
-
 export const closeErrorModal = () => async (dispatch) => {
   dispatch({
     type: 'UI_CLOSE_ERROR_MODAL',
@@ -26,7 +12,6 @@ export const closeErrorModal = () => async (dispatch) => {
 
 export const handleCollectiblesModal = (selectedCollectible, isFavorite) => async (dispatch) => {
   let orderedCollectible;
-
   if (selectedCollectible) {
     const stringTraits = [];
     const intTraits = [];
@@ -62,6 +47,13 @@ export const handleCollectiblesModal = (selectedCollectible, isFavorite) => asyn
   }
 };
 
+export const handleContactsModal = () => async (dispatch) => {
+  dispatch({
+    type: 'UI_HANDLE_CONTACTS_MODAL',
+    showContactsModal: !store.getState().uiState.showContactsModal,
+  });
+};
+
 export const handleSignInModal = () => async (dispatch) => {
   dispatch({
     type: 'UI_HANDLE_SIGNIN_MODAL',
@@ -74,6 +66,13 @@ export const handleConsentModal = () => async (dispatch) => {
   dispatch({
     type: 'UI_HANDLE_CONSENT_MODAL',
     provideConsent: false,
+  });
+};
+
+export const handleUnsupportedBrowserModal = () => async (dispatch) => {
+  dispatch({
+    type: 'UI_UNSUPPORTED_BROWSER_MODAL',
+    showUnsupportedBrowser: false,
   });
 };
 
@@ -134,20 +133,6 @@ export const handleOnboardingModal = mobile => async (dispatch) => {
   }
 };
 
-export const handleRequireWalletLoginModal = () => async (dispatch) => {
-  dispatch({
-    type: 'UI_HANDLE_REQUIRE_LOGIN_MODAL',
-    signInToWalletModal: !store.getState().uiState.signInToWalletModal,
-  });
-};
-
-export const handleMobileWalletModal = () => async (dispatch) => {
-  dispatch({
-    type: 'UI_HANDLE_MOBILE_WALLET_REQUIRED_MODAL',
-    mobileWalletRequiredModal: !store.getState().uiState.mobileWalletRequiredModal,
-  });
-};
-
 export const handleAccessModal = () => async (dispatch) => {
   dispatch({
     type: 'UI_HANDLE_ACCESS_MODAL',
@@ -162,16 +147,37 @@ export const handleDeniedAccessModal = () => async (dispatch) => {
   });
 };
 
-export const handleDownloadMetaMaskBanner = () => async (dispatch) => {
-  dispatch({
-    type: 'HANDLE_DOWNLOAD_BANNER',
-    showDownloadBanner: !store.getState().uiState.showDownloadBanner,
-  });
-};
-
 export const handleSignInBanner = () => async (dispatch) => {
   dispatch({
     type: 'UI_HANDLE_SIGNIN_BANNER',
     showSignInBanner: !store.getState().uiState.showSignInBanner,
+  });
+};
+
+export const handleShowSignInBanner = () => async (dispatch) => {
+  dispatch({
+    type: 'UI_HANDLE_SIGNIN_BANNER',
+    showSignInBanner: true,
+  });
+};
+
+export const handleShowSafariBanner = () => async (dispatch) => {
+  dispatch({
+    type: 'UI_HANDLE_SAFARI_BANNER',
+    showSafariBanner: !store.getState().uiState.showSafariBanner,
+  });
+};
+
+export const handleHideSignInBanner = () => async (dispatch) => {
+  dispatch({
+    type: 'UI_HANDLE_SIGNIN_BANNER',
+    showSignInBanner: false,
+  });
+};
+
+export const handleFollowingPublicModal = () => async (dispatch) => {
+  dispatch({
+    type: 'UI_HANDLE_WARN_PUBLIC_FOLLOWING',
+    showFollowingPublicModal: false,
   });
 };

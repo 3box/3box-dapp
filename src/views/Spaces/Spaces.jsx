@@ -21,7 +21,7 @@ import SpaceView from './components/SpaceView';
 import SortByMobile from './components/SortByMobile';
 import Header from './components/Header';
 import SpacesList from './components/SpacesList';
-import Nav from '../../components/Nav';
+import Nav from '../../components/Nav/Nav';
 import './styles/Spaces.css';
 import { sortSpace, extractRow } from '../../utils/funcs';
 import actions from '../../state/actions';
@@ -402,6 +402,7 @@ class Spaces extends Component {
       image,
       name,
       currentAddress,
+      handleSignInUp,
     } = this.props;
 
     const {
@@ -432,7 +433,7 @@ class Spaces extends Component {
         />
 
         <div className="data__nav--desktop">
-          <Nav />
+          <Nav handleSignInUp={handleSignInUp} />
         </div>
         <div className="data__page">
           <ReactCSSTransitionGroup

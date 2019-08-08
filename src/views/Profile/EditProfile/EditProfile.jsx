@@ -9,32 +9,28 @@ import makeBlockie from 'ethereum-blockies-base64';
 
 import {
   store,
-} from '../../state/store';
-import actions from '../../state/actions';
-import { copyToClipBoard } from '../../utils/funcs';
+} from '../../../state/store';
+import actions from '../../../state/actions';
+import { copyToClipBoard, capitalizeFirst } from '../../../utils/funcs';
 import {
   FileSizeModal,
   GithubVerificationModal,
   TwitterVerificationModal,
   EmailVerificationModal,
   ModalBackground,
-} from '../../components/Modals';
-import history from '../../utils/history';
-import {
-  twitterMessage,
-  githubMessage,
-  checkVerifiedFormatting,
-  capitalizeFirst,
-} from './EditProfile/utils';
-import Nav from '../../components/Nav';
-import * as routes from '../../utils/routes';
-import Private from '../../assets/Private.svg';
-import Verified from '../../assets/Verified.svg';
-import AddImage from '../../assets/AddImage.svg';
-import Loading from '../../assets/Loading.svg';
+} from '../../../components/Modals';
 import '../styles/EditProfile.css';
-import DefaultColorPic from '../../assets/DefaultColorPic.svg';
-import MyProfileHeaders from './MyProfile/MyProfileHeaders';
+import history from '../../../utils/history';
+import { twitterMessage, githubMessage, editProfileFields, checkVerifiedFormatting } from './utils';
+import Nav from '../../../components/Nav/Nav';
+import * as routes from '../../../utils/routes';
+import Private from '../../../assets/Private.svg';
+import Verified from '../../../assets/Verified.svg';
+import AddImage from '../../../assets/AddImage.svg';
+import Loading from '../../../assets/Loading.svg';
+import DefaultColorPic from '../../../assets/DefaultColorPic.svg';
+import MyProfileHeaders from '../MyProfile/MyProfileHeaders';
+import '../styles/EditProfile.css';
 
 const { getActivity, getMyProfileValue, getMyDID } = actions.profile;
 const {
@@ -101,133 +97,57 @@ class EditProfile extends Component {
 
   componentDidMount() {
     window.scrollTo(0, 0);
-    const {
-      name,
-      verifiedGithub,
-      verifiedTwitter,
-      verifiedEmail,
-      email,
-      description,
-      location,
-      website,
-      birthday,
-      employer,
-      job,
-      school,
-      degree,
-      major,
-      year,
-      emoji,
-    } = this.props;
-
-    this.setState({
-      name,
-      verifiedGithub,
-      verifiedTwitter,
-      verifiedEmail,
-      email,
-      description,
-      location,
-      website,
-      birthday,
-      job,
-      school,
-      degree,
-      major,
-      year,
-      emoji,
-      employer,
+    editProfileFields.forEach((fieldSet) => {
+      const field = this.props[fieldSet[0]];
+      this.setState({ [fieldSet[0]]: field });
     });
   }
 
   componentWillReceiveProps(nextProps) {
-    const {
-      name,
-      verifiedGithub,
-      verifiedTwitter,
-      verifiedEmail,
-      email,
-      description,
-      location,
-      website,
-      birthday,
-      job,
-      school,
-      degree,
-      major,
-      year,
-      emoji,
-      employer,
-    } = nextProps;
-
-    if (name !== this.props.name) this.setState({ name });
-    if (verifiedGithub !== this.props.verifiedGithub) this.setState({ verifiedGithub });
-    if (verifiedTwitter !== this.props.verifiedTwitter) this.setState({ verifiedTwitter });
-    if (verifiedEmail !== this.props.verifiedEmail) this.setState({ verifiedEmail });
-    if (email !== this.props.email) this.setState({ email });
-    if (description !== this.props.description) this.setState({ description });
-    if (location !== this.props.location) this.setState({ location });
-    if (website !== this.props.website) this.setState({ website });
-    if (birthday !== this.props.birthday) this.setState({ birthday });
-    if (job !== this.props.job) this.setState({ job });
-    if (school !== this.props.school) this.setState({ school });
-    if (degree !== this.props.degree) this.setState({ degree });
-    if (major !== this.props.major) this.setState({ major });
-    if (year !== this.props.year) this.setState({ year });
-    if (emoji !== this.props.emoji) this.setState({ emoji });
-    if (employer !== this.props.employer) this.setState({ employer });
+    editProfileFields.forEach((fieldSet) => {
+      const isDifferent = nextProps[fieldSet[0]] !== this.props[fieldSet[0]];
+      const field = nextProps[fieldSet[0]];
+      if (isDifferent) this.setState({ [fieldSet[0]]: field });
+    });
   }
 
   handleFormChange = (e, property) => {
     const { editedArray } = this.state;
+    const fieldProp = this.props[property];
     const { value } = e.target;
+
+    let editedField;
+    if (property === 'verifiedGithub') editedField = 'github';
+    if (property === 'verifiedTwitter') editedField = 'twitter';
+    if (property === 'verifiedEmail') editedField = 'email';
 
     this.setState({ [property]: value },
       () => {
         if (property === 'emailCode') return;
-        const isEmail = property === 'verifiedEmail';
-        const isGithub = property === 'verifiedGithub';
-        const isTwitter = property === 'verifiedTwitter';
 
-        let key;
-        if (isGithub) {
-          key = 'github';
-        } else if (isTwitter) {
-          key = 'twitter';
-        } else if (isEmail) {
-          key = 'email';
-        }
-
-        if (key) {
-          if (this.state[property] === '') { // deactivate Verify button
-            this.setState({ [`${key}Edited`]: false });
-          } else if (this.props[property] !== this.state[property] && this.state[property] !== '') {
-            const passesVerifiedCheck = checkVerifiedFormatting(value, key);
-            this.setState({ [`${key}Edited`]: true });
+        if (editedField) {
+          if (this.state[property] === '') {
+            this.setState({ [`${editedField}Edited`]: false });
+          } else if (fieldProp !== this.state[property] && this.state[property] !== '') {
+            const passesVerifiedCheck = checkVerifiedFormatting(value, editedField);
+            this.setState({ [`${editedField}Edited`]: true });
             if (passesVerifiedCheck) {
               this.setState({
-                [`${key}ErrorMessage`]: 'Verification is required for your verified accounts to save.',
-                [`${key}InvalidFormat`]: false,
+                [`${editedField}ErrorMessage`]: 'Verification is required for your verified accounts to save.',
+                [`${editedField}InvalidFormat`]: false,
               });
             } else {
-              const errorMsg = `${capitalizeFirst(key)} entry improperly formatted.`;
+              const errorMsg = `${capitalizeFirst(editedField)} entry improperly formatted.`;
               this.setState({
-                [`${key}InvalidFormat`]: true,
-                [`${key}ErrorMessage`]: errorMsg,
+                [`${editedField}InvalidFormat`]: true,
+                [`${editedField}ErrorMessage`]: errorMsg,
               });
             }
           }
-        } else if (this.state[property] !== this.props[property]) {
+        } else {
           const updatedEditedArray = editedArray;
-          if (updatedEditedArray.indexOf(property) === -1) updatedEditedArray.push(property);
-          if (Object.values(updatedEditedArray).length) {
-            this.setState({ disableSave: false, editedArray: updatedEditedArray });
-          } else {
-            this.setState({ disableSave: true, editedArray: updatedEditedArray });
-          }
-        } else if (this.state[property] === this.props[property]) {
-          const updatedEditedArray = editedArray;
-          updatedEditedArray.splice(updatedEditedArray.indexOf(property), 1);
+          if ((fieldProp !== this.state[property]) && updatedEditedArray.indexOf(property) === -1) updatedEditedArray.push(property);
+          if (fieldProp === this.state[property]) updatedEditedArray.splice(updatedEditedArray.indexOf(property), 1);
           if (Object.values(updatedEditedArray).length) {
             this.setState({ disableSave: false, editedArray: updatedEditedArray });
           } else {
@@ -246,49 +166,41 @@ class EditProfile extends Component {
     const updatedEditedArray = editedArray;
     const type = cover ? 'coverPhoto' : 'image';
 
-    if (photoFile.size <= 2500000) {
-      const formData = new window.FormData();
-      formData.append('path', photoFile);
-
-      if (updatedEditedArray.indexOf(type) === -1) updatedEditedArray.push(type);
-      this.setState({ disableSave: false });
-
-      if (cover) {
-        this.setState({
-          editCoverPic: true, coverBuffer: formData, removeCoverPic: false, editedArray: updatedEditedArray,
-        });
-      } else {
-        this.setState({
-          editPic: true, buffer: formData, removeUserPic: false, editedArray: updatedEditedArray,
-        });
-      }
-    } else {
+    if (photoFile.size >= 2500000) {
       e.target.value = null;
       this.setState({ showFileSizeModal: true });
+      return;
+    }
+
+    const formData = new window.FormData();
+    formData.append('path', photoFile);
+    if (updatedEditedArray.indexOf(type) === -1) updatedEditedArray.push(type);
+    this.setState({ disableSave: false });
+
+    if (cover) {
+      this.setState({
+        editCoverPic: true, coverBuffer: formData, removeCoverPic: false, editedArray: updatedEditedArray,
+      });
+    } else {
+      this.setState({
+        editPic: true, buffer: formData, removeUserPic: false, editedArray: updatedEditedArray,
+      });
     }
   }
 
   removePicture = (type) => {
     const { editedArray } = this.state;
     const updatedEditedArray = editedArray;
+    const editedItem = type === 'Cover' ? 'coverPhoto' : 'image';
+    const isNotInArray = updatedEditedArray.indexOf(editedItem) === -1;
+    const indexOfItem = updatedEditedArray.indexOf(editedItem);
+    const isPropsExist = !!this.props[editedItem].length;
 
-    if (type === 'Cover' && this.props.coverPhoto) {
-      if (updatedEditedArray.indexOf('coverPhoto') === -1) updatedEditedArray.push('coverPhoto');
-    } else if (type === 'Cover' && !this.props.coverPhoto) {
-      updatedEditedArray.splice(updatedEditedArray.indexOf(type), 1);
-    } else if (type === 'User' && this.props.image) {
-      if (updatedEditedArray.indexOf('image') === -1) updatedEditedArray.push('image');
-    } else if (type === 'User' && !this.props.image) {
-      updatedEditedArray.splice(updatedEditedArray.indexOf(type), 1);
-    }
+    if (isNotInArray && isPropsExist) updatedEditedArray.push(editedItem);
+    if (!isPropsExist) updatedEditedArray.splice(indexOfItem, 1);
 
-    if (!updatedEditedArray.length) {
-      this.setState({ disableSave: true });
-    } else {
-      this.setState({ disableSave: false });
-    }
-
-    this.setState({ [`remove${type}Pic`]: true, editedArray: updatedEditedArray });
+    const disableSave = !updatedEditedArray.length;
+    this.setState({ [`remove${type}Pic`]: true, editedArray: updatedEditedArray, disableSave });
   }
 
   addEmoji = (emoji) => {
@@ -299,207 +211,160 @@ class EditProfile extends Component {
     });
   }
 
-  verifyGithub = () => {
+  verifyGithub = async () => {
     const { verifiedGithub, editedArray } = this.state;
     const { box, list, allData } = this.props;
     const updatedAllData = allData;
     const updatedEditedArray = editedArray;
     this.setState({ verificationLoading: true });
 
-    fetch(`https://api.github.com/users/${verifiedGithub}/gists`)
-      .then(response => response.json())
-      .then((returnedData) => {
-        if (returnedData.length) {
-          returnedData.map((gist, i) => {
-            const url = gist.files[Object.keys(gist.files)[0]].raw_url;
-            return box.verified.addGithub(url).then((res) => {
-              if (res) {
-                console.log('Github username verified');
-                updatedEditedArray.push('proof_github');
-                this.setState({
-                  isGithubVerified: true,
-                  verificationLoading: false,
-                  editedArray: updatedEditedArray,
-                  disableSave: false,
-                  savedGithub: true,
-                  githubErrorMessage: null,
-                });
-                store.dispatch({
-                  type: 'MY_VERIFIED_GITHUB_UPDATE',
-                  verifiedGithub,
-                });
-                updatedAllData['3Box_app'].public.verifiedGithub = verifiedGithub;
-                store.dispatch({
-                  type: 'SPACES_DATA_UPDATE',
-                  list,
-                  allData: updatedAllData,
-                });
-              }
-            }).catch((err) => {
-              console.log(err);
-              if (i === returnedData.length - 1) {
-                this.setState({ githubVerifiedFailed: true, verificationLoading: false });
-              }
-            });
+    const result = await fetch(`https://api.github.com/users/${verifiedGithub}/gists`);
+    const returnedData = await result.json();
+    if (returnedData.length) this.setState({ githubVerifiedFailed: true, verificationLoading: false });
+
+    returnedData.map((gist, i) => {
+      const url = gist.files[Object.keys(gist.files)[0]].raw_url;
+      return box.verified.addGithub(url).then((res) => {
+        if (res) {
+          console.log('Github username verified');
+          updatedEditedArray.push('proof_github');
+          this.setState({
+            isGithubVerified: true,
+            verificationLoading: false,
+            editedArray: updatedEditedArray,
+            disableSave: false,
+            savedGithub: true,
           });
-        } else {
+          store.dispatch({
+            type: 'MY_VERIFIED_GITHUB_UPDATE',
+            verifiedGithub,
+          });
+          updatedAllData['3Box_app'].public.verifiedGithub = verifiedGithub;
+          store.dispatch({
+            type: 'SPACES_DATA_UPDATE',
+            list,
+            allData: updatedAllData,
+          });
+        }
+      }).catch((err) => {
+        console.log(err);
+        if (i === returnedData.length - 1) {
           this.setState({ githubVerifiedFailed: true, verificationLoading: false });
         }
       });
+    });
   }
 
-  // adding and removing Github username
-  handleGithubUsername = (remove) => {
-    const { editedArray, savedGithub } = this.state;
+  handleVerifiedFields = (field, remove) => {
+    const { editedArray } = this.state;
     const updatedEditedArray = editedArray;
-    if (remove && this.props.verifiedGithub) {
-      updatedEditedArray.push('proof_github');
+    const fieldProp = this.props[field];
+
+    let key;
+    if (field === 'verifiedGithub') key = 'github';
+    if (field === 'verifiedTwitter') key = 'twitter';
+    if (field === 'verifiedEmail') key = 'email';
+
+    const verifiedField = `proof_${key}`;
+    const savedFieldKey = `saved${capitalizeFirst(key)}`;
+    const removedKey = `${key}Removed`;
+    const savedField = this.state[savedFieldKey];
+
+    if (remove && fieldProp) {
+      updatedEditedArray.push(verifiedField);
       this.setState({
-        verifiedGithub: '',
+        [field]: '',
         disableSave: false,
-        githubRemoved: true,
+        [removedKey]: true,
         editedArray: updatedEditedArray,
       });
     } else {
-      if (remove && savedGithub) this.setState({ savedGithub: false });
-      updatedEditedArray.splice(updatedEditedArray.indexOf('proof_github'), 1);
+      if (remove && savedField) this.setState({ [savedFieldKey]: false });
+      updatedEditedArray.splice(updatedEditedArray.indexOf(verifiedField), 1);
       if (!updatedEditedArray.length) this.setState({ disableSave: true });
       this.setState({
-        verifiedGithub: this.props.verifiedGithub,
-        githubRemoved: false,
+        [field]: fieldProp,
+        [removedKey]: false,
         editedArray: updatedEditedArray,
       });
     }
   }
 
-  // adding and removing Twitter username
-  handleTwitterUsername = (remove) => {
-    const { editedArray, savedTwitter } = this.state;
-    const updatedEditedArray = editedArray;
-    if (remove && this.props.verifiedTwitter) {
-      updatedEditedArray.push('proof_twitter');
-      this.setState({
-        verifiedTwitter: '',
-        disableSave: false,
-        twitterRemoved: true,
-        editedArray: updatedEditedArray,
-      });
-    } else {
-      if (remove && savedTwitter) this.setState({ savedTwitter: false });
-      updatedEditedArray.splice(updatedEditedArray.indexOf('proof_twitter'), 1);
-      if (!updatedEditedArray.length) this.setState({ disableSave: true });
-      this.setState({
-        verifiedTwitter: this.props.verifiedTwitter,
-        twitterRemoved: false,
-        editedArray: updatedEditedArray,
-      });
-    }
-  }
-
-  // adding and removing Twitter username
-  handleEmailAddress = (remove) => {
-    const { editedArray, savedEmail } = this.state;
-    const updatedEditedArray = editedArray;
-    if (remove && this.props.verifiedEmail) {
-      updatedEditedArray.push('proof_email');
-      this.setState({
-        verifiedEmail: '',
-        disableSave: false,
-        emailRemoved: true,
-        editedArray: updatedEditedArray,
-      });
-    } else {
-      if (remove && savedEmail) this.setState({ savedEmail: false });
-      updatedEditedArray.splice(updatedEditedArray.indexOf('proof_email'), 1);
-      if (!updatedEditedArray.length) this.setState({ disableSave: true });
-      this.setState({
-        verifiedEmail: this.props.verifiedEmail,
-        emailRemoved: false,
-        editedArray: updatedEditedArray,
-      });
-    }
-  }
-
-  verifyTwitter = () => {
+  verifyTwitter = async () => {
     const { verifiedTwitter, editedArray } = this.state;
     const { box, did, list, allData } = this.props;
     const updatedAllData = allData;
     const updatedEditedArray = editedArray;
     this.setState({ verificationLoading: true });
 
-    fetch('https://verifications.3box.io/twitter', {
-      method: 'POST',
-      body: JSON.stringify({
-        did,
-        twitter_handle: `${verifiedTwitter}`,
-      }),
-    })
-      .then((response) => {
-        if (response.ok) return response.json();
+    try {
+      const response = await fetch('https://verifications.3box.io/twitter', {
+        method: 'POST',
+        body: JSON.stringify({
+          did,
+          twitter_handle: `${verifiedTwitter}`,
+        }),
+      });
+
+      if (!response.ok) {
         this.setState({
           verificationLoading: false,
           twitterVerifiedFailed: true,
         });
         throw new Error('Verification failed');
-      })
-      .then(claim => box.verified.addTwitter(claim.data.verification))
-      .then((twitterUsername) => {
-        if (twitterUsername) {
-          console.log('Twitter username verified and saved');
-          updatedEditedArray.push('proof_twitter');
-          this.setState({
-            isTwitterVerified: true,
-            verificationLoading: false,
-            editedArray: updatedEditedArray,
-            disableSave: false,
-            savedTwitter: true,
-            twitterErrorMessage: null,
-          });
-          store.dispatch({
-            type: 'MY_VERIFIED_TWITTER_UPDATE',
-            verifiedTwitter,
-          });
-          updatedAllData['3Box_app'].public.verifiedTwitter = verifiedTwitter;
-          store.dispatch({
-            type: 'SPACES_DATA_UPDATE',
-            list,
-            allData: updatedAllData,
-          });
-        } else {
-          throw new Error('Verification failed');
-        }
-      })
-      .catch((err) => {
-        this.setState({
-          verificationLoading: false,
-          twitterVerifiedFailed: true,
-        });
-        console.log(err);
+      }
+
+      const claim = await response.json();
+      const twitterUsername = await box.verified.addTwitter(claim.data.verification);
+      if (!twitterUsername) throw new Error('Verification failed');
+      console.log('Twitter username verified and saved');
+      updatedEditedArray.push('proof_twitter');
+      this.setState({
+        isTwitterVerified: true,
+        verificationLoading: false,
+        editedArray: updatedEditedArray,
+        disableSave: false,
+        savedTwitter: true,
       });
+      store.dispatch({
+        type: 'MY_VERIFIED_TWITTER_UPDATE',
+        verifiedTwitter,
+      });
+      updatedAllData['3Box_app'].public.verifiedTwitter = verifiedTwitter;
+      store.dispatch({
+        type: 'SPACES_DATA_UPDATE',
+        list,
+        allData: updatedAllData,
+      });
+    } catch (error) {
+      this.setState({
+        verificationLoading: false,
+        twitterVerifiedFailed: true,
+      });
+      console.log(error);
+    }
   }
 
-  sendVerificationEmail = (did) => {
-    const { verifiedEmail } = this.state;
-    const payload = {
-      did,
-      email_address: verifiedEmail,
-    };
+  sendVerificationEmail = async (did) => {
+    try {
+      const { verifiedEmail } = this.state;
+      const payload = {
+        did,
+        email_address: verifiedEmail,
+      };
+      this.setState({ isEmailSending: true });
 
-    this.setState({ isEmailSending: true });
-
-    fetch('https://verifications.3box.io/send-email-verification', {
-      method: 'POST',
-      body: JSON.stringify(payload),
-    }).then(res => res.json())
-      .then((json) => {
-        this.setState({ emailVerificationMessage: 'Sent!', isEmailSending: false, disableSendVerificationEmail: true });
-      })
-      .catch((err) => {
-        this.setState({ emailVerificationMessage: err.response, isEmailSending: false });
+      await fetch('https://verifications.3box.io/send-email-verification', {
+        method: 'POST',
+        body: JSON.stringify(payload),
       });
+      this.setState({ emailVerificationMessage: 'Sent!', isEmailSending: false, disableSendVerificationEmail: true });
+    } catch (error) {
+      this.setState({ emailVerificationMessage: error.response, isEmailSending: false });
+    }
   }
 
-  verifyEmail = () => {
+  verifyEmail = async () => {
     const { editedArray, emailCode } = this.state;
     const { box, did, list, allData } = this.props;
     const updatedEditedArray = editedArray;
@@ -516,55 +381,47 @@ class EditProfile extends Component {
       },
     };
 
-    box._3id.signJWT(payload).then((jwt) => {
-      fetch('https://verifications.3box.io/email-verify', {
+    try {
+      const jwt = await box._3id.signJWT(payload);
+      const response = await fetch('https://verifications.3box.io/email-verify', {
         method: 'POST',
         body: JSON.stringify({
           verification: jwt,
         }),
-      })
-        .then((response) => {
-          if (response.ok) return response.json();
-          throw new Error('Verification failed');
-          // const data = response.json();
-          // if (response.ok) return data;
-          // throw data;
-        })
-        .then(claim => box.verified.addEmail(claim.data.verification))
-        .then((verifiedEmail) => {
-          if (verifiedEmail) {
-            console.log('Email address verified and saved');
-            updatedEditedArray.push('proof_email');
-            this.setState({
-              isEmailVerified: true,
-              verificationLoading: false,
-              editedArray: updatedEditedArray,
-              disableSave: false,
-              savedEmail: true,
-              emailVerificationErrMsg: '',
-            });
-            store.dispatch({
-              type: 'MY_VERIFIED_EMAIL_UPDATE',
-              verifiedEmail: verifiedEmail.email_address,
-            });
-            updatedAllData['3Box_app'].public.verifiedEmail = verifiedEmail.email_address;
-            store.dispatch({
-              type: 'SPACES_DATA_UPDATE',
-              list,
-              allData: updatedAllData,
-            });
-          } else {
-            throw new Error('Verification failed');
-          }
-        })
-        .catch(() => {
-          this.setState({
-            verificationLoading: false,
-            emailVerifiedFailed: true,
-            emailVerificationErrMsg: 'Verification failed',
-          });
-        });
-    });
+      });
+      if (!response.ok) throw new Error('Verification failed');
+      const claim = await response.json();
+
+      const verifiedEmail = await box.verified.addEmail(claim.data.verification);
+      if (!verifiedEmail) throw new Error('Verification failed');
+
+      console.log('Email address verified and saved');
+      updatedEditedArray.push('proof_email');
+      this.setState({
+        isEmailVerified: true,
+        verificationLoading: false,
+        editedArray: updatedEditedArray,
+        disableSave: false,
+        savedEmail: true,
+        emailVerificationErrMsg: '',
+      });
+      store.dispatch({
+        type: 'MY_VERIFIED_EMAIL_UPDATE',
+        verifiedEmail: verifiedEmail.email_address,
+      });
+      updatedAllData['3Box_app'].public.verifiedEmail = verifiedEmail.email_address;
+      store.dispatch({
+        type: 'SPACES_DATA_UPDATE',
+        list,
+        allData: updatedAllData,
+      });
+    } catch (error) {
+      this.setState({
+        verificationLoading: false,
+        emailVerifiedFailed: true,
+        emailVerificationErrMsg: 'Verification failed',
+      });
+    }
   }
 
   // resets success / failure state of verification modals
@@ -633,7 +490,6 @@ class EditProfile extends Component {
       verifiedGithub,
       verifiedTwitter,
       verifiedEmail,
-      email,
       removeUserPic,
       removeCoverPic,
       buffer,
@@ -664,7 +520,6 @@ class EditProfile extends Component {
       const verifiedGithubChanged = verifiedGithub !== this.props.verifiedGithub;
       const verifiedTwitterChanged = verifiedTwitter !== this.props.verifiedTwitter;
       const verifiedEmailChanged = verifiedEmail !== this.props.verifiedEmail;
-      const emailChanged = email !== this.props.email;
       const descriptionChanged = description !== this.props.description;
       const locationChanged = location !== this.props.location;
       const websiteChanged = website !== this.props.website;
@@ -702,8 +557,6 @@ class EditProfile extends Component {
       if (emojiChanged && emoji === '') await box.public.remove('emoji');
       if (birthdayChanged && birthday !== '') await box.private.set('birthday', birthday);
       if (birthdayChanged && birthday === '') await box.private.remove('birthday');
-      if (emailChanged && email !== '') await box.private.set('email', email);
-      if (emailChanged && email === '') await box.private.remove('email');
 
       if (verifiedGithubChanged && verifiedGithub === '') await box.public.remove('proof_github');
       if (verifiedTwitterChanged && verifiedTwitter === '') await box.public.remove('proof_twitter');
@@ -987,6 +840,7 @@ class EditProfile extends Component {
       showEmailVerificationModal,
       copySuccessful,
       currentAddress,
+      handleSignInUp,
     } = this.props;
 
     const {
@@ -1045,7 +899,7 @@ class EditProfile extends Component {
           currentAddress={currentAddress}
         />
 
-        <Nav />
+        <Nav handleSignInUp={handleSignInUp} />
 
         <Prompt
           when={!disableSave}
@@ -1405,7 +1259,7 @@ class EditProfile extends Component {
                                 <button
                                   type="button"
                                   className={`unstyledButton ${!githubEdited && 'uneditedGithub'} removeGithub`}
-                                  onClick={() => this.handleGithubUsername('remove')}
+                                  onClick={() => this.handleVerifiedFields('verifiedGithub', 'remove')}
                                 >
                                   Remove
                                 </button>
@@ -1414,7 +1268,7 @@ class EditProfile extends Component {
                                 <button
                                   type="button"
                                   className={`unstyledButton ${!githubEdited && 'uneditedGithub'}`}
-                                  onClick={() => this.handleGithubUsername()}
+                                  onClick={() => this.handleVerifiedFields('verifiedGithub')}
                                 >
                                   Cancel
                                 </button>
@@ -1471,7 +1325,7 @@ class EditProfile extends Component {
                                 <button
                                   type="button"
                                   className={`unstyledButton ${!twitterEdited && 'uneditedGithub'} removeGithub`}
-                                  onClick={() => this.handleTwitterUsername('remove')}
+                                  onClick={() => this.handleVerifiedFields('verifiedTwitter', 'remove')}
                                 >
                                   Remove
                                 </button>
@@ -1480,7 +1334,7 @@ class EditProfile extends Component {
                                 <button
                                   type="button"
                                   className={`unstyledButton ${!twitterEdited && 'uneditedGithub'}`}
-                                  onClick={() => this.handleTwitterUsername()}
+                                  onClick={() => this.handleVerifiedFields('verifiedTwitter')}
                                 >
                                   Cancel
                                 </button>
@@ -1562,7 +1416,7 @@ class EditProfile extends Component {
                                 <button
                                   type="button"
                                   className={`unstyledButton ${!emailEdited && 'uneditedGithub'} removeGithub`}
-                                  onClick={() => this.handleEmailAddress('remove')}
+                                  onClick={() => this.handleVerifiedFields('verifiedEmail', 'remove')}
                                 >
                                   Remove
                                 </button>
@@ -1571,7 +1425,7 @@ class EditProfile extends Component {
                                 <button
                                   type="button"
                                   className={`unstyledButton ${!emailEdited && 'uneditedGithub'}`}
-                                  onClick={() => this.handleEmailAddress()}
+                                  onClick={() => this.handleVerifiedFields('verifiedEmail')}
                                 >
                                   Cancel
                                 </button>

@@ -4,7 +4,7 @@ import {
 
 const getCollectibles = (address, onPublicProfile) => async (dispatch) => {
   try {
-    const res = await fetch(`https://api.opensea.io/api/v1/assets?owner=${address}&order_by=current_price&order_direction=asc`);
+    const res = await fetch(`https://api.opensea.io/api/v1/assets?owner=${address}&order_by=current_price&order_direction=asc&limit=100&offset=0`);
     const data = await res.json();
     let collection = data.assets;
 

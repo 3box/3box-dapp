@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="341px" height="302px" viewBox="0 0 341 302" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="noun_Wallet_2250471" fill="#181F21">
+            <path d="M292,225 L292,280 L38,280 C29,280 22,273 22,264 L22,84 C29,88 37,90 45,90 L291,90 L291,142 L245,142 C239,142 234,147 234,153 L234,214 C234,220 239,225 245,225 L292,225 Z M0,264 C0,285 17,302 38,302 L303,302 C309,302 314,297 314,291 L314,225 L330,225 C336,225 341,220 341,214 L341,153 C341,147 336,142 330,142 L314,142 L314,78 C314,72 309,67 302,67 L275,67 L275,11 C275,5 270,0 264,0 L45,0 C20,0 0,20 0,45 L0,264 Z M253,67 L45,67 C32,67 22,57 22,45 C22,32 32,22 45,22 L253,22 L253,67 Z M318,203 L256,203 L256,164 L318,164 L318,203 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>

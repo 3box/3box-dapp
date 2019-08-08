@@ -10,6 +10,7 @@ import { EmptyGalleryCollectiblesTile } from './EmptyCollectiblesTile';
 import actions from '../../state/actions';
 import OpenSea from '../../assets/OpenSea.png';
 import Globe from '../../assets/Globe.svg';
+import Loading from '../../assets/Loading.svg';
 import Private from '../../assets/Private.svg';
 import { store } from '../../state/store';
 import './styles/Profile.css';
@@ -20,8 +21,32 @@ const { handleCollectiblesModal } = actions.modal;
 class Collectibles extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      offset: 100,
+      collection: this.props.collection,
+    };
+
+    window.onscroll = () => {
+      const { isLoading } = this.state;
+      const { collection } = this.props;
+      const windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
+      const { body } = document;
+      const html = document.documentElement;
+      const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+      const windowBottom = windowHeight + window.pageYOffset;
+      if (windowBottom >= docHeight && collection.length && !isLoading) {
+        this.fetchCollectibles();
+      }
+    };
   }
+
+  // componentDidMount() {
+  //   window.addEventListener('scroll', this.onScroll, false);
+  // }
+
+  // componentWillUnmount() {
+  //   window.removeEventListener('scroll', this.onScroll, false);
+  // }
 
   updateGallery = (e, selectedCollectible, removeFavorite, fromModal) => {
     e.stopPropagation();
@@ -95,11 +120,35 @@ class Collectibles extends Component {
     }
   };
 
+  fetchCollectibles = async () => {
+    try {
+      const { offset } = this.state;
+      const { collection, currentAddress } = this.props;
+      const updatedCollection = collection.slice();
+      this.setState({ isLoading: true });
+      if (updatedCollection.length === offset) {
+        const updatedOffset = offset + 100;
+        const collectiblesRes = await fetch(`https://api.opensea.io/api/v1/assets?owner=${currentAddress}&order_by=current_price&order_direction=asc&offset=${offset}&limit=100`);
+        const collectiblesData = await collectiblesRes.json();
+        const combinedArray = updatedCollection.concat(collectiblesData.assets);
+        store.dispatch({
+          type: 'MY_COLLECTIBLES_UPDATE',
+          collection: combinedArray,
+        });
+        this.setState({ offset: updatedOffset, isLoading: false });
+      } else {
+        this.setState({ isLoading: false });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   render() {
     const {
-      collection, collectiblesFavoritesToRender, showCollectiblesModal, selectedCollectible, isFavorite,
+      collectiblesFavoritesToRender, collection, showCollectiblesModal, selectedCollectible, isFavorite,
     } = this.props;
-
+    const { isLoading } = this.state;
     return (
       <React.Fragment>
         <ReactCSSTransitionGroup
@@ -227,11 +276,18 @@ class Collectibles extends Component {
                     collectible.asset_contract.display_data &&
                     collectible.asset_contract.display_data.card_display_style === 'contain'
                   }
-                  key={`${collectible.asset_contract.address}-${collectible.token_id}`}
+                  key={`${collectible.asset_contract && collectible.asset_contract.address}-${collectible.token_id}`}
                 />
               ))
             )}
           </div>
+
+          {isLoading && (
+            <div className="loading_collectibles">
+              <img src={Loading} alt="Loading" />
+            </div>
+          )}
+
           <a href="https://opensea.io/" className="collectibles__opensea">
             <p>Collectibles data provided by</p>
             <img src={OpenSea} alt="OpenSea.io" />
@@ -274,6 +330,7 @@ function mapState(state) {
     showCollectiblesModal: state.uiState.showCollectiblesModal,
     selectedCollectible: state.uiState.selectedCollectible,
     isFavorite: state.uiState.isFavorite,
+    currentAddress: state.userState.currentAddress,
   };
 }
 

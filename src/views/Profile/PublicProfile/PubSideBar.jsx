@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { addhttp } from '../../../utils/funcs';
+// import PubFollowing from './PubFollowing';
 import GithubIcon from '../../../assets/GithubIcon.svg';
 import TwitterIcon from '../../../assets/twitterGrey.svg';
 import Verified from '../../../assets/Verified.svg';
@@ -29,8 +30,12 @@ const PubSideBar = ({
   otherEmployer,
   otherMemberSince,
   otherTwitter,
+  isFollowing,
+  isMe,
 }) => (
     <React.Fragment>
+      {/* <PubFollowing isFollowing={isFollowing} isMe={isMe} /> */}
+
       <div className="public__about">
         <h5 className="public__about__header">About</h5>
 
@@ -146,6 +151,8 @@ PubSideBar.propTypes = {
   otherMajor: PropTypes.string,
   otherYear: PropTypes.string,
   otherEmployer: PropTypes.string,
+  isFollowing: PropTypes.bool.isRequired,
+  isMe: PropTypes.bool.isRequired,
 };
 
 PubSideBar.defaultProps = {

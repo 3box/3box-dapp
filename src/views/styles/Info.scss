@@ -34,24 +34,6 @@
   }
 }
 
-.info__banner--NoMatchPage {
-  width: 100vw;
-  height: 70vh;
-  background-color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  position: relative;
-  padding-top: 180px;
-  box-sizing: border-box;
-
-  h1 {
-    color: $threeBoxBlack;
-    margin-bottom: 20vh;
-  }
-}
-
 .info__article {
   display: flex;
   justify-content: center;

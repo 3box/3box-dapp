@@ -32,6 +32,20 @@ export const checkVerifiedFormatting = (value, field) => {
   return isValid;
 };
 
-export const capitalizeFirst = (string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-};
+export const editProfileFields = [
+  ['verifiedGithub', 'public'],
+  ['verifiedTwitter', 'public'],
+  ['name', 'public'],
+  ['description', 'public'],
+  ['location', 'public'],
+  ['website', 'public'],
+  ['employer', 'public'],
+  ['job', 'public'],
+  ['school', 'public'],
+  ['degree', 'public'],
+  ['major', 'public'],
+  ['year', 'public'],
+  ['emoji', 'public'],
+  ['verifiedEmail', 'private'],
+  ['birthday', 'private'],
+];

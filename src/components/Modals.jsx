@@ -2,67 +2,60 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import FollowingTile from './FollowingTile';
 import * as routes from '../utils/routes';
-import Status from '../assets/Status.png';
-import getCoinbaseWallet from '../assets/getCoinbaseWallet.svg';
 import ThreeBoxLogoWhite from '../assets/ThreeBoxLogoWhite.svg';
 import ThreeBoxLogoBlue from '../assets/ThreeBoxLogoBlue.svg';
 import HeartBlue from '../assets/HeartBlue.svg';
 import GithubIcon from '../assets/GithubIcon.svg';
 import TwitterIcon from '../assets/twitterGrey.svg';
 import Email from '../assets/Email.svg';
-import TrustWallet from '../assets/TrustWallet.png';
 import Mollie from '../assets/Mollie.png';
-import Consent from '../assets/Consent.png';
-import Access from '../assets/Access.png';
+import ContactsIcon from '../assets/Contacts.svg';
 import Switched from '../assets/Switched.svg';
+import Wallet from '../assets/Wallet.svg';
 import OnBoardingModalGraphic from '../assets/OnBoardingModal.png';
 import OnBoardingModalGraphic2 from '../assets/OnBoardingModal2.png';
 import OnBoardingModalMobileGraphic1 from '../assets/OnBoardingModalMobile1.png';
 import OnBoardingModalMobileGraphic2 from '../assets/OnBoardingModalMobile2.png';
 import OnBoardingModalMobileGraphic3 from '../assets/OnBoardingModalMobile3.png';
 import ErrorIcon from '../assets/ErrorIcon.svg';
-import MetaMaskWallet from '../assets/MetaMaskWallet.png';
 import LogOut from '../assets/LogOut.svg';
 import Loading from '../assets/Loading.svg';
+import Browser from '../assets/Browser.svg';
 import LoadingWhite from '../assets/LoadingWhite.svg';
 import './styles/Modal.css';
 
 export const ModalBackground = () => <div className="modal__overlay" />;
-
-export const DeskTopModalBackground = () => <div className="modal__overlay mobileInvisible" />;
 
 export const SwitchedNetworksModal = ({
   prevNetwork,
   currentNetwork,
   handleSwitchedNetworkModal,
 }) => (
-    <div>
-      <div className="modal__container modal--effect">
-        <div className="modal">
-          <img src={Switched} alt="Partners background" id="modal__switchedNetworks" />
+    <div className="modal__container modal--effect">
+      <div className="modal">
+        <img src={Switched} alt="Partners background" id="modal__switchedNetworks" />
 
-          <div>
-            <h3>
-              Network Change Detected
+        <div>
+          <h3>
+            Network Change Detected
             </h3>
-            <p>
-              Your profile will stay the same, but your Ethereum activity will update
+          <p>
+            Your profile will stay the same, but your Ethereum activity will update
             </p>
-            <p id="modal__switchBack">
-              <b>
-                {`Switch back to ${prevNetwork} in MetaMask or continue on ${currentNetwork}`}
-              </b>
-            </p>
-          </div>
-
-          <button onClick={() => { handleSwitchedNetworkModal(); window.localStorage.setItem('shouldShowSwitchNetwork', true); }} type="button">
-            {`Continue on ${currentNetwork}`}
-          </button>
-
+          <p id="modal__switchBack">
+            <b>
+              {`Switch back to ${prevNetwork} in your Web3 Wallet or continue on ${currentNetwork}`}
+            </b>
+          </p>
         </div>
-      </div>
 
+        <button onClick={() => { handleSwitchedNetworkModal(); window.localStorage.setItem('shouldShowSwitchNetwork', true); }} type="button">
+          {`Continue on ${currentNetwork}`}
+        </button>
+
+      </div>
     </div>
   );
 
@@ -79,30 +72,22 @@ SwitchedNetworksModal.defaultProps = {
 export const LoggedOutModal = ({
   handleLoggedOutModal,
   handleSignOut,
-  isMobile,
 }) => (
-    <div>
-      <div className="modal__container modal--effect">
-        <div className="modal">
-          <img src={LogOut} alt="Partners background" id="modal__switchedNetworks" />
+    <div className="modal__container modal--effect">
+      <div className="modal">
+        <img src={LogOut} alt="Partners background" id="modal__switchedNetworks" />
+        <div>
+          <h3>
+            Logged out
+          </h3>
 
-          <div>
-            <h3>
-              Logged out
-            </h3>
-
-            {isMobile
-              ? <p>Sign back in to your web3 wallet or exit 3Box</p>
-              : <p>Sign back in to your MetaMask wallet or exit 3Box</p>
-            }
-          </div>
-
-          <Link to={routes.LANDING}>
-            <button onClick={() => { handleLoggedOutModal(); handleSignOut(); }} type="button">Exit</button>
-          </Link>
+          <p>Sign back in to your Web3 wallet or exit 3Box</p>
         </div>
-      </div>
 
+        <Link to={routes.LANDING}>
+          <button onClick={() => { handleLoggedOutModal(); handleSignOut(); }} type="button">Exit</button>
+        </Link>
+      </div>
     </div>
   );
 
@@ -231,33 +216,31 @@ CollectiblesModal.defaultProps = {
 };
 
 export const SwitchedAddressModal = ({
-  handleSwitchedAddressModal, handleSignOut, isMobile, prevAddress,
+  handleSwitchedAddressModal, handleSignOut, prevAddress,
 }) => (
     <div className="modal__container modal--effect">
-      <div className="modal">
-        <img src={Switched} alt="Partners background" id="modal__switchedNetworks" />
+      <div className="modal standardModal">
+        <img src={Switched} alt="Switched wallet" id="modal__switchedNetworks" />
 
         <div>
           <h3>
             Address change detected
           </h3>
-          {isMobile
-            ? (
-              <p>
-                {`Revert to the previous address ${prevAddress} in your web3 wallet or sign back in with the new address`}
-              </p>
-            )
-            : (
-              <p>
-                {`Revert to the previous address ${prevAddress} in your MetaMask wallet or sign back in with the new address`}
-              </p>
-            )
-          }
+          <p>
+            {`Revert to the previous address ${prevAddress} in your Web3 wallet or sign back in with the new address`}
+          </p>
         </div>
 
-        <Link to={routes.LANDING}>
-          <button onClick={() => { handleSwitchedAddressModal(); handleSignOut(); }} type="button">Sign in with new address</button>
-        </Link>
+        <button
+          onClick={() => {
+            const signInAgain = true;
+            handleSwitchedAddressModal();
+            handleSignOut(signInAgain);
+          }}
+          type="button"
+        >
+          Sign in with new address
+        </button>
       </div>
     </div>
   );
@@ -275,25 +258,19 @@ SwitchedAddressModal.defaultProps = {
 
 // Landing Page Modals
 export const ProvideConsentModal = ({
-  handleConsentModal, isMobile,
+  handleConsentModal,
 }) => (
-    <div>
-      <div className="modal__container modal--effect">
-        <div className="modal">
-          <img src={Consent} alt="Partners background" />
-          <img src={Loading} alt="Loading" id="modal__loadingGraphic--access" />
-          <div id="modal__copy__card">
-            <h3>Log in to 3Box</h3>
-            {isMobile
-              ? <p>Approve the message in your web3 wallet to continue</p>
-              : <p>Approve the message in your MetaMask wallet to continue</p>
-            }
-          </div>
-
-          <button onClick={handleConsentModal} type="button" className="tertiaryButton">Close</button>
+    <div className="modal__container modal--effect">
+      <div className="modal standardModal">
+        <img src={Wallet} className="modal_wallet" alt="Partners background" />
+        <div id="modal__copy__card">
+          <h3>Log in to 3Box</h3>
+          <p>Approve the message in your <br /> Web3 wallet to continue</p>
         </div>
-      </div>
+        <img src={Loading} alt="Loading" id="modal__loadingGraphic--access" />
 
+        <button onClick={handleConsentModal} type="button" className="tertiaryButton">Close</button>
+      </div>
     </div>
   );
 
@@ -302,26 +279,40 @@ ProvideConsentModal.propTypes = {
   handleConsentModal: PropTypes.func.isRequired,
 };
 
-export const ProvideAccessModal = ({
-  handleAccessModal, isMobile, directLogin,
+export const UnsupportedBrowserModal = ({
+  handleUnsupportedBrowserModal,
 }) => (
-    <div>
-      <div className="modal__container modal--effect">
-        <div className="modal">
-          <img src={Access} alt="Partners background" />
-          <img src={Loading} alt="Loading" id="modal__loadingGraphic--access" />
-
-          <div id="modal__copy__card">
-            <h3>Share Your Account</h3>
-            {isMobile
-              ? <p>To allow 3Box to read your Ethereum address, make sure you are logged in to your Web3 wallet.</p>
-              : <p>To allow 3Box to read your Ethereum address, make sure you are logged in to MetaMask.</p>
-            }
-          </div>
-
-          {!directLogin
-            && <button onClick={handleAccessModal} type="button" className="tertiaryButton">Close</button>}
+    <div className="modal__container modal--effect">
+      <div className="modal standardModal">
+        <img src={Browser} className="modal_wallet" alt="Browser" />
+        <div id="modal__copy__card">
+          <h3>You must use Safari version 11.1 or higher</h3>
         </div>
+
+        <button onClick={handleUnsupportedBrowserModal} type="button" className="tertiaryButton">Close</button>
+      </div>
+    </div>
+  );
+
+UnsupportedBrowserModal.propTypes = {
+  handleUnsupportedBrowserModal: PropTypes.func.isRequired,
+};
+
+export const ProvideAccessModal = ({
+  handleAccessModal, directLogin,
+}) => (
+    <div className="modal__container modal--effect">
+      <div className="modal standardModal">
+        <img src={Wallet} className="modal_wallet" alt="Partners background" />
+        <div id="modal__copy__card">
+          <h3>Share Your Account</h3>
+          <p>To allow 3Box to read your Ethereum address, make sure you are logged in to your Web3 wallet.</p>
+        </div>
+
+        <img src={Loading} alt="Loading" id="modal__loadingGraphic--access" />
+
+        {!directLogin
+          && <button onClick={handleAccessModal} type="button" className="tertiaryButton">Close</button>}
       </div>
     </div>
   );
@@ -758,8 +749,8 @@ export const AccessDeniedModal = ({
 }) => (
     <div>
       <div className="modal__container modal--effect">
-        <div className="modal">
-          <img src={Access} alt="Partners background" />
+        <div className="modal standardModal">
+          <img src={Wallet} className="modal_wallet" alt="Partners background" />
 
           <div id="modal__copy__card">
             <h3>Access Denied to 3Box</h3>
@@ -781,30 +772,26 @@ AccessDeniedModal.propTypes = {
 };
 
 export const LoadingThreeBoxProfileModal = () => (
-  <div>
-    <div className="modal__container modal--effect">
-      <div className="modal loadingModal">
-        <div className="modal__threebox__mollie">
-          <img src={Mollie} alt="Mollie the Narwhal" className="modal__loading__mollie" />
-          <img src={ThreeBoxLogoBlue} alt="3Box Logo" className="modal__loading__3" />
-        </div>
-        <img src={Loading} alt="Loading" id="modal__loadingGraphic" />
+  <div className="modal__container modal--effect">
+    <div className="modal standardModal">
+      <div className="modal__threebox__mollie">
+        <img src={Mollie} alt="Mollie the Narwhal" className="modal__loading__mollie" />
+        <img src={ThreeBoxLogoBlue} alt="3Box Logo" className="modal__loading__3" />
       </div>
+      <img src={Loading} alt="Loading" id="modal__loadingGraphic" />
     </div>
   </div>
 );
 
 export const FileSizeModal = ({ closeFileSizeModal }) => (
-  <div>
-    <div className="modal__container modal--effect">
-      <div className="modal">
+  <div className="modal__container modal--effect">
+    <div className="modal">
 
-        <div>
-          <p>Profile pictures must be less than 2.5 MB</p>
-        </div>
-
-        <button onClick={closeFileSizeModal} type="button" className="tertiaryButton">Close</button>
+      <div>
+        <p>Profile pictures must be less than 2.5 MB</p>
       </div>
+
+      <button onClick={closeFileSizeModal} type="button" className="tertiaryButton">Close</button>
     </div>
   </div>
 );
@@ -813,79 +800,19 @@ FileSizeModal.propTypes = {
   closeFileSizeModal: PropTypes.func.isRequired,
 };
 
-export const RequireMetaMaskModal = ({ closeRequireMetaMaskModal, isMobile }) => (
-  <div className="mobileInvisible">
-    <div className="modal__container modal--effect">
-      <div className="modal">
-        <img src={MetaMaskWallet} alt="Partners background" />
-
-        <div id="modal__copy__card">
-          <h3>
-            Install Web3 Wallet
-          </h3>
-          {isMobile
-            ? <p>You must have a web3 wallet to use 3Box</p>
-            : <p>You must have MetaMask to use 3Box</p>
-          }
-          <a href="https://metamask.io/" target="_blank" rel="noopener noreferrer">
-            <button type="button" className="modal__reqWeb3__button">
-              Download MetaMask
-            </button>
-          </a>
-        </div>
-
-        <button onClick={closeRequireMetaMaskModal} type="button" className="tertiaryButton">Close</button>
-      </div>
-    </div>
-  </div>
-);
-
-RequireMetaMaskModal.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-  closeRequireMetaMaskModal: PropTypes.func.isRequired,
-};
-
-export const SignInToWalletModal = ({ handleRequireWalletLoginModal, isMobile }) => (
-  <div>
-    <div className="modal__container modal--effect">
-      <div className="modal">
-        <img src={MetaMaskWallet} alt="Partners background" />
-
-        <div id="modal__copy__card">
-          <h3>
-            Unlock Your Wallet
-          </h3>
-          {isMobile
-            ? <p>Unlock your web3 wallet to continue</p>
-            : <p>Unlock your MetaMask wallet to continue</p>
-          }
-        </div>
-        <button onClick={handleRequireWalletLoginModal} type="button" className="tertiaryButton">Close</button>
-      </div>
-    </div>
-  </div>
-);
-
-SignInToWalletModal.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-  handleRequireWalletLoginModal: PropTypes.func.isRequired,
-};
-
 
 export const SyncingModal = () => (
-  <div>
-    <div className="modal__container--sync modal--effect">
-      <div className="modal--sync ">
-        <div className="modal--sync__wrapper">
-          <img src={LoadingWhite} alt="Loading" id="modal__loadingGraphic" />
+  <div className="modal__container--sync modal--effect">
+    <div className="modal--sync ">
+      <div className="modal--sync__wrapper">
+        <img src={LoadingWhite} alt="Loading" id="modal__loadingGraphic" />
 
-          <div id="logo" className="modal__loading3Box">
-            <img src={ThreeBoxLogoWhite} alt="3Box Logo" />
-          </div>
+        <div id="logo" className="modal__loading3Box">
+          <img src={ThreeBoxLogoWhite} alt="3Box Logo" />
+        </div>
 
-          <div>
-            <p>SYNCING 3BOX DATA</p>
-          </div>
+        <div>
+          <p>SYNCING 3BOX DATA</p>
         </div>
       </div>
     </div>
@@ -893,26 +820,24 @@ export const SyncingModal = () => (
 );
 
 export const PublicProfileLoading = () => (
-  <div>
-    <div className="modal__container--sync modal--effect">
-      <div className="modal--sync ">
-        <div className="modal--sync__wrapper">
-          <img src={LoadingWhite} alt="Loading" id="modal__loadingGraphic" />
+  <div className="modal__container--sync modal--effect">
+    <div className="modal--sync ">
+      <div className="modal--sync__wrapper">
+        <img src={LoadingWhite} alt="Loading" id="modal__loadingGraphic" />
 
-          <div id="logo" className="modal__loading3Box">
-            <img src={ThreeBoxLogoWhite} alt="3Box Logo" />
-          </div>
+        <div id="logo" className="modal__loading3Box">
+          <img src={ThreeBoxLogoWhite} alt="3Box Logo" />
+        </div>
 
-          <div>
-            <p>LOADING PUBLIC PROFILE</p>
-          </div>
+        <div>
+          <p>LOADING PUBLIC PROFILE</p>
         </div>
       </div>
     </div>
   </div>
 );
 
-export const SignInThroughPublicProfileBanner = ({ show, handleSignInBanner }) => (
+export const SignInThroughPublicProfileBanner = ({ show, handleHideSignInBanner }) => (
   <React.Fragment>
     <div className={`${show ? '' : 'hideBanner'} signInFromPublicProfileBanner`}>
       <div className="signInFromPublicProfileBanner__wrapper">
@@ -920,8 +845,28 @@ export const SignInThroughPublicProfileBanner = ({ show, handleSignInBanner }) =
           This is the public version of your profile.  Sign in to access your full profile.
         </p>
         <p
-          onClick={handleSignInBanner}
-          onKeyPress={handleSignInBanner}
+          onClick={handleHideSignInBanner}
+          onKeyPress={handleHideSignInBanner}
+          role="button"
+          className="webThreeBanner__close"
+        >
+          &#10005;
+        </p>
+      </div>
+    </div>
+  </React.Fragment>
+);
+
+export const UnsupportedBrowserBanner = ({ show, handleShowSafariBanner }) => (
+  <React.Fragment>
+    <div className={`${show ? '' : 'hideBanner'} signInFromPublicProfileBanner`}>
+      <div className="signInFromPublicProfileBanner__wrapper">
+        <p>
+          You must user Safari version 11.1 or higher.
+        </p>
+        <p
+          onClick={handleShowSafariBanner}
+          onKeyPress={handleShowSafariBanner}
           role="button"
           className="webThreeBanner__close"
         >
@@ -934,72 +879,72 @@ export const SignInThroughPublicProfileBanner = ({ show, handleSignInBanner }) =
 
 SignInThroughPublicProfileBanner.propTypes = {
   show: PropTypes.bool.isRequired,
-  handleSignInBanner: PropTypes.func.isRequired,
+  handleHideSignInBanner: PropTypes.func.isRequired,
 };
 
-export const ErrorModal = ({ closeErrorModal, errorMessage }) => (
-  <div>
+export const ErrorModal = ({ closeErrorModal, error }) => {
+  let isMetaMaskSignError;
+  let isMetaMaskFromError;
+  let isMozillaError;
+  let errorString;
+
+  const errorMsg = error.message;
+  if (errorMsg) {
+    isMetaMaskSignError = errorMsg.substring(0, 65) === 'Web3 Wallet Signature Error: User denied message signature.';
+    isMetaMaskFromError = errorMsg.substring(0, 58) === 'Web3 Wallet Signature Error: from field is required.';
+    isMozillaError = errorMsg.substring(0, 26) === 'value/</<@moz-extension://';
+    errorString = errorMsg.substring(0, 200);
+  }
+
+  errorString = errorString || 'There was an error logging in.';
+
+  return (
     <div className="modal__container modal--effect">
-      <div className="modal">
-        {
-          (errorMessage && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.')
-            || (errorMessage && errorMessage.message.substring(0, 26) === 'value/</<@moz-extension://')
-            ? <img src={Consent} alt="Consent required" />
-            : <img src={ErrorIcon} alt="Error" id="modal__switchedNetworks" />
-        }
-        <div
-          id={(errorMessage && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.')
-            || (errorMessage && errorMessage.message.substring(0, 58) === 'Error: MetaMask Message Signature: from field is required.')
-            || (errorMessage && errorMessage.message.substring(0, 26) === 'value/</<@moz-extension://')
-            ? 'modal__copy__card' : ''}
-        >
-          {
-            (errorMessage && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.')
-              || ((errorMessage && errorMessage.message.substring(0, 26) === 'value/</<@moz-extension://'))
-              ? <h3>Log in to 3Box</h3>
-              : <h3>Error</h3>
-          }
-          {
-            (errorMessage && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.')
-              || ((errorMessage && errorMessage.message.substring(0, 26) === 'value/</<@moz-extension://'))
-              ? <p>You must provide consent to 3Box in your web3 wallet (e.g. MetaMask) to sign in or create a profile, please try again</p>
-              : (
-                <React.Fragment>
-                  <p>{errorMessage && errorMessage.message.substring(0, 200)}</p>
-                  <br />
-                  <p>
-                    Please refresh the page and try again
+      <div className="modal standardModal">
+        {(isMetaMaskSignError || isMozillaError)
+          ? <img src={Wallet} alt="Wallet signature required" />
+          : <img src={ErrorIcon} alt="Error" id="modal__switchedNetworks" />}
+
+        <div id={(isMetaMaskSignError || isMetaMaskFromError || isMozillaError) ? 'modal__copy__card' : ''}>
+          {isMetaMaskSignError
+            || (isMozillaError)
+            ? <h3>Log in to 3Box</h3>
+            : <h3>Error</h3>}
+
+          {(isMetaMaskSignError || isMozillaError)
+            ? <p>You must provide consent to 3Box in your Web3 wallet to sign in or create a profile, please try again</p>
+            : (
+              <React.Fragment>
+                <p>{errorString}</p>
+                <br />
+                <p>
+                  Please refresh the page and try again
                   </p>
-                </React.Fragment>
-              )
-          }
+              </React.Fragment>
+            )}
         </div>
-        <button onClick={closeErrorModal} type="button" className="tertiaryButton">Close</button>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 ErrorModal.propTypes = {
-  errorMessage: PropTypes.string,
+  error: PropTypes.string,
   closeErrorModal: PropTypes.func.isRequired,
 };
 
 ErrorModal.defaultProps = {
-  errorMessage: '',
+  error: '',
 };
 
-export const MustConsentModal = ({ closeErrorModal, isMobile }) => (
+export const MustConsentModal = ({ closeErrorModal }) => (
   <div>
     <div className="modal__container modal--effect">
-      <div className="modal">
-        <img src={Consent} alt="Consent required" />
+      <div className="modal standardModal">
+        <img src={Wallet} className="modal_wallet" alt="Partners background" />
         <div id="modal__copy__card">
           <h3>Sign in to 3Box</h3>
-          {isMobile
-            ? <p>You must provide consent to 3Box in your web3 wallet to sign in or create a profile, please try again</p>
-            : <p>You must provide consent to 3Box in MetaMask to sign in or create a profile, please try again</p>
-          }
+          <p>You must provide consent to 3Box in your Web3 wallet to sign in or create a profile, please try again</p>
         </div>
         <button onClick={closeErrorModal} type="button" className="tertiaryButton">Close</button>
       </div>
@@ -1035,45 +980,6 @@ export const SignInToThreeBox = ({ handleSignInModal }) => (
 
 SignInToThreeBox.propTypes = {
   handleSignInModal: PropTypes.func.isRequired,
-};
-
-export const MobileWalletRequiredModal = ({ isIOS, handleMobileWalletModal }) => (
-  <div id="mobile__landing__prompt">
-    <div id="mobile__landing__prompt__logo">
-      <img src={ThreeBoxLogoWhite} alt="3Box Logo" />
-    </div>
-
-    <div id="mobile__landing__prompt__text">
-      <p>3Box requires a mobile dApp browser in order to work</p>
-      <br />
-      <p>Download Coinbase Wallet or Status.im then revisit this site in the mobile dApp browser to continue</p>
-    </div>
-
-    <div id="mobile__landing__prompt__buttons">
-      <a href={isIOS ? 'https://itunes.apple.com/app/coinbase-wallet/id1278383455?ls=1&mt=8' : 'https://play.google.com/store/apps/details?id=org.toshi'}>
-        <img src={getCoinbaseWallet} alt="Get Coinbase wallet" />
-      </a>
-
-      {!isIOS
-        ? (
-          <a href="https://play.google.com/store/apps/details?id=im.status.ethereum&hl=en_US">
-            <img src={Status} alt="Get Status wallet" />
-          </a>)
-
-        : (
-          <a href="https://itunes.apple.com/us/app/trust-ethereum-wallet/id1288339409?mt=8">
-            <img src={TrustWallet} alt="Get TrustWallet" />
-          </a>)}
-    </div>
-
-    <button onClick={() => handleMobileWalletModal()} type="button" className="tertiaryButton mobile__landing__closeButton">X</button>
-  </div>
-);
-
-MobileWalletRequiredModal.propTypes = {
-  isIOS: PropTypes.bool.isRequired,
-  handleMobileWalletModal: PropTypes.func.isRequired,
-  show: PropTypes.bool.isRequired,
 };
 
 export const OnBoardingModalDesktop = ({ handleOnboardingModal, showOne, showTwo }) => (
@@ -1174,4 +1080,124 @@ OnBoardingModalMobile.propTypes = {
   showThree: PropTypes.bool.isRequired,
   showFour: PropTypes.bool.isRequired,
   isMobile: PropTypes.bool.isRequired,
+};
+
+export const FollowingListModal = ({
+  otherFollowing, handleContactsModal, otherName, following, otherProfileAddress }) => (
+    <div className="modal__container modal--effect followingModal-zindex">
+      <div className="modal followingModal">
+        <h2>{`${otherName || `${otherProfileAddress.substr(0, 6)}...${otherProfileAddress.substr(-4)}`} is following`}</h2>
+
+        {otherFollowing.length === 0 && (
+          <div className="contactsModal_list_empty">
+            <img src={ContactsIcon} alt="Following" />
+            <p>This user isn't following anyone yet</p>
+          </div>
+        )}
+
+        {otherFollowing.length > 0 && (
+          <div className="contactsModal_list">
+            {otherFollowing.map((user) => {
+              let isFollowing = false;
+              following.forEach((profile) => {
+                if (profile[1].toLowerCase() === user[1].toLowerCase()) {
+                  isFollowing = true;
+                }
+              });
+
+              return (
+                <FollowingTile
+                  user={user[0]}
+                  address={user[1]}
+                  isFollowing={isFollowing}
+                  handleContactsModal={handleContactsModal}
+                  fromModal
+                  key={user[0]}
+                />
+              );
+            })}
+          </div>
+        )}
+      </div>
+      <div
+        className="onClickOutsideCollectibles--mobile"
+        onClick={() => handleContactsModal()}
+        onKeyPress={() => handleContactsModal()}
+        role="button"
+        tabIndex={0}
+      />
+      <div
+        className="onClickOutsideCollectibles"
+        onClick={() => handleContactsModal()}
+        onKeyPress={() => handleContactsModal()}
+        role="button"
+        tabIndex={0}
+      />
+    </div>
+  );
+
+FollowingListModal.propTypes = {
+  otherFollowing: PropTypes.array,
+  otherName: PropTypes.string,
+  otherProfileAddress: PropTypes.string,
+  handleContactsModal: PropTypes.func.isRequired,
+  following: PropTypes.array,
+};
+
+FollowingListModal.defaultProps = {
+  otherFollowing: [],
+  otherName: '',
+  otherProfileAddress: '',
+  following: [],
+};
+
+export const FollowingIsPublicModal = ({ handleFollowingPublicModal, saveFollowing, otherAddressToFollow }) => (
+  <div className="modal__container modal--effect">
+    <div className="modal followingWarning">
+      <img src={ContactsIcon} alt="Following" className="followingWarning_icon" />
+
+      <div className="followingWarning_text">
+        <h2>Following is public</h2>
+        <p>The users you follow will be public and viewable by others.</p>
+      </div>
+
+      <div className="followingWarning_buttons">
+        <button
+          onClick={() => handleFollowingPublicModal()}
+          type="button"
+          className="outlineButton"
+        >
+          Cancel
+        </button>
+
+        <button
+          onClick={() => {
+            saveFollowing(otherAddressToFollow, true);
+            handleFollowingPublicModal();
+          }}
+          type="button"
+        >
+          Follow user
+        </button>
+      </div>
+    </div>
+
+    <div
+      className="onClickOutsideCollectibles"
+      onClick={handleFollowingPublicModal}
+      onKeyPress={handleFollowingPublicModal}
+      role="button"
+      tabIndex={0}
+    />
+  </div>
+);
+
+FollowingIsPublicModal.propTypes = {
+  handleFollowingPublicModal: PropTypes.func.isRequired,
+  saveFollowing: PropTypes.func.isRequired,
+  otherAddressToFollow: PropTypes.string,
+};
+
+FollowingIsPublicModal.defaultProps = {
+  otherAddressToFollow: '',
 };

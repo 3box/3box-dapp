@@ -64,9 +64,6 @@ const Footer = () => (
           <h5>
             MORE
           </h5>
-          {/* <p>
-            About
-          </p> */}
           <Link to={routes.CAREERS}>
             Careers
           </Link>

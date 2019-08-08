@@ -29,7 +29,9 @@ const AllView = ({
       {sortedSpace.length > 0 && sortedSpace.map((row) => {
         const date = timeSince(row.lastUpdated);
         if (row.name !== 'collectiblesFavoritesToRender'
-          && row.name !== 'private_space_data' && width >= 600) {
+          && row.name !== 'proof_did'
+          && row.name !== 'private_space_data'
+          && width >= 600) {
           return (
             <PublicRow
               dataKey={row.name}
@@ -48,7 +50,9 @@ const AllView = ({
         }
 
         if (row.name !== 'collectiblesFavoritesToRender'
-          && row.name !== 'private_space_data' && width <= 600) {
+          && row.name !== 'proof_did'
+          && row.name !== 'private_space_data'
+          && width <= 600) {
           return (
             <PublicRowMobile
               dataKey={row.name}

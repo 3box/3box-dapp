@@ -9,8 +9,6 @@ const otherProfileReducer = (state = {}, action) => {
     case 'OTHER_PROFILE_UPDATE':
       return {
         ...state,
-        otherGithub: action.otherGithub,
-        otherTwitter: action.otherTwitter,
         otherDescription: action.otherDescription,
         otherLocation: action.otherLocation,
         otherWebsite: action.otherWebsite,
@@ -26,7 +24,15 @@ const otherProfileReducer = (state = {}, action) => {
         otherName: action.otherName,
         otherEmoji: action.otherEmoji,
         otherStatus: action.otherStatus,
+      };
+
+    case 'OTHER_PROFILE_UPDATE_VERIFIED_FOLLOWING':
+      return {
+        ...state,
+        otherGithub: action.otherGithub,
+        otherTwitter: action.otherTwitter,
         otherCollectiblesGallery: action.otherCollectiblesGallery,
+        otherFollowing: action.otherFollowing,
       };
 
     case 'OTHER_ACTIVITY_UPDATE':
@@ -45,6 +51,18 @@ const otherProfileReducer = (state = {}, action) => {
       return {
         ...state,
         otherProfileAddress: action.otherProfileAddress,
+      };
+
+    case 'OTHER_MUTUAL_FOLLOWING':
+      return {
+        ...state,
+        otherMutualFollowing: action.otherMutualFollowing,
+      };
+
+    case 'OTHER_ADDRESS_TO_FOLLOW':
+      return {
+        ...state,
+        otherAddressToFollow: action.otherAddressToFollow,
       };
 
     default:

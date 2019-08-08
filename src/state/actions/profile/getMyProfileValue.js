@@ -20,9 +20,6 @@ const getMyProfileValue = (type, key, update) => async (dispatch) => {
       [key]: value,
     });
 
-    if (!value) return null;
-
-
     return valueObject;
   } catch (error) {
     console.error(error);

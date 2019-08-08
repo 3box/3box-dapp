@@ -1,29 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
-import * as routes from '../../utils/routes';
-import ThreeBoxLogo from '../../assets/ThreeBoxLogoWhite.svg';
-import ThreeBoxCloudWhite from '../../assets/3BoxCloudWhite.svg';
-import ThreeBoxCloudWhiteNoShadow from '../../assets/3BoxCloudWhiteNoShadow.svg';
-import ThreeBoxCloud from '../../assets/3BoxCloud.svg';
 import TriangleWhite from '../../assets/TriangleWhite.svg';
-import TriangleBlue from '../../assets/TriangleBlue.svg';
 import TriangleBlack from '../../assets/TriangleBlack.svg';
-import NewProfileCard from '../../assets/NewProfileCard.png';
-import Trust from '../../assets/Trust.svg';
-import HighFive from '../../assets/HighFive.svg';
-import Authentication from '../../assets/Authentication.svg';
-import Collaboration from '../../assets/Collaboration.svg';
-import Profiles from '../../assets/Profiles.svg';
-import Messaging from '../../assets/Messaging.svg';
-import Storage from '../../assets/Storage.svg';
-import DaoStack from '../../assets/DaoStack.png';
-import Aragon from '../../assets/Aragon.png';
-import Consensys from '../../assets/Consensys.png';
-import MetaMask from '../../assets/MetaMask.png';
-import Foam from '../../assets/FOAM.png';
 import ColorCubes from '../../assets/ColorCubes.svg';
 import ColorCubesMobile from '../../assets/ColorCubesMobile.svg';
 import '../styles/Landing.css';
@@ -37,7 +18,7 @@ const styles = {
   backgroundRepeat: 'absolute',
 };
 
-class Landing extends Component {
+class Careers extends Component {
   constructor(props) {
     super(props);
     this.state = {}
@@ -49,7 +30,7 @@ class Landing extends Component {
 
   render() {
     return (
-      <div className="landing_page">
+      <div className="Careers_page">
         <main className="hero">
           <div className="hero_text">
             <div className="hero_copy_wrapper">
@@ -252,17 +233,17 @@ class Landing extends Component {
         </section>
 
         <Footer />
-      </div >
+      </div>
     );
   }
 }
 
-Landing.propTypes = {
+Careers.propTypes = {
   handleSignInUp: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool,
 };
 
-Landing.defaultProps = {
+Careers.defaultProps = {
   isLoggedIn: false,
 };
 
@@ -270,4 +251,4 @@ const mapState = state => ({
   isLoggedIn: state.userState.isLoggedIn,
 });
 
-export default withRouter(connect(mapState)(Landing));
+export default withRouter(connect(mapState)(Careers));

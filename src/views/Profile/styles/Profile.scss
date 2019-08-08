@@ -32,8 +32,8 @@
 
 .profile__basic__wrapper {
   display: flex;
-  justify-content: center;
-  margin-bottom: 12px;
+  justify-content: flex-start;
+  margin-bottom: 6px;
 }
 
 .publicProfile {
@@ -44,10 +44,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   margin-top: 34px;
   margin-bottom: 12px;
-  // margin-bottom: 48px;
   width: 230px;
 }
 
@@ -62,7 +61,6 @@
 .profile__basic__description {
   width: 200px;
   line-height: 20px;
-  text-align: center !important;
   height: fit-content;
   word-break: normal;
 }
@@ -110,6 +108,96 @@
     color: $lighterFont;
     font-weight: 400;
   }
+}
+
+.contacts_page {
+  justify-content: flex-start !important;
+  align-items: center;
+}
+
+.contacts_header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: $lighterFont;
+  }
+
+  p {
+    font-size: 20px;
+    color: $lighterFont;
+  }
+}
+
+.contact_list {
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  display: inline-grid;
+  grid-template-columns: repeat(1, 100% [col-start]);
+  row-gap: 20px;
+  z-index: 4;
+}
+
+.contact_tile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  h3 {
+    display: flex;
+    margin-bottom: 0;
+    margin-left: 20px;
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .threeboxProfileHover__style_boxAddressWrap {
+    width: 70%;
+  }
+}
+
+.empty_contact_tile {
+  max-width: 694px;
+  min-width: 694px;
+  height: 44px;
+  padding: 10px 10px;
+  left: calc(50vw - 350px);
+  border: 1px solid #ececec;
+  border-radius: 6px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all ease .5s;
+  margin-bottom: 20px;
+
+  p {
+    color: $lightestFont;
+    font-size: 16px;
+  }
+}
+
+.contact_tile_info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.contact_tile_info_image {
+  width: 60px !important;
+  height: 60px !important;
+  min-width: 60px !important;
+  min-height: 60px !important;
+  background-color: white;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .profile__category__divider {
@@ -219,6 +307,16 @@
   opacity: .5;
 }
 
+.profile__category__tabIcon--contacts {
+  height: 20px;
+  filter: none;
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  opacity: .5;
+}
+
 .active {
   background-color: $backgroundGreyDark !important;
   color: $threeBoxBlue !important;
@@ -257,18 +355,11 @@
     justify-content: center;
     align-items: center;
     color: #a2a2a2 !important;
-    // transition: all ease .3s;
   }
 
   &:hover {
     background-color: $threeBoxBlueLightShade;
     background-color: white;
-    // background-color: #ededed;
-    // border-color: $threeBoxBlue;
-
-    p {
-      // color: $threeBoxBlue !important;
-    }
   }
 }
 
@@ -288,7 +379,7 @@
   width: 230px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   overflow: hidden;
   text-overflow: ellipsis;
 
@@ -298,6 +389,10 @@
   }
 
   transition: all ease .5s;
+}
+
+.loggedInMargin {
+  margin-top: -69px;
 }
 
 .public__about {
@@ -348,8 +443,79 @@
   margin-top: 230px;
 }
 
+.publicStatusUpdate-isLoggedIn {
+  padding: 0.3em 10px;
+  margin-top: 161px;
+}
+
 .publicStatusUpdate--bannerMargin {
   margin-top: 284px !important;
+}
+
+.public_contacts {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.public_contacts_list {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.public_contacts_list_profiles {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.public_contacts_list_profiles_img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
+  margin-left: -22px;
+  border: 2px solid white;
+  object-fit: cover;
+}
+
+.first {
+  margin-left: 0;
+}
+
+.public_contacts_mutual {
+  margin-bottom: 20px;
+}
+
+.public_contacts_add {
+  width: 100%;
+
+  button {
+    width: 100%;
+  }
+}
+
+.unfollowButton {
+  padding: 15px 20px;
+}
+
+.unfollowButton img {
+  width: 18px;
+  margin-right: 10px;
+  margin-left: 0;
+}
+
+.followButton img {
+  width: 18px;
+  margin-right: 10px;
+  margin-left: 0;
 }
 
 #profile__page {
@@ -359,12 +525,10 @@
 #profile__contents {
   display: flex;
   height: 100%;
-  // margin-top: 69px;
 }
 
 #profile__footer {
   width: 300px;
-  // padding: 20px 0;
   margin-top: 33px;
   max-width: 200px;
   min-width: 200px;
@@ -372,7 +536,7 @@
   z-index: 1;
   background-color: $backgroundHue;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -521,6 +685,15 @@
   opacity: .7;
 }
 
+.followActionButton {
+  width: 108px;
+  min-height: 50px;
+
+  img {
+    width: 18px !important;
+  }
+}
+
 .loadingProfile {
   position: fixed;
   width: 100%;
@@ -599,7 +772,7 @@
   .publicProfile__basic--mobile {
     display: flex;
     flex-direction: column;
-    width: 240px;
+    width: 260px;
     margin-top: 50px;
   }
 
@@ -616,7 +789,7 @@
   }
 
   .profile__user__info {
-    height: fit-content;
+    // height: fit-content;
     max-width: 100vw;
     min-width: 100vw;
     padding: 50px 0 0 0;
@@ -634,6 +807,13 @@
 
   .profile__category {
     display: none;
+  }
+
+  .public_contacts_list_count {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .profile__category--mobile {
@@ -710,5 +890,47 @@
     bottom: 0;
     margin-top: .5em;
     margin-bottom: 1.5em;
+  }
+
+  .profile__basic__description {
+    width: 100%;
+  }
+
+  .contact_list {
+    justify-content: center;
+    margin-top: 30px;
+    width: 94%;
+  }
+
+  .contact_tile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    h3 {
+      margin-left: 12px;
+      text-align: left;
+      font-size: 14px;
+    }
+  }
+
+  .contact_tile_info_image {
+    width: 50px !important;
+    height: 50px !important;
+    min-width: 50px !important;
+    min-height: 50px !important;
+  }
+
+  .followActionButton {
+    padding: 7px 10px;
+    font-size: 12px;
+  }
+
+  .empty_contact_tile {
+    max-width: 100%;
+    min-width: 100%;
+    height: 64px;
+    box-sizing: border-box;
   }
 }

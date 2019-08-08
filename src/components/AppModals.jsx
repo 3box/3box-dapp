@@ -11,40 +11,27 @@ import {
   OnBoardingModalMobile,
   ProvideAccessModal,
   SyncingModal,
-  RequireMetaMaskModal,
   ProvideConsentModal,
   AccessDeniedModal,
   ErrorModal,
   MustConsentModal,
-  MobileWalletRequiredModal,
-  SignInToWalletModal,
   SignInToThreeBox,
   ModalBackground,
-  DeskTopModalBackground,
+  FollowingIsPublicModal,
+  FollowingListModal,
+  UnsupportedBrowserModal,
 } from './Modals';
+import { checkIsMobile } from '../utils/funcs';
 
 class AppModals extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      width: window.innerWidth,
+      isMobile: checkIsMobile(),
     };
   }
 
-  componentWillMount() {
-    window.addEventListener('resize', this.handleWindowSizeChange);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleWindowSizeChange);
-  }
-
-  handleWindowSizeChange = () => {
-    this.setState({ width: window.innerWidth });
-  }
-
   render() {
-    const { width } = this.state;
     const {
       isFetchingThreeBox,
       onSyncFinished,
@@ -55,13 +42,8 @@ class AppModals extends Component {
       handleConsentModal,
       handleDeniedAccessModal,
       accessDeniedModal,
-      signInToWalletModal,
       signInModal,
-      handleRequireWalletLoginModal,
       handleSignInModal,
-      handleMobileWalletModal,
-      isIOS,
-      mobileWalletRequiredModal,
       errorMessage,
       mustConsentError,
       showErrorModal,
@@ -83,13 +65,22 @@ class AppModals extends Component {
       onBoardingModalMobileOne,
       onBoardingModalMobileTwo,
       onBoardingModalMobileThree,
-      closeRequireMetaMaskModal,
-      alertRequireMetaMask,
       provideConsent,
       handleAccessModal,
+      showContactsModal,
+      showFollowingPublicModal,
+      handleFollowingPublicModal,
+      saveFollowing,
+      otherAddressToFollow,
+      otherFollowing,
+      otherName,
+      following,
+      otherProfileAddress,
+      handleContactsModal,
+      handleUnsupportedBrowserModal,
+      showUnsupportedBrowser,
     } = this.props;
-
-    const isMobile = width <= 812; // 600
+    const { isMobile } = this.state;
 
     return (
       <ReactCSSTransitionGroup
@@ -113,23 +104,13 @@ class AppModals extends Component {
           <ProvideAccessModal
             handleAccessModal={handleAccessModal}
             directLogin={directLogin}
-            isMobile={isMobile}
             key="ProvideAccessModal"
-          />
-        )}
-
-        {alertRequireMetaMask && (
-          <RequireMetaMaskModal
-            closeRequireMetaMaskModal={closeRequireMetaMaskModal}
-            isMobile={isMobile}
-            key="RequireMetaMaskModal"
           />
         )}
 
         {provideConsent && (
           <ProvideConsentModal
             handleConsentModal={handleConsentModal}
-            isMobile={isMobile}
             key="ProvideConsentModal"
           />
         )}
@@ -142,14 +123,6 @@ class AppModals extends Component {
           />
         )}
 
-        {signInToWalletModal && (
-          <SignInToWalletModal
-            handleRequireWalletLoginModal={handleRequireWalletLoginModal}
-            isMobile={isMobile}
-            key="SignInToWalletModal"
-          />
-        )}
-
         {signInModal && (
           <SignInToThreeBox
             handleSignInModal={handleSignInModal}
@@ -157,12 +130,10 @@ class AppModals extends Component {
           />
         )}
 
-        {mobileWalletRequiredModal && (
-          <MobileWalletRequiredModal
-            isIOS={isIOS}
-            handleMobileWalletModal={handleMobileWalletModal}
-            isMobile={isMobile}
-            key="MobileWalletRequiredModal"
+        {showUnsupportedBrowser && (
+          <UnsupportedBrowserModal
+            handleUnsupportedBrowserModal={handleUnsupportedBrowserModal}
+            key="UnsupportedBrowserModal"
           />
         )}
 
@@ -175,10 +146,10 @@ class AppModals extends Component {
           />
         )}
 
+
         {!!mustConsentError && (
           <MustConsentModal
             closeErrorModal={closeErrorModal}
-            isMobile={isMobile}
             key="MustConsentModal"
           />
         )}
@@ -192,19 +163,39 @@ class AppModals extends Component {
           />
         )}
 
+
         {loggedOutModal && (
           <LoggedOutModal
-            isMobile={isMobile}
             handleLoggedOutModal={handleLoggedOutModal}
             handleSignOut={handleSignOut}
             key="LoggedOutModal"
           />
         )}
 
+        {(showContactsModal && !showFollowingPublicModal) && (
+        // {(showContactsModal && !showFollowingPublicModal && !isFetchingThreeBox) && (
+          <FollowingListModal
+            otherFollowing={otherFollowing}
+            otherName={otherName}
+            following={following}
+            otherProfileAddress={otherProfileAddress}
+            handleContactsModal={handleContactsModal}
+          />
+        )}
+
+        {showFollowingPublicModal && (
+          <FollowingIsPublicModal
+            isMobile={isMobile}
+            handleFollowingPublicModal={handleFollowingPublicModal}
+            saveFollowing={saveFollowing}
+            otherAddressToFollow={otherAddressToFollow}
+            key="FollowingIsPublicModal"
+          />
+        )}
+
         {switchedAddressModal && (
           <SwitchedAddressModal
             handleSwitchedAddressModal={handleSwitchedAddressModal}
-            isMobile={isMobile}
             handleSignOut={handleSignOut}
             prevAddress={prevAddress}
             key="SwitchedAddressModal"
@@ -237,14 +228,15 @@ class AppModals extends Component {
         {(isFetchingThreeBox
           || allowAccessModal
           || provideConsent
+          || showFollowingPublicModal
           || accessDeniedModal
-          || signInToWalletModal
           || signInModal
           || (showErrorModal && !mustConsentError)
           || mustConsentError
           || showDifferentNetworkModal
           || loggedOutModal
           || switchedAddressModal
+          || showContactsModal
           || ((onBoardingModal || onBoardingModalTwo) && !isMobile)
           || ((onBoardingModal
             || onBoardingModalMobileOne
@@ -252,7 +244,6 @@ class AppModals extends Component {
             || onBoardingModalMobileThree)
             && isMobile)
         ) && <ModalBackground />}
-        {(alertRequireMetaMask) && <DeskTopModalBackground />}
 
       </ReactCSSTransitionGroup>
     );
@@ -275,7 +266,6 @@ AppModals.propTypes = {
   handleConsentModal: PropTypes.func.isRequired,
   handleDeniedAccessModal: PropTypes.func.isRequired,
   closeErrorModal: PropTypes.func.isRequired,
-  closeRequireMetaMaskModal: PropTypes.func.isRequired,
   handleAccessModal: PropTypes.func.isRequired,
 
   isFetchingThreeBox: PropTypes.bool,
@@ -294,16 +284,11 @@ AppModals.propTypes = {
   onBoardingModalMobileTwo: PropTypes.bool,
   onBoardingModalMobileThree: PropTypes.bool,
   showErrorModal: PropTypes.bool,
-  handleRequireWalletLoginModal: PropTypes.func.isRequired,
   handleSignInModal: PropTypes.func.isRequired,
-  handleMobileWalletModal: PropTypes.func.isRequired,
   isMyProfilePath: PropTypes.bool.isRequired,
-  isIOS: PropTypes.bool,
-  mobileWalletRequiredModal: PropTypes.bool,
-  signInToWalletModal: PropTypes.bool,
   signInModal: PropTypes.bool,
-  alertRequireMetaMask: PropTypes.bool,
   provideConsent: PropTypes.bool,
+  showContactsModal: PropTypes.bool,
 };
 
 AppModals.defaultProps = {
@@ -318,6 +303,7 @@ AppModals.defaultProps = {
   onSyncFinished: false,
   isSyncing: false,
   hasSignedOut: false,
+  showContactsModal: false,
   allowAccessModal: false,
   accessDeniedModal: false,
   showDifferentNetworkModal: false,
@@ -329,11 +315,7 @@ AppModals.defaultProps = {
   onBoardingModalMobileTwo: false,
   onBoardingModalMobileThree: false,
   showErrorModal: false,
-  isIOS: false,
-  mobileWalletRequiredModal: false,
-  signInToWalletModal: false,
   signInModal: false,
-  alertRequireMetaMask: false,
   provideConsent: false,
 };
 

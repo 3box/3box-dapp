@@ -43,7 +43,7 @@ class Partners extends Component {
           <div className="partners_content">
             <div className="partners_content_wrapper">
               <div className="partners_content_header">
-                <h4>PARTNERS</h4>
+                <h4 className="highlight_header">PARTNERS</h4>
                 <a
                   href="https://docs.google.com/forms/d/e/1FAIpQLSd8TuQQQGsTzjngR4seYEKN-vB2ygUoDugATdcomJzQdeWjdA/viewform"
                   target="_blank"
@@ -217,7 +217,7 @@ class Partners extends Component {
           <DiscordButton />
         </main>
 
-          <Footer />
+        <Footer />
       </div >
     );
   }

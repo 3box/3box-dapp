@@ -1,5 +1,13 @@
 import Box from '3box';
 
+import {
+  getFollowingProfiles,
+} from '../../../utils/funcs';
+import {
+  followingSpaceName,
+  followingThreadName,
+} from '../../../utils/constants';
+
 const getOtherProfile = profileAddress => async (dispatch) => {
   try {
     dispatch({
@@ -7,17 +15,9 @@ const getOtherProfile = profileAddress => async (dispatch) => {
       isLoadingOtherProfile: true,
     });
 
-    const publicProfile = await Box.getProfile(profileAddress); // eslint-disable-line no-undef
-    const publicVerifiedAccounts = Object.entries(publicProfile).length > 0 ?
-      await Box.getVerifiedAccounts(publicProfile) : { // eslint-disable-line no-undef
-        github: null,
-        twitter: null,
-      };
-
+    const publicProfile = await Box.getProfile(profileAddress);
     dispatch({
       type: 'OTHER_PROFILE_UPDATE',
-      otherGithub: publicVerifiedAccounts.github && publicVerifiedAccounts.github.username,
-      otherTwitter: publicVerifiedAccounts.twitter && publicVerifiedAccounts.twitter.username,
       otherDescription: publicProfile.description,
       otherLocation: publicProfile.location,
       otherWebsite: publicProfile.website,
@@ -33,7 +33,36 @@ const getOtherProfile = profileAddress => async (dispatch) => {
       otherName: publicProfile.name,
       otherEmoji: publicProfile.emoji,
       otherStatus: publicProfile.status,
+    });
+
+    const publicVerifiedAccounts = Object.entries(publicProfile).length > 0 ?
+      await Box.getVerifiedAccounts(publicProfile) : {
+        github: null,
+        twitter: null,
+      };
+
+    // let profiles;
+    // try {
+    //   profiles = await Box.getThread(followingSpaceName, followingThreadName, profileAddress, true);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
+    // const otherFollowing = profiles ? await getFollowingProfiles(profiles) : [];
+
+    // otherFollowing.sort((a, b) => {
+    //   if (!a[0].name) return -1;
+    //   if (a[0].name.toLowerCase() < b[0].name.toLowerCase()) return -1;
+    //   if (a[0].name.toLowerCase() > b[0].name.toLowerCase()) return 1;
+    //   return 0;
+    // });
+
+    dispatch({
+      type: 'OTHER_PROFILE_UPDATE_VERIFIED_FOLLOWING',
+      otherGithub: publicVerifiedAccounts.github && publicVerifiedAccounts.github.username,
+      otherTwitter: publicVerifiedAccounts.twitter && publicVerifiedAccounts.twitter.username,
       otherCollectiblesGallery: publicProfile.collectiblesFavorites,
+      // otherFollowing,
     });
 
     dispatch({
@@ -41,7 +70,11 @@ const getOtherProfile = profileAddress => async (dispatch) => {
       isLoadingOtherProfile: false,
     });
   } catch (error) {
-    console.error(error);
+    dispatch({
+      type: 'OTHER_PROFILE_LOADING',
+      isLoadingOtherProfile: false,
+    });
+    console.log(error);
   }
 };
 

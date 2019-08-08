@@ -1,4 +1,5 @@
 import ThreeBoxActivity from '3box-activity';
+import Web3 from 'web3';
 
 import {
   store,
@@ -15,10 +16,24 @@ import getPublicProfile from './getPublicProfile';
 
 const getActivity = otherProfileAddress => async (dispatch) => {
   try {
-    dispatch({
-      type: 'UI_FEED_LOADING',
-      isFetchingActivity: true,
-    });
+    const {
+      currentWallet
+    } = store.getState().userState;
+    const isWalletConnect = currentWallet === 'WalletConnect';
+    const reduxWeb3 = store.getState().userState.web3Obj;
+    const web3Obj = isWalletConnect ? window.web3 || Web3 : reduxWeb3 || window.web3 || Web3;
+
+    if (otherProfileAddress) {
+      dispatch({
+        type: 'UI_FEED_OTHER_LOADING',
+        isFetchingOtherActivity: true,
+      });
+    } else {
+      dispatch({
+        type: 'UI_FEED_LOADING',
+        isFetchingActivity: true,
+      });
+    }
 
     // get Eth network activity
     let activity;
@@ -224,7 +239,7 @@ const getActivity = otherProfileAddress => async (dispatch) => {
       if (!checkedAddresses[otherAddress]) {
         checkedAddresses[otherAddress] = true;
         try {
-          web3.eth.getCode(otherAddress, (err, code) => { // eslint-disable-line no-undef
+          web3Obj.eth.getCode(otherAddress, (err, code) => {
             if (err) {
               addressData[otherAddress] = false;
               counter += 1;

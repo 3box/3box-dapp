@@ -9,9 +9,11 @@ import * as routes from '../../../utils/routes';
 import Activity from './Activity';
 import Details from '../Details';
 import Collectibles from '../Collectibles';
+import Following from '../Following';
 import ActivityIcon from '../../../assets/Activity.svg';
 import DetailsIcon from '../../../assets/Details.svg';
 import CollectiblesIcon from '../../../assets/Collectibles.svg';
+import ContactsIcon from '../../../assets/Contacts.svg';
 import '../styles/Feed.css';
 import '../styles/Profile.css';
 import '../../../components/styles/NetworkArray.css';
@@ -46,6 +48,15 @@ const Content = ({ currentAddress }) => (
           <img src={CollectiblesIcon} alt="Collectibles" className="profile__category__tabIcon--collectibles--mobile" />
           Collectibles
         </NavLink>
+
+        {/* <NavLink
+          exact
+          to={`/${currentAddress}/${routes.FOLLOWING}`}
+          className="profile__category__section "
+        >
+          <img src={ContactsIcon} alt="Following" className="profile__category__tabIcon--collectibles--mobile" />
+          Following
+        </NavLink> */}
       </div>
     </div>
 
@@ -66,6 +77,12 @@ const Content = ({ currentAddress }) => (
         exact
         path={routes.FORMAT_PROFILE_COLLECTIBLES}
         component={Collectibles}
+      />
+
+      <Route
+        exact
+        path={routes.FORMAT_PROFILE_CONTACTS}
+        component={Following}
       />
     </Switch>
 

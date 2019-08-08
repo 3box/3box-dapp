@@ -33,18 +33,29 @@
   }
 }
 
-.favorites__publicIcon{
+.favorites__publicIcon {
   width: 17px;
   height: 17px;
   margin-left: 10px;
   opacity: .7;
 }
 
-.favorites__privateIcon{
+.favorites__privateIcon {
   width: 19px;
   height: 19px;
   margin-left: 10px;
   opacity: .7;
+}
+
+.loading_collectibles {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 40px;
+  }
 }
 
 .collectibles__opensea {

@@ -18,7 +18,7 @@ class DynamicImports extends Component {
 }
 
 export const Nav = props => (
-  <DynamicImports load={() => import('./components/Nav')}>
+  <DynamicImports load={() => import('./components/Nav/Nav')}>
     {Component => Component !== null
       && <Component {...props} />}
   </DynamicImports>
@@ -39,7 +39,7 @@ export const Spaces = props => (
 );
 
 export const EditProfile = props => (
-  <DynamicImports load={() => import('./views/Profile/EditProfile')}>
+  <DynamicImports load={() => import('./views/Profile/EditProfile/EditProfile')}>
     {Component => Component !== null
       && <Component {...props} />}
   </DynamicImports>
@@ -67,7 +67,7 @@ export const AppHeaders = props => (
 );
 
 export const NavLanding = props => (
-  <DynamicImports load={() => import('./components/NavLanding')}>
+  <DynamicImports load={() => import('./components/NavLanding/NavLanding')}>
     {Component => Component !== null
       && <Component {...props} />}
   </DynamicImports>
@@ -75,13 +75,6 @@ export const NavLanding = props => (
 
 export const Careers = props => (
   <DynamicImports load={() => import('./views/Landing/Careers')}>
-    {Component => Component !== null
-      && <Component {...props} />}
-  </DynamicImports>
-);
-
-export const Create = props => (
-  <DynamicImports load={() => import('./views/Landing/Create')}>
     {Component => Component !== null
       && <Component {...props} />}
   </DynamicImports>

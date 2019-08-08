@@ -1,34 +1,26 @@
 import React, { Component } from 'react';
-import {
-  Route, Switch, withRouter, Redirect,
-} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import queryString from 'query-string';
 
 import * as routes from './utils/routes';
-import { pollNetworkAndAddress, initialAddress } from './utils/address';
-import { normalizeURL, matchProtectedRoutes, checkRequestRoute } from './utils/funcs';
+import { pollNetworkAndAddress, initialAddress, startPollFlag } from './utils/address';
+import {
+  normalizeURL,
+  matchProtectedRoutes,
+  checkIsEthAddress,
+  checkRequestRoute,
+} from './utils/funcs';
 import { store } from './state/store';
 import history from './utils/history';
-import APIs from './views/Landing/API/APIs';
-import Dapp from './views/Landing/Dapp/Dapp';
-import LandingNew from './views/Landing/LandingNew';
-import Partners from './views/Landing/Partners';
-import Team from './views/Landing/Team';
-import PubProfileDummy from './views/Profile/PubProfileDummy';
-import PubProfileDummyTwitter from './views/Profile/PubProfileDummyTwitter';
+import AppRoutes from './AppRoutes';
+import AppPreviewRoutes from './AppPreviewRoutes';
+
 import {
-  MyProfile,
-  Spaces,
-  EditProfile,
-  PubProfile,
   AppModals,
   AppHeaders,
   NavLanding,
-  Careers,
-  Create,
-  Terms,
-  Privacy,
   Nav,
 } from './DynamicImports';
 import actions from './state/actions';
@@ -37,18 +29,16 @@ import './index.css';
 const {
   handleSignInModal,
   closeErrorModal,
-  handleRequireWalletLoginModal,
   handleSwitchedNetworkModal,
   handleAccessModal,
-  closeRequireMetaMaskModal,
   handleConsentModal,
   handleDeniedAccessModal,
   handleLoggedOutModal,
   handleSwitchedAddressModal,
-  requireMetaMaskModal,
-  handleMobileWalletModal,
   handleOnboardingModal,
+  handleFollowingPublicModal,
   handleContactsModal,
+  handleUnsupportedBrowserModal,
 } = actions.modal;
 
 const {
@@ -60,6 +50,9 @@ const {
   getVerifiedPublicTwitter,
   getVerifiedPrivateEmail,
   getActivity,
+  // getMyFollowing,
+  // getPublicFollowing,
+  saveFollowing,
 } = actions.profile;
 
 const { getMySpacesData, convert3BoxToSpaces } = actions.spaces;
@@ -67,12 +60,12 @@ const { getMySpacesData, convert3BoxToSpaces } = actions.spaces;
 const {
   openBox,
   handleSignOut,
-  requestAccess,
+  injectWeb3,
+  clearReduxState,
 } = actions.signin;
 
 const {
-  checkWeb3,
-  initialCheckWeb3,
+  checkMobileWeb3,
   checkNetwork,
 } = actions.land;
 
@@ -84,46 +77,43 @@ class App extends Component {
       onBoardingModalMobileTwo: false,
       onBoardingModalMobileThree: false,
     };
-    this.handleSignInUp = this.handleSignInUp.bind(this);
-    this.directSignIn = this.directSignIn.bind(this);
-    this.getMyData = this.getMyData.bind(this);
   }
 
   async componentDidMount() {
-    const { location } = this.props;
-    const { pathname } = location;
-    const normalizedPath = normalizeURL(pathname);
-    const splitRoute = normalizedPath.split('/');
-    const isMyProfilePath = matchProtectedRoutes(splitRoute[2]);
-    const currentEthAddress = window.localStorage.getItem('userEthAddress');
-
-    const route2 = splitRoute[2] && splitRoute[2].toLowerCase();
-    const route3 = splitRoute[3] && splitRoute[3].toLowerCase();
-    const isRequest = route2 === 'twitterrequest'
-      || route2 === 'previewrequest'
-      || route3 === 'twitterrequest'
-      || route3 === 'previewrequest';
-    if (isRequest) return;
-
     try {
-      initialAddress(); // Initial get address
-      pollNetworkAndAddress(); // Start polling for address change
-      await this.props.initialCheckWeb3();
+      const { location: { pathname, search } } = this.props;
+      const normalizedPath = normalizeURL(pathname);
+      const splitRoute = normalizedPath.split('/');
+      const firstParam = splitRoute[1] && splitRoute[1].toLowerCase();
+      const isProtectedRoute = matchProtectedRoutes(splitRoute[2]);
+      const queryParams = queryString.parse(search);
+      const isRequest = checkRequestRoute(splitRoute);
+      if (isRequest) return;
 
-      const allowDirectSignIn = (window.web3 !== 'undefined'
-        && splitRoute.length > 1 // Route has more than one
-        && splitRoute[1].substring(0, 2) === '0x' // Lands on profile page
-        && isMyProfilePath // Lands on protected page
-        && splitRoute[1] === currentEthAddress // Eth address is own)
+      const currentEthAddress = await initialAddress(); // Initial get address
+      const isEthAddr = checkIsEthAddress(firstParam);
+      const isMyAddr = firstParam === currentEthAddress;
+      const onProfilePage = isEthAddr;
+      const isWalletConnectDefault = window.localStorage.getItem('defaultWallet') === 'WalletConnect';
+
+      const allowDirectSignIn = (
+        (isEthAddr // Lands on profile page
+          && isProtectedRoute // Lands on protected page
+          && isMyAddr)
+        || !!queryParams.wallet
       );
 
-      const onProfilePage = (splitRoute.length > 1 // Route has more than one
-        && splitRoute[1].substring(0, 2) === '0x');
+      if (isWalletConnectDefault && allowDirectSignIn) {
+        history.push('/login');
+        return;
+      }
 
       if (allowDirectSignIn) { // Begin signin
-        this.directSignIn();
+        this.directSignIn(queryParams.wallet);
       } else if (onProfilePage) { // Lands on profile page
-        if (isMyProfilePath) history.push(`/${splitRoute[1]}`);
+        const userEth = window.localStorage.getItem('userEthAddress');
+        // if (userEth) this.props.getPublicFollowing(userEth);
+        if (isProtectedRoute) history.push(`/${firstParam}`);
       }
     } catch (err) {
       console.error(err);
@@ -131,74 +121,62 @@ class App extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { location } = nextProps;
-    const { pathname } = location;
-    const normalizedPath = normalizeURL(pathname);
-    const splitRoute = normalizedPath.split('/');
+    const onSyncDoneToTrigger = nextProps.onSyncFinished && nextProps.isSyncing;
+    const { location: { search } } = nextProps;
+    const queryParams = queryString.parse(search);
+    const { location } = this.props;
+    const isNewPath = nextProps.location.pathname !== location.pathname;
 
-    const route2 = splitRoute[2] && splitRoute[2].toLowerCase();
-    const route3 = splitRoute[3] && splitRoute[3].toLowerCase();
-    const isRequest = route2 === 'twitterrequest'
-      || route2 === 'previewrequest'
-      || route3 === 'twitterrequest'
-      || route3 === 'previewrequest';
-    if (isRequest) return;
+    if (queryParams.wallet && isNewPath) this.directSignIn(queryParams.wallet, nextProps);
 
-    // check previous route for banner behavior on /Create & /Profiles
-    // does not work with back button
-    if (nextProps.location.pathname !== normalizedPath) {
-      store.dispatch({
-        type: 'UI_ROUTE_UPDATE',
-        currentRoute: normalizedPath,
-      });
-    }
-
-    // get profile data again only when onSyncDone
-    if (nextProps.onSyncFinished && nextProps.isSyncing) {
+    if (onSyncDoneToTrigger) { // get profile data again only when onSyncDone
       store.dispatch({ // end onSyncDone animation
         type: 'UI_APP_SYNC',
         onSyncFinished: true,
         isSyncing: false,
       });
-
       this.getMyData();
     }
   }
 
-  async getMyData() {
+  getMyData = async () => {
     const { currentAddress } = this.props;
     store.dispatch({
       type: 'UI_SPACES_LOADING',
       isSpacesLoading: true,
     });
+    startPollFlag();
+    pollNetworkAndAddress(); // Start polling for address change
 
     try {
-      this.props.getVerifiedPublicGithub();
-      this.props.getVerifiedPublicTwitter();
-      this.props.getVerifiedPrivateEmail();
-      this.props.getMyMemberSince();
-      this.props.getMyDID();
-      this.props.getMyProfileValue('public', 'status');
-      this.props.getMyProfileValue('public', 'name');
-      this.props.getMyProfileValue('public', 'description');
-      this.props.getMyProfileValue('public', 'image');
-      this.props.getMyProfileValue('public', 'coverPhoto');
-      this.props.getMyProfileValue('public', 'location');
-      this.props.getMyProfileValue('public', 'website');
-      this.props.getMyProfileValue('public', 'employer');
-      this.props.getMyProfileValue('public', 'job');
-      this.props.getMyProfileValue('public', 'school');
-      this.props.getMyProfileValue('public', 'degree');
-      this.props.getMyProfileValue('public', 'major');
-      this.props.getMyProfileValue('public', 'year');
-      this.props.getMyProfileValue('public', 'emoji');
-      this.props.getMyProfileValue('private', 'birthday');
+      this.props.getVerifiedPublicGithub(); // eslint-disable-line
+      this.props.getVerifiedPublicTwitter(); // eslint-disable-line
+      this.props.getVerifiedPrivateEmail(); // eslint-disable-line
+      this.props.getMyMemberSince(); // eslint-disable-line
+      this.props.getMyDID(); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'status'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'name'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'description'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'image'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'coverPhoto'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'location'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'website'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'employer'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'job'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'school'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'degree'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'major'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'year'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'emoji'); // eslint-disable-line
+      this.props.getMyProfileValue('private', 'birthday'); // eslint-disable-line
 
-      await this.props.getCollectibles(currentAddress);
-      await this.props.convert3BoxToSpaces();
-      await this.props.getMySpacesData(currentAddress);
+      // this.props.getMyFollowing(); // eslint-disable-line
 
-      this.props.getActivity();
+      await this.props.getCollectibles(currentAddress); // eslint-disable-line
+      await this.props.convert3BoxToSpaces(); // eslint-disable-line
+      await this.props.getMySpacesData(currentAddress); // eslint-disable-line
+
+      this.props.getActivity(); // eslint-disable-line
     } catch (err) {
       console.error(err);
     }
@@ -211,59 +189,44 @@ class App extends Component {
     });
   }
 
-  async directSignIn() {
-    const {
-      location,
-    } = this.props;
-    const { pathname } = location;
-    const normalizedPath = normalizeURL(pathname);
-
+  directSignIn = async (wallet, nextProps) => {
     try {
-      await this.props.checkWeb3();
-      await this.props.requestAccess('directLogin');
-      await this.props.checkNetwork();
+      store.dispatch({
+        type: 'UI_3BOX_LOADING',
+        isFetchingThreeBox: true,
+      });
 
-      const allowSignIn = (this.props.isSignedIntoWallet && this.props.isLoggedIn);
-      const notSignedIn = (this.props.isSignedIntoWallet
-        && !this.props.isLoggedIn
-        && matchProtectedRoutes(normalizedPath.split('/')[2]));
+      const { location: { pathname } } = this.props;
+      const pathToUse = nextProps ? nextProps.location.pathname : pathname;
+      const normalizedPath = normalizeURL(pathToUse);
+      const currentUrlEthAddr = normalizedPath.split('/')[1];
+      const profilePage = normalizedPath.split('/')[2];
+      const doesEthAddrMatch = currentUrlEthAddr === this.props.currentAddress;
+      await this.props.checkMobileWeb3(); // eslint-disable-line
+      await this.props.injectWeb3('directLogin', false, wallet); // eslint-disable-line
+      await this.props.checkNetwork(); // eslint-disable-line
 
-      if (allowSignIn) {
-        await this.props.openBox();
-        if (!this.props.showErrorModal) this.getMyData();
-      } else if (!this.props.isSignedIntoWallet) {
-        history.push(routes.LANDING);
-        this.props.handleRequireWalletLoginModal();
-      } else if (notSignedIn) {
-        history.push(routes.LANDING);
-        this.props.handleSignInModal();
-      }
+      if (!doesEthAddrMatch) history.push(`/${this.props.currentAddress}/${profilePage || routes.ACTIVITY}`);
+
+      await this.props.openBox(); // eslint-disable-line
+      if (!this.props.showErrorModal) this.getMyData(); // eslint-disable-line
     } catch (err) {
-      console.error(err);
+      console.error(err); // eslint-disable-line
+      store.dispatch({
+        type: 'UI_3BOX_LOADING',
+        isFetchingThreeBox: false,
+      });
     }
   }
 
-  async handleSignInUp() {
-    const {
-      accessDeniedModal,
-    } = this.props;
-
+  handleSignInUp = async (chooseWallet, shouldSignOut, e) => {
     try {
-      if (window.ethereum || typeof window.web3 !== 'undefined') {
-        await this.props.checkWeb3();
-        await this.props.requestAccess();
-        await this.props.checkNetwork();
-
-        if (this.props.isSignedIntoWallet) {
-          await this.props.openBox('fromSignIn');
-          if (!this.props.showErrorModal) this.getMyData();
-        } else if (!this.props.isSignedIntoWallet && !accessDeniedModal) {
-          this.props.handleRequireWalletLoginModal();
-        }
-      } else if (typeof window.web3 === 'undefined') {
-        this.props.requireMetaMaskModal();
-        this.props.handleMobileWalletModal();
-      }
+      if (e) e.stopPropagation();
+      await this.props.checkMobileWeb3(); // eslint-disable-line
+      await this.props.injectWeb3(null, chooseWallet, false, shouldSignOut); // eslint-disable-line
+      await this.props.checkNetwork(); // eslint-disable-line
+      await this.props.openBox('fromSignIn'); // eslint-disable-line
+      if (!this.props.showErrorModal) this.getMyData(); // eslint-disable-line
     } catch (err) {
       console.error(err);
     }
@@ -275,11 +238,8 @@ class App extends Component {
       accessDeniedModal,
       errorMessage,
       allowAccessModal,
-      alertRequireMetaMask,
       provideConsent,
-      signInToWalletModal,
       signInModal,
-      mobileWalletRequiredModal,
       directLogin,
       loggedOutModal,
       switchedAddressModal,
@@ -291,16 +251,20 @@ class App extends Component {
       prevAddress,
       showErrorModal,
       isLoggedIn,
-      isSignedIntoWallet,
-      location,
+      location: { pathname },
       onSyncFinished,
       isSyncing,
       hasSignedOut,
       onOtherProfilePage,
+      showFollowingPublicModal,
       otherAddressToFollow,
       showContactsModal,
+      otherFollowing,
       otherName,
+      following,
       otherProfileAddress,
+      fixBody,
+      showUnsupportedBrowser,
     } = this.props;
 
     const {
@@ -309,51 +273,18 @@ class App extends Component {
       onBoardingModalMobileThree,
     } = this.state;
 
-    const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
-    const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: MetaMask Message Signature: User denied message signature.';
+    const mustConsentError = errorMessage && errorMessage.message && errorMessage.message.substring(0, 65) === 'Error: Web3 Wallet Message Signature: User denied message signature.';
     const landing = pathname === routes.LANDING ? 'landing' : '';
-    const { userAgent: ua } = navigator;
-    const isIOS = ua.includes('iPhone');
     const isMyProfilePath = matchProtectedRoutes(normalizedPath.split('/')[2]);
 
     const splitRoute = normalizedPath.split('/');
     const isRequestRoute = checkRequestRoute(splitRoute);
 
-    if (isRequestRoute) {
-      return (
-        <div className="App">
-          <Switch>
-            <Route
-              exact
-              path="(^[/][0][xX]\w{40}\b)/twitterRequest"
-              component={PubProfileDummyTwitter}
-            />
-
-            <Route
-              exact
-              path="(^[/][0][xX]\w{40}\b)/previewRequest"
-              component={PubProfileDummy}
-            />
-
-            <Route
-              exact
-              path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|data|edit\w*)/twitterRequest"
-              component={PubProfileDummyTwitter}
-            />
-
-            <Route
-              exact
-              path="(^[/][0][xX]\w{40}\b)/(\w*activity|details|collectibles|data|edit\w*)/previewRequest"
-              component={PubProfileDummy}
-            />
-          </Switch>
-        </div>
-      );
-    }
+    if (isRequestRoute) return <AppPreviewRoutes />; // routes for when client request is for link preview
 
     return (
-      <div className="App">
+      <div className={`App ${fixBody ? 'fixBody' : ''}`}>
         <AppHeaders />
 
         {(!isMyProfilePath && !isLoggedIn) // show landing nav when user is not logged in, 3box is not fetching, and when route is not a protected route
@@ -376,12 +307,8 @@ class App extends Component {
           allowAccessModal={allowAccessModal}
           directLogin={directLogin}
           isMyProfilePath={isMyProfilePath}
-          alertRequireMetaMask={alertRequireMetaMask}
           accessDeniedModal={accessDeniedModal}
-          signInToWalletModal={signInToWalletModal}
           signInModal={signInModal}
-          isIOS={isIOS}
-          mobileWalletRequiredModal={mobileWalletRequiredModal}
           errorMessage={errorMessage}
           mustConsentError={mustConsentError}
           showErrorModal={showErrorModal}
@@ -395,16 +322,18 @@ class App extends Component {
           onBoardingModalTwo={onBoardingModalTwo}
           provideConsent={provideConsent}
           showContactsModal={showContactsModal}
+          showFollowingPublicModal={showFollowingPublicModal}
           onBoardingModalMobileOne={onBoardingModalMobileOne}
           onBoardingModalMobileTwo={onBoardingModalMobileTwo}
           onBoardingModalMobileThree={onBoardingModalMobileThree}
           otherAddressToFollow={otherAddressToFollow}
+          otherFollowing={otherFollowing}
           otherName={otherName}
+          following={following}
           otherProfileAddress={otherProfileAddress}
+          showUnsupportedBrowser={showUnsupportedBrowser}
           handleContactsModal={this.props.handleContactsModal}
-          handleRequireWalletLoginModal={this.props.handleRequireWalletLoginModal}
           handleSignInModal={this.props.handleSignInModal}
-          handleMobileWalletModal={this.props.handleMobileWalletModal}
           handleConsentModal={this.props.handleConsentModal}
           handleDeniedAccessModal={this.props.handleDeniedAccessModal}
           closeErrorModal={this.props.closeErrorModal}
@@ -415,142 +344,17 @@ class App extends Component {
           handleOnboardingModal={this.props.handleOnboardingModal}
           handleAccessModal={this.props.handleAccessModal}
           handleNextMobileModal={this.handleNextMobileModal}
-          closeRequireMetaMaskModal={this.props.closeRequireMetaMaskModal}
+          handleFollowingPublicModal={this.props.handleFollowingPublicModal}
+          saveFollowing={this.props.saveFollowing}
+          handleUnsupportedBrowserModal={this.props.handleUnsupportedBrowserModal}
         />
 
-        <Switch>
-          <Route
-            exact
-            path={routes.LANDING}
-            render={() => (
-              <LandingNew
-                handleSignInUp={this.handleSignInUp}
-                isLoggedIn={isLoggedIn}
-                errorMessage={errorMessage}
-                showErrorModal={showErrorModal}
-                isSignedIntoWallet={isSignedIntoWallet}
-              />
-            )}
-          />
-
-          <Route
-            path={routes.API}
-            render={() => (
-              <APIs
-                handleSignInUp={this.handleSignInUp}
-                isLoggedIn={isLoggedIn}
-                errorMessage={errorMessage}
-                showErrorModal={showErrorModal}
-                isSignedIntoWallet={isSignedIntoWallet}
-              />
-            )}
-          />
-
-          <Route
-            exact
-            path={routes.HUB}
-            render={() => (
-              <Dapp
-                handleSignInUp={this.handleSignInUp}
-                isLoggedIn={isLoggedIn}
-                errorMessage={errorMessage}
-                showErrorModal={showErrorModal}
-                isSignedIntoWallet={isSignedIntoWallet}
-              />
-            )}
-          />
-
-          <Route
-            exact
-            path={routes.CAREERS}
-            render={() => <Careers />}
-          />
-          <Route
-            exact
-            path={routes.TEAM}
-            render={() => <Team />}
-          />
-
-          <Route
-            exact
-            path={routes.JOBS}
-            render={() => <Redirect to={routes.CAREERS} />}
-          />
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/activity"
-            component={MyProfile}
-          />
-          <Redirect from="/profile" to="/" />
-          <Redirect from="/editprofile" to="/" />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/details"
-            component={MyProfile}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/collectibles"
-            component={MyProfile}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/data"
-            component={Spaces}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)/edit"
-            component={EditProfile}
-          />
-
-          <Route
-            exact
-            path={routes.PARTNERS}
-            component={() => (
-              <Partners />
-            )}
-          />
-
-          <Route
-            exact
-            path={routes.PRIVACY}
-            component={() => (
-              <Privacy />
-            )}
-          />
-
-          <Route
-            exact
-            path={routes.TERMS}
-            component={() => (
-              <Terms />
-            )}
-          />
-
-          <Route
-            path={routes.CREATE}
-            exact
-            component={() => (
-              <Create
-                isLoggedIn={isLoggedIn}
-                handleSignInUp={this.handleSignInUp}
-              />
-            )}
-          />
-
-          <Route
-            exact
-            path="(^[/][0][xX]\w{40}\b)"
-            component={PubProfile}
-          />
-
-          <Route render={() => <Redirect to={routes.LANDING} />} />
-        </Switch>
+        <AppRoutes
+          handleSignInUp={this.handleSignInUp}
+          isLoggedIn={isLoggedIn}
+          errorMessage={errorMessage}
+          showErrorModal={showErrorModal}
+        />
       </div>
     );
   }
@@ -558,10 +362,11 @@ class App extends Component {
 
 App.propTypes = {
   openBox: PropTypes.func.isRequired,
-  requestAccess: PropTypes.func.isRequired,
+  injectWeb3: PropTypes.func.isRequired,
   getMyProfileValue: PropTypes.func.isRequired,
-  checkWeb3: PropTypes.func.isRequired,
-  initialCheckWeb3: PropTypes.func.isRequired,
+  checkMobileWeb3: PropTypes.func.isRequired,
+  // getMyFollowing: PropTypes.func.isRequired,
+  // getPublicFollowing: PropTypes.func.isRequired,
   getMyDID: PropTypes.func.isRequired,
   getCollectibles: PropTypes.func.isRequired,
   getMySpacesData: PropTypes.func.isRequired,
@@ -571,14 +376,10 @@ App.propTypes = {
   getVerifiedPublicTwitter: PropTypes.func.isRequired,
   getVerifiedPrivateEmail: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
-  requireMetaMaskModal: PropTypes.func.isRequired,
-  handleMobileWalletModal: PropTypes.func.isRequired,
   handleSwitchedNetworkModal: PropTypes.func.isRequired,
   handleAccessModal: PropTypes.func.isRequired,
-  closeRequireMetaMaskModal: PropTypes.func.isRequired,
   handleConsentModal: PropTypes.func.isRequired,
   handleDeniedAccessModal: PropTypes.func.isRequired,
-  handleRequireWalletLoginModal: PropTypes.func.isRequired,
   handleSignInModal: PropTypes.func.isRequired,
   handleSignOut: PropTypes.func,
   checkNetwork: PropTypes.func.isRequired,
@@ -586,24 +387,22 @@ App.propTypes = {
   handleLoggedOutModal: PropTypes.func.isRequired,
   handleSwitchedAddressModal: PropTypes.func.isRequired,
   handleOnboardingModal: PropTypes.func.isRequired,
+  saveFollowing: PropTypes.func.isRequired,
 
   showDifferentNetworkModal: PropTypes.bool,
+  showFollowingPublicModal: PropTypes.bool,
   onSyncFinished: PropTypes.bool,
   hasSignedOut: PropTypes.bool,
   isSyncing: PropTypes.bool,
   accessDeniedModal: PropTypes.bool,
   errorMessage: PropTypes.string,
   allowAccessModal: PropTypes.bool,
-  alertRequireMetaMask: PropTypes.bool,
-  hasWeb3: PropTypes.bool,
   provideConsent: PropTypes.bool,
-  signInToWalletModal: PropTypes.bool,
   signInModal: PropTypes.bool,
-  mobileWalletRequiredModal: PropTypes.bool,
+  fixBody: PropTypes.bool,
   showErrorModal: PropTypes.bool,
   directLogin: PropTypes.string,
   isLoggedIn: PropTypes.bool,
-  isSignedIntoWallet: PropTypes.bool,
   loggedOutModal: PropTypes.bool,
   switchedAddressModal: PropTypes.bool,
   onBoardingModal: PropTypes.bool,
@@ -619,25 +418,27 @@ App.propTypes = {
   }).isRequired,
   prevAddress: PropTypes.string,
   otherAddressToFollow: PropTypes.string,
+  otherName: PropTypes.string,
+  otherProfileAddress: PropTypes.string,
+  following: PropTypes.array,
+  otherFollowing: PropTypes.array,
 };
 
 App.defaultProps = {
   showDifferentNetworkModal: false,
+  fixBody: false,
   handleSignOut,
-  hasWeb3: false,
   accessDeniedModal: false,
   onSyncFinished: false,
   hasSignedOut: false,
   onOtherProfilePage: false,
+  showFollowingPublicModal: false,
   isSyncing: false,
   showContactsModal: false,
   errorMessage: '',
   allowAccessModal: false,
-  alertRequireMetaMask: false,
   provideConsent: false,
-  signInToWalletModal: false,
   signInModal: false,
-  mobileWalletRequiredModal: false,
   showErrorModal: false,
   loggedOutModal: false,
   switchedAddressModal: false,
@@ -645,23 +446,23 @@ App.defaultProps = {
   onBoardingModalTwo: false,
   isFetchingThreeBox: false,
   isLoggedIn: false,
-  isSignedIntoWallet: false,
   prevNetwork: '',
   currentNetwork: '',
   prevAddress: '',
   directLogin: '',
   currentAddress: '',
   otherAddressToFollow: '',
+  otherFollowing: [],
+  otherName: '',
+  following: [],
+  otherProfileAddress: '',
 };
 
 const mapState = state => ({
   showDifferentNetworkModal: state.uiState.showDifferentNetworkModal,
   allowAccessModal: state.uiState.allowAccessModal,
-  alertRequireMetaMask: state.uiState.alertRequireMetaMask,
   provideConsent: state.uiState.provideConsent,
-  signInToWalletModal: state.uiState.signInToWalletModal,
   signInModal: state.uiState.signInModal,
-  mobileWalletRequiredModal: state.uiState.mobileWalletRequiredModal,
   directLogin: state.uiState.directLogin,
   loggedOutModal: state.uiState.loggedOutModal,
   switchedAddressModal: state.uiState.switchedAddressModal,
@@ -673,7 +474,10 @@ const mapState = state => ({
   showErrorModal: state.uiState.showErrorModal,
   accessDeniedModal: state.uiState.accessDeniedModal,
   onOtherProfilePage: state.uiState.onOtherProfilePage,
+  showFollowingPublicModal: state.uiState.showFollowingPublicModal,
   showContactsModal: state.uiState.showContactsModal,
+  showUnsupportedBrowser: state.uiState.showUnsupportedBrowser,
+  fixBody: state.uiState.fixBody,
 
   onSyncFinished: state.userState.onSyncFinished,
   isSyncing: state.userState.isSyncing,
@@ -681,21 +485,22 @@ const mapState = state => ({
   prevNetwork: state.userState.prevNetwork,
   currentNetwork: state.userState.currentNetwork,
   isLoggedIn: state.userState.isLoggedIn,
-  isSignedIntoWallet: state.userState.isSignedIntoWallet,
   currentAddress: state.userState.currentAddress,
-  hasWeb3: state.userState.hasWeb3,
+  isMobile: state.userState.isMobile,
 
   otherAddressToFollow: state.otherProfile.otherAddressToFollow,
 
+  otherFollowing: state.otherProfile.otherFollowing,
   otherName: state.otherProfile.otherName,
+  following: state.myData.following,
   otherProfileAddress: state.otherProfile.otherProfileAddress,
 });
 
 export default withRouter(connect(mapState,
   {
     openBox,
-    requestAccess,
-    checkWeb3,
+    injectWeb3,
+    checkMobileWeb3,
     checkNetwork,
     getMyProfileValue,
     getMyDID,
@@ -707,11 +512,8 @@ export default withRouter(connect(mapState,
     getVerifiedPublicTwitter,
     getVerifiedPrivateEmail,
     getActivity,
-    initialCheckWeb3,
-    requireMetaMaskModal,
-    handleMobileWalletModal,
+    // getMyFollowing,
     handleSignInModal,
-    handleRequireWalletLoginModal,
     handleSwitchedNetworkModal,
     handleAccessModal,
     handleConsentModal,
@@ -720,7 +522,11 @@ export default withRouter(connect(mapState,
     handleSignOut,
     handleSwitchedAddressModal,
     handleOnboardingModal,
+    handleFollowingPublicModal,
     closeErrorModal,
-    closeRequireMetaMaskModal,
+    // getPublicFollowing,
+    saveFollowing,
     handleContactsModal,
+    clearReduxState,
+    handleUnsupportedBrowserModal,
   })(App));

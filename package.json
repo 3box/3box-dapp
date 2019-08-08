@@ -4,12 +4,14 @@
   "description": "3box dapp",
   "private": true,
   "dependencies": {
-    "3box": "^1.10.3",
+    "3box": "^1.10.5-beta.2",
     "3box-activity": "0.0.9",
-    "@babel/polyfill": "^7.0.0",
+    "@babel/polyfill": "^7.4.4",
     "abi-decoder": "^2.0.1",
     "babel-preset-env": "^1.7.0",
+    "base-64": "^0.1.0",
     "core-js": "^3.1.4",
+    "detect-browser": "^4.6.0",
     "emoji-mart": "^2.9.1",
     "eslint": "^6.0.0",
     "eth-contract-metadata": "^1.9.0",
@@ -17,10 +19,13 @@
     "ethereumjs-util": "^6.0.0",
     "event-stream": "^4.0.1",
     "history": "^4.7.2",
+    "image-to-base64": "^2.0.1",
+    "ipfs-log": "^4.3.5",
     "lodash.clonedeep": "^4.5.0",
     "nacl-did": "^0.4.0",
     "profile-hover": "^1.0.2",
     "prop-types": "^15.6.1",
+    "query-string": "^6.8.1",
     "react": "^16.8.6",
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.8.6",
@@ -33,7 +38,9 @@
     "react-scroll": "^1.7.11",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
-    "web3-eth-personal": "^1.0.0-beta.36"
+    "web3": "^1.2.1",
+    "web3-eth-personal": "^1.0.0-beta.36",
+    "web3connect": "^1.0.0-beta.18"
   },
   "devDependencies": {
     "acorn-dynamic-import": "^3.0.0",
@@ -62,6 +69,7 @@
     "uglifyjs-webpack-plugin": "^2.1.3"
   },
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "babel": "babel --presets es2015 src/index.js -o build/main.bundle.js",
     "build-css": "node-sass-chokidar src/ -o src/",
     "flow": "flow",
@@ -77,7 +85,7 @@
     "invalidate": "node_modules/.bin/aws-cloudfront-invalidate",
     "deploy-develop": "npm run deploy-to-s3 3box-dapp-develop.3box.io && npm run invalidate E17Q4403A4B4C8",
     "deploy-master": "npm run deploy-to-s3 3box-dapp-master.3box.io && npm run invalidate ET1S25F7JOQM6",
-    "deploy-test": "npm run deploy-to-s3 3box-dapp-test.3box.io && npm run invalidate E256JNRDZ1B3QM"
+    "deploy-test": "GENERATE_SOURCEMAP=false npm run deploy-to-s3 3box-dapp-test.3box.io && npm run invalidate E256JNRDZ1B3QM"
   },
   "browserslist": [
     "defaults"

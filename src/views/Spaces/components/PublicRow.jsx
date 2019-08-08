@@ -56,6 +56,7 @@ const PublicRow = ({
               .replace(/^./, str => str.toUpperCase())}
         </p>
       </span>
+
       <span className="data__items__row__entry spaceRow__content">
         {typeof dataValue === 'string' && (
           <p className="data__text">
@@ -72,7 +73,12 @@ const PublicRow = ({
         {(Array.isArray(dataValue) && rowType !== 'Image' && (dataKey && dataKey.substring(0, 7) !== 'thread-')) && (
           <p className="data__text">
             {dataValue.map((item) => {
-              if (Array.isArray(item)) return item[0];
+              if (Array.isArray(item)) {
+                if (typeof item[0] !== 'object') {
+                  return item[0];
+                }
+                return Object.keys(item[0])[0];
+              }
               if (typeof item === 'object') return Object.keys(item)[0];
               return item;
             })}

@@ -1,4 +1,4 @@
-const initialCheckWeb3 = () => async (dispatch) => {
+const checkMobileWeb3 = () => async (dispatch) => {
   const cp = typeof window.web3 !== 'undefined' ? window.web3.currentProvider : null; // eslint-disable-line no-undef
 
   let isToshi;
@@ -12,20 +12,24 @@ const initialCheckWeb3 = () => async (dispatch) => {
     isMetaMask = !!cp.isMetaMask;
 
     if (isToshi) {
-      currentWallet = 'isToshi';
+      currentWallet = 'Toshi';
     } else if (isCipher) {
-      currentWallet = 'isCipher';
+      currentWallet = 'Cipher';
     } else if (isMetaMask) {
-      currentWallet = 'isMetaMask';
+      currentWallet = 'MetaMask';
     }
   }
 
+  let isMobile;
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    isMobile = true;
+  }
+
   dispatch({
-    type: 'INITIAL_USER_CHECK_WEB3',
-    hasWeb3: typeof window.web3 !== 'undefined', // eslint-disable-line no-undef
-    showDownloadBanner: typeof window.web3 === 'undefined', // eslint-disable-line no-undef
+    type: 'USER_CHECK_WEB3',
     currentWallet,
+    isMobile,
   });
 };
 
-export default initialCheckWeb3;
+export default checkMobileWeb3;

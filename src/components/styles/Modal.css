@@ -1,3 +1,15 @@
+.pickProvider_screen {
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .pickProvider_screen h1 {
+    margin-bottom: 500px;
+    color: #181F21; }
+
 .modal__overlay {
   position: fixed;
   left: 0px;
@@ -78,12 +90,11 @@
   .modal img {
     width: 240px; }
   .modal h3 {
-    margin-bottom: 14px; }
+    margin-bottom: 8px; }
 
-.loadingModal {
+.standardModal {
   width: 270px;
-  height: 300px;
-  min-height: 300px; }
+  min-height: 320px; }
 
 .spaceModal {
   display: flex;
@@ -123,6 +134,9 @@
   border-bottom: 1px solid #ececec; }
   .spaceModal__data h4 {
     color: #6b6b6b; }
+
+.modal_wallet {
+  width: 60px !important; }
 
 .spaceModal__name {
   box-sizing: border-box;
@@ -664,6 +678,94 @@
   justify-content: space-between;
   align-items: center; }
 
+.followingModal {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 30px;
+  overflow: visible !important;
+  min-height: 600px;
+  overflow-y: scroll; }
+  .followingModal h2 {
+    margin-bottom: 40px;
+    font-size: 18px;
+    letter-spacing: .3px;
+    text-align: left; }
+  .followingModal p {
+    font-size: 14px;
+    color: #747677;
+    line-height: 22px; }
+
+.followingModal-zindex {
+  z-index: 6; }
+
+.followingWarning {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px;
+  overflow: visible !important;
+  z-index: 20; }
+  .followingWarning h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    letter-spacing: .3px; }
+  .followingWarning p {
+    font-size: 14px;
+    color: #747677;
+    line-height: 22px; }
+
+.followingWarning_text {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 70%; }
+
+.followingWarning_icon {
+  margin-top: 70px;
+  height: 50px;
+  filter: none;
+  -webkit-filter: grayscale(100%);
+  -moz-filter: grayscale(100%);
+  -ms-filter: grayscale(100%);
+  -o-filter: grayscale(100%);
+  opacity: .5; }
+
+.followingWarning_buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%; }
+  .followingWarning_buttons button:first-of-type {
+    margin-right: 15px; }
+
+.contactsModal_list {
+  display: inline-grid;
+  grid-template-columns: repeat(1, 100% [col-start]);
+  row-gap: 20px;
+  min-width: 100%;
+  max-width: 100%; }
+
+.contactsModal_list_empty {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 400px; }
+  .contactsModal_list_empty img {
+    margin: 70px 0 30px 0;
+    height: 50px;
+    filter: none;
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    opacity: .5; }
+
 .modal__onBoardingModal__container {
   position: fixed;
   left: 0px;
@@ -794,11 +896,11 @@
   width: 110px !important; }
 
 #modal__loadingGraphic--noMargin {
-  width: 60px; }
+  width: 40px; }
 
 #modal__loadingGraphic--access {
-  width: 60px;
-  margin-top: 20px; }
+  width: 40px;
+  margin-bottom: 30px; }
 
 .modal__loading3Box {
   display: flex;
@@ -812,7 +914,15 @@
   width: 50px; }
 
 #modal__copy__card {
-  margin: 34px 0 40px 0; }
+  margin: 34px 0 40px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; }
+  #modal__copy__card h3 {
+    letter-spacing: 2px; }
+  #modal__copy__card p {
+    color: #747677; }
 
 @-moz-document url-prefix() {
   #modal__onBoardingModal__button {
@@ -853,6 +963,7 @@
 
 .githubModal {
   width: 800px;
+  height: 676px;
   padding: 0; }
   .githubModal p {
     font-size: 14px !important; }
@@ -1037,7 +1148,6 @@
   background-color: #EFF5FE;
   width: 100%;
   padding: 20px;
-  height: 100%;
   display: flex;
   justify-content: flex-end;
   box-sizing: border-box; }
@@ -1066,7 +1176,7 @@
   .modal__loading__mollie {
     width: 100px !important;
     margin-top: 0; }
-  .loadingModal #modal__loadingGraphic {
+  .standardModal #modal__loadingGraphic {
     margin-top: 0px; }
   .onClickOutsideCollectibles--mobile {
     display: flex;
@@ -1113,6 +1223,10 @@
   .spaceModal__content__collectibles__info {
     max-width: 64%;
     overflow: hidden; }
+  .contactsModal_list_empty {
+    height: 170px; }
+    .contactsModal_list_empty img {
+      margin-top: 40px; }
   .collectiblesTileModal {
     position: relative !important;
     overflow: hidden;

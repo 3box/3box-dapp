@@ -1,11 +1,13 @@
 import accountsPromise from './accountsPromise';
-import requestAccess from './requestAccess';
+import injectWeb3 from './injectWeb3';
 import openBox from './openBox';
 import handleSignOut from './handleSignOut';
+import clearReduxState from './clearReduxState';
 
 export default {
   accountsPromise,
   openBox,
-  requestAccess,
+  injectWeb3,
   handleSignOut,
+  clearReduxState,
 };

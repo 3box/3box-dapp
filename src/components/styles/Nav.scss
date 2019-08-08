@@ -37,6 +37,12 @@ nav {
   margin-top: 54px;
 }
 
+.newWallet {
+  font-size: 14px;
+  color: $lighterFont !important;
+  margin-right: 20px;
+}
+
 #nav__networkStatus {
   border: 1px solid #e4e4e4;
   padding: 8px 12px;
@@ -177,10 +183,30 @@ nav {
   align-items: center;
 }
 
+.nav__dropdown__wrapper--extra {
+  background-color: rgb(242, 242, 242);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 4em;
+
+  p {
+    font-size: 14px;
+    color: rgb(107, 107, 107);
+    font-weight: 400;
+    cursor: pointer;
+    box-sizing: border-box;
+    margin-right: 15px;
+  }
+
+  &:hover {
+    background-color: rgb(242, 242, 242) !important;
+  }
+}
+
 .nav__dropdown__icon {
   width: 22px;
   height: 22px;
-  margin-right: 17px;
 }
 
 .nav__userPicture {
@@ -196,21 +222,34 @@ nav {
 
 .nav__arrow {
   position: absolute;
-  right: 16px;
-  top: 8px;
+  right: 25px;
+  top: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 55px;
-  width: 55px;
+  height: 45px;
+  width: 45px;
   box-sizing: border-box;
   cursor: pointer;
   font-size: 12px;
-  color: $lightFont;
+  border-radius: 50%;
+  transition: all .3s;
+  background-color: white;
+
+  &:hover {
+    background-color: $backgroundHue;
+
+    .nav__arrow__icon {
+      filter: grayscale(0%);
+    }
+  }
 }
 
 .nav__arrow__icon {
-  width: 10px;
+  height: 30px;
+  width: 5.4px;
+  transition: all .3s;
+  filter: grayscale(100%);
 }
 
 .nav__dropdown {
@@ -232,22 +271,29 @@ nav {
   }
 
   li {
-    font-size: 14px;
-    padding-left: 1.3em;
-    color: rgb(107, 107, 107);
-    line-height: 4em;
-    font-weight: 400;
+    padding-left: 20px;
+    height: 4.2em;
     cursor: pointer;
     box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
   }
 
   li:hover {
     background: #f9f9f9;
   }
 
-  div {
-    line-height: 0;
+  p {
+    font-weight: 400;
+    color: rgb(107, 107, 107);
+    font-size: 14px;
   }
+}
+
+.nav_dropdown_icon_wrapper {
+  width: 44px;
+  position: relative;
 }
 
 .nav__dropdown--desktop {
@@ -257,10 +303,28 @@ nav {
   transition: all 0.3s ease-in-out 0s,
     visibility 0s linear 0.3s,
     z-index 0s linear 0.01s;
+  width: 180px;
+}
+
+.nav__dropdown--desktop-landing {
+  width: 260px;
+}
+
+.nav_dropdown_switchWalletButton {
+  padding: 0;
+}
+
+.nav_dropdown_switchWallet {
+  width: 20px;
+  filter: grayscale(100%);
+}
+
+.nav_dropdown_walletIcon {
+  margin-left: 15px;
 }
 
 .nav__divide {
-  border-top: 1px solid #CBCBCB;
+  border-top: 1px solid $borderColor;
   margin-top: 0;
   margin-bottom: 0;
   padding-left: 0;
@@ -272,7 +336,7 @@ nav {
   display: flex;
   align-items: center;
   margin-left: auto;
-  margin-right: 4vw;
+  margin-right: 84px;
 
   p {
     margin-right: 2vw;
@@ -305,6 +369,14 @@ nav {
   transition: all .5s ease;
   background-color: transparent;
   border-bottom: none;
+}
+
+.nav__userPicture--deskopDropdown {
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  background-color: $defaultProfPic;
 }
 
 .showAPINav {
@@ -502,10 +574,6 @@ nav {
   border-bottom: 1px solid #E4E4E4 !important;
   height: 68px !important;
   background-color: white !important;
-
-  p {
-    color: $threeBoxBlue !important;
-  }
 
   .secondaryButton:hover {
     color: white !important;
@@ -705,6 +773,55 @@ nav {
   display: none;
 }
 
+.nav_account {
+  box-sizing: border-box;
+  max-width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background-color: $backgroundHue;
+}
+
+.nav_account_top {
+  max-width: 100%;
+  padding: 14px 20px 18px 20px;
+  box-sizing: border-box;
+}
+
+.nav_account_top_description {
+  color: $lightestFont !important;
+  font-size: 13px !important;
+  margin-bottom: 8px;
+}
+
+.nav_account_user {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  img {
+    margin-right: 10px;
+  }
+}
+
+.nav_account_user_name {
+  p {
+    color: $lightestFont;
+    font-size: 13px;
+  }
+}
+
+.nav_account_info {
+  padding: 14px 20px 18px 20px;
+  box-sizing: border-box;
+  width: 100%;
+  border-top: 1px solid $borderColor;
+  color: $lightestFont;
+  font-size: 13px;
+}
+
 @media only screen and (max-width: 600px) {
   nav {
     justify-content: center;
@@ -716,6 +833,10 @@ nav {
     justify-content: flex-start;
   }
 
+  .newWallet {
+    margin-right: 0;
+  }
+
   .hide {
     border-bottom: 1px solid #E4E4E4 !important;
     height: 68px !important;
@@ -723,6 +844,17 @@ nav {
     -moz-transition: all .5s ease;
     -o-transition: all .5s ease;
     transition: all .5s ease;
+  }
+
+  .nav__userPicture--mobile {
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    // margin: 14px 16px 14px 14px;
+    // margin-left: auto;
+    // cursor: pointer;
+    object-fit: cover;
+    background-color: $defaultProfPic;
   }
 
   .hide #actionButtons {
@@ -733,6 +865,10 @@ nav {
     button {
       color: white;
     }
+  }
+
+  .nav__dropdown__icon--mobileData {
+    filter: grayscale(1) !important;
   }
 
   .nav__data {
@@ -768,6 +904,10 @@ nav {
   }
 
   .showSignInBanner.bannerMargin {
+    margin-top: 64px;
+  }
+
+  .sideDrawer_wrapper .showSignInBanner {
     margin-top: 64px;
   }
 
@@ -808,6 +948,10 @@ nav {
 
   #landing__nav__logo--marginLeft {
     margin-left: 5vw;
+
+    a {
+      margin-right: 0;
+    }
   }
 
   .nav__userPicture {
@@ -833,10 +977,17 @@ nav {
 
     button {
       cursor: pointer;
-      font-size: 14px;
+      font-size: 12px;
       border: none;
       padding: 2vh 5vw;
     }
+  }
+
+  .nav_dropdown_icon_wrapper {
+    width: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .nav__dropdown {
@@ -844,23 +995,30 @@ nav {
     position: fixed;
     top: 0;
     left: 0;
-    width: 60%;
+    width: 80%;
     max-width: 400px;
     height: 100vh;
-    padding: 1em 0 0 0;
     border-radius: 0;
     border-right: 1px solid #E4E4E4;
     border-left: none;
     border-top: none;
     border-bottom: none;
     box-shadow: none;
+    box-sizing: border-box;
     z-index: 99999;
     transform: translateX(-100%);
     transition: transform .3s ease-out;
 
     li {
-      line-height: 3.5em;
+      height: 5.2em;
       width: 100%;
+      padding-left: 5vw;
+
+      p {
+        font-size: 22px;
+        font-weight: 600;
+        color: $threeBoxBlack !important;
+      }
     }
   }
 
@@ -875,7 +1033,7 @@ nav {
     align-items: center;
     justify-content: center;
     border-radius: 20px;
-    margin: 0 0 30px 10px;
+    margin: 0 0 30px 7vw;
     width: fit-content;
 
     p {
@@ -899,6 +1057,7 @@ nav {
     background: rgba(0, 0, 0, 0.76);
     z-index: 99998;
     transition: all .3s ease-out;
+    box-sizing: border-box;
   }
 
   #mobileNav__signout {
@@ -909,7 +1068,7 @@ nav {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin: 4px 0 25px 6vw;
+    margin: 1.2em 0 25px 7vw;
   }
 
   .nav__activePage {
@@ -935,7 +1094,70 @@ nav {
     display: none !important;
   }
 
-  .landing_nav_apiLink  {
+  .landing_nav_apiLink {
     margin-right: 0;
+  }
+
+  .sideDrawer_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 100%;
+    box-sizing: border-box;
+
+    ul {
+      transition: all .5s ease;
+      width: 100%;
+    }
+  }
+
+  .nav_account {
+    box-sizing: border-box;
+    max-width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    background-color: $backgroundHue;
+  }
+
+  .nav_account_top {
+    max-width: 100%;
+    padding: 14px 6vw 18px 6vw;
+    box-sizing: border-box;
+  }
+
+  .nav_account_top_description {
+    color: $lightestFont !important;
+    font-size: 13px !important;
+    margin-bottom: 8px;
+  }
+
+  .nav_account_user {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    img {
+      margin-right: 10px;
+    }
+  }
+
+  .nav_account_user_name {
+    p {
+      color: $lightestFont;
+      font-size: 13px;
+    }
+  }
+
+  .nav_account_info {
+    padding: 14px 6vw 18px 6vw;
+    box-sizing: border-box;
+    width: 100%;
+    border-top: 1px solid $borderColor;
+    color: $lightestFont;
+    font-size: 13px;
   }
 }

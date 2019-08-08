@@ -3,38 +3,41 @@ const userStateReducer = (state = {}, action) => {
     case 'INITIAL_USER_CHECK_WEB3':
       return {
         ...state,
-        hasWeb3: action.hasWeb3,
-          showDownloadBanner: action.showDownloadBanner,
-          currentWallet: action.currentWallet,
+        currentWallet: action.currentWallet,
       };
 
     case 'USER_CHECK_WEB3':
       return {
         ...state,
-        hasWeb3: action.hasWeb3,
-          showDownloadBanner: action.showDownloadBanner,
+        currentWallet: action.currentWallet,
+          isMobile: action.isMobile,
+      };
+
+    case 'USER_WEB3CONNECT':
+      return {
+        ...state,
+        web3Connect: action.web3Connect,
+      };
+
+    case 'USER_UPDATE_WEB3':
+      return {
+        ...state,
+        web3Obj: action.web3Obj,
           currentWallet: action.currentWallet,
+          currentWalletLogo: action.currentWalletLogo,
       };
 
     case 'USER_ADDRESSES_UPDATE':
       return {
         ...state,
-        isSignedIntoWallet: action.isSignedIntoWallet,
-          isLoggedIn: action.isLoggedIn,
-          accountAddress: action.accountAddress,
+        isLoggedIn: action.isLoggedIn,
           currentAddress: action.currentAddress,
+          usingInjectedAddress: action.usingInjectedAddress,
       };
 
     case 'USER_WEB3_STATUS_UPDATE':
       return {
         ...state,
-        hasWeb3: action.hasWeb3,
-      };
-
-    case 'USER_WALLET_LOGIN_UPDATE':
-      return {
-        ...state,
-        isSignedIntoWallet: action.isSignedIntoWallet,
       };
 
     case 'USER_NETWORK_UPDATE':
@@ -51,18 +54,20 @@ const userStateReducer = (state = {}, action) => {
         isLoggedIn: action.isLoggedIn,
       };
 
-    case 'USER_SIGN_OUT':
-      return {
-        ...state,
-        isLoggedIn: action.isLoggedIn,
-          hasSignedOut: action.hasSignedOut,
-      };
-
     case 'USER_UPDATE_ADDRESS':
       return {
         ...state,
         currentAddress: action.currentAddress,
       };
+
+    case 'USER_HANDLE_POLLING':
+      return {
+        ...state,
+        shouldPoll: action.shouldPoll,
+      };
+
+    case 'USER_SIGN_OUT':
+      return {};
 
     default:
       return state;

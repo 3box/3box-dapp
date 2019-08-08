@@ -112,7 +112,7 @@ const myDataReducer = (state = {}, action) => {
       return {
         ...state,
         collectiblesFavorites: action.collectiblesFavorites,
-        collectiblesFavoritesToRender: action.collectiblesFavoritesToRender,
+          collectiblesFavoritesToRender: action.collectiblesFavoritesToRender,
       };
 
     case 'MY_STATUS_UPDATE':
@@ -145,32 +145,29 @@ const myDataReducer = (state = {}, action) => {
         collection: action.collection,
       };
 
-    case 'MY_DATA_SIGNOUT':
+    case 'MY_FOLLOWING_UPDATE':
       return {
         ...state,
-        birthday: '',
-        name: '',
-        github: '',
-        image: [],
-        email: '',
-        feedByAddress: [],
-        box: {},
-        description: '',
-        location: '',
-        website: '',
-        employer: '',
-        job: '',
-        school: '',
-        degree: '',
-        major: '',
-        year: '',
-        coverPhoto: [],
-        emoji: '',
-        status: '',
-        verifiedGithub: '',
-        verifiedTwitter: '',
-        verifiedEmail: '',
+        following: action.following,
+          followingList: action.followingList,
+          followingThread: action.followingThread,
       };
+
+    case 'MY_FOLLOWING_LIST_UPDATE':
+      return {
+        ...state,
+        following: action.following,
+          followingList: action.followingList,
+      };
+
+    case 'MY_FOLLOWING_THREAD_UPDATE':
+      return {
+        ...state,
+        followingThread: action.followingThread,
+      };
+
+    case 'MY_DATA_SIGNOUT':
+      return {};
 
     default:
       return state;

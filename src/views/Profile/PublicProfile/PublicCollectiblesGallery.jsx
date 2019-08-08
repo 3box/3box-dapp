@@ -34,12 +34,13 @@ const PublicCollectiblesGallery = ({
             padded={selectedCollectible.asset_contract &&
               selectedCollectible.asset_contract.display_data &&
               selectedCollectible.asset_contract.display_data.card_display_style}
-          />)}
+          />
+        )}
         {showCollectiblesModal && (
           <ModalBackground />
         )}
-
       </ReactCSSTransitionGroup>
+
       {
         otherCollectiblesFavorites.length > 0
         && (
@@ -68,7 +69,8 @@ const PublicCollectiblesGallery = ({
                   : <EmptyGalleryCollectiblesTile />}
               </div>
             </div>
-          </div>)
+          </div>
+        )
       }
     </React.Fragment>
   );

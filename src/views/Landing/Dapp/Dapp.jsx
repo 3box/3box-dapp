@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
+import Footer from '../components/Footer';
 import ThreeBoxCloud from '../../../assets/3BoxCloud.svg';
+import TriangleWhite from '../../../assets/TriangleWhite.svg';
 import DappScreensBG from '../../../assets/DappScreensBG.svg';
 import DappScreens from '../../../assets/DappScreens.png';
 import NewProfileCard from '../../../assets/NewProfileCard.png';
@@ -13,7 +15,6 @@ import StorageSmall from '../../../assets/Storage.svg';
 import DiscordButton from '../components/DiscordButton';
 import '../../styles/NewLanding.css';
 import '../../../components/styles/Nav.css';
-import Footer from '../components/Footer';
 
 class Dapp extends Component {
   constructor(props) {
@@ -61,11 +62,15 @@ class Dapp extends Component {
             </div>
             <div className="main_profileCard">
               <img src={NewProfileCard} alt="Profile card" className="main_profileCard_card" />
-              <button type="button" onClick={handleSignInUp} className="main_profileCard_card_login">
+              <button type="button" onClick={() => handleSignInUp(false)} className="main_profileCard_card_login">
                 Log In
               </button>
-              <button type="button" onClick={handleSignInUp} className="textButton">
-                Create profile
+              <button
+                type="button"
+                onClick={() => handleSignInUp(true)}
+                className="textButton newWalletDapp"
+              >
+                Choose wallet
               </button>
             </div>
           </div>
