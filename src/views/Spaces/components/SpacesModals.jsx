@@ -10,7 +10,7 @@ import Link from '../../../assets/Link.svg';
 import '../../../components/styles/Modal.css';
 
 export const SpaceOpenedModal = ({ spaceName }) => (
-  <div className="modal__container--copied modal--effect">
+  <div className="modal__container--copied">
     <div className="modal--sync spaceOpenedModal--mobile">
       <div className="modal--space__copy__wrapper">
         <img src={Space} className="modal__space__icon" alt="Copied" />
@@ -37,7 +37,7 @@ export const ViewSpaceDataItemModal = ({
   privacy,
   lastUpdated,
 }) => (
-    <div className="modal__container modal--effect spaceModal__container">
+    <div className="modal__container spaceModal__container">
       <div className="spaceModalWrapper">
         <div className="modal spaceModal">
           <button onClick={() => viewSpaceItem(false, false, false)} type="button" className="tertiaryButton spaceModal__close">
@@ -469,7 +469,7 @@ export const DeleteSpaceItemModal = ({
   openSpace,
   deleteItem,
 }) => (
-    <div className="modal__container modal--effect">
+    <div className="modal__container">
       <div className="modal spaceDeleteModal">
         <button
           onClick={() => viewSpaceItem(false, false, false)}
@@ -615,7 +615,7 @@ DeleteSpaceItemModal.propTypes = {
 };
 
 export const OpenSpaceModal = ({ viewSpaceItem, spaceItem }) => (
-  <div className="modal__container modal--effect">
+  <div className="modal__container">
     <div className="modal spaceDeleteModal">
       <button onClick={() => viewSpaceItem(false, false, false)} type="button" className="tertiaryButton spaceModal__close">
         Close

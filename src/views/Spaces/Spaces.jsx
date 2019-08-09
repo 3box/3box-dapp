@@ -450,7 +450,7 @@ class Spaces extends Component {
               && spaceItem.dataKey.substring(0, 7) === 'thread-'
               && spaceItem.rowType !== 'Image')
               && (
-                <div className="modal__container modal--effect list__container">
+                <div className="modal__container list__container">
                   <div className="list__scrollable-wrapper">
                     {(() => {
                       let count = 0;
@@ -501,7 +501,7 @@ class Spaces extends Component {
               && spaceItem.dataKey.substring(0, 7) !== 'thread-'
               && spaceItem.rowType !== 'Image')
               && (
-                <div className="modal__container modal--effect list__container">
+                <div className="modal__container list__container">
                   <div className="list__scrollable-wrapper">
                     {spaceItem.dataValue.map((item, i) => (
                       <ListSpaceItemModal

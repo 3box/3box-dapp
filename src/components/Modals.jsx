@@ -33,7 +33,7 @@ export const SwitchedNetworksModal = ({
   currentNetwork,
   handleSwitchedNetworkModal,
 }) => (
-    <div className="modal__container modal--effect">
+    <div className="modal__container">
       <div className="modal">
         <img src={Switched} alt="Partners background" id="modal__switchedNetworks" />
 
@@ -73,7 +73,7 @@ export const LoggedOutModal = ({
   handleLoggedOutModal,
   handleSignOut,
 }) => (
-    <div className="modal__container modal--effect">
+    <div className="modal__container">
       <div className="modal">
         <img src={LogOut} alt="Partners background" id="modal__switchedNetworks" />
         <div>
@@ -108,7 +108,7 @@ export const CollectiblesModal = ({
   contain,
 }) => (
     <div>
-      <div className="modal__container modal--effect collectibles__modal">
+      <div className="modal__container collectibles__modal">
         <div className="collectiblesWrapper">
           <button onClick={() => handleCollectiblesModal()} type="button" className="tertiaryButton collectiblesClose">
             Close
@@ -218,7 +218,7 @@ CollectiblesModal.defaultProps = {
 export const SwitchedAddressModal = ({
   handleSwitchedAddressModal, handleSignOut, prevAddress,
 }) => (
-    <div className="modal__container modal--effect">
+    <div className="modal__container">
       <div className="modal standardModal">
         <img src={Switched} alt="Switched wallet" id="modal__switchedNetworks" />
 
@@ -260,7 +260,7 @@ SwitchedAddressModal.defaultProps = {
 export const ProvideConsentModal = ({
   handleConsentModal,
 }) => (
-    <div className="modal__container modal--effect">
+    <div className="modal__container">
       <div className="modal standardModal">
         <img src={Wallet} className="modal_wallet" alt="Partners background" />
         <div id="modal__copy__card">
@@ -282,7 +282,7 @@ ProvideConsentModal.propTypes = {
 export const UnsupportedBrowserModal = ({
   handleUnsupportedBrowserModal,
 }) => (
-    <div className="modal__container modal--effect">
+    <div className="modal__container">
       <div className="modal standardModal">
         <img src={Browser} className="modal_wallet" alt="Browser" />
         <div id="modal__copy__card">
@@ -301,7 +301,7 @@ UnsupportedBrowserModal.propTypes = {
 export const ProvideAccessModal = ({
   handleAccessModal, directLogin,
 }) => (
-    <div className="modal__container modal--effect">
+    <div className="modal__container">
       <div className="modal standardModal">
         <img src={Wallet} className="modal_wallet" alt="Partners background" />
         <div id="modal__copy__card">
@@ -340,7 +340,7 @@ export const GithubVerificationModal = ({
   copySuccessful,
 }) => (
     <div>
-      <div className="modal__container modal--effect">
+      <div className="modal__container">
         <div className="modal githubModal">
 
           <div className="modal__github__description">
@@ -475,7 +475,7 @@ export const TwitterVerificationModal = ({
   resetVerification,
 }) => (
     <div>
-      <div className="modal__container modal--effect">
+      <div className="modal__container">
         <div className="modal githubModal">
 
           <div className="modal__github__description">
@@ -611,7 +611,7 @@ export const EmailVerificationModal = ({
   emailCode,
 }) => (
     <div>
-      <div className="modal__container modal--effect">
+      <div className="modal__container">
         <div className="modal githubModal">
 
           <div className="modal__github__description">
@@ -748,7 +748,7 @@ export const AccessDeniedModal = ({
   handleDeniedAccessModal, isMobile,
 }) => (
     <div>
-      <div className="modal__container modal--effect">
+      <div className="modal__container">
         <div className="modal standardModal">
           <img src={Wallet} className="modal_wallet" alt="Partners background" />
 
@@ -772,7 +772,7 @@ AccessDeniedModal.propTypes = {
 };
 
 export const LoadingThreeBoxProfileModal = () => (
-  <div className="modal__container modal--effect">
+  <div className="modal__container">
     <div className="modal standardModal">
       <div className="modal__threebox__mollie">
         <img src={Mollie} alt="Mollie the Narwhal" className="modal__loading__mollie" />
@@ -784,7 +784,7 @@ export const LoadingThreeBoxProfileModal = () => (
 );
 
 export const FileSizeModal = ({ closeFileSizeModal }) => (
-  <div className="modal__container modal--effect">
+  <div className="modal__container">
     <div className="modal">
 
       <div>
@@ -802,7 +802,7 @@ FileSizeModal.propTypes = {
 
 
 export const SyncingModal = () => (
-  <div className="modal__container--sync modal--effect">
+  <div className="modal__container--sync">
     <div className="modal--sync ">
       <div className="modal--sync__wrapper">
         <img src={LoadingWhite} alt="Loading" id="modal__loadingGraphic" />
@@ -820,7 +820,7 @@ export const SyncingModal = () => (
 );
 
 export const PublicProfileLoading = () => (
-  <div className="modal__container--sync modal--effect">
+  <div className="modal__container--sync">
     <div className="modal--sync ">
       <div className="modal--sync__wrapper">
         <img src={LoadingWhite} alt="Loading" id="modal__loadingGraphic" />
@@ -899,7 +899,7 @@ export const ErrorModal = ({ closeErrorModal, error }) => {
   errorString = errorString || 'There was an error logging in.';
 
   return (
-    <div className="modal__container modal--effect">
+    <div className="modal__container">
       <div className="modal standardModal">
         {(isMetaMaskSignError || isMozillaError)
           ? <img src={Wallet} alt="Wallet signature required" />
@@ -939,7 +939,7 @@ ErrorModal.defaultProps = {
 
 export const MustConsentModal = ({ closeErrorModal }) => (
   <div>
-    <div className="modal__container modal--effect">
+    <div className="modal__container">
       <div className="modal standardModal">
         <img src={Wallet} className="modal_wallet" alt="Partners background" />
         <div id="modal__copy__card">
@@ -959,7 +959,7 @@ MustConsentModal.propTypes = {
 
 export const SignInToThreeBox = ({ handleSignInModal }) => (
   <div>
-    <div className="modal__container modal--effect">
+    <div className="modal__container">
       <div className="modal">
         <div id="logo" className="modal__loading3Box">
           <img src={ThreeBoxLogoBlue} alt="3Box Logo" />
@@ -984,7 +984,7 @@ SignInToThreeBox.propTypes = {
 
 export const OnBoardingModalDesktop = ({ handleOnboardingModal, showOne, showTwo }) => (
   <div>
-    <div className="modal__onBoardingModal__container modal--effect">
+    <div className="modal__onBoardingModal__container">
       <div className={`${showOne ? 'showModalImage' : ''} modal__onBoardingModal`}>
         <img src={OnBoardingModalGraphic} alt="Partners background" id="modal__onBoardingModal__image" />
         <button onClick={() => handleOnboardingModal(false)} type="button" id="modal__onBoardingModal__button">Get started</button>
@@ -1022,7 +1022,7 @@ export const OnBoardingModalMobile = ({
   handleOnboardingModal,
 }) => (
     <div>
-      <div className="modal__onBoardingModal__container modal--effect">
+      <div className="modal__onBoardingModal__container">
 
         <div className={`${showOne ? 'showModalImage' : ''} modal__onBoardingModal`}>
           <img src={OnBoardingModalGraphic} alt="Partners background" className={`${showOne ? 'fadeImage' : ''} modal__onBoardingModal__image`} />
@@ -1084,7 +1084,7 @@ OnBoardingModalMobile.propTypes = {
 
 export const FollowingListModal = ({
   otherFollowing, handleContactsModal, otherName, following, otherProfileAddress }) => (
-    <div className="modal__container modal--effect followingModal-zindex">
+    <div className="modal__container followingModal-zindex">
       <div className="modal followingModal">
         <h2>{`${otherName || `${otherProfileAddress.substr(0, 6)}...${otherProfileAddress.substr(-4)}`} is following`}</h2>
 
@@ -1152,7 +1152,7 @@ FollowingListModal.defaultProps = {
 };
 
 export const FollowingIsPublicModal = ({ handleFollowingPublicModal, saveFollowing, otherAddressToFollow }) => (
-  <div className="modal__container modal--effect">
+  <div className="modal__container">
     <div className="modal followingWarning">
       <img src={ContactsIcon} alt="Following" className="followingWarning_icon" />
 

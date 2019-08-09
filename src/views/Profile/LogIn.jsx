@@ -40,7 +40,7 @@ class LogIn extends Component {
     const { isDirectLogin, directLoginWallet } = this.state;
     if (isDirectLogin) {
       return (
-        <div className="modal__container modal--effect">
+        <div className="modal__container">
           <div className="modal standardModal">
             <img src={ThreeBoxLogoBlack} alt="Loading" className="login_3box" />
             <p className="login_text">

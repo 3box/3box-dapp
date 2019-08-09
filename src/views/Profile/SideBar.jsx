@@ -168,7 +168,7 @@ const SideBar = ({
         transitionLeaveTimeout={300}
       >
         {(copySuccessful && document.queryCommandSupported('copy')) && (
-          <div className="modal__container--copied modal--effect">
+          <div className="modal__container--copied">
             <div className="modal--sync">
               <div className="modal--sync__copy__wrapper">
                 <img src={Copy} className="modal__copy__ico" alt="Copied" />
