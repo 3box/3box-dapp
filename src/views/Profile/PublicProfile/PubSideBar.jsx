@@ -54,7 +54,8 @@ const PubSideBar = ({
               rel="noopener noreferrer"
             >
               {otherWebsite}
-            </a>)}
+            </a>
+          )}
         </div>
 
         <div className="public__about__field" title="Github">
