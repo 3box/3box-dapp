@@ -50,8 +50,8 @@ const {
   getVerifiedPublicTwitter,
   getVerifiedPrivateEmail,
   getActivity,
-  // getMyFollowing,
-  // getPublicFollowing,
+  getMyFollowing,
+  getPublicFollowing,
   saveFollowing,
 } = actions.profile;
 
@@ -112,7 +112,7 @@ class App extends Component {
         this.directSignIn(queryParams.wallet);
       } else if (onProfilePage) { // Lands on profile page
         const userEth = window.localStorage.getItem('userEthAddress');
-        // if (userEth) this.props.getPublicFollowing(userEth);
+        if (userEth) this.props.getPublicFollowing(userEth);
         if (isProtectedRoute) history.push(`/${firstParam}`);
       }
     } catch (err) {
@@ -170,7 +170,7 @@ class App extends Component {
       this.props.getMyProfileValue('public', 'emoji'); // eslint-disable-line
       this.props.getMyProfileValue('private', 'birthday'); // eslint-disable-line
 
-      // this.props.getMyFollowing(); // eslint-disable-line
+      this.props.getMyFollowing(); // eslint-disable-line
 
       await this.props.getCollectibles(currentAddress); // eslint-disable-line
       await this.props.convert3BoxToSpaces(); // eslint-disable-line
@@ -366,8 +366,8 @@ App.propTypes = {
   injectWeb3: PropTypes.func.isRequired,
   getMyProfileValue: PropTypes.func.isRequired,
   checkMobileWeb3: PropTypes.func.isRequired,
-  // getMyFollowing: PropTypes.func.isRequired,
-  // getPublicFollowing: PropTypes.func.isRequired,
+  getMyFollowing: PropTypes.func.isRequired,
+  getPublicFollowing: PropTypes.func.isRequired,
   getMyDID: PropTypes.func.isRequired,
   getCollectibles: PropTypes.func.isRequired,
   getMySpacesData: PropTypes.func.isRequired,
@@ -513,7 +513,7 @@ export default withRouter(connect(mapState,
     getVerifiedPublicTwitter,
     getVerifiedPrivateEmail,
     getActivity,
-    // getMyFollowing,
+    getMyFollowing,
     handleSignInModal,
     handleSwitchedNetworkModal,
     handleAccessModal,
@@ -525,7 +525,7 @@ export default withRouter(connect(mapState,
     handleOnboardingModal,
     handleFollowingPublicModal,
     closeErrorModal,
-    // getPublicFollowing,
+    getPublicFollowing,
     saveFollowing,
     handleContactsModal,
     clearReduxState,
