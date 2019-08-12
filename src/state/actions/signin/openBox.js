@@ -121,10 +121,6 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
           isLoggedIn: true,
         });
         dispatch({
-          type: 'MY_BOX_UPDATE',
-          box,
-        });
-        dispatch({
           type: 'UI_3BOX_FETCHING',
           isFetchingThreeBox: false,
         });

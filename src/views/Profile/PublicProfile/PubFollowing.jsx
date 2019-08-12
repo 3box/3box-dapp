@@ -51,11 +51,12 @@ const PubFollowing = (
       {(otherMutualFollowing.length > 0 && !showSignInBanner && !isMe) && (
         <div className="public_contacts_mutual">
           <p>
-            {`${otherMutualFollowing.length} mutual following including 
+            {`${otherMutualFollowing.length} mutual including 
           ${otherMutualFollowing[0] ? `${otherMutualFollowing[0][0].name}` : ''}
           ${otherMutualFollowing[1] ? `, ${otherMutualFollowing[1][0].name}` : ''} 
           ${otherMutualFollowing[2] ? `, ${otherMutualFollowing[2][0].name}` : ''} 
-          ${otherMutualFollowing[3] ? `, ${otherMutualFollowing[3][0].name}` : ''}...`}
+          ${otherMutualFollowing[3] ? `, ${otherMutualFollowing[3][0].name}` : ''}
+          ${otherMutualFollowing.length > 3 ? '...' : ''}`}
           </p>
         </div>)}
 

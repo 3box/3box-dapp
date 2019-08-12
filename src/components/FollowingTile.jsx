@@ -4,14 +4,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ProfileHover from 'profile-hover';
 
-import actions from '../state/actions';
 import '../views/Profile/styles/Profile.css';
 import FollowButton from '../views/Profile/PublicProfile/FollowButton';
 import DefaultProfile from '../assets/DefaultProfile.svg';
-
-const {
-  saveFollowing,
-} = actions.profile;
 
 class FollowingTile extends Component {
   constructor(props) {
@@ -105,6 +100,4 @@ function mapState(state) {
   };
 }
 
-export default connect(mapState, {
-  saveFollowing,
-})(FollowingTile);
+export default connect(mapState)(FollowingTile);

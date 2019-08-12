@@ -73,7 +73,6 @@ class FollowButton extends Component {
       this.props.getMyProfileValue('public', 'emoji');
       this.props.getMyProfileValue('private', 'birthday');
 
-      // await this.props.getMyFollowing();
       await this.props.getCollectibles(currentAddress);
       await this.props.convert3BoxToSpaces();
       await this.props.getMySpacesData(currentAddress);

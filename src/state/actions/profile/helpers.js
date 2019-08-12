@@ -64,7 +64,6 @@ export const getFollowingThreadAndPosts = async (myAddress) => {
       isLoadingMyFollowing: true,
     });
 
-    // const rootstore = await store.getState().myData.box._rootStore.iterator({limit:-1}).collect().map(e => e.payload.value);
     const followingSpace = await store.getState().myData.box.openSpace(followingSpaceName);
     const opts = {
       members: true,
