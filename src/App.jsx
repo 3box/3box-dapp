@@ -392,6 +392,7 @@ App.propTypes = {
 
   showDifferentNetworkModal: PropTypes.bool,
   showFollowingPublicModal: PropTypes.bool,
+  showUnsupportedBrowser: PropTypes.bool,
   onSyncFinished: PropTypes.bool,
   hasSignedOut: PropTypes.bool,
   isSyncing: PropTypes.bool,
@@ -430,6 +431,7 @@ App.defaultProps = {
   fixBody: false,
   handleSignOut,
   accessDeniedModal: false,
+  showUnsupportedBrowser: false,
   onSyncFinished: false,
   hasSignedOut: false,
   onOtherProfilePage: false,
@@ -480,8 +482,9 @@ const mapState = state => ({
   showUnsupportedBrowser: state.uiState.showUnsupportedBrowser,
   fixBody: state.uiState.fixBody,
 
-  onSyncFinished: state.userState.onSyncFinished,
-  isSyncing: state.userState.isSyncing,
+  onSyncFinished: state.uiState.onSyncFinished,
+  isSyncing: state.uiState.isSyncing,
+
   hasSignedOut: state.userState.hasSignedOut,
   prevNetwork: state.userState.prevNetwork,
   currentNetwork: state.userState.currentNetwork,
