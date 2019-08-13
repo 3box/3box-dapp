@@ -128,7 +128,6 @@ class App extends Component {
     const isNewPath = nextProps.location.pathname !== location.pathname;
 
     if (queryParams.wallet && isNewPath) this.directSignIn(queryParams.wallet, nextProps);
-
     if (onSyncDoneToTrigger) { // get profile data again only when onSyncDone
       store.dispatch({ // end onSyncDone animation
         type: 'UI_APP_SYNC',
@@ -479,9 +478,9 @@ const mapState = state => ({
   showContactsModal: state.uiState.showContactsModal,
   showUnsupportedBrowser: state.uiState.showUnsupportedBrowser,
   fixBody: state.uiState.fixBody,
+  onSyncFinished: state.uiState.onSyncFinished,
+  isSyncing: state.uiState.isSyncing,
 
-  onSyncFinished: state.userState.onSyncFinished,
-  isSyncing: state.userState.isSyncing,
   hasSignedOut: state.userState.hasSignedOut,
   prevNetwork: state.userState.prevNetwork,
   currentNetwork: state.userState.currentNetwork,

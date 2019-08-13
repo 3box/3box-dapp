@@ -120,24 +120,20 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
         box.public.set('memberSince', 'Alpha');
       }
 
-      console.log('inonsyncdone5');
-      if ((!privateActivity || !privateActivity.length) && (!publicActivity || !publicActivity.length)) {
-        dispatch({
-          type: 'USER_LOGIN_UPDATE',
-          isLoggedIn: true,
-        });
-        dispatch({
-          type: 'UI_3BOX_FETCHING',
-          isFetchingThreeBox: false,
-        });
-
-        // call data with new box object from onSyncDone
-        dispatch({
-          type: 'UI_APP_SYNC',
-          onSyncFinished: true,
-          isSyncing: true,
-        });
-      }
+      console.log('inonsyncdone5', privateActivity || publicActivity);
+      dispatch({
+        type: 'USER_LOGIN_UPDATE',
+        isLoggedIn: true,
+      });
+      dispatch({
+        type: 'UI_3BOX_FETCHING',
+        isFetchingThreeBox: false,
+      });
+      dispatch({
+        type: 'UI_APP_SYNC',
+        onSyncFinished: true,
+        isSyncing: true,
+      });
     });
   } catch (err) {
     history.push(routes.LANDING);
