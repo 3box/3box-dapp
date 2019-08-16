@@ -481,7 +481,6 @@ const mapState = state => ({
   showContactsModal: state.uiState.showContactsModal,
   showUnsupportedBrowser: state.uiState.showUnsupportedBrowser,
   fixBody: state.uiState.fixBody,
-
   onSyncFinished: state.uiState.onSyncFinished,
   isSyncing: state.uiState.isSyncing,
 
