@@ -14,7 +14,7 @@
     "detect-browser": "^4.6.0",
     "emoji-mart": "^2.9.1",
     "eslint": "^6.0.0",
-    "eth-contract-metadata": "^1.9.0",
+    "eth-contract-metadata": "^1.9.3",
     "ethereum-blockies-base64": "^1.0.2",
     "ethereumjs-util": "^6.0.0",
     "event-stream": "^4.0.1",
