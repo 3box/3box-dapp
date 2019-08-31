@@ -25,7 +25,7 @@
     "nacl-did": "^0.4.0",
     "profile-hover": "^1.0.2",
     "prop-types": "^15.6.1",
-    "query-string": "^6.8.1",
+    "query-string": "^6.8.3",
     "react": "^16.8.6",
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.8.6",
