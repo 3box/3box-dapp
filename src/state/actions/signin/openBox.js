@@ -90,7 +90,7 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
       } catch (error) {
         console.error(error);
       }
-      
+
       try {
         privateActivity = box.private.log || [];
       } catch (error) {
@@ -115,27 +115,19 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
         box.public.set('memberSince', 'Alpha');
       }
 
-      if ((!privateActivity || !privateActivity.length) && (!publicActivity || !publicActivity.length)) {
-        dispatch({
-          type: 'USER_LOGIN_UPDATE',
-          isLoggedIn: true,
-        });
-        dispatch({
-          type: 'MY_BOX_UPDATE',
-          box,
-        });
-        dispatch({
-          type: 'UI_3BOX_FETCHING',
-          isFetchingThreeBox: false,
-        });
-
-        // call data with new box object from onSyncDone
-        dispatch({
-          type: 'UI_APP_SYNC',
-          onSyncFinished: true,
-          isSyncing: true,
-        });
-      }
+      dispatch({
+        type: 'USER_LOGIN_UPDATE',
+        isLoggedIn: true,
+      });
+      dispatch({
+        type: 'UI_3BOX_FETCHING',
+        isFetchingThreeBox: false,
+      });
+      dispatch({
+        type: 'UI_APP_SYNC',
+        onSyncFinished: true,
+        isSyncing: true,
+      });
     });
   } catch (err) {
     history.push(routes.LANDING);

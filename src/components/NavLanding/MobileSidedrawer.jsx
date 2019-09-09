@@ -40,7 +40,7 @@ const MobileSidedrawer = props => (
           </li>
         </Link>
 
-        <a href="https://github.com/3box/3box" target="_blank" rel="noopener noreferrer">
+        <a href="https://docs.3box.io" target="_blank" rel="noopener noreferrer">
           <li>
             <p>
               Docs
