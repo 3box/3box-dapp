@@ -7,6 +7,7 @@ import * as routes from '../../utils/routes';
 import Foam from '../../assets/FOAM.png';
 import DAOstack from '../../assets/DAOstackPartner.png';
 import NiftyFootball from '../../assets/NiftyFootball.png';
+import Zerion from '../../assets/Zerion.png';
 import Totem from '../../assets/Totem.png';
 import Aragon from '../../assets/aragon_icon.png';
 import MolochDAO from '../../assets/MolochDAO.png';
@@ -115,6 +116,27 @@ class Partners extends Component {
                     <div className="partners_tile_name">
                       <p className="partners_tile_name_text">
                         Totem
+                      </p>
+                    </div>
+                    <div className="partners_tile_whitebg" />
+                    <div className="partners_tile_darkbg" />
+                  </a>
+                  <a
+                    className="partners_tile"
+                    href="https://zerion.io"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <div className="partners_tile_image">
+                      <img src={Zerion} alt="3Box Partner" />
+                      <div className="partners_tile_image_text">
+                        <p>Visit Project</p>
+                        <p className="arrow">&rarr;</p>
+                      </div>
+                    </div>
+                    <div className="partners_tile_name">
+                      <p className="partners_tile_name_text">
+                        Zerion
                       </p>
                     </div>
                     <div className="partners_tile_whitebg" />
