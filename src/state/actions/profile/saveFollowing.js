@@ -29,7 +29,8 @@ const saveFollowing = (otherProfileAddress, fromWarningModal) => async (dispatch
     if (isFollowing || isMe) return;
 
     if (!followingThread) await getFollowingThreadAndPosts(currentAddress);
-
+    console.log('following', !store.getState().myData.following)
+    console.log('length', store.getState().myData.following.length === 0)
     // if no followers, warn that following is public
     if ((!store.getState().myData.following || store.getState().myData.following.length === 0) && !fromWarningModal) {
       dispatch({
