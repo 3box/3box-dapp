@@ -502,22 +502,6 @@
   }
 }
 
-.unfollowButton {
-  padding: 15px 20px;
-}
-
-.unfollowButton img {
-  width: 18px;
-  margin-right: 10px;
-  margin-left: 0;
-}
-
-.followButton img {
-  width: 18px;
-  margin-right: 10px;
-  margin-left: 0;
-}
-
 #profile__page {
   height: calc(100% - 133px);
 }
@@ -688,9 +672,19 @@
 .followActionButton {
   width: 108px;
   min-height: 50px;
+  transition: none;
 
   img {
     width: 18px !important;
+    margin-left: 0;
+  }
+}
+
+.public_contacts_add {
+  .followActionButton {
+    img {
+      margin-right: 10px;
+    }
   }
 }
 

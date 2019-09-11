@@ -9,6 +9,7 @@ import {
 const getMyFollowing = () => async (/* dispatch */) => {
   try {
     const myAddress = store.getState().userState.currentAddress;
+    console.log('ingetmyfollowing')
     await getFollowingThreadAndPosts(myAddress);
   } catch (error) {
     console.log(error);

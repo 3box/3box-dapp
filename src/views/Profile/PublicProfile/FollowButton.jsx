@@ -83,6 +83,16 @@ class FollowButton extends Component {
     }
   }
 
+  // componentWillReceiveProps(nextProps) {
+  //   const { isFollowing, handleTileLoading, fromContactTile, isFollowFromProfileLoading } = this.props;
+  //   if (isFollowing !== nextProps.isFollowing && fromContactTile) {
+  //     console.log('followingFlipped')
+  //     setTimeout(() => {
+  //       handleTileLoading();
+  //     }, 500);
+  //   }
+  // }
+
   handleShowHover = (showHoverText) => {
     this.setState({ showHoverText });
   }
@@ -127,6 +137,7 @@ class FollowButton extends Component {
       type: whichReduxAction,
       [whichFollowButton]: false,
     });
+    if (deleteOrSave === 'saveFollowing') this.setState({ showHoverText: 'Following' })
     if (fromContactTile) handleTileLoading();
   }
 
@@ -138,13 +149,15 @@ class FollowButton extends Component {
       isLoading,
     } = this.props;
 
+    console.log('isFollowing', isFollowing)
+
     const { showHoverText } = this.state;
 
     if (isFollowing) {
       return (
         <button
           type="button"
-          className="outlineButton unfollowButton followActionButton"
+          className="unfollowButton followActionButton"
           onClick={this.handleFollowing}
           disabled={isFollowFromProfileLoading || isLoading}
           onMouseEnter={() => this.handleShowHover('Unfollow')}
@@ -160,7 +173,7 @@ class FollowButton extends Component {
     return (
       <button
         type="button"
-        className="followButton followActionButton"
+        className="followButton followActionButton outlineButton"
         onClick={this.handleFollowing}
         disabled={isFollowFromProfileLoading || isLoading}
       >

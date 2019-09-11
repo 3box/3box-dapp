@@ -139,6 +139,7 @@ class App extends Component {
   }
 
   getMyData = async () => {
+    console.log('ingetmydata')
     const { currentAddress } = this.props;
     store.dispatch({
       type: 'UI_SPACES_LOADING',

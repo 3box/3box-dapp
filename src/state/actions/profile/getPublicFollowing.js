@@ -17,7 +17,7 @@ const getPublicFollowing = address => async (dispatch) => {
 
     // const config = await Box.getConfig(myAddress);
     const followingList = await Box.getThread(followingSpaceName, followingThreadName, myAddress, true);
-
+    console.log('followingListPUBLIC', followingList)
     if (!followingList) return null;
 
     const following = await getFollowingProfiles(followingList);

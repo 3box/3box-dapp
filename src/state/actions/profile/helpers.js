@@ -42,10 +42,11 @@ export const getPosts = async (followingThread) => {
       userInList[user.message.identifier[0].value] = true;
       return true;
     });
-    if (duplicates.length > 0) deleteDuplicate(duplicates, followingThread);
+    // if (duplicates.length > 0) deleteDuplicate(duplicates, followingThread);
 
     const updatedFollowing = await getFollowingProfiles(updatedFollowingList);
-
+    console.log('followingInPost', updatedFollowing)
+    console.log('followingListInPost', updatedFollowingList)
     store.dispatch({
       type: 'MY_FOLLOWING_LIST_UPDATE',
       following: updatedFollowing,
@@ -77,8 +78,9 @@ export const getFollowingThreadAndPosts = async (myAddress) => {
       isLoadingMyFollowing: false,
     });
 
+    await getPosts(followingThread);
+    console.log('hasgottenpost')
     followingThread.onUpdate(() => getPosts(followingThread));
-    getPosts(followingThread);
   } catch (error) {
     console.log('Error getting thread', error);
   }
