@@ -116,7 +116,7 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
           memberSince: memberSinceDate,
         });
         history.push(`/${currentAddress}/${routes.EDIT}`);
-      } else if (!memberSince && (privateActivity.length || publicActivity.length)) {
+      } else if (!memberSince && ((privateActivity && privateActivity.length) || (publicActivity && publicActivity.length))) {
         box.public.set('memberSince', 'Alpha');
       }
 
