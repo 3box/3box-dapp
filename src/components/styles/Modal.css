@@ -1171,6 +1171,8 @@
     margin-top: 60px; }
   .modal__container img {
     width: 100px; }
+  .followingModal {
+    width: 85vw !important; }
   .onClickOutsideCollectibles {
     display: none; }
   .modal__loading__mollie {

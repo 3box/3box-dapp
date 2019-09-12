@@ -30,7 +30,6 @@ export const deleteDuplicate = async (duplicates, followingThread) => {
 export const getPosts = async (followingThread) => {
   try {
     const followingList = await followingThread.getPosts();
-    console.log('followingListttttt', followingList);
     // remove duplicates from interface
     const userInList = {};
     const duplicates = [];
@@ -45,8 +44,6 @@ export const getPosts = async (followingThread) => {
     // if (duplicates.length > 0) deleteDuplicate(duplicates, followingThread);
 
     const updatedFollowing = await getFollowingProfiles(updatedFollowingList);
-    console.log('followingInPost', updatedFollowing)
-    console.log('followingListInPost', updatedFollowingList)
     store.dispatch({
       type: 'MY_FOLLOWING_LIST_UPDATE',
       following: updatedFollowing,
@@ -79,7 +76,6 @@ export const getFollowingThreadAndPosts = async (myAddress) => {
     });
 
     await getPosts(followingThread);
-    console.log('hasgottenpost')
     followingThread.onUpdate(() => getPosts(followingThread));
   } catch (error) {
     console.log('Error getting thread', error);

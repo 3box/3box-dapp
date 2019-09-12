@@ -83,16 +83,6 @@ class FollowButton extends Component {
     }
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   const { isFollowing, handleTileLoading, fromContactTile, isFollowFromProfileLoading } = this.props;
-  //   if (isFollowing !== nextProps.isFollowing && fromContactTile) {
-  //     console.log('followingFlipped')
-  //     setTimeout(() => {
-  //       handleTileLoading();
-  //     }, 500);
-  //   }
-  // }
-
   handleShowHover = (showHoverText) => {
     this.setState({ showHoverText });
   }
@@ -148,8 +138,6 @@ class FollowButton extends Component {
       isFollowFromTileLoading,
       isLoading,
     } = this.props;
-
-    console.log('isFollowing', isFollowing)
 
     const { showHoverText } = this.state;
 

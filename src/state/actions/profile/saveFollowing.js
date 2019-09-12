@@ -21,7 +21,6 @@ const saveFollowing = (otherProfileAddress, fromWarningModal) => async (dispatch
     } = store.getState().myData;
     const {
       currentAddress,
-      // isLoggedIn
     } = store.getState().userState;
 
     const isFollowing = checkFollowing(followingList, otherProfileAddress);
@@ -29,8 +28,7 @@ const saveFollowing = (otherProfileAddress, fromWarningModal) => async (dispatch
     if (isFollowing || isMe) return;
 
     if (!followingThread) await getFollowingThreadAndPosts(currentAddress);
-    console.log('following', !store.getState().myData.following)
-    console.log('length', store.getState().myData.following.length === 0)
+
     // if no followers, warn that following is public
     if ((!store.getState().myData.following || store.getState().myData.following.length === 0) && !fromWarningModal) {
       dispatch({
@@ -49,7 +47,7 @@ const saveFollowing = (otherProfileAddress, fromWarningModal) => async (dispatch
     const profile = await Box.getProfile(otherProfileAddress);
     const contact = formatContact(profile.proof_did, otherProfileAddress);
 
-    const saved = await store.getState().myData.followingThread.post(contact);
+    await store.getState().myData.followingThread.post(contact);
     // `onUpdate` will handle updateing myFollowing
   } catch (error) {
     console.error(error);

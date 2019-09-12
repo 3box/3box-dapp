@@ -81,26 +81,21 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
 
     const memberSince = await box.public.get('memberSince');
 
-    console.log('justbefore');
     box.onSyncDone(() => {
-      console.log('inonsyncdone');
       let publicActivity;
       let privateActivity;
-      console.log('inonsyncdone2');
 
       try {
         publicActivity = box.public.log || [];
       } catch (error) {
         console.error(error);
       }
-      console.log('inonsyncdone3');
 
       try {
         privateActivity = box.private.log || [];
       } catch (error) {
         console.error(error);
       }
-      console.log('inonsyncdone4');
 
       if ((!privateActivity || !privateActivity.length) && (!publicActivity || !publicActivity.length)) {
         dispatch({
@@ -120,7 +115,6 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
         box.public.set('memberSince', 'Alpha');
       }
 
-      console.log('inonsyncdone5', privateActivity || publicActivity);
       dispatch({
         type: 'USER_LOGIN_UPDATE',
         isLoggedIn: true,

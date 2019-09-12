@@ -766,7 +766,7 @@
   .publicProfile__basic--mobile {
     display: flex;
     flex-direction: column;
-    width: 260px;
+    width: 230px;
     margin-top: 50px;
   }
 
@@ -917,8 +917,10 @@
   }
 
   .followActionButton {
-    padding: 7px 10px;
+    padding: 4px 10px;
     font-size: 12px;
+    width: 86px;
+    min-height: 40px;
   }
 
   .empty_contact_tile {
