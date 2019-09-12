@@ -73,7 +73,6 @@ class FollowButton extends Component {
       this.props.getMyProfileValue('public', 'emoji');
       this.props.getMyProfileValue('private', 'birthday');
 
-      // await this.props.getMyFollowing();
       await this.props.getCollectibles(currentAddress);
       await this.props.convert3BoxToSpaces();
       await this.props.getMySpacesData(currentAddress);
@@ -128,6 +127,7 @@ class FollowButton extends Component {
       type: whichReduxAction,
       [whichFollowButton]: false,
     });
+    if (deleteOrSave === 'saveFollowing') this.setState({ showHoverText: 'Following' })
     if (fromContactTile) handleTileLoading();
   }
 
@@ -145,7 +145,7 @@ class FollowButton extends Component {
       return (
         <button
           type="button"
-          className="outlineButton unfollowButton followActionButton"
+          className="unfollowButton followActionButton"
           onClick={this.handleFollowing}
           disabled={isFollowFromProfileLoading || isLoading}
           onMouseEnter={() => this.handleShowHover('Unfollow')}
@@ -161,7 +161,7 @@ class FollowButton extends Component {
     return (
       <button
         type="button"
-        className="followButton followActionButton"
+        className="followButton followActionButton outlineButton"
         onClick={this.handleFollowing}
         disabled={isFollowFromProfileLoading || isLoading}
       >

@@ -48,11 +48,10 @@ class Team extends Component {
       profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0x5c44e8982fa3c3239c6e3c5be2cc6663c7c9387e'))); // oed
       profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0x9acb0539f2ea0c258ac43620dd03ef01f676a69b'))); // zach
       profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0xa8ee0babe72cd9a80ae45dd74cd3eae7a82fd5d1'))); // michael
-      profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0x59B5fbC62519DBF9B7044fd0eCb6442aC16FAe2A'))); // kenzo
+      profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0xbaeBB7d18f8b16B0A970FDa91f1EfA626D67423E'))); // kenzo
 
       const profilePromises = Promise.all(profileCalls);
       const profiles = await profilePromises;
-
       this.setState({
         danny: profiles[0],
         oed: profiles[1],
@@ -170,12 +169,12 @@ class Team extends Component {
 
                   {/* Kenzo */}
                   <ProfileHover
-                    address="0x59B5fbC62519DBF9B7044fd0eCb6442aC16FAe2A"
+                    address="0xbaeBB7d18f8b16B0A970FDa91f1EfA626D67423E"
                     noTheme
                     orientation="right"
                   >
                     <a
-                      href="/0x59B5fbC62519DBF9B7044fd0eCb6442aC16FAe2A"
+                      href="/0xbaeBB7d18f8b16B0A970FDa91f1EfA626D67423E"
                       target="_blank"
                       rel="noopener noreferrer"
                     >

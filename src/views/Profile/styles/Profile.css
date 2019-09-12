@@ -394,7 +394,7 @@
   border-radius: 50%;
   background-color: white;
   margin-left: -22px;
-  border: 2px solid white;
+  border: 2px solid #f5f6f8;
   object-fit: cover; }
 
 .first {
@@ -407,19 +407,6 @@
   width: 100%; }
   .public_contacts_add button {
     width: 100%; }
-
-.unfollowButton {
-  padding: 15px 20px; }
-
-.unfollowButton img {
-  width: 18px;
-  margin-right: 10px;
-  margin-left: 0; }
-
-.followButton img {
-  width: 18px;
-  margin-right: 10px;
-  margin-left: 0; }
 
 #profile__page {
   height: calc(100% - 133px); }
@@ -557,9 +544,14 @@
 
 .followActionButton {
   width: 108px;
-  min-height: 50px; }
+  min-height: 50px;
+  transition: none; }
   .followActionButton img {
-    width: 18px !important; }
+    width: 18px !important;
+    margin-left: 0; }
+
+.public_contacts_add .followActionButton img {
+  margin-right: 10px; }
 
 .loadingProfile {
   position: fixed;
@@ -618,7 +610,7 @@
   .publicProfile__basic--mobile {
     display: flex;
     flex-direction: column;
-    width: 260px;
+    width: 230px;
     margin-top: 50px; }
   #profile__user__name {
     font-size: 1.4em; }
@@ -721,8 +713,10 @@
     min-width: 50px !important;
     min-height: 50px !important; }
   .followActionButton {
-    padding: 7px 10px;
-    font-size: 12px; }
+    padding: 4px 10px;
+    font-size: 12px;
+    width: 86px;
+    min-height: 40px; }
   .empty_contact_tile {
     max-width: 100%;
     min-width: 100%;

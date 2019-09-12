@@ -32,7 +32,6 @@ class LogIn extends Component {
 
   componentWillUnmount() {
     const { web3Connect, web3Obj } = this.props;
-    const { isDirectLogin } = this.state;
     if (!web3Obj.eth) web3Connect.toggleModal();
   }
 

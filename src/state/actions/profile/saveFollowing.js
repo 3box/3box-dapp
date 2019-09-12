@@ -21,7 +21,6 @@ const saveFollowing = (otherProfileAddress, fromWarningModal) => async (dispatch
     } = store.getState().myData;
     const {
       currentAddress,
-      // isLoggedIn
     } = store.getState().userState;
 
     const isFollowing = checkFollowing(followingList, otherProfileAddress);
@@ -48,7 +47,7 @@ const saveFollowing = (otherProfileAddress, fromWarningModal) => async (dispatch
     const profile = await Box.getProfile(otherProfileAddress);
     const contact = formatContact(profile.proof_did, otherProfileAddress);
 
-    const saved = await store.getState().myData.followingThread.post(contact);
+    await store.getState().myData.followingThread.post(contact);
     // `onUpdate` will handle updateing myFollowing
   } catch (error) {
     console.error(error);

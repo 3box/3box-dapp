@@ -31,6 +31,7 @@ class Profile extends Component {
         />
 
         <Nav handleSignInUp={handleSignInUp} />
+
         <div id="profile__page">
           <div id="profile__contents">
             <SideBar />
