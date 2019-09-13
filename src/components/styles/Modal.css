@@ -747,7 +747,8 @@
   grid-template-columns: repeat(1, 100% [col-start]);
   row-gap: 20px;
   min-width: 100%;
-  max-width: 100%; }
+  max-width: 100%;
+  overflow-y: scroll; }
 
 .contactsModal_list_empty {
   width: 100%;
