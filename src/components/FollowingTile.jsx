@@ -35,26 +35,43 @@ class FollowingTile extends Component {
 
     return (
       <div className="contact_tile">
-        {/* <ProfileHover
-          address={address}
-          noTheme
-          orientation="top"
-        > */}
-        <Link
-          to={`/${address}`}
-          onClick={() => { if (fromModal) handleContactsModal(); }}
-        >
-          <div className="contact_tile_info">
-            <img
-              src={(user.image && user.image[0].contentUrl) ? `https://ipfs.infura.io/ipfs/${user.image[0].contentUrl['/']}` : DefaultProfile}
-              className="contact_tile_info_image"
-              alt="profile"
-            />
+        {fromModal ? (
+          <Link
+            to={`/${address}`}
+            onClick={() => { if (fromModal) handleContactsModal(); }}
+          >
+            <div className="contact_tile_info">
+              <img
+                src={(user.image && user.image[0].contentUrl) ? `https://ipfs.infura.io/ipfs/${user.image[0].contentUrl['/']}` : DefaultProfile}
+                className="contact_tile_info_image"
+                alt="profile"
+              />
 
-            <h3>{user.name ? user.name : address}</h3>
-          </div>
-        </Link>
-        {/* </ProfileHover> */}
+              <h3>{user.name ? user.name : address}</h3>
+            </div>
+          </Link>
+        ) : (
+            <ProfileHover
+              address={address}
+              noTheme
+              orientation="top"
+            >
+              <Link
+                to={`/${address}`}
+                onClick={() => { if (fromModal) handleContactsModal(); }}
+              >
+                <div className="contact_tile_info">
+                  <img
+                    src={(user.image && user.image[0].contentUrl) ? `https://ipfs.infura.io/ipfs/${user.image[0].contentUrl['/']}` : DefaultProfile}
+                    className="contact_tile_info_image"
+                    alt="profile"
+                  />
+
+                  <h3>{user.name ? user.name : address}</h3>
+                </div>
+              </Link>
+            </ProfileHover>
+          )}
 
         <div
           onClick={() => this.handleTileLoading(true)}
