@@ -4,14 +4,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ProfileHover from 'profile-hover';
 
-import actions from '../state/actions';
 import '../views/Profile/styles/Profile.css';
 import FollowButton from '../views/Profile/PublicProfile/FollowButton';
 import DefaultProfile from '../assets/DefaultProfile.svg';
-
-const {
-  saveFollowing,
-} = actions.profile;
 
 class FollowingTile extends Component {
   constructor(props) {
@@ -40,11 +35,7 @@ class FollowingTile extends Component {
 
     return (
       <div className="contact_tile">
-        <ProfileHover
-          address={address}
-          noTheme
-          orientation="top"
-        >
+        {fromModal ? (
           <Link
             to={`/${address}`}
             onClick={() => { if (fromModal) handleContactsModal(); }}
@@ -59,7 +50,28 @@ class FollowingTile extends Component {
               <h3>{user.name ? user.name : address}</h3>
             </div>
           </Link>
-        </ProfileHover>
+        ) : (
+            <ProfileHover
+              address={address}
+              noTheme
+              orientation="top"
+            >
+              <Link
+                to={`/${address}`}
+                onClick={() => { if (fromModal) handleContactsModal(); }}
+              >
+                <div className="contact_tile_info">
+                  <img
+                    src={(user.image && user.image[0].contentUrl) ? `https://ipfs.infura.io/ipfs/${user.image[0].contentUrl['/']}` : DefaultProfile}
+                    className="contact_tile_info_image"
+                    alt="profile"
+                  />
+
+                  <h3>{user.name ? user.name : address}</h3>
+                </div>
+              </Link>
+            </ProfileHover>
+          )}
 
         <div
           onClick={() => this.handleTileLoading(true)}
@@ -105,6 +117,4 @@ function mapState(state) {
   };
 }
 
-export default connect(mapState, {
-  saveFollowing,
-})(FollowingTile);
+export default connect(mapState)(FollowingTile);

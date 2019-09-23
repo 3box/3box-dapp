@@ -251,7 +251,7 @@ const getActivity = otherProfileAddress => async (dispatch) => {
               isContract[otherAddress] = true;
               getContract(otherAddress)
                 .then((data) => {
-                  if (data.status === '1') {
+                  if (data && data.status === '1') {
                     contractData = JSON.parse(data.result);
                     contractArray = imageElFor(otherAddress);
                     addressData[otherAddress] = {

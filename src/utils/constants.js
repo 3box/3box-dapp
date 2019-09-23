@@ -1,5 +1,5 @@
-export const followingSpaceName = 'Following';
-// export const followingSpaceName = 'FollowingFeature';
+// export const followingSpaceName = 'Following';
+export const followingSpaceName = 'MyFollowing';
 
 export const followingThreadName = 'followingList';
 

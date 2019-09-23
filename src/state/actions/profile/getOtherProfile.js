@@ -41,28 +41,29 @@ const getOtherProfile = profileAddress => async (dispatch) => {
         twitter: null,
       };
 
-    // let profiles;
-    // try {
-    //   profiles = await Box.getThread(followingSpaceName, followingThreadName, profileAddress, true);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    let profiles;
+    try {
+      profiles = await Box.getThread(followingSpaceName, followingThreadName, profileAddress, true);
+    } catch (error) {
+      console.log(error);
+    }
 
-    // const otherFollowing = profiles ? await getFollowingProfiles(profiles) : [];
+    const otherFollowing = profiles ? await getFollowingProfiles(profiles) : [];
 
-    // otherFollowing.sort((a, b) => {
-    //   if (!a[0].name) return -1;
-    //   if (a[0].name.toLowerCase() < b[0].name.toLowerCase()) return -1;
-    //   if (a[0].name.toLowerCase() > b[0].name.toLowerCase()) return 1;
-    //   return 0;
-    // });
+    otherFollowing.sort((a, b) => {
+      if (!a[0].name) return -1;
+      if (!b[0].name) return 1;
+      if (a[0].name.toLowerCase() < b[0].name.toLowerCase()) return -1;
+      if (a[0].name.toLowerCase() > b[0].name.toLowerCase()) return 1;
+      return 0;
+    });
 
     dispatch({
       type: 'OTHER_PROFILE_UPDATE_VERIFIED_FOLLOWING',
       otherGithub: publicVerifiedAccounts.github && publicVerifiedAccounts.github.username,
       otherTwitter: publicVerifiedAccounts.twitter && publicVerifiedAccounts.twitter.username,
       otherCollectiblesGallery: publicProfile.collectiblesFavorites,
-      // otherFollowing,
+      otherFollowing,
     });
 
     dispatch({

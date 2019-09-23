@@ -49,14 +49,14 @@ const Content = ({ currentAddress }) => (
           Collectibles
         </NavLink>
 
-        {/* <NavLink
+        <NavLink
           exact
           to={`/${currentAddress}/${routes.FOLLOWING}`}
           className="profile__category__section "
         >
           <img src={ContactsIcon} alt="Following" className="profile__category__tabIcon--collectibles--mobile" />
           Following
-        </NavLink> */}
+        </NavLink>
       </div>
     </div>
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { addhttp } from '../../../utils/funcs';
-// import PubFollowing from './PubFollowing';
+import PubFollowing from './PubFollowing';
 import GithubIcon from '../../../assets/GithubIcon.svg';
 import TwitterIcon from '../../../assets/twitterGrey.svg';
 import Verified from '../../../assets/Verified.svg';
@@ -34,7 +34,7 @@ const PubSideBar = ({
   isMe,
 }) => (
     <React.Fragment>
-      {/* <PubFollowing isFollowing={isFollowing} isMe={isMe} /> */}
+      <PubFollowing isFollowing={isFollowing} isMe={isMe} />
 
       {(otherLocation || otherWebsite || otherGithub || otherTwitter) && (
         <div className="public__about">

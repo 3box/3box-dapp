@@ -858,7 +858,6 @@
   padding: 30px;
   overflow: visible !important;
   min-height: 600px;
-  overflow-y: scroll;
 
   h2 {
     margin-bottom: 40px;
@@ -936,6 +935,8 @@
   row-gap: 20px;
   min-width: 100%;
   max-width: 100%;
+  overflow-y: scroll;
+  padding-right: 14px;
 }
 
 .contactsModal_list_empty {
@@ -1476,6 +1477,10 @@
     img {
       width: 100px;
     }
+  }
+
+  .followingModal {
+    width: 85vw !important;
   }
 
   .onClickOutsideCollectibles {

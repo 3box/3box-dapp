@@ -107,11 +107,11 @@ const AppRoutes = props => (
       render={() => <MyProfile handleSignInUp={props.handleSignInUp} />}
     />
 
-    {/* <Route
+    <Route
       exact
       path="(^[/][0][xX]\w{40}\b)/following"
       render={() => <MyProfile handleSignInUp={props.handleSignInUp} />}
-    /> */}
+    />
 
     <Route
       exact

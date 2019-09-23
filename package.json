@@ -4,7 +4,7 @@
   "description": "3box dapp",
   "private": true,
   "dependencies": {
-    "3box": "^1.10.5",
+    "3box": "^1.10.9",
     "3box-activity": "0.0.9",
     "@babel/polyfill": "^7.4.4",
     "abi-decoder": "^2.0.1",
@@ -23,7 +23,7 @@
     "ipfs-log": "^4.3.5",
     "lodash.clonedeep": "^4.5.0",
     "nacl-did": "^0.4.0",
-    "profile-hover": "^1.0.2",
+    "profile-hover": "^1.1.1",
     "prop-types": "^15.6.1",
     "query-string": "^6.8.1",
     "react": "^16.8.6",

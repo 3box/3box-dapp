@@ -364,12 +364,9 @@ export const getAuthorsLatestPost = (threadArray, usersDID) => {
 };
 
 export const getFollowingProfiles = async (following) => {
-  const profileCalls = [];
-  following.forEach((profile) => {
-    profileCalls.push(Box.getProfile(profile.message.identifier[1].value));
-  });
-  const profilePromises = Promise.all(profileCalls);
-  const profiles = await profilePromises;
+  const fetchProfile = async (ethAddr) => await Box.getProfile(ethAddr);
+  const fetchAllProfiles = async () => await Promise.all(following.map(user => fetchProfile(user.message.identifier[1].value)));
+  const profiles = await fetchAllProfiles();
 
   const profilesAndAddress = [];
   profiles.forEach((profile, i) => {

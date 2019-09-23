@@ -685,8 +685,7 @@
   flex-direction: column;
   padding: 30px;
   overflow: visible !important;
-  min-height: 600px;
-  overflow-y: scroll; }
+  min-height: 600px; }
   .followingModal h2 {
     margin-bottom: 40px;
     font-size: 18px;
@@ -747,7 +746,9 @@
   grid-template-columns: repeat(1, 100% [col-start]);
   row-gap: 20px;
   min-width: 100%;
-  max-width: 100%; }
+  max-width: 100%;
+  overflow-y: scroll;
+  padding-right: 14px; }
 
 .contactsModal_list_empty {
   width: 100%;
@@ -1171,6 +1172,8 @@
     margin-top: 60px; }
   .modal__container img {
     width: 100px; }
+  .followingModal {
+    width: 85vw !important; }
   .onClickOutsideCollectibles {
     display: none; }
   .modal__loading__mollie {
