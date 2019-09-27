@@ -74,7 +74,7 @@ class Careers extends Component {
             <div className="careers_positions">
               <div className="careers_positions_content">
                 <h4>
-                  Javascript Engineer, Distributed Systems
+                Infrastructure Engineer (Javascript),
                 </h4>
                 <p>
                   For our next phase, we are seeking a javascript engineer, with focus on distributed systems, to drive the development of our database infrastructure and our developer API, contribute to exceptional developer operations, and anchor a stellar backend engineering team. Responsibilities will include:
