@@ -7,7 +7,7 @@
     "3box": "^1.10.9",
     "3box-activity": "0.0.9",
     "@babel/polyfill": "^7.4.4",
-    "abi-decoder": "^2.0.1",
+    "abi-decoder": "^2.2.2",
     "babel-preset-env": "^1.7.0",
     "base-64": "^0.1.0",
     "core-js": "^3.1.4",
