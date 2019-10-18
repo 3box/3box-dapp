@@ -822,6 +822,18 @@ nav {
   font-size: 13px;
 }
 
+.nav_input {
+  border-radius: 5px;
+  border-style: none;
+  border: solid 1px $borderColor;
+  height: 48px;
+  padding: 0 15px;
+  box-sizing: border-box;
+  margin-left: 10vw;
+  width: 32vw;
+  background-color: #f5f6f8;
+}
+
 @media only screen and (max-width: 600px) {
   nav {
     justify-content: center;

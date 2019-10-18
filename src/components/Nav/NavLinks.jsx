@@ -8,8 +8,8 @@ import Folder from '../../assets/Folder.svg';
 import ThreeBoxLogo from '../../assets/ThreeBoxLogoBlack.svg';
 import ThreeBoxB from '../../assets/3Box3Blue.svg';
 
-const MobileDropdown = props => (
-  <React.Fragment>
+const MobileDropdown = (props) => (
+  <>
     <div id="nav__logo--marginLeft">
       <Link to={`/${props.currentAddress}/${routes.ACTIVITY}`}>
         <img src={ThreeBoxLogo} alt="3Box Logo" className="landing__nav__logo" />
@@ -68,7 +68,7 @@ const MobileDropdown = props => (
         Data
       </NavLink>
     </span>
-  </React.Fragment>
+  </>
 );
 
 export default MobileDropdown;

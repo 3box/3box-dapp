@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import DesktopDropdown from './DesktopDropdown';
+import NavSearch from './NavSearch';
 import NavLinks from './NavLinks';
 import actions from '../../state/actions';
 import { normalizeURL } from '../../utils/funcs';
@@ -71,6 +72,8 @@ class Nav extends Component {
             role="button"
           />
         )}
+
+        <NavSearch />
 
         <MobileDropdown
           showProfileModal={showProfileModal}
