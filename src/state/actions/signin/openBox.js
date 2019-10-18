@@ -86,13 +86,13 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
       let privateActivity;
 
       try {
-        publicActivity = box.public.log || [];
+        publicActivity = await box.public.log() || [];
       } catch (error) {
         console.error(error);
       }
 
       try {
-        privateActivity = box.private.log || [];
+        privateActivity = await box.private.log() || [];
       } catch (error) {
         console.error(error);
       }
