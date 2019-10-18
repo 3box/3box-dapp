@@ -64,18 +64,18 @@ const getActivity = otherProfileAddress => async (dispatch) => {
       let privateActivity;
 
       try {
-        unFilteredPublicActivity = await store.getState().myData.box.public.log;
+        unFilteredPublicActivity = await store.getState().myData.box.public.log();
       } catch (error) {
         console.error(error);
       }
 
       try {
-        privateActivity = await store.getState().myData.box.private.log;
+        privateActivity = await store.getState().myData.box.private.log();
       } catch (error) {
         console.error(error);
       }
 
-      emailProof = await store.getState().myData.box.private._genDbKey('proof_email');
+      emailProof = await store.getState().myData.box._3id.hashDBKey('proof_email');
 
       // remove ethereum_proof & proof_did & memberSince
       const publicActivity = unFilteredPublicActivity
