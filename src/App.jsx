@@ -359,6 +359,10 @@ class App extends Component {
             threadName="chatbox"
             box={box}
             currentUserAddr={currentAddress}
+            agentProfile={{
+              chatName: '3Box Chat',
+              imageUrl: null,
+            }}
             popupChat
           />
         )}
