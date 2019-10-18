@@ -266,6 +266,12 @@
     filter: none;
     opacity: 1; }
 
+.active.sc-user-input {
+  background-color: transparent !important; }
+
+.sc-user-input--button button:hover {
+  background-color: transparent; }
+
 .profile__links {
   display: flex;
   justify-content: center;

@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
+import ChatBox from '3box-chatbox-react';
 
 import * as routes from './utils/routes';
 import { pollNetworkAndAddress, initialAddress, startPollFlag } from './utils/address';
@@ -12,6 +13,7 @@ import {
   checkIsEthAddress,
   checkRequestRoute,
 } from './utils/funcs';
+import { followingSpaceName } from './utils/constants';
 import { store } from './state/store';
 import history from './utils/history';
 import AppRoutes from './AppRoutes';
@@ -264,6 +266,8 @@ class App extends Component {
       otherProfileAddress,
       fixBody,
       showUnsupportedBrowser,
+      box,
+      currentAddress
     } = this.props;
 
     const {
@@ -348,6 +352,16 @@ class App extends Component {
           saveFollowing={this.props.saveFollowing}
           handleUnsupportedBrowserModal={this.props.handleUnsupportedBrowserModal}
         />
+
+        {isMyProfilePath && (
+          <ChatBox
+            spaceName={followingSpaceName}
+            threadName="chatbox"
+            box={box}
+            currentUserAddr={currentAddress}
+            popupChat
+          />
+        )}
 
         <AppRoutes
           handleSignInUp={this.handleSignInUp}
@@ -491,11 +505,12 @@ const mapState = state => ({
   isMobile: state.userState.isMobile,
 
   otherAddressToFollow: state.otherProfile.otherAddressToFollow,
-
   otherFollowing: state.otherProfile.otherFollowing,
   otherName: state.otherProfile.otherName,
   following: state.myData.following,
   otherProfileAddress: state.otherProfile.otherProfileAddress,
+
+  box: state.myData.box,
 });
 
 export default withRouter(connect(mapState,

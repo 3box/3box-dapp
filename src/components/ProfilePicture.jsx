@@ -73,7 +73,7 @@ ProfilePicture.defaultProps = {
   pictureClass: '',
   otherProfileAddress: '',
   image: [],
-  otherImage: [],
+otherImage: [],
   imageToRender: [],
   isMyPicture: true,
 };
