@@ -75,7 +75,11 @@ const getActivity = otherProfileAddress => async (dispatch) => {
         console.error(error);
       }
 
-      emailProof = await store.getState().myData.box._3id.hashDBKey('proof_email');
+      try {
+        emailProof = await store.getState().myData.box._3id.hashDBKey('proof_email');
+      } catch (error) {
+        console.error(error);
+      }
 
       // remove ethereum_proof & proof_did & memberSince
       const publicActivity = unFilteredPublicActivity
