@@ -81,7 +81,7 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
 
     const memberSince = await box.public.get('memberSince');
 
-    box.onSyncDone(() => {
+    box.onSyncDone(async () => {
       let publicActivity;
       let privateActivity;
 
