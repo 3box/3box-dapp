@@ -650,16 +650,85 @@ nav {
   color: #b1b1b1;
   font-size: 13px; }
 
-.nav_input {
+.navSearch {
+  position: relative;
+  margin-left: 3vw;
+  width: 32vw;
+  min-width: 450px; }
+
+.navSearch_input {
   border-radius: 5px;
   border-style: none;
   border: solid 1px #ececec;
   height: 48px;
   padding: 0 15px;
   box-sizing: border-box;
-  margin-left: 10vw;
-  width: 32vw;
-  background-color: #f5f6f8; }
+  background-color: #f5f6f8;
+  width: 100%; }
+  .navSearch_input::placeholder {
+    color: #b1b1b1; }
+
+.navSearch_input_result {
+  position: absolute;
+  left: 5px;
+  top: 48px;
+  width: calc(100% - 10px);
+  height: fit-content;
+  background-color: white;
+  border: solid 1px #ececec;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  box-shadow: 0 4px 6px 2px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: flex-start;
+  padding: 16px;
+  box-sizing: border-box; }
+  .navSearch_input_result:hover {
+    background-color: #f5f6f8; }
+
+.navSearch_input_result_info {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-left: 16px;
+  margin-top: 3px; }
+  .navSearch_input_result_info h3 {
+    margin-bottom: 4px;
+    font-size: 18px; }
+
+.navSearch_input_result_info_description {
+  font-size: 14px;
+  color: #747677;
+  margin-bottom: 8px; }
+
+.navSearch_input_errorMsg {
+  position: absolute;
+  right: 30px;
+  top: 16px;
+  color: #ca3232; }
+
+.navSearch_input_result_image {
+  min-width: 70px;
+  min-height: 70px;
+  max-width: 70px;
+  max-height: 70px;
+  border-radius: 50%; }
+
+.navSearch_input_result_info_social {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; }
+  .navSearch_input_result_info_social span {
+    display: flex;
+    align-items: center;
+    margin-right: 14px; }
+    .navSearch_input_result_info_social span p {
+      color: #747677; }
+
+.navSearch_input_result_info_social_icon {
+  width: 16px;
+  margin-right: 6px; }
 
 @media only screen and (max-width: 600px) {
   nav {

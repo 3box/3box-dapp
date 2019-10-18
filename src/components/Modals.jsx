@@ -838,7 +838,7 @@ export const PublicProfileLoading = () => (
 );
 
 export const SignInThroughPublicProfileBanner = ({ show, handleHideSignInBanner }) => (
-  <React.Fragment>
+  <>
     <div className={`${show ? '' : 'hideBanner'} signInFromPublicProfileBanner`}>
       <div className="signInFromPublicProfileBanner__wrapper">
         <p>
@@ -854,11 +854,11 @@ export const SignInThroughPublicProfileBanner = ({ show, handleHideSignInBanner 
         </p>
       </div>
     </div>
-  </React.Fragment>
+  </>
 );
 
 export const UnsupportedBrowserBanner = ({ show, handleShowSafariBanner }) => (
-  <React.Fragment>
+  <>
     <div className={`${show ? '' : 'hideBanner'} signInFromPublicProfileBanner`}>
       <div className="signInFromPublicProfileBanner__wrapper">
         <p>
@@ -874,7 +874,7 @@ export const UnsupportedBrowserBanner = ({ show, handleShowSafariBanner }) => (
         </p>
       </div>
     </div>
-  </React.Fragment>
+  </>
 );
 
 SignInThroughPublicProfileBanner.propTypes = {
@@ -914,13 +914,13 @@ export const ErrorModal = ({ closeErrorModal, error }) => {
           {(isMetaMaskSignError || isMozillaError)
             ? <p>You must provide consent to 3Box in your Web3 wallet to sign in or create a profile, please try again</p>
             : (
-              <React.Fragment>
+              <>
                 <p>{errorString}</p>
                 <br />
                 <p>
                   Please refresh the page and try again
                   </p>
-              </React.Fragment>
+              </>
             )}
         </div>
       </div>

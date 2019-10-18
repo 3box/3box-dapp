@@ -112,13 +112,13 @@ const PublicRow = ({
 
         {
           rowType === 'Claim' && (
-            <React.Fragment>
+            <>
               <img
                 src={Verified}
                 alt="Verified"
                 className="data__items__row__entry__verified__icon"
               />
-            </React.Fragment>
+            </>
           )
         }
       </span >

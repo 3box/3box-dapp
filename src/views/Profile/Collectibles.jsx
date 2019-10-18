@@ -150,7 +150,7 @@ class Collectibles extends Component {
     } = this.props;
     const { isLoading } = this.state;
     return (
-      <React.Fragment>
+      <>
         <ReactCSSTransitionGroup
           transitionName="app__modals"
           transitionEnterTimeout={300}
@@ -293,7 +293,7 @@ class Collectibles extends Component {
             <img src={OpenSea} alt="OpenSea.io" />
           </a>
         </div>
-      </React.Fragment>
+      </>
     );
   }
 }

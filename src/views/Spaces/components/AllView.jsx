@@ -25,7 +25,7 @@ const AllView = ({
   itemToDelete,
   spaceNameToDelete,
 }) => (
-    <React.Fragment>
+    <>
       {sortedSpace.length > 0 && sortedSpace.map((row) => {
         const date = timeSince(row.lastUpdated);
         if (row.name !== 'collectiblesFavoritesToRender'
@@ -132,7 +132,7 @@ const AllView = ({
           <p>There's no data in this space</p>
         </div>
       )}
-    </React.Fragment>
+    </>
   );
 
 AllView.propTypes = {

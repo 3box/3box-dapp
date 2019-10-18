@@ -65,7 +65,7 @@ const Activity = ({ name, image, feedAddress }) => (
         )}
 
       {checkIsEthAddress(Object.keys(feedAddress)[0]) && (
-        <React.Fragment>
+        <>
           {/* ETH Activity w/ 3Box Profile */}
           {(feedAddress.metaData && feedAddress.metaData.name)
             && (
@@ -132,7 +132,7 @@ const Activity = ({ name, image, feedAddress }) => (
                 </a>
               </ProfileHover>
             )}
-        </React.Fragment>
+        </>
       )}
 
       {/* 3Box Space Activity */}

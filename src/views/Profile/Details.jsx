@@ -89,18 +89,18 @@ const Details = ({
 
         <div className="profile__category__field" title="Github">
           <img src={GithubIcon} className="profile__category__field__icon" alt="Github Icon" />
-          <React.Fragment>
+          <>
             <a href={`https://www.github.com/${verifiedGithub}`} className="profile__category__field__verified" target="_blank" rel="noopener noreferrer">{verifiedGithub}</a>
             {verifiedGithub && <img src={Verified} alt="Verified" className="profile__category__verified__icon" />}
-          </React.Fragment>
+          </>
         </div>
 
         <div className="profile__category__field" title="Github">
           <img src={TwitterIcon} className="profile__category__field__icon" alt="Github Icon" />
-          <React.Fragment>
+          <>
             <a href={`https://www.twitter.com/${verifiedTwitter}`} className="profile__category__field__verified" target="_blank" rel="noopener noreferrer">{verifiedTwitter}</a>
             {verifiedTwitter && <img src={Verified} alt="Verified" className="profile__category__verified__icon" />}
-          </React.Fragment>
+          </>
         </div>
       </div>
 
