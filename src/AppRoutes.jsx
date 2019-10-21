@@ -26,7 +26,7 @@ import {
   Privacy,
 } from './DynamicImports';
 
-const AppRoutes = props => (
+const AppRoutes = (props) => (
   <Switch>
     <Route
       exact

@@ -11,7 +11,7 @@ const getMyFollowing = () => async (/* dispatch */) => {
     const myAddress = store.getState().userState.currentAddress;
     await getFollowingThreadAndPosts(myAddress);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 

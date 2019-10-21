@@ -78,7 +78,7 @@ export const getFollowingThreadAndPosts = async (myAddress) => {
     await getPosts(followingThread);
     followingThread.onUpdate(() => getPosts(followingThread));
   } catch (error) {
-    console.log('Error getting thread', error);
+    console.error('Error getting thread', error);
   }
 };
 

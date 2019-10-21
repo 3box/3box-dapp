@@ -369,7 +369,7 @@ class Spaces extends Component {
         }, 2000);
       } catch (err) {
         this.setState({ fadeIn: false, fadeOut: false, isLoadingVault: false });
-        console.log(err);
+        console.error(err);
       }
     };
 

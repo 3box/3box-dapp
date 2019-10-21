@@ -50,7 +50,7 @@ export async function getContract(otherAddress) {
   try {
     const response = await fetch(`https://api.etherscan.io/api?module=contract&action=getabi&address=${otherAddress}&apikey=3VTI9D585DCX4RD4QSP3MYWKACCIVZID23`);
     if (response.status !== 200) {
-      return console.log(`Looks like there was a problem. Status Code: ${response.status}`);
+      return console.error(`Looks like there was a problem. Status Code: ${response.status}`);
     }
     const data = await response.json();
     return data;

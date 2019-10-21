@@ -19,7 +19,7 @@ const checkNetworkFunc = async (web3Obj) => {
       return network
     }
   } catch (error) {
-    console.log('error', error);
+    console.error('error', error);
   }
 
   switch (network) {

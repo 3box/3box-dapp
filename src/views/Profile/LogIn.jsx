@@ -74,7 +74,7 @@ LogIn.defaultProps = {
   web3Obj: {},
 };
 
-const mapState = state => ({
+const mapState = (state) => ({
   isLoggedIn: state.userState.isLoggedIn,
   web3Connect: state.userState.web3Connect,
   web3Obj: state.userState.web3Obj,

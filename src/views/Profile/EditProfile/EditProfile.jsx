@@ -247,7 +247,7 @@ class EditProfile extends Component {
           });
         }
       }).catch((err) => {
-        console.log(err);
+        console.error(err);
         if (i === returnedData.length - 1) {
           this.setState({ githubVerifiedFailed: true, verificationLoading: false });
         }
@@ -341,7 +341,7 @@ class EditProfile extends Component {
         verificationLoading: false,
         twitterVerifiedFailed: true,
       });
-      console.log(error);
+      console.error(error);
     }
   }
 

@@ -274,7 +274,7 @@ const getActivity = otherProfileAddress => async (dispatch) => {
                   addressData[otherAddress] = false;
                   counter += 1;
                   if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
-                  return console.log(error);
+                  return console.error(error);
                 });
             } else { // look for 3box metadata
               const graphqlQueryObject = `

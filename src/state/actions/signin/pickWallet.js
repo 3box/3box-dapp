@@ -1,22 +1,52 @@
 import Web3Connect from 'web3connect';
+import WalletConnectProvider from '@walletconnect/web3-provider';
+import Portis from '@portis/web3';
+import Fortmatic from 'fortmatic';
+import Squarelink from 'squarelink';
+import Torus from '@toruslabs/torus-embed';
 
 import history from '../../../utils/history';
 import connectProviderToDapp from './connectProviderToDapp';
 import handleSignOutFunc from './handleSignOutFunc';
 import {
-  isBrowserCompatible
+  isBrowserCompatible,
 } from '../../../utils/funcs';
 
 const web3Connect = new Web3Connect.Core({
   providerOptions: {
+    walletconnect: {
+      package: WalletConnectProvider, // required
+      options: {
+        infuraId: 'e87f83fb85bf4aa09bdf6605ebe144b7', // required
+      },
+    },
     portis: {
-      id: '8f5cf962-ad62-4861-ab0c-7b234b6e6cff', // required
-      network: 'mainnet', // optional
+      package: Portis, // required
+      options: {
+        id: '8f5cf962-ad62-4861-ab0c-7b234b6e6cff', // required
+      },
     },
     fortmatic: {
-      key: 'pk_live_EC842EEAC7F08995', // required
-      network: 'mainnet', // optional
+      package: Fortmatic, // required
+      options: {
+        key: 'pk_live_EC842EEAC7F08995', // required
+      },
     },
+    // squarelink: {
+    //   package: Squarelink, // required
+    //   options: {
+    //     id: 'b87ab196551e4363e352', // required
+    //   },
+    // },
+    // torus: {
+    //   package: Torus, // required
+    //   options: {
+    //     enableLogging: false, // optional
+    //     buttonPosition: 'bottom-left', // optional
+    //     buildEnv: 'production', // optional
+    //     showTorusButton: true, // optional
+    //   },
+    // },
   },
 });
 
@@ -32,7 +62,7 @@ const pickWallet = async (directLogin, dispatch, shouldSignOut) => {
 
   const web3Promise = new Promise((resolve, reject) => {
     if (!isBrowserCompatible()) {
-      reject();;
+      reject();
     } else {
       web3Connect.toggleModal(); // open modal on button click
       web3Connect.on('connect', async (provider) => {
@@ -82,7 +112,7 @@ const pickWallet = async (directLogin, dispatch, shouldSignOut) => {
   try {
     await web3Promise;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
