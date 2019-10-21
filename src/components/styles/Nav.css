@@ -785,15 +785,16 @@ nav {
     position: absolute;
     width: 0;
     opacity: 0;
-    right: 8px;
+    right: 12px;
     padding: 0;
-    visibility: hidden; }
+    visibility: hidden;
+    border: 1px solid #ececec;
+    -webkit-appearance: none; }
     .navSearch_input-mobile::placeholder {
       color: #b1b1b1; }
   .navSearch_input-mobile.open {
     opacity: 1;
-    width: 62%;
-    right: calc(100% - 344px);
+    width: calc(100% - 120px);
     padding: 0 15px;
     visibility: visible; }
   .nav_openSearch-mobile {
@@ -811,7 +812,7 @@ nav {
     margin-left: 10px;
     width: calc(100vw - 102px); }
   .nav_openSearch-mobile.open {
-    right: calc(100% - 74px); }
+    right: calc(calc(100% - 120px) + 58px); }
   .nav_openSearch_icon {
     width: 22px;
     opacity: .5;
@@ -875,10 +876,12 @@ nav {
   .nav__arrow {
     display: none; }
   .nav__profile--mobile {
-    display: flex;
+    visibility: visible;
     opacity: 1;
-    transition: .5s ease-in-out all; }
+    transition: .5s ease-in-out all;
+    display: flex; }
   .nav__profile--mobile.close {
+    visibility: hidden;
     opacity: 0; }
   #nav__logo--marginLeft {
     margin-left: 6vw;

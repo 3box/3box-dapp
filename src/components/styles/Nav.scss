@@ -1003,10 +1003,12 @@ nav {
     position: absolute;
     width: 0;
     opacity: 0;
-    right: 8px;
+    right: 12px;
     padding: 0;
     visibility: hidden;
-
+    border: 1px solid $borderColor;
+    -webkit-appearance: none;
+    
     &::placeholder {
       color: $lightestFont;
     }
@@ -1014,8 +1016,7 @@ nav {
 
   .navSearch_input-mobile.open {
     opacity: 1;
-    width: 62%;
-    right: calc(100% - 344px);
+    width: calc(100% - 120px);
     padding: 0 15px;
     visibility: visible;
   }
@@ -1041,7 +1042,7 @@ nav {
   }
 
   .nav_openSearch-mobile.open {
-    right: calc(100% - 74px);
+    right: calc(calc(100% - 120px) + 58px);
   }
 
   .nav_openSearch_icon {
@@ -1160,12 +1161,14 @@ nav {
   }
 
   .nav__profile--mobile {
-    display: flex;
+    visibility: visible;
     opacity: 1;
     transition: .5s ease-in-out all;
+    display: flex;
   }
 
   .nav__profile--mobile.close {
+    visibility: hidden;
     opacity: 0;
   }
 

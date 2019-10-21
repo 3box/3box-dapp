@@ -434,6 +434,7 @@ App.propTypes = {
   currentAddress: PropTypes.string,
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
+
   }).isRequired,
   prevAddress: PropTypes.string,
   otherAddressToFollow: PropTypes.string,

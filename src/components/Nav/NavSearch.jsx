@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { checkIsEthAddress, shortenEthAddr } from '../../utils/funcs';
-import * as routes from '../../utils/routes';
 
 import GithubIcon from '../../assets/GithubIcon.svg';
 import TwitterIcon from '../../assets/twitterGrey.svg';
