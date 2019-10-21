@@ -60,7 +60,7 @@ class Team extends Component {
         kenzo: profiles[4],
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 

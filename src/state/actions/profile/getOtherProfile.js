@@ -45,7 +45,7 @@ const getOtherProfile = profileAddress => async (dispatch) => {
     try {
       profiles = await Box.getThread(followingSpaceName, followingThreadName, profileAddress, true);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
 
     const otherFollowing = profiles ? await getFollowingProfiles(profiles) : [];
@@ -75,7 +75,7 @@ const getOtherProfile = profileAddress => async (dispatch) => {
       type: 'OTHER_PROFILE_LOADING',
       isLoadingOtherProfile: false,
     });
-    console.log(error);
+    console.error(error);
   }
 };
 

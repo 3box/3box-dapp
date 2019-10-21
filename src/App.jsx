@@ -267,7 +267,7 @@ class App extends Component {
       fixBody,
       showUnsupportedBrowser,
       box,
-      currentAddress
+      currentAddress,
     } = this.props;
 
     const {
@@ -441,6 +441,7 @@ App.propTypes = {
   otherProfileAddress: PropTypes.string,
   following: PropTypes.array,
   otherFollowing: PropTypes.array,
+  box: PropTypes.object,
 };
 
 App.defaultProps = {
@@ -478,7 +479,7 @@ App.defaultProps = {
   otherProfileAddress: '',
 };
 
-const mapState = state => ({
+const mapState = (state) => ({
   showDifferentNetworkModal: state.uiState.showDifferentNetworkModal,
   allowAccessModal: state.uiState.allowAccessModal,
   provideConsent: state.uiState.provideConsent,

@@ -97,9 +97,6 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
         console.error(error);
       }
 
-      console.log('privateActivity', privateActivity)
-      console.log('publicActivity', publicActivity)
-
       if ((!privateActivity || !privateActivity.length) && (!publicActivity || !publicActivity.length)) {
         dispatch({
           type: 'UI_HANDLE_ONBOARDING_MODAL',

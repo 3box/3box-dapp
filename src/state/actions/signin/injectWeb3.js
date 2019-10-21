@@ -9,7 +9,6 @@ const injectWeb3 = (
 ) => async (dispatch) => {
   const defaultWallet = outsideLoginWallet || window.localStorage.getItem('defaultWallet'); // eslint-disable-line no-undef
   const isDefaultWalletConnect = defaultWallet && defaultWallet.toLowerCase() === 'walletconnect';
-
   if (chooseWallet || !defaultWallet || isDefaultWalletConnect) {
     await pickWallet(directLogin, dispatch, shouldSignOut);
   } else {

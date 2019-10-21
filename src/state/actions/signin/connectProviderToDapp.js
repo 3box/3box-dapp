@@ -18,7 +18,6 @@ const connectProviderToDapp = async (provider, directLogin, dispatch) => {
       name,
       logo,
     } = getProviderInfo(provider);
-
     if (name.toLowerCase() === 'walletconnect') window.localStorage.removeItem('walletconnect');
     window.localStorage.setItem('defaultWallet', name); // eslint-disable-line no-undef
 

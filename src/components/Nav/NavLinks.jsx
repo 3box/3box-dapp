@@ -16,13 +16,13 @@ const MobileDropdown = (props) => (
       </Link>
     </div>
 
-    <div id="nav__logo--mobile">
+    <div className={`nav__logo--mobile ${props.showMobileSearch ? 'close' : 'open'}`}>
       <Link to={`/${props.currentAddress}/${routes.ACTIVITY}`}>
         <img src={ThreeBoxB} alt="3Box Logo" className="landing__nav__logo" />
       </Link>
     </div>
 
-    <div className="nav__profile--mobile">
+    <div className={`nav__profile--mobile ${props.showMobileSearch ? 'close' : 'open'}`}>
       <ProfilePicture
         pictureClass="nav__userPicture clearProfPic"
         onClickFunction={props.handleDropdown}

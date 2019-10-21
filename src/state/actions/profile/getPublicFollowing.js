@@ -28,7 +28,7 @@ const getPublicFollowing = address => async (dispatch) => {
 
     return following;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 

@@ -18,6 +18,7 @@ class Nav extends Component {
     super(props);
     this.state = {
       showProfileModal: false,
+      showMobileSearch: false,
     };
   }
 
@@ -29,35 +30,47 @@ class Nav extends Component {
   }
 
   handleSignOut = () => {
-    const { box } = this.props;
-    if (box.logout) this.props.handleSignOut();
+    const { box, handleSignOut } = this.props;
+    if (box.logout) handleSignOut();
+  }
+
+  handleMobileSearch = () => {
+    const { showMobileSearch } = this.state;
+    this.setState({ showMobileSearch: !showMobileSearch });
   }
 
   render() {
-    const { showProfileModal } = this.state;
+    const {
+      showProfileModal,
+      showMobileSearch,
+    } = this.state;
+
     const {
       location,
       currentAddress,
       currentWalletLogo,
       handleSignInUp,
+      currentNetwork,
     } = this.props;
+
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
-    const networkColor = this.props.currentNetwork;
+    const networkColor = currentNetwork;
 
     return (
       <nav>
         <NavLinks
-          currentAddress={currentAddress}
           handleDropdown={this.handleDropdown}
+          currentAddress={currentAddress}
           networkColor={networkColor}
+          showMobileSearch={showMobileSearch}
         />
 
         <DesktopDropdown
-          showProfileModal={showProfileModal}
-          currentAddress={currentAddress}
           handleDropdown={this.handleDropdown}
           handleSignOut={this.handleSignOut}
+          showProfileModal={showProfileModal}
+          currentAddress={currentAddress}
           handleSignInUp={handleSignInUp}
           currentWalletLogo={currentWalletLogo}
           networkColor={networkColor}
@@ -73,13 +86,16 @@ class Nav extends Component {
           />
         )}
 
-        <NavSearch />
+        <NavSearch
+          handleMobileSearch={this.handleMobileSearch}
+          showMobileSearch={showMobileSearch}
+        />
 
         <MobileDropdown
-          showProfileModal={showProfileModal}
-          currentAddress={currentAddress}
           handleDropdown={this.handleDropdown}
           handleSignOut={this.handleSignOut}
+          showProfileModal={showProfileModal}
+          currentAddress={currentAddress}
           handleSignInUp={handleSignInUp}
           currentWalletLogo={currentWalletLogo}
           networkColor={networkColor}
