@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="67px" height="67px" viewBox="0 0 67 67" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 51.1 (57501) - http://www.bohemiancoding.com/sketch -->
-    <title>noun_Search_1318794</title>
+<svg width="69px" height="69px" viewBox="0 0 69 69" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>Group</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="noun_Search_1318794" fill="#3F3F3F" fill-rule="nonzero">
-            <path d="M49.9,47.1 C54.2,42.2 56.8,35.7 56.8,28.7 C56.8,13.2 44.2,0.6 28.7,0.6 C13.2,0.6 0.5,13.1 0.5,28.6 C0.5,44.1 13.1,56.7 28.6,56.7 C35.6,56.7 42.1,54.1 47,49.8 L64,66.8 L66.8,64 L49.9,47.1 Z M28.6,52.8 C15.3,52.8 4.5,42 4.5,28.7 C4.5,15.4 15.3,4.6 28.6,4.6 C41.9,4.6 52.7,15.4 52.7,28.7 C52.7,42 41.9,52.8 28.6,52.8 Z" id="Shape"></path>
+        <g id="Group" transform="translate(0.000000, 0.000000)" fill="#3F3F3F">
+            <path d="M28.5,0 C44.2401154,0 57,12.7598846 57,28.5 C57,44.2401154 44.2401154,57 28.5,57 C12.7598846,57 0,44.2401154 0,28.5 C0,12.7598846 12.7598846,0 28.5,0 Z M28.5,6.5 C16.0735931,6.5 6,16.3497355 6,28.5 C6,40.6502645 16.0735931,50.5 28.5,50.5 C40.9264069,50.5 51,40.6502645 51,28.5 C51,16.3497355 40.9264069,6.5 28.5,6.5 Z" id="Combined-Shape"></path>
+            <path d="M47.5,47.5 L66.5,66.5" id="Line" stroke="#3F3F3F" stroke-width="6"></path>
         </g>
     </g>
 </svg>

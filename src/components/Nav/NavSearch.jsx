@@ -24,11 +24,14 @@ class NavSearch extends Component {
 
   handleInputEdit = async (e) => {
     const { value } = e.target;
+    const { handleToggleResults } = this.props;
 
     let isEthAddr;
     if (value.length === 42) isEthAddr = checkIsEthAddress(value);
+    this.setState({ searchTerm: value, isEthAddr });
+
     const showResults = true;
-    this.setState({ searchTerm: value, isEthAddr, showResults });
+    handleToggleResults(showResults);
 
     if (isEthAddr) {
       const searchedProfile = await Box.getProfile(value);
@@ -48,7 +51,7 @@ class NavSearch extends Component {
 
   clearSearch = () => this.setState({ searchedProfile: null, searchTerm: '' });
 
-  handleToggleResults = () => this.setState({ showResults: !this.state.showResults })
+  // handleToggleResults = () => this.setState({ showResults: !this.state.showResults })
 
   render() {
     const {
@@ -56,10 +59,13 @@ class NavSearch extends Component {
       searchedProfile,
       searchTerm,
       isEmptyProfile,
-      showResults,
     } = this.state;
 
-    const { showMobileSearch, handleMobileSearch } = this.props;
+    const {
+      showMobileSearch,
+      handleMobileSearch,
+      showResults,
+    } = this.props;
 
     return (
       <>
@@ -183,11 +189,13 @@ class NavSearch extends Component {
 
 NavSearch.propTypes = {
   showMobileSearch: PropTypes.bool,
+  showResults: PropTypes.bool,
   handleMobileSearch: PropTypes.func,
 };
 
 NavSearch.defaultProps = {
   showMobileSearch: false,
+  showResults: false,
   handleMobileSearch: false,
 };
 
