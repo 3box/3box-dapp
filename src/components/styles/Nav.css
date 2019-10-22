@@ -672,7 +672,7 @@ nav {
   position: absolute;
   left: 5px;
   top: 48px;
-  width: calc(100% - 10px);
+  width: calc(90% - 10px);
   height: fit-content;
   background-color: white;
   border: solid 1px #ececec;

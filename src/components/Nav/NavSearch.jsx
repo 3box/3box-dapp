@@ -38,11 +38,15 @@ class NavSearch extends Component {
 
       if (Object.entries(searchedProfile).length) {
         const verifiedAccouts = await Box.getVerifiedAccounts(searchedProfile);
-        searchedProfile.github = verifiedAccouts.github && verifiedAccouts.github.username;
-        searchedProfile.twitter = verifiedAccouts.twitter && verifiedAccouts.twitter.username;
-        this.setState({ searchedProfile });
+
+        if (verifiedAccouts) {
+          searchedProfile.github = verifiedAccouts.github && verifiedAccouts.github.username;
+          searchedProfile.twitter = verifiedAccouts.twitter && verifiedAccouts.twitter.username;
+        }
+
+        this.setState({ searchedProfile, isEmptyProfile: false });
       } else {
-        this.setState({ isEmptyProfile: true });
+        this.setState({ isEmptyProfile: true, searchedProfile: null });
       }
     } else {
       this.setState({ searchedProfile: null });
@@ -50,8 +54,6 @@ class NavSearch extends Component {
   }
 
   clearSearch = () => this.setState({ searchedProfile: null, searchTerm: '' });
-
-  // handleToggleResults = () => this.setState({ showResults: !this.state.showResults })
 
   render() {
     const {
@@ -80,7 +82,7 @@ class NavSearch extends Component {
             value={searchTerm}
           />
 
-          {(searchedProfile && showResults) && (
+          {(searchedProfile && showResults && !isEmptyProfile) && (
             <Link to={`/${searchTerm}`} onClick={this.clearSearch}>
               <div className="navSearch_input_result">
                 <ProfilePicture
