@@ -43,7 +43,6 @@ class NavSearch extends Component {
           searchedProfile.github = verifiedAccouts.github && verifiedAccouts.github.username;
           searchedProfile.twitter = verifiedAccouts.twitter && verifiedAccouts.twitter.username;
         }
-
         this.setState({ searchedProfile, isEmptyProfile: false });
       } else {
         this.setState({ isEmptyProfile: true, searchedProfile: null });
@@ -78,7 +77,7 @@ class NavSearch extends Component {
             className="navSearch_input"
             placeholder="Search user by Ethereum address..."
             onChange={(e) => this.handleInputEdit(e)}
-            onFocus={handleToggleResults}
+            onFocus={() => handleToggleResults()}
             value={searchTerm}
           />
 
@@ -172,15 +171,15 @@ class NavSearch extends Component {
           className={`navSearch_input-mobile ${showMobileSearch ? 'open' : 'closed'}`}
           placeholder="Search user by Ethereum address..."
           onChange={(e) => this.handleInputEdit(e)}
-          onFocus={handleToggleResults}
+          onFocus={() => handleToggleResults()}
           value={searchTerm}
         />
 
         {showResults && (
           <div
             className="onClickOutside"
-            onClick={handleToggleResults}
-            onKeyPress={handleToggleResults}
+            onClick={() => handleToggleResults()}
+            onKeyPress={() => handleToggleResults()}
             tabIndex={0}
             role="button"
           />

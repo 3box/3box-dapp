@@ -872,6 +872,7 @@ nav {
   flex-direction: column;
   margin-left: 16px;
   margin-top: 3px;
+  width: calc(100% - 86px);
 
   h3 {
     margin-bottom: 4px;
@@ -905,11 +906,19 @@ nav {
   align-items: center;
   justify-content: flex-start;
 
+  width: 100%;
+  clear: both;
+  position: relative;
+  display: inline-block;
+
   span {
     display: flex;
     align-items: center;
     margin-right: 14px;
 
+    float: left;
+    margin-top: 6px;
+    width: fit-content;
     p {
       color: $lighterFont;
     }
@@ -920,15 +929,6 @@ nav {
   width: 16px;
   margin-right: 6px;
 }
-
-// @media only screen and (max-width: 1250px) {
-//   .navSearch {
-//     position: relative;
-//     margin-left: 30px;
-//     width: 32vw;
-//     min-width: 450px;
-//   }
-// }
 
 .nav_openSearch-mobile {
   display: none;
@@ -1009,7 +1009,7 @@ nav {
     visibility: hidden;
     border: 1px solid $borderColor;
     -webkit-appearance: none;
-    
+
     &::placeholder {
       color: $lightestFont;
     }
@@ -1050,23 +1050,6 @@ nav {
     width: 22px;
     opacity: .5;
     margin: 0;
-  }
-
-  .navSearch_input_result_info_social {
-    // flex-direction: column;
-    // align-items: flex-start;
-    width: 100%;
-    // float: left;
-    clear: both;
-    // display: block;
-    position: relative;
-    display: inline-block;
-
-    span {
-      float: left;
-      margin-top: 6px;
-      width: fit-content;
-    }
   }
 
   .navSearch_input_result_info_social_icon {

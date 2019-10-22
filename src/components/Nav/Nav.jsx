@@ -37,13 +37,16 @@ class Nav extends Component {
 
   handleMobileSearch = () => {
     const { showMobileSearch } = this.state;
-    this.setState({ showMobileSearch: !showMobileSearch });
+    this.setState({ showMobileSearch: !showMobileSearch, showResults: !showMobileSearch });
   }
 
   handleToggleResults = (bool) => {
     const { showResults } = this.state;
-    const value = bool || !showResults;
-    this.setState({ showResults: value });
+    if (bool) {
+      this.setState({ showResults: true });
+    } else {
+      this.setState({ showResults: !showResults });
+    }
   }
 
   render() {
