@@ -723,7 +723,8 @@ nav {
   width: 100%;
   clear: both;
   position: relative;
-  display: inline-block; }
+  display: inline-block;
+  overflow: hidden; }
   .navSearch_input_result_info_social span {
     display: flex;
     align-items: center;

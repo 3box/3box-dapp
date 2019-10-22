@@ -93,7 +93,7 @@ class NavSearch extends Component {
 
                 <div className="navSearch_input_result_info">
                   <h3>
-                    {`${searchedProfile.name || shortenEthAddr(searchTerm)} ${searchedProfile.emoji}`}
+                    {`${searchedProfile.name || shortenEthAddr(searchTerm)} ${searchedProfile.emoji ? searchedProfile.emoji : ''}`}
                   </h3>
 
                   {searchedProfile.description && (

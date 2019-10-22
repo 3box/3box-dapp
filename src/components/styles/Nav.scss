@@ -910,6 +910,7 @@ nav {
   clear: both;
   position: relative;
   display: inline-block;
+  overflow: hidden;
 
   span {
     display: flex;
