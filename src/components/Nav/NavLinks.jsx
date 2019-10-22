@@ -30,11 +30,6 @@ const MobileDropdown = (props) => (
       />
     </div>
 
-    <div id="nav__networkStatus">
-      <div id="nav__networkStatus__networkColor" className={`${props.networkColor}`} />
-      <p>{props.networkColor}</p>
-    </div>
-
     <div
       className="nav__arrow"
       onClick={props.handleDropdown}

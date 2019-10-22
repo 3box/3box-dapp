@@ -188,7 +188,7 @@
       opacity: 1 !important; }
 
 .profile__category__tabIcon--activity--mobile {
-  height: 17px;
+  height: 21px;
   margin-right: 6px;
   filter: none;
   -webkit-filter: grayscale(100%);
@@ -198,7 +198,7 @@
   opacity: .5; }
 
 .profile__category__tabIcon--details--mobile {
-  height: 16px;
+  height: 20px;
   margin-right: 6px;
   filter: none;
   -webkit-filter: grayscale(100%);
@@ -208,7 +208,7 @@
   opacity: .5; }
 
 .profile__category__tabIcon--collectibles--mobile {
-  height: 16px;
+  height: 20px;
   margin-right: 6px;
   filter: none;
   -webkit-filter: grayscale(100%);
@@ -650,9 +650,10 @@
     width: 100%;
     position: sticky;
     top: 0;
-    z-index: 2;
+    z-index: 5;
     height: fit-content;
-    border-bottom: solid 1px #ececec; }
+    border-bottom: solid 1px #ececec;
+    background-color: white; }
   .profile__category__section {
     font-size: 14px;
     margin-bottom: 0;
@@ -713,6 +714,8 @@
       margin-left: 12px;
       text-align: left;
       font-size: 14px; }
+    .contact_tile a {
+      max-width: calc(100% - 86px); }
   .contact_tile_info_image {
     width: 50px !important;
     height: 50px !important;

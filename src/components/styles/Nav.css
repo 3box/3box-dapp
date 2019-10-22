@@ -7,7 +7,8 @@ nav {
   border-bottom: 1px solid #E4E4E4;
   display: flex;
   align-items: center;
-  z-index: 3; }
+  z-index: 3;
+  min-width: 780px; }
   nav button {
     display: inline-block; }
   nav p {
@@ -274,8 +275,7 @@ nav {
 
 .landing__nav__logo {
   width: 90px;
-  height: 32px;
-  margin-right: 10px; }
+  height: 32px; }
 
 #landing__nav {
   position: fixed;
@@ -653,10 +653,10 @@ nav {
 .navSearch {
   position: relative;
   margin-left: 3vw;
-  width: 32vw;
-  min-width: 450px; }
+  width: 44vw; }
 
 .navSearch_input {
+  min-width: 280px;
   border-radius: 5px;
   border-style: none;
   border: solid 1px #ececec;
@@ -664,7 +664,7 @@ nav {
   padding: 0 15px;
   box-sizing: border-box;
   background-color: #f5f6f8;
-  width: 100%; }
+  width: 90%; }
   .navSearch_input::placeholder {
     color: #b1b1b1; }
 
@@ -739,7 +739,8 @@ nav {
 @media only screen and (max-width: 600px) {
   nav {
     justify-content: center;
-    align-items: center; }
+    align-items: center;
+    min-width: 100vw; }
   #landing__nav {
     display: flex;
     justify-content: flex-start; }

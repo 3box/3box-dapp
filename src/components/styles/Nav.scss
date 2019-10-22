@@ -10,6 +10,7 @@ nav {
   display: flex;
   align-items: center;
   z-index: 3;
+  min-width: 780px;
 
   button {
     display: inline-block;
@@ -354,7 +355,6 @@ nav {
 .landing__nav__logo {
   width: 90px;
   height: 32px;
-  margin-right: 10px;
 }
 
 #landing__nav {
@@ -825,11 +825,11 @@ nav {
 .navSearch {
   position: relative;
   margin-left: 3vw;
-  width: 32vw;
-  min-width: 450px;
+  width: 44vw;
 }
 
 .navSearch_input {
+  min-width: 280px;
   border-radius: 5px;
   border-style: none;
   border: solid 1px $borderColor;
@@ -837,7 +837,7 @@ nav {
   padding: 0 15px;
   box-sizing: border-box;
   background-color: #f5f6f8;
-  width: 100%;
+  width: 90%;
 
   &::placeholder {
     color: $lightestFont;
@@ -942,6 +942,7 @@ nav {
   nav {
     justify-content: center;
     align-items: center;
+    min-width: 100vw;
   }
 
   #landing__nav {

@@ -65,6 +65,7 @@ class NavSearch extends Component {
       showMobileSearch,
       handleMobileSearch,
       showResults,
+      handleToggleResults,
     } = this.props;
 
     return (
@@ -75,7 +76,7 @@ class NavSearch extends Component {
             className="navSearch_input"
             placeholder="Search user by Ethereum address..."
             onChange={(e) => this.handleInputEdit(e)}
-            onFocus={this.handleToggleResults}
+            onFocus={handleToggleResults}
             value={searchTerm}
           />
 
@@ -91,7 +92,7 @@ class NavSearch extends Component {
 
                 <div className="navSearch_input_result_info">
                   <h3>
-                    {searchedProfile.name || shortenEthAddr(searchTerm)}
+                    {`${searchedProfile.name || shortenEthAddr(searchTerm)} ${searchedProfile.emoji}`}
                   </h3>
 
                   {searchedProfile.description && (
@@ -169,15 +170,15 @@ class NavSearch extends Component {
           className={`navSearch_input-mobile ${showMobileSearch ? 'open' : 'closed'}`}
           placeholder="Search user by Ethereum address..."
           onChange={(e) => this.handleInputEdit(e)}
-          onFocus={this.handleToggleResults}
+          onFocus={handleToggleResults}
           value={searchTerm}
         />
 
         {showResults && (
           <div
             className="onClickOutside"
-            onClick={this.handleToggleResults}
-            onKeyPress={this.handleToggleResults}
+            onClick={handleToggleResults}
+            onKeyPress={handleToggleResults}
             tabIndex={0}
             role="button"
           />
@@ -190,13 +191,13 @@ class NavSearch extends Component {
 NavSearch.propTypes = {
   showMobileSearch: PropTypes.bool,
   showResults: PropTypes.bool,
-  handleMobileSearch: PropTypes.func,
+  handleMobileSearch: PropTypes.func.isRequired,
+  handleToggleResults: PropTypes.func.isRequired,
 };
 
 NavSearch.defaultProps = {
   showMobileSearch: false,
   showResults: false,
-  handleMobileSearch: false,
 };
 
 export default NavSearch;
