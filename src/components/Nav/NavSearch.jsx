@@ -24,22 +24,28 @@ class NavSearch extends Component {
 
   handleInputEdit = async (e) => {
     const { value } = e.target;
+    const { handleToggleResults } = this.props;
 
     let isEthAddr;
     if (value.length === 42) isEthAddr = checkIsEthAddress(value);
+    this.setState({ searchTerm: value, isEthAddr });
+
     const showResults = true;
-    this.setState({ searchTerm: value, isEthAddr, showResults });
+    handleToggleResults(showResults);
 
     if (isEthAddr) {
       const searchedProfile = await Box.getProfile(value);
 
       if (Object.entries(searchedProfile).length) {
         const verifiedAccouts = await Box.getVerifiedAccounts(searchedProfile);
-        searchedProfile.github = verifiedAccouts.github && verifiedAccouts.github.username;
-        searchedProfile.twitter = verifiedAccouts.twitter && verifiedAccouts.twitter.username;
-        this.setState({ searchedProfile });
+
+        if (verifiedAccouts) {
+          searchedProfile.github = verifiedAccouts.github && verifiedAccouts.github.username;
+          searchedProfile.twitter = verifiedAccouts.twitter && verifiedAccouts.twitter.username;
+        }
+        this.setState({ searchedProfile, isEmptyProfile: false });
       } else {
-        this.setState({ isEmptyProfile: true });
+        this.setState({ isEmptyProfile: true, searchedProfile: null });
       }
     } else {
       this.setState({ searchedProfile: null });
@@ -48,18 +54,20 @@ class NavSearch extends Component {
 
   clearSearch = () => this.setState({ searchedProfile: null, searchTerm: '' });
 
-  handleToggleResults = () => this.setState({ showResults: !this.state.showResults })
-
   render() {
     const {
       isEthAddr,
       searchedProfile,
       searchTerm,
       isEmptyProfile,
-      showResults,
     } = this.state;
 
-    const { showMobileSearch, handleMobileSearch } = this.props;
+    const {
+      showMobileSearch,
+      handleMobileSearch,
+      showResults,
+      handleToggleResults,
+    } = this.props;
 
     return (
       <>
@@ -69,11 +77,11 @@ class NavSearch extends Component {
             className="navSearch_input"
             placeholder="Search user by Ethereum address..."
             onChange={(e) => this.handleInputEdit(e)}
-            onFocus={this.handleToggleResults}
+            onFocus={() => handleToggleResults()}
             value={searchTerm}
           />
 
-          {(searchedProfile && showResults) && (
+          {(searchedProfile && showResults && !isEmptyProfile) && (
             <Link to={`/${searchTerm}`} onClick={this.clearSearch}>
               <div className="navSearch_input_result">
                 <ProfilePicture
@@ -85,7 +93,7 @@ class NavSearch extends Component {
 
                 <div className="navSearch_input_result_info">
                   <h3>
-                    {searchedProfile.name || shortenEthAddr(searchTerm)}
+                    {`${searchedProfile.name || shortenEthAddr(searchTerm)} ${searchedProfile.emoji ? searchedProfile.emoji : ''}`}
                   </h3>
 
                   {searchedProfile.description && (
@@ -163,15 +171,15 @@ class NavSearch extends Component {
           className={`navSearch_input-mobile ${showMobileSearch ? 'open' : 'closed'}`}
           placeholder="Search user by Ethereum address..."
           onChange={(e) => this.handleInputEdit(e)}
-          onFocus={this.handleToggleResults}
+          onFocus={() => handleToggleResults()}
           value={searchTerm}
         />
 
         {showResults && (
           <div
             className="onClickOutside"
-            onClick={this.handleToggleResults}
-            onKeyPress={this.handleToggleResults}
+            onClick={() => handleToggleResults()}
+            onKeyPress={() => handleToggleResults()}
             tabIndex={0}
             role="button"
           />
@@ -183,12 +191,14 @@ class NavSearch extends Component {
 
 NavSearch.propTypes = {
   showMobileSearch: PropTypes.bool,
-  handleMobileSearch: PropTypes.func,
+  showResults: PropTypes.bool,
+  handleMobileSearch: PropTypes.func.isRequired,
+  handleToggleResults: PropTypes.func.isRequired,
 };
 
 NavSearch.defaultProps = {
   showMobileSearch: false,
-  handleMobileSearch: false,
+  showResults: false,
 };
 
 export default NavSearch;

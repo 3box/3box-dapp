@@ -304,6 +304,7 @@ class App extends Component {
           )}
 
         {(!isMyProfilePath && isLoggedIn) && <Nav handleSignInUp={this.handleSignInUp} />}
+        {/* <Nav handleSignInUp={this.handleSignInUp} /> */}
 
         <AppModals
           isFetchingThreeBox={isFetchingThreeBox}

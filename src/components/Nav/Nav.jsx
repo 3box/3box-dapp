@@ -19,6 +19,7 @@ class Nav extends Component {
     this.state = {
       showProfileModal: false,
       showMobileSearch: false,
+      showResults: false,
     };
   }
 
@@ -36,13 +37,23 @@ class Nav extends Component {
 
   handleMobileSearch = () => {
     const { showMobileSearch } = this.state;
-    this.setState({ showMobileSearch: !showMobileSearch });
+    this.setState({ showMobileSearch: !showMobileSearch, showResults: !showMobileSearch });
+  }
+
+  handleToggleResults = (bool) => {
+    const { showResults } = this.state;
+    if (bool) {
+      this.setState({ showResults: true });
+    } else {
+      this.setState({ showResults: !showResults });
+    }
   }
 
   render() {
     const {
       showProfileModal,
       showMobileSearch,
+      showResults,
     } = this.state;
 
     const {
@@ -88,7 +99,9 @@ class Nav extends Component {
 
         <NavSearch
           handleMobileSearch={this.handleMobileSearch}
+          handleToggleResults={this.handleToggleResults}
           showMobileSearch={showMobileSearch}
+          showResults={showResults}
         />
 
         <MobileDropdown
