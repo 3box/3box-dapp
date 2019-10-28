@@ -100,7 +100,8 @@ const SideBar = ({
               {onOtherProfilePage && (
                 <div className="publicProfile__basic--mobile">
                   <PubSideBar isFollowing={isFollowing} isMe={isMe} />
-                </div>)}
+                </div>
+              )}
 
             </div>
 
@@ -113,6 +114,13 @@ const SideBar = ({
                         <img src={ActivityIcon} alt="Activity" className="profile__category__tabIcon--activity" />
                       </div>
                       Activity
+                    </NavLink>
+
+                    <NavLink exact to={`/${currentAddress}/${routes.WALL}`} className="profile__category__section">
+                      <div className="profile__category__tabIcon__wrappper">
+                        <img src={ActivityIcon} alt="Activity" className="profile__category__tabIcon--activity" />
+                      </div>
+                      Wall
                     </NavLink>
 
                     <NavLink exact to={`/${currentAddress}/${routes.DETAILS}`} className="profile__category__section ">

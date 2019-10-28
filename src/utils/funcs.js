@@ -25,6 +25,7 @@ export const normalizeURL = (pathname) => {
 export const matchProtectedRoutes = (secondRoute) => {
   if (
     secondRoute === routes.ACTIVITY ||
+    secondRoute === routes.WALL ||
     secondRoute === routes.DETAILS ||
     secondRoute === routes.COLLECTIBLES ||
     secondRoute === routes.DATA ||
@@ -79,6 +80,10 @@ const fireDispatch = (otherProfileAddress, feedByAddress) => {
       type: 'OTHER_ACTIVITY_UPDATE',
       otherProfileActivity: feedByAddress,
     });
+    // store.dispatch({
+    //   type: 'OTHER_WALL_UPDATE',
+    //   otherProfileWall: feedByAddress,
+    // });
     store.dispatch({
       type: 'UI_FEED_OTHER_LOADING',
       isFetchingOtherActivity: false,
@@ -462,4 +467,8 @@ export const isBrowserCompatible = () => {
     });
     return false;
   }
+};
+
+export const checkIsMobileDevice = () => {
+  return ((window && typeof window.orientation !== 'undefined')) || (navigator && navigator.userAgent.indexOf('IEMobile') !== -1);
 };

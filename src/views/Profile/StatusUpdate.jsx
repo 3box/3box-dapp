@@ -16,93 +16,127 @@ class StatusUpdate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      status: '',
+      post: '',
       disableSave: true,
       saveLoading: false,
     };
   }
 
   componentDidMount() {
-    const { status } = this.props;
-    this.setState({ status });
+    // const { status } = this.props;
+    // this.setState({ status });
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { status } = nextProps;
-
-    if (status !== this.props.status) this.setState({ status });
+  handleFormChange = (e) => {
+    this.setState({ post: e.target.value, disableSave: false });
   }
 
-  handleFormChange = (e, property) => {
-    this.setState({ [property]: e.target.value, disableSave: false });
+  // cancelChange = (e) => {
+  //   e.preventDefault();
+  //   const { status } = this.props;
+  //   this.setState({ status, disableSave: true });
+  // }
+
+  updateComments = async () => {
+    const { wallThread } = this.props;
+    const thread = await wallThread.getPosts();
+    // this.setState({ dialogue, dialogueLength: dialogue.length });
   }
 
-  cancelChange = (e) => {
-    e.preventDefault();
-    const { status } = this.props;
-    this.setState({ status, disableSave: true });
-  }
-
-  async handleSubmit(e, remove) {
+  async handleSavePost(e, remove) {
     try {
       const {
-        status,
+        // status,
+        post,
+        disableComment,
+        isMobile,
       } = this.state;
+      const {
+        joinThread,
+        thread,
+        updateComments,
+        openBox,
+        box,
+        loginFunction,
+        ethereum
+      } = this.props;
 
       e.preventDefault();
       this.setState({ saveLoading: true });
 
-      const statusChanged = status !== this.props.status;
-      const { box } = this.props;
+      // const statusChanged = status !== this.props.status;
+
+      const updatedComment = post.replace(/(\r\n|\n|\r)/gm, '');
+      if (disableComment || !updatedComment) return;
+
+      // this.inputRef.current.blur();
+      // this.inputRef.current.style.height = (isMobile) ? '64px' : '74px';
+      this.setState({ postLoading: true, post: '' });
+
+      try {
+        const res = await this.props.wallThread.post(post);
+        console.log('res', res);
+        await this.updateComments();
+        this.setState({ postLoading: false });
+      } catch (error) {
+        console.error('There was an error saving your post', error);
+      }
 
       // if value changed and is not empty, save new value, else remove value
-      if (statusChanged && status !== '') await box.public.set('status', status);
-      if ((statusChanged && status === '') || remove) await box.public.remove('status');
+      // if (statusChanged && status !== '') await box.public.set('status', status);
+      // if ((statusChanged && status === '') || remove) await box.public.remove('status');
+      // if (statusChanged) await this.props.getMyProfileValue('public', 'status');
+      // this.props.getActivity();
 
-      if (statusChanged) await this.props.getMyProfileValue('public', 'status');
-      this.props.getActivity();
       this.setState({ saveLoading: false, disableSave: true });
-      if (remove) this.setState({ status: '' });
+      // if (remove) this.setState({ status: '' });
     } catch (err) {
       console.error(err);
     }
   }
 
   render() {
-    const { status, disableSave, saveLoading } = this.state;
+    const {
+      // status,
+      disableSave,
+      saveLoading,
+      post,
+      postLoading
+    } = this.state;
     const { onOtherProfilePage, otherStatus } = this.props;
 
     return (
       <>
         {onOtherProfilePage && (
           <div
-            className={`
-          statusUpdate
-          ${!otherStatus ? 'hideUpdateOnMobile' : ''}
-          `
-            }
+            className={`statusUpdate ${!otherStatus ? 'hideUpdateOnMobile' : ''}`}
           >
             <p className="statusUpdate__displayPublic">
               {otherStatus}
             </p>
-          </div>)}
+          </div>
+        )}
 
         {!onOtherProfilePage && (
           <div className="statusUpdate">
-            {saveLoading
-              && (
-                <div className="statusUpdate__loading">
-                  <img src={Loading} alt="loading" />
-                </div>
-              )}
+            {saveLoading && (
+              <div className="statusUpdate__loading">
+                <img src={Loading} alt="loading" />
+              </div>
+            )}
 
-            <input
+            <textarea
               name="name"
               type="text"
-              value={status}
+              value={post}
+              placeholder="What's on your mind?"
               className="statusUpdate__field"
-              placeholder="Set a status..."
-              onChange={e => this.handleFormChange(e, 'status')}
+              // className={`input_form ${postLoading ? 'hidePlaceholder' : ''}`}
+              onChange={(e) => this.handleFormChange(e)}
+              // onChange={this.handleCommentText}
+              // onFocus={this.handleLoggedInAs}
+              // onBlur={this.handleLoggedInAs}
+              ref={this.inputRef}
             />
 
             {!disableSave
@@ -110,50 +144,54 @@ class StatusUpdate extends Component {
                 <button
                   type="button"
                   className="statusUpdate__button statusUpdate__button--save"
-                  onClick={e => this.handleSubmit(e)}
+                  onClick={(e) => this.handleSavePost(e)}
                 >
                   Save
-                </button>)}
+                </button>
+              )}
 
-            {!disableSave
+            {/* {!disableSave
               && (
                 <button
                   type="button"
                   className="statusUpdate__button statusUpdate__button--cancel"
-                  onClick={e => this.cancelChange(e)}
+                  onClick={(e) => this.cancelChange(e)}
                 >
                   Cancel
-                </button>)}
+                </button>
+              )} */}
 
-            {(disableSave && status !== '')
+            {/* {(disableSave && status !== '')
               && (
                 <button
                   type="button"
                   className="statusUpdate__button statusUpdate__button--remove hideStatusButton"
-                  onClick={e => this.handleSubmit(e, 'remove')}
+                  onClick={(e) => this.handleSavePost(e, 'remove')}
                 >
                   Remove
-                </button>)}
-          </div>)}
-
+                </button>
+              )} */}
+          </div>
+        )}
       </>
     );
   }
 }
 
 StatusUpdate.propTypes = {
-  status: PropTypes.string,
+  // status: PropTypes.string,
   otherStatus: PropTypes.string,
   getActivity: PropTypes.func.isRequired,
   getMyProfileValue: PropTypes.func.isRequired,
   box: PropTypes.object,
+  wallThread: PropTypes.object,
   location: PropTypes.object.isRequired,
   onOtherProfilePage: PropTypes.bool,
 };
 
 StatusUpdate.defaultProps = {
   box: {},
-  status: '',
+  // status: '',
   otherStatus: '',
   onOtherProfilePage: false,
 };
@@ -161,8 +199,12 @@ StatusUpdate.defaultProps = {
 function mapState(state) {
   return {
     box: state.myData.box,
-    status: state.myData.status,
+    // status: state.myData.status,
+    wallPosts: state.myData.wallPosts,
+    wallThread: state.myData.wallThread,
+
     otherStatus: state.otherProfile.otherStatus,
+
     onOtherProfilePage: state.uiState.onOtherProfilePage,
   };
 }

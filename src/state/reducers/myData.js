@@ -139,6 +139,20 @@ const myDataReducer = (state = {}, action) => {
         did: action.did,
       };
 
+    case 'MY_WALL_UPDATE':
+      return {
+        ...state,
+        wallPosts: action.wallPosts,
+        wallThread: action.wallThread,
+        wallProfiles: action.wallProfiles,
+      };
+
+    case 'MY_WALL_POSTS_UPDATE':
+      return {
+        ...state,
+        wallPosts: action.wallPosts,
+      };
+
     case 'MY_COLLECTIBLES_UPDATE':
       return {
         ...state,

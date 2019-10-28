@@ -46,6 +46,7 @@ const {
 const {
   getMyProfileValue,
   getMyDID,
+  getMyWall,
   getCollectibles,
   getMyMemberSince,
   getVerifiedPublicGithub,
@@ -155,6 +156,7 @@ class App extends Component {
       this.props.getVerifiedPrivateEmail(); // eslint-disable-line
       this.props.getMyMemberSince(); // eslint-disable-line
       this.props.getMyDID(); // eslint-disable-line
+      this.props.getMyWall(); // eslint-disable-line
       this.props.getMyProfileValue('public', 'status'); // eslint-disable-line
       this.props.getMyProfileValue('public', 'name'); // eslint-disable-line
       this.props.getMyProfileValue('public', 'description'); // eslint-disable-line
@@ -386,6 +388,7 @@ App.propTypes = {
   getMyFollowing: PropTypes.func.isRequired,
   getPublicFollowing: PropTypes.func.isRequired,
   getMyDID: PropTypes.func.isRequired,
+  getMyWall: PropTypes.func.isRequired,
   getCollectibles: PropTypes.func.isRequired,
   getMySpacesData: PropTypes.func.isRequired,
   convert3BoxToSpaces: PropTypes.func.isRequired,
@@ -527,6 +530,7 @@ export default withRouter(connect(mapState,
     checkNetwork,
     getMyProfileValue,
     getMyDID,
+    getMyWall,
     getCollectibles,
     getMySpacesData,
     convert3BoxToSpaces,

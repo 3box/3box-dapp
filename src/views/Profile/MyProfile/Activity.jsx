@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import ActivityHeader from './ActivityHeader';
 import ActivityTiles from './ActivityTiles';
-import StatusUpdate from '../StatusUpdate';
+// import StatusUpdate from '../StatusUpdate';
 import Loading from '../../../assets/Loading.svg';
 import '../styles/Feed.css';
 import '../styles/Profile.css';
@@ -24,7 +24,7 @@ const Activity = ({
               <img src={Loading} alt="loading" id="activityLoad" />
             )}
         </p>
-        <StatusUpdate />
+        {/* <StatusUpdate /> */}
         <div className="feed__activity__header">
           {(feedByAddress.length > 0)
             ? feedByAddress.map((feedAddress, i) => (

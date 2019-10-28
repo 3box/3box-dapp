@@ -35,7 +35,7 @@ class Profile extends Component {
         <div id="profile__page">
           <div id="profile__contents">
             <SideBar />
-            <MyContent />
+            <MyContent handleSignInUp={handleSignInUp} />
           </div>
         </div>
       </div>
