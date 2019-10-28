@@ -125,7 +125,8 @@
     overflow: hidden;
     text-overflow: ellipsis; }
   .contact_tile .threeboxProfileHover__style_boxAddressWrap {
-    width: 70%; }
+    width: 70%;
+    font-family: 'Lato', sans-serif !important; }
 
 .empty_contact_tile {
   max-width: 694px;

@@ -5,11 +5,19 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
+  flex-direction: column;
   margin-bottom: 16px;
   border: 1px solid #ececec;
   border-radius: 6px;
   background-color: white;
   box-sizing: border-box; }
+
+.comment_header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 6px;
+  font-size: 14px; }
 
 .comment.isMyComment:hover .comment_content_context_main_user_delete {
   visibility: visible !important; }
@@ -40,8 +48,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
-  margin-bottom: 4px; }
+  align-items: flex-start; }
 
 .comment_content_context_main {
   display: flex;
@@ -63,8 +70,8 @@
 .comment_content_context_main_user_delete {
   visibility: hidden;
   position: absolute;
-  right: -36px;
-  top: 1px; }
+  right: -24px;
+  top: 0; }
 
 .comment_content_context_main_user_delete_button {
   border: none;
@@ -77,15 +84,16 @@
   opacity: .35; }
 
 .comment_content_context_time {
-  font-size: 11px;
-  color: #747677; }
+  font-size: 13px;
+  color: #b1b1b1; }
 
 .comment_content_context_main_user_info_username {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 800;
   white-space: nowrap;
   text-align: left;
-  color: #202026; }
+  margin-bottom: .2em;
+  color: #1168df; }
   .comment_content_context_main_user_info_username:hover {
     text-decoration: underline; }
 
@@ -97,7 +105,7 @@
   white-space: nowrap; }
 
 .comment_content_text {
-  font-size: 15px;
+  font-size: 18px;
   text-align: left;
   word-break: break-word; }
 

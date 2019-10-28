@@ -23,9 +23,9 @@ const Activity = ({ name, image, feedAddress }) => (
           <h5 className="feed__activity__threeBoxEmblem">
             3
           </h5>
-        </div>)
-    }
-    
+        </div>
+      )}
+
     {(Object.keys(feedAddress)[0] !== 'threeBox' && feedAddress.metaData && feedAddress.metaData.image)
       && <img src={`https://ipfs.infura.io/ipfs/${feedAddress.metaData.image}`} className="feed__activity__user clear" alt="profile" />}
 
@@ -41,7 +41,8 @@ const Activity = ({ name, image, feedAddress }) => (
       && (
         <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
           0x
-        </div>)}
+        </div>
+      )}
 
     {(!checkIsEthAddress(Object.keys(feedAddress)[0]) && Object.keys(feedAddress)[0] !== 'threeBox')
       && (

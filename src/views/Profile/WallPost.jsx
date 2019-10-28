@@ -5,12 +5,14 @@ import Linkify from 'react-linkify';
 import makeBlockie from 'ethereum-blockies-base64';
 import SVG from 'react-inlinesvg';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { shortenEthAddr } from '../../utils/funcs';
 import { timeSince } from '../../utils/time';
 import Delete from '../../assets/Delete2.svg';
 import Loading from '../../assets/3BoxCommentsSpinner.svg';
 import './styles/WallPost.scss';
+import './styles/Feed.css';
 
 class WallPost extends Component {
   constructor(props) {
@@ -66,84 +68,79 @@ class WallPost extends Component {
 
     return (
       <div className={`comment ${canDelete ? 'isMyComment' : ''}`}>
-        <a
-          href={profile.profileURL ? `${profile.profileURL}` : `https://3box.io/${profile.ethAddr}`}
-          target={profile.profileURL ? '_self' : '_blank'}
-          rel={profile.profileURL ? 'dofollow' : 'noopener noreferrer'}
-        >
-          {profilePicture ? (
-            <img
-              src={profilePicture}
-              alt="profile"
-              className="comment_picture comment_picture-bgWhite"
-            />
-          ) : <div className="comment_picture" />}
-        </a>
+        <div className="comment_header">
+          <Link
+            to={`https://3box.io/${profile.ethAddr}`}
+            className="comment_header"
+          >
+            {profilePicture ? (
+              <img
+                src={profilePicture}
+                alt="profile"
+                className="comment_picture comment_picture-bgWhite"
+              />
+            ) : <div className="comment_picture" />}
+          </Link>
 
-        <div className="comment_content">
-          <div className="comment_content_context">
-            <div className="comment_content_context_main">
-              <a
-                href={profile.profileURL ? profile.profileURL : `https://3box.io/${profile.ethAddr}`}
-                className="comment_content_context_main_user"
-                target={profile.profileURL ? '_self' : '_blank'}
-                rel={profile.profileURL ? 'dofollow' : 'noopener noreferrer'}
-              >
-                <div className="comment_content_context_main_user_info">
-                  {useHovers ? (
+          <div className="comment_content">
+            <div className="comment_content_context">
+              <div className="comment_content_context_main">
+                <a
+                  href={profile.profileURL ? profile.profileURL : `https://3box.io/${profile.ethAddr}`}
+                  className="comment_content_context_main_user"
+                  target={profile.profileURL ? '_self' : '_blank'}
+                  rel={profile.profileURL ? 'dofollow' : 'noopener noreferrer'}
+                >
+                  <div className="comment_content_context_main_user_info">
                     <ProfileHover
                       address={profile && profile.ethAddr}
-                      orientation="right"
+                      orientation="top"
                       noTheme
                     >
-                      <div className="comment_content_context_main_user_info_username">
-                        {profile.name || shortenEthAddr(profile.ethAddr)}
-                      </div>
+                      <h4 className="comment_content_context_main_user_info_username">
+                        {profile.name || profile.ethAddr}
+                      </h4>
                     </ProfileHover>
-                  ) : (
-                      <div className="comment_content_context_main_user_info_username">
-                        {profile.name || shortenEthAddr(profile.ethAddr)}
+
+                    {profile.name && (
+                      <div
+                        className="comment_content_context_main_user_info_address"
+                        title={profile.ethAddr}
+                      >
+                        {profile.ethAddr && `${shortenEthAddr(profile.ethAddr)} ${isCommenterAdmin ? 'ADMIN' : ''}`}
                       </div>
                     )}
+                  </div>
 
-                  {profile.name && (
-                    <div
-                      className="comment_content_context_main_user_info_address"
-                      title={profile.ethAddr}
-                    >
-                      {profile.ethAddr && `${shortenEthAddr(profile.ethAddr)} ${isCommenterAdmin ? 'ADMIN' : ''}`}
+                  {loadingDelete && <SVG className="comment_loading" src={Loading} alt="Loading" />}
+
+                  {/* hasThread */}
+                  {(!loadingDelete && profile.ethAddr) && (
+                    <div className="comment_content_context_main_user_delete">
+                      <button
+                        onClick={(e) => this.deleteComment(comment.postId, e)}
+                        className="comment_content_context_main_user_delete_button textButton"
+                        type="button"
+                      >
+                        <SVG src={Delete} alt="Delete" className="comment_content_context_main_user_delete_button_icon" />
+                      </button>
                     </div>
                   )}
-                </div>
+                </a>
+              </div>
 
-                {loadingDelete && <SVG className="comment_loading" src={Loading} alt="Loading" />}
-
-                {/* hasThread */}
-                {(!loadingDelete && profile.ethAddr) && (
-                  <div className="comment_content_context_main_user_delete">
-                    <button
-                      onClick={(e) => this.deleteComment(comment.postId, e)}
-                      className="comment_content_context_main_user_delete_button"
-                    >
-                      <SVG src={Delete} alt="Delete" className="comment_content_context_main_user_delete_button_icon" />
-                    </button>
-                  </div>
-                )}
-              </a>
-
-            </div>
-
-            <div className="comment_content_context_time">
-              {`${timeSince(comment.timestamp * 1000)} ago`}
+              <div className="comment_content_context_time">
+                {`${timeSince(comment.timestamp * 1000)} ago`}
+              </div>
             </div>
           </div>
-          <div className="comment_content_text">
-            <Linkify>
-              {comment.message}
-            </Linkify>
-          </div>
-        </div >
-      </div >
+        </div>
+        <div className="comment_content_text">
+          <Linkify>
+            {comment.message}
+          </Linkify>
+        </div>
+      </div>
     );
   }
 }
