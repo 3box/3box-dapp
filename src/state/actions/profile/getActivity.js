@@ -14,10 +14,10 @@ import {
 } from '../../../utils/funcs';
 import getPublicProfile from './getPublicProfile';
 
-const getActivity = otherProfileAddress => async (dispatch) => {
+const getActivity = (otherProfileAddress) => async (dispatch) => {
   try {
     const {
-      currentWallet
+      currentWallet,
     } = store.getState().userState;
     const isWalletConnect = currentWallet === 'WalletConnect';
     const reduxWeb3 = store.getState().userState.web3Obj;

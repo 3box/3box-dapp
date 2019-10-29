@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import * as routes from '../../../utils/routes';
 import Activity from './Activity';
-import Wall from './Wall';
+import MyWall from './MyWall';
 import Details from '../Details';
 import Collectibles from '../Collectibles';
 import Following from '../Following';
@@ -76,9 +76,8 @@ const Content = ({ currentAddress, handleSignInUp }) => (
       <Route
         exact
         path={routes.FORMAT_PROFILE_WALL}
-        // component={Wall}
         render={() => (
-          <Wall
+          <MyWall
             handleSignInUp={handleSignInUp}
           />
         )}

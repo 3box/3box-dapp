@@ -9,7 +9,7 @@ import Folder from '../../assets/Folder.svg';
 import ThreeBoxLogo from '../../assets/ThreeBoxLogoBlack.svg';
 import ThreeBoxB from '../../assets/3Box3Blue.svg';
 
-const MobileDropdown = (props) => {
+const NavLinks = (props) => {
   const {
     currentAddress,
     showMobileSearch,
@@ -75,15 +75,15 @@ const MobileDropdown = (props) => {
   );
 };
 
-MobileDropdown.propTypes = {
+NavLinks.propTypes = {
   showMobileSearch: PropTypes.bool,
   currentAddress: PropTypes.string,
   handleDropdown: PropTypes.func.isRequired,
 };
 
-MobileDropdown.defaultProps = {
+NavLinks.defaultProps = {
   showMobileSearch: false,
   currentAddress: '',
 };
 
-export default MobileDropdown;
+export default NavLinks;

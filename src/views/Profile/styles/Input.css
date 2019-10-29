@@ -50,8 +50,8 @@
 
 .sc-user-input--picker-wrapper {
   position: absolute;
-  right: 0;
-  top: 7px;
+  right: 100px;
+  top: 17px;
   min-width: 40px;
   min-height: 40px;
   max-width: 40px;
@@ -84,9 +84,18 @@
   max-height: 30px;
   opacity: .6; }
 
-.input_send {
+.input_send-mobile {
   visibility: hidden;
   display: none; }
+
+.input_send-dtw {
+  opacity: .5;
+  position: absolute;
+  right: 13px;
+  top: 12px; }
+
+.input_send-dtw-visible {
+  opacity: 1; }
 
 .input_postLoading {
   position: absolute;
@@ -166,7 +175,7 @@
     border: 1px solid #ececec;
     margin-left: -8px;
     padding: 20px 52px 20px 68px; }
-  .comment-mobile .input_send {
+  .comment-mobile .input_send-mobile {
     position: absolute;
     right: 0px;
     bottom: 9px;
@@ -182,9 +191,9 @@
     display: flex;
     justify-content: center;
     align-items: center; }
-  .comment-mobile .input_send-visible {
+  .comment-mobile .input_send-mobile-visible {
     visibility: visible; }
-  .comment-mobile .input_send_icon {
+  .comment-mobile .input_send_icon-mobile {
     width: 26px;
     opacity: .5; }
   .comment-mobile .input_commentAs {

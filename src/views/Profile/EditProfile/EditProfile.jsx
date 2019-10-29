@@ -806,6 +806,7 @@ class EditProfile extends Component {
           allData: updatedAllData,
         });
       }
+
       if (birthdayChanged) {
         const savedObject = await this.props.getMyProfileValue('private', 'birthday', true);
 

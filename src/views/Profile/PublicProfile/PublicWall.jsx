@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import StatusUpdate from '../StatusUpdate';
 import PublicActivityHeader from './PublicActivityHeader';
 import PublicActivityTiles from './PublicActivityTiles';
 import Loading from '../../../assets/Loading.svg';
@@ -14,12 +13,10 @@ const PublicActivity = ({
   isFetchingOtherActivity,
   otherProfileActivity,
   otherCollectiblesFavorites,
-  otherStatus,
 }) => (
     <div id="feed" className={`${otherCollectiblesFavorites.length > 0 && 'noTopMargin'}`}>
       <div>
         <p className="header" id="feed__header">Activity</p>
-        {otherStatus && <StatusUpdate />}
         <div className="feed__activity__header">
           {(isFetchingOtherActivity)
             && (
@@ -55,23 +52,20 @@ PublicActivity.propTypes = {
   isFetchingOtherActivity: PropTypes.bool,
   otherCollectiblesFavorites: PropTypes.array,
   otherProfileActivity: PropTypes.array,
-  otherStatus: PropTypes.string,
 };
 
 PublicActivity.defaultProps = {
   isFetchingOtherActivity: false,
   otherCollectiblesFavorites: [],
   otherProfileActivity: [],
-  otherStatus: '',
 };
 
-const mapState = state => ({
+const mapState = (state) => ({
   isFetchingOtherActivity: state.uiState.isFetchingOtherActivity,
 
   otherProfileActivity: state.otherProfile.otherProfileActivity,
   otherProfileAddress: state.otherProfile.otherProfileAddress,
   otherName: state.otherProfile.otherName,
-  otherStatus: state.otherProfile.otherStatus,
   otherCollectiblesFavorites: state.otherProfile.otherCollectiblesFavorites,
 });
 

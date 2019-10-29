@@ -6,12 +6,12 @@
   height: 22px;
   cursor: pointer;
   align-self: center;
-  opacity: .4; }
+  opacity: 1; }
 
 .sc-popup-window--cointainer {
   position: absolute;
-  bottom: 24px;
-  right: -65px;
+  bottom: 10px;
+  right: -35px;
   width: 330px;
   max-height: 260px;
   height: 260px;
@@ -20,7 +20,7 @@
   border-radius: 10px;
   outline: none;
   transition: 0.2s ease-in-out;
-  z-index: 1;
+  z-index: 3;
   padding: 0px 5px 5px 5px;
   box-sizing: border-box; }
 

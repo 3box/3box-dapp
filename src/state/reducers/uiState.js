@@ -7,10 +7,23 @@ const uiStateReducer = (state = {}, action) => {
           isFetchingThreeBox: action.isFetchingThreeBox,
       };
 
+    case 'UI_PROFILE_LOADING':
+      return {
+        ...state,
+        isFetchingActivity: action.isFetchingActivity,
+        isFetchingWall: action.isFetchingWall,
+      };
+
     case 'UI_FEED_LOADING':
       return {
         ...state,
         isFetchingActivity: action.isFetchingActivity,
+      };
+
+    case 'UI_WALL_LOADING':
+      return {
+        ...state,
+        isFetchingWall: action.isFetchingWall,
       };
 
     case 'UI_FEED_OTHER_LOADING':

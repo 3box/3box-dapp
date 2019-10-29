@@ -5,6 +5,9 @@ module.exports = {
         "indent": "off",
         "react/jsx-indent": "off",
         "react/jsx-indent-props": "off",
-        "eol-last": "off"
+        "eol-last": "off",
+        "operator-linebreak": "off",
+        "react/forbid-prop-types": "off",
+        "no-console": "off",
     }
 }

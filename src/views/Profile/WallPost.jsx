@@ -25,8 +25,8 @@ class WallPost extends Component {
   deleteComment = async (commentId, e) => {
     e.preventDefault();
     const {
-      wallThread,
-      joinThread,
+      // wallThread,
+      // joinThread,
       box,
       loginFunction,
     } = this.props;

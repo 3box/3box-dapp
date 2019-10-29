@@ -27,8 +27,9 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
       isFetchingThreeBox: true,
     });
     dispatch({
-      type: 'UI_FEED_LOADING',
+      type: 'UI_PROFILE_LOADING',
       isFetchingActivity: true,
+      isFetchingWall: true,
     });
   };
 

@@ -9,6 +9,7 @@ import PubSideBar from './PublicProfile/PubSideBar';
 import { copyToClipBoard, shortenEthAddr } from '../../utils/funcs';
 import * as routes from '../../utils/routes';
 import ActivityIcon from '../../assets/Activity.svg';
+import Post from '../../assets/Post.svg';
 import DetailsIcon from '../../assets/Details.svg';
 import CollectiblesIcon from '../../assets/Collectibles.svg';
 import ContactsIcon from '../../assets/Contacts.svg';
@@ -109,18 +110,18 @@ const SideBar = ({
               <div className="profile__category__sectionWrapper">
                 {!onOtherProfilePage ? (
                   <>
+                    <NavLink exact to={`/${currentAddress}/${routes.WALL}`} className="profile__category__section">
+                      <div className="profile__category__tabIcon__wrappper">
+                        <img src={Post} alt="Activity" className="profile__category__tabIcon--details" />
+                      </div>
+                      Wall
+                    </NavLink>
+                    
                     <NavLink exact to={`/${currentAddress}/${routes.ACTIVITY}`} className="profile__category__section">
                       <div className="profile__category__tabIcon__wrappper">
                         <img src={ActivityIcon} alt="Activity" className="profile__category__tabIcon--activity" />
                       </div>
                       Activity
-                    </NavLink>
-
-                    <NavLink exact to={`/${currentAddress}/${routes.WALL}`} className="profile__category__section">
-                      <div className="profile__category__tabIcon__wrappper">
-                        <img src={ActivityIcon} alt="Activity" className="profile__category__tabIcon--activity" />
-                      </div>
-                      Wall
                     </NavLink>
 
                     <NavLink exact to={`/${currentAddress}/${routes.DETAILS}`} className="profile__category__section ">

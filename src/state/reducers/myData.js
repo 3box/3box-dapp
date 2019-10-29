@@ -115,11 +115,6 @@ const myDataReducer = (state = {}, action) => {
           collectiblesFavoritesToRender: action.collectiblesFavoritesToRender,
       };
 
-    case 'MY_STATUS_UPDATE':
-      return {
-        ...state,
-        status: action.status,
-      };
 
     case 'MY_BIRTHDAY_UPDATE':
       return {

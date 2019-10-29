@@ -157,7 +157,6 @@ class App extends Component {
       this.props.getMyMemberSince(); // eslint-disable-line
       this.props.getMyDID(); // eslint-disable-line
       this.props.getMyWall(); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'status'); // eslint-disable-line
       this.props.getMyProfileValue('public', 'name'); // eslint-disable-line
       this.props.getMyProfileValue('public', 'description'); // eslint-disable-line
       this.props.getMyProfileValue('public', 'image'); // eslint-disable-line

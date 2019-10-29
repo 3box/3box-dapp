@@ -9,7 +9,7 @@ const EmojiIcon = ({ tooltip, onClick, isActive }) => (
     {tooltip}
     <button
       id="sc-emoji-picker-button"
-      className="sc-user-input--emoji-icon-wrapper"
+      className="sc-user-input--emoji-icon-wrapper textButton"
       onClick={onClick}
       type="button"
     >

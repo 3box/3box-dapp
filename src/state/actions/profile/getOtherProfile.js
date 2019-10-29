@@ -8,7 +8,7 @@ import {
   followingThreadName,
 } from '../../../utils/constants';
 
-const getOtherProfile = profileAddress => async (dispatch) => {
+const getOtherProfile = (profileAddress) => async (dispatch) => {
   try {
     dispatch({
       type: 'OTHER_PROFILE_LOADING',
@@ -32,7 +32,6 @@ const getOtherProfile = profileAddress => async (dispatch) => {
       otherImage: publicProfile.image,
       otherName: publicProfile.name,
       otherEmoji: publicProfile.emoji,
-      otherStatus: publicProfile.status,
     });
 
     const publicVerifiedAccounts = Object.entries(publicProfile).length > 0 ?

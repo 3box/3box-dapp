@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 
 // import ActivityHeader from './ActivityHeader';
 // import ActivityTiles from './ActivityTiles';
-// import StatusUpdate from '../StatusUpdate';
 import WallInput from '../WallInput';
 import WallPost from '../WallPost';
 import Loading from '../../../assets/Loading.svg';
@@ -18,7 +17,7 @@ import '../styles/Profile.css';
 import '../../../components/styles/NetworkArray.css';
 
 const Wall = ({
-  isFetchingActivity,
+  isFetchingWall,
   wallPosts,
   currentAddress,
   box,
@@ -29,20 +28,18 @@ const Wall = ({
       <div>
         <p className="header publicHeader" id="feed__header">
           Wall
-          {(isFetchingActivity)
+          {(isFetchingWall)
             && (
               <img src={Loading} alt="loading" id="activityLoad" />
             )}
         </p>
 
         <WallInput
-          // ethereum={ethereum}
           box={box}
           loginFunction={handleSignInUp}
+        // ethereum={ethereum}
         // joinThread={this.joinThread}
         />
-
-        {/* <StatusUpdate /> */}
 
         <div className="feed__activity__header">
           {wallPosts.reverse().map((comment) => {
@@ -59,10 +56,10 @@ const Wall = ({
                 isMyAdmin={adminEthAddrNormalized === currentUserAddrNormalized}
                 isCommenterAdmin={adminEthAddrNormalized === commentAddr}
                 key={comment.postId}
-                // joinThread={joinThread}
                 box={box}
                 loginFunction={handleSignInUp}
-                // openBox={openBox}
+              // joinThread={joinThread}
+              // openBox={openBox}
               />
             );
           })}
@@ -80,22 +77,19 @@ const Wall = ({
 
 Wall.propTypes = {
   wallPosts: PropTypes.array,
-  isFetchingActivity: PropTypes.bool,
+  box: PropTypes.object,
+  wallProfiles: PropTypes.object,
+  isFetchingWall: PropTypes.bool,
   currentAddress: PropTypes.string,
-  name: PropTypes.string,
-  otherProfileAddress: PropTypes.string,
-  location: PropTypes.object,
-  otherName: PropTypes.string,
+  handleSignInUp: PropTypes.func.isRequired,
 };
 
 Wall.defaultProps = {
   wallPosts: [],
-  name: '',
-  isFetchingActivity: false,
-  otherProfileAddress: '',
+  box: {},
+  wallProfiles: {},
+  isFetchingWall: false,
   currentAddress: '',
-  otherName: '',
-  location: {},
 };
 
 const mapState = (state) => ({
@@ -103,11 +97,11 @@ const mapState = (state) => ({
   box: state.myData.box,
   wallProfiles: state.myData.wallProfiles,
 
-  isFetchingActivity: state.uiState.isFetchingActivity,
+  isFetchingWall: state.uiState.isFetchingWall,
+
   currentAddress: state.userState.currentAddress,
 
   otherProfileAddress: state.otherProfile.otherProfileAddress,
-  name: state.myData.name,
   otherName: state.otherProfile.otherName,
 });
 
@@ -135,7 +129,7 @@ export default connect(mapState)(Wall);
 //     //   <ActivityTiles feedAddress={feedAddress} /> */}
 //     // </div>
 //   ))
-//   : (!isFetchingActivity && !wallPosts.length) && (
+//   : (!isFetchingWall && !wallPosts.length) && (
 //     <div className="feed__activity__load">
 //       <p>No posts on this wall yet</p>
 //     </div>

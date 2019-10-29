@@ -60,6 +60,11 @@ const getMyWall = () => async (dispatch) => {
       wallThread,
       wallProfiles
     });
+
+    dispatch({
+      type: 'UI_WALL_LOADING',
+      isFetchingWall: false,
+    });
   } catch (error) {
     console.error(error);
   }

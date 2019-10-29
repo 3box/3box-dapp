@@ -36,7 +36,6 @@ const getMyData = async () => {
     getVerifiedPrivateEmail(); // eslint-disable-line
     getMyMemberSince(); // eslint-disable-line
     getMyDID(); // eslint-disable-line
-    getMyProfileValue('public', 'status'); // eslint-disable-line
     getMyProfileValue('public', 'name'); // eslint-disable-line
     getMyProfileValue('public', 'description'); // eslint-disable-line
     getMyProfileValue('public', 'image'); // eslint-disable-line

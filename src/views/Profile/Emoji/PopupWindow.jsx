@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class PopupWindow extends Component {
-
   componentDidMount() {
     this.scLauncher = document.querySelector('.input');
     this.scLauncher.addEventListener('click', this.interceptLauncherClick);
@@ -15,7 +14,7 @@ class PopupWindow extends Component {
   interceptLauncherClick = (e) => {
     const { isOpen, onClickedOutside } = this.props;
     const clickedOutside = !this.emojiPopup.contains(e.target) && isOpen;
-    clickedOutside && onClickedOutside(e);
+    if (clickedOutside) onClickedOutside(e);
   }
 
   render() {

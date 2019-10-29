@@ -58,7 +58,7 @@ export async function getContract(otherAddress) {
   } catch (err) {
     console.error(err);
   }
-};
+}
 
 export const imageElFor = (address) => {
   const contractMetaData = contractMap[toChecksumAddress(address)];
@@ -74,7 +74,7 @@ export const imageElFor = (address) => {
   return [contractImg, contractMetaData];
 };
 
-const fireDispatch = (otherProfileAddress, feedByAddress) => {
+const startProfileLoad = (otherProfileAddress, feedByAddress) => {
   if (otherProfileAddress) {
     store.dispatch({
       type: 'OTHER_ACTIVITY_UPDATE',
@@ -107,7 +107,7 @@ const fireDispatch = (otherProfileAddress, feedByAddress) => {
 export const updateFeed = (otherProfileAddress, feedByAddress, addressData, isContract) => {
   let contractArray = [];
   let counter = 0;
-  if (feedByAddress.length === 0) fireDispatch(otherProfileAddress, feedByAddress);
+  if (feedByAddress.length === 0) startProfileLoad(otherProfileAddress, feedByAddress);
   feedByAddress.map(async (txGroup, i) => {
     const otherAddress = Object.keys(txGroup)[0];
 
@@ -131,14 +131,14 @@ export const updateFeed = (otherProfileAddress, feedByAddress, addressData, isCo
       };
 
       counter += 1;
-      if (counter === feedByAddress.length) fireDispatch(otherProfileAddress, feedByAddress);
+      if (counter === feedByAddress.length) startProfileLoad(otherProfileAddress, feedByAddress);
     } else { // look for 3box metadata
       feedByAddress[i].metaData = {
         name: addressData && addressData[otherAddress] && addressData[otherAddress].name,
         image: addressData && addressData[otherAddress] && addressData[otherAddress].image,
       };
       counter += 1;
-      if (counter === feedByAddress.length) fireDispatch(otherProfileAddress, feedByAddress);
+      if (counter === feedByAddress.length) startProfileLoad(otherProfileAddress, feedByAddress);
     }
   });
 };
