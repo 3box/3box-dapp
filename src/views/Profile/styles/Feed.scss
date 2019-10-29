@@ -147,6 +147,24 @@
   }
 }
 
+.feed_content_headers {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.feed_content_button {
+  transition: 0 all ease-in-out;
+
+  &:hover {
+    background-color: $backgroundGreyDark;
+  }
+}
+
+.feed_content_active {
+  background-color: $backgroundGreyDark;
+}
+
 #myFeed {
   max-width: calc(694px + 20px) !important;
   min-width: calc(694px + 20px) !important;

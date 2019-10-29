@@ -9,5 +9,6 @@ module.exports = {
         "operator-linebreak": "off",
         "react/forbid-prop-types": "off",
         "no-console": "off",
+        "react/destructuring-assignment": "off",
     }
 }

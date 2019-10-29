@@ -13,7 +13,9 @@ import getMyFollowing from './getMyFollowing';
 import getPublicFollowing from './getPublicFollowing';
 import saveFollowing from './saveFollowing';
 import deleteFollowing from './deleteFollowing';
-import updateMyWall from './updateMyWall';
+import postAndUpdateWall from './postAndUpdateWall';
+import getOtherWall from './getOtherWall';
+import joinOtherThread from './joinOtherThread';
 
 export default {
   getCollectibles,
@@ -31,5 +33,7 @@ export default {
   getPublicFollowing,
   saveFollowing,
   deleteFollowing,
-  updateMyWall,
+  postAndUpdateWall,
+  getOtherWall,
+  joinOtherThread,
 };

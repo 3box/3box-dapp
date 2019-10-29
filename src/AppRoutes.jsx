@@ -172,7 +172,12 @@ const AppRoutes = (props) => {
       <Route
         exact
         path="(^[/][0][xX]\w{40}\b)"
-        component={PubProfile}
+        // component={PubProfile}
+        render={() => (
+          <PubProfile
+            handleSignInUp={handleSignInUp}
+          />
+        )}
       />
 
       <Route render={() => <Redirect to={routes.LANDING} />} />

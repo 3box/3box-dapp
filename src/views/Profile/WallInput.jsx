@@ -17,7 +17,7 @@ import Profile from '../../assets/Profile.svg';
 import './styles/Input.scss';
 import './styles/PopupWindow.scss';
 
-const { updateMyWall } = actions.profile;
+const { postAndUpdateWall, joinOtherThread } = actions.profile;
 
 class WallInput extends Component {
   constructor(props) {
@@ -115,12 +115,12 @@ class WallInput extends Component {
 
   saveComment = async () => {
     const {
-      joinThread,
-      wallThread,
-      updateMyWall,
+      postAndUpdateWall,
       box,
       loginFunction,
-      ethereum
+      ethereum,
+      isOtherProfile,
+      otherWallThread,
     } = this.props;
     const { comment, disableComment, isMobile } = this.state;
     const updatedComment = comment.replace(/(\r\n|\n|\r)/gm, '');
@@ -133,12 +133,11 @@ class WallInput extends Component {
     this.inputRef.current.style.height = (isMobile) ? '64px' : '74px';
     this.setState({ postLoading: true, comment: '' });
 
-    if (!box || !Object.keys(box).length) await loginFunction();
-    if (!Object.keys(wallThread).length) await joinThread();
-
+    if (!box || !Object.keys(box).length) await loginFunction(false, false, false, true);
+    if (!otherWallThread || !Object.keys(otherWallThread).length) await this.props.joinOtherThread();
+    console.log('insavecomment', isOtherProfile);
     try {
-      await this.props.wallThread.post(comment);
-      await updateMyWall();
+      await postAndUpdateWall(isOtherProfile, comment);
       this.setState({ postLoading: false });
     } catch (error) {
       console.error('There was an error saving your comment', error);
@@ -149,7 +148,6 @@ class WallInput extends Component {
     const {
       comment,
       postLoading,
-      // showLoggedInAs,
       isMobile,
       emojiPickerIsOpen,
     } = this.state;
@@ -157,16 +155,10 @@ class WallInput extends Component {
     const {
       image,
       currentAddress,
-      box,
-      ethereum,
-      loginFunction,
-      name,
     } = this.props;
 
-    const noWeb3 = (!ethereum || !Object.entries(ethereum).length) && !loginFunction;
     const updatedProfilePicture = image ? `https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`
       : currentAddress && makeBlockie(currentAddress);
-    const isBoxEmpty = !box || !Object.keys(box).length;
 
     return (
       <div className="input">
@@ -253,29 +245,27 @@ const mapState = (state) => ({
   currentAddress: state.userState.currentAddress,
   image: state.myData.image,
   box: state.myData.box,
-  wallThread: state.myData.wallThread,
   ethereum: state.userState.web3Obj,
 });
 
 export default connect(mapState, {
-  updateMyWall,
+  postAndUpdateWall,
+  joinOtherThread,
 })(WallInput);
 
 WallInput.propTypes = {
   box: PropTypes.object,
-  wallThread: PropTypes.object,
   ethereum: PropTypes.object,
   name: PropTypes.string,
   currentAddress: PropTypes.string,
   image: PropTypes.array,
   loginFunction: PropTypes.func.isRequired,
-  updateMyWall: PropTypes.func.isRequired,
-  joinThread: PropTypes.func.isRequired,
+  postAndUpdateWall: PropTypes.func.isRequired,
+  joinOtherThread: PropTypes.func.isRequired,
 };
 
 WallInput.defaultProps = {
   box: {},
-  wallThread: {},
   ethereum: null,
   name: '',
   currentAddress: '',

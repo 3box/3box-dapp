@@ -32,6 +32,12 @@ const uiStateReducer = (state = {}, action) => {
         isFetchingOtherActivity: action.isFetchingOtherActivity,
       };
 
+    case 'UI_WALL_OTHER_LOADING':
+      return {
+        ...state,
+        isFetchingOtherWall: action.isFetchingOtherWall,
+      };
+
     case 'UI_FEED_FAILED':
       return {
         ...state,

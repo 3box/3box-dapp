@@ -7,11 +7,12 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import actions from '../../state/actions';
 import { store } from '../../state/store';
 import { isBrowserCompatible } from '../../utils/funcs';
+
 import {
   PublicProfileLoading,
   SignInThroughPublicProfileBanner,
   UnsupportedBrowserBanner,
-  FollowingListModal
+  FollowingListModal,
 } from '../../components/Modals';
 import PubContent from './PublicProfile/PubContent';
 import SideBar from './SideBar';
@@ -33,6 +34,7 @@ const {
   getOtherProfile,
   getActivity,
   getCollectibles,
+  getOtherWall,
 } = actions.profile;
 
 class ProfilePublic extends Component {
@@ -65,7 +67,7 @@ class ProfilePublic extends Component {
       location: { pathname },
       following,
       otherFollowing,
-      currentAddress
+      currentAddress,
     } = this.props;
     const otherProfileAddress = pathname.split('/')[1];
     const nextProfileAddress = nextProps.location.pathname.split('/')[1];
@@ -122,6 +124,7 @@ class ProfilePublic extends Component {
 
   getProfile = async (otherProfileAddress) => {
     await this.props.getOtherProfile(otherProfileAddress);
+    this.props.getOtherWall(otherProfileAddress);
     this.props.getCollectibles(otherProfileAddress, true);
     this.props.getActivity(otherProfileAddress);
   }
@@ -131,7 +134,7 @@ class ProfilePublic extends Component {
     const updatedFollowing = nextFollowing || following;
     const updatedOtherFollowing = nextOtherFollowing || otherFollowing;
 
-    const checkIfFollowing = user => user[1] !== otherProfileAddress;
+    const checkIfFollowing = (user) => user[1] !== otherProfileAddress;
 
     if (updatedFollowing.every(checkIfFollowing)) {
       this.setState({ isFollowing: false });
@@ -139,8 +142,8 @@ class ProfilePublic extends Component {
       this.setState({ isFollowing: true });
     }
 
-    const otherFollowingAddresses = updatedOtherFollowing.map(user => user[1]);
-    const otherMutualFollowing = updatedFollowing.filter(x => otherFollowingAddresses.includes(x[1]));
+    const otherFollowingAddresses = updatedOtherFollowing.map((user) => user[1]);
+    const otherMutualFollowing = updatedFollowing.filter((x) => otherFollowingAddresses.includes(x[1]));
     store.dispatch({
       type: 'OTHER_MUTUAL_FOLLOWING',
       otherMutualFollowing: otherMutualFollowing.slice(),
@@ -158,6 +161,7 @@ class ProfilePublic extends Component {
       showContactsModal,
       otherFollowing,
       following,
+      handleSignInUp,
     } = this.props;
 
     const { isFollowing, isMe } = this.state;
@@ -187,7 +191,7 @@ class ProfilePublic extends Component {
               isFollowing={isFollowing}
               isMe={isMe}
             />
-            <PubContent />
+            <PubContent handleSignInUp={handleSignInUp} />
           </div>
 
           <ReactCSSTransitionGroup
@@ -217,15 +221,18 @@ class ProfilePublic extends Component {
 
 ProfilePublic.propTypes = {
   getOtherProfile: PropTypes.func.isRequired,
-  checkNetwork: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
+  handleShowSafariBanner: PropTypes.func.isRequired,
   handleShowSignInBanner: PropTypes.func.isRequired,
   handleHideSignInBanner: PropTypes.func.isRequired,
+  handleSignInUp: PropTypes.func.isRequired,
+  getOtherWall: PropTypes.func.isRequired,
   handleContactsModal: PropTypes.func.isRequired,
   getCollectibles: PropTypes.func.isRequired,
   pathname: PropTypes.object,
   location: PropTypes.object,
   isLoadingOtherProfile: PropTypes.bool,
+  showSafariBanner: PropTypes.bool,
   showSignInBanner: PropTypes.bool,
   showContactsModal: PropTypes.bool,
   currentAddress: PropTypes.string,
@@ -242,14 +249,16 @@ ProfilePublic.defaultProps = {
   isLoadingOtherProfile: true,
   showSignInBanner: false,
   showContactsModal: false,
+  showSafariBanner: false,
   currentAddress: '',
   otherName: '',
   following: [],
+  otherImage: [],
   otherFollowing: [],
   otherProfileAddress: '',
 };
 
-const mapState = state => ({
+const mapState = (state) => ({
   showSafariBanner: state.uiState.showSafariBanner,
   showContactsModal: state.uiState.showContactsModal,
   showSignInBanner: state.uiState.showSignInBanner,
@@ -275,4 +284,5 @@ export default withRouter(connect(mapState,
     handleContactsModal,
     getCollectibles,
     handleShowSafariBanner,
+    getOtherWall,
   })(ProfilePublic));

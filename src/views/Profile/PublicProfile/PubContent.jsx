@@ -3,13 +3,13 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import PublicActivity from './PublicActivity';
+import PublicActivityOrWall from './PublicActivityOrWall';
 import PublicCollectiblesGallery from './PublicCollectiblesGallery';
 import '../styles/Feed.css';
 import '../styles/Profile.css';
 import '../../../components/styles/NetworkArray.css';
 
-const PubContent = ({ showSignInBanner, onOtherProfilePage, isLoggedIn }) => (
+const PubContent = ({ showSignInBanner, onOtherProfilePage, isLoggedIn, handleSignInUp }) => (
   <div className={` 
   ${onOtherProfilePage ? 'publicStatusUpdate' : ''}
   ${showSignInBanner ? 'publicStatusUpdate--bannerMargin' : ''} 
@@ -18,7 +18,7 @@ const PubContent = ({ showSignInBanner, onOtherProfilePage, isLoggedIn }) => (
   pubContent`}
   >
     <PublicCollectiblesGallery />
-    <PublicActivity />
+    <PublicActivityOrWall handleSignInUp={handleSignInUp} />
   </div>
 );
 

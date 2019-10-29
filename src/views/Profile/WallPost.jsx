@@ -57,7 +57,7 @@ class WallPost extends Component {
       useHovers,
       isMyAdmin,
       isCommenterAdmin,
-      wallThread
+      wallThread,
     } = this.props;
 
     const profilePicture = profile.ethAddr &&

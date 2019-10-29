@@ -43,7 +43,22 @@ const otherProfileReducer = (state = {}, action) => {
     case 'OTHER_WALL_UPDATE':
       return {
         ...state,
-        otherProfileWall: action.otherProfileWall,
+        otherWallPosts: action.otherWallPosts,
+        otherWallProfiles: action.otherWallProfiles,
+      };
+
+    case 'OTHER_WALL_THREAD_UPDATE':
+      return {
+        ...state,
+        otherWallPosts: action.otherWallPosts,
+        otherWallProfiles: action.otherWallProfiles,
+        otherWallThread: action.otherWallThread,
+      };
+
+    case 'OTHER_WALL_POSTS_UPDATE':
+      return {
+        ...state,
+        otherWallPosts: action.otherWallPosts,
       };
 
     case 'OTHER_FAVORITE_COLLECTIBLES_UPDATE':

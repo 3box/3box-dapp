@@ -23,13 +23,12 @@ class Collectibles extends Component {
     super(props);
     this.state = {
       offset: 100,
-      collection: this.props.collection,
     };
 
     window.onscroll = () => {
       const { isLoading } = this.state;
       const { collection } = this.props;
-      const windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
+      const windowHeight = 'innerHeight' in window ? window.innerHeight : document.documentElement.offsetHeight;
       const { body } = document;
       const html = document.documentElement;
       const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
@@ -39,14 +38,6 @@ class Collectibles extends Component {
       }
     };
   }
-
-  // componentDidMount() {
-  //   window.addEventListener('scroll', this.onScroll, false);
-  // }
-
-  // componentWillUnmount() {
-  //   window.removeEventListener('scroll', this.onScroll, false);
-  // }
 
   updateGallery = (e, selectedCollectible, removeFavorite, fromModal) => {
     e.stopPropagation();
@@ -79,13 +70,13 @@ class Collectibles extends Component {
         address: contractAddress,
         token_id: tokenId,
       });
-      const idx = collection.findIndex(nft => (nft.asset_contract.address === contractAddress
+      const idx = collection.findIndex((nft) => (nft.asset_contract.address === contractAddress
         && nft.token_id === tokenId));
       collection.splice(idx, 1);
       updatedCollection = collection.slice();
       if (removedCollectible) updatedCollection.push(removedCollectible);
     } else if (removeFavorite) {
-      const idx = updatedCollectiblesFavorites.findIndex(favorite => (favorite.address === contractAddress
+      const idx = updatedCollectiblesFavorites.findIndex((favorite) => (favorite.address === contractAddress
         && favorite.token_id === tokenId));
 
       updatedCollectiblesFavorites.splice(idx, 1);
@@ -176,7 +167,8 @@ class Collectibles extends Component {
               }
               updateGallery={this.updateGallery}
               isFavorite={isFavorite}
-            />)}
+            />
+          )}
 
           {showCollectiblesModal && (
             <ModalBackground />
@@ -192,10 +184,11 @@ class Collectibles extends Component {
                 <img src={Globe} alt="Public" className="favorites__publicIcon" title="Favorites will appear in your public profile" />
               </div>
             )}
+
           <div className="favorites__grid__wrapper">
             {collectiblesFavoritesToRender.length > 0 && (
               <div className="collectibles__grid favorites__grid">
-                {collectiblesFavoritesToRender.map(collectible => (
+                {collectiblesFavoritesToRender.map((collectible) => (
                   <CollectiblesTile
                     updateGallery={this.updateGallery}
                     collectible={collectible}
@@ -236,6 +229,7 @@ class Collectibles extends Component {
               </div>
             </div>
           )}
+
           {(collection.length > 0 || collectiblesFavoritesToRender.length > 0)
             ? (
               <div className="header collectiblesHeader" id="feed__header">
@@ -252,7 +246,7 @@ class Collectibles extends Component {
             )}
           <div className="collectibles__grid">
             {collection.length > 0 && (
-              collection.map(collectible => (
+              collection.map((collectible) => (
                 <CollectiblesTile
                   updateGallery={this.updateGallery}
                   collectible={collectible}
@@ -302,6 +296,7 @@ Collectibles.propTypes = {
   box: PropTypes.object,
   selectedCollectible: PropTypes.object,
   collection: PropTypes.array,
+  currentAddress: PropTypes.string,
   collectiblesFavorites: PropTypes.array,
   collectiblesFavoritesToRender: PropTypes.array,
   handleCollectiblesModal: PropTypes.func.isRequired,
@@ -315,6 +310,7 @@ Collectibles.defaultProps = {
   collectiblesFavorites: [],
   collectiblesFavoritesToRender: [],
   selectedCollectible: {},
+  currentAddress: '',
 };
 
 function mapState(state) {

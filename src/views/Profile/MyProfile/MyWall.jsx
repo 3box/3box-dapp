@@ -2,13 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-// import {
-//   followingSpaceName,
-//   myProfileWall,
-// } from '../../../utils/constants';
-
-// import ActivityHeader from './ActivityHeader';
-// import ActivityTiles from './ActivityTiles';
+import { sortChronologically } from '../../../utils/funcs';
 import WallInput from '../WallInput';
 import WallPost from '../WallPost';
 import Loading from '../../../assets/Loading.svg';
@@ -19,11 +13,23 @@ import '../../../components/styles/NetworkArray.css';
 const Wall = ({
   isFetchingWall,
   wallPosts,
+  otherWallPosts,
   currentAddress,
   box,
   handleSignInUp,
   wallProfiles,
-}) => (
+  otherWallProfiles,
+  isOtherProfile,
+  otherProfileAddress,
+}) => {
+  const posts = isOtherProfile ? otherWallPosts : wallPosts;
+  const postsToRender = sortChronologically(posts);
+  const adminEthAddr = isOtherProfile ? otherProfileAddress : currentAddress;
+  const profilesToUse = isOtherProfile ? otherWallProfiles : wallProfiles;
+  const adminEthAddrNormalized = adminEthAddr.toLowerCase();
+  const currentUserAddrNormalized = currentAddress && currentAddress.toLowerCase();
+
+  return (
     <div id="myFeed">
       <div>
         <p className="header publicHeader" id="feed__header">
@@ -37,16 +43,15 @@ const Wall = ({
         <WallInput
           box={box}
           loginFunction={handleSignInUp}
+          isOtherProfile={isOtherProfile}
         // ethereum={ethereum}
-        // joinThread={this.joinThread}
+        // joinThread={joinThread} // only necessary for public profile
         />
 
         <div className="feed__activity__header">
-          {wallPosts.reverse().map((comment) => {
-            const profile = wallProfiles[comment.author];
+          {postsToRender.reverse().map((comment) => {
+            const profile = profilesToUse[comment.author];
             const commentAddr = profile && profile.ethAddr.toLowerCase();
-            const currentUserAddrNormalized = currentAddress && currentAddress.toLowerCase();
-            const adminEthAddrNormalized = currentAddress.toLowerCase();
 
             return (
               <WallPost
@@ -74,22 +79,31 @@ const Wall = ({
       </div>
     </div>
   );
+};
 
 Wall.propTypes = {
   wallPosts: PropTypes.array,
+  otherWallPosts: PropTypes.array,
+  otherWallProfiles: PropTypes.array,
   box: PropTypes.object,
   wallProfiles: PropTypes.object,
   isFetchingWall: PropTypes.bool,
+  isOtherProfile: PropTypes.bool,
   currentAddress: PropTypes.string,
+  otherProfileAddress: PropTypes.string,
   handleSignInUp: PropTypes.func.isRequired,
 };
 
 Wall.defaultProps = {
   wallPosts: [],
+  otherWallPosts: [],
+  otherWallProfiles: [],
   box: {},
   wallProfiles: {},
   isFetchingWall: false,
+  isOtherProfile: false,
   currentAddress: '',
+  otherProfileAddress: '',
 };
 
 const mapState = (state) => ({
@@ -102,35 +116,9 @@ const mapState = (state) => ({
   currentAddress: state.userState.currentAddress,
 
   otherProfileAddress: state.otherProfile.otherProfileAddress,
+  otherWallPosts: state.otherProfile.otherWallPosts,
   otherName: state.otherProfile.otherName,
+  otherWallProfiles: state.otherProfile.otherWallProfiles,
 });
 
 export default connect(mapState)(Wall);
-
-
-// {(wallPosts.length > 0)
-//   ? wallPosts.map((post, i) => (
-//     <WallPost
-//       comment={post}
-//       profile={profile || {}}
-//       isMyComment={commentAddr === currentUserAddrNormalized}
-//       isMyAdmin={adminEthAddrNormalized === currentUserAddrNormalized}
-//       isCommenterAdmin={adminEthAddrNormalized === commentAddr}
-//       key={comment.postId}
-//       thread={thread}
-//       joinThread={joinThread}
-//       box={box}
-//       loginFunction={loginFunction}
-//       openBox={openBox}
-//     />
-//     // <div key={post.postId} className="feed__activity__tile">
-//     //   {post.message}
-//     //   {/* <ActivityHeader feedAddress={feedAddress} />
-//     //   <ActivityTiles feedAddress={feedAddress} /> */}
-//     // </div>
-//   ))
-//   : (!isFetchingWall && !wallPosts.length) && (
-//     <div className="feed__activity__load">
-//       <p>No posts on this wall yet</p>
-//     </div>
-//   )}
