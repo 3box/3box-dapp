@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 
 import PublicActivityHeader from './PublicActivityHeader';
 import PublicActivityTiles from './PublicActivityTiles';
-import MyWall from '../MyProfile/MyWall';
+import Wall from '../Wall';
 import Loading from '../../../assets/Loading.svg';
 import '../styles/Feed.css';
 import '../styles/Profile.css';
@@ -34,7 +33,6 @@ class PublicActivityOrWall extends Component {
       handleSignInUp,
     } = this.props;
     const { viewTab } = this.state;
-    console.log('viewTab', viewTab)
 
     return (
       <div id="feed" className={`${otherCollectiblesFavorites.length > 0 && 'noTopMargin'}`}>
@@ -45,19 +43,19 @@ class PublicActivityOrWall extends Component {
               className={`textButton feed_content_button ${viewTab === 'wall' ? 'feed_content_active' : ''}`}
               onClick={() => this.handleView('wall')}
             >
-              <p className="header" id="feed__header">Wall</p>
+              <p className="header feed_content_headers_tab">Wall</p>
             </button>
             <button
               type="button"
               className={`textButton feed_content_button ${viewTab === 'activity' ? 'feed_content_active' : ''}`}
               onClick={() => this.handleView('activity')}
             >
-              <p className="header" id="feed__header">Activity</p>
+              <p className="header feed_content_headers_tab">Activity</p>
             </button>
           </div>
 
           {viewTab === 'wall' ? (
-            <MyWall
+            <Wall
               isFetchingWall={isFetchingOtherWall}
               wallPosts={otherWallPosts}
               wallProfiles={otherWallProfiles}
@@ -70,11 +68,6 @@ class PublicActivityOrWall extends Component {
                 otherProfileActivity={otherProfileActivity}
               />
             )}
-        </div>
-        <div className="feed__footer">
-          <div className="logo__icon--footer">
-            <h2>3</h2>
-          </div>
         </div>
       </div>
     );
@@ -135,5 +128,10 @@ const PublicActivity = ({ isFetchingOtherActivity, otherProfileActivity }) => (
           <p>No activity at this address yet</p>
         </div>
       )}
+    <div className="feed__footer">
+      <div className="logo__icon--footer">
+        <h2>3</h2>
+      </div>
+    </div>
   </div>
 );

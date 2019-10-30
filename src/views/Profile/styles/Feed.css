@@ -113,12 +113,22 @@
 .feed_content_headers {
   display: flex;
   justify-content: flex-start;
-  align-items: center; }
+  align-items: center;
+  margin: 30px 0 20px 0; }
 
 .feed_content_button {
-  transition: 0 all ease-in-out; }
+  transition: 0 all ease-in-out;
+  margin-right: 12px; }
   .feed_content_button:hover {
     background-color: #dfdfdfa6; }
+
+.feed_content_headers_tab {
+  font-size: 18px;
+  line-height: 24px !important;
+  color: #747677;
+  font-weight: 400;
+  padding: 6px 12px;
+  display: flex; }
 
 .feed_content_active {
   background-color: #dfdfdfa6; }

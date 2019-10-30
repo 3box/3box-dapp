@@ -13,10 +13,13 @@ const updateOtherWall = async () => {
   const {
     otherWallThread,
   } = await store.getState().otherProfile;
-  const wallPosts = await otherWallThread.getPosts();
+  const otherWallPosts = await otherWallThread.getPosts();
+  const otherWallProfiles = await fetchCommenters(otherWallPosts);
+
   store.dispatch({
     type: 'OTHER_WALL_POSTS_UPDATE',
-    wallPosts,
+    otherWallPosts,
+    otherWallProfiles,
   });
 };
 
@@ -34,9 +37,7 @@ const joinOtherThread = () => async (dispatch) => {
 
     const otherWallThread = await space.joinThread(myProfileWall, opts);
     const otherWallPosts = await otherWallThread.getPosts();
-    const uniqueUsers = [...new Set(otherWallPosts.map((x) => x.author))];
-
-    const otherWallProfiles = await fetchCommenters(uniqueUsers);
+    const otherWallProfiles = await fetchCommenters(otherWallPosts);
 
     otherWallThread.onUpdate(() => updateOtherWall());
 

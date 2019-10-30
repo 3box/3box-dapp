@@ -1,6 +1,9 @@
 import {
   store,
 } from '../../store';
+import {
+  fetchCommenters,
+} from './helpers';
 
 const postAndUpdateWall = (isOtherProfile, comment) => async (dispatch) => {
   let wallToUpdate;
@@ -12,16 +15,19 @@ const postAndUpdateWall = (isOtherProfile, comment) => async (dispatch) => {
 
   await wallToUpdate.post(comment);
   const wallPosts = await wallToUpdate.getPosts();
+  const wallProfiles = await fetchCommenters(wallPosts);
 
   if (isOtherProfile) {
     dispatch({
       type: 'OTHER_WALL_POSTS_UPDATE',
       otherWallPosts: wallPosts,
+      otherWallProfiles: wallProfiles,
     });
   } else {
     dispatch({
       type: 'MY_WALL_POSTS_UPDATE',
       wallPosts,
+      wallProfiles,
     });
   }
 };

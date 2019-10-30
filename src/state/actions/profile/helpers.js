@@ -106,7 +106,8 @@ export const formatContact = (proofDid, otherProfileAddress) => {
   return contact;
 };
 
-export const fetchCommenters = async (uniqueUsers) => {
+export const fetchCommenters = async (posts) => {
+  const uniqueUsers = [...new Set(posts.map((x) => x.author))];
   const profiles = {};
   const fetchProfile = async (did) => await Box.getProfile(did);
   const fetchAllProfiles = async () => await Promise.all(uniqueUsers.map(did => fetchProfile(did)));

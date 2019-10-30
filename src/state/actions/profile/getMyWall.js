@@ -1,7 +1,9 @@
 import {
   store,
 } from '../../store';
-import { fetchCommenters } from './helpers';
+import {
+  fetchCommenters,
+} from './helpers';
 import {
   followingSpaceName,
   myProfileWall,
@@ -10,9 +12,12 @@ import {
 const updateMyWall = async () => {
   const wallThread = await store.getState().myData.wallThread;
   const wallPosts = await wallThread.getPosts();
+  const wallProfiles = await fetchCommenters(wallPosts);
+
   store.dispatch({
     type: 'MY_WALL_POSTS_UPDATE',
     wallPosts,
+    wallProfiles,
   });
 };
 
@@ -24,11 +29,10 @@ const getMyWall = () => async (dispatch) => {
     const opts = {
       firstModerator: myAddress,
     };
+
     const wallThread = await space.joinThread(myProfileWall, opts);
     const wallPosts = await wallThread.getPosts();
-    const uniqueUsers = [...new Set(wallPosts.map((x) => x.author))];
-
-    const wallProfiles = await fetchCommenters(uniqueUsers);
+    const wallProfiles = await fetchCommenters(wallPosts);
 
     wallThread.onUpdate(() => updateMyWall());
 

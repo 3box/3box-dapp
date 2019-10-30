@@ -37,6 +37,29 @@
   background-color: #1168df;
   object-fit: cover; }
 
+.input_emptyUser {
+  position: absolute;
+  left: 15px;
+  top: 17px;
+  min-width: 40px;
+  min-height: 40px;
+  max-width: 40px;
+  max-height: 40px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 1px solid #ececec;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.input_emptyUser_icon {
+  min-width: 30px;
+  min-height: 30px;
+  max-width: 30px;
+  max-height: 30px;
+  opacity: .6; }
+
 .input_login {
   position: absolute;
   left: 72px;
@@ -60,29 +83,6 @@
   display: flex;
   justify-content: center;
   align-items: center; }
-
-.input_emptyUser {
-  position: absolute;
-  left: -1px;
-  top: 6px;
-  min-width: 40px;
-  min-height: 40px;
-  max-width: 40px;
-  max-height: 40px;
-  border-radius: 50%;
-  background-color: transparent;
-  border: 1px solid #ececec;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center; }
-
-.input_emptyUser_icon {
-  min-width: 30px;
-  min-height: 30px;
-  max-width: 30px;
-  max-height: 30px;
-  opacity: .6; }
 
 .input_send-mobile {
   visibility: hidden;

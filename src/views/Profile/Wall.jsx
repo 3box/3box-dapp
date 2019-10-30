@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { sortChronologically } from '../../../utils/funcs';
-import WallInput from '../WallInput';
-import WallPost from '../WallPost';
-import Loading from '../../../assets/Loading.svg';
-import '../styles/Feed.css';
-import '../styles/Profile.css';
-import '../../../components/styles/NetworkArray.css';
+import { sortChronologically } from '../../utils/funcs';
+import WallInput from './WallInput';
+import WallPost from './WallPost';
+import Loading from '../../assets/Loading.svg';
+import './styles/Feed.css';
+import './styles/Profile.css';
+import '../../components/styles/NetworkArray.css';
 
 const Wall = ({
   isFetchingWall,
@@ -30,15 +30,17 @@ const Wall = ({
   const currentUserAddrNormalized = currentAddress && currentAddress.toLowerCase();
 
   return (
-    <div id="myFeed">
+    <div id={isOtherProfile ? '' : 'myFeed'}>
       <div>
-        <p className="header publicHeader" id="feed__header">
-          Wall
+        {!isOtherProfile && (
+          <p className="header publicHeader" id="feed__header">
+            Wall
           {(isFetchingWall)
-            && (
-              <img src={Loading} alt="loading" id="activityLoad" />
-            )}
-        </p>
+              && (
+                <img src={Loading} alt="loading" id="activityLoad" />
+              )}
+          </p>
+        )}
 
         <WallInput
           box={box}
@@ -49,7 +51,7 @@ const Wall = ({
         />
 
         <div className="feed__activity__header">
-          {postsToRender.reverse().map((comment) => {
+          {postsToRender.map((comment) => {
             const profile = profilesToUse[comment.author];
             const commentAddr = profile && profile.ethAddr.toLowerCase();
 

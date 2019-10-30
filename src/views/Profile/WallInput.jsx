@@ -4,15 +4,15 @@ import SVG from 'react-inlinesvg';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { shortenEthAddr, checkIsMobileDevice } from '../../utils/funcs';
+import { checkIsMobileDevice } from '../../utils/funcs';
 import actions from '../../state/actions';
 
 import EmojiIcon from './Emoji/EmojiIcon';
 import PopupWindow from './Emoji/PopupWindow';
 import EmojiPicker from './Emoji/EmojiPicker';
 import Loading from '../../assets/3BoxCommentsSpinner.svg';
-import Logo from '../../assets/3BoxLogo.svg';
 import Profile from '../../assets/Profile.svg';
+// import Logo from '../../assets/3BoxLogo.svg';
 // import Send from '../../assets/Send2.svg';
 import './styles/Input.scss';
 import './styles/PopupWindow.scss';
@@ -50,17 +50,13 @@ class WallInput extends Component {
     const el = document.getElementsByClassName('input_form')[0];
     el.removeEventListener('keydown', this.searchEnter, false);
   }
-  
+
     autoExpand = (field) => {
       const height = field.scrollHeight;
-      field.style.height = height + 'px';
+      field.style.height = `${height} px`;
     };
-  
-  handleCommentText = (event) => {
-    const { ethereum, loginFunction } = this.props;
-    const noWeb3 = (!ethereum || !Object.entries(ethereum).length) && !loginFunction;
-    if (!noWeb3) this.setState({ comment: event.target.value });
-  }
+
+  handleCommentText = (event) => this.setState({ comment: event.target.value });
 
   searchEnter = (event) => {
     const { comment, isMobile } = this.state;
@@ -118,15 +114,12 @@ class WallInput extends Component {
       postAndUpdateWall,
       box,
       loginFunction,
-      ethereum,
       isOtherProfile,
       otherWallThread,
     } = this.props;
     const { comment, disableComment, isMobile } = this.state;
     const updatedComment = comment.replace(/(\r\n|\n|\r)/gm, '');
-    const noWeb3 = (!ethereum || !Object.entries(ethereum).length) && !loginFunction;
 
-    if (noWeb3) return;
     if (disableComment || !updatedComment) return;
 
     this.inputRef.current.blur();
@@ -135,7 +128,7 @@ class WallInput extends Component {
 
     if (!box || !Object.keys(box).length) await loginFunction(false, false, false, true);
     if (!otherWallThread || !Object.keys(otherWallThread).length) await this.props.joinOtherThread();
-    console.log('insavecomment', isOtherProfile);
+    
     try {
       await postAndUpdateWall(isOtherProfile, comment);
       this.setState({ postLoading: false });
@@ -245,7 +238,6 @@ const mapState = (state) => ({
   currentAddress: state.userState.currentAddress,
   image: state.myData.image,
   box: state.myData.box,
-  ethereum: state.userState.web3Obj,
 });
 
 export default connect(mapState, {
@@ -255,8 +247,8 @@ export default connect(mapState, {
 
 WallInput.propTypes = {
   box: PropTypes.object,
-  ethereum: PropTypes.object,
-  name: PropTypes.string,
+  otherWallThread: PropTypes.object,
+  isOtherProfile: PropTypes.bool,
   currentAddress: PropTypes.string,
   image: PropTypes.array,
   loginFunction: PropTypes.func.isRequired,
@@ -266,8 +258,8 @@ WallInput.propTypes = {
 
 WallInput.defaultProps = {
   box: {},
-  ethereum: null,
-  name: '',
+  otherWallThread: {},
+  isOtherProfile: false,
   currentAddress: '',
   image: null,
 };

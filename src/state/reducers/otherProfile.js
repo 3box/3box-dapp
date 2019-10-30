@@ -59,6 +59,7 @@ const otherProfileReducer = (state = {}, action) => {
       return {
         ...state,
         otherWallPosts: action.otherWallPosts,
+        otherWallProfiles: action.otherWallProfiles,
       };
 
     case 'OTHER_FAVORITE_COLLECTIBLES_UPDATE':
