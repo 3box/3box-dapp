@@ -19,14 +19,13 @@ class Wall extends Component {
     super(props);
     this.state = {
       showOptions: false,
-      disabled: false,
       isOtherWallDisabled: false,
       isWallDisabled: false,
     };
   }
 
   componentDidMount() {
-    const { isOtherWallDisabled, isWallDisabled, isOtherProfile } = this.props;
+    const { isOtherWallDisabled, isWallDisabled } = this.props;
     this.setState({ isOtherWallDisabled, isWallDisabled });
   }
 
