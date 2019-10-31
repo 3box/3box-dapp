@@ -15,7 +15,7 @@ const Privacy = ({ isLoggedIn, handleSignInUp }) => (
       <div className="info__content">
         <div className="info__content__text">
           <p>
-          This privacy policy (“Policy”) describes how ConsenSys AG’s
+          This privacy policy (“Policy”) describes how
           3Box (“3Box” “Company”, “we”, “our”, or “us”)
           collects, uses, shares, and stores personal information
           of users of this website, 3box.io (the “Site”). This Policy

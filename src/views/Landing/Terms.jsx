@@ -32,7 +32,7 @@ const Terms = ({ isLoggedIn, handleSignInUp }) => (
             TO WORK ON DELIVERING A PERFECT PRODUCT.
           </h3>
           <p>
-          Welcome to ConsenSys AG’s 3Box (“3Box”, “Company”, “we”, “our”, or “us”).
+          Welcome to 3Box (“3Box”, “Company”, “we”, “our”, or “us”).
           3Box provides a distributed database infrastructure which allows people to
           publicly and selectively share their content and information over the Ethereum
           network between different decentralized apps (“dapps”), thus powering the next
