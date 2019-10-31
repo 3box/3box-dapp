@@ -157,6 +157,7 @@ class App extends Component {
       this.props.getMyMemberSince(); // eslint-disable-line
       this.props.getMyDID(); // eslint-disable-line
       this.props.getMyWall(); // eslint-disable-line
+      this.props.getMyFollowing(); // eslint-disable-line
       this.props.getMyProfileValue('public', 'name'); // eslint-disable-line
       this.props.getMyProfileValue('public', 'description'); // eslint-disable-line
       this.props.getMyProfileValue('public', 'image'); // eslint-disable-line
@@ -171,8 +172,6 @@ class App extends Component {
       this.props.getMyProfileValue('public', 'year'); // eslint-disable-line
       this.props.getMyProfileValue('public', 'emoji'); // eslint-disable-line
       this.props.getMyProfileValue('private', 'birthday'); // eslint-disable-line
-
-      this.props.getMyFollowing(); // eslint-disable-line
 
       await this.props.getCollectibles(currentAddress); // eslint-disable-line
       await this.props.convert3BoxToSpaces(); // eslint-disable-line

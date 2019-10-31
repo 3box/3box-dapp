@@ -28,6 +28,7 @@ class WallInput extends Component {
       disableComment: true,
       postLoading: false,
       emojiPickerIsOpen: false,
+      hasJoinedThread: false,
       isMobile: checkIsMobileDevice(),
     };
     this.inputRef = React.createRef();
@@ -115,9 +116,13 @@ class WallInput extends Component {
       box,
       loginFunction,
       isOtherProfile,
-      otherWallThread,
     } = this.props;
-    const { comment, disableComment, isMobile } = this.state;
+    const {
+      comment,
+      disableComment,
+      isMobile,
+      hasJoinedThread,
+    } = this.state;
     const updatedComment = comment.replace(/(\r\n|\n|\r)/gm, '');
 
     if (disableComment || !updatedComment) return;
@@ -127,8 +132,12 @@ class WallInput extends Component {
     this.setState({ postLoading: true, comment: '' });
 
     if (!box || !Object.keys(box).length) await loginFunction(false, false, false, true);
-    if (!otherWallThread || !Object.keys(otherWallThread).length) await this.props.joinOtherThread();
-    
+
+    if (isOtherProfile && !hasJoinedThread) {
+      this.setState({ hasJoinedThread: true });
+      await this.props.joinOtherThread();
+    }
+
     try {
       await postAndUpdateWall(isOtherProfile, comment);
       this.setState({ postLoading: false });
@@ -247,7 +256,6 @@ export default connect(mapState, {
 
 WallInput.propTypes = {
   box: PropTypes.object,
-  otherWallThread: PropTypes.object,
   isOtherProfile: PropTypes.bool,
   currentAddress: PropTypes.string,
   image: PropTypes.array,
@@ -258,7 +266,6 @@ WallInput.propTypes = {
 
 WallInput.defaultProps = {
   box: {},
-  otherWallThread: {},
   isOtherProfile: false,
   currentAddress: '',
   image: null,

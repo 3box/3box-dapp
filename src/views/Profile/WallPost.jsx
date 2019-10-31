@@ -9,40 +9,47 @@ import { Link } from 'react-router-dom';
 
 import { shortenEthAddr } from '../../utils/funcs';
 import { timeSince } from '../../utils/time';
+import actions from '../../state/actions';
+
 import Delete from '../../assets/Delete2.svg';
 import Loading from '../../assets/3BoxCommentsSpinner.svg';
 import './styles/WallPost.scss';
 import './styles/Feed.css';
+
+const { postAndUpdateWall, joinOtherThread } = actions.profile;
 
 class WallPost extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loadingDelete: false,
+      hasJoinedThread: false,
     };
   }
 
   deleteComment = async (commentId, e) => {
     e.preventDefault();
     const {
-      // wallThread,
-      // joinThread,
       box,
       loginFunction,
+      isOtherProfile,
+      postAndUpdateWall,
     } = this.props;
+    const { hasJoinedThread } = this.state;
+    this.setState({ loadingDelete: true });
 
-    if (!box || !Object.keys(box).length) {
-      this.setState({ loadingDelete: true });
-      await loginFunction();
+    if (!box || !Object.keys(box).length) await loginFunction(false, false, false, true);
+
+    // will fetch *once per profile, can optimize and save to redux if user returns
+    if (isOtherProfile && !hasJoinedThread) {
+      this.setState({ hasJoinedThread: true });
+      await this.props.joinOtherThread();
     }
 
-    // if user hasn't joined wallThread yet
-    // if (!Object.keys(wallThread).length) await joinThread();
-
     try {
+      const isDelete = true;
+      await postAndUpdateWall(isOtherProfile, commentId, isDelete);
       this.setState({ loadingDelete: false });
-      const res = await this.props.wallThread.deletePost(commentId);
-      console.log('res', res);
     } catch (error) {
       console.error('There was an error deleting your comment', error);
     }
@@ -54,17 +61,15 @@ class WallPost extends Component {
       comment,
       profile,
       isMyComment,
-      useHovers,
       isMyAdmin,
-      isCommenterAdmin,
-      wallThread,
+      // wallThread,
     } = this.props;
 
     const profilePicture = profile.ethAddr &&
       (profile.image ? `https://ipfs.infura.io/ipfs/${profile.image[0].contentUrl['/']}`
         : makeBlockie(profile.ethAddr));
     const canDelete = isMyComment || isMyAdmin;
-    const hasThread = !!Object.keys(wallThread).length;
+    // const hasThread = !!Object.keys(wallThread).length;
 
     return (
       <div className={`comment ${canDelete ? 'isMyComment' : ''}`}>
@@ -107,7 +112,7 @@ class WallPost extends Component {
                         className="comment_content_context_main_user_info_address"
                         title={profile.ethAddr}
                       >
-                        {profile.ethAddr && `${shortenEthAddr(profile.ethAddr)} ${isCommenterAdmin ? 'ADMIN' : ''}`}
+                        {profile.ethAddr && `${shortenEthAddr(profile.ethAddr)}`}
                       </div>
                     )}
                   </div>
@@ -154,22 +159,26 @@ const mapState = (state) => ({
 });
 
 
-export default connect(mapState, {})(WallPost);
+export default connect(mapState, {
+  joinOtherThread,
+  postAndUpdateWall,
+})(WallPost);
 
 WallPost.propTypes = {
   wallThread: PropTypes.object,
   isMyAdmin: PropTypes.bool.isRequired,
-  isCommenterAdmin: PropTypes.bool.isRequired,
-  useHovers: PropTypes.bool.isRequired,
+  isOtherProfile: PropTypes.bool,
   isMyComment: PropTypes.bool.isRequired,
-  joinThread: PropTypes.func.isRequired,
+  joinOtherThread: PropTypes.func.isRequired,
   comment: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   box: PropTypes.object,
-  loginFunction: PropTypes.func,
-  openBox: PropTypes.func.isRequired,
+  loginFunction: PropTypes.func.isRequired,
+  postAndUpdateWall: PropTypes.func.isRequired,
 };
 
 WallPost.defaultProps = {
   wallThread: {},
+  box: {},
+  isOtherProfile: false,
 };

@@ -22,6 +22,12 @@
 .comment.isMyComment:hover .comment_content_context_main_user_delete {
   visibility: visible !important; }
 
+.profileTab {
+  display: none; }
+
+.viewTab {
+  display: block; }
+
 .comment_picture {
   min-width: 40px;
   min-height: 40px;

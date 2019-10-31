@@ -110,6 +110,111 @@
     text-align: center;
     overflow: scroll; }
 
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px; }
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0; }
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: .4s;
+  opacity: .6; }
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 19px;
+  width: 19px;
+  left: 4px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s; }
+
+input:checked + .slider {
+  background-color: #2196F3; }
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3; }
+
+input:checked + .slider:before {
+  transform: translateX(23px); }
+
+.wall_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+
+.wall_header_options {
+  padding: 10px 0 10px 10px; }
+
+.wall_header_options_icon {
+  opacity: .3; }
+
+.wall_header_optionsWrapper {
+  position: relative; }
+
+.wall_header_menu {
+  position: absolute;
+  width: 180px;
+  height: 100px;
+  background-color: white;
+  padding: 12px 16px;
+  box-sizing: border-box;
+  transition: transform ease 0.9s, opacity ease 0.1s;
+  transform: translateY(-4px);
+  top: 24px;
+  right: 0;
+  text-align: left;
+  border-radius: 5px;
+  border: 1px solid #E4E4E4;
+  box-shadow: 0 6px 10px 0 #00000025, 0 16px 24px 0 #00000025;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-14px);
+  transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s, z-index 0s linear 0.01s;
+  z-index: 1; }
+  .wall_header_menu h5 {
+    margin-bottom: 20px;
+    font-size: 15px; }
+  .wall_header_menu p {
+    font-size: 13px;
+    color: #747677;
+    margin-right: 16px; }
+
+.wall_header_menu.show {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0%);
+  transition-delay: 0s, 0s, 0.3s; }
+
+.wall_header_menu_section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px; }
+
+.slider.round:before {
+  border-radius: 50%; }
+
 .feed_content_headers {
   display: flex;
   justify-content: flex-start;
@@ -522,8 +627,7 @@
 
 #activityLoad {
   width: 26px;
-  height: 26px;
-  margin-left: 14px; }
+  height: 26px; }
 
 .feed__activity__address__wrapper {
   display: flex;

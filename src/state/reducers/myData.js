@@ -140,6 +140,7 @@ const myDataReducer = (state = {}, action) => {
         wallPosts: action.wallPosts,
         wallThread: action.wallThread,
         wallProfiles: action.wallProfiles,
+        isWallDisabled: action.isWallDisabled,
       };
 
     case 'MY_WALL_POSTS_UPDATE':

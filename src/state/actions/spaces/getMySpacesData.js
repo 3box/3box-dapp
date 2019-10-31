@@ -10,7 +10,7 @@ import {
   followingSpaceNameLength,
 } from '../../../utils/constants';
 
-const getMySpacesData = address => async (dispatch) => {
+const getMySpacesData = (address) => async (dispatch) => {
   try {
     const {
       allData,

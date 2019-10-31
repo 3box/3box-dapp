@@ -5,7 +5,7 @@ import {
   fetchCommenters,
 } from './helpers';
 
-const postAndUpdateWall = (isOtherProfile, comment) => async (dispatch) => {
+const postAndUpdateWall = (isOtherProfile, commentOrId, isDelete) => async (dispatch) => {
   let wallToUpdate;
   if (isOtherProfile) {
     wallToUpdate = await store.getState().otherProfile.otherWallThread;
@@ -13,7 +13,14 @@ const postAndUpdateWall = (isOtherProfile, comment) => async (dispatch) => {
     wallToUpdate = await store.getState().myData.wallThread;
   }
 
-  await wallToUpdate.post(comment);
+  let action;
+  if (isDelete) {
+    action = 'deletePost';
+  } else {
+    action = 'post';
+  }
+
+  await wallToUpdate[action](commentOrId);
   const wallPosts = await wallToUpdate.getPosts();
   const wallProfiles = await fetchCommenters(wallPosts);
 

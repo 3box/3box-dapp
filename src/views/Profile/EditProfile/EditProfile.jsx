@@ -1025,7 +1025,8 @@ class EditProfile extends Component {
                       src={(this.coverUpload && this.coverUpload.files && this.coverUpload.files[0])
                         ? URL.createObjectURL(this.coverUpload.files[0])
                         : `https://ipfs.infura.io/ipfs/${coverPhoto[0].contentUrl['/']}`}
-                    />)}
+                    />
+                  )}
 
               </div>
             </div>

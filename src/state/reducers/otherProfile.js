@@ -45,6 +45,7 @@ const otherProfileReducer = (state = {}, action) => {
         ...state,
         otherWallPosts: action.otherWallPosts,
         otherWallProfiles: action.otherWallProfiles,
+        isOtherWallDisabled: action.isOtherWallDisabled,
       };
 
     case 'OTHER_WALL_THREAD_UPDATE':

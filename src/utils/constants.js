@@ -5,4 +5,4 @@ export const followingThreadName = 'followingList';
 
 export const followingSpaceNameLength = `${followingSpaceName}.${followingThreadName}`.length;
 
-export const myProfileWall = 'myProfileWall';
+export const myProfileWall = 'profileWall';

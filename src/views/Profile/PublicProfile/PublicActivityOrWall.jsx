@@ -27,7 +27,6 @@ class PublicActivityOrWall extends Component {
       isFetchingOtherActivity,
       otherProfileActivity,
       otherCollectiblesFavorites,
-      isFetchingOtherWall,
       otherWallPosts,
       otherWallProfiles,
       handleSignInUp,
@@ -54,20 +53,18 @@ class PublicActivityOrWall extends Component {
             </button>
           </div>
 
-          {viewTab === 'wall' ? (
-            <Wall
-              isFetchingWall={isFetchingOtherWall}
-              wallPosts={otherWallPosts}
-              wallProfiles={otherWallProfiles}
-              handleSignInUp={handleSignInUp}
-              isOtherProfile
-            />
-          ) : (
-              <PublicActivity
-                isFetchingOtherActivity={isFetchingOtherActivity}
-                otherProfileActivity={otherProfileActivity}
-              />
-            )}
+          <Wall
+            wallPosts={otherWallPosts}
+            wallProfiles={otherWallProfiles}
+            handleSignInUp={handleSignInUp}
+            viewTab={viewTab}
+            isOtherProfile
+          />
+          <PublicActivity
+            isFetchingOtherActivity={isFetchingOtherActivity}
+            otherProfileActivity={otherProfileActivity}
+            viewTab={viewTab}
+          />
         </div>
       </div>
     );
@@ -76,7 +73,6 @@ class PublicActivityOrWall extends Component {
 
 PublicActivityOrWall.propTypes = {
   isFetchingOtherActivity: PropTypes.bool,
-  isFetchingOtherWall: PropTypes.bool,
   otherCollectiblesFavorites: PropTypes.array,
   otherProfileActivity: PropTypes.array,
   otherWallPosts: PropTypes.array,
@@ -86,7 +82,6 @@ PublicActivityOrWall.propTypes = {
 
 PublicActivityOrWall.defaultProps = {
   isFetchingOtherActivity: false,
-  isFetchingOtherWall: false,
   otherCollectiblesFavorites: [],
   otherProfileActivity: [],
   otherWallPosts: [],
@@ -95,7 +90,6 @@ PublicActivityOrWall.defaultProps = {
 
 const mapState = (state) => ({
   isFetchingOtherActivity: state.uiState.isFetchingOtherActivity,
-  isFetchingOtherWall: state.uiState.isFetchingOtherWall,
 
   otherProfileActivity: state.otherProfile.otherProfileActivity,
   otherProfileAddress: state.otherProfile.otherProfileAddress,
@@ -106,8 +100,8 @@ const mapState = (state) => ({
 
 export default connect(mapState)(PublicActivityOrWall);
 
-const PublicActivity = ({ isFetchingOtherActivity, otherProfileActivity }) => (
-  <div className="feed__activity__header">
+const PublicActivity = ({ isFetchingOtherActivity, otherProfileActivity, viewTab }) => (
+  <div className={`feed__activity__header profileTab  ${viewTab === 'activity' ? 'viewTab' : ''}`}>
     {(isFetchingOtherActivity)
       && (
         <div className="feed__activity__load">

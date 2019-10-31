@@ -25,22 +25,31 @@ const getMyWall = () => async (dispatch) => {
   try {
     const box = await store.getState().myData.box;
     const space = await box.openSpace(followingSpaceName);
-    const myAddress = store.getState().userState.currentAddress;
-    const opts = {
-      firstModerator: myAddress,
-    };
 
-    const wallThread = await space.joinThread(myProfileWall, opts);
-    const wallPosts = await wallThread.getPosts();
-    const wallProfiles = await fetchCommenters(wallPosts);
+    // check to see if user has disabled wall
+    const isWallDisabled = space.public && await space.public.get('isWallDisabled');
+    console.log('isWallDisabledingetmywall', isWallDisabled);
 
-    wallThread.onUpdate(() => updateMyWall());
+    let wallThread;
+    let wallPosts;
+    let wallProfiles;
+    if (!isWallDisabled) {
+      const myAddress = store.getState().userState.currentAddress;
+      const opts = {
+        firstModerator: myAddress,
+      };
+      wallThread = await space.joinThread(myProfileWall, opts);
+      wallPosts = await wallThread.getPosts();
+      wallProfiles = await fetchCommenters(wallPosts);
+      wallThread.onUpdate(() => updateMyWall());
+    }
 
     dispatch({
       type: 'MY_WALL_UPDATE',
       wallPosts,
       wallThread,
       wallProfiles,
+      isWallDisabled,
     });
 
     dispatch({
