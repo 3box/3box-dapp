@@ -29,9 +29,9 @@
   white-space: nowrap;
 }
 
-// .input_form.hidePlaceholder::placeholder {
-//   color: transparent !important;
-// }
+.input_form.hidePlaceholder::placeholder {
+  color: transparent !important;
+}
 
 .input_user {
   position: absolute;

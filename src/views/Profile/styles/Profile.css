@@ -651,7 +651,7 @@
     width: 100%;
     position: sticky;
     top: 0;
-    z-index: 5;
+    z-index: 4;
     height: fit-content;
     border-bottom: solid 1px #ececec;
     background-color: white; }

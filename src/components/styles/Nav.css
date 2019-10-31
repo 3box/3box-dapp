@@ -749,7 +749,8 @@ nav {
   nav {
     justify-content: center;
     align-items: center;
-    min-width: 100vw; }
+    min-width: 100vw;
+    z-index: 5; }
   #landing__nav {
     display: flex;
     justify-content: flex-start; }

@@ -864,6 +864,10 @@ input:checked+.slider:before {
     margin-top: 310px !important;
   }
 
+  .wall_header_menu {
+    right: 16px;
+  }
+
   .profile__details {
     padding: 0 !important;
     max-width: 100vw;
@@ -936,6 +940,10 @@ input:checked+.slider:before {
     margin-top: 0;
   }
 
+  .wall_header_options {
+    padding: 10px 20px 10px 10px;
+  }
+
   #feed {
     padding: 0;
     width: 100vw;
@@ -974,7 +982,7 @@ input:checked+.slider:before {
   }
 
   #feed__header {
-    padding: 30px 0 12px 20px;
+    padding: 12px 0 12px 20px;
     margin-bottom: 0;
   }
 

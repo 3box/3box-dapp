@@ -22,6 +22,9 @@
   font-size: 15px;
   white-space: nowrap; }
 
+.input_form.hidePlaceholder::placeholder {
+  color: transparent !important; }
+
 .input_user {
   position: absolute;
   left: 15px;
