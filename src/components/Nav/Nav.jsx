@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import DesktopDropdown from './DesktopDropdown';
+import NavSearch from './NavSearch';
 import NavLinks from './NavLinks';
 import actions from '../../state/actions';
 import { normalizeURL } from '../../utils/funcs';
@@ -17,6 +18,8 @@ class Nav extends Component {
     super(props);
     this.state = {
       showProfileModal: false,
+      showMobileSearch: false,
+      showResults: false,
     };
   }
 
@@ -28,35 +31,57 @@ class Nav extends Component {
   }
 
   handleSignOut = () => {
-    const { box } = this.props;
-    if (box.logout) this.props.handleSignOut();
+    const { box, handleSignOut } = this.props;
+    if (box.logout) handleSignOut();
+  }
+
+  handleMobileSearch = () => {
+    const { showMobileSearch } = this.state;
+    this.setState({ showMobileSearch: !showMobileSearch, showResults: !showMobileSearch });
+  }
+
+  handleToggleResults = (bool) => {
+    const { showResults } = this.state;
+    if (bool) {
+      this.setState({ showResults: true });
+    } else {
+      this.setState({ showResults: !showResults });
+    }
   }
 
   render() {
-    const { showProfileModal } = this.state;
+    const {
+      showProfileModal,
+      showMobileSearch,
+      showResults,
+    } = this.state;
+
     const {
       location,
       currentAddress,
       currentWalletLogo,
       handleSignInUp,
+      currentNetwork,
     } = this.props;
+
     const { pathname } = location;
     const normalizedPath = normalizeURL(pathname);
-    const networkColor = this.props.currentNetwork;
+    const networkColor = currentNetwork;
 
     return (
       <nav>
         <NavLinks
-          currentAddress={currentAddress}
           handleDropdown={this.handleDropdown}
+          currentAddress={currentAddress}
           networkColor={networkColor}
+          showMobileSearch={showMobileSearch}
         />
 
         <DesktopDropdown
-          showProfileModal={showProfileModal}
-          currentAddress={currentAddress}
           handleDropdown={this.handleDropdown}
           handleSignOut={this.handleSignOut}
+          showProfileModal={showProfileModal}
+          currentAddress={currentAddress}
           handleSignInUp={handleSignInUp}
           currentWalletLogo={currentWalletLogo}
           networkColor={networkColor}
@@ -72,11 +97,18 @@ class Nav extends Component {
           />
         )}
 
+        <NavSearch
+          handleMobileSearch={this.handleMobileSearch}
+          handleToggleResults={this.handleToggleResults}
+          showMobileSearch={showMobileSearch}
+          showResults={showResults}
+        />
+
         <MobileDropdown
-          showProfileModal={showProfileModal}
-          currentAddress={currentAddress}
           handleDropdown={this.handleDropdown}
           handleSignOut={this.handleSignOut}
+          showProfileModal={showProfileModal}
+          currentAddress={currentAddress}
           handleSignInUp={handleSignInUp}
           currentWalletLogo={currentWalletLogo}
           networkColor={networkColor}

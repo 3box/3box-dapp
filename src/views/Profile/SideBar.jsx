@@ -107,7 +107,7 @@ const SideBar = ({
             <div className="profile__category">
               <div className="profile__category__sectionWrapper">
                 {!onOtherProfilePage ? (
-                  <React.Fragment>
+                  <>
                     <NavLink exact to={`/${currentAddress}/${routes.ACTIVITY}`} className="profile__category__section">
                       <div className="profile__category__tabIcon__wrappper">
                         <img src={ActivityIcon} alt="Activity" className="profile__category__tabIcon--activity" />
@@ -135,7 +135,7 @@ const SideBar = ({
                       </div>
                       Following
                     </NavLink>
-                  </React.Fragment>
+                  </>
                 ) : <PubSideBar isFollowing={isFollowing} isMe={isMe} />}
               </div>
             </div>

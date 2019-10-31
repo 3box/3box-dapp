@@ -17,7 +17,7 @@ const PublicActivity = ({
   otherProfileAddress,
   otherName,
 }) => (
-    <React.Fragment>
+    <>
       {
         Object.values(feedAddress)[0].map((item, index) => (
           (() => {
@@ -72,7 +72,7 @@ const PublicActivity = ({
           })()
         ))
       }
-    </React.Fragment>
+    </>
   );
 
 PublicActivity.propTypes = {

@@ -28,7 +28,6 @@ const Content = ({ currentAddress }) => (
           className="profile__category__section"
         >
           <img src={ActivityIcon} alt="Activity" className="profile__category__tabIcon--activity--mobile" />
-          Activity
         </NavLink>
 
         <NavLink
@@ -37,7 +36,6 @@ const Content = ({ currentAddress }) => (
           className="profile__category__section "
         >
           <img src={DetailsIcon} alt="Details" className="profile__category__tabIcon--details--mobile" />
-          Details
         </NavLink>
 
         <NavLink
@@ -46,7 +44,6 @@ const Content = ({ currentAddress }) => (
           className="profile__category__section "
         >
           <img src={CollectiblesIcon} alt="Collectibles" className="profile__category__tabIcon--collectibles--mobile" />
-          Collectibles
         </NavLink>
 
         <NavLink
@@ -55,7 +52,6 @@ const Content = ({ currentAddress }) => (
           className="profile__category__section "
         >
           <img src={ContactsIcon} alt="Following" className="profile__category__tabIcon--collectibles--mobile" />
-          Following
         </NavLink>
       </div>
     </div>

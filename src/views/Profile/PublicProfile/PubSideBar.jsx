@@ -33,7 +33,7 @@ const PubSideBar = ({
   isFollowing,
   isMe,
 }) => (
-    <React.Fragment>
+    <>
       <PubFollowing isFollowing={isFollowing} isMe={isMe} />
 
       {(otherLocation || otherWebsite || otherGithub || otherTwitter) && (
@@ -149,7 +149,7 @@ const PubSideBar = ({
           )}
         </div>
       )}
-    </React.Fragment>
+    </>
   );
 
 PubSideBar.propTypes = {

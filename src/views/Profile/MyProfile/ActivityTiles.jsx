@@ -22,7 +22,7 @@ const ActivityTiles = ({
   name,
   feedAddress,
 }) => (
-    <React.Fragment>
+    <>
       {
         Object.values(feedAddress)[0].map((item, index) => (
           (() => {
@@ -113,7 +113,7 @@ const ActivityTiles = ({
         ))
       }
 
-    </React.Fragment>
+    </>
   );
 
 ActivityTiles.propTypes = {

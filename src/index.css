@@ -380,3 +380,6 @@ input:focus {
   select:focus,
   textarea {
     font-size: 16px; } }
+
+.popupChat {
+  z-index: 100; }

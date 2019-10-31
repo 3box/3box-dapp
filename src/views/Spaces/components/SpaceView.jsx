@@ -25,7 +25,7 @@ const SpaceView = ({
   itemToDelete,
   spaceNameToDelete,
 }) => (
-    <React.Fragment>
+    <>
       {spaceDataToRender && spaceDataToRender.length > 0 ? spaceDataToRender.map((row) => {
         const date = timeSince(row.lastUpdated);
         if (row.name !== 'collectiblesFavoritesToRender'
@@ -130,7 +130,7 @@ const SpaceView = ({
             <p>There's no data in this space</p>
           </div>
         )}
-    </React.Fragment>
+    </>
   );
 
 SpaceView.propTypes = {

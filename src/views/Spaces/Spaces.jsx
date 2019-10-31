@@ -425,7 +425,7 @@ class Spaces extends Component {
     } = this.state;
 
     return (
-      <React.Fragment>
+      <>
         <MyProfileHeaders
           image={image}
           name={name}
@@ -643,7 +643,7 @@ class Spaces extends Component {
             </section>
           </main>
         </div>
-      </React.Fragment >
+      </ >
     );
   }
 }

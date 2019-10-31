@@ -26,155 +26,169 @@ import {
   Privacy,
 } from './DynamicImports';
 
-const AppRoutes = (props) => (
-  <Switch>
-    <Route
-      exact
-      path={routes.LANDING}
-      render={() => (
-        <LandingNew
-          handleSignInUp={props.handleSignInUp}
-          isLoggedIn={props.isLoggedIn}
-          errorMessage={props.errorMessage}
-          showErrorModal={props.showErrorModal}
-        />
-      )}
-    />
+const AppRoutes = (props) => {
+  const {
+    handleSignInUp,
+    isLoggedIn,
+    errorMessage,
+    showErrorModal,
+  } = props;
 
-    <Route
-      path={routes.API}
-      render={() => (
-        <APIs
-          handleSignInUp={props.handleSignInUp}
-          isLoggedIn={props.isLoggedIn}
-          errorMessage={props.errorMessage}
-          showErrorModal={props.showErrorModal}
-        />
-      )}
-    />
+  return (
+    <Switch>
+      <Route
+        exact
+        path={routes.LANDING}
+        render={() => (
+          <LandingNew
+            handleSignInUp={handleSignInUp}
+            isLoggedIn={isLoggedIn}
+            errorMessage={errorMessage}
+            showErrorModal={showErrorModal}
+          />
+        )}
+      />
 
-    <Route
-      exact
-      path={routes.HUB}
-      render={() => (
-        <Dapp
-          handleSignInUp={props.handleSignInUp}
-          isLoggedIn={props.isLoggedIn}
-          errorMessage={props.errorMessage}
-          showErrorModal={props.showErrorModal}
-        />
-      )}
-    />
+      <Route
+        path={routes.API}
+        render={() => (
+          <APIs
+            handleSignInUp={handleSignInUp}
+            isLoggedIn={isLoggedIn}
+            errorMessage={errorMessage}
+            showErrorModal={showErrorModal}
+          />
+        )}
+      />
 
-    <Route
-      exact
-      path={routes.CAREERS}
-      render={() => <Careers />}
-    />
-    <Route
-      exact
-      path={routes.TEAM}
-      render={() => <Team />}
-    />
+      <Route
+        exact
+        path={routes.HUB}
+        render={() => (
+          <Dapp
+            handleSignInUp={handleSignInUp}
+            isLoggedIn={isLoggedIn}
+            errorMessage={errorMessage}
+            showErrorModal={showErrorModal}
+          />
+        )}
+      />
 
-    <Route
-      exact
-      path={routes.JOBS}
-      render={() => <Redirect to={routes.CAREERS} />}
-    />
-    <Route
-      exact
-      path="(^[/][0][xX]\w{40}\b)/activity"
-      render={() => <MyProfile handleSignInUp={props.handleSignInUp} />}
-    />
-    <Route
-      exact
-      path="(^[/][0][xX]\w{40}\b)/activity"
-      render={() => <MyProfile handleSignInUp={props.handleSignInUp} />}
-    />
-    <Redirect from="/profile" to="/" />
-    <Redirect from="/editprofile" to="/" />
+      <Route
+        exact
+        path={routes.CAREERS}
+        render={() => <Careers />}
+      />
+      <Route
+        exact
+        path={routes.TEAM}
+        render={() => <Team />}
+      />
 
-    <Route
-      exact
-      path="(^[/][0][xX]\w{40}\b)/details"
-      render={() => <MyProfile handleSignInUp={props.handleSignInUp} />}
-    />
+      <Route
+        exact
+        path={routes.JOBS}
+        render={() => <Redirect to={routes.CAREERS} />}
+      />
+      <Route
+        exact
+        path="(^[/][0][xX]\w{40}\b)/activity"
+        render={() => <MyProfile handleSignInUp={handleSignInUp} />}
+      />
+      <Route
+        exact
+        path="(^[/][0][xX]\w{40}\b)/activity"
+        render={() => <MyProfile handleSignInUp={handleSignInUp} />}
+      />
+      <Redirect from="/profile" to="/" />
+      <Redirect from="/editprofile" to="/" />
 
-    <Route
-      exact
-      path="(^[/][0][xX]\w{40}\b)/collectibles"
-      render={() => <MyProfile handleSignInUp={props.handleSignInUp} />}
-    />
+      <Route
+        exact
+        path="(^[/][0][xX]\w{40}\b)/details"
+        render={() => <MyProfile handleSignInUp={handleSignInUp} />}
+      />
 
-    <Route
-      exact
-      path="(^[/][0][xX]\w{40}\b)/following"
-      render={() => <MyProfile handleSignInUp={props.handleSignInUp} />}
-    />
+      <Route
+        exact
+        path="(^[/][0][xX]\w{40}\b)/collectibles"
+        render={() => <MyProfile handleSignInUp={handleSignInUp} />}
+      />
 
-    <Route
-      exact
-      path="(^[/][0][xX]\w{40}\b)/data"
-      render={() => <Spaces handleSignInUp={props.handleSignInUp} />}
-    />
+      <Route
+        exact
+        path="(^[/][0][xX]\w{40}\b)/following"
+        render={() => <MyProfile handleSignInUp={handleSignInUp} />}
+      />
 
-    <Route
-      exact
-      path="(^[/][0][xX]\w{40}\b)/edit"
-      render={() => <EditProfile handleSignInUp={props.handleSignInUp} />}
-    />
+      <Route
+        exact
+        path="(^[/][0][xX]\w{40}\b)/data"
+        render={() => <Spaces handleSignInUp={handleSignInUp} />}
+      />
 
-    <Route
-      exact
-      path={routes.LOGIN}
-      render={() => (
-        <LogIn
-          handleSignInUp={props.handleSignInUp}
-        />
-      )}
-    />
+      <Route
+        exact
+        path="(^[/][0][xX]\w{40}\b)/edit"
+        render={() => <EditProfile handleSignInUp={handleSignInUp} />}
+      />
 
-    <Route
-      exact
-      path={routes.PARTNERS}
-      render={() => (
-        <Partners />
-      )}
-    />
+      <Route
+        exact
+        path={routes.LOGIN}
+        render={() => (
+          <LogIn
+            handleSignInUp={handleSignInUp}
+          />
+        )}
+      />
 
-    <Route
-      exact
-      path={routes.PRIVACY}
-      render={() => (
-        <Privacy />
-      )}
-    />
+      <Route
+        exact
+        path={routes.PARTNERS}
+        render={() => (
+          <Partners />
+        )}
+      />
 
-    <Route
-      exact
-      path={routes.TERMS}
-      render={() => (
-        <Terms />
-      )}
-    />
+      <Route
+        exact
+        path={routes.PRIVACY}
+        render={() => (
+          <Privacy />
+        )}
+      />
 
-    <Route
-      exact
-      path="(^[/][0][xX]\w{40}\b)"
-      component={PubProfile}
-    />
+      <Route
+        exact
+        path={routes.TERMS}
+        render={() => (
+          <Terms />
+        )}
+      />
 
-    <Route render={() => <Redirect to={routes.LANDING} />} />
-  </Switch>
-);
+      <Route
+        exact
+        path="(^[/][0][xX]\w{40}\b)"
+        component={PubProfile}
+      />
+
+      <Route render={() => <Redirect to={routes.LANDING} />} />
+    </Switch>
+  );
+};
 
 AppRoutes.propTypes = {
-  verifiedGithub: PropTypes.string,
+  handleSignInUp: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool,
+  errorMessage: PropTypes.string,
+  showErrorModal: PropTypes.bool,
 };
 
 AppRoutes.defaultProps = {
-  verifiedGithub: '',
+  isLoggedIn: false,
+  errorMessage: '',
+  showErrorModal: false,
 };
 
 function mapState(state) {

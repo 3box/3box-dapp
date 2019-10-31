@@ -11,7 +11,7 @@ import Twitter from '../../../assets/twitterWhite.svg';
 import Discord from '../../../assets/discordWhite.svg';
 
 const Footer = () => (
-  <React.Fragment>
+  <>
     <section className="join">
       <h3>
         Towards a better web for all
@@ -114,7 +114,7 @@ const Footer = () => (
       </div>
       <img src={MolliePsychedelic} alt="Mollie" className="footer_mollie" />
     </footer>
-  </React.Fragment>
+  </>
 );
 
 export default Footer;

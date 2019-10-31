@@ -20,7 +20,7 @@ const PublicCollectiblesGallery = ({
   handleCollectiblesModal,
   selectedCollectible,
 }) => (
-    <React.Fragment>
+    <>
       <ReactCSSTransitionGroup
         transitionName="app__modals"
         transitionEnterTimeout={300}
@@ -72,7 +72,7 @@ const PublicCollectiblesGallery = ({
           </div>
         )
       }
-    </React.Fragment>
+    </>
   );
 
 PublicCollectiblesGallery.propTypes = {

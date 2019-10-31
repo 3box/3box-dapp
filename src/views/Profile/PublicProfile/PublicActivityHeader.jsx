@@ -26,7 +26,7 @@ const PublicActivityContext = ({ feedAddress, i }) => (
           0x
         </div>)}
 
-    <React.Fragment>
+    <>
       {(feedAddress.metaData && feedAddress.metaData.name)
         && (
           <ProfileHover
@@ -78,7 +78,7 @@ const PublicActivityContext = ({ feedAddress, i }) => (
             </a>
           </ProfileHover>
         )}
-    </React.Fragment>
+    </>
   </div>
 );
 

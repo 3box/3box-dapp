@@ -74,13 +74,13 @@ export const ViewSpaceDataItemModal = ({
               && rowType !== 'Image'
               && dataKey !== 'collectiblesFavoritesToRender'
               && dataKey.substring(0, 7) !== 'thread-') && (
-                <React.Fragment>
+                <>
                   {
                     Object.keys(dataValue).map(content => (
                       <p className="spaceModal__content__object-keys">{content}</p>
                     ))
                   }
-                </React.Fragment>)}
+                </>)}
           </section>
 
           <section className="spaceModal__context">
@@ -190,7 +190,7 @@ export const ListSpaceItemModal = ({
   item,
   length,
 }) => (
-    <React.Fragment>
+    <>
       <div className="modal listSpaceModal">
         {index === 0 && (
           <button
@@ -355,7 +355,7 @@ export const ListSpaceItemModal = ({
         onKeyPress={() => viewSpaceItem(false, false, false)}
         role="button"
       />
-    </React.Fragment>
+    </>
   );
 
 ListSpaceItemModal.propTypes = {
@@ -381,7 +381,7 @@ export const EmptyListItemModal = ({
   rowType,
   privacy,
 }) => (
-    <React.Fragment>
+    <>
       <div className="modal listSpaceModal">
         <button
           onClick={() => viewSpaceItem(false, false, false)}
@@ -450,7 +450,7 @@ export const EmptyListItemModal = ({
         onKeyPress={() => viewSpaceItem(false, false, false)}
         role="button"
       />
-    </React.Fragment>
+    </>
   );
 
 EmptyListItemModal.propTypes = {

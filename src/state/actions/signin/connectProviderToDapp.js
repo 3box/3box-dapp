@@ -20,7 +20,6 @@ const connectProviderToDapp = async (provider, directLogin, dispatch) => {
     } = getProviderInfo(provider);
     if (name.toLowerCase() === 'walletconnect') window.localStorage.removeItem('walletconnect');
     window.localStorage.setItem('defaultWallet', name); // eslint-disable-line no-undef
-
     // create web3 object and save to redux store
     const web3Obj = new Web3(provider); // eslint-disable-line no-undef
     dispatch({

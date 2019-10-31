@@ -2,8 +2,8 @@ import Web3Connect from 'web3connect';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import Portis from '@portis/web3';
 import Fortmatic from 'fortmatic';
-import Squarelink from 'squarelink';
-import Torus from '@toruslabs/torus-embed';
+// import Squarelink from 'squarelink';
+// import Torus from '@toruslabs/torus-embed';
 
 import connectProviderToDapp from './connectProviderToDapp';
 
@@ -11,7 +11,6 @@ const useDefaultWallet = async (defaultWallet, directLogin, dispatch) => {
   let normalizedWallet;
   if (defaultWallet) normalizedWallet = defaultWallet.toLowerCase();
   let provider;
-  console.log('normalizedWallet', normalizedWallet);
   switch (normalizedWallet) {
     case 'metamask':
       provider = await Web3Connect.ConnectToInjected();
@@ -42,26 +41,27 @@ const useDefaultWallet = async (defaultWallet, directLogin, dispatch) => {
       });
       break;
 
-    // case 'squarelink':
-    //   provider = await Web3Connect.ConnectToSquarelink(Squarelink, {
-    //     id: 'b87ab196551e4363e352', // required
-    //     network: 'mainnet', // optional
-    //   });
-    //   break;
+      // case 'squarelink':
+      //   provider = await Web3Connect.ConnectToSquarelink(Squarelink, {
+      //     id: 'b87ab196551e4363e352', // required
+      //     network: 'mainnet', // optional
+      //   });
+      //   break;
 
-    // case 'torus':
-    //   provider = await Web3Connect.ConnectToTorus(Torus, {
-    //     enableLogging: false, // optional
-    //     buttonPosition: 'bottom-left', // optional
-    //     buildEnv: 'production', // optional
-    //     showTorusButton: true, // optional
-    //   });
-    //   break;
+      // case 'torus':
+      //   provider = await Web3Connect.ConnectToTorus(Torus, {
+      //     enableLogging: false, // optional
+      //     buttonPosition: 'bottom-left', // optional
+      //     buildEnv: 'production', // optional
+      //     showTorusButton: true, // optional
+      //   });
+      //   break;
 
     default:
       provider = await Web3Connect.ConnectToInjected();
       break;
   }
+
   await connectProviderToDapp(provider, directLogin, dispatch);
 };
 

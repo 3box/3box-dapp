@@ -4,7 +4,7 @@ import { shortenEthAddr } from '../../utils/funcs';
 import ProfilePicture from '../ProfilePicture';
 
 const DesktopDropdownLanding = props => (
-  <React.Fragment>
+  <>
     <div
       className={`
       ${props.showDropdown ? 'nav__dropdown--visible' : undefined} 
@@ -16,7 +16,7 @@ const DesktopDropdownLanding = props => (
       <div className="nav_account">
         <div className="nav_account_top">
           {props.currentAddress ? (
-            <React.Fragment>
+            <>
               <p className="nav_account_top_description">You last used this account</p>
               <div className="nav_account_user">
                 <ProfilePicture
@@ -28,7 +28,7 @@ const DesktopDropdownLanding = props => (
                   <p>{shortenEthAddr(props.currentAddress)}</p>
                 </div>
               </div>
-            </React.Fragment>
+            </>
           ) : <h4>No previous account saved</h4>}
         </div>
 
@@ -48,7 +48,7 @@ const DesktopDropdownLanding = props => (
         role="button"
       />
     )}
-  </React.Fragment>
+  </>
 );
 
 export default DesktopDropdownLanding;

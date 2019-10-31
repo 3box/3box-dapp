@@ -163,7 +163,7 @@ class ProfilePublic extends Component {
     const { isFollowing, isMe } = this.state;
 
     return (
-      <React.Fragment>
+      <>
         <PubProfileHeaders
           otherName={otherName}
           otherProfileAddress={otherProfileAddress}
@@ -210,7 +210,7 @@ class ProfilePublic extends Component {
 
           </ReactCSSTransitionGroup>
         </div>
-      </React.Fragment>
+      </>
     );
   }
 }

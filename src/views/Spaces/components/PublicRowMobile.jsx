@@ -108,13 +108,13 @@ const PublicRowMobile = ({
           )}
 
           {(Array.isArray(dataValue) && dataKey === 'collectiblesFavoritesToRender') && (
-            <React.Fragment>
+            <>
               {
                 dataValue.map(item => (
                   <img src={item.image_preview_url} alt="" className="data__collectibles__tile" />
                 ))
               }
-            </React.Fragment>
+            </>
           )}
 
           {rowType === 'Image' && (
@@ -126,13 +126,13 @@ const PublicRowMobile = ({
           )}
 
           {rowType === 'Claim' && (
-            <React.Fragment>
+            <>
               <img
                 src={Verified}
                 alt="Verified"
                 className="profile__category__verified__icon"
               />
-            </React.Fragment>
+            </>
           )}
         </div>
       </div>

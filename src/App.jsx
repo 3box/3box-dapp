@@ -267,7 +267,7 @@ class App extends Component {
       fixBody,
       showUnsupportedBrowser,
       box,
-      currentAddress
+      currentAddress,
     } = this.props;
 
     const {
@@ -302,6 +302,7 @@ class App extends Component {
           )}
 
         {(!isMyProfilePath && isLoggedIn) && <Nav handleSignInUp={this.handleSignInUp} />}
+        {/* <Nav handleSignInUp={this.handleSignInUp} /> */}
 
         <AppModals
           isFetchingThreeBox={isFetchingThreeBox}
@@ -434,6 +435,7 @@ App.propTypes = {
   currentAddress: PropTypes.string,
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
+
   }).isRequired,
   prevAddress: PropTypes.string,
   otherAddressToFollow: PropTypes.string,
@@ -441,6 +443,7 @@ App.propTypes = {
   otherProfileAddress: PropTypes.string,
   following: PropTypes.array,
   otherFollowing: PropTypes.array,
+  box: PropTypes.object,
 };
 
 App.defaultProps = {
@@ -478,7 +481,7 @@ App.defaultProps = {
   otherProfileAddress: '',
 };
 
-const mapState = state => ({
+const mapState = (state) => ({
   showDifferentNetworkModal: state.uiState.showDifferentNetworkModal,
   allowAccessModal: state.uiState.allowAccessModal,
   provideConsent: state.uiState.provideConsent,

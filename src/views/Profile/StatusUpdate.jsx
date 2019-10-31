@@ -73,7 +73,7 @@ class StatusUpdate extends Component {
     const { onOtherProfilePage, otherStatus } = this.props;
 
     return (
-      <React.Fragment>
+      <>
         {onOtherProfilePage && (
           <div
             className={`
@@ -136,7 +136,7 @@ class StatusUpdate extends Component {
                 </button>)}
           </div>)}
 
-      </React.Fragment>
+      </>
     );
   }
 }
