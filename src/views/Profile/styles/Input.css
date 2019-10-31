@@ -22,9 +22,6 @@
   font-size: 15px;
   white-space: nowrap; }
 
-.input_form.hidePlaceholder::placeholder {
-  color: transparent !important; }
-
 .input_user {
   position: absolute;
   left: 15px;
@@ -84,15 +81,11 @@
   justify-content: center;
   align-items: center; }
 
-.input_send-mobile {
-  visibility: hidden;
-  display: none; }
-
 .input_send-dtw {
   opacity: .5;
   position: absolute;
   right: 13px;
-  top: 12px; }
+  bottom: 29px; }
 
 .input_send-dtw-visible {
   opacity: 1; }
@@ -140,69 +133,57 @@
   max-width: 30px;
   max-height: 30px; }
 
-@media only screen and (max-width: 768px) {
-  .comment-mobile ::placeholder {
+@media only screen and (max-width: 600px) {
+  .input {
+    width: 100vw; }
+  ::placeholder {
     font-size: 16px; }
-  .comment-mobile .sc-user-input--picker-wrapper {
+  .sc-user-input--picker-wrapper {
     display: none; }
-  .comment-mobile .input_user {
-    top: 7px;
-    left: -1px;
+  .input_user {
+    top: 11px;
+    left: 10px;
     min-width: 50px;
     min-height: 50px;
     max-width: 50px;
     max-height: 50px; }
-  .comment-mobile .input_emptyUser {
+  .input_emptyUser {
     top: 6px;
     left: -1px;
     min-width: 50px;
     min-height: 50px;
     max-width: 50px;
     max-height: 50px; }
-  .comment-mobile .input_emptyUser_icon {
+  .input_emptyUser_icon {
     min-width: 30px;
     min-height: 30px;
     max-width: 30px;
     max-height: 30px;
     opacity: .6; }
-  .comment-mobile .input_form {
+  .input_form {
     font-size: 15px;
-    min-height: 64px;
-    height: 64px;
+    min-height: 72px;
+    height: 72px;
     box-sizing: border-box;
-    min-width: calc(100% + 16px);
-    border-radius: 37px;
-    border: 1px solid #ececec;
-    margin-left: -8px;
-    padding: 20px 52px 20px 68px; }
-  .comment-mobile .input_send-mobile {
-    position: absolute;
-    right: 0px;
-    bottom: 9px;
-    border-radius: 50%;
-    background-color: transparent;
-    padding: 0;
-    border: 0;
-    min-width: 50px;
-    min-height: 50px;
-    max-width: 50px;
-    max-height: 50px;
-    opacity: .6;
-    display: flex;
-    justify-content: center;
-    align-items: center; }
-  .comment-mobile .input_send-mobile-visible {
-    visibility: visible; }
-  .comment-mobile .input_send_icon-mobile {
+    min-width: 100vw;
+    width: 100vw;
+    border-radius: 0 !important;
+    border-bottom: 1px solid #ececec;
+    border-top: 1px solid #ececec;
+    border-left: 0;
+    border-right: 0;
+    margin-left: 0;
+    padding: 24px 90px 20px 70px; }
+  .input_send_icon-mobile {
     width: 26px;
     opacity: .5; }
-  .comment-mobile .input_commentAs {
+  .input_commentAs {
     left: 62px; }
-  .comment-mobile .input_login {
+  .input_login {
     left: 62px;
     bottom: -20px;
     background-color: transparent; }
-  .comment-mobile .input_user-empty {
+  .input_user-empty {
     background-color: transparent;
     left: 12.5px;
     top: 18px;
@@ -212,14 +193,14 @@
     max-height: 28px;
     border-radius: 0;
     opacity: .7; }
-  .comment-mobile .input_postLoading {
+  .input_postLoading {
     position: absolute;
     top: 6px;
     left: calc(50% - 58px);
     display: flex;
     justify-content: center;
     align-items: center; }
-  .comment-mobile .input_postLoading_spinner {
+  .input_postLoading_spinner {
     min-height: 52px;
     min-width: 52px;
     max-height: 52px;

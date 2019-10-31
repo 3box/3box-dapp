@@ -863,7 +863,7 @@ nav {
     color: white !important;
     background-color: #1168df !important; }
   .bannerMargin {
-    margin-top: 0; }
+    margin-top: 64px; }
   .showSignInBanner.bannerMargin {
     margin-top: 64px; }
   .sideDrawer_wrapper .showSignInBanner {

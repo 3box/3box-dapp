@@ -29,9 +29,9 @@
   white-space: nowrap;
 }
 
-.input_form.hidePlaceholder::placeholder {
-  color: transparent !important;
-}
+// .input_form.hidePlaceholder::placeholder {
+//   color: transparent !important;
+// }
 
 .input_user {
   position: absolute;
@@ -97,16 +97,11 @@
   align-items: center;
 }
 
-.input_send-mobile {
-  visibility: hidden;
-  display: none;
-}
-
 .input_send-dtw {
   opacity: .5;
   position: absolute;
   right: 13px;
-  top: 12px;
+  bottom: 29px;
 }
 
 .input_send-dtw-visible {
@@ -162,117 +157,101 @@
   max-height: 30px;
 }
 
-@media only screen and (max-width: 768px) {
-  .comment-mobile {
-    ::placeholder {
-      font-size: 16px;
-    }
+@media only screen and (max-width: 600px) {
+  .input {
+    width: 100vw;
+  }
 
-    .sc-user-input--picker-wrapper {
-      display: none;
-    }
+  ::placeholder {
+    font-size: 16px;
+  }
 
-    .input_user {
-      top: 7px;
-      left: -1px;
-      min-width: $commentPictureDimension-mobile;
-      min-height: $commentPictureDimension-mobile;
-      max-width: $commentPictureDimension-mobile;
-      max-height: $commentPictureDimension-mobile;
-    }
+  .sc-user-input--picker-wrapper {
+    display: none;
+  }
 
-    .input_emptyUser {
-      top: 6px;
-      left: -1px;
-      min-width: $commentPictureDimension-mobile;
-      min-height: $commentPictureDimension-mobile;
-      max-width: $commentPictureDimension-mobile;
-      max-height: $commentPictureDimension-mobile;
-    }
+  .input_user {
+    top: 11px;
+    left: 10px;
+    min-width: $commentPictureDimension-mobile;
+    min-height: $commentPictureDimension-mobile;
+    max-width: $commentPictureDimension-mobile;
+    max-height: $commentPictureDimension-mobile;
+  }
 
-    .input_emptyUser_icon {
-      min-width: 30px;
-      min-height: 30px;
-      max-width: 30px;
-      max-height: 30px;
-      opacity: .6;
-    }
+  .input_emptyUser {
+    top: 6px;
+    left: -1px;
+    min-width: $commentPictureDimension-mobile;
+    min-height: $commentPictureDimension-mobile;
+    max-width: $commentPictureDimension-mobile;
+    max-height: $commentPictureDimension-mobile;
+  }
 
-    .input_form {
-      font-size: 15px;
-      min-height: 64px;
-      height: 64px;
-      box-sizing: border-box;
-      min-width: calc(100% + 16px);
-      border-radius: 37px;
-      border: 1px solid $borderColor;
-      margin-left: -8px;
-      padding: 20px 52px 20px 68px;
-    }
+  .input_emptyUser_icon {
+    min-width: 30px;
+    min-height: 30px;
+    max-width: 30px;
+    max-height: 30px;
+    opacity: .6;
+  }
 
-    .input_send-mobile {
-      position: absolute;
-      right: 0px;
-      bottom: 9px;
-      border-radius: 50%;
-      background-color: transparent;
-      padding: 0;
-      border: 0;
-      min-width: $commentPictureDimension-mobile;
-      min-height: $commentPictureDimension-mobile;
-      max-width: $commentPictureDimension-mobile;
-      max-height: $commentPictureDimension-mobile;
-      opacity: .6;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+  .input_form {
+    font-size: 15px;
+    min-height: 72px;
+    height: 72px;
+    box-sizing: border-box;
+    min-width: 100vw;
+    width: 100vw;
+    border-radius: 0 !important;
+    border-bottom: 1px solid $borderColor;
+    border-top: 1px solid $borderColor;
+    border-left: 0;
+    border-right: 0;
+    margin-left: 0;
+    padding: 24px 90px 20px 70px;
+  }
 
-    .input_send-mobile-visible {
-      visibility: visible;
-    }
+  .input_send_icon-mobile {
+    width: 26px;
+    opacity: .5;
+  }
 
-    .input_send_icon-mobile {
-      width: 26px;
-      opacity: .5;
-    }
+  .input_commentAs {
+    left: 62px;
+  }
 
-    .input_commentAs {
-      left: 62px;
-    }
+  .input_login {
+    left: 62px;
+    bottom: -20px;
+    background-color: transparent;
+  }
 
-    .input_login {
-      left: 62px;
-      bottom: -20px;
-      background-color: transparent;
-    }
+  .input_user-empty {
+    background-color: transparent;
+    left: 12.5px;
+    top: 18px;
+    min-width: 28px;
+    min-height: 28px;
+    max-width: 28px;
+    max-height: 28px;
+    border-radius: 0;
+    opacity: .7;
+  }
 
-    .input_user-empty {
-      background-color: transparent;
-      left: 12.5px;
-      top: 18px;
-      min-width: 28px;
-      min-height: 28px;
-      max-width: 28px;
-      max-height: 28px;
-      border-radius: 0;
-      opacity: .7;
-    }
+  .input_postLoading {
+    position: absolute;
+    top: 6px;
+    left: calc(50% - 58px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-    .input_postLoading {
-      position: absolute;
-      top: 6px;
-      left: calc(50% - 58px);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .input_postLoading_spinner {
-      min-height: 52px;
-      min-width: 52px;
-      max-height: 52px;
-      max-width: 52px;
-    }
+  .input_postLoading_spinner {
+    min-height: 52px;
+    min-width: 52px;
+    max-height: 52px;
+    max-width: 52px;
   }
 }

@@ -125,19 +125,22 @@
   top: -4px; }
 
 @media only screen and (max-width: 768px) {
-  .comment-mobile .comment_picture {
+  .comment {
+    border-radius: 0;
+    padding: 12px 10px; }
+  .comment_picture {
     min-width: 50px;
     min-height: 50px;
     max-width: 50px;
     max-height: 50px; }
-  .comment-mobile .comment_content_context_main_user_info {
+  .comment_content_context_main_user_info {
     flex-direction: column;
     align-items: flex-start; }
-  .comment-mobile .comment_content_context_main_user_info_address {
+  .comment_content_context_main_user_info_address {
     margin-left: 0; }
-  .comment-mobile .comment_content_context_main_user_info_username {
+  .comment_content_context_main_user_info_username {
     font-size: 18px; }
-  .comment-mobile .comment_content_text {
+  .comment_content_text {
     font-size: 15px; }
-  .comment-mobile .comment.isMyComment .comment_content_context_main_user_delete {
+  .comment.isMyComment .comment_content_context_main_user_delete {
     visibility: visible !important; } }
