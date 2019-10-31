@@ -1,3 +1,7 @@
+import {
+  store
+} from '../state/store';
+
 export const LANDING = '/';
 export const PRIVACY = '/privacy';
 export const TERMS = '/terms';
@@ -29,3 +33,14 @@ export const FORMAT_PROFILE_COLLECTIBLES = `/:ethAddress/${COLLECTIBLES}`;
 export const FORMAT_PROFILE_EDIT = `/:ethAddress/${EDIT}`;
 export const FORMAT_PROFILE_CONTACTS = `/:ethAddress/${FOLLOWING}`;
 export const FORMAT_PROFILE_WALL = `/:ethAddress/${WALL}`;
+
+export const directToHome = () => {
+  const {
+    isWallDisabled,
+  } = store.getState().myData;
+  console.log('routesisWallDisabled', isWallDisabled);
+
+  const route = isWallDisabled ? ACTIVITY : WALL;
+
+  return route;
+};

@@ -12,6 +12,7 @@ import Details from '../Details';
 import Collectibles from '../Collectibles';
 import Following from '../Following';
 import ActivityIcon from '../../../assets/Activity.svg';
+import Post from '../../../assets/Post.svg';
 import DetailsIcon from '../../../assets/Details.svg';
 import CollectiblesIcon from '../../../assets/Collectibles.svg';
 import ContactsIcon from '../../../assets/Contacts.svg';
@@ -25,19 +26,18 @@ const Content = ({ currentAddress, handleSignInUp }) => (
       <div className="profile__category__sectionWrapper">
         <NavLink
           exact
-          to={`/${currentAddress}/${routes.ACTIVITY}`}
+          to={`/${currentAddress}/${routes.WALL}`}
           className="profile__category__section"
         >
-          <img src={ActivityIcon} alt="Activity" className="profile__category__tabIcon--activity--mobile" />
+          <img src={Post} alt="Activity" className="profile__category__tabIcon--activity--mobile" />
         </NavLink>
 
         <NavLink
           exact
-          to={`/${currentAddress}/${routes.WALL}`}
+          to={`/${currentAddress}/${routes.ACTIVITY}`}
           className="profile__category__section"
         >
           <img src={ActivityIcon} alt="Activity" className="profile__category__tabIcon--activity--mobile" />
-          Wall
         </NavLink>
 
         <NavLink

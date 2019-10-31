@@ -20,7 +20,7 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
   } = store.getState().userState;
 
   const consentGiven = () => {
-    if (fromSignIn && !fromFollowButton) history.push(`/${currentAddress}/${routes.ACTIVITY}`);
+    if (fromSignIn && !fromFollowButton) history.push(`/${currentAddress}/${routes.directToHome()}`);
     dispatch({
       type: 'UI_3BOX_LOADING',
       provideConsent: false,

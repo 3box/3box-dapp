@@ -32,8 +32,8 @@ const MobileDropdown = props => (
           <p>{props.networkColor}</p>
         </div>
 
-        <Link to={`/${props.currentAddress}/${routes.ACTIVITY}`}>
-          <li className={props.normalizedPath === `/${props.currentAddress}/${routes.ACTIVITY}` ? 'nav__activePage' : ''}>
+        <Link to={`/${props.currentAddress}/${routes.directToHome()}`}>
+          <li className={props.normalizedPath === `/${props.currentAddress}/${routes.directToHome()}` ? 'nav__activePage' : ''}>
             <div className="nav_dropdown_icon_wrapper">
               <ProfilePicture
                 pictureClass="nav__userPicture--mobile"

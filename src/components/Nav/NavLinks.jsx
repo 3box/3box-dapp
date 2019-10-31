@@ -19,13 +19,13 @@ const NavLinks = (props) => {
   return (
     <>
       <div id="nav__logo--marginLeft">
-        <Link to={`/${currentAddress}/${routes.ACTIVITY}`}>
+        <Link to={`/${currentAddress}/${routes.directToHome()}`}>
           <img src={ThreeBoxLogo} alt="3Box Logo" className="landing__nav__logo" />
         </Link>
       </div>
 
       <div className={`nav__logo--mobile ${showMobileSearch ? 'close' : 'open'}`}>
-        <Link to={`/${currentAddress}/${routes.ACTIVITY}`}>
+        <Link to={`/${currentAddress}/${routes.directToHome()}`}>
           <img src={ThreeBoxB} alt="3Box Logo" className="landing__nav__logo" />
         </Link>
       </div>
@@ -51,7 +51,7 @@ const NavLinks = (props) => {
 
       <span className="nav__tabs">
         <NavLink
-          to={`/${currentAddress}/${routes.ACTIVITY}`}
+          to={`/${currentAddress}/${routes.directToHome()}`}
           className="nav__profile"
           activeClassName="activeNav"
         >

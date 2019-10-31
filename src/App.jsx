@@ -207,7 +207,7 @@ class App extends Component {
       await this.props.injectWeb3('directLogin', false, wallet); // eslint-disable-line
       await this.props.checkNetwork(); // eslint-disable-line
 
-      if (!doesEthAddrMatch) history.push(`/${this.props.currentAddress}/${profilePage || routes.ACTIVITY}`);
+      if (!doesEthAddrMatch) history.push(`/${this.props.currentAddress}/${profilePage || routes.directToHome()}`);
 
       await this.props.openBox(); // eslint-disable-line
       if (!this.props.showErrorModal) this.getMyData(); // eslint-disable-line

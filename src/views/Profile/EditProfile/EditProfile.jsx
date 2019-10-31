@@ -826,7 +826,7 @@ class EditProfile extends Component {
       this.props.getActivity();
 
       this.setState({ saveLoading: false });
-      history.push(`/${currentAddress}/${routes.ACTIVITY}`);
+      history.push(`/${currentAddress}/${routes.directToHome()}`);
     }
   }
 
@@ -1596,7 +1596,7 @@ class EditProfile extends Component {
                   Save
                   </button>
                 <Link
-                  to={`/${currentAddress}/${routes.ACTIVITY}`}
+                  to={`/${currentAddress}/${routes.directToHome()}`}
                   className="subtext"
                   id="edit__cancel"
                   onClick={() => {
