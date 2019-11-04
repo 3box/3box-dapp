@@ -18,10 +18,6 @@ const Activity = ({
       <div>
         <p className="header publicHeader" id="feed__header">
           Activity
-          {/* {(isFetchingActivity)
-            && (
-              <img src={Loading} alt="loading" id="activityLoad" />
-            )} */}
         </p>
 
         <div className="feed__activity__header">
