@@ -182,7 +182,7 @@ class Collectibles extends Component {
                 <p>
                   Favorites
                 </p>
-                <img src={Globe} alt="Public" className="favorites__publicIcon" title="Favorites will appear in your public profile" />
+                {/* <img src={Globe} alt="Public" className="favorites__publicIcon" title="Favorites will appear in your public profile" /> */}
               </div>
             ) : (
               <div>
@@ -190,7 +190,7 @@ class Collectibles extends Component {
                   <p>
                     Collectibles
                   </p>
-                  <img src={Globe} alt="Public" className="favorites__publicIcon" title="Favorites will appear in your public profile" />
+                  {/* <img src={Globe} alt="Public" className="favorites__publicIcon" title="Favorites will appear in your public profile" /> */}
                 </div>
                 <div className="feed_activity_empty">
                   <p className="feed_activity_empty_text">

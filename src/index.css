@@ -230,6 +230,18 @@ h5 {
   font-family: 'Lato', sans-serif;
   color: #181F21;
   margin: 0; }
+  div::placeholder,
+  textarea::placeholder,
+  input::placeholder,
+  li::placeholder,
+  a::placeholder,
+  p::placeholder,
+  h1::placeholder,
+  h2::placeholder,
+  h3::placeholder,
+  h4::placeholder,
+  h5::placeholder {
+    font-family: 'Lato', sans-serif; }
 
 h1,
 h2,
@@ -364,6 +376,8 @@ input:focus {
     right: 0; }
   .kaYREe {
     margin-top: -90px !important; }
+  .header {
+    display: none; }
   input[type="color"],
   input[type="date"],
   input[type="datetime"],

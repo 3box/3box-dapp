@@ -189,6 +189,7 @@ class WallInput extends Component {
               src={Loading}
               alt="Loading"
               className="input_postLoading_spinner"
+            // id="activityLoad"
             />
           </div>
         ) : <div />}
@@ -196,7 +197,7 @@ class WallInput extends Component {
         <textarea
           type="text"
           value={comment}
-          placeholder="Write a comment..."
+          placeholder={`${((isFetchingWall && !isOtherProfile) || (isFetchingOtherWall && isOtherProfile) || postLoading) ? '' : 'Write a comment...'}`}
           className={`input_form ${postLoading ? 'hidePlaceholder' : ''}`}
           onChange={this.handleCommentText}
           ref={this.inputRef}

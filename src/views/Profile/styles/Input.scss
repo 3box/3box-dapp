@@ -241,17 +241,17 @@
 
   .input_postLoading {
     position: absolute;
-    top: 6px;
-    left: calc(50% - 58px);
+    top: 24px;
+    left: calc(50% - 14px);
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
-  .input_postLoading_spinner {
-    min-height: 52px;
-    min-width: 52px;
-    max-height: 52px;
-    max-width: 52px;
-  }
+  // .input_postLoading_spinner {
+  //   min-height: 52px;
+  //   min-width: 52px;
+  //   max-height: 52px;
+  //   max-width: 52px;
+  // }
 }

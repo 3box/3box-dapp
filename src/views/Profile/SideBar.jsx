@@ -70,12 +70,15 @@ const SideBar = ({
             <div className="profile__basic">
               <div className="profile__basic__wrapper">
                 {!onOtherProfilePage && (name
-                  ? <h2 id="profile__user__name">{name}</h2>
-                  : <Link to={`/${currentAddress}/${routes.EDIT}`}><h2 id="profile__user__name__add">Add name</h2></Link>
-                )}
+                  ? <h2 className="profile__user__name">{name}</h2>
+                  : (
+                    <Link to={`/${currentAddress}/${routes.EDIT}`}>
+                      <h2 className="profile__user__name profile__user__name__add">Add name</h2>
+                    </Link>
+                  ))}
 
                 {onOtherProfilePage && (otherName
-                  ? <h2 id="profile__user__name">{otherName}</h2>
+                  ? <h2 className="profile__user__name">{otherName}</h2>
                   : ''
                 )}
 

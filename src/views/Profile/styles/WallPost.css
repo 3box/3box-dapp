@@ -111,9 +111,10 @@
   white-space: nowrap; }
 
 .comment_content_text {
-  font-size: 18px;
+  font-size: 16px;
   text-align: left;
-  word-break: break-word; }
+  word-break: break-word;
+  white-space: pre-wrap; }
   .comment_content_text a {
     color: #1168df;
     font-size: 18px; }

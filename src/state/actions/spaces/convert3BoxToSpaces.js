@@ -4,6 +4,21 @@ import {
   store,
 } from '../../store';
 
+const filterDappKeys = (row) => {
+  if ((row !== 'box') &&
+    (row !== 'feedByAddress') &&
+    (row !== 'collection') &&
+    (row !== 'did') &&
+    (row !== 'memberSince') &&
+    (row !== 'following') &&
+    (row !== 'followingList') &&
+    (row !== 'followingThread') &&
+    (row !== 'followingSpace')) {
+    return true;
+  }
+  return false;
+};
+
 const convert3BoxToSpaces = () => async (dispatch) => {
   try {
     const allData = {};
@@ -19,15 +34,7 @@ const convert3BoxToSpaces = () => async (dispatch) => {
     const rowCalls = [];
 
     Object.entries(myData).forEach((row) => {
-      if ((row[0] !== 'box') &&
-        (row[0] !== 'feedByAddress') &&
-        (row[0] !== 'collection') &&
-        (row[0] !== 'did') &&
-        (row[0] !== 'memberSince') &&
-        (row[0] !== 'following') &&
-        (row[0] !== 'followingList') &&
-        (row[0] !== 'followingThread') &&
-        (row[0] !== 'collectiblesFavorites')) {
+      if (filterDappKeys(row[0])) {
         if (row[0] === 'verifiedEmail' || row[0] === 'birthday') {
           rowData.push([row[0], cloneDeep(row[1])]);
           const metaData = store.getState().myData.box.private.getMetadata(row[0]);

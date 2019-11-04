@@ -6,14 +6,16 @@ import Box from '3box';
 import { sortChronologically } from '../../utils/funcs';
 import { followingSpaceName } from '../../utils/constants';
 import { store } from '../../state/store';
+import actions from '../../state/actions';
 
 import WallInput from './WallInput';
 import WallPost from './WallPost';
-import Loading from '../../assets/Loading.svg';
 import Options from '../../assets/Options.svg';
 import './styles/Feed.css';
 import './styles/Profile.css';
 import '../../components/styles/NetworkArray.css';
+
+const { getMyWall } = actions.profile;
 
 class Wall extends Component {
   constructor(props) {
@@ -55,15 +57,15 @@ class Wall extends Component {
     console.log('didsave', res);
     console.log('newvalue', !isWallDisabled);
 
-    store.dispatch({
-      type: 'MY_WALL_DISABLED_UPDATE',
-      isWallDisabled: !isWallDisabled,
-    });
+    this.props.getMyWall();
+    // store.dispatch({
+    //   type: 'MY_WALL_DISABLED_UPDATE',
+    //   isWallDisabled: !isWallDisabled,
+    // });
   }
 
   handleShowOptionsMenu = () => {
     const { showOptions } = this.state;
-    console.log('showOptions', !showOptions);
     this.setState({ showOptions: !showOptions });
   }
 
@@ -81,8 +83,6 @@ class Wall extends Component {
       isOtherProfile,
       otherProfileAddress,
       viewTab,
-      // isWallDisabled,
-      // isOtherWallDisabled,
     } = this.props;
 
     const {
@@ -103,8 +103,8 @@ class Wall extends Component {
       <div id={isOtherProfile ? '' : 'myFeed'} className={`profileTab ${viewTab === 'wall' ? 'viewTab' : ''}`}>
         <div>
           {!isOtherProfile && (
-            <div className="wall_header">
-              <p className="header publicHeader" id="feed__header">
+            <div className="profile_header">
+              <p className="header" id="feed__header">
                 Wall
               </p>
 
@@ -151,7 +151,7 @@ class Wall extends Component {
             </div>
           )}
 
-          {((!isWallDisabled && !isOtherProfile) || (!isOtherWallDisabled && isOtherProfile)) && (
+          {((!isWallDisabled && !isOtherProfile) || (!isOtherWallDisabled && isOtherProfile)) ? (
             <>
               <WallInput
                 box={box}
@@ -159,8 +159,6 @@ class Wall extends Component {
                 isOtherProfile={isOtherProfile}
                 isFetchingWall={isFetchingWall}
                 isFetchingOtherWall={isFetchingOtherWall}
-              // ethereum={ethereum}
-              // joinThread={joinThread} // only necessary for public profile
               />
 
               <div className="feed__activity__header">
@@ -192,7 +190,15 @@ class Wall extends Component {
                 )}
               </div>
             </>
-          )}
+          ) : (
+              <div className="feed__activity__header">
+                <div className="feed_activity_empty">
+                  <p className="feed_activity_empty_text">
+                    You have disabled your profile wall.  To enable it, switch the toggle in the menu above.
+                  </p>
+                </div>
+              </div>
+            )}
         </div>
 
         <div className="feed__footer">
@@ -220,6 +226,7 @@ Wall.propTypes = {
   currentAddress: PropTypes.string,
   otherProfileAddress: PropTypes.string,
   handleSignInUp: PropTypes.func.isRequired,
+  getMyWall: PropTypes.func.isRequired,
 };
 
 Wall.defaultProps = {
@@ -256,4 +263,6 @@ const mapState = (state) => ({
   isOtherWallDisabled: state.otherProfile.isOtherWallDisabled,
 });
 
-export default connect(mapState)(Wall);
+export default connect(mapState, {
+  getMyWall,
+})(Wall);

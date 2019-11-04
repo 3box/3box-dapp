@@ -35,17 +35,13 @@ const getMyWall = () => async (dispatch) => {
     // if (!isWallDisabled && space.public) {
     if (!isWallDisabled) {
       console.log('infetchthread');
-      // const myAddress = store.getState().userState.currentAddress;
-      const opts = {
-        firstModerator: space.DID,
-        // firstModerator: myAddress,
-      };
+      const myAddress = store.getState().userState.currentAddress;
+      // const opts = {
+      //   firstModerator: space.DID,
+      //   // firstModerator: myAddress,
+      // };
       console.log('1getMyWall');
-      try {
-        wallThread = await space.joinThread(myProfileWall, opts);
-      } catch (error) {
-        console.log('jointhreaderror', error);
-      }
+      wallThread = await space.joinThread(myProfileWall, {});
 
       console.log('wallThreadinGetMyWall', wallThread);
       wallPosts = await wallThread.getPosts();

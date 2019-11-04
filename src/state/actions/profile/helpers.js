@@ -65,11 +65,10 @@ export const getFollowingThreadAndPosts = async (myAddress) => {
     });
 
     const followingSpace = await store.getState().myData.box.openSpace(followingSpaceName);
-    await followingSpace.syncDone;
-    const opts = {
+    const followingThread = await followingSpace.joinThread(followingThreadName, {
       members: true,
-    };
-    const followingThread = await followingSpace.joinThread(followingThreadName, opts);
+    });
+
     store.dispatch({
       type: 'MY_FOLLOWING_THREAD_UPDATE',
       followingThread,

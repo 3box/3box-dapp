@@ -282,6 +282,10 @@ h5 {
   font-family: 'Lato', sans-serif;
   color: $threeBoxBlack;
   margin: 0;
+
+  &::placeholder {
+    font-family: 'Lato', sans-serif;
+  }
 }
 
 h1,
@@ -471,6 +475,10 @@ input:focus {
   // web3connect modal
   .kaYREe {
     margin-top: -90px !important;
+  }
+
+  .header {
+    display: none;
   }
 
   input[type="color"],

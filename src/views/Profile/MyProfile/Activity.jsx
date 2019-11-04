@@ -16,7 +16,7 @@ const Activity = ({
 }) => (
     <div id="myFeed">
       <div>
-        <p className="header publicHeader" id="feed__header">
+        <p className="header" id="feed__header">
           Activity
         </p>
 

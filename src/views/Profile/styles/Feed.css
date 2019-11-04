@@ -155,7 +155,7 @@ input:focus + .slider {
 input:checked + .slider:before {
   transform: translateX(23px); }
 
-.wall_header {
+.profile_header {
   display: flex;
   justify-content: space-between;
   align-items: center; }
@@ -346,7 +346,12 @@ input:checked + .slider:before {
 .followingHeader_title {
   display: flex;
   justify-content: flex-start;
-  align-items: center; }
+  align-items: center;
+  font-size: 18px;
+  line-height: 24px !important;
+  color: #747677;
+  font-weight: 400;
+  margin: 0; }
 
 .followingHeader_warning {
   display: flex;
@@ -359,7 +364,6 @@ input:checked + .slider:before {
   line-height: 24px !important;
   color: #b1b1b1 !important;
   font-weight: 400;
-  margin-bottom: 6px;
   display: flex;
   font-size: 13px !important; }
 
@@ -678,6 +682,13 @@ input:checked + .slider:before {
     margin-bottom: 18px; }
     .statusUpdate input {
       padding: 10px 10px; }
+  .followingHeader_warning {
+    margin-right: 20px; }
+  .feed_activity_empty {
+    min-height: 80px;
+    border-radius: 0; }
+  .feed_activity_empty_text {
+    padding: 0 16px; }
   .feed__activity__load {
     min-height: 80px;
     margin-bottom: 24px;
@@ -790,10 +801,10 @@ input:checked + .slider:before {
     margin-top: 8px;
     margin-bottom: 11px; }
   #feed__header {
-    padding: 12px 0 12px 20px;
-    margin-bottom: 0; }
-  .publicHeader {
-    display: none; }
+    padding: 12px 20px 12px 20px;
+    margin-bottom: 0;
+    box-sizing: border-box;
+    justify-content: space-between; }
   .feed__activity__context {
     padding: 0 10px;
     white-space: nowrap;
