@@ -53,13 +53,12 @@ class Wall extends Component {
     const space = await box.openSpace(followingSpaceName);
     const res = await space.public.set('isWallDisabled', !isWallDisabled);
     console.log('didsave', res);
+    console.log('newvalue', !isWallDisabled);
 
     store.dispatch({
       type: 'MY_WALL_DISABLED_UPDATE',
       isWallDisabled: !isWallDisabled,
     });
-
-    console.log('newvalue', !isWallDisabled);
   }
 
   handleShowOptionsMenu = () => {
@@ -158,18 +157,13 @@ class Wall extends Component {
                 box={box}
                 loginFunction={handleSignInUp}
                 isOtherProfile={isOtherProfile}
+                isFetchingWall={isFetchingWall}
+                isFetchingOtherWall={isFetchingOtherWall}
               // ethereum={ethereum}
               // joinThread={joinThread} // only necessary for public profile
               />
 
               <div className="feed__activity__header">
-                {((isFetchingWall && !isOtherProfile) || (isFetchingOtherWall && isOtherProfile))
-                  && (
-                    <div className="feed__activity__load">
-                      <img src={Loading} alt="loading" id="activityLoad" />
-                    </div>
-                  )}
-
                 {postsToRender.map((comment) => {
                   const profile = profilesToUse[comment.author];
                   const commentAddr = profile && profile.ethAddr.toLowerCase();

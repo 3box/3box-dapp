@@ -6,7 +6,6 @@ import { withRouter } from 'react-router-dom';
 import { alphabetize } from '../../utils/funcs';
 
 import FollowingTile from '../../components/FollowingTile';
-import EmptyContact from '../../components/EmptyContact';
 import Loading from '../../assets/Loading.svg';
 import Globe from '../../assets/Globe.svg';
 import './styles/Profile.css';
@@ -18,7 +17,6 @@ const Following = ({ following, isLoadingMyFollowing }) => (
       <div className="followingHeader_title">
         {`Following (${following.length})`}
         <img src={Globe} alt="Public" className="favorites__publicIcon" title="Following will appear in your public profile" />
-        {isLoadingMyFollowing && <img src={Loading} alt="loading" id="activityLoad" />}
       </div>
       <div className="followingHeader_warning">
         <p className="followingHeader_warning_text">Addresses you follow are public</p>
@@ -33,7 +31,8 @@ const Following = ({ following, isLoadingMyFollowing }) => (
             isFollowing
             address={user[1]}
           />
-        )) : <EmptyContact />}
+        )) : <EmptyContact isLoadingMyFollowing={isLoadingMyFollowing} />
+      }
     </div>
   </div>
 );
@@ -57,3 +56,23 @@ function mapState(state) {
 }
 
 export default withRouter(connect(mapState)(Following));
+
+const EmptyContact = ({ isLoadingMyFollowing }) => (
+  <div className="feed_activity_empty">
+    {isLoadingMyFollowing ? (
+      <img src={Loading} alt="loading" id="activityLoad" />
+    ) : (
+        <p className="feed_activity_empty_text">
+          You're not following anyone yet
+        </p>
+      )}
+  </div>
+);
+
+EmptyContact.propTypes = {
+  isLoadingMyFollowing: PropTypes.bool,
+};
+
+EmptyContact.defaultProps = {
+  isLoadingMyFollowing: false,
+};

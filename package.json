@@ -4,7 +4,7 @@
   "description": "3box dapp",
   "private": true,
   "dependencies": {
-    "3box": "^1.12.0",
+    "3box": "^1.13.1",
     "3box-activity": "0.0.9",
     "3box-chatbox-react": "0.0.1-beta.9",
     "3id-resolver": "0.0.6",

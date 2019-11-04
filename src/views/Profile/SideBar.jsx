@@ -42,14 +42,14 @@ const SideBar = ({
       {!onOtherProfilePage && (
         coverPhoto && coverPhoto.length > 0 && coverPhoto[0].contentUrl
           ? <img src={`https://ipfs.infura.io/ipfs/${coverPhoto[0].contentUrl['/']}`} className="profile__coverPhoto clearProfPic" alt="profile" />
-          : <div className="profile__coverPhoto" />)
-      }
+          : <div className="profile__coverPhoto" />
+      )}
 
       {onOtherProfilePage && (
         otherCoverPhoto && otherCoverPhoto.length > 0 && otherCoverPhoto[0].contentUrl
           ? <img src={`https://ipfs.infura.io/ipfs/${otherCoverPhoto[0].contentUrl['/']}`} className={`${showSignInBanner ? 'showSignInBanner' : ''} ${showSignInBanner ? 'bannerMargin' : ''} profile__coverPhoto clearProfPic`} alt="profile" />
-          : <div className={`${showSignInBanner ? 'showSignInBanner' : ''} ${showSignInBanner ? 'bannerMargin' : ''} profile__coverPhoto`} />)
-      }
+          : <div className={`${showSignInBanner ? 'showSignInBanner' : ''} ${showSignInBanner ? 'bannerMargin' : ''} profile__coverPhoto`} />
+      )}
 
       <div id="profile" className={!onOtherProfilePage ? 'onMyProfile' : ''}>
         <div id="profile__fixed">
@@ -71,13 +71,13 @@ const SideBar = ({
               <div className="profile__basic__wrapper">
                 {!onOtherProfilePage && (name
                   ? <h2 id="profile__user__name">{name}</h2>
-                  : <Link to={`/${currentAddress}/${routes.EDIT}`}><h2 id="profile__user__name__add">Add name</h2></Link>)
-                }
+                  : <Link to={`/${currentAddress}/${routes.EDIT}`}><h2 id="profile__user__name__add">Add name</h2></Link>
+                )}
 
                 {onOtherProfilePage && (otherName
                   ? <h2 id="profile__user__name">{otherName}</h2>
-                  : '')
-                }
+                  : ''
+                )}
 
                 <span className="profile__basic__emoji">
                   {(!onOtherProfilePage && emoji) && (emoji.code ? emoji.code : emoji)}
@@ -116,7 +116,7 @@ const SideBar = ({
                       </div>
                       Wall
                     </NavLink>
-                    
+
                     <NavLink exact to={`/${currentAddress}/${routes.ACTIVITY}`} className="profile__category__section">
                       <div className="profile__category__tabIcon__wrappper">
                         <img src={ActivityIcon} alt="Activity" className="profile__category__tabIcon--activity" />
@@ -184,7 +184,8 @@ const SideBar = ({
                 <p>COPIED PROFILE URL</p>
               </div>
             </div>
-          </div>)}
+          </div>
+        )}
       </ReactCSSTransitionGroup>
     </div>
   );
@@ -197,17 +198,15 @@ SideBar.propTypes = {
   currentAddress: PropTypes.string,
   otherName: PropTypes.string,
   otherDescription: PropTypes.string,
-  image: PropTypes.array,
   coverPhoto: PropTypes.array,
   otherCoverPhoto: PropTypes.array,
-  otherImage: PropTypes.array,
   location: PropTypes.object.isRequired,
   onOtherProfilePage: PropTypes.bool,
   copySuccessful: PropTypes.bool,
   showSignInBanner: PropTypes.bool,
   isLoggedIn: PropTypes.bool,
-  isFollowing: PropTypes.bool.isRequired,
-  isMe: PropTypes.bool.isRequired,
+  isFollowing: PropTypes.bool,
+  isMe: PropTypes.bool,
   copyToClipBoard: PropTypes.func.isRequired,
 };
 
@@ -218,15 +217,15 @@ SideBar.defaultProps = {
   otherEmoji: '',
   otherDescription: '',
   currentAddress: '',
-  image: [],
   coverPhoto: [],
-  otherImage: [],
   otherCoverPhoto: [],
   emoji: '',
   copySuccessful: false,
   onOtherProfilePage: false,
   showSignInBanner: false,
   isLoggedIn: false,
+  isMe: false,
+  isFollowing: false,
 };
 
 function mapState(state) {

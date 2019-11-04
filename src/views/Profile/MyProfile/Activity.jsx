@@ -18,10 +18,10 @@ const Activity = ({
       <div>
         <p className="header publicHeader" id="feed__header">
           Activity
-          {(isFetchingActivity)
+          {/* {(isFetchingActivity)
             && (
               <img src={Loading} alt="loading" id="activityLoad" />
-            )}
+            )} */}
         </p>
 
         <div className="feed__activity__header">
@@ -40,6 +40,12 @@ const Activity = ({
                 </p>
               </div>
             )}
+
+          {(!feedByAddress.length && isFetchingActivity) && (
+            <div className="feed_activity_empty">
+              <img src={Loading} alt="loading" id="activityLoad" />
+            </div>
+          )}
         </div>
       </div>
       <div className="feed__footer">

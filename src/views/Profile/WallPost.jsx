@@ -12,7 +12,7 @@ import { timeSince } from '../../utils/time';
 import actions from '../../state/actions';
 
 import Delete from '../../assets/Delete2.svg';
-import Loading from '../../assets/3BoxCommentsSpinner.svg';
+import Loading from '../../assets/Loading.svg';
 import './styles/WallPost.scss';
 import './styles/Feed.css';
 

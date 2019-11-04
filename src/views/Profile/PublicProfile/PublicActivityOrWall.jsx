@@ -30,6 +30,7 @@ class PublicActivityOrWall extends Component {
       otherWallPosts,
       otherWallProfiles,
       handleSignInUp,
+      isOtherWallDisabled,
     } = this.props;
     const { viewTab } = this.state;
 
@@ -37,13 +38,15 @@ class PublicActivityOrWall extends Component {
       <div id="feed" className={`${otherCollectiblesFavorites.length > 0 && 'noTopMargin'}`}>
         <div className="feed_content">
           <div className="feed_content_headers">
-            <button
-              type="button"
-              className={`textButton feed_content_button ${viewTab === 'wall' ? 'feed_content_active' : ''}`}
-              onClick={() => this.handleView('wall')}
-            >
-              <p className="header feed_content_headers_tab">Wall</p>
-            </button>
+            {!isOtherWallDisabled && (
+              <button
+                type="button"
+                className={`textButton feed_content_button ${viewTab === 'wall' ? 'feed_content_active' : ''}`}
+                onClick={() => this.handleView('wall')}
+              >
+                <p className="header feed_content_headers_tab">Wall</p>
+              </button>
+            )}
             <button
               type="button"
               className={`textButton feed_content_button ${viewTab === 'activity' ? 'feed_content_active' : ''}`}
@@ -53,13 +56,16 @@ class PublicActivityOrWall extends Component {
             </button>
           </div>
 
-          <Wall
-            wallPosts={otherWallPosts}
-            wallProfiles={otherWallProfiles}
-            handleSignInUp={handleSignInUp}
-            viewTab={viewTab}
-            isOtherProfile
-          />
+          {!isOtherWallDisabled && (
+            <Wall
+              wallPosts={otherWallPosts}
+              wallProfiles={otherWallProfiles}
+              handleSignInUp={handleSignInUp}
+              viewTab={viewTab}
+              isOtherProfile
+            />
+          )}
+
           <PublicActivity
             isFetchingOtherActivity={isFetchingOtherActivity}
             otherProfileActivity={otherProfileActivity}
@@ -73,6 +79,7 @@ class PublicActivityOrWall extends Component {
 
 PublicActivityOrWall.propTypes = {
   isFetchingOtherActivity: PropTypes.bool,
+  isOtherWallDisabled: PropTypes.bool,
   otherCollectiblesFavorites: PropTypes.array,
   otherProfileActivity: PropTypes.array,
   otherWallPosts: PropTypes.array,
@@ -82,6 +89,7 @@ PublicActivityOrWall.propTypes = {
 
 PublicActivityOrWall.defaultProps = {
   isFetchingOtherActivity: false,
+  isOtherWallDisabled: false,
   otherCollectiblesFavorites: [],
   otherProfileActivity: [],
   otherWallPosts: [],
@@ -96,6 +104,7 @@ const mapState = (state) => ({
   otherName: state.otherProfile.otherName,
   otherCollectiblesFavorites: state.otherProfile.otherCollectiblesFavorites,
   otherWallPosts: state.otherProfile.otherWallPosts,
+  isOtherWallDisabled: state.otherProfile.isOtherWallDisabled,
 });
 
 export default connect(mapState)(PublicActivityOrWall);

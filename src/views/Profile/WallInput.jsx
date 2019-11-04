@@ -10,7 +10,7 @@ import actions from '../../state/actions';
 import EmojiIcon from './Emoji/EmojiIcon';
 import PopupWindow from './Emoji/PopupWindow';
 import EmojiPicker from './Emoji/EmojiPicker';
-import Loading from '../../assets/3BoxCommentsSpinner.svg';
+import Loading from '../../assets/Loading.svg';
 import Profile from '../../assets/Profile.svg';
 // import Logo from '../../assets/3BoxLogo.svg';
 // import Send from '../../assets/Send2.svg';
@@ -151,13 +151,15 @@ class WallInput extends Component {
     const {
       comment,
       postLoading,
-      isMobile,
       emojiPickerIsOpen,
     } = this.state;
 
     const {
       image,
       currentAddress,
+      isFetchingWall,
+      isOtherProfile,
+      isFetchingOtherWall,
     } = this.props;
 
     const updatedProfilePicture = image ? `https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`
@@ -181,7 +183,7 @@ class WallInput extends Component {
             </div>
           )}
 
-        {postLoading ? (
+        {((isFetchingWall && !isOtherProfile) || (isFetchingOtherWall && isOtherProfile) || postLoading) ? (
           <div className="input_postLoading">
             <SVG
               src={Loading}
@@ -232,6 +234,8 @@ export default connect(mapState, {
 WallInput.propTypes = {
   box: PropTypes.object,
   isOtherProfile: PropTypes.bool,
+  isFetchingOtherWall: PropTypes.bool,
+  isFetchingWall: PropTypes.bool,
   currentAddress: PropTypes.string,
   image: PropTypes.array,
   loginFunction: PropTypes.func.isRequired,
@@ -242,6 +246,8 @@ WallInput.propTypes = {
 WallInput.defaultProps = {
   box: {},
   isOtherProfile: false,
+  isFetchingOtherWall: false,
+  isFetchingWall: false,
   currentAddress: '',
   image: null,
 };

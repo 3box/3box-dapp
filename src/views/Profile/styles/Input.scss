@@ -110,18 +110,18 @@
 
 .input_postLoading {
   position: absolute;
-  top: 10px;
-  left: calc(50% - 68px);
+  top: 24px;
+  left: calc(50% - 14px);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .input_postLoading_spinner {
-  min-height: 52px;
-  min-width: 52px;
-  max-height: 52px;
-  max-width: 52px;
+  min-height: 26px;
+  min-width: 26px;
+  max-height: 26px;
+  max-width: 26px;
   opacity: .6;
 }
 

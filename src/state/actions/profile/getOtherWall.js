@@ -26,6 +26,7 @@ const getOtherWall = (profileAddress) => async (dispatch) => {
   const spaces = await Box.listSpaces(profileAddress);
   if (spaces.includes(followingSpaceName)) {
     const space = await Box.getSpace(profileAddress, followingSpaceName);
+    console.log('othersspace', space);
     isOtherWallDisabled = space.isWallDisabled;
     otherWallPosts = await Box.getThread(followingSpaceName, myProfileWall, profileAddress, false, {});
     otherWallProfiles = await fetchCommenters(otherWallPosts);
@@ -35,7 +36,7 @@ const getOtherWall = (profileAddress) => async (dispatch) => {
     type: 'OTHER_WALL_UPDATE',
     otherWallPosts,
     otherWallProfiles,
-    isOtherWallDisabled,
+    isOtherWallDisabled: !!isOtherWallDisabled,
   });
 
   dispatch({

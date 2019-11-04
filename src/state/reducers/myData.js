@@ -181,6 +181,7 @@ const myDataReducer = (state = {}, action) => {
       return {
         ...state,
         followingThread: action.followingThread,
+        followingSpace: action.followingSpace,
       };
 
     case 'MY_DATA_SIGNOUT':

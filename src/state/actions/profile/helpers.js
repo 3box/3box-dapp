@@ -72,6 +72,7 @@ export const getFollowingThreadAndPosts = async (myAddress) => {
     store.dispatch({
       type: 'MY_FOLLOWING_THREAD_UPDATE',
       followingThread,
+      followingSpace,
     });
     store.dispatch({
       type: 'UI_FOLLOWING_LOADING',
