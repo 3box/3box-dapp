@@ -787,6 +787,23 @@ input:checked+.slider:before {
   align-self: flex-start;
 }
 
+.feed_activity_empty {
+  border: 1px solid $borderColor;
+  min-height: 80px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: white;
+  border-radius: 6px;
+}
+
+.feed_activity_empty_text {
+  color: $lighterFont;
+  font-size: 15px;
+}
+
 @media only screen and (max-width: 1278px) {
   #feed {
     left: 350px;

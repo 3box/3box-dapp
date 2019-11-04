@@ -143,6 +143,12 @@ const myDataReducer = (state = {}, action) => {
         isWallDisabled: action.isWallDisabled,
       };
 
+    case 'MY_WALL_DISABLED_UPDATE':
+      return {
+        ...state,
+        isWallDisabled: action.isWallDisabled,
+      };
+
     case 'MY_WALL_POSTS_UPDATE':
       return {
         ...state,

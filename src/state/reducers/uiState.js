@@ -26,6 +26,12 @@ const uiStateReducer = (state = {}, action) => {
         isFetchingWall: action.isFetchingWall,
       };
 
+    case 'UI_OTHER_WALL_LOADING':
+      return {
+        ...state,
+        isFetchingOtherWall: action.isFetchingOtherWall,
+      };
+
     case 'UI_FEED_OTHER_LOADING':
       return {
         ...state,

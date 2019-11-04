@@ -140,6 +140,11 @@
   font-size: 18px;
   text-align: left;
   word-break: break-word;
+
+  a {
+    color: $threeBoxBlue;
+    font-size: 18px;
+  }
 }
 
 .comment_loading {

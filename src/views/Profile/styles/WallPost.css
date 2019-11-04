@@ -114,6 +114,9 @@
   font-size: 18px;
   text-align: left;
   word-break: break-word; }
+  .comment_content_text a {
+    color: #1168df;
+    font-size: 18px; }
 
 .comment_loading {
   min-width: 30px;

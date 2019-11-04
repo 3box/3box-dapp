@@ -10,7 +10,7 @@
   width: 100%;
   border-radius: 6px;
   border: 1px solid #ececec;
-  padding: 25px 12px 25px 68px;
+  padding: 25px 140px 25px 68px;
   resize: none;
   overflow-y: hidden;
   line-height: 22px;
@@ -34,7 +34,7 @@
   max-width: 40px;
   max-height: 40px;
   border-radius: 50%;
-  background-color: #1168df;
+  background-color: transparent;
   object-fit: cover; }
 
 .input_emptyUser {
@@ -74,7 +74,7 @@
 .sc-user-input--picker-wrapper {
   position: absolute;
   right: 100px;
-  top: 17px;
+  bottom: 34px;
   min-width: 40px;
   min-height: 40px;
   max-width: 40px;

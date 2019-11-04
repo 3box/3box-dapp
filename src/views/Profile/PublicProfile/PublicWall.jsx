@@ -24,6 +24,7 @@ const PublicActivity = ({
                 <img src={Loading} alt="loading" id="activityLoad" />
               </div>
             )}
+
           {otherProfileActivity.length > 0
             ? otherProfileActivity.map((feedAddress, i) => (
               <div key={i} className="feed__activity__tile">
@@ -36,8 +37,7 @@ const PublicActivity = ({
               <div className="feed__activity__load">
                 <p>No activity at this address yet</p>
               </div>
-            )
-          }
+            )}
         </div>
       </div>
       <div className="feed__footer">

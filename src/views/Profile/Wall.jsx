@@ -5,6 +5,7 @@ import Box from '3box';
 
 import { sortChronologically } from '../../utils/funcs';
 import { followingSpaceName } from '../../utils/constants';
+import { store } from '../../state/store';
 
 import WallInput from './WallInput';
 import WallPost from './WallPost';
@@ -53,7 +54,11 @@ class Wall extends Component {
     const res = await space.public.set('isWallDisabled', !isWallDisabled);
     console.log('didsave', res);
 
-    this.setState({ isWallDisabled: !isWallDisabled });
+    store.dispatch({
+      type: 'MY_WALL_DISABLED_UPDATE',
+      isWallDisabled: !isWallDisabled,
+    });
+
     console.log('newvalue', !isWallDisabled);
   }
 
@@ -164,6 +169,7 @@ class Wall extends Component {
                       <img src={Loading} alt="loading" id="activityLoad" />
                     </div>
                   )}
+
                 {postsToRender.map((comment) => {
                   const profile = profilesToUse[comment.author];
                   const commentAddr = profile && profile.ethAddr.toLowerCase();
@@ -178,11 +184,18 @@ class Wall extends Component {
                       box={box}
                       loginFunction={handleSignInUp}
                       isOtherProfile={isOtherProfile}
-                    // joinThread={joinThread}
-                    // openBox={openBox}
                     />
                   );
                 })}
+
+                {!postsToRender.length && (
+                  <div className="feed_activity_empty">
+                    <p className="feed_activity_empty_text">
+                      This is your profile wall, a public place
+                      to share updates and for others to leave posts.
+                    </p>
+                  </div>
+                )}
               </div>
             </>
           )}

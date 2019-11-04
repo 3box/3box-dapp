@@ -25,22 +25,29 @@ const getMyWall = () => async (dispatch) => {
   try {
     const box = await store.getState().myData.box;
     const space = await box.openSpace(followingSpaceName);
-
+    console.log('getMyWallSpace', space);
     // check to see if user has disabled wall
-    const isWallDisabled = space.public && await space.public.get('isWallDisabled');
+    const isWallDisabled = space.public ? await space.public.get('isWallDisabled') : false;
     console.log('isWallDisabledingetmywall', isWallDisabled);
 
     let wallThread;
     let wallPosts;
     let wallProfiles;
+    // if (!isWallDisabled && space.public) {
     if (!isWallDisabled) {
+      console.log('infetchthread');
       const myAddress = store.getState().userState.currentAddress;
       const opts = {
         firstModerator: myAddress,
       };
+      console.log('1getMyWall');
       wallThread = await space.joinThread(myProfileWall, opts);
+
+      console.log('wallThreadinGetMyWall', wallThread);
       wallPosts = await wallThread.getPosts();
+      console.log('2getMyWall', wallPosts);
       wallProfiles = await fetchCommenters(wallPosts);
+      console.log('3getMyWall', wallProfiles);
       wallThread.onUpdate(() => updateMyWall());
     }
 
@@ -51,14 +58,14 @@ const getMyWall = () => async (dispatch) => {
       wallProfiles,
       isWallDisabled,
     });
-
-    dispatch({
-      type: 'UI_WALL_LOADING',
-      isFetchingWall: false,
-    });
   } catch (error) {
     console.error(error);
   }
+
+  dispatch({
+    type: 'UI_WALL_LOADING',
+    isFetchingWall: false,
+  });
 };
 
 export default getMyWall;

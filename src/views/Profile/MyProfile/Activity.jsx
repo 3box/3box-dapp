@@ -23,6 +23,7 @@ const Activity = ({
               <img src={Loading} alt="loading" id="activityLoad" />
             )}
         </p>
+
         <div className="feed__activity__header">
           {(feedByAddress.length > 0)
             ? feedByAddress.map((feedAddress, i) => (
@@ -33,11 +34,12 @@ const Activity = ({
             ))
             : (!isFetchingActivity && !otherProfileActivity.length)
             && (
-              <div className="feed__activity__load">
-                <p>No activity at this address yet</p>
+              <div className="feed_activity_empty">
+                <p className="feed_activity_empty_text">
+                  No activity at this address yet
+                </p>
               </div>
-            )
-          }
+            )}
         </div>
       </div>
       <div className="feed__footer">

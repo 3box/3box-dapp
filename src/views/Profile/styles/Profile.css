@@ -141,7 +141,8 @@
   align-items: center;
   justify-content: center;
   transition: all ease .5s;
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+  background-color: white; }
   .empty_contact_tile p {
     color: #b1b1b1;
     font-size: 16px; }

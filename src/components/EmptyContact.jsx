@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 import '../views/Profile/styles/Profile.css';
 
 const EmptyContact = () => (
-  <div className="empty_contact_tile">
-    <p>You're not following anyone yet</p>
+  <div className="feed_activity_empty">
+    <p className="feed_activity_empty_text">
+      You're not following anyone yet
+    </p>
   </div>
 );
 

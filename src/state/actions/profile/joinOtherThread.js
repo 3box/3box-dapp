@@ -24,6 +24,11 @@ const updateOtherWall = async () => {
 };
 
 const joinOtherThread = () => async (dispatch) => {
+  dispatch({
+    type: 'UI_WALL_OTHER_LOADING',
+    isFetchingOtherWall: true,
+  });
+
   try {
     const box = await store.getState().myData.box;
     const space = await box.openSpace(followingSpaceName);
@@ -47,14 +52,14 @@ const joinOtherThread = () => async (dispatch) => {
       otherWallThread,
       otherWallProfiles,
     });
-
-    dispatch({
-      type: 'UI_WALL_LOADING',
-      isFetchingWall: false,
-    });
   } catch (error) {
     console.error(error);
   }
+
+  dispatch({
+    type: 'UI_OTHER_WALL_LOADING',
+    isFetchingOtherWall: false,
+  });
 };
 
 export default joinOtherThread;

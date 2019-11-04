@@ -634,6 +634,21 @@ input:checked + .slider:before {
   flex-direction: column;
   align-self: flex-start; }
 
+.feed_activity_empty {
+  border: 1px solid #ececec;
+  min-height: 80px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: white;
+  border-radius: 6px; }
+
+.feed_activity_empty_text {
+  color: #747677;
+  font-size: 15px; }
+
 @media only screen and (max-width: 1278px) {
   #feed {
     left: 350px; }

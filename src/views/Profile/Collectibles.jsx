@@ -173,15 +173,30 @@ class Collectibles extends Component {
           {showCollectiblesModal && (
             <ModalBackground />
           )}
+
         </ReactCSSTransitionGroup>
         <div id="myFeed">
           {(collection.length > 0 || collectiblesFavoritesToRender.length > 0)
-            && (
+            ? (
               <div className="header collectiblesHeader" id="feed__header">
                 <p>
                   Favorites
                 </p>
                 <img src={Globe} alt="Public" className="favorites__publicIcon" title="Favorites will appear in your public profile" />
+              </div>
+            ) : (
+              <div>
+                <div className="header collectiblesHeader" id="feed__header">
+                  <p>
+                    Collectibles
+                  </p>
+                  <img src={Globe} alt="Public" className="favorites__publicIcon" title="Favorites will appear in your public profile" />
+                </div>
+                <div className="feed_activity_empty">
+                  <p className="feed_activity_empty_text">
+                    You don't have any collectibles
+                  </p>
+                </div>
               </div>
             )}
 
@@ -231,19 +246,15 @@ class Collectibles extends Component {
           )}
 
           {(collection.length > 0 || collectiblesFavoritesToRender.length > 0)
-            ? (
+            && (
               <div className="header collectiblesHeader" id="feed__header">
                 <p>
                   Gallery
                 </p>
                 <img src={Private} alt="Public" className="favorites__privateIcon" title="Gallery will not appear in your public profile" />
               </div>
-            )
-            : (
-              <p className="header" id="feed__header">
-                You don't have any collectibles
-              </p>
             )}
+
           <div className="collectibles__grid">
             {collection.length > 0 && (
               collection.map((collectible) => (
