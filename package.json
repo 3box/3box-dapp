@@ -18,7 +18,7 @@
     "eth-contract-metadata": "^1.9.0",
     "ethereum-blockies-base64": "^1.0.2",
     "ethereumjs-util": "^6.0.0",
-    "fortmatic": "^0.8.2",
+    "fortmatic": "^1.0.0",
     "history": "^4.7.2",
     "ipfs-log": "^4.3.5",
     "lodash.clonedeep": "^4.5.0",
