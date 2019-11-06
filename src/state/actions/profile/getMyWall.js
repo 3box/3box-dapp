@@ -5,7 +5,6 @@ import {
   fetchCommenters,
 } from './helpers';
 import {
-  followingSpaceName,
   myProfileWall,
 } from '../../../utils/constants';
 
@@ -25,29 +24,21 @@ const getMyWall = () => async (dispatch) => {
   try {
     const space = await store.getState().myData.followingSpace;
     // check to see if user has disabled wall
-    const isWallDisabled = await space.public.get('isWallDisabled');
-    // const isWallDisabled = space.public ? await space.public.get('isWallDisabled') : false;
-    console.log('isWallDisabledingetmywall', isWallDisabled);
+    const isWallDisabled = space.public ? await space.public.get('isWallDisabled') : false;
 
     let wallThread;
     let wallPosts;
     let wallProfiles;
-    // if (!isWallDisabled && space.public) {
     if (!isWallDisabled) {
-      console.log('infetchthread');
-      const myAddress = store.getState().userState.currentAddress;
+      // const myAddress = store.getState().userState.currentAddress;
       // const opts = {
       //   firstModerator: space.DID,
       //   // firstModerator: myAddress,
       // };
-      console.log('1getMyWall');
       wallThread = await space.joinThread(myProfileWall, {});
 
-      console.log('wallThreadinGetMyWall', wallThread);
       wallPosts = await wallThread.getPosts();
-      console.log('2getMyWall', wallPosts);
       wallProfiles = await fetchCommenters(wallPosts);
-      console.log('3getMyWall', wallProfiles);
       wallThread.onUpdate(() => updateMyWall());
     }
 

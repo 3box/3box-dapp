@@ -1,22 +1,62 @@
 .input {
-  position: relative; }
-
-.input_form {
   font-size: 15px;
-  min-height: 74px;
-  height: 74px;
+  height: fit-content;
   box-sizing: border-box;
   min-width: 100%;
   width: 100%;
   border-radius: 6px;
   border: 1px solid #ececec;
-  padding: 25px 140px 25px 68px;
+  padding: 0;
   resize: none;
   overflow-y: hidden;
   line-height: 22px;
-  margin-bottom: 14px; }
+  margin-bottom: 14px;
+  background-color: white;
+  position: relative; }
+
+.input_form {
+  font-size: 15px;
+  min-height: 49px;
+  height: 49px;
+  box-sizing: border-box;
+  padding: 25px 140px 0 68px;
+  min-width: 100%;
+  width: 100%;
+  border: none;
+  resize: none;
+  overflow-y: hidden;
+  line-height: 22px; }
   .input_form:focus {
     outline-width: 0; }
+
+.input_linkPreview {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 14px;
+  height: 90px;
+  border-top: 1px solid #ececec;
+  border-bottom: 1px solid #ececec; }
+
+.input_linkPreview_image {
+  width: 20%;
+  height: 100%;
+  object-fit: cover; }
+
+.input_linkPreview_content {
+  padding: 8px 14px; }
+
+.input_linkPreview_content_title {
+  font-size: 16px; }
+
+.input_linkPreview_content_description {
+  color: #747677; }
+
+.input_linkPreview_content_url {
+  color: #b1b1b1;
+  font-size: 14px; }
 
 ::placeholder {
   font-size: 15px;
@@ -72,12 +112,9 @@
   padding: 0; }
 
 .sc-user-input--picker-wrapper {
-  position: absolute;
-  right: 100px;
-  bottom: 34px;
-  min-width: 40px;
+  min-width: 50px;
+  max-width: 50px;
   min-height: 40px;
-  max-width: 40px;
   max-height: 40px;
   border-radius: 50%;
   display: flex;
@@ -86,9 +123,18 @@
 
 .input_send-dtw {
   opacity: .5;
-  position: absolute;
-  right: 13px;
-  bottom: 29px; }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  height: 38px;
+  width: 64px; }
+
+.input_buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 12px 12px 12px 0; }
 
 .input_send-dtw-visible {
   opacity: 1; }

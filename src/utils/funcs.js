@@ -482,3 +482,5 @@ export const sortChronologically = (threadPosts) => {
 
   return updatedThreadPosts;
 };
+
+export const baseURL = (url) => url.replace(/(http(s)?:\/\/)|(\/.*){1}/g, '');

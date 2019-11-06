@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Box from '3box';
+import mql from '@microlink/mql';
 
 import { sortChronologically } from '../../utils/funcs';
 import { followingSpaceName } from '../../utils/constants';
-import { store } from '../../state/store';
 import actions from '../../state/actions';
 
 import WallInput from './WallInput';
@@ -46,22 +45,12 @@ class Wall extends Component {
 
   onCheckbox = async () => {
     const { isWallDisabled } = this.state;
-    const { box, currentAddress } = this.props;
-
-    const spaces = await Box.listSpaces(currentAddress);
-    console.log('followingSpaceName', followingSpaceName);
-    console.log('listspaces', spaces);
+    const { box } = this.props;
 
     const space = await box.openSpace(followingSpaceName);
-    const res = await space.public.set('isWallDisabled', !isWallDisabled);
-    console.log('didsave', res);
-    console.log('newvalue', !isWallDisabled);
+    await space.public.set('isWallDisabled', !isWallDisabled);
 
     this.props.getMyWall();
-    // store.dispatch({
-    //   type: 'MY_WALL_DISABLED_UPDATE',
-    //   isWallDisabled: !isWallDisabled,
-    // });
   }
 
   handleShowOptionsMenu = () => {
@@ -159,6 +148,7 @@ class Wall extends Component {
                 isOtherProfile={isOtherProfile}
                 isFetchingWall={isFetchingWall}
                 isFetchingOtherWall={isFetchingOtherWall}
+                fetchPreview={this.fetchPreview}
               />
 
               <div className="feed__activity__header">

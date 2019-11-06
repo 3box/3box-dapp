@@ -3,8 +3,9 @@ import makeBlockie from 'ethereum-blockies-base64';
 import SVG from 'react-inlinesvg';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import mql from '@microlink/mql';
 
-import { checkIsMobileDevice } from '../../utils/funcs';
+import { checkIsMobileDevice, baseURL } from '../../utils/funcs';
 import actions from '../../state/actions';
 
 import EmojiIcon from './Emoji/EmojiIcon';
@@ -29,6 +30,7 @@ class WallInput extends Component {
       postLoading: false,
       emojiPickerIsOpen: false,
       hasJoinedThread: false,
+      isFetchingLink: false,
       isMobile: checkIsMobileDevice(),
     };
     this.inputRef = React.createRef();
@@ -55,10 +57,47 @@ class WallInput extends Component {
   autoExpand = (field) => {
     const height = field.scrollHeight;
     field.style.height = `${height}px`;
-    console.log('field.style.height', field.style.height);
   };
 
-  handleCommentText = (event) => this.setState({ comment: event.target.value });
+  handleCommentText = async (event) => {
+    const { linkURL } = this.state;
+    const comment = event.target.value;
+    const urlMatches = comment.match(/\b(http|https)?:\/\/\S+/gi) || [];
+    this.setState({ comment });
+
+    if (urlMatches.length && linkURL !== urlMatches[0]) {
+      this.fetchPreview(urlMatches[0]);
+      this.setState({ linkURL: urlMatches[0] });
+    }
+  }
+
+  fetchPreview = async (url) => {
+    console.log('urlurlurl', url);
+    this.setState({ isFetchingLink: true });
+
+    try {
+      const {
+        data,
+        status,
+        response,
+      } = await mql(
+        url,
+        {
+          apiKey: 'vYR5oNTFdH6sN0s1aX1yf11pARnMJPaG8wXSVzt3',
+          prerender: true,
+          headers: {
+            'user-agent': [{ value: 'googlebot' }],
+            host: 'https://3box.io',
+            // 'user-agent': 'googlebot',
+          },
+        },
+      );
+      this.setState({ isFetchingLink: false, linkPreview: data });
+    } catch (error) {
+      console.log('error fetching link', error);
+      this.setState({ isFetchingLink: false, linkPreview: null });
+    }
+  }
 
   searchEnter = (event) => {
     const { comment, isMobile } = this.state;
@@ -152,6 +191,8 @@ class WallInput extends Component {
       comment,
       postLoading,
       emojiPickerIsOpen,
+      linkPreview,
+      isFetchingLink,
     } = this.state;
 
     const {
@@ -164,6 +205,10 @@ class WallInput extends Component {
 
     const updatedProfilePicture = image ? `https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`
       : currentAddress && makeBlockie(currentAddress);
+
+    const isLoading = (isFetchingWall && !isOtherProfile) || (isFetchingOtherWall && isOtherProfile) || postLoading;
+    console.log('linkPreview', linkPreview);
+    console.log('isFetchingLink', isFetchingLink);
 
     return (
       <div className="input">
@@ -183,39 +228,67 @@ class WallInput extends Component {
             </div>
           )}
 
-        {((isFetchingWall && !isOtherProfile) || (isFetchingOtherWall && isOtherProfile) || postLoading) ? (
+        {isLoading ? (
           <div className="input_postLoading">
             <SVG
               src={Loading}
               alt="Loading"
               className="input_postLoading_spinner"
-            // id="activityLoad"
             />
           </div>
         ) : <div />}
 
+        {/* <div className="input_formWrapper"> */}
         <textarea
           type="text"
           value={comment}
-          placeholder={`${((isFetchingWall && !isOtherProfile) || (isFetchingOtherWall && isOtherProfile) || postLoading) ? '' : 'Write a comment...'}`}
+          placeholder={`${isLoading ? '' : 'Write a comment...'}`}
           className={`input_form ${postLoading ? 'hidePlaceholder' : ''}`}
           onChange={this.handleCommentText}
           ref={this.inputRef}
         />
 
-        <button
-          type="button"
-          onClick={this.saveComment}
-          className={`input_send-dtw ${comment ? 'input_send-dtw-visible' : ''}`}
-        >
-          Post
-        </button>
+        {isFetchingLink && (
+          <SVG
+            src={Loading}
+            alt="Loading"
+            className="input_postLoading_spinner"
+          />
+        )}
 
-        <EmojiIcon
-          onClick={this.toggleEmojiPicker}
-          isActive={emojiPickerIsOpen}
-          tooltip={this._renderEmojiPopup()}
-        />
+        {linkPreview && (
+          <div className="input_linkPreview">
+            <img src={linkPreview.image.url} alt="link preview" className="input_linkPreview_image" />
+            <div className="input_linkPreview_content">
+              <h3 className="input_linkPreview_content_title">
+                {linkPreview.title}
+              </h3>
+              <p className="input_linkPreview_content_description">
+                {linkPreview.description}
+              </p>
+              <p className="input_linkPreview_content_url">
+                {baseURL(linkPreview.url)}
+              </p>
+            </div>
+          </div>
+        )}
+
+        <div className="input_buttons">
+          <EmojiIcon
+            onClick={this.toggleEmojiPicker}
+            isActive={emojiPickerIsOpen}
+            tooltip={this._renderEmojiPopup()}
+          />
+
+          <button
+            type="button"
+            onClick={this.saveComment}
+            className={`input_send-dtw ${comment ? 'input_send-dtw-visible' : ''}`}
+          >
+            Post
+          </button>
+        </div>
+        {/* </div> */}
       </div>
     );
   }
@@ -242,6 +315,7 @@ WallInput.propTypes = {
   loginFunction: PropTypes.func.isRequired,
   postAndUpdateWall: PropTypes.func.isRequired,
   joinOtherThread: PropTypes.func.isRequired,
+  fetchPreview: PropTypes.func.isRequired,
 };
 
 WallInput.defaultProps = {
