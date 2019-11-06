@@ -6,11 +6,14 @@ import makeBlockie from 'ethereum-blockies-base64';
 import SVG from 'react-inlinesvg';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import mql from '@microlink/mql';
+import isURL from 'is-url';
 
 import { shortenEthAddr } from '../../utils/funcs';
 import { timeSince } from '../../utils/time';
 import actions from '../../state/actions';
 
+import LinkUnfurl from './LinkUnfurl';
 import Delete from '../../assets/Delete2.svg';
 import Loading from '../../assets/Loading.svg';
 import './styles/WallPost.scss';
@@ -26,6 +29,15 @@ class WallPost extends Component {
       hasJoinedThread: false,
     };
   }
+
+  componentDidMount() {
+    const { comment } = this.props;
+    console.log('comment', comment);
+    const urlMatches = comment.message.match(/\b(http|https)?:\/\/\S+/gi) || [];
+    console.log('urlMatches', urlMatches);
+    if (isURL(urlMatches[0])) this.fetchPreview(urlMatches[0]);
+  }
+
 
   deleteComment = async (commentId, e) => {
     e.preventDefault();
@@ -55,8 +67,35 @@ class WallPost extends Component {
     }
   }
 
+  fetchPreview = async (url) => {
+    this.setState({ isFetchingLink: true });
+
+    try {
+      const {
+        data,
+        // status,
+        // response,
+      } = await mql(
+        url,
+        {
+          apiKey: 'vYR5oNTFdH6sN0s1aX1yf11pARnMJPaG8wXSVzt3',
+          prerender: true,
+          headers: {
+            'user-agent': [{ value: 'googlebot' }],
+            host: 'https://3box.io',
+            // 'user-agent': 'googlebot',
+          },
+        },
+      );
+      this.setState({ isFetchingLink: false, linkPreview: data });
+    } catch (error) {
+      console.log('error fetching link', error);
+      this.setState({ isFetchingLink: false, linkPreview: null });
+    }
+  }
+
   render() {
-    const { loadingDelete } = this.state;
+    const { loadingDelete, linkPreview, isFetchingLink } = this.state;
     const {
       comment,
       profile,
@@ -145,6 +184,7 @@ class WallPost extends Component {
             {comment.message}
           </Linkify>
         </div>
+        {linkPreview && <LinkUnfurl linkPreview={linkPreview} />}
       </div>
     );
   }

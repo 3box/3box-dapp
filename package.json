@@ -26,6 +26,7 @@
     "fortmatic": "^0.8.2",
     "history": "^4.7.2",
     "ipfs-log": "^4.4.0",
+    "is-url": "^1.2.4",
     "lodash.clonedeep": "^4.5.0",
     "profile-hover": "^1.1.1",
     "prop-types": "^15.6.1",

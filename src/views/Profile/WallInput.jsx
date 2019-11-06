@@ -4,8 +4,9 @@ import SVG from 'react-inlinesvg';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import mql from '@microlink/mql';
+import isURL from 'is-url';
 
-import { checkIsMobileDevice, baseURL } from '../../utils/funcs';
+import { checkIsMobileDevice } from '../../utils/funcs';
 import actions from '../../state/actions';
 
 import EmojiIcon from './Emoji/EmojiIcon';
@@ -17,6 +18,7 @@ import Profile from '../../assets/Profile.svg';
 // import Send from '../../assets/Send2.svg';
 import './styles/Input.scss';
 import './styles/PopupWindow.scss';
+import LinkUnfurl from './LinkUnfurl';
 
 const { postAndUpdateWall, joinOtherThread } = actions.profile;
 
@@ -37,8 +39,8 @@ class WallInput extends Component {
   }
 
   async componentDidMount() {
-    const el = document.getElementsByClassName('input_form')[0];
-    el.addEventListener('keydown', this.searchEnter, false);
+    // const el = document.getElementsByClassName('input_form')[0];
+    // el.addEventListener('keydown', this.searchEnter, false);
     this.emojiPickerButton = document.querySelector('#sc-emoji-picker-button');
 
     this.setState({ disableComment: false });
@@ -49,10 +51,10 @@ class WallInput extends Component {
     }, false);
   }
 
-  componentWillUnmount() {
-    const el = document.getElementsByClassName('input_form')[0];
-    el.removeEventListener('keydown', this.searchEnter, false);
-  }
+  // componentWillUnmount() {
+  //   const el = document.getElementsByClassName('input_form')[0];
+  //   el.removeEventListener('keydown', this.searchEnter, false);
+  // }
 
   autoExpand = (field) => {
     const height = field.scrollHeight;
@@ -65,7 +67,8 @@ class WallInput extends Component {
     const urlMatches = comment.match(/\b(http|https)?:\/\/\S+/gi) || [];
     this.setState({ comment });
 
-    if (urlMatches.length && linkURL !== urlMatches[0]) {
+    console.log('urlMatchesurlMatches', urlMatches);
+    if (isURL(urlMatches[0]) && linkURL !== urlMatches[0]) {
       this.fetchPreview(urlMatches[0]);
       this.setState({ linkURL: urlMatches[0] });
     }
@@ -99,16 +102,16 @@ class WallInput extends Component {
     }
   }
 
-  searchEnter = (event) => {
-    const { comment, isMobile } = this.state;
-    const updatedComment = comment.replace(/(\r\n|\n|\r)/gm, '');
+  // searchEnter = (event) => {
+  //   const { comment, isMobile } = this.state;
+  //   const updatedComment = comment.replace(/(\r\n|\n|\r)/gm, '');
 
-    if (event.keyCode === 13 && !event.shiftKey && updatedComment && !isMobile) {
-      this.saveComment();
-    } else if (event.keyCode === 13 && !event.shiftKey && !updatedComment && !isMobile) {
-      event.preventDefault();
-    }
-  }
+  //   if (event.keyCode === 13 && !event.shiftKey && updatedComment && !isMobile) {
+  //     this.saveComment();
+  //   } else if (event.keyCode === 13 && !event.shiftKey && !updatedComment && !isMobile) {
+  //     event.preventDefault();
+  //   }
+  // }
 
   toggleEmojiPicker = (e) => {
     e.preventDefault();
@@ -180,7 +183,7 @@ class WallInput extends Component {
 
     try {
       await postAndUpdateWall(isOtherProfile, comment);
-      this.setState({ postLoading: false });
+      this.setState({ postLoading: false, linkPreview: undefined });
     } catch (error) {
       console.error('There was an error saving your comment', error);
     }
@@ -207,8 +210,8 @@ class WallInput extends Component {
       : currentAddress && makeBlockie(currentAddress);
 
     const isLoading = (isFetchingWall && !isOtherProfile) || (isFetchingOtherWall && isOtherProfile) || postLoading;
-    console.log('linkPreview', linkPreview);
-    console.log('isFetchingLink', isFetchingLink);
+    // console.log('linkPreview', linkPreview);
+    // console.log('isFetchingLink', isFetchingLink);
 
     return (
       <div className="input">
@@ -249,27 +252,18 @@ class WallInput extends Component {
         />
 
         {isFetchingLink && (
-          <SVG
-            src={Loading}
-            alt="Loading"
-            className="input_postLoading_spinner"
-          />
+          <div className="input_postLoading_wrapper">
+            <SVG
+              src={Loading}
+              alt="Loading"
+              className="input_postLoading_spinner"
+            />
+          </div>
         )}
 
         {linkPreview && (
-          <div className="input_linkPreview">
-            <img src={linkPreview.image.url} alt="link preview" className="input_linkPreview_image" />
-            <div className="input_linkPreview_content">
-              <h3 className="input_linkPreview_content_title">
-                {linkPreview.title}
-              </h3>
-              <p className="input_linkPreview_content_description">
-                {linkPreview.description}
-              </p>
-              <p className="input_linkPreview_content_url">
-                {baseURL(linkPreview.url)}
-              </p>
-            </div>
+          <div className="input_postLoading_linkPreviewWrapper">
+            <LinkUnfurl linkPreview={linkPreview} />
           </div>
         )}
 
