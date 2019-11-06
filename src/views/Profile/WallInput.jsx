@@ -39,8 +39,6 @@ class WallInput extends Component {
   }
 
   async componentDidMount() {
-    // const el = document.getElementsByClassName('input_form')[0];
-    // el.addEventListener('keydown', this.searchEnter, false);
     this.emojiPickerButton = document.querySelector('#sc-emoji-picker-button');
 
     this.setState({ disableComment: false });
@@ -50,11 +48,6 @@ class WallInput extends Component {
       this.autoExpand(event.target);
     }, false);
   }
-
-  // componentWillUnmount() {
-  //   const el = document.getElementsByClassName('input_form')[0];
-  //   el.removeEventListener('keydown', this.searchEnter, false);
-  // }
 
   autoExpand = (field) => {
     const height = field.scrollHeight;
@@ -101,17 +94,6 @@ class WallInput extends Component {
       this.setState({ isFetchingLink: false, linkPreview: null });
     }
   }
-
-  // searchEnter = (event) => {
-  //   const { comment, isMobile } = this.state;
-  //   const updatedComment = comment.replace(/(\r\n|\n|\r)/gm, '');
-
-  //   if (event.keyCode === 13 && !event.shiftKey && updatedComment && !isMobile) {
-  //     this.saveComment();
-  //   } else if (event.keyCode === 13 && !event.shiftKey && !updatedComment && !isMobile) {
-  //     event.preventDefault();
-  //   }
-  // }
 
   toggleEmojiPicker = (e) => {
     e.preventDefault();
@@ -172,7 +154,7 @@ class WallInput extends Component {
 
     this.inputRef.current.blur();
     this.inputRef.current.style.height = (isMobile) ? '64px' : '74px';
-    this.setState({ postLoading: true, comment: '' });
+    this.setState({ postLoading: true, comment: '', linkPreview: undefined });
 
     if (!box || !Object.keys(box).length) await loginFunction(false, false, false, true);
 
@@ -183,7 +165,7 @@ class WallInput extends Component {
 
     try {
       await postAndUpdateWall(isOtherProfile, comment);
-      this.setState({ postLoading: false, linkPreview: undefined });
+      this.setState({ postLoading: false });
     } catch (error) {
       console.error('There was an error saving your comment', error);
     }
