@@ -90,14 +90,16 @@ const AppRoutes = (props) => {
         path={routes.JOBS}
         render={() => <Redirect to={routes.CAREERS} />}
       />
+
       <Route
         exact
         path="(^[/][0][xX]\w{40}\b)/activity"
         render={() => <MyProfile handleSignInUp={handleSignInUp} />}
       />
+
       <Route
         exact
-        path="(^[/][0][xX]\w{40}\b)/activity"
+        path="(^[/][0][xX]\w{40}\b)/wall"
         render={() => <MyProfile handleSignInUp={handleSignInUp} />}
       />
       <Redirect from="/profile" to="/" />
@@ -170,7 +172,12 @@ const AppRoutes = (props) => {
       <Route
         exact
         path="(^[/][0][xX]\w{40}\b)"
-        component={PubProfile}
+        // component={PubProfile}
+        render={() => (
+          <PubProfile
+            handleSignInUp={handleSignInUp}
+          />
+        )}
       />
 
       <Route render={() => <Redirect to={routes.LANDING} />} />

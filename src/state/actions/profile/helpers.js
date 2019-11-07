@@ -1,3 +1,6 @@
+import Box from '3box';
+import resolve from 'did-resolver';
+
 import {
   store,
 } from '../../store';
@@ -62,13 +65,14 @@ export const getFollowingThreadAndPosts = async (myAddress) => {
     });
 
     const followingSpace = await store.getState().myData.box.openSpace(followingSpaceName);
-    const opts = {
+    const followingThread = await followingSpace.joinThread(followingThreadName, {
       members: true,
-    };
-    const followingThread = await followingSpace.joinThread(followingThreadName, opts);
+    });
+
     store.dispatch({
       type: 'MY_FOLLOWING_THREAD_UPDATE',
       followingThread,
+      followingSpace,
     });
     store.dispatch({
       type: 'UI_FOLLOWING_LOADING',
@@ -101,4 +105,25 @@ export const formatContact = (proofDid, otherProfileAddress) => {
   };
 
   return contact;
+};
+
+export const fetchCommenters = async (posts) => {
+  const uniqueUsers = [...new Set(posts.map((x) => x.author))];
+  const profiles = {};
+  const fetchProfile = async (did) => await Box.getProfile(did);
+  const fetchAllProfiles = async () => await Promise.all(uniqueUsers.map(did => fetchProfile(did)));
+  const profilesArray = await fetchAllProfiles();
+
+  const getEthAddr = async (did) => await resolve(did);
+  const getAllEthAddr = async () => await Promise.all(uniqueUsers.map(did => getEthAddr(did)));
+  const ethAddrArray = await getAllEthAddr();
+
+  profilesArray.forEach((user, i) => {
+    const ethAddr = ethAddrArray[i].publicKey[2].ethereumAddress;
+    user.ethAddr = ethAddr;
+    user.profileURL = `https://3box.io/${ethAddr}`;
+    profiles[uniqueUsers[i]] = user;
+  });
+
+  return profiles;
 };

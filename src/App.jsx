@@ -46,6 +46,7 @@ const {
 const {
   getMyProfileValue,
   getMyDID,
+  getMyWall,
   getCollectibles,
   getMyMemberSince,
   getVerifiedPublicGithub,
@@ -155,7 +156,6 @@ class App extends Component {
       this.props.getVerifiedPrivateEmail(); // eslint-disable-line
       this.props.getMyMemberSince(); // eslint-disable-line
       this.props.getMyDID(); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'status'); // eslint-disable-line
       this.props.getMyProfileValue('public', 'name'); // eslint-disable-line
       this.props.getMyProfileValue('public', 'description'); // eslint-disable-line
       this.props.getMyProfileValue('public', 'image'); // eslint-disable-line
@@ -170,8 +170,9 @@ class App extends Component {
       this.props.getMyProfileValue('public', 'year'); // eslint-disable-line
       this.props.getMyProfileValue('public', 'emoji'); // eslint-disable-line
       this.props.getMyProfileValue('private', 'birthday'); // eslint-disable-line
-
-      this.props.getMyFollowing(); // eslint-disable-line
+      
+      await this.props.getMyFollowing(); // eslint-disable-line
+      this.props.getMyWall(); // eslint-disable-line
 
       await this.props.getCollectibles(currentAddress); // eslint-disable-line
       await this.props.convert3BoxToSpaces(); // eslint-disable-line
@@ -207,7 +208,7 @@ class App extends Component {
       await this.props.injectWeb3('directLogin', false, wallet); // eslint-disable-line
       await this.props.checkNetwork(); // eslint-disable-line
 
-      if (!doesEthAddrMatch) history.push(`/${this.props.currentAddress}/${profilePage || routes.ACTIVITY}`);
+      if (!doesEthAddrMatch) history.push(`/${this.props.currentAddress}/${profilePage || routes.directToHome()}`);
 
       await this.props.openBox(); // eslint-disable-line
       if (!this.props.showErrorModal) this.getMyData(); // eslint-disable-line
@@ -220,13 +221,13 @@ class App extends Component {
     }
   }
 
-  handleSignInUp = async (chooseWallet, shouldSignOut, e) => {
+  handleSignInUp = async (chooseWallet, shouldSignOut, e, fromPost) => {
     try {
       if (e) e.stopPropagation();
       await this.props.checkMobileWeb3(); // eslint-disable-line
       await this.props.injectWeb3(null, chooseWallet, false, shouldSignOut); // eslint-disable-line
       await this.props.checkNetwork(); // eslint-disable-line
-      await this.props.openBox('fromSignIn'); // eslint-disable-line
+      await this.props.openBox('fromSignIn', fromPost); // eslint-disable-line
       if (!this.props.showErrorModal) this.getMyData(); // eslint-disable-line
     } catch (err) {
       console.error(err);
@@ -387,6 +388,7 @@ App.propTypes = {
   getMyFollowing: PropTypes.func.isRequired,
   getPublicFollowing: PropTypes.func.isRequired,
   getMyDID: PropTypes.func.isRequired,
+  getMyWall: PropTypes.func.isRequired,
   getCollectibles: PropTypes.func.isRequired,
   getMySpacesData: PropTypes.func.isRequired,
   convert3BoxToSpaces: PropTypes.func.isRequired,
@@ -528,6 +530,7 @@ export default withRouter(connect(mapState,
     checkNetwork,
     getMyProfileValue,
     getMyDID,
+    getMyWall,
     getCollectibles,
     getMySpacesData,
     convert3BoxToSpaces,

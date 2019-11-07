@@ -1,0 +1,277 @@
+.input {
+  font-size: 15px;
+  height: fit-content;
+  box-sizing: border-box;
+  min-width: 100%;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #ececec;
+  padding: 0;
+  resize: none;
+  overflow-y: hidden;
+  line-height: 22px;
+  margin-bottom: 14px;
+  background-color: white;
+  position: relative; }
+
+.input_form {
+  font-size: 15px;
+  min-height: 49px;
+  height: 49px;
+  box-sizing: border-box;
+  padding: 25px 25px 0 68px;
+  min-width: 100%;
+  width: 100%;
+  border: none;
+  resize: none;
+  overflow-y: hidden;
+  line-height: 22px; }
+  .input_form:focus {
+    outline-width: 0; }
+
+.input_linkPreview {
+  width: calc(100% - 2px);
+  height: fit-content;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 14px;
+  height: 90px;
+  border: 1px solid #ececec;
+  border-radius: 5px; }
+
+.input_linkPreview_image {
+  width: 20%;
+  height: 100%;
+  object-fit: cover;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px; }
+
+.input_linkPreview_content {
+  padding: 8px 14px; }
+
+.input_linkPreview_content_title {
+  font-size: 16px;
+  margin-bottom: 4px;
+  max-height: 36px;
+  overflow: hidden; }
+
+.input_postLoading_linkPreviewWrapper {
+  padding: 0 15px; }
+
+.input_postLoading_wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.input_linkPreview_content_description {
+  color: #747677;
+  font-size: 13px;
+  line-height: 14px;
+  margin-bottom: 4px;
+  max-height: 28px;
+  overflow: hidden; }
+
+.input_linkPreview_content_url {
+  color: #b1b1b1 !important;
+  font-size: 14px; }
+
+::placeholder {
+  font-size: 15px;
+  white-space: nowrap; }
+
+.input_form.hidePlaceholder::placeholder {
+  color: transparent !important; }
+
+.input_user {
+  position: absolute;
+  left: 15px;
+  top: 17px;
+  min-width: 40px;
+  min-height: 40px;
+  max-width: 40px;
+  max-height: 40px;
+  border-radius: 50%;
+  background-color: transparent;
+  object-fit: cover; }
+
+.input_emptyUser {
+  position: absolute;
+  left: 15px;
+  top: 17px;
+  min-width: 40px;
+  min-height: 40px;
+  max-width: 40px;
+  max-height: 40px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 1px solid #ececec;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.input_emptyUser_icon {
+  min-width: 30px;
+  min-height: 30px;
+  max-width: 30px;
+  max-height: 30px;
+  opacity: .6; }
+
+.input_login {
+  position: absolute;
+  left: 72px;
+  bottom: -24px;
+  color: #747677;
+  border: none;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0; }
+
+.sc-user-input--picker-wrapper {
+  min-width: 50px;
+  max-width: 50px;
+  min-height: 40px;
+  max-height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.input_send-dtw {
+  opacity: .5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  height: 38px;
+  width: 64px; }
+
+.input_buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; }
+
+.input_actions_buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 12px 12px 12px 0; }
+
+.input_send-dtw-visible {
+  opacity: 1; }
+
+.input_postLoading {
+  position: absolute;
+  top: 24px;
+  left: calc(50% - 14px);
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.input_postLoading_spinner {
+  min-height: 26px;
+  min-width: 26px;
+  max-height: 26px;
+  max-width: 26px;
+  opacity: .6; }
+
+.input_postLoading_text {
+  color: #747677;
+  font-size: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: -4px; }
+
+.input_commentAs {
+  position: absolute;
+  left: 72px;
+  top: -34px;
+  color: #747677;
+  font-size: 12px;
+  opacity: 0;
+  transition: .2s ease-in-out all;
+  white-space: nowrap;
+  overflow: hidden; }
+
+.showLoggedInAs {
+  opacity: 1; }
+
+.comment_loading {
+  min-width: 30px;
+  min-height: 30px;
+  max-width: 30px;
+  max-height: 30px; }
+
+@media only screen and (max-width: 600px) {
+  .input {
+    width: 100vw;
+    border-left: none;
+    border-right: none;
+    border-radius: 0; }
+  ::placeholder {
+    font-size: 16px; }
+  .sc-user-input--picker-wrapper {
+    display: none; }
+  .input_user {
+    top: 11px;
+    left: 10px;
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 50px;
+    max-height: 50px; }
+  .input_emptyUser {
+    top: 11px;
+    left: 10px;
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 50px;
+    max-height: 50px; }
+  .input_emptyUser_icon {
+    min-width: 30px;
+    min-height: 30px;
+    max-width: 30px;
+    max-height: 30px;
+    opacity: .6; }
+  .input_form {
+    font-size: 16px;
+    min-height: 72px;
+    height: 72px;
+    box-sizing: border-box;
+    min-width: 100vw;
+    width: 100vw;
+    border-radius: 0 !important;
+    margin-left: 0;
+    padding: 24px 24px 20px 70px; }
+  .input_send_icon-mobile {
+    width: 26px;
+    opacity: .5; }
+  .input_commentAs {
+    left: 62px; }
+  .input_login {
+    left: 62px;
+    bottom: -20px;
+    background-color: transparent; }
+  .input_user-empty {
+    background-color: transparent;
+    left: 12.5px;
+    top: 18px;
+    min-width: 28px;
+    min-height: 28px;
+    max-width: 28px;
+    max-height: 28px;
+    border-radius: 0;
+    opacity: .7; }
+  .input_postLoading {
+    position: absolute;
+    top: 24px;
+    left: calc(50% - 14px);
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+  .input_linkPreview {
+    height: 106px; } }

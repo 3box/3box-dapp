@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import StatusUpdate from '../StatusUpdate';
 import PublicActivityHeader from './PublicActivityHeader';
 import PublicActivityTiles from './PublicActivityTiles';
 import Loading from '../../../assets/Loading.svg';
@@ -14,12 +13,10 @@ const PublicActivity = ({
   isFetchingOtherActivity,
   otherProfileActivity,
   otherCollectiblesFavorites,
-  otherStatus,
 }) => (
     <div id="feed" className={`${otherCollectiblesFavorites.length > 0 && 'noTopMargin'}`}>
       <div>
         <p className="header" id="feed__header">Activity</p>
-        {otherStatus && <StatusUpdate />}
         <div className="feed__activity__header">
           {(isFetchingOtherActivity)
             && (
@@ -27,6 +24,7 @@ const PublicActivity = ({
                 <img src={Loading} alt="loading" id="activityLoad" />
               </div>
             )}
+
           {otherProfileActivity.length > 0
             ? otherProfileActivity.map((feedAddress, i) => (
               <div key={i} className="feed__activity__tile">
@@ -39,8 +37,7 @@ const PublicActivity = ({
               <div className="feed__activity__load">
                 <p>No activity at this address yet</p>
               </div>
-            )
-          }
+            )}
         </div>
       </div>
       <div className="feed__footer">
@@ -55,23 +52,20 @@ PublicActivity.propTypes = {
   isFetchingOtherActivity: PropTypes.bool,
   otherCollectiblesFavorites: PropTypes.array,
   otherProfileActivity: PropTypes.array,
-  otherStatus: PropTypes.string,
 };
 
 PublicActivity.defaultProps = {
   isFetchingOtherActivity: false,
   otherCollectiblesFavorites: [],
   otherProfileActivity: [],
-  otherStatus: '',
 };
 
-const mapState = state => ({
+const mapState = (state) => ({
   isFetchingOtherActivity: state.uiState.isFetchingOtherActivity,
 
   otherProfileActivity: state.otherProfile.otherProfileActivity,
   otherProfileAddress: state.otherProfile.otherProfileAddress,
   otherName: state.otherProfile.otherName,
-  otherStatus: state.otherProfile.otherStatus,
   otherCollectiblesFavorites: state.otherProfile.otherCollectiblesFavorites,
 });
 

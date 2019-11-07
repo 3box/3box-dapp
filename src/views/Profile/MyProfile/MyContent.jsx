@@ -7,10 +7,12 @@ import PropTypes from 'prop-types';
 
 import * as routes from '../../../utils/routes';
 import Activity from './Activity';
+import Wall from '../Wall';
 import Details from '../Details';
 import Collectibles from '../Collectibles';
 import Following from '../Following';
 import ActivityIcon from '../../../assets/Activity.svg';
+import Post from '../../../assets/Post.svg';
 import DetailsIcon from '../../../assets/Details.svg';
 import CollectiblesIcon from '../../../assets/Collectibles.svg';
 import ContactsIcon from '../../../assets/Contacts.svg';
@@ -18,10 +20,18 @@ import '../styles/Feed.css';
 import '../styles/Profile.css';
 import '../../../components/styles/NetworkArray.css';
 
-const Content = ({ currentAddress }) => (
+const Content = ({ currentAddress, handleSignInUp }) => (
   <div>
     <div className="profile__category--mobile">
       <div className="profile__category__sectionWrapper">
+        <NavLink
+          exact
+          to={`/${currentAddress}/${routes.WALL}`}
+          className="profile__category__section"
+        >
+          <img src={Post} alt="Activity" className="profile__category__tabIcon--activity--mobile" />
+        </NavLink>
+
         <NavLink
           exact
           to={`/${currentAddress}/${routes.ACTIVITY}`}
@@ -65,6 +75,16 @@ const Content = ({ currentAddress }) => (
 
       <Route
         exact
+        path={routes.FORMAT_PROFILE_WALL}
+        render={() => (
+          <Wall
+            handleSignInUp={handleSignInUp}
+          />
+        )}
+      />
+
+      <Route
+        exact
         path={routes.FORMAT_PROFILE_ABOUT}
         component={Details}
       />
@@ -88,13 +108,14 @@ const Content = ({ currentAddress }) => (
 
 Content.propTypes = {
   currentAddress: PropTypes.string,
+  handleSignInUp: PropTypes.func.isRequired,
 };
 
 Content.defaultProps = {
   currentAddress: '',
 };
 
-const mapState = state => ({
+const mapState = (state) => ({
   currentAddress: state.userState.currentAddress,
 });
 

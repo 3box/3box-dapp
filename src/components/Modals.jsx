@@ -275,7 +275,6 @@ export const ProvideConsentModal = ({
   );
 
 ProvideConsentModal.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
   handleConsentModal: PropTypes.func.isRequired,
 };
 

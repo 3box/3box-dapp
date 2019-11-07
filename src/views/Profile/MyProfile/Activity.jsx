@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import ActivityHeader from './ActivityHeader';
 import ActivityTiles from './ActivityTiles';
-import StatusUpdate from '../StatusUpdate';
 import Loading from '../../../assets/Loading.svg';
 import '../styles/Feed.css';
 import '../styles/Profile.css';
@@ -17,14 +16,10 @@ const Activity = ({
 }) => (
     <div id="myFeed">
       <div>
-        <p className="header publicHeader" id="feed__header">
+        <p className="header" id="feed__header">
           Activity
-          {(isFetchingActivity)
-            && (
-              <img src={Loading} alt="loading" id="activityLoad" />
-            )}
         </p>
-        <StatusUpdate />
+
         <div className="feed__activity__header">
           {(feedByAddress.length > 0)
             ? feedByAddress.map((feedAddress, i) => (
@@ -35,11 +30,18 @@ const Activity = ({
             ))
             : (!isFetchingActivity && !otherProfileActivity.length)
             && (
-              <div className="feed__activity__load">
-                <p>No activity at this address yet</p>
+              <div className="feed_activity_empty">
+                <p className="feed_activity_empty_text">
+                  No activity at this address yet
+                </p>
               </div>
-            )
-          }
+            )}
+
+          {(!feedByAddress.length && isFetchingActivity) && (
+            <div className="feed_activity_empty">
+              <img src={Loading} alt="loading" id="activityLoad" />
+            </div>
+          )}
         </div>
       </div>
       <div className="feed__footer">

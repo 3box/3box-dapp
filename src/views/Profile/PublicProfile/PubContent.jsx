@@ -3,26 +3,32 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import PublicActivity from './PublicActivity';
+import PublicActivityOrWall from './PublicActivityOrWall';
 import PublicCollectiblesGallery from './PublicCollectiblesGallery';
 import '../styles/Feed.css';
 import '../styles/Profile.css';
 import '../../../components/styles/NetworkArray.css';
 
-const PubContent = ({ showSignInBanner, onOtherProfilePage, isLoggedIn }) => (
-  <div className={` 
+const PubContent = ({
+  showSignInBanner,
+  onOtherProfilePage,
+  isLoggedIn,
+  handleSignInUp,
+}) => (
+    <div className={` 
   ${onOtherProfilePage ? 'publicStatusUpdate' : ''}
   ${showSignInBanner ? 'publicStatusUpdate--bannerMargin' : ''} 
   ${isLoggedIn ? 'publicStatusUpdate-isLoggedIn' : ''} 
   ${(onOtherProfilePage && showSignInBanner) ? 'publicStatusUpdate--bannerMargin' : ''} 
   pubContent`}
-  >
-    <PublicCollectiblesGallery />
-    <PublicActivity />
-  </div>
-);
+    >
+      <PublicCollectiblesGallery />
+      <PublicActivityOrWall handleSignInUp={handleSignInUp} />
+    </div>
+  );
 
 PubContent.propTypes = {
+  handleSignInUp: PropTypes.func.isRequired,
   showSignInBanner: PropTypes.bool,
   onOtherProfilePage: PropTypes.bool,
   isLoggedIn: PropTypes.bool,

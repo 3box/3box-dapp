@@ -944,6 +944,7 @@ nav {
     justify-content: center;
     align-items: center;
     min-width: 100vw;
+    z-index: 5;
   }
 
   #landing__nav {
@@ -1120,7 +1121,7 @@ nav {
   }
 
   .bannerMargin {
-    margin-top: 0;
+    margin-top: 64px;
   }
 
   .showSignInBanner.bannerMargin {

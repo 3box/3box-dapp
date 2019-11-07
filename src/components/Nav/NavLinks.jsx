@@ -9,7 +9,7 @@ import Folder from '../../assets/Folder.svg';
 import ThreeBoxLogo from '../../assets/ThreeBoxLogoBlack.svg';
 import ThreeBoxB from '../../assets/3Box3Blue.svg';
 
-const MobileDropdown = (props) => {
+const NavLinks = (props) => {
   const {
     currentAddress,
     showMobileSearch,
@@ -19,13 +19,13 @@ const MobileDropdown = (props) => {
   return (
     <>
       <div id="nav__logo--marginLeft">
-        <Link to={`/${currentAddress}/${routes.ACTIVITY}`}>
+        <Link to={`/${currentAddress}/${routes.directToHome()}`}>
           <img src={ThreeBoxLogo} alt="3Box Logo" className="landing__nav__logo" />
         </Link>
       </div>
 
       <div className={`nav__logo--mobile ${showMobileSearch ? 'close' : 'open'}`}>
-        <Link to={`/${currentAddress}/${routes.ACTIVITY}`}>
+        <Link to={`/${currentAddress}/${routes.directToHome()}`}>
           <img src={ThreeBoxB} alt="3Box Logo" className="landing__nav__logo" />
         </Link>
       </div>
@@ -51,7 +51,7 @@ const MobileDropdown = (props) => {
 
       <span className="nav__tabs">
         <NavLink
-          to={`/${currentAddress}/${routes.ACTIVITY}`}
+          to={`/${currentAddress}/${routes.directToHome()}`}
           className="nav__profile"
           activeClassName="activeNav"
         >
@@ -75,15 +75,15 @@ const MobileDropdown = (props) => {
   );
 };
 
-MobileDropdown.propTypes = {
+NavLinks.propTypes = {
   showMobileSearch: PropTypes.bool,
   currentAddress: PropTypes.string,
   handleDropdown: PropTypes.func.isRequired,
 };
 
-MobileDropdown.defaultProps = {
+NavLinks.defaultProps = {
   showMobileSearch: false,
   currentAddress: '',
 };
 
-export default MobileDropdown;
+export default NavLinks;

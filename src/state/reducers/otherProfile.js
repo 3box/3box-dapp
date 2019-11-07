@@ -23,7 +23,6 @@ const otherProfileReducer = (state = {}, action) => {
         otherImage: action.otherImage,
         otherName: action.otherName,
         otherEmoji: action.otherEmoji,
-        otherStatus: action.otherStatus,
       };
 
     case 'OTHER_PROFILE_UPDATE_VERIFIED_FOLLOWING':
@@ -39,6 +38,29 @@ const otherProfileReducer = (state = {}, action) => {
       return {
         ...state,
         otherProfileActivity: action.otherProfileActivity,
+      };
+
+    case 'OTHER_WALL_UPDATE':
+      return {
+        ...state,
+        otherWallPosts: action.otherWallPosts,
+        otherWallProfiles: action.otherWallProfiles,
+        isOtherWallDisabled: action.isOtherWallDisabled,
+      };
+
+    case 'OTHER_WALL_THREAD_UPDATE':
+      return {
+        ...state,
+        otherWallPosts: action.otherWallPosts,
+        otherWallProfiles: action.otherWallProfiles,
+        otherWallThread: action.otherWallThread,
+      };
+
+    case 'OTHER_WALL_POSTS_UPDATE':
+      return {
+        ...state,
+        otherWallPosts: action.otherWallPosts,
+        otherWallProfiles: action.otherWallProfiles,
       };
 
     case 'OTHER_FAVORITE_COLLECTIBLES_UPDATE':

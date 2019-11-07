@@ -115,11 +115,6 @@ const myDataReducer = (state = {}, action) => {
           collectiblesFavoritesToRender: action.collectiblesFavoritesToRender,
       };
 
-    case 'MY_STATUS_UPDATE':
-      return {
-        ...state,
-        status: action.status,
-      };
 
     case 'MY_BIRTHDAY_UPDATE':
       return {
@@ -137,6 +132,28 @@ const myDataReducer = (state = {}, action) => {
       return {
         ...state,
         did: action.did,
+      };
+
+    case 'MY_WALL_UPDATE':
+      return {
+        ...state,
+        wallPosts: action.wallPosts,
+        wallThread: action.wallThread,
+        wallProfiles: action.wallProfiles,
+        isWallDisabled: action.isWallDisabled,
+      };
+
+    case 'MY_WALL_DISABLED_UPDATE':
+      return {
+        ...state,
+        isWallDisabled: action.isWallDisabled,
+      };
+
+    case 'MY_WALL_POSTS_UPDATE':
+      return {
+        ...state,
+        wallPosts: action.wallPosts,
+        wallProfiles: action.wallProfiles,
       };
 
     case 'MY_COLLECTIBLES_UPDATE':
@@ -164,6 +181,7 @@ const myDataReducer = (state = {}, action) => {
       return {
         ...state,
         followingThread: action.followingThread,
+        followingSpace: action.followingSpace,
       };
 
     case 'MY_DATA_SIGNOUT':

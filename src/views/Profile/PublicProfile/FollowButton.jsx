@@ -57,7 +57,6 @@ class FollowButton extends Component {
       this.props.getVerifiedPrivateEmail();
       this.props.getMyMemberSince();
       this.props.getMyDID();
-      this.props.getMyProfileValue('public', 'status');
       this.props.getMyProfileValue('public', 'name');
       this.props.getMyProfileValue('public', 'description');
       this.props.getMyProfileValue('public', 'image');

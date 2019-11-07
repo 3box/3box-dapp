@@ -18,17 +18,21 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
     web3Obj,
     hasSignedOut,
   } = store.getState().userState;
+  const {
+    onOtherProfilePage,
+  } = store.getState().uiState;
 
   const consentGiven = () => {
-    if (fromSignIn && !fromFollowButton) history.push(`/${currentAddress}/${routes.ACTIVITY}`);
+    if (fromSignIn && !fromFollowButton && !onOtherProfilePage) history.push(`/${currentAddress}/${routes.directToHome()}`);
     dispatch({
       type: 'UI_3BOX_LOADING',
       provideConsent: false,
       isFetchingThreeBox: true,
     });
     dispatch({
-      type: 'UI_FEED_LOADING',
+      type: 'UI_PROFILE_LOADING',
       isFetchingActivity: true,
+      isFetchingWall: true,
     });
   };
 

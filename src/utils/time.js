@@ -20,56 +20,83 @@ export const dateFormatter = (timestamp) => {
 };
 
 export const timeSince = (date) => {
-  if (!date) return '';
+  const seconds = Math.floor((new Date() - date) / 1000);
 
-  const d = new Date(date);
-  const dateFormat = d && `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
+  let interval = Math.floor(seconds / 31536000);
 
-  const seconds = Math.floor(((new Date().getTime() / 1000) - date / 1000));
+  if (interval === 1) return `${interval} year`;
+  if (interval > 1) return `${interval} years`;
 
-  let interval = Math.floor(seconds / 86400);
+  interval = Math.floor(seconds / 2592000);
+  if (interval === 1) return `${interval} month`;
+  if (interval > 1) return `${interval} months`;
 
-  if (interval > 1) {
-    return dateFormat;
-  }
-
-  const hh = d.getHours();
-  let h = hh;
-  let m = d.getMinutes();
-  let dd = 'AM';
-  m = m < 10 ? `0${m}` : m;
-
-  if (h >= 12) {
-    h = hh - 12;
-    dd = 'PM';
-  }
-  if (h == 0) {
-    h = 12;
-  }
+  interval = Math.floor(seconds / 86400);
+  if (interval === 1) return `${interval} day`;
+  if (interval > 1) return `${interval} days`;
 
   interval = Math.floor(seconds / 3600);
-  if (interval > 1) return `${h}:${m}${dd}`;
-  if (interval === 1) return `${h}:${m}${dd}`;
+  if (interval === 1) return `${interval} hour`;
+  if (interval > 1) return `${interval} hours`;
 
   interval = Math.floor(seconds / 60);
-  if (interval > 1) return `${h}:${m}${dd}`;
-  if (interval === 1) return `${h}:${m}${dd}`;
+  if (interval === 1) return `${interval} minute`;
+  if (interval > 1) return `${interval} minutes`;
 
-  return `${h}:${m}${dd}`;
-
-  // if (interval > 1) return `${interval} days ago at ${h}:${m}${dd}`;
-  // if (interval === 1) return `${interval} day ago at ${h}:${m}${dd}`;
-
-  // interval = Math.floor(seconds / 3600);
-  // if (interval > 1) return `${interval} hours ago at ${h}:${m}${dd}`;
-  // if (interval === 1) return `${interval} hour ago at ${h}:${m}${dd}`;
-
-  // interval = Math.floor(seconds / 60);
-  // if (interval > 1) return `${interval} minutes ago at ${h}:${m}${dd}`;
-  // if (interval === 1) return `${interval} minute ago at ${h}:${m}${dd}`;
-
-  // return `${Math.floor(seconds)} seconds ago at ${h}:${m}${dd}`;
+  return `${Math.floor(seconds)} seconds`;
 };
+
+// export const timeSince = (date) => {
+//   if (!date) return '';
+
+//   const d = new Date(date);
+//   const dateFormat = d && `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
+
+//   const seconds = Math.floor(((new Date().getTime() / 1000) - date / 1000));
+
+//   let interval = Math.floor(seconds / 86400);
+
+//   if (interval > 1) {
+//     return dateFormat;
+//   }
+
+//   const hh = d.getHours();
+//   let h = hh;
+//   let m = d.getMinutes();
+//   let dd = 'AM';
+//   m = m < 10 ? `0${m}` : m;
+
+//   if (h >= 12) {
+//     h = hh - 12;
+//     dd = 'PM';
+//   }
+//   if (h == 0) {
+//     h = 12;
+//   }
+
+//   interval = Math.floor(seconds / 3600);
+//   if (interval > 1) return `${h}:${m}${dd}`;
+//   if (interval === 1) return `${h}:${m}${dd}`;
+
+//   interval = Math.floor(seconds / 60);
+//   if (interval > 1) return `${h}:${m}${dd}`;
+//   if (interval === 1) return `${h}:${m}${dd}`;
+
+//   return `${h}:${m}${dd}`;
+
+//   // if (interval > 1) return `${interval} days ago at ${h}:${m}${dd}`;
+//   // if (interval === 1) return `${interval} day ago at ${h}:${m}${dd}`;
+
+//   // interval = Math.floor(seconds / 3600);
+//   // if (interval > 1) return `${interval} hours ago at ${h}:${m}${dd}`;
+//   // if (interval === 1) return `${interval} hour ago at ${h}:${m}${dd}`;
+
+//   // interval = Math.floor(seconds / 60);
+//   // if (interval > 1) return `${interval} minutes ago at ${h}:${m}${dd}`;
+//   // if (interval === 1) return `${interval} minute ago at ${h}:${m}${dd}`;
+
+//   // return `${Math.floor(seconds)} seconds ago at ${h}:${m}${dd}`;
+// };
 
 // let interval = Math.floor(seconds / 31536000);
 // if (interval > 1) return `${interval} years ago`;

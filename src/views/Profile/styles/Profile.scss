@@ -44,7 +44,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   margin-top: 34px;
   margin-bottom: 12px;
   width: 230px;
@@ -160,6 +160,7 @@
 
   .threeboxProfileHover__style_boxAddressWrap {
     width: 70%;
+    font-family: 'Lato', sans-serif !important;
   }
 }
 
@@ -177,6 +178,7 @@
   justify-content: center;
   transition: all ease .5s;
   margin-bottom: 20px;
+  background-color: white;
 
   p {
     color: $lightestFont;
@@ -618,16 +620,13 @@
   padding-right: 8px;
 }
 
-#profile__user__name {
+.profile__user__name {
   font-size: 1.4em;
   white-space: nowrap;
   color: $threeBoxBlue;
 }
 
-#profile__user__name__add {
-  font-size: 1.4em;
-  margin-top: 5em;
-  margin-bottom: 2vh;
+.profile__user__name__add {
   color: $lighterFont;
 }
 
@@ -740,7 +739,7 @@
 
   .publicStatusUpdate {
     padding: 0;
-    margin: 20px 0 0 0;
+    margin: 0;
     height: 80px;
   }
 
@@ -780,7 +779,7 @@
     margin-top: 50px;
   }
 
-  #profile__user__name {
+  .profile__user__name {
     font-size: 1.4em;
   }
 
@@ -826,7 +825,7 @@
     width: 100%;
     position: sticky;
     top: 0;
-    z-index: 5;
+    z-index: 4;
     height: fit-content;
     border-bottom: solid 1px $borderColor;
     background-color: white;

@@ -33,7 +33,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   margin-top: 34px;
   margin-bottom: 12px;
   width: 230px; }
@@ -125,7 +125,8 @@
     overflow: hidden;
     text-overflow: ellipsis; }
   .contact_tile .threeboxProfileHover__style_boxAddressWrap {
-    width: 70%; }
+    width: 70%;
+    font-family: 'Lato', sans-serif !important; }
 
 .empty_contact_tile {
   max-width: 694px;
@@ -140,7 +141,8 @@
   align-items: center;
   justify-content: center;
   transition: all ease .5s;
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+  background-color: white; }
   .empty_contact_tile p {
     color: #b1b1b1;
     font-size: 16px; }
@@ -497,15 +499,12 @@
   display: flex !important;
   padding-right: 8px; }
 
-#profile__user__name {
+.profile__user__name {
   font-size: 1.4em;
   white-space: nowrap;
   color: #1168df; }
 
-#profile__user__name__add {
-  font-size: 1.4em;
-  margin-top: 5em;
-  margin-bottom: 2vh;
+.profile__user__name__add {
   color: #747677; }
 
 .profile__category__field__icon {
@@ -592,7 +591,7 @@
     padding-bottom: 18px; }
   .publicStatusUpdate {
     padding: 0;
-    margin: 20px 0 0 0;
+    margin: 0;
     height: 80px; }
   #profile {
     position: static;
@@ -618,7 +617,7 @@
     flex-direction: column;
     width: 230px;
     margin-top: 50px; }
-  #profile__user__name {
+  .profile__user__name {
     font-size: 1.4em; }
   .profile__links__copy {
     display: none; }
@@ -650,7 +649,7 @@
     width: 100%;
     position: sticky;
     top: 0;
-    z-index: 5;
+    z-index: 4;
     height: fit-content;
     border-bottom: solid 1px #ececec;
     background-color: white; }

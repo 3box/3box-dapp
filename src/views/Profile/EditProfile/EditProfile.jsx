@@ -806,6 +806,7 @@ class EditProfile extends Component {
           allData: updatedAllData,
         });
       }
+
       if (birthdayChanged) {
         const savedObject = await this.props.getMyProfileValue('private', 'birthday', true);
 
@@ -825,7 +826,7 @@ class EditProfile extends Component {
       this.props.getActivity();
 
       this.setState({ saveLoading: false });
-      history.push(`/${currentAddress}/${routes.ACTIVITY}`);
+      history.push(`/${currentAddress}/${routes.directToHome()}`);
     }
   }
 
@@ -1024,7 +1025,8 @@ class EditProfile extends Component {
                       src={(this.coverUpload && this.coverUpload.files && this.coverUpload.files[0])
                         ? URL.createObjectURL(this.coverUpload.files[0])
                         : `https://ipfs.infura.io/ipfs/${coverPhoto[0].contentUrl['/']}`}
-                    />)}
+                    />
+                  )}
 
               </div>
             </div>
@@ -1594,7 +1596,7 @@ class EditProfile extends Component {
                   Save
                   </button>
                 <Link
-                  to={`/${currentAddress}/${routes.ACTIVITY}`}
+                  to={`/${currentAddress}/${routes.directToHome()}`}
                   className="subtext"
                   id="edit__cancel"
                   onClick={() => {
