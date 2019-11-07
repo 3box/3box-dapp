@@ -21,7 +21,7 @@
     "eslint": "^6.0.0",
     "eth-contract-metadata": "^1.9.0",
     "ethereum-blockies-base64": "^1.0.2",
-    "ethereumjs-util": "^6.0.0",
+    "ethereumjs-util": "^6.2.0",
     "fortmatic": "^0.8.2",
     "history": "^4.7.2",
     "ipfs-log": "^4.4.0",
