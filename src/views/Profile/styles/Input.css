@@ -47,7 +47,12 @@
   border-bottom-left-radius: 5px; }
 
 .input_linkPreview_content {
-  padding: 8px 14px; }
+  padding: 8px 14px;
+  width: 100%;
+  box-sizing: border-box; }
+
+.input_linkPreview_content.withImage {
+  width: 80%; }
 
 .input_linkPreview_content_title {
   font-size: 16px;

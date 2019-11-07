@@ -87,8 +87,7 @@ class Wall extends Component {
     const valueToShow = isOtherProfile ? isOtherWallDisabled : isWallDisabled;
     const adminEthAddrNormalized = adminEthAddr.toLowerCase();
     const currentUserAddrNormalized = currentAddress && currentAddress.toLowerCase();
-    console.log('isActive', isActive);
-    console.log('viewTab', viewTab);
+
     return (
       <div id={isOtherProfile ? '' : 'myFeed'} className={`profileTab ${((viewTab === 'wall' && isOtherProfile) || isActive) ? 'viewTab' : ''}`}>
         <div>

@@ -5,22 +5,32 @@ import { baseURL } from '../../utils/funcs';
 
 const LinkUnfurl = ({
   linkPreview,
-}) => (
-    <a href={linkPreview.url} className="input_linkPreview" target="_blank" rel="noopener noreferrer">
-      <img src={linkPreview.image.url} alt="link preview" className="input_linkPreview_image" />
-      <div className="input_linkPreview_content">
+}) => {
+  const {
+    url,
+    image,
+    title,
+    description,
+  } = linkPreview;
+
+  return (
+    <a href={url} className="input_linkPreview" target="_blank" rel="noopener noreferrer">
+      {image && <img src={image.url} alt="link preview" className="input_linkPreview_image" />}
+
+      <div className={`input_linkPreview_content ${image ? 'withImage' : ''}`}>
         <h3 className="input_linkPreview_content_title">
-          {linkPreview.title}
+          {title}
         </h3>
         <p className="input_linkPreview_content_description">
-          {linkPreview.description}
+          {description}
         </p>
         <p className="input_linkPreview_content_url">
-          {baseURL(linkPreview.url)}
+          {baseURL(url)}
         </p>
       </div>
     </a>
   );
+};
 
 LinkUnfurl.propTypes = {
   linkPreview: PropTypes.object,
