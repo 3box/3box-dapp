@@ -10,14 +10,22 @@
   border: 1px solid #ececec;
   border-radius: 6px;
   background-color: white;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  overflow: hidden; }
 
 .comment_header {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   margin-bottom: 6px;
-  font-size: 14px; }
+  font-size: 14px;
+  width: 100%;
+  overflow: hidden; }
+
+.comment_header_image {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start; }
 
 .comment.isMyComment:hover .comment_content_context_main_user_delete {
   visibility: visible !important; }
@@ -60,7 +68,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%; }
+  width: calc(100% - 40px);
+  overflow: hidden; }
 
 .comment_content_context_main_user {
   display: flex;
@@ -139,7 +148,8 @@
     max-height: 50px; }
   .comment_content_context_main_user_info {
     flex-direction: column;
-    align-items: flex-start; }
+    align-items: flex-start;
+    overflow: hidden; }
   .comment_content_context_main_user_info_address {
     margin-left: 0; }
   .comment_content_context_main_user_info_username {
@@ -147,4 +157,6 @@
   .comment_content_text {
     font-size: 15px; }
   .comment.isMyComment .comment_content_context_main_user_delete {
-    visibility: visible !important; } }
+    visibility: visible !important; }
+  .comment_header {
+    margin-bottom: 10px; } }

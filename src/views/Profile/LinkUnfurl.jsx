@@ -6,7 +6,7 @@ import { baseURL } from '../../utils/funcs';
 const LinkUnfurl = ({
   linkPreview,
 }) => (
-    <div className="input_linkPreview">
+    <a href={linkPreview.url} className="input_linkPreview" target="_blank" rel="noopener noreferrer">
       <img src={linkPreview.image.url} alt="link preview" className="input_linkPreview_image" />
       <div className="input_linkPreview_content">
         <h3 className="input_linkPreview_content_title">
@@ -19,7 +19,7 @@ const LinkUnfurl = ({
           {baseURL(linkPreview.url)}
         </p>
       </div>
-    </div>
+    </a>
   );
 
 LinkUnfurl.propTypes = {

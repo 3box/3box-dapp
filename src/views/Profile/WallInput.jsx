@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import mql from '@microlink/mql';
 import isURL from 'is-url';
+import Linkify from 'react-linkify';
 
 import { checkIsMobileDevice } from '../../utils/funcs';
 import actions from '../../state/actions';
@@ -59,23 +60,24 @@ class WallInput extends Component {
     const comment = event.target.value;
     const urlMatches = comment.match(/\b(http|https)?:\/\/\S+/gi) || [];
     this.setState({ comment });
+    const urlToUse = urlMatches[urlMatches.length - 1];
 
-    console.log('urlMatchesurlMatches', urlMatches);
-    if (isURL(urlMatches[0]) && linkURL !== urlMatches[0]) {
-      this.fetchPreview(urlMatches[0]);
-      this.setState({ linkURL: urlMatches[0] });
+    if (isURL(urlToUse) && linkURL !== urlToUse) {
+      this.fetchPreview(urlToUse);
+      this.setState({ linkURL: urlToUse });
+    }
+
+    if ((urlMatches.length === 0 || !isURL(urlToUse)) && linkURL) {
+      this.setState({ linkPreview: null, linkURL: null });
     }
   }
 
   fetchPreview = async (url) => {
-    console.log('urlurlurl', url);
     this.setState({ isFetchingLink: true });
 
     try {
       const {
         data,
-        status,
-        response,
       } = await mql(
         url,
         {
@@ -223,25 +225,16 @@ class WallInput extends Component {
           </div>
         ) : <div />}
 
-        {/* <div className="input_formWrapper"> */}
-        <textarea
-          type="text"
-          value={comment}
-          placeholder={`${isLoading ? '' : 'Write a comment...'}`}
-          className={`input_form ${postLoading ? 'hidePlaceholder' : ''}`}
-          onChange={this.handleCommentText}
-          ref={this.inputRef}
-        />
-
-        {isFetchingLink && (
-          <div className="input_postLoading_wrapper">
-            <SVG
-              src={Loading}
-              alt="Loading"
-              className="input_postLoading_spinner"
-            />
-          </div>
-        )}
+        <Linkify>
+          <textarea
+            type="text"
+            value={comment}
+            placeholder={`${isLoading ? '' : 'Write a comment...'}`}
+            className={`input_form ${postLoading ? 'hidePlaceholder' : ''}`}
+            onChange={this.handleCommentText}
+            ref={this.inputRef}
+          />
+        </Linkify>
 
         {linkPreview && (
           <div className="input_postLoading_linkPreviewWrapper">
@@ -250,21 +243,32 @@ class WallInput extends Component {
         )}
 
         <div className="input_buttons">
-          <EmojiIcon
-            onClick={this.toggleEmojiPicker}
-            isActive={emojiPickerIsOpen}
-            tooltip={this._renderEmojiPopup()}
-          />
+          {isFetchingLink ? (
+            <div className="input_postLoading_wrapper">
+              <SVG
+                src={Loading}
+                alt="Loading"
+                className="input_postLoading_spinner"
+              />
+            </div>
+          ) : <div />}
 
-          <button
-            type="button"
-            onClick={this.saveComment}
-            className={`input_send-dtw ${comment ? 'input_send-dtw-visible' : ''}`}
-          >
-            Post
-          </button>
+          <div className="input_actions_buttons">
+            <EmojiIcon
+              onClick={this.toggleEmojiPicker}
+              isActive={emojiPickerIsOpen}
+              tooltip={this._renderEmojiPopup()}
+            />
+
+            <button
+              type="button"
+              onClick={this.saveComment}
+              className={`input_send-dtw ${comment ? 'input_send-dtw-visible' : ''}`}
+            >
+              Post
+            </button>
+          </div>
         </div>
-        {/* </div> */}
       </div>
     );
   }

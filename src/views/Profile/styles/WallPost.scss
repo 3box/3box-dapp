@@ -13,6 +13,7 @@
   border-radius: 6px;
   background-color: white;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .comment_header {
@@ -21,6 +22,14 @@
   align-items: flex-start;
   margin-bottom: 6px;
   font-size: 14px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.comment_header_image {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .comment.isMyComment {
@@ -75,7 +84,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: calc(100% - 40px);
+  overflow: hidden;
 }
 
 .comment_content_context_main_user {
@@ -174,6 +184,7 @@
   .comment_content_context_main_user_info {
     flex-direction: column;
     align-items: flex-start;
+    overflow: hidden;
   }
 
   .comment_content_context_main_user_info_address {
@@ -192,5 +203,9 @@
     .comment_content_context_main_user_delete {
       visibility: visible !important;
     }
+  }
+
+  .comment_header {
+    margin-bottom: 10px;
   }
 }

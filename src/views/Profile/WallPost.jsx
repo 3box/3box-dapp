@@ -32,12 +32,9 @@ class WallPost extends Component {
 
   componentDidMount() {
     const { comment } = this.props;
-    console.log('comment', comment);
     const urlMatches = comment.message.match(/\b(http|https)?:\/\/\S+/gi) || [];
-    console.log('urlMatches', urlMatches);
     if (isURL(urlMatches[0])) this.fetchPreview(urlMatches[0]);
   }
-
 
   deleteComment = async (commentId, e) => {
     e.preventDefault();
@@ -69,12 +66,9 @@ class WallPost extends Component {
 
   fetchPreview = async (url) => {
     this.setState({ isFetchingLink: true });
-
     try {
       const {
         data,
-        // status,
-        // response,
       } = await mql(
         url,
         {
@@ -83,7 +77,6 @@ class WallPost extends Component {
           headers: {
             'user-agent': [{ value: 'googlebot' }],
             host: 'https://3box.io',
-            // 'user-agent': 'googlebot',
           },
         },
       );
@@ -115,7 +108,7 @@ class WallPost extends Component {
         <div className="comment_header">
           <Link
             to={`https://3box.io/${profile.ethAddr}`}
-            className="comment_header"
+            className="comment_header_image"
           >
             {profilePicture ? (
               <img
@@ -141,7 +134,7 @@ class WallPost extends Component {
                       orientation="top"
                       noTheme
                     >
-                      <h4 className="comment_content_context_main_user_info_username">
+                      <h4 className="comment_content_context_main_user_info_username" title={profile.ethAddr}>
                         {profile.name || profile.ethAddr}
                       </h4>
                     </ProfileHover>
@@ -184,6 +177,15 @@ class WallPost extends Component {
             {comment.message}
           </Linkify>
         </div>
+        {isFetchingLink && (
+          <div className="input_postLoading_wrapper">
+            <SVG
+              src={Loading}
+              alt="Loading"
+              className="input_postLoading_spinner"
+            />
+          </div>
+        )}
         {linkPreview && <LinkUnfurl linkPreview={linkPreview} />}
       </div>
     );
