@@ -10,7 +10,7 @@
     "3id-resolver": "0.0.6",
     "@babel/polyfill": "^7.4.4",
     "@microlink/mql": "^0.5.10",
-    "@portis/web3": "^2.0.0-beta.45",
+    "@portis/web3": "^2.0.0-beta.51",
     "@walletconnect/web3-provider": "^1.0.0-beta.37",
     "abi-decoder": "^2.0.1",
     "core-js": "^3.1.4",
