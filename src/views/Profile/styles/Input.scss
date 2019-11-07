@@ -1,9 +1,5 @@
 @import '../../../variables.scss';
 
-// .input {
-//   position: relative;
-// }
-
 .input {
   font-size: 15px;
   // min-height: 74px;
@@ -31,9 +27,6 @@
   min-width: 100%;
   width: 100%;
   border: none;
-  // border-radius: 6px;
-  // border: 1px solid $borderColor;
-  // padding: 25px 140px 25px 68px;
   resize: none;
   overflow-y: hidden;
   line-height: 22px;
@@ -53,8 +46,6 @@
   height: 90px;
   border: 1px solid $borderColor;
   border-radius: 5px;
-  // border-top: 1px solid $borderColor;
-  // border-bottom: 1px solid $borderColor;
 }
 
 .input_linkPreview_image {
@@ -260,7 +251,6 @@
     border-left: none;
     border-right: none;
     border-radius: 0;
-    // border: 1px solid $borderColor;
   }
 
   ::placeholder {
@@ -281,8 +271,8 @@
   }
 
   .input_emptyUser {
-    top: 6px;
-    left: -1px;
+    top: 11px;
+    left: 10px;
     min-width: $commentPictureDimension-mobile;
     min-height: $commentPictureDimension-mobile;
     max-width: $commentPictureDimension-mobile;
@@ -298,17 +288,13 @@
   }
 
   .input_form {
-    font-size: 15px;
+    font-size: 16px;
     min-height: 72px;
     height: 72px;
     box-sizing: border-box;
     min-width: 100vw;
     width: 100vw;
     border-radius: 0 !important;
-    // border-bottom: 1px solid $borderColor;
-    // border-top: 1px solid $borderColor;
-    // border-left: 0;
-    // border-right: 0;
     margin-left: 0;
     padding: 24px 24px 20px 70px;
   }
@@ -352,11 +338,4 @@
   .input_linkPreview {
     height: 106px;
   }
-
-  // .input_postLoading_spinner {
-  //   min-height: 52px;
-  //   min-width: 52px;
-  //   max-height: 52px;
-  //   max-width: 52px;
-  // }
 }

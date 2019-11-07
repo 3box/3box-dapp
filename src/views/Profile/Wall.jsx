@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import mql from '@microlink/mql';
 
 import { sortChronologically } from '../../utils/funcs';
 import { followingSpaceName } from '../../utils/constants';

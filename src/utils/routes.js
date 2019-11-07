@@ -38,7 +38,6 @@ export const directToHome = () => {
   const {
     isWallDisabled,
   } = store.getState().myData;
-  console.log('routesisWallDisabled', isWallDisabled);
 
   const route = isWallDisabled ? ACTIVITY : WALL;
 

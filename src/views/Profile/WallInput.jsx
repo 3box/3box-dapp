@@ -194,8 +194,6 @@ class WallInput extends Component {
       : currentAddress && makeBlockie(currentAddress);
 
     const isLoading = (isFetchingWall && !isOtherProfile) || (isFetchingOtherWall && isOtherProfile) || postLoading;
-    // console.log('linkPreview', linkPreview);
-    // console.log('isFetchingLink', isFetchingLink);
 
     return (
       <div className="input">

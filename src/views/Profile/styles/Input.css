@@ -225,8 +225,8 @@
     max-width: 50px;
     max-height: 50px; }
   .input_emptyUser {
-    top: 6px;
-    left: -1px;
+    top: 11px;
+    left: 10px;
     min-width: 50px;
     min-height: 50px;
     max-width: 50px;
@@ -238,7 +238,7 @@
     max-height: 30px;
     opacity: .6; }
   .input_form {
-    font-size: 15px;
+    font-size: 16px;
     min-height: 72px;
     height: 72px;
     box-sizing: border-box;

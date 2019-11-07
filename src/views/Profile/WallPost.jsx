@@ -94,14 +94,12 @@ class WallPost extends Component {
       profile,
       isMyComment,
       isMyAdmin,
-      // wallThread,
     } = this.props;
 
     const profilePicture = profile.ethAddr &&
       (profile.image ? `https://ipfs.infura.io/ipfs/${profile.image[0].contentUrl['/']}`
         : makeBlockie(profile.ethAddr));
     const canDelete = isMyComment || isMyAdmin;
-    // const hasThread = !!Object.keys(wallThread).length;
 
     return (
       <div className={`comment ${canDelete ? 'isMyComment' : ''}`}>
@@ -151,7 +149,6 @@ class WallPost extends Component {
 
                   {loadingDelete && <SVG className="comment_loading" src={Loading} alt="Loading" />}
 
-                  {/* hasThread */}
                   {(!loadingDelete && profile.ethAddr) && (
                     <div className="comment_content_context_main_user_delete">
                       <button
