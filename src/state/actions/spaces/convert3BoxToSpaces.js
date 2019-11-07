@@ -12,7 +12,9 @@ const filterDappKeys = (row) => {
     (row !== 'memberSince') &&
     (row !== 'following') &&
     (row !== 'followingList') &&
+    (row !== 'profileWall') &&
     (row !== 'followingThread') &&
+    (row !== 'MyFollowing') &&
     (row !== 'followingSpace')) {
     return true;
   }
