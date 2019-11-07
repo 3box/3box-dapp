@@ -7,9 +7,8 @@ import SVG from 'react-inlinesvg';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import mql from '@microlink/mql';
-import isURL from 'is-url';
 
-import { shortenEthAddr } from '../../utils/funcs';
+import { shortenEthAddr, addhttp } from '../../utils/funcs';
 import { timeSince } from '../../utils/time';
 import actions from '../../state/actions';
 
@@ -32,8 +31,9 @@ class WallPost extends Component {
 
   componentDidMount() {
     const { comment } = this.props;
-    const urlMatches = comment.message.match(/\b(http|https)?:\/\/\S+/gi) || [];
-    if (isURL(urlMatches[0])) this.fetchPreview(urlMatches[0]);
+    // const urlMatches = comment.message.match(/\b(http|https)?:\/\/\S+/gi) || [];
+    const urlMatches = comment.message.match(/((http|ftp|https):\/\/)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g) || [];
+    if (urlMatches[0]) this.fetchPreview(addhttp(urlMatches[0]));
   }
 
   deleteComment = async (commentId, e) => {

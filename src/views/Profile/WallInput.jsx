@@ -4,10 +4,9 @@ import SVG from 'react-inlinesvg';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import mql from '@microlink/mql';
-import isURL from 'is-url';
 import Linkify from 'react-linkify';
 
-import { checkIsMobileDevice } from '../../utils/funcs';
+import { checkIsMobileDevice, addhttp } from '../../utils/funcs';
 import actions from '../../state/actions';
 
 import EmojiIcon from './Emoji/EmojiIcon';
@@ -58,16 +57,19 @@ class WallInput extends Component {
   handleCommentText = async (event) => {
     const { linkURL } = this.state;
     const comment = event.target.value;
-    const urlMatches = comment.match(/\b(http|https)?:\/\/\S+/gi) || [];
+    console.log('comment', comment);
+    const urlMatches = comment.match(/((http|ftp|https):\/\/)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g) || [];
+    console.log('inputmatches', urlMatches);
+    // const urlMatches = comment.match(/\b(http|https)?:\/\/\S+/gi) || [];
     this.setState({ comment });
     const urlToUse = urlMatches[urlMatches.length - 1];
 
-    if (isURL(urlToUse) && linkURL !== urlToUse) {
-      this.fetchPreview(urlToUse);
+    if (urlToUse && linkURL !== urlToUse) {
+      this.fetchPreview(addhttp(urlToUse));
       this.setState({ linkURL: urlToUse });
     }
 
-    if ((urlMatches.length === 0 || !isURL(urlToUse)) && linkURL) {
+    if ((urlMatches.length === 0) && linkURL) {
       this.setState({ linkPreview: null, linkURL: null });
     }
   }

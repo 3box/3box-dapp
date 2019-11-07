@@ -45,12 +45,14 @@ class Profile extends Component {
 
 Profile.propTypes = {
   name: PropTypes.string,
+  history: PropTypes.object,
   currentAddress: PropTypes.string,
   image: PropTypes.array,
   handleSignInUp: PropTypes.func.isRequired,
 };
 
 Profile.defaultProps = {
+  history: {},
   name: '',
   currentAddress: '',
   image: null,

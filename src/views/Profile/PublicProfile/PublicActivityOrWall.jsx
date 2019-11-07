@@ -70,6 +70,7 @@ class PublicActivityOrWall extends Component {
             isFetchingOtherActivity={isFetchingOtherActivity}
             otherProfileActivity={otherProfileActivity}
             viewTab={viewTab}
+            isOtherProfile
           />
         </div>
       </div>
@@ -109,32 +110,37 @@ const mapState = (state) => ({
 
 export default connect(mapState)(PublicActivityOrWall);
 
-const PublicActivity = ({ isFetchingOtherActivity, otherProfileActivity, viewTab }) => (
-  <div className={`feed__activity__header profileTab  ${viewTab === 'activity' ? 'viewTab' : ''}`}>
-    {(isFetchingOtherActivity)
-      && (
-        <div className="feed__activity__load">
-          <img src={Loading} alt="loading" id="activityLoad" />
-        </div>
-      )}
+const PublicActivity = ({
+  isFetchingOtherActivity,
+  otherProfileActivity,
+  viewTab,
+  isOtherProfile,
+}) => (
+    <div className={`feed__activity__header profileTab  ${(viewTab === 'activity' && isOtherProfile) ? 'viewTab' : ''}`}>
+      {(isFetchingOtherActivity)
+        && (
+          <div className="feed__activity__load">
+            <img src={Loading} alt="loading" id="activityLoad" />
+          </div>
+        )}
 
-    {otherProfileActivity.length > 0
-      ? otherProfileActivity.map((feedAddress, i) => (
-        <div key={i} className="feed__activity__tile">
-          <PublicActivityHeader i={i} feedAddress={feedAddress} />
-          <PublicActivityTiles feedAddress={feedAddress} />
+      {otherProfileActivity.length > 0
+        ? otherProfileActivity.map((feedAddress, i) => (
+          <div key={i} className="feed__activity__tile">
+            <PublicActivityHeader i={i} feedAddress={feedAddress} />
+            <PublicActivityTiles feedAddress={feedAddress} />
+          </div>
+        ))
+        : (!isFetchingOtherActivity && otherProfileActivity.length === 0)
+        && (
+          <div className="feed__activity__load">
+            <p>No activity at this address yet</p>
+          </div>
+        )}
+      <div className="feed__footer">
+        <div className="logo__icon--footer">
+          <h2>3</h2>
         </div>
-      ))
-      : (!isFetchingOtherActivity && otherProfileActivity.length === 0)
-      && (
-        <div className="feed__activity__load">
-          <p>No activity at this address yet</p>
-        </div>
-      )}
-    <div className="feed__footer">
-      <div className="logo__icon--footer">
-        <h2>3</h2>
       </div>
     </div>
-  </div>
-);
+  );

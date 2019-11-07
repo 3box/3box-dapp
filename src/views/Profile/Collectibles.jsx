@@ -137,7 +137,12 @@ class Collectibles extends Component {
 
   render() {
     const {
-      collectiblesFavoritesToRender, collection, showCollectiblesModal, selectedCollectible, isFavorite,
+      collectiblesFavoritesToRender,
+      collection,
+      showCollectiblesModal,
+      selectedCollectible,
+      isFavorite,
+      isActive,
     } = this.props;
     const { isLoading } = this.state;
     return (
@@ -175,7 +180,7 @@ class Collectibles extends Component {
           )}
 
         </ReactCSSTransitionGroup>
-        <div id="myFeed">
+        <div id="myFeed" className={`profileTab ${isActive ? 'viewTab' : ''}`}>
           {(collection.length > 0 || collectiblesFavoritesToRender.length > 0)
             ? (
               <div className="header collectiblesHeader" id="feed__header">
@@ -304,6 +309,7 @@ class Collectibles extends Component {
 }
 
 Collectibles.propTypes = {
+  isActive: PropTypes.bool,
   box: PropTypes.object,
   selectedCollectible: PropTypes.object,
   collection: PropTypes.array,
@@ -322,6 +328,7 @@ Collectibles.defaultProps = {
   collectiblesFavoritesToRender: [],
   selectedCollectible: {},
   currentAddress: '',
+  isActive: false,
 };
 
 function mapState(state) {

@@ -147,13 +147,6 @@ export const handleDeniedAccessModal = () => async (dispatch) => {
   });
 };
 
-export const handleSignInBanner = () => async (dispatch) => {
-  dispatch({
-    type: 'UI_HANDLE_SIGNIN_BANNER',
-    showSignInBanner: !store.getState().uiState.showSignInBanner,
-  });
-};
-
 export const handleShowSignInBanner = () => async (dispatch) => {
   dispatch({
     type: 'UI_HANDLE_SIGNIN_BANNER',

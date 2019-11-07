@@ -13,8 +13,9 @@ const Activity = ({
   isFetchingActivity,
   feedByAddress,
   otherProfileActivity,
+  isActive,
 }) => (
-    <div id="myFeed">
+    <div id="myFeed" className={`profileTab ${isActive ? 'viewTab' : ''}`}>
       <div>
         <p className="header" id="feed__header">
           Activity
@@ -55,26 +56,18 @@ const Activity = ({
 Activity.propTypes = {
   feedByAddress: PropTypes.array,
   isFetchingActivity: PropTypes.bool,
-  currentAddress: PropTypes.string,
-  name: PropTypes.string,
-  otherProfileAddress: PropTypes.string,
+  isActive: PropTypes.bool,
   otherProfileActivity: PropTypes.array,
-  location: PropTypes.object,
-  otherName: PropTypes.string,
 };
 
 Activity.defaultProps = {
   feedByAddress: [],
-  name: '',
   isFetchingActivity: false,
-  otherProfileAddress: '',
-  currentAddress: '',
-  otherName: '',
+  isActive: false,
   otherProfileActivity: [],
-  location: {},
 };
 
-const mapState = state => ({
+const mapState = (state) => ({
   feedByAddress: state.myData.feedByAddress,
   isFetchingActivity: state.uiState.isFetchingActivity,
   otherProfileActivity: state.otherProfile.otherProfileActivity,

@@ -39,8 +39,9 @@ const Details = ({
   verifiedEmail,
   onOtherProfilePage,
   currentAddress,
+  isActive,
 }) => (
-    <div className="profile__details" id="myFeed">
+    <div id="myFeed" className={`profileTab ${isActive ? 'viewTab' : ''} profile__details`}>
       <div className="profile__details__category">
 
         <div className="profile__category__header">
@@ -64,7 +65,8 @@ const Details = ({
               rel="noopener noreferrer"
             >
               {website}
-            </a>)}
+            </a>
+          )}
         </div>
 
         <div className="profile__category__field" title="Birthday">
@@ -187,6 +189,7 @@ Details.propTypes = {
   birthday: PropTypes.string,
   currentAddress: PropTypes.string,
   onOtherProfilePage: PropTypes.bool,
+  isActive: PropTypes.bool,
 };
 
 Details.defaultProps = {
@@ -205,6 +208,7 @@ Details.defaultProps = {
   employer: '',
   currentAddress: '',
   onOtherProfilePage: false,
+  isActive: false,
 };
 
 function mapState(state) {

@@ -21,9 +21,12 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
   const {
     onOtherProfilePage,
   } = store.getState().uiState;
+  const {
+    otherProfileAddress,
+  } = store.getState().otherProfile;
 
   const consentGiven = () => {
-    if (fromSignIn && !fromFollowButton && !onOtherProfilePage) history.push(`/${currentAddress}/${routes.directToHome()}`);
+    if ((fromSignIn && !fromFollowButton && !onOtherProfilePage) || (otherProfileAddress === currentAddress)) history.push(`/${currentAddress}/${routes.directToHome()}`);
     dispatch({
       type: 'UI_3BOX_LOADING',
       provideConsent: false,

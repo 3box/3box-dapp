@@ -11,8 +11,8 @@ import Globe from '../../assets/Globe.svg';
 import './styles/Profile.css';
 import './styles/Feed.css';
 
-const Following = ({ following, isLoadingMyFollowing }) => (
-  <div id="myFeed">
+const Following = ({ following, isLoadingMyFollowing, isActive }) => (
+  <div id="myFeed" className={`profileTab ${isActive ? 'viewTab' : ''}`}>
     <div>
       <div className="profile_header">
         <div className="followingHeader_title" id="feed__header">
@@ -44,11 +44,13 @@ const Following = ({ following, isLoadingMyFollowing }) => (
 Following.propTypes = {
   following: PropTypes.array,
   isLoadingMyFollowing: PropTypes.bool,
+  isActive: PropTypes.bool,
 };
 
 Following.defaultProps = {
   following: [],
   isLoadingMyFollowing: false,
+  isActive: false,
 };
 
 function mapState(state) {

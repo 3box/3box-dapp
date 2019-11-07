@@ -20,99 +20,79 @@ import '../styles/Feed.css';
 import '../styles/Profile.css';
 import '../../../components/styles/NetworkArray.css';
 
-const Content = ({ currentAddress, handleSignInUp }) => (
-  <div>
-    <div className="profile__category--mobile">
-      <div className="profile__category__sectionWrapper">
-        <NavLink
-          exact
-          to={`/${currentAddress}/${routes.WALL}`}
-          className="profile__category__section"
-        >
-          <img src={Post} alt="Activity" className="profile__category__tabIcon--activity--mobile" />
-        </NavLink>
+const Content = ({ currentAddress, handleSignInUp, history }) => {
+  const { pathname } = history.location;
+  const paths = pathname.split('/');
+  return (
+    <div>
+      <div className="profile__category--mobile">
+        <div className="profile__category__sectionWrapper">
+          <NavLink
+            exact
+            to={`/${currentAddress}/${routes.WALL}`}
+            className="profile__category__section"
+          >
+            <img src={Post} alt="Activity" className="profile__category__tabIcon--activity--mobile" />
+          </NavLink>
 
-        <NavLink
-          exact
-          to={`/${currentAddress}/${routes.ACTIVITY}`}
-          className="profile__category__section"
-        >
-          <img src={ActivityIcon} alt="Activity" className="profile__category__tabIcon--activity--mobile" />
-        </NavLink>
+          <NavLink
+            exact
+            to={`/${currentAddress}/${routes.ACTIVITY}`}
+            className="profile__category__section"
+          >
+            <img src={ActivityIcon} alt="Activity" className="profile__category__tabIcon--activity--mobile" />
+          </NavLink>
 
-        <NavLink
-          exact
-          to={`/${currentAddress}/${routes.DETAILS}`}
-          className="profile__category__section "
-        >
-          <img src={DetailsIcon} alt="Details" className="profile__category__tabIcon--details--mobile" />
-        </NavLink>
+          <NavLink
+            exact
+            to={`/${currentAddress}/${routes.DETAILS}`}
+            className="profile__category__section "
+          >
+            <img src={DetailsIcon} alt="Details" className="profile__category__tabIcon--details--mobile" />
+          </NavLink>
 
-        <NavLink
-          exact
-          to={`/${currentAddress}/${routes.COLLECTIBLES}`}
-          className="profile__category__section "
-        >
-          <img src={CollectiblesIcon} alt="Collectibles" className="profile__category__tabIcon--collectibles--mobile" />
-        </NavLink>
+          <NavLink
+            exact
+            to={`/${currentAddress}/${routes.COLLECTIBLES}`}
+            className="profile__category__section "
+          >
+            <img src={CollectiblesIcon} alt="Collectibles" className="profile__category__tabIcon--collectibles--mobile" />
+          </NavLink>
 
-        <NavLink
-          exact
-          to={`/${currentAddress}/${routes.FOLLOWING}`}
-          className="profile__category__section "
-        >
-          <img src={ContactsIcon} alt="Following" className="profile__category__tabIcon--collectibles--mobile" />
-        </NavLink>
+          <NavLink
+            exact
+            to={`/${currentAddress}/${routes.FOLLOWING}`}
+            className="profile__category__section "
+          >
+            <img src={ContactsIcon} alt="Following" className="profile__category__tabIcon--collectibles--mobile" />
+          </NavLink>
+        </div>
       </div>
+
+      <>
+        <Wall handleSignInUp={handleSignInUp} isActive={paths[2] === 'wall'} />
+
+        <Activity isActive={paths[2] === 'activity'} />
+
+        <Details isActive={paths[2] === 'details'} />
+
+        <Collectibles isActive={paths[2] === 'collectibles'} />
+
+        <Following isActive={paths[2] === 'following'} />
+      </>
     </div>
-
-    <Switch>
-      <Route
-        exact
-        path={routes.FORMAT_PROFILE_ACTIVITY}
-        component={Activity}
-      />
-
-      <Route
-        exact
-        path={routes.FORMAT_PROFILE_WALL}
-        render={() => (
-          <Wall
-            handleSignInUp={handleSignInUp}
-          />
-        )}
-      />
-
-      <Route
-        exact
-        path={routes.FORMAT_PROFILE_ABOUT}
-        component={Details}
-      />
-
-      <Route
-        exact
-        path={routes.FORMAT_PROFILE_COLLECTIBLES}
-        component={Collectibles}
-      />
-
-      <Route
-        exact
-        path={routes.FORMAT_PROFILE_CONTACTS}
-        component={Following}
-      />
-    </Switch>
-
-
-  </div>
-);
+  );
+};
 
 Content.propTypes = {
   currentAddress: PropTypes.string,
   handleSignInUp: PropTypes.func.isRequired,
+  history: PropTypes.object,
 };
 
 Content.defaultProps = {
   currentAddress: '',
+  history: {},
 };
 
 const mapState = (state) => ({

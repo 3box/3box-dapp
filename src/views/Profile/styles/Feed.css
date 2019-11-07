@@ -39,6 +39,12 @@
   .statusUpdate__field::placeholder {
     color: #a8a8a8; }
 
+.profileTab {
+  display: none; }
+
+.viewTab {
+  display: block; }
+
 .statusUpdate__displayPublic {
   width: 100%;
   font-size: 1.1em;
@@ -245,7 +251,6 @@ input:checked + .slider:before {
   margin-top: 190px;
   min-height: 610px;
   height: fit-content;
-  display: flex;
   flex-direction: column;
   margin-bottom: 60px;
   justify-content: space-between;
@@ -495,7 +500,6 @@ input:checked + .slider:before {
   justify-content: center; }
 
 .feed__activity__header {
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center; }

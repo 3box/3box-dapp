@@ -71,6 +71,7 @@ class Wall extends Component {
       isOtherProfile,
       otherProfileAddress,
       viewTab,
+      isActive,
     } = this.props;
 
     const {
@@ -86,9 +87,10 @@ class Wall extends Component {
     const valueToShow = isOtherProfile ? isOtherWallDisabled : isWallDisabled;
     const adminEthAddrNormalized = adminEthAddr.toLowerCase();
     const currentUserAddrNormalized = currentAddress && currentAddress.toLowerCase();
-
+    console.log('isActive', isActive);
+    console.log('viewTab', viewTab);
     return (
-      <div id={isOtherProfile ? '' : 'myFeed'} className={`profileTab ${viewTab === 'wall' ? 'viewTab' : ''}`}>
+      <div id={isOtherProfile ? '' : 'myFeed'} className={`profileTab ${((viewTab === 'wall' && isOtherProfile) || isActive) ? 'viewTab' : ''}`}>
         <div>
           {!isOtherProfile && (
             <div className="profile_header">
@@ -211,6 +213,7 @@ Wall.propTypes = {
   isFetchingOtherWall: PropTypes.bool,
   isWallDisabled: PropTypes.bool,
   isOtherWallDisabled: PropTypes.bool,
+  isActive: PropTypes.bool,
   viewTab: PropTypes.string,
   currentAddress: PropTypes.string,
   otherProfileAddress: PropTypes.string,
@@ -228,6 +231,7 @@ Wall.defaultProps = {
   isWallDisabled: false,
   isOtherWallDisabled: false,
   isFetchingOtherWall: false,
+  isActive: false,
   isOtherProfile: false,
   currentAddress: '',
   otherProfileAddress: '',
