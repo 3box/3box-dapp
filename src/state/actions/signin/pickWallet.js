@@ -2,7 +2,8 @@ import Web3Connect from 'web3connect';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import Portis from '@portis/web3';
 import Fortmatic from 'fortmatic';
-// import Squarelink from 'squarelink';
+import Squarelink from 'squarelink';
+import Authereum from "authereum";
 // import Torus from '@toruslabs/torus-embed';
 
 import history from '../../../utils/history';
@@ -38,6 +39,10 @@ const web3Connect = new Web3Connect.Core({
     //     id: 'b87ab196551e4363e352', // required
     //   },
     // },
+    authereum: {
+      package: Authereum, // required
+      options: {},
+    },
     // torus: {
     //   package: Torus, // required
     //   options: {

@@ -417,9 +417,13 @@ export const checkUsingInjectedProvider = (provider) => {
     isFortmatic,
     isPortis,
     isWalletConnect,
+    isSquarelink,
+    isAuthereum,
   } = provider;
+  console.log('providerprovider', provider);
+  console.log('isAuthereumisAuthereum', isAuthereum);
 
-  if (isFortmatic || isPortis || isWalletConnect) return false;
+  if (isFortmatic || isPortis || isWalletConnect || isSquarelink || isAuthereum) return false;
   return true;
   // isCipher,
   // isMetaMask,

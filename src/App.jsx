@@ -170,7 +170,7 @@ class App extends Component {
       this.props.getMyProfileValue('public', 'year'); // eslint-disable-line
       this.props.getMyProfileValue('public', 'emoji'); // eslint-disable-line
       this.props.getMyProfileValue('private', 'birthday'); // eslint-disable-line
-      
+
       await this.props.getMyFollowing(); // eslint-disable-line
       this.props.getMyWall(); // eslint-disable-line
 
@@ -366,6 +366,7 @@ class App extends Component {
               imageUrl: null,
             }}
             popupChat
+            userProfileURL={(address) => `https://3box.io/${address}`}
           />
         )}
 
