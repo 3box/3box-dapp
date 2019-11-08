@@ -1114,17 +1114,21 @@ pre {
   align-items: flex-start;
   flex-direction: column;
   width: 56%; }
+  .careers_positions_content h1 {
+    font-size: 32px;
+    margin-bottom: 24px; }
   .careers_positions_content h4 {
     letter-spacing: 1px;
     font-size: 24px;
-    margin-bottom: 6px;
-    margin-bottom: 24px; }
+    margin: 40px 0 24px 0; }
   .careers_positions_content p {
     margin-bottom: 24px; }
-  .careers_positions_content ul {
-    margin-bottom: 40px; }
   .careers_positions_content li {
-    line-height: 26px; }
+    line-height: 26px;
+    font-size: 15px; }
+
+.careers_link {
+  margin-top: 40px; }
 
 .careers_positions_button {
   display: flex;

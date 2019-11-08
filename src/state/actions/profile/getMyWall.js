@@ -30,11 +30,6 @@ const getMyWall = () => async (dispatch) => {
     let wallPosts;
     let wallProfiles;
     if (!isWallDisabled) {
-      // const myAddress = store.getState().userState.currentAddress;
-      // const opts = {
-      //   firstModerator: space.DID,
-      //   // firstModerator: myAddress,
-      // };
       wallThread = await space.joinThread(myProfileWall, {});
 
       wallPosts = await wallThread.getPosts();

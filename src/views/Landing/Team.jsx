@@ -19,7 +19,7 @@ const styles = {
   backgroundRepeat: 'absolute',
 };
 
-const graphqlQueryObject = address => `
+const graphqlQueryObject = (address) => `
 {
   profile(id: "${address}") {
     name
@@ -37,6 +37,7 @@ class Team extends Component {
       zach: {},
       michael: {},
       kenzo: {},
+      rachel: {},
     };
   }
 
@@ -48,6 +49,7 @@ class Team extends Component {
       profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0x5c44e8982fa3c3239c6e3c5be2cc6663c7c9387e'))); // oed
       profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0x9acb0539f2ea0c258ac43620dd03ef01f676a69b'))); // zach
       profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0xa8ee0babe72cd9a80ae45dd74cd3eae7a82fd5d1'))); // michael
+      profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0x2f4cE4f714C68A3fC871d1f543FFC24b9b3c2386'))); // rachel
       profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0xbaeBB7d18f8b16B0A970FDa91f1EfA626D67423E'))); // kenzo
 
       const profilePromises = Promise.all(profileCalls);
@@ -57,7 +59,8 @@ class Team extends Component {
         oed: profiles[1],
         zach: profiles[2],
         michael: profiles[3],
-        kenzo: profiles[4],
+        rachel: profiles[4],
+        kenzo: profiles[5],
       });
     } catch (error) {
       console.error(error);
@@ -66,7 +69,7 @@ class Team extends Component {
 
   render() {
     const {
-      danny, oed, zach, michael, kenzo,
+      danny, oed, zach, michael, kenzo, rachel,
     } = this.state;
 
     return (
@@ -162,6 +165,28 @@ class Team extends Component {
                         <div className="team_info">
                           <h3>{zach.profile ? zach.profile.name : 'Zach Ferland'}</h3>
                           <p>Fullstack Engineer</p>
+                        </div>
+                      </div>
+                    </a>
+                  </ProfileHover>
+
+                  {/* Rachel */}
+                  <ProfileHover
+                    address="0x2f4cE4f714C68A3fC871d1f543FFC24b9b3c2386"
+                    noTheme
+                    orientation="right"
+                  >
+                    <a
+                      href="/0x2f4cE4f714C68A3fC871d1f543FFC24b9b3c2386"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <div className="team_tile">
+                        {rachel.profile ? <img src={`https://ipfs.infura.io/ipfs/${rachel.profile.image}`} alt="profile" />
+                          : <div className="team_tile_emptyImage" />}
+                        <div className="team_info">
+                          <h3>{rachel.profile ? rachel.profile.name : 'Rachel Black'}</h3>
+                          <p>Developer Relations</p>
                         </div>
                       </div>
                     </a>

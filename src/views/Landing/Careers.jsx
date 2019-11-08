@@ -39,12 +39,6 @@ class Careers extends Component {
                 Join us in building the future of distributed consumer applications
               </p>
               <div className="hero_copy_buttons">
-                {/* <Link to={routes.API}>
-                  <button type="button" className="hero_copy_buttons_button primaryMarketing">
-                    Meet the Team
-                    <img src={TriangleWhite} alt="arrow" />
-                  </button>
-                </Link> */}
                 <a href="https://medium.com/3box/3box-culture-a-team-community-and-company-595004959b61">
                   <button type="button" className="secondary">
                     Our Culture
@@ -70,140 +64,110 @@ class Careers extends Component {
               <p>
                 To apply, submit your resume along with a short note and relevant online social profiles.
               </p>
+              <br />
+              <p>
+                3Box is building a more trusting, human and connected web, where users are in control of their own data and developers are empowered to build lighter, more collaborative, more powerful services and experiences based on open data and infrastructure. This is a chance to join and help shape our team at an exciting and early stage: we're one of the fastest growing projects in the crypto/Web3 space and are readying to scale our products, protocols and team into new markets.
+              </p>
             </div>
             <div className="careers_positions">
               <div className="careers_positions_content">
-                <h4>
-                Infrastructure Engineer (Javascript),
-                </h4>
+                <h1>
+                  Protocol Engineer
+                </h1>
                 <p>
-                  For our next phase, we are seeking a javascript engineer, with focus on distributed systems, to drive the development of our database infrastructure and our developer API, contribute to exceptional developer operations, and anchor a stellar backend engineering team. Responsibilities will include:
+                  For our next phase, we are seeking a Protocol Engineer to lead the development of our next generation protocols and scale our distributed network to global usage and more powerful use cases.
                 </p>
+                <h4>
+                  Do you:
+                </h4>
                 <ul>
                   <li>
-                    • Building & improving the 3Box client and node implementations
+                    • Have experience designing software or protocols for scaled, distributed data networks?
                   </li>
                   <li>
-                    • Designing, architecting, and implementing systems that enables our platform to grow
+                    • Feel like applying that to reinventing how data is managed online, giving power back to users, communities and startups?
                   </li>
                   <li>
-                    • Contribute to open source software and support knowledge sharing across the web3 ecosystem
-                  </li>
-                  <li>
-                    • Engage with and help educate the community building with 3Box
-                  </li>
-                  <li>
-                    • Manage and monitor cloud infrastructure
-                  </li>
-                  <li>
-                    • Build javascript code you are proud of
-                  </li>
-                  <li>
-                    • Enable our continuous integration/delivery pipelines to work seamlessly
-                  </li>
-                  <li>
-                    • Implement scalability and data integrity solutions to our platform
-                  </li>
-                  <li>
-                    • Drive a continuous effort to reduce deployment time, infrastructure downtime, and maximize efficiency
+                    • Want to join the ground floor of a dynamic team with a shared commitment to a better web?
                   </li>
                 </ul>
-                <a href="https://www.notion.so/threebox/Javascript-Engineer-Distributed-Systems-967dad0c601e46349e83f57ef94c1279" target="_blank" rel="noopener noreferrer">
-                  <button className="textButton" type="button">
-                    View full description
-                  </button>
-                </a>
-              </div>
-              <div className="careers_positions_button">
-                <a href="mailto:jobs@3box.io">
-                  <button type="button" className="primaryMarketing">
-                    Apply Now
-                    <img src={TriangleWhite} alt="arrow" />
-                  </button>
-                </a>
-              </div>
-            </div>
-            <div className="careers_positions">
-              <div className="careers_positions_content">
                 <h4>
-                  Technical Product Marketing Manager
+                  You will get to:
                 </h4>
-                <p>
-                  For our next phase, we are seeking a technical Product Marketer to reach out to and grow our developer community, and help them build powerful new products on our infrastructure. Responsibilities will include:
-                </p>
                 <ul>
                   <li>
-                    • Produce product marketing content (documentation, tutorials, demos) that show developers the value and ease of using 3Box
+                    • Help design protocols for distributed user data, identity, and access control
                   </li>
                   <li>
-                    • Communicate product updates and upcoming plans to current and potential customers
+                    • Lead the implementation of the protocol, with tight coupling between engineering, design, research and network input
                   </li>
                   <li>
-                    • Be a trusted point of contact to developers, and help foster a sense of community and open source development
+                    • Research and develop new techniques, technologies and ideas for improvements, especially in:
+                    <ul>
+                      <li>
+                        • Data routing model
+                      </li>
+                      <li>
+                        • Real-time / low-latency collaboration on distributed data
+                      </li>
+                      <li>
+                        • Access control systems
+                      </li>
+                      <li>
+                        • Consensus and coordination in an open and permissionless network
+                      </li>
+                    </ul>
                   </li>
                   <li>
-                    • Find the right access points for new developers in the space and make sure 3Box is one of the first projects they know and use as they build apps
+                    • Contribute to incentive/mechanism design for a many-stakeholder network
                   </li>
                   <li>
-                    • Constantly mine for needs, requirements and trends in our developer base to help inform our product team of how we can better serve them
-                  </li>
-                  <li>
-                    • Qualify high potential projects and partners and help them get the support they need for successful integrations
-                  </li>
-                  <li>
-                    • Find high-value ways to grow the pipeline off developers and projects in our funnel
-                  </li>
-                  <li>
-                    • Represent 3Box at events, in online forums, and within open source communities
+                    • Coordinate with the teams and communities of related technologies, standards and networks
                   </li>
                 </ul>
-                <a href="https://www.notion.so/threebox/Technical-Product-Marketer-0b5847a878aa40d28b0ab612eda1196c" target="_blank" rel="noopener noreferrer">
-                  <button className="textButton" type="button">
-                    View full description
-                  </button>
-                </a>
-              </div>
-              <div className="careers_positions_button">
-                <a href="mailto:jobs@3box.io">
-                  <button type="button" className="primaryMarketing">
-                    Apply Now
-                    <img src={TriangleWhite} alt="arrow" />
-                  </button>
-                </a>
-              </div>
-            </div>
-            <div className="careers_positions">
-              <div className="careers_positions_content">
                 <h4>
-                  Developer Relations Lead
+                  You make a great candidate if you have:
                 </h4>
-                <p>
-                  For our next phase, we are seeking a Developer Relations Lead to work closely with our developer community, communicating the value of 3Box and ensuring highly successful usage of our products among our partners. Responsibilities will include:
-                </p>
                 <ul>
                   <li>
-                    • Constantly mine for needs, requirements and trends in our developer base to help inform our product team of how we can better serve them
+                    • Strong computer science fundamentals with knowledge in distributed systems cryptography
                   </li>
                   <li>
-                    • Find the right access points for new developers in the space and make sure 3Box is one of the first projects they know and use as they build apps
+                    • Deep understanding of data structures and their impact on processing, indexing, or latency
                   </li>
                   <li>
-                    • Produce content that shows developers the value and ease of using 3Box
+                    • Previous experience with high scale, distributed, collaborative data systems; for example:
+                    <ul>
+                      <li>
+                        • Event-driven platforms consuming high volume, distributed data streams
+                      </li>
+                      <li>
+                        • Cloud software with real-time collaboration, syncing, or networking across clients
+                      </li>
+                      <li>
+                        • Protocols for network naming, routing, p2p communications, or DHT-based systems
+                      </li>
+                    </ul>
                   </li>
                   <li>
-                    • Qualify high potential projects and partners and help them get the support they need for successful integrations
+                    • A practical approach with a history of delivering high quality, production-ready technology
                   </li>
                   <li>
-                    • Be a trusted point of contact to developers, and help foster a sense of community and open source development
+                    • Familiarity in open source ecosystems and a grasp of blockchain concepts and technologies
                   </li>
                   <li>
-                    • Represent 3Box at events, in online forums, and within open source communities
+                    • Bring energy, unique perspectives and strong communication to collaborate with teammates
                   </li>
                   <li>
-                    • Communicate product updates and upcoming plans to current and potential customers
+                    • Bonus points: background in mechanism design or game theory, ability to design systems for adversarial environments, experience working with standards or research organizations
                   </li>
                 </ul>
-                <a href="https://www.notion.so/threebox/Developer-Relations-Lead-7e23b76bbf8d494bb0c95f1799965852" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://www.notion.so/threebox/Protocol-Engineer-6d4325cfd76a44289041e86060a0c0e5"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="careers_link"
+                >
                   <button className="textButton" type="button">
                     View full description
                   </button>
