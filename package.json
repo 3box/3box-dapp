@@ -9,7 +9,7 @@
     "3id-resolver": "0.0.6",
     "3box-chatbox-react": "0.0.1-beta.10",
     "@babel/polyfill": "^7.4.4",
-    "@microlink/mql": "^0.5.10",
+    "@microlink/mql": "^0.5.11",
     "@portis/web3": "^2.0.0-beta.45",
     "@walletconnect/web3-provider": "^1.0.0-beta.37",
     "abi-decoder": "^2.0.1",
