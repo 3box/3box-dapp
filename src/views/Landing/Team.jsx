@@ -61,9 +61,9 @@ class Team extends Component {
         oed: profiles[1],
         michael: profiles[2],
         zach: profiles[3],
-        kenzo: profiles[3],
-        rachel: profiles[4],
-        mike: profiles[5],
+        kenzo: profiles[4],
+        rachel: profiles[5],
+        mike: profiles[6],
       });
     } catch (error) {
       console.error(error);
@@ -101,7 +101,7 @@ class Team extends Component {
                           : <div className="team_tile_emptyImage" />}
                         <div className="team_info">
                           <h3>{danny.profile ? danny.profile.name : 'Danny Zuckerman'}</h3>
-                          <p>Co-founder, Operations</p>
+                          <p className="team_info_role">Co-founder, Operations</p>
                         </div>
                       </div>
                     </a>
@@ -123,7 +123,7 @@ class Team extends Component {
                           : <div className="team_tile_emptyImage" />}
                         <div className="team_info">
                           <h3>{oed.profile ? oed.profile.name : 'Joel Thorstensson'}</h3>
-                          <p>Co-founder, Engineering</p>
+                          <p className="team_info_role">Co-founder, Engineering</p>
                         </div>
                       </div>
                     </a>
@@ -145,7 +145,7 @@ class Team extends Component {
                           : <div className="team_tile_emptyImage" />}
                         <div className="team_info">
                           <h3>{michael.profile ? michael.profile.name : 'Michael Sena'}</h3>
-                          <p>Co-founder, Product</p>
+                          <p className="team_info_role">Co-founder, Product</p>
                         </div>
                       </div>
                     </a>
@@ -167,7 +167,7 @@ class Team extends Component {
                           : <div className="team_tile_emptyImage" />}
                         <div className="team_info">
                           <h3>{zach.profile ? zach.profile.name : 'Zach Ferland'}</h3>
-                          <p>Fullstack Engineer</p>
+                          <p className="team_info_role">Fullstack Engineer</p>
                         </div>
                       </div>
                     </a>
@@ -189,7 +189,7 @@ class Team extends Component {
                           : <div className="team_tile_emptyImage" />}
                         <div className="team_info">
                           <h3>{kenzo.profile ? kenzo.profile.name : 'Kenzo Nakamura'}</h3>
-                          <p>Front-End Developer</p>
+                          <p className="team_info_role">Front-End Developer</p>
                         </div>
                       </div>
                     </a>
@@ -211,7 +211,7 @@ class Team extends Component {
                           : <div className="team_tile_emptyImage" />}
                         <div className="team_info">
                           <h3>{rachel.profile ? rachel.profile.name : 'Rachel Black'}</h3>
-                          <p>Developer Relations</p>
+                          <p className="team_info_role">Developer Relations</p>
                         </div>
                       </div>
                     </a>
@@ -233,7 +233,7 @@ class Team extends Component {
                           : <div className="team_tile_emptyImage" />}
                         <div className="team_info">
                           <h3>{mike.profile ? mike.profile.name : 'Mike SC'}</h3>
-                          <p>Distributed Systems Engineer</p>
+                          <p className="team_info_role">Distributed Systems Engineer</p>
                         </div>
                       </div>
                     </a>

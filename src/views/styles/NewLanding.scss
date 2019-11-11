@@ -67,7 +67,7 @@
   position: relative;
   display: inline-grid;
   grid-template-columns: repeat(1, 100% [col-start]);
-  row-gap: 20px;
+  row-gap: 10px;
   min-width: 100%;
 }
 
@@ -116,6 +116,10 @@
   flex-direction: column;
 }
 
+.team_info_role {
+  line-height: 18px !important;
+}
+
 .partners_content_wrapper {
   width: 80%;
   min-width: 580px;
@@ -125,7 +129,7 @@
   align-items: center;
   flex-direction: column;
   height: 100%;
-  padding-top: 140px;
+  padding-top: 120px;
   box-sizing: border-box;
 
   h4 {
@@ -1204,7 +1208,8 @@ pre {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 100px;
+  margin-bottom: 40px;
+  // margin-bottom: 100px;
 }
 
 .highlight_header {
@@ -1440,7 +1445,7 @@ pre {
   }
 }
 
-.careers_link{
+.careers_link {
   margin-top: 40px;
 }
 
@@ -1521,6 +1526,12 @@ pre {
     align-items: flex-start;
     height: 300px;
     min-height: 300px;
+  }
+
+  .team_info {
+    h3 {
+      margin-bottom: 6px;
+    }
   }
 
   .careers {
