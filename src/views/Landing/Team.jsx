@@ -38,6 +38,7 @@ class Team extends Component {
       michael: {},
       kenzo: {},
       rachel: {},
+      mike: {},
     };
   }
 
@@ -47,20 +48,22 @@ class Team extends Component {
       const profileCalls = [];
       profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0xBcfD8dDAc6B8fe5144553B50790ca631b1760FB0'))); // danny
       profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0x5c44e8982fa3c3239c6e3c5be2cc6663c7c9387e'))); // oed
-      profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0x9acb0539f2ea0c258ac43620dd03ef01f676a69b'))); // zach
       profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0xa8ee0babe72cd9a80ae45dd74cd3eae7a82fd5d1'))); // michael
-      profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0x2f4cE4f714C68A3fC871d1f543FFC24b9b3c2386'))); // rachel
+      profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0x9acb0539f2ea0c258ac43620dd03ef01f676a69b'))); // zach
       profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0xbaeBB7d18f8b16B0A970FDa91f1EfA626D67423E'))); // kenzo
+      profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0x2f4cE4f714C68A3fC871d1f543FFC24b9b3c2386'))); // rachel
+      profileCalls.push(Box.profileGraphQL(graphqlQueryObject('0x5A7246Af4fefe777E32399310B50BB7fE2D04F8a'))); // mike
 
       const profilePromises = Promise.all(profileCalls);
       const profiles = await profilePromises;
       this.setState({
         danny: profiles[0],
         oed: profiles[1],
-        zach: profiles[2],
-        michael: profiles[3],
+        michael: profiles[2],
+        zach: profiles[3],
+        kenzo: profiles[3],
         rachel: profiles[4],
-        kenzo: profiles[5],
+        mike: profiles[5],
       });
     } catch (error) {
       console.error(error);
@@ -69,7 +72,7 @@ class Team extends Component {
 
   render() {
     const {
-      danny, oed, zach, michael, kenzo, rachel,
+      danny, oed, zach, michael, kenzo, rachel, mike
     } = this.state;
 
     return (
@@ -170,6 +173,28 @@ class Team extends Component {
                     </a>
                   </ProfileHover>
 
+                  {/* Kenzo */}
+                  <ProfileHover
+                    address="0xbaeBB7d18f8b16B0A970FDa91f1EfA626D67423E"
+                    noTheme
+                    orientation="right"
+                  >
+                    <a
+                      href="/0xbaeBB7d18f8b16B0A970FDa91f1EfA626D67423E"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <div className="team_tile">
+                        {kenzo.profile ? <img src={`https://ipfs.infura.io/ipfs/${kenzo.profile.image}`} alt="profile" />
+                          : <div className="team_tile_emptyImage" />}
+                        <div className="team_info">
+                          <h3>{kenzo.profile ? kenzo.profile.name : 'Kenzo Nakamura'}</h3>
+                          <p>Front-End Developer</p>
+                        </div>
+                      </div>
+                    </a>
+                  </ProfileHover>
+
                   {/* Rachel */}
                   <ProfileHover
                     address="0x2f4cE4f714C68A3fC871d1f543FFC24b9b3c2386"
@@ -192,23 +217,23 @@ class Team extends Component {
                     </a>
                   </ProfileHover>
 
-                  {/* Kenzo */}
+                  {/* Mike */}
                   <ProfileHover
-                    address="0xbaeBB7d18f8b16B0A970FDa91f1EfA626D67423E"
+                    address="0x5A7246Af4fefe777E32399310B50BB7fE2D04F8a"
                     noTheme
                     orientation="right"
                   >
                     <a
-                      href="/0xbaeBB7d18f8b16B0A970FDa91f1EfA626D67423E"
+                      href="/0x5A7246Af4fefe777E32399310B50BB7fE2D04F8a"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
                       <div className="team_tile">
-                        {kenzo.profile ? <img src={`https://ipfs.infura.io/ipfs/${kenzo.profile.image}`} alt="profile" />
+                        {mike.profile ? <img src={`https://ipfs.infura.io/ipfs/${mike.profile.image}`} alt="profile" />
                           : <div className="team_tile_emptyImage" />}
                         <div className="team_info">
-                          <h3>{kenzo.profile ? kenzo.profile.name : 'Kenzo Nakamura'}</h3>
-                          <p>Front-end Developer</p>
+                          <h3>{mike.profile ? mike.profile.name : 'Mike SC'}</h3>
+                          <p>Distributed Systems Engineer</p>
                         </div>
                       </div>
                     </a>
