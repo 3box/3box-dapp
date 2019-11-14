@@ -420,8 +420,6 @@ export const checkUsingInjectedProvider = (provider) => {
     isSquarelink,
     isAuthereum,
   } = provider;
-  console.log('providerprovider', provider);
-  console.log('isAuthereumisAuthereum', isAuthereum);
 
   if (isFortmatic || isPortis || isWalletConnect || isSquarelink || isAuthereum) return false;
   return true;

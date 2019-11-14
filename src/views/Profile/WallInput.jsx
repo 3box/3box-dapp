@@ -57,9 +57,7 @@ class WallInput extends Component {
   handleCommentText = async (event) => {
     const { linkURL } = this.state;
     const comment = event.target.value;
-    console.log('comment', comment);
     const urlMatches = comment.match(/((http|ftp|https):\/\/)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g) || [];
-    console.log('inputmatches', urlMatches);
     // const urlMatches = comment.match(/\b(http|https)?:\/\/\S+/gi) || [];
     this.setState({ comment });
     const urlToUse = urlMatches[urlMatches.length - 1];
