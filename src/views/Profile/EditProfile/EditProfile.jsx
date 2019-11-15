@@ -1070,8 +1070,8 @@ class EditProfile extends Component {
                               : `https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`}
                             alt="profile"
                           />
-                        </div>)
-                      : (
+                        </div>
+                      ) : (
                         <div className="profPic_div">
                           <div className="profPic_div_overlay">
                             <p>Change picture</p>
@@ -1081,8 +1081,8 @@ class EditProfile extends Component {
                             src={currentAddress ? makeBlockie(currentAddress) : DefaultColorPic}
                             alt="profile"
                           />
-                        </div>)}
-
+                        </div>
+                      )}
                   </label>
 
                 </div>
