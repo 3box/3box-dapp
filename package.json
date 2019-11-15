@@ -49,7 +49,8 @@
     "squarelink": "^1.1.4",
     "web3": "^1.2.1",
     "web3-eth-personal": "^1.0.0-beta.36",
-    "web3connect": "^1.0.0-beta.23"
+    "web3connect": "^1.0.0-beta.23",
+    "websocket": "^1.0.30"
   },
   "devDependencies": {
     "acorn-dynamic-import": "^3.0.0",
