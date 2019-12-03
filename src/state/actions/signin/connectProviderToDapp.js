@@ -12,14 +12,12 @@ const connectProviderToDapp = async (provider, directLogin, dispatch) => {
   try {
     // save wallet name to local storage
     const {
-      getProviderInfo,
-    } = Web3Connect;
-    const {
       name,
       logo,
-    } = getProviderInfo(provider);
+    } = Web3Connect.getProviderInfo(provider);
     if (name.toLowerCase() === 'walletconnect') window.localStorage.removeItem('walletconnect');
     window.localStorage.setItem('defaultWallet', name); // eslint-disable-line no-undef
+
     // create web3 object and save to redux store
     const web3Obj = new Web3(provider); // eslint-disable-line no-undef
     dispatch({
@@ -39,12 +37,14 @@ const connectProviderToDapp = async (provider, directLogin, dispatch) => {
     accounts = web3Obj.currentProvider ?
       await web3Obj.currentProvider.enable() :
       await accountsPromise;
-    window.localStorage.setItem('userEthAddress', accounts[0]);
+
+    const currentAddress = provider.isAuthereum ? accounts.account.accountAddress : accounts[0];
+    window.localStorage.setItem('userEthAddress', currentAddress);
 
     const usingInjectedAddress = checkUsingInjectedProvider(provider);
     dispatch({
       type: 'USER_ADDRESSES_UPDATE',
-      currentAddress: accounts[0],
+      currentAddress,
       usingInjectedAddress,
     });
 

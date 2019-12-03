@@ -2,7 +2,6 @@ import Web3Connect from 'web3connect';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import Portis from '@portis/web3';
 import Fortmatic from 'fortmatic';
-// import Squarelink from 'squarelink';
 // import Authereum from "authereum";
 // import Torus from '@toruslabs/torus-embed';
 
@@ -41,13 +40,6 @@ const useDefaultWallet = async (defaultWallet, directLogin, dispatch) => {
         bridge: 'https://bridge.walletconnect.org', // optional
       });
       break;
-
-    // case 'squarelink':
-    //   provider = await Web3Connect.ConnectToSquarelink(Squarelink, {
-    //     id: 'b87ab196551e4363e352', // required
-    //     network: 'mainnet', // optional
-    //   });
-    //   break;
 
     // case 'authereum':
     //   provider = await Web3Connect.ConnectToAuthereum(Authereum, {

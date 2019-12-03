@@ -7,6 +7,7 @@ const accountsPromise = new Promise((resolve, reject) => {
     const {
       web3Obj,
     } = store.getState().userState;
+
     if (web3Obj) {
       web3Obj.eth.getAccounts((e, accountsFound) => { // eslint-disable-line no-undef
         if (e != null) {
@@ -23,4 +24,3 @@ const accountsPromise = new Promise((resolve, reject) => {
 });
 
 export default accountsPromise;
-

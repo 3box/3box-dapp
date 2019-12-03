@@ -54,7 +54,7 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
     const opts = {
       consentCallback: consentGiven,
     };
-
+    console.log('currentAddresscurrentAddress', currentAddress);
     const box = await Box // eslint-disable-line no-undef
       .openBox(
         currentAddress,
