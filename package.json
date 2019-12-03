@@ -4,7 +4,7 @@
   "description": "3box dapp",
   "private": true,
   "dependencies": {
-    "3box": "^1.13.2",
+    "3box": "^1.14.0",
     "3box-activity": "0.0.9",
     "3box-chatbox-react": "0.0.1-beta.10",
     "3id-resolver": "0.0.6",
@@ -47,7 +47,7 @@
     "redux-thunk": "^2.3.0",
     "scrypt-shim": "github:web3-js/scrypt-shim",
     "squarelink": "^1.1.4",
-    "web3": "^1.2.3",
+    "web3": "^1.2.4",
     "web3-eth-personal": "^1.0.0-beta.36",
     "web3connect": "^1.0.0-beta.23",
     "websocket": "^1.0.30"
