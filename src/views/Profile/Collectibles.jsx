@@ -15,6 +15,7 @@ import Private from '../../assets/Private.svg';
 import { store } from '../../state/store';
 import './styles/Profile.css';
 import './styles/Feed.css';
+import { shortenEthAddr } from '../../utils/funcs';
 
 const { handleCollectiblesModal } = actions.modal;
 
@@ -143,6 +144,7 @@ class Collectibles extends Component {
       selectedCollectible,
       isFavorite,
       isActive,
+      currentAddress,
     } = this.props;
     const { isLoading } = this.state;
     return (
@@ -183,19 +185,31 @@ class Collectibles extends Component {
         <div id="myFeed" className={`profileTab ${isActive ? 'viewTab' : ''}`}>
           {(collection.length > 0 || collectiblesFavoritesToRender.length > 0)
             ? (
-              <div className="header collectiblesHeader" id="feed__header">
-                <p>
+              <div className="profile_header">
+                <p className="header" id="feed__header">
                   Favorites
                 </p>
-                {/* <img src={Globe} alt="Public" className="favorites__publicIcon" title="Favorites will appear in your public profile" /> */}
+
+                <div className="profile_header_address">
+                  <div className="profile_header_loggedIn" />
+                  <p>
+                    {`Signed in as ${shortenEthAddr(currentAddress)}`}
+                  </p>
+                </div>
               </div>
             ) : (
               <div>
-                <div className="header collectiblesHeader" id="feed__header">
-                  <p>
+                <div className="profile_header">
+                  <p className="header" id="feed__header">
                     Collectibles
                   </p>
-                  {/* <img src={Globe} alt="Public" className="favorites__publicIcon" title="Favorites will appear in your public profile" /> */}
+
+                  <div className="profile_header_address">
+                    <div className="profile_header_loggedIn" />
+                    <p>
+                      {`Signed in as ${shortenEthAddr(currentAddress)}`}
+                    </p>
+                  </div>
                 </div>
                 <div className="feed_activity_empty">
                   <p className="feed_activity_empty_text">

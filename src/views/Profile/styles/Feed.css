@@ -166,6 +166,21 @@ input:checked + .slider:before {
   justify-content: space-between;
   align-items: center; }
 
+.profile_header_address {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center; }
+  .profile_header_address p {
+    font-size: 14px;
+    color: #747677; }
+
+.profile_header_loggedIn {
+  width: 14px;
+  height: 14px;
+  background-color: #34cd32;
+  border-radius: 50%;
+  margin-right: 10px; }
+
 .wall_header_options {
   padding: 10px 0 10px 10px; }
 

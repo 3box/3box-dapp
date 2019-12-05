@@ -8,18 +8,29 @@ import Loading from '../../../assets/Loading.svg';
 import '../styles/Feed.css';
 import '../styles/Profile.css';
 import '../../../components/styles/NetworkArray.css';
+import { shortenEthAddr } from '../../../utils/funcs';
 
 const Activity = ({
   isFetchingActivity,
   feedByAddress,
   otherProfileActivity,
   isActive,
+  currentAddress,
 }) => (
     <div id="myFeed" className={`profileTab ${isActive ? 'viewTab' : ''}`}>
       <div>
-        <p className="header" id="feed__header">
-          Activity
-        </p>
+        <div className="profile_header">
+          <p className="header" id="feed__header">
+            Activity
+          </p>
+
+          <div className="profile_header_address">
+            <div className="profile_header_loggedIn" />
+            <p>
+              {`Signed in as ${shortenEthAddr(currentAddress)}`}
+            </p>
+          </div>
+        </div>
 
         <div className="feed__activity__header">
           {(feedByAddress.length > 0)
@@ -58,23 +69,27 @@ Activity.propTypes = {
   isFetchingActivity: PropTypes.bool,
   isActive: PropTypes.bool,
   otherProfileActivity: PropTypes.array,
+  currentAddress: PropTypes.string,
 };
 
 Activity.defaultProps = {
   feedByAddress: [],
   isFetchingActivity: false,
   isActive: false,
+  currentAddress: '',
   otherProfileActivity: [],
 };
 
 const mapState = (state) => ({
+  name: state.myData.name,
   feedByAddress: state.myData.feedByAddress,
+
   isFetchingActivity: state.uiState.isFetchingActivity,
-  otherProfileActivity: state.otherProfile.otherProfileActivity,
+
   currentAddress: state.userState.currentAddress,
 
+  otherProfileActivity: state.otherProfile.otherProfileActivity,
   otherProfileAddress: state.otherProfile.otherProfileAddress,
-  name: state.myData.name,
   otherName: state.otherProfile.otherName,
 });
 

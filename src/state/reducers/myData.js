@@ -4,6 +4,7 @@ const myDataReducer = (state = {}, action) => {
       return {
         ...state,
         box: action.box,
+        ens: action.ens,
       };
 
     case 'MY_FEED_UPDATE':
