@@ -1,5 +1,16 @@
+import ens from 'ethereum-ens';
+
 const fetchEns = async (address) => {
   try {
+    let name = await ens.reverse(address).name();
+    // Check to be sure the reverse record is correct.
+    if (address !== await ens.resolver(name).addr()) {
+      name = null;
+    }
+    console.log('canonicalname', name);
+
+    if (name) return name;
+
     const ensDomainRequest = {
       query: ` {
           domains(where:{ owner: "${address}" }) {

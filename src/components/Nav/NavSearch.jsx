@@ -9,6 +9,7 @@ import {
   shortenEthAddr,
   fetchEthAddrByENS,
   debounce,
+  checkIsENSAddress,
 } from '../../utils/funcs';
 
 import GithubIcon from '../../assets/GithubIcon.svg';
@@ -37,7 +38,7 @@ class NavSearch extends Component {
       searchTerm: '',
       searchedProfile: null,
       isEmptyProfile: false,
-      isFetching: false
+      isFetching: false,
     };
   }
 
@@ -46,14 +47,8 @@ class NavSearch extends Component {
     const { handleToggleResults } = this.props;
     this.setState({ searchTerm: value });
 
-    let isEthAddr;
-    if (value.length === 42) isEthAddr = checkIsEthAddress(value);
-
-    let isENS;
-    if (value.length >= 3) {
-      isENS = true;
-      this.fetchENS(value);
-    }
+    const isEthAddr = checkIsEthAddress(value);
+    const isENS = checkIsENSAddress(value);
 
     this.setState({ isEthAddr, isENS });
 
@@ -62,6 +57,8 @@ class NavSearch extends Component {
 
     if (isEthAddr) {
       this.fetchProfile(value);
+    } else if (isENS) {
+      this.fetchENS(value);
     } else {
       this.setState({ searchedProfile: null });
     }

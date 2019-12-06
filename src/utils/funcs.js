@@ -353,6 +353,12 @@ export const checkIsEthAddress = (string) => {
   return isEthereumAddress;
 };
 
+export const checkIsENSAddress = (string) => {
+  const isEthereumAddress = /[a-z0-9-]+\.(eth)/g.test(string);
+  console.log('isit???', isEthereumAddress);
+  return isEthereumAddress;
+};
+
 // get the user's latest post in a thread
 export const getAuthorsLatestPost = (threadArray, usersDID) => {
   const userPostIndex = [];
@@ -491,7 +497,7 @@ export const fetchEthAddrByENS = async (name) => {
   try {
     const ensDomainRequest = {
       query: `{
-        domains(where: { name : "${name}.eth" }) {
+        domains(where: { name : "${name}" }) {
           owner {
             id
           }
