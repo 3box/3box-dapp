@@ -486,3 +486,53 @@ export const sortChronologically = (threadPosts) => {
 };
 
 export const baseURL = (url) => url.replace(/(http(s)?:\/\/)|(\/.*){1}/g, '');
+
+export const fetchEthAddrByENS = async (name) => {
+  try {
+    const ensDomainRequest = {
+      query: `{
+        domains(where: { name : "${name}.eth" }) {
+          owner {
+            id
+          }
+        }
+      }`,
+    };
+
+    const res = await fetch('https://api.thegraph.com/subgraphs/name/ensdomains/ens', {
+      method: 'POST',
+      body: JSON.stringify(ensDomainRequest),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (res.status !== 200 && res.status !== 201) throw new Error('Failed', res);
+
+    const {
+      data,
+      errors,
+    } = await res.json();
+    if (data) return data.domains[0] && data.domains[0].owner.id;
+
+    return errors;
+  } catch (error) {
+    console.log('ENS Request error:', error);
+  }
+};
+
+export function debounce(func, wait, immediate) {
+  let timeout;
+  return function () {
+    const context = this;
+    const args = arguments;
+    const later = function () {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    const callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+}

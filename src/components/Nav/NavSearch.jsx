@@ -2,8 +2,14 @@ import React, { Component } from 'react';
 import Box from '3box';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+// import debounce from 'lodash.debounce';
 
-import { checkIsEthAddress, shortenEthAddr } from '../../utils/funcs';
+import {
+  checkIsEthAddress,
+  shortenEthAddr,
+  fetchEthAddrByENS,
+  debounce,
+} from '../../utils/funcs';
 
 import GithubIcon from '../../assets/GithubIcon.svg';
 import TwitterIcon from '../../assets/twitterGrey.svg';
@@ -12,6 +18,11 @@ import ProfilePicture from '../ProfilePicture';
 import Search from '../../assets/Search.svg';
 
 class NavSearch extends Component {
+  fetchENS = debounce(async (value) => {
+    const ensAddr = await fetchEthAddrByENS(value);
+    if (ensAddr) this.fetchProfile(ensAddr);
+  }, 300);
+
   constructor(props) {
     super(props);
     this.state = {
@@ -25,30 +36,47 @@ class NavSearch extends Component {
   handleInputEdit = async (e) => {
     const { value } = e.target;
     const { handleToggleResults } = this.props;
+    this.setState({ searchTerm: value });
 
     let isEthAddr;
     if (value.length === 42) isEthAddr = checkIsEthAddress(value);
-    this.setState({ searchTerm: value, isEthAddr });
+
+    let isENS;
+    if (value.length >= 3) {
+      isENS = true;
+      this.fetchENS(value);
+    }
+
+    this.setState({ isEthAddr, isENS });
 
     const showResults = true;
     handleToggleResults(showResults);
 
     if (isEthAddr) {
-      const searchedProfile = await Box.getProfile(value);
-
-      if (Object.entries(searchedProfile).length) {
-        const verifiedAccouts = await Box.getVerifiedAccounts(searchedProfile);
-
-        if (verifiedAccouts) {
-          searchedProfile.github = verifiedAccouts.github && verifiedAccouts.github.username;
-          searchedProfile.twitter = verifiedAccouts.twitter && verifiedAccouts.twitter.username;
-        }
-        this.setState({ searchedProfile, isEmptyProfile: false });
-      } else {
-        this.setState({ isEmptyProfile: true, searchedProfile: null });
-      }
+      this.fetchProfile(value);
     } else {
       this.setState({ searchedProfile: null });
+    }
+  }
+
+  // fetchENS = (value) => {
+  //   const ensAddr = fetchEthAddrByENS(value);
+  //   console.log('ensAddr', ensAddr);
+  //   if (ensAddr) this.fetchProfile(ensAddr);
+  // }
+
+  fetchProfile = async (address) => {
+    const searchedProfile = await Box.getProfile(address);
+    if (Object.entries(searchedProfile).length) {
+      const verifiedAccouts = await Box.getVerifiedAccounts(searchedProfile);
+
+      if (verifiedAccouts) {
+        searchedProfile.github = verifiedAccouts.github && verifiedAccouts.github.username;
+        searchedProfile.twitter = verifiedAccouts.twitter && verifiedAccouts.twitter.username;
+      }
+      this.setState({ searchedProfile, isEmptyProfile: false });
+    } else {
+      this.setState({ isEmptyProfile: true, searchedProfile: null });
     }
   }
 
@@ -60,6 +88,7 @@ class NavSearch extends Component {
       searchedProfile,
       searchTerm,
       isEmptyProfile,
+      isENS,
     } = this.state;
 
     const {
@@ -75,7 +104,7 @@ class NavSearch extends Component {
           <input
             type="text"
             className="navSearch_input"
-            placeholder="Search user by Ethereum address..."
+            placeholder="Search user by Ethereum address or ENS..."
             onChange={(e) => this.handleInputEdit(e)}
             onFocus={() => handleToggleResults()}
             value={searchTerm}
@@ -145,10 +174,10 @@ class NavSearch extends Component {
             </div>
           )}
 
-          {(!isEthAddr && searchTerm && showResults) && (
+          {(!isEthAddr && !isENS && searchTerm && showResults) && (
             <div className="navSearch_input_result">
               <h4>
-                Enter a valid Ethereum address
+                Enter a valid Ethereum address or ENS name
               </h4>
             </div>
           )}

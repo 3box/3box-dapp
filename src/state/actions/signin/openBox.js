@@ -19,17 +19,19 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
     web3Obj,
     hasSignedOut,
   } = store.getState().userState;
-  const {
-    onOtherProfilePage,
-  } = store.getState().uiState;
+  // const {
+  //   onOtherProfilePage,
+  // } = store.getState().uiState;
   const {
     otherProfileAddress,
   } = store.getState().otherProfile;
 
   const consentCallback = () => {
-    const redirectToHome = (fromSignIn && !fromFollowButton && !onOtherProfilePage) ||
+    const redirectToHome = (fromSignIn && !fromFollowButton) ||
       (otherProfileAddress === currentAddress);
-    if (redirectToHome) history.push(`/${currentAddress}/${routes.directToHome()}`);
+    if (redirectToHome) {
+      history.push(`/${currentAddress}/${routes.directToHome()}`);
+    }
 
     dispatch({
       type: 'UI_3BOX_LOADING',
@@ -72,6 +74,7 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
     dispatch({
       type: 'UI_3BOX_FETCHING',
       isFetchingThreeBox: false,
+      onOtherProfilePage: false,
     });
 
     // onSyncDone only happens on first openBox so only run

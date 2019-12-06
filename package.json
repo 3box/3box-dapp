@@ -28,6 +28,7 @@
     "history": "^4.7.2",
     "ipfs-log": "^4.4.0",
     "lodash.clonedeep": "^4.5.0",
+    "lodash.debounce": "^4.0.8",
     "profile-hover": "^1.1.1",
     "prop-types": "^15.6.1",
     "query-string": "^6.8.1",
