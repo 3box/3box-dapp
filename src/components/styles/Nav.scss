@@ -865,6 +865,15 @@ nav {
   }
 }
 
+.navSearch_input_result.loading {
+  justify-content: center;
+}
+
+.navSearch_input_result_loading {
+  width: 30px;
+  height: 30px;
+}
+
 .navSearch_input_result_info {
   display: flex;
   justify-content: flex-start;
@@ -920,6 +929,7 @@ nav {
     float: left;
     margin-top: 6px;
     width: fit-content;
+
     p {
       color: $lighterFont;
     }

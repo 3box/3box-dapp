@@ -686,6 +686,13 @@ nav {
   .navSearch_input_result:hover {
     background-color: #f5f6f8; }
 
+.navSearch_input_result.loading {
+  justify-content: center; }
+
+.navSearch_input_result_loading {
+  width: 30px;
+  height: 30px; }
+
 .navSearch_input_result_info {
   display: flex;
   justify-content: flex-start;

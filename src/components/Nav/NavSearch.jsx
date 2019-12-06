@@ -16,11 +16,18 @@ import TwitterIcon from '../../assets/twitterGrey.svg';
 import Website from '../../assets/Website.png';
 import ProfilePicture from '../ProfilePicture';
 import Search from '../../assets/Search.svg';
+import Loading from '../../assets/LoadingNew.svg';
 
 class NavSearch extends Component {
   fetchENS = debounce(async (value) => {
+    this.setState({ isFetching: true });
     const ensAddr = await fetchEthAddrByENS(value);
-    if (ensAddr) this.fetchProfile(ensAddr);
+
+    if (ensAddr) {
+      this.fetchProfile(ensAddr);
+    } else {
+      this.setState({ isFetching: false });
+    }
   }, 300);
 
   constructor(props) {
@@ -30,6 +37,7 @@ class NavSearch extends Component {
       searchTerm: '',
       searchedProfile: null,
       isEmptyProfile: false,
+      isFetching: false
     };
   }
 
@@ -59,12 +67,6 @@ class NavSearch extends Component {
     }
   }
 
-  // fetchENS = (value) => {
-  //   const ensAddr = fetchEthAddrByENS(value);
-  //   console.log('ensAddr', ensAddr);
-  //   if (ensAddr) this.fetchProfile(ensAddr);
-  // }
-
   fetchProfile = async (address) => {
     const searchedProfile = await Box.getProfile(address);
     if (Object.entries(searchedProfile).length) {
@@ -78,6 +80,7 @@ class NavSearch extends Component {
     } else {
       this.setState({ isEmptyProfile: true, searchedProfile: null });
     }
+    this.setState({ isFetching: false });
   }
 
   clearSearch = () => this.setState({ searchedProfile: null, searchTerm: '' });
@@ -89,6 +92,7 @@ class NavSearch extends Component {
       searchTerm,
       isEmptyProfile,
       isENS,
+      isFetching
     } = this.state;
 
     const {
@@ -181,6 +185,12 @@ class NavSearch extends Component {
               </h4>
             </div>
           )}
+
+          {isFetching && (
+            <div className="navSearch_input_result loading">
+              <img src={Loading} alt="Loading" className="navSearch_input_result_loading" />
+            </div>
+          )}
         </div>
 
         <button
@@ -204,15 +214,17 @@ class NavSearch extends Component {
           value={searchTerm}
         />
 
-        {showResults && (
-          <div
-            className="onClickOutside"
-            onClick={() => handleToggleResults()}
-            onKeyPress={() => handleToggleResults()}
-            tabIndex={0}
-            role="button"
-          />
-        )}
+        {
+          showResults && (
+            <div
+              className="onClickOutside"
+              onClick={() => handleToggleResults()}
+              onKeyPress={() => handleToggleResults()}
+              tabIndex={0}
+              role="button"
+            />
+          )
+        }
       </>
     );
   }
