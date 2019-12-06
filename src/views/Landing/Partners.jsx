@@ -50,7 +50,7 @@ class Partners extends Component {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <button className="textButton">
+                  <button className="textButton" type="button">
                     Submit your project
                   </button>
                 </a>
@@ -58,107 +58,42 @@ class Partners extends Component {
 
               <div className="partners_content_partners">
                 <div className="partners_grid">
-                  <a
-                    className="partners_tile"
-                    href="https://map.foam.space/leaderboard"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div className="partners_tile_image">
-                      <img src={Foam} alt="3Box Partner" />
-                      <div className="partners_tile_image_text">
-                        <p>Visit Project</p>
-                        <p className="arrow">&rarr;</p>
-                      </div>
-                    </div>
-                    <div className="partners_tile_name">
-                      <p className="partners_tile_name_text">
-                        FOAM
-                      </p>
-                    </div>
-                    <div className="partners_tile_whitebg" />
-                    <div className="partners_tile_darkbg" />
-                  </a>
-                  <a
-                    className="partners_tile"
-                    href="https://niftyfootball.cards/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div className="partners_tile_image">
-                      <img src={NiftyFootball} alt="3Box Partner" />
-                      <div className="partners_tile_image_text">
-                        <p>Visit Project</p>
-                        <p className="arrow">&rarr;</p>
-                      </div>
-                    </div>
-                    <div className="partners_tile_name">
-                      <p className="partners_tile_name_text">
-                        NiftyFootball
-                      </p>
-                    </div>
-                    <div className="partners_tile_whitebg" />
-                    <div className="partners_tile_darkbg" />
-                  </a>
-                  <a
-                    className="partners_tile"
-                    href="https://totem.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div className="partners_tile_image">
-                      <img src={Totem} alt="3Box Partner" />
-                      <div className="partners_tile_image_text">
-                        <p>Visit Project</p>
-                        <p className="arrow">&rarr;</p>
-                      </div>
-                    </div>
-                    <div className="partners_tile_name">
-                      <p className="partners_tile_name_text">
-                        Totem
-                      </p>
-                    </div>
-                    <div className="partners_tile_whitebg" />
-                    <div className="partners_tile_darkbg" />
-                  </a>
-                  <a
-                    className="partners_tile"
-                    href="https://zerion.io"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div className="partners_tile_image">
-                      <img src={Zerion} alt="3Box Partner" />
-                      <div className="partners_tile_image_text">
-                        <p>Visit Project</p>
-                        <p className="arrow">&rarr;</p>
-                      </div>
-                    </div>
-                    <div className="partners_tile_name">
-                      <p className="partners_tile_name_text">
-                        Zerion
-                      </p>
-                    </div>
-                    <div className="partners_tile_whitebg" />
-                    <div className="partners_tile_darkbg" />
-                  </a>
-                  <div
-                    className="partners_tile"
-                  >
-                    <div className="partners_tile_image">
-                      <img src={MetaMask} alt="3Box Partner" />
-                      <div className="partners_tile_image_text">
-                        <p>Coming soon</p>
-                      </div>
-                    </div>
-                    <div className="partners_tile_name">
-                      <p className="partners_tile_name_text">
-                        MetaMask
-                      </p>
-                    </div>
-                    <div className="partners_tile_whitebg" />
-                    <div className="partners_tile_darkbg" />
-                  </div>
+                  <Partner
+                    name="FOAM"
+                    url="https://map.foam.space/leaderboard"
+                    image={Foam}
+                  />
+
+                  <Partner
+                    name="NiftyFootball"
+                    url="https://niftyfootball.cards/"
+                    image={NiftyFootball}
+                  />
+
+                  <Partner
+                    name="Totem"
+                    url="https://totem.app/"
+                    image={Totem}
+                  />
+
+                  <Partner
+                    name="Zerion"
+                    url="https://zerion.io"
+                    image={Zerion}
+                  />
+
+                  <Partner
+                    name="MetaMask"
+                    url="https://metamask.io"
+                    image={MetaMask}
+                  />
+
+                  <Partner
+                    name="MolochDAO"
+                    url="https://molochdao.com/"
+                    image={MolochDAO}
+                  />
+
                   <div
                     className="partners_tile"
                   >
@@ -176,23 +111,7 @@ class Partners extends Component {
                     <div className="partners_tile_whitebg" />
                     <div className="partners_tile_darkbg" />
                   </div>
-                  <div
-                    className="partners_tile"
-                  >
-                    <div className="partners_tile_image">
-                      <img src={MolochDAO} alt="3Box Partner" />
-                      <div className="partners_tile_image_text">
-                        <p>Coming soon</p>
-                      </div>
-                    </div>
-                    <div className="partners_tile_name">
-                      <p className="partners_tile_name_text">
-                        MolochDAO
-                      </p>
-                    </div>
-                    <div className="partners_tile_whitebg" />
-                    <div className="partners_tile_darkbg" />
-                  </div>
+
                   <div
                     className="partners_tile"
                   >
@@ -210,6 +129,7 @@ class Partners extends Component {
                     <div className="partners_tile_whitebg" />
                     <div className="partners_tile_darkbg" />
                   </div>
+
                   <div
                     className="partners_tile"
                   >
@@ -259,3 +179,27 @@ const mapState = state => ({
 });
 
 export default withRouter(connect(mapState)(Partners));
+
+const Partner = ({ name, url, image, }) => (
+  <a
+    className="partners_tile"
+    href={url}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <div className="partners_tile_image">
+      <img src={image} alt="3Box Partner" />
+      <div className="partners_tile_image_text">
+        <p>Visit Project</p>
+        <p className="arrow">&rarr;</p>
+      </div>
+    </div>
+    <div className="partners_tile_name">
+      <p className="partners_tile_name_text">
+        {name}
+      </p>
+    </div>
+    <div className="partners_tile_whitebg" />
+    <div className="partners_tile_darkbg" />
+  </a>
+);
