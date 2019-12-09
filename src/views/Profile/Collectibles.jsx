@@ -236,6 +236,7 @@ class Collectibles extends Component {
                     tokenId={collectible.token_id}
                     name={collectible.name}
                     bgStyle={collectible.background_color}
+                    onPublicProfile={false}
                     padded={
                       collectible.asset_contract &&
                       collectible.asset_contract.display_data &&
@@ -290,6 +291,7 @@ class Collectibles extends Component {
                   tokenId={collectible.token_id}
                   name={collectible.name}
                   bgStyle={collectible.background_color}
+                  onPublicProfile={false}
                   padded={
                     collectible.asset_contract &&
                     collectible.asset_contract.display_data &&
@@ -338,7 +340,7 @@ Collectibles.propTypes = {
   collectiblesFavoritesToRender: PropTypes.array,
   handleCollectiblesModal: PropTypes.func.isRequired,
   showCollectiblesModal: PropTypes.bool.isRequired,
-  isFavorite: PropTypes.bool.isRequired,
+  isFavorite: PropTypes.bool,
 };
 
 Collectibles.defaultProps = {
@@ -350,6 +352,7 @@ Collectibles.defaultProps = {
   currentAddress: '',
   currentNetwork: '',
   isActive: false,
+  isFavorite: false,
 };
 
 function mapState(state) {

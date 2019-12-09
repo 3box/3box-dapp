@@ -12,7 +12,8 @@ import {
   addPublicOrPrivateDataType,
   getAuthorsLatestPost,
 } from '../../../utils/funcs';
-import getPublicProfile from './getPublicProfile';
+import getPublicProfileAndENS from './getPublicProfileAndENS';
+import fetchEns from '../utils';
 
 const getActivity = (otherProfileAddress) => async (dispatch) => {
   try {
@@ -83,7 +84,7 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
 
       // remove ethereum_proof & proof_did & memberSince
       const publicActivity = unFilteredPublicActivity
-        .filter(item => (item.key !== 'ethereum_proof' &&
+        .filter((item) => (item.key !== 'ethereum_proof' &&
           item.key !== 'proof_did' &&
           item.key !== 'collectiblesFavorites' &&
           item.key !== 'memberSince'));
@@ -95,10 +96,12 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
       const spacesData = store.getState().spaces.allData;
       const spacesDataActivity = [];
 
+      console.log('spacesDataspacesData', spacesData);
       Object.entries(spacesData).forEach((space) => {
         const spaceName = space[0];
 
         if (spaceName !== '3Box_app') {
+          console.log('space[1].private', space[1].private);
           Object.entries(space[1].private).forEach((keyValue) => {
             if (keyValue[0] !== 'private_space_data') {
               const spaceToActivityItem = {
@@ -112,6 +115,7 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
             }
           });
 
+          console.log('space[1].public', space[1].public);
           Object.entries(space[1].public).forEach((keyValue) => {
             const valueObject = keyValue[1];
             let {
@@ -233,6 +237,7 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
       let contractArray = [];
       let name;
       let image;
+      let ensName;
 
       if (otherAddress === 'threeBox') {
         counter += 1;
@@ -243,7 +248,7 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
       if (!checkedAddresses[otherAddress]) {
         checkedAddresses[otherAddress] = true;
         try {
-          web3Obj.eth.getCode(otherAddress, (err, code) => {
+          web3Obj.eth.getCode(otherAddress, async (err, code) => {
             if (err) {
               addressData[otherAddress] = false;
               counter += 1;
@@ -253,31 +258,34 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
 
             if (code !== '0x' && typeof code !== 'undefined') { // then address is contract
               isContract[otherAddress] = true;
-              getContract(otherAddress)
-                .then((data) => {
-                  if (data && data.status === '1') {
-                    contractData = JSON.parse(data.result);
-                    contractArray = imageElFor(otherAddress);
-                    addressData[otherAddress] = {
-                      contractImg: contractArray[0],
-                      contractDetails: contractArray[1],
-                      contractData,
-                    };
-                    counter += 1;
-                  } else {
-                    addressData[otherAddress] = false;
-                    counter += 1;
-                  }
-                  if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
-                })
-                .catch((error) => {
+              try {
+                const data = await getContract(otherAddress);
+                ensName = await fetchEns(otherAddress);
+                console.log('ensfromcontract', ensName)
+                if (data && data.status === '1') {
+                  contractData = JSON.parse(data.result);
+                  contractArray = imageElFor(otherAddress);
+                  addressData[otherAddress] = {
+                    contractImg: contractArray[0],
+                    contractDetails: contractArray[1],
+                    contractData,
+                    ensName,
+                  };
+                  counter += 1;
+                } else {
                   addressData[otherAddress] = false;
                   counter += 1;
-                  if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
-                  return console.error(error);
-                });
+                }
+                if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
+              } catch (error) {
+                addressData[otherAddress] = false;
+                counter += 1;
+                if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
+                return console.error(error);
+              }
             } else { // look for 3box metadata
-              const graphqlQueryObject = `
+              try {
+                const graphqlQueryObject = `
                 {
                   profile(id: "${otherAddress}") {
                     name
@@ -285,22 +293,24 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
                   }
                 }
                 `;
-              getPublicProfile(graphqlQueryObject).then((profile) => {
+                const profile = await getPublicProfileAndENS(graphqlQueryObject, otherAddress);
                 metaData = profile;
                 name = metaData && metaData.profile && metaData.profile.name;
                 image = metaData && metaData.profile && metaData.profile.image;
+                ensName = metaData && metaData.profile && metaData.profile.ensName;
                 addressData[otherAddress] = {
                   name,
                   image,
+                  ensName,
                 };
                 counter += 1;
                 if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
-              }).catch((error) => {
+              } catch (error) {
                 addressData[otherAddress] = false;
                 counter += 1;
                 if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
                 return console.error(error);
-              });
+              }
             }
           });
         } catch (err) {

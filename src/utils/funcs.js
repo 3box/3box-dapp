@@ -105,42 +105,51 @@ const startProfileLoad = (otherProfileAddress, feedByAddress) => {
 };
 
 export const updateFeed = (otherProfileAddress, feedByAddress, addressData, isContract) => {
-  let contractArray = [];
-  let counter = 0;
-  if (feedByAddress.length === 0) startProfileLoad(otherProfileAddress, feedByAddress);
-  feedByAddress.map(async (txGroup, i) => {
-    const otherAddress = Object.keys(txGroup)[0];
+  try {
 
-    if (isContract[otherAddress]) { // then address is contract
-      const contractDataABI = addressData[otherAddress].contractData;
+    let contractArray = [];
+    let counter = 0;
+    if (feedByAddress.length === 0) startProfileLoad(otherProfileAddress, feedByAddress);
 
-      if (contractDataABI) {
-        abiDecoder.addABI(contractDataABI);
+    feedByAddress.map(async (txGroup, i) => {
+      const otherAddress = Object.keys(txGroup)[0];
 
-        txGroup[otherAddress].map((lineItem, index) => {
-          const methodCall = abiDecoder.decodeMethod(txGroup[otherAddress][index].input);
-          lineItem.methodCall = methodCall && methodCall.name && (methodCall.name.charAt(0).toUpperCase() + methodCall.name.slice(1)).replace(/([A-Z])/g, ' $1').trim();
-        });
+      if (isContract[otherAddress]) { // then address is contract
+        const contractDataABI = addressData[otherAddress].contractData;
+        const ensName = addressData[otherAddress].ensName;
+
+        if (contractDataABI) {
+          abiDecoder.addABI(contractDataABI);
+
+          txGroup[otherAddress].map((lineItem, index) => {
+            const methodCall = abiDecoder.decodeMethod(txGroup[otherAddress][index].input);
+            lineItem.methodCall = methodCall && methodCall.name && (methodCall.name.charAt(0).toUpperCase() + methodCall.name.slice(1)).replace(/([A-Z])/g, ' $1').trim();
+          });
+        }
+
+        contractArray = imageElFor(otherAddress);
+
+        feedByAddress[i].metaData = {
+          contractImg: contractArray.length > 0 && contractArray[0],
+          contractDetails: contractArray.length > 0 && contractArray[1],
+          ensName,
+        };
+
+        counter += 1;
+        if (counter === feedByAddress.length) startProfileLoad(otherProfileAddress, feedByAddress);
+      } else { // look for 3box metadata
+        feedByAddress[i].metaData = {
+          name: addressData && addressData[otherAddress] && addressData[otherAddress].name,
+          image: addressData && addressData[otherAddress] && addressData[otherAddress].image,
+          ensName: addressData && addressData[otherAddress] && addressData[otherAddress].ensName,
+        };
+        counter += 1;
+        if (counter === feedByAddress.length) startProfileLoad(otherProfileAddress, feedByAddress);
       }
-
-      contractArray = imageElFor(otherAddress);
-
-      feedByAddress[i].metaData = {
-        contractImg: contractArray.length > 0 && contractArray[0],
-        contractDetails: contractArray.length > 0 && contractArray[1],
-      };
-
-      counter += 1;
-      if (counter === feedByAddress.length) startProfileLoad(otherProfileAddress, feedByAddress);
-    } else { // look for 3box metadata
-      feedByAddress[i].metaData = {
-        name: addressData && addressData[otherAddress] && addressData[otherAddress].name,
-        image: addressData && addressData[otherAddress] && addressData[otherAddress].image,
-      };
-      counter += 1;
-      if (counter === feedByAddress.length) startProfileLoad(otherProfileAddress, feedByAddress);
-    }
-  });
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const addDataType = (activity) => {

@@ -8,7 +8,7 @@ import getVerifiedPrivateEmail from './getVerifiedPrivateEmail';
 import getVerifiedPublicGithub from './getVerifiedPublicGithub';
 import getVerifiedPublicTwitter from './getVerifiedPublicTwitter';
 import getActivity from './getActivity';
-import getPublicProfile from './getPublicProfile';
+import getPublicProfileAndENS from './getPublicProfileAndENS';
 import getMyFollowing from './getMyFollowing';
 import getPublicFollowing from './getPublicFollowing';
 import saveFollowing from './saveFollowing';
@@ -28,7 +28,7 @@ export default {
   getVerifiedPrivateEmail,
   getVerifiedPublicGithub,
   getVerifiedPublicTwitter,
-  getPublicProfile,
+  getPublicProfileAndENS,
   getMyFollowing,
   getPublicFollowing,
   saveFollowing,

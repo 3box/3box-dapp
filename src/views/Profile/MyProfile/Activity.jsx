@@ -75,6 +75,7 @@ Activity.propTypes = {
   isActive: PropTypes.bool,
   otherProfileActivity: PropTypes.array,
   currentAddress: PropTypes.string,
+  currentNetwork: PropTypes.string,
 };
 
 Activity.defaultProps = {
@@ -82,6 +83,7 @@ Activity.defaultProps = {
   isFetchingActivity: false,
   isActive: false,
   currentAddress: '',
+  currentNetwork: '',
   otherProfileActivity: [],
 };
 

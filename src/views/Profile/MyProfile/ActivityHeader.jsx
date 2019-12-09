@@ -84,8 +84,8 @@ const Activity = ({ name, image, feedAddress }) => (
                   <h4>
                     {feedAddress.metaData.name}
                   </h4>
-                  <p className="feed__activity__address__type">
-                    Address
+                  <p className="feed__activity__address__type" title={Object.keys(feedAddress)[0]}>
+                    {feedAddress.metaData.ensName || Object.keys(feedAddress)[0]}
                   </p>
                 </a>
               </ProfileHover>
@@ -103,9 +103,8 @@ const Activity = ({ name, image, feedAddress }) => (
                 <h4>
                   {(feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()}
                 </h4>
-                <p className="feed__activity__address__type">
-                  Contract
-                    {` ${Object.keys(feedAddress)[0].substring(0, 12)}...`}
+                <p className="feed__activity__address__type" title={Object.keys(feedAddress)[0]}>
+                  {`Contract ${feedAddress.metaData.ensName || Object.keys(feedAddress)[0].substring(0, 12)}...`}
                 </p>
               </a>
             )}
@@ -127,8 +126,8 @@ const Activity = ({ name, image, feedAddress }) => (
                   <h4>
                     {Object.keys(feedAddress)[0]}
                   </h4>
-                  <p className="feed__activity__address__type">
-                    Address
+                  <p className="feed__activity__address__type" title={Object.keys(feedAddress)[0]}>
+                    {feedAddress.metaData.ensName || Object.keys(feedAddress)[0]}
                   </p>
                 </a>
               </ProfileHover>

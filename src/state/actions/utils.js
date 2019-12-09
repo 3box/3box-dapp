@@ -1,15 +1,21 @@
-import ens from 'ethereum-ens';
+import ENS from 'ethereum-ens';
+import Web3 from 'web3';
+
+const provider = new Web3.providers.HttpProvider();
+const ens = new ENS(provider);
 
 const fetchEns = async (address) => {
   try {
-    let name = await ens.reverse(address).name();
-    // Check to be sure the reverse record is correct.
-    if (address !== await ens.resolver(name).addr()) {
-      name = null;
-    }
-    console.log('canonicalname', name);
+    // console.log('ensobj', ens);
+    // console.log('ensobj2', ens.reverse);
+    // let name = await ens.reverse(address).name();
+    // // Check to be sure the reverse record is correct.
+    // if (address !== await ens.resolver(name).addr()) {
+    //   name = null;
+    // }
+    // console.log('canonicalname', name);
 
-    if (name) return name;
+    // if (name) return name;
 
     const ensDomainRequest = {
       query: ` {
@@ -33,8 +39,7 @@ const fetchEns = async (address) => {
       data,
       errors,
     } = await res.json();
-
-    if (data) return data.domains[0].name;
+    if (data.domains.length) return data.domains[0].name;
 
     return errors;
   } catch (error) {
