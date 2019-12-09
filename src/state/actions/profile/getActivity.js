@@ -233,9 +233,6 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
       let metaData = {};
       let contractData;
       let contractArray = [];
-      let name;
-      let image;
-      let ensName;
 
       if (otherAddress === 'threeBox') {
         counter += 1;
@@ -243,9 +240,9 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
         return;
       }
 
-      console.log('otherAddressotherAddress', otherAddress);
-      console.log('checkedAddressesobject', checkedAddresses);
-      console.log('checkedAddressescheckedAddresses', checkedAddresses[otherAddress]);
+      console.log('addressUsed', otherAddress);
+      console.log('checkedAddressees', checkedAddresses);
+      console.log('isHitwiththis', checkedAddresses[otherAddress]);
 
       if (!checkedAddresses[otherAddress]) {
         checkedAddresses[otherAddress] = true;
@@ -262,7 +259,7 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
               try {
                 isContract[otherAddress] = true;
                 const data = await getContract(otherAddress);
-                ensName = await fetchEns(otherAddress);
+                const ensName = await fetchEns(otherAddress);
                 if (data && data.status === '1') {
                   contractData = JSON.parse(data.result);
                   contractArray = imageElFor(otherAddress);
@@ -277,6 +274,7 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
                   addressData[otherAddress] = false;
                   counter += 1;
                 }
+
                 if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
               } catch (error) {
                 addressData[otherAddress] = false;
@@ -288,14 +286,12 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
               try {
                 const profile = await getPublicProfileAndENS(graphqlQueryObject(otherAddress), otherAddress);
                 metaData = profile;
-                name = metaData && metaData.profile && metaData.profile.name;
-                image = metaData && metaData.profile && metaData.profile.image;
-                ensName = metaData && metaData.profile && metaData.profile.ensName;
                 addressData[otherAddress] = {
-                  name,
-                  image,
-                  ensName,
+                  name: metaData && metaData.profile && metaData.profile.name,
+                  image: metaData && metaData.profile && metaData.profile.image,
+                  ensName: metaData && metaData.profile && metaData.profile.ensName,
                 };
+
                 counter += 1;
                 if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
               } catch (error) {
