@@ -11,6 +11,7 @@ import {
   addDataType,
   addPublicOrPrivateDataType,
   getAuthorsLatestPost,
+  graphqlQueryObject,
 } from '../../../utils/funcs';
 import getPublicProfileAndENS from './getPublicProfileAndENS';
 import fetchEns from '../utils';
@@ -96,12 +97,10 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
       const spacesData = store.getState().spaces.allData;
       const spacesDataActivity = [];
 
-      console.log('spacesDataspacesData', spacesData);
       Object.entries(spacesData).forEach((space) => {
         const spaceName = space[0];
 
         if (spaceName !== '3Box_app') {
-          console.log('space[1].private', space[1].private);
           Object.entries(space[1].private).forEach((keyValue) => {
             if (keyValue[0] !== 'private_space_data') {
               const spaceToActivityItem = {
@@ -115,7 +114,6 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
             }
           });
 
-          console.log('space[1].public', space[1].public);
           Object.entries(space[1].public).forEach((keyValue) => {
             const valueObject = keyValue[1];
             let {
@@ -245,6 +243,9 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
         return;
       }
 
+      console.log('otherAddressotherAddress', otherAddress);
+      console.log('checkedAddressesobject', checkedAddresses);
+      console.log('checkedAddressescheckedAddresses', checkedAddresses[otherAddress]);
       if (!checkedAddresses[otherAddress]) {
         checkedAddresses[otherAddress] = true;
         try {
@@ -257,11 +258,10 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
             }
 
             if (code !== '0x' && typeof code !== 'undefined') { // then address is contract
-              isContract[otherAddress] = true;
               try {
+                isContract[otherAddress] = true;
                 const data = await getContract(otherAddress);
                 ensName = await fetchEns(otherAddress);
-                console.log('ensfromcontract', ensName)
                 if (data && data.status === '1') {
                   contractData = JSON.parse(data.result);
                   contractArray = imageElFor(otherAddress);
@@ -285,15 +285,7 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
               }
             } else { // look for 3box metadata
               try {
-                const graphqlQueryObject = `
-                {
-                  profile(id: "${otherAddress}") {
-                    name
-                    image
-                  }
-                }
-                `;
-                const profile = await getPublicProfileAndENS(graphqlQueryObject, otherAddress);
+                const profile = await getPublicProfileAndENS(graphqlQueryObject(otherAddress), otherAddress);
                 metaData = profile;
                 name = metaData && metaData.profile && metaData.profile.name;
                 image = metaData && metaData.profile && metaData.profile.image;
