@@ -27,6 +27,7 @@
     "fortmatic": "^1.0.0",
     "get-urls": "^9.2.0",
     "history": "^4.7.2",
+    "idb-readable-stream": "0.0.4",
     "ipfs-log": "^4.4.0",
     "lodash.clonedeep": "^4.5.0",
     "lodash.debounce": "^4.0.8",

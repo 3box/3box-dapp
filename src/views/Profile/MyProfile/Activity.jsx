@@ -16,6 +16,7 @@ const Activity = ({
   otherProfileActivity,
   isActive,
   currentAddress,
+  currentNetwork,
 }) => (
     <div id="myFeed" className={`profileTab ${isActive ? 'viewTab' : ''}`}>
       <div>
@@ -25,7 +26,7 @@ const Activity = ({
           </p>
 
           <div className="profile_header_address">
-            <div className="profile_header_loggedIn" />
+            <div className={`profile_header_loggedIn ${currentNetwork}`} />
             <p>
               {`Signed in as ${shortenEthAddr(currentAddress)}`}
             </p>
@@ -87,6 +88,7 @@ const mapState = (state) => ({
   isFetchingActivity: state.uiState.isFetchingActivity,
 
   currentAddress: state.userState.currentAddress,
+  currentNetwork: state.userState.currentNetwork,
 
   otherProfileActivity: state.otherProfile.otherProfileActivity,
   otherProfileAddress: state.otherProfile.otherProfileAddress,

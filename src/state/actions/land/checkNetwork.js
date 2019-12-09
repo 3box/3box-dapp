@@ -51,9 +51,8 @@ const checkNetwork = () => async (dispatch) => {
     web3Obj,
   } = store.getState().userState;
 
-  let currentNetwork;
   const network = await checkNetworkFunc(web3Obj);
-  currentNetwork = network;
+  const currentNetwork = network;
 
   const prevPrevNetwork = window.localStorage.getItem('prevNetwork'); // eslint-disable-line no-undef
   const prevNetwork = window.localStorage.getItem('currentNetwork'); // eslint-disable-line no-undef

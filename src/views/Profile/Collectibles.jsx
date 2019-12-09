@@ -145,6 +145,7 @@ class Collectibles extends Component {
       isFavorite,
       isActive,
       currentAddress,
+      currentNetwork,
     } = this.props;
     const { isLoading } = this.state;
     return (
@@ -191,7 +192,7 @@ class Collectibles extends Component {
                 </p>
 
                 <div className="profile_header_address">
-                  <div className="profile_header_loggedIn" />
+                  <div className={`profile_header_loggedIn ${currentNetwork}`} />
                   <p>
                     {`Signed in as ${shortenEthAddr(currentAddress)}`}
                   </p>
@@ -205,7 +206,7 @@ class Collectibles extends Component {
                   </p>
 
                   <div className="profile_header_address">
-                    <div className="profile_header_loggedIn" />
+                    <div className={`profile_header_loggedIn ${currentNetwork}`} />
                     <p>
                       {`Signed in as ${shortenEthAddr(currentAddress)}`}
                     </p>
@@ -328,6 +329,7 @@ Collectibles.propTypes = {
   selectedCollectible: PropTypes.object,
   collection: PropTypes.array,
   currentAddress: PropTypes.string,
+  currentNetwork: PropTypes.string,
   collectiblesFavorites: PropTypes.array,
   collectiblesFavoritesToRender: PropTypes.array,
   handleCollectiblesModal: PropTypes.func.isRequired,
@@ -342,6 +344,7 @@ Collectibles.defaultProps = {
   collectiblesFavoritesToRender: [],
   selectedCollectible: {},
   currentAddress: '',
+  currentNetwork: '',
   isActive: false,
 };
 
@@ -351,6 +354,8 @@ function mapState(state) {
     collection: state.myData.collection,
     collectiblesFavorites: state.myData.collectiblesFavorites,
     collectiblesFavoritesToRender: state.myData.collectiblesFavoritesToRender,
+
+    currentNetwork: state.userState.currentNetwork,
 
     allData: state.spaces.allData,
     list: state.spaces.list,

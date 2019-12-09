@@ -43,21 +43,6 @@ nav {
     font-size: 12px !important;
     color: #6b6b6b; }
 
-.Main {
-  background: #29B6AF; }
-
-.Ropsten {
-  background: #FF4A8D; }
-
-.Kovan {
-  background: #7057FF; }
-
-.Rinkeby {
-  background: #F6C343; }
-
-.Unknown {
-  background: black; }
-
 #nav__networkStatus__networkColor {
   width: 10px;
   height: 10px;
