@@ -246,6 +246,7 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
       console.log('otherAddressotherAddress', otherAddress);
       console.log('checkedAddressesobject', checkedAddresses);
       console.log('checkedAddressescheckedAddresses', checkedAddresses[otherAddress]);
+
       if (!checkedAddresses[otherAddress]) {
         checkedAddresses[otherAddress] = true;
         try {
