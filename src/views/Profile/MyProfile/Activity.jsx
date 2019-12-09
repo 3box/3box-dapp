@@ -26,7 +26,11 @@ const Activity = ({
           </p>
 
           <div className="profile_header_address">
-            <div className={`profile_header_loggedIn ${currentNetwork}`} />
+            <div
+              className={`profile_header_loggedIn ${currentNetwork}`}
+              title={`${currentNetwork} network`}
+            />
+
             <p>
               {`Signed in as ${shortenEthAddr(currentAddress)}`}
             </p>

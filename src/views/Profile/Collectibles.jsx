@@ -9,7 +9,7 @@ import { CollectiblesModal, ModalBackground } from '../../components/Modals';
 import { EmptyGalleryCollectiblesTile } from './EmptyCollectiblesTile';
 import actions from '../../state/actions';
 import OpenSea from '../../assets/OpenSea.png';
-import Globe from '../../assets/Globe.svg';
+// import Globe from '../../assets/Globe.svg';
 import Loading from '../../assets/Loading.svg';
 import Private from '../../assets/Private.svg';
 import { store } from '../../state/store';
@@ -192,7 +192,7 @@ class Collectibles extends Component {
                 </p>
 
                 <div className="profile_header_address">
-                  <div className={`profile_header_loggedIn ${currentNetwork}`} />
+                  <div className={`profile_header_loggedIn ${currentNetwork}`} title={`${currentNetwork} network`} />
                   <p>
                     {`Signed in as ${shortenEthAddr(currentAddress)}`}
                   </p>
@@ -206,7 +206,11 @@ class Collectibles extends Component {
                   </p>
 
                   <div className="profile_header_address">
-                    <div className={`profile_header_loggedIn ${currentNetwork}`} />
+                    <div
+                      className={`profile_header_loggedIn ${currentNetwork}`}
+                      title={`${currentNetwork} network`}
+                    />
+
                     <p>
                       {`Signed in as ${shortenEthAddr(currentAddress)}`}
                     </p>

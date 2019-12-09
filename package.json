@@ -25,7 +25,6 @@
     "ethereum-ens": "^0.7.8",
     "ethereumjs-util": "^6.0.0",
     "fortmatic": "^1.0.0",
-    "get-urls": "^9.2.0",
     "history": "^4.7.2",
     "idb-readable-stream": "0.0.4",
     "ipfs-log": "^4.4.0",
