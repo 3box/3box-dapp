@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
-import ChatBox from '3box-chatbox-react';
+// import ChatBox from '3box-chatbox-react';
 
 import * as routes from './utils/routes';
 import { pollNetworkAndAddress, initialAddress, startPollFlag } from './utils/address';
@@ -24,6 +24,7 @@ import {
   AppHeaders,
   NavLanding,
   Nav,
+  ChatBoxComponent,
 } from './DynamicImports';
 import actions from './state/actions';
 import './index.css';
@@ -303,7 +304,6 @@ class App extends Component {
           )}
 
         {(!isMyProfilePath && isLoggedIn) && <Nav handleSignInUp={this.handleSignInUp} />}
-        {/* <Nav handleSignInUp={this.handleSignInUp} /> */}
 
         <AppModals
           isFetchingThreeBox={isFetchingThreeBox}
@@ -356,7 +356,7 @@ class App extends Component {
         />
 
         {isMyProfilePath && (
-          <ChatBox
+          <ChatBoxComponent
             spaceName={followingSpaceName}
             threadName="chatbox"
             box={box}

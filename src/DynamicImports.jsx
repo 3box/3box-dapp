@@ -93,3 +93,10 @@ export const Privacy = props => (
       && <Component {...props} />}
   </DynamicImports>
 );
+
+export const ChatBoxComponent = props => (
+  <DynamicImports load={() => import('3box-chatbox-react')}>
+    {Component => Component !== null
+      && <Component {...props} />}
+  </DynamicImports>
+);
