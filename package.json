@@ -78,6 +78,7 @@
     "s3-deploy": "^1.1.1",
     "sass-loader": "^8.0.0",
     "terser": "^3.14.1",
+    "terser-webpack-plugin": "^2.2.2",
     "uglifyjs-webpack-plugin": "^2.1.3"
   },
   "scripts": {
@@ -88,8 +89,8 @@
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
-    "build-js": "react-scripts NODE_OPTIONS=--max_old_space_size=4096 build",
-    "build": "npm-run-all build-css build-js",
+    "build-js": "react-scripts build",
+    "build": "NODE_OPTIONS=--max_old_space_size=4096 npm-run-all build-css build-js",
     "scss": "node-sass --watch scss -o css",
     "lint": "eslint src --ignore-path .gitignore",
     "lint-fix": "eslint src --fix --ignore-path .gitignore",
