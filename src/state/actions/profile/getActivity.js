@@ -245,8 +245,9 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
       console.log('isHitwiththis', checkedAddresses[otherAddress]);
 
       if (!checkedAddresses[otherAddress]) {
-        checkedAddresses[otherAddress] = true;
         try {
+          checkedAddresses[otherAddress] = true;
+
           web3Obj.eth.getCode(otherAddress, async (err, code) => {
             if (err) {
               addressData[otherAddress] = false;
@@ -256,51 +257,33 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
             }
 
             if (code !== '0x' && typeof code !== 'undefined') { // then address is contract
-              try {
-                isContract[otherAddress] = true;
-                const data = await getContract(otherAddress);
-                const ensName = await fetchEns(otherAddress);
-                if (data && data.status === '1') {
-                  contractData = JSON.parse(data.result);
-                  contractArray = imageElFor(otherAddress);
-                  addressData[otherAddress] = {
-                    contractImg: contractArray[0],
-                    contractDetails: contractArray[1],
-                    contractData,
-                    ensName,
-                  };
-                  counter += 1;
-                } else {
-                  addressData[otherAddress] = false;
-                  counter += 1;
-                }
-
-                if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
-              } catch (error) {
+              isContract[otherAddress] = true;
+              const data = await getContract(otherAddress);
+              const ensName = await fetchEns(otherAddress);
+              if (data && data.status === '1') {
+                contractData = JSON.parse(data.result);
+                contractArray = imageElFor(otherAddress);
+                addressData[otherAddress] = {
+                  contractImg: contractArray[0],
+                  contractDetails: contractArray[1],
+                  contractData,
+                  ensName,
+                };
+              } else {
                 addressData[otherAddress] = false;
-                counter += 1;
-                if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
-                return console.error(error);
               }
             } else { // look for 3box metadata
-              try {
-                const profile = await getPublicProfileAndENS(graphqlQueryObject(otherAddress), otherAddress);
-                metaData = profile;
-                addressData[otherAddress] = {
-                  name: metaData && metaData.profile && metaData.profile.name,
-                  image: metaData && metaData.profile && metaData.profile.image,
-                  ensName: metaData && metaData.profile && metaData.profile.ensName,
-                };
-
-                counter += 1;
-                if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
-              } catch (error) {
-                addressData[otherAddress] = false;
-                counter += 1;
-                if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
-                return console.error(error);
-              }
+              const profile = await getPublicProfileAndENS(graphqlQueryObject(otherAddress), otherAddress);
+              metaData = profile;
+              addressData[otherAddress] = {
+                name: metaData && metaData.profile && metaData.profile.name,
+                image: metaData && metaData.profile && metaData.profile.image,
+                ensName: metaData && metaData.profile && metaData.profile.ensName,
+              };
             }
+            
+            counter += 1;
+            if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
           });
         } catch (err) {
           console.error(err);
