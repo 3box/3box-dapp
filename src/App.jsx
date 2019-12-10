@@ -24,7 +24,7 @@ import {
   AppHeaders,
   NavLanding,
   Nav,
-  ChatBoxComponent,
+  ChatboxComponent,
 } from './DynamicImports';
 import actions from './state/actions';
 import './index.css';
@@ -356,7 +356,7 @@ class App extends Component {
         />
 
         {isMyProfilePath && (
-          <ChatBoxComponent
+          <ChatboxComponent
             spaceName={followingSpaceName}
             threadName="chatbox"
             box={box}
