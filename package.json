@@ -27,7 +27,7 @@
     "get-urls": "^9.2.0",
     "history": "^4.7.2",
     "idb-readable-stream": "0.0.4",
-    "ipfs-log": "^4.5.1",
+    "ipfs-log": "^4.5.2",
     "level-js": "^5.0.1",
     "lodash.clonedeep": "^4.5.0",
     "profile-hover": "^1.1.1",
