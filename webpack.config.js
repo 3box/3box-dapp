@@ -1,5 +1,6 @@
 const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 
 module.exports = {
   entry: ['@babel/polyfill', './src/index.js'],
@@ -20,5 +21,6 @@ module.exports = {
   },
   plugins: [
     new UglifyJsPlugin(),
+    new DuplicatePackageCheckerPlugin(),
   ],
 };
