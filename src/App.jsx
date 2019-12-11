@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
-// import ChatBox from '3box-chatbox-react';
 
 import * as routes from './utils/routes';
 import { pollNetworkAndAddress, initialAddress, startPollFlag } from './utils/address';
