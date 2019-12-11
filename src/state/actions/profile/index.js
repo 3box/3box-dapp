@@ -7,7 +7,7 @@ import getMyMemberSince from './getMyMemberSince';
 import getVerifiedPrivateEmail from './getVerifiedPrivateEmail';
 import getVerifiedPublicGithub from './getVerifiedPublicGithub';
 import getVerifiedPublicTwitter from './getVerifiedPublicTwitter';
-import getActivity from './getActivity';
+import getActivity from './getActivity/getActivity';
 import getPublicProfileAndENS from './getPublicProfileAndENS';
 import getMyFollowing from './getMyFollowing';
 import getPublicFollowing from './getPublicFollowing';

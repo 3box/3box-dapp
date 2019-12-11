@@ -1,12 +1,7 @@
 import Box from '3box';
-import contractMap from 'eth-contract-metadata';
-import abiDecoder from 'abi-decoder';
 import {
   detect,
 } from 'detect-browser';
-import {
-  toChecksumAddress,
-} from 'ethereumjs-util';
 
 import * as routes from './routes';
 import {
@@ -46,132 +41,6 @@ export const addhttp = (url) => {
   }
   return correctedURL;
 };
-
-export async function getContract(otherAddress) {
-  try {
-    const response = await fetch(`https://api.etherscan.io/api?module=contract&action=getabi&address=${otherAddress}&apikey=3VTI9D585DCX4RD4QSP3MYWKACCIVZID23`);
-    if (response.status !== 200) {
-      return console.error(`Looks like there was a problem. Status Code: ${response.status}`);
-    }
-    const data = await response.json();
-    return data;
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-export const imageElFor = (address) => {
-  const contractMetaData = contractMap[toChecksumAddress(address)];
-  if (!contractMetaData || (!('logo' in contractMetaData))) {
-    return false;
-  }
-  // this isnt necessary
-  const fileName = contractMetaData.logo;
-  const path = `/contractIcons/${fileName}`;
-  const contractImg = document.createElement('img');
-  contractImg.src = path;
-  contractImg.style.width = '100%';
-  return [contractImg, contractMetaData];
-};
-
-const startProfileLoad = (otherProfileAddress, feedByAddress) => {
-  if (otherProfileAddress) {
-    store.dispatch({
-      type: 'OTHER_ACTIVITY_UPDATE',
-      otherProfileActivity: feedByAddress,
-    });
-    // store.dispatch({
-    //   type: 'OTHER_WALL_UPDATE',
-    //   otherWallPosts: feedByAddress,
-    // });
-    store.dispatch({
-      type: 'UI_FEED_OTHER_LOADING',
-      isFetchingOtherActivity: false,
-    });
-  } else {
-    store.dispatch({
-      type: 'USER_LOGIN_UPDATE',
-      isLoggedIn: true,
-    });
-    store.dispatch({
-      type: 'UI_FEED_LOADING',
-      isFetchingActivity: false,
-    });
-    store.dispatch({
-      type: 'MY_FEED_UPDATE',
-      feedByAddress,
-    });
-  }
-};
-
-export const updateFeed = (otherProfileAddress, feedByAddress, addressData, isContract) => {
-  try {
-
-    let contractArray = [];
-    let counter = 0;
-    if (feedByAddress.length === 0) startProfileLoad(otherProfileAddress, feedByAddress);
-
-    feedByAddress.map(async (txGroup, i) => {
-      const otherAddress = Object.keys(txGroup)[0];
-
-      if (isContract[otherAddress]) { // then address is contract
-        const contractDataABI = addressData[otherAddress].contractData;
-        const ensName = addressData[otherAddress].ensName;
-
-        if (contractDataABI) {
-          abiDecoder.addABI(contractDataABI);
-
-          txGroup[otherAddress].map((lineItem, index) => {
-            const methodCall = abiDecoder.decodeMethod(txGroup[otherAddress][index].input);
-            lineItem.methodCall = methodCall && methodCall.name && (methodCall.name.charAt(0).toUpperCase() + methodCall.name.slice(1)).replace(/([A-Z])/g, ' $1').trim();
-          });
-        }
-
-        contractArray = imageElFor(otherAddress);
-
-        feedByAddress[i].metaData = {
-          contractImg: contractArray.length > 0 && contractArray[0],
-          contractDetails: contractArray.length > 0 && contractArray[1],
-          ensName,
-        };
-
-        counter += 1;
-        if (counter === feedByAddress.length) startProfileLoad(otherProfileAddress, feedByAddress);
-      } else { // look for 3box metadata
-        feedByAddress[i].metaData = {
-          name: addressData && addressData[otherAddress] && addressData[otherAddress].name,
-          image: addressData && addressData[otherAddress] && addressData[otherAddress].image,
-          ensName: addressData && addressData[otherAddress] && addressData[otherAddress].ensName,
-        };
-        counter += 1;
-        if (counter === feedByAddress.length) startProfileLoad(otherProfileAddress, feedByAddress);
-      }
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const addDataType = (activity) => {
-  activity.internal = activity.internal.map(object => Object.assign({
-    dataType: 'Internal',
-  }, object));
-  activity.txs = activity.txs.map(object => Object.assign({
-    dataType: 'Txs',
-  }, object));
-  activity.token = activity.token.map(object => Object.assign({
-    dataType: 'Token',
-  }, object));
-
-  return activity;
-};
-
-export const addPublicOrPrivateDataType = (activity, dataType) => activity.map((row) => {
-  row.timeStamp = row.timeStamp && row.timeStamp.toString().substring(0, 10);
-  return Object.assign({
-    dataType,
-  }, row);
-});
 
 export const copyToClipBoard = (type, message) => async (dispatch) => {
   try {
@@ -366,21 +235,6 @@ export const checkIsENSAddress = (string) => {
   const isEthereumAddress = /[a-z0-9-]+\.(eth)/g.test(string);
   console.log('isit???', isEthereumAddress);
   return isEthereumAddress;
-};
-
-// get the user's latest post in a thread
-export const getAuthorsLatestPost = (threadArray, usersDID) => {
-  const userPostIndex = [];
-
-  threadArray.forEach((item, i) => {
-    if (item.author === usersDID) {
-      userPostIndex.push(i);
-    }
-  });
-
-  const lastPostIndex = userPostIndex[userPostIndex.length - 1];
-
-  return threadArray[lastPostIndex];
 };
 
 export const getFollowingProfiles = async (following) => {

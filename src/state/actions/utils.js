@@ -9,6 +9,7 @@ const fetchEns = async (address) => {
     // console.log('ensobj', ens);
     // console.log('ensobj2', ens.reverse);
     // let name = await ens.reverse(address).name();
+    // console.log('after');
     // // Check to be sure the reverse record is correct.
     // if (address !== await ens.resolver(name).addr()) {
     //   name = null;
