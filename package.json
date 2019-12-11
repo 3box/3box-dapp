@@ -6,8 +6,9 @@
   "dependencies": {
     "3box": "^1.14.0",
     "3box-activity": "0.0.9",
-    "3box-chatbox-react": "0.0.1-beta.14",
+    "3box-chatbox-react": "0.0.1-beta.16",
     "3id-resolver": "0.0.6",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
     "@babel/polyfill": "^7.4.4",
     "@microlink/mql": "^0.5.10",
     "@portis/web3": "^2.0.0-beta.45",
@@ -50,10 +51,12 @@
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
     "scrypt-shim": "github:web3-js/scrypt-shim",
+    "source-map-explorer": "^2.1.2",
     "squarelink": "^1.1.4",
     "web3": "^1.2.4",
     "web3-eth-personal": "^1.0.0-beta.36",
     "web3connect": "^1.0.0-beta.23",
+    "webpack": "^4.41.2",
     "webrtcsupport": "^2.2.0",
     "websocket": "^1.0.30"
   },

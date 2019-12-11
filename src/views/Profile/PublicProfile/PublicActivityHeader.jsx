@@ -5,7 +5,7 @@ import ProfileHover from 'profile-hover';
 import networkArray from '../../../utils/networkArray';
 import '../styles/Feed.css';
 import '../styles/Profile.css';
-import '../../../components/styles/NetworkArray.css';
+import '../../../components/styles/NetworkArray.scss';
 
 const PublicActivityContext = ({ feedAddress, i }) => (
   <div className="feed__activity__context">

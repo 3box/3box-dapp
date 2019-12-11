@@ -7,7 +7,7 @@ import PublicActivityTiles from './PublicActivityTiles';
 import Loading from '../../../assets/Loading.svg';
 import '../styles/Feed.css';
 import '../styles/Profile.css';
-import '../../../components/styles/NetworkArray.css';
+import '../../../components/styles/NetworkArray.scss';
 
 const PublicActivity = ({
   isFetchingOtherActivity,

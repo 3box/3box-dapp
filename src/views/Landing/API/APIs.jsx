@@ -9,9 +9,9 @@ import { ProfileSection, MessagingSection, StorageSection } from './components/A
 import { ProfileDetails, MessagingDetails, StorageDetails } from './components/APIDetails';
 import Footer from '../components/Footer';
 
-import '../../styles/Landing.css';
-import '../../styles/NewLanding.css';
-import '../../../components/styles/Nav.css';
+import '../../styles/Landing.scss';
+import '../../styles/NewLanding.scss';
+import '../../../components/styles/Nav.scss';
 
 class APIsPage extends React.Component {
   constructor(props) {

@@ -7,8 +7,8 @@ import FollowButton from './FollowButton';
 import DefaultProfile from '../../../assets/DefaultProfile.svg';
 import '../styles/Feed.css';
 import '../styles/Profile.css';
-import '../../../components/styles/NetworkArray.css';
-import '../../../components/styles/Modal.css';
+import '../../../components/styles/NetworkArray.scss';
+import '../../../components/styles/Modal.scss';
 
 const { handleContactsModal } = actions.modal;
 

@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import './index.css';
+import './index.scss';
 import App from './App.jsx';
 import { store } from './state/store';
 import history from './utils/history';

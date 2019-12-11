@@ -7,7 +7,7 @@ import PublicActivityOrWall from './PublicActivityOrWall';
 import PublicCollectiblesGallery from './PublicCollectiblesGallery';
 import '../styles/Feed.css';
 import '../styles/Profile.css';
-import '../../../components/styles/NetworkArray.css';
+import '../../../components/styles/NetworkArray.scss';
 
 const PubContent = ({
   showSignInBanner,

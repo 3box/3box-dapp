@@ -10,9 +10,9 @@ import ColorCubesMobile from '../../assets/ColorCubesMobile.svg';
 import DiscordButton from './components/DiscordButton';
 import Footer from './components/Footer';
 
-import '../styles/Landing.css';
-import '../styles/NewLanding.css';
-import '../../components/styles/Nav.css';
+import '../styles/Landing.scss';
+import '../styles/NewLanding.scss';
+import '../../components/styles/Nav.scss';
 
 const styles = {
   backgroundImage: `url("${ColorCubes}")`,

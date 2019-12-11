@@ -9,8 +9,8 @@ import { EmptyGalleryCollectiblesTile } from '../EmptyCollectiblesTile';
 import actions from '../../../state/actions';
 import '../styles/Feed.css';
 import '../styles/Profile.css';
-import '../../../components/styles/NetworkArray.css';
-import '../../../components/styles/Modal.css';
+import '../../../components/styles/NetworkArray.scss';
+import '../../../components/styles/Modal.scss';
 
 const { handleCollectiblesModal } = actions.modal;
 

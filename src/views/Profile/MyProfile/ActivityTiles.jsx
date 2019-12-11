@@ -11,7 +11,7 @@ import {
 } from '../FeedTile';
 import '../styles/Feed.css';
 import '../styles/Profile.css';
-import '../../../components/styles/NetworkArray.css';
+import '../../../components/styles/NetworkArray.scss';
 
 const ActivityTiles = ({
   verifiedGithub,

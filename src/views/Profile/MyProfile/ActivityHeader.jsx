@@ -9,7 +9,7 @@ import networkArray from '../../../utils/networkArray';
 import { checkIsEthAddress } from '../../../utils/funcs';
 import '../styles/Feed.css';
 import '../styles/Profile.css';
-import '../../../components/styles/NetworkArray.css';
+import '../../../components/styles/NetworkArray.scss';
 
 const Activity = ({ name, image, feedAddress }) => (
   <div className="feed__activity__context">
