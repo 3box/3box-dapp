@@ -665,9 +665,10 @@ nav {
   border-bottom-right-radius: 8px;
   box-shadow: 0 4px 6px 2px rgba(0, 0, 0, 0.1);
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   padding: 16px;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  min-height: 64px; }
   .navSearch_input_result:hover {
     background-color: #f5f6f8; }
 

@@ -23,12 +23,7 @@ class NavSearch extends Component {
   fetchENS = debounce(async (value) => {
     this.setState({ isFetching: true });
     const ensAddr = await fetchEthAddrByENS(value);
-
-    if (ensAddr) {
-      this.fetchProfile(ensAddr);
-    } else {
-      this.setState({ isFetching: false });
-    }
+    this.fetchProfile(ensAddr);
   }, 300);
 
   constructor(props) {
@@ -65,7 +60,8 @@ class NavSearch extends Component {
   }
 
   fetchProfile = async (address) => {
-    const searchedProfile = await Box.getProfile(address);
+    const searchedProfile = address ? await Box.getProfile(address) : {};
+
     if (Object.entries(searchedProfile).length) {
       const verifiedAccouts = await Box.getVerifiedAccounts(searchedProfile);
 
@@ -77,6 +73,7 @@ class NavSearch extends Component {
     } else {
       this.setState({ isEmptyProfile: true, searchedProfile: null });
     }
+
     this.setState({ isFetching: false });
   }
 
@@ -89,7 +86,7 @@ class NavSearch extends Component {
       searchTerm,
       isEmptyProfile,
       isENS,
-      isFetching
+      isFetching,
     } = this.state;
 
     const {
@@ -111,7 +108,7 @@ class NavSearch extends Component {
             value={searchTerm}
           />
 
-          {(searchedProfile && showResults && !isEmptyProfile) && (
+          {(searchedProfile && showResults && !isEmptyProfile && !isFetching) && (
             <Link to={`/${searchTerm}`} onClick={this.clearSearch}>
               <div className="navSearch_input_result">
                 <ProfilePicture
@@ -167,7 +164,7 @@ class NavSearch extends Component {
             </Link>
           )}
 
-          {(isEmptyProfile && showResults) && (
+          {(isEmptyProfile && showResults && !isFetching) && (
             <div className="navSearch_input_result">
               <h4>
                 No profile for this address
