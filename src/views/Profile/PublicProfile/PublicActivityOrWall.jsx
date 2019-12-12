@@ -6,9 +6,9 @@ import PublicActivityHeader from './PublicActivityHeader';
 import PublicActivityTiles from './PublicActivityTiles';
 import Wall from '../Wall';
 import Loading from '../../../assets/Loading.svg';
-import '../styles/Feed.css';
-import '../styles/Profile.css';
-import '../../../components/styles/NetworkArray.css';
+import '../styles/Feed.scss';
+import '../styles/Profile.scss';
+import '../../../components/styles/NetworkArray.scss';
 
 class PublicActivityOrWall extends Component {
   constructor(props) {

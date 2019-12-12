@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ProfileHover from 'profile-hover';
 
-import '../views/Profile/styles/Profile.css';
+import '../views/Profile/styles/Profile.scss';
 import FollowButton from '../views/Profile/PublicProfile/FollowButton';
 import DefaultProfile from '../assets/DefaultProfile.svg';
 

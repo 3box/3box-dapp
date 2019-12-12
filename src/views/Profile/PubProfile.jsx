@@ -17,7 +17,7 @@ import {
 import PubContent from './PublicProfile/PubContent';
 import SideBar from './SideBar';
 import PubProfileHeaders from './PublicProfile/PubProfileHeaders';
-import './styles/Profile.css';
+import './styles/Profile.scss';
 
 const {
   handleShowSignInBanner,

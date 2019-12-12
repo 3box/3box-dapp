@@ -16,9 +16,9 @@ import Zerion from '../../assets/Zerion.png';
 import ColorCubes from '../../assets/ColorCubes.svg';
 import MetaMask from '../../assets/MetaMask.svg';
 import ColorCubesMobile from '../../assets/ColorCubesMobile.svg';
-import '../styles/Landing.css';
-import '../styles/NewLanding.css';
-import '../../components/styles/Nav.css';
+import '../styles/Landing.scss';
+import '../styles/NewLanding.scss';
+import '../../components/styles/Nav.scss';
 import DiscordButton from './components/DiscordButton';
 import Footer from './components/Footer';
 

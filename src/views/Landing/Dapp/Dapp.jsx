@@ -13,8 +13,8 @@ import ProfilesSmall from '../../../assets/Profiles.svg';
 import SSOSmall from '../../../assets/Authentication.svg';
 import StorageSmall from '../../../assets/Storage.svg';
 import DiscordButton from '../components/DiscordButton';
-import '../../styles/NewLanding.css';
-import '../../../components/styles/Nav.css';
+import '../../styles/NewLanding.scss';
+import '../../../components/styles/Nav.scss';
 
 class Dapp extends Component {
   constructor(props) {

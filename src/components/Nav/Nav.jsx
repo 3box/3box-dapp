@@ -9,7 +9,7 @@ import NavLinks from './NavLinks';
 import actions from '../../state/actions';
 import { normalizeURL } from '../../utils/funcs';
 import MobileDropdown from './MobileDropdown';
-import '../styles/Nav.css';
+import '../styles/Nav.scss';
 
 const { handleSignOut } = actions.signin;
 

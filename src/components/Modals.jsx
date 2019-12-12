@@ -24,7 +24,7 @@ import LogOut from '../assets/LogOut.svg';
 import Loading from '../assets/Loading.svg';
 import Browser from '../assets/Browser.svg';
 import LoadingWhite from '../assets/LoadingWhite.svg';
-import './styles/Modal.css';
+import './styles/Modal.scss';
 
 export const ModalBackground = () => <div className="modal__overlay" />;
 

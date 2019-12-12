@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './styles/Profile.css';
-import './styles/Collectibles.css';
+import './styles/Profile.scss';
+import './styles/Collectibles.scss';
 
 export const EmptyGalleryCollectiblesTile = () => (
   <div className="emptyCollectiblesTile collectiblesTile">

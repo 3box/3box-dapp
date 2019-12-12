@@ -5,8 +5,8 @@ import { withRouter } from 'react-router-dom';
 
 import actions from '../../state/actions';
 import HeartBlue from '../../assets/HeartBlue.svg';
-import './styles/Profile.css';
-import './styles/Collectibles.css';
+import './styles/Profile.scss';
+import './styles/Collectibles.scss';
 
 const {
   handleCollectiblesModal,

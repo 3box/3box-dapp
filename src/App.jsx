@@ -5,7 +5,11 @@ import { connect } from 'react-redux';
 import queryString from 'query-string';
 
 import * as routes from './utils/routes';
-import { pollNetworkAndAddress, initialAddress, startPollFlag } from './utils/address';
+import {
+  pollNetworkAndAddress,
+  initialAddress,
+  startPollFlag,
+} from './utils/address';
 import {
   normalizeURL,
   matchProtectedRoutes,
@@ -13,11 +17,12 @@ import {
   checkRequestRoute,
 } from './utils/funcs';
 import { followingSpaceName } from './utils/constants';
-import { store } from './state/store';
 import history from './utils/history';
+import { store } from './state/store';
+import actions from './state/actions';
+
 import AppRoutes from './AppRoutes';
 import AppPreviewRoutes from './AppPreviewRoutes';
-
 import {
   AppModals,
   AppHeaders,
@@ -25,8 +30,7 @@ import {
   Nav,
   ChatboxComponent,
 } from './DynamicImports';
-import actions from './state/actions';
-import './index.css';
+import './index.scss';
 
 const {
   handleSignInModal,

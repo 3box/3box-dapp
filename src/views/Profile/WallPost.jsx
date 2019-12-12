@@ -16,7 +16,7 @@ import LinkUnfurl from './LinkUnfurl';
 import Delete from '../../assets/Delete2.svg';
 import Loading from '../../assets/Loading.svg';
 import './styles/WallPost.scss';
-import './styles/Feed.css';
+import './styles/Feed.scss';
 
 const { postAndUpdateWall, joinOtherThread } = actions.profile;
 

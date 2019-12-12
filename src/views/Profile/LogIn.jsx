@@ -6,7 +6,7 @@ import queryString from 'query-string';
 
 import ThreeBoxLogoBlack from '../../assets/ThreeBoxLogoBlack.svg';
 import Loading from '../../assets/Loading.svg';
-import './styles/LogIn.css';
+import './styles/LogIn.scss';
 
 class LogIn extends Component {
   constructor(props) {

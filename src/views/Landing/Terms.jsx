@@ -2,8 +2,8 @@
 import React from 'react';
 
 import Footer from './components/Footer';
-import '../styles/Landing.css';
-import '../styles/Info.css';
+import '../styles/Landing.scss';
+import '../styles/Info.scss';
 
 const Terms = ({ isLoggedIn, handleSignInUp }) => (
   <div className="info">

@@ -19,7 +19,6 @@ import {
   EmailVerificationModal,
   ModalBackground,
 } from '../../../components/Modals';
-import '../styles/EditProfile.css';
 import history from '../../../utils/history';
 import { twitterMessage, githubMessage, editProfileFields, checkVerifiedFormatting } from './utils';
 import Nav from '../../../components/Nav/Nav';
@@ -30,7 +29,7 @@ import AddImage from '../../../assets/AddImage.svg';
 import Loading from '../../../assets/Loading.svg';
 import DefaultColorPic from '../../../assets/DefaultColorPic.svg';
 import MyProfileHeaders from '../MyProfile/MyProfileHeaders';
-import '../styles/EditProfile.css';
+import '../styles/EditProfile.scss';
 
 const { getActivity, getMyProfileValue, getMyDID } = actions.profile;
 const {

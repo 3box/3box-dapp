@@ -13,8 +13,8 @@ import Globe from '../../assets/Globe.svg';
 import Loading from '../../assets/Loading.svg';
 import Private from '../../assets/Private.svg';
 import { store } from '../../state/store';
-import './styles/Profile.css';
-import './styles/Feed.css';
+import './styles/Profile.scss';
+import './styles/Feed.scss';
 
 const { handleCollectiblesModal } = actions.modal;
 

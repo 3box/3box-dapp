@@ -16,9 +16,9 @@ import Post from '../../../assets/Post.svg';
 import DetailsIcon from '../../../assets/Details.svg';
 import CollectiblesIcon from '../../../assets/Collectibles.svg';
 import ContactsIcon from '../../../assets/Contacts.svg';
-import '../styles/Feed.css';
-import '../styles/Profile.css';
-import '../../../components/styles/NetworkArray.css';
+import '../styles/Feed.scss';
+import '../styles/Profile.scss';
+import '../../../components/styles/NetworkArray.scss';
 
 const Content = ({ currentAddress, handleSignInUp, history }) => {
   const { pathname } = history.location;
