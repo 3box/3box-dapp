@@ -16,7 +16,7 @@ import Degree from '../../../assets/Degree.svg';
 import Major from '../../../assets/Major.svg';
 import Year from '../../../assets/Year.png';
 import Employer from '../../../assets/Employer.svg';
-import '../styles/Profile.css';
+import '../styles/Profile.scss';
 
 const PubSideBar = ({
   otherGithub,

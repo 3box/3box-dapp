@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import ProfileHover from 'profile-hover';
 
 import networkArray from '../../../utils/networkArray';
-import '../styles/Feed.css';
-import '../styles/Profile.css';
+import '../styles/Feed.scss';
+import '../styles/Profile.scss';
 import '../../../components/styles/NetworkArray.scss';
 
 const PublicActivityContext = ({ feedAddress, i }) => (

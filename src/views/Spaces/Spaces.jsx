@@ -22,7 +22,7 @@ import SortByMobile from './components/SortByMobile';
 import Header from './components/Header';
 import SpacesList from './components/SpacesList';
 import Nav from '../../components/Nav/Nav';
-import './styles/Spaces.css';
+import './styles/Spaces.scss';
 import { sortSpace, extractRow } from '../../utils/funcs';
 import actions from '../../state/actions';
 

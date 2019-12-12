@@ -92,6 +92,10 @@ button {
   }
 }
 
+.popupChat {
+  min-height: 0 !important;
+}
+
 .secondary {
   background-color: transparent;
   color: $threeBoxBlack;

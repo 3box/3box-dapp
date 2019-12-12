@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Private from '../../../assets/PrivateActivity.svg';
 import Folder from '../../../assets/Folder.svg';
 import Loading from '../../../assets/LoadingWhite.svg';
-import '../styles/Spaces.css';
+import '../styles/Spaces.scss';
 
 import actions from '../../../state/actions';
 

@@ -60,7 +60,7 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
     const box = await Box.openBox(currentAddress, web3Obj.currentProvider, {
       consentCallback,
     });
-    const ens = await fetchEns(currentAddress);
+    const ens = await fetchEns(currentAddress, web3Obj);
 
     dispatch({
       type: 'USER_LOGIN_UPDATE',

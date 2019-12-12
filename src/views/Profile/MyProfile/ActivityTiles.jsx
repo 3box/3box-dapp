@@ -9,8 +9,8 @@ import {
   FeedTileActivity,
   FeedTileSpace,
 } from '../FeedTile';
-import '../styles/Feed.css';
-import '../styles/Profile.css';
+import '../styles/Feed.scss';
+import '../styles/Profile.scss';
 import '../../../components/styles/NetworkArray.scss';
 
 const ActivityTiles = ({

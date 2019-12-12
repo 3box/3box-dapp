@@ -9,8 +9,8 @@ import actions from '../../state/actions';
 import WallInput from './WallInput';
 import WallPost from './WallPost';
 import Options from '../../assets/Options.svg';
-import './styles/Feed.css';
-import './styles/Profile.css';
+import './styles/Feed.scss';
+import './styles/Profile.scss';
 import '../../components/styles/NetworkArray.scss';
 
 const { getMyWall } = actions.profile;

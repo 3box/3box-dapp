@@ -10,7 +10,7 @@ import PublicRowMobile from './PublicRowMobile';
 import FavoriteCollectiblesRowMobile from './FavoriteCollectiblesRowMobile';
 import Mollie from '../../../assets/Mollie.png';
 import { timeSince } from '../../../utils/time';
-import '../styles/Spaces.css';
+import '../styles/Spaces.scss';
 
 const SpaceView = ({
   openSpace,

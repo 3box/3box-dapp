@@ -72,6 +72,9 @@ button {
     background-color: #2f383a;
     border-color: #2f383a; }
 
+.popupChat {
+  min-height: 0 !important; }
+
 .secondary {
   background-color: transparent;
   color: #181F21;

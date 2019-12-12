@@ -7,7 +7,7 @@ import MyContent from './MyProfile/MyContent';
 import SideBar from './SideBar';
 import Nav from '../../components/Nav/Nav';
 import MyProfileHeaders from './MyProfile/MyProfileHeaders';
-import './styles/Profile.css';
+import './styles/Profile.scss';
 
 class Profile extends Component {
   componentDidMount() {

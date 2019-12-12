@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Loading from '../../../assets/Loading.svg';
 import Arrow from '../../../assets/Arrow.svg';
 
-import '../styles/Spaces.css';
+import '../styles/Spaces.scss';
 
 const SpacesList = (props) => {
   const {

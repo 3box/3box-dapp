@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Globe from '../../../assets/Globe.svg';
-import '../styles/Spaces.css';
+import '../styles/Spaces.scss';
 
 import actions from '../../../state/actions';
 

@@ -3,7 +3,7 @@ import Box from '3box';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import './styles/Profile.css';
+import './styles/Profile.scss';
 import PubProfileHeaders from './PublicProfile/PubProfileHeaders';
 
 class ProfilePublic extends Component {

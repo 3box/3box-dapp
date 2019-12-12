@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Private from '../../../assets/PrivateActivity.svg';
 import Folder from '../../../assets/Folder.svg';
 import Loading from '../../../assets/LoadingWhite.svg';
-import '../styles/Spaces.css';
+import '../styles/Spaces.scss';
 
 const VaultRow = ({
   openSpace,

@@ -13,8 +13,8 @@ import OpenSea from '../../assets/OpenSea.png';
 import Loading from '../../assets/Loading.svg';
 import Private from '../../assets/Private.svg';
 import { store } from '../../state/store';
-import './styles/Profile.css';
-import './styles/Feed.css';
+import './styles/Profile.scss';
+import './styles/Feed.scss';
 import { shortenEthAddr } from '../../utils/funcs';
 
 const { handleCollectiblesModal } = actions.modal;

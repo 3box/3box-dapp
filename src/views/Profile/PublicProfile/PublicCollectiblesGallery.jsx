@@ -7,8 +7,8 @@ import CollectiblesTile from '../CollectiblesTile';
 import { CollectiblesModal, ModalBackground } from '../../../components/Modals';
 import { EmptyGalleryCollectiblesTile } from '../EmptyCollectiblesTile';
 import actions from '../../../state/actions';
-import '../styles/Feed.css';
-import '../styles/Profile.css';
+import '../styles/Feed.scss';
+import '../styles/Profile.scss';
 import '../../../components/styles/NetworkArray.scss';
 import '../../../components/styles/Modal.scss';
 

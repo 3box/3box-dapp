@@ -16,7 +16,7 @@ import ContactsIcon from '../../assets/Contacts.svg';
 import EthereumLogo from '../../assets/EthereumIcon.svg';
 import Copy from '../../assets/Copy.svg';
 import CopyGrey from '../../assets/CopyGrey.svg';
-import './styles/Profile.css';
+import './styles/Profile.scss';
 import '../../components/styles/Modal.scss';
 
 const SideBar = ({

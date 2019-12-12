@@ -8,8 +8,8 @@ import { alphabetize } from '../../utils/funcs';
 import FollowingTile from '../../components/FollowingTile';
 import Loading from '../../assets/Loading.svg';
 import Globe from '../../assets/Globe.svg';
-import './styles/Profile.css';
-import './styles/Feed.css';
+import './styles/Profile.scss';
+import './styles/Feed.scss';
 
 const Following = ({ following, isLoadingMyFollowing, isActive }) => (
   <div id="myFeed" className={`profileTab ${isActive ? 'viewTab' : ''}`}>
