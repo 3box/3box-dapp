@@ -21,6 +21,7 @@ export const ACTIVITY = 'activity';
 export const DATA = 'data';
 export const DETAILS = 'details';
 export const EDIT = 'edit';
+export const SETTINGS = 'settings';
 export const COLLECTIBLES = 'collectibles';
 export const FOLLOWING = 'following';
 export const WALL = 'wall';
@@ -31,6 +32,7 @@ export const FORMAT_PROFILE_ABOUT = `/:ethAddress/${DETAILS}`;
 export const FORMAT_PROFILE_DATA = `/:ethAddress/${DATA}`;
 export const FORMAT_PROFILE_COLLECTIBLES = `/:ethAddress/${COLLECTIBLES}`;
 export const FORMAT_PROFILE_EDIT = `/:ethAddress/${EDIT}`;
+export const FORMAT_PROFILE_SETTINGS = `/:ethAddress/${SETTINGS}`;
 export const FORMAT_PROFILE_CONTACTS = `/:ethAddress/${FOLLOWING}`;
 export const FORMAT_PROFILE_WALL = `/:ethAddress/${WALL}`;
 

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class DynamicImports extends Component {
   state = {
     component: null,
-  }
+  };
 
   componentWillMount() {
     const { load } = this.props;
@@ -41,6 +41,13 @@ export const Spaces = props => (
 export const EditProfile = props => (
   <DynamicImports load={() => import('./views/Profile/EditProfile/EditProfile')}>
     {Component => Component !== null
+      && <Component {...props} />}
+  </DynamicImports>
+);
+
+export const Settings = props => (
+  <DynamicImports load={() => import('./views/Profile/Settings/Settings')}>
+    {(Component) => Component !== null
       && <Component {...props} />}
   </DynamicImports>
 );
@@ -89,6 +96,13 @@ export const Terms = props => (
 
 export const Privacy = props => (
   <DynamicImports load={() => import('./views/Landing/Terms')}>
+    {Component => Component !== null
+      && <Component {...props} />}
+  </DynamicImports>
+);
+
+export const ChatboxComponent = props => (
+  <DynamicImports load={() => import('./components/ChatboxComponent')}>
     {Component => Component !== null
       && <Component {...props} />}
   </DynamicImports>

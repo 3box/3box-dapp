@@ -25,10 +25,10 @@ export const matchProtectedRoutes = (secondRoute) => {
     secondRoute === routes.COLLECTIBLES ||
     secondRoute === routes.DATA ||
     secondRoute === routes.FOLLOWING ||
-    secondRoute === routes.EDIT
-  ) {
-    return true;
-  }
+    secondRoute === routes.EDIT ||
+    secondRoute === routes.SETTINGS
+  ) return true;
+
   return false;
 };
 

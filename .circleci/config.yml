@@ -25,7 +25,7 @@ jobs:
       - run:
           name: deploy-to-s3
           command: |
-            CI=false NODE_OPTIONS=--max_old_space_size=4096 npm run build
+            CI=false NODE_OPTIONS=--max_old_space_size=8192 npm run build
             if [ "${CIRCLE_BRANCH}" == "develop" ]; then
               # Fix Warnings CI=false is just a baaad workaround
               npm run deploy-develop

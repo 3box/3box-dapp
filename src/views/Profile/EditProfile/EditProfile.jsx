@@ -1662,6 +1662,7 @@ EditProfile.propTypes = {
   handleGithubVerificationModal: PropTypes.func.isRequired,
   handleTwitterVerificationModal: PropTypes.func.isRequired,
   handleEmailVerificationModal: PropTypes.func.isRequired,
+  handleSignInUp: PropTypes.func.isRequired,
   copyToClipBoard: PropTypes.func.isRequired,
 };
 

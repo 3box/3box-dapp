@@ -131,10 +131,8 @@ Nav.propTypes = {
   box: PropTypes.object,
   location: PropTypes.object,
   handleSignOut: PropTypes.func.isRequired,
-  name: PropTypes.string,
   currentNetwork: PropTypes.string,
   currentAddress: PropTypes.string,
-  currentWallet: PropTypes.string,
   currentWalletLogo: PropTypes.string,
   handleSignInUp: PropTypes.func.isRequired,
 };
@@ -142,9 +140,7 @@ Nav.propTypes = {
 Nav.defaultProps = {
   box: {},
   currentNetwork: '',
-  name: '',
   currentAddress: '',
-  currentWallet: '',
   currentWalletLogo: '',
   location: {},
 };

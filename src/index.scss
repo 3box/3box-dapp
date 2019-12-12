@@ -122,6 +122,10 @@ button {
   }
 }
 
+.popupChat {
+  min-height: 0 !important;
+}
+
 .blueButton {
   border-color: $threeBoxBlue;
   color: $threeBoxBlue;

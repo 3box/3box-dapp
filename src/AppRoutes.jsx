@@ -16,6 +16,7 @@ import LandingNew from './views/Landing/LandingNew';
 import Partners from './views/Landing/Partners';
 import Team from './views/Landing/Team';
 import LogIn from './views/Profile/LogIn';
+
 import {
   MyProfile,
   Spaces,
@@ -24,6 +25,7 @@ import {
   Careers,
   Terms,
   Privacy,
+  Settings,
 } from './DynamicImports';
 
 const AppRoutes = (props) => {
@@ -133,6 +135,12 @@ const AppRoutes = (props) => {
         exact
         path="(^[/][0][xX]\w{40}\b)/edit"
         render={() => <EditProfile handleSignInUp={handleSignInUp} />}
+      />
+
+      <Route
+        exact
+        path="(^[/][0][xX]\w{40}\b)/settings"
+        render={() => <Settings handleSignInUp={handleSignInUp} />}
       />
 
       <Route

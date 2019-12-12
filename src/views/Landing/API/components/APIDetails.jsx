@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import Highlight from 'react-highlight';
+// import Highlight from 'react-highlight';
+import Highlight from 'react-highlight/lib/optimized';
 
 import GreenBullet from '../../../../assets/GreenBullet.png';
 import YellowBullet from '../../../../assets/YellowBullet.png';
@@ -64,54 +65,54 @@ export const ProfileDetails = ({ openSection }) => (
         <div className="getSet getSet-pink noMargin">GET</div>
       </div>
       <div className="api_sections_expanded_codeBlock">
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'// Read profile data'}
         </Highlight>
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'const profile = await Box.getProfile(<ethereum-address>)'}
         </Highlight>
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'console.log(profile)'}
         </Highlight>
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'// Output:'}
         </Highlight>
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'// {'}
         </Highlight>
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'//   name: \'mollie the narwhal\','}
         </Highlight>
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'//   emoji: 😋'}
         </Highlight>
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'// }'}
         </Highlight>
         <br />
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'const name = await box.public.get(\'name\')'}
         </Highlight>
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'console.log(name)'}
         </Highlight>
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'// Output:'}
         </Highlight>
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'// \'mollie the narwhal\''}
         </Highlight>
         <br />
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'const email = await box.private.get(\'email\')'}
         </Highlight>
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'console.log(email)'}
         </Highlight>
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'// Output:'}
         </Highlight>
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'// \'mollyíe@3box.io\''}
         </Highlight>
       </div>
@@ -120,17 +121,17 @@ export const ProfileDetails = ({ openSection }) => (
         <div className="getSet getSet-pink noMargin">SET</div>
       </div>
       <div className="api_sections_expanded_codeBlock margin-bottom-60">
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'// Update public profile data'}
         </Highlight>
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'await box.public.set(\'name\', \'Molly the Narwhal\')'}
         </Highlight>
         <br />
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'// Update encrypted profile data'}
         </Highlight>
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'await box.private.set(\'email\', \'narwhal@3box.io\')'}
         </Highlight>
       </div>
@@ -195,10 +196,10 @@ export const MessagingDetails = ({ openSection }) => (
         <div className="getSet getSet-green noMargin">GET</div>
       </div>
       <div className="api_sections_expanded_codeBlock">
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'// Statically read thread'}
         </Highlight>
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'const posts = await Box.getThread(\'myApp\', \'thethread\')'}
         </Highlight>
       </div>
@@ -207,13 +208,13 @@ export const MessagingDetails = ({ openSection }) => (
         <div className="getSet getSet-green noMargin">SET</div>
       </div>
       <div className="api_sections_expanded_codeBlock margin-bottom-60">
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'// Post in thread'}
         </Highlight>
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'const myAppSpace = await box.openSpace(\'myApp\')'}
         </Highlight>
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'await thread.post(\'the message\')'}
         </Highlight>
       </div>
@@ -280,10 +281,10 @@ export const StorageDetails = ({ openSection }) => (
         <div className="getSet getSet-yellow noMargin">GET</div>
       </div>
       <div className="api_sections_expanded_codeBlock">
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'// Read space data'}
         </Highlight>
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'const spaceData = await Box.getSpace(<eth-address>, \'myApp\')'}
         </Highlight>
       </div>
@@ -292,24 +293,24 @@ export const StorageDetails = ({ openSection }) => (
         <div className="getSet getSet-yellow noMargin">SET</div>
       </div>
       <div className="api_sections_expanded_codeBlock margin-bottom-60">
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'// Open space for writing'}
         </Highlight>
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'const myAppSpace = await box.openSpace(\'myApp\')'}
         </Highlight>
         <br />
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'// Update public space data'}
         </Highlight>
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'await myAppSpace.public.set(\'favorite-nft\', \'Space Narwhal\')'}
         </Highlight>
         <br />
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'// Update encrypted space data'}
         </Highlight>
-        <Highlight className="javascript">
+        <Highlight languages={['javascript']}>
           {'await myAppSpace.private.set(\'last used\', \'id-of-last-used-item\')'}
         </Highlight>
       </div>
