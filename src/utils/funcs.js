@@ -232,8 +232,11 @@ export const checkIsEthAddress = (string) => {
 };
 
 export const checkIsENSAddress = (string) => {
-  const isEthereumAddress = /[a-z0-9-]+\.(eth)/g.test(string);
-  return isEthereumAddress;
+  const noSpace = /^\S*$/.test(string);
+  if (!noSpace) return false;
+
+  const isENSAddress = /([a-z0-9-]){3,}[^\s-]\.(eth)/i.test(string);
+  return isENSAddress;
 };
 
 export const getFollowingProfiles = async (following) => {

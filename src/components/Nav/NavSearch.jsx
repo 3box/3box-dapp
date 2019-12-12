@@ -172,7 +172,7 @@ class NavSearch extends Component {
             </div>
           )}
 
-          {(!isEthAddr && !isENS && searchTerm && showResults) && (
+          {(!isEthAddr && !isENS && searchTerm && showResults && !searchedProfile) && (
             <div className="navSearch_input_result">
               <h4>
                 Enter a valid Ethereum address or ENS name
