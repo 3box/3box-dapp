@@ -4,7 +4,6 @@ import fetchEns from '../utils';
 
 export default async function getPublicProfileAndENS(graphqlQueryObject, otherAddress) {
   try {
-    console.log('gettingprofile', otherAddress);
     const data = await Box.profileGraphQL(graphqlQueryObject) || {};
     const ensName = await fetchEns(otherAddress);
     data.profile.ensName = ensName;

@@ -4,9 +4,13 @@ import {
 
 const fetchEns = async (address, web3Obj) => {
   try {
-    let provider = new ethers.providers.Web3Provider(web3Obj.currentProvider); // eslint-disable-line
-    const name = await provider.lookupAddress(address);
-    if (name) return name;
+    const currentProvider = web3Obj ? web3Obj.currentProvider : (web3 && web3.currentProvider); // eslint-disable-line
+
+    if (currentProvider) {
+      const provider = new ethers.providers.Web3Provider(currentProvider);
+      const name = await provider.lookupAddress(address);
+      if (name) return name;
+    }
 
     const ensDomainRequest = {
       query: ` {

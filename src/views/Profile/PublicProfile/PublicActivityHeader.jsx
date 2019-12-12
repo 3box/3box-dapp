@@ -7,80 +7,94 @@ import '../styles/Feed.scss';
 import '../styles/Profile.scss';
 import '../../../components/styles/NetworkArray.scss';
 
-const PublicActivityContext = ({ feedAddress, i }) => (
-  <div className="feed__activity__context">
-    {(feedAddress.metaData && feedAddress.metaData.image)
-      && <img src={`https://ipfs.infura.io/ipfs/${feedAddress.metaData.image}`} className="feed__activity__user clear" alt="profile" />}
+const PublicActivityContext = ({ feedAddress, i }) => {
+  const { metaData } = feedAddress;
+  const transactionAddress = `https://etherscan.io/address/${Object.keys(feedAddress)[0]}`;
+  return (
+    <div className="feed__activity__context">
+      {(metaData && metaData.image)
+        && <img src={`https://ipfs.infura.io/ipfs/${metaData.image}`} className="feed__activity__user clear" alt="profile" />}
 
-    {(feedAddress.metaData && feedAddress.metaData.contractImg)
-      && <img src={feedAddress.metaData.contractImg.src} className="feed__activity__user clear" alt="profile" />}
+      {(metaData && metaData.contractImg)
+        && <img src={metaData.contractImg.src} className="feed__activity__user clear" alt="profile" />}
 
-    {(!feedAddress.metaData
-      || (!feedAddress.metaData.image
-        && !feedAddress.metaData.contractImg
-        && !feedAddress.metaData.contractData
-        && !feedAddress.metaData.name
-        && !feedAddress.metaData.contractDetails))
-      && (
-        <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
-          0x
-        </div>)}
-
-    <>
-      {(feedAddress.metaData && feedAddress.metaData.name)
+      {(!metaData
+        || (!metaData.image
+          && !metaData.contractImg
+          && !metaData.contractData
+          && !metaData.name
+          && !metaData.contractDetails))
         && (
-          <ProfileHover
-            noTheme
-            orientation="top"
-            address={Object.keys(feedAddress)[0]}
-          >
+          <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
+            0x
+          </div>
+        )}
+
+      <>
+        {(metaData && metaData.name)
+          && (
+            <ProfileHover
+              noTheme
+              orientation="top"
+              address={Object.keys(feedAddress)[0]}
+            >
+              <a
+                href={`https://3box.io/${Object.keys(feedAddress)[0]}`}
+                className="feed__activity__address__wrapper"
+              >
+                <h4>
+                  {metaData.name}
+                </h4>
+                <p className="feed__activity__address__type">
+                  {metaData.ensName || Object.keys(feedAddress)[0].substring(0, 12)}
+                </p>
+              </a>
+            </ProfileHover>
+          )}
+
+        {(metaData && metaData.contractDetails && metaData.contractDetails.name)
+          && (
             <a
-              href={`https://3box.io/${Object.keys(feedAddress)[0]}`}
+              href={transactionAddress}
+              target="_blank"
+              rel="noopener noreferrer"
               className="feed__activity__address__wrapper"
             >
               <h4>
-                {feedAddress.metaData.name}
+                {(metaData.contractDetails.name.charAt(0).toUpperCase() + metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()}
               </h4>
               <p className="feed__activity__address__type">
-                {`Address ${Object.keys(feedAddress)[0].substring(0, 12)}...`}
+                {`Contract ${metaData.ensName || Object.keys(feedAddress)[0].substring(0, 12)}...`}
               </p>
             </a>
-          </ProfileHover>
-        )}
+          )}
 
-      {(feedAddress.metaData && feedAddress.metaData.contractDetails && feedAddress.metaData.contractDetails.name)
-        && (
-          <a href={`https://etherscan.io/address/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer" className="feed__activity__address__wrapper">
-            <h4>
-              {(feedAddress.metaData.contractDetails.name.charAt(0).toUpperCase() + feedAddress.metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()}
-            </h4>
-            <p className="feed__activity__address__type">
-              Contract
-              {` ${Object.keys(feedAddress)[0].substring(0, 12)}...`}
-            </p>
-          </a>
-        )}
-
-      {(!feedAddress.metaData || (!feedAddress.metaData.contractDetails && !feedAddress.metaData.name))
-        && (
-          <ProfileHover
-            noTheme
-            orientation="top"
-            address={Object.keys(feedAddress)[0]}
-          >
-            <a href={`https://etherscan.io/address/${Object.keys(feedAddress)[0]}`} target="_blank" rel="noopener noreferrer" className="feed__activity__address__wrapper">
-              <h4>
-                {Object.keys(feedAddress)[0]}
-              </h4>
-              <p className="feed__activity__address__type">
-                Address
-              </p>
-            </a>
-          </ProfileHover>
-        )}
-    </>
-  </div>
-);
+        {(!metaData || (!metaData.contractDetails && !metaData.name))
+          && (
+            <ProfileHover
+              noTheme
+              orientation="top"
+              address={Object.keys(feedAddress)[0]}
+            >
+              <a
+                href={transactionAddress}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="feed__activity__address__wrapper"
+              >
+                <h4>
+                  {Object.keys(feedAddress)[0]}
+                </h4>
+                <p className="feed__activity__address__type">
+                  {metaData.ensName || Object.keys(feedAddress)[0].substring(0, 12)}
+                </p>
+              </a>
+            </ProfileHover>
+          )}
+      </>
+    </div>
+  );
+}
 
 PublicActivityContext.propTypes = {
   feedAddress: PropTypes.object,

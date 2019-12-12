@@ -233,7 +233,6 @@ export const checkIsEthAddress = (string) => {
 
 export const checkIsENSAddress = (string) => {
   const isEthereumAddress = /[a-z0-9-]+\.(eth)/g.test(string);
-  console.log('isit???', isEthereumAddress);
   return isEthereumAddress;
 };
 

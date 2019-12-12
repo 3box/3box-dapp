@@ -87,7 +87,7 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
     }
 
     // get contract and 3box profile metadata
-    await feedByAddress.map(async (txGroup) => {
+    await feedByAddress.forEach(async (txGroup) => {
       const otherAddress = Object.keys(txGroup)[0];
       let metaData = {};
       let contractData;
@@ -100,10 +100,6 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
         }
         return;
       }
-
-      console.log('addressUsed', otherAddress.substring(0, 5));
-      console.log('checkedAddressees', checkedAddresses);
-      console.log('isHitwiththis', checkedAddresses[otherAddress]);
 
       if (!checkedAddresses[otherAddress]) {
         try {
