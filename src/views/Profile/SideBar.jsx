@@ -91,7 +91,6 @@ const SideBar = ({
               </div>
 
               <div id="profile__network" title="Network">
-                <img id="profile__network__networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
                 <p id="profile__details__address" title={currentAddress}>
                   {!onOtherProfilePage && (ens || shortenEthAddr(currentAddress))}
                   {onOtherProfilePage && (otherEns || shortenEthAddr(location.pathname.split('/')[1]))}

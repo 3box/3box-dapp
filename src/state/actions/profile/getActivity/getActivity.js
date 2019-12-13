@@ -111,15 +111,18 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
             } else if (code !== '0x' && typeof code !== 'undefined') { // then address is contract
               isContract[otherAddress] = true;
               const data = await getContract(otherAddress);
-              const ensName = await fetchEns(otherAddress);
+              // const ensName = await fetchEns(otherAddress);
               if (data && data.status === '1') {
                 contractData = JSON.parse(data.result);
                 contractArray = imageElFor(otherAddress);
+                console.log('contractArray', contractArray)
+                console.log('contractArray', contractArray.length && contractArray[0])
                 addressData[otherAddress] = {
                   contractImg: contractArray[0],
                   contractDetails: contractArray[1],
                   contractData,
-                  ensName,
+                  isContract: true,
+                  // ensName,
                 };
               } else {
                 addressData[otherAddress] = false;

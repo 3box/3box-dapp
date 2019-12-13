@@ -6,16 +6,17 @@ import ProfileHover from 'profile-hover';
 import ProfilePicture from '../../../components/ProfilePicture';
 import Space from '../../../assets/Space.svg';
 import networkArray from '../../../utils/networkArray';
-import { checkIsEthAddress } from '../../../utils/funcs';
+import { checkIsEthAddress, shortenEthAddr } from '../../../utils/funcs';
 import '../styles/Feed.scss';
 import '../styles/Profile.scss';
 import '../../../components/styles/NetworkArray.scss';
 
 const Activity = ({ name, image, feedAddress }) => {
   const { metaData } = feedAddress;
-  const transactionAddress = `https://ethstats.io/account/${Object.keys(feedAddress)[0]}`;
-  const isThreeBoxActivity = Object.keys(feedAddress)[0] === 'threeBox';
-  const isEthAddr = checkIsEthAddress(Object.keys(feedAddress)[0]);
+  const address = Object.keys(feedAddress)[0];
+  const transactionAddress = `https://ethstats.io/account/${address}`;
+  const isThreeBoxActivity = address === 'threeBox';
+  const isEthAddr = checkIsEthAddress(address);
 
   return (
     <div className="feed__activity__context">
@@ -78,10 +79,10 @@ const Activity = ({ name, image, feedAddress }) => {
                 <ProfileHover
                   noTheme
                   orientation="top"
-                  address={Object.keys(feedAddress)[0]}
+                  address={address}
                 >
                   <a
-                    href={`https://3box.io/${Object.keys(feedAddress)[0]}`}
+                    href={`https://3box.io/${address}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="feed__activity__address__wrapper"
@@ -89,8 +90,8 @@ const Activity = ({ name, image, feedAddress }) => {
                     <h4>
                       {metaData.name}
                     </h4>
-                    <p className="feed__activity__address__type" title={Object.keys(feedAddress)[0]}>
-                      {metaData.ensName || Object.keys(feedAddress)[0]}
+                    <p className="feed__activity__address__type" title={address}>
+                      {`Address ${metaData.ensName || shortenEthAddr(address)}`}
                     </p>
                   </a>
                 </ProfileHover>
@@ -100,7 +101,7 @@ const Activity = ({ name, image, feedAddress }) => {
             {(metaData && metaData.contractDetails && metaData.contractDetails.name)
               && (
                 <a
-                  href={`https://etherscan.io/address/${Object.keys(feedAddress)[0]}`}
+                  href={`https://etherscan.io/address/${address}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="feed__activity__address__wrapper"
@@ -108,8 +109,8 @@ const Activity = ({ name, image, feedAddress }) => {
                   <h4>
                     {(metaData.contractDetails.name.charAt(0).toUpperCase() + metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()}
                   </h4>
-                  <p className="feed__activity__address__type" title={Object.keys(feedAddress)[0]}>
-                    {`Contract ${metaData.ensName || Object.keys(feedAddress)[0].substring(0, 12)}...`}
+                  <p className="feed__activity__address__type" title={address}>
+                    {`Contract ${metaData.ensName || shortenEthAddr(address)}`}
                   </p>
                 </a>
               )}
@@ -120,7 +121,7 @@ const Activity = ({ name, image, feedAddress }) => {
                 <ProfileHover
                   noTheme
                   orientation="top"
-                  address={Object.keys(feedAddress)[0]}
+                  address={address}
                 >
                   <a
                     href={transactionAddress}
@@ -129,10 +130,10 @@ const Activity = ({ name, image, feedAddress }) => {
                     className="feed__activity__address__wrapper"
                   >
                     <h4>
-                      {Object.keys(feedAddress)[0]}
+                      {address}
                     </h4>
-                    <p className="feed__activity__address__type" title={Object.keys(feedAddress)[0]}>
-                      {metaData.ensName || Object.keys(feedAddress)[0]}
+                    <p className="feed__activity__address__type" title={address}>
+                      {`Address ${metaData.ensName}`}
                     </p>
                   </a>
                 </ProfileHover>
@@ -144,7 +145,7 @@ const Activity = ({ name, image, feedAddress }) => {
         {(!isEthAddr && !isThreeBoxActivity) && (
           <div className="feed__activity__address__wrapper">
             <h4>
-              {Object.keys(feedAddress)[0]}
+              {address}
             </h4>
             <p className="feed__activity__address__type">
               3Box Space

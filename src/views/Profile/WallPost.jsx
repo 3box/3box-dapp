@@ -141,7 +141,7 @@ class WallPost extends Component {
                         className="comment_content_context_main_user_info_address"
                         title={profile.ethAddr}
                       >
-                        {profile.ethAddr && `${shortenEthAddr(profile.ethAddr)}`}
+                        {profile.ensName || `${shortenEthAddr(profile.ethAddr)}`}
                       </div>
                     )}
                   </div>

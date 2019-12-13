@@ -24,7 +24,7 @@
 .profile__basic__wrapper {
   display: flex;
   justify-content: flex-start;
-  margin-bottom: 6px; }
+  margin-bottom: 4px; }
 
 .publicProfile {
   margin-top: 290px; }
@@ -474,6 +474,8 @@
   display: flex;
   align-items: center; }
   #profile__network p {
+    font-size: 16px;
+    font-weight: 600;
     color: #a0a0a0; }
 
 .profile__category__field {

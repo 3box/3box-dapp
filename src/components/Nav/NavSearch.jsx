@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Box from '3box';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-// import debounce from 'lodash.debounce';
 
 import {
   checkIsEthAddress,
