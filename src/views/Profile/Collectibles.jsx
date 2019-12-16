@@ -339,7 +339,7 @@ Collectibles.propTypes = {
   collectiblesFavorites: PropTypes.array,
   collectiblesFavoritesToRender: PropTypes.array,
   handleCollectiblesModal: PropTypes.func.isRequired,
-  showCollectiblesModal: PropTypes.bool.isRequired,
+  showCollectiblesModal: PropTypes.bool,
   isFavorite: PropTypes.bool,
 };
 
@@ -353,6 +353,7 @@ Collectibles.defaultProps = {
   currentNetwork: '',
   isActive: false,
   isFavorite: false,
+  showCollectiblesModal: false,
 };
 
 function mapState(state) {

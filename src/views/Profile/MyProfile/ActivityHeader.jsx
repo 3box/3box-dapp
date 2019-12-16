@@ -20,137 +20,151 @@ const Activity = ({ name, image, feedAddress }) => {
 
   return (
     <div className="feed__activity__context">
-      {isThreeBoxActivity
-        && (
-          <div className="feed__activity__userWrapper">
-            <ProfilePicture
-              pictureClass="feed__activity__user clear"
-              imageToRender={image}
-            />
-            <h5 className="feed__activity__threeBoxEmblem">
-              3
-            </h5>
-          </div>
-        )}
+      <div className="feed_activity_context_info">
+        {isThreeBoxActivity
+          && (
+            <div className="feed__activity__userWrapper">
+              <ProfilePicture
+                pictureClass="feed__activity__user clear"
+                imageToRender={image}
+              />
+              <h5 className="feed__activity__threeBoxEmblem">
+                3
+              </h5>
+            </div>
+          )}
 
-      {(!isThreeBoxActivity && metaData && metaData.image)
-        && <img src={`https://ipfs.infura.io/ipfs/${metaData.image}`} className="feed__activity__user clear" alt="profile" />}
+        {(!isThreeBoxActivity && metaData && metaData.image)
+          && <img src={`https://ipfs.infura.io/ipfs/${metaData.image}`} className="feed__activity__user clear" alt="profile" />}
 
-      {(!isThreeBoxActivity && metaData && metaData.contractImg)
-        && <img src={metaData.contractImg.src} className="feed__activity__user clear" alt="profile" />}
+        {(!isThreeBoxActivity && metaData && metaData.contractImg)
+          && <img src={metaData.contractImg.src} className="feed__activity__user clear" alt="profile" />}
 
-      {(isEthAddr && (!metaData || (!metaData.image && !metaData.contractImg)))
-        && (
-          <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
-            0x
-          </div>
-        )}
+        {(isEthAddr && (!metaData || (!metaData.image && !metaData.contractImg)))
+          && (
+            <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
+              0x
+            </div>
+          )}
 
-      {(!isEthAddr && !isThreeBoxActivity)
-        && (
-          <div className={`feed__activity__user`}>
-            <img src={Space} className="feed__activity__spaceIcon" alt="space icon" />
-          </div>
-        )}
+        {(!isEthAddr && !isThreeBoxActivity)
+          && (
+            <div className={`feed__activity__user`}>
+              <img src={Space} className="feed__activity__spaceIcon" alt="space icon" />
+            </div>
+          )}
 
-      <div className="feed__activity__address">
-        {/* 3Box Activity */}
-        {isThreeBoxActivity && (
-          <div className="feed__activity__address__wrapper">
-            <h4>
-              {name}
-            </h4>
-            <p className="feed__activity__address__type">
-              3Box Profile
-            </p>
-          </div>
-        )}
+        <div className="feed__activity__address">
+          {/* 3Box Activity */}
+          {isThreeBoxActivity && (
+            <div className="feed__activity__address__wrapper">
+              <h4>
+                {name}
+              </h4>
+              <p className="feed__activity__address__type">
+                3Box Profile
+              </p>
+            </div>
+          )}
 
-        {isEthAddr && (
-          <>
-            {/* ETH Activity w/ 3Box Profile */}
-            {(metaData && metaData.name)
-              && (
-                <ProfileHover
-                  noTheme
-                  orientation="top"
-                  address={address}
-                >
+          {isEthAddr && (
+            <>
+              {/* ETH Activity w/ 3Box Profile */}
+              {(metaData && metaData.name)
+                && (
+                  <ProfileHover
+                    noTheme
+                    orientation="top"
+                    address={address}
+                  >
+                    <a
+                      href={`https://3box.io/${address}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="feed__activity__address__wrapper"
+                    >
+                      <h4>
+                        {metaData.name}
+                      </h4>
+                      <p className="feed__activity__address__type" title={address}>
+                        {metaData.ensName || shortenEthAddr(address)}
+                      </p>
+                    </a>
+                  </ProfileHover>
+                )}
+
+              {/* ETH Activity: Contract */}
+              {(metaData && metaData.isContract)
+                && (
                   <a
-                    href={`https://3box.io/${address}`}
+                    href={`https://etherscan.io/address/${address}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="feed__activity__address__wrapper"
                   >
                     <h4>
-                      {metaData.name}
+                      {metaData.contractDetails ? `${metaData.contractDetails.name.charAt(0).toUpperCase()}${metaData.contractDetails.name.slice(1).replace(/([A-Z])/g, ' $1').trim()}`
+                        : address}
                     </h4>
                     <p className="feed__activity__address__type" title={address}>
-                      {`Address ${metaData.ensName || shortenEthAddr(address)}`}
+                      {metaData.contractDetails ? shortenEthAddr(address) : ''}
                     </p>
                   </a>
-                </ProfileHover>
-              )}
+                )}
 
-            {/* ETH Activity: Contract */}
-            {(metaData && metaData.contractDetails && metaData.contractDetails.name)
-              && (
-                <a
-                  href={`https://etherscan.io/address/${address}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="feed__activity__address__wrapper"
-                >
-                  <h4>
-                    {(metaData.contractDetails.name.charAt(0).toUpperCase() + metaData.contractDetails.name.slice(1)).replace(/([A-Z])/g, ' $1').trim()}
-                  </h4>
-                  <p className="feed__activity__address__type" title={address}>
-                    {`Contract ${metaData.ensName || shortenEthAddr(address)}`}
-                  </p>
-                </a>
-              )}
-
-            {/* ETH Activity: */}
-            {(!metaData || (!metaData.contractDetails && !metaData.name))
-              && (
-                <ProfileHover
-                  noTheme
-                  orientation="top"
-                  address={address}
-                >
-                  <a
-                    href={transactionAddress}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="feed__activity__address__wrapper"
+              {/* ETH Activity: */}
+              {(!metaData || (!metaData.contractDetails && !metaData.name))
+                && (
+                  <ProfileHover
+                    noTheme
+                    orientation="top"
+                    address={address}
                   >
-                    <h4>
-                      {address}
-                    </h4>
-                    <p className="feed__activity__address__type" title={address}>
-                      {`Address ${metaData.ensName || shortenEthAddr(address)}`}
-                    </p>
-                  </a>
-                </ProfileHover>
-              )}
-          </>
-        )}
+                    <a
+                      href={transactionAddress}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="feed__activity__address__wrapper"
+                    >
+                      <h4>
+                        {address}
+                      </h4>
+                      <p className="feed__activity__address__type" title={address}>
+                        {metaData.ensName || ''}
+                      </p>
+                    </a>
+                  </ProfileHover>
+                )}
+            </>
+          )}
 
-        {/* 3Box Space Activity */}
-        {(!isEthAddr && !isThreeBoxActivity) && (
-          <div className="feed__activity__address__wrapper">
-            <h4>
-              {address}
-            </h4>
-            <p className="feed__activity__address__type">
-              3Box Space
-            </p>
-          </div>
-        )}
+          {/* 3Box Space Activity */}
+          {(!isEthAddr && !isThreeBoxActivity) && (
+            <div className="feed__activity__address__wrapper">
+              <h4>
+                {address}
+              </h4>
+              <p className="feed__activity__address__type">
+                3Box Space
+              </p>
+            </div>
+          )}
+        </div>
       </div>
+
+      {/* Transaction type */}
+      {!isThreeBoxActivity && (
+        <div className="feed_activity_context_type">
+          <div className={`feed_activity_context_type_icon ${(metaData && metaData.isContract) ? 'Contract' : 'Address'}`}>
+            <p>
+              {(metaData && metaData.isContract) ? 'Contract' : 'Address'}
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
-}
+};
 
 Activity.propTypes = {
   feedAddress: PropTypes.object,

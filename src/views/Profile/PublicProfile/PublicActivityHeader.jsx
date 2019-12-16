@@ -14,69 +14,46 @@ const PublicActivityContext = ({ feedAddress, i }) => {
   const transactionAddress = `https://etherscan.io/address/${address}`;
   return (
     <div className="feed__activity__context">
-      {(metaData && metaData.image)
-        && <img src={`https://ipfs.infura.io/ipfs/${metaData.image}`} className="feed__activity__user clear" alt="profile" />}
+      <div className="feed_activity_context_info">
+        {(metaData && metaData.image)
+          && <img src={`https://ipfs.infura.io/ipfs/${metaData.image}`} className="feed__activity__user clear" alt="profile" />}
 
-      {(metaData && metaData.contractImg)
-        && <img src={metaData.contractImg.src} className="feed__activity__user clear" alt="profile" />}
+        {(metaData && metaData.contractImg)
+          && <img src={metaData.contractImg.src} className="feed__activity__user clear" alt="profile" />}
 
-      {(!metaData
-        || (!metaData.image && !metaData.contractImg
-        ))
-        && (
-          <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
-            0x
-          </div>
-        )}
-
-      <>
-        {(metaData && metaData.name)
+        {(!metaData || (!metaData.image && !metaData.contractImg))
           && (
-            <ProfileHover
-              noTheme
-              orientation="top"
-              address={address}
-            >
-              <a
-                href={`https://3box.io/${address}`}
-                className="feed__activity__address__wrapper"
+            <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
+              0x
+            </div>
+          )}
+
+        {/* Activity with profile */}
+        <>
+          {(metaData && metaData.name)
+            && (
+              <ProfileHover
+                noTheme
+                orientation="top"
+                address={address}
               >
-                <h4>
-                  {metaData.name}
-                </h4>
-                <p className="feed__activity__address__type">
-                  {`Address ${metaData.ensName || shortenEthAddr(address)}`}
-                </p>
-              </a>
-            </ProfileHover>
-          )}
+                <a
+                  href={`https://3box.io/${address}`}
+                  className="feed__activity__address__wrapper"
+                >
+                  <h4>
+                    {metaData.name}
+                  </h4>
+                  <p className="feed__activity__address__type">
+                    {metaData.ensName || shortenEthAddr(address)}
+                  </p>
+                </a>
+              </ProfileHover>
+            )}
 
-        {/* Contract Activity */}
-        {(metaData && metaData.isContract)
-          && (
-            <a
-              href={transactionAddress}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="feed__activity__address__wrapper"
-            >
-              <h4>
-                {metaData.contractDetails ? `${metaData.contractDetails.name.charAt(0).toUpperCase()}${metaData.contractDetails.name.slice(1).replace(/([A-Z])/g, ' $1').trim()}`
-                  : address}
-              </h4>
-              <p className="feed__activity__address__type">
-                {metaData.contractDetails ? `Contract ${shortenEthAddr(address)}` : 'Contract'}
-              </p>
-            </a>
-          )}
-
-        {(!metaData || (!metaData.isContract && !metaData.name))
-          && (
-            <ProfileHover
-              noTheme
-              orientation="top"
-              address={address}
-            >
+          {/* Contract Activity */}
+          {(metaData && metaData.isContract)
+            && (
               <a
                 href={transactionAddress}
                 target="_blank"
@@ -84,18 +61,50 @@ const PublicActivityContext = ({ feedAddress, i }) => {
                 className="feed__activity__address__wrapper"
               >
                 <h4>
-                  {address}
+                  {metaData.contractDetails ? `${metaData.contractDetails.name.charAt(0).toUpperCase()}${metaData.contractDetails.name.slice(1).replace(/([A-Z])/g, ' $1').trim()}`
+                    : address}
                 </h4>
                 <p className="feed__activity__address__type">
-                  {`Address ${metaData.ensName || shortenEthAddr(address)}`}
+                  {metaData.contractDetails ? shortenEthAddr(address) : ''}
                 </p>
               </a>
-            </ProfileHover>
-          )}
-      </>
+            )}
+
+          {(!metaData || (!metaData.isContract && !metaData.name))
+            && (
+              <ProfileHover
+                noTheme
+                orientation="top"
+                address={address}
+              >
+                <a
+                  href={transactionAddress}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="feed__activity__address__wrapper"
+                >
+                  <h4>
+                    {address}
+                  </h4>
+                  <p className="feed__activity__address__type">
+                    {metaData.ensName || ''}
+                  </p>
+                </a>
+              </ProfileHover>
+            )}
+        </>
+      </div>
+
+      <div className="feed_activity_context_type">
+        <div className={`feed_activity_context_type_icon ${(metaData && metaData.isContract) ? 'Contract' : 'Address'}`}>
+          <p>
+            {(metaData && metaData.isContract) ? 'Contract' : 'Address'}
+          </p>
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 PublicActivityContext.propTypes = {
   feedAddress: PropTypes.object,

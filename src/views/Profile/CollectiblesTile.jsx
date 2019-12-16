@@ -75,9 +75,9 @@ CollectiblesTile.propTypes = {
   name: PropTypes.string,
   description: PropTypes.string,
   padded: PropTypes.bool,
-  updateGallery: PropTypes.object,
+  updateGallery: PropTypes.func.isRequired,
   handleCollectiblesModal: PropTypes.func.isRequired,
-  favorite: PropTypes.bool.isRequired,
+  favorite: PropTypes.bool,
   onPublicProfile: PropTypes.bool.isRequired,
   tokenId: PropTypes.string,
   bgStyle: PropTypes.string,
@@ -89,10 +89,10 @@ CollectiblesTile.defaultProps = {
   name: '',
   description: '',
   padded: false,
+  favorite: false,
   tokenId: '',
   bgStyle: '',
   collectible: {},
-  updateGallery: {},
 };
 
 function mapState(state) {

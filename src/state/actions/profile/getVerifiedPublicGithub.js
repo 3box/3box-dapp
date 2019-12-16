@@ -8,7 +8,7 @@ const getVerifiedPublicGithub = () => async (dispatch) => {
 
     dispatch({
       type: 'MY_VERIFIED_GITHUB_UPDATE',
-      verifiedGithub: verifiedGithub.username,
+      verifiedGithub: verifiedGithub && verifiedGithub.username,
     });
   } catch (error) {
     console.error(error);

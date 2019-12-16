@@ -170,17 +170,29 @@ class App extends Component {
       this.props.getMyProfileValue('public', 'year'); // eslint-disable-line
       this.props.getMyProfileValue('public', 'emoji'); // eslint-disable-line
       this.props.getMyProfileValue('private', 'birthday'); // eslint-disable-line
+    } catch (err) {
+      console.error(err);
+    }
 
+    try {
       await this.props.getMyFollowing(); // eslint-disable-line
       this.props.getMyWall(); // eslint-disable-line
+    } catch (error) {
+      console.error(error);
+    }
 
+    try {
       await this.props.getCollectibles(currentAddress); // eslint-disable-line
       await this.props.convert3BoxToSpaces(); // eslint-disable-line
       await this.props.getMySpacesData(currentAddress); // eslint-disable-line
+    } catch (error) {
+      console.error(error);
+    }
 
+    try {
       this.props.getActivity(); // eslint-disable-line
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     }
   }
 
