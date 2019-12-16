@@ -22,10 +22,13 @@ const CollectiblesTile = ({
   tokenId,
   favorite,
   onPublicProfile,
-  handleCollectiblesModal,
   collectible,
+  handleCollectiblesModal,
 }) => (
-    <div className="collectiblesTile" onClick={() => handleCollectiblesModal(collectible, favorite)}>
+    <div
+      className="collectiblesTile"
+      onClick={() => handleCollectiblesModal(collectible, favorite)}
+    >
       <div
         className="collectibles__image__wrapper"
         style={{ backgroundColor: `#${bgStyle}` }}
@@ -45,7 +48,7 @@ const CollectiblesTile = ({
             type="button"
             className="collectibles__like"
             title="Add to favorites"
-            onClick={e => updateGallery(e, collectible)}
+            onClick={(e) => updateGallery(e, collectible)}
           >
             <img src={HeartBlue} alt="" className="collectibles__like__heart gallery__like" />
           </button>
@@ -56,7 +59,7 @@ const CollectiblesTile = ({
             type="button"
             className="collectibles__like"
             title="Remove from favorites"
-            onClick={e => updateGallery(e, collectible, 'remove')}
+            onClick={(e) => updateGallery(e, collectible, 'remove')}
           >
             <img src={HeartBlue} alt="" className="collectibles__like__heart" />
           </button>

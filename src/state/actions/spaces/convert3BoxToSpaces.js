@@ -18,6 +18,7 @@ const filterDappKeys = (row) => {
     (row !== 'followingSpace')) {
     return true;
   }
+
   return false;
 };
 

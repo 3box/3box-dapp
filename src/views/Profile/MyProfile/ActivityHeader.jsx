@@ -7,6 +7,7 @@ import ProfilePicture from '../../../components/ProfilePicture';
 import Space from '../../../assets/Space.svg';
 import networkArray from '../../../utils/networkArray';
 import { checkIsEthAddress, shortenEthAddr } from '../../../utils/funcs';
+
 import '../styles/Feed.scss';
 import '../styles/Profile.scss';
 import '../../../components/styles/NetworkArray.scss';
@@ -49,8 +50,12 @@ const Activity = ({ name, image, feedAddress }) => {
 
         {(!isEthAddr && !isThreeBoxActivity)
           && (
-            <div className={`feed__activity__user`}>
-              <img src={Space} className="feed__activity__spaceIcon" alt="space icon" />
+            <div className="feed__activity__user">
+              <img
+                src={Space}
+                className="feed__activity__spaceIcon"
+                alt="space icon"
+              />
             </div>
           )}
 

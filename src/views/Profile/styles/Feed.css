@@ -453,11 +453,36 @@ input:checked + .slider:before {
 
 .feed__activity__context {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 1.3em;
-  padding: 0; }
+  padding: 0;
+  justify-content: space-between; }
   .feed__activity__context:hover h4 {
     text-decoration: underline; }
+
+.feed_activity_context_info {
+  display: flex;
+  align-items: flex-start;
+  padding: 0; }
+
+.feed_activity_context_type_icon {
+  padding: 4px 9px;
+  border-radius: 4px; }
+  .feed_activity_context_type_icon p {
+    color: #747677;
+    font-size: 12px; }
+
+.feed_activity_context_type {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  height: 100%; }
+
+.feed_activity_context_type_icon.Contract {
+  background-color: #ffe9d2; }
+
+.feed_activity_context_type_icon.Address {
+  background-color: #d1d9ff; }
 
 .feed__activity__context__network {
   min-width: 40px;
