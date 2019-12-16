@@ -39,12 +39,7 @@ const Activity = ({ name, image, feedAddress }) => {
       {(!isThreeBoxActivity && metaData && metaData.contractImg)
         && <img src={metaData.contractImg.src} className="feed__activity__user clear" alt="profile" />}
 
-      {(isEthAddr &&
-        (!metaData || (!metaData.image
-          && !metaData.contractImg
-          && !metaData.contractData
-          && !metaData.name
-          && !metaData.contractDetails)))
+      {(isEthAddr && (!metaData || (!metaData.image && !metaData.contractImg)))
         && (
           <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
             0x
@@ -133,7 +128,7 @@ const Activity = ({ name, image, feedAddress }) => {
                       {address}
                     </h4>
                     <p className="feed__activity__address__type" title={address}>
-                      {`Address ${metaData.ensName}`}
+                      {`Address ${metaData.ensName || shortenEthAddr(address)}`}
                     </p>
                   </a>
                 </ProfileHover>

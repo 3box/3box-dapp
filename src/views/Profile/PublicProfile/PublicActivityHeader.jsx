@@ -4,7 +4,6 @@ import ProfileHover from 'profile-hover';
 
 import networkArray from '../../../utils/networkArray';
 import { shortenEthAddr } from '../../../utils/funcs';
-// import from '../../../assets/contractIcons/'
 import '../styles/Feed.scss';
 import '../styles/Profile.scss';
 import '../../../components/styles/NetworkArray.scss';
@@ -18,17 +17,11 @@ const PublicActivityContext = ({ feedAddress, i }) => {
       {(metaData && metaData.image)
         && <img src={`https://ipfs.infura.io/ipfs/${metaData.image}`} className="feed__activity__user clear" alt="profile" />}
 
-      {/* {(metaData && metaData.contractImg)
-        && <img src={`../../../assets/contractIcons/${metaData.contractImg}`} className="feed__activity__user clear" alt="profile" />} */}
       {(metaData && metaData.contractImg)
         && <img src={metaData.contractImg.src} className="feed__activity__user clear" alt="profile" />}
 
       {(!metaData
-        || (!metaData.image
-          && !metaData.contractImg
-          // && !metaData.contractData
-          // && !metaData.name
-          // && !metaData.contractDetails
+        || (!metaData.image && !metaData.contractImg
         ))
         && (
           <div className={`feed__activity__context__network ${networkArray[Math.floor(Math.random() * networkArray.length)]}`}>
@@ -67,7 +60,6 @@ const PublicActivityContext = ({ feedAddress, i }) => {
               rel="noopener noreferrer"
               className="feed__activity__address__wrapper"
             >
-              {console.log('metaDattaaa', metaData)}
               <h4>
                 {metaData.contractDetails ? `${metaData.contractDetails.name.charAt(0).toUpperCase()}${metaData.contractDetails.name.slice(1).replace(/([A-Z])/g, ' $1').trim()}`
                   : address}

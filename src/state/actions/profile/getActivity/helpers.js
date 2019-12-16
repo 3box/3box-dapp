@@ -309,5 +309,3 @@ export const updateFeed = (otherProfileAddress, feedByAddress, addressData, isCo
     console.log(error);
   }
 };
-
-// export const 

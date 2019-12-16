@@ -8,7 +8,6 @@ import {
   graphqlQueryObject,
 } from '../../../../utils/funcs';
 import getPublicProfileAndENS from '../getPublicProfileAndENS';
-import fetchEns from '../../utils';
 import {
   addTimeStamp,
   getMyFeed,
@@ -115,8 +114,6 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
               if (data && data.status === '1') {
                 contractData = JSON.parse(data.result);
                 contractArray = imageElFor(otherAddress);
-                console.log('contractArray', contractArray)
-                console.log('contractArray', contractArray.length && contractArray[0])
                 addressData[otherAddress] = {
                   contractImg: contractArray[0],
                   contractDetails: contractArray[1],
