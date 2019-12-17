@@ -317,7 +317,6 @@ export const ProvideAccessModal = ({
   );
 
 ProvideAccessModal.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
   handleAccessModal: PropTypes.func.isRequired,
   directLogin: PropTypes.string,
 };

@@ -128,6 +128,7 @@ const uiStateReducer = (state = {}, action) => {
       return {
         ...state,
         isFetchingThreeBox: action.isFetchingThreeBox,
+        onOtherProfilePage: action.onOtherProfilePage,
       };
 
     case 'UI_HANDLE_SIGNIN_MODAL':

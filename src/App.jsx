@@ -228,16 +228,16 @@ class App extends Component {
       const currentUrlEthAddr = normalizedPath.split('/')[1];
       const profilePage = normalizedPath.split('/')[2];
       const doesEthAddrMatch = currentUrlEthAddr === this.props.currentAddress;
-      await this.props.checkMobileWeb3(); // eslint-disable-line
-      await this.props.injectWeb3('directLogin', false, wallet); // eslint-disable-line
-      await this.props.checkNetwork(); // eslint-disable-line
+      await this.props.checkMobileWeb3();
+      await this.props.injectWeb3('directLogin', false, wallet);
+      await this.props.checkNetwork();
 
       if (!doesEthAddrMatch) history.push(`/${this.props.currentAddress}/${profilePage || routes.directToHome()}`);
 
-      await this.props.openBox(); // eslint-disable-line
-      if (!this.props.showErrorModal) this.getMyData(); // eslint-disable-line
+      await this.props.openBox();
+      if (!this.props.showErrorModal) this.getMyData();
     } catch (err) {
-      console.error(err); // eslint-disable-line
+      console.error(err);
       store.dispatch({
         type: 'UI_3BOX_LOADING',
         isFetchingThreeBox: false,
@@ -248,11 +248,11 @@ class App extends Component {
   handleSignInUp = async (chooseWallet, shouldSignOut, e, fromPost) => {
     try {
       if (e) e.stopPropagation();
-      await this.props.checkMobileWeb3(); // eslint-disable-line
-      await this.props.injectWeb3(null, chooseWallet, false, shouldSignOut); // eslint-disable-line
-      await this.props.checkNetwork(); // eslint-disable-line
-      await this.props.openBox('fromSignIn', fromPost); // eslint-disable-line
-      if (!this.props.showErrorModal) this.getMyData(); // eslint-disable-line
+      await this.props.checkMobileWeb3();
+      await this.props.injectWeb3(null, chooseWallet, false, shouldSignOut);
+      await this.props.checkNetwork();
+      await this.props.openBox('fromSignIn', fromPost);
+      if (!this.props.showErrorModal) this.getMyData();
     } catch (err) {
       console.error(err);
     }

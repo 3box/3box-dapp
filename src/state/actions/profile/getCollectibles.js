@@ -8,7 +8,7 @@ const getCollectibles = (address, onPublicProfile) => async (dispatch) => {
     isFetchingCollectibles: true,
   });
 
-  const collection = [];
+  let collection = [];
 
   try {
     const res = await fetch(`https://api.opensea.io/api/v1/assets?owner=${address}&order_by=current_price&order_direction=asc&offset=0&limit=30`);
@@ -46,6 +46,14 @@ const getCollectibles = (address, onPublicProfile) => async (dispatch) => {
     } catch (error) {
       console.log(error);
     }
+
+    collection = collection.filter((nft) => {
+      const idx = collectiblesFavorites.findIndex((col) => {
+        return (col.address === nft.asset_contract.address && col.token_id === nft.token_id);
+      });
+      if (idx === -1) return true;
+      return false;
+    });
   }
 
   if (onPublicProfile) {

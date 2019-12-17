@@ -5,6 +5,7 @@ import {
 } from '../../store';
 import * as routes from '../../../utils/routes';
 import history from '../../../utils/history';
+import fetchEns from '../utils';
 
 const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
   dispatch({
@@ -18,15 +19,20 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
     web3Obj,
     hasSignedOut,
   } = store.getState().userState;
-  const {
-    onOtherProfilePage,
-  } = store.getState().uiState;
+  // const {
+  //   onOtherProfilePage,
+  // } = store.getState().uiState;
   const {
     otherProfileAddress,
   } = store.getState().otherProfile;
 
-  const consentGiven = () => {
-    if ((fromSignIn && !fromFollowButton && !onOtherProfilePage) || (otherProfileAddress === currentAddress)) history.push(`/${currentAddress}/${routes.directToHome()}`);
+  const consentCallback = () => {
+    const redirectToHome = (fromSignIn && !fromFollowButton) ||
+      (otherProfileAddress === currentAddress);
+    if (redirectToHome) {
+      history.push(`/${currentAddress}/${routes.directToHome()}`);
+    }
+
     dispatch({
       type: 'UI_3BOX_LOADING',
       provideConsent: false,
@@ -52,16 +58,10 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
   }
 
   try {
-    const opts = {
-      consentCallback: consentGiven,
-    };
-    console.log('currentAddresscurrentAddress', currentAddress);
-    const box = await Box // eslint-disable-line no-undef
-      .openBox(
-        currentAddress,
-        web3Obj.currentProvider, // eslint-disable-line no-undef
-        opts,
-      );
+    const box = await Box.openBox(currentAddress, web3Obj.currentProvider, {
+      consentCallback,
+    });
+    const ens = await fetchEns(currentAddress, web3Obj);
 
     dispatch({
       type: 'USER_LOGIN_UPDATE',
@@ -70,10 +70,12 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
     dispatch({
       type: 'MY_BOX_UPDATE',
       box,
+      ens,
     });
     dispatch({
       type: 'UI_3BOX_FETCHING',
       isFetchingThreeBox: false,
+      onOtherProfilePage: false,
     });
 
     // onSyncDone only happens on first openBox so only run
@@ -87,9 +89,8 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
       });
     }
 
-    const memberSince = await box.public.get('memberSince');
-
     box.onSyncDone(async () => {
+      const memberSince = await box.public.get('memberSince');
       let publicActivity;
       let privateActivity;
 

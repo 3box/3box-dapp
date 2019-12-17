@@ -8,7 +8,7 @@ const getVerifiedPrivateEmail = () => async (dispatch) => {
 
     dispatch({
       type: 'MY_VERIFIED_EMAIL_UPDATE',
-      verifiedEmail: verifiedEmail.email_address,
+      verifiedEmail: verifiedEmail && verifiedEmail.email_address,
     });
   } catch (error) {
     console.error(error);

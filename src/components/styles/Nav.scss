@@ -9,7 +9,7 @@ nav {
   border-bottom: 1px solid #E4E4E4;
   display: flex;
   align-items: center;
-  z-index: 3;
+  z-index: 2;
   min-width: 780px;
 
   button {
@@ -57,26 +57,6 @@ nav {
     font-size: 12px !important;
     color: $lightFont;
   }
-}
-
-.Main {
-  background: #29B6AF;
-}
-
-.Ropsten {
-  background: #FF4A8D;
-}
-
-.Kovan {
-  background: #7057FF;
-}
-
-.Rinkeby {
-  background: #F6C343;
-}
-
-.Unknown {
-  background: black;
 }
 
 #nav__networkStatus__networkColor {
@@ -856,13 +836,24 @@ nav {
   border-bottom-right-radius: 8px;
   box-shadow: 0 4px 6px 2px rgba(0, 0, 0, .10);
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   padding: 16px;
   box-sizing: border-box;
-
+  min-height: 64px;
+  z-index: 5;
+  
   &:hover {
     background-color: $backgroundHue;
   }
+}
+
+.navSearch_input_result.loading {
+  justify-content: center;
+}
+
+.navSearch_input_result_loading {
+  width: 30px;
+  height: 30px;
 }
 
 .navSearch_input_result_info {
@@ -920,6 +911,7 @@ nav {
     float: left;
     margin-top: 6px;
     width: fit-content;
+
     p {
       color: $lighterFont;
     }

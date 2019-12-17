@@ -31,7 +31,6 @@ class WallPost extends Component {
 
   componentDidMount() {
     const { comment } = this.props;
-    // const urlMatches = comment.message.match(/\b(http|https)?:\/\/\S+/gi) || [];
     const urlMatches = comment.message.match(/((http|ftp|https):\/\/)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g) || [];
     if (urlMatches[0]) this.fetchPreview(addhttp(urlMatches[0]));
   }
@@ -142,7 +141,7 @@ class WallPost extends Component {
                         className="comment_content_context_main_user_info_address"
                         title={profile.ethAddr}
                       >
-                        {profile.ethAddr && `${shortenEthAddr(profile.ethAddr)}`}
+                        {profile.ensName || `${shortenEthAddr(profile.ethAddr)}`}
                       </div>
                     )}
                   </div>

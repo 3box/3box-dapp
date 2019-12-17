@@ -3,6 +3,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const DuplicatePackageCheckerPlugin = require('duplicate-package-checker-webpack-plugin');
 
 module.exports = {
   entry: ['@babel/polyfill', './src/index.js'],
@@ -34,6 +35,7 @@ module.exports = {
       /highlight\.js\/lib\/languages$/,
       new RegExp('^./(javascript)$'),
     ),
+    new DuplicatePackageCheckerPlugin(),
   ],
   optimization: {
     minimize: true,

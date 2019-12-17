@@ -3,15 +3,28 @@ import Box from '3box';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { checkIsEthAddress, shortenEthAddr } from '../../utils/funcs';
+import {
+  checkIsEthAddress,
+  shortenEthAddr,
+  fetchEthAddrByENS,
+  debounce,
+  checkIsENSAddress,
+} from '../../utils/funcs';
 
 import GithubIcon from '../../assets/GithubIcon.svg';
 import TwitterIcon from '../../assets/twitterGrey.svg';
 import Website from '../../assets/Website.png';
 import ProfilePicture from '../ProfilePicture';
 import Search from '../../assets/Search.svg';
+import Loading from '../../assets/LoadingNew.svg';
 
 class NavSearch extends Component {
+  fetchENS = debounce(async (value) => {
+    this.setState({ isFetching: true });
+    const ensAddr = await fetchEthAddrByENS(value);
+    this.fetchProfile(ensAddr);
+  }, 300);
+
   constructor(props) {
     super(props);
     this.state = {
@@ -19,37 +32,48 @@ class NavSearch extends Component {
       searchTerm: '',
       searchedProfile: null,
       isEmptyProfile: false,
+      isFetching: false,
+      searchedEthAddr: '',
     };
   }
 
   handleInputEdit = async (e) => {
     const { value } = e.target;
     const { handleToggleResults } = this.props;
+    this.setState({ searchTerm: value, searchedProfile: null });
 
-    let isEthAddr;
-    if (value.length === 42) isEthAddr = checkIsEthAddress(value);
-    this.setState({ searchTerm: value, isEthAddr });
+    const isEthAddr = checkIsEthAddress(value);
+    const isENS = checkIsENSAddress(value);
+
+    this.setState({ isEthAddr, isENS });
 
     const showResults = true;
     handleToggleResults(showResults);
 
     if (isEthAddr) {
-      const searchedProfile = await Box.getProfile(value);
-
-      if (Object.entries(searchedProfile).length) {
-        const verifiedAccouts = await Box.getVerifiedAccounts(searchedProfile);
-
-        if (verifiedAccouts) {
-          searchedProfile.github = verifiedAccouts.github && verifiedAccouts.github.username;
-          searchedProfile.twitter = verifiedAccouts.twitter && verifiedAccouts.twitter.username;
-        }
-        this.setState({ searchedProfile, isEmptyProfile: false });
-      } else {
-        this.setState({ isEmptyProfile: true, searchedProfile: null });
-      }
-    } else {
-      this.setState({ searchedProfile: null });
+      this.fetchProfile(value);
+    } else if (isENS) {
+      this.fetchENS(value);
     }
+  }
+
+  fetchProfile = async (address) => {
+    this.setState({ searchedEthAddr: address });
+    const searchedProfile = address ? await Box.getProfile(address) : {};
+
+    if (Object.entries(searchedProfile).length) {
+      const verifiedAccouts = await Box.getVerifiedAccounts(searchedProfile);
+
+      if (verifiedAccouts) {
+        searchedProfile.github = verifiedAccouts.github && verifiedAccouts.github.username;
+        searchedProfile.twitter = verifiedAccouts.twitter && verifiedAccouts.twitter.username;
+      }
+      this.setState({ searchedProfile, isEmptyProfile: false });
+    } else {
+      this.setState({ isEmptyProfile: true, searchedProfile: null });
+    }
+
+    this.setState({ isFetching: false });
   }
 
   clearSearch = () => this.setState({ searchedProfile: null, searchTerm: '' });
@@ -60,6 +84,9 @@ class NavSearch extends Component {
       searchedProfile,
       searchTerm,
       isEmptyProfile,
+      isENS,
+      isFetching,
+      searchedEthAddr,
     } = this.state;
 
     const {
@@ -75,25 +102,28 @@ class NavSearch extends Component {
           <input
             type="text"
             className="navSearch_input"
-            placeholder="Search user by Ethereum address..."
+            placeholder="Search user by Ethereum address or ENS..."
             onChange={(e) => this.handleInputEdit(e)}
             onFocus={() => handleToggleResults()}
             value={searchTerm}
           />
 
-          {(searchedProfile && showResults && !isEmptyProfile) && (
-            <Link to={`/${searchTerm}`} onClick={this.clearSearch}>
+          {/* Search Result */}
+          {(searchedProfile && showResults && !isEmptyProfile && !isFetching) && (
+            <Link to={`/${searchedEthAddr}`} onClick={this.clearSearch}>
               <div className="navSearch_input_result">
+                {console.log('searchedEthAddr', searchedEthAddr)}
                 <ProfilePicture
                   pictureClass="navSearch_input_result_image"
                   imageToRender={searchedProfile.image}
-                  otherProfileAddress={searchTerm}
+                  otherProfileAddress={searchedEthAddr}
+                  fromnav
                   isMyPicture={false}
                 />
 
                 <div className="navSearch_input_result_info">
                   <h3>
-                    {`${searchedProfile.name || shortenEthAddr(searchTerm)} ${searchedProfile.emoji ? searchedProfile.emoji : ''}`}
+                    {`${searchedProfile.name || shortenEthAddr(searchedEthAddr)} ${searchedProfile.emoji ? searchedProfile.emoji : ''}`}
                   </h3>
 
                   {searchedProfile.description && (
@@ -137,7 +167,8 @@ class NavSearch extends Component {
             </Link>
           )}
 
-          {(isEmptyProfile && showResults) && (
+          {/* No Profile result */}
+          {(isEmptyProfile && showResults && !isFetching) && (
             <div className="navSearch_input_result">
               <h4>
                 No profile for this address
@@ -145,11 +176,19 @@ class NavSearch extends Component {
             </div>
           )}
 
-          {(!isEthAddr && searchTerm && showResults) && (
+          {/* Not a valid search  */}
+          {(!isEthAddr && !isENS && searchTerm && showResults && !searchedProfile) && (
             <div className="navSearch_input_result">
               <h4>
-                Enter a valid Ethereum address
+                Enter a valid Ethereum address or ENS name
               </h4>
+            </div>
+          )}
+
+          {/* Loading search result */}
+          {isFetching && (
+            <div className="navSearch_input_result loading">
+              <img src={Loading} alt="Loading" className="navSearch_input_result_loading" />
             </div>
           )}
         </div>
@@ -175,15 +214,17 @@ class NavSearch extends Component {
           value={searchTerm}
         />
 
-        {showResults && (
-          <div
-            className="onClickOutside"
-            onClick={() => handleToggleResults()}
-            onKeyPress={() => handleToggleResults()}
-            tabIndex={0}
-            role="button"
-          />
-        )}
+        {
+          showResults && (
+            <div
+              className="onClickOutside"
+              onClick={() => handleToggleResults()}
+              onKeyPress={() => handleToggleResults()}
+              tabIndex={0}
+              role="button"
+            />
+          )
+        }
       </>
     );
   }

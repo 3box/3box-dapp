@@ -7,6 +7,7 @@ import {
   followingSpaceName,
   followingThreadName,
 } from '../../../utils/constants';
+import fetchEns from '../utils';
 
 const getOtherProfile = (profileAddress) => async (dispatch) => {
   try {
@@ -16,6 +17,8 @@ const getOtherProfile = (profileAddress) => async (dispatch) => {
     });
 
     const publicProfile = await Box.getProfile(profileAddress);
+    const otherEns = await fetchEns(profileAddress);
+
     dispatch({
       type: 'OTHER_PROFILE_UPDATE',
       otherDescription: publicProfile.description,
@@ -32,6 +35,7 @@ const getOtherProfile = (profileAddress) => async (dispatch) => {
       otherImage: publicProfile.image,
       otherName: publicProfile.name,
       otherEmoji: publicProfile.emoji,
+      otherEns,
     });
 
     const publicVerifiedAccounts = Object.entries(publicProfile).length > 0 ?

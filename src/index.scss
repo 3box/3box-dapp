@@ -92,6 +92,10 @@ button {
   }
 }
 
+.popupChat {
+  min-height: 0 !important;
+}
+
 .secondary {
   background-color: transparent;
   color: $threeBoxBlack;
@@ -239,6 +243,26 @@ button {
     color: #7a7a7a;
     background-color: #eaeaea !important;
   }
+}
+
+.Main {
+  background: #29B6AF;
+}
+
+.Ropsten {
+  background: #FF4A8D;
+}
+
+.Kovan {
+  background: #7057FF;
+}
+
+.Rinkeby {
+  background: #F6C343;
+}
+
+.Unknown {
+  background: black;
 }
 
 button:hover {

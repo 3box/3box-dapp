@@ -237,6 +237,7 @@ class Collectibles extends Component {
                     tokenId={collectible.token_id}
                     name={collectible.name}
                     bgStyle={collectible.background_color}
+                    onPublicProfile={false}
                     padded={
                       collectible.asset_contract &&
                       collectible.asset_contract.display_data &&
@@ -291,6 +292,7 @@ class Collectibles extends Component {
                   tokenId={collectible.token_id}
                   name={collectible.name}
                   bgStyle={collectible.background_color}
+                  onPublicProfile={false}
                   padded={
                     collectible.asset_contract &&
                     collectible.asset_contract.display_data &&
@@ -342,6 +344,7 @@ Collectibles.propTypes = {
   isActive: PropTypes.bool,
   isFetchingCollectibles: PropTypes.bool,
   currentAddress: PropTypes.string,
+  currentNetwork: PropTypes.string,
 };
 
 Collectibles.defaultProps = {
@@ -353,8 +356,11 @@ Collectibles.defaultProps = {
   list: [],
   selectedCollectible: {},
   currentAddress: '',
+  currentNetwork: '',
   isActive: false,
   isFetchingCollectibles: false,
+  isFavorite: false,
+  showCollectiblesModal: false,
 };
 
 function mapState(state) {
@@ -363,6 +369,8 @@ function mapState(state) {
     collection: state.myData.collection,
     collectiblesFavorites: state.myData.collectiblesFavorites,
     collectiblesFavoritesToRender: state.myData.collectiblesFavoritesToRender,
+
+    currentNetwork: state.userState.currentNetwork,
 
     allData: state.spaces.allData,
     list: state.spaces.list,

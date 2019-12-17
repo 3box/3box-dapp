@@ -10,5 +10,6 @@ module.exports = {
         "react/forbid-prop-types": "off",
         "no-console": "off",
         "react/destructuring-assignment": "off",
+        "no-underscore-dangle": "off",
     }
 }

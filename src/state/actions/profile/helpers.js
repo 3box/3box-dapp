@@ -11,6 +11,7 @@ import {
   followingSpaceName,
   followingThreadName,
 } from '../../../utils/constants';
+import fetchEns from '../utils';
 
 export const deleteDuplicate = async (duplicates, followingThread) => {
   // if logged in, delete duplicate from thread
@@ -127,8 +128,13 @@ export const fetchCommenters = async (posts) => {
   const getAllEthAddr = async () => await Promise.all(uniqueUsers.map(did => getEthAddr(did)));
   const ethAddrArray = await getAllEthAddr();
 
+  const getAllENSNames = async () => await Promise.all(uniqueUsers.map(async (did, i) => fetchEns(ethAddrArray[i].publicKey[2].ethereumAddress)));
+  const ensNamesArray = await getAllENSNames();
+
   profilesArray.forEach((user, i) => {
     const ethAddr = ethAddrArray[i].publicKey[2].ethereumAddress;
+    const ensName = ensNamesArray[i];
+    user.ensName = ensName;
     user.ethAddr = ethAddr;
     user.profileURL = `https://3box.io/${ethAddr}`;
     profiles[uniqueUsers[i]] = user;

@@ -293,7 +293,6 @@ WallInput.propTypes = {
   loginFunction: PropTypes.func.isRequired,
   postAndUpdateWall: PropTypes.func.isRequired,
   joinOtherThread: PropTypes.func.isRequired,
-  fetchPreview: PropTypes.func.isRequired,
 };
 
 WallInput.defaultProps = {
