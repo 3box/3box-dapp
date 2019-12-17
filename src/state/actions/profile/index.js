@@ -16,6 +16,7 @@ import deleteFollowing from './deleteFollowing';
 import postAndUpdateWall from './postAndUpdateWall';
 import getOtherWall from './getOtherWall';
 import joinOtherThread from './joinOtherThread';
+import openFollowingSpace from './openFollowingSpace';
 
 export default {
   getCollectibles,
@@ -36,4 +37,5 @@ export default {
   postAndUpdateWall,
   getOtherWall,
   joinOtherThread,
+  openFollowingSpace,
 };

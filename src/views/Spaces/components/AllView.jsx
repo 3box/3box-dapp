@@ -46,7 +46,8 @@ const AllView = ({
               itemToDelete={itemToDelete}
               spaceNameToDelete={spaceNameToDelete}
               key={`${row.space}-${row.name}`}
-            />);
+            />
+          );
         }
 
         if (row.name !== 'collectiblesFavoritesToRender'
@@ -67,7 +68,8 @@ const AllView = ({
               itemToDelete={itemToDelete}
               spaceNameToDelete={spaceNameToDelete}
               key={`${row.space}-${row.name}`}
-            />);
+            />
+          );
         }
 
         if (row.name === 'private_space_data' && width >= 600) {
@@ -79,7 +81,8 @@ const AllView = ({
               isLoadingVault={isLoadingVault}
               vaultToOpen={vaultToOpen}
               key={`vault-${row.space}`}
-            />);
+            />
+          );
         }
 
         if (row.name === 'private_space_data' && width <= 600) {
@@ -91,7 +94,8 @@ const AllView = ({
               isLoadingVault={isLoadingVault}
               vaultToOpen={vaultToOpen}
               key={`vault-${row.space}`}
-            />);
+            />
+          );
         }
 
         if (row.name === 'collectiblesFavoritesToRender' && width >= 600) {
@@ -107,7 +111,8 @@ const AllView = ({
               itemToDelete={itemToDelete}
               spaceNameToDelete={spaceNameToDelete}
               key={`${row.space}-${row.name}`}
-            />);
+            />
+          );
         }
 
         if (row.name === 'collectiblesFavoritesToRender' && width <= 600) {
@@ -122,7 +127,8 @@ const AllView = ({
               itemToDelete={itemToDelete}
               spaceNameToDelete={spaceNameToDelete}
               key={`${row.space}-${row.name}`}
-            />);
+            />
+          );
         }
       })}
 

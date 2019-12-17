@@ -57,23 +57,32 @@ export const getPosts = async (followingThread) => {
   }
 };
 
-export const getFollowingThreadAndPosts = async (myAddress) => {
+export const getFollowingThreadAndPosts = async () => {
   try {
     store.dispatch({
       type: 'UI_FOLLOWING_LOADING',
       isLoadingMyFollowing: true,
     });
 
-    const followingSpace = await store.getState().myData.box.openSpace(followingSpaceName);
-    const followingThread = await followingSpace.joinThread(followingThreadName, {
+    const {
+      followingSpace,
+    } = store.getState().myData.followingSpace;
+
+    let updatedFollowingSpace;
+    if (!followingSpace) {
+      updatedFollowingSpace = await store.getState().myData.box.openSpace(followingSpaceName);
+      store.dispatch({
+        type: 'MY_FOLLOWING_SPACE_OPEN',
+        followingSpace: updatedFollowingSpace,
+      });
+    } else {
+      updatedFollowingSpace = followingSpace;
+    }
+
+    const followingThread = await updatedFollowingSpace.joinThread(followingThreadName, {
       members: true,
     });
 
-    store.dispatch({
-      type: 'MY_FOLLOWING_THREAD_UPDATE',
-      followingThread,
-      followingSpace,
-    });
     store.dispatch({
       type: 'UI_FOLLOWING_LOADING',
       isLoadingMyFollowing: false,

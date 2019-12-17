@@ -67,7 +67,7 @@ const getMySpacesData = (address) => async (dispatch) => {
     };
 
     const spaceDataPromise = async () => Promise // for each space
-      .all(list.map(spaceName => getSpace(spaceName)));
+      .all(list.map((spaceName) => getSpace(spaceName)));
 
     await spaceDataPromise();
 

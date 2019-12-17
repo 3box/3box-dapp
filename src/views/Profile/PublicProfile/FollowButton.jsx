@@ -19,6 +19,8 @@ const {
   getVerifiedPrivateEmail,
   getActivity,
   getMyFollowing,
+  openFollowingSpace,
+  getMyWall,
 } = actions.profile;
 
 const { getMySpacesData, convert3BoxToSpaces } = actions.spaces;
@@ -52,6 +54,18 @@ class FollowButton extends Component {
     pollNetworkAndAddress(); // Start polling for address change
 
     try {
+      this.props.getActivity(); // eslint-disable-line
+    } catch (error) {
+      console.error(error);
+    }
+
+    try {
+      this.props.getCollectibles(currentAddress); // eslint-disable-line
+    } catch (error) {
+      console.error(error);
+    }
+
+    try {
       this.props.getVerifiedPublicGithub();
       this.props.getVerifiedPublicTwitter();
       this.props.getVerifiedPrivateEmail();
@@ -72,13 +86,24 @@ class FollowButton extends Component {
       this.props.getMyProfileValue('public', 'emoji');
       this.props.getMyProfileValue('private', 'birthday');
 
-      await this.props.getCollectibles(currentAddress);
-      await this.props.convert3BoxToSpaces();
-      await this.props.getMySpacesData(currentAddress);
 
-      this.props.getActivity();
     } catch (err) {
       console.error(err);
+    }
+
+    try {
+      await this.props.openFollowingSpace();
+      this.props.getMyFollowing();
+      this.props.getMyWall();
+    } catch (error) {
+      console.error(error);
+    }
+
+    try {
+      await this.props.convert3BoxToSpaces();
+      await this.props.getMySpacesData(currentAddress);
+    } catch (error) {
+      console.error(error);
     }
   }
 
@@ -173,8 +198,6 @@ class FollowButton extends Component {
 }
 
 FollowButton.propTypes = {
-  saveFollowing: PropTypes.func.isRequired,
-  deleteFollowing: PropTypes.func.isRequired,
   isFollowing: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool,
   isFollowFromTileLoading: PropTypes.bool,
@@ -194,11 +217,15 @@ FollowButton.propTypes = {
   getMySpacesData: PropTypes.func.isRequired,
   convert3BoxToSpaces: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  accessDeniedModal: PropTypes.bool,
   showErrorModal: PropTypes.bool,
   fromContactTile: PropTypes.bool,
-  handleMobileWalletModal: PropTypes.func.isRequired,
   handleTileLoading: PropTypes.func.isRequired,
+  openFollowingSpace: PropTypes.func.isRequired,
+  checkMobileWeb3: PropTypes.func.isRequired,
+  injectWeb3: PropTypes.func.isRequired,
+  checkNetwork: PropTypes.func.isRequired,
+  getMyFollowing: PropTypes.func.isRequired,
+  getMyWall: PropTypes.func.isRequired,
 };
 
 FollowButton.defaultProps = {
@@ -208,7 +235,6 @@ FollowButton.defaultProps = {
   isLoggedIn: false,
   isFollowFromProfileLoading: false,
   isFollowFromTileLoading: false,
-  accessDeniedModal: false,
   showErrorModal: false,
   fromContactTile: false,
 };
@@ -236,6 +262,7 @@ export default connect(mapState,
     getMyProfileValue,
     getMyDID,
     getCollectibles,
+    openFollowingSpace,
     getMyMemberSince,
     getVerifiedPublicGithub,
     getVerifiedPublicTwitter,
@@ -243,5 +270,6 @@ export default connect(mapState,
     getActivity,
     getMySpacesData,
     getMyFollowing,
+    getMyWall,
     convert3BoxToSpaces,
   })(FollowButton);

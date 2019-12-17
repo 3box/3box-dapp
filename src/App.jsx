@@ -60,6 +60,7 @@ const {
   getMyFollowing,
   getPublicFollowing,
   saveFollowing,
+  openFollowingSpace,
 } = actions.profile;
 
 const { getMySpacesData, convert3BoxToSpaces } = actions.spaces;
@@ -156,6 +157,18 @@ class App extends Component {
     pollNetworkAndAddress(); // Start polling for address change
 
     try {
+      if (!fromOnSyncDone) this.props.getActivity(); // eslint-disable-line
+    } catch (error) {
+      console.error(error);
+    }
+
+    try {
+      if (!fromOnSyncDone) this.props.getCollectibles(currentAddress); // eslint-disable-line
+    } catch (error) {
+      console.error(error);
+    }
+
+    try {
       this.props.getVerifiedPublicGithub(); // eslint-disable-line
       this.props.getVerifiedPublicTwitter(); // eslint-disable-line
       this.props.getVerifiedPrivateEmail(); // eslint-disable-line
@@ -167,7 +180,7 @@ class App extends Component {
       this.props.getMyProfileValue('public', 'coverPhoto'); // eslint-disable-line
       this.props.getMyProfileValue('public', 'location'); // eslint-disable-line
       this.props.getMyProfileValue('public', 'website'); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'employer'); // eslint-disable-line
+      this.props.getMyProfileValue('public', 'employer'); // eslint-disab\le-line
       this.props.getMyProfileValue('public', 'job'); // eslint-disable-line
       this.props.getMyProfileValue('public', 'school'); // eslint-disable-line
       this.props.getMyProfileValue('public', 'degree'); // eslint-disable-line
@@ -180,28 +193,16 @@ class App extends Component {
     }
 
     try {
-      if (!fromOnSyncDone) this.props.getCollectibles(currentAddress); // eslint-disable-line
-    } catch (error) {
-      console.error(error);
-    }
-
-    try {
-      await this.props.getMyFollowing(); // eslint-disable-line
+      await this.props.openFollowingSpace();
+      this.props.getMyFollowing(); // eslint-disable-line
       this.props.getMyWall(); // eslint-disable-line
     } catch (error) {
       console.error(error);
     }
 
-
     try {
       await this.props.convert3BoxToSpaces(); // eslint-disable-line
       await this.props.getMySpacesData(currentAddress); // eslint-disable-line
-    } catch (error) {
-      console.error(error);
-    }
-
-    try {
-      if (!fromOnSyncDone) this.props.getActivity(); // eslint-disable-line
     } catch (error) {
       console.error(error);
     }
@@ -427,6 +428,7 @@ App.propTypes = {
   handleSignInModal: PropTypes.func.isRequired,
   handleSignOut: PropTypes.func,
   checkNetwork: PropTypes.func.isRequired,
+  openFollowingSpace: PropTypes.func.isRequired,
   closeErrorModal: PropTypes.func.isRequired,
   handleLoggedOutModal: PropTypes.func.isRequired,
   handleSwitchedAddressModal: PropTypes.func.isRequired,
@@ -579,4 +581,5 @@ export default withRouter(connect(mapState,
     handleContactsModal,
     clearReduxState,
     handleUnsupportedBrowserModal,
+    openFollowingSpace,
   })(App));

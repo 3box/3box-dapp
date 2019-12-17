@@ -3,6 +3,11 @@ import {
 } from '../../store';
 
 const getCollectibles = (address, onPublicProfile) => async (dispatch) => {
+  dispatch({
+    type: 'UI_COLLECTIBLES_LOADING',
+    isFetchingCollectibles: true,
+  });
+
   const collection = [];
 
   try {

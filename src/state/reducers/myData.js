@@ -138,9 +138,9 @@ const myDataReducer = (state = {}, action) => {
       return {
         ...state,
         wallPosts: action.wallPosts,
-        wallThread: action.wallThread,
-        wallProfiles: action.wallProfiles,
-        isWallDisabled: action.isWallDisabled,
+          wallThread: action.wallThread,
+          wallProfiles: action.wallProfiles,
+          isWallDisabled: action.isWallDisabled,
       };
 
     case 'MY_WALL_DISABLED_UPDATE':
@@ -153,7 +153,7 @@ const myDataReducer = (state = {}, action) => {
       return {
         ...state,
         wallPosts: action.wallPosts,
-        wallProfiles: action.wallProfiles,
+          wallProfiles: action.wallProfiles,
       };
 
     case 'MY_COLLECTIBLES_UPDATE':
@@ -181,6 +181,12 @@ const myDataReducer = (state = {}, action) => {
       return {
         ...state,
         followingThread: action.followingThread,
+          followingSpace: action.followingSpace,
+      };
+
+    case 'MY_FOLLOWING_SPACE_OPEN':
+      return {
+        ...state,
         followingSpace: action.followingSpace,
       };
 
