@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { store } from '../../../state/store';
 import actions from '../../../state/actions';
-import Loading from '../../../assets/Loading.svg';
+import Loading from '../../../assets/3BoxLoading.svg';
 import { pollNetworkAndAddress, startPollFlag } from '../../../utils/address';
 
 const {

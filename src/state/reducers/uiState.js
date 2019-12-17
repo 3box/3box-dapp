@@ -11,7 +11,8 @@ const uiStateReducer = (state = {}, action) => {
       return {
         ...state,
         isFetchingActivity: action.isFetchingActivity,
-        isFetchingWall: action.isFetchingWall,
+          isFetchingWall: action.isFetchingWall,
+          isFetchingCollectibles: action.isFetchingCollectibles,
       };
 
     case 'UI_FEED_LOADING':
@@ -42,6 +43,12 @@ const uiStateReducer = (state = {}, action) => {
       return {
         ...state,
         isFetchingOtherWall: action.isFetchingOtherWall,
+      };
+
+    case 'UI_COLLECTIBLES_LOADING':
+      return {
+        ...state,
+        isFetchingCollectibles: action.isFetchingCollectibles,
       };
 
     case 'UI_FEED_FAILED':

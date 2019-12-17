@@ -36,6 +36,7 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
       type: 'UI_PROFILE_LOADING',
       isFetchingActivity: true,
       isFetchingWall: true,
+      isFetchingCollectibles: true,
     });
   };
 

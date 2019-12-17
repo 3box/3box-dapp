@@ -12,7 +12,7 @@ import actions from '../../state/actions';
 import EmojiIcon from './Emoji/EmojiIcon';
 import PopupWindow from './Emoji/PopupWindow';
 import EmojiPicker from './Emoji/EmojiPicker';
-import Loading from '../../assets/Loading.svg';
+import Loading from '../../assets/3BoxLoading.svg';
 import Profile from '../../assets/Profile.svg';
 // import Logo from '../../assets/3BoxLogo.svg';
 // import Send from '../../assets/Send2.svg';

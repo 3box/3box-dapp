@@ -180,17 +180,18 @@ class App extends Component {
     }
 
     try {
+      if (!fromOnSyncDone) this.props.getCollectibles(currentAddress); // eslint-disable-line
+    } catch (error) {
+      console.error(error);
+    }
+
+    try {
       await this.props.getMyFollowing(); // eslint-disable-line
       this.props.getMyWall(); // eslint-disable-line
     } catch (error) {
       console.error(error);
     }
 
-    try {
-      if (!fromOnSyncDone) this.props.getCollectibles(currentAddress); // eslint-disable-line
-    } catch (error) {
-      console.error(error);
-    }
 
     try {
       await this.props.convert3BoxToSpaces(); // eslint-disable-line

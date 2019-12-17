@@ -21,7 +21,7 @@ import OnBoardingModalMobileGraphic2 from '../assets/OnBoardingModalMobile2.png'
 import OnBoardingModalMobileGraphic3 from '../assets/OnBoardingModalMobile3.png';
 import ErrorIcon from '../assets/ErrorIcon.svg';
 import LogOut from '../assets/LogOut.svg';
-import Loading from '../assets/Loading.svg';
+import Loading from '../assets/3BoxLoading.svg';
 import Browser from '../assets/Browser.svg';
 import LoadingWhite from '../assets/LoadingWhite.svg';
 import './styles/Modal.scss';

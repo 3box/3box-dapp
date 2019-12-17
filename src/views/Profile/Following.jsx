@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { alphabetize } from '../../utils/funcs';
 
 import FollowingTile from '../../components/FollowingTile';
-import Loading from '../../assets/Loading.svg';
+import Loading from '../../assets/3BoxLoading.svg';
 import Globe from '../../assets/Globe.svg';
 import './styles/Profile.scss';
 import './styles/Feed.scss';

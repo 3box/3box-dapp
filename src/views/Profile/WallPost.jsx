@@ -14,7 +14,7 @@ import actions from '../../state/actions';
 
 import LinkUnfurl from './LinkUnfurl';
 import Delete from '../../assets/Delete2.svg';
-import Loading from '../../assets/Loading.svg';
+import Loading from '../../assets/3BoxLoading.svg';
 import './styles/WallPost.scss';
 import './styles/Feed.scss';
 

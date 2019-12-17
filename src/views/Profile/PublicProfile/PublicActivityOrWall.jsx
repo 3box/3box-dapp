@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import PublicActivityHeader from './PublicActivityHeader';
 import PublicActivityTiles from './PublicActivityTiles';
 import Wall from '../Wall';
-import Loading from '../../../assets/Loading.svg';
+import Loading from '../../../assets/3BoxLoading.svg';
 import '../styles/Feed.scss';
 import '../styles/Profile.scss';
 import '../../../components/styles/NetworkArray.scss';

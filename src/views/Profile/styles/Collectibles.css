@@ -1,0 +1,213 @@
+.collectiblesTile {
+  background-color: white;
+  border: 1px solid #ececec;
+  border-radius: 6px;
+  height: 300px;
+  position: relative;
+  box-shadow: 0 3px 8px 0 rgba(87, 87, 87, 0.15);
+  cursor: pointer;
+  overflow: hidden; }
+  .collectiblesTile:hover .collectibles__like__heart {
+    opacity: .8; }
+
+.collectibles__like__heart {
+  opacity: 0; }
+
+.gallery__like {
+  filter: none;
+  -webkit-filter: grayscale(100%) brightness(2);
+  -moz-filter: grayscale(100%) brightness(2);
+  -ms-filter: grayscale(100%) brightness(2);
+  -o-filter: grayscale(100%) brightness(2);
+  transition: all .3s; }
+  .gallery__like:hover {
+    filter: none; }
+
+.loading_collectibles {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.loading_collectibles {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.loading_collectibles img {
+  width: 40px; }
+
+.favorites__privateIcon {
+  width: 19px;
+  height: 19px;
+  margin-left: 10px;
+  opacity: .7; }
+
+.loading_collectibles {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .loading_collectibles img {
+    width: 40px; }
+
+.collectibles__opensea {
+  align-self: flex-end;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; }
+  .collectibles__opensea p {
+    color: #cacacb;
+    margin-right: 10px;
+    font-size: 12px; }
+  .collectibles__opensea img {
+    width: 80px !important;
+    height: auto;
+    bottom: 15px;
+    right: 15px;
+    opacity: .6; }
+
+.favorites__grid {
+  margin-bottom: 10px !important; }
+
+.emptyCollectiblesTile {
+  border: 1px solid #ececec;
+  border-radius: 6px;
+  height: 300px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all .3s;
+  background-color: transparent; }
+  .emptyCollectiblesTile h4 {
+    width: 70%;
+    color: #b1b1b1;
+    text-align: center; }
+  .emptyCollectiblesTile:hover {
+    background-color: #f3f3f3; }
+
+.collectibles__image__wrapper {
+  height: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  position: relative;
+  overflow: hidden; }
+  .collectibles__image__wrapper button {
+    position: absolute;
+    top: 15px;
+    right: 15px; }
+  .collectibles__image__wrapper h4 {
+    text-align: center;
+    width: 60%;
+    color: #747677; }
+
+.collectibles__image {
+  width: 228px;
+  height: 210px;
+  object-fit: cover; }
+
+.collectibles__image__shadow {
+  background: #000000;
+  width: 120px;
+  height: 10px;
+  border-radius: 50%;
+  opacity: .1;
+  position: absolute;
+  bottom: 10px;
+  filter: blur(2px); }
+
+.padded {
+  height: 75% !important;
+  width: 75% !important;
+  min-height: 75%;
+  min-width: 75% !important;
+  padding: 12.5%;
+  object-fit: contain !important; }
+
+.collectibles__like {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  color: #C6C6C6;
+  font-size: 34px; }
+  .collectibles__like img {
+    width: 22px; }
+  .collectibles__like:hover {
+    background-color: transparent; }
+
+.collectibles__info {
+  border-top: 1px solid #ececec;
+  height: calc(30% - 30px);
+  padding: 15px; }
+  .collectibles__info h3 {
+    margin-bottom: 7px;
+    font-size: 18px; }
+  .collectibles__info p {
+    color: #b1b1b1; }
+
+.collectibles__wrapper {
+  justify-content: flex-start !important; }
+
+.collectibles__grid {
+  display: inline-grid;
+  grid-template-columns: repeat(3, 33.33333% [col-start]);
+  width: 685px;
+  max-width: 685px;
+  margin-bottom: 26px;
+  column-gap: 15px;
+  row-gap: 20px; }
+
+@media only screen and (max-width: 1278px) {
+  .collectibles__grid {
+    left: 350px; } }
+
+@media only screen and (max-width: 600px) {
+  .collectibles__opensea {
+    margin-right: 30px; }
+    .collectibles__opensea img {
+      opacity: .6;
+      margin: 5px 0 0 7.5px; }
+  .collectibles__image {
+    min-width: 100%;
+    min-height: 100%; }
+  .collectibles__like__heart {
+    opacity: 1 !important; }
+  .favorites__grid__wrapper {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 16px; }
+  .favorites__grid {
+    padding: 0 0 0 7.5px !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    overflow: visible !important;
+    white-space: nowrap !important;
+    width: fit-content !important;
+    max-width: fit-content !important;
+    grid-template-columns: none !important; }
+    .favorites__grid .collectiblesTile {
+      width: 75vw !important;
+      margin-right: 7.5px; }
+  .collectibles__wrapper {
+    margin-bottom: 20px !important; }
+  .collectibles__grid {
+    display: inline-grid;
+    grid-template-columns: repeat(2, 50% [col-start]);
+    width: calc(100% - 22.5px);
+    max-width: calc(100vw - 22.5px);
+    padding: 7.5px;
+    column-gap: 7.5px;
+    row-gap: 7.5px;
+    margin-bottom: 7.5px; }
+  .emptyCollectiblesTile {
+    width: 100%; } }
