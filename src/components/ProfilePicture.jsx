@@ -85,7 +85,7 @@ function mapState(state) {
     currentAddress: state.userState.currentAddress,
 
     otherImage: state.otherProfile.otherImage,
-    otherProfileAddress: state.otherProfile.otherProfileAddress,
+    // otherProfileAddress: state.otherProfile.otherProfileAddress,
   };
 }
 

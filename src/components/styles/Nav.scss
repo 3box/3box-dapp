@@ -840,6 +840,8 @@ nav {
   padding: 16px;
   box-sizing: border-box;
   min-height: 64px;
+  z-index: 5;
+  
   &:hover {
     background-color: $backgroundHue;
   }

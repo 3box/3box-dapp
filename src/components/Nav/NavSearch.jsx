@@ -33,13 +33,14 @@ class NavSearch extends Component {
       searchedProfile: null,
       isEmptyProfile: false,
       isFetching: false,
+      searchedEthAddr: '',
     };
   }
 
   handleInputEdit = async (e) => {
     const { value } = e.target;
     const { handleToggleResults } = this.props;
-    this.setState({ searchTerm: value });
+    this.setState({ searchTerm: value, searchedProfile: null });
 
     const isEthAddr = checkIsEthAddress(value);
     const isENS = checkIsENSAddress(value);
@@ -53,12 +54,11 @@ class NavSearch extends Component {
       this.fetchProfile(value);
     } else if (isENS) {
       this.fetchENS(value);
-    } else {
-      this.setState({ searchedProfile: null });
     }
   }
 
   fetchProfile = async (address) => {
+    this.setState({ searchedEthAddr: address });
     const searchedProfile = address ? await Box.getProfile(address) : {};
 
     if (Object.entries(searchedProfile).length) {
@@ -86,6 +86,7 @@ class NavSearch extends Component {
       isEmptyProfile,
       isENS,
       isFetching,
+      searchedEthAddr,
     } = this.state;
 
     const {
@@ -107,19 +108,22 @@ class NavSearch extends Component {
             value={searchTerm}
           />
 
+          {/* Search Result */}
           {(searchedProfile && showResults && !isEmptyProfile && !isFetching) && (
-            <Link to={`/${searchTerm}`} onClick={this.clearSearch}>
+            <Link to={`/${searchedEthAddr}`} onClick={this.clearSearch}>
               <div className="navSearch_input_result">
+                {console.log('searchedEthAddr', searchedEthAddr)}
                 <ProfilePicture
                   pictureClass="navSearch_input_result_image"
                   imageToRender={searchedProfile.image}
-                  otherProfileAddress={searchTerm}
+                  otherProfileAddress={searchedEthAddr}
+                  fromnav
                   isMyPicture={false}
                 />
 
                 <div className="navSearch_input_result_info">
                   <h3>
-                    {`${searchedProfile.name || shortenEthAddr(searchTerm)} ${searchedProfile.emoji ? searchedProfile.emoji : ''}`}
+                    {`${searchedProfile.name || shortenEthAddr(searchedEthAddr)} ${searchedProfile.emoji ? searchedProfile.emoji : ''}`}
                   </h3>
 
                   {searchedProfile.description && (
@@ -163,6 +167,7 @@ class NavSearch extends Component {
             </Link>
           )}
 
+          {/* No Profile result */}
           {(isEmptyProfile && showResults && !isFetching) && (
             <div className="navSearch_input_result">
               <h4>
@@ -171,6 +176,7 @@ class NavSearch extends Component {
             </div>
           )}
 
+          {/* Not a valid search  */}
           {(!isEthAddr && !isENS && searchTerm && showResults && !searchedProfile) && (
             <div className="navSearch_input_result">
               <h4>
@@ -179,6 +185,7 @@ class NavSearch extends Component {
             </div>
           )}
 
+          {/* Loading search result */}
           {isFetching && (
             <div className="navSearch_input_result loading">
               <img src={Loading} alt="Loading" className="navSearch_input_result_loading" />

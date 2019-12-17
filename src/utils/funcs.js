@@ -235,7 +235,7 @@ export const checkIsENSAddress = (string) => {
   const noSpace = /^\S*$/.test(string);
   if (!noSpace) return false;
 
-  const isENSAddress = /([a-z0-9-]){3,}[^\s-]\.(eth)/i.test(string);
+  const isENSAddress = /([a-z0-9-]){3,}\.(eth)/i.test(string);
   return isENSAddress;
 };
 
