@@ -4,38 +4,9 @@ import {
 
 const getCollectibles = (address, onPublicProfile) => async (dispatch) => {
   try {
-    let offset = 0;
-    let collection = [];
-
-    const checkAndGetMoreCollectibles = async (collectiblesArray) => {
-      console.log('incount', collectiblesArray.length);
-      if (collectiblesArray.length >= 100) {
-        offset += 100;
-        console.log('thisoffset', offset);
-        const collectiblesRes = await fetch(`https://api.opensea.io/api/v1/assets?owner=${'0x68b42e44079d1d0a4a037e8c6ecd62c48967e69f'}&order_by=current_price&order_direction=asc&offset=${offset}&limit=100`);
-        const collectiblesData = await collectiblesRes.json();
-        console.log('secondcollectiblesData', collectiblesData);
-        collection.push(collectiblesData.assets);
-        if (offset === 700) return;
-        checkAndGetMoreCollectibles(collectiblesData.assets);
-      }
-    };
-
-    const res = await fetch(`https://api.opensea.io/api/v1/assets?owner=${'0x68b42e44079d1d0a4a037e8c6ecd62c48967e69f'}&order_by=current_price&order_direction=asc&offset=0&limit=100`);
-    // const res = await fetch(`https://api.opensea.io/api/v1/assets?owner=${address}&order_by=current_price&order_direction=asc`);
+    const res = await fetch(`https://api.opensea.io/api/v1/assets?owner=${address}&order_by=current_price&order_direction=asc&limit=100&offset=0`);
     const data = await res.json();
-    console.log('afterfetchcollectibles', data);
-    collection.push(...data.assets);
-
-    // const res2 = await fetch(`https://api.opensea.io/api/v1/assets?owner=${'0x68b42e44079d1d0a4a037e8c6ecd62c48967e69f'}&order_by=current_price&order_direction=asc&offset=95&limit=100`);
-    // // const res = await fetch(`https://api.opensea.io/api/v1/assets?owner=${address}&order_by=current_price&order_direction=asc`);
-    // const data2 = await res2.json();
-    // console.log('collectiblesData2', data2);
-    // collection.push(data.assets);
-
-    // checkAndGetMoreCollectibles(data.assets);
-
-    console.log('totalCollectibles', collection);
+    let collection = data.assets;
 
     const collectiblesFavoritesToRender = [];
     let updatedCollectiblesFavorites = [];
@@ -46,8 +17,6 @@ const getCollectibles = (address, onPublicProfile) => async (dispatch) => {
     } else {
       collectiblesFavorites = await store.getState().myData.box.public.get('collectiblesFavorites');
     }
-
-    console.log('collectiblesFavorites', collectiblesFavorites);
 
     if (collectiblesFavorites && collectiblesFavorites.length > 0) {
       collection = collection.filter((nft) => {

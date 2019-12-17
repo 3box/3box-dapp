@@ -49,6 +49,7 @@ export const addhttp = (url) => {
 
 export async function getContract(otherAddress) {
   try {
+    // const response = await fetch(`https://api.etherscan.io/api?module=contract&action=getabi&address=${otherAddress}&apikey=3VTI9D585DCX4RD4QSP3MYWKACCIVZID23`);
     const response = await fetch(`https://api.etherscan.io/api?module=contract&action=getabi&address=${otherAddress}&apikey=3VTI9D585DCX4RD4QSP3MYWKACCIVZID23`);
     if (response.status !== 200) {
       return console.error(`Looks like there was a problem. Status Code: ${response.status}`);

@@ -23,12 +23,13 @@ class Collectibles extends Component {
     super(props);
     this.state = {
       offset: 100,
+      collection: this.props.collection,
     };
 
     window.onscroll = () => {
       const { isLoading } = this.state;
       const { collection } = this.props;
-      const windowHeight = 'innerHeight' in window ? window.innerHeight : document.documentElement.offsetHeight;
+      const windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
       const { body } = document;
       const html = document.documentElement;
       const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
@@ -38,6 +39,14 @@ class Collectibles extends Component {
       }
     };
   }
+
+  // componentDidMount() {
+  //   window.addEventListener('scroll', this.onScroll, false);
+  // }
+
+  // componentWillUnmount() {
+  //   window.removeEventListener('scroll', this.onScroll, false);
+  // }
 
   updateGallery = (e, selectedCollectible, removeFavorite, fromModal) => {
     e.stopPropagation();
@@ -131,7 +140,7 @@ class Collectibles extends Component {
         this.setState({ isLoading: false });
       }
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   }
 
@@ -144,6 +153,7 @@ class Collectibles extends Component {
       isFavorite,
       isActive,
     } = this.props;
+
     const { isLoading } = this.state;
     return (
       <>
@@ -178,8 +188,8 @@ class Collectibles extends Component {
           {showCollectiblesModal && (
             <ModalBackground />
           )}
-
         </ReactCSSTransitionGroup>
+
         <div id="myFeed" className={`profileTab ${isActive ? 'viewTab' : ''}`}>
           {(collection.length > 0 || collectiblesFavoritesToRender.length > 0)
             ? (
@@ -309,23 +319,27 @@ class Collectibles extends Component {
 }
 
 Collectibles.propTypes = {
-  isActive: PropTypes.bool,
   box: PropTypes.object,
+  allData: PropTypes.object,
   selectedCollectible: PropTypes.object,
   collection: PropTypes.array,
-  currentAddress: PropTypes.string,
+  list: PropTypes.array,
   collectiblesFavorites: PropTypes.array,
   collectiblesFavoritesToRender: PropTypes.array,
   handleCollectiblesModal: PropTypes.func.isRequired,
   showCollectiblesModal: PropTypes.bool.isRequired,
   isFavorite: PropTypes.bool.isRequired,
+  isActive: PropTypes.bool,
+  currentAddress: PropTypes.string,
 };
 
 Collectibles.defaultProps = {
   box: {},
+  allData: {},
   collection: [],
   collectiblesFavorites: [],
   collectiblesFavoritesToRender: [],
+  list: [],
   selectedCollectible: {},
   currentAddress: '',
   isActive: false,
