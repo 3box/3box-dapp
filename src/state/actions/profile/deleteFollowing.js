@@ -6,7 +6,7 @@ import {
   getFollowingThreadAndPosts,
 } from './helpers';
 
-const deleteFollowing = otherProfileAddress => async (/* dispatch */) => {
+const deleteFollowing = async (otherProfileAddress) => {
   try {
     const {
       followingList,

@@ -8,10 +8,13 @@ import {
   followingThreadName,
 } from '../../../utils/constants';
 import fetchEns from '../utils';
+import {
+  store,
+} from '../../store';
 
-const getOtherProfile = (profileAddress) => async (dispatch) => {
+const getOtherProfile = async (profileAddress) => {
   try {
-    dispatch({
+    store.dispatch({
       type: 'OTHER_PROFILE_LOADING',
       isLoadingOtherProfile: true,
     });
@@ -19,7 +22,7 @@ const getOtherProfile = (profileAddress) => async (dispatch) => {
     const publicProfile = await Box.getProfile(profileAddress);
     const otherEns = await fetchEns(profileAddress);
 
-    dispatch({
+    store.dispatch({
       type: 'OTHER_PROFILE_UPDATE',
       otherDescription: publicProfile.description,
       otherLocation: publicProfile.location,
@@ -61,7 +64,7 @@ const getOtherProfile = (profileAddress) => async (dispatch) => {
       return 0;
     });
 
-    dispatch({
+    store.dispatch({
       type: 'OTHER_PROFILE_UPDATE_VERIFIED_FOLLOWING',
       otherGithub: publicVerifiedAccounts.github && publicVerifiedAccounts.github.username,
       otherTwitter: publicVerifiedAccounts.twitter && publicVerifiedAccounts.twitter.username,
@@ -69,12 +72,12 @@ const getOtherProfile = (profileAddress) => async (dispatch) => {
       otherFollowing,
     });
 
-    dispatch({
+    store.dispatch({
       type: 'OTHER_PROFILE_LOADING',
       isLoadingOtherProfile: false,
     });
   } catch (error) {
-    dispatch({
+    store.dispatch({
       type: 'OTHER_PROFILE_LOADING',
       isLoadingOtherProfile: false,
     });

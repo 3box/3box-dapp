@@ -6,7 +6,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import CollectiblesTile from './CollectiblesTile';
 import { CollectiblesModal, ModalBackground } from '../../components/Modals';
-import { EmptyGalleryCollectiblesTile } from './EmptyCollectiblesTile';
+import EmptyGalleryCollectiblesTile from './EmptyCollectiblesTile';
 import actions from '../../state/actions';
 import OpenSea from '../../assets/OpenSea.png';
 import Loading from '../../assets/3BoxLoading.svg';
@@ -65,15 +65,18 @@ class Collectibles extends Component {
         removedCollectible = updatedCollectiblesFavoritesToRender.pop();
         updatedCollectiblesFavorites.pop();
       }
+
       updatedCollectiblesFavoritesToRender.unshift(selectedCollectible);
       updatedCollectiblesFavorites.unshift({
         address: contractAddress,
         token_id: tokenId,
       });
+
       const idx = collection.findIndex((nft) => (nft.asset_contract.address === contractAddress
         && nft.token_id === tokenId));
       collection.splice(idx, 1);
       updatedCollection = collection.slice();
+
       if (removedCollectible) updatedCollection.push(removedCollectible);
     } else if (removeFavorite) {
       const idx = updatedCollectiblesFavorites.findIndex((favorite) => (favorite.address === contractAddress

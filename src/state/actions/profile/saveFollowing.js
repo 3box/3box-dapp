@@ -13,7 +13,7 @@ import {
   getFollowingThreadAndPosts,
 } from './helpers';
 
-const saveFollowing = (otherProfileAddress, fromWarningModal) => async (dispatch) => {
+const saveFollowing = async (otherProfileAddress, fromWarningModal) => {
   try {
     const {
       followingList,
@@ -31,11 +31,11 @@ const saveFollowing = (otherProfileAddress, fromWarningModal) => async (dispatch
 
     // if no followers, warn that following is public
     if ((!store.getState().myData.following || store.getState().myData.following.length === 0) && !fromWarningModal) {
-      dispatch({
+      store.dispatch({
         type: 'UI_HANDLE_WARN_PUBLIC_FOLLOWING',
         showFollowingPublicModal: true,
       });
-      dispatch({
+      store.dispatch({
         type: 'OTHER_ADDRESS_TO_FOLLOW',
         otherAddressToFollow: otherProfileAddress,
       });

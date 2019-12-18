@@ -2,11 +2,11 @@ import {
   store,
 } from '../../store';
 
-const getVerifiedPublicGithub = () => async (dispatch) => {
+const getVerifiedPublicGithub = async () => {
   try {
     const verifiedGithub = await store.getState().myData.box.verified.github();
 
-    dispatch({
+    store.dispatch({
       type: 'MY_VERIFIED_GITHUB_UPDATE',
       verifiedGithub: verifiedGithub && verifiedGithub.username,
     });

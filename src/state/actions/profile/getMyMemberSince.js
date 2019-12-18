@@ -2,7 +2,7 @@ import {
   store,
 } from '../../store';
 
-const getMyMemberSince = () => async (dispatch) => {
+const getMyMemberSince = async () => {
   try {
     const date = await store.getState().myData.box.public.get('memberSince');
 
@@ -16,7 +16,7 @@ const getMyMemberSince = () => async (dispatch) => {
       memberSinceDate = `${(memberSince.getMonth() + 1)}/${memberSince.getDate()}/${memberSince.getFullYear()}`;
     }
 
-    dispatch({
+    store.dispatch({
       type: 'MY_MEMBERSINCE_UPDATE',
       memberSince: memberSinceDate,
     });

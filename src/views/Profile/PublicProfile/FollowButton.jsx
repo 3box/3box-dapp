@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { store } from '../../../state/store';
 import actions from '../../../state/actions';
 import Loading from '../../../assets/3BoxLoading.svg';
-import { pollNetworkAndAddress, startPollFlag } from '../../../utils/address';
+import getMyData from '../../../state/actions/profile/getMyData';
 
 const {
   saveFollowing,
@@ -44,69 +44,6 @@ class FollowButton extends Component {
     this.handleFollowing = this.handleFollowing.bind(this);
   }
 
-  async getMyData() {
-    const { currentAddress } = this.props;
-    store.dispatch({
-      type: 'UI_SPACES_LOADING',
-      isSpacesLoading: true,
-    });
-    startPollFlag();
-    pollNetworkAndAddress(); // Start polling for address change
-
-    try {
-      this.props.getActivity(); // eslint-disable-line
-    } catch (error) {
-      console.error(error);
-    }
-
-    try {
-      this.props.getCollectibles(currentAddress); // eslint-disable-line
-    } catch (error) {
-      console.error(error);
-    }
-
-    try {
-      this.props.getVerifiedPublicGithub();
-      this.props.getVerifiedPublicTwitter();
-      this.props.getVerifiedPrivateEmail();
-      this.props.getMyMemberSince();
-      this.props.getMyDID();
-      this.props.getMyProfileValue('public', 'name');
-      this.props.getMyProfileValue('public', 'description');
-      this.props.getMyProfileValue('public', 'image');
-      this.props.getMyProfileValue('public', 'coverPhoto');
-      this.props.getMyProfileValue('public', 'location');
-      this.props.getMyProfileValue('public', 'website');
-      this.props.getMyProfileValue('public', 'employer');
-      this.props.getMyProfileValue('public', 'job');
-      this.props.getMyProfileValue('public', 'school');
-      this.props.getMyProfileValue('public', 'degree');
-      this.props.getMyProfileValue('public', 'major');
-      this.props.getMyProfileValue('public', 'year');
-      this.props.getMyProfileValue('public', 'emoji');
-      this.props.getMyProfileValue('private', 'birthday');
-
-
-    } catch (err) {
-      console.error(err);
-    }
-
-    try {
-      await this.props.openFollowingSpace();
-      this.props.getMyFollowing();
-      this.props.getMyWall();
-    } catch (error) {
-      console.error(error);
-    }
-
-    try {
-      await this.props.convert3BoxToSpaces();
-      await this.props.getMySpacesData(currentAddress);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
   handleShowHover = (showHoverText) => {
     this.setState({ showHoverText });
   }
@@ -117,7 +54,7 @@ class FollowButton extends Component {
       await this.props.injectWeb3();
       await this.props.checkNetwork();
       await this.props.openBox(false, true);
-      if (!this.props.showErrorModal) this.getMyData();
+      if (!this.props.showErrorModal) getMyData();
     } catch (err) {
       console.error(err);
     }
@@ -151,7 +88,7 @@ class FollowButton extends Component {
       type: whichReduxAction,
       [whichFollowButton]: false,
     });
-    if (deleteOrSave === 'saveFollowing') this.setState({ showHoverText: 'Following' })
+    if (deleteOrSave === 'saveFollowing') this.setState({ showHoverText: 'Following' });
     if (fromContactTile) handleTileLoading();
   }
 

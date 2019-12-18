@@ -22,7 +22,7 @@ const filterDappKeys = (row) => {
   return false;
 };
 
-const convert3BoxToSpaces = () => async (dispatch) => {
+const convert3BoxToSpaces = async () => {
   try {
     const allData = {};
     allData['3Box_app'] = {};
@@ -35,6 +35,7 @@ const convert3BoxToSpaces = () => async (dispatch) => {
 
     const rowData = [];
     const rowCalls = [];
+    console.log('myDatamyData', myData);
 
     Object.entries(myData).forEach((row) => {
       if (filterDappKeys(row[0])) {
@@ -72,7 +73,7 @@ const convert3BoxToSpaces = () => async (dispatch) => {
       }
     });
 
-    dispatch({
+    store.dispatch({
       type: 'SPACES_DATA_UPDATE',
       allData,
     });

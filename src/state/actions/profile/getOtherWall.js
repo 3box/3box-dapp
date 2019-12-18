@@ -8,9 +8,12 @@ import {
   followingSpaceName,
   myProfileWall,
 } from '../../../utils/constants';
+import {
+  store,
+} from '../../store';
 
-const getOtherWall = (profileAddress) => async (dispatch) => {
-  dispatch({
+const getOtherWall = async (profileAddress) => {
+  store.dispatch({
     type: 'UI_WALL_OTHER_LOADING',
     isFetchingOtherWall: true,
   });
@@ -31,14 +34,14 @@ const getOtherWall = (profileAddress) => async (dispatch) => {
     otherWallProfiles = await fetchCommenters(otherWallPosts);
   }
 
-  dispatch({
+  store.dispatch({
     type: 'OTHER_WALL_UPDATE',
     otherWallPosts,
     otherWallProfiles,
     isOtherWallDisabled: !!isOtherWallDisabled,
   });
 
-  dispatch({
+  store.dispatch({
     type: 'UI_WALL_OTHER_LOADING',
     isFetchingOtherWall: false,
   });

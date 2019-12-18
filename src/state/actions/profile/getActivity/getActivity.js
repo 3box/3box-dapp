@@ -18,7 +18,7 @@ import {
   getContract,
 } from './helpers';
 
-const getActivity = (otherProfileAddress) => async (dispatch) => {
+const getActivity = async (otherProfileAddress) => {
   try {
     const {
       currentWallet,
@@ -29,12 +29,12 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
     const web3Obj = isWalletConnect ? window.web3 || Web3 : reduxWeb3 || window.web3 || Web3;
 
     if (otherProfileAddress) {
-      dispatch({
+      store.dispatch({
         type: 'UI_FEED_OTHER_LOADING',
         isFetchingOtherActivity: true,
       });
     } else {
-      dispatch({
+      store.dispatch({
         type: 'UI_FEED_LOADING',
         isFetchingActivity: true,
       });
@@ -151,13 +151,13 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
       }
     });
   } catch (err) {
-    dispatch({
+    store.dispatch({
       type: 'UI_FEED_FAILED',
       isFetchingActivity: false,
       errorMessage: err,
       provideConsent: false,
     });
-    dispatch({
+    store.dispatch({
       type: 'MY_FEED_UPDATE',
       feedByAddress: [],
     });

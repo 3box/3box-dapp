@@ -2,8 +2,8 @@ import {
   store,
 } from '../../store';
 
-const getCollectibles = (address, onPublicProfile) => async (dispatch) => {
-  dispatch({
+const getCollectibles = async (address, onPublicProfile) => {
+  store.dispatch({
     type: 'UI_COLLECTIBLES_LOADING',
     isFetchingCollectibles: true,
   });
@@ -57,19 +57,19 @@ const getCollectibles = (address, onPublicProfile) => async (dispatch) => {
   }
 
   if (onPublicProfile) {
-    dispatch({
+    store.dispatch({
       type: 'OTHER_FAVORITE_COLLECTIBLES_UPDATE',
       otherCollectiblesFavorites: collectiblesFavoritesToRender,
     });
   } else {
     if (collection && collection.length > 0) {
-      dispatch({
+      store.dispatch({
         type: 'MY_COLLECTIBLES_UPDATE',
         collection,
       });
     }
     if (collectiblesFavorites && collectiblesFavorites.length > 0) {
-      dispatch({
+      store.dispatch({
         type: 'MY_COLLECTIBLESFAVORITES_UPDATE',
         collectiblesFavorites,
         collectiblesFavoritesToRender,
@@ -77,7 +77,7 @@ const getCollectibles = (address, onPublicProfile) => async (dispatch) => {
     }
   }
 
-  dispatch({
+  store.dispatch({
     type: 'UI_COLLECTIBLES_LOADING',
     isFetchingCollectibles: false,
   });

@@ -6,7 +6,7 @@ import {
   followingSpaceName,
 } from '../../../utils/constants';
 
-const openFollowingSpace = () => async ( /* dispatch */ ) => {
+const openFollowingSpace = async () => {
   try {
     const followingSpace = await store.getState().myData.box.openSpace(followingSpaceName);
     store.dispatch({

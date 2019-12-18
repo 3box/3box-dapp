@@ -20,7 +20,7 @@ const updateMyWall = async () => {
   });
 };
 
-const getMyWall = () => async (dispatch) => {
+const getMyWall = async () => {
   try {
     const space = await store.getState().myData.followingSpace;
     // check to see if user has disabled wall
@@ -37,7 +37,7 @@ const getMyWall = () => async (dispatch) => {
       wallThread.onUpdate(() => updateMyWall());
     }
 
-    dispatch({
+    store.dispatch({
       type: 'MY_WALL_UPDATE',
       wallPosts,
       wallThread,
@@ -48,7 +48,7 @@ const getMyWall = () => async (dispatch) => {
     console.error(error);
   }
 
-  dispatch({
+  store.dispatch({
     type: 'UI_WALL_LOADING',
     isFetchingWall: false,
   });

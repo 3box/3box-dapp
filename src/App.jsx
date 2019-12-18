@@ -6,9 +6,7 @@ import queryString from 'query-string';
 
 import * as routes from './utils/routes';
 import {
-  pollNetworkAndAddress,
   initialAddress,
-  startPollFlag,
 } from './utils/address';
 import {
   normalizeURL,
@@ -20,6 +18,7 @@ import { followingSpaceName } from './utils/constants';
 import history from './utils/history';
 import { store } from './state/store';
 import actions from './state/actions';
+import getMyData from './state/actions/profile/getMyData';
 
 import AppRoutes from './AppRoutes';
 import AppPreviewRoutes from './AppPreviewRoutes';
@@ -48,22 +47,9 @@ const {
 } = actions.modal;
 
 const {
-  getMyProfileValue,
-  getMyDID,
-  getMyWall,
-  getCollectibles,
-  getMyMemberSince,
-  getVerifiedPublicGithub,
-  getVerifiedPublicTwitter,
-  getVerifiedPrivateEmail,
-  getActivity,
-  getMyFollowing,
   getPublicFollowing,
   saveFollowing,
-  openFollowingSpace,
 } = actions.profile;
-
-const { getMySpacesData, convert3BoxToSpaces } = actions.spaces;
 
 const {
   openBox,
@@ -143,68 +129,7 @@ class App extends Component {
         isSyncing: false,
       });
       const fromOnSyncDone = true;
-      this.getMyData(fromOnSyncDone);
-    }
-  }
-
-  getMyData = async (fromOnSyncDone) => {
-    const { currentAddress } = this.props;
-    store.dispatch({
-      type: 'UI_SPACES_LOADING',
-      isSpacesLoading: true,
-    });
-    startPollFlag();
-    pollNetworkAndAddress(); // Start polling for address change
-
-    try {
-      if (!fromOnSyncDone) this.props.getActivity(); // eslint-disable-line
-    } catch (error) {
-      console.error(error);
-    }
-
-    try {
-      if (!fromOnSyncDone) this.props.getCollectibles(currentAddress); // eslint-disable-line
-    } catch (error) {
-      console.error(error);
-    }
-
-    try {
-      this.props.getVerifiedPublicGithub(); // eslint-disable-line
-      this.props.getVerifiedPublicTwitter(); // eslint-disable-line
-      this.props.getVerifiedPrivateEmail(); // eslint-disable-line
-      this.props.getMyMemberSince(); // eslint-disable-line
-      this.props.getMyDID(); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'name'); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'description'); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'image'); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'coverPhoto'); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'location'); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'website'); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'employer'); // eslint-disab\le-line
-      this.props.getMyProfileValue('public', 'job'); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'school'); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'degree'); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'major'); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'year'); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'emoji'); // eslint-disable-line
-      this.props.getMyProfileValue('private', 'birthday'); // eslint-disable-line
-    } catch (err) {
-      console.error(err);
-    }
-
-    try {
-      await this.props.openFollowingSpace();
-      this.props.getMyFollowing(); // eslint-disable-line
-      this.props.getMyWall(); // eslint-disable-line
-    } catch (error) {
-      console.error(error);
-    }
-
-    try {
-      await this.props.convert3BoxToSpaces(); // eslint-disable-line
-      await this.props.getMySpacesData(currentAddress); // eslint-disable-line
-    } catch (error) {
-      console.error(error);
+      getMyData(fromOnSyncDone);
     }
   }
 
@@ -228,6 +153,7 @@ class App extends Component {
       const currentUrlEthAddr = normalizedPath.split('/')[1];
       const profilePage = normalizedPath.split('/')[2];
       const doesEthAddrMatch = currentUrlEthAddr === this.props.currentAddress;
+
       await this.props.checkMobileWeb3();
       await this.props.injectWeb3('directLogin', false, wallet);
       await this.props.checkNetwork();
@@ -235,7 +161,7 @@ class App extends Component {
       if (!doesEthAddrMatch) history.push(`/${this.props.currentAddress}/${profilePage || routes.directToHome()}`);
 
       await this.props.openBox();
-      if (!this.props.showErrorModal) this.getMyData();
+      if (!this.props.showErrorModal) getMyData();
     } catch (err) {
       console.error(err);
       store.dispatch({
@@ -252,7 +178,7 @@ class App extends Component {
       await this.props.injectWeb3(null, chooseWallet, false, shouldSignOut);
       await this.props.checkNetwork();
       await this.props.openBox('fromSignIn', fromPost);
-      if (!this.props.showErrorModal) this.getMyData();
+      if (!this.props.showErrorModal) getMyData();
     } catch (err) {
       console.error(err);
     }
@@ -407,20 +333,8 @@ class App extends Component {
 App.propTypes = {
   openBox: PropTypes.func.isRequired,
   injectWeb3: PropTypes.func.isRequired,
-  getMyProfileValue: PropTypes.func.isRequired,
   checkMobileWeb3: PropTypes.func.isRequired,
-  getMyFollowing: PropTypes.func.isRequired,
   getPublicFollowing: PropTypes.func.isRequired,
-  getMyDID: PropTypes.func.isRequired,
-  getMyWall: PropTypes.func.isRequired,
-  getCollectibles: PropTypes.func.isRequired,
-  getMySpacesData: PropTypes.func.isRequired,
-  convert3BoxToSpaces: PropTypes.func.isRequired,
-  getMyMemberSince: PropTypes.func.isRequired,
-  getVerifiedPublicGithub: PropTypes.func.isRequired,
-  getVerifiedPublicTwitter: PropTypes.func.isRequired,
-  getVerifiedPrivateEmail: PropTypes.func.isRequired,
-  getActivity: PropTypes.func.isRequired,
   handleSwitchedNetworkModal: PropTypes.func.isRequired,
   handleAccessModal: PropTypes.func.isRequired,
   handleConsentModal: PropTypes.func.isRequired,
@@ -428,7 +342,6 @@ App.propTypes = {
   handleSignInModal: PropTypes.func.isRequired,
   handleSignOut: PropTypes.func,
   checkNetwork: PropTypes.func.isRequired,
-  openFollowingSpace: PropTypes.func.isRequired,
   closeErrorModal: PropTypes.func.isRequired,
   handleLoggedOutModal: PropTypes.func.isRequired,
   handleSwitchedAddressModal: PropTypes.func.isRequired,
@@ -553,18 +466,6 @@ export default withRouter(connect(mapState,
     injectWeb3,
     checkMobileWeb3,
     checkNetwork,
-    getMyProfileValue,
-    getMyDID,
-    getMyWall,
-    getCollectibles,
-    getMySpacesData,
-    convert3BoxToSpaces,
-    getMyMemberSince,
-    getVerifiedPublicGithub,
-    getVerifiedPublicTwitter,
-    getVerifiedPrivateEmail,
-    getActivity,
-    getMyFollowing,
     handleSignInModal,
     handleSwitchedNetworkModal,
     handleAccessModal,
@@ -581,5 +482,4 @@ export default withRouter(connect(mapState,
     handleContactsModal,
     clearReduxState,
     handleUnsupportedBrowserModal,
-    openFollowingSpace,
   })(App));

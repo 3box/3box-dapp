@@ -5,33 +5,43 @@ import {
 } from '../../store';
 import * as routes from '../../../utils/routes';
 import history from '../../../utils/history';
+import {
+  startPollFlag,
+  pollNetworkAndAddress,
+} from '../../../utils/address';
+// import getActivity from '../profile/getActivity/getActivity';
+// import getCollectibles from '../profile/getCollectibles';
 import fetchEns from '../utils';
 
 const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
+  const {
+    currentAddress,
+    web3Obj,
+    hasSignedOut,
+  } = store.getState().userState;
+
+  const {
+    otherProfileAddress,
+  } = store.getState().otherProfile;
+
   dispatch({
     type: 'UI_HANDLE_CONSENT_MODAL',
     provideConsent: true,
     showSignInBanner: false,
   });
 
-  const {
-    currentAddress,
-    web3Obj,
-    hasSignedOut,
-  } = store.getState().userState;
-  // const {
-  //   onOtherProfilePage,
-  // } = store.getState().uiState;
-  const {
-    otherProfileAddress,
-  } = store.getState().otherProfile;
-
   const consentCallback = () => {
     const redirectToHome = (fromSignIn && !fromFollowButton) ||
       (otherProfileAddress === currentAddress);
+
     if (redirectToHome) {
       history.push(`/${currentAddress}/${routes.directToHome()}`);
     }
+
+    startPollFlag();
+    pollNetworkAndAddress(); // Start polling for address change
+    // getActivity(); // need box object for 3box activity
+    // getCollectibles(currentAddress); // need box object for collectiblesFavorites
 
     dispatch({
       type: 'UI_3BOX_LOADING',

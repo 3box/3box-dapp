@@ -5,7 +5,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import CollectiblesTile from '../CollectiblesTile';
 import { CollectiblesModal, ModalBackground } from '../../../components/Modals';
-import { EmptyGalleryCollectiblesTile } from '../EmptyCollectiblesTile';
+import EmptyGalleryCollectiblesTile from '../EmptyCollectiblesTile';
 import actions from '../../../state/actions';
 import '../styles/Feed.scss';
 import '../styles/Profile.scss';
