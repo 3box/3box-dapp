@@ -38,6 +38,14 @@ const getGeneralProfile = async (address) => {
       collectiblesFavorites: generalProfile.collectiblesFavorites,
       memberSince: memberSinceDate,
     });
+
+    const updatedFetchedProfiles = {};
+    updatedFetchedProfiles[address] = generalProfile;
+
+    store.dispatch({
+      type: 'MY_FETCHED_PROFILES_UPDATE',
+      fetchedProfiles: updatedFetchedProfiles,
+    });
   } catch (error) {
     console.error(error);
   }

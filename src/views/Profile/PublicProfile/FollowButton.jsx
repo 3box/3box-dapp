@@ -6,11 +6,8 @@ import { store } from '../../../state/store';
 import actions from '../../../state/actions';
 import Loading from '../../../assets/3BoxLoading.svg';
 import getMyData from '../../../state/actions/profile/getMyData';
-
-const {
-  saveFollowing,
-  deleteFollowing,
-} = actions.profile;
+import saveFollowing from '../../../state/actions/profile/saveFollowing';
+import deleteFollowing from '../../../state/actions/profile/deleteFollowing';
 
 const {
   openBox,
@@ -28,14 +25,13 @@ class FollowButton extends Component {
     this.state = {
       showHoverText: 'Following',
     };
-    this.handleFollowing = this.handleFollowing.bind(this);
   }
 
   handleShowHover = (showHoverText) => {
     this.setState({ showHoverText });
   }
 
-  async handleSignInUp() {
+  handleSignInUp = async () => {
     try {
       await this.props.checkMobileWeb3();
       await this.props.injectWeb3();
@@ -47,7 +43,7 @@ class FollowButton extends Component {
     }
   }
 
-  async handleFollowing() {
+  handleFollowing = async () => {
     const {
       fromContactTile,
       handleTileLoading,
@@ -59,7 +55,7 @@ class FollowButton extends Component {
 
     const whichFollowButton = fromContactTile ? 'isFollowFromTileLoading' : 'isFollowFromProfileLoading';
     const whichReduxAction = fromContactTile ? 'UI_FOLLOW_LOADING_TILE' : 'UI_FOLLOW_LOADING_PROFILE';
-    const deleteOrSave = isFollowing ? 'deleteFollowing' : 'saveFollowing';
+    const deleteOrSave = isFollowing ? deleteFollowing : saveFollowing;
     const address = contactTileAddress || otherProfileAddress;
 
     store.dispatch({
@@ -69,7 +65,7 @@ class FollowButton extends Component {
 
     if (!isLoggedIn) await this.handleSignInUp();
 
-    await this.props[deleteOrSave](address);
+    await deleteOrSave(address);
 
     store.dispatch({
       type: whichReduxAction,
@@ -167,7 +163,5 @@ export default connect(mapState,
     injectWeb3,
     checkMobileWeb3,
     checkNetwork,
-    saveFollowing,
-    deleteFollowing,
     openBox,
   })(FollowButton);

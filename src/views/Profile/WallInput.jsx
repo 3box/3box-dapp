@@ -162,7 +162,7 @@ class WallInput extends Component {
 
     if (isOtherProfile && !hasJoinedThread) {
       this.setState({ hasJoinedThread: true });
-      await this.props.joinOtherThread();
+      await joinOtherThread();
     }
 
     try {
@@ -280,7 +280,6 @@ const mapState = (state) => ({
 
 export default connect(mapState, {
   postAndUpdateWall,
-  joinOtherThread,
 })(WallInput);
 
 WallInput.propTypes = {
@@ -292,7 +291,6 @@ WallInput.propTypes = {
   image: PropTypes.array,
   loginFunction: PropTypes.func.isRequired,
   postAndUpdateWall: PropTypes.func.isRequired,
-  joinOtherThread: PropTypes.func.isRequired,
 };
 
 WallInput.defaultProps = {

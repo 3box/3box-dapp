@@ -42,7 +42,7 @@ class FollowingTile extends Component {
           >
             <div className="contact_tile_info">
               <img
-                src={(user.image && user.image[0].contentUrl) ? `https://ipfs.infura.io/ipfs/${user.image[0].contentUrl['/']}` : DefaultProfile}
+                src={user.image ? `https://ipfs.infura.io/ipfs/${user.image}` : DefaultProfile}
                 className="contact_tile_info_image"
                 alt="profile"
               />
@@ -62,7 +62,7 @@ class FollowingTile extends Component {
               >
                 <div className="contact_tile_info">
                   <img
-                    src={(user.image && user.image[0].contentUrl) ? `https://ipfs.infura.io/ipfs/${user.image[0].contentUrl['/']}` : DefaultProfile}
+                    src={user.image ? `https://ipfs.infura.io/ipfs/${user.image}` : DefaultProfile}
                     className="contact_tile_info_image"
                     alt="profile"
                   />

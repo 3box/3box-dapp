@@ -10,7 +10,6 @@ import getActivity from './getActivity/getActivity';
 import getPublicProfileAndENS from './getPublicProfileAndENS';
 import getMyFollowing from './getMyFollowing';
 import getPublicFollowing from './getPublicFollowing';
-import saveFollowing from './saveFollowing';
 import deleteFollowing from './deleteFollowing';
 import postAndUpdateWall from './postAndUpdateWall';
 import getOtherWall from './getOtherWall';
@@ -30,7 +29,6 @@ export default {
   getPublicProfileAndENS,
   getMyFollowing,
   getPublicFollowing,
-  saveFollowing,
   deleteFollowing,
   postAndUpdateWall,
   getOtherWall,

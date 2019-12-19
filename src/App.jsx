@@ -48,7 +48,6 @@ const {
 
 const {
   getPublicFollowing,
-  saveFollowing,
 } = actions.profile;
 
 const {
@@ -106,7 +105,7 @@ class App extends Component {
         this.directSignIn(queryParams.wallet);
       } else if (onProfilePage) { // Lands on profile page
         const userEth = window.localStorage.getItem('userEthAddress');
-        if (userEth) this.props.getPublicFollowing(userEth);
+        if (userEth) getPublicFollowing(userEth);
         if (isProtectedRoute) history.push(`/${firstParam}`);
       }
     } catch (err) {
@@ -300,7 +299,6 @@ class App extends Component {
           handleAccessModal={this.props.handleAccessModal}
           handleNextMobileModal={this.handleNextMobileModal}
           handleFollowingPublicModal={this.props.handleFollowingPublicModal}
-          saveFollowing={this.props.saveFollowing}
           handleUnsupportedBrowserModal={this.props.handleUnsupportedBrowserModal}
         />
 
@@ -334,7 +332,6 @@ App.propTypes = {
   openBox: PropTypes.func.isRequired,
   injectWeb3: PropTypes.func.isRequired,
   checkMobileWeb3: PropTypes.func.isRequired,
-  getPublicFollowing: PropTypes.func.isRequired,
   handleSwitchedNetworkModal: PropTypes.func.isRequired,
   handleAccessModal: PropTypes.func.isRequired,
   handleConsentModal: PropTypes.func.isRequired,
@@ -346,7 +343,6 @@ App.propTypes = {
   handleLoggedOutModal: PropTypes.func.isRequired,
   handleSwitchedAddressModal: PropTypes.func.isRequired,
   handleOnboardingModal: PropTypes.func.isRequired,
-  saveFollowing: PropTypes.func.isRequired,
 
   showDifferentNetworkModal: PropTypes.bool,
   showFollowingPublicModal: PropTypes.bool,
@@ -477,8 +473,6 @@ export default withRouter(connect(mapState,
     handleOnboardingModal,
     handleFollowingPublicModal,
     closeErrorModal,
-    getPublicFollowing,
-    saveFollowing,
     handleContactsModal,
     clearReduxState,
     handleUnsupportedBrowserModal,

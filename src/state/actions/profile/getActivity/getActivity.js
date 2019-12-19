@@ -89,6 +89,11 @@ const getActivity = async (otherProfileAddress) => {
       return;
     }
 
+    const {
+      fetchedProfiles,
+    } = store.getState().myData;
+    const updatedFetchedProfiles = fetchedProfiles || {};
+
     // get contract and 3box profile metadata
     await feedByAddress.forEach(async (txGroup) => {
       const otherAddress = Object.keys(txGroup)[0];
@@ -136,6 +141,8 @@ const getActivity = async (otherProfileAddress) => {
                 image: metaData && metaData.profile && metaData.profile.image,
                 ensName: metaData && metaData.profile && metaData.profile.ensName,
               };
+
+              updatedFetchedProfiles[otherAddress] = profile;
             }
 
             counter += 1;
@@ -153,6 +160,11 @@ const getActivity = async (otherProfileAddress) => {
         counter += 1;
         if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
       }
+    });
+
+    store.dispatch({
+      type: 'MY_FETCHED_PROFILES_UPDATE',
+      fetchedProfiles: updatedFetchedProfiles,
     });
   } catch (err) {
     store.dispatch({

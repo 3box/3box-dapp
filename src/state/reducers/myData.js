@@ -203,13 +203,18 @@ const myDataReducer = (state = {}, action) => {
       return {
         ...state,
         followingThread: action.followingThread,
-          followingSpace: action.followingSpace,
       };
 
     case 'MY_FOLLOWING_SPACE_OPEN':
       return {
         ...state,
         followingSpace: action.followingSpace,
+      };
+
+    case 'MY_FETCHED_PROFILES_UPDATE':
+      return {
+        ...state,
+        fetchedProfiles: action.fetchedProfiles,
       };
 
     case 'MY_DATA_SIGNOUT':

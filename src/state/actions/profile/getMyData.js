@@ -13,7 +13,7 @@ import convert3BoxToSpaces from '../spaces/convert3BoxToSpaces';
 import getMySpacesData from '../spaces/getMySpacesData';
 
 
-const followingSpaceTasks = async () => {
+const followingAndWallTasks = async () => {
   try {
     await openFollowingSpace();
     getMyFollowing();
@@ -58,7 +58,7 @@ const getMyData = async (fromOnSyncDone) => {
   }
 
   try {
-    followingSpaceTasks();
+    followingAndWallTasks();
   } catch (error) {
     console.error(error);
   }

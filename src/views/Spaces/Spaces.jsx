@@ -358,7 +358,7 @@ class Spaces extends Component {
           this.props.viewSpaceItem(false, false, false);
         }
 
-        this.props.getActivity();
+        getActivity();
 
         setTimeout(() => {
           store.dispatch({
@@ -661,7 +661,6 @@ Spaces.propTypes = {
   box: PropTypes.object,
   spacesOpened: PropTypes.object,
   isSpacesLoading: PropTypes.bool,
-  getActivity: PropTypes.func.isRequired,
   showSpaceOpenedModal: PropTypes.bool,
   showSpaceDataItemModal: PropTypes.bool,
   showDeleteItemModal: PropTypes.bool,
@@ -718,4 +717,4 @@ function mapState(state) {
   };
 }
 
-export default withRouter(connect(mapState, { viewSpaceItem, getActivity })(Spaces));
+export default withRouter(connect(mapState, { viewSpaceItem })(Spaces));

@@ -8,6 +8,15 @@ import {
   store,
 } from '../state/store';
 
+export const graphqlQueryObject = (otherAddress) => `
+{
+  profile(id: "${otherAddress}") {
+    name
+    image
+  }
+}
+`;
+
 export const normalizeURL = (pathname) => {
   const lowercasePathname = pathname.toLowerCase();
   const fuzzyLowercasePathname = lowercasePathname.charAt(lowercasePathname.length - 1) === '/' ?
@@ -240,20 +249,32 @@ export const checkIsENSAddress = (string) => {
 };
 
 export const getFollowingProfiles = async (following) => {
-  const fetchProfile = async (ethAddr) => await Box.getProfile(ethAddr);
-  const fetchAllProfiles = async () => await Promise.all(following.map(user => fetchProfile(user.message.identifier[1].value)));
-  const profiles = await fetchAllProfiles();
+  const {
+    fetchedProfiles,
+  } = store.getState().myData;
+  const updatedFetchedProfiles = fetchedProfiles || {};
 
+  const fetchProfile = async (ethAddr) => Box.profileGraphQL(graphqlQueryObject(ethAddr));
+  const fetchAllProfiles = async () => Promise.all(following.map((user) => fetchProfile(user.message.identifier[1].value)));
+  const profiles = await fetchAllProfiles();
   const profilesAndAddress = [];
+
   profiles.forEach((profile, i) => {
-    profilesAndAddress.push([profile, following[i].message.identifier[1].value]);
+    const address = following[i].message.identifier[1].value;
+    profilesAndAddress.push([profile.profile, address]);
+    updatedFetchedProfiles[address] = profile;
+  });
+
+  store.dispatch({
+    type: 'MY_FETCHED_PROFILES_UPDATE',
+    fetchedProfiles: updatedFetchedProfiles,
   });
   return profilesAndAddress;
 };
 
 export const checkFollowing = (following, otherProfileAddress) => {
   if (!following) return false;
-  return following.some(user => user.message.identifier[1].value === otherProfileAddress);
+  return following.some((user) => user.message.identifier[1].value === otherProfileAddress);
 };
 
 export const alphabetize = (array) => {
@@ -407,12 +428,3 @@ export function debounce(func, wait, immediate) {
     if (callNow) func.apply(context, args);
   };
 }
-
-export const graphqlQueryObject = (otherAddress) => `
-{
-  profile(id: "${otherAddress}") {
-    name
-    image
-  }
-}
-`;

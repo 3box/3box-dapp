@@ -85,6 +85,10 @@ export const getFollowingThreadAndPosts = async () => {
     });
 
     store.dispatch({
+      type: 'MY_FOLLOWING_THREAD_UPDATE',
+      followingThread,
+    });
+    store.dispatch({
       type: 'UI_FOLLOWING_LOADING',
       isLoadingMyFollowing: false,
     });
@@ -118,6 +122,11 @@ export const formatContact = (proofDid, otherProfileAddress) => {
 };
 
 export const fetchCommenters = async (posts) => {
+  const {
+    fetchedProfiles,
+  } = store.getState().myData;
+  const updatedFetchedProfiles = fetchedProfiles || {};
+
   const uniqueUsers = [...new Set(posts.map((x) => x.author))];
   const profiles = {};
   const fetchProfile = async (did) => await Box.getProfile(did);
@@ -136,8 +145,14 @@ export const fetchCommenters = async (posts) => {
     const ensName = ensNamesArray[i];
     user.ensName = ensName;
     user.ethAddr = ethAddr;
-    user.profileURL = `https://3box.io/${ethAddr}`;
     profiles[uniqueUsers[i]] = user;
+
+    updatedFetchedProfiles[ethAddr] = user;
+  });
+
+  store.dispatch({
+    type: 'MY_FETCHED_PROFILES_UPDATE',
+    fetchedProfiles: updatedFetchedProfiles,
   });
 
   return profiles;

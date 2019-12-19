@@ -49,7 +49,7 @@ class Wall extends Component {
     const space = await box.openSpace(followingSpaceName);
     await space.public.set('isWallDisabled', !isWallDisabled);
 
-    this.props.getMyWall();
+    getMyWall();
   }
 
   handleShowOptionsMenu = () => {
@@ -217,7 +217,6 @@ Wall.propTypes = {
   currentAddress: PropTypes.string,
   otherProfileAddress: PropTypes.string,
   handleSignInUp: PropTypes.func.isRequired,
-  getMyWall: PropTypes.func.isRequired,
 };
 
 Wall.defaultProps = {
@@ -255,6 +254,4 @@ const mapState = (state) => ({
   isOtherWallDisabled: state.otherProfile.isOtherWallDisabled,
 });
 
-export default connect(mapState, {
-  getMyWall,
-})(Wall);
+export default connect(mapState)(Wall);
