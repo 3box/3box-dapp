@@ -455,7 +455,6 @@ class Spaces extends Component {
                     {(() => {
                       let count = 0;
                       const threadArray = [];
-                      let listItems;
 
                       if (spaceItem.dataValue.length > 0) {
                         spaceItem.dataValue.forEach((item, i) => {
@@ -534,7 +533,8 @@ class Spaces extends Component {
                   dataValue={spaceItem.dataValue}
                   privacy={spaceItem.privacy}
                   lastUpdated={spaceItem.timestamp}
-                />)}
+                />
+              )}
 
             {(showSpaceDataItemModal
               && Array.isArray(spaceItem.dataValue)
@@ -549,7 +549,8 @@ class Spaces extends Component {
                   dataValue={spaceItem.dataValue}
                   privacy={spaceItem.privacy}
                   lastUpdated={spaceItem.timestamp}
-                />)}
+                />
+              )}
 
             {showDeleteItemModal && (
               <DeleteSpaceItemModal
@@ -558,13 +559,15 @@ class Spaces extends Component {
                 spacesOpened={spacesOpened}
                 openSpace={this.openSpace}
                 deleteItem={this.deleteItem}
-              />)}
+              />
+            )}
 
             {showOpenSpaceModal && (
               <OpenSpaceModal
                 spaceItem={spaceItem}
                 viewSpaceItem={this.props.viewSpaceItem}
-              />)}
+              />
+            )}
 
             {(showSpaceDataItemModal || showDeleteItemModal || showOpenSpaceModal) && <ModalBackground viewSpaceItem={this.props.viewSpaceItem} />}
           </ReactCSSTransitionGroup>
@@ -712,7 +715,6 @@ function mapState(state) {
     showOpenSpaceModal: state.uiState.showOpenSpaceModal,
     name: state.myData.name,
     image: state.myData.image,
-    currentAddress: state.userState.currentAddress,
   };
 }
 

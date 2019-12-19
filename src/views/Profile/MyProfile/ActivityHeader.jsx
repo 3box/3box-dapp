@@ -66,7 +66,7 @@ const Activity = ({ name, image, feedAddress }) => {
               <h4>
                 {name}
               </h4>
-              <p className="feed__activity__address__type">
+              <p className="feed__activity__address__type 3BoxActivity">
                 3Box Profile
               </p>
             </div>
@@ -75,7 +75,7 @@ const Activity = ({ name, image, feedAddress }) => {
           {isEthAddr && (
             <>
               {/* ETH Activity w/ 3Box Profile */}
-              {(metaData && metaData.name)
+              {(metaData && metaData.name && !metaData.isContract)
                 && (
                   <ProfileHover
                     noTheme
@@ -86,7 +86,7 @@ const Activity = ({ name, image, feedAddress }) => {
                       href={`https://3box.io/${address}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="feed__activity__address__wrapper"
+                      className="feed__activity__address__wrapper ethAddresW3BoxProfile"
                     >
                       <h4>
                         {metaData.name}
@@ -105,7 +105,7 @@ const Activity = ({ name, image, feedAddress }) => {
                     href={`https://etherscan.io/address/${address}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="feed__activity__address__wrapper"
+                    className="feed__activity__address__wrapper contractAddress"
                   >
                     <h4>
                       {metaData.contractDetails ? `${metaData.contractDetails.name.charAt(0).toUpperCase()}${metaData.contractDetails.name.slice(1).replace(/([A-Z])/g, ' $1').trim()}`
@@ -118,7 +118,7 @@ const Activity = ({ name, image, feedAddress }) => {
                 )}
 
               {/* ETH Activity: */}
-              {(!metaData || (!metaData.contractDetails && !metaData.name))
+              {(!metaData || (!metaData.isContract && !metaData.name))
                 && (
                   <ProfileHover
                     noTheme
@@ -129,7 +129,7 @@ const Activity = ({ name, image, feedAddress }) => {
                       href={transactionAddress}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="feed__activity__address__wrapper"
+                      className="feed__activity__address__wrapper ethAddress"
                     >
                       <h4>
                         {address}
@@ -145,7 +145,7 @@ const Activity = ({ name, image, feedAddress }) => {
 
           {/* 3Box Space Activity */}
           {(!isEthAddr && !isThreeBoxActivity) && (
-            <div className="feed__activity__address__wrapper">
+            <div className="feed__activity__address__wrapper spaceActivity">
               <h4>
                 {address}
               </h4>

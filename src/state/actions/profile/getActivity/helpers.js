@@ -65,7 +65,7 @@ export const getMyFeed = async (categorizedActivity) => {
   const categorizedPublicActivity = addPublicOrPrivateDataType(publicActivity, 'Public');
   const categorizedPrivateActivity = privateActivity ? addPublicOrPrivateDataType(privateActivity, 'Private') : [];
 
-  const spacesData = store.getState().spaces.allData;
+  const spacesData = store.getState().spaces.allData || {};
   const spacesDataActivity = [];
 
   Object.entries(spacesData).forEach((space) => {

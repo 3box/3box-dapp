@@ -12,6 +12,26 @@ import getMyWall from './getMyWall';
 import convert3BoxToSpaces from '../spaces/convert3BoxToSpaces';
 import getMySpacesData from '../spaces/getMySpacesData';
 
+
+const followingSpaceTasks = async () => {
+  try {
+    await openFollowingSpace();
+    getMyFollowing();
+    getMyWall();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const spacesDataTasks = async (currentAddress) => {
+  try {
+    await convert3BoxToSpaces();
+    getMySpacesData(currentAddress);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const getMyData = async (fromOnSyncDone) => {
   const {
     currentAddress,
@@ -22,12 +42,10 @@ const getMyData = async (fromOnSyncDone) => {
     isSpacesLoading: true,
   });
 
-  if (!fromOnSyncDone) {
-    try {
-      getActivity();
-    } catch (error) {
-      console.error(error);
-    }
+  try {
+    if (!fromOnSyncDone) getActivity();
+  } catch (error) {
+    console.error(error);
   }
 
   try {
@@ -35,21 +53,18 @@ const getMyData = async (fromOnSyncDone) => {
     getVerifiedPublicTwitter();
     getVerifiedPrivateEmail();
     getMyDID();
-  } catch (err) {
-    console.error(err);
-  }
-
-  try {
-    await openFollowingSpace();
-    getMyFollowing();
-    getMyWall();
   } catch (error) {
     console.error(error);
   }
 
   try {
-    await convert3BoxToSpaces();
-    getMySpacesData(currentAddress);
+    followingSpaceTasks();
+  } catch (error) {
+    console.error(error);
+  }
+
+  try {
+    spacesDataTasks(currentAddress);
   } catch (error) {
     console.error(error);
   }

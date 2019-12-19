@@ -57,12 +57,16 @@ const getActivity = async (otherProfileAddress) => {
         .concat(categorizedActivity.txs)
         .concat(categorizedActivity.token);
     } else {
-      const {
-        updatedFeed,
-        updatedEmailProof,
-      } = await getMyFeed(categorizedActivity);
-      feed = updatedFeed;
-      emailProof = updatedEmailProof;
+      try {
+        const {
+          updatedFeed,
+          updatedEmailProof,
+        } = await getMyFeed(categorizedActivity);
+        feed = updatedFeed;
+        emailProof = updatedEmailProof;
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     // if timestamp is undefined, give it the timestamp of the previous entry
