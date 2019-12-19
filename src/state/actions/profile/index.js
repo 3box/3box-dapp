@@ -3,7 +3,6 @@ import getOtherProfile from './getOtherProfile';
 import getMyProfileValue from './getMyProfileValue';
 import getMyDID from './getMyDID';
 import getMyWall from './getMyWall';
-import getMyMemberSince from './getMyMemberSince';
 import getVerifiedPrivateEmail from './getVerifiedPrivateEmail';
 import getVerifiedPublicGithub from './getVerifiedPublicGithub';
 import getVerifiedPublicTwitter from './getVerifiedPublicTwitter';
@@ -25,7 +24,6 @@ export default {
   getMyProfileValue,
   getMyDID,
   getMyWall,
-  getMyMemberSince,
   getVerifiedPrivateEmail,
   getVerifiedPublicGithub,
   getVerifiedPublicTwitter,

@@ -10,7 +10,8 @@ import {
   pollNetworkAndAddress,
 } from '../../../utils/address';
 // import getActivity from '../profile/getActivity/getActivity';
-// import getCollectibles from '../profile/getCollectibles';
+import getCollectibles from '../profile/getCollectibles';
+import getGeneralProfile from '../profile/getGeneralProfile';
 import fetchEns from '../utils';
 
 const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
@@ -40,8 +41,9 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
 
     startPollFlag();
     pollNetworkAndAddress(); // Start polling for address change
+    getGeneralProfile(currentAddress);
     // getActivity(); // need box object for 3box activity
-    // getCollectibles(currentAddress); // need box object for collectiblesFavorites
+    getCollectibles(currentAddress); // need box object for collectiblesFavorites
 
     dispatch({
       type: 'UI_3BOX_LOADING',

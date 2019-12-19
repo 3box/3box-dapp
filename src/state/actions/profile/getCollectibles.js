@@ -1,3 +1,5 @@
+import Box from '3box';
+
 import {
   store,
 } from '../../store';
@@ -25,10 +27,10 @@ const getCollectibles = async (address, onPublicProfile) => {
   if (onPublicProfile) {
     collectiblesFavorites = await store.getState().otherProfile.otherCollectiblesGallery;
   } else {
-    collectiblesFavorites = await store.getState().myData.box.public.get('collectiblesFavorites');
+    collectiblesFavorites = await store.getState().myData.collectiblesFavorites;
   }
 
-  if (collectiblesFavorites.length) {
+  if (collectiblesFavorites && collectiblesFavorites.length) {
     let tokenIdArray = '';
     collectiblesFavorites.forEach((nft, i) => {
       const isNotLast = i !== (collectiblesFavorites.length - 1);
