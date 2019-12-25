@@ -7,8 +7,9 @@ export default async function getPublicProfileAndENS(graphqlQueryObject, otherAd
     const data = await Box.profileGraphQL(graphqlQueryObject) || {};
     const ensName = await fetchEns(otherAddress);
     data.profile.ensName = ensName;
-    return data;
+    return data.profile;
   } catch (err) {
-    return err;
+    console.log('There was an error fetching this profile');
+    return null;
   }
 }

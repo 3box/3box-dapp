@@ -93,8 +93,8 @@ export const getFollowingThreadAndPosts = async () => {
       isLoadingMyFollowing: false,
     });
 
-    await getPosts(followingThread);
-    followingThread.onUpdate(() => getPosts(followingThread));
+      await getPosts(followingThread);
+      followingThread.onUpdate(() => getPosts(followingThread));
   } catch (error) {
     console.error('Error getting thread', error);
   }
@@ -129,15 +129,15 @@ export const fetchCommenters = async (posts) => {
 
   const uniqueUsers = [...new Set(posts.map((x) => x.author))];
   const profiles = {};
-  const fetchProfile = async (did) => await Box.getProfile(did);
-  const fetchAllProfiles = async () => await Promise.all(uniqueUsers.map(did => fetchProfile(did)));
+  const fetchProfile = async (did) => Box.getProfile(did);
+  const fetchAllProfiles = async () => Promise.all(uniqueUsers.map((did) => fetchProfile(did)));
   const profilesArray = await fetchAllProfiles();
 
-  const getEthAddr = async (did) => await resolve(did);
-  const getAllEthAddr = async () => await Promise.all(uniqueUsers.map(did => getEthAddr(did)));
+  const getEthAddr = async (did) => resolve(did);
+  const getAllEthAddr = async () => Promise.all(uniqueUsers.map((did) => getEthAddr(did)));
   const ethAddrArray = await getAllEthAddr();
 
-  const getAllENSNames = async () => await Promise.all(uniqueUsers.map(async (did, i) => fetchEns(ethAddrArray[i].publicKey[2].ethereumAddress)));
+  const getAllENSNames = async () => Promise.all(uniqueUsers.map(async (did, i) => fetchEns(ethAddrArray[i].publicKey[2].ethereumAddress)));
   const ensNamesArray = await getAllENSNames();
 
   profilesArray.forEach((user, i) => {

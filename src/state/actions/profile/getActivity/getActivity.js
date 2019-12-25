@@ -135,13 +135,11 @@ const getActivity = async (otherProfileAddress) => {
               }
             } else { // look for 3box metadata
               const profile = await getPublicProfileAndENS(graphqlQueryObject(otherAddress), otherAddress);
-              metaData = profile;
               addressData[otherAddress] = {
-                name: metaData && metaData.profile && metaData.profile.name,
-                image: metaData && metaData.profile && metaData.profile.image,
-                ensName: metaData && metaData.profile && metaData.profile.ensName,
+                name: profile && profile.name,
+                image: profile && profile.image,
+                ensName: profile && profile.ensName,
               };
-
               updatedFetchedProfiles[otherAddress] = profile;
             }
 
