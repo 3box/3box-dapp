@@ -253,23 +253,30 @@ export const getFollowingProfiles = async (following) => {
     fetchedProfiles,
   } = store.getState().myData;
   const updatedFetchedProfiles = fetchedProfiles || {};
+  const unfetchedProfiles = following.filter((user) => !updatedFetchedProfiles[user.message.identifier[1].value]);
 
-  const fetchProfile = async (ethAddr) => Box.profileGraphQL(graphqlQueryObject(ethAddr));
-  const fetchAllProfiles = async () => Promise.all(following.map((user) => fetchProfile(user.message.identifier[1].value)));
-  const profiles = await fetchAllProfiles();
-  const profilesAndAddress = [];
+  const fetchProfile = async (ethAddr) => Box.getProfile(ethAddr);
+  const fetchUnfetchedProfiles = async () => Promise.all(unfetchedProfiles.map((user) => fetchProfile(user.message.identifier[1].value)));
+  const profiles = await fetchUnfetchedProfiles();
+  const followingAddress = [];
 
-  profiles.forEach((profile, i) => {
-    const address = following[i].message.identifier[1].value;
-    profilesAndAddress.push([profile.profile, address]);
-    updatedFetchedProfiles[address] = profile;
+  // go through unfetched profiles and add to redux store
+  unfetchedProfiles.forEach((user, i) => {
+    const address = user.message.identifier[1].value;
+    updatedFetchedProfiles[address] = profiles[i];
+  });
+
+  following.forEach((user) => {
+    const address = user.message.identifier[1].value;
+    const profile = updatedFetchedProfiles[address];
+    followingAddress.push([profile, address]);
   });
 
   store.dispatch({
     type: 'MY_FETCHED_PROFILES_UPDATE',
     fetchedProfiles: updatedFetchedProfiles,
   });
-  return profilesAndAddress;
+  return followingAddress;
 };
 
 export const checkFollowing = (following, otherProfileAddress) => {

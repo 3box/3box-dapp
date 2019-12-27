@@ -4,9 +4,6 @@ import Web3 from 'web3';
 import {
   store,
 } from '../../../store';
-import {
-  graphqlQueryObject,
-} from '../../../../utils/funcs';
 import getPublicProfileAndENS from '../getPublicProfileAndENS';
 import {
   addTimeStamp,
@@ -134,7 +131,7 @@ const getActivity = async (otherProfileAddress) => {
                 addressData[otherAddress] = false;
               }
             } else { // look for 3box metadata
-              const profile = await getPublicProfileAndENS(graphqlQueryObject(otherAddress), otherAddress);
+              const profile = await getPublicProfileAndENS(otherAddress);
               addressData[otherAddress] = {
                 name: profile && profile.name,
                 image: profile && profile.image,

@@ -53,7 +53,6 @@ const getOtherProfile = async (profileAddress) => {
     } catch (error) {
       console.error(error);
     }
-
     const otherFollowing = profiles ? await getFollowingProfiles(profiles) : [];
 
     otherFollowing.sort((a, b) => {

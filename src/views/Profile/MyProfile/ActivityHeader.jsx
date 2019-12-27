@@ -12,7 +12,7 @@ import '../styles/Feed.scss';
 import '../styles/Profile.scss';
 import '../../../components/styles/NetworkArray.scss';
 
-const Activity = ({ name, image, feedAddress }) => {
+const ActivityHeader = ({ name, image, feedAddress }) => {
   const { metaData } = feedAddress;
   const address = Object.keys(feedAddress)[0];
   const transactionAddress = `https://ethstats.io/account/${address}`;
@@ -36,7 +36,7 @@ const Activity = ({ name, image, feedAddress }) => {
           )}
 
         {(!isThreeBoxActivity && metaData && metaData.image)
-          && <img src={`https://ipfs.infura.io/ipfs/${metaData.image}`} className="feed__activity__user clear" alt="profile" />}
+          && <img src={`https://ipfs.infura.io/ipfs/${metaData.image[0].contentUrl['/']}`} className="feed__activity__user clear" alt="profile" />}
 
         {(!isThreeBoxActivity && metaData && metaData.contractImg)
           && <img src={metaData.contractImg.src} className="feed__activity__user clear" alt="profile" />}
@@ -171,21 +171,21 @@ const Activity = ({ name, image, feedAddress }) => {
   );
 };
 
-Activity.propTypes = {
+ActivityHeader.propTypes = {
   feedAddress: PropTypes.object,
   name: PropTypes.string,
   image: PropTypes.array,
 };
 
-Activity.defaultProps = {
+ActivityHeader.defaultProps = {
   feedAddress: {},
   image: [],
   name: '',
 };
 
-const mapState = state => ({
+const mapState = (state) => ({
   name: state.myData.name,
   image: state.myData.image,
 });
 
-export default connect(mapState)(Activity);
+export default connect(mapState)(ActivityHeader);

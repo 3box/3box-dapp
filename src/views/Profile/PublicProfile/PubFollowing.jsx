@@ -58,7 +58,8 @@ const PubFollowing = (
           ${otherMutualFollowing[3] ? `, ${otherMutualFollowing[3][0].name}` : ''}
           ${otherMutualFollowing.length > 3 ? '...' : ''}`}
           </p>
-        </div>)}
+        </div>
+      )}
 
       {(!showSignInBanner && !isMe) && (
         <div className="public_contacts_add">

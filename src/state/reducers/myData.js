@@ -161,7 +161,6 @@ const myDataReducer = (state = {}, action) => {
         ...state,
         wallPosts: action.wallPosts,
           wallThread: action.wallThread,
-          wallProfiles: action.wallProfiles,
           isWallDisabled: action.isWallDisabled,
       };
 
@@ -175,7 +174,6 @@ const myDataReducer = (state = {}, action) => {
       return {
         ...state,
         wallPosts: action.wallPosts,
-          wallProfiles: action.wallProfiles,
       };
 
     case 'MY_COLLECTIBLES_UPDATE':

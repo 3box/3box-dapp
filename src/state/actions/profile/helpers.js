@@ -93,8 +93,8 @@ export const getFollowingThreadAndPosts = async () => {
       isLoadingMyFollowing: false,
     });
 
-      await getPosts(followingThread);
-      followingThread.onUpdate(() => getPosts(followingThread));
+    await getPosts(followingThread);
+    followingThread.onUpdate(() => getPosts(followingThread));
   } catch (error) {
     console.error('Error getting thread', error);
   }
@@ -128,16 +128,21 @@ export const fetchCommenters = async (posts) => {
   const updatedFetchedProfiles = fetchedProfiles || {};
 
   const uniqueUsers = [...new Set(posts.map((x) => x.author))];
+  const unfetchedUniqueProfiles = uniqueUsers.filter((did) => !updatedFetchedProfiles[did]);
+
   const profiles = {};
+  // fetch profiles
   const fetchProfile = async (did) => Box.getProfile(did);
-  const fetchAllProfiles = async () => Promise.all(uniqueUsers.map((did) => fetchProfile(did)));
+  const fetchAllProfiles = async () => Promise.all(unfetchedUniqueProfiles.map((did) => fetchProfile(did)));
   const profilesArray = await fetchAllProfiles();
 
+  // resolve did to eth addr
   const getEthAddr = async (did) => resolve(did);
-  const getAllEthAddr = async () => Promise.all(uniqueUsers.map((did) => getEthAddr(did)));
+  const getAllEthAddr = async () => Promise.all(unfetchedUniqueProfiles.map((did) => getEthAddr(did)));
   const ethAddrArray = await getAllEthAddr();
 
-  const getAllENSNames = async () => Promise.all(uniqueUsers.map(async (did, i) => fetchEns(ethAddrArray[i].publicKey[2].ethereumAddress)));
+  // fetch ens names
+  const getAllENSNames = async () => Promise.all(unfetchedUniqueProfiles.map(async (did, i) => fetchEns(ethAddrArray[i].publicKey[2].ethereumAddress)));
   const ensNamesArray = await getAllENSNames();
 
   profilesArray.forEach((user, i) => {
@@ -145,8 +150,11 @@ export const fetchCommenters = async (posts) => {
     const ensName = ensNamesArray[i];
     user.ensName = ensName;
     user.ethAddr = ethAddr;
+    user.ensNameFetched = true;
+
     profiles[uniqueUsers[i]] = user;
 
+    updatedFetchedProfiles[uniqueUsers[i]] = user;
     updatedFetchedProfiles[ethAddr] = user;
   });
 
@@ -154,6 +162,4 @@ export const fetchCommenters = async (posts) => {
     type: 'MY_FETCHED_PROFILES_UPDATE',
     fetchedProfiles: updatedFetchedProfiles,
   });
-
-  return profiles;
 };

@@ -139,7 +139,6 @@ class WallInput extends Component {
 
   saveComment = async () => {
     const {
-      postAndUpdateWall,
       box,
       loginFunction,
       isOtherProfile,
@@ -166,7 +165,9 @@ class WallInput extends Component {
     }
 
     try {
+      console.log('beforepost');
       await postAndUpdateWall(isOtherProfile, comment);
+      console.log('afterpost');
       this.setState({ postLoading: false });
     } catch (error) {
       console.error('There was an error saving your comment', error);
@@ -194,7 +195,11 @@ class WallInput extends Component {
       : currentAddress && makeBlockie(currentAddress);
 
     const isLoading = (isFetchingWall && !isOtherProfile) || (isFetchingOtherWall && isOtherProfile) || postLoading;
-
+    console.log('isFetchingWall', isFetchingWall);
+    console.log('!isOtherProfile', !isOtherProfile);
+    console.log('isFetchingOtherWall', isFetchingOtherWall);
+    console.log('isOtherProfile', isOtherProfile);
+    console.log('postLoading', postLoading);
     return (
       <div className="input">
         {updatedProfilePicture ? (
@@ -278,9 +283,7 @@ const mapState = (state) => ({
   box: state.myData.box,
 });
 
-export default connect(mapState, {
-  postAndUpdateWall,
-})(WallInput);
+export default connect(mapState)(WallInput);
 
 WallInput.propTypes = {
   box: PropTypes.object,
@@ -290,7 +293,6 @@ WallInput.propTypes = {
   currentAddress: PropTypes.string,
   image: PropTypes.array,
   loginFunction: PropTypes.func.isRequired,
-  postAndUpdateWall: PropTypes.func.isRequired,
 };
 
 WallInput.defaultProps = {

@@ -11,12 +11,12 @@ import {
 const updateMyWall = async () => {
   const wallThread = await store.getState().myData.wallThread;
   const wallPosts = await wallThread.getPosts();
-  const wallProfiles = await fetchCommenters(wallPosts);
+
+  await fetchCommenters(wallPosts);
 
   store.dispatch({
     type: 'MY_WALL_POSTS_UPDATE',
     wallPosts,
-    wallProfiles,
   });
 };
 
@@ -28,12 +28,11 @@ const getMyWall = async () => {
 
     let wallThread;
     let wallPosts;
-    let wallProfiles;
     if (!isWallDisabled) {
       wallThread = await space.joinThread(myProfileWall, {});
 
       wallPosts = await wallThread.getPosts();
-      wallProfiles = await fetchCommenters(wallPosts);
+      await fetchCommenters(wallPosts);
       wallThread.onUpdate(() => updateMyWall());
     }
 
@@ -41,7 +40,6 @@ const getMyWall = async () => {
       type: 'MY_WALL_UPDATE',
       wallPosts,
       wallThread,
-      wallProfiles,
       isWallDisabled,
     });
   } catch (error) {

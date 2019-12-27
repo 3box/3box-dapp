@@ -22,19 +22,17 @@ const postAndUpdateWall = async (isOtherProfile, commentOrId, isDelete) => {
 
   await wallToUpdate[action](commentOrId);
   const wallPosts = await wallToUpdate.getPosts();
-  const wallProfiles = await fetchCommenters(wallPosts);
+  await fetchCommenters(wallPosts);
 
   if (isOtherProfile) {
     store.dispatch({
       type: 'OTHER_WALL_POSTS_UPDATE',
       otherWallPosts: wallPosts,
-      otherWallProfiles: wallProfiles,
     });
   } else {
     store.dispatch({
       type: 'MY_WALL_POSTS_UPDATE',
       wallPosts,
-      wallProfiles,
     });
   }
 };
