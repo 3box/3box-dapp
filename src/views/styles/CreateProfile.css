@@ -1,0 +1,209 @@
+.create {
+  height: 100vh;
+  width: 100vw;
+  background-color: #1168df;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; }
+
+.create__banner {
+  width: 100vw;
+  height: 54px;
+  background: #C5D7F2;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  top: 89px;
+  transition: all 0.5s;
+  opacity: 1; }
+  .create__banner p {
+    color: #1168df;
+    font-weight: 400; }
+
+.fadeOut.create__banner {
+  transition: all 0.5s;
+  height: 0;
+  opacity: 0; }
+
+.create__copy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 40vh;
+  width: 47vw;
+  min-width: 350px; }
+
+.create__copy__wrapper {
+  width: 30vw; }
+
+.create__copy__headline {
+  color: white;
+  margin-bottom: 30px; }
+
+.create__copy__body {
+  color: white;
+  font-size: 16px;
+  line-height: 23px; }
+
+.create__action {
+  width: 53vw;
+  min-width: 550px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-image: url("../../assets/Users.png");
+  background-repeat: repeat;
+  background-size: 400px 142.97px; }
+
+.create__action__wrapper {
+  padding: 10% 12%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; }
+
+.create__action__form {
+  background-color: white;
+  border-radius: 12px;
+  max-width: 34vw;
+  min-width: 450px;
+  height: fit-content;
+  margin-top: 6vh; }
+
+.create__action__form__header {
+  color: #1168df;
+  margin-bottom: 20px; }
+
+.create__action__form__body {
+  color: #747677;
+  line-height: 20px;
+  text-align: center;
+  margin-bottom: 48px;
+  font-size: 16px; }
+
+.create__action__form__narwhal {
+  width: 150px;
+  height: 150px;
+  background-color: #CBDBEE;
+  border-radius: 50%;
+  margin-bottom: 52px; }
+
+.create__action__form__input {
+  height: 50px;
+  width: 80%;
+  border-radius: 25px;
+  border-style: none;
+  border: 1px solid #E4E4E4;
+  margin-bottom: 36px;
+  padding-left: 20px; }
+
+.create__action__form__button {
+  margin-bottom: 28px; }
+
+.create__action__form__already {
+  color: #747677;
+  margin-bottom: 6px; }
+
+.create__action__form__signIn {
+  cursor: pointer;
+  font-weight: 400;
+  color: #1168df; }
+
+.create__action__form__example {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 45px; }
+
+.create__action__form__example__column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 33%; }
+
+.create__action__form__profileDetails {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; }
+
+@media only screen and (max-height: 800px) {
+  .create__action {
+    min-height: 800px; }
+  .create__action__form {
+    margin-top: 60px; }
+  .create {
+    min-height: 800px; } }
+
+@media only screen and (max-width: 600px) {
+  .create {
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden; }
+  .create__copy__headline {
+    font-size: 22px; }
+  .create__copy {
+    height: fit-content;
+    margin-top: 130px;
+    width: 100vw;
+    display: none; }
+  .create__copy__wrapper {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 70px; }
+  .create__copy__body {
+    text-align: center;
+    width: 80vw; }
+  .create__copy__headline {
+    text-align: center;
+    width: 80vw; }
+  .create__action {
+    width: 100vw;
+    height: 100vh; }
+  .create__action__form {
+    width: 90vw;
+    min-width: 90vw;
+    margin: 60px 0 20px 0;
+    position: relative;
+    top: auto;
+    left: auto; }
+  .create__action__form__body {
+    margin-bottom: 4vh; }
+  .create__action__wrapper {
+    padding: 4vh 25px 4vh 25px; }
+  .create__action__form__header {
+    text-align: center;
+    margin-bottom: 3vh; }
+  .create__action__form__button {
+    margin-bottom: 3vh; }
+  .create__action__form__profileDetails {
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 4vh; }
+  .create__action__form__narwhal {
+    width: 106px;
+    height: 106px;
+    margin-bottom: 0; }
+  .create__action__form__example {
+    flex-direction: column;
+    width: 50%;
+    margin-bottom: 0; }
+  .create__action__form__example__column {
+    width: 100%;
+    margin-left: 66px; }
+  .hideMobile {
+    display: none; } }

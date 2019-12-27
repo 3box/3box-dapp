@@ -54,17 +54,16 @@ class Landing extends Component {
             <div className="hero_copy_wrapper">
               <img src={ThreeBoxCloudWhite} className="hero_copy_cloud desktop" alt="3Box cloud" />
               <img src={ThreeBoxCloudWhiteNoShadow} className="hero_copy_cloud mobile" alt="3Box cloud" />
-              <h1>Secure Cloud Storage</h1>
+              <h1>User Data Cloud</h1>
               <p>
-                Developers trust the decentralized 3Box cloud
-                to secure their most important user data.
-                #BuildBetter
+                3Box makes it simple to store data securely with your users, letting you focus on building great products.
+                  #BuildBetter
               </p>
               <div className="hero_copy_buttons">
                 <Link to={routes.API}>
                   <button type="button" className="hero_copy_buttons_button primaryMarketing">
                     For Developers
-                    <img src={TriangleWhite} alt="arrow" />
+                  <img src={TriangleWhite} alt="arrow" />
                   </button>
                 </Link>
                 <Link to={routes.HUB}>

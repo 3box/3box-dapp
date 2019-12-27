@@ -1,21 +1,17 @@
-@import '../../../variables.scss';
-
 .input {
   font-size: 15px;
-  // min-height: 74px;
   height: fit-content;
   box-sizing: border-box;
   min-width: 100%;
   width: 100%;
   border-radius: 6px;
-  border: 1px solid $borderColor;
+  border: 1px solid #ececec;
   padding: 0;
   resize: none;
   line-height: 22px;
   margin-bottom: 14px;
   background-color: white;
-  position: relative;
-}
+  position: relative; }
 
 .input_form {
   font-size: 15px;
@@ -28,12 +24,9 @@
   border: none;
   resize: none;
   overflow-y: hidden;
-  line-height: 22px;
-
-  &:focus {
-    outline-width: 0;
-  }
-}
+  line-height: 22px; }
+  .input_form:focus {
+    outline-width: 0; }
 
 .input_linkPreview {
   width: calc(100% - 2px);
@@ -43,132 +36,113 @@
   align-items: flex-start;
   margin-top: 14px;
   height: 90px;
-  border: 1px solid $borderColor;
-  border-radius: 5px;
-}
+  border: 1px solid #ececec;
+  border-radius: 5px; }
 
 .input_linkPreview_image {
   width: 20%;
   height: 100%;
   object-fit: cover;
   border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-}
+  border-bottom-left-radius: 5px; }
 
 .input_linkPreview_content {
   padding: 8px 14px;
   width: 100%;
-  box-sizing: border-box;
-}
+  box-sizing: border-box; }
 
 .input_linkPreview_content.withImage {
-  width: 80%;
-}
+  width: 80%; }
 
 .input_linkPreview_content_title {
   font-size: 16px;
   margin-bottom: 4px;
   max-height: 36px;
-  overflow: hidden;
-}
+  overflow: hidden; }
 
 .input_postLoading_linkPreviewWrapper {
-  padding: 0 15px;
-}
+  padding: 0 15px; }
 
 .input_postLoading_wrapper {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
-}
+  align-items: center; }
 
 .input_linkPreview_content_description {
-  color: $lighterFont;
+  color: #747677;
   font-size: 13px;
   line-height: 14px;
   margin-bottom: 4px;
   max-height: 28px;
-  overflow: hidden;
-}
+  overflow: hidden; }
 
 .input_linkPreview_content_url {
-  color: $lightestFont !important;
-  font-size: 14px;
-}
+  color: #b1b1b1 !important;
+  font-size: 14px; }
 
 ::placeholder {
   font-size: 15px;
-  white-space: nowrap;
-}
+  white-space: nowrap; }
 
 .input_form.hidePlaceholder::placeholder {
-  color: transparent !important;
-}
+  color: transparent !important; }
 
 .input_user {
   position: absolute;
   left: 15px;
   top: 17px;
-  min-width: $commentPictureDimension;
-  min-height: $commentPictureDimension;
-  max-width: $commentPictureDimension;
-  max-height: $commentPictureDimension;
+  min-width: 40px;
+  min-height: 40px;
+  max-width: 40px;
+  max-height: 40px;
   border-radius: 50%;
   background-color: transparent;
-  object-fit: cover;
-}
+  object-fit: cover; }
 
 .input_emptyUser {
   position: absolute;
   left: 15px;
   top: 17px;
-  min-width: $commentPictureDimension;
-  min-height: $commentPictureDimension;
-  max-width: $commentPictureDimension;
-  max-height: $commentPictureDimension;
+  min-width: 40px;
+  min-height: 40px;
+  max-width: 40px;
+  max-height: 40px;
   border-radius: 50%;
   background-color: transparent;
-  border: 1px solid $borderColor;
+  border: 1px solid #ececec;
   overflow: hidden;
   display: flex;
   justify-content: center;
-  align-items: center;
-}
+  align-items: center; }
 
 .input_emptyUser_icon {
   min-width: 30px;
   min-height: 30px;
   max-width: 30px;
   max-height: 30px;
-  opacity: .6;
-}
+  opacity: .6; }
 
 .input_login {
   position: absolute;
   left: 72px;
   bottom: -24px;
-  color: $lighterFont;
+  color: #747677;
   border: none;
   font-weight: 600;
   font-size: 14px;
   cursor: pointer;
-  padding: 0;
-}
+  padding: 0; }
 
 .sc-user-input--picker-wrapper {
-  // position: absolute;
-  // right: 100px;
-  // bottom: 34px;
   min-width: 50px;
   max-width: 50px;
-  min-height: $commentPictureDimension;
-  max-height: $commentPictureDimension;
+  min-height: 40px;
+  max-height: 40px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
-  align-items: center;
-}
+  align-items: center; }
 
 .input_send-dtw {
   opacity: .5;
@@ -177,26 +151,22 @@
   align-items: center;
   padding: 0;
   height: 38px;
-  width: 64px;
-}
+  width: 64px; }
 
 .input_buttons {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
-}
+  width: 100%; }
 
 .input_actions_buttons {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 12px 12px 12px 0;
-}
+  padding: 12px 12px 12px 0; }
 
 .input_send-dtw-visible {
-  opacity: 1;
-}
+  opacity: 1; }
 
 .input_postLoading {
   position: absolute !important;
@@ -204,91 +174,73 @@
   left: calc(50% - 14px) !important;
   display: flex;
   justify-content: center;
-  align-items: center;
-}
+  align-items: center; }
 
 .input_postLoading_spinner {
   min-height: 26px !important;
   min-width: 26px !important;
   max-height: 26px !important;
   max-width: 26px !important;
-  opacity: .6;
-}
+  opacity: .6; }
 
 .input_postLoading_text {
-  color: $lighterFont;
+  color: #747677;
   font-size: 13px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: -4px;
-}
+  margin-left: -4px; }
 
 .input_commentAs {
   position: absolute;
   left: 72px;
   top: -34px;
-  color: $lighterFont;
+  color: #747677;
   font-size: 12px;
   opacity: 0;
   transition: .2s ease-in-out all;
   white-space: nowrap;
-  overflow: hidden;
-}
+  overflow: hidden; }
 
 .showLoggedInAs {
-  opacity: 1;
-}
+  opacity: 1; }
 
 .comment_loading {
   min-width: 30px;
   min-height: 30px;
   max-width: 30px;
-  max-height: 30px;
-}
+  max-height: 30px; }
 
 @media only screen and (max-width: 600px) {
   .input {
     width: 100vw;
     border-left: none;
     border-right: none;
-    border-radius: 0;
-  }
-
+    border-radius: 0; }
   ::placeholder {
-    font-size: 16px;
-  }
-
+    font-size: 16px; }
   .sc-user-input--picker-wrapper {
-    display: none;
-  }
-
+    display: none; }
   .input_user {
     top: 11px;
     left: 10px;
-    min-width: $commentPictureDimension-mobile;
-    min-height: $commentPictureDimension-mobile;
-    max-width: $commentPictureDimension-mobile;
-    max-height: $commentPictureDimension-mobile;
-  }
-
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 50px;
+    max-height: 50px; }
   .input_emptyUser {
     top: 11px;
     left: 10px;
-    min-width: $commentPictureDimension-mobile;
-    min-height: $commentPictureDimension-mobile;
-    max-width: $commentPictureDimension-mobile;
-    max-height: $commentPictureDimension-mobile;
-  }
-
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 50px;
+    max-height: 50px; }
   .input_emptyUser_icon {
     min-width: 30px;
     min-height: 30px;
     max-width: 30px;
     max-height: 30px;
-    opacity: .6;
-  }
-
+    opacity: .6; }
   .input_form {
     font-size: 16px;
     min-height: 72px;
@@ -298,24 +250,16 @@
     width: 100vw;
     border-radius: 0 !important;
     margin-left: 0;
-    padding: 24px 24px 20px 70px;
-  }
-
+    padding: 24px 24px 20px 70px; }
   .input_send_icon-mobile {
     width: 26px;
-    opacity: .5;
-  }
-
+    opacity: .5; }
   .input_commentAs {
-    left: 62px;
-  }
-
+    left: 62px; }
   .input_login {
     left: 62px;
     bottom: -20px;
-    background-color: transparent;
-  }
-
+    background-color: transparent; }
   .input_user-empty {
     background-color: transparent;
     left: 12.5px;
@@ -325,19 +269,13 @@
     max-width: 28px;
     max-height: 28px;
     border-radius: 0;
-    opacity: .7;
-  }
-
+    opacity: .7; }
   .input_postLoading {
     position: absolute;
     top: 24px;
     left: calc(50% - 14px);
     display: flex;
     justify-content: center;
-    align-items: center;
-  }
-
+    align-items: center; }
   .input_linkPreview {
-    height: 106px;
-  }
-}
+    height: 106px; } }
