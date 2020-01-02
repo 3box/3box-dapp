@@ -81,7 +81,7 @@
     "regenerator-runtime": "^0.13.1",
     "s3-deploy": "^1.1.1",
     "sass-loader": "^8.0.0",
-    "terser": "^3.14.1",
+    "terser": "^4.5.1",
     "terser-webpack-plugin": "^2.2.3",
     "uglifyjs-webpack-plugin": "^2.1.3"
   },
