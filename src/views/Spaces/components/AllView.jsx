@@ -27,7 +27,7 @@ const AllView = ({
 }) => (
     <>
       {sortedSpace.length > 0 && sortedSpace.map((row) => {
-        const date = timeSince(row.lastUpdated);
+        const date = timeSince(row.lastUpdated * 1000);
         if (row.name !== 'collectiblesFavoritesToRender'
           && row.name !== 'proof_did'
           && row.name !== 'private_space_data'

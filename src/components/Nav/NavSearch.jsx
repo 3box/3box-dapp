@@ -40,7 +40,7 @@ class NavSearch extends Component {
   handleInputEdit = async (e) => {
     const { value } = e.target;
     const { handleToggleResults } = this.props;
-    this.setState({ searchTerm: value, searchedProfile: null });
+    this.setState({ searchTerm: value, searchedProfile: null, isFetching: false });
 
     const isEthAddr = checkIsEthAddress(value);
     const isENS = checkIsENSAddress(value);
@@ -109,18 +109,17 @@ class NavSearch extends Component {
           />
 
           {/* Search Result */}
-          {(searchedProfile && showResults && !isEmptyProfile && !isFetching) && (
-            <Link to={`/${searchedEthAddr}`} onClick={this.clearSearch}>
-              <div className="navSearch_input_result">
-                {console.log('searchedEthAddr', searchedEthAddr)}
-                <ProfilePicture
-                  pictureClass="navSearch_input_result_image"
-                  imageToRender={searchedProfile.image}
-                  otherProfileAddress={searchedEthAddr}
-                  fromnav
-                  isMyPicture={false}
-                />
+          <Link to={`/${searchedEthAddr}`} onClick={this.clearSearch} className={`navSearch_resultLink ${(searchedProfile && showResults && !isEmptyProfile && !isFetching) ? 'showSearchResult' : ''}`}>
+            <div className="navSearch_input_result">
+              <ProfilePicture
+                pictureClass="navSearch_input_result_image"
+                imageToRender={searchedProfile && searchedProfile.image}
+                otherProfileAddress={searchedEthAddr}
+                fromnav
+                isMyPicture={false}
+              />
 
+              {(searchedProfile && showResults && !isEmptyProfile && !isFetching) && (
                 <div className="navSearch_input_result_info">
                   <h3>
                     {`${searchedProfile.name || shortenEthAddr(searchedEthAddr)} ${searchedProfile.emoji ? searchedProfile.emoji : ''}`}
@@ -163,12 +162,12 @@ class NavSearch extends Component {
                     </div>
                   )}
                 </div>
-              </div>
-            </Link>
-          )}
+              )}
+            </div>
+          </Link>
 
           {/* No Profile result */}
-          {(isEmptyProfile && showResults && !isFetching) && (
+          {(isEmptyProfile && showResults && !isFetching && (isEthAddr || isENS)) && (
             <div className="navSearch_input_result">
               <h4>
                 No profile for this address

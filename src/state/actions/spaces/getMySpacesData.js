@@ -70,7 +70,6 @@ const getMySpacesData = async (address) => {
       .all(list.map((spaceName) => getSpace(spaceName)));
 
     await spaceDataPromise();
-
     store.dispatch({
       type: 'SPACES_DATA_UPDATE',
       list,

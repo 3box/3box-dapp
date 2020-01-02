@@ -119,7 +119,6 @@ const PublicActivity = ({
             <img src={Loading} alt="loading" id="activityLoad" />
           </div>
         )}
-      {console.log('otherProfileActivity', otherProfileActivity)}
       {otherProfileActivity.length > 0
         ? otherProfileActivity.map((feedAddress, i) => (
           <div key={i} className="feed__activity__tile">
@@ -140,3 +139,16 @@ const PublicActivity = ({
       </div>
     </div>
   );
+
+PublicActivity.propTypes = {
+  isFetchingOtherActivity: PropTypes.bool,
+  isOtherProfile: PropTypes.bool,
+  otherProfileActivity: PropTypes.array,
+  viewTab: PropTypes.string.isRequired,
+};
+
+PublicActivity.defaultProps = {
+  isFetchingOtherActivity: false,
+  isOtherProfile: false,
+  otherProfileActivity: [],
+};

@@ -201,6 +201,7 @@ export const sortSpace = (updatedSortedSpace, category) => {
   });
 };
 
+// get spaces row data out from spaces data
 export const extractRow = async (spaceData, spaceNameGiven, updatedSortedSpace) => {
   try {
     if (!spaceData) return;
@@ -217,8 +218,7 @@ export const extractRow = async (spaceData, spaceNameGiven, updatedSortedSpace) 
       });
     });
 
-    const rowPromises = Promise.all(rowCalls);
-    const rowType = await rowPromises;
+    const rowType = await Promise.all(rowCalls);
 
     rowType.forEach((type, i) => {
       updatedSortedSpace.push({

@@ -88,8 +88,8 @@ const PublicRowMobile = ({
                   }
                   return `${count} messages`;
                 })()}
-              </p>)
-          }
+              </p>
+            )}
 
           {typeof dataValue === 'string' && (
             dataValue

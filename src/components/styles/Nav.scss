@@ -313,6 +313,14 @@ nav {
   width: 100% !important;
 }
 
+.navSearch_resultLink {
+  display: none;
+}
+
+.navSearch_resultLink.showSearchResult {
+  display: inline;
+}
+
 #actionButtons {
   display: flex;
   align-items: center;
@@ -841,7 +849,7 @@ nav {
   box-sizing: border-box;
   min-height: 64px;
   z-index: 5;
-  
+
   &:hover {
     background-color: $backgroundHue;
   }
