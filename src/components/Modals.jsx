@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import saveFollowing from '../state/actions/profile/saveFollowing';
+
 import FollowingTile from './FollowingTile';
 import * as routes from '../utils/routes';
 import ThreeBoxLogoWhite from '../assets/ThreeBoxLogoWhite.svg';
@@ -21,10 +23,11 @@ import OnBoardingModalMobileGraphic2 from '../assets/OnBoardingModalMobile2.png'
 import OnBoardingModalMobileGraphic3 from '../assets/OnBoardingModalMobile3.png';
 import ErrorIcon from '../assets/ErrorIcon.svg';
 import LogOut from '../assets/LogOut.svg';
-import Loading from '../assets/Loading.svg';
+import Loading from '../assets/3BoxLoading.svg';
 import Browser from '../assets/Browser.svg';
 import LoadingWhite from '../assets/LoadingWhite.svg';
 import './styles/Modal.scss';
+
 
 export const ModalBackground = () => <div className="modal__overlay" />;
 
@@ -317,7 +320,6 @@ export const ProvideAccessModal = ({
   );
 
 ProvideAccessModal.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
   handleAccessModal: PropTypes.func.isRequired,
   directLogin: PropTypes.string,
 };
@@ -1150,7 +1152,7 @@ FollowingListModal.defaultProps = {
   following: [],
 };
 
-export const FollowingIsPublicModal = ({ handleFollowingPublicModal, saveFollowing, otherAddressToFollow }) => (
+export const FollowingIsPublicModal = ({ handleFollowingPublicModal, otherAddressToFollow }) => (
   <div className="modal__container">
     <div className="modal followingWarning">
       <img src={ContactsIcon} alt="Following" className="followingWarning_icon" />
@@ -1193,7 +1195,6 @@ export const FollowingIsPublicModal = ({ handleFollowingPublicModal, saveFollowi
 
 FollowingIsPublicModal.propTypes = {
   handleFollowingPublicModal: PropTypes.func.isRequired,
-  saveFollowing: PropTypes.func.isRequired,
   otherAddressToFollow: PropTypes.string,
 };
 

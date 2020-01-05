@@ -33,11 +33,26 @@
   }
 }
 
-.favorites__publicIcon {
-  width: 17px;
-  height: 17px;
-  margin-left: 10px;
-  opacity: .7;
+.loading_collectibles {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  // img {
+  //   width: 40px;
+  // }
+}
+
+.loading_collectibles {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading_collectibles img {
+  width: 40px;
 }
 
 .favorites__privateIcon {

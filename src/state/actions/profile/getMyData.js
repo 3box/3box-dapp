@@ -1,24 +1,38 @@
 import {
   store,
 } from '../../store';
-import {
-  startPollFlag,
-  pollNetworkAndAddress,
-} from '../../../utils/address';
-
 import getVerifiedPrivateEmail from './getVerifiedPrivateEmail';
 import getVerifiedPublicGithub from './getVerifiedPublicGithub';
 import getVerifiedPublicTwitter from './getVerifiedPublicTwitter';
-import getMyMemberSince from './getMyMemberSince';
 import getMyDID from './getMyDID';
-import getMyProfileValue from './getMyProfileValue';
 import getMyFollowing from './getMyFollowing';
-import getCollectibles from './getCollectibles';
-import getActivity from './getActivity';
+import getActivity from './getActivity/getActivity';
+import openFollowingSpace from './openFollowingSpace';
+import getMyWall from './getMyWall';
 import convert3BoxToSpaces from '../spaces/convert3BoxToSpaces';
 import getMySpacesData from '../spaces/getMySpacesData';
 
-const getMyData = async () => {
+
+const followingAndWallTasks = async () => {
+  try {
+    await openFollowingSpace();
+    getMyFollowing();
+    getMyWall();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const spacesDataTasks = async (currentAddress) => {
+  try {
+    await convert3BoxToSpaces();
+    getMySpacesData(currentAddress);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const getMyData = async (fromOnSyncDone) => {
   const {
     currentAddress,
   } = store.getState().userState;
@@ -27,38 +41,32 @@ const getMyData = async () => {
     type: 'UI_SPACES_LOADING',
     isSpacesLoading: true,
   });
-  startPollFlag();
-  pollNetworkAndAddress(); // Start polling for address change
 
   try {
-    getVerifiedPublicGithub(); // eslint-disable-line
-    getVerifiedPublicTwitter(); // eslint-disable-line
-    getVerifiedPrivateEmail(); // eslint-disable-line
-    getMyMemberSince(); // eslint-disable-line
-    getMyDID(); // eslint-disable-line
-    getMyProfileValue('public', 'name'); // eslint-disable-line
-    getMyProfileValue('public', 'description'); // eslint-disable-line
-    getMyProfileValue('public', 'image'); // eslint-disable-line
-    getMyProfileValue('public', 'coverPhoto'); // eslint-disable-line
-    getMyProfileValue('public', 'location'); // eslint-disable-line
-    getMyProfileValue('public', 'website'); // eslint-disable-line
-    getMyProfileValue('public', 'employer'); // eslint-disable-line
-    getMyProfileValue('public', 'job'); // eslint-disable-line
-    getMyProfileValue('public', 'school'); // eslint-disable-line
-    getMyProfileValue('public', 'degree'); // eslint-disable-line
-    getMyProfileValue('public', 'major'); // eslint-disable-line
-    getMyProfileValue('public', 'year'); // eslint-disable-line
-    getMyProfileValue('public', 'emoji'); // eslint-disable-line
-    getMyProfileValue('private', 'birthday'); // eslint-disable-line
+    if (!fromOnSyncDone) getActivity();
+  } catch (error) {
+    console.error(error);
+  }
 
-    await getMyFollowing(); // eslint-disable-line
-    await getCollectibles(currentAddress); // eslint-disable-line
-    await convert3BoxToSpaces(); // eslint-disable-line
-    await getMySpacesData(currentAddress); // eslint-disable-line
+  try {
+    getVerifiedPublicGithub();
+    getVerifiedPublicTwitter();
+    getVerifiedPrivateEmail();
+    getMyDID();
+  } catch (error) {
+    console.error(error);
+  }
 
-    getActivity(); // eslint-disable-line
-  } catch (err) {
-    console.error(err);
+  try {
+    followingAndWallTasks();
+  } catch (error) {
+    console.error(error);
+  }
+
+  try {
+    spacesDataTasks(currentAddress);
+  } catch (error) {
+    console.error(error);
   }
 };
 

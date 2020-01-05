@@ -37,6 +37,8 @@ const SideBar = ({
   isFollowing,
   isLoggedIn,
   isMe,
+  ens,
+  otherEns,
 }) => (
     <div>
       {!onOtherProfilePage && (
@@ -89,10 +91,9 @@ const SideBar = ({
               </div>
 
               <div id="profile__network" title="Network">
-                <img id="profile__network__networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
                 <p id="profile__details__address" title={currentAddress}>
-                  {!onOtherProfilePage && currentAddress && shortenEthAddr(currentAddress)}
-                  {onOtherProfilePage && shortenEthAddr(location.pathname.split('/')[1])}
+                  {!onOtherProfilePage && (ens || shortenEthAddr(currentAddress))}
+                  {onOtherProfilePage && (otherEns || shortenEthAddr(location.pathname.split('/')[1]))}
                 </p>
               </div>
 
@@ -196,6 +197,8 @@ const SideBar = ({
 SideBar.propTypes = {
   name: PropTypes.string,
   description: PropTypes.string,
+  ens: PropTypes.string,
+  otherEns: PropTypes.string,
   emoji: PropTypes.string,
   otherEmoji: PropTypes.string,
   currentAddress: PropTypes.string,
@@ -220,6 +223,8 @@ SideBar.defaultProps = {
   otherEmoji: '',
   otherDescription: '',
   currentAddress: '',
+  otherEns: '',
+  ens: '',
   coverPhoto: [],
   otherCoverPhoto: [],
   emoji: '',
@@ -238,6 +243,7 @@ function mapState(state) {
     coverPhoto: state.myData.coverPhoto,
     emoji: state.myData.emoji,
     description: state.myData.description,
+    ens: state.myData.ens,
 
     currentAddress: state.userState.currentAddress,
     copySuccessful: state.uiState.copySuccessful,
@@ -251,6 +257,7 @@ function mapState(state) {
     otherName: state.otherProfile.otherName,
     otherEmoji: state.otherProfile.otherEmoji,
     otherDescription: state.otherProfile.otherDescription,
+    otherEns: state.otherProfile.otherEns,
   };
 }
 

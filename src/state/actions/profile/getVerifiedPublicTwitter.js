@@ -2,13 +2,13 @@ import {
   store,
 } from '../../store';
 
-const getVerifiedPublicTwitter = () => async (dispatch) => {
+const getVerifiedPublicTwitter = async () => {
   try {
     const verifiedTwitter = await store.getState().myData.box.verified.twitter();
-    
-    dispatch({
+
+    store.dispatch({
       type: 'MY_VERIFIED_TWITTER_UPDATE',
-      verifiedTwitter: verifiedTwitter.username,
+      verifiedTwitter: verifiedTwitter && verifiedTwitter.username,
     });
   } catch (error) {
     console.error(error);

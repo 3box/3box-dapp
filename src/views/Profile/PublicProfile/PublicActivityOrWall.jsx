@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import PublicActivityHeader from './PublicActivityHeader';
 import PublicActivityTiles from './PublicActivityTiles';
 import Wall from '../Wall';
-import Loading from '../../../assets/Loading.svg';
+import Loading from '../../../assets/3BoxLoading.svg';
 import '../styles/Feed.scss';
 import '../styles/Profile.scss';
 import '../../../components/styles/NetworkArray.scss';
@@ -28,7 +28,6 @@ class PublicActivityOrWall extends Component {
       otherProfileActivity,
       otherCollectiblesFavorites,
       otherWallPosts,
-      otherWallProfiles,
       handleSignInUp,
       isOtherWallDisabled,
     } = this.props;
@@ -59,7 +58,6 @@ class PublicActivityOrWall extends Component {
           {!isOtherWallDisabled && (
             <Wall
               wallPosts={otherWallPosts}
-              wallProfiles={otherWallProfiles}
               handleSignInUp={handleSignInUp}
               viewTab={viewTab}
               isOtherProfile
@@ -84,7 +82,6 @@ PublicActivityOrWall.propTypes = {
   otherCollectiblesFavorites: PropTypes.array,
   otherProfileActivity: PropTypes.array,
   otherWallPosts: PropTypes.array,
-  otherWallProfiles: PropTypes.array,
   handleSignInUp: PropTypes.func.isRequired,
 };
 
@@ -94,7 +91,6 @@ PublicActivityOrWall.defaultProps = {
   otherCollectiblesFavorites: [],
   otherProfileActivity: [],
   otherWallPosts: [],
-  otherWallProfiles: [],
 };
 
 const mapState = (state) => ({
@@ -123,7 +119,6 @@ const PublicActivity = ({
             <img src={Loading} alt="loading" id="activityLoad" />
           </div>
         )}
-
       {otherProfileActivity.length > 0
         ? otherProfileActivity.map((feedAddress, i) => (
           <div key={i} className="feed__activity__tile">
@@ -144,3 +139,16 @@ const PublicActivity = ({
       </div>
     </div>
   );
+
+PublicActivity.propTypes = {
+  isFetchingOtherActivity: PropTypes.bool,
+  isOtherProfile: PropTypes.bool,
+  otherProfileActivity: PropTypes.array,
+  viewTab: PropTypes.string.isRequired,
+};
+
+PublicActivity.defaultProps = {
+  isFetchingOtherActivity: false,
+  isOtherProfile: false,
+  otherProfileActivity: [],
+};

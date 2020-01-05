@@ -26,7 +26,7 @@ import * as routes from '../../../utils/routes';
 import Private from '../../../assets/Private.svg';
 import Verified from '../../../assets/Verified.svg';
 import AddImage from '../../../assets/AddImage.svg';
-import Loading from '../../../assets/Loading.svg';
+import Loading from '../../../assets/3BoxLoading.svg';
 import DefaultColorPic from '../../../assets/DefaultColorPic.svg';
 import MyProfileHeaders from '../MyProfile/MyProfileHeaders';
 import '../styles/EditProfile.scss';
@@ -610,7 +610,7 @@ class EditProfile extends Component {
         });
       }
       if (nameChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'name', true); // change these to just update the redux store
+        const savedObject = await getMyProfileValue('public', 'name', true); // change these to just update the redux store
 
         if (savedObject) {
           updatedAllData['3Box_app'].public.name = savedObject;
@@ -625,7 +625,7 @@ class EditProfile extends Component {
         });
       }
       if (descriptionChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'description', true);
+        const savedObject = await getMyProfileValue('public', 'description', true);
 
         if (savedObject) {
           updatedAllData['3Box_app'].public.description = savedObject;
@@ -640,7 +640,7 @@ class EditProfile extends Component {
         });
       }
       if (locationChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'location', true);
+        const savedObject = await getMyProfileValue('public', 'location', true);
 
         if (savedObject) {
           updatedAllData['3Box_app'].public.location = savedObject;
@@ -655,7 +655,7 @@ class EditProfile extends Component {
         });
       }
       if (websiteChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'website', true);
+        const savedObject = await getMyProfileValue('public', 'website', true);
 
         if (savedObject) {
           updatedAllData['3Box_app'].public.website = savedObject;
@@ -670,7 +670,7 @@ class EditProfile extends Component {
         });
       }
       if (employerChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'employer', true);
+        const savedObject = await getMyProfileValue('public', 'employer', true);
 
         if (savedObject) {
           updatedAllData['3Box_app'].public.employer = savedObject;
@@ -685,7 +685,7 @@ class EditProfile extends Component {
         });
       }
       if (jobChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'job', true);
+        const savedObject = await getMyProfileValue('public', 'job', true);
 
         if (savedObject) {
           updatedAllData['3Box_app'].public.job = savedObject;
@@ -700,7 +700,7 @@ class EditProfile extends Component {
         });
       }
       if (schoolChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'school', true);
+        const savedObject = await getMyProfileValue('public', 'school', true);
 
         if (savedObject) {
           updatedAllData['3Box_app'].public.school = savedObject;
@@ -715,7 +715,7 @@ class EditProfile extends Component {
         });
       }
       if (degreeChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'degree', true);
+        const savedObject = await getMyProfileValue('public', 'degree', true);
 
         if (savedObject) {
           updatedAllData['3Box_app'].public.degree = savedObject;
@@ -730,7 +730,7 @@ class EditProfile extends Component {
         });
       }
       if (majorChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'major', true);
+        const savedObject = await getMyProfileValue('public', 'major', true);
 
         if (savedObject) {
           updatedAllData['3Box_app'].public.major = savedObject;
@@ -745,7 +745,7 @@ class EditProfile extends Component {
         });
       }
       if (yearChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'year', true);
+        const savedObject = await getMyProfileValue('public', 'year', true);
 
         if (savedObject) {
           updatedAllData['3Box_app'].public.year = savedObject;
@@ -759,7 +759,7 @@ class EditProfile extends Component {
         });
       }
       if (emojiChanged) {
-        const savedObject = await this.props.getMyProfileValue('public', 'emoji', true);
+        const savedObject = await getMyProfileValue('public', 'emoji', true);
 
         if (savedObject) {
           updatedAllData['3Box_app'].public.emoji = savedObject;
@@ -775,7 +775,7 @@ class EditProfile extends Component {
       }
 
       if (removeUserPic || editPic) {
-        const savedObject = await this.props.getMyProfileValue('public', 'image', true);
+        const savedObject = await getMyProfileValue('public', 'image', true);
         if (removeUserPic) {
           delete updatedAllData['3Box_app'].public.image;
           store.dispatch({
@@ -793,7 +793,7 @@ class EditProfile extends Component {
       }
 
       if (removeCoverPic || editCoverPic) {
-        const savedObject = await this.props.getMyProfileValue('public', 'coverPhoto', true);
+        const savedObject = await getMyProfileValue('public', 'coverPhoto', true);
         if (removeCoverPic) {
           delete updatedAllData['3Box_app'].public.coverPhoto;
         } else {
@@ -807,7 +807,7 @@ class EditProfile extends Component {
       }
 
       if (birthdayChanged) {
-        const savedObject = await this.props.getMyProfileValue('private', 'birthday', true);
+        const savedObject = await getMyProfileValue('private', 'birthday', true);
 
         if (savedObject) {
           updatedAllData['3Box_app'].private.birthday = savedObject;
@@ -822,7 +822,7 @@ class EditProfile extends Component {
         });
       }
 
-      this.props.getActivity();
+      getActivity();
 
       this.setState({ saveLoading: false });
       history.push(`/${currentAddress}/${routes.directToHome()}`);
@@ -1293,7 +1293,7 @@ class EditProfile extends Component {
                               className={`unstyledButton ${(!githubEdited || githubInvalidFormat) && 'uneditedGithub'} verificationButton verifiedForm`}
                               disabled={!githubEdited || githubInvalidFormat}
                               onClick={() => {
-                                this.props.getMyDID();
+                                getMyDID();
                                 this.props.handleGithubVerificationModal();
                               }}
                             >
@@ -1359,7 +1359,7 @@ class EditProfile extends Component {
                               className={`unstyledButton ${(!twitterEdited || twitterInvalidFormat) && 'uneditedGithub'} verificationButton verifiedForm`}
                               disabled={!twitterEdited || twitterInvalidFormat}
                               onClick={() => {
-                                this.props.getMyDID();
+                                getMyDID();
                                 this.props.handleTwitterVerificationModal();
                               }}
                             >
@@ -1450,7 +1450,7 @@ class EditProfile extends Component {
                               className={`unstyledButton ${(!emailEdited || emailInvalidFormat) && 'uneditedGithub'} verificationButton verifiedForm`}
                               disabled={!emailEdited || emailInvalidFormat}
                               onClick={() => {
-                                this.props.getMyDID();
+                                getMyDID();
                                 this.props.handleEmailVerificationModal();
                               }}
                             >
@@ -1656,9 +1656,6 @@ EditProfile.propTypes = {
   showTwitterVerificationModal: PropTypes.bool,
   showEmailVerificationModal: PropTypes.bool,
   copySuccessful: PropTypes.bool,
-  getMyProfileValue: PropTypes.func.isRequired,
-  getMyDID: PropTypes.func.isRequired,
-  getActivity: PropTypes.func.isRequired,
   handleGithubVerificationModal: PropTypes.func.isRequired,
   handleTwitterVerificationModal: PropTypes.func.isRequired,
   handleEmailVerificationModal: PropTypes.func.isRequired,
@@ -1735,9 +1732,6 @@ function mapState(state) {
 
 export default withRouter(connect(mapState,
   {
-    getMyProfileValue,
-    getMyDID,
-    getActivity,
     handleGithubVerificationModal,
     handleTwitterVerificationModal,
     handleEmailVerificationModal,

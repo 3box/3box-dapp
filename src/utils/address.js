@@ -4,11 +4,7 @@ import {
   store,
 } from '../state/store';
 
-import actions from '../state/actions';
-
-const {
-  accountsPromise,
-} = actions.signin;
+import accountsPromise from '../state/actions/signin/accountsPromise';
 
 export const initialAddress = async () => {
   const rawAddress = window.localStorage.getItem('userEthAddress');

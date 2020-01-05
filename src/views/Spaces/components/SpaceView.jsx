@@ -27,7 +27,7 @@ const SpaceView = ({
 }) => (
     <>
       {spaceDataToRender && spaceDataToRender.length > 0 ? spaceDataToRender.map((row) => {
-        const date = timeSince(row.lastUpdated);
+        const date = timeSince(row.lastUpdated * 1000);
         if (row.name !== 'collectiblesFavoritesToRender'
           && row.name !== 'private_space_data'
           && row.name !== 'proof_did'
@@ -46,7 +46,8 @@ const SpaceView = ({
               itemToDelete={itemToDelete}
               spaceNameToDelete={spaceNameToDelete}
               key={`${row.space}-${row.name}`}
-            />);
+            />
+          );
         }
 
         if (row.name !== 'collectiblesFavoritesToRender'
@@ -67,7 +68,8 @@ const SpaceView = ({
               itemToDelete={itemToDelete}
               spaceNameToDelete={spaceNameToDelete}
               key={`${row.space}-${row.name}`}
-            />);
+            />
+          );
         }
 
         if (row.name === 'private_space_data' && width >= 600) {
@@ -79,7 +81,8 @@ const SpaceView = ({
               vaultToOpen={vaultToOpen}
               fadeOut={fadeOut}
               key={`vault-${row.space}`}
-            />);
+            />
+          );
         }
 
         if (row.name === 'private_space_data' && width <= 600) {
@@ -91,7 +94,8 @@ const SpaceView = ({
               vaultToOpen={vaultToOpen}
               fadeOut={fadeOut}
               key={`vault-${row.space}`}
-            />);
+            />
+          );
         }
 
         if (row.name === 'collectiblesFavoritesToRender' && width >= 600) {
@@ -107,7 +111,8 @@ const SpaceView = ({
               spaceNameToDelete={spaceNameToDelete}
               lastUpdated={date}
               key={`${row.space}-${row.name}`}
-            />);
+            />
+          );
         }
 
         if (row.name === 'collectiblesFavoritesToRender' && width <= 600) {
@@ -122,7 +127,8 @@ const SpaceView = ({
               spaceNameToDelete={spaceNameToDelete}
               lastUpdated={date}
               key={`${row.space}-${row.name}`}
-            />);
+            />
+          );
         }
       }) : (
           <div className="emptySpace">

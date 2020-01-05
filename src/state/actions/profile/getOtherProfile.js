@@ -7,16 +7,22 @@ import {
   followingSpaceName,
   followingThreadName,
 } from '../../../utils/constants';
+import fetchEns from '../utils';
+import {
+  store,
+} from '../../store';
 
-const getOtherProfile = (profileAddress) => async (dispatch) => {
+const getOtherProfile = async (profileAddress) => {
   try {
-    dispatch({
+    store.dispatch({
       type: 'OTHER_PROFILE_LOADING',
       isLoadingOtherProfile: true,
     });
 
     const publicProfile = await Box.getProfile(profileAddress);
-    dispatch({
+    const otherEns = await fetchEns(profileAddress);
+
+    store.dispatch({
       type: 'OTHER_PROFILE_UPDATE',
       otherDescription: publicProfile.description,
       otherLocation: publicProfile.location,
@@ -32,6 +38,7 @@ const getOtherProfile = (profileAddress) => async (dispatch) => {
       otherImage: publicProfile.image,
       otherName: publicProfile.name,
       otherEmoji: publicProfile.emoji,
+      otherEns,
     });
 
     const publicVerifiedAccounts = Object.entries(publicProfile).length > 0 ?
@@ -46,7 +53,6 @@ const getOtherProfile = (profileAddress) => async (dispatch) => {
     } catch (error) {
       console.error(error);
     }
-
     const otherFollowing = profiles ? await getFollowingProfiles(profiles) : [];
 
     otherFollowing.sort((a, b) => {
@@ -57,7 +63,7 @@ const getOtherProfile = (profileAddress) => async (dispatch) => {
       return 0;
     });
 
-    dispatch({
+    store.dispatch({
       type: 'OTHER_PROFILE_UPDATE_VERIFIED_FOLLOWING',
       otherGithub: publicVerifiedAccounts.github && publicVerifiedAccounts.github.username,
       otherTwitter: publicVerifiedAccounts.twitter && publicVerifiedAccounts.twitter.username,
@@ -65,12 +71,12 @@ const getOtherProfile = (profileAddress) => async (dispatch) => {
       otherFollowing,
     });
 
-    dispatch({
+    store.dispatch({
       type: 'OTHER_PROFILE_LOADING',
       isLoadingOtherProfile: false,
     });
   } catch (error) {
-    dispatch({
+    store.dispatch({
       type: 'OTHER_PROFILE_LOADING',
       isLoadingOtherProfile: false,
     });

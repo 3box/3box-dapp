@@ -6,11 +6,10 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import CollectiblesTile from './CollectiblesTile';
 import { CollectiblesModal, ModalBackground } from '../../components/Modals';
-import { EmptyGalleryCollectiblesTile } from './EmptyCollectiblesTile';
+import EmptyGalleryCollectiblesTile from './EmptyCollectiblesTile';
 import actions from '../../state/actions';
 import OpenSea from '../../assets/OpenSea.png';
-import Globe from '../../assets/Globe.svg';
-import Loading from '../../assets/Loading.svg';
+import Loading from '../../assets/3BoxLoading.svg';
 import Private from '../../assets/Private.svg';
 import { store } from '../../state/store';
 import './styles/Profile.scss';
@@ -22,7 +21,7 @@ class Collectibles extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      offset: 100,
+      offset: 30,
     };
 
     window.onscroll = () => {
@@ -33,6 +32,7 @@ class Collectibles extends Component {
       const html = document.documentElement;
       const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
       const windowBottom = windowHeight + window.pageYOffset;
+
       if (windowBottom >= docHeight && collection.length && !isLoading) {
         this.fetchCollectibles();
       }
@@ -65,15 +65,18 @@ class Collectibles extends Component {
         removedCollectible = updatedCollectiblesFavoritesToRender.pop();
         updatedCollectiblesFavorites.pop();
       }
+
       updatedCollectiblesFavoritesToRender.unshift(selectedCollectible);
       updatedCollectiblesFavorites.unshift({
         address: contractAddress,
         token_id: tokenId,
       });
+
       const idx = collection.findIndex((nft) => (nft.asset_contract.address === contractAddress
         && nft.token_id === tokenId));
       collection.splice(idx, 1);
       updatedCollection = collection.slice();
+
       if (removedCollectible) updatedCollection.push(removedCollectible);
     } else if (removeFavorite) {
       const idx = updatedCollectiblesFavorites.findIndex((favorite) => (favorite.address === contractAddress
@@ -116,10 +119,12 @@ class Collectibles extends Component {
       const { offset } = this.state;
       const { collection, currentAddress } = this.props;
       const updatedCollection = collection.slice();
+
       this.setState({ isLoading: true });
+
       if (updatedCollection.length === offset) {
-        const updatedOffset = offset + 100;
-        const collectiblesRes = await fetch(`https://api.opensea.io/api/v1/assets?owner=${currentAddress}&order_by=current_price&order_direction=asc&offset=${offset}&limit=100`);
+        const updatedOffset = offset + 30;
+        const collectiblesRes = await fetch(`https://api.opensea.io/api/v1/assets?owner=${currentAddress}&order_by=current_price&order_direction=asc&offset=${offset}&limit=30`);
         const collectiblesData = await collectiblesRes.json();
         const combinedArray = updatedCollection.concat(collectiblesData.assets);
         store.dispatch({
@@ -131,7 +136,7 @@ class Collectibles extends Component {
         this.setState({ isLoading: false });
       }
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   }
 
@@ -143,7 +148,9 @@ class Collectibles extends Component {
       selectedCollectible,
       isFavorite,
       isActive,
+      isFetchingCollectibles,
     } = this.props;
+
     const { isLoading } = this.state;
     return (
       <>
@@ -178,32 +185,48 @@ class Collectibles extends Component {
           {showCollectiblesModal && (
             <ModalBackground />
           )}
-
         </ReactCSSTransitionGroup>
+
         <div id="myFeed" className={`profileTab ${isActive ? 'viewTab' : ''}`}>
-          {(collection.length > 0 || collectiblesFavoritesToRender.length > 0)
-            ? (
+          {/* Loading Collectibles */}
+          {isFetchingCollectibles && (
+            <>
               <div className="header collectiblesHeader" id="feed__header">
                 <p>
-                  Favorites
+                  Collectibles
                 </p>
-                {/* <img src={Globe} alt="Public" className="favorites__publicIcon" title="Favorites will appear in your public profile" /> */}
               </div>
-            ) : (
-              <div>
+              <div className="feed__activity__header">
+                <div className="feed_activity_empty">
+                  <img src={Loading} alt="loading" id="activityLoad" />
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* Collectibles tab headers */}
+          {!isFetchingCollectibles && (
+            (collection.length || collectiblesFavoritesToRender.length)
+              ? (
                 <div className="header collectiblesHeader" id="feed__header">
                   <p>
-                    Collectibles
-                  </p>
-                  {/* <img src={Globe} alt="Public" className="favorites__publicIcon" title="Favorites will appear in your public profile" /> */}
-                </div>
-                <div className="feed_activity_empty">
-                  <p className="feed_activity_empty_text">
-                    You don't have any collectibles
+                    Favorites
                   </p>
                 </div>
-              </div>
-            )}
+              ) : (
+                <>
+                  <div className="header collectiblesHeader" id="feed__header">
+                    <p>
+                      Collectibles
+                    </p>
+                  </div>
+                  <div className="feed_activity_empty">
+                    <p className="feed_activity_empty_text">
+                      You don't have any collectibles
+                    </p>
+                  </div>
+                </>
+              ))}
 
           <div className="favorites__grid__wrapper">
             {collectiblesFavoritesToRender.length > 0 && (
@@ -217,6 +240,7 @@ class Collectibles extends Component {
                     tokenId={collectible.token_id}
                     name={collectible.name}
                     bgStyle={collectible.background_color}
+                    onPublicProfile={false}
                     padded={
                       collectible.asset_contract &&
                       collectible.asset_contract.display_data &&
@@ -271,6 +295,7 @@ class Collectibles extends Component {
                   tokenId={collectible.token_id}
                   name={collectible.name}
                   bgStyle={collectible.background_color}
+                  onPublicProfile={false}
                   padded={
                     collectible.asset_contract &&
                     collectible.asset_contract.display_data &&
@@ -309,26 +334,36 @@ class Collectibles extends Component {
 }
 
 Collectibles.propTypes = {
-  isActive: PropTypes.bool,
   box: PropTypes.object,
+  allData: PropTypes.object,
   selectedCollectible: PropTypes.object,
   collection: PropTypes.array,
-  currentAddress: PropTypes.string,
+  list: PropTypes.array,
   collectiblesFavorites: PropTypes.array,
   collectiblesFavoritesToRender: PropTypes.array,
   handleCollectiblesModal: PropTypes.func.isRequired,
   showCollectiblesModal: PropTypes.bool.isRequired,
   isFavorite: PropTypes.bool.isRequired,
+  isActive: PropTypes.bool,
+  isFetchingCollectibles: PropTypes.bool,
+  currentAddress: PropTypes.string,
+  currentNetwork: PropTypes.string,
 };
 
 Collectibles.defaultProps = {
   box: {},
+  allData: {},
   collection: [],
   collectiblesFavorites: [],
   collectiblesFavoritesToRender: [],
+  list: [],
   selectedCollectible: {},
   currentAddress: '',
+  currentNetwork: '',
   isActive: false,
+  isFetchingCollectibles: false,
+  isFavorite: false,
+  showCollectiblesModal: false,
 };
 
 function mapState(state) {
@@ -338,12 +373,16 @@ function mapState(state) {
     collectiblesFavorites: state.myData.collectiblesFavorites,
     collectiblesFavoritesToRender: state.myData.collectiblesFavoritesToRender,
 
+    currentNetwork: state.userState.currentNetwork,
+
     allData: state.spaces.allData,
     list: state.spaces.list,
 
     showCollectiblesModal: state.uiState.showCollectiblesModal,
     selectedCollectible: state.uiState.selectedCollectible,
     isFavorite: state.uiState.isFavorite,
+    isFetchingCollectibles: state.uiState.isFetchingCollectibles,
+
     currentAddress: state.userState.currentAddress,
   };
 }

@@ -23,6 +23,7 @@ const otherProfileReducer = (state = {}, action) => {
         otherImage: action.otherImage,
         otherName: action.otherName,
         otherEmoji: action.otherEmoji,
+        otherEns: action.otherEns,
       };
 
     case 'OTHER_PROFILE_UPDATE_VERIFIED_FOLLOWING':
@@ -60,7 +61,6 @@ const otherProfileReducer = (state = {}, action) => {
       return {
         ...state,
         otherWallPosts: action.otherWallPosts,
-        otherWallProfiles: action.otherWallProfiles,
       };
 
     case 'OTHER_FAVORITE_COLLECTIBLES_UPDATE':

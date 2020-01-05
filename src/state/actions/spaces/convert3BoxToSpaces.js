@@ -4,6 +4,7 @@ import {
   store,
 } from '../../store';
 
+// remove keys saved to myData redux store that gets converted to spaces data
 const filterDappKeys = (row) => {
   if ((row !== 'box') &&
     (row !== 'feedByAddress') &&
@@ -13,15 +14,18 @@ const filterDappKeys = (row) => {
     (row !== 'following') &&
     (row !== 'followingList') &&
     (row !== 'profileWall') &&
+    (row !== 'ens') &&
+    (row !== 'fetchedProfiles') &&
     (row !== 'followingThread') &&
     (row !== 'MyFollowing') &&
     (row !== 'followingSpace')) {
     return true;
   }
+
   return false;
 };
 
-const convert3BoxToSpaces = () => async (dispatch) => {
+const convert3BoxToSpaces = async () => {
   try {
     const allData = {};
     allData['3Box_app'] = {};
@@ -35,27 +39,33 @@ const convert3BoxToSpaces = () => async (dispatch) => {
     const rowData = [];
     const rowCalls = [];
 
+    // create row data
     Object.entries(myData).forEach((row) => {
-      if (filterDappKeys(row[0])) {
-        if (row[0] === 'verifiedEmail' || row[0] === 'birthday') {
-          rowData.push([row[0], cloneDeep(row[1])]);
-          const metaData = store.getState().myData.box.private.getMetadata(row[0]);
-          rowCalls.push(metaData);
-        } else {
-          rowData.push([row[0], cloneDeep(row[1])]);
+      const key = row[0];
+      const value = row[1];
 
-          const key = row[0] === 'collectiblesFavoritesToRender' ?
-            'collectiblesFavorites' :
-            row[0];
+      if (!value) return;
+      if (!filterDappKeys(key)) return;
 
-          const metaData = store.getState().myData.box.public.getMetadata(key);
-          rowCalls.push(metaData);
-        }
+      if (key === 'verifiedEmail' || key === 'birthday') {
+        // is private data
+        rowData.push([key, cloneDeep(value)]);
+        const metaData = store.getState().myData.box.private.getMetadata(key);
+        rowCalls.push(metaData);
+      } else {
+        // is public data
+        rowData.push([key, cloneDeep(value)]);
+
+        const keyToFetch = key === 'collectiblesFavoritesToRender' ?
+          'collectiblesFavorites' :
+          key;
+
+        const metaData = store.getState().myData.box.public.getMetadata(keyToFetch);
+        rowCalls.push(metaData);
       }
     });
 
-    const rowPromises = Promise.all(rowCalls);
-    const rowMetaData = await rowPromises;
+    const rowMetaData = await Promise.all(rowCalls);
 
     rowMetaData.forEach((metaData, i) => {
       if (rowData[i][0] === 'verifiedEmail' || rowData[i][0] === 'birthday') {
@@ -71,7 +81,7 @@ const convert3BoxToSpaces = () => async (dispatch) => {
       }
     });
 
-    dispatch({
+    store.dispatch({
       type: 'SPACES_DATA_UPDATE',
       allData,
     });

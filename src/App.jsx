@@ -6,9 +6,7 @@ import queryString from 'query-string';
 
 import * as routes from './utils/routes';
 import {
-  pollNetworkAndAddress,
   initialAddress,
-  startPollFlag,
 } from './utils/address';
 import {
   normalizeURL,
@@ -20,6 +18,7 @@ import { followingSpaceName } from './utils/constants';
 import history from './utils/history';
 import { store } from './state/store';
 import actions from './state/actions';
+import getMyData from './state/actions/profile/getMyData';
 
 import AppRoutes from './AppRoutes';
 import AppPreviewRoutes from './AppPreviewRoutes';
@@ -48,21 +47,8 @@ const {
 } = actions.modal;
 
 const {
-  getMyProfileValue,
-  getMyDID,
-  getMyWall,
-  getCollectibles,
-  getMyMemberSince,
-  getVerifiedPublicGithub,
-  getVerifiedPublicTwitter,
-  getVerifiedPrivateEmail,
-  getActivity,
-  getMyFollowing,
   getPublicFollowing,
-  saveFollowing,
 } = actions.profile;
-
-const { getMySpacesData, convert3BoxToSpaces } = actions.spaces;
 
 const {
   openBox,
@@ -119,7 +105,7 @@ class App extends Component {
         this.directSignIn(queryParams.wallet);
       } else if (onProfilePage) { // Lands on profile page
         const userEth = window.localStorage.getItem('userEthAddress');
-        if (userEth) this.props.getPublicFollowing(userEth);
+        if (userEth) getPublicFollowing(userEth);
         if (isProtectedRoute) history.push(`/${firstParam}`);
       }
     } catch (err) {
@@ -141,50 +127,8 @@ class App extends Component {
         onSyncFinished: true,
         isSyncing: false,
       });
-      this.getMyData();
-    }
-  }
-
-  getMyData = async () => {
-    const { currentAddress } = this.props;
-    store.dispatch({
-      type: 'UI_SPACES_LOADING',
-      isSpacesLoading: true,
-    });
-    startPollFlag();
-    pollNetworkAndAddress(); // Start polling for address change
-
-    try {
-      this.props.getVerifiedPublicGithub(); // eslint-disable-line
-      this.props.getVerifiedPublicTwitter(); // eslint-disable-line
-      this.props.getVerifiedPrivateEmail(); // eslint-disable-line
-      this.props.getMyMemberSince(); // eslint-disable-line
-      this.props.getMyDID(); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'name'); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'description'); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'image'); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'coverPhoto'); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'location'); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'website'); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'employer'); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'job'); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'school'); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'degree'); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'major'); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'year'); // eslint-disable-line
-      this.props.getMyProfileValue('public', 'emoji'); // eslint-disable-line
-      this.props.getMyProfileValue('private', 'birthday'); // eslint-disable-line
-
-      await this.props.getMyFollowing(); // eslint-disable-line
-      this.props.getMyWall(); // eslint-disable-line
-
-      await this.props.getCollectibles(currentAddress); // eslint-disable-line
-      await this.props.convert3BoxToSpaces(); // eslint-disable-line
-      await this.props.getMySpacesData(currentAddress); // eslint-disable-line
-
-      this.props.getActivity(); // eslint-disable-line
-    } catch (err) {
-      console.error(err);
+      const fromOnSyncDone = true;
+      getMyData(fromOnSyncDone);
     }
   }
 
@@ -208,16 +152,17 @@ class App extends Component {
       const currentUrlEthAddr = normalizedPath.split('/')[1];
       const profilePage = normalizedPath.split('/')[2];
       const doesEthAddrMatch = currentUrlEthAddr === this.props.currentAddress;
-      await this.props.checkMobileWeb3(); // eslint-disable-line
-      await this.props.injectWeb3('directLogin', false, wallet); // eslint-disable-line
-      await this.props.checkNetwork(); // eslint-disable-line
+
+      await this.props.checkMobileWeb3();
+      await this.props.injectWeb3('directLogin', false, wallet);
+      await this.props.checkNetwork();
 
       if (!doesEthAddrMatch) history.push(`/${this.props.currentAddress}/${profilePage || routes.directToHome()}`);
 
-      await this.props.openBox(); // eslint-disable-line
-      if (!this.props.showErrorModal) this.getMyData(); // eslint-disable-line
+      await this.props.openBox();
+      if (!this.props.showErrorModal) getMyData();
     } catch (err) {
-      console.error(err); // eslint-disable-line
+      console.error(err);
       store.dispatch({
         type: 'UI_3BOX_LOADING',
         isFetchingThreeBox: false,
@@ -228,11 +173,11 @@ class App extends Component {
   handleSignInUp = async (chooseWallet, shouldSignOut, e, fromPost) => {
     try {
       if (e) e.stopPropagation();
-      await this.props.checkMobileWeb3(); // eslint-disable-line
-      await this.props.injectWeb3(null, chooseWallet, false, shouldSignOut); // eslint-disable-line
-      await this.props.checkNetwork(); // eslint-disable-line
-      await this.props.openBox('fromSignIn', fromPost); // eslint-disable-line
-      if (!this.props.showErrorModal) this.getMyData(); // eslint-disable-line
+      await this.props.checkMobileWeb3();
+      await this.props.injectWeb3(null, chooseWallet, false, shouldSignOut);
+      await this.props.checkNetwork();
+      await this.props.openBox('fromSignIn', fromPost);
+      if (!this.props.showErrorModal) getMyData();
     } catch (err) {
       console.error(err);
     }
@@ -354,7 +299,6 @@ class App extends Component {
           handleAccessModal={this.props.handleAccessModal}
           handleNextMobileModal={this.handleNextMobileModal}
           handleFollowingPublicModal={this.props.handleFollowingPublicModal}
-          saveFollowing={this.props.saveFollowing}
           handleUnsupportedBrowserModal={this.props.handleUnsupportedBrowserModal}
         />
 
@@ -387,20 +331,7 @@ class App extends Component {
 App.propTypes = {
   openBox: PropTypes.func.isRequired,
   injectWeb3: PropTypes.func.isRequired,
-  getMyProfileValue: PropTypes.func.isRequired,
   checkMobileWeb3: PropTypes.func.isRequired,
-  getMyFollowing: PropTypes.func.isRequired,
-  getPublicFollowing: PropTypes.func.isRequired,
-  getMyDID: PropTypes.func.isRequired,
-  getMyWall: PropTypes.func.isRequired,
-  getCollectibles: PropTypes.func.isRequired,
-  getMySpacesData: PropTypes.func.isRequired,
-  convert3BoxToSpaces: PropTypes.func.isRequired,
-  getMyMemberSince: PropTypes.func.isRequired,
-  getVerifiedPublicGithub: PropTypes.func.isRequired,
-  getVerifiedPublicTwitter: PropTypes.func.isRequired,
-  getVerifiedPrivateEmail: PropTypes.func.isRequired,
-  getActivity: PropTypes.func.isRequired,
   handleSwitchedNetworkModal: PropTypes.func.isRequired,
   handleAccessModal: PropTypes.func.isRequired,
   handleConsentModal: PropTypes.func.isRequired,
@@ -412,7 +343,6 @@ App.propTypes = {
   handleLoggedOutModal: PropTypes.func.isRequired,
   handleSwitchedAddressModal: PropTypes.func.isRequired,
   handleOnboardingModal: PropTypes.func.isRequired,
-  saveFollowing: PropTypes.func.isRequired,
 
   showDifferentNetworkModal: PropTypes.bool,
   showFollowingPublicModal: PropTypes.bool,
@@ -532,18 +462,6 @@ export default withRouter(connect(mapState,
     injectWeb3,
     checkMobileWeb3,
     checkNetwork,
-    getMyProfileValue,
-    getMyDID,
-    getMyWall,
-    getCollectibles,
-    getMySpacesData,
-    convert3BoxToSpaces,
-    getMyMemberSince,
-    getVerifiedPublicGithub,
-    getVerifiedPublicTwitter,
-    getVerifiedPrivateEmail,
-    getActivity,
-    getMyFollowing,
     handleSignInModal,
     handleSwitchedNetworkModal,
     handleAccessModal,
@@ -555,8 +473,6 @@ export default withRouter(connect(mapState,
     handleOnboardingModal,
     handleFollowingPublicModal,
     closeErrorModal,
-    getPublicFollowing,
-    saveFollowing,
     handleContactsModal,
     clearReduxState,
     handleUnsupportedBrowserModal,

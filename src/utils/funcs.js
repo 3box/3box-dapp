@@ -1,17 +1,21 @@
 import Box from '3box';
-import contractMap from 'eth-contract-metadata';
-import abiDecoder from 'abi-decoder';
 import {
   detect,
 } from 'detect-browser';
-import {
-  toChecksumAddress,
-} from 'ethereumjs-util';
 
 import * as routes from './routes';
 import {
   store,
 } from '../state/store';
+
+export const graphqlQueryObject = (otherAddress) => `
+{
+  profile(id: "${otherAddress}") {
+    name
+    image
+  }
+}
+`;
 
 export const normalizeURL = (pathname) => {
   const lowercasePathname = pathname.toLowerCase();
@@ -46,123 +50,6 @@ export const addhttp = (url) => {
   }
   return correctedURL;
 };
-
-export async function getContract(otherAddress) {
-  try {
-    const response = await fetch(`https://api.etherscan.io/api?module=contract&action=getabi&address=${otherAddress}&apikey=3VTI9D585DCX4RD4QSP3MYWKACCIVZID23`);
-    if (response.status !== 200) {
-      return console.error(`Looks like there was a problem. Status Code: ${response.status}`);
-    }
-    const data = await response.json();
-    return data;
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-export const imageElFor = (address) => {
-  const contractMetaData = contractMap[toChecksumAddress(address)];
-  if (!contractMetaData || (!('logo' in contractMetaData))) {
-    return false;
-  }
-  // this isnt necessary
-  const fileName = contractMetaData.logo;
-  const path = `/contractIcons/${fileName}`;
-  const contractImg = document.createElement('img');
-  contractImg.src = path;
-  contractImg.style.width = '100%';
-  return [contractImg, contractMetaData];
-};
-
-const startProfileLoad = (otherProfileAddress, feedByAddress) => {
-  if (otherProfileAddress) {
-    store.dispatch({
-      type: 'OTHER_ACTIVITY_UPDATE',
-      otherProfileActivity: feedByAddress,
-    });
-    // store.dispatch({
-    //   type: 'OTHER_WALL_UPDATE',
-    //   otherWallPosts: feedByAddress,
-    // });
-    store.dispatch({
-      type: 'UI_FEED_OTHER_LOADING',
-      isFetchingOtherActivity: false,
-    });
-  } else {
-    store.dispatch({
-      type: 'USER_LOGIN_UPDATE',
-      isLoggedIn: true,
-    });
-    store.dispatch({
-      type: 'UI_FEED_LOADING',
-      isFetchingActivity: false,
-    });
-    store.dispatch({
-      type: 'MY_FEED_UPDATE',
-      feedByAddress,
-    });
-  }
-};
-
-export const updateFeed = (otherProfileAddress, feedByAddress, addressData, isContract) => {
-  let contractArray = [];
-  let counter = 0;
-  if (feedByAddress.length === 0) startProfileLoad(otherProfileAddress, feedByAddress);
-  feedByAddress.map(async (txGroup, i) => {
-    const otherAddress = Object.keys(txGroup)[0];
-
-    if (isContract[otherAddress]) { // then address is contract
-      const contractDataABI = addressData[otherAddress].contractData;
-
-      if (contractDataABI) {
-        abiDecoder.addABI(contractDataABI);
-
-        txGroup[otherAddress].map((lineItem, index) => {
-          const methodCall = abiDecoder.decodeMethod(txGroup[otherAddress][index].input);
-          lineItem.methodCall = methodCall && methodCall.name && (methodCall.name.charAt(0).toUpperCase() + methodCall.name.slice(1)).replace(/([A-Z])/g, ' $1').trim();
-        });
-      }
-
-      contractArray = imageElFor(otherAddress);
-
-      feedByAddress[i].metaData = {
-        contractImg: contractArray.length > 0 && contractArray[0],
-        contractDetails: contractArray.length > 0 && contractArray[1],
-      };
-
-      counter += 1;
-      if (counter === feedByAddress.length) startProfileLoad(otherProfileAddress, feedByAddress);
-    } else { // look for 3box metadata
-      feedByAddress[i].metaData = {
-        name: addressData && addressData[otherAddress] && addressData[otherAddress].name,
-        image: addressData && addressData[otherAddress] && addressData[otherAddress].image,
-      };
-      counter += 1;
-      if (counter === feedByAddress.length) startProfileLoad(otherProfileAddress, feedByAddress);
-    }
-  });
-};
-
-export const addDataType = (activity) => {
-  activity.internal = activity.internal.map(object => Object.assign({
-    dataType: 'Internal',
-  }, object));
-  activity.txs = activity.txs.map(object => Object.assign({
-    dataType: 'Txs',
-  }, object));
-  activity.token = activity.token.map(object => Object.assign({
-    dataType: 'Token',
-  }, object));
-
-  return activity;
-};
-
-export const addPublicOrPrivateDataType = (activity, dataType) => activity.map((row) => {
-  row.timeStamp = row.timeStamp && row.timeStamp.toString().substring(0, 10);
-  return Object.assign({
-    dataType,
-  }, row);
-});
 
 export const copyToClipBoard = (type, message) => async (dispatch) => {
   try {
@@ -314,6 +201,7 @@ export const sortSpace = (updatedSortedSpace, category) => {
   });
 };
 
+// get spaces row data out from spaces data
 export const extractRow = async (spaceData, spaceNameGiven, updatedSortedSpace) => {
   try {
     if (!spaceData) return;
@@ -330,8 +218,7 @@ export const extractRow = async (spaceData, spaceNameGiven, updatedSortedSpace) 
       });
     });
 
-    const rowPromises = Promise.all(rowCalls);
-    const rowType = await rowPromises;
+    const rowType = await Promise.all(rowCalls);
 
     rowType.forEach((type, i) => {
       updatedSortedSpace.push({
@@ -353,36 +240,48 @@ export const checkIsEthAddress = (string) => {
   return isEthereumAddress;
 };
 
-// get the user's latest post in a thread
-export const getAuthorsLatestPost = (threadArray, usersDID) => {
-  const userPostIndex = [];
+export const checkIsENSAddress = (string) => {
+  const noSpace = /^\S*$/.test(string);
+  if (!noSpace) return false;
 
-  threadArray.forEach((item, i) => {
-    if (item.author === usersDID) {
-      userPostIndex.push(i);
-    }
-  });
-
-  const lastPostIndex = userPostIndex[userPostIndex.length - 1];
-
-  return threadArray[lastPostIndex];
+  const isENSAddress = /([a-z0-9-]){3,}\.(eth)/i.test(string);
+  return isENSAddress;
 };
 
 export const getFollowingProfiles = async (following) => {
-  const fetchProfile = async (ethAddr) => await Box.getProfile(ethAddr);
-  const fetchAllProfiles = async () => await Promise.all(following.map(user => fetchProfile(user.message.identifier[1].value)));
-  const profiles = await fetchAllProfiles();
+  const {
+    fetchedProfiles,
+  } = store.getState().myData;
+  const updatedFetchedProfiles = fetchedProfiles || {};
+  const unfetchedProfiles = following.filter((user) => !updatedFetchedProfiles[user.message.identifier[1].value]);
 
-  const profilesAndAddress = [];
-  profiles.forEach((profile, i) => {
-    profilesAndAddress.push([profile, following[i].message.identifier[1].value]);
+  const fetchProfile = async (ethAddr) => Box.getProfile(ethAddr);
+  const fetchUnfetchedProfiles = async () => Promise.all(unfetchedProfiles.map((user) => fetchProfile(user.message.identifier[1].value)));
+  const profiles = await fetchUnfetchedProfiles();
+  const followingAddress = [];
+
+  // go through unfetched profiles and add to redux store
+  unfetchedProfiles.forEach((user, i) => {
+    const address = user.message.identifier[1].value;
+    updatedFetchedProfiles[address] = profiles[i];
   });
-  return profilesAndAddress;
+
+  following.forEach((user) => {
+    const address = user.message.identifier[1].value;
+    const profile = updatedFetchedProfiles[address];
+    followingAddress.push([profile, address]);
+  });
+
+  store.dispatch({
+    type: 'MY_FETCHED_PROFILES_UPDATE',
+    fetchedProfiles: updatedFetchedProfiles,
+  });
+  return followingAddress;
 };
 
 export const checkFollowing = (following, otherProfileAddress) => {
   if (!following) return false;
-  return following.some(user => user.message.identifier[1].value === otherProfileAddress);
+  return following.some((user) => user.message.identifier[1].value === otherProfileAddress);
 };
 
 export const alphabetize = (array) => {
@@ -486,3 +385,53 @@ export const sortChronologically = (threadPosts) => {
 };
 
 export const baseURL = (url) => url.replace(/(http(s)?:\/\/)|(\/.*){1}/g, '');
+
+export const fetchEthAddrByENS = async (name) => {
+  try {
+    const ensDomainRequest = {
+      query: `{
+        domains(where: { name : "${name}" }) {
+          owner {
+            id
+          }
+        }
+      }`,
+    };
+
+    const res = await fetch('https://api.thegraph.com/subgraphs/name/ensdomains/ens', {
+      method: 'POST',
+      body: JSON.stringify(ensDomainRequest),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (res.status !== 200 && res.status !== 201) throw new Error('Failed', res);
+
+    const {
+      data,
+      errors,
+    } = await res.json();
+    if (data) return data.domains[0] && data.domains[0].owner.id;
+
+    return errors;
+  } catch (error) {
+    console.log('ENS Request error:', error);
+  }
+};
+
+export function debounce(func, wait, immediate) {
+  let timeout;
+  return function () {
+    const context = this;
+    const args = arguments;
+    const later = function () {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    const callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+}
