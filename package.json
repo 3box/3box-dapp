@@ -24,7 +24,7 @@
     "ethereum-blockies-base64": "^1.0.2",
     "ethereumjs-util": "^6.0.0",
     "ethers": "^4.0.40",
-    "fortmatic": "^1.0.0",
+    "fortmatic": "^1.0.2",
     "history": "^4.7.2",
     "idb-readable-stream": "0.0.4",
     "ipfs-log": "^4.5.3",
