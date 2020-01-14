@@ -5,6 +5,7 @@ const myDataReducer = (state = {}, action) => {
         ...state,
         box: action.box,
           ens: action.ens,
+          threeId: action.threeId,
       };
 
     case 'MY_GENERAL_PROFILE_UPDATE':

@@ -176,7 +176,7 @@ class App extends Component {
       await this.props.checkMobileWeb3();
       await this.props.injectWeb3(null, chooseWallet, false, shouldSignOut);
       await this.props.checkNetwork();
-      await this.props.openBox('fromSignIn', fromPost);
+      await this.props.openBox(true, fromPost);
       if (!this.props.showErrorModal) getMyData();
     } catch (err) {
       console.error(err);

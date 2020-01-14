@@ -291,7 +291,7 @@ class EditProfile extends Component {
 
   verifyTwitter = async () => {
     const { verifiedTwitter, editedArray } = this.state;
-    const { box, did, list, allData } = this.props;
+    const { box, threeId, list, allData } = this.props;
     const updatedAllData = allData;
     const updatedEditedArray = editedArray;
     this.setState({ verificationLoading: true });
@@ -300,11 +300,10 @@ class EditProfile extends Component {
       const response = await fetch('https://verifications.3box.io/twitter', {
         method: 'POST',
         body: JSON.stringify({
-          did,
+          did: threeId,
           twitter_handle: `${verifiedTwitter}`,
         }),
       });
-
       if (!response.ok) {
         this.setState({
           verificationLoading: false,
@@ -316,7 +315,6 @@ class EditProfile extends Component {
       const claim = await response.json();
       const twitterUsername = await box.verified.addTwitter(claim.data.verification);
       if (!twitterUsername) throw new Error('Verification failed');
-      console.log('Twitter username verified and saved');
       updatedEditedArray.push('proof_twitter');
       this.setState({
         isTwitterVerified: true,
@@ -835,6 +833,7 @@ class EditProfile extends Component {
       coverPhoto,
       memberSince,
       did,
+      threeId,
       showGithubVerificationModal,
       showTwitterVerificationModal,
       showEmailVerificationModal,
@@ -939,8 +938,8 @@ class EditProfile extends Component {
           {showTwitterVerificationModal && (
             <TwitterVerificationModal
               verifyTwitter={this.verifyTwitter}
-              did={did}
-              message={twitterMessage(did, currentAddress)}
+              threeId={threeId}
+              message={twitterMessage(threeId, currentAddress)}
               isTwitterVerified={isTwitterVerified}
               verificationLoading={verificationLoading}
               twitterVerifiedFailed={twitterVerifiedFailed}
@@ -1008,7 +1007,7 @@ class EditProfile extends Component {
                       name="coverPic"
                       className="light"
                       accept="image/*"
-                      onChange={e => this.handleUpdatePic(e.target.files[0], e, true)}
+                      onChange={(e) => this.handleUpdatePic(e.target.files[0], e, true)}
                       ref={ref => this.coverUpload = ref}
                     />
                     <div className="edit__profile__editCanvas__button">
@@ -1040,7 +1039,7 @@ class EditProfile extends Component {
                       name="pic"
                       className="light"
                       accept="image/*"
-                      onChange={e => this.handleUpdatePic(e.target.files[0], e)}
+                      onChange={(e) => this.handleUpdatePic(e.target.files[0], e)}
                       ref={ref => this.fileUpload = ref}
                     />
 
@@ -1108,7 +1107,7 @@ class EditProfile extends Component {
                         type="text"
                         value={name}
                         className="edit__profile__value"
-                        onChange={e => this.handleFormChange(e, 'name')}
+                        onChange={(e) => this.handleFormChange(e, 'name')}
                       />
                     </div>
 
@@ -1121,7 +1120,7 @@ class EditProfile extends Component {
                         type="text"
                         className="edit__profile__value--description"
                         value={description}
-                        onChange={e => this.handleFormChange(e, 'description')}
+                        onChange={(e) => this.handleFormChange(e, 'description')}
                       />
                     </div>
 
@@ -1135,11 +1134,12 @@ class EditProfile extends Component {
                             className="edit__profile__value__emojiMenu"
                           >
                             <Picker
-                              onSelect={selectedEmoji => this.addEmoji(selectedEmoji)}
+                              onSelect={(selectedEmoji) => this.addEmoji(selectedEmoji)}
                               title="Pick your spirit emoji"
                             />
-                          </div>)
-                      }
+                          </div>
+                        )}
+
                       {showEmoji
                         && <div className='onClickOutside' onClick={() => this.setState({ showEmoji: !this.state.showEmoji })} />}
 
@@ -1182,7 +1182,7 @@ class EditProfile extends Component {
                         type="text"
                         value={location}
                         className="edit__profile__value"
-                        onChange={e => this.handleFormChange(e, 'location')}
+                        onChange={(e) => this.handleFormChange(e, 'location')}
                       />
                     </div>
 
@@ -1195,7 +1195,7 @@ class EditProfile extends Component {
                         type="text"
                         className="edit__profile__value"
                         value={website}
-                        onChange={e => this.handleFormChange(e, 'website')}
+                        onChange={(e) => this.handleFormChange(e, 'website')}
                       />
                     </div>
 
@@ -1210,7 +1210,7 @@ class EditProfile extends Component {
                           type="date"
                           className="edit__profile__value privateInput"
                           value={birthday}
-                          onChange={e => this.handleFormChange(e, 'birthday')}
+                          onChange={(e) => this.handleFormChange(e, 'birthday')}
                         />
                       </div>
                     </div>
@@ -1251,8 +1251,7 @@ class EditProfile extends Component {
                             <div className="edit__profile__verifiedName">
                               <p>{verifiedGithub}</p>
                               {!githubRemoved
-                                && <img src={Verified} alt="Verified" />
-                              }
+                                && <img src={Verified} alt="Verified" />}
                             </div>
 
                             {!githubRemoved
@@ -1286,7 +1285,7 @@ class EditProfile extends Component {
                               className="edit__profile__value--github verifiedForm"
                               value={verifiedGithub}
                               placeholder="username"
-                              onChange={e => this.handleFormChange(e, 'verifiedGithub')}
+                              onChange={(e) => this.handleFormChange(e, 'verifiedGithub')}
                             />
                             <button
                               type="button"
@@ -1298,7 +1297,7 @@ class EditProfile extends Component {
                               }}
                             >
                               Verify
-                              </button>
+                            </button>
                             <p className="edit__profile__verified--NoMobile">
                               Add verifications using a desktop browser.
                             </p>
@@ -1317,8 +1316,7 @@ class EditProfile extends Component {
                             <div className="edit__profile__verifiedName">
                               <p>{verifiedTwitter}</p>
                               {!twitterRemoved
-                                && <img src={Verified} alt="Verified" />
-                              }
+                                && <img src={Verified} alt="Verified" />}
                             </div>
 
                             {!twitterRemoved
@@ -1352,7 +1350,7 @@ class EditProfile extends Component {
                               className="edit__profile__value--github verifiedForm"
                               value={verifiedTwitter}
                               placeholder="username"
-                              onChange={e => this.handleFormChange(e, 'verifiedTwitter')}
+                              onChange={(e) => this.handleFormChange(e, 'verifiedTwitter')}
                             />
                             <button
                               type="button"
@@ -1377,8 +1375,8 @@ class EditProfile extends Component {
                   {(githubRemoved || twitterRemoved)
                     && (
                       <p className="edit__profile__verifiedWrapper__warning">Save form to remove your verified accounts.</p>
-                    )
-                  }
+                    )}
+
                   {((!this.props.verifiedGithub && githubEdited && !isGithubVerified)
                     || (!this.props.verifiedTwitter && twitterEdited && !isTwitterVerified))
                     && (
@@ -1408,8 +1406,7 @@ class EditProfile extends Component {
                             <div className="edit__profile__verifiedName">
                               <p>{verifiedEmail}</p>
                               {!emailRemoved
-                                && <img src={Verified} alt="Verified" />
-                              }
+                                && <img src={Verified} alt="Verified" />}
                             </div>
 
                             {!emailRemoved
@@ -1443,7 +1440,7 @@ class EditProfile extends Component {
                               type="text"
                               className="edit__profile__value--github verifiedForm verifiedForm--email"
                               value={verifiedEmail}
-                              onChange={e => this.handleFormChange(e, 'verifiedEmail')}
+                              onChange={(e) => this.handleFormChange(e, 'verifiedEmail')}
                             />
                             <button
                               type="button"
@@ -1469,8 +1466,8 @@ class EditProfile extends Component {
                   {emailRemoved
                     && (
                       <p className="edit__profile__verifiedWrapper__warning">Save form to remove your verified accounts.</p>
-                    )
-                  }
+                    )}
+
                   {(!this.props.verfiedEmail && emailEdited && !isEmailVerified)
                     && (
                       <p className={`edit__profile__verifiedWrapper__warning ${emailRemoved && 'second'}`}>
@@ -1497,7 +1494,7 @@ class EditProfile extends Component {
                         type="text"
                         value={employer}
                         className="edit__profile__value"
-                        onChange={e => this.handleFormChange(e, 'employer')}
+                        onChange={(e) => this.handleFormChange(e, 'employer')}
                       />
                     </div>
 
@@ -1510,7 +1507,7 @@ class EditProfile extends Component {
                         type="text"
                         className="edit__profile__value"
                         value={job}
-                        onChange={e => this.handleFormChange(e, 'job')}
+                        onChange={(e) => this.handleFormChange(e, 'job')}
                       />
                     </div>
 
@@ -1534,7 +1531,7 @@ class EditProfile extends Component {
                         type="text"
                         className="edit__profile__value"
                         value={school}
-                        onChange={e => this.handleFormChange(e, 'school')}
+                        onChange={(e) => this.handleFormChange(e, 'school')}
                       />
                     </div>
 
@@ -1547,7 +1544,7 @@ class EditProfile extends Component {
                         type="text"
                         className="edit__profile__value"
                         value={degree}
-                        onChange={e => this.handleFormChange(e, 'degree')}
+                        onChange={(e) => this.handleFormChange(e, 'degree')}
                       />
                     </div>
 
@@ -1560,7 +1557,7 @@ class EditProfile extends Component {
                         type="text"
                         className="edit__profile__value"
                         value={major}
-                        onChange={e => this.handleFormChange(e, 'major')}
+                        onChange={(e) => this.handleFormChange(e, 'major')}
                       />
                     </div>
 
@@ -1573,7 +1570,7 @@ class EditProfile extends Component {
                         type="text"
                         className="edit__profile__value"
                         value={year}
-                        onChange={e => this.handleFormChange(e, 'year')}
+                        onChange={(e) => this.handleFormChange(e, 'year')}
                       />
                     </div>
 
@@ -1590,10 +1587,11 @@ class EditProfile extends Component {
                   onClick={
                     (e) => {
                       this.setState({ disableSave: true }, () => this.handleSubmit(e));
-                    }}
+                    }
+                  }
                 >
                   Save
-                  </button>
+                </button>
                 <Link
                   to={`/${currentAddress}/${routes.directToHome()}`}
                   className="subtext"
@@ -1646,12 +1644,11 @@ EditProfile.propTypes = {
   degree: PropTypes.string,
   major: PropTypes.string,
   employer: PropTypes.string,
-  email: PropTypes.string,
+  threeId: PropTypes.string,
   memberSince: PropTypes.string,
   currentAddress: PropTypes.string,
   image: PropTypes.array,
   coverPhoto: PropTypes.array,
-  isFetchingThreeBox: PropTypes.bool,
   showGithubVerificationModal: PropTypes.bool,
   showTwitterVerificationModal: PropTypes.bool,
   showEmailVerificationModal: PropTypes.bool,
@@ -1659,6 +1656,7 @@ EditProfile.propTypes = {
   handleGithubVerificationModal: PropTypes.func.isRequired,
   handleTwitterVerificationModal: PropTypes.func.isRequired,
   handleEmailVerificationModal: PropTypes.func.isRequired,
+  handleSignInUp: PropTypes.func.isRequired,
   copyToClipBoard: PropTypes.func.isRequired,
 };
 
@@ -1666,6 +1664,7 @@ EditProfile.defaultProps = {
   box: {},
   allData: {},
   verifiedEmail: '',
+  threeId: '',
   name: '',
   verifiedGithub: '',
   verifiedTwitter: '',
@@ -1708,6 +1707,7 @@ function mapState(state) {
     verifiedTwitter: state.myData.verifiedTwitter,
     verifiedEmail: state.myData.verifiedEmail,
     did: state.myData.did,
+    threeId: state.myData.threeId,
     description: state.myData.description,
     memberSince: state.myData.memberSince,
     location: state.myData.location,

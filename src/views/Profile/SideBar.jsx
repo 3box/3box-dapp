@@ -27,6 +27,7 @@ const SideBar = ({
   location,
   onOtherProfilePage,
   copyToClipBoard,
+  otherProfileAddress,
   copySuccessful,
   otherCoverPhoto,
   otherName,
@@ -67,6 +68,7 @@ const SideBar = ({
             <ProfilePicture
               pictureClass="profile__user__picture clearProfPic"
               isMyPicture={!onOtherProfilePage}
+              otherProfileAddress={otherProfileAddress}
             />
 
             <div className="profile__basic">
@@ -258,6 +260,7 @@ function mapState(state) {
     otherEmoji: state.otherProfile.otherEmoji,
     otherDescription: state.otherProfile.otherDescription,
     otherEns: state.otherProfile.otherEns,
+    otherProfileAddress: state.otherProfile.otherProfileAddress,
   };
 }
 

@@ -1,10 +1,9 @@
 export const twitterMessage = (did, ethAddr) => {
-  return (`This Tweet links my Twitter account to my 3Box profile! 
-  %0D%0A%0D%0A${`https://3box.io/${ethAddr}`}
-  %0D%0A%0D%0AWeb3 social profiles by @3boxdb
-  %0D%0A✅
-  %0D%0A${did}
-  %0D%0A✅`);
+  return (`This tweet links my Twitter to my 3ID on 3Box Hub ✅
+  %0D%0A%0D%0A@3boxdb Hub is a profiles network built on %233ID,
+  an open identity system where I control my data.
+  %0D%0A%0D%0A${`See my profile at https://3box.io/${ethAddr}`}
+  %0D%0A%0D%0A${did}`);
 };
 
 export const githubMessage = (did) => {
@@ -29,6 +28,7 @@ export const checkVerifiedFormatting = (value, field) => {
   } else if (isGithub) {
     isValid = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/.test(value);
   }
+
   return isValid;
 };
 

@@ -42,8 +42,8 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
     startPollFlag();
     pollNetworkAndAddress(); // Start polling for address change
     getGeneralProfile(currentAddress);
-    // getActivity(); // need box object for 3box activity
     getCollectibles(currentAddress); // need box object for collectiblesFavorites
+    // getActivity(); // need box object for 3box activity
 
     dispatch({
       type: 'UI_3BOX_LOADING',
@@ -83,11 +83,12 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
       type: 'MY_BOX_UPDATE',
       box,
       ens,
+      threeId: box._3id.DID,
     });
     dispatch({
       type: 'UI_3BOX_FETCHING',
       isFetchingThreeBox: false,
-      onOtherProfilePage: false,
+      // onOtherProfilePage: false,
     });
 
     // onSyncDone only happens on first openBox so only run

@@ -467,7 +467,7 @@ GithubVerificationModal.defaultProps = {
 
 export const TwitterVerificationModal = ({
   handleTwitterVerificationModal,
-  did,
+  threeId,
   message,
   verifyTwitter,
   isTwitterVerified,
@@ -511,7 +511,7 @@ export const TwitterVerificationModal = ({
                     Tweet a unique key from the account you want to connect
                   </p>
                 </div>
-                <p className="modal__github__description__copy__input blueFont" id="muportDID">{did}</p>
+                <p className="modal__github__description__copy__input blueFont" id="muportDID">{threeId}</p>
               </div>
               <button type="button">
                 <a
@@ -581,7 +581,7 @@ export const TwitterVerificationModal = ({
   );
 
 TwitterVerificationModal.propTypes = {
-  did: PropTypes.string,
+  threeId: PropTypes.string,
   handleTwitterVerificationModal: PropTypes.func.isRequired,
   message: PropTypes.string.isRequired,
   verifyTwitter: PropTypes.func.isRequired,
@@ -592,7 +592,7 @@ TwitterVerificationModal.propTypes = {
 };
 
 TwitterVerificationModal.defaultProps = {
-  did: '',
+  threeId: '',
 };
 
 export const EmailVerificationModal = ({
