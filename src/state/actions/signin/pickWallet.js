@@ -2,7 +2,7 @@ import Web3Connect from 'web3connect';
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import Portis from '@portis/web3';
 import Fortmatic from 'fortmatic';
-// import Authereum from "authereum";
+import Authereum from 'authereum';
 // import Torus from '@toruslabs/torus-embed';
 
 import history from '../../../utils/history';
@@ -32,10 +32,10 @@ const web3Connect = new Web3Connect.Core({
         key: 'pk_live_EC842EEAC7F08995', // required
       },
     },
-    // authereum: {
-    //   package: Authereum, // required
-    //   options: {},
-    // },
+    authereum: {
+      package: Authereum, // required
+      options: {},
+    },
     // torus: {
     //   package: Torus, // required
     //   options: {
