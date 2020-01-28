@@ -38,6 +38,7 @@ const connectProviderToDapp = async (provider, directLogin, dispatch) => {
       await web3Obj.currentProvider.enable() :
       await accountsPromise;
     const currentAddress = accounts[0];
+    //Check if SimpleID data already passed
     // const currentAddress = provider.isAuthereum ? accounts[0] : accounts.account.accountAddress;
     window.localStorage.setItem('userEthAddress', currentAddress);
 

@@ -13,6 +13,15 @@ import {
 import getCollectibles from '../profile/getCollectibles';
 import getGeneralProfile from '../profile/getGeneralProfile';
 import fetchEns from '../utils';
+import SimpleID from 'simpleid-js-sdk';
+
+const simple = new SimpleID({
+  appOrigin: window.location.origin,
+  appName: "App Name",
+  appId: "YOUR APP ID HERE",
+  useSimpledIdWidget: false,
+  network: 'mainnet'
+});
 
 const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
   const {
@@ -151,6 +160,19 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
         isSyncing: true,
       });
     });
+
+    const userData = simple.getUserData()
+    if(userData && userData.wallet) {
+      //Don't do anything here for now
+    } else {
+      //Need to pass eth addr (and email if wanted)
+      const userInfo = {
+        address: currentAddress
+      }
+      console.log("Passing data to simpleid")
+      const simpleid = await simple.passUserInfo(userInfo)
+      console.log(simpleid)
+    }
   } catch (err) {
     history.push(routes.LANDING);
     dispatch({

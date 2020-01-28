@@ -52,6 +52,7 @@
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0",
     "scrypt-shim": "github:web3-js/scrypt-shim",
+    "simpleid-js-sdk": "^0.1.4-beta",
     "source-map-explorer": "^2.1.2",
     "squarelink": "^1.1.4",
     "web3": "^1.2.4",
