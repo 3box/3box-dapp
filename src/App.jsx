@@ -30,6 +30,15 @@ import {
   ChatboxComponent,
 } from './DynamicImports';
 import './index.scss';
+import SimpleID from 'simpleid-js-sdk';
+
+new SimpleID({
+  appOrigin: window.location.origin,
+  appName: "App Name",
+  appId: "YOUR APP ID HERE",
+  useSimpledIdWidget: false,
+  network: 'mainnet'
+});
 
 const {
   handleSignInModal,
