@@ -16,7 +16,7 @@
 }
 
 .hero {
-  height: 90vh;
+  height: 70vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1404,6 +1404,15 @@ pre {
     margin-bottom: 20px;
   }
 
+  h1 {
+    font-size: 32px;
+    margin-bottom: 50px;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
   p {
     width: 56%;
   }
@@ -1415,34 +1424,6 @@ pre {
   align-items: flex-start;
   height: fit-content;
   margin-bottom: 80px;
-}
-
-.careers_positions_content {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  flex-direction: column;
-  width: 56%;
-
-  h1 {
-    font-size: 32px;
-    margin-bottom: 24px;
-  }
-
-  h4 {
-    letter-spacing: 1px;
-    font-size: 24px;
-    margin: 40px 0 24px 0;
-  }
-
-  p {
-    margin-bottom: 24px;
-  }
-
-  li {
-    line-height: 26px;
-    font-size: 15px;
-  }
 }
 
 .careers_link {
