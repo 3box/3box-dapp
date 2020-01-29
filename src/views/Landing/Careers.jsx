@@ -58,13 +58,19 @@ class Careers extends Component {
         <section className="careers">
           <div className="careers_wrapper">
             <div className="careers_header">
-              <a
-                href="https://jobs.lever.co/3box"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <h1>See our current open positions</h1>
-              </a>
+              <div className="careers_header_text">
+                <h1>
+                  See our
+                </h1>
+                <a
+                  href="https://jobs.lever.co/3box"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  current open positions
+                </a>
+              </div>
+
               <p>
                 To apply, submit your resume along with a short note and relevant online social profiles.
               </p>

@@ -16,7 +16,7 @@
 }
 
 .hero {
-  height: 70vh;
+  height: 0vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1405,8 +1405,15 @@ pre {
   }
 
   h1 {
+    margin-right: 10px;
+  }
+
+  h1,
+  a {
     font-size: 32px;
     margin-bottom: 50px;
+    font-weight: 800;
+    line-height: 40px;
   }
 
   a {
@@ -1416,6 +1423,11 @@ pre {
   p {
     width: 56%;
   }
+}
+
+.careers_header_text {
+  display: flex;
+  align-items: flex-start;
 }
 
 .careers_positions {
