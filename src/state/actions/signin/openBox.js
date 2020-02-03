@@ -69,7 +69,7 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
       isSyncing: false,
     });
   }
-  console.log('currentAddress', currentAddress);
+
   try {
     const box = await Box.create(web3Obj.currentProvider);
     const spaces = [followingSpaceName];
