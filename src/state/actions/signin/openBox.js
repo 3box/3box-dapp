@@ -13,6 +13,9 @@ import {
 import getCollectibles from '../profile/getCollectibles';
 import getGeneralProfile from '../profile/getGeneralProfile';
 import fetchEns from '../utils';
+import {
+  followingSpaceName
+} from '../../../utils/constants';
 
 const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
   const {
@@ -68,11 +71,18 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
       isSyncing: false,
     });
   }
-
+  console.log('currentAddress', currentAddress);
   try {
-    const box = await Box.openBox(currentAddress, web3Obj.currentProvider, {
-      consentCallback,
+    const box = await Box.create(web3Obj.currentProvider);
+    const spaces = [followingSpaceName];
+    await box.auth(spaces, {
+      address: currentAddress,
     });
+    await box.syncDone;
+    consentCallback();
+    // const box = await Box.openBox(currentAddress, web3Obj.currentProvider, {
+    //   consentCallback,
+    // });
     const ens = await fetchEns(currentAddress, web3Obj);
 
     dispatch({
