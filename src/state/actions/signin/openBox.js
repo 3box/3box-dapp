@@ -9,7 +9,6 @@ import {
   startPollFlag,
   pollNetworkAndAddress,
 } from '../../../utils/address';
-// import getActivity from '../profile/getActivity/getActivity';
 import getCollectibles from '../profile/getCollectibles';
 import getGeneralProfile from '../profile/getGeneralProfile';
 import fetchEns from '../utils';
@@ -46,7 +45,6 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
     pollNetworkAndAddress(); // Start polling for address change
     getGeneralProfile(currentAddress);
     getCollectibles(currentAddress); // need box object for collectiblesFavorites
-    // getActivity(); // need box object for 3box activity
 
     dispatch({
       type: 'UI_3BOX_LOADING',
@@ -80,9 +78,6 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
     });
     await box.syncDone;
     consentCallback();
-    // const box = await Box.openBox(currentAddress, web3Obj.currentProvider, {
-    //   consentCallback,
-    // });
     const ens = await fetchEns(currentAddress, web3Obj);
 
     dispatch({
