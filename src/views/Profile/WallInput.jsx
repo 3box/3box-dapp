@@ -43,15 +43,17 @@ class WallInput extends Component {
 
     this.setState({ disableComment: false });
 
-    document.addEventListener('input', (event) => {
-      if (event.target.tagName.toLowerCase() !== 'textarea') return;
-      this.autoExpand(event.target);
-    }, false);
+    document.addEventListener('input', this.autoExpand, false);
   }
 
-  autoExpand = (field) => {
-    const height = field.scrollHeight;
-    field.style.height = `${height}px`;
+  componentWillUnmount() {
+    document.removeEventListener('input', this.autoExpand);
+  }
+
+  autoExpand = (event) => {
+    if (event.target.tagName.toLowerCase() !== 'textarea') return;
+    const height = event.target.scrollHeight;
+    event.target.style.height = `${height}px`;
   };
 
   handleCommentText = async (event) => {
