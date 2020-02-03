@@ -16,7 +16,6 @@
 }
 
 .hero {
-  height: 0vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -361,7 +360,7 @@
 }
 
 .dapp_main {
-  height: 90vh;
+  min-height: 700px;
   display: flex;
   justify-content: center;
   align-items: center;
