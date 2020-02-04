@@ -66,27 +66,34 @@ class Careers extends Component {
         <section className="careers">
           <div className="careers_wrapper">
             {!!jobs.length && jobs.map((job) => (
-              <div className="careers_positions">
+              <div className="careers_positions" key={job.title}>
                 <h3>{job.title}</h3>
 
-                {job.postings.map((position) => (
-                  <div className="careers_positions_content">
-                    <h1>
-                      {position.text}
-                    </h1>
-                    <p>{position.categories.location}</p>
-                    <a
-                      href={position.hostedUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="careers_link"
-                    >
-                      <button className="textButton" type="button">
-                        View full description
-                      </button>
-                    </a>
-                  </div>
-                ))}
+                {job.postings.map((position, i) => {
+                  if ((i % 2) === 1) {
+                    return (
+                      <a
+                        href={position.hostedUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="careers_link"
+                        key={position.hostedUrl}
+                      >
+                        <div className="careers_positions_content">
+                          <h1>
+                            {position.text}
+                          </h1>
+                          <p>{position.categories.commitment}</p>
+
+                          <button className="textButton" type="button">
+                            View job description
+                          </button>
+                        </div>
+                      </a>
+                    );
+                  }
+                  return null;
+                })}
               </div>
             ))}
 
@@ -105,7 +112,7 @@ class Careers extends Component {
         </section>
 
         <Footer />
-      </div>
+      </div >
     );
   }
 }
