@@ -12,7 +12,7 @@
     "@microlink/mql": "^0.5.10",
     "@portis/web3": "^2.0.0-beta.54",
     "@walletconnect/web3-provider": "^1.0.0-beta.39",
-    "abi-decoder": "^2.0.1",
+    "abi-decoder": "2.2.2",
     "authereum": "0.0.4-beta.68",
     "core-js": "^3.4.8",
     "detect-browser": "^4.6.0",
