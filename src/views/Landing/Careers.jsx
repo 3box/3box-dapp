@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
-import TriangleWhite from '../../assets/TriangleWhite.svg';
+// import TriangleWhite from '../../assets/TriangleWhite.svg';
 import TriangleBlack from '../../assets/TriangleBlack.svg';
 import ColorCubes from '../../assets/ColorCubes.svg';
 import ColorCubesMobile from '../../assets/ColorCubesMobile.svg';
@@ -31,7 +31,6 @@ class Careers extends Component {
     const res = await fetch('https://api.lever.co/v0/postings/3box?group=team&mode=json');
     const jobs = await res.json();
     this.setState({ jobs });
-    console.log('jobs', jobs);
   }
 
   render() {
