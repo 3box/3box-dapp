@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
-import TriangleWhite from '../../assets/TriangleWhite.svg';
+// import TriangleWhite from '../../assets/TriangleWhite.svg';
 import TriangleBlack from '../../assets/TriangleBlack.svg';
 import ColorCubes from '../../assets/ColorCubes.svg';
 import ColorCubesMobile from '../../assets/ColorCubesMobile.svg';
@@ -21,14 +21,21 @@ const styles = {
 class Careers extends Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      jobs: [],
+    };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     window.scrollTo(0, 0);
+    const res = await fetch('https://api.lever.co/v0/postings/3box?group=team&mode=json');
+    const jobs = await res.json();
+    this.setState({ jobs });
   }
 
   render() {
+    const { jobs } = this.state;
+
     return (
       <div className="Careers_page">
         <main className="hero">
@@ -57,28 +64,38 @@ class Careers extends Component {
 
         <section className="careers">
           <div className="careers_wrapper">
-            <div className="careers_header">
-              <div className="careers_header_text">
-                <h1>
-                  See our
-                </h1>
-                <a
-                  href="https://jobs.lever.co/3box"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  current open positions
-                </a>
-              </div>
+            {!!jobs.length && jobs.map((job) => (
+              <div className="careers_positions" key={job.title}>
+                <h3>{job.title}</h3>
 
-              <p>
-                To apply, submit your resume along with a short note and relevant online social profiles.
-              </p>
-              <br />
-              <p>
-                3Box is building a more trusting, human and connected web, where users are in control of their own data and developers are empowered to build lighter, more collaborative, more powerful services and experiences based on open data and infrastructure. This is a chance to join and help shape our team at an exciting and early stage: we're one of the fastest growing projects in the crypto/Web3 space and are readying to scale our products, protocols and team into new markets.
-              </p>
-            </div>
+                {job.postings.map((position, i) => {
+                  if ((i % 2) === 1) {
+                    return (
+                      <a
+                        href={position.hostedUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="careers_link"
+                        key={position.hostedUrl}
+                      >
+                        <div className="careers_positions_content">
+                          <h1>
+                            {position.text}
+                          </h1>
+                          <p>{position.categories.commitment}</p>
+
+                          <button className="textButton" type="button">
+                            View job description
+                          </button>
+                        </div>
+                      </a>
+                    );
+                  }
+                  return null;
+                })}
+              </div>
+            ))}
+
             <div className="careers_open">
               <h5>Don't see your position?</h5>
               <div className="careers_open_text">
@@ -94,7 +111,7 @@ class Careers extends Component {
         </section>
 
         <Footer />
-      </div>
+      </div >
     );
   }
 }
