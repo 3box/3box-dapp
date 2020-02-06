@@ -26,7 +26,7 @@ import {
   Nav,
 } from './DynamicImports';
 import actions from './state/actions';
-import './index.css';
+import './index.scss';
 
 const {
   handleSignInModal,
