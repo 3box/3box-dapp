@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { shortenEthAddr } from '../../../utils/funcs';
+
 import actions from '../../../state/actions';
 import FollowButton from './FollowButton';
 import DefaultProfile from '../../../assets/DefaultProfile.svg';
@@ -50,12 +52,13 @@ const PubFollowing = (
 
       {(otherMutualFollowing.length > 0 && !showSignInBanner && !isMe) && (
         <div className="public_contacts_mutual">
+          {console.log('otherMutualFollowingotherMutualFollowing', otherMutualFollowing)}
           <p>
             {`${otherMutualFollowing.length} mutual including 
-          ${otherMutualFollowing[0] ? `${otherMutualFollowing[0][0].name}` : ''}
-          ${otherMutualFollowing[1] ? `, ${otherMutualFollowing[1][0].name}` : ''} 
-          ${otherMutualFollowing[2] ? `, ${otherMutualFollowing[2][0].name}` : ''} 
-          ${otherMutualFollowing[3] ? `, ${otherMutualFollowing[3][0].name}` : ''}
+          ${otherMutualFollowing[0] ? `${otherMutualFollowing[0][0].name || shortenEthAddr(otherMutualFollowing[0][1])}` : ''}
+          ${otherMutualFollowing[1] ? `, ${otherMutualFollowing[1][0].name || shortenEthAddr(otherMutualFollowing[0][1])}` : ''} 
+          ${otherMutualFollowing[2] ? `, ${otherMutualFollowing[2][0].name || shortenEthAddr(otherMutualFollowing[0][1])}` : ''} 
+          ${otherMutualFollowing[3] ? `, ${otherMutualFollowing[3][0].name || shortenEthAddr(otherMutualFollowing[0][1])}` : ''}
           ${otherMutualFollowing.length > 3 ? '...' : ''}`}
           </p>
         </div>

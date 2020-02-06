@@ -24,11 +24,13 @@
 }
 
 .partners_hero {
-  height: 950px;
+  height: 100%;
+  padding-bottom: 80px;
 }
 
 .partners_hero .hero_graphic_colorcubes-dtw {
-  height: 950px;
+  // height: 950px;
+  height: 100%;
 }
 
 .hero_copy {
@@ -393,6 +395,7 @@
   min-height: 700px;
   height: 90vh;
   width: 100%;
+  background-repeat: repeat-y;
 }
 
 .hero_copy_buttons {

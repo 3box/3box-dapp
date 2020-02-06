@@ -17,9 +17,13 @@ const { handleCollectiblesModal } = actions.modal;
 const PublicCollectiblesGallery = ({
   otherCollectiblesFavorites,
   showCollectiblesModal,
-  handleCollectiblesModal,
   selectedCollectible,
-}) => (
+}) => {
+  const selectedDisplayData = selectedCollectible.collection
+    && selectedCollectible.collection.display_data
+    && selectedCollectible.collection.display_data.card_display_style;
+
+  return (
     <>
       <ReactCSSTransitionGroup
         transitionName="app__modals"
@@ -31,9 +35,7 @@ const PublicCollectiblesGallery = ({
             handleCollectiblesModal={handleCollectiblesModal}
             selectedCollectible={selectedCollectible}
             onPublicProfile
-            padded={selectedCollectible.asset_contract &&
-              selectedCollectible.asset_contract.display_data &&
-              selectedCollectible.asset_contract.display_data.card_display_style}
+            padded={selectedDisplayData}
           />
         )}
         {showCollectiblesModal && (
@@ -49,23 +51,27 @@ const PublicCollectiblesGallery = ({
             <div className="favorites__grid__wrapper">
               <div className="collectibles__grid favorites__grid">
                 {otherCollectiblesFavorites.length > 0
-                  ? otherCollectiblesFavorites.map(collectible => (
-                    <CollectiblesTile
-                      collectible={collectible}
-                      image={collectible.image_preview_url}
-                      description={collectible.asset_contract && collectible.asset_contract.name}
-                      tokenId={collectible.token_id}
-                      name={collectible.name}
-                      bgStyle={collectible.background_color}
-                      padded={collectible.asset_contract
-                        && collectible.asset_contract.display_data
-                        && collectible.asset_contract.display_data.card_display_style === 'padded'}
-                      key={`${collectible.asset_contract && collectible.asset_contract.address}-${collectible.token_id}`}
-                      id={`${collectible.asset_contract && collectible.asset_contract.address}-${collectible.token_id}`}
-                      favorite
-                      onPublicProfile
-                    />
-                  ))
+                  ? otherCollectiblesFavorites.map((collectible) => {
+                    const collectibleDisplayData = collectible.collection
+                      && collectible.collection.display_data
+                      && collectible.collection.display_data.card_display_style;
+
+                    return (
+                      <CollectiblesTile
+                        collectible={collectible}
+                        image={collectible.image_preview_url}
+                        description={collectible.asset_contract && collectible.asset_contract.name}
+                        tokenId={collectible.token_id}
+                        name={collectible.name}
+                        bgStyle={collectible.background_color}
+                        padded={collectibleDisplayData === 'padded'}
+                        key={`${collectible.asset_contract && collectible.asset_contract.address}-${collectible.token_id}`}
+                        id={`${collectible.asset_contract && collectible.asset_contract.address}-${collectible.token_id}`}
+                        favorite
+                        onPublicProfile
+                      />
+                    );
+                  })
                   : <EmptyGalleryCollectiblesTile />}
               </div>
             </div>
@@ -74,11 +80,11 @@ const PublicCollectiblesGallery = ({
       }
     </>
   );
+}
 
 PublicCollectiblesGallery.propTypes = {
   otherCollectiblesFavorites: PropTypes.array,
   showCollectiblesModal: PropTypes.bool,
-  handleCollectiblesModal: PropTypes.func.isRequired,
   selectedCollectible: PropTypes.object,
 };
 
@@ -88,10 +94,10 @@ PublicCollectiblesGallery.defaultProps = {
   showCollectiblesModal: false,
 };
 
-const mapState = state => ({
+const mapState = (state) => ({
   otherCollectiblesFavorites: state.otherProfile.otherCollectiblesFavorites,
   showCollectiblesModal: state.uiState.showCollectiblesModal,
   selectedCollectible: state.uiState.selectedCollectible,
 });
 
-export default connect(mapState, { handleCollectiblesModal })(PublicCollectiblesGallery);
+export default connect(mapState)(PublicCollectiblesGallery);

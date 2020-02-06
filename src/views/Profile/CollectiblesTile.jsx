@@ -23,7 +23,6 @@ const CollectiblesTile = ({
   favorite,
   onPublicProfile,
   collectible,
-  handleCollectiblesModal,
 }) => (
     <div
       className="collectiblesTile"
@@ -37,7 +36,7 @@ const CollectiblesTile = ({
         <img
           className={`
           collectibles__image 
-          ${padded && 'padded'} 
+          ${padded ? 'padded' : ''} 
           `}
           src={image}
           alt=""
@@ -79,7 +78,6 @@ CollectiblesTile.propTypes = {
   description: PropTypes.string,
   padded: PropTypes.bool,
   updateGallery: PropTypes.func.isRequired,
-  handleCollectiblesModal: PropTypes.func.isRequired,
   favorite: PropTypes.bool,
   onPublicProfile: PropTypes.bool.isRequired,
   tokenId: PropTypes.string,
@@ -103,4 +101,4 @@ function mapState(state) {
   };
 }
 
-export default withRouter(connect(mapState, { handleCollectiblesModal })(CollectiblesTile));
+export default withRouter(connect(mapState)(CollectiblesTile));

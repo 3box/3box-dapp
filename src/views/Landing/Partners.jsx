@@ -50,7 +50,10 @@ class Partners extends Component {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <button className="textButton">
+                  <button
+                    className="textButton"
+                    type="button"
+                  >
                     Submit your project
                   </button>
                 </a>

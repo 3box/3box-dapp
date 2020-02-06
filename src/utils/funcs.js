@@ -286,8 +286,8 @@ export const checkFollowing = (following, otherProfileAddress) => {
 
 export const alphabetize = (array) => {
   const sortedArray = array.sort((a, b) => {
-    if (!a[0].name) return -1;
-    if (!b[0].name) return 1;
+    if (!a[0].name) return 1;
+    if (!b[0].name) return -1;
     if (a[0].name.toLowerCase() < b[0].name.toLowerCase()) return -1;
     if (a[0].name.toLowerCase() > b[0].name.toLowerCase()) return 1;
     return 0;

@@ -15,10 +15,14 @@ const getCollectibles = async (address, onPublicProfile) => {
   try {
     const res = await fetch(`https://api.opensea.io/api/v1/assets?owner=${address}&order_by=current_price&order_direction=asc&offset=0&limit=30`);
     const data = await res.json();
+    console.log('collectiblescollection', collection);
     collection.push(...data.assets);
   } catch (error) {
     console.log(error);
   }
+
+  // collectiblesFavoritesToRender includes all complete info from the opensea api
+  // collectiblesFavorites only includes unique ids to save to 3box
 
   const collectiblesFavoritesToRender = [];
   const updatedCollectiblesFavorites = [];
@@ -40,6 +44,7 @@ const getCollectibles = async (address, onPublicProfile) => {
     try {
       const favoritesRes = await fetch(`https://api.opensea.io/api/v1/assets?owner=${address}&${tokenIdArray}`);
       const favorites = await favoritesRes.json();
+      console.log('favoritesRes', favorites);
       collectiblesFavoritesToRender.push(...favorites.assets);
       favorites.assets.forEach((nft) => updatedCollectiblesFavorites.push({
         address: nft.address,
