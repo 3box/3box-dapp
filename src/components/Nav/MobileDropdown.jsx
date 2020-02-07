@@ -58,7 +58,7 @@ const MobileDropdown = props => (
             </div>
             <p>
               Edit profile
-        </p>
+            </p>
           </li>
         </Link>
 

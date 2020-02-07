@@ -129,7 +129,8 @@ export const CollectiblesModal = ({
                   onClick={e => updateGallery(e, selectedCollectible, 'remove', 'fromModal')}
                 >
                   <img src={HeartBlue} alt="" className="collectibles__like__heart--modal" />
-                </button>)}
+                </button>
+              )}
 
               {(updateGallery && !isFavorite && !onPublicProfile) && (
                 <button
@@ -139,16 +140,17 @@ export const CollectiblesModal = ({
                   onClick={e => updateGallery(e, selectedCollectible, null, 'fromModal')}
                 >
                   <img src={HeartBlue} alt="" className="collectibles__like__heart--modal gallery__like" />
-                </button>)}
+                </button>
+              )}
 
               {padded && <span className="collectibles__image__shadow--modal" />}
 
               <img
                 className={`
                 modal__collectibles__image 
-                ${padded && 'padded'}
-                ${cover && 'cover'}
-                ${contain && 'contain'}
+                ${padded ? 'padded' : ''}
+                ${cover ? 'cover' : ''}
+                ${contain ? 'contain' : ''}
                 `}
                 src={selectedCollectible.image_preview_url}
                 alt="Collectible"
@@ -165,7 +167,8 @@ export const CollectiblesModal = ({
               {selectedCollectible.description && (
                 <p className="collectiblesMiniModal__description">
                   {selectedCollectible.description}
-                </p>)}
+                </p>
+              )}
 
               {selectedCollectible.orderedTraits && selectedCollectible.orderedTraits.length > 0
                 && (
@@ -176,7 +179,8 @@ export const CollectiblesModal = ({
                         <p className="modal__collectibles__traits__trait__value">{trait.value}</p>
                       </div>
                     ))}
-                  </div>)}
+                  </div>
+                )}
             </div>
           </div>
           <div

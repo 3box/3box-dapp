@@ -32,7 +32,7 @@ const DesktopDropdown = props => (
           </div>
           <p>
             Edit profile
-                </p>
+          </p>
         </li>
       </Link>
       <div className="nav__divide" />

@@ -106,7 +106,10 @@ class Partners extends Component {
                 <a
                   href="mailto:partners@3box.io?Subject=Partner%20submission"
                 >
-                  <button className="textButton" type="button">
+                  <button
+                    className="textButton"
+                    type="button"
+                  >
                     Submit your project
                   </button>
                 </a>

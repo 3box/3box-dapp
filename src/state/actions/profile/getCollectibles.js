@@ -20,6 +20,9 @@ const getCollectibles = async (address, onPublicProfile) => {
     console.log(error);
   }
 
+  // collectiblesFavoritesToRender includes all complete info from the opensea api
+  // collectiblesFavorites only includes unique ids to save to 3box
+
   const collectiblesFavoritesToRender = [];
   const updatedCollectiblesFavorites = [];
   let collectiblesFavorites = [];

@@ -150,8 +150,13 @@ class Collectibles extends Component {
       isActive,
       isFetchingCollectibles,
     } = this.props;
-
     const { isLoading } = this.state;
+
+    const assetContract = selectedCollectible.asset_contract;
+    const contractDiplayData = selectedCollectible.collection
+      && selectedCollectible.collection.display_data
+      && selectedCollectible.collection.display_data.card_display_style;
+
     return (
       <>
         <ReactCSSTransitionGroup
@@ -162,21 +167,11 @@ class Collectibles extends Component {
           {showCollectiblesModal && (
             <CollectiblesModal
               show={showCollectiblesModal}
-              handleCollectiblesModal={this.props.handleCollectiblesModal}
+              handleCollectiblesModal={handleCollectiblesModal}
               selectedCollectible={selectedCollectible}
-              padded={selectedCollectible.asset_contract &&
-                selectedCollectible.asset_contract.display_data &&
-                selectedCollectible.asset_contract.display_data.card_display_style === 'padded'}
-              cover={
-                selectedCollectible.asset_contract &&
-                selectedCollectible.asset_contract.display_data &&
-                selectedCollectible.asset_contract.display_data.card_display_style === 'cover'
-              }
-              contain={
-                selectedCollectible.asset_contract &&
-                selectedCollectible.asset_contract.display_data &&
-                selectedCollectible.asset_contract.display_data.card_display_style === 'contain'
-              }
+              padded={contractDiplayData === 'padded'}
+              cover={contractDiplayData === 'cover'}
+              contain={contractDiplayData === 'contain'}
               updateGallery={this.updateGallery}
               isFavorite={isFavorite}
             />
@@ -231,35 +226,28 @@ class Collectibles extends Component {
           <div className="favorites__grid__wrapper">
             {collectiblesFavoritesToRender.length > 0 && (
               <div className="collectibles__grid favorites__grid">
-                {collectiblesFavoritesToRender.map((collectible) => (
-                  <CollectiblesTile
-                    updateGallery={this.updateGallery}
-                    collectible={collectible}
-                    image={collectible.image_preview_url}
-                    description={collectible.asset_contract && collectible.asset_contract.name}
-                    tokenId={collectible.token_id}
-                    name={collectible.name}
-                    bgStyle={collectible.background_color}
-                    onPublicProfile={false}
-                    padded={
-                      collectible.asset_contract &&
-                      collectible.asset_contract.display_data &&
-                      collectible.asset_contract.display_data.card_display_style === 'padded'
-                    }
-                    cover={
-                      collectible.asset_contract &&
-                      collectible.asset_contract.display_data &&
-                      collectible.asset_contract.display_data.card_display_style === 'cover'
-                    }
-                    contain={
-                      collectible.asset_contract &&
-                      collectible.asset_contract.display_data &&
-                      collectible.asset_contract.display_data.card_display_style === 'contain'
-                    }
-                    key={`${collectible.asset_contract.address}-${collectible.token_id}`}
-                    favorite
-                  />
-                ))}
+                {collectiblesFavoritesToRender.map((collectible) => {
+                  const collectibleDisplayData = collectible.collection
+                    && collectible.collection.display_data
+                    && collectible.collection.display_data.card_display_style;
+                  return (
+                    <CollectiblesTile
+                      updateGallery={this.updateGallery}
+                      collectible={collectible}
+                      image={collectible.image_preview_url}
+                      description={collectible.asset_contract && collectible.asset_contract.name}
+                      tokenId={collectible.token_id}
+                      name={collectible.name}
+                      bgStyle={collectible.background_color}
+                      onPublicProfile={false}
+                      padded={collectibleDisplayData === 'padded'}
+                      cover={collectibleDisplayData === 'cover'}
+                      contain={collectibleDisplayData === 'contain'}
+                      key={`${collectible.asset_contract.address}-${collectible.token_id}`}
+                      favorite
+                    />
+                  )
+                })}
               </div>
             )}
           </div>
@@ -283,37 +271,30 @@ class Collectibles extends Component {
                 <img src={Private} alt="Public" className="favorites__privateIcon" title="Gallery will not appear in your public profile" />
               </div>
             )}
-
           <div className="collectibles__grid">
             {collection.length > 0 && (
-              collection.map((collectible) => (
-                <CollectiblesTile
-                  updateGallery={this.updateGallery}
-                  collectible={collectible}
-                  image={collectible.image_preview_url}
-                  description={collectible.asset_contract && collectible.asset_contract.name}
-                  tokenId={collectible.token_id}
-                  name={collectible.name}
-                  bgStyle={collectible.background_color}
-                  onPublicProfile={false}
-                  padded={
-                    collectible.asset_contract &&
-                    collectible.asset_contract.display_data &&
-                    collectible.asset_contract.display_data.card_display_style === 'padded'
-                  }
-                  cover={
-                    collectible.asset_contract &&
-                    collectible.asset_contract.display_data &&
-                    collectible.asset_contract.display_data.card_display_style === 'cover'
-                  }
-                  contain={
-                    collectible.asset_contract &&
-                    collectible.asset_contract.display_data &&
-                    collectible.asset_contract.display_data.card_display_style === 'contain'
-                  }
-                  key={`${collectible.asset_contract && collectible.asset_contract.address}-${collectible.token_id}`}
-                />
-              ))
+              collection.map((collectible) => {
+                const collectibleDisplayData = collectible.collection
+                  && collectible.collection.display_data
+                  && collectible.collection.display_data.card_display_style;
+
+                return (
+                  <CollectiblesTile
+                    updateGallery={this.updateGallery}
+                    collectible={collectible}
+                    image={collectible.image_preview_url}
+                    description={collectible.asset_contract && collectible.asset_contract.name}
+                    tokenId={collectible.token_id}
+                    name={collectible.name}
+                    bgStyle={collectible.background_color}
+                    onPublicProfile={false}
+                    padded={collectibleDisplayData === 'padded'}
+                    cover={collectibleDisplayData === 'cover'}
+                    contain={collectibleDisplayData === 'contain'}
+                    key={`${collectible.asset_contract && collectible.asset_contract.address}-${collectible.token_id}`}
+                  />
+                );
+              })
             )}
           </div>
 
@@ -341,7 +322,6 @@ Collectibles.propTypes = {
   list: PropTypes.array,
   collectiblesFavorites: PropTypes.array,
   collectiblesFavoritesToRender: PropTypes.array,
-  handleCollectiblesModal: PropTypes.func.isRequired,
   showCollectiblesModal: PropTypes.bool.isRequired,
   isFavorite: PropTypes.bool.isRequired,
   isActive: PropTypes.bool,
@@ -388,8 +368,5 @@ function mapState(state) {
 }
 
 export default withRouter(
-  connect(
-    mapState,
-    { handleCollectiblesModal },
-  )(Collectibles),
+  connect(mapState)(Collectibles),
 );
