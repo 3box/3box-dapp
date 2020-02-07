@@ -29,13 +29,13 @@ import MolochDAO from '../../assets/MolochDAO.png';
 import ConsensysLogo from '../../assets/ConsensysLogo.png';
 import Giveth from '../../assets/Giveth.png';
 import Zerion from '../../assets/Zerion.png';
-import DaoStack from '../../assets/DaoStack.png';
+import DaoStack from '../../assets/Daostack.jpg';
 import ColorCubes from '../../assets/ColorCubes.svg';
 import MetaMask from '../../assets/MetaMask.svg';
 import ColorCubesMobile from '../../assets/ColorCubesMobile.svg';
-import '../styles/Landing.css';
-import '../styles/NewLanding.css';
-import '../../components/styles/Nav.css';
+import '../styles/Landing.scss';
+import '../styles/NewLanding.scss';
+import '../../components/styles/Nav.scss';
 
 const styles = {
   backgroundImage: `url("${ColorCubes}")`,
@@ -104,9 +104,7 @@ class Partners extends Component {
               <div className="partners_content_header">
                 <h4 className="highlight_header">PARTNERS</h4>
                 <a
-                  href="https://docs.google.com/forms/d/e/1FAIpQLSd8TuQQQGsTzjngR4seYEKN-vB2ygUoDugATdcomJzQdeWjdA/viewform"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="mailto:partners@3box.io?Subject=Partner%20submission"
                 >
                   <button className="textButton" type="button">
                     Submit your project
@@ -124,24 +122,6 @@ class Partners extends Component {
                       image={company.image}
                     />
                   ))}
-
-                  {/* <div
-                    className="partners_tile"
-                  >
-                    <div className="partners_tile_image">
-                      <img src={Aragon} alt="3Box Partner" />
-                      <div className="partners_tile_image_text">
-                        <p>Coming soon</p>
-                      </div>
-                    </div>
-                    <div className="partners_tile_name">
-                      <p className="partners_tile_name_text">
-                        Aragon
-                      </p>
-                    </div>
-                    <div className="partners_tile_whitebg" />
-                    <div className="partners_tile_darkbg" />
-                  </div> */}
                 </div>
 
                 <p>WALLETS & BROWSERS</p>

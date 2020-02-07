@@ -5,28 +5,47 @@ import {
 } from '../../store';
 import * as routes from '../../../utils/routes';
 import history from '../../../utils/history';
+import {
+  startPollFlag,
+  pollNetworkAndAddress,
+} from '../../../utils/address';
+import getCollectibles from '../profile/getCollectibles';
+import getGeneralProfile from '../profile/getGeneralProfile';
+import fetchEns from '../utils';
+import {
+  followingSpaceName
+} from '../../../utils/constants';
 
 const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
+  const {
+    currentAddress,
+    web3Obj,
+    hasSignedOut,
+  } = store.getState().userState;
+
+  const {
+    otherProfileAddress,
+  } = store.getState().otherProfile;
+
   dispatch({
     type: 'UI_HANDLE_CONSENT_MODAL',
     provideConsent: true,
     showSignInBanner: false,
   });
 
-  const {
-    currentAddress,
-    web3Obj,
-    hasSignedOut,
-  } = store.getState().userState;
-  const {
-    onOtherProfilePage,
-  } = store.getState().uiState;
-  const {
-    otherProfileAddress,
-  } = store.getState().otherProfile;
+  const consentCallback = () => {
+    const redirectToHome = (fromSignIn && !fromFollowButton) ||
+      (otherProfileAddress === currentAddress);
 
-  const consentGiven = () => {
-    if ((fromSignIn && !fromFollowButton && !onOtherProfilePage) || (otherProfileAddress === currentAddress)) history.push(`/${currentAddress}/${routes.directToHome()}`);
+    if (redirectToHome) {
+      history.push(`/${currentAddress}/${routes.directToHome()}`);
+    }
+
+    startPollFlag();
+    pollNetworkAndAddress(); // Start polling for address change
+    getGeneralProfile(currentAddress);
+    getCollectibles(currentAddress); // need box object for collectiblesFavorites
+
     dispatch({
       type: 'UI_3BOX_LOADING',
       provideConsent: false,
@@ -36,6 +55,7 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
       type: 'UI_PROFILE_LOADING',
       isFetchingActivity: true,
       isFetchingWall: true,
+      isFetchingCollectibles: true,
     });
   };
 
@@ -51,16 +71,14 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
   }
 
   try {
-    const opts = {
-      consentCallback: consentGiven,
-    };
-    console.log('currentAddresscurrentAddress', currentAddress);
-    const box = await Box // eslint-disable-line no-undef
-      .openBox(
-        currentAddress,
-        web3Obj.currentProvider, // eslint-disable-line no-undef
-        opts,
-      );
+    const box = await Box.create(web3Obj.currentProvider);
+    const spaces = [followingSpaceName];
+    await box.auth(spaces, {
+      address: currentAddress,
+    });
+    await box.syncDone;
+    consentCallback();
+    const ens = await fetchEns(currentAddress, web3Obj);
 
     dispatch({
       type: 'USER_LOGIN_UPDATE',
@@ -69,10 +87,13 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
     dispatch({
       type: 'MY_BOX_UPDATE',
       box,
+      ens,
+      threeId: box._3id.DID,
     });
     dispatch({
       type: 'UI_3BOX_FETCHING',
       isFetchingThreeBox: false,
+      // onOtherProfilePage: false,
     });
 
     // onSyncDone only happens on first openBox so only run
@@ -86,9 +107,8 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
       });
     }
 
-    const memberSince = await box.public.get('memberSince');
-
     box.onSyncDone(async () => {
+      const memberSince = await box.public.get('memberSince');
       let publicActivity;
       let privateActivity;
 

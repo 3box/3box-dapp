@@ -70,7 +70,6 @@ class AppModals extends Component {
       showContactsModal,
       showFollowingPublicModal,
       handleFollowingPublicModal,
-      saveFollowing,
       otherAddressToFollow,
       otherFollowing,
       otherName,
@@ -187,7 +186,6 @@ class AppModals extends Component {
           <FollowingIsPublicModal
             isMobile={isMobile}
             handleFollowingPublicModal={handleFollowingPublicModal}
-            saveFollowing={saveFollowing}
             otherAddressToFollow={otherAddressToFollow}
             key="FollowingIsPublicModal"
           />

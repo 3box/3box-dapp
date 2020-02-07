@@ -23,8 +23,8 @@ const updateOtherWall = async () => {
   });
 };
 
-const joinOtherThread = () => async (dispatch) => {
-  dispatch({
+const joinOtherThread = async () => {
+  store.dispatch({
     type: 'UI_WALL_OTHER_LOADING',
     isFetchingOtherWall: true,
   });
@@ -46,7 +46,7 @@ const joinOtherThread = () => async (dispatch) => {
 
     otherWallThread.onUpdate(() => updateOtherWall());
 
-    dispatch({
+    store.dispatch({
       type: 'OTHER_WALL_THREAD_UPDATE',
       otherWallPosts,
       otherWallThread,
@@ -56,7 +56,7 @@ const joinOtherThread = () => async (dispatch) => {
     console.error(error);
   }
 
-  dispatch({
+  store.dispatch({
     type: 'UI_OTHER_WALL_LOADING',
     isFetchingOtherWall: false,
   });

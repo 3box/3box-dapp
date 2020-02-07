@@ -8,9 +8,9 @@ import FeedTileContext from './FeedTileContext';
 import Internal from '../../assets/Internal.svg';
 import EthereumLine from '../../assets/EthereumLine.svg';
 import Tokens from '../../assets/Tokens.svg';
-import './styles/Feed.css';
+import './styles/Feed.scss';
 import networkArray from '../../utils/networkArray';
-import '../../components/styles/NetworkArray.css';
+import '../../components/styles/NetworkArray.scss';
 
 const contractImgJSX = ({ contractImg }) => <img src={contractImg} alt="token icon" className="feed__activity__data__icon" />;
 contractImgJSX.propTypes = {

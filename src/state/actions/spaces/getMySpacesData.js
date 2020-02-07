@@ -10,7 +10,7 @@ import {
   followingSpaceNameLength,
 } from '../../../utils/constants';
 
-const getMySpacesData = (address) => async (dispatch) => {
+const getMySpacesData = async (address) => {
   try {
     const {
       allData,
@@ -67,25 +67,24 @@ const getMySpacesData = (address) => async (dispatch) => {
     };
 
     const spaceDataPromise = async () => Promise // for each space
-      .all(list.map(spaceName => getSpace(spaceName)));
+      .all(list.map((spaceName) => getSpace(spaceName)));
 
     await spaceDataPromise();
-
-    dispatch({
+    store.dispatch({
       type: 'SPACES_DATA_UPDATE',
       list,
       allData: updatedAllData,
     });
-    dispatch({
+    store.dispatch({
       type: 'UI_SPACES_LOADING',
       isSpacesLoading: false,
     });
-    dispatch({
+    store.dispatch({
       type: 'SPACES_HAS_UPDATED',
       hasUpdated: true,
     });
   } catch (error) {
-    dispatch({
+    store.dispatch({
       type: 'UI_SPACES_LOADING',
       isSpacesLoading: false,
     });

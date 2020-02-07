@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import actions from '../../../state/actions';
 import FollowButton from './FollowButton';
 import DefaultProfile from '../../../assets/DefaultProfile.svg';
-import '../styles/Feed.css';
-import '../styles/Profile.css';
-import '../../../components/styles/NetworkArray.css';
-import '../../../components/styles/Modal.css';
+import '../styles/Feed.scss';
+import '../styles/Profile.scss';
+import '../../../components/styles/NetworkArray.scss';
+import '../../../components/styles/Modal.scss';
 
 const { handleContactsModal } = actions.modal;
 
@@ -58,7 +58,8 @@ const PubFollowing = (
           ${otherMutualFollowing[3] ? `, ${otherMutualFollowing[3][0].name}` : ''}
           ${otherMutualFollowing.length > 3 ? '...' : ''}`}
           </p>
-        </div>)}
+        </div>
+      )}
 
       {(!showSignInBanner && !isMe) && (
         <div className="public_contacts_add">

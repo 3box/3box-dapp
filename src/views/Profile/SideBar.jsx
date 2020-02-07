@@ -16,8 +16,8 @@ import ContactsIcon from '../../assets/Contacts.svg';
 import EthereumLogo from '../../assets/EthereumIcon.svg';
 import Copy from '../../assets/Copy.svg';
 import CopyGrey from '../../assets/CopyGrey.svg';
-import './styles/Profile.css';
-import '../../components/styles/Modal.css';
+import './styles/Profile.scss';
+import '../../components/styles/Modal.scss';
 
 const SideBar = ({
   name,
@@ -27,6 +27,7 @@ const SideBar = ({
   location,
   onOtherProfilePage,
   copyToClipBoard,
+  otherProfileAddress,
   copySuccessful,
   otherCoverPhoto,
   otherName,
@@ -37,6 +38,8 @@ const SideBar = ({
   isFollowing,
   isLoggedIn,
   isMe,
+  ens,
+  otherEns,
 }) => (
     <div>
       {!onOtherProfilePage && (
@@ -65,6 +68,7 @@ const SideBar = ({
             <ProfilePicture
               pictureClass="profile__user__picture clearProfPic"
               isMyPicture={!onOtherProfilePage}
+              otherProfileAddress={otherProfileAddress}
             />
 
             <div className="profile__basic">
@@ -89,10 +93,9 @@ const SideBar = ({
               </div>
 
               <div id="profile__network" title="Network">
-                <img id="profile__network__networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
                 <p id="profile__details__address" title={currentAddress}>
-                  {!onOtherProfilePage && currentAddress && shortenEthAddr(currentAddress)}
-                  {onOtherProfilePage && shortenEthAddr(location.pathname.split('/')[1])}
+                  {!onOtherProfilePage && (ens || shortenEthAddr(currentAddress))}
+                  {onOtherProfilePage && (otherEns || shortenEthAddr(location.pathname.split('/')[1]))}
                 </p>
               </div>
 
@@ -196,6 +199,8 @@ const SideBar = ({
 SideBar.propTypes = {
   name: PropTypes.string,
   description: PropTypes.string,
+  ens: PropTypes.string,
+  otherEns: PropTypes.string,
   emoji: PropTypes.string,
   otherEmoji: PropTypes.string,
   currentAddress: PropTypes.string,
@@ -220,6 +225,8 @@ SideBar.defaultProps = {
   otherEmoji: '',
   otherDescription: '',
   currentAddress: '',
+  otherEns: '',
+  ens: '',
   coverPhoto: [],
   otherCoverPhoto: [],
   emoji: '',
@@ -238,6 +245,7 @@ function mapState(state) {
     coverPhoto: state.myData.coverPhoto,
     emoji: state.myData.emoji,
     description: state.myData.description,
+    ens: state.myData.ens,
 
     currentAddress: state.userState.currentAddress,
     copySuccessful: state.uiState.copySuccessful,
@@ -251,6 +259,8 @@ function mapState(state) {
     otherName: state.otherProfile.otherName,
     otherEmoji: state.otherProfile.otherEmoji,
     otherDescription: state.otherProfile.otherDescription,
+    otherEns: state.otherProfile.otherEns,
+    otherProfileAddress: state.otherProfile.otherProfileAddress,
   };
 }
 

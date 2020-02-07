@@ -6,7 +6,7 @@ import Private from '../../../assets/PrivateActivity.svg';
 import Globe from '../../../assets/Globe.svg';
 import Verified from '../../../assets/Verified.svg';
 import { timeSince } from '../../../utils/time';
-import '../styles/Spaces.css';
+import '../styles/Spaces.scss';
 
 import actions from '../../../state/actions';
 
@@ -99,8 +99,8 @@ const PublicRow = ({
                 }
                 return `${count} ${count === 1 ? 'message' : 'messages'}`;
               })()}
-            </p>)
-        }
+            </p>
+          )}
 
         {rowType === 'Image' && (
           <img
@@ -144,6 +144,7 @@ const PublicRow = ({
           }
         </div>
       </span>
+
       <span className="data__items__row__entry spaceRow__updated">
         <p className="data__text">
           {dataKey && dataKey.substring(0, 7) !== 'thread-' && lastUpdated}
@@ -151,7 +152,7 @@ const PublicRow = ({
             && (dataValue.length > 0 ? timeSince(dataValue[dataValue.length - 1].timeStamp) : '')}
         </p>
       </span>
-    </div >
+    </div>
   );
 
 PublicRow.propTypes = {

@@ -37,8 +37,8 @@ const connectProviderToDapp = async (provider, directLogin, dispatch) => {
     accounts = web3Obj.currentProvider ?
       await web3Obj.currentProvider.enable() :
       await accountsPromise;
-
-    const currentAddress = provider.isAuthereum ? accounts.account.accountAddress : accounts[0];
+    const currentAddress = accounts[0];
+    // const currentAddress = provider.isAuthereum ? accounts[0] : accounts.account.accountAddress;
     window.localStorage.setItem('userEthAddress', currentAddress);
 
     const usingInjectedAddress = checkUsingInjectedProvider(provider);

@@ -10,9 +10,9 @@ import ColorCubesMobile from '../../assets/ColorCubesMobile.svg';
 import DiscordButton from './components/DiscordButton';
 import Footer from './components/Footer';
 
-import '../styles/Landing.css';
-import '../styles/NewLanding.css';
-import '../../components/styles/Nav.css';
+import '../styles/Landing.scss';
+import '../styles/NewLanding.scss';
+import '../../components/styles/Nav.scss';
 
 const styles = {
   backgroundImage: `url("${ColorCubes}")`,
@@ -173,28 +173,6 @@ class Team extends Component {
                     </a>
                   </ProfileHover>
 
-                  {/* Kenzo */}
-                  <ProfileHover
-                    address="0xbaeBB7d18f8b16B0A970FDa91f1EfA626D67423E"
-                    noTheme
-                    orientation="right"
-                  >
-                    <a
-                      href="/0xbaeBB7d18f8b16B0A970FDa91f1EfA626D67423E"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <div className="team_tile">
-                        {kenzo.profile ? <img src={`https://ipfs.infura.io/ipfs/${kenzo.profile.image}`} alt="profile" />
-                          : <div className="team_tile_emptyImage" />}
-                        <div className="team_info">
-                          <h3>{kenzo.profile ? kenzo.profile.name : 'Kenzo Nakamura'}</h3>
-                          <p className="team_info_role">Front-End Developer</p>
-                        </div>
-                      </div>
-                    </a>
-                  </ProfileHover>
-
                   {/* Rachel */}
                   <ProfileHover
                     address="0x2f4cE4f714C68A3fC871d1f543FFC24b9b3c2386"
@@ -234,6 +212,28 @@ class Team extends Component {
                         <div className="team_info">
                           <h3>{mike.profile ? mike.profile.name : 'Mike SC'}</h3>
                           <p className="team_info_role">Distributed Systems Engineer</p>
+                        </div>
+                      </div>
+                    </a>
+                  </ProfileHover>
+
+                  {/* Kenzo */}
+                  <ProfileHover
+                    address="0xbaeBB7d18f8b16B0A970FDa91f1EfA626D67423E"
+                    noTheme
+                    orientation="right"
+                  >
+                    <a
+                      href="/0xbaeBB7d18f8b16B0A970FDa91f1EfA626D67423E"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <div className="team_tile">
+                        {kenzo.profile ? <img src={`https://ipfs.infura.io/ipfs/${kenzo.profile.image}`} alt="profile" />
+                          : <div className="team_tile_emptyImage" />}
+                        <div className="team_info">
+                          <h3>{kenzo.profile ? kenzo.profile.name : 'Kenzo Nakamura'}</h3>
+                          <p className="team_info_role">Front-End Developer</p>
                         </div>
                       </div>
                     </a>

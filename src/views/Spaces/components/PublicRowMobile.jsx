@@ -6,7 +6,7 @@ import Private from '../../../assets/PrivateActivity.svg';
 import Globe from '../../../assets/Globe.svg';
 import Verified from '../../../assets/Verified.svg';
 import { timeSince } from '../../../utils/time';
-import '../styles/Spaces.css';
+import '../styles/Spaces.scss';
 
 import actions from '../../../state/actions';
 
@@ -88,8 +88,8 @@ const PublicRowMobile = ({
                   }
                   return `${count} messages`;
                 })()}
-              </p>)
-          }
+              </p>
+            )}
 
           {typeof dataValue === 'string' && (
             dataValue

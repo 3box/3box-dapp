@@ -17,7 +17,7 @@ import {
 import PubContent from './PublicProfile/PubContent';
 import SideBar from './SideBar';
 import PubProfileHeaders from './PublicProfile/PubProfileHeaders';
-import './styles/Profile.css';
+import './styles/Profile.scss';
 
 const {
   handleShowSignInBanner,
@@ -123,10 +123,10 @@ class ProfilePublic extends Component {
   }
 
   getProfile = async (otherProfileAddress) => {
-    await this.props.getOtherProfile(otherProfileAddress);
-    this.props.getOtherWall(otherProfileAddress);
-    this.props.getCollectibles(otherProfileAddress, true);
-    this.props.getActivity(otherProfileAddress);
+    await getOtherProfile(otherProfileAddress);
+    getOtherWall(otherProfileAddress);
+    getCollectibles(otherProfileAddress, true);
+    getActivity(otherProfileAddress);
   }
 
   checkFollowingAndMutual = (otherProfileAddress, nextFollowing, nextOtherFollowing) => {
@@ -220,15 +220,11 @@ class ProfilePublic extends Component {
 }
 
 ProfilePublic.propTypes = {
-  getOtherProfile: PropTypes.func.isRequired,
-  getActivity: PropTypes.func.isRequired,
   handleShowSafariBanner: PropTypes.func.isRequired,
   handleShowSignInBanner: PropTypes.func.isRequired,
   handleHideSignInBanner: PropTypes.func.isRequired,
   handleSignInUp: PropTypes.func.isRequired,
-  getOtherWall: PropTypes.func.isRequired,
   handleContactsModal: PropTypes.func.isRequired,
-  getCollectibles: PropTypes.func.isRequired,
   pathname: PropTypes.object,
   location: PropTypes.object,
   isLoadingOtherProfile: PropTypes.bool,
@@ -276,13 +272,9 @@ const mapState = (state) => ({
 
 export default withRouter(connect(mapState,
   {
-    getOtherProfile,
     checkNetwork,
-    getActivity,
     handleShowSignInBanner,
     handleHideSignInBanner,
     handleContactsModal,
-    getCollectibles,
     handleShowSafariBanner,
-    getOtherWall,
   })(ProfilePublic));

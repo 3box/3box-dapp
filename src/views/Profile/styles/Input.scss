@@ -172,9 +172,6 @@
 
 .input_send-dtw {
   opacity: .5;
-  // position: absolute;
-  // right: 13px;
-  // bottom: 29px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -202,19 +199,19 @@
 }
 
 .input_postLoading {
-  position: absolute;
-  top: 24px;
-  left: calc(50% - 14px);
+  position: absolute !important;
+  top: 24px !important;
+  left: calc(50% - 14px) !important;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .input_postLoading_spinner {
-  min-height: 26px;
-  min-width: 26px;
-  max-height: 26px;
-  max-width: 26px;
+  min-height: 26px !important;
+  min-width: 26px !important;
+  max-height: 26px !important;
+  max-width: 26px !important;
   opacity: .6;
 }
 

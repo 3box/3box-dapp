@@ -11,7 +11,7 @@ import {
   followingThreadName,
 } from '../../../utils/constants';
 
-const getPublicFollowing = address => async (dispatch) => {
+const getPublicFollowing = async (address) => {
   try {
     const myAddress = address || store.getState().userState.currentAddress;
 
@@ -20,7 +20,7 @@ const getPublicFollowing = address => async (dispatch) => {
 
     const following = await getFollowingProfiles(followingList);
 
-    dispatch({
+    store.dispatch({
       type: 'MY_FOLLOWING_LIST_UPDATE',
       following,
       followingList,
@@ -28,7 +28,7 @@ const getPublicFollowing = address => async (dispatch) => {
 
     return following;
   } catch (error) {
-    console.error(error);
+    return console.error(error);
   }
 };
 

@@ -12,8 +12,8 @@ import APILinks from './APILinks';
 import DesktopDropdownLanding from './DesktopDropdownLanding';
 
 import DropDownMenu from '../../assets/DropDownMenu.svg';
-import '../../views/styles/Landing.css';
-import '../styles/Nav.css';
+import '../../views/styles/Landing.scss';
+import '../styles/Nav.scss';
 
 class NavLanding extends Component {
   constructor(props) {

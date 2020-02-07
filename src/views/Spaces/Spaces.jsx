@@ -22,7 +22,7 @@ import SortByMobile from './components/SortByMobile';
 import Header from './components/Header';
 import SpacesList from './components/SpacesList';
 import Nav from '../../components/Nav/Nav';
-import './styles/Spaces.css';
+import './styles/Spaces.scss';
 import { sortSpace, extractRow } from '../../utils/funcs';
 import actions from '../../state/actions';
 
@@ -358,7 +358,7 @@ class Spaces extends Component {
           this.props.viewSpaceItem(false, false, false);
         }
 
-        this.props.getActivity();
+        getActivity();
 
         setTimeout(() => {
           store.dispatch({
@@ -455,7 +455,6 @@ class Spaces extends Component {
                     {(() => {
                       let count = 0;
                       const threadArray = [];
-                      let listItems;
 
                       if (spaceItem.dataValue.length > 0) {
                         spaceItem.dataValue.forEach((item, i) => {
@@ -534,7 +533,8 @@ class Spaces extends Component {
                   dataValue={spaceItem.dataValue}
                   privacy={spaceItem.privacy}
                   lastUpdated={spaceItem.timestamp}
-                />)}
+                />
+              )}
 
             {(showSpaceDataItemModal
               && Array.isArray(spaceItem.dataValue)
@@ -549,7 +549,8 @@ class Spaces extends Component {
                   dataValue={spaceItem.dataValue}
                   privacy={spaceItem.privacy}
                   lastUpdated={spaceItem.timestamp}
-                />)}
+                />
+              )}
 
             {showDeleteItemModal && (
               <DeleteSpaceItemModal
@@ -558,13 +559,15 @@ class Spaces extends Component {
                 spacesOpened={spacesOpened}
                 openSpace={this.openSpace}
                 deleteItem={this.deleteItem}
-              />)}
+              />
+            )}
 
             {showOpenSpaceModal && (
               <OpenSpaceModal
                 spaceItem={spaceItem}
                 viewSpaceItem={this.props.viewSpaceItem}
-              />)}
+              />
+            )}
 
             {(showSpaceDataItemModal || showDeleteItemModal || showOpenSpaceModal) && <ModalBackground viewSpaceItem={this.props.viewSpaceItem} />}
           </ReactCSSTransitionGroup>
@@ -658,7 +661,6 @@ Spaces.propTypes = {
   box: PropTypes.object,
   spacesOpened: PropTypes.object,
   isSpacesLoading: PropTypes.bool,
-  getActivity: PropTypes.func.isRequired,
   showSpaceOpenedModal: PropTypes.bool,
   showSpaceDataItemModal: PropTypes.bool,
   showDeleteItemModal: PropTypes.bool,
@@ -712,8 +714,7 @@ function mapState(state) {
     showOpenSpaceModal: state.uiState.showOpenSpaceModal,
     name: state.myData.name,
     image: state.myData.image,
-    currentAddress: state.userState.currentAddress,
   };
 }
 
-export default withRouter(connect(mapState, { viewSpaceItem, getActivity })(Spaces));
+export default withRouter(connect(mapState, { viewSpaceItem })(Spaces));

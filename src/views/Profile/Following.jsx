@@ -6,10 +6,9 @@ import { withRouter } from 'react-router-dom';
 import { alphabetize } from '../../utils/funcs';
 
 import FollowingTile from '../../components/FollowingTile';
-import Loading from '../../assets/Loading.svg';
-import Globe from '../../assets/Globe.svg';
-import './styles/Profile.css';
-import './styles/Feed.css';
+import Loading from '../../assets/3BoxLoading.svg';
+import './styles/Profile.scss';
+import './styles/Feed.scss';
 
 const Following = ({ following, isLoadingMyFollowing, isActive }) => (
   <div id="myFeed" className={`profileTab ${isActive ? 'viewTab' : ''}`}>
@@ -17,7 +16,6 @@ const Following = ({ following, isLoadingMyFollowing, isActive }) => (
       <div className="profile_header">
         <div className="followingHeader_title" id="feed__header">
           {`Following (${following.length})`}
-          {/* <img src={Globe} alt="Public" className="favorites__publicIcon" title="Following will appear in your public profile" /> */}
         </div>
         <div className="followingHeader_warning">
           <p className="followingHeader_warning_text">Addresses you follow are public</p>
@@ -32,6 +30,7 @@ const Following = ({ following, isLoadingMyFollowing, isActive }) => (
                 user={user[0]}
                 isFollowing
                 address={user[1]}
+                key={user[1]}
               />
             ))}
           </div>

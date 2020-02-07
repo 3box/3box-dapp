@@ -7,7 +7,7 @@ import Private from '../../../assets/Private.svg';
 import Globe from '../../../assets/Globe.svg';
 import Trash from '../../../assets/Trash.svg';
 import Link from '../../../assets/Link.svg';
-import '../../../components/styles/Modal.css';
+import '../../../components/styles/Modal.scss';
 
 export const SpaceOpenedModal = ({ spaceName }) => (
   <div className="modal__container--copied">

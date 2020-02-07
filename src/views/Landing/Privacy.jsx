@@ -3,8 +3,8 @@
 import React from 'react';
 
 import Footer from './components/Footer';
-import '../styles/Info.css';
-import '../styles/Landing.css';
+import '../styles/Info.scss';
+import '../styles/Landing.scss';
 
 const Privacy = ({ isLoggedIn, handleSignInUp }) => (
   <div className="info">

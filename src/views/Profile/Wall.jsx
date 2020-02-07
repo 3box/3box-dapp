@@ -9,9 +9,9 @@ import actions from '../../state/actions';
 import WallInput from './WallInput';
 import WallPost from './WallPost';
 import Options from '../../assets/Options.svg';
-import './styles/Feed.css';
-import './styles/Profile.css';
-import '../../components/styles/NetworkArray.css';
+import './styles/Feed.scss';
+import './styles/Profile.scss';
+import '../../components/styles/NetworkArray.scss';
 
 const { getMyWall } = actions.profile;
 
@@ -49,7 +49,7 @@ class Wall extends Component {
     const space = await box.openSpace(followingSpaceName);
     await space.public.set('isWallDisabled', !isWallDisabled);
 
-    this.props.getMyWall();
+    getMyWall();
   }
 
   handleShowOptionsMenu = () => {
@@ -66,8 +66,7 @@ class Wall extends Component {
       currentAddress,
       box,
       handleSignInUp,
-      wallProfiles,
-      otherWallProfiles,
+      fetchedProfiles,
       isOtherProfile,
       otherProfileAddress,
       viewTab,
@@ -83,7 +82,6 @@ class Wall extends Component {
     const posts = isOtherProfile ? otherWallPosts : wallPosts;
     const postsToRender = sortChronologically(posts);
     const adminEthAddr = isOtherProfile ? otherProfileAddress : currentAddress;
-    const profilesToUse = isOtherProfile ? otherWallProfiles : wallProfiles;
     const valueToShow = isOtherProfile ? isOtherWallDisabled : isWallDisabled;
     const adminEthAddrNormalized = adminEthAddr.toLowerCase();
     const currentUserAddrNormalized = currentAddress && currentAddress.toLowerCase();
@@ -153,7 +151,7 @@ class Wall extends Component {
 
               <div className="feed__activity__header">
                 {postsToRender.map((comment) => {
-                  const profile = profilesToUse[comment.author];
+                  const profile = fetchedProfiles[comment.author];
                   const commentAddr = profile && profile.ethAddr.toLowerCase();
 
                   return (
@@ -204,9 +202,9 @@ class Wall extends Component {
 Wall.propTypes = {
   wallPosts: PropTypes.array,
   otherWallPosts: PropTypes.array,
-  otherWallProfiles: PropTypes.array,
+  // otherWallProfiles: PropTypes.array,
   box: PropTypes.object,
-  wallProfiles: PropTypes.object,
+  fetchedProfiles: PropTypes.object,
   isFetchingWall: PropTypes.bool,
   isOtherProfile: PropTypes.bool,
   isFetchingOtherWall: PropTypes.bool,
@@ -217,15 +215,14 @@ Wall.propTypes = {
   currentAddress: PropTypes.string,
   otherProfileAddress: PropTypes.string,
   handleSignInUp: PropTypes.func.isRequired,
-  getMyWall: PropTypes.func.isRequired,
 };
 
 Wall.defaultProps = {
   wallPosts: [],
   otherWallPosts: [],
-  otherWallProfiles: [],
+  // otherWallProfiles: [],
   box: {},
-  wallProfiles: {},
+  fetchedProfiles: {},
   isFetchingWall: false,
   isWallDisabled: false,
   isOtherWallDisabled: false,
@@ -240,7 +237,7 @@ Wall.defaultProps = {
 const mapState = (state) => ({
   wallPosts: state.myData.wallPosts,
   box: state.myData.box,
-  wallProfiles: state.myData.wallProfiles,
+  fetchedProfiles: state.myData.fetchedProfiles,
   isWallDisabled: state.myData.isWallDisabled,
 
   isFetchingWall: state.uiState.isFetchingWall,
@@ -251,10 +248,8 @@ const mapState = (state) => ({
   otherProfileAddress: state.otherProfile.otherProfileAddress,
   otherWallPosts: state.otherProfile.otherWallPosts,
   otherName: state.otherProfile.otherName,
-  otherWallProfiles: state.otherProfile.otherWallProfiles,
+  // otherWallProfiles: state.otherProfile.otherWallProfiles,
   isOtherWallDisabled: state.otherProfile.isOtherWallDisabled,
 });
 
-export default connect(mapState, {
-  getMyWall,
-})(Wall);
+export default connect(mapState)(Wall);

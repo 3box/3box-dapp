@@ -16,7 +16,6 @@
 }
 
 .hero {
-  height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -361,7 +360,7 @@
 }
 
 .dapp_main {
-  height: 90vh;
+  min-height: 700px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1235,7 +1234,7 @@ pre {
   column-gap: 20px;
   row-gap: 20px;
   min-width: 100%;
-  margin-top: 30px;
+  margin: 30px 0 50px;
 }
 
 .partners_tile {
@@ -1287,6 +1286,7 @@ pre {
     max-height: 70px;
     width: auto;
     max-width: 130px;
+    border-radius: 7px;
   }
 
   p {
@@ -1385,7 +1385,7 @@ pre {
   align-items: center;
 
   p {
-    font-size: 18px;
+    font-size: 14px;
     line-height: 30px;
   }
 }
@@ -1405,17 +1405,43 @@ pre {
     margin-bottom: 20px;
   }
 
+  h1 {
+    margin-right: 10px;
+  }
+
+  h1,
+  a {
+    font-size: 32px;
+    margin-bottom: 50px;
+    font-weight: 800;
+    line-height: 40px;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
   p {
     width: 56%;
   }
 }
 
+.careers_header_text {
+  display: flex;
+  align-items: flex-start;
+}
+
 .careers_positions {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
   height: fit-content;
   margin-bottom: 80px;
+
+  h3 {
+    margin-bottom: 20px;
+  }
 }
 
 .careers_positions_content {
@@ -1423,11 +1449,19 @@ pre {
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
-  width: 56%;
+  width: 100%;
+  border-radius: 6px;
+  background-color: white;
+  margin-bottom: 14px;
+  padding: 14px 16px;
+  box-sizing: border-box;
 
   h1 {
-    font-size: 32px;
-    margin-bottom: 24px;
+    font-size: 21px;
+  }
+
+  p {
+    opacity: .7;
   }
 
   h4 {
@@ -1444,10 +1478,15 @@ pre {
     line-height: 26px;
     font-size: 15px;
   }
+
+  &:hover {
+    background-color: $backgroundHue;
+  }
 }
 
 .careers_link {
-  margin-top: 40px;
+  // margin-top: 40px;
+  width: 100%;
 }
 
 .careers_positions_button {

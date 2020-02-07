@@ -6,7 +6,7 @@ import {
   getFollowingThreadAndPosts,
 } from './helpers';
 
-const getMyFollowing = () => async (/* dispatch */) => {
+const getMyFollowing = async () => {
   try {
     const myAddress = store.getState().userState.currentAddress;
     await getFollowingThreadAndPosts(myAddress);

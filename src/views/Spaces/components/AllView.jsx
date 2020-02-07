@@ -10,7 +10,7 @@ import FavoriteCollectiblesRow from './FavoriteCollectiblesRow';
 import FavoriteCollectiblesRowMobile from './FavoriteCollectiblesRowMobile';
 import Mollie from '../../../assets/Mollie.png';
 import { timeSince } from '../../../utils/time';
-import '../styles/Spaces.css';
+import '../styles/Spaces.scss';
 
 const AllView = ({
   openSpace,
@@ -27,7 +27,7 @@ const AllView = ({
 }) => (
     <>
       {sortedSpace.length > 0 && sortedSpace.map((row) => {
-        const date = timeSince(row.lastUpdated);
+        const date = timeSince(row.lastUpdated * 1000);
         if (row.name !== 'collectiblesFavoritesToRender'
           && row.name !== 'proof_did'
           && row.name !== 'private_space_data'
@@ -46,7 +46,8 @@ const AllView = ({
               itemToDelete={itemToDelete}
               spaceNameToDelete={spaceNameToDelete}
               key={`${row.space}-${row.name}`}
-            />);
+            />
+          );
         }
 
         if (row.name !== 'collectiblesFavoritesToRender'
@@ -67,7 +68,8 @@ const AllView = ({
               itemToDelete={itemToDelete}
               spaceNameToDelete={spaceNameToDelete}
               key={`${row.space}-${row.name}`}
-            />);
+            />
+          );
         }
 
         if (row.name === 'private_space_data' && width >= 600) {
@@ -79,7 +81,8 @@ const AllView = ({
               isLoadingVault={isLoadingVault}
               vaultToOpen={vaultToOpen}
               key={`vault-${row.space}`}
-            />);
+            />
+          );
         }
 
         if (row.name === 'private_space_data' && width <= 600) {
@@ -91,7 +94,8 @@ const AllView = ({
               isLoadingVault={isLoadingVault}
               vaultToOpen={vaultToOpen}
               key={`vault-${row.space}`}
-            />);
+            />
+          );
         }
 
         if (row.name === 'collectiblesFavoritesToRender' && width >= 600) {
@@ -107,7 +111,8 @@ const AllView = ({
               itemToDelete={itemToDelete}
               spaceNameToDelete={spaceNameToDelete}
               key={`${row.space}-${row.name}`}
-            />);
+            />
+          );
         }
 
         if (row.name === 'collectiblesFavoritesToRender' && width <= 600) {
@@ -122,7 +127,8 @@ const AllView = ({
               itemToDelete={itemToDelete}
               spaceNameToDelete={spaceNameToDelete}
               key={`${row.space}-${row.name}`}
-            />);
+            />
+          );
         }
       })}
 
