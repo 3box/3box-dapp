@@ -6,7 +6,7 @@
   min-width: 920px;
 }
 
-.spaces {
+.finder {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -33,7 +33,7 @@
   margin-left: -260px;
 }
 
-.dataExplorer {
+.finderWindow {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -42,10 +42,7 @@
   min-width: 660px;
   height: 100%;
   overflow-y: scroll;
-
-  -webkit-transition: all .5s ease;
-  -moz-transition: all .5s ease;
-  -o-transition: all .5s ease;
+  z-index: 0;
   transition: all .5s ease;
 }
 
@@ -531,7 +528,7 @@
     }
   }
 
-  .dataExplorer {
+  .finderWindow {
     position: absolute;
     width: 100vw !important;
     min-width: 100vw !important;

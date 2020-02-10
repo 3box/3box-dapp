@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Loading from '../../../assets/Loading.svg';
+import Loading from '../../../assets/3BoxLoading.svg';
 import Arrow from '../../../assets/Arrow.svg';
 
 import '../styles/Spaces.scss';
@@ -20,7 +20,7 @@ const SpacesList = (props) => {
   } = props;
 
   return (
-    <section className={`spaces 
+    <section className={`finder 
       ${show ? '' : 'closeSpaces'} 
       ${hideSpacesMobile ? 'closeSpaces--mobile' : ''}
       ${clearSpacesMobile ? 'hideSpaces--mobile' : ''}

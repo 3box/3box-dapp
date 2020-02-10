@@ -553,6 +553,7 @@
   margin-bottom: 80px;
   width: auto !important;
   max-width: 600px;
+  min-height: fit-content;
 
   &:hover .collectibles__like__heart--modal {
     opacity: .8;

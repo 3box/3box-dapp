@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import ActivityHeader from './ActivityHeader';
 import ActivityTiles from './ActivityTiles';
-import Loading from '../../../assets/Loading.svg';
+import Loading from '../../../assets/3BoxLoading.svg';
 import '../styles/Feed.scss';
 import '../styles/Profile.scss';
 import '../../../components/styles/NetworkArray.scss';

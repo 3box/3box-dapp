@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Info from '../../../assets/Details.svg';
-import Loading from '../../../assets/Loading.svg';
+import Loading from '../../../assets/3BoxLoading.svg';
 import List from '../../../assets/List.svg';
 import Arrow from '../../../assets/Arrow.svg';
 import '../styles/Spaces.scss';

@@ -14,7 +14,7 @@ import actions from '../../state/actions';
 
 import LinkUnfurl from './LinkUnfurl';
 import Delete from '../../assets/Delete2.svg';
-import Loading from '../../assets/Loading.svg';
+import Loading from '../../assets/3BoxLoading.svg';
 import './styles/WallPost.scss';
 import './styles/Feed.scss';
 
@@ -51,7 +51,7 @@ class WallPost extends Component {
     // will fetch *once per profile, can optimize and save to redux if user returns
     if (isOtherProfile && !hasJoinedThread) {
       this.setState({ hasJoinedThread: true });
-      await this.props.joinOtherThread();
+      await joinOtherThread();
     }
 
     try {
@@ -119,11 +119,9 @@ class WallPost extends Component {
           <div className="comment_content">
             <div className="comment_content_context">
               <div className="comment_content_context_main">
-                <a
-                  href={profile.profileURL ? profile.profileURL : `https://3box.io/${profile.ethAddr}`}
+                <Link
+                  to={`https://3box.io/${profile.ethAddr}`}
                   className="comment_content_context_main_user"
-                  target={profile.profileURL ? '_self' : '_blank'}
-                  rel={profile.profileURL ? 'dofollow' : 'noopener noreferrer'}
                 >
                   <div className="comment_content_context_main_user_info">
                     <ProfileHover
@@ -141,7 +139,7 @@ class WallPost extends Component {
                         className="comment_content_context_main_user_info_address"
                         title={profile.ethAddr}
                       >
-                        {profile.ethAddr && `${shortenEthAddr(profile.ethAddr)}`}
+                        {profile.ensName || `${shortenEthAddr(profile.ethAddr)}`}
                       </div>
                     )}
                   </div>
@@ -159,7 +157,7 @@ class WallPost extends Component {
                       </button>
                     </div>
                   )}
-                </a>
+                </Link>
               </div>
 
               <div className="comment_content_context_time">
@@ -198,7 +196,6 @@ const mapState = (state) => ({
 
 
 export default connect(mapState, {
-  joinOtherThread,
   postAndUpdateWall,
 })(WallPost);
 
@@ -207,7 +204,6 @@ WallPost.propTypes = {
   isMyAdmin: PropTypes.bool.isRequired,
   isOtherProfile: PropTypes.bool,
   isMyComment: PropTypes.bool.isRequired,
-  joinOtherThread: PropTypes.func.isRequired,
   comment: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   box: PropTypes.object,

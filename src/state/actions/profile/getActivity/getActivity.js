@@ -4,11 +4,7 @@ import Web3 from 'web3';
 import {
   store,
 } from '../../../store';
-import {
-  graphqlQueryObject,
-} from '../../../../utils/funcs';
 import getPublicProfileAndENS from '../getPublicProfileAndENS';
-import fetchEns from '../../utils';
 import {
   addTimeStamp,
   getMyFeed,
@@ -19,7 +15,7 @@ import {
   getContract,
 } from './helpers';
 
-const getActivity = (otherProfileAddress) => async (dispatch) => {
+const getActivity = async (otherProfileAddress) => {
   try {
     const {
       currentWallet,
@@ -30,12 +26,12 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
     const web3Obj = isWalletConnect ? window.web3 || Web3 : reduxWeb3 || window.web3 || Web3;
 
     if (otherProfileAddress) {
-      dispatch({
+      store.dispatch({
         type: 'UI_FEED_OTHER_LOADING',
         isFetchingOtherActivity: true,
       });
     } else {
-      dispatch({
+      store.dispatch({
         type: 'UI_FEED_LOADING',
         isFetchingActivity: true,
       });
@@ -58,12 +54,16 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
         .concat(categorizedActivity.txs)
         .concat(categorizedActivity.token);
     } else {
-      const {
-        updatedFeed,
-        updatedEmailProof,
-      } = await getMyFeed(categorizedActivity);
-      feed = updatedFeed;
-      emailProof = updatedEmailProof;
+      try {
+        const {
+          updatedFeed,
+          updatedEmailProof,
+        } = await getMyFeed(categorizedActivity);
+        feed = updatedFeed;
+        emailProof = updatedEmailProof;
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     // if timestamp is undefined, give it the timestamp of the previous entry
@@ -85,6 +85,11 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
       updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
       return;
     }
+
+    const {
+      fetchedProfiles,
+    } = store.getState().myData;
+    const updatedFetchedProfiles = fetchedProfiles || {};
 
     // get contract and 3box profile metadata
     await feedByAddress.forEach(async (txGroup) => {
@@ -111,7 +116,7 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
             } else if (code !== '0x' && typeof code !== 'undefined') { // then address is contract
               isContract[otherAddress] = true;
               const data = await getContract(otherAddress);
-              const ensName = await fetchEns(otherAddress);
+              // const ensName = await fetchEns(otherAddress);
               if (data && data.status === '1') {
                 contractData = JSON.parse(data.result);
                 contractArray = imageElFor(otherAddress);
@@ -119,19 +124,20 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
                   contractImg: contractArray[0],
                   contractDetails: contractArray[1],
                   contractData,
-                  ensName,
+                  isContract: true,
+                  // ensName,
                 };
               } else {
                 addressData[otherAddress] = false;
               }
             } else { // look for 3box metadata
-              const profile = await getPublicProfileAndENS(graphqlQueryObject(otherAddress), otherAddress);
-              metaData = profile;
+              const profile = await getPublicProfileAndENS(otherAddress);
               addressData[otherAddress] = {
-                name: metaData && metaData.profile && metaData.profile.name,
-                image: metaData && metaData.profile && metaData.profile.image,
-                ensName: metaData && metaData.profile && metaData.profile.ensName,
+                name: profile && profile.name,
+                image: profile && profile.image,
+                ensName: profile && profile.ensName,
               };
+              updatedFetchedProfiles[otherAddress] = profile;
             }
 
             counter += 1;
@@ -150,14 +156,19 @@ const getActivity = (otherProfileAddress) => async (dispatch) => {
         if (counter === feedByAddress.length) updateFeed(otherProfileAddress, feedByAddress, addressData, isContract);
       }
     });
+
+    store.dispatch({
+      type: 'MY_FETCHED_PROFILES_UPDATE',
+      fetchedProfiles: updatedFetchedProfiles,
+    });
   } catch (err) {
-    dispatch({
+    store.dispatch({
       type: 'UI_FEED_FAILED',
       isFetchingActivity: false,
       errorMessage: err,
       provideConsent: false,
     });
-    dispatch({
+    store.dispatch({
       type: 'MY_FEED_UPDATE',
       feedByAddress: [],
     });

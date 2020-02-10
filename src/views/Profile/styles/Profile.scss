@@ -33,7 +33,7 @@
 .profile__basic__wrapper {
   display: flex;
   justify-content: flex-start;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .publicProfile {
@@ -584,6 +584,8 @@
   align-items: center;
 
   p {
+    font-size: 16px;
+    font-weight: 600;
     color: #a0a0a0;
   }
 }
@@ -825,7 +827,7 @@
     width: 100%;
     position: sticky;
     top: 0;
-    z-index: 4;
+    z-index: 3;
     height: fit-content;
     border-bottom: solid 1px $borderColor;
     background-color: white;

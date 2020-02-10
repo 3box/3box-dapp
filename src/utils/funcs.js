@@ -8,6 +8,15 @@ import {
   store,
 } from '../state/store';
 
+export const graphqlQueryObject = (otherAddress) => `
+{
+  profile(id: "${otherAddress}") {
+    name
+    image
+  }
+}
+`;
+
 export const normalizeURL = (pathname) => {
   const lowercasePathname = pathname.toLowerCase();
   const fuzzyLowercasePathname = lowercasePathname.charAt(lowercasePathname.length - 1) === '/' ?
@@ -192,6 +201,7 @@ export const sortSpace = (updatedSortedSpace, category) => {
   });
 };
 
+// get spaces row data out from spaces data
 export const extractRow = async (spaceData, spaceNameGiven, updatedSortedSpace) => {
   try {
     if (!spaceData) return;
@@ -208,8 +218,7 @@ export const extractRow = async (spaceData, spaceNameGiven, updatedSortedSpace) 
       });
     });
 
-    const rowPromises = Promise.all(rowCalls);
-    const rowType = await rowPromises;
+    const rowType = await Promise.all(rowCalls);
 
     rowType.forEach((type, i) => {
       updatedSortedSpace.push({
@@ -235,31 +244,50 @@ export const checkIsENSAddress = (string) => {
   const noSpace = /^\S*$/.test(string);
   if (!noSpace) return false;
 
-  const isENSAddress = /([a-z0-9-]){3,}[^\s-]\.(eth)/i.test(string);
+  const isENSAddress = /([a-z0-9-]){3,}\.(eth)/i.test(string);
   return isENSAddress;
 };
 
 export const getFollowingProfiles = async (following) => {
-  const fetchProfile = async (ethAddr) => await Box.getProfile(ethAddr);
-  const fetchAllProfiles = async () => await Promise.all(following.map(user => fetchProfile(user.message.identifier[1].value)));
-  const profiles = await fetchAllProfiles();
+  const {
+    fetchedProfiles,
+  } = store.getState().myData;
+  const updatedFetchedProfiles = fetchedProfiles || {};
+  const unfetchedProfiles = following.filter((user) => !updatedFetchedProfiles[user.message.identifier[1].value]);
 
-  const profilesAndAddress = [];
-  profiles.forEach((profile, i) => {
-    profilesAndAddress.push([profile, following[i].message.identifier[1].value]);
+  const fetchProfile = async (ethAddr) => Box.getProfile(ethAddr);
+  const fetchUnfetchedProfiles = async () => Promise.all(unfetchedProfiles.map((user) => fetchProfile(user.message.identifier[1].value)));
+  const profiles = await fetchUnfetchedProfiles();
+  const followingAddress = [];
+
+  // go through unfetched profiles and add to redux store
+  unfetchedProfiles.forEach((user, i) => {
+    const address = user.message.identifier[1].value;
+    updatedFetchedProfiles[address] = profiles[i];
   });
-  return profilesAndAddress;
+
+  following.forEach((user) => {
+    const address = user.message.identifier[1].value;
+    const profile = updatedFetchedProfiles[address];
+    followingAddress.push([profile, address]);
+  });
+
+  store.dispatch({
+    type: 'MY_FETCHED_PROFILES_UPDATE',
+    fetchedProfiles: updatedFetchedProfiles,
+  });
+  return followingAddress;
 };
 
 export const checkFollowing = (following, otherProfileAddress) => {
   if (!following) return false;
-  return following.some(user => user.message.identifier[1].value === otherProfileAddress);
+  return following.some((user) => user.message.identifier[1].value === otherProfileAddress);
 };
 
 export const alphabetize = (array) => {
   const sortedArray = array.sort((a, b) => {
-    if (!a[0].name) return -1;
-    if (!b[0].name) return 1;
+    if (!a[0].name) return 1;
+    if (!b[0].name) return -1;
     if (a[0].name.toLowerCase() < b[0].name.toLowerCase()) return -1;
     if (a[0].name.toLowerCase() > b[0].name.toLowerCase()) return 1;
     return 0;
@@ -407,12 +435,3 @@ export function debounce(func, wait, immediate) {
     if (callNow) func.apply(context, args);
   };
 }
-
-export const graphqlQueryObject = (otherAddress) => `
-{
-  profile(id: "${otherAddress}") {
-    name
-    image
-  }
-}
-`;

@@ -2,11 +2,11 @@ import {
   store,
 } from '../../store';
 
-const getMyDID = () => async (dispatch) => {
+const getMyDID = async () => {
   try {
     const did = await store.getState().myData.box.verified.DID();
 
-    dispatch({
+    store.dispatch({
       type: 'MY_DID_UPDATE',
       did,
     });

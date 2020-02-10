@@ -565,13 +565,45 @@ input:checked+.slider:before {
 
 .feed__activity__context {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 1.3em;
   padding: 0;
+  justify-content: space-between;
 
   &:hover h4 {
     text-decoration: underline;
   }
+}
+
+.feed_activity_context_info {
+  display: flex;
+  align-items: flex-start;
+  padding: 0;
+}
+
+.feed_activity_context_type_icon {
+  padding: 4px 9px;
+  border-radius: 4px;
+
+  p {
+    color: $lighterFont;
+    font-size: 12px;
+  }
+}
+
+.feed_activity_context_type {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  height: 100%;
+}
+
+.feed_activity_context_type_icon.Contract {
+  background-color: #ffe9d2;
+}
+
+.feed_activity_context_type_icon.Address {
+  background-color: #d1d9ff;
 }
 
 .feed__activity__context__network {
@@ -811,7 +843,6 @@ input:checked+.slider:before {
 #activityLoad {
   width: 26px;
   height: 26px;
-  // margin-left: 14px;
 }
 
 .feed__activity__address__wrapper {

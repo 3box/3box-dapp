@@ -27,6 +27,7 @@ const SideBar = ({
   location,
   onOtherProfilePage,
   copyToClipBoard,
+  otherProfileAddress,
   copySuccessful,
   otherCoverPhoto,
   otherName,
@@ -67,6 +68,7 @@ const SideBar = ({
             <ProfilePicture
               pictureClass="profile__user__picture clearProfPic"
               isMyPicture={!onOtherProfilePage}
+              otherProfileAddress={otherProfileAddress}
             />
 
             <div className="profile__basic">
@@ -91,7 +93,6 @@ const SideBar = ({
               </div>
 
               <div id="profile__network" title="Network">
-                <img id="profile__network__networkLogo" src={EthereumLogo} alt="Ethereum Logo" />
                 <p id="profile__details__address" title={currentAddress}>
                   {!onOtherProfilePage && (ens || shortenEthAddr(currentAddress))}
                   {onOtherProfilePage && (otherEns || shortenEthAddr(location.pathname.split('/')[1]))}
@@ -259,6 +260,7 @@ function mapState(state) {
     otherEmoji: state.otherProfile.otherEmoji,
     otherDescription: state.otherProfile.otherDescription,
     otherEns: state.otherProfile.otherEns,
+    otherProfileAddress: state.otherProfile.otherProfileAddress,
   };
 }
 

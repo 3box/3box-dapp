@@ -4,24 +4,10 @@ import { connect } from 'react-redux';
 
 import { store } from '../../../state/store';
 import actions from '../../../state/actions';
-import Loading from '../../../assets/Loading.svg';
-import { pollNetworkAndAddress, startPollFlag } from '../../../utils/address';
-
-const {
-  saveFollowing,
-  deleteFollowing,
-  getMyProfileValue,
-  getMyDID,
-  getCollectibles,
-  getMyMemberSince,
-  getVerifiedPublicGithub,
-  getVerifiedPublicTwitter,
-  getVerifiedPrivateEmail,
-  getActivity,
-  getMyFollowing,
-} = actions.profile;
-
-const { getMySpacesData, convert3BoxToSpaces } = actions.spaces;
+import Loading from '../../../assets/3BoxLoading.svg';
+import getMyData from '../../../state/actions/profile/getMyData';
+import saveFollowing from '../../../state/actions/profile/saveFollowing';
+import deleteFollowing from '../../../state/actions/profile/deleteFollowing';
 
 const {
   openBox,
@@ -39,66 +25,25 @@ class FollowButton extends Component {
     this.state = {
       showHoverText: 'Following',
     };
-    this.handleFollowing = this.handleFollowing.bind(this);
-  }
-
-  async getMyData() {
-    const { currentAddress } = this.props;
-    store.dispatch({
-      type: 'UI_SPACES_LOADING',
-      isSpacesLoading: true,
-    });
-    startPollFlag();
-    pollNetworkAndAddress(); // Start polling for address change
-
-    try {
-      this.props.getVerifiedPublicGithub();
-      this.props.getVerifiedPublicTwitter();
-      this.props.getVerifiedPrivateEmail();
-      this.props.getMyMemberSince();
-      this.props.getMyDID();
-      this.props.getMyProfileValue('public', 'name');
-      this.props.getMyProfileValue('public', 'description');
-      this.props.getMyProfileValue('public', 'image');
-      this.props.getMyProfileValue('public', 'coverPhoto');
-      this.props.getMyProfileValue('public', 'location');
-      this.props.getMyProfileValue('public', 'website');
-      this.props.getMyProfileValue('public', 'employer');
-      this.props.getMyProfileValue('public', 'job');
-      this.props.getMyProfileValue('public', 'school');
-      this.props.getMyProfileValue('public', 'degree');
-      this.props.getMyProfileValue('public', 'major');
-      this.props.getMyProfileValue('public', 'year');
-      this.props.getMyProfileValue('public', 'emoji');
-      this.props.getMyProfileValue('private', 'birthday');
-
-      await this.props.getCollectibles(currentAddress);
-      await this.props.convert3BoxToSpaces();
-      await this.props.getMySpacesData(currentAddress);
-
-      this.props.getActivity();
-    } catch (err) {
-      console.error(err);
-    }
   }
 
   handleShowHover = (showHoverText) => {
     this.setState({ showHoverText });
   }
 
-  async handleSignInUp() {
+  handleSignInUp = async () => {
     try {
       await this.props.checkMobileWeb3();
       await this.props.injectWeb3();
       await this.props.checkNetwork();
       await this.props.openBox(false, true);
-      if (!this.props.showErrorModal) this.getMyData();
+      if (!this.props.showErrorModal) getMyData();
     } catch (err) {
       console.error(err);
     }
   }
 
-  async handleFollowing() {
+  handleFollowing = async () => {
     const {
       fromContactTile,
       handleTileLoading,
@@ -110,7 +55,7 @@ class FollowButton extends Component {
 
     const whichFollowButton = fromContactTile ? 'isFollowFromTileLoading' : 'isFollowFromProfileLoading';
     const whichReduxAction = fromContactTile ? 'UI_FOLLOW_LOADING_TILE' : 'UI_FOLLOW_LOADING_PROFILE';
-    const deleteOrSave = isFollowing ? 'deleteFollowing' : 'saveFollowing';
+    const deleteOrSave = isFollowing ? deleteFollowing : saveFollowing;
     const address = contactTileAddress || otherProfileAddress;
 
     store.dispatch({
@@ -120,13 +65,13 @@ class FollowButton extends Component {
 
     if (!isLoggedIn) await this.handleSignInUp();
 
-    await this.props[deleteOrSave](address);
+    await deleteOrSave(address);
 
     store.dispatch({
       type: whichReduxAction,
       [whichFollowButton]: false,
     });
-    if (deleteOrSave === 'saveFollowing') this.setState({ showHoverText: 'Following' })
+    if (deleteOrSave === 'saveFollowing') this.setState({ showHoverText: 'Following' });
     if (fromContactTile) handleTileLoading();
   }
 
@@ -173,8 +118,6 @@ class FollowButton extends Component {
 }
 
 FollowButton.propTypes = {
-  saveFollowing: PropTypes.func.isRequired,
-  deleteFollowing: PropTypes.func.isRequired,
   isFollowing: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool,
   isFollowFromTileLoading: PropTypes.bool,
@@ -183,22 +126,13 @@ FollowButton.propTypes = {
   currentAddress: PropTypes.string,
   contactTileAddress: PropTypes.string,
   openBox: PropTypes.func.isRequired,
-  getMyProfileValue: PropTypes.func.isRequired,
-  getMyDID: PropTypes.func.isRequired,
-  getCollectibles: PropTypes.func.isRequired,
-  getMyMemberSince: PropTypes.func.isRequired,
-  getVerifiedPublicGithub: PropTypes.func.isRequired,
-  getVerifiedPublicTwitter: PropTypes.func.isRequired,
-  getVerifiedPrivateEmail: PropTypes.func.isRequired,
-  getActivity: PropTypes.func.isRequired,
-  getMySpacesData: PropTypes.func.isRequired,
-  convert3BoxToSpaces: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  accessDeniedModal: PropTypes.bool,
   showErrorModal: PropTypes.bool,
   fromContactTile: PropTypes.bool,
-  handleMobileWalletModal: PropTypes.func.isRequired,
   handleTileLoading: PropTypes.func.isRequired,
+  checkMobileWeb3: PropTypes.func.isRequired,
+  injectWeb3: PropTypes.func.isRequired,
+  checkNetwork: PropTypes.func.isRequired,
 };
 
 FollowButton.defaultProps = {
@@ -208,7 +142,6 @@ FollowButton.defaultProps = {
   isLoggedIn: false,
   isFollowFromProfileLoading: false,
   isFollowFromTileLoading: false,
-  accessDeniedModal: false,
   showErrorModal: false,
   fromContactTile: false,
 };
@@ -230,18 +163,5 @@ export default connect(mapState,
     injectWeb3,
     checkMobileWeb3,
     checkNetwork,
-    saveFollowing,
-    deleteFollowing,
     openBox,
-    getMyProfileValue,
-    getMyDID,
-    getCollectibles,
-    getMyMemberSince,
-    getVerifiedPublicGithub,
-    getVerifiedPublicTwitter,
-    getVerifiedPrivateEmail,
-    getActivity,
-    getMySpacesData,
-    getMyFollowing,
-    convert3BoxToSpaces,
   })(FollowButton);

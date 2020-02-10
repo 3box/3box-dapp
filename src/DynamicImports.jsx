@@ -17,28 +17,28 @@ class DynamicImports extends Component {
   }
 }
 
-export const Nav = props => (
+export const Nav = (props) => (
   <DynamicImports load={() => import('./components/Nav/Nav')}>
     {Component => Component !== null
       && <Component {...props} />}
   </DynamicImports>
 );
 
-export const MyProfile = props => (
+export const MyProfile = (props) => (
   <DynamicImports load={() => import('./views/Profile/MyProfile')}>
     {Component => Component !== null
       && <Component {...props} />}
   </DynamicImports>
 );
 
-export const Spaces = props => (
+export const Spaces = (props) => (
   <DynamicImports load={() => import('./views/Spaces/Spaces')}>
     {Component => Component !== null
       && <Component {...props} />}
   </DynamicImports>
 );
 
-export const EditProfile = props => (
+export const EditProfile = (props) => (
   <DynamicImports load={() => import('./views/Profile/EditProfile/EditProfile')}>
     {Component => Component !== null
       && <Component {...props} />}
@@ -59,42 +59,42 @@ export const PubProfile = props => (
   </DynamicImports>
 );
 
-export const AppModals = props => (
+export const AppModals = (props) => (
   <DynamicImports load={() => import('./components/AppModals')}>
     {Component => Component !== null
       && <Component {...props} />}
   </DynamicImports>
 );
 
-export const AppHeaders = props => (
+export const AppHeaders = (props) => (
   <DynamicImports load={() => import('./components/AppHeaders')}>
     {Component => Component !== null
       && <Component {...props} />}
   </DynamicImports>
 );
 
-export const NavLanding = props => (
+export const NavLanding = (props) => (
   <DynamicImports load={() => import('./components/NavLanding/NavLanding')}>
     {Component => Component !== null
       && <Component {...props} />}
   </DynamicImports>
 );
 
-export const Careers = props => (
+export const Careers = (props) => (
   <DynamicImports load={() => import('./views/Landing/Careers')}>
     {Component => Component !== null
       && <Component {...props} />}
   </DynamicImports>
 );
 
-export const Terms = props => (
+export const Terms = (props) => (
   <DynamicImports load={() => import('./views/Landing/Terms')}>
     {Component => Component !== null
       && <Component {...props} />}
   </DynamicImports>
 );
 
-export const Privacy = props => (
+export const Privacy = (props) => (
   <DynamicImports load={() => import('./views/Landing/Terms')}>
     {Component => Component !== null
       && <Component {...props} />}

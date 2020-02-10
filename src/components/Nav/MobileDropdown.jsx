@@ -6,6 +6,7 @@ import * as routes from '../../utils/routes';
 import ProfilePicture from '../ProfilePicture';
 import Edit from '../../assets/Edit.svg';
 import SignOut from '../../assets/SignOut.svg';
+import Settings from '../../assets/Settings.svg';
 import Switch from '../../assets/Switched.svg';
 import ThreeBoxLogo from '../../assets/ThreeBoxLogoBlack.svg';
 import Folder from '../../assets/FolderOutline.svg';
@@ -78,7 +79,7 @@ const MobileDropdown = (props) => {
             <li className={normalizedPath === `/${currentAddress}/${routes.SETTINGS}` ? 'nav__activePage' : ''}>
               <div className="nav_dropdown_icon_wrapper">
                 <img
-                  src={Edit}
+                  src={Settings}
                   className="nav__dropdown__icon"
                   alt="profile"
                 />

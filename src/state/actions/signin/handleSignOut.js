@@ -4,7 +4,7 @@ import {
 import * as routes from '../../../utils/routes';
 import history from '../../../utils/history';
 
-const handleSignOut = signInAgain => async (dispatch) => {
+const handleSignOut = (signInAgain) => async (dispatch) => {
   const {
     userState: {
       isLoggedIn,

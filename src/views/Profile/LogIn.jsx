@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 
 import ThreeBoxLogoBlack from '../../assets/ThreeBoxLogoBlack.svg';
-import Loading from '../../assets/Loading.svg';
+import Loading from '../../assets/3BoxLoading.svg';
 import './styles/LogIn.scss';
 
 class LogIn extends Component {

@@ -65,7 +65,7 @@ export const getMyFeed = async (categorizedActivity) => {
   const categorizedPublicActivity = addPublicOrPrivateDataType(publicActivity, 'Public');
   const categorizedPrivateActivity = privateActivity ? addPublicOrPrivateDataType(privateActivity, 'Private') : [];
 
-  const spacesData = store.getState().spaces.allData;
+  const spacesData = store.getState().spaces.allData || {};
   const spacesDataActivity = [];
 
   Object.entries(spacesData).forEach((space) => {
@@ -271,7 +271,6 @@ const startProfileLoad = (otherProfileAddress, feedByAddress) => {
 
 export const updateFeed = (otherProfileAddress, feedByAddress, addressData, isContract) => {
   try {
-    let contractArray = [];
     let counter = 0;
     if (feedByAddress.length === 0) startProfileLoad(otherProfileAddress, feedByAddress);
 
@@ -280,9 +279,6 @@ export const updateFeed = (otherProfileAddress, feedByAddress, addressData, isCo
 
       if (isContract[otherAddress]) { // then address is contract
         const contractDataABI = addressData[otherAddress].contractData;
-        const {
-          ensName,
-        } = addressData[otherAddress];
 
         if (contractDataABI) {
           abiDecoder.addABI(contractDataABI);
@@ -293,12 +289,8 @@ export const updateFeed = (otherProfileAddress, feedByAddress, addressData, isCo
           });
         }
 
-        contractArray = imageElFor(otherAddress);
-
         feedByAddress[i].metaData = {
-          contractImg: contractArray.length > 0 && contractArray[0],
-          contractDetails: contractArray.length > 0 && contractArray[1],
-          ensName,
+          ...addressData[otherAddress],
         };
 
         counter += 1;
@@ -317,5 +309,3 @@ export const updateFeed = (otherProfileAddress, feedByAddress, addressData, isCo
     console.log(error);
   }
 };
-
-// export const 

@@ -12,7 +12,7 @@ import actions from '../../state/actions';
 import EmojiIcon from './Emoji/EmojiIcon';
 import PopupWindow from './Emoji/PopupWindow';
 import EmojiPicker from './Emoji/EmojiPicker';
-import Loading from '../../assets/Loading.svg';
+import Loading from '../../assets/3BoxLoading.svg';
 import Profile from '../../assets/Profile.svg';
 // import Logo from '../../assets/3BoxLogo.svg';
 // import Send from '../../assets/Send2.svg';
@@ -43,15 +43,17 @@ class WallInput extends Component {
 
     this.setState({ disableComment: false });
 
-    document.addEventListener('input', (event) => {
-      if (event.target.tagName.toLowerCase() !== 'textarea') return;
-      this.autoExpand(event.target);
-    }, false);
+    document.addEventListener('input', this.autoExpand, false);
   }
 
-  autoExpand = (field) => {
-    const height = field.scrollHeight;
-    field.style.height = `${height}px`;
+  componentWillUnmount() {
+    document.removeEventListener('input', this.autoExpand);
+  }
+
+  autoExpand = (event) => {
+    if (event.target.tagName.toLowerCase() !== 'textarea') return;
+    const height = event.target.scrollHeight;
+    event.target.style.height = `${height}px`;
   };
 
   handleCommentText = async (event) => {
@@ -139,7 +141,6 @@ class WallInput extends Component {
 
   saveComment = async () => {
     const {
-      postAndUpdateWall,
       box,
       loginFunction,
       isOtherProfile,
@@ -162,7 +163,7 @@ class WallInput extends Component {
 
     if (isOtherProfile && !hasJoinedThread) {
       this.setState({ hasJoinedThread: true });
-      await this.props.joinOtherThread();
+      await joinOtherThread();
     }
 
     try {
@@ -194,7 +195,6 @@ class WallInput extends Component {
       : currentAddress && makeBlockie(currentAddress);
 
     const isLoading = (isFetchingWall && !isOtherProfile) || (isFetchingOtherWall && isOtherProfile) || postLoading;
-
     return (
       <div className="input">
         {updatedProfilePicture ? (
@@ -278,10 +278,7 @@ const mapState = (state) => ({
   box: state.myData.box,
 });
 
-export default connect(mapState, {
-  postAndUpdateWall,
-  joinOtherThread,
-})(WallInput);
+export default connect(mapState)(WallInput);
 
 WallInput.propTypes = {
   box: PropTypes.object,
@@ -291,9 +288,6 @@ WallInput.propTypes = {
   currentAddress: PropTypes.string,
   image: PropTypes.array,
   loginFunction: PropTypes.func.isRequired,
-  postAndUpdateWall: PropTypes.func.isRequired,
-  joinOtherThread: PropTypes.func.isRequired,
-  fetchPreview: PropTypes.func.isRequired,
 };
 
 WallInput.defaultProps = {

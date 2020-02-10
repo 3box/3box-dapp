@@ -9,7 +9,7 @@ nav {
   border-bottom: 1px solid #E4E4E4;
   display: flex;
   align-items: center;
-  z-index: 3;
+  z-index: 2;
   min-width: 780px;
 
   button {
@@ -311,6 +311,14 @@ nav {
   padding-left: 0;
   padding-right: 0;
   width: 100% !important;
+}
+
+.navSearch_resultLink {
+  display: none;
+}
+
+.navSearch_resultLink.showSearchResult {
+  display: inline;
 }
 
 #actionButtons {
@@ -840,6 +848,8 @@ nav {
   padding: 16px;
   box-sizing: border-box;
   min-height: 64px;
+  z-index: 5;
+
   &:hover {
     background-color: $backgroundHue;
   }
@@ -934,7 +944,7 @@ nav {
     justify-content: center;
     align-items: center;
     min-width: 100vw;
-    z-index: 5;
+    z-index: 4;
   }
 
   #landing__nav {

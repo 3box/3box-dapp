@@ -11,6 +11,7 @@ import {
   followingSpaceName,
   followingThreadName,
 } from '../../../utils/constants';
+import fetchEns from '../utils';
 
 export const deleteDuplicate = async (duplicates, followingThread) => {
   // if logged in, delete duplicate from thread
@@ -57,22 +58,35 @@ export const getPosts = async (followingThread) => {
   }
 };
 
-export const getFollowingThreadAndPosts = async (myAddress) => {
+export const getFollowingThreadAndPosts = async () => {
   try {
     store.dispatch({
       type: 'UI_FOLLOWING_LOADING',
       isLoadingMyFollowing: true,
     });
 
-    const followingSpace = await store.getState().myData.box.openSpace(followingSpaceName);
-    const followingThread = await followingSpace.joinThread(followingThreadName, {
+    const {
+      followingSpace,
+    } = store.getState().myData.followingSpace;
+
+    let updatedFollowingSpace;
+    if (!followingSpace) {
+      updatedFollowingSpace = await store.getState().myData.box.openSpace(followingSpaceName);
+      store.dispatch({
+        type: 'MY_FOLLOWING_SPACE_OPEN',
+        followingSpace: updatedFollowingSpace,
+      });
+    } else {
+      updatedFollowingSpace = followingSpace;
+    }
+
+    const followingThread = await updatedFollowingSpace.joinThread(followingThreadName, {
       members: true,
     });
 
     store.dispatch({
       type: 'MY_FOLLOWING_THREAD_UPDATE',
       followingThread,
-      followingSpace,
     });
     store.dispatch({
       type: 'UI_FOLLOWING_LOADING',
@@ -108,22 +122,44 @@ export const formatContact = (proofDid, otherProfileAddress) => {
 };
 
 export const fetchCommenters = async (posts) => {
+  const {
+    fetchedProfiles,
+  } = store.getState().myData;
+  const updatedFetchedProfiles = fetchedProfiles || {};
+
   const uniqueUsers = [...new Set(posts.map((x) => x.author))];
+  const unfetchedUniqueProfiles = uniqueUsers.filter((did) => !updatedFetchedProfiles[did]);
+
   const profiles = {};
-  const fetchProfile = async (did) => await Box.getProfile(did);
-  const fetchAllProfiles = async () => await Promise.all(uniqueUsers.map(did => fetchProfile(did)));
+  // fetch profiles
+  const fetchProfile = async (did) => Box.getProfile(did);
+  const fetchAllProfiles = async () => Promise.all(unfetchedUniqueProfiles.map((did) => fetchProfile(did)));
   const profilesArray = await fetchAllProfiles();
 
-  const getEthAddr = async (did) => await resolve(did);
-  const getAllEthAddr = async () => await Promise.all(uniqueUsers.map(did => getEthAddr(did)));
+  // resolve did to eth addr
+  const getEthAddr = async (did) => resolve(did);
+  const getAllEthAddr = async () => Promise.all(unfetchedUniqueProfiles.map((did) => getEthAddr(did)));
   const ethAddrArray = await getAllEthAddr();
+
+  // fetch ens names
+  const getAllENSNames = async () => Promise.all(unfetchedUniqueProfiles.map(async (did, i) => fetchEns(ethAddrArray[i].publicKey[2].ethereumAddress)));
+  const ensNamesArray = await getAllENSNames();
 
   profilesArray.forEach((user, i) => {
     const ethAddr = ethAddrArray[i].publicKey[2].ethereumAddress;
+    const ensName = ensNamesArray[i];
+    user.ensName = ensName;
     user.ethAddr = ethAddr;
-    user.profileURL = `https://3box.io/${ethAddr}`;
+    user.ensNameFetched = true;
+
     profiles[uniqueUsers[i]] = user;
+
+    updatedFetchedProfiles[uniqueUsers[i]] = user;
+    updatedFetchedProfiles[ethAddr] = user;
   });
 
-  return profiles;
+  store.dispatch({
+    type: 'MY_FETCHED_PROFILES_UPDATE',
+    fetchedProfiles: updatedFetchedProfiles,
+  });
 };

@@ -4,7 +4,29 @@ const myDataReducer = (state = {}, action) => {
       return {
         ...state,
         box: action.box,
-        ens: action.ens,
+          ens: action.ens,
+          threeId: action.threeId,
+      };
+
+    case 'MY_GENERAL_PROFILE_UPDATE':
+      return {
+        ...state,
+        name: action.name,
+          description: action.description,
+          image: action.image,
+          coverPhoto: action.coverPhoto,
+          location: action.location,
+          website: action.website,
+          employer: action.employer,
+          job: action.job,
+          school: action.school,
+          degree: action.degree,
+          major: action.major,
+          year: action.year,
+          emoji: action.emoji,
+          birthday: action.birthday,
+          collectiblesFavorites: action.collectiblesFavorites,
+          memberSince: action.memberSince,
       };
 
     case 'MY_FEED_UPDATE':
@@ -139,9 +161,8 @@ const myDataReducer = (state = {}, action) => {
       return {
         ...state,
         wallPosts: action.wallPosts,
-        wallThread: action.wallThread,
-        wallProfiles: action.wallProfiles,
-        isWallDisabled: action.isWallDisabled,
+          wallThread: action.wallThread,
+          isWallDisabled: action.isWallDisabled,
       };
 
     case 'MY_WALL_DISABLED_UPDATE':
@@ -154,7 +175,6 @@ const myDataReducer = (state = {}, action) => {
       return {
         ...state,
         wallPosts: action.wallPosts,
-        wallProfiles: action.wallProfiles,
       };
 
     case 'MY_COLLECTIBLES_UPDATE':
@@ -182,7 +202,18 @@ const myDataReducer = (state = {}, action) => {
       return {
         ...state,
         followingThread: action.followingThread,
+      };
+
+    case 'MY_FOLLOWING_SPACE_OPEN':
+      return {
+        ...state,
         followingSpace: action.followingSpace,
+      };
+
+    case 'MY_FETCHED_PROFILES_UPDATE':
+      return {
+        ...state,
+        fetchedProfiles: action.fetchedProfiles,
       };
 
     case 'MY_DATA_SIGNOUT':

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Box from '3box';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-// import debounce from 'lodash.debounce';
 
 import {
   checkIsEthAddress,
@@ -34,13 +33,14 @@ class NavSearch extends Component {
       searchedProfile: null,
       isEmptyProfile: false,
       isFetching: false,
+      searchedEthAddr: '',
     };
   }
 
   handleInputEdit = async (e) => {
     const { value } = e.target;
     const { handleToggleResults } = this.props;
-    this.setState({ searchTerm: value });
+    this.setState({ searchTerm: value, searchedProfile: null, isFetching: false });
 
     const isEthAddr = checkIsEthAddress(value);
     const isENS = checkIsENSAddress(value);
@@ -54,12 +54,11 @@ class NavSearch extends Component {
       this.fetchProfile(value);
     } else if (isENS) {
       this.fetchENS(value);
-    } else {
-      this.setState({ searchedProfile: null });
     }
   }
 
   fetchProfile = async (address) => {
+    this.setState({ searchedEthAddr: address });
     const searchedProfile = address ? await Box.getProfile(address) : {};
 
     if (Object.entries(searchedProfile).length) {
@@ -87,6 +86,7 @@ class NavSearch extends Component {
       isEmptyProfile,
       isENS,
       isFetching,
+      searchedEthAddr,
     } = this.state;
 
     const {
@@ -108,19 +108,21 @@ class NavSearch extends Component {
             value={searchTerm}
           />
 
-          {(searchedProfile && showResults && !isEmptyProfile && !isFetching) && (
-            <Link to={`/${searchTerm}`} onClick={this.clearSearch}>
-              <div className="navSearch_input_result">
-                <ProfilePicture
-                  pictureClass="navSearch_input_result_image"
-                  imageToRender={searchedProfile.image}
-                  otherProfileAddress={searchTerm}
-                  isMyPicture={false}
-                />
+          {/* Search Result */}
+          <Link to={`/${searchedEthAddr}`} onClick={this.clearSearch} className={`navSearch_resultLink ${(searchedProfile && showResults && !isEmptyProfile && !isFetching) ? 'showSearchResult' : ''}`}>
+            <div className="navSearch_input_result">
+              <ProfilePicture
+                pictureClass="navSearch_input_result_image"
+                imageToRender={searchedProfile && searchedProfile.image}
+                otherProfileAddress={searchedEthAddr}
+                fromnav
+                isMyPicture={false}
+              />
 
+              {(searchedProfile && showResults && !isEmptyProfile && !isFetching) && (
                 <div className="navSearch_input_result_info">
                   <h3>
-                    {`${searchedProfile.name || shortenEthAddr(searchTerm)} ${searchedProfile.emoji ? searchedProfile.emoji : ''}`}
+                    {`${searchedProfile.name || shortenEthAddr(searchedEthAddr)} ${searchedProfile.emoji ? searchedProfile.emoji : ''}`}
                   </h3>
 
                   {searchedProfile.description && (
@@ -160,11 +162,12 @@ class NavSearch extends Component {
                     </div>
                   )}
                 </div>
-              </div>
-            </Link>
-          )}
+              )}
+            </div>
+          </Link>
 
-          {(isEmptyProfile && showResults && !isFetching) && (
+          {/* No Profile result */}
+          {(isEmptyProfile && showResults && !isFetching && (isEthAddr || isENS)) && (
             <div className="navSearch_input_result">
               <h4>
                 No profile for this address
@@ -172,6 +175,7 @@ class NavSearch extends Component {
             </div>
           )}
 
+          {/* Not a valid search  */}
           {(!isEthAddr && !isENS && searchTerm && showResults && !searchedProfile) && (
             <div className="navSearch_input_result">
               <h4>
@@ -180,6 +184,7 @@ class NavSearch extends Component {
             </div>
           )}
 
+          {/* Loading search result */}
           {isFetching && (
             <div className="navSearch_input_result loading">
               <img src={Loading} alt="Loading" className="navSearch_input_result_loading" />

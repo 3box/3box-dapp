@@ -10,7 +10,7 @@ export const closeErrorModal = () => async (dispatch) => {
   });
 };
 
-export const handleCollectiblesModal = (selectedCollectible, isFavorite) => async (dispatch) => {
+export const handleCollectiblesModal = (selectedCollectible, isFavorite) => {
   let orderedCollectible;
   if (selectedCollectible) {
     const stringTraits = [];
@@ -26,19 +26,19 @@ export const handleCollectiblesModal = (selectedCollectible, isFavorite) => asyn
     });
 
     orderedCollectible.orderedTraits = stringTraits.concat(intTraits);
-    dispatch({
+    store.dispatch({
       type: 'UI_HANDLE_COLLECTIBLES_MODAL',
       showCollectiblesModal: !store.getState().uiState.showCollectiblesModal,
       selectedCollectible: orderedCollectible,
       isFavorite,
     });
   } else {
-    dispatch({
+    store.dispatch({
       type: 'UI_CLOSE_COLLECTIBLES_MODAL',
       showCollectiblesModal: false,
     });
     setTimeout(() => {
-      dispatch({
+      store.dispatch({
         type: 'UI_RESET_SELECTED_COLLECTIBLE',
         selectedCollectible: undefined,
         isFavorite: undefined,

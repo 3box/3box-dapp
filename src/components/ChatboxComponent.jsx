@@ -18,6 +18,7 @@ const ChatBoxComponent = ({
       agentProfile={agentProfile}
       popupChat
       userProfileURL={userProfileURL}
+      openOnMount
     />
   );
 

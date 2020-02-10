@@ -6,6 +6,7 @@ import * as routes from '../../utils/routes';
 import Edit from '../../assets/Edit.svg';
 import SignOut from '../../assets/SignOut.svg';
 import Switch from '../../assets/Switched.svg';
+import Settings from '../../assets/Settings.svg';
 import EthereumNetwork from '../../assets/EthereumNetwork.svg';
 
 const DesktopDropdown = (props) => {
@@ -57,7 +58,7 @@ const DesktopDropdown = (props) => {
           >
             <div className="nav_dropdown_icon_wrapper">
               <img
-                src={Edit}
+                src={Settings}
                 className="nav__dropdown__icon"
                 alt="profile"
               />
