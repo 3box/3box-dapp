@@ -256,6 +256,12 @@ const uiStateReducer = (state = {}, action) => {
         copySuccessful: action.copySuccessful,
       };
 
+    case 'UI_COPY_DID_SUCCESSFUL':
+      return {
+        ...state,
+        copyDIDSuccessful: action.copyDIDSuccessful,
+      };
+
     case 'UI_HANDLE_SPACES_VIEW_MODAL':
       return {
         ...state,

@@ -975,7 +975,7 @@ class EditProfile extends Component {
             )}
         </ReactCSSTransitionGroup>
 
-        <div id="edit__breadCrumb">
+        <div className="edit__breadCrumb">
           <div id="edit__breadCrumb__crumbs">
             <p className="light">
               Edit Profile

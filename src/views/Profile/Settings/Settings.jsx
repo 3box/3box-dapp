@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import fetchEns from '../../../state/actions/utils';
+
 import Nav from '../../../components/Nav/Nav';
-import Username from './components/Username';
+import ThreeId from './components/ThreeId';
+import LinkedAccounts from './components/LinkedAccounts';
 import MyProfileHeaders from '../MyProfile/MyProfileHeaders';
 import Arrow from '../../../assets/Arrow.svg';
 // import Loading from '../../../assets/Loading.svg';
@@ -22,13 +25,13 @@ import '../styles/Settings.scss';
 import '../../Spaces/styles/Spaces.scss';
 import '../styles/EditProfile.scss';
 
-const general = {
-  username: {
-    title: 'Username',
-    pageHeader: '3Box Username',
-    pageDescription: 'Register a unique username for your 3Box account.  We will display this instead of your 3ID throughout the app. This action costs a small fee.',
-  },
-};
+// const general = {
+//   username: {
+//     title: 'Username',
+//     pageHeader: '3Box Username',
+//     pageDescription: 'Register a unique username for your 3Box account.  We will display this instead of your 3ID throughout the app. This action costs a small fee.',
+//   },
+// };
 
 const accounts = {
   threeId: {
@@ -36,50 +39,84 @@ const accounts = {
     pageHeader: '3ID',
     pageDescription: 'This is your unique data identity.',
   },
-  loginMethods: {
-    title: 'Login Methods',
-    pageHeader: '3Box Username',
-    pageDescription: 'These accounts can login to your 3ID.',
-  },
   linkedAccounts: {
     title: 'Linked Accounts',
     pageHeader: 'Linked Accounts',
     pageDescription: 'These accounts are publicly linked to your 3ID',
   },
+  // loginMethods: {
+  //   title: 'Login Methods',
+  //   pageHeader: '3Box Username',
+  //   pageDescription: 'These accounts can login to your 3ID.',
+  // },
 };
 
 const settings = {
   accounts,
-  general,
+  // general,
 };
 
 class Settings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      finderToDisplay: 'general',
-      mainToDisplay: 'username',
+      finderToDisplay: 'accounts',
+      mainToDisplay: 'threeId',
+      linkedAddresses: [],
+      ensNames: [],
     };
   }
 
-  handleFinderToDisplay = (view, nestedView) => this.setState({ finderToDisplay: view, mainToDisplay: nestedView });
+  componentDidMount() {
+    const { box } = this.props;
+    if (box.listAddressLinks) this.fetchedLinkedAccounts();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { box } = this.props;
+    const hasBoxChanged = box !== prevProps.box;
+
+    if (hasBoxChanged) this.fetchedLinkedAccounts();
+  }
+
+  handleFinderToDisplay = (view, nestedView) => {
+    this.setState({ finderToDisplay: view, mainToDisplay: nestedView });
+  }
 
   handleMainToDisplay = (view) => this.setState({ mainToDisplay: view });
 
   renderMainToDisplay = () => {
-    const { mainToDisplay } = this.state;
+    const { mainToDisplay, linkedAddresses, ensNames } = this.state;
     switch (mainToDisplay) {
-      case 'username':
-        return <Username />;
+      // case 'username':
+      //   return <ThreeId />;
+      // case 'loginMethods':
+      //   return <ThreeId />;
       case 'threeId':
-        return <Username />;
-      case 'loginMethods':
-        return <Username />;
+        return <ThreeId />;
       case 'linkedAccounts':
-        return <Username />;
+        return (
+          <LinkedAccounts
+            linkedAddresses={linkedAddresses}
+            ensNames={ensNames}
+          />
+        );
       default:
-        return <Username />;
+        return <ThreeId />;
     }
+  }
+
+  fetchedLinkedAccounts = async () => {
+    const { box } = this.props;
+    const linkedAddresses = await box.listAddressLinks();
+    const isGetAllNames = true;
+
+    const getAllENSNames = async () => Promise.all(
+      linkedAddresses.map(async (linked) => fetchEns(linked.address, isGetAllNames)),
+    );
+    const ensNames = await getAllENSNames();
+    console.log('ensNamesensNames', ensNames);
+    this.setState({ linkedAddresses, ensNames });
   }
 
   render() {
@@ -89,7 +126,11 @@ class Settings extends Component {
       currentAddress,
       handleSignInUp,
     } = this.props;
-    const { finderToDisplay, mainToDisplay } = this.state;
+    const {
+      finderToDisplay,
+      mainToDisplay,
+    } = this.state;
+
     const updatedPageHeader = settings[finderToDisplay][mainToDisplay] ? settings[finderToDisplay][mainToDisplay].pageHeader : '';
     const updatedPageDescription = settings[finderToDisplay][mainToDisplay] ? settings[finderToDisplay][mainToDisplay].pageDescription : '';
 
@@ -103,18 +144,18 @@ class Settings extends Component {
         <div className="data__nav--desktop">
           <Nav handleSignInUp={handleSignInUp} />
         </div>
+        <div className="edit__breadCrumb">
+          <div id="edit__breadCrumb__crumbs">
+            <p className="light">
+              Settings
+            </p>
+          </div>
+        </div>
 
         <div className="settings_page">
-          <div id="edit__breadCrumb">
-            <div id="edit__breadCrumb__crumbs">
-              <p className="light">
-                Settings
-              </p>
-            </div>
-          </div>
 
-          <section className="finder">
-            <div
+          <section className="settings_finder">
+            {/* <div
               className={`space ${finderToDisplay === 'general' ? 'activeSpace' : ''}`}
               onClick={() => this.handleFinderToDisplay('general', 'username')}
               role="button"
@@ -128,7 +169,7 @@ class Settings extends Component {
               <span className="space__arrow">
                 <img src={Arrow} alt="arrow" />
               </span>
-            </div>
+            </div> */}
             <div
               className={`space ${finderToDisplay === 'accounts' ? 'activeSpace' : ''}`}
               onClick={() => this.handleFinderToDisplay('accounts', 'threeId')}
@@ -145,10 +186,10 @@ class Settings extends Component {
             </div>
           </section>
 
-          <section className="finder">
+          <section className="settings_finder">
             {Object.entries(settings[finderToDisplay]).map((option) => (
               <FinderOption
-                finderToDisplay={finderToDisplay}
+                mainToDisplay={mainToDisplay}
                 title={option[1].title}
                 keyToRender={option[0]}
                 handleMainToDisplay={this.handleMainToDisplay}
@@ -157,24 +198,28 @@ class Settings extends Component {
           </section>
 
           <main className="finderWindow">
-            <h2>{updatedPageHeader}</h2>
-            <p>{updatedPageDescription}</p>
-            {this.renderMainToDisplay()}
+            <div className="settings_mainViewWrapper">
+              <div className="settings_mainViewWrapper_headers">
+                <h2>{updatedPageHeader}</h2>
+                <p>{updatedPageDescription}</p>
+              </div>
+              {this.renderMainToDisplay()}
+            </div>
           </main>
         </div>
       </>
     );
   }
-};
+}
 
 const FinderOption = ({
-  finderToDisplay,
+  mainToDisplay,
   handleMainToDisplay,
   title,
   keyToRender,
 }) => (
     <div
-      className={`space ${finderToDisplay === keyToRender ? 'activeSpace' : ''}`}
+      className={`space ${mainToDisplay === keyToRender ? 'activeSpace' : ''}`}
       onClick={() => handleMainToDisplay(keyToRender)}
       role="button"
       onKeyDown={() => handleMainToDisplay(keyToRender)}
@@ -193,7 +238,7 @@ const FinderOption = ({
 FinderOption.propTypes = {
   title: PropTypes.string,
   keyToRender: PropTypes.string,
-  finderToDisplay: PropTypes.string.isRequired,
+  mainToDisplay: PropTypes.string.isRequired,
   handleMainToDisplay: PropTypes.func.isRequired,
 };
 
@@ -206,28 +251,23 @@ Settings.propTypes = {
   name: PropTypes.string,
   image: PropTypes.array,
   currentAddress: PropTypes.string,
+  box: PropTypes.object,
   handleSignInUp: PropTypes.func.isRequired,
 };
 
 Settings.defaultProps = {
   name: '',
   image: [],
+  box: {},
   currentAddress: '',
 };
 
 function mapState(state) {
   return {
-    box: state.myData.box,
-    showGithubVerificationModal: state.uiState.showGithubVerificationModal,
-    showTwitterVerificationModal: state.uiState.showTwitterVerificationModal,
-    showEmailVerificationModal: state.uiState.showEmailVerificationModal,
-    isFetchingThreeBox: state.uiState.isFetchingThreeBox,
     copySuccessful: state.uiState.copySuccessful,
 
+    box: state.myData.box,
     name: state.myData.name,
-    verifiedGithub: state.myData.verifiedGithub,
-    verifiedTwitter: state.myData.verifiedTwitter,
-    verifiedEmail: state.myData.verifiedEmail,
     did: state.myData.did,
     description: state.myData.description,
     memberSince: state.myData.memberSince,
@@ -246,6 +286,7 @@ function mapState(state) {
     coverPhoto: state.myData.coverPhoto,
 
     currentAddress: state.userState.currentAddress,
+
     allData: state.spaces.allData,
     list: state.spaces.list,
   };

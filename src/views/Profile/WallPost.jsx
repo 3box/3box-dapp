@@ -161,7 +161,7 @@ class WallPost extends Component {
               </div>
 
               <div className="comment_content_context_time">
-                {`${timeSince(comment.timestamp * 1000)} ago`}
+                {timeSince(comment.timestamp * 1000)}
               </div>
             </div>
           </div>

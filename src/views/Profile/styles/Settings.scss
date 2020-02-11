@@ -1,9 +1,126 @@
 @import '../../../variables.scss';
 
+.settings_finder {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  background-color: #efeff1;
+  width: 15vw;
+  overflow-y: scroll;
+  min-width: 180px;
+  box-sizing: border-box;
+  border-right: 1px solid $borderColorDark;
+
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  transition: all .5s ease;
+}
+
+.settings_mainView {
+  width: 100%;
+}
+
+.settings_mainViewWrapper {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  height: fit-content;
+  box-sizing: border-box;
+}
+
+.settings_mainViewWrapper_headers {
+  margin-bottom: 24px;
+
+  h2 {
+    margin-bottom: 6px;
+  }
+}
+
 .settings_page {
   display: flex;
   height: calc(100vh - 109px);
   min-width: 920px;
 }
+
+.settings_tile {
+  min-height: 50px;
+  height: fit-content;
+  width: 100%;
+  border: 1px solid $borderColorDark;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 5px;
+  background-color: $borderColor;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-sizing: border-box;
+  max-width: 550px;
+}
+
+.settings_tile-clickableTile {
+
+  p,
+  h3 {
+    transition: all 0.2s ease-in-out;
+    font-weight: 600;
+  }
+
+  &:hover {
+    background-color: $threeBoxBlue;
+    border-color: $threeBoxBlue;
+
+    h3,
+    p {
+      color: white;
+    }
+  }
+}
+
+.settings_tile_context {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 550px;
+  width: 100%;
+}
+
+.settings_tile_subtext {
+  font-size: 14px;
+  color: $lighterFont;
+}
+
+.settings_ensNames {
+  font-weight: 400 !important;
+  color: $lighterFont;
+}
+
+.linkedAccountTile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.settings_mainView_text {
+  font-size: 12px;
+  color: $lighterFont;
+  margin-bottom: 4px;
+}
+
+.settings_mainView_linkedAddressWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
 
 @media only screen and (max-width: 768px) {}

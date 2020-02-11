@@ -2,10 +2,19 @@ import {
   ethers,
 } from 'ethers';
 
-const fetchEns = async (address, web3Obj) => {
+import {
+  store,
+} from '../store';
+
+const fetchEns = async (address, isGetAllNames) => {
   try {
+    const {
+      web3Obj,
+    } = store.getState().userState;
+
     const currentProvider = web3Obj ? web3Obj.currentProvider : (web3 && web3.currentProvider); // eslint-disable-line
 
+    // this looks for the canonical ENS name
     if (currentProvider) {
       const provider = new ethers.providers.Web3Provider(currentProvider);
       const name = await provider.lookupAddress(address);
@@ -35,7 +44,8 @@ const fetchEns = async (address, web3Obj) => {
       errors,
     } = await res.json();
 
-    if (data.domains.length) return data.domains[0].name;
+    if (data.domains.length && !isGetAllNames) return data.domains[0].name;
+    if (data.domains.length && isGetAllNames) return data.domains;
     if (errors) return errors;
     return null;
   } catch (error) {

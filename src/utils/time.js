@@ -24,26 +24,26 @@ export const timeSince = (date) => {
 
   let interval = Math.floor(seconds / 31536000);
 
-  if (interval === 1) return `${interval} year`;
-  if (interval > 1) return `${interval} years`;
+  if (interval === 1) return `${interval} year ago`;
+  if (interval > 1) return `${interval} years ago`;
 
   interval = Math.floor(seconds / 2592000);
-  if (interval === 1) return `${interval} month`;
-  if (interval > 1) return `${interval} months`;
+  if (interval === 1) return `${interval} month ago`;
+  if (interval > 1) return `${interval} months ago`;
 
   interval = Math.floor(seconds / 86400);
-  if (interval === 1) return `${interval} day`;
-  if (interval > 1) return `${interval} days`;
+  if (interval === 1) return `${interval} day ago`;
+  if (interval > 1) return `${interval} days ago`;
 
   interval = Math.floor(seconds / 3600);
-  if (interval === 1) return `${interval} hour`;
-  if (interval > 1) return `${interval} hours`;
+  if (interval === 1) return `${interval} hour ago`;
+  if (interval > 1) return `${interval} hours ago`;
 
   interval = Math.floor(seconds / 60);
-  if (interval === 1) return `${interval} minute`;
-  if (interval > 1) return `${interval} minutes`;
+  if (interval === 1) return `${interval} minute ago`;
+  if (interval > 1) return `${interval} minutes ago`;
 
-  return `${Math.floor(seconds)} seconds`;
+  return `${Math.floor(seconds)} seconds ago`;
 };
 
 // export const timeSince = (date) => {

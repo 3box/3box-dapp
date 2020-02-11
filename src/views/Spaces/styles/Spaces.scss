@@ -17,6 +17,7 @@
   overflow-y: scroll;
   min-width: 260px;
   box-sizing: border-box;
+  border-right: 1px solid $borderColorDark;
 
   -webkit-transition: all .5s ease;
   -moz-transition: all .5s ease;
@@ -78,7 +79,7 @@
 
 .space__name {
   color: #838486;
-  padding-left: 40px;
+  padding-left: 30px;
   text-overflow: ellipsis;
   max-width: 164px;
   width: 164px;
@@ -103,7 +104,7 @@
 
 .space__arrow {
   color: #606265;
-  padding-right: 40px;
+  padding-right: 30px;
 
   img {
     height: 10px;
