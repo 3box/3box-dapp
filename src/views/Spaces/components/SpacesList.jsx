@@ -21,9 +21,9 @@ const SpacesList = (props) => {
 
   return (
     <section className={`finder 
-      ${show ? '' : 'closeSpaces'} 
-      ${hideSpacesMobile ? 'closeSpaces--mobile' : ''}
-      ${clearSpacesMobile ? 'hideSpaces--mobile' : ''}
+      ${show ? '' : 'animateCloseList'} 
+      ${hideSpacesMobile ? 'animateListLeft--mobile' : ''}
+      ${clearSpacesMobile ? 'hideList--mobile' : ''}
     `}
     >
       <div

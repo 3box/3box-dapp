@@ -669,6 +669,12 @@
     margin-right: 1em;
   }
 
+  .edit__breadCrumb {
+    left: 100vw;
+    position: absolute;
+    transition: all .5s ease;
+  }
+
   .modal__container {
     width: 100vw;
     height: 100vh;

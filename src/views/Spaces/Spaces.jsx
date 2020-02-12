@@ -480,8 +480,6 @@ class Spaces extends Component {
                           />
                         );
 
-
-
                         return threadArray.map((item, i) => {
                           return injectData(i, item[1], count);
                         });

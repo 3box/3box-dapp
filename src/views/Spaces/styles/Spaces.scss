@@ -26,7 +26,7 @@
   font-weight: 800;
 }
 
-.closeSpaces {
+.animateCloseList {
   margin-left: -260px;
 }
 
@@ -286,7 +286,7 @@
   background-color: transparent;
   border: none;
   padding: 0;
-  margin-right: 12px;
+  margin: 0 8px;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -507,15 +507,39 @@
     }
   }
 
+  .inMobileView {
+    left: 0 !important;
+  }
+
+  .outLeft {
+    left: -100vw;
+  }
+
+  .outRight {
+    left: 100vw;
+  }
+
+  .settings_page {
+    .finder {
+      position: absolute;
+      margin-top: 40px;
+    }
+
+    .finderWindow {
+      margin-top: 40px;
+    }
+  }
+
   .finder {
     background-color: white;
     width: 100vw;
     min-height: fit-content;
     height: fit-content;
     border-right: none;
+    position: relative;
   }
 
-  .closeSpaces {
+  .animateCloseList {
     margin-left: 0;
   }
 
@@ -530,7 +554,7 @@
     position: absolute;
     width: 100vw !important;
     min-width: 100vw !important;
-    left: 100vw !important;
+    left: 100vw;
     -webkit-overflow-scrolling: touch;
     height: fit-content;
   }
@@ -564,11 +588,11 @@
     min-height: fit-content;
   }
 
-  .closeSpaces--mobile {
+  .animateListLeft--mobile {
     margin-left: -100vw;
   }
 
-  .hideSpaces--mobile {
+  .hideList--mobile {
     display: none;
   }
 

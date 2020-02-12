@@ -67,6 +67,9 @@ class Settings extends Component {
       hideSettingsList: false,
       clearSettingsListMobile: false,
       showMainSettingsMobile: false,
+      nestLevel: 0,
+      clearLevel: 0,
+      viewDirection: null,
     };
   }
 
@@ -84,24 +87,26 @@ class Settings extends Component {
 
   handleFinderToDisplay = (view, nestedView) => {
     const { finderToDisplay } = this.state;
-    this.handleMobileSpaceListView();
+    this.handleMobileSpaceListView(true);
 
     if (finderToDisplay === view) return;
     this.setState({ finderToDisplay: view, mainToDisplay: nestedView });
   }
 
   handleMainToDisplay = (view) => {
-    this.handleMobileSpaceListView();
+    // const fromNestedView = true;
+    this.handleMobileSpaceListView(true);
     this.setState({ mainToDisplay: view });
+  }
+
+  handleReturnDisplay = () => {
+    const { nestLevel } = this.state;
+    this.setState({ nestLevel: nestLevel - 1 });
   }
 
   renderMainToDisplay = () => {
     const { mainToDisplay, linkedAddresses, ensNames } = this.state;
     switch (mainToDisplay) {
-      // case 'username':
-      //   return <ThreeId />;
-      // case 'loginMethods':
-      //   return <ThreeId />;
       case 'threeId':
         return <ThreeId />;
       case 'linkedAccounts':
@@ -125,28 +130,56 @@ class Settings extends Component {
       linkedAddresses.map(async (linked) => fetchEns(linked.address, isGetAllNames)),
     );
     const ensNames = await getAllENSNames();
-    console.log('ensNamesensNames', ensNames);
     this.setState({ linkedAddresses, ensNames });
   }
 
-  handleMobileSpaceListView = () => {
-    const { hideSettingsList, clearSettingsListMobile, showMainSettingsMobile } = this.state;
-    console.log('in handle view');
-    if (!hideSettingsList) {
-      this.setState({ showMainSettingsMobile: !showMainSettingsMobile });
-      this.setState({ hideSettingsList: !hideSettingsList });
+  handleMobileSpaceListView = (moveRight) => {
+    const {
+      hideSettingsList,
+      clearSettingsListMobile,
+      showMainSettingsMobile,
+      // clearNestedView,
+      nestLevel,
+      clearLevel,
+    } = this.state;
+
+    if (moveRight) {
+      // add class at the new nest level
+      this.setState({ nestLevel: nestLevel + 1, viewDirection: 'right' });
       setTimeout(() => {
-        this.setState({ clearSettingsListMobile: !clearSettingsListMobile });
+        this.setState({ clearLevel: clearLevel + 1, viewDirection: null });
+        // this.setState({ clearSettingsListMobile: !clearSettingsListMobile });
       }, 500);
     } else {
-      this.setState({ clearSettingsListMobile: !clearSettingsListMobile });
+      // remove class at the new nest level
+      this.setState({ nestLevel: nestLevel - 1, viewDirection: 'left' });
       setTimeout(() => {
-        this.setState({ hideSettingsList: !hideSettingsList });
-      }, 20);
-      setTimeout(() => {
-        this.setState({ showMainSettingsMobile: !showMainSettingsMobile });
+        this.setState({ clearLevel: clearLevel - 1, viewDirection: null });
+        // this.setState({ clearSettingsListMobile: !clearSettingsListMobile });
       }, 500);
     }
+    // step one level open
+    // if step one, close step one
+
+
+    // step one level back
+
+    // if (!hideSettingsList) {
+    //   // close top level finder view
+    //   this.setState({ showMainSettingsMobile: !showMainSettingsMobile });
+    //   this.setState({ hideSettingsList: true });
+    //   setTimeout(() => {
+    //     this.setState({ clearSettingsListMobile: !clearSettingsListMobile });
+    //   }, 500);
+    // } else {
+    //   this.setState({ clearSettingsListMobile: !clearSettingsListMobile });
+    //   setTimeout(() => {
+    //     this.setState({ hideSettingsList: !hideSettingsList });
+    //   }, 20);
+    //   setTimeout(() => {
+    //     this.setState({ showMainSettingsMobile: !showMainSettingsMobile });
+    //   }, 500);
+    // }
   }
 
   render() {
@@ -162,7 +195,14 @@ class Settings extends Component {
       hideSettingsList,
       clearSettingsListMobile,
       showMainSettingsMobile,
+      nestLevel,
+      clearLevel,
+      viewDirection,
     } = this.state;
+
+    console.log('viewDirection', viewDirection)
+    console.log('clearLevel', clearLevel)
+    console.log('nestLevel', nestLevel)
 
     const updatedPageHeader = settings[finderToDisplay][mainToDisplay] ? settings[finderToDisplay][mainToDisplay].pageHeader : '';
     const updatedPageDescription = settings[finderToDisplay][mainToDisplay] ? settings[finderToDisplay][mainToDisplay].pageDescription : '';
@@ -177,38 +217,39 @@ class Settings extends Component {
         <div className="data__nav--desktop">
           <Nav handleSignInUp={handleSignInUp} />
         </div>
-        <div className="edit__breadCrumb">
-          <div id="edit__breadCrumb__crumbs">
-            <p className="light">
-              Settings
-            </p>
-          </div>
-        </div>
 
         <div className="settings_page">
+          <div className={`edit__breadCrumb 
+              ${nestLevel >= 1 ? 'inMobileView' : 'outRight'}
+          `}
+          >
+            <button
+              className="data__space__context__icon"
+              onClick={() => this.handleMobileSpaceListView()}
+              onKeyPress={() => this.handleMobileSpaceListView()}
+              type="button"
+            >
+              <img
+                src={Arrow}
+                className="data__space__context__arrowButton"
+                alt="list"
+              />
+            </button>
 
+            <div id="edit__breadCrumb__crumbs">
+              <p className="light">
+                Settings
+              </p>
+            </div>
+          </div>
+
+          {/* Nest Level 0 */}
           <section
             className={`
-              finder finder-settings
-              ${hideSettingsList ? 'closeSpaces--mobile' : ''}
-              ${clearSettingsListMobile ? 'hideSpaces--mobile' : ''}
-            `}
+              finder finder-settings noMargin
+              ${nestLevel === 0 ? 'inMobileView' : 'outLeft'}
+        `}
           >
-            {/* <div
-              className={`space ${finderToDisplay === 'general' ? 'activeSpace' : ''}`}
-              onClick={() => this.handleFinderToDisplay('general', 'username')}
-              role="button"
-              onKeyDown={() => this.handleFinderToDisplay('general', 'username')}
-              tabIndex={0}
-            >
-              <p className="space__name">
-                General
-              </p>
-
-              <span className="space__arrow">
-                <img src={Arrow} alt="arrow" />
-              </span>
-            </div> */}
             <div
               className={`space ${finderToDisplay === 'accounts' ? 'activeSpace' : ''}`}
               onClick={() => this.handleFinderToDisplay('accounts', 'threeId')}
@@ -226,7 +267,14 @@ class Settings extends Component {
             </div>
           </section>
 
-          <section className="finder finder-settings">
+          {/* Nest Level 1 */}
+          <section className={`
+          finder finder-settings 
+            ${nestLevel === 1 ? 'inMobileView' : ''}
+            ${nestLevel > 1 ? 'outLeft' : ''}
+            ${nestLevel < 1 ? 'outRight' : ''}
+          `}
+          >
             {Object.entries(settings[finderToDisplay]).map((option) => (
               <FinderOption
                 mainToDisplay={mainToDisplay}
@@ -237,9 +285,10 @@ class Settings extends Component {
             ))}
           </section>
 
+          {/* Nest Level 2 */}
           <main className={`
             finderWindow
-            ${showMainSettingsMobile ? '' : 'clearDataExplorer'}
+            ${nestLevel === 2 ? 'inMobileView' : 'outRight'}
           `}
           >
             <div className="settings_mainViewWrapper">

@@ -36,6 +36,7 @@
   display: flex;
   height: calc(100vh - 109px);
   min-width: 920px;
+  position: relative;
 }
 
 .settings_tile {
@@ -120,4 +121,13 @@
 }
 
 
-@media only screen and (max-width: 768px) {}
+@media only screen and (max-width: 768px) {
+  .settings_mainViewWrapper {
+    padding: 30px 16px;
+  }
+
+  .settings_tile-clickableTile p {
+    width: 100%;
+    word-wrap: break-word;
+  }
+}
