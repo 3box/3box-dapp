@@ -64,6 +64,9 @@ class Settings extends Component {
       mainToDisplay: 'threeId',
       linkedAddresses: [],
       ensNames: [],
+      hideSettingsList: false,
+      clearSettingsListMobile: false,
+      showMainSettingsMobile: false,
     };
   }
 
@@ -80,10 +83,17 @@ class Settings extends Component {
   }
 
   handleFinderToDisplay = (view, nestedView) => {
+    const { finderToDisplay } = this.state;
+    this.handleMobileSpaceListView();
+
+    if (finderToDisplay === view) return;
     this.setState({ finderToDisplay: view, mainToDisplay: nestedView });
   }
 
-  handleMainToDisplay = (view) => this.setState({ mainToDisplay: view });
+  handleMainToDisplay = (view) => {
+    this.handleMobileSpaceListView();
+    this.setState({ mainToDisplay: view });
+  }
 
   renderMainToDisplay = () => {
     const { mainToDisplay, linkedAddresses, ensNames } = this.state;
@@ -119,6 +129,26 @@ class Settings extends Component {
     this.setState({ linkedAddresses, ensNames });
   }
 
+  handleMobileSpaceListView = () => {
+    const { hideSettingsList, clearSettingsListMobile, showMainSettingsMobile } = this.state;
+    console.log('in handle view');
+    if (!hideSettingsList) {
+      this.setState({ showMainSettingsMobile: !showMainSettingsMobile });
+      this.setState({ hideSettingsList: !hideSettingsList });
+      setTimeout(() => {
+        this.setState({ clearSettingsListMobile: !clearSettingsListMobile });
+      }, 500);
+    } else {
+      this.setState({ clearSettingsListMobile: !clearSettingsListMobile });
+      setTimeout(() => {
+        this.setState({ hideSettingsList: !hideSettingsList });
+      }, 20);
+      setTimeout(() => {
+        this.setState({ showMainSettingsMobile: !showMainSettingsMobile });
+      }, 500);
+    }
+  }
+
   render() {
     const {
       image,
@@ -129,6 +159,9 @@ class Settings extends Component {
     const {
       finderToDisplay,
       mainToDisplay,
+      hideSettingsList,
+      clearSettingsListMobile,
+      showMainSettingsMobile,
     } = this.state;
 
     const updatedPageHeader = settings[finderToDisplay][mainToDisplay] ? settings[finderToDisplay][mainToDisplay].pageHeader : '';
@@ -154,7 +187,13 @@ class Settings extends Component {
 
         <div className="settings_page">
 
-          <section className="settings_finder">
+          <section
+            className={`
+              finder finder-settings
+              ${hideSettingsList ? 'closeSpaces--mobile' : ''}
+              ${clearSettingsListMobile ? 'hideSpaces--mobile' : ''}
+            `}
+          >
             {/* <div
               className={`space ${finderToDisplay === 'general' ? 'activeSpace' : ''}`}
               onClick={() => this.handleFinderToDisplay('general', 'username')}
@@ -180,13 +219,14 @@ class Settings extends Component {
               <p className="space__name">
                 Accounts
               </p>
+
               <span className="space__arrow">
                 <img src={Arrow} alt="arrow" />
               </span>
             </div>
           </section>
 
-          <section className="settings_finder">
+          <section className="finder finder-settings">
             {Object.entries(settings[finderToDisplay]).map((option) => (
               <FinderOption
                 mainToDisplay={mainToDisplay}
@@ -197,7 +237,11 @@ class Settings extends Component {
             ))}
           </section>
 
-          <main className="finderWindow">
+          <main className={`
+            finderWindow
+            ${showMainSettingsMobile ? '' : 'clearDataExplorer'}
+          `}
+          >
             <div className="settings_mainViewWrapper">
               <div className="settings_mainViewWrapper_headers">
                 <h2>{updatedPageHeader}</h2>

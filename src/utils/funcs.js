@@ -87,38 +87,6 @@ export const copyToClipBoard = (type, message) => async (dispatch) => {
   }
 };
 
-export const copyThreeId = async (did) => {
-  try {
-    const textArea = document.createElement('textarea');
-
-    textArea.value = did;
-
-    document.body.appendChild(textArea);
-    textArea.focus({
-      preventScroll: true,
-    });
-    textArea.select();
-    document.execCommand('copy');
-
-    setTimeout(() => {
-      store.dispatch({
-        type: 'UI_COPY_DID_SUCCESSFUL',
-        copyDIDSuccessful: true,
-      });
-    }, 1);
-    setTimeout(() => {
-      store.dispatch({
-        type: 'UI_COPY_DID_SUCCESSFUL',
-        copyDIDSuccessful: false,
-      });
-    }, 2000);
-
-    document.body.removeChild(textArea);
-  } catch (err) {
-    console.error('Unable to copy', err);
-  }
-};
-
 export const checkRowType = async (content) => {
   try {
     if (typeof content[1] === 'string') {

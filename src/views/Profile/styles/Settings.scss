@@ -1,22 +1,8 @@
 @import '../../../variables.scss';
 
-.settings_finder {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
-  height: 100%;
-  background-color: #efeff1;
+.finder-settings {
   width: 15vw;
-  overflow-y: scroll;
   min-width: 180px;
-  box-sizing: border-box;
-  border-right: 1px solid $borderColorDark;
-
-  -webkit-transition: all .5s ease;
-  -moz-transition: all .5s ease;
-  -o-transition: all .5s ease;
-  transition: all .5s ease;
 }
 
 .settings_mainView {
@@ -36,6 +22,10 @@
 
 .settings_mainViewWrapper_headers {
   margin-bottom: 24px;
+
+  p {
+    color: $lighterFont;
+  }
 
   h2 {
     margin-bottom: 6px;
@@ -112,7 +102,7 @@
 .settings_mainView_text {
   font-size: 12px;
   color: $lighterFont;
-  margin-bottom: 4px;
+  margin: 6px 0;
 }
 
 .settings_mainView_linkedAddressWrapper {
@@ -120,6 +110,13 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+}
+
+.settings_mainView_text-3id {
+  text-decoration: underline;
+  margin-left: 4px;
+  font-size: 12px;
+  color: $lighterFont;
 }
 
 

@@ -18,10 +18,6 @@
   min-width: 260px;
   box-sizing: border-box;
   border-right: 1px solid $borderColorDark;
-
-  -webkit-transition: all .5s ease;
-  -moz-transition: all .5s ease;
-  -o-transition: all .5s ease;
   transition: all .5s ease;
 }
 
@@ -511,11 +507,12 @@
     }
   }
 
-  .spaces {
+  .finder {
     background-color: white;
     width: 100vw;
     min-height: fit-content;
     height: fit-content;
+    border-right: none;
   }
 
   .closeSpaces {

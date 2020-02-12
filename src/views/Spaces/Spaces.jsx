@@ -584,7 +584,13 @@ class Spaces extends Component {
             clearSpacesMobile={clearSpacesMobile}
           />
 
-          <main className={`finderWindow ${showSpaceList ? '' : 'wideDataExplorer'} ${!hideSpacesMobile ? '' : 'wideDataExplorer--mobile'} ${showMainMobile ? '' : 'clearDataExplorer'}`}>
+          <main
+            className={`
+            finderWindow 
+            ${showSpaceList ? '' : 'wideDataExplorer'} 
+            ${!hideSpacesMobile ? '' : 'wideDataExplorer--mobile'} 
+            ${showMainMobile ? '' : 'clearDataExplorer'}`}
+          >
             <Header
               spaceToDisplay={spaceToDisplay}
               isSpacesLoading={isSpacesLoading}

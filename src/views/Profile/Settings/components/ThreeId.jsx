@@ -2,27 +2,62 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { copyThreeId } from '../../../../utils/funcs';
-
 class ThreeId extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      copyDIDSuccessful: false,
+    };
+  }
+
+  copyThreeId = (did) => {
+    const textArea = document.createElement('textarea');
+
+    textArea.value = did;
+
+    document.body.appendChild(textArea);
+    textArea.focus({
+      preventScroll: true,
+    });
+    textArea.select();
+    document.execCommand('copy');
+
+    setTimeout(() => {
+      this.setState({ copyDIDSuccessful: true });
+    }, 1);
+    setTimeout(() => {
+      this.setState({ copyDIDSuccessful: false });
+    }, 2000);
+
+    document.body.removeChild(textArea);
   }
 
   render() {
-    const { did, copyDIDSuccessful } = this.props;
+    const { did } = this.props;
+    const { copyDIDSuccessful } = this.state;
 
     return (
       <div className="settings_mainView">
-        <p className="settings_mainView_text">
-          {`${copyDIDSuccessful ? 'Success' : 'Click to copy'}`}
-        </p>
+        <div className="settings_tile_context">
+          <p
+            className="settings_mainView_text"
+          >
+            Learn more about
+            <a
+              className="settings_mainView_text-3id"
+              href="https://docs.3box.io/faq/data-identity#how-does-3box-use-decentralized-identity"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              3ID
+            </a>
+          </p>
+        </div>
 
         <div
           className="settings_tile settings_tile-clickableTile"
-          onClick={() => copyThreeId(did)}
-          onKeyPress={() => copyThreeId(did)}
+          onClick={() => this.copyThreeId(did)}
+          onKeyPress={() => this.copyThreeId(did)}
           tabIndex={0}
           role="button"
         >
@@ -30,6 +65,10 @@ class ThreeId extends Component {
             {did}
           </p>
         </div>
+
+        <p className="settings_mainView_text">
+          {`${copyDIDSuccessful ? 'Success' : 'Click to copy'}`}
+        </p>
       </div>
     );
   }
@@ -37,19 +76,15 @@ class ThreeId extends Component {
 
 ThreeId.propTypes = {
   did: PropTypes.string,
-  copyDIDSuccessful: PropTypes.bool,
 };
 
 ThreeId.defaultProps = {
   did: '',
-  copyDIDSuccessful: false,
 };
 
 function mapState(state) {
   return {
     did: state.myData.did,
-
-    copyDIDSuccessful: state.uiState.copyDIDSuccessful,
   };
 }
 
