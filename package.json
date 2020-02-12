@@ -4,9 +4,9 @@
   "description": "3box dapp",
   "private": true,
   "dependencies": {
-    "3box": "^1.16.1",
+    "3box": "^1.16.2",
     "3box-activity": "0.0.9",
-    "3box-chatbox-react": "^0.1.4",
+    "3box-chatbox-react": "^0.1.5",
     "3id-resolver": "0.0.6",
     "@babel/polyfill": "^7.7.0",
     "@microlink/mql": "^0.5.10",
