@@ -3,7 +3,6 @@ import WalletConnectProvider from '@walletconnect/web3-provider';
 import Portis from '@portis/web3';
 import Fortmatic from 'fortmatic';
 import Authereum from 'authereum';
-// import Torus from '@toruslabs/torus-embed';
 
 import history from '../../../utils/history';
 import connectProviderToDapp from './connectProviderToDapp';
@@ -36,15 +35,6 @@ const web3Connect = new Web3Connect.Core({
       package: Authereum, // required
       options: {},
     },
-    // torus: {
-    //   package: Torus, // required
-    //   options: {
-    //     enableLogging: false, // optional
-    //     buttonPosition: 'bottom-left', // optional
-    //     buildEnv: 'production', // optional
-    //     showTorusButton: true, // optional
-    //   },
-    // },
   },
 });
 
@@ -62,8 +52,9 @@ const pickWallet = async (directLogin, dispatch, shouldSignOut) => {
     if (!isBrowserCompatible()) {
       reject();
     } else {
-      web3Connect.toggleModal(); // open modal on button click
+      web3Connect.connect();
       web3Connect.on('connect', async (provider) => {
+        console.log('in on', provider);
         try {
           if (shouldSignOut) handleSignOutFunc();
           dispatch({
