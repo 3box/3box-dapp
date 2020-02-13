@@ -168,7 +168,7 @@ const SideBar = ({
 
             <div id="profile__footer">
               <div id="profile__footer__contents">
-                <p>3Box 2018</p>
+                <p>3Box 2020</p>
                 <Link to={routes.TERMS}>Terms</Link>
                 <Link to={routes.PRIVACY}>Privacy</Link>
               </div>
