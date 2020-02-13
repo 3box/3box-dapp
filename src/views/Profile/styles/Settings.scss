@@ -34,9 +34,17 @@
 
 .settings_page {
   display: flex;
-  height: calc(100vh - 109px);
+  height: calc(100vh - 69px);
   min-width: 920px;
   position: relative;
+  flex-direction: column;
+}
+
+.settings_page_views {
+  display: flex;
+  min-width: 100%;
+  position: relative;
+  height: 100%;
 }
 
 .settings_tile {
@@ -120,8 +128,20 @@
   color: $lighterFont;
 }
 
+.settings_page {
+  .edit__breadCrumb {
+    display: none;
+  }
+}
+
 
 @media only screen and (max-width: 768px) {
+  .settings_page {
+    .edit__breadCrumb {
+      display: flex;
+    }
+  }
+
   .settings_mainViewWrapper {
     padding: 30px 16px;
   }
@@ -130,4 +150,14 @@
     width: 100%;
     word-wrap: break-word;
   }
+
+  .firstNestLevel {
+    margin-top: 0 !important;
+  }
+
+  .settings_page {
+    min-width: 100vw;
+  }
+
+  .finder-settings {}
 }

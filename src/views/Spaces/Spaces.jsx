@@ -90,8 +90,10 @@ class Spaces extends Component {
     const { hideSpacesMobile, clearSpacesMobile, showMainMobile } = this.state;
 
     if (!hideSpacesMobile) {
-      this.setState({ showMainMobile: !showMainMobile });
-      this.setState({ hideSpacesMobile: !hideSpacesMobile });
+      this.setState({
+        hideSpacesMobile: !hideSpacesMobile,
+        showMainMobile: !showMainMobile,
+      });
       setTimeout(() => {
         this.setState({ clearSpacesMobile: !clearSpacesMobile });
       }, 500);
@@ -586,7 +588,7 @@ class Spaces extends Component {
             className={`
             finderWindow 
             ${showSpaceList ? '' : 'wideDataExplorer'} 
-            ${!hideSpacesMobile ? '' : 'wideDataExplorer--mobile'} 
+            ${!hideSpacesMobile ? 'outRight' : 'wideDataExplorer--mobile'} 
             ${showMainMobile ? '' : 'clearDataExplorer'}`}
           >
             <Header

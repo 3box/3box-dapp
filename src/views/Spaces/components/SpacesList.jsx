@@ -90,7 +90,7 @@ const SpacesList = (props) => {
               <img src={Arrow} alt="arrow" />
             </span>
           </div>
-          <div className="space__divider--mobile" />
+          {(i !== list.length - 1) && <div className="space__divider--mobile" />}
         </React.Fragment>
       ))}
     </section>

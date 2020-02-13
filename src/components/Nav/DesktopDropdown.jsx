@@ -48,6 +48,8 @@ const DesktopDropdown = (props) => {
           </li>
         </Link>
 
+        <div className="nav__divide" />
+
         <Link to={`/${currentAddress}/${routes.SETTINGS}`}>
           <li
             className="nav__dropdown__wrapper"
