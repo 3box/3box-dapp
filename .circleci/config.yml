@@ -4,7 +4,6 @@ jobs:
     working_directory: ~/3box-dapp
     docker:
       - image: circleci/node:10
-    resource_class: large
     steps:
       - checkout
 
