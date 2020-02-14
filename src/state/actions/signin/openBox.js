@@ -71,21 +71,14 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
   }
 
   try {
-    console.log('111111111', web3Obj.currentProvider);
     const box = await Box.create(web3Obj.currentProvider);
-    console.log('222222', box);
     const spaces = [followingSpaceName];
-    console.log('222222.5', spaces);
     await box.auth(spaces, {
       address: currentAddress,
     });
-    console.log('3333333');
     await box.syncDone;
-    console.log('444444444');
     consentCallback();
-    console.log('55555555');
     const ens = await fetchEns(currentAddress, web3Obj);
-    console.log('666666666');
 
     dispatch({
       type: 'USER_LOGIN_UPDATE',

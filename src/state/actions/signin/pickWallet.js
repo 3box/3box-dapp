@@ -54,7 +54,6 @@ const pickWallet = async (directLogin, dispatch, shouldSignOut) => {
     } else {
       web3Connect.connect();
       web3Connect.on('connect', async (provider) => {
-        console.log('in on', provider);
         try {
           if (shouldSignOut) handleSignOutFunc();
           dispatch({
