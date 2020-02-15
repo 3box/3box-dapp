@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import mql from '@microlink/mql';
 import Linkify from 'react-linkify';
 
-import { checkIsMobileDevice, addhttp } from '../../utils/funcs';
+import { checkIsMobileDevice, addhttp, isValidImage } from '../../utils/funcs';
 import actions from '../../state/actions';
 
 import EmojiIcon from './Emoji/EmojiIcon';
@@ -191,7 +191,7 @@ class WallInput extends Component {
       isFetchingOtherWall,
     } = this.props;
 
-    const updatedProfilePicture = image ? `https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`
+    const updatedProfilePicture = isValidImage(image) ? `https://ipfs.infura.io/ipfs/${image[0].contentUrl['/']}`
       : currentAddress && makeBlockie(currentAddress);
 
     const isLoading = (isFetchingWall && !isOtherProfile) || (isFetchingOtherWall && isOtherProfile) || postLoading;

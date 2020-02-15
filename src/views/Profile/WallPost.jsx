@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import mql from '@microlink/mql';
 
-import { shortenEthAddr, addhttp } from '../../utils/funcs';
+import { shortenEthAddr, addhttp, isValidImage } from '../../utils/funcs';
 import { timeSince } from '../../utils/time';
 import actions from '../../state/actions';
 
@@ -96,7 +96,7 @@ class WallPost extends Component {
     } = this.props;
 
     const profilePicture = profile.ethAddr &&
-      (profile.image ? `https://ipfs.infura.io/ipfs/${profile.image[0].contentUrl['/']}`
+      (isValidImage(profile.image) ? `https://ipfs.infura.io/ipfs/${profile.image[0].contentUrl['/']}`
         : makeBlockie(profile.ethAddr));
     const canDelete = isMyComment || isMyAdmin;
 

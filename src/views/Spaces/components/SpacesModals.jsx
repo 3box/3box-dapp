@@ -146,7 +146,8 @@ export const ViewSpaceDataItemModal = ({
                 >
                   <img src={Link} alt="Transaction Icon" className="spaceModal__context__viewIcon" />
                   View Source
-              </a>)}
+                </a>
+              )}
             </div>
           </section>
         </div>

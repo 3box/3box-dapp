@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import makeBlockie from 'ethereum-blockies-base64';
 import { withRouter } from 'react-router-dom';
 
+import { isValidImage } from '../utils/funcs';
+
 import DefaultColorPic from '../assets/DefaultColorPic.svg';
 
 class ProfilePicture extends Component {
@@ -23,7 +25,7 @@ class ProfilePicture extends Component {
       imageToRender,
       otherProfileAddress,
     } = this.props;
-    
+
     const addressToUse = isMyPicture ? currentAddress : otherProfileAddress;
     const blockie = addressToUse ? makeBlockie(addressToUse) : DefaultColorPic;
     const imageProp = (imageToRender && imageToRender.length > 0) ? imageToRender : null;
@@ -31,7 +33,7 @@ class ProfilePicture extends Component {
       ? image
       : imageProp || otherImage;
 
-    const src = profilePicture && profilePicture.length > 0 && profilePicture[0].contentUrl
+    const src = isValidImage(profilePicture)
       ? `https://ipfs.infura.io/ipfs/${profilePicture[0].contentUrl['/']}`
       : blockie;
 
@@ -73,7 +75,7 @@ ProfilePicture.defaultProps = {
   pictureClass: '',
   otherProfileAddress: '',
   image: [],
-otherImage: [],
+  otherImage: [],
   imageToRender: [],
   isMyPicture: true,
 };

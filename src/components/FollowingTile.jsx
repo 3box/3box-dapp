@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ProfileHover from 'profile-hover';
 
+import { isValidImage } from '../utils/funcs';
+
 import '../views/Profile/styles/Profile.scss';
 import FollowButton from '../views/Profile/PublicProfile/FollowButton';
 import DefaultProfile from '../assets/DefaultProfile.svg';
@@ -42,7 +44,7 @@ class FollowingTile extends Component {
           >
             <div className="contact_tile_info">
               <img
-                src={user.image ? `https://ipfs.infura.io/ipfs/${user.image[0].contentUrl['/']}` : DefaultProfile}
+                src={isValidImage(user.image) ? `https://ipfs.infura.io/ipfs/${user.image[0].contentUrl['/']}` : DefaultProfile}
                 className="contact_tile_info_image"
                 alt="profile"
               />
@@ -62,7 +64,7 @@ class FollowingTile extends Component {
               >
                 <div className="contact_tile_info">
                   <img
-                    src={user.image ? `https://ipfs.infura.io/ipfs/${user.image[0].contentUrl['/']}` : DefaultProfile}
+                    src={isValidImage(user.image) ? `https://ipfs.infura.io/ipfs/${user.image[0].contentUrl['/']}` : DefaultProfile}
                     className="contact_tile_info_image"
                     alt="profile"
                   />

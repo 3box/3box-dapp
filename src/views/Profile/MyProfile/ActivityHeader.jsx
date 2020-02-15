@@ -6,7 +6,7 @@ import ProfileHover from 'profile-hover';
 import ProfilePicture from '../../../components/ProfilePicture';
 import Space from '../../../assets/Space.svg';
 import networkArray from '../../../utils/networkArray';
-import { checkIsEthAddress, shortenEthAddr } from '../../../utils/funcs';
+import { checkIsEthAddress, shortenEthAddr, isValidImage } from '../../../utils/funcs';
 
 import '../styles/Feed.scss';
 import '../styles/Profile.scss';
@@ -35,7 +35,7 @@ const ActivityHeader = ({ name, image, feedAddress }) => {
             </div>
           )}
 
-        {(!isThreeBoxActivity && metaData && metaData.image)
+        {(!isThreeBoxActivity && isValidImage(metaData.image))
           && <img src={`https://ipfs.infura.io/ipfs/${metaData.image[0].contentUrl['/']}`} className="feed__activity__user clear" alt="profile" />}
 
         {(!isThreeBoxActivity && metaData && metaData.contractImg)

@@ -11,7 +11,7 @@ import {
   store,
 } from '../../../state/store';
 import actions from '../../../state/actions';
-import { copyToClipBoard, capitalizeFirst } from '../../../utils/funcs';
+import { copyToClipBoard, capitalizeFirst, isValidImage } from '../../../utils/funcs';
 import {
   FileSizeModal,
   GithubVerificationModal,
@@ -1015,7 +1015,7 @@ class EditProfile extends Component {
                     </div>
                   </label>
                 </div>
-                {(((coverPhoto && coverPhoto.length > 0 && coverPhoto[0].contentUrl) || (this.coverUpload && this.coverUpload.files && this.coverUpload.files[0])) && !removeCoverPic)
+                {((isValidImage(coverPhoto) || (this.coverUpload && this.coverUpload.files && this.coverUpload.files[0])) && !removeCoverPic)
                   && (
                     <img
                       className="coverPic"
@@ -1055,7 +1055,7 @@ class EditProfile extends Component {
                       &#10005;
                     </button>
 
-                    {(((image && image.length > 0 && image[0].contentUrl) || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])) && !removeUserPic)
+                    {((isValidImage(image) || (this.fileUpload && this.fileUpload.files && this.fileUpload.files[0])) && !removeUserPic)
                       ? (
                         <div className="profPic_div">
                           <div className="profPic_div_overlay">

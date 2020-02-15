@@ -435,3 +435,11 @@ export function debounce(func, wait, immediate) {
     if (callNow) func.apply(context, args);
   };
 }
+
+export const isValidImage = (image) => {
+  if (image && image[0] && image[0].contentUrl) {
+    return true;
+  }
+
+  return false;
+};

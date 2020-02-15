@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ProfileHover from 'profile-hover';
 
 import networkArray from '../../../utils/networkArray';
-import { shortenEthAddr } from '../../../utils/funcs';
+import { shortenEthAddr, isValidImage } from '../../../utils/funcs';
 import '../styles/Feed.scss';
 import '../styles/Profile.scss';
 import '../../../components/styles/NetworkArray.scss';
@@ -16,7 +16,7 @@ const PublicActivityHeader = ({ feedAddress }) => {
   return (
     <div className="feed__activity__context">
       <div className="feed_activity_context_info">
-        {(metaData && metaData.image)
+        {(metaData && isValidImage(metaData.image))
           && <img src={`https://ipfs.infura.io/ipfs/${metaData.image[0].contentUrl['/']}`} className="feed__activity__user clear" alt="profile" />}
 
         {(metaData && metaData.contractImg)
