@@ -102,6 +102,7 @@ const ActivityTiles = ({
             }
 
             if (item.spaceName) {
+              console.log('spaceThreeBoxActivity', item);
               return (
                 <FeedTileSpace
                   item={item}

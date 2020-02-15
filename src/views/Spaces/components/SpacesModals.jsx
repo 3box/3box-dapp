@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { timeSince } from '../../../utils/time';
+import { isValidImage } from '../../../utils/funcs';
 import Space from '../../../assets/Space.svg';
 import Private from '../../../assets/Private.svg';
 import Globe from '../../../assets/Globe.svg';
@@ -61,12 +62,13 @@ export const ViewSpaceDataItemModal = ({
             {dataKey.substring(0, 7) === 'thread-' && dataValue.name.replace(/([A-Z])/g, ' $1')
               .replace(/^./, str => str.toUpperCase())}
 
-            {rowType === 'Image' && (
+            {(rowType === 'Image' && isValidImage(dataValue)) && (
               <img
                 src={`https://ipfs.infura.io/ipfs/${dataValue[0].contentUrl['/']}`}
                 className="spaceModal__content__image"
                 alt="profile"
-              />)}
+              />
+            )}
 
             {typeof dataValue === 'string' && dataValue}
 
@@ -80,7 +82,8 @@ export const ViewSpaceDataItemModal = ({
                       <p className="spaceModal__content__object-keys">{content}</p>
                     ))
                   }
-                </>)}
+                </>
+              )}
           </section>
 
           <section className="spaceModal__context">
@@ -137,7 +140,7 @@ export const ViewSpaceDataItemModal = ({
                 Delete
               </span>
 
-              {rowType === 'Image' && (
+              {(rowType === 'Image' && isValidImage(dataValue))(
                 <a
                   className="spaceModal__context__view"
                   href={`https://ipfs.infura.io/ipfs/${dataValue[0].contentUrl['/']}`}

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import tokenToData from '../../utils/tokenToData.json';
 
-import { isValidImage } from '../../utils/funcs';
 import Save from '../../assets/Save.svg';
 import Delete from '../../assets/Delete.svg';
 import FeedTileContext from './FeedTileContext';

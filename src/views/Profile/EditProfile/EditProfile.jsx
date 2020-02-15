@@ -1025,7 +1025,6 @@ class EditProfile extends Component {
                         : `https://ipfs.infura.io/ipfs/${coverPhoto[0].contentUrl['/']}`}
                     />
                   )}
-
               </div>
             </div>
 

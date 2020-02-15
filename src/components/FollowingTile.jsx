@@ -44,7 +44,7 @@ class FollowingTile extends Component {
           >
             <div className="contact_tile_info">
               <img
-                src={isValidImage(user.image) ? `https://ipfs.infura.io/ipfs/${user.image[0].contentUrl['/']}` : DefaultProfile}
+                src={user && isValidImage(user.image) ? `https://ipfs.infura.io/ipfs/${user.image[0].contentUrl['/']}` : DefaultProfile}
                 className="contact_tile_info_image"
                 alt="profile"
               />
@@ -64,7 +64,7 @@ class FollowingTile extends Component {
               >
                 <div className="contact_tile_info">
                   <img
-                    src={isValidImage(user.image) ? `https://ipfs.infura.io/ipfs/${user.image[0].contentUrl['/']}` : DefaultProfile}
+                    src={user && isValidImage(user.image) ? `https://ipfs.infura.io/ipfs/${user.image[0].contentUrl['/']}` : DefaultProfile}
                     className="contact_tile_info_image"
                     alt="profile"
                   />
