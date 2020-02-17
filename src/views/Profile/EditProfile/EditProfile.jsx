@@ -21,6 +21,8 @@ import {
 } from '../../../components/Modals';
 import history from '../../../utils/history';
 import { twitterMessage, githubMessage, editProfileFields, checkVerifiedFormatting } from './utils';
+
+import { LoadingThreeBoxProfileModal } from '../../../components/Modals';
 import Nav from '../../../components/Nav/Nav';
 import * as routes from '../../../utils/routes';
 import Private from '../../../assets/Private.svg';
@@ -905,12 +907,7 @@ class EditProfile extends Component {
           message="Continue without saving changes to your profile?"
         />
 
-        {saveLoading
-          && (
-            <div className="container">
-              <img src={Loading} alt="loading" />
-            </div>
-          )}
+        {saveLoading && <LoadingThreeBoxProfileModal key="LoadingThreeBoxProfileModal" />}
 
         <ReactCSSTransitionGroup
           transitionName="app__modals"
@@ -970,7 +967,8 @@ class EditProfile extends Component {
           {(showEmailVerificationModal
             || showTwitterVerificationModal
             || showGithubVerificationModal
-            || showFileSizeModal) && (
+            || showFileSizeModal
+            || saveLoading) && (
               <ModalBackground />
             )}
         </ReactCSSTransitionGroup>
