@@ -1,4 +1,4 @@
-import useDefaultWallet from './useDefaultWallet';
+import useOutsideLogin from './useOutsideLogin';
 import pickWallet from './pickWallet';
 
 const injectWeb3 = (
@@ -7,13 +7,10 @@ const injectWeb3 = (
   outsideLoginWallet,
   shouldSignOut,
 ) => async (dispatch) => {
-  // const defaultWallet = outsideLoginWallet || window.localStorage.getItem('defaultWallet'); // eslint-disable-line no-undef
-  // const isDefaultWalletConnect = defaultWallet && defaultWallet.toLowerCase() === 'walletconnect';
-  // if (chooseWallet || !defaultWallet || isDefaultWalletConnect) {
   if (chooseWallet || !outsideLoginWallet) {
     await pickWallet(directLogin, dispatch, shouldSignOut, chooseWallet);
   } else {
-    await useDefaultWallet(outsideLoginWallet, directLogin, dispatch);
+    await useOutsideLogin(outsideLoginWallet, directLogin, dispatch);
   }
 };
 

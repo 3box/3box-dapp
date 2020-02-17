@@ -96,12 +96,6 @@ class App extends Component {
         || !!queryParams.wallet
       );
 
-      // if (isWalletConnectDefault && allowDirectSignIn) {
-      // if (allowDirectSignIn) {
-      //   history.push('/login');
-      //   return;
-      // }
-
       if (allowDirectSignIn) { // Begin signin
         this.directSignIn(queryParams.wallet);
       } else if (onProfilePage) { // Lands on profile page

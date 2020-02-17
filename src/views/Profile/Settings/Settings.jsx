@@ -52,7 +52,7 @@ class Settings extends Component {
     const { box } = this.props;
     const hasBoxChanged = box !== prevProps.box;
 
-    if (hasBoxChanged) this.fetchedLinkedAccounts();
+    if (hasBoxChanged && box.listAddressLinks) this.fetchedLinkedAccounts();
   }
 
   handleFinderToDisplay = (view, nestedView) => {

@@ -26,7 +26,6 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
   const {
     otherProfileAddress,
   } = store.getState().otherProfile;
-
   dispatch({
     type: 'UI_HANDLE_CONSENT_MODAL',
     provideConsent: true,
@@ -36,7 +35,6 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
   const consentCallback = () => {
     const redirectToHome = (fromSignIn && !fromFollowButton) ||
       (otherProfileAddress === currentAddress);
-
     if (redirectToHome) {
       history.push(`/${currentAddress}/${routes.directToHome()}`);
     }

@@ -33,7 +33,7 @@ const web3Connect = new Web3Connect.Core({
   },
 });
 
-const useDefaultWallet = async (outsideLoginWallet, directLogin, dispatch) => {
+const useOutsideLogin = async (outsideLoginWallet, directLogin, dispatch) => {
   let normalizedWallet;
   if (outsideLoginWallet) normalizedWallet = outsideLoginWallet.toLowerCase();
   let provider;
@@ -70,4 +70,4 @@ const useDefaultWallet = async (outsideLoginWallet, directLogin, dispatch) => {
   await connectProviderToDapp(provider, directLogin, dispatch);
 };
 
-export default useDefaultWallet;
+export default useOutsideLogin;
