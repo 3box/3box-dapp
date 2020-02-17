@@ -38,7 +38,6 @@ export const getMyFeed = async (categorizedActivity) => {
   // get 3box logs
   try {
     unFilteredPublicActivity = await store.getState().myData.box.public.log();
-    console.log('unFilteredPublicActivity', unFilteredPublicActivity);
   } catch (error) {
     console.error(error);
   }
