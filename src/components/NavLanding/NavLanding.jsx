@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { checkIsEthAddress, normalizeURL } from '../../utils/funcs';
 import * as routes from '../../utils/routes';
 
+import NavSearch from '../Nav/NavSearch';
 import NavLinks from './NavLinks';
 import MobileSidedrawer from './MobileSidedrawer';
 import APILinks from './APILinks';
@@ -25,6 +26,8 @@ class NavLanding extends Component {
       showSideDrawer: false,
       isProfilePage: checkIsEthAddress(pathname.split('/')[1]),
       showDropdown: false,
+      showMobileSearch: false,
+      showResults: false,
     };
   }
 
@@ -70,6 +73,20 @@ class NavLanding extends Component {
     });
   }
 
+  handleMobileSearch = () => {
+    const { showMobileSearch } = this.state;
+    this.setState({ showMobileSearch: !showMobileSearch, showResults: !showMobileSearch });
+  }
+
+  handleToggleResults = (bool) => {
+    const { showResults } = this.state;
+    if (bool) {
+      this.setState({ showResults: true });
+    } else {
+      this.setState({ showResults: !showResults });
+    }
+  }
+
   render() {
     const {
       retractNav,
@@ -77,6 +94,8 @@ class NavLanding extends Component {
       showSideDrawer,
       isProfilePage,
       showDropdown,
+      showMobileSearch,
+      showResults,
     } = this.state;
     const {
       landing,
@@ -97,9 +116,6 @@ class NavLanding extends Component {
     const profilePage = typeof normalizedPath.split('/')[2] === 'undefined';
     const isPublicProfile = currentUrlEthAddr && profilePage;
 
-    // ${(showSignInBanner) ? 'showSignInBanner' : ''} 
-    // ${(showSignInBanner) ? 'bannerMargin' : ''} 
-
     return (
       <nav
         id="landing__nav"
@@ -113,8 +129,19 @@ class NavLanding extends Component {
         <NavLinks
           handleMobileSideBar={this.handleMobileSideBar}
           handleAPI={this.handleAPI}
+          showMobileSearch={showMobileSearch}
           route={route}
+          isPublicProfile={isPublicProfile}
         />
+
+        {isPublicProfile && (
+          <NavSearch
+            handleMobileSearch={this.handleMobileSearch}
+            handleToggleResults={this.handleToggleResults}
+            showMobileSearch={showMobileSearch}
+            showResults={showResults}
+          />
+        )}
 
         {(route !== 'hub' && !isProfilePage && route !== 'login') && (
           <LoginToHubButton />

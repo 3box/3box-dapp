@@ -31,6 +31,7 @@ class NavSearch extends Component {
       isEthAddr: false,
       searchTerm: '',
       searchedProfile: null,
+      profilePicture: null,
       isEmptyProfile: false,
       isFetching: false,
       searchedEthAddr: '',
@@ -40,7 +41,7 @@ class NavSearch extends Component {
   handleInputEdit = async (e) => {
     const { value } = e.target;
     const { handleToggleResults } = this.props;
-    this.setState({ searchTerm: value, searchedProfile: null, isFetching: false });
+    this.setState({ searchTerm: value, searchedProfile: null, isFetching: false, profilePicture: null });
 
     const isEthAddr = checkIsEthAddress(value);
     const isENS = checkIsENSAddress(value);
@@ -68,7 +69,7 @@ class NavSearch extends Component {
         searchedProfile.github = verifiedAccouts.github && verifiedAccouts.github.username;
         searchedProfile.twitter = verifiedAccouts.twitter && verifiedAccouts.twitter.username;
       }
-      this.setState({ searchedProfile, isEmptyProfile: false });
+      this.setState({ searchedProfile, isEmptyProfile: false, profilePicture: searchedProfile.image });
     } else {
       this.setState({ isEmptyProfile: true, searchedProfile: null });
     }
@@ -76,7 +77,7 @@ class NavSearch extends Component {
     this.setState({ isFetching: false });
   }
 
-  clearSearch = () => this.setState({ searchedProfile: null, searchTerm: '' });
+  clearSearch = () => this.setState({ searchedProfile: null, searchTerm: '', profilePicture: null });
 
   render() {
     const {
@@ -87,6 +88,7 @@ class NavSearch extends Component {
       isENS,
       isFetching,
       searchedEthAddr,
+      profilePicture,
     } = this.state;
 
     const {
@@ -113,7 +115,7 @@ class NavSearch extends Component {
             <div className="navSearch_input_result">
               <ProfilePicture
                 pictureClass="navSearch_input_result_image"
-                imageToRender={searchedProfile && searchedProfile.image}
+                imageToRender={profilePicture}
                 otherProfileAddress={searchedEthAddr}
                 fromnav
                 isMyPicture={false}

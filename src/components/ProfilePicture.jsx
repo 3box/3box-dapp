@@ -24,14 +24,16 @@ class ProfilePicture extends Component {
       pictureClass,
       imageToRender,
       otherProfileAddress,
+      fromnav,
     } = this.props;
 
     const addressToUse = isMyPicture ? currentAddress : otherProfileAddress;
     const blockie = addressToUse ? makeBlockie(addressToUse) : DefaultColorPic;
     const imageProp = (imageToRender && imageToRender.length > 0) ? imageToRender : null;
+    const useOtherImage = !fromnav && otherImage;
     const profilePicture = isMyPicture
       ? image
-      : imageProp || otherImage;
+      : imageProp || useOtherImage;
 
     const src = isValidImage(profilePicture)
       ? `https://ipfs.infura.io/ipfs/${profilePicture[0].contentUrl['/']}`
@@ -67,6 +69,7 @@ ProfilePicture.propTypes = {
   otherImage: PropTypes.array,
   imageToRender: PropTypes.array,
   isMyPicture: PropTypes.bool,
+  fromnav: PropTypes.bool,
 };
 
 ProfilePicture.defaultProps = {
@@ -78,6 +81,7 @@ ProfilePicture.defaultProps = {
   otherImage: [],
   imageToRender: [],
   isMyPicture: true,
+  fromnav: false,
 };
 
 function mapState(state) {
