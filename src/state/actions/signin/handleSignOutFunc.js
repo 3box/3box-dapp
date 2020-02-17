@@ -16,7 +16,7 @@ const handleSignOutFunc = () => {
 
   if (isLoggedIn) {
     if (box) box.logout();
-    window.localStorage.removeItem('defaultWallet');
+    // window.localStorage.removeItem('defaultWallet');
     window.localStorage.removeItem('userEthAddress');
     window.localStorage.removeItem('prevNetwork');
     window.localStorage.removeItem('prevPrevNetwork');

@@ -12,6 +12,7 @@ import {
 } from '../../../utils/funcs';
 
 const web3Connect = new Web3Connect.Core({
+  cacheProvider: true,
   providerOptions: {
     walletconnect: {
       package: WalletConnectProvider, // required
@@ -38,7 +39,9 @@ const web3Connect = new Web3Connect.Core({
   },
 });
 
-const pickWallet = async (directLogin, dispatch, shouldSignOut) => {
+const pickWallet = async (directLogin, dispatch, shouldSignOut, chooseWallet) => {
+  if (chooseWallet) web3Connect.clearCachedProvider();
+
   dispatch({
     type: 'USER_WEB3CONNECT',
     web3Connect,
@@ -94,8 +97,6 @@ const pickWallet = async (directLogin, dispatch, shouldSignOut) => {
       });
     }
   });
-
-  // web3Connect.toggleModal(); // open modal on button click
 
   try {
     await web3Promise;
