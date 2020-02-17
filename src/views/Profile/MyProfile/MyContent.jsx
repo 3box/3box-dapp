@@ -72,7 +72,7 @@ const Content = ({ currentAddress, handleSignInUp, history }) => {
       <>
         <Wall handleSignInUp={handleSignInUp} isActive={paths[2] === 'wall'} />
 
-        <Activity isActive={paths[2] === 'activity'} />
+        {/* <Activity isActive={paths[2] === 'activity'} /> */}
 
         <Details isActive={paths[2] === 'details'} />
 
