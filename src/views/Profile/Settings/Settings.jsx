@@ -197,7 +197,6 @@ class Settings extends Component {
             ${nestLevel === 1 ? 'inMobileView' : ''}
             ${nestLevel > 1 ? 'outLeft' : ''}
             ${nestLevel < 1 ? 'outRight' : ''}
-
             `}
             >
               {listArray.map((option, i) => (

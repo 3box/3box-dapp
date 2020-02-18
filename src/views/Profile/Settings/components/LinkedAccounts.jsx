@@ -36,6 +36,8 @@ class LinkedAccounts extends Component {
   render() {
     const { linkedAddresses, ensNames } = this.props;
     const { copyAddressSuccessful } = this.state;
+
+    console.log('!!ensNames[i]', ensNames)
     return (
       <div className="settings_mainView">
         <div className="settings_mainView_linkedAddressWrapper">

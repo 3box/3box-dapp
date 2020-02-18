@@ -11,11 +11,10 @@ const fetchEns = async (address, isGetAllNames) => {
     const {
       web3Obj,
     } = store.getState().userState;
-
     const currentProvider = web3Obj ? web3Obj.currentProvider : (web3 && web3.currentProvider); // eslint-disable-line
 
     // this looks for the canonical ENS name
-    if (currentProvider) {
+    if (currentProvider && !isGetAllNames) {
       const provider = new ethers.providers.Web3Provider(currentProvider);
       const name = await provider.lookupAddress(address);
       if (name) return name;
