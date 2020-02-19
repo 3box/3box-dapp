@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import './styles/Profile.scss';
 import TwitterHeader from './PublicProfile/TwitterHeader';
 
-class ProfilePublic extends Component {
+class PubProfileDummyTwitter extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -49,14 +49,14 @@ class ProfilePublic extends Component {
   }
 }
 
-ProfilePublic.propTypes = {
+PubProfileDummyTwitter.propTypes = {
   location: PropTypes.object,
   pathname: PropTypes.string,
 };
 
-ProfilePublic.defaultProps = {
+PubProfileDummyTwitter.defaultProps = {
   location: {},
   pathname: '',
 };
 
-export default withRouter(ProfilePublic);
+export default withRouter(PubProfileDummyTwitter);

@@ -230,7 +230,8 @@ class App extends Component {
     const isRequestRoute = checkRequestRoute(splitRoute);
     const isNotLoginPage = splitRoute[1] !== 'login';
 
-    if (isRequestRoute) return <AppPreviewRoutes />; // routes for when client request is for link preview
+    // routes for when client request is for link preview
+    if (isRequestRoute) return <AppPreviewRoutes />;
 
     return (
       <div className={`App ${(fixBody && isNotLoginPage) ? 'fixBody' : ''}`}>
