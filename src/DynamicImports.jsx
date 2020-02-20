@@ -66,13 +66,6 @@ export const AppModals = (props) => (
   </DynamicImports>
 );
 
-export const AppHeaders = (props) => (
-  <DynamicImports load={() => import('./components/AppHeaders')}>
-    {Component => Component !== null
-      && <Component {...props} />}
-  </DynamicImports>
-);
-
 export const NavLanding = (props) => (
   <DynamicImports load={() => import('./components/NavLanding/NavLanding')}>
     {Component => Component !== null

@@ -24,7 +24,6 @@ import AppRoutes from './AppRoutes';
 import AppPreviewRoutes from './AppPreviewRoutes';
 import {
   AppModals,
-  AppHeaders,
   NavLanding,
   Nav,
   ChatboxComponent,
@@ -235,8 +234,6 @@ class App extends Component {
 
     return (
       <div className={`App ${(fixBody && isNotLoginPage) ? 'fixBody' : ''}`}>
-        <AppHeaders />
-
         {(!isMyProfilePath && !isLoggedIn) // show landing nav when user is not logged in, 3box is not fetching, and when route is not a protected route
           && (
             <NavLanding
