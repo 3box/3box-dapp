@@ -72,11 +72,11 @@ class WallPost extends Component {
         url,
         {
           apiKey: 'vYR5oNTFdH6sN0s1aX1yf11pARnMJPaG8wXSVzt3',
-          prerender: true,
-          headers: {
-            'user-agent': [{ value: 'googlebot' }],
-            host: 'https://3box.io',
-          },
+          // prerender: true,
+          // headers: {
+          //   'user-agent': [{ value: 'googlebot' }],
+          //   host: 'https://3box.io',
+          // },
         },
       );
       this.setState({ isFetchingLink: false, linkPreview: data });
