@@ -6,7 +6,6 @@ const AppHeaders = () => (
     <title>Shared backend for Web3 | 3Box</title>
     <meta name="description" content="One profile. A world of Ethereum dapps." />
 
-    <meta property="og:type" content="website" />
     <meta property="og:description" content="One profile. A world of Ethereum dapps." />
     <meta property="og:url" content="https://3box.io/" />
     <meta property="og:title" content="Shared backend for Web3 | 3Box" />

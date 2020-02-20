@@ -12,7 +12,6 @@ const MyProfileHeaders = ({
       <title>{name ? `${name} on 3Box` : '3Box | Ethereum Profiles'}</title>
       <meta name="description" content={`Profile for ${shortenEthAddr(currentAddress)}`} />
 
-      <meta property="og:type" content="website" />
       <meta property="og:description" content={`Profile for ${shortenEthAddr(currentAddress)}`} />
       <meta property="og:url" content={`https://3box.io/${currentAddress}`} />
       <meta property="og:title" content={name ? `${name} on 3Box` : '3Box | Ethereum Profiles'} />
