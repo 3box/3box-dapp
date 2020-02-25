@@ -63,7 +63,7 @@ const applicationsArray = [
   shapePartnerObject('Aragon', Aragon),
   shapePartnerObject('ConsenSys MeshHub', ConsensysLogo),
   shapePartnerObject('Gnosis', Gnosis),
-  shapePartnerObject('Rarible', Rarible),
+  shapePartnerObject('Rarible', Rarible, 'https://rarible.com/'),
   shapePartnerObject('SuperRare', SuperRare),
   shapePartnerObject('Microsponsors', Microsponsors),
   shapePartnerObject('EthDenver', EthDenver),
