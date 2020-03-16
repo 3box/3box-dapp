@@ -140,7 +140,7 @@ export const ViewSpaceDataItemModal = ({
                 Delete
               </span>
 
-              {(rowType === 'Image' && isValidImage(dataValue))(
+              {(rowType === 'Image' && isValidImage(dataValue)) && (
                 <a
                   className="spaceModal__context__view"
                   href={`https://ipfs.infura.io/ipfs/${dataValue[0].contentUrl['/']}`}
