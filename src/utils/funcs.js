@@ -437,7 +437,7 @@ export function debounce(func, wait, immediate) {
 }
 
 export const isValidImage = (image) => {
-  if (image && image[0] && image[0].contentUrl) {
+  if (Array.isArray(image) && image[0] && image[0].contentUrl) {
     return true;
   }
 

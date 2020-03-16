@@ -38,10 +38,15 @@ const getActivity = async (otherProfileAddress) => {
     }
 
     // get Eth network activity
-    const activity = await ThreeBoxActivity.get(
-      otherProfileAddress || store.getState().userState.currentAddress,
+    const activity = await ThreeBoxActivity.get('0xa8ee0babe72cd9a80ae45dd74cd3eae7a82fd5d1',
       currentNetwork && currentNetwork.toLowerCase(),
     );
+    console.log('activityactivity', activity);
+    // const activity = await ThreeBoxActivity.get(
+    //   otherProfileAddress || store.getState().userState.currentAddress,
+    //   currentNetwork && currentNetwork.toLowerCase(),
+    // );
+    // const addressToUse = otherProfileAddress || store.getState().userState.currentAddress;
 
     // add datatype to each row
     const categorizedActivity = addDataType(activity);

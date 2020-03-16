@@ -20,6 +20,8 @@ import { store } from './state/store';
 import actions from './state/actions';
 import getMyData from './state/actions/profile/getMyData';
 
+import fetchAletio from './state/actions/profile/getActivity/fetchAlethio';
+
 import AppRoutes from './AppRoutes';
 import AppPreviewRoutes from './AppPreviewRoutes';
 import {
@@ -72,6 +74,7 @@ class App extends Component {
   }
 
   async componentDidMount() {
+    // fetchAletio();
     try {
       const { location: { pathname, search } } = this.props;
       const normalizedPath = normalizeURL(pathname);
