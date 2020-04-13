@@ -24,7 +24,6 @@ import Remix from '../../assets/Remix.jpg';
 import Simpleid from '../../assets/Simpleid.jpg';
 import SuperRare from '../../assets/SuperRare.jpg';
 import NiftyFootball from '../../assets/NiftyFootball.png';
-import Wildcards from '../../assets/Wildcards.png';
 import Totem from '../../assets/Totem.png';
 import Aragon from '../../assets/aragon_icon.png';
 import MolochDAO from '../../assets/MolochDAO.png';
@@ -70,8 +69,7 @@ const applicationsArray = [
   shapePartnerObject('Microsponsors', Microsponsors),
   shapePartnerObject('EthDenver', EthDenver),
   shapePartnerObject('LivePeer', LivePeer),
-  shapePartnerObject('Mintbase', Mintbase, 'https://mintbase.io/'),
-  shapePartnerObject('Wildcards', Wildcards, 'https://wildcards.world')
+  shapePartnerObject('Mintbase', Mintbase, 'https://mintbase.io/')
 ];
 
 const walletsArray = [
