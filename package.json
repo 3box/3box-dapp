@@ -6,7 +6,7 @@
   "dependencies": {
     "3box": "^1.17.1",
     "3box-activity": "0.0.9",
-    "3box-chatbox-react": "^0.1.6",
+    "3box-chatbox-react": "^0.1.9",
     "3id-resolver": "0.0.6",
     "@babel/polyfill": "^7.7.0",
     "@microlink/mql": "^0.5.10",
@@ -33,7 +33,7 @@
     "lodash.debounce": "^4.0.8",
     "node-sass": "^4.13.1",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
-    "profile-hover": "^1.1.1",
+    "profile-hover": "^1.1.2",
     "prop-types": "^15.6.1",
     "pull-ws": "^3.3.2",
     "query-string": "^6.8.1",
