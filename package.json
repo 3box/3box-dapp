@@ -54,7 +54,7 @@
     "scrypt-shim": "github:web3-js/scrypt-shim",
     "source-map-explorer": "^2.1.2",
     "squarelink": "^1.1.4",
-    "web3": "^1.2.4",
+    "web3": "^1.2.8",
     "web3-eth-personal": "^1.2.4",
     "web3connect": "^1.0.0-beta.32",
     "webpack": "^4.41.2",
