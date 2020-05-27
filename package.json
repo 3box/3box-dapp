@@ -6,7 +6,7 @@
   "dependencies": {
     "3box": "^1.17.1",
     "3box-activity": "0.0.9",
-    "3box-chatbox-react": "^0.1.9",
+    "3box-chatbox-react": "^0.2.0",
     "3id-resolver": "0.0.6",
     "@babel/polyfill": "^7.7.0",
     "@microlink/mql": "^0.5.10",
