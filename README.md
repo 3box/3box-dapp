@@ -48,3 +48,7 @@ The Profiles App relies on the [`3box-verifications`](https://github.com/3box/3b
 
 ## 3Box Activity
 The activity feed populates 3Box activity using [`3box-js`](https://github.com/3box/3box-js) and Ethereum activity using the [`3box-activity`](https://github.com) library. The `3box-activity` library is a wrapper on the Etherscan API which presents public network activity.
+
+
+## Maintainers
+[@zachferland](https://github.com/zachferland)
