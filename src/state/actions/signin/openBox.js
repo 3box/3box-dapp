@@ -69,7 +69,7 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
   }
 
   try {
-    const box = await Box.create(web3Obj.currentProvider);
+    const box = await Box.create(web3Obj.currentProvider, { ghostPinbot: "/dns4/pinbot.3box.io/wss/ipfs/QmRuz3UAiT1ubR2EXebWCJXnvMeVjcAfvsRLet482aFQip" });
     const spaces = [followingSpaceName];
     await box.auth(spaces, {
       address: currentAddress,
