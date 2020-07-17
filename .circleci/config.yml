@@ -16,7 +16,7 @@ jobs:
           name: install-awscli-and-dependencies
           command: |
             sudo apt-get update && sudo apt-get install awscli
-            npm i
+            npm ci
 
       - run:
           name: run-tests
