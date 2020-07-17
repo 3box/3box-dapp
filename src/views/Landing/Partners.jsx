@@ -16,6 +16,7 @@ import Fuse from '../../assets/Fuse.png';
 import Gnosis from '../../assets/Gnosis.jpg';
 import LivePeer from '../../assets/LivePeer.jpg';
 import Microsponsors from '../../assets/Microsponsors.jpg';
+import Mintbase from '../../assets/Mintbase.jpg';
 import Pillar from '../../assets/Pillar.jpg';
 import Portis from '../../assets/Portis.jpg';
 import Rarible from '../../assets/Rarible.jpg';
@@ -68,6 +69,7 @@ const applicationsArray = [
   shapePartnerObject('Microsponsors', Microsponsors),
   shapePartnerObject('EthDenver', EthDenver),
   shapePartnerObject('LivePeer', LivePeer),
+  shapePartnerObject('Mintbase', Mintbase, 'https://mintbase.io/')
 ];
 
 const walletsArray = [
