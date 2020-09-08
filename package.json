@@ -26,7 +26,7 @@
     "fortmatic": "^1.1.3",
     "history": "^4.7.2",
     "idb-readable-stream": "0.0.4",
-    "ipfs-log": "^4.5.3",
+    "ipfs-log": "^4.6.4",
     "level-js": "^5.0.1",
     "libp2p-pubsub": "0.4.6",
     "lodash.clonedeep": "^4.5.0",
