@@ -14,7 +14,6 @@ import {
   checkIsEthAddress,
   checkRequestRoute,
 } from './utils/funcs';
-import { followingSpaceName } from './utils/constants';
 import history from './utils/history';
 import { store } from './state/store';
 import actions from './state/actions';
@@ -26,7 +25,6 @@ import {
   AppModals,
   NavLanding,
   Nav,
-  ChatboxComponent,
 } from './DynamicImports';
 import './index.scss';
 
@@ -294,21 +292,6 @@ class App extends Component {
           handleFollowingPublicModal={this.props.handleFollowingPublicModal}
           handleUnsupportedBrowserModal={this.props.handleUnsupportedBrowserModal}
         />
-
-        {isMyProfilePath && (
-          <ChatboxComponent
-            spaceName={followingSpaceName}
-            threadName="chatbox"
-            box={box}
-            currentUserAddr={currentAddress}
-            agentProfile={{
-              chatName: '3Box Chat',
-              imageUrl: null,
-            }}
-            popupChat
-            userProfileURL={(address) => `https://3box.io/${address}`}
-          />
-        )}
 
         <AppRoutes
           handleSignInUp={this.handleSignInUp}
