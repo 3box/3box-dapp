@@ -93,10 +93,3 @@ export const Privacy = (props) => (
       && <Component {...props} />}
   </DynamicImports>
 );
-
-export const ChatboxComponent = props => (
-  <DynamicImports load={() => import('./components/ChatboxComponent')}>
-    {Component => Component !== null
-      && <Component {...props} />}
-  </DynamicImports>
-);

@@ -1,5 +1,8 @@
 # Release Notes
 
+## v1.2.0 - 2020-09-14
+* chore: remove chatbox
+
 ## v1.1.0 - 2020-07-17
 * chore: update 3boxjs, adds 3id-connect, new pinbot and connect
 
