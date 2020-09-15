@@ -1,5 +1,10 @@
 # Release Notes
 
+## v1.3.0 - 2020-09-15
+* chore: upgrade 3box 1.22.0 and orbit db
+
+Includes fixes for 'key not found errors', login/logout flows for account links, and some 'cannot append' errors.
+
 ## v1.2.0 - 2020-09-14
 * chore: remove chatbox
 
