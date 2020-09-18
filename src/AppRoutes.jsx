@@ -22,7 +22,6 @@ import {
   Spaces,
   EditProfile,
   PubProfile,
-  Careers,
   Terms,
   Privacy,
   Settings,
@@ -78,19 +77,24 @@ const AppRoutes = (props) => {
 
       <Route
         exact
-        path={routes.CAREERS}
-        render={() => <Careers />}
-      />
-      <Route
-        exact
         path={routes.TEAM}
         render={() => <Team />}
       />
-
+      <Route
+        exact
+        path={routes.CAREERS}
+        render={() => {
+          window.location = 'https://jobs.lever.co/3box';
+          return null;
+        }}
+      />
       <Route
         exact
         path={routes.JOBS}
-        render={() => <Redirect to={routes.CAREERS} />}
+        render={() => {
+          window.location = 'https://jobs.lever.co/3box';
+          return null;
+        }}
       />
 
       <Route
