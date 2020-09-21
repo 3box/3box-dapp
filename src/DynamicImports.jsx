@@ -73,13 +73,6 @@ export const NavLanding = (props) => (
   </DynamicImports>
 );
 
-export const Careers = (props) => (
-  <DynamicImports load={() => import('./views/Landing/Careers')}>
-    {Component => Component !== null
-      && <Component {...props} />}
-  </DynamicImports>
-);
-
 export const Terms = (props) => (
   <DynamicImports load={() => import('./views/Landing/Terms')}>
     {Component => Component !== null

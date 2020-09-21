@@ -64,9 +64,9 @@ const Footer = () => (
           <h5>
             MORE
           </h5>
-          <Link to={routes.CAREERS}>
+          <a href="https://jobs.lever.co/3box" target="_blank" rel="noopener noreferrer">
             Careers
-          </Link>
+          </a>
           <Link to={routes.TEAM}>
             Team
           </Link>
