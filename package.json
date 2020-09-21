@@ -27,7 +27,7 @@
     "fortmatic": "^1.1.3",
     "history": "^4.7.2",
     "idb-readable-stream": "0.0.4",
-    "ipfs-log": "^4.6.5",
+    "ipfs-log": "^5.0.0",
     "level-js": "^5.0.1",
     "levelup": "^4.4.0",
     "libp2p-pubsub": "0.4.6",
