@@ -888,6 +888,7 @@ SignInThroughPublicProfileBanner.propTypes = {
 };
 
 export const ErrorModal = ({ closeErrorModal, error }) => {
+  console.log('Error:', error)
   let isMetaMaskSignError;
   let isMetaMaskFromError;
   let isMozillaError;
