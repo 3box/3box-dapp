@@ -13,7 +13,7 @@
     "@portis/web3": "^2.0.0-beta.54",
     "@walletconnect/web3-provider": "^1.0.0-beta.47",
     "abi-decoder": "^2.0.1",
-    "authereum": "0.0.4-beta.97",
+    "authereum": "0.1.0",
     "core-js": "^3.4.8",
     "detect-browser": "^4.6.0",
     "did-resolver": "0.0.7",
