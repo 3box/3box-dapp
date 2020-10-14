@@ -61,7 +61,7 @@ export const FeedTileActivity = (props) => {
     restValue ||
     '';
   const valueClass = isEmojiValue ? 'feed__activity__address__amount__emoji' : 'feed__activity__info__value';
-  const valueToRender = isEmojiValue ? (typeof item.value === 'object' ? Object.keys(item.value)[0] : item.value) : whichValue;
+  const valueToRender = isEmojiValue ? ((typeof item.value === 'object' && item.value !== null) ? Object.keys(item.value)[0] : item.value) : whichValue;
 
   const updatedImage =
     (item.key === 'image' || item.key === 'coverPhoto')
