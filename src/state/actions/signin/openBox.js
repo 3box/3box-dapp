@@ -70,12 +70,15 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
 
   try {
     const box = await Box.create(web3Obj.currentProvider, { disableRendezvous: true });
+    console.log('got box object')
     window.box = box
     const spaces = [followingSpaceName];
     await box.auth(spaces, {
       address: currentAddress,
     });
+    console.log('did authenticate')
     await box.syncDone;
+    console.log('sync done')
     consentCallback();
     const ens = await fetchEns(currentAddress);
 
@@ -106,6 +109,7 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
       });
     }
 
+    // why is there another separate call to onSyncDone lol?
     box.onSyncDone(async () => {
       const memberSince = await box.public.get('memberSince');
       let publicActivity;
@@ -156,6 +160,7 @@ const openBox = (fromSignIn, fromFollowButton) => async (dispatch) => {
       });
     });
   } catch (err) {
+    console.log('openBox error: ', err)
     history.push(routes.LANDING);
     dispatch({
       type: 'UI_3BOX_FAILED',
