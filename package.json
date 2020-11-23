@@ -7,7 +7,7 @@
     "3box": "^1.22.2",
     "3box-activity": "0.0.9",
     "3box-chatbox-react": "^0.1.9",
-    "3id-resolver": "0.0.6",
+    "3id-resolver": "1.0.1",
     "@babel/polyfill": "^7.7.0",
     "@metamask/legacy-web3": "^1.1.0",
     "@microlink/mql": "^0.5.10",
