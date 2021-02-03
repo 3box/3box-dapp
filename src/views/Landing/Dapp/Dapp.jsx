@@ -82,8 +82,6 @@ class Dapp extends Component {
           <img src={DappScreens} alt="Dapp Screens" className="dapp_screens_devices" />
           <img src={DappScreensBG} alt="Dapp Screens BG" className="dapp_screens_bg" />
         </section>
-
-        <Footer />
       </div>
     );
   }

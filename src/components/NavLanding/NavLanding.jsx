@@ -110,11 +110,11 @@ class NavLanding extends Component {
             ${showAPI ? 'showAPINav' : ''}
             ${landing}`}
       >
-        <NavLinks
+        {/* <NavLinks
           handleMobileSideBar={this.handleMobileSideBar}
           handleAPI={this.handleAPI}
           route={route}
-        />
+        /> */}
 
         {(route !== 'hub' && !isProfilePage && route !== 'login') && (
           <LoginToHubButton />
