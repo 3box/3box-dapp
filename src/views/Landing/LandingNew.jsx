@@ -29,7 +29,6 @@ import '../styles/Landing.scss';
 import '../styles/NewLanding.scss';
 import '../../components/styles/Nav.scss';
 import DiscordButton from './components/DiscordButton';
-import Footer from './components/Footer';
 
 const styles = {
   backgroundImage: `url("${ColorCubes}")`,
@@ -309,7 +308,6 @@ class Landing extends Component {
             </div>
           </div>
         </section>
-        <Footer />
       </div>
     );
   }
