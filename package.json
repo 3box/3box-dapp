@@ -31,7 +31,7 @@
     "ipfs-log": "^4.6.5",
     "level-js": "^5.0.1",
     "levelup": "^4.4.0",
-    "libp2p-pubsub": "0.4.6",
+    "libp2p-pubsub": "0.6.0",
     "lodash.clonedeep": "^4.5.0",
     "lodash.debounce": "^4.0.8",
     "node-sass": "^4.13.1",
