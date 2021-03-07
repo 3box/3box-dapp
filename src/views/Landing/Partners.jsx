@@ -73,7 +73,7 @@ const applicationsArray = [
 ];
 
 const walletsArray = [
-  shapePartnerObject('Authereum', Authereum, 'https://authereum.org/'),
+  shapePartnerObject('Authereum', Authereum, 'https://authereum.com/'),
   shapePartnerObject('Fortmatic', Fortmatic),
   shapePartnerObject('Portis', Portis),
   shapePartnerObject('Pillar', Pillar),
