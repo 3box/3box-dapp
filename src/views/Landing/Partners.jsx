@@ -33,6 +33,7 @@ import Zerion from '../../assets/Zerion.png';
 import DaoStack from '../../assets/Daostack.jpg';
 import ColorCubes from '../../assets/ColorCubes.svg';
 import MetaMask from '../../assets/MetaMask.svg';
+import Wildcards from '../../assets/Wildcards.svg';
 import ColorCubesMobile from '../../assets/ColorCubesMobile.svg';
 import '../styles/Landing.scss';
 import '../styles/NewLanding.scss';
@@ -61,6 +62,7 @@ const applicationsArray = [
   shapePartnerObject('MetaMask', MetaMask, 'https://metamask.io'),
   shapePartnerObject('MolochDAO', MolochDAO, 'https://molochdao.com/'),
   shapePartnerObject('Rarible', Rarible, 'https://rarible.com/'),
+  shapePartnerObject('Wildcards', Wildcards, "https://wildcards.world"),
   shapePartnerObject('Giveth', Giveth),
   shapePartnerObject('Aragon', Aragon),
   shapePartnerObject('ConsenSys MeshHub', ConsensysLogo),
