@@ -121,7 +121,7 @@ export const FeedTileInternal = (props) => {
   const isMain = currentNetwork && currentNetwork.toLowerCase() === 'main';
   let txURL;
 
-  if (isMain) {
+  if (isMain || typeof currentNetwork === 'undefined') {
     txURL = `https://etherscan.io/tx/${item.hash}`;
   } else {
     txURL = `https://${currentNetwork}.etherscan.io/tx/${item.hash}`;
@@ -235,7 +235,7 @@ export const FeedTileToken = (props) => {
   const isMain = currentNetwork && currentNetwork.toLowerCase() === 'main';
   let txURL;
 
-  if (isMain) {
+  if (isMain || typeof currentNetwork === 'undefined') {
     txURL = `https://etherscan.io/tx/${item.hash}`;
   } else {
     txURL = `https://${currentNetwork}.etherscan.io/tx/${item.hash}`;
@@ -340,7 +340,7 @@ export const FeedTileTXS = (props) => {
   const isMain = currentNetwork && currentNetwork.toLowerCase() === 'main';
   let txURL;
 
-  if (isMain) {
+  if (isMain || typeof currentNetwork === 'undefined') {
     txURL = `https://etherscan.io/tx/${item.hash}`;
   } else {
     txURL = `https://${currentNetwork}.etherscan.io/tx/${item.hash}`;
