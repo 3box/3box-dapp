@@ -1,0 +1,28 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: weekly
+  open-pull-requests-limit: 10
+  target-branch: develop
+  reviewers:
+  - zachferland
+  assignees:
+  - zachferland
+  allow:
+  - dependency-type: production
+  ignore:
+  - dependency-name: ethereumjs-util
+    versions:
+    - 7.0.7
+    - 7.0.8
+    - 7.0.9
+  - dependency-name: ethers
+    versions:
+    - 5.0.25
+    - 5.0.26
+    - 5.0.31
+  - dependency-name: authereum
+    versions:
+    - 0.1.0
